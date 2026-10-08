@@ -355,7 +355,6 @@ describe('DatePicker', () => {
 			cases(
 				"should use locale's starting weekday if not provided",
 				({ locale, result }: { locale: string; result: string }) => {
-					passGate('platform-dst-locale-week-start-day');
 					render(
 						createDatePicker({
 							value: exampleDate.iso,

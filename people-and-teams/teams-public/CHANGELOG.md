@@ -1,5 +1,18 @@
 # @atlaskit/teams-public
 
+## 3.2.0
+
+### Minor Changes
+
+- [`3aefcc080d27a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3aefcc080d27a) -
+  A11Y-34712: Fix focus loss when closing the "Add where your team works" dialog via the Escape key.
+  Focus now returns to the triggering element when the dialog is dismissed, gated behind feature
+  flag `teams_a11y_20260928`.
+
+  This covers both entry points: the web link dialog, and the container linker opened from the "Add
+  Jira space" / "Add Confluence space" / "Add Loom space" cards. `AddContainerCard` accepts a new
+  optional `buttonRef` prop so the panel can return focus to the card that opened the linker.
+
 ## 3.1.4
 
 ### Patch Changes

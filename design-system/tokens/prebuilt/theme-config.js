@@ -134,6 +134,26 @@ var themeConfig = exports.themeConfig = {
     extends: 'light',
     increasesContrastFor: 'light'
   },
+  'UNSAFE-dynamic': {
+    id: 'UNSAFE-dynamic',
+    displayName: 'UNSAFE Dynamic Theme',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'light'
+    },
+    extends: 'light'
+  },
+  'UNSAFE-dynamic-dark': {
+    id: 'UNSAFE-dynamic-dark',
+    displayName: 'UNSAFE Dynamic Dark Theme',
+    palette: 'defaultPalette',
+    attributes: {
+      type: 'color',
+      mode: 'dark'
+    },
+    extends: 'dark'
+  },
   'UNSAFE-test-light': {
     id: 'UNSAFE-test-light',
     displayName: 'UNSAFE Test Light Theme',
@@ -219,6 +239,15 @@ var themeConfig = exports.themeConfig = {
     attributes: {
       type: 'typography'
     }
+  },
+  'UNSAFE-typography': {
+    id: 'UNSAFE-typography',
+    displayName: 'UNSAFE Dynamic Typography',
+    palette: 'typographyPalette',
+    attributes: {
+      type: 'typography'
+    },
+    extends: 'typography'
   },
   'atlassian-typography-finesse': {
     id: 'typography-finesse',

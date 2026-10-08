@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "25.4.5",
+	"version": "25.4.7",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -154,9 +154,6 @@
 	"homepage": "https://atlassian.design/components/button/",
 	"platform-feature-flags": {
 		"platform_dst_button_chevron_sizing": {
-			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-button": {
 			"type": "boolean"
 		},
 		"platform-dst-tokens-finesse": {

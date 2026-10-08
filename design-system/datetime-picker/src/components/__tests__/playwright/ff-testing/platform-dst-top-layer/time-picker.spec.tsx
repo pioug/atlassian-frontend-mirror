@@ -40,6 +40,11 @@ for (const [topLayerEnabled, options] of [
 				// The top-layer path currently does not restore the legacy focus order here.
 				await expect(nextInput).not.toBeFocused();
 			} else {
+				// The optional clock button is the next tab stop before the following picker.
+				const timeButton = page.getByTestId('timePicker--open-time-button');
+				await expect(listbox).toBeHidden();
+				await expect(timeButton).toBeFocused();
+				await page.keyboard.press('Tab');
 				await expect(nextInput).toBeFocused();
 			}
 			/* eslint-enable playwright/no-conditional-in-test, playwright/no-conditional-expect */

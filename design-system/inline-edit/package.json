@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-edit",
-	"version": "16.4.5",
+	"version": "16.4.6",
 	"description": "An inline edit displays a custom input component that switches between reading and editing on the same page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -87,10 +87,6 @@
 	"platform-feature-flags": {
 		"platform_design_system_inline_edit_dont_focus": {
 			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-button": {
-			"type": "boolean",
-			"referenceOnly": true
 		}
 	}
 }

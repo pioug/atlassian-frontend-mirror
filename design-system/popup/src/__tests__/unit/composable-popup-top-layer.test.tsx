@@ -135,7 +135,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 			</Popup>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		// Legacy `Popup` left the popup role-less when no `role` was
 		// passed. We preserve that contract: no implicit `dialog`
 		// default, no role-based initial focus movement.
@@ -158,7 +158,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 			</Popup>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('role', 'menu');
 	});
 
@@ -183,7 +183,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 			</Popup>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('aria-labelledby', 'popup-title');
 	});
 });
@@ -262,9 +262,9 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: xcss', () => {
 		);
 
 		// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
-		// parent and not the `--content` popover host.
+		// parent and not the `--container` popover host.
 		const wrapper = screen.getByTestId('inner').parentElement;
-		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--content`));
+		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
 		expect(wrapper).toHaveCompiledCss('width', '280px');
 	});
 });
@@ -331,7 +331,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 			</Popup>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('aria-label', 'Custom label');
 	});
 
@@ -351,7 +351,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 			</Popup>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('role', 'menu');
 		expect(content).toHaveAttribute('aria-label', 'Navigation menu');
 	});
@@ -372,7 +372,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 			</Popup>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		// `dialog` requires an accessible name. The bridge supplies
 		// "Popup" as a fallback when the consumer does not provide one.
 		expect(content).toHaveAttribute('aria-label', 'Popup');

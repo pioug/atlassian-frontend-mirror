@@ -18,6 +18,7 @@ import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store'
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	type ResponseFileItem,
@@ -1365,6 +1366,7 @@ describe('FileFetcher', () => {
 		});
 
 		it('should populate cache before upload finishes', async () => {
+			failGate('platform_media_unique_external_upload_name');
 			const { fileFetcher } = setup();
 
 			fileFetcher.uploadExternal(url);
@@ -1456,6 +1458,7 @@ describe('FileFetcher', () => {
 		});
 
 		it('should extract the name from the url', async () => {
+			failGate('platform_media_unique_external_upload_name');
 			const { fileFetcher } = setup();
 
 			fileFetcher.uploadExternal('domain.com/path/file_name.mov');
@@ -1527,6 +1530,145 @@ describe('FileFetcher', () => {
 				expect.any(Object),
 				undefined,
 			);
+		});
+
+		describe('unique external upload filenames', () => {
+			const UUID_PATTERN = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+			const binaryUrl = 'https://rovo.atlassian.com/images/binary';
+
+			const mockPngResponse = (sourceUrl: string) =>
+				fetchMock.mock(
+					sourceUrl,
+					{
+						headers: { 'Content-Type': 'image/png' },
+						body: new Blob([], { type: 'image/png' }),
+					},
+					{ sendAsJson: false },
+				);
+
+			const uploadedNames = (uploadSpy: jest.SpyInstance) =>
+				uploadSpy.mock.calls.map((call) => (call[0] as UploadableFile).name);
+
+			it('should keep the url-derived name when the gate is off', async () => {
+				failGate('platform_media_unique_external_upload_name');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				mockPngResponse(binaryUrl);
+
+				await fileFetcher.uploadExternal(binaryUrl);
+
+				expect(uploadedNames(uploadSpy)).toEqual(['binary']);
+			});
+
+			it('should give repeated uploads from the same url distinct names when the gate is on', async () => {
+				passGate('platform_media_unique_external_upload_name');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				mockPngResponse(binaryUrl);
+
+				await fileFetcher.uploadExternal(binaryUrl);
+				await fileFetcher.uploadExternal(binaryUrl);
+
+				const [first, second] = uploadedNames(uploadSpy);
+				expect(first).not.toEqual(second);
+				expect(first).toMatch(new RegExp(`^binary-${UUID_PATTERN}\\.png$`, 'i'));
+				expect(second).toMatch(new RegExp(`^binary-${UUID_PATTERN}\\.png$`, 'i'));
+			});
+
+			it('should preserve the source extension when the url already has one and the gate is on', async () => {
+				passGate('platform_media_unique_external_upload_name');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				const movUrl = 'https://example.com/path/file_name.mov';
+				fetchMock.mock(
+					movUrl,
+					{
+						headers: { 'Content-Type': 'video/quicktime' },
+						body: new Blob([], { type: 'video/quicktime' }),
+					},
+					{ sendAsJson: false },
+				);
+
+				await fileFetcher.uploadExternal(movUrl);
+
+				expect(uploadedNames(uploadSpy)[0]).toMatch(
+					new RegExp(`^file_name-${UUID_PATTERN}\\.mov$`, 'i'),
+				);
+			});
+
+			it('should handle a relative url when the gate is on', async () => {
+				passGate('platform_media_unique_external_upload_name');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				const relativeUrl = 'domain.com/path/file_name.mov';
+				fetchMock.mock(
+					relativeUrl,
+					{
+						headers: { 'Content-Type': 'video/quicktime' },
+						body: new Blob([], { type: 'video/quicktime' }),
+					},
+					{ sendAsJson: false },
+				);
+
+				await fileFetcher.uploadExternal(relativeUrl);
+
+				expect(uploadedNames(uploadSpy)[0]).toMatch(
+					new RegExp(`^file_name-${UUID_PATTERN}\\.mov$`, 'i'),
+				);
+			});
+
+			it('should ignore a query string when deriving the name and the gate is on', async () => {
+				passGate('platform_media_unique_external_upload_name');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				const queryUrl = 'https://cdn.example.com/image.png?v=123';
+				mockPngResponse(queryUrl);
+
+				await fileFetcher.uploadExternal(queryUrl);
+
+				expect(uploadedNames(uploadSpy)[0]).toMatch(
+					new RegExp(`^image-${UUID_PATTERN}\\.png$`, 'i'),
+				);
+			});
+
+			it('should fall back to a generic stem when the url has no basename and the gate is on', async () => {
+				passGate('platform_media_unique_external_upload_name');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				const rootUrl = 'https://example.com/';
+				mockPngResponse(rootUrl);
+
+				await fileFetcher.uploadExternal(rootUrl);
+
+				expect(uploadedNames(uploadSpy)[0]).toMatch(
+					new RegExp(`^image-${UUID_PATTERN}\\.png$`, 'i'),
+				);
+			});
+
+			// The gate is never read for anonymized uploads, so these pin the behaviour that the
+			// new naming path must not disturb, across both cohorts of the experiment that
+			// branches this same step.
+			it('should leave anonymized names unchanged when the experiment is disabled', async () => {
+				mockExpDisabled('cc_maui_polish_changes_batch_8');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				mockPngResponse(binaryUrl);
+
+				await fileFetcher.uploadExternal(binaryUrl, undefined, undefined, true);
+
+				expect(uploadedNames(uploadSpy)[0]).toMatch(new RegExp(`^${UUID_PATTERN}$`, 'i'));
+			});
+
+			it('should leave anonymized names unchanged when the experiment is enabled', async () => {
+				mockExpEnabled('cc_maui_polish_changes_batch_8');
+				const { fileFetcher } = setup();
+				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
+				mockPngResponse(binaryUrl);
+
+				await fileFetcher.uploadExternal(binaryUrl, undefined, undefined, true);
+
+				expect(uploadedNames(uploadSpy)[0]).toMatch(new RegExp(`^${UUID_PATTERN}\\.png$`, 'i'));
+			});
 		});
 
 		it('should set the right mediaType', async () => {

@@ -8,8 +8,6 @@ import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'rea
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, jsdoc/require-description -- Ignored via go/DSP-18766; jsdoc debt surfaced by this mechanical PR */
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
-import { useIntl } from 'react-intl';
-import type { MessageDescriptor } from 'react-intl';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -18,7 +16,6 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
-	messages,
 	IconCode,
 	IconDate,
 	IconDecision,
@@ -35,7 +32,6 @@ import {
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { expVal, expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
@@ -44,54 +40,14 @@ import type { InsertMenuProps, SvgGetterParams } from './types';
 export const DEFAULT_HEIGHT = 560;
 
 /**
- * Exported helper to allow testing of InsertMenu pinning logic.
- *
- * The `cc_fd_db_top_editor_toolbar` experiment adds new logic to sort elements by `priority`.
- * This newer implementation matches how the quick insert menu sorts elements.
+ * Sort featured elements by priority, matching the quick insert menu.
  */
-export const sortFeaturedItems = (
-	featuredItems: QuickInsertItem[],
-	formatMessage: (msg: MessageDescriptor) => string,
-): QuickInsertItem[] => {
-	if (
-		['new-description', 'orig-description'].includes(
-			expVal('cc_fd_db_top_editor_toolbar', 'cohort', 'control'),
-		) ||
-		expValNoExposure('cc_fd_wb_jira_quick_insert_experiment', 'isEnabled', false)
-	) {
-		// Sort by priority (lower first) on the concatenated list so items
-		// with "priority" are at the top (e.g. Whiteboard before Database)
-		return featuredItems
-			.slice(0)
-			.sort(
-				(a, b) =>
-					(a.priority || Number.POSITIVE_INFINITY) - (b.priority || Number.POSITIVE_INFINITY),
-			);
-	}
-
-	// NOTE: this is *not* the ideal way to approach this. Old logic sort whiteboards to top
-	const DIAGRAM_KEY = 'whiteboard-extension:create-diagram';
-	const isDiagram = (item: QuickInsertItem) => item.key === DIAGRAM_KEY;
-
-	const featuredWhiteboardsPresent = featuredItems.some(isDiagram);
-	if (featuredWhiteboardsPresent) {
-		const pin = (key: string) => {
-			const idx = featuredItems.findIndex((item) => item.key === key);
-			const filtered = featuredItems.filter((item) => !isDiagram(item));
-			if (idx === -1) {
-				return filtered;
-			}
-			const picked = {
-				...featuredItems[idx],
-				description: formatMessage(messages.featuredWhiteboardDescription),
-			};
-			return [picked, ...filtered];
-		};
-
-		return pin(DIAGRAM_KEY);
-	}
-
-	return featuredItems;
+export const sortFeaturedItems = (featuredItems: QuickInsertItem[]): QuickInsertItem[] => {
+	return featuredItems
+		.slice(0)
+		.sort(
+			(a, b) => (a.priority ?? Number.POSITIVE_INFINITY) - (b.priority ?? Number.POSITIVE_INFINITY),
+		);
 };
 
 const selector = (
@@ -115,7 +71,6 @@ const InsertMenu = ({
 }: InsertMenuProps): jsx.JSX.Element => {
 	const [itemCount, setItemCount] = useState(0);
 	const [height, setHeight] = useState(DEFAULT_HEIGHT);
-	const { formatMessage } = useIntl();
 
 	const cache = useMemo(() => {
 		return new CellMeasurerCache({
@@ -220,17 +175,12 @@ const InsertMenu = ({
 					featuredQuickInsertSuggestions,
 				) as QuickInsertItem[];
 				// need to sort on the concatenated list so desired elements are at the top
-				result = sortFeaturedItems(unfilteredResult, formatMessage);
+				result = sortFeaturedItems(unfilteredResult);
 			}
 			setItemCount(result.length);
 			return result;
 		},
-		[
-			pluginInjectionApi?.quickInsert?.actions,
-			quickInsertDropdownItems,
-			connectivityMode,
-			formatMessage,
-		],
+		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, connectivityMode],
 	);
 
 	const emptyStateHandler =

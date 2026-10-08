@@ -1,6 +1,5 @@
 jest.mock('../to-formatted-parts');
 jest.mock('../../date-parser');
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { createDateParser } from '../../date-parser';
 import { mockLocaleWeekInfo } from '../__fixtures__/mock-locale-week-info';
@@ -169,7 +168,6 @@ describe('LocalizationProvider', () => {
 			['en_GB', 1],
 			['fa-IR', 6],
 		] as [string, number][])('returns the first day of the week for %s', (locale, expected) => {
-			passGate('platform-dst-locale-week-start-day');
 			expect(createLocalizationProvider(locale).getFirstDayOfWeek()).toBe(expected);
 		});
 
@@ -179,17 +177,10 @@ describe('LocalizationProvider', () => {
 		});
 
 		it('reuses Intl.Locale across calls and returns consistent results', () => {
-			passGate('platform-dst-locale-week-start-day');
 			const provider = createLocalizationProvider('en-GB');
 			expect(provider.getFirstDayOfWeek()).toBe(1);
 			expect(provider.getFirstDayOfWeek()).toBe(1);
 			expect(Intl.Locale).toHaveBeenCalledTimes(1);
-		});
-
-		it('returns Sunday when platform-dst-locale-week-start-day is off', () => {
-			failGate('platform-dst-locale-week-start-day');
-			expect(createLocalizationProvider('en-GB').getFirstDayOfWeek()).toBe(0);
-			expect(Intl.Locale).not.toHaveBeenCalled();
 		});
 	});
 });

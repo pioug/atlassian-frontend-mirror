@@ -17,6 +17,25 @@ function isHex(hex: string) {
 	return /[0-9A-Fa-f]{6}/g.test(hex);
 }
 
+/**
+ * Custom themes (e.g. `UNSAFE-dynamic`, `UNSAFE-typography`) derive token values from runtime
+ * input variables using CSS functions. These expressions are passed through untouched.
+ */
+function isCssExpression(value: unknown): value is string {
+	return typeof value === 'string' && /^(var|oklch|calc)\(/.test(value);
+}
+
+/**
+ * Resolves a palette key to its value, passing custom theme CSS expressions through.
+ */
+function resolvePaletteValue(group: Record<string, { value: any }>, value: any) {
+	if (isCssExpression(value) && !group[value]) {
+		return value;
+	}
+
+	return group[value].value;
+}
+
 const transform = (palette: Record<string, any>): Transform => {
 	return {
 		type: 'value',
@@ -57,10 +76,12 @@ const transform = (palette: Record<string, any>): Transform => {
 					return '#00000000';
 				}
 
+				if (isCssExpression(value)) {
+					return value;
+				}
+
 				throw new Error(
-					`Invalid color format "${value}" provided to token: "${getTokenId(
-						token.path,
-					)}". Please use either a base token, hexadecimal or "transparent"`,
+					`Invalid color format "${value}" provided to token: "${getTokenId(token.path)}". Please use either a base token, hexadecimal or "transparent"`,
 				);
 			}
 
@@ -77,7 +98,9 @@ const transform = (palette: Record<string, any>): Transform => {
 				const values = originalToken.value as ShadowToken<any>['value'];
 
 				return values.map((value) => {
-					const color = isHex(value.color) ? value.color : palette.color.palette[value.color].value;
+					const color = isHex(value.color)
+						? value.color
+						: resolvePaletteValue(palette.color.palette, value.color);
 
 					return {
 						...value,
@@ -105,19 +128,19 @@ const transform = (palette: Record<string, any>): Transform => {
 				const { fontSize, fontStyle, fontWeight, lineHeight, fontFamily, letterSpacing } =
 					originalToken.value;
 				return {
-					fontSize: palette.typography.fontSize[fontSize].value,
+					fontSize: resolvePaletteValue(palette.typography.fontSize, fontSize),
 					// this is not actually a token atm
 					fontStyle: fontStyle,
 					fontWeight: palette.typography.fontWeight[fontWeight].value,
-					lineHeight: palette.typography.lineHeight[lineHeight].value,
-					fontFamily: palette.typography.fontFamily[fontFamily].value,
+					lineHeight: resolvePaletteValue(palette.typography.lineHeight, lineHeight),
+					fontFamily: resolvePaletteValue(palette.typography.fontFamily, fontFamily),
 					letterSpacing: palette.typography.letterSpacing[letterSpacing].value,
 				};
 			}
 
 			if (originalToken.attributes.group === 'fontSize') {
 				const value = originalToken.value;
-				return palette.typography.fontSize[value].value;
+				return resolvePaletteValue(palette.typography.fontSize, value);
 			}
 
 			if (originalToken.attributes.group === 'fontWeight') {
@@ -127,12 +150,12 @@ const transform = (palette: Record<string, any>): Transform => {
 
 			if (originalToken.attributes.group === 'fontFamily') {
 				const value = originalToken.value;
-				return palette.typography.fontFamily[value].value;
+				return resolvePaletteValue(palette.typography.fontFamily, value);
 			}
 
 			if (originalToken.attributes.group === 'lineHeight') {
 				const value = originalToken.value;
-				return palette.typography.lineHeight[value].value;
+				return resolvePaletteValue(palette.typography.lineHeight, value);
 			}
 
 			if (originalToken.attributes.group === 'letterSpacing') {

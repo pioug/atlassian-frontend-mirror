@@ -31,7 +31,6 @@ import {
 	akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { FindReplaceProps } from './FindReplace';
@@ -144,9 +143,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 				css={[
 					toolbarButtonWrapper,
 					takeFullWidth && toolbarButtonWrapperFullWidth,
-					isButtonHidden &&
-						fg('platform_editor_toolbar_responsive_fixes') &&
-						toolbarButtonWrapperHidden,
+					isButtonHidden && toolbarButtonWrapperHidden,
 				]}
 			>
 				<Dropdown
@@ -172,24 +169,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 						disableArrowKeyNavigation: true,
 					}}
 					trigger={
-						fg('platform_editor_toolbar_responsive_fixes') ? (
-							<TriggerButtonWrapper isButtonHidden={isButtonHidden}>
-								<ToolbarButton
-									buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
-									testId={`editor-toolbar__${TOOLBAR_BUTTON.FIND_REPLACE}`}
-									spacing={isReducedSpacing ? 'none' : 'default'}
-									selected={isActive}
-									title={<ToolTipContent description={title} keymap={keymap} />}
-									iconBefore={<SearchIcon label={title} spacing="spacious" />}
-									onClick={this.toggleOpen}
-									aria-expanded={isActive}
-									aria-haspopup
-									aria-label={keymap ? tooltip(keymap, title) : title}
-									aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
-									ref={this.toolbarButtonRef}
-								/>
-							</TriggerButtonWrapper>
-						) : (
+						<TriggerButtonWrapper isButtonHidden={isButtonHidden}>
 							<ToolbarButton
 								buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
 								testId={`editor-toolbar__${TOOLBAR_BUTTON.FIND_REPLACE}`}
@@ -204,7 +184,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 								aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
 								ref={this.toolbarButtonRef}
 							/>
-						)
+						</TriggerButtonWrapper>
 					}
 				>
 					<div css={wrapper}>

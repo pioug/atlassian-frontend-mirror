@@ -1,5 +1,25 @@
 # @atlaskit/editor-toolbar-model
 
+## 1.2.95
+
+### Patch Changes
+
+- [`bff0e6a89cf54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bff0e6a89cf54) -
+  Clean up experiment `platform_editor_toolbar_hide_overflow_menu`
+- Updated dependencies
+
+## 1.2.94
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.93
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.92
 
 ### Patch Changes

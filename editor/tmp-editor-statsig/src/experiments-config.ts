@@ -329,12 +329,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_toolbar_hide_overflow_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-06-16
 	platform_editor_enable_single_player_step_merging: {
 		defaultValue: boolean;
@@ -554,14 +548,6 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-05
-	cc_fd_db_top_editor_toolbar: {
-		defaultValue: 'control' | 'new-description' | 'orig-description';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'new-description' | 'orig-description';
-		values: ('control' | 'new-description' | 'orig-description')[];
 	};
 	// Added 2026-06-30
 	cc_fix_editor_context_on_cwr_followups: {
@@ -887,13 +873,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-18
 	platform_editor_nest_table_in_panel: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-20
-	platform_rovo_support_create_inline_comment: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1339,14 +1318,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_toolbar_hide_overflow_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_hide_overflow_menu',
-			jira: 'platform_editor_toolbar_hide_overflow_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
@@ -1589,15 +1560,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2026-02-05
-	cc_fd_db_top_editor_toolbar: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'cc_fd_db_top_editor_toolbar',
-		},
-		param: 'cohort',
-		values: ['control', 'new-description', 'orig-description'],
-		defaultValue: 'control',
 	}),
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: createBooleanExperiment({
@@ -1967,13 +1929,6 @@ export const editorExperimentsConfig: {
 	platform_editor_nest_table_in_panel: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nest_table_in_panel',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_rovo_support_create_inline_comment: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_rovo_support_create_inline_comment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

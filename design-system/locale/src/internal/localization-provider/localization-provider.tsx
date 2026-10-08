@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { normalizeLocale } from '../common';
 import { createDateParser, type CreateDateParserOptions, type DateParser } from '../date-parser';
 import { getWeekInfo } from './get-week-info';
@@ -117,10 +115,6 @@ export const createLocalizationProvider = (
 	let intlLocale: Intl.Locale | undefined;
 
 	const getFirstDayOfWeek = (): WeekDay => {
-		if (!fg('platform-dst-locale-week-start-day')) {
-			return 0;
-		}
-
 		if (!intlLocale) {
 			intlLocale = new Intl.Locale(normalizedLocale);
 		}

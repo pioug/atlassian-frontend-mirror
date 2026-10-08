@@ -302,7 +302,7 @@ const Step: React.ForwardRefExoticComponent<
 							fg('platform_dst_breadcrumbs-refresh') &&
 							styles.withTruncation,
 						truncationWidth == null && styles.withoutTruncation,
-						fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
+						styles.interactiveMotion,
 					)}
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Width depends on the consumer truncationWidth and leading icon.
@@ -339,7 +339,7 @@ const Step: React.ForwardRefExoticComponent<
 						fg('platform_dst_breadcrumbs-refresh') &&
 						styles.withTruncation,
 					truncationWidth == null && styles.withoutTruncation,
-					fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
+					styles.interactiveMotion,
 				)}
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Width depends on the consumer truncationWidth and leading icon.

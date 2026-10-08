@@ -15,7 +15,7 @@ const DateTimePickerWeekStartDayExample = (): React.JSX.Element => (
 				shouldShowCalendarButton: true,
 				label: 'Sunday example, date',
 			}}
-			timePickerProps={{ label: 'Sunday example, time' }}
+			timePickerProps={{ label: 'Sunday example, time', shouldShowTimeButton: true }}
 		/>
 		<Box>
 			<Label htmlFor="datetime-2">Monday example</Label>
@@ -27,7 +27,7 @@ const DateTimePickerWeekStartDayExample = (): React.JSX.Element => (
 					shouldShowCalendarButton: true,
 					label: 'Monday example, date',
 				}}
-				timePickerProps={{ label: 'Monday example, time' }}
+				timePickerProps={{ label: 'Monday example, time', shouldShowTimeButton: true }}
 			/>
 		</Box>
 	</>

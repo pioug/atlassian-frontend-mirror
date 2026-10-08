@@ -8,9 +8,9 @@ primitive that accepts **`testId`** (e.g. Pressable, Box).
 string you pass — **no suffixing**. **`Popup.Content`** forwards **`testId`** to **`Popover`** the
 same way.
 
-**`@atlaskit/popup`** (top-layer path): popover root gets **`${testId}--content`**; inner container
-keeps the **base** `testId`. Update **`getByTestId`** if tests assumed the base id on the outer
-shell. See **[popup-migration.md](../migrations/popup-migration.md)**.
+**`@atlaskit/popup`** (top-layer path): popover root gets **`${testId}--container`**; default
+content wrapper or custom `popupComponent` keeps the **base** `testId`, matching the legacy content
+container. See **[popup-migration.md](../migrations/popup-migration.md)**.
 
 **`@atlaskit/tooltip`** (top-layer path), when **`testId`** is set:
 
@@ -27,8 +27,8 @@ when practical.
 ## Migration pitfalls
 
 - **Popup:** Tests or selectors that targeted the **popover shell** with the **base** `testId` will
-  fail — the shell is **`${testId}--content`**. The **base** id remains on the **inner** container
-  (when present); know which node your assertion cares about.
+  fail — the shell is **`${testId}--container`**. The **base** id remains on the **inner** content
+  container; know which node your assertion cares about.
 - **Tooltip:** Wrappers that **`{...renderPropProps}`** onto **`<div>`** forward invalid
   **`testId`** → React warnings; strict test runners may fail on **`console.error`**.
 - **Primitives vs composed DS:** **`Popover`** / **`Dialog`** use your string **verbatim** on the

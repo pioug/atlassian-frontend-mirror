@@ -14,7 +14,7 @@ import { css, jsx } from '@compiled/react';
 
 import type { Valign } from '@atlaskit/adf-schema/valign';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
 const clearNextSiblingMarginTopStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -75,9 +75,7 @@ export const LayoutSectionCompiled = (
 		>
 			<WidthProvider>
 				<div
-					data-layout-column-start={
-						fg('platform_renderer_ssr_block_margin_fix') ? 'true' : undefined
-					}
+					data-layout-column-start="true"
 					css={[clearNextSiblingMarginTopStyle, clearNextSiblingBlockMarkMarginTopStyle]}
 				/>
 				{props.children}

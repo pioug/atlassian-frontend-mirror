@@ -9,7 +9,6 @@ import { css } from '@compiled/react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -112,11 +111,7 @@ const EllipsisItem: import('react').MemoExoticComponent<
 			<Pressable
 				aria-label={label}
 				onClick={onClick}
-				xcss={cx(
-					styles.root,
-					isSmall && styles.rootSmall,
-					fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
-				)}
+				xcss={cx(styles.root, isSmall && styles.rootSmall, styles.interactiveMotion)}
 				testId={testId}
 			>
 				&hellip;

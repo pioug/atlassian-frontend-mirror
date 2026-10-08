@@ -1,19 +1,9 @@
 import type { EditorState } from 'prosemirror-state';
-import type { Decoration } from 'prosemirror-view';
 
 import type { DeletedDiffWidget } from '../showDiffPluginType';
 import { isDiffDecorationSpec } from './decorations/decorationKeys';
+import { getWidgetElement } from './decorations/utils/getWidgetElement';
 import { showDiffPluginKey } from './main';
-
-// prosemirror-view does not type `Decoration.type`; a widget's `type.toDOM` is the node passed to
-// `Decoration.widget()` (an element or a factory — the `WidgetConstructor` union).
-type WidgetDecoration = { type?: { toDOM?: HTMLElement | ((...args: never[]) => Node) } };
-
-// The element a deleted-content widget renders, or undefined if it renders via a factory.
-const getWidgetElement = (decoration: Decoration): HTMLElement | undefined => {
-	const { toDOM } = (decoration as Decoration & WidgetDecoration).type ?? {};
-	return toDOM instanceof HTMLElement ? toDOM : undefined;
-};
 
 /**
  * The rendered deleted-content widgets in `editorState`, optionally restricted to `[from, to]`,

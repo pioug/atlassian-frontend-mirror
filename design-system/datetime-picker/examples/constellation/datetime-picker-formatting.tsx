@@ -23,6 +23,7 @@ const DateTimePickerFormattingExample = (): React.JSX.Element => (
 				timeFormat: 'HH:mm',
 				placeholder: '',
 				label: 'Appointment time',
+				shouldShowTimeButton: true,
 			}}
 		/>
 	</>

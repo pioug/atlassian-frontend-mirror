@@ -25,6 +25,7 @@ export default (): React.JSX.Element => {
 				timePickerProps={{
 					label: `Current time`,
 					timeIsEditable: true,
+					shouldShowTimeButton: true,
 				}}
 				isInvalid={invalid}
 				clearControlLabel="Clear current time"

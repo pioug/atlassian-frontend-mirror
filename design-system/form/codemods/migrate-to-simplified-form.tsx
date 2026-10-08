@@ -94,7 +94,7 @@ const generateFeatureFlag = (filePath: string): string => {
 	return 'platform-design_system_team-form--unknown';
 };
 
-const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>, featureFlag: string) => {
+const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>) => {
 	const importDeclarationCollection = getImportDeclarationCollection(j, collection, importPath);
 	const defaultImport = getImportDefaultSpecifierCollection(j, importDeclarationCollection);
 	const defaultImportName = getImportDefaultSpecifierName(defaultImport);
@@ -227,15 +227,6 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>, featur
 			return;
 		}
 
-		// Clone the original Form element for the fallback
-		const originalForm = j.jsxElement(
-			j.jsxOpeningElement(j.jsxIdentifier(defaultImportName), [
-				...(node.openingElement.attributes || []),
-			]),
-			j.jsxClosingElement(j.jsxIdentifier(defaultImportName)),
-			[...node.children],
-		);
-
 		// Create the simplified Form element
 		const simplifiedForm = j.jsxElement(
 			j.jsxOpeningElement(j.jsxIdentifier(defaultImportName), [
@@ -273,30 +264,8 @@ const convertToSimpleForm = (j: JSCodeshift, collection: Collection<any>, featur
 			simplifiedForm.children = [...htmlFormChildren];
 		}
 
-		// Create the ternary expression: fg('flag') ? simplifiedForm : originalForm
-		const ternaryExpression = j.conditionalExpression(
-			j.callExpression(j.identifier('fg'), [j.literal(featureFlag)]),
-			simplifiedForm,
-			originalForm,
-		);
-
-		const isInsideJSXContext = (path: any): boolean => {
-			const parent = path.parent;
-			if (!parent) {
-				return false;
-			}
-
-			const parentType = parent.node?.type;
-			return parentType === 'JSXElement' || parentType === 'JSXFragment';
-		};
-
-		// Replace the original Form with the ternary expression
-		if (isInsideJSXContext(jsxElementPath)) {
-			// Inside JSX - wrap in JSX expression container
-			j(jsxElementPath).replaceWith(j.jsxExpressionContainer(ternaryExpression));
-		} else {
-			j(jsxElementPath).replaceWith(ternaryExpression);
-		}
+		// Replace the original Form with the simplified Form
+		j(jsxElementPath).replaceWith(simplifiedForm);
 
 		transformationsMade = true;
 	});
@@ -326,31 +295,9 @@ export default function transformer(
 	// Leaving this here so that we don't get "unused" error, because I want to
 	// port this logic to the field codemod later
 	generateFeatureFlag(path);
-	const featureFlag = 'platform-design_system_team-form_conversion';
 
 	// Convert form if possible
-	const transformationsMade = convertToSimpleForm(j, collection, featureFlag);
-
-	// Only add import if transformations were made
-	if (transformationsMade) {
-		// Add import for fg function if not already present
-		const fgImportPath = '@atlaskit/platform-feature-flags';
-		if (!hasImportDeclaration(j, collection, fgImportPath)) {
-			const fgImport = j.importDeclaration(
-				[j.importSpecifier(j.identifier('fg'))],
-				j.literal(fgImportPath),
-			);
-
-			// Find the last import declaration and insert after it
-			const imports = collection.find(j.ImportDeclaration);
-			if (imports.length > 0) {
-				imports.at(-1).insertAfter(fgImport);
-			} else {
-				// If no imports, add at the beginning
-				collection.find(j.Program).get('body', 0).insertBefore(fgImport);
-			}
-		}
-	}
+	convertToSimpleForm(j, collection);
 
 	return collection.toSource(options.printOptions || { quote: 'single' });
 }

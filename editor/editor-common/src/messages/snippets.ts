@@ -23,7 +23,7 @@ export const templateGalleryMessages: Record<string, MessageDescriptor> = define
 	},
 	templateGalleryTitle: {
 		id: 'editor-plugin-snippets.snippetsPlugin.templateGalleryTitle',
-		defaultMessage: 'Block Template Gallery',
+		defaultMessage: 'Block template gallery',
 		description: 'Title for the block template gallery quick insert item',
 	},
 });

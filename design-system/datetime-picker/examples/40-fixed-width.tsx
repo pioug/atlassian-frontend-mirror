@@ -40,6 +40,7 @@ export default (): React.JSX.Element => {
 					clearControlLabel="Clear time picker"
 					id="react-select-time--input"
 					onChange={console.log}
+					shouldShowTimeButton
 				/>
 			</Box>
 			<Label htmlFor="react-select-date-time--input">Date / time picker</Label>
@@ -53,7 +54,7 @@ export default (): React.JSX.Element => {
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Date / time picker, time' }}
+					timePickerProps={{ label: 'Date / time picker, time', shouldShowTimeButton: true }}
 				/>
 			</Box>
 		</Box>

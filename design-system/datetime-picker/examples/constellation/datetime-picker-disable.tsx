@@ -24,7 +24,7 @@ const DateTimePickerDisabledExample = (): React.JSX.Element => (
 				label: 'Appointment date',
 			}}
 			defaultValue="2020-12-15"
-			timePickerProps={{ label: 'Appointment time' }}
+			timePickerProps={{ label: 'Appointment time', shouldShowTimeButton: true }}
 		/>
 	</>
 );

@@ -60,6 +60,5 @@ export interface BlockTypePluginOptions {
 	 */
 	allowFontSize?: boolean;
 	includeBlockQuoteAsTextstyleOption?: boolean;
-	isUndoRedoButtonsEnabled?: boolean;
 	lastNodeMustBeParagraph?: boolean;
 }

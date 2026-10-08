@@ -13,14 +13,11 @@ import ChevronDoubleLeftIcon from '@atlaskit/icon/core/chevron-double-left';
 import ChevronDoubleRightIcon from '@atlaskit/icon/core/chevron-double-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type TabIndex } from '../../types';
 
-// platform-dst-motion-uplift-list-item cleanup: once fully rolled out, drop the gate
-// in the return below and always apply these transitions.
 const arrowMotionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& button': {
@@ -178,11 +175,7 @@ const Header: React.NamedExoticComponent<HeaderProps> = memo<HeaderProps>(functi
 		</Box>
 	);
 
-	return fg('platform-dst-motion-uplift-list-item') ? (
-		<div css={arrowMotionStyles}>{header}</div>
-	) : (
-		header
-	);
+	return <div css={arrowMotionStyles}>{header}</div>;
 });
 
 Header.displayName = 'Header';

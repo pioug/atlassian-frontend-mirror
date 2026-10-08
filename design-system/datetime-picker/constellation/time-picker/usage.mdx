@@ -33,6 +33,9 @@ Time picker is commonly used in [forms](/components/form).
 
 - If using a field with a label other than "Time", use the `label` prop. Assistive technologies will
   announce these along with the label from the field component when activated.
+- Use `shouldShowTimeButton` with `openTimeLabel` to provide a dedicated clock button for opening
+  the time picker. This keeps the menu closed when keyboard focus reaches the input while preserving
+  typing as a way to reveal matching time options.
 - Allow multiple modes of data entry. Some users prefer entering date and time information by typing
   instead of selection, especially keyboard users.
 - If some dates are disabled, provide accurate validation and error messaging for keyboard users,

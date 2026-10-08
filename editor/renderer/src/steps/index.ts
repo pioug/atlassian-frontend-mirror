@@ -253,8 +253,33 @@ interface AnnotationStepOptions {
 	schema: Schema;
 }
 
+function getSelectedCommentTargetPosition(range: Range): number | false {
+	const { startContainer, startOffset, endContainer, endOffset } = range;
+	if (startContainer !== endContainer || endOffset !== startOffset + 1) {
+		return false;
+	}
+
+	const selectedNode = startContainer.childNodes[startOffset];
+	if (
+		!selectedNode ||
+		!isElementNode(selectedNode) ||
+		selectedNode.dataset.inlineCommentsTarget !== 'true' ||
+		!isPositionPointer(selectedNode)
+	) {
+		return false;
+	}
+
+	// Subtract 1 from the renderer start position to get the position before the extension node.
+	return getStartPos(selectedNode) - 1;
+}
+
 export function getPosFromRange(range: Range): { from: number; to: number } | false {
 	const { startContainer, startOffset, endContainer, endOffset } = range;
+	const selectedCommentTargetPosition =
+		fg('cc_maui_annotations_on_extensions') && getSelectedCommentTargetPosition(range);
+	if (selectedCommentTargetPosition !== false) {
+		return { from: selectedCommentTargetPosition, to: selectedCommentTargetPosition };
+	}
 
 	const possibleMediaOrMediaSingleElement = findParent(startContainer);
 

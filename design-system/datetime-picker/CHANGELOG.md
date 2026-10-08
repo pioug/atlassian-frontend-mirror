@@ -1,5 +1,29 @@
 # @atlaskit/datetime-picker
 
+## 19.3.0
+
+### Minor Changes
+
+- [`07e6863319dbc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07e6863319dbc) -
+  Add an optional clock button for opening the time picker without opening its menu on keyboard
+  focus. Invoke consumer menu callbacks once per clock button activation, including in React Strict
+  Mode. Share the calendar and clock button positioning and spacing through an internal styling-only
+  wrapper.
+
+## 19.2.0
+
+### Minor Changes
+
+- [`98a7771631acd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98a7771631acd) -
+  Cleanup `feature_gate` `platform-dst-locale-week-start-day`. Calendar and DatePicker now always
+  default the first day of the week to the first day for the given `locale` instead of Sunday (`0`),
+  and `createLocalizationProvider(...).getFirstDayOfWeek()` always resolves the locale's week info.
+  Pass an explicit `weekStartDay` to override the locale default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.1.0
 
 ### Minor Changes

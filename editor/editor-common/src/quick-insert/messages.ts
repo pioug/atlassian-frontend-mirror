@@ -190,7 +190,7 @@ export const messages: Messages<
 	},
 	categoryOther: {
 		id: 'editor-common.quick-insert.categoryOther',
-		defaultMessage: 'Other',
+		defaultMessage: 'Other elements',
 		description: 'Other items in the Quick Insert menu.',
 	},
 	previewAttributionBy: {

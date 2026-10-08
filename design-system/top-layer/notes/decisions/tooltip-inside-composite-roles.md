@@ -191,6 +191,9 @@ Exempted on this branch:
 - `packages/linking-platform/rovo-link-picker/tests/ui/TabStrip.test.tsx`
 - `packages/linking-platform/rovo-link-picker/tests/ui/RovoLinkPicker.analytics.test.tsx` (found in
   CI later; its tab-switch tests leave a tab tooltip open for some runs, so it fails intermittently)
+- `packages/linking-platform/rovo-link-picker/src/__tests__/vr-tests/TabStripHoverFocus.vr.tsx`
+  (Gemini VR; its hovered and focused snapshots open a tab tooltip; exempted in the `gemini`
+  section)
 
 ## Proposal to the accessibility team
 

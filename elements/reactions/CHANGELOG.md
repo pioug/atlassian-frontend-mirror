@@ -1,5 +1,27 @@
 # @atlaskit/reactions
 
+## 36.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.7.6
+
+### Patch Changes
+
+- [`3e58b637efdde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e58b637efdde) -
+  [ux] Remove the empty trailing list item from the reaction tooltip when the number of reacting
+  users is within the display limit. The empty item added unwanted vertical space at the bottom of
+  the tooltip. Behind the `platform_reactions_tooltip_hide_empty_footer` feature gate.
+- Updated dependencies
+
+## 36.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.7.4
 
 ### Patch Changes

@@ -19,7 +19,7 @@ const DateTimePickerFormAccessibleExample = (): React.JSX.Element => (
 						label: 'Scheduled run time, date',
 						shouldShowCalendarButton: true,
 					}}
-					timePickerProps={{ label: 'Scheduled run time, time' }}
+					timePickerProps={{ label: 'Scheduled run time, time', shouldShowTimeButton: true }}
 					clearControlLabel="Clear scheduled run time"
 				/>
 			)}

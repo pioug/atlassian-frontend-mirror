@@ -20,7 +20,7 @@ import { isValid, parseISO } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import IconButton from '@atlaskit/button/icon/button';
-import { cssMap, cx, jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import {
@@ -52,6 +52,7 @@ import { isDateDisabled } from '../internal/is-date-disabled';
 import { Menu } from '../internal/menu';
 import { MenuTopLayer } from '../internal/menu-top-layer';
 import { parseDate } from '../internal/parse-date';
+import { PickerButtonContainer } from '../internal/picker-button-container';
 import { makeSingleValue } from '../internal/single-value';
 import {
 	type Appearance,
@@ -78,24 +79,12 @@ const styles = cssMap({
 		justifyContent: 'center',
 	},
 	iconContainerStyles: {
-		display: 'flex',
-		height: '100%',
-		position: 'absolute',
-		alignItems: 'center',
 		flexBasis: 'inherit',
 		color: token('color.text.subtlest'),
-		insetBlockStart: token('space.0'),
-		insetInlineEnd: token('space.0'),
 		transition: `color 150ms`,
 		'&:hover': {
 			color: token('color.text.subtle'),
 		},
-	},
-	iconSpacingWithClearButtonStyles: {
-		marginInlineEnd: token('space.400'),
-	},
-	iconSpacingWithoutClearButtonStyles: {
-		marginInlineEnd: token('space.050'),
 	},
 });
 const analyticsAttributes = {
@@ -571,9 +560,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 		onCalendarChange,
 		onCalendarSelect,
 		calendarLocale: locale,
-		calendarWeekStartDay:
-			weekStartDay ??
-			(fg('platform-dst-locale-week-start-day') ? l10n.getFirstDayOfWeek() : undefined),
+		calendarWeekStartDay: weekStartDay ?? l10n.getFirstDayOfWeek(),
 		shouldSetFocusOnCurrentDay,
 		/**
 		 * This overrides the inner wrapper the Calendar.
@@ -715,13 +702,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 				menuInnerWrapper={calendarProps.menuInnerWrapper}
 			/>
 			{shouldShowCalendarButton && !isDisabled ? (
-				<Box
-					xcss={cx(
-						styles.iconContainerStyles,
-						getterValue && !hideIcon
-							? styles.iconSpacingWithClearButtonStyles
-							: styles.iconSpacingWithoutClearButtonStyles,
-					)}
+				<PickerButtonContainer
+					hasClearIndicator={Boolean(getterValue && !hideIcon)}
+					xcss={styles.iconContainerStyles}
 				>
 					<IconButton
 						appearance="subtle"
@@ -734,7 +717,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 						ref={calendarButtonRef}
 						testId={testId && `${testId}--open-calendar-button`}
 					/>
-				</Box>
+				</PickerButtonContainer>
 			) : null}
 		</div>
 	);

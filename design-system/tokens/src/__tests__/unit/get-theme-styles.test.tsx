@@ -410,6 +410,8 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+					{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
+					{ id: 'UNSAFE-dynamic-dark', attrs: { 'data-theme': 'UNSAFE-dynamic-dark' } },
 					{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
@@ -421,6 +423,7 @@ describe('getThemeStyles', () => {
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
 					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
@@ -429,6 +432,8 @@ describe('getThemeStyles', () => {
 					expect(getThemeData(results)).toEqual([
 						{ id: 'light', attrs: { 'data-theme': 'light' } },
 						{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+						{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
+						{ id: 'UNSAFE-dynamic-dark', attrs: { 'data-theme': 'UNSAFE-dynamic-dark' } },
 						{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
 						{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 						{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
@@ -436,6 +441,7 @@ describe('getThemeStyles', () => {
 						{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 						{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+						{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
 					]);
 				};
 				const testWithVisualRefreshVariation = async (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-undo-redo",
-	"version": "25.0.1",
+	"version": "26.0.2",
 	"description": "Undo redo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,11 +44,6 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
-	},
-	"platform-feature-flags": {
-		"platform_editor_ai_add_undoredo_jira": {
-			"type": "boolean"
-		}
 	},
 	"devDependencies": {
 		"react": "^19.2.0",

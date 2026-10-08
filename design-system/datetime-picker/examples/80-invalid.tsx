@@ -15,6 +15,7 @@ export default (): React.JSX.Element => {
 				id="react-select-time--input"
 				onChange={console.log}
 				isInvalid
+				shouldShowTimeButton
 			/>
 
 			<Label htmlFor="react-select-date--input">DatePicker - isInvalid</Label>
@@ -36,7 +37,7 @@ export default (): React.JSX.Element => {
 					shouldShowCalendarButton: true,
 					label: 'DateTimePicker - isInvalid, date',
 				}}
-				timePickerProps={{ label: 'DateTimePicker - isInvalid, time' }}
+				timePickerProps={{ label: 'DateTimePicker - isInvalid, time', shouldShowTimeButton: true }}
 			/>
 		</Box>
 	);

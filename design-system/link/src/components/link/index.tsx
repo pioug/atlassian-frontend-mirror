@@ -8,7 +8,6 @@ import { css } from '@compiled/react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, type AnchorProps, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -33,25 +32,6 @@ const styles = cssMap({
 	},
 
 	defaultAppearance: {
-		textDecoration: 'underline',
-		color: token('color.link'),
-		'&:hover': {
-			color: token('color.link'),
-			textDecoration: 'none',
-		},
-
-		'&:active': {
-			color: token('color.link.pressed'),
-			textDecoration: 'none',
-		},
-
-		'&:focus': {
-			color: token('color.link'),
-			textDecoration: 'underline',
-		},
-	},
-
-	defaultAppearanceMotion: {
 		textDecoration: 'underline currentColor',
 		color: token('color.link'),
 		transition: token('motion.listitem.hovered'),
@@ -72,27 +52,6 @@ const styles = cssMap({
 	},
 
 	subtleAppearance: {
-		textDecoration: 'none',
-		color: token('color.text.subtle'),
-
-		'&:hover': {
-			color: token('color.text.subtle'),
-			textDecoration: 'underline',
-		},
-
-		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			color: token('color.text') as any,
-			textDecoration: 'underline',
-		},
-
-		'&:focus': {
-			color: token('color.text.subtle'),
-			textDecoration: 'none',
-		},
-	},
-
-	subtleAppearanceMotion: {
 		textDecoration: 'underline transparent',
 		color: token('color.text.subtle'),
 		transition: token('motion.listitem.hovered'),
@@ -114,33 +73,6 @@ const styles = cssMap({
 	},
 
 	inverseAppearance: {
-		textDecoration: 'underline',
-		color: token('color.text.inverse'),
-
-		// Inverse links don't have visited styles,
-		// so this needs to be reinforced to prevent global overrides.
-		'&:visited': {
-			color: token('color.text.inverse'),
-		},
-
-		'&:hover': {
-			color: token('color.text.inverse'),
-			textDecoration: 'none',
-		},
-
-		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			color: token('color.text.inverse') as any,
-			textDecoration: 'none',
-		},
-
-		'&:focus': {
-			textDecoration: 'underline',
-			color: token('color.text.inverse'),
-		},
-	},
-
-	inverseAppearanceMotion: {
 		textDecoration: 'underline currentColor',
 		color: token('color.text.inverse'),
 		transition: token('motion.listitem.hovered'),
@@ -227,18 +159,9 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 		ref={ref}
 		xcss={cx(
 			styles.base,
-			appearance === 'default' &&
-				(fg('platform-dst-motion-uplift-list-item')
-					? styles.defaultAppearanceMotion
-					: styles.defaultAppearance),
-			appearance === 'subtle' &&
-				(fg('platform-dst-motion-uplift-list-item')
-					? styles.subtleAppearanceMotion
-					: styles.subtleAppearance),
-			appearance === 'inverse' &&
-				(fg('platform-dst-motion-uplift-list-item')
-					? styles.inverseAppearanceMotion
-					: styles.inverseAppearance),
+			appearance === 'default' && styles.defaultAppearance,
+			appearance === 'subtle' && styles.subtleAppearance,
+			appearance === 'inverse' && styles.inverseAppearance,
 			// Visited styles are not supported for inverse links due to contrast issues
 			appearance !== 'inverse' && styles.visitedLink,
 		)}

@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import { createLocalizationProvider } from '@atlaskit/locale/localization-provider';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { WeekDay } from '../../types';
 
@@ -20,7 +19,7 @@ export default function useLocale({
 } {
 	const l10n = useMemo(() => createLocalizationProvider(locale), [locale]);
 	const resolvedWeekStartDay = useMemo(
-		() => weekStartDay ?? (fg('platform-dst-locale-week-start-day') ? l10n.getFirstDayOfWeek() : 0),
+		() => weekStartDay ?? l10n.getFirstDayOfWeek(),
 		[l10n, weekStartDay],
 	);
 

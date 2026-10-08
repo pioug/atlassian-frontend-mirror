@@ -3531,11 +3531,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
 				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
 				browser.safari && codeBlockInListSafariFixStyles,
-				fg('platform_renderer_ssr_block_margin_fix') && [
-					blockSsrMarginStyles,
-					layoutBlockSsrMarginStyles,
-					browser.safari && codeBlockInListSsrMarginSafariFixStyles,
-				],
+				blockSsrMarginStyles,
+				layoutBlockSsrMarginStyles,
+				browser.safari && codeBlockInListSsrMarginSafariFixStyles,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && responsiveBreakoutWidth,
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&

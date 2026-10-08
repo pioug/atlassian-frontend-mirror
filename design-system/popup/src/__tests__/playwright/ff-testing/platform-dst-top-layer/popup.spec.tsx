@@ -24,7 +24,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 		await trigger.focus();
 		await trigger.press('Enter');
 
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 	});
 
 	test('popup can be opened via Space key on trigger', async ({ page }) => {
@@ -41,7 +41,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 		await trigger.focus();
 		await trigger.press('Space');
 
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 	});
 
 	test('popup can be opened via click on trigger', async ({ page }) => {
@@ -57,7 +57,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
 
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 	});
 });
 test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
@@ -73,10 +73,10 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 
 		await page.keyboard.press('Escape');
-		await expect(page.getByTestId('popup--content')).toBeHidden();
+		await expect(page.getByTestId('popup--container')).toBeHidden();
 	});
 
 	test('Escape always exits the popup (WCAG 2.1.2 escape route)', async ({ page }) => {
@@ -98,10 +98,10 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 		await trigger.focus();
 		await trigger.press('Enter');
 
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 
 		await page.keyboard.press('Escape');
-		await expect(page.getByTestId('popup--content')).toBeHidden();
+		await expect(page.getByTestId('popup--container')).toBeHidden();
 		await expect(trigger).toBeFocused();
 	});
 });
@@ -128,7 +128,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 		await trigger.focus();
 		await trigger.click();
 
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 		await expect(trigger).toBeFocused();
 	});
 
@@ -144,7 +144,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 
 		await page.keyboard.press('Escape');
 		await expect(trigger).toBeFocused();
@@ -195,7 +195,7 @@ test.describe('Popup top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
-		const content = page.getByTestId('popup--content');
+		const content = page.getByTestId('popup--container');
 		await expect(content).toBeHidden();
 
 		await trigger.click();
@@ -260,7 +260,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
 
-		const content = page.getByTestId('popup--content');
+		const content = page.getByTestId('popup--container');
 		await expect(content).toBeVisible();
 	});
 
@@ -359,12 +359,12 @@ test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
 
-		const content = page.getByTestId('popup--content');
+		const content = page.getByTestId('popup--container');
 		await expect(content).toBeVisible();
 
 		const contentFollowsTrigger = await page.evaluate(() => {
 			const t = document.querySelector('[data-testid="popup-trigger"]');
-			const c = document.querySelector('[data-testid="popup--content"]');
+			const c = document.querySelector('[data-testid="popup--container"]');
 			if (!t || !c) {
 				return false;
 			}
@@ -375,7 +375,7 @@ test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 		expect(contentFollowsTrigger).toBe(true);
 
 		const notLastBodyChild = await page.evaluate(() => {
-			const c = document.querySelector('[data-testid="popup--content"]');
+			const c = document.querySelector('[data-testid="popup--container"]');
 			return c !== null && document.body.lastElementChild !== c;
 		});
 
@@ -395,11 +395,11 @@ test.describe('Popup top-layer — Dismiss behaviors', () => {
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 
 		// Click on empty area outside the popup
 		await page.mouse.click(10, 10);
-		await expect(page.getByTestId('popup--content')).toBeHidden();
+		await expect(page.getByTestId('popup--container')).toBeHidden();
 	});
 
 	test('Escape key closes the popup', async ({ page }) => {
@@ -414,10 +414,10 @@ test.describe('Popup top-layer — Dismiss behaviors', () => {
 
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
-		await expect(page.getByTestId('popup--content')).toBeVisible();
+		await expect(page.getByTestId('popup--container')).toBeVisible();
 
 		await page.keyboard.press('Escape');
-		await expect(page.getByTestId('popup--content')).toBeHidden();
+		await expect(page.getByTestId('popup--container')).toBeHidden();
 	});
 });
 test.describe('Popup top-layer — Positioning and sizing', () => {
@@ -434,7 +434,7 @@ test.describe('Popup top-layer — Positioning and sizing', () => {
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
 
-		const content = page.getByTestId('popup--content');
+		const content = page.getByTestId('popup--container');
 		await expect(content).toBeVisible();
 
 		const triggerBox = await trigger.boundingBox();
@@ -461,7 +461,7 @@ test.describe('Popup top-layer — Positioning and sizing', () => {
 		const trigger = page.getByTestId('popup-trigger');
 		await trigger.click();
 
-		const content = page.getByTestId('popup--content');
+		const content = page.getByTestId('popup--container');
 		await expect(content).toBeVisible();
 
 		const triggerBox = await trigger.boundingBox();

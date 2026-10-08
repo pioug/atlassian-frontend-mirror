@@ -6,6 +6,7 @@ import AppProvider from '@atlaskit/app-provider/app-provider';
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
+import LinkButton from '../../../new-button/variants/default/link';
 import LinkIconButton from '../../../new-button/variants/icon/link';
 import variants from '../../../utils/variants';
 
@@ -186,6 +187,25 @@ const testCases: Array<{
 					});
 				});
 			});
+		});
+	});
+});
+
+describe('LinkButton disabled', () => {
+	it('keeps the disabled text color on focus', () => {
+		render(
+			<LinkButton href="/rule/new" isDisabled testId="disabled-link-button">
+				Add manually triggered automation
+			</LinkButton>,
+		);
+
+		const button = screen.getByTestId('disabled-link-button');
+		expect(button).toHaveAttribute('aria-disabled', 'true');
+		expect(button).toHaveCompiledCss('color', 'var(--ds-text-disabled,#080f214a)', {
+			target: ':focus',
+		});
+		expect(button).toHaveCompiledCss('color', 'var(--ds-text-disabled,#080f214a)', {
+			target: ':visited',
 		});
 	});
 });

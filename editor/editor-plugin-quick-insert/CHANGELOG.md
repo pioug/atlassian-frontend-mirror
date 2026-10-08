@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 26.0.1
+
+### Patch Changes
+
+- [`bbbf2f64617dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbbf2f64617dd) -
+  Slash menu visual tweaks under platform_editor_slash_command: show View more when a search has
+  matches, use color.icon for item icons, rename the Other section to Other elements, and use
+  sentence case for the Block template gallery title
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- [`6be0c3f7c55b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6be0c3f7c55b3) -
+  Clean up experiment `platform_editor_slash_app_category_analytics`
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

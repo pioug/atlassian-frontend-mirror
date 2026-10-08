@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Link from '@atlaskit/menu/link-item';
 import type { LinkItemProps } from '@atlaskit/menu/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -92,8 +91,6 @@ export const LinkItem: React.ForwardRefExoticComponent<
 	if (!shouldRender) {
 		return null;
 	}
-	const isMotionEnabled = fg('platform-dst-motion-uplift-list-item');
-
 	// Anchor content will be handled by LinkItem
 	return (
 		<Link
@@ -102,9 +99,9 @@ export const LinkItem: React.ForwardRefExoticComponent<
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 			css={[
 				styles.root,
-				isMotionEnabled && styles.rootMotion,
+				styles.rootMotion,
 				rest.isSelected && styles.selectedStyles,
-				rest.isSelected && isMotionEnabled && styles.selectedMotion,
+				rest.isSelected && styles.selectedMotion,
 			]}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}

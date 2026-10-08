@@ -1,6 +1,5 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -59,10 +58,6 @@ const UNSTYLED_NODES = [
 
 const CELL_NODES = ['tableCell', 'tableHeader'];
 
-/** Panels, rules and media can also sit in a table cell, which is out of scope for block tags. */
-const isInsideTable = (doc: PMNode, pos: number): boolean =>
-	findParentNodeClosestToPos(doc.resolve(pos), (node) => node.type.name === 'table') !== undefined;
-
 /**
  * Whether this block can host a contributor tag of its own.
  *
@@ -77,7 +72,7 @@ const canTagBlock = ({ doc, from }: { doc: PMNode | undefined; from: number }): 
 
 	const nodeType = doc.nodeAt(from)?.type;
 
-	return nodeType !== undefined && isTaggableBlockNode(nodeType) && !isInsideTable(doc, from);
+	return nodeType !== undefined && isTaggableBlockNode(nodeType);
 };
 
 /** Positioning context for the cell overlay widget decorations. */

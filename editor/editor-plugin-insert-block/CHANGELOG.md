@@ -1,5 +1,48 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 27.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- [`92fc57a354c33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92fc57a354c33) -
+  Clean up feature gate `platform_editor_toolbar_responsive_fixes`. The responsive toolbar behaviour
+  is now permanently enabled. Remove the obsolete `ToolbarWidths` and `ToolbarWidthsFullPage`
+  exports; consumers should use `ToolbarWidthsNext` and `ToolbarWidthsFullPageNext`. Also remove the
+  unread `BlockTypePluginOptions.isUndoRedoButtonsEnabled` option, which no longer affects toolbar
+  sizing.
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- [`685643d223f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/685643d223f9d) -
+  Complete cleanup of the `cc_fd_db_top_editor_toolbar` experiment. Always sort featured toolbar
+  insert items by provider priority across platforms, matching quick insert ordering. Remove
+  hardcoded whiteboard pinning and preserve provider descriptions, retaining the shipped
+  `new-description` behavior without product checks, preset options, or experiment setup.
+
+  Breaking change in `@atlaskit/tmp-editor-statsig`: remove `cc_fd_db_top_editor_toolbar` from
+  `editorExperimentsConfig` and `testMultivariateOverrides`. Consumers referencing
+  `editorExperimentsConfig.cc_fd_db_top_editor_toolbar` or calling
+  `expVal('cc_fd_db_top_editor_toolbar', ...)` (or other typed experiment helpers) will receive
+  TypeScript errors after upgrading. To migrate, remove those experiment queries and test overrides,
+  and retain the shipped `new-description` behavior instead of branching on the removed experiment.
+
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

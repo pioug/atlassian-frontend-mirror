@@ -172,6 +172,33 @@ attributes:
       type: string
       description: Type of resource the link is pointing to
 events:
+  - oneClickChatSpotlight clicked (oneClickChatSpotlightV2):
+      type: ui
+      description:
+        Fired once when the spotlight CTA or highlighted inline action is clicked while the
+        spotlight is open
+      attributes:
+        provider:
+          type: ['google-drive', 'github']
+          description: Provider of the highlighted Smart Link
+        product:
+          type: ['confluence_web', 'jira_web']
+          description: Host product showing the spotlight
+        appearance:
+          type: ['inline']
+          description: Smart Link appearance
+        cohort:
+          type: ['treatment']
+          description: Experiment cohort showing the spotlight
+        variant:
+          type: ['v2']
+          description: Spotlight version
+        interactionSource:
+          type: ['spotlightCta', 'inlineAction']
+          required: false
+          description:
+            spotlightCta identifies the spotlight CTA (currently See takeaways); inlineAction
+            identifies the highlighted inline action. Absent on older clients.
   - button clicked (copyLink):
       type: ui
       description: Fired when an copy link is clicked
@@ -211,6 +238,13 @@ events:
           required: false
           type: string
           description: Key for RovoChat prompts
+        interactionSource:
+          required: false
+          type: ['spotlightCta', 'inlineAction']
+          description:
+            Origin of the gated inline Rovo invocation. spotlightCta identifies the spotlight CTA
+            (currently See takeaways); inlineAction identifies Summarize or Explain, whether or not
+            a spotlight is visible. Absent for older clients, gate-off and other surfaces.
 
   - button clicked (copySummary):
       type: ui

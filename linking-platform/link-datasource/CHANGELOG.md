@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 7.3.4
+
+### Patch Changes
+
+- [`11bc578982514`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11bc578982514) -
+  Gate deduplication of datasource rows that share an ARI behind `platform_sllv_duplicated_row`.
+- Updated dependencies
+
 ## 7.3.3
 
 ### Patch Changes

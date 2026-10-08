@@ -14,7 +14,6 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	action,
@@ -335,17 +334,10 @@ const createInsertBlockItems = (
 	const filteredItems = itemFilter ? items.filter(itemFilter) : items;
 
 	let numButtonsAdjusted = numberOfButtons;
-	if (fg('platform_editor_toolbar_responsive_fixes')) {
-		if (
-			filteredItems
-				.slice(0, numButtonsAdjusted)
-				.some((item) => item.value.name === 'table selector')
-		) {
-			numButtonsAdjusted++;
-		}
-	} else {
-		numButtonsAdjusted =
-			tableSupported && tableSelectorSupported ? numberOfButtons + 1 : numberOfButtons;
+	if (
+		filteredItems.slice(0, numButtonsAdjusted).some((item) => item.value.name === 'table selector')
+	) {
+		numButtonsAdjusted++;
 	}
 	const buttonItems = filteredItems.slice(0, numButtonsAdjusted).map(buttonToItem);
 

@@ -204,6 +204,103 @@ describe('TimePicker', () => {
 		expect(menu).toBeInTheDocument();
 	});
 
+	describe('Time button', () => {
+		it('should render a labelled button to open the time picker', () => {
+			render(createTimePicker({ shouldShowTimeButton: true }));
+
+			expect(screen.getByRole('button', { name: 'Time, Open time picker' })).toBeVisible();
+		});
+
+		it('should not render the time button when the prop is not provided', () => {
+			render(createTimePicker());
+
+			expect(screen.queryByRole('button', { name: /Open time picker/ })).not.toBeInTheDocument();
+		});
+
+		it('should not open the menu when the input is focused with the keyboard', async () => {
+			const user = userEvent.setup();
+			render(createTimePicker({ shouldShowTimeButton: true }));
+
+			await user.tab();
+
+			expect(getInput()).toHaveFocus();
+			expect(queryMenu()).not.toBeInTheDocument();
+		});
+
+		it('should open the menu when the time button is clicked', async () => {
+			const user = userEvent.setup();
+			render(createTimePicker({ shouldShowTimeButton: true }));
+
+			const timeButton = screen.getByTestId(`${testId}--open-time-button`);
+			await user.click(timeButton);
+
+			expect(queryMenu()).toBeVisible();
+			expect(timeButton).toHaveFocus();
+		});
+
+		it.each([false, true])(
+			'should call the menu callback once in Strict Mode when defaultIsOpen is %s',
+			async (defaultIsOpen) => {
+				const user = userEvent.setup();
+				const onMenuOpen = jest.fn();
+				const onMenuClose = jest.fn();
+				render(
+					<React.StrictMode>
+						{createTimePicker({
+							shouldShowTimeButton: true,
+							defaultIsOpen,
+							selectProps: { onMenuOpen, onMenuClose },
+						})}
+					</React.StrictMode>,
+				);
+
+				await user.click(screen.getByTestId(`${testId}--open-time-button`));
+
+				expect(onMenuOpen).toHaveBeenCalledTimes(defaultIsOpen ? 0 : 1);
+				expect(onMenuClose).toHaveBeenCalledTimes(defaultIsOpen ? 1 : 0);
+				if (defaultIsOpen) {
+					expect(queryMenu()).not.toBeInTheDocument();
+				} else {
+					expect(queryMenu()).toBeVisible();
+				}
+			},
+		);
+
+		it('should open the menu when the time button is activated with the keyboard', async () => {
+			const user = userEvent.setup();
+			render(createTimePicker({ shouldShowTimeButton: true }));
+
+			await user.tab();
+			await user.tab();
+			await user.keyboard('{Enter}');
+
+			expect(queryMenu()).toBeVisible();
+			expect(getInput()).toHaveFocus();
+		});
+
+		it('should move focus to the input when the time button is activated with space', async () => {
+			const user = userEvent.setup();
+			render(createTimePicker({ shouldShowTimeButton: true }));
+
+			await user.tab();
+			await user.tab();
+			await user.keyboard(' ');
+
+			expect(queryMenu()).toBeVisible();
+			expect(getInput()).toHaveFocus();
+		});
+
+		it('should open the menu when the user types in the input', async () => {
+			const user = userEvent.setup();
+			render(createTimePicker({ shouldShowTimeButton: true }));
+
+			await user.tab();
+			await user.keyboard('1');
+
+			expect(queryMenu()).toBeVisible();
+		});
+	});
+
 	it('should render the time in a custom timeFormat', () => {
 		render(createTimePicker({ value: '12:00', timeFormat: 'HH--mm--SSS' }));
 
@@ -470,5 +567,13 @@ describe('TimePicker', () => {
 
 		const input = getInput();
 		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
+	});
+
+	it('should add time to accessible description when `aria-describedby` is not provided', () => {
+		const defaultValue = '15:30';
+		render(createTimePicker({ defaultValue }));
+
+		const input = getInput();
+		expect(input).toHaveAccessibleDescription(expect.stringContaining('3:30'));
 	});
 });

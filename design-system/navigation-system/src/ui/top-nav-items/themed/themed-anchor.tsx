@@ -7,7 +7,6 @@ import React from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -24,17 +23,13 @@ const styles = cssMap({
 		height: '2.2857142857142856em',
 		paddingBlock: token('space.0'),
 		borderRadius: token('radius.medium'),
-		transition: 'background 0.1s ease-out',
+		transition: token('motion.button.hovered'),
 		position: 'relative',
 		// Remove the default underline for link buttons
 		textDecoration: 'none',
 		'&:hover, &:active, &:focus': {
 			textDecoration: 'none',
 		},
-	},
-	// platform-dst-motion-uplift-button TODO: Merge into base after rollout
-	interactiveMotion: {
-		transition: token('motion.button.hovered'),
 		'&:active': {
 			transition: token('motion.button.pressed'),
 		},
@@ -202,7 +197,6 @@ function ThemedAnchorFn<RouterLinkConfig extends Record<string, any> = never>(
 				appearanceStyles[appearance],
 				isSelected && styles.selected,
 				isDisabled && styles.disabled,
-				fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
 			)}
 		/>
 	);

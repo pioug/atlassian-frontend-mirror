@@ -525,6 +525,17 @@ describe('DateTimePicker', () => {
 		);
 	});
 
+	it('should show time button if prop is used in `timePickerProps`', () => {
+		const openTimeLabel = 'openTimeLabel';
+		render(
+			createDateTimePicker({
+				timePickerProps: { shouldShowTimeButton: true, openTimeLabel },
+			}),
+		);
+
+		expect(screen.getByRole('button', { name: new RegExp(openTimeLabel) })).toBeInTheDocument();
+	});
+
 	describe('Calendar button', () => {
 		const openCalendarLabel = 'openCalendarLabel';
 		const getDateInput = () =>

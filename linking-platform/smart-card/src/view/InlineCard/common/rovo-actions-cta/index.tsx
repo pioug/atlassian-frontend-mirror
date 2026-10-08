@@ -16,6 +16,7 @@ import { token } from '@atlaskit/tokens';
 import extractRovoChatAction from '../../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getExtensionKey } from '../../../../state/getExtensionKey';
 import useInvokeClientAction from '../../../../state/hooks/use-invoke-client-action';
+import type { RovoInteractionSource } from '../../../../state/hooks/use-invoke-client-action/types';
 import useRovoChat from '../../../../state/hooks/use-rovo-chat';
 import useRovoConfig from '../../../../state/hooks/use-rovo-config';
 import { useSmartCardState } from '../../../../state/store';
@@ -210,15 +211,19 @@ const InlineRovoActionButtonWithSpotlight = ({
 			}) || {}
 		: {};
 
-	const invokePrompt = useCallback(() => {
-		if (isRovoChatEnabled && promptData && rovoChatAction?.invokeAction) {
-			invoke({
-				...rovoChatAction.invokeAction,
-				actionFn: async () => sendPromptMessage(promptData),
-				prompt: promptKey,
-			});
-		}
-	}, [sendPromptMessage, isRovoChatEnabled, promptData, rovoChatAction, promptKey, invoke]);
+	const invokePrompt = useCallback(
+		(interactionSource: RovoInteractionSource = 'inlineAction') => {
+			if (isRovoChatEnabled && promptData && rovoChatAction?.invokeAction) {
+				invoke({
+					...rovoChatAction.invokeAction,
+					interactionSource,
+					actionFn: async () => sendPromptMessage(promptData),
+					prompt: promptKey,
+				});
+			}
+		},
+		[sendPromptMessage, isRovoChatEnabled, promptData, rovoChatAction, promptKey, invoke],
+	);
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLElement>) => {
@@ -244,7 +249,7 @@ const InlineRovoActionButtonWithSpotlight = ({
 			key={url}
 			url={url}
 			actionOptions={actionOptions}
-			onInvoke={invokePrompt}
+			onInvoke={() => invokePrompt('spotlightCta')}
 		>
 			{button}
 		</OneClickChatSpotlightLoader>

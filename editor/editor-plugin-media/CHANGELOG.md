@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-media
 
+## 28.0.2
+
+### Patch Changes
+
+- [`a56ffa3fe0de2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a56ffa3fe0de2) -
+  Fix `MediaSingleNodeView.destroy()` skipping `super.destroy()`, which left the node view's React
+  portal mounted after the node was removed from the document. This kept every listener and
+  subscription inside it (including the nested `media` node view and `media-card`) alive
+  indefinitely, causing memory to grow unbounded as media nodes were added and removed. Gated under
+  `platform_editor_reduce_memory_leaks`.
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.1
 
 ### Patch Changes

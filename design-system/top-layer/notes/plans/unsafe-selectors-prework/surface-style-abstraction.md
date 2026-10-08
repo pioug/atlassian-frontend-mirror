@@ -76,6 +76,9 @@ inherit the trigger's ambient colour. `color` is deliberately excluded from the 
 precedent for "opinionated reset lives on the surface component, not the host" is already
 established and shipped.
 
+> Superseded by `notes/decisions/surface-reset-color.md` (2026-10-07): the host reset now sets
+> `color: token('color.text')`, so `color` is no longer excluded from it.
+
 Reach: **4 of 12** packages (`popup`, `select`/`PopupSelect`, `datetime-picker`, `avatar-group`), 6
 call sites. Limits:
 

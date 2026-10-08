@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-loom
 
+## 28.0.1
+
+### Patch Changes
+
+- [`bbbf2f64617dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbbf2f64617dd) -
+  Slash menu visual tweaks under platform_editor_slash_command: show View more when a search has
+  matches, use color.icon for item icons, rename the Other section to Other elements, and use
+  sentence case for the Block template gallery title
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.0
 
 ### Patch Changes

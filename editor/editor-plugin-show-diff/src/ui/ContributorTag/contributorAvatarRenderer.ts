@@ -75,9 +75,17 @@ const shapeStyle = convertToInlineCss({
 	overflow: 'hidden',
 });
 
+/**
+ * The shadow's colour per theme. In the dark theme `elevation.shadow.overflow.perimeter` is
+ * `#010404` at 50%, which three stacked layers turn into a heavy smudge around a 16px hexagon, and
+ * ADS has no softer shadow token, so dark mixes the same token down to 12% of its strength (~6%
+ * opacity). Light keeps the token as is.
+ */
+const agentShadowColor = `light-dark(${token('elevation.shadow.overflow.perimeter')}, color-mix(in srgb, ${token('elevation.shadow.overflow.perimeter')} 12%, transparent))`;
+
 const agentShadowStyle = convertToInlineCss({
 	// No clip-path on `element`, so the blur isn't cut off.
-	filter: `drop-shadow(0 5px 5px ${token('elevation.shadow.overflow.perimeter')}) drop-shadow(0 1px 2px ${token('elevation.shadow.overflow.perimeter')}) drop-shadow(0 0 2px ${token('elevation.shadow.overflow.perimeter')})`,
+	filter: `drop-shadow(0 5px 5px ${agentShadowColor}) drop-shadow(0 1px 2px ${agentShadowColor}) drop-shadow(0 0 2px ${agentShadowColor})`,
 });
 
 const imageStyle = convertToInlineCss({
@@ -168,7 +176,7 @@ export const contributorAvatarRenderer = ({
 
 	if (contributor.avatarUrl) {
 		// Claude/ChatGPT always use their fixed glyph, even when the profile also has an avatar
-		// URL. Other agents (e.g. Rovo/Figma/Lovable/Replit) and users prefer the real avatar.
+		// URL. Other agents (e.g. Rovo/Figma/Lovable/Replit/Slack) and users prefer the real avatar.
 		const usesFixedGlyph =
 			isAgent && FIXED_GLYPH_AGENT_KINDS.has(contributor.agentKind ?? 'external');
 

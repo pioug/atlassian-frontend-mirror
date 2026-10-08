@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-mentions
 
+## 28.0.2
+
+### Patch Changes
+
+- [`8f78de3066411`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f78de3066411) -
+  Clean up feature gate `platform_editor_agent_mentions_no_task_autofire`
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.1
 
 ### Patch Changes

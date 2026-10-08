@@ -111,37 +111,20 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		);
 	});
 
-	it.each([
-		[false, false, false],
-		[true, false, true],
-		[false, true, true],
-		[true, true, true],
-	])(
-		'forwards app identity when category analytics is %s and slash command is %s',
-		async (categoryAnalytics, slashCommand, shouldIncludeApp) => {
-			(categoryAnalytics ? mockExpEnabled : mockExpDisabled)(
-				'platform_editor_slash_app_category_analytics',
-			);
-			(slashCommand ? mockExpEnabled : mockExpDisabled)('platform_editor_slash_command');
-			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-				dummyExtensionProvider,
-				{} as EditorActions,
-				{ current: undefined },
-			);
+	it('forwards app identity', async () => {
+		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+			dummyExtensionProvider,
+			{} as EditorActions,
+			{ current: undefined },
+		);
 
-			const items = await quickInsertProvider.getItems();
+		const items = await quickInsertProvider.getItems();
 
-			if (shouldIncludeApp) {
-				expect(items).toMatchObject([
-					{ app: { key: 'first' }, title: 'First dummy extension' },
-					{ app: { key: 'second' }, title: 'Second dummy extension' },
-				]);
-			} else {
-				expect(items[0]).not.toHaveProperty('app');
-				expect(items[1]).not.toHaveProperty('app');
-			}
-		},
-	);
+		expect(items).toMatchObject([
+			{ app: { key: 'first' }, title: 'First dummy extension' },
+			{ app: { key: 'second' }, title: 'Second dummy extension' },
+		]);
+	});
 
 	it('forwards an extension preview through the legacy quick-insert item', async () => {
 		const preview = {

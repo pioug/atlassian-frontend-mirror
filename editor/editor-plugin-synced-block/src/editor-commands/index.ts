@@ -39,7 +39,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -200,9 +199,7 @@ export const createSyncedBlock = ({
 		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
 			attrs,
 			conversionInfo.contentToInclude,
-			fg('platform_editor_blocks_patch_8') && conversionInfo.breakoutMark
-				? [conversionInfo.breakoutMark]
-				: undefined,
+			conversionInfo.breakoutMark ? [conversionInfo.breakoutMark] : undefined,
 		);
 
 		if (!newBodiedSyncBlockNode) {

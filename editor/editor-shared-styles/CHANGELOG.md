@@ -1,5 +1,33 @@
 # @atlaskit/editor-shared-styles
 
+## 4.4.0
+
+### Minor Changes
+
+- [`1b8ffa1d31cb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b8ffa1d31cb6) -
+  Treat Amplitude, Cortex, Databricks, Gemini, Manus and Slack as third-party agent brands alongside
+  Figma, Lovable and Replit: they resolve from the attribution agent type, share the fixed
+  third-party participant colour slot, and show their profile avatar in the contributor tag, like
+  Figma, Lovable and Replit.
+
+## 4.3.46
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.45
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.44
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.43
 
 ### Patch Changes

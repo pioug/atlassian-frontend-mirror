@@ -15,6 +15,38 @@ import sortTokens from '../sort-tokens';
 import { themeNameToId } from '../theme-name-to-id';
 import { fontTokenToCSS } from '../transformers/font-token-to-css';
 
+/**
+ * A shared value declared once as a custom property. Token values that exactly match
+ * `resolvedValue` are output as `var(<property>)` instead of repeating the expression.
+ */
+export interface CustomProperty {
+	property: string;
+	value: string;
+	resolvedValue: string;
+}
+
+/**
+ * Returns the custom properties referenced by `declarations`, directly or through other custom
+ * properties, preserving their original (dependency) order.
+ */
+function getUsedCustomProperties(
+	customProperties: CustomProperty[],
+	declarations: string[],
+): CustomProperty[] {
+	let referencingText = declarations.join('\n');
+	const used = new Set<CustomProperty>();
+
+	// Dependents are declared after the properties they reference, so walk backwards.
+	[...customProperties].reverse().forEach((customProperty) => {
+		if (referencingText.includes(`var(${customProperty.property})`)) {
+			used.add(customProperty);
+			referencingText += `\n${customProperty.value}`;
+		}
+	});
+
+	return customProperties.filter((customProperty) => used.has(customProperty));
+}
+
 export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options }) => {
 	if (!options.themeName) {
 		throw new Error('options.themeName required');
@@ -117,10 +149,21 @@ export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options 
 		indent += 2;
 	}
 
-	tokens.forEach((token) => {
+	const customProperties: CustomProperty[] = options.customProperties ?? [];
+	const referenceByValue = new Map(
+		customProperties.map(({ property, resolvedValue }) => [resolvedValue, `var(${property})`]),
+	);
+
+	const declarations = tokens.map((token) => {
 		const tokenValue = getValue(dictionary, token);
-		outputLine(`${token.name}: ${tokenValue};`);
+		const reference = typeof tokenValue === 'string' && referenceByValue.get(tokenValue);
+		return `${token.name}: ${reference || tokenValue};`;
 	});
+
+	getUsedCustomProperties(customProperties, declarations).forEach(({ property, value }) => {
+		outputLine(`${property}: ${value};`);
+	});
+	declarations.forEach(outputLine);
 
 	indent -= 2;
 	outputLine('}');

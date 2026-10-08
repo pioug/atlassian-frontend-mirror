@@ -542,7 +542,6 @@ const LozengeBase: import('react').MemoExoticComponent<
 			}, [childrenKey]);
 
 			const enableMotionFG = fg('platform-dst-motion-uplift');
-			const enableButtonMotionFG = fg('platform-dst-motion-uplift-button');
 
 			const innerContent = (
 				<span
@@ -550,7 +549,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 					css={[
 						styles.content,
 						spacing === 'spacious' && styles.contentSpacious,
-						isInteractive && enableButtonMotionFG && styles.loadingMotion,
+						isInteractive && styles.loadingMotion,
 						isLoading && styles.loadingContent,
 						// Constrain the content wrapper to its container so text truncation
 						// works correctly within the flex layout, regardless of whether maxWidth
@@ -622,7 +621,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						ref={ref as Ref<HTMLButtonElement>}
 						xcss={cx(
 							styles.container,
-							!isLoading && enableButtonMotionFG
+							!isLoading
 								? interactiveMotionStyles.motion
 								: enableMotionFG && styles.motionContainer,
 							spacing === 'spacious' && styles.containerSpacious,
@@ -663,7 +662,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 						{isLoading && (
 							<span
 								data-testid={testId ? `${testId}--loading-overlay` : undefined}
-								css={[styles.loadingOverlay, enableButtonMotionFG && styles.loadingOverlayMotion]}
+								css={[styles.loadingOverlay, styles.loadingOverlayMotion]}
 							>
 								<Spinner
 									size={spacing === 'spacious' ? 'small' : 'xsmall'}

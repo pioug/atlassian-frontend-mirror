@@ -9,7 +9,6 @@ import {
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FindReplacePlugin } from './findReplacePluginType';
@@ -40,9 +39,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 			return null;
 		}
 
-		const isButtonHidden = fg('platform_editor_toolbar_responsive_fixes')
-			? toolbarSize < ToolbarSize.XL
-			: false;
+		const isButtonHidden = toolbarSize < ToolbarSize.XL;
 		if (props?.twoLineEditorToolbar) {
 			return null;
 		} else if (

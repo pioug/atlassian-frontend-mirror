@@ -381,6 +381,13 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	name?: string;
 	/**
+	 * The accessible label for the button that opens the time picker. When `label` is provided,
+	 * it is prefixed to this label.
+	 *
+	 * @default 'Open time picker'
+	 */
+	openTimeLabel?: string;
+	/**
 	 * Called when the field is blurred.
 	 */
 	onBlur?: React.FocusEventHandler<HTMLElement>;
@@ -429,6 +436,14 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideIcon?: boolean;
+	/**
+	 * Provides a functional clock button that opens the time picker. When enabled, focusing the
+	 * input with the keyboard does not open the menu; use this button, click the input, or type to
+	 * open it instead.
+	 *
+	 * @default false
+	 */
+	shouldShowTimeButton?: boolean;
 	/**
 	 * Format the time with a string that is accepted by [date-fns's format
 	 * function](https://date-fns.org/v1.29.0/docs/format). **This does not affect

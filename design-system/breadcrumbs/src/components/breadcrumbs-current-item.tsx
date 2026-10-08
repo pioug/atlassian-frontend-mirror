@@ -298,7 +298,7 @@ const BreadcrumbsCurrentItem: import('react').MemoExoticComponent<
 							!fg('platform_dst_breadcrumbs-refresh') && styles.interactiveContainerLegacy,
 							isSmall && styles.interactiveContainerSmall,
 							truncationWidth != null && styles.interactiveContainerWithTruncation,
-							fg('platform-dst-motion-uplift-list-item') && styles.interactiveContainerMotion,
+							styles.interactiveContainerMotion,
 						)
 					}
 					style={{

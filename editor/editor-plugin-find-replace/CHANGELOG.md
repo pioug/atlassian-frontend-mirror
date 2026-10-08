@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- [`92fc57a354c33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92fc57a354c33) -
+  Clean up feature gate `platform_editor_toolbar_responsive_fixes`. The responsive toolbar behaviour
+  is now permanently enabled. Remove the obsolete `ToolbarWidths` and `ToolbarWidthsFullPage`
+  exports; consumers should use `ToolbarWidthsNext` and `ToolbarWidthsFullPageNext`. Also remove the
+  unread `BlockTypePluginOptions.isUndoRedoButtonsEnabled` option, which no longer affects toolbar
+  sizing.
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

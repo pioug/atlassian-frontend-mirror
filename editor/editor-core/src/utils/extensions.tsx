@@ -157,11 +157,7 @@ export async function extensionProviderToQuickInsertProvider(
 				extensions,
 				(item) => {
 					return {
-						...((isExperimentEnabled('platform_editor_slash_app_category_analytics') ||
-							isExperimentEnabled('platform_editor_slash_command')) &&
-						item.app
-							? { app: item.app }
-							: {}),
+						...(item.app ? { app: item.app } : {}),
 						// Add module key so typeahead/quick-insert can identify items
 						// **locale-agnostically**! nb: we _already_ send key in analytics
 						// events, this standardises and makes our items more predictable.

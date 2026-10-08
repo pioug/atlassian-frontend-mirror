@@ -75,6 +75,15 @@ export interface NodeMeta {
 	text?: PMNode['text'];
 }
 
+/** Internal metadata for built-in paragraphs; custom node components still receive NodeMeta. */
+export type ParagraphMeta = Pick<
+	NodeMeta,
+	'asInline' | 'plainTextFastPath' | 'dataAttributes' | 'nodeType' | 'marks'
+> & {
+	path: PMNode[];
+	startPos: number;
+};
+
 export interface MarkMeta {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,6 +106,7 @@ export interface AnnotationMarkMeta extends MarkMeta {
 	annotationParentIds: string[];
 	annotationType: AnnotationTypes;
 	id: AnnotationId;
+	isExtension?: boolean;
 	isMediaInline?: boolean;
 	useBlockLevel?: boolean;
 }

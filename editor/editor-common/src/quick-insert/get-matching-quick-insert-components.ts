@@ -134,13 +134,32 @@ export const getMatchingQuickInsertComponents = ({
 	}
 
 	const sections = Array.from(sectionsByKey.values());
-	if (sections.length > 0 || query === '') {
+	// An empty query is browse mode: `buildQuickInsertMenuModel` supplies the footer there,
+	// so this search model must not add a second one.
+	if (query === '') {
 		return {
 			footer: undefined,
 			root,
 			searchResults,
 			sections,
 		};
+	}
+
+	const footerSection = topLevelChildren.find(
+		(section) =>
+			section.type === 'menu-section' &&
+			isMenuFooterSectionKey(section.key) &&
+			willComponentRender(section, childrenMap, surfaceContext),
+	);
+	const footer = footerSection
+		? (childrenMap.get(getComponentIdentity(footerSection)) ?? []).find(
+				(child): child is RegisterMenuItem =>
+					child.type === 'menu-item' && willComponentRender(child, childrenMap, surfaceContext),
+			)
+		: undefined;
+
+	if (sections.length > 0) {
+		return { footer, root, searchResults, sections };
 	}
 
 	const fallbackItem = topLevelChildren
@@ -158,18 +177,6 @@ export const getMatchingQuickInsertComponents = ({
 				willComponentRender(component, childrenMap, surfaceContext),
 		);
 	const fallbackItems = fallbackItem ? [fallbackItem] : [];
-	const footerSection = topLevelChildren.find(
-		(section) =>
-			section.type === 'menu-section' &&
-			isMenuFooterSectionKey(section.key) &&
-			willComponentRender(section, childrenMap, surfaceContext),
-	);
-	const footer = footerSection
-		? (childrenMap.get(getComponentIdentity(footerSection)) ?? []).find(
-				(child): child is RegisterMenuItem =>
-					child.type === 'menu-item' && willComponentRender(child, childrenMap, surfaceContext),
-			)
-		: undefined;
 
 	return {
 		fallbackItems,

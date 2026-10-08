@@ -391,4 +391,83 @@ html[data-color-mode="dark"][data-theme~="dark:dark"], [data-subtree-theme][data
 }
 `);
 	});
+
+	describe('customProperties', () => {
+		const colorToken = (name: string, value: string) => ({
+			name,
+			value,
+			path: ['color', name],
+			attributes: { group: 'paint' },
+			original: { value, attributes: { group: 'paint' } },
+		});
+
+		const format = (allTokens: object[], customProperties?: object[]) =>
+			formatter({
+				dictionary: {
+					getReferences: jest.fn().mockReturnValue([]),
+					usesReference: jest.fn().mockReturnValue(false),
+					allTokens,
+				},
+				options: { themeName: 'atlassian-dark', customProperties },
+			} as any);
+
+		const base = {
+			property: '--ds-shared-base',
+			value: 'oklch(from var(--input) 0.5 c h)',
+			resolvedValue: 'oklch(from var(--input) 0.5 c h)',
+		};
+		const derived = {
+			property: '--ds-shared-derived',
+			value: 'oklch(from var(--ds-shared-base) l c h / 0.3)',
+			resolvedValue: 'oklch(from oklch(from var(--input) 0.5 c h) l c h / 0.3)',
+		};
+		const unused = {
+			property: '--ds-shared-unused',
+			value: 'oklch(from var(--input) 0.1 c h)',
+			resolvedValue: 'oklch(from var(--input) 0.1 c h)',
+		};
+
+		it('should declare used custom properties once and reference them from matching tokens', () => {
+			const result = format(
+				[
+					colorToken('one', base.resolvedValue),
+					colorToken('two', base.resolvedValue),
+					colorToken('three', '#ffffff'),
+				],
+				[base, unused],
+			);
+
+			const definition = `  --ds-shared-base: ${base.value};\n`;
+			expect(result.split(definition)).toHaveLength(2);
+			expect(result).toContain('  --ds-one: var(--ds-shared-base);\n');
+			expect(result).toContain('  --ds-two: var(--ds-shared-base);\n');
+			expect(result).toContain('  --ds-three: #ffffff;\n');
+			expect(result.indexOf(definition)).toBeLessThan(result.indexOf('  --ds-one:'));
+			expect(result).not.toContain('--ds-shared-unused');
+		});
+
+		it('should declare custom properties only referenced by other custom properties', () => {
+			const result = format([colorToken('one', derived.resolvedValue)], [base, derived, unused]);
+
+			expect(result).toContain(`  --ds-shared-base: ${base.value};
+  --ds-shared-derived: ${derived.value};
+  --ds-one: var(--ds-shared-derived);
+`);
+			expect(result).not.toContain('--ds-shared-unused');
+		});
+
+		it('should only replace exact matches', () => {
+			const partial = `${base.resolvedValue}, #000000`;
+			const result = format([colorToken('one', partial)], [base]);
+
+			expect(result).toContain(`  --ds-one: ${partial};`);
+			expect(result).not.toContain('--ds-shared-base');
+		});
+
+		it('should output tokens unchanged without custom properties', () => {
+			expect(format([colorToken('one', base.resolvedValue)])).toContain(
+				`  --ds-one: ${base.resolvedValue};`,
+			);
+		});
+	});
 });

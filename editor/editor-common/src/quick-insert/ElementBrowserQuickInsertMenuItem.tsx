@@ -106,7 +106,20 @@ const iconLargeStyles = xcss({
 	width: '40px',
 });
 
-const iconColorStyles = css({ color: token('color.icon.subtle') });
+const iconColorStyles = css({ color: token('color.icon') });
+
+// Some icons pin a neutral colour inline (for example the Forge and Spotlight icons use
+// color.icon.subtle or color.icon.accent.gray), which would ignore the colour set by the menu item.
+// Reset only those so every icon follows the menu item (color.icon, or the disabled colour).
+// Do NOT widen this to all icon colours: some icons are intentionally coloured (for example skill
+// and brand icons that use other --ds-icon-accent-* tokens) and must keep their own colour.
+/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-important-styles -- Icons pin their colour with an inline style, which only an !important rule on a descendant selector can override. */
+const pinnedIconColorResetStyles = css({
+	'& [style*="--ds-icon-subtle"], & [style*="--ds-icon-accent-gray"]': {
+		color: 'inherit !important',
+	},
+});
+/* eslint-enable @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-important-styles */
 
 const shortcutStyles = xcss({
 	backgroundColor: 'color.background.neutral',
@@ -147,6 +160,13 @@ export const ElementBrowserQuickInsertMenuItem = ({
 		[isDisabled, isSelected],
 	);
 
+	// Disabled items keep the dimmed colour inherited from the item.
+	const icon = iconBefore ? (
+		<span css={[pinnedIconColorResetStyles, !isDisabled && iconColorStyles]}>{iconBefore}</span>
+	) : (
+		iconBefore
+	);
+
 	return (
 		<Pressable
 			aria-label={ariaLabel}
@@ -163,15 +183,20 @@ export const ElementBrowserQuickInsertMenuItem = ({
 				<Box
 					xcss={isExperimentEnabled('platform_editor_slash_command') ? iconLargeStyles : iconStyles}
 				>
-					<span css={iconColorStyles}>{iconBefore}</span>
+					{icon}
 				</Box>
-			) : iconBefore ? (
-				<span css={iconColorStyles}>{iconBefore}</span>
-			) : null}
+			) : (
+				icon
+			)}
 			<Stack space="space.050" grow="fill">
 				<Inline alignBlock="center" spread="space-between" space="space.100">
 					{titleContent ?? (
-						<Text color="color.text" maxLines={1} size="medium" weight="medium">
+						<Text
+							color={isDisabled ? 'color.text.disabled' : 'color.text'}
+							maxLines={1}
+							size="medium"
+							weight="medium"
+						>
 							{title}
 						</Text>
 					)}

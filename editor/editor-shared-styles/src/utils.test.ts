@@ -70,6 +70,17 @@ describe('utils', () => {
 				});
 			}
 		});
+		it.each(['amplitude', 'cortex', 'databricks', 'gemini', 'manus', 'slack'] as const)(
+			'pins %s to the shared third-party slot with its brand colours',
+			(agentType) => {
+				for (const id of ['first-agent', 'second-agent', '']) {
+					const { color, index, isFixed } = getParticipantColor(id, agentType);
+					expect({ index, isFixed }).toEqual({ index: 9, isFixed: true });
+					expect(color.backgroundColor).toContain('var(--agent-brand-' + agentType + '-bold');
+					expect(color.textColor).toContain('var(--agent-brand-' + agentType + '-boldText');
+				}
+			},
+		);
 		it.each(['rovo', 'rovo_chat'])(
 			'uses fixed purple for Rovo agent type or brand %s regardless of participant ID',
 			(agentType) => {

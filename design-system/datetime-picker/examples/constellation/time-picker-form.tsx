@@ -14,7 +14,11 @@ const TimePickerFormExample = (): React.JSX.Element => (
 			isRequired={false}
 			helperMessage="Help or instruction text goes here."
 			component={({ fieldProps }) => (
-				<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
+				<TimePicker
+					clearControlLabel="Clear scheduled run time"
+					{...fieldProps}
+					shouldShowTimeButton
+				/>
 			)}
 		/>
 		<FormFooter>

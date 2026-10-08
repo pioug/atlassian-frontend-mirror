@@ -266,7 +266,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			allowTableResizing: true,
 		});
 
-		expect(container.querySelectorAll('col')).toHaveLength(3);
+		expect(container.querySelectorAll('col')).toHaveLength(0);
 	});
 
 	it('should render children', () => {
@@ -440,14 +440,8 @@ describe('Renderer - React/Nodes/Table', () => {
 
 			const colStyles = getColStyles(container);
 
-			expect(colStyles).toHaveLength(3);
-			colStyles.forEach((style, index) => {
-				if (index === 0) {
-					expect(style.width).toEqual(`${akEditorTableNumberColumnWidth}px`);
-				} else {
-					expect(style.minWidth).toEqual('');
-				}
-			});
+			expect(colStyles).toHaveLength(1);
+			expect(colStyles[0].width).toEqual(`${akEditorTableNumberColumnWidth}px`);
 		});
 	});
 
@@ -1132,16 +1126,13 @@ describe('Renderer - React/Nodes/Table', () => {
 		});
 
 		describe('column widths undefined', () => {
-			it('table scales columns when table width is smaller than fixed-width line length - column widths undefined', () => {
+			it('should render no column styles when column widths are undefined', () => {
 				const tableWidth = 500;
 				const scale = 0.6;
 				const tableNode = createTable(tableWidth, 'default');
 				const rendererWidth = tableWidth * scale;
 				// column widths 0 as they're undefined
 				const colWidths = [0, 0, 0];
-				const expectedWidths = (computedColWidths: Array<number>) =>
-					computedColWidths.map((w) => Math.floor(w * 0.7));
-				// expected to scale down
 				const { container } = renderTable(
 					tableNode,
 					rendererWidth,
@@ -1152,31 +1143,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					true,
 				);
 
-				checkColWidths(getTableContainer(container), expectedWidths([166, 166, 166]));
-			});
-
-			it('should scale columns when table width is larger than fixed-width line length', () => {
-				const tableWidth = 1200;
-				const scale = 0.6;
-				const tableNode = createTable(tableWidth, 'default');
-				const rendererWidth = tableWidth * scale;
-				// column widths 0 as they're undefined
-				const colWidths = [0, 0, 0];
-				const expectedWidths = (computedColWidths: Array<number>) =>
-					computedColWidths.map((w) => Math.floor(w * 0.7));
-
-				// expected to scale down
-				const { container } = renderTable(
-					tableNode,
-					rendererWidth,
-					colWidths,
-					'full-page',
-					false,
-					false,
-					true,
-				);
-
-				checkColWidths(getTableContainer(container), expectedWidths([399, 399, 399]));
+				checkColWidths(getTableContainer(container), []);
 			});
 
 			it('should render table columns as undefined when nested in a block node', () => {
@@ -1189,7 +1156,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
 				const { container } = renderTable(tableNode, rendererWidth, colWidths, undefined, true);
 
-				expect(getTableContainer(container).querySelectorAll('colgroup')).toHaveLength(0);
+				expect(getTableContainer(container).querySelectorAll('col')).toHaveLength(0);
 			});
 
 			it('should NOT render a colgroup when isInsideOfTable and columns have not been resized', () => {
@@ -1211,7 +1178,7 @@ describe('Renderer - React/Nodes/Table', () => {
 					true,
 				);
 
-				expect(getTableContainer(container).querySelectorAll('colgroup')).toHaveLength(0);
+				expect(getTableContainer(container).querySelectorAll('col')).toHaveLength(0);
 			});
 
 			// When Renderer is nested (eg: Renderer is used to render contents inside an extension
@@ -1240,10 +1207,8 @@ describe('Renderer - React/Nodes/Table', () => {
 					allowTableResizing,
 				);
 
-				// The nested renderer no longer measures a render width - the table is sized by CSS
-				// container queries - so unresized columns fall back to the minimum cell width and
-				// the container query keeps them inside the available space.
-				checkColWidths(getTableContainer(container), [48, 48, 48]);
+				// Unresized columns render no <col> styles - the table is sized by CSS container queries.
+				checkColWidths(getTableContainer(container), []);
 			});
 		});
 

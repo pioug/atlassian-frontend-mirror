@@ -1,5 +1,42 @@
 # @atlaskit/smart-card
 
+## 46.5.8
+
+### Patch Changes
+
+- [`dd269d6b8b56d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd269d6b8b56d) -
+  Update pre-auth modal benefit copy and order to Search, Get, and See, with each leading word bold.
+  Keep the dynamic provider name and social-proof placement unchanged. Applies to both treatment
+  variants of `platform_sl_3p_preauth_value_modal`, behind
+  `platform_sl_3p_preauth_value_modal_killswitch`.
+- Updated dependencies
+
+## 46.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.5.5
+
+### Patch Changes
+
+- [`77fab8e2466a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77fab8e2466a7) -
+  Distinguish Spotlight V2 CTA and inline action analytics sources behind
+  platform_sl_one_click_chat_spotlight_v2_fg.
+
+## 46.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.5.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-caption",
-	"version": "25.0.0",
+	"version": "26.0.1",
 	"description": "Caption plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"react": "^19.2.0"
 	}
 }

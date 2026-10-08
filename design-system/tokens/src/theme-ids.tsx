@@ -10,6 +10,8 @@ export const themeIds = [
 	'light-increased-contrast',
 	'light',
 	'light-future',
+	'UNSAFE-dynamic',
+	'UNSAFE-dynamic-dark',
 	'UNSAFE-test-light',
 	'dark',
 	'UNSAFE-test-dark',
@@ -18,5 +20,6 @@ export const themeIds = [
 	'spacing',
 	'shape',
 	'typography',
+	'UNSAFE-typography',
 	'motion',
 ] as const;

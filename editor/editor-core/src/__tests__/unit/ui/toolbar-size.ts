@@ -1,10 +1,7 @@
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { widthToToolbarSize } from '../../../ui/Toolbar/toolbar-size';
 
 describe('widthToToolbarSize', () => {
-	it('should calculate correct toolbar sizes when platform_editor_toolbar_responsive_fixes is enabled', () => {
-		passGate('platform_editor_toolbar_responsive_fixes');
+	it('should calculate correct toolbar sizes', () => {
 		expect(widthToToolbarSize(1280, 'full-page')).toBe(6);
 		expect(widthToToolbarSize(1024, 'full-page')).toBe(5);
 		expect(widthToToolbarSize(800, 'full-page')).toBe(4);

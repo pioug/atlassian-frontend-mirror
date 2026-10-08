@@ -1,5 +1,52 @@
 # @atlaskit/app-provider
 
+## 8.1.0
+
+### Minor Changes
+
+- [`00359cc9d4001`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00359cc9d4001) -
+  Add typed custom theme overrides with SSR inline styles that are hoisted to the document head
+  after hydration.
+
+  `AppProvider` and `ThemeProvider` accept custom theme overrides inline with `defaultTheme`, using
+  `{ id, overrides }` for a registered custom theme. Providers only supply the theme's input CSS
+  variables; the colour and typography formulas are defined in the theme itself. Overrides apply
+  whether or not `platform-static-theme-loading` is enabled. Each provider owns its own override
+  stylesheet, and subtree providers scope it to their own element, so nested or sibling providers
+  using the same custom theme keep their own values.
+
+  These experimental custom themes are available. They may change before their full release:
+  - `light:UNSAFE-dynamic` and `dark:UNSAFE-dynamic-dark` derive every colour token from
+    `dynamicForeground` and `dynamicBackground` using CSS relative colour syntax. Each colour mode
+    takes its own inputs.
+  - `typography:UNSAFE-typography` applies `dynamicFontFamily` to the body, heading and brand font
+    tokens, and scales every font size and line height by `dynamicFontScale`. Optional
+    `dynamicFontHeading<Size>Scale` inputs scale individual heading sizes on top of that.
+
+  `@atlaskit/tokens/custom-theme-overrides` is a new entry point that exports the typed custom-theme
+  override contract and inline CSS generation used by `AppProvider` and `ThemeProvider`.
+
+  ```tsx
+  <AppProvider
+  	defaultTheme={{
+  		light: {
+  			id: 'UNSAFE-dynamic',
+  			overrides: { dynamicForeground: '#172b4d', dynamicBackground: '#f7f8f9' },
+  		},
+  		typography: {
+  			id: 'UNSAFE-typography',
+  			overrides: { dynamicFontFamily: 'Georgia, serif', dynamicFontScale: 1.125 },
+  		},
+  	}}
+  >
+  	<Button>Click me</Button>
+  </AppProvider>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

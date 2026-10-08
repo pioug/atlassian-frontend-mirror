@@ -55,6 +55,7 @@ export const AnnotationsWrapperInner = (
 		<InlineCommentsStateContext.Provider value={inlineCommentAnnotationsState}>
 			<AnnotationRangeProvider
 				allowCommentsOnMedia={providers?.inlineComment?.allowCommentsOnMedia ?? false}
+				hasBlockNodeSupport={Boolean(providers?.inlineComment?.isBlockNodeSupported)}
 				isNestedRender={isNestedRender}
 			>
 				<AnnotationHoverContext>

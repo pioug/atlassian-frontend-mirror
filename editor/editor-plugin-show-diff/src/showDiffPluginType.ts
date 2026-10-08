@@ -49,7 +49,19 @@ export type StepWithAttribution<TStep> = {
 };
 
 /** Branded agent presentations supported by contributor tags. */
-export type DiffAgentBrand = 'rovo' | 'claude' | 'chatgpt' | 'figma' | 'lovable' | 'replit';
+export type DiffAgentBrand =
+	| 'rovo'
+	| 'claude'
+	| 'chatgpt'
+	| 'figma'
+	| 'lovable'
+	| 'replit'
+	| 'amplitude'
+	| 'cortex'
+	| 'databricks'
+	| 'gemini'
+	| 'manus'
+	| 'slack';
 export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
 	'rovo',
 	'claude',
@@ -57,6 +69,12 @@ export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
 	'figma',
 	'lovable',
 	'replit',
+	'amplitude',
+	'cortex',
+	'databricks',
+	'gemini',
+	'manus',
+	'slack',
 ]);
 
 /** The brand id `@atlaskit/agent-color` registers each `AgentBrandColorScheme` under. */

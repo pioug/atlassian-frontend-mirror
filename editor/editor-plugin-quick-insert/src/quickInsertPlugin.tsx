@@ -427,12 +427,7 @@ function quickInsertPluginFactory(
 						}
 						setProviderState({ provider, providedItems })(editorView.state, editorView.dispatch);
 
-						if (
-							!isDestroyed &&
-							!quickInsertItemsAnalyticsScheduler &&
-							(isExperimentEnabled('platform_editor_slash_app_category_analytics') ||
-								isExperimentEnabled('platform_editor_slash_command'))
-						) {
+						if (!isDestroyed && !quickInsertItemsAnalyticsScheduler) {
 							quickInsertItemsAnalyticsScheduler =
 								createQuickInsertItemsAnalyticsScheduler(dispatchAnalyticsEvent);
 							quickInsertItemsAnalyticsScheduler.schedule({

@@ -23,7 +23,7 @@ export default (): React.JSX.Element => {
 				label="Time"
 				isRequired
 				component={({ fieldProps: { ...rest } }) => (
-					<TimePicker clearControlLabel="Clear time" {...rest} />
+					<TimePicker clearControlLabel="Clear time" {...rest} shouldShowTimeButton />
 				)}
 			/>
 
@@ -36,7 +36,7 @@ export default (): React.JSX.Element => {
 						{...rest}
 						clearControlLabel="Clear datetime"
 						datePickerProps={{ shouldShowCalendarButton: true, label: 'Datetime, date' }}
-						timePickerProps={{ label: 'Datetime, time' }}
+						timePickerProps={{ label: 'Datetime, time', shouldShowTimeButton: true }}
 					/>
 				)}
 			/>

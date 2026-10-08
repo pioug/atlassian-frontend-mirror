@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 25.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.3
+
+### Patch Changes
+
+- [`59547e8338ae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59547e8338ae0) -
+  Clean up feature gate `platform_editor_blocks_patch_8`
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

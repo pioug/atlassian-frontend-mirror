@@ -1,7 +1,6 @@
 import { getDocument } from '@atlaskit/browser-apis';
 import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const POPUP_WRAPPER_TEST_ID = 'popup-wrapper';
 const EDITOR_CONTENT_CONTAINER_SELECTOR = '[data-testid="editor-content-container"]';
@@ -289,9 +288,9 @@ export const fixBlockMenuPositionAndScroll = (
  * Shared by move-up.tsx and move-down.tsx: schedules the post-move fix for the frame after
  * ProseMirror has re-rendered.
  *
- * Falls back to the pre-PR always-scroll path (matching gate-off, via `getFirstSelectedDomNode`)
- * whenever a `positionSnapshot` wasn't captured - e.g. a media/file thumbnail reporting zero height
- * for a frame when the menu opened - rather than silently doing nothing.
+ * Falls back to the always-scroll path (via `getFirstSelectedDomNode`) whenever a
+ * `positionSnapshot` wasn't captured - e.g. a media/file thumbnail reporting zero height for a
+ * frame when the menu opened - rather than silently doing nothing.
  */
 export const scheduleBlockMenuPositionFix = (
 	positionSnapshot: BlockMenuPositionSnapshot | undefined,
@@ -299,7 +298,7 @@ export const scheduleBlockMenuPositionFix = (
 	getFirstSelectedDomNode: () => Element | undefined,
 ): void => {
 	requestAnimationFrame(() => {
-		if (fg('platform_editor_blocks_patch_8') && positionSnapshot) {
+		if (positionSnapshot) {
 			fixBlockMenuPositionAndScroll(getMovedBlockDomNode(), positionSnapshot);
 			return;
 		}

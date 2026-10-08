@@ -11,6 +11,7 @@ const Example = (): React.JSX.Element => (
 		timePickerProps={{
 			timeIsEditable: true,
 			label: 'Time picker (editable)',
+			shouldShowTimeButton: true,
 		}}
 		datePickerProps={{
 			label: 'Date picker (editable times)',

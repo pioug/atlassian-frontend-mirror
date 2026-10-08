@@ -161,7 +161,7 @@ export const ControlOption = <Option, IsMulti extends boolean = false>(
 		<div
 			css={[
 				optionStyles.default,
-				!isDisabled && fg('platform-dst-motion-uplift-list-item') && optionStyles.motion,
+				!isDisabled && optionStyles.motion,
 				isFocused && optionStyles.focused,
 				isFocused && fg('platform-dst-tokens-finesse') && optionStyles.finesseFocused,
 				isDisabled && optionStyles.disabled,

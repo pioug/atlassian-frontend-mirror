@@ -13,7 +13,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { DIRECTION } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { useBlockMenu } from './block-menu-provider';
@@ -63,9 +62,10 @@ const MoveDownDropdownItemContent = ({ api }: Props & WrappedComponentProps) => 
 	}, [canMoveDown, moveUpRef, moveDownRef]);
 
 	const handleClick = () => {
-		const positionSnapshot = fg('platform_editor_blocks_patch_8')
-			? getBlockMenuPositionSnapshot(getSelectedBlockDomNode(), anchorMetricsRef.current)
-			: undefined;
+		const positionSnapshot = getBlockMenuPositionSnapshot(
+			getSelectedBlockDomNode(),
+			anchorMetricsRef.current,
+		);
 
 		api?.core.actions.execute(({ tr }) => {
 			const payload: BlockMenuEventPayload = {

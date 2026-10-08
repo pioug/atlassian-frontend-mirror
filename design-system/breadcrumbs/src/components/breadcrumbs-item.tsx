@@ -233,7 +233,7 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 				css={[
 					staticItemStyles,
 					truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
-					fg('platform-dst-motion-uplift-list-item') && motionItemStyles,
+					motionItemStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={

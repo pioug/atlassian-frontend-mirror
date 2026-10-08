@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-breakout
 
+## 26.0.2
+
+### Patch Changes
+
+- [`a16143d8e4856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16143d8e4856) -
+  [ux] Behind `platform_editor_reduce_forced_layout`, breakout resize handles are now built while
+  the mark view is still detached, so ProseMirror attaches them together with the node instead of a
+  deferred pass inserting them a frame later. Whether a node type is resizable is now decided in
+  CSS, which needs no position lookup.
+
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

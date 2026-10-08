@@ -18,7 +18,8 @@ import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
 import { type TDialogCloseReason, type TDialogProps } from './types';
 
-// Surface reset. KEEP IN SYNC with `surfaceResetStyles` in `popover/popover.tsx`.
+// Surface reset, including `color` (the UA `dialog` rule sets `CanvasText`).
+// KEEP IN SYNC with `surfaceResetStyles` in `popover/popover.tsx`.
 const surfaceResetStyles = cssMap({
 	root: {
 		// Host boost, see `dialogStyles.root`.
@@ -30,6 +31,7 @@ const surfaceResetStyles = cssMap({
 			textAlign: 'start',
 			textIndent: '0',
 			textTransform: 'none',
+			color: token('color.text'),
 		},
 	},
 });

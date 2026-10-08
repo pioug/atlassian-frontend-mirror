@@ -14,7 +14,8 @@ const AnalyticsContext: AnalyticsContextFunction = (props) => {
 		() =>
 			isModernContextEnabledEnv ||
 			fg('analytics-next-use-legacy-context') === false ||
-			fg('adminhub-analytics-next-use-modern-context'),
+			fg('adminhub-analytics-next-use-modern-context') ||
+			fg('bitbucket-analytics-next-use-modern-context'),
 	);
 
 	return isModernContext ? (

@@ -1,5 +1,15 @@
 # @atlaskit/inline-dialog
 
+## 20.3.7
+
+### Patch Changes
+
+- [`aaf461aabb51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaf461aabb51c) -
+  Removed a redundant `color.text` declaration from the top-layer surfaces of `ModalDialog` and
+  `InlineDialog` (behind `platform-dst-top-layer`). The top-layer `Popover` and `Dialog` hosts now
+  set `color.text`, so these surfaces inherit the same colour. There is no visual change.
+- Updated dependencies
+
 ## 20.3.6
 
 ### Patch Changes

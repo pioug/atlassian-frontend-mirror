@@ -1,5 +1,15 @@
 # @atlaskit/top-layer
 
+## 6.2.3
+
+### Patch Changes
+
+- [`aaf461aabb51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaf461aabb51c) -
+  `Popover` and `Dialog` now use the default text colour (`color.text`). Before, the browser gave
+  them its own default (`CanvasText`). This only affects content that does not set its own text
+  colour. In light and dark mode, that content now looks the same as content rendered in a portal
+  under `<body>`.
+
 ## 6.2.2
 
 ### Patch Changes

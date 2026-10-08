@@ -18,7 +18,6 @@ import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugi
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { getToolbarActionExperiencesPlugin } from './pm-plugins/experiences/toolbar-action-experiences';
@@ -34,7 +33,7 @@ export const toolbarSizeToButtons = (
 	appearance?: EditorAppearance,
 ): 0 | 2 | 3 | 5 | 7 => {
 	// Different button numbers for full-page to better match full page toolbar breakpoints
-	if (appearance === 'full-page' && fg('platform_editor_toolbar_responsive_fixes')) {
+	if (appearance === 'full-page') {
 		switch (toolbarSize) {
 			case ToolbarSize.XXL:
 			case ToolbarSize.XL:
@@ -48,34 +47,18 @@ export const toolbarSizeToButtons = (
 		}
 	}
 
-	if (fg('platform_editor_toolbar_responsive_fixes')) {
-		switch (toolbarSize) {
-			case ToolbarSize.XXL:
-			case ToolbarSize.XL:
-				return 7;
-			case ToolbarSize.L:
-				return 5;
-			case ToolbarSize.M:
-			case ToolbarSize.S:
-				return 2;
+	switch (toolbarSize) {
+		case ToolbarSize.XXL:
+		case ToolbarSize.XL:
+			return 7;
+		case ToolbarSize.L:
+			return 5;
+		case ToolbarSize.M:
+		case ToolbarSize.S:
+			return 2;
 
-			default:
-				return 0;
-		}
-	} else {
-		switch (toolbarSize) {
-			case ToolbarSize.XXL:
-			case ToolbarSize.XL:
-			case ToolbarSize.L:
-			case ToolbarSize.M:
-				return 7;
-
-			case ToolbarSize.S:
-				return 2;
-
-			default:
-				return 0;
-		}
+		default:
+			return 0;
 	}
 };
 

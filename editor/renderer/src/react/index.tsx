@@ -56,6 +56,7 @@ import type {
 	ExtensionViewportSize,
 	MarkMeta,
 	NodeMeta,
+	ParagraphMeta,
 	RendererContext,
 	TextHighlighter,
 } from './types';
@@ -210,6 +211,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private startPos: number;
 	private surroundTextNodesWithTextWrapper: boolean = false;
 	private textFastPath: boolean = false;
+	private paragraphPropsFastPath: boolean = false;
 	private media?: MediaOptions;
 	private mentionNodeDataProvider?: MentionNodeDataProvider;
 	private emojiProviderLookupOrder?: EmojiProviderLookupOrder;
@@ -265,6 +267,11 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.allowAnnotations = Boolean(init.allowAnnotations);
 		this.surroundTextNodesWithTextWrapper = Boolean(init.surroundTextNodesWithTextWrapper);
 		this.textFastPath = expVal('platform_renderer_text_paragraph_fast_path', 'isEnabled', false);
+		this.paragraphPropsFastPath = expVal(
+			'platform_renderer_paragraph_props_fast_path',
+			'isEnabled',
+			false,
+		);
 		this.media = init.media;
 		this.mentionNodeDataProvider = init.mentionNodeDataProvider;
 		this.emojiProviderLookupOrder = init.emojiProviderLookupOrder;
@@ -296,6 +303,16 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private getNodeProps(node: Node, parentInfo?: ParentInfo) {
 		const path = parentInfo ? parentInfo.path : undefined;
 		switch (node.type.name) {
+			case 'paragraph':
+				// Explicit paragraph overrides retain the full generic props contract.
+				if (
+					this.paragraphPropsFastPath &&
+					(!this.nodeComponents ||
+						!Object.prototype.hasOwnProperty.call(this.nodeComponents, 'paragraph'))
+				) {
+					return this.getParagraphProps(node, path);
+				}
+				return this.getProps(node, path);
 			case 'date':
 				return this.getDateProps(node, parentInfo, path);
 			case 'hardBreak':
@@ -431,6 +448,16 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 		const serialized = marks.reduceRight((content, mark) => {
 			if (shouldSkipLinkMark(mark) || shouldSkipBorderMark(mark)) {
+				return content;
+			}
+			// Extension annotations are sibling anchors inside the stable extension shell.
+			// Wrapping the extension here would remount its iframe whenever marks change.
+			if (
+				node.type.name === 'extension' &&
+				mark.type.name === 'annotation' &&
+				this.allowAnnotations &&
+				fg('cc_maui_annotations_on_extensions')
+			) {
 				return content;
 			}
 
@@ -685,6 +712,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private getExtensionProps(node: Node, path: Array<Node> = []) {
 		return {
 			...this.getProps(node, path),
+			allowAnnotations: this.allowAnnotations,
+			allowAnnotationsDraftMode: this.surroundTextNodesWithTextWrapper,
+			extensionNode: node,
 			extensionViewportSizes: this.extensionViewportSizes,
 			hideExtensionKeysWhilePending: this.hideExtensionKeysWhilePending,
 			nodeHeight: this.getExtensionHeight?.(node),
@@ -802,6 +832,22 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			dispatchAnalyticsEvent: this.fireAnalyticsEvent,
 		};
 	};
+
+	private getParagraphProps(node: Node, path: Array<Node> = []): ParagraphMeta {
+		const startPos = this.startPos + path.length;
+
+		// Keep traversal metadata for serializer subclasses without allocating unused content getters.
+		return {
+			asInline: this.inlinePositions.has(startPos) ? 'on' : undefined,
+			plainTextFastPath: this.textFastPath,
+			nodeType: node.type.name,
+			marks: node.marks,
+			dataAttributes: { 'data-renderer-start-pos': startPos },
+			startPos,
+			path,
+			...node.attrs,
+		};
+	}
 
 	private getProps(node: Node, path: Array<Node> = []): NodeMeta {
 		const startPos = this.startPos + path.length;

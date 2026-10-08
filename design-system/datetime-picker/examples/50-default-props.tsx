@@ -30,6 +30,7 @@ export default (): React.JSX.Element => {
 				defaultValue="10:00am"
 				defaultIsOpen
 				onChange={console.log}
+				shouldShowTimeButton
 			/>
 
 			<Label htmlFor="react-select-date-time--input">DateTimePicker defaultValue</Label>
@@ -42,7 +43,7 @@ export default (): React.JSX.Element => {
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'DateTimePicker defaultValue, time' }}
+				timePickerProps={{ label: 'DateTimePicker defaultValue, time', shouldShowTimeButton: true }}
 			/>
 		</Box>
 	);

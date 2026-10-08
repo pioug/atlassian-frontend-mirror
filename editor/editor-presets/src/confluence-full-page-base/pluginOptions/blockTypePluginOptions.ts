@@ -9,7 +9,6 @@ export function blockTypePluginOptions({}: Props): BlockTypePluginOptions {
 		allowFontSize: true,
 		includeBlockQuoteAsTextstyleOption: true,
 		lastNodeMustBeParagraph: false,
-		isUndoRedoButtonsEnabled: true,
 		allowBlockType: undefined,
 	};
 }

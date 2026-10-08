@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "20.3.0",
+	"version": "20.4.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,6 +124,7 @@
 		},
 		"./constants": "./src/constants.tsx",
 		"./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx",
+		"./custom-theme-overrides": "./src/custom-theme-overrides.tsx",
 		"./custom-themes": "./src/load-custom-theme-styles.tsx",
 		"./enable-global-theme": "./src/enable-global-theme.tsx",
 		"./figma/atlassian-dark.json": "./figma/atlassian-dark.json",

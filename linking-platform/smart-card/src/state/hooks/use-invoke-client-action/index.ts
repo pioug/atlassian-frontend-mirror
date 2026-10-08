@@ -3,6 +3,8 @@ import { useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { getMeasure } from '../../../utils/get-measure';
 import { mark } from '../../../utils/mark';
@@ -32,6 +34,7 @@ const useInvokeClientAction = ({
 			display,
 			id,
 			prompt,
+			interactionSource,
 			resourceType = null,
 		}) => {
 			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -59,6 +62,11 @@ const useInvokeClientAction = ({
 						id: id ?? experienceId,
 						resourceType,
 						prompt,
+						...(fg('platform_sl_one_click_chat_spotlight_v2_fg') &&
+						actionSubjectId === 'rovoChatPrompt' &&
+						interactionSource
+							? { interactionSource }
+							: {}),
 					});
 				}
 				// Invoke action

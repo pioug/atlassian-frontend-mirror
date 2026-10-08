@@ -13,9 +13,8 @@ import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 const styles = cssMap({
-	// A coloured ancestor region (for example a danger banner). Inline top-layer
-	// content is still a DOM child of its trigger for CSS inheritance, so without a
-	// surface-level colour the popover text would inherit this red `color`.
+	// A coloured ancestor region (for example a danger banner). The popover is a
+	// DOM child of this region, but its text must not render in this red `color`.
 	region: {
 		color: token('color.text.danger'),
 		backgroundColor: token('color.background.danger'),
@@ -29,8 +28,7 @@ const styles = cssMap({
 		paddingInlineStart: token('space.1000'),
 	},
 	// Padding only. Deliberately sets no `color` so the rendered text colour is
-	// determined purely by inheritance, which makes `PopoverSurface`'s own text
-	// colour the thing under test.
+	// determined purely by inheritance.
 	content: {
 		paddingBlockStart: token('space.200'),
 		paddingInlineEnd: token('space.200'),
@@ -42,9 +40,13 @@ const styles = cssMap({
 
 /**
  * Baseline for the surface text-colour default: a `PopoverSurface` opened from a
- * trigger inside a red (danger) region. Its text should render in the default
- * overlay text colour, not the inherited red, because `PopoverSurface` establishes
- * its own `color` alongside the overlay background.
+ * trigger inside a red (danger) region. Its text should render in `color.text`,
+ * not the red of the ancestor.
+ *
+ * The red never reaches the content: the UA `[popover]` rule sets
+ * `color: CanvasText` on the host, and the `Popover` host reset and
+ * `PopoverSurface` both set `color.text`. This baseline guards the combined
+ * result, not one layer on its own.
  */
 export function VrSurfaceColourInheritance(): ReactNode {
 	const triggerRef = useRef<HTMLButtonElement>(null);

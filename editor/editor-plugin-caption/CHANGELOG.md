@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-caption
 
+## 26.0.1
+
+### Patch Changes
+
+- [`a56ffa3fe0de2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a56ffa3fe0de2) -
+  Fix `CaptionNodeView.destroy()` skipping `super.destroy()`, which left the node view's React
+  portal mounted after the node was removed from the document, leaking its listeners. Gated under
+  `platform_editor_reduce_memory_leaks`.
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.0
 
 ### Patch Changes

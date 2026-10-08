@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-table
 
+## 38.0.1
+
+### Patch Changes
+
+- [`3006f5a69e3d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3006f5a69e3d5) -
+  Lower sticky table headers, masks, and dependent controls below the agent control under the
+  platform_editor_sticky_headers_zindex experiment.
+- Updated dependencies
+
+## 38.0.0
+
+### Patch Changes
+
+- [`c0f0f6750f0b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0f0f6750f0b5) -
+  Clean up experiment `platform_editor_table_menu_updates_patch_5`
+- [`daf8bd93659e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf8bd93659e4) -
+  Clean up experiment `platform_editor_fix_table_move_shortcut`
+- Updated dependencies
+
+## 37.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.0.1
 
 ### Patch Changes

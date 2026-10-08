@@ -10,6 +10,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { RevealOptions } from '../../../showDiffPluginType';
+import { resolveBaseNodeName } from '../../utils/baseNodeName';
 import type { ColorScheme } from '../colorSchemes/types';
 import { getAtomicInlineChangedAttrs } from '../createInlineChangedDecoration';
 import { applyRevealToElement } from '../revealStyles';
@@ -486,6 +487,20 @@ const createBlockNodeContentWrapper = ({
 	const contentStyle = shouldSkipContentStyle
 		? ''
 		: getChangedContentStyle(colorScheme, isActive, isInserted, hideAddedDiffsUnderline);
+	const isEmptyDeletedLayoutColumn =
+		!isInserted &&
+		resolveBaseNodeName(targetNode.type.name) === 'layoutColumn' &&
+		targetNode.textContent.length === 0 &&
+		fg('confluence_ncs_step_diffing_version_history');
+	if (isEmptyDeletedLayoutColumn && nodeView instanceof HTMLElement) {
+		// Give an empty deleted column height so its diff box doesn't collapse
+		const placeholderTarget =
+			nodeView.querySelector<HTMLElement>('[data-layout-content]') ?? nodeView;
+		appendStyleToElement(
+			placeholderTarget,
+			convertToInlineCss({ minHeight: token('space.300', '24px') }),
+		);
+	}
 
 	// A `breakout` node renders wider than the editor column while the wrapper divs
 	// stay at column width, so paint the outline on the node element that spans that width.

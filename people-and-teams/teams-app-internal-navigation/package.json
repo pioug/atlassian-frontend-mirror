@@ -54,16 +54,12 @@
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/teams-app-internal-navigation",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "Headless navigation utilities for consistent internal link behaviour across the Teams app.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"platform-feature-flags": {
-		"ptc-fix-teams-isolated-links": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

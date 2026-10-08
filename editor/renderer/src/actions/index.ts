@@ -171,10 +171,11 @@ export default class RendererActions
 		let to: number | undefined;
 		let nodePos: number | undefined;
 		let step: RemoveNodeMarkStep | RemoveMarkStep | undefined;
+		const schema = this.schema;
 
 		this.doc.descendants((node, pos) => {
 			const found = mark.isInSet(node.marks);
-			if (found && node.type.name === 'media') {
+			if (found && isBlockAnnotationTarget(node, schema)) {
 				nodePos = pos;
 			}
 			if (found && !from) {
@@ -287,8 +288,8 @@ export default class RendererActions
 			const { startContainer, endContainer } = range;
 
 			if (
-				startContainer.parentElement?.closest('.ak-renderer-extension') ||
-				endContainer.parentElement?.closest('.ak-renderer-extension')
+				this.isInsideNestedExtensionRenderer(startContainer) ||
+				this.isInsideNestedExtensionRenderer(endContainer)
 			) {
 				return false;
 			}
@@ -304,6 +305,37 @@ export default class RendererActions
 			// in cases where the range is not valid.
 			return false;
 		}
+	}
+
+	/**
+	 * A range only threatens a nested renderer's own document (e.g. a bodiedExtension's macro
+	 * body, which renders its own nested `<Renderer>`) when it sits inside that nested renderer's
+	 * `.ak-renderer-document`. Landing directly on the extension's own outer wrapper -- with no
+	 * nested document in between -- must stay annotatable so the whole chart/extension can be
+	 * targeted (MAUI-1256), rather than being rejected outright the way any range touching
+	 * `.ak-renderer-extension` previously was.
+	 *
+	 * Behind `cc_maui_annotations_on_extensions` -- the same gate MAUI-1255 added for extension
+	 * node-mark support -- to preserve the previous behaviour (reject anything touching
+	 * `.ak-renderer-extension`) while the feature is off.
+	 */
+	private isInsideNestedExtensionRenderer(container: globalThis.Node): boolean {
+		// Preserve the legacy parent-based rejection while the gate is disabled.
+		if (!fg('cc_maui_annotations_on_extensions')) {
+			return !!container.parentElement?.closest('.ak-renderer-extension');
+		}
+		const element = container instanceof Element ? container : container.parentElement;
+		if (!element) {
+			return false;
+		}
+
+		const extensionAncestor = element.closest('.ak-renderer-extension');
+		if (!extensionAncestor) {
+			return false;
+		}
+
+		const nestedDocument = element.closest('.ak-renderer-document');
+		return !!nestedDocument && extensionAncestor.contains(nestedDocument);
 	}
 
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883

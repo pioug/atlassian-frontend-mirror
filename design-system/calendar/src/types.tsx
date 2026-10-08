@@ -133,8 +133,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
 	 * - `5` Friday
 	 * - `6` Saturday
 	 *
-	 * Defaults to the first day of the week for the given `locale` when
-	 * `platform-dst-locale-week-start-day` is enabled. Otherwise defaults to Sunday (`0`).
+	 * Defaults to the first day of the week for the given `locale`.
 	 */
 	weekStartDay?: WeekDay;
 	/**

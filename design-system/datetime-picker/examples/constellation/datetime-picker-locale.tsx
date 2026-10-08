@@ -12,7 +12,7 @@ const DateTimePickerLocaleExample = (): React.JSX.Element => (
 			clearControlLabel="Clear Date and time in US"
 			datePickerProps={{ shouldShowCalendarButton: true, label: 'Date in US' }}
 			locale={'en-US'}
-			timePickerProps={{ label: 'Time in US' }}
+			timePickerProps={{ label: 'Time in US', shouldShowTimeButton: true }}
 		/>
 
 		<Box>
@@ -22,7 +22,7 @@ const DateTimePickerLocaleExample = (): React.JSX.Element => (
 				clearControlLabel="Clear Date and time in Japan"
 				datePickerProps={{ shouldShowCalendarButton: true, label: 'Date in Japan' }}
 				locale={'ja-JP'}
-				timePickerProps={{ label: 'Time in Japan' }}
+				timePickerProps={{ label: 'Time in Japan', shouldShowTimeButton: true }}
 			/>
 		</Box>
 	</>

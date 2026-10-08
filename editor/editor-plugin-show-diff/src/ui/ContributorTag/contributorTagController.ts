@@ -15,12 +15,7 @@ import {
 } from '../../pm-plugins/decorations/colorSchemes/factory';
 import { colorSchemeRegistry } from '../../pm-plugins/decorations/colorSchemes/schemes';
 import type { ColorScheme } from '../../pm-plugins/decorations/colorSchemes/types';
-import type {
-	ContributorTagModel,
-	DiffAgentBrand,
-	ShowDiffPlugin,
-	TagContributor,
-} from '../../showDiffPluginType';
+import type { ContributorTagModel, ShowDiffPlugin, TagContributor } from '../../showDiffPluginType';
 import {
 	buildContributorTagDom,
 	CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE,
@@ -76,34 +71,13 @@ const getTagAccent = ({
 	return getAccentTokens(accent);
 };
 
-/** ChatGPT's own brand colour, resolved from the shared `@atlaskit/agent-color` registry. */
-const chatgptBrandColor = getThirdPartyAgentColor({ agentName: 'chatgpt' });
-const figmaBrandColor = getThirdPartyAgentColor({ agentName: 'figma' });
-const lovableBrandColor = getThirdPartyAgentColor({ agentName: 'lovable' });
-const replitBrandColor = getThirdPartyAgentColor({ agentName: 'replit' });
-
-/** Brand accents for agent kinds with no ADS token match. New agents opt in by adding an entry. */
-const AGENT_KIND_ACCENT_OVERRIDES: Readonly<Record<string, { background: string; text: string }>> =
-	{
-		rovo: {
-			background: token('color.background.neutral.bold'),
-			text: token('color.text.inverse'),
-		},
-		...(chatgptBrandColor
-			? {
-					chatgpt: { background: chatgptBrandColor.bold, text: chatgptBrandColor.boldText },
-				}
-			: {}),
-		...(figmaBrandColor
-			? { figma: { background: figmaBrandColor.bold, text: figmaBrandColor.boldText } }
-			: {}),
-		...(lovableBrandColor
-			? { lovable: { background: lovableBrandColor.bold, text: lovableBrandColor.boldText } }
-			: {}),
-		...(replitBrandColor
-			? { replit: { background: replitBrandColor.bold, text: replitBrandColor.boldText } }
-			: {}),
-	} satisfies Partial<Record<DiffAgentBrand, { background: string; text: string }>>;
+/** Bespoke accents for agent kinds that use standard ADS tokens rather than the agent-color registry. */
+const BESPOKE_AGENT_ACCENTS: Readonly<Record<string, { background: string; text: string }>> = {
+	rovo: {
+		background: token('color.background.neutral.bold'),
+		text: token('color.text.inverse'),
+	},
+};
 
 /**
  * Keyboard focus, as a member of `revealSources` alongside the elements the pointer can be over. It
@@ -432,9 +406,21 @@ export class ContributorTagController {
 		});
 
 		const agentKind = model.contributor.agentKind ?? model.connectedContributor?.agentKind;
-		const override = agentKind && AGENT_KIND_ACCENT_OVERRIDES[agentKind];
+		if (!agentKind) {
+			return accent;
+		}
 
-		return override ? { ...accent, ...override } : accent;
+		const bespoke = BESPOKE_AGENT_ACCENTS[agentKind];
+		if (bespoke) {
+			return { ...accent, ...bespoke };
+		}
+
+		// The attribution colour map shares one palette slot between most brands, so the scheme alone
+		// cannot tell them apart; the registry holds each brand's own pair.
+		const brandColor = getThirdPartyAgentColor({ agentName: agentKind });
+		return brandColor
+			? { ...accent, background: brandColor.bold, text: brandColor.boldText }
+			: accent;
 	}
 
 	private applyAccent(model: ContributorTagModel): void {

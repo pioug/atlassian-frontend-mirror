@@ -8,6 +8,7 @@ import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
+import { dynamicColorCustomProperties } from '../../schema/themes/UNSAFE-dynamic/_formulas';
 import themeConfig, { type Palettes, type ThemeFileNames } from '../../src/theme-config';
 import {
 	ARTIFACT_OUTPUT_DIR,
@@ -15,6 +16,7 @@ import {
 	THEME_INPUT_DIR,
 	TOKENS_INPUT_DIR,
 } from './constants';
+import { type CustomProperty } from './formatters/css-variable-formatter';
 import { default as formatterCSSVariables } from './formatters/css-variables';
 import formatterCSSVariablesAsModule from './formatters/css-variables-as-module';
 import formatterFigma from './formatters/figma';
@@ -27,6 +29,35 @@ import numberPixelTransform from './transformers/number-pixel';
 import paletteTransform from './transformers/palette';
 import pixelRemTransform from './transformers/pixel-rem';
 import { default as fontTransform } from './transformers/web-font';
+
+/**
+ * Lists the token source files in a theme folder, in the same order as a `**\/*.tsx` glob.
+ *
+ * A theme folder can also hold files that aren't token sources, which are skipped:
+ * - files prefixed with `_`, e.g. `_formulas.tsx` for shared helpers used by the theme's tokens
+ * - anything inside `__tests__`
+ */
+const getThemeTokenFiles = (themeName: ThemeFileNames): string[] => {
+	const walk = (dir: string): string[] =>
+		fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+			const entryPath = path.join(dir, entry.name);
+			if (entry.isDirectory()) {
+				return entry.name === '__tests__' ? [] : walk(entryPath);
+			}
+			return entry.name.endsWith('.tsx') && !entry.name.startsWith('_') ? [entryPath] : [];
+		});
+
+	return walk(path.join(THEME_INPUT_DIR, themeName)).sort((a, b) => a.localeCompare(b, 'en'));
+};
+
+/**
+ * Shared values declared once per theme in the CSS output and referenced by tokens with `var()`,
+ * rather than repeated in every token that uses them.
+ */
+const themeCustomProperties: Partial<Record<ThemeFileNames, readonly CustomProperty[]>> = {
+	'UNSAFE-dynamic': dynamicColorCustomProperties,
+	'UNSAFE-dynamic-dark': dynamicColorCustomProperties,
+};
 
 const getPalette = (paletteId: Palettes) => {
 	switch (paletteId) {
@@ -115,12 +146,12 @@ const createThemeConfig = (
 			'font/web': fontTransform,
 			'motion/animation': motionTransform,
 		},
-		source: [path.join(THEME_INPUT_DIR, themeName, '**', '*.tsx')],
+		source: getThemeTokenFiles(themeName),
 		include: [
 			/**
 			 * Adds base themes as source for extension themes.
 			 */
-			...baseThemes.map((baseTheme) => path.join(THEME_INPUT_DIR, baseTheme, '**', '*.tsx')),
+			...baseThemes.flatMap(getThemeTokenFiles),
 			path.join(TOKENS_INPUT_DIR, '**', '*.tsx'),
 		],
 		platforms: {
@@ -170,6 +201,7 @@ const createThemeConfig = (
 				options: {
 					themeName,
 					increasedContrastTarget,
+					customProperties: themeCustomProperties[themeName],
 				},
 				files: [
 					{

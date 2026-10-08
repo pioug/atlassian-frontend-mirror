@@ -1,5 +1,37 @@
 # @atlaskit/rovo-triggers
 
+## 12.0.0
+
+### Major Changes
+
+- [`4ffd006dca6d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ffd006dca6d6) -
+  Remove the Rovo Insights home carousel and the plumbing that connected it to chat. The carousel's
+  only consumer, the Atlas Home placement, was removed in ASIMO-5175, so none of the removed APIs
+  has a remaining call site in the monorepo.
+  - `@atlassian/rovo-growth-pulse`: the `./ui/insights-carousel` and
+    `./ui/insights-carousel-container` entrypoints (`InsightsCarousel`, `InsightsCarouselContainer`)
+    and the `./common/analytics/useFireInsightCardClicked` entrypoint are deleted, along with their
+    examples and the `platform-dst-motion-uplift-custom-button` gate registration.
+    `insightsHomeCarousel` is no longer a member of `InsightsInvokedFrom`. The
+    `@atlaskit/dropdown-menu`, `@atlaskit/rovo-triggers` and `bind-event-listener` dependencies,
+    used only by the carousel, are dropped.
+  - `@atlassian/conversation-assistant`: `InsightsChatExitedPublisher` is deleted and no longer
+    exported from `./common/ui/back-behavior-override-context`, and `PubSubListener` no longer
+    handles the `insights-open-in-chat` rovo-trigger.
+  - `@atlaskit/rovo-triggers`: `InsightsOpenInChatPayload` and `InsightsChatExitedPayload` are
+    deleted from `./types` and are no longer members of the `Payload` union.
+
+  **Breaking scenario**: code importing any of the removed entrypoints or types, passing
+  `invokedFrom: 'insightsHomeCarousel'`, publishing a payload whose `type` is
+  `insights-open-in-chat` or `insights-chat-exited`, or narrowing on either of those `payload.type`
+  values will fail to compile. Publishing `insights-open-in-chat` no longer opens a seeded insight
+  chat.
+
+  **Migration**: delete those imports, publishes and branches. A surface that needs to show insights
+  should render the in-panel `InsightsFeed` from `@atlassian/rovo-growth-pulse/ui/insights-feed`,
+  which carries its own analytics and opens insight chats through `useSeedInsightConversation`
+  without the rovo-triggers bus. Insights opened from the in-panel feed are unaffected.
+
 ## 11.10.0
 
 ### Minor Changes

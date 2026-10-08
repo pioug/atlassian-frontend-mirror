@@ -410,6 +410,10 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	}
 
 	destroy(): void {
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			super.destroy();
+		}
+
 		this.unsubscribeToViewModeChange?.();
 	}
 }

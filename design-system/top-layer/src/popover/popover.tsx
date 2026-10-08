@@ -80,8 +80,13 @@ const supportsPopoverHint = once((): boolean => {
  *
  * The host is still a DOM child of its trigger for inheritance, so it inherits
  * values like `pointer-events: none` or `white-space: nowrap`. Resets them to
- * what `<body>` gave the portal path. `color`, `font` and direction still inherit.
+ * what `<body>` gave the portal path. `font` and direction still inherit.
  * Not `all: initial`: that would also override the UA `[popover]` rules.
+ *
+ * `color` is a reset too: the UA `[popover]` rule sets `color: CanvasText`, so
+ * the host never inherits a colour. `color.text` is what `<body>` gave the portal
+ * path. Not `inherit`, which would take the trigger's colour (for example a link).
+ * See `notes/decisions/surface-reset-color.md`.
  *
  * KEEP IN SYNC with `dialog/dialog-content.tsx` (ADS forbids shared styles).
  * The `satisfies` check below catches drift.
@@ -97,6 +102,7 @@ const surfaceResetStyles = cssMap({
 			textAlign: 'start',
 			textIndent: '0',
 			textTransform: 'none',
+			color: token('color.text'),
 		},
 	},
 });

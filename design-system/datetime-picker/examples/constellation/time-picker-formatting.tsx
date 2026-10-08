@@ -11,6 +11,7 @@ const TimePickerFormattingExample = (): React.JSX.Element => (
 			timeFormat="HH:mm"
 			placeholder=""
 			id="timepicker-custom-format"
+			shouldShowTimeButton
 		/>
 	</>
 );

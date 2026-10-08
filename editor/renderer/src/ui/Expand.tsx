@@ -27,6 +27,7 @@ import {
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -491,10 +492,20 @@ function Expand({
 					e.preventDefault();
 					e.stopPropagation();
 					fireExpandToggleAnalytics(nodeType, expanded, fireAnalyticsEvent);
+					// Recorded so a product remounting this expand under its own body gets it back as the
+					// reader left it.
+					const recordsToggle =
+						node !== undefined && isExperimentEnabled('cc_light_mode_table_virtualization');
 					if (expanded) {
 						setExpanded(false);
+						if (recordsToggle) {
+							revealedByFind.delete(node);
+						}
 					} else {
 						openBody();
+						if (recordsToggle) {
+							revealedByFind.add(node);
+						}
 					}
 					e.persist();
 					// @ts-ignore detail doesn't exist on type

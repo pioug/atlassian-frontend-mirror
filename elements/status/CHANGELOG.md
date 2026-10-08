@@ -1,5 +1,30 @@
 # @atlaskit/status
 
+## 5.13.8
+
+### Patch Changes
+
+- [`c32526f4b7ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c32526f4b7ef1) -
+  Clean up feature gate `platform_editor_gracefully_render_status_color`
+
+## 5.13.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.13.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.13.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.13.4
 
 ### Patch Changes

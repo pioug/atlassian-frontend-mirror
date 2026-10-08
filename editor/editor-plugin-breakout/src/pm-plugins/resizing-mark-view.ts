@@ -133,8 +133,9 @@ export class ResizingMarkView implements NodeView {
 
 		const isLiveViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 		if (!isLiveViewMode) {
-			fg('platform_editor_lovability_resize_gracefully') ||
-			fg('platform_editor_lovability_resize_exts_gracefully')
+			!isExperimentEnabled('platform_editor_reduce_forced_layout') &&
+			(fg('platform_editor_lovability_resize_gracefully') ||
+				fg('platform_editor_lovability_resize_exts_gracefully'))
 				? this.setupResizerCallbacksIfSupported(
 						dom,
 						contentDOM,
@@ -150,8 +151,9 @@ export class ResizingMarkView implements NodeView {
 		this.unsubscribeToViewModeChange = api?.editorViewMode?.sharedState.onChange((sharedState) => {
 			if (sharedState.nextSharedState?.mode !== sharedState.prevSharedState?.mode) {
 				if (
-					fg('platform_editor_lovability_resize_gracefully') ||
-					fg('platform_editor_lovability_resize_exts_gracefully')
+					!isExperimentEnabled('platform_editor_reduce_forced_layout') &&
+					(fg('platform_editor_lovability_resize_gracefully') ||
+						fg('platform_editor_lovability_resize_exts_gracefully'))
 				) {
 					if (sharedState.nextSharedState?.mode === 'view') {
 						this.cancelScheduledResizeHandleSetup?.();

@@ -2,7 +2,6 @@ import React, { useCallback, createContext, useContext, useRef } from 'react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import {
@@ -128,20 +127,18 @@ export const BlockMenuProvider = ({
 			anchorMetricsRef.current = undefined;
 
 			if (isOpen) {
-				if (fg('platform_editor_blocks_patch_8')) {
-					// The popup lays itself out next to the drag handle over the next frame or two.
-					let remainingFrames = 3;
-					const captureAnchorMetrics = () => {
-						requestAnimationFrame(() => {
-							anchorMetricsRef.current = getBlockMenuAnchorMetrics(getSelectedBlockDomNode());
-							remainingFrames -= 1;
-							if (!anchorMetricsRef.current && remainingFrames > 0) {
-								captureAnchorMetrics();
-							}
-						});
-					};
-					captureAnchorMetrics();
-				}
+				// The popup lays itself out next to the drag handle over the next frame or two.
+				let remainingFrames = 3;
+				const captureAnchorMetrics = () => {
+					requestAnimationFrame(() => {
+						anchorMetricsRef.current = getBlockMenuAnchorMetrics(getSelectedBlockDomNode());
+						remainingFrames -= 1;
+						if (!anchorMetricsRef.current && remainingFrames > 0) {
+							captureAnchorMetrics();
+						}
+					});
+				};
+				captureAnchorMetrics();
 				return;
 			}
 

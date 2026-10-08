@@ -1,6 +1,5 @@
 import type { AccentColor, SemanticColor } from '@atlaskit/lozenge/types';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 /** Named colours the ADF `color` attribute can carry. */
@@ -227,17 +226,13 @@ export const getLozengeAppearance = (color: string): SemanticColor | AccentColor
 		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
 		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
 
-	// Named colours are recoloured only by the experiment. `gracefully_render_status_color`
-	// is a read-path gate for hex written by another cohort, so it must never reach here.
+	// Named colours are recoloured only by the experiment, so they must never reach the
+	// hex mapping below.
 	if (isNamedColor(color)) {
 		return isUpdateStatusColorsEnabled
 			? COLORS[color].appearance
 			: colorToLozengeAppearanceMap[color];
 	}
 
-	if (isUpdateStatusColorsEnabled || fg('platform_editor_gracefully_render_status_color')) {
-		return specFor(color)?.appearance ?? DEFAULT_LOZENGE_APPEARANCE;
-	}
-
-	return DEFAULT_LOZENGE_APPEARANCE;
+	return specFor(color)?.appearance ?? DEFAULT_LOZENGE_APPEARANCE;
 };

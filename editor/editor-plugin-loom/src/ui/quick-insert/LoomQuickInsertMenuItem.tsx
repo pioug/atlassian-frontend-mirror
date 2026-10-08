@@ -13,7 +13,6 @@ import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-i
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import VideoIcon from '@atlaskit/icon/core/video';
-import { token } from '@atlaskit/tokens';
 
 import type { LoomPlugin } from '../../loomPluginType';
 import { recordVideo, recordVideoFailed } from '../../pm-plugins/commands';
@@ -68,7 +67,7 @@ export const LoomQuickInsertMenuItem = ({
 	return (
 		<QuickInsertMenuItem
 			description={formatMessage(messages.recordVideoDescription)}
-			iconBefore={<VideoIcon label="" color={token('color.icon.subtle')} spacing="spacious" />}
+			iconBefore={<VideoIcon label="" />}
 			isDisabled={isOffline}
 			onSelect={onSelect}
 			preview={preview}

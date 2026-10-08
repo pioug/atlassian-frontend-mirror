@@ -18,6 +18,7 @@ import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-cont
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { EVENT_CHANNEL } from '../../analytics/constants';
 import { Store } from '../../state';
@@ -518,52 +519,76 @@ describe('useDatasourceTableState', () => {
 				});
 			});
 
-			it('should populate responseItems with new data coming from getDatasourceData and not add duplicate data', async () => {
-				const { result } = setup();
+			ffTest.on('platform_sllv_duplicated_row', 'with duplicate-row deduplication enabled', () => {
+				it('should omit duplicate ARIs while preserving items without an ARI from one response', async () => {
+					const itemWithoutAri = {
+						id: { data: 'EDM-17' },
+						description: { data: 'Be a cool guy' },
+					};
+					const datasourceResponse = {
+						...mockDatasourceDataResponse,
+						data: {
+							...mockDatasourceDataResponse.data,
+							items: [
+								mockDatasourceDataResponse.data.items[0],
+								mockDatasourceDataResponse.data.items[0],
+								itemWithoutAri,
+							],
+						},
+					};
+					asMock(getDatasourceData).mockResolvedValue(datasourceResponse);
 
-				await waitFor(() => {
-					expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+					const { result } = setup();
+
+					await waitFor(() => {
+						expect(getDatasourceData).toHaveBeenCalledTimes(1);
+						expect(result.current.responseItems).toStrictEqual([
+							mockDatasourceDataResponse.data.items[0],
+							itemWithoutAri,
+						]);
+						expect(result.current.responseItemIds).toHaveLength(2);
+					});
 				});
+			});
 
-				// adding new data to response
-				const newData = {
-					...mockDatasourceDataResponseWithSchema,
-					data: {
-						totalCount: '1234',
-						items: [
-							{
-								id: { data: 'EDM-17' },
-								description: { data: 'Be a cool guy' },
-								createdAt: { data: '2023-05-08T01:30:00.000-08:00' },
-								assigned: {
-									data: {
-										displayName: 'Hana',
-									},
-								},
-								status: {
-									data: {
-										text: 'Done',
-										style: {
-											appearance: 'success',
-										},
-									},
-								},
-							},
-						],
-					},
-				};
+			ffTest.on('platform_sllv_duplicated_row', 'with duplicate-row deduplication enabled', () => {
+				it('should retain unique ARIs across pages', async () => {
+					const [itemA, itemB, itemC] = mockDatasourceDataResponse.data.items;
+					const firstPageResponse = {
+						...mockDatasourceDataResponse,
+						data: {
+							...mockDatasourceDataResponse.data,
+							items: [itemA, itemB],
+							nextPageCursor: 'page-2',
+						},
+					};
+					const secondPageResponse = {
+						...mockDatasourceDataResponse,
+						data: {
+							...mockDatasourceDataResponse.data,
+							items: [itemB, itemC],
+							nextPageCursor: undefined,
+						},
+					};
+					asMock(getDatasourceData)
+						.mockResolvedValueOnce(firstPageResponse)
+						.mockResolvedValueOnce(secondPageResponse);
 
-				asMock(getDatasourceData).mockResolvedValueOnce(newData);
+					const { result } = setup();
 
-				act(() => {
-					result.current.onNextPage();
-				});
+					await waitFor(() => {
+						expect(result.current.responseItems).toStrictEqual([itemA, itemB]);
+					});
 
-				await waitFor(() => {
-					expect(result.current.responseItems).toStrictEqual([
-						...mockDatasourceDataResponse.data.items,
-						...newData.data.items,
-					]);
+					act(() => {
+						result.current.onNextPage();
+					});
+
+					await waitFor(() => {
+						expect(getDatasourceData).toHaveBeenCalledTimes(2);
+						expect(result.current.responseItems).toStrictEqual([itemA, itemB, itemC]);
+						expect(result.current.responseItemIds).toHaveLength(3);
+					});
 				});
 			});
 
@@ -750,6 +775,34 @@ describe('useDatasourceTableState', () => {
 					);
 				});
 			});
+
+			ffTest.off(
+				'platform_sllv_duplicated_row',
+				'with duplicate-row deduplication disabled',
+				() => {
+					it('should retain duplicate ARI rows from one response', async () => {
+						const datasourceResponse = {
+							...mockDatasourceDataResponse,
+							data: {
+								...mockDatasourceDataResponse.data,
+								items: [
+									mockDatasourceDataResponse.data.items[0],
+									mockDatasourceDataResponse.data.items[0],
+								],
+							},
+						};
+						asMock(getDatasourceData).mockResolvedValue(datasourceResponse);
+
+						const { result } = setup();
+
+						await waitFor(() => {
+							expect(getDatasourceData).toHaveBeenCalledTimes(1);
+							expect(result.current.responseItems).toStrictEqual(datasourceResponse.data.items);
+							expect(result.current.responseItemIds).toHaveLength(2);
+						});
+					});
+				},
+			);
 
 			it('should not call fire analytics event "ui.nextItem.loaded" when adding new column not found in data', async () => {
 				asMock(getDatasourceData).mockResolvedValue(mockDatasourceDataResponseWithSchema);
@@ -1065,6 +1118,25 @@ describe('useDatasourceTableState', () => {
 
 			await waitFor(() => {
 				expect(result.current.responseItems).toEqual([]);
+			});
+		});
+
+		ffTest.on('platform_sllv_duplicated_row', 'with duplicate-row deduplication enabled', () => {
+			it('should allow ARIs to be loaded again after reset', async () => {
+				const { result } = setup();
+
+				await waitFor(() => {
+					expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+				});
+
+				act(() => {
+					result.current.reset();
+				});
+
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
+					expect(result.current.responseItems).toEqual(mockDatasourceDataResponse.data.items);
+				});
 			});
 		});
 

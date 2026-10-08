@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "5.13.4",
+	"version": "5.13.8",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -88,9 +88,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
-			"type": "boolean"
-		},
-		"platform_editor_gracefully_render_status_color": {
 			"type": "boolean"
 		},
 		"platform_editor_status_popup_suggestions_patch_3": {

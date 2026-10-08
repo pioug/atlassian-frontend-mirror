@@ -227,7 +227,7 @@ export function PopupContentTopLayer({
 			shouldAnimate
 			placement={topLayerPlacement}
 			onClose={handleOnClose}
-			testId={testId && `${testId}--content`}
+			testId={testId && `${testId}--container`}
 		>
 			{Container ? (
 				<Container
@@ -254,6 +254,7 @@ export function PopupContentTopLayer({
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={xcss}
+						data-testid={testId}
 					>
 						{children(contentProps)}
 					</div>

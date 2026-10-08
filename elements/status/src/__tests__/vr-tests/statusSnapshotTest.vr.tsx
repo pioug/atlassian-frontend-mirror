@@ -13,7 +13,6 @@ import {
 import HexStatus from '../../../examples/03-hex-status.vr.ap';
 
 const statusColorsEnabled = {
-	platform_editor_gracefully_render_status_color: true,
 	platform_editor_update_status_colors: true,
 };
 
@@ -39,7 +38,6 @@ snapshot(GreenStatus);
 snapshot(HexStatus, {
 	description: 'Hex accent status chips',
 	featureFlags: {
-		platform_editor_gracefully_render_status_color: true,
 		'platform-dst-lozenge-tag-badge-visual-uplifts': true,
 	},
 });

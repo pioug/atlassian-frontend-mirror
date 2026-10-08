@@ -10,6 +10,7 @@ const Example = (): React.JSX.Element => (
 		onChange={__noop}
 		timeFormat="HH:mm:ss A"
 		timeIsEditable
+		shouldShowTimeButton
 		selectProps={{
 			classNamePrefix: 'timepicker-select',
 		}}

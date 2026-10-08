@@ -43,7 +43,6 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface.overlay'),
 		borderRadius: token('radius.small', '3px'),
 		boxShadow: token('elevation.shadow.overlay'),
-		color: token('color.text'),
 		paddingBlockEnd: token('space.200', '16px'),
 		paddingBlockStart: token('space.200', '16px'),
 		paddingInlineEnd: token('space.300', '24px'),

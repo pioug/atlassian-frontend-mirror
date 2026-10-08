@@ -283,12 +283,13 @@ describe('Calendar', () => {
 	});
 
 	describe('Date', () => {
-		it('uses the default calendar label and supports a custom label', () => {
+		it('uses the default group label and supports a custom label', () => {
 			setup();
-			expect(screen.getByLabelText('calendar')).toBeInTheDocument();
+			expect(screen.getByRole('group', { name: 'calendar' })).toBeInTheDocument();
+			expect(screen.getByTestId(`${testId}--calendar`)).not.toHaveAttribute('aria-label');
 
 			setup({ label: 'appointment calendar' });
-			expect(screen.getByLabelText('appointment calendar')).toBeInTheDocument();
+			expect(screen.getByRole('group', { name: 'appointment calendar' })).toBeInTheDocument();
 		});
 
 		it('should be labelled by month/year header', () => {
@@ -300,7 +301,6 @@ describe('Calendar', () => {
 		});
 
 		it('should use the correct weekday in date labels when the locale week starts on Monday', () => {
-			passGate('platform-dst-locale-week-start-day');
 			setup({
 				defaultMonth: 10,
 				defaultYear: 2026,
@@ -805,7 +805,6 @@ describe('Calendar', () => {
 	cases(
 		"should use locale's starting weekday if not provided",
 		({ locale, expected }: { locale: string; expected: string }) => {
-			passGate('platform-dst-locale-week-start-day');
 			setup({
 				locale,
 			});

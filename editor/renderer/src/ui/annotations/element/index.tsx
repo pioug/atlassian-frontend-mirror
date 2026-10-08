@@ -21,6 +21,7 @@ type MarkElementProps = React.PropsWithChildren<{
 	annotationType: AnnotationTypes;
 	dataAttributes: AnnotationDataAttributes;
 	id: AnnotationId;
+	isExtension?: boolean;
 	useBlockLevel?: boolean;
 }>;
 
@@ -30,6 +31,7 @@ const MarkElement = ({
 	dataAttributes,
 	id,
 	useBlockLevel,
+	isExtension,
 }: MarkElementProps): React.JSX.Element => {
 	const updateSubscriber = useInlineCommentSubscriberContext();
 	const states = useContext(InlineCommentsStateContext);
@@ -114,6 +116,7 @@ const MarkElement = ({
 			isHovered={isHovered}
 			state={states[id]}
 			useBlockLevel={useBlockLevel}
+			isExtension={isExtension}
 		>
 			{children}
 		</MarkComponent>

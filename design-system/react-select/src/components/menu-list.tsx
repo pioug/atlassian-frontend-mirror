@@ -40,6 +40,7 @@ export interface MenuListProps<
 
 const menuListStyles = css({
 	position: 'relative',
+	borderRadius: token('radius.large'),
 	overflowY: 'auto',
 	paddingBlockEnd: token('space.100'),
 	paddingBlockStart: token('space.100'),

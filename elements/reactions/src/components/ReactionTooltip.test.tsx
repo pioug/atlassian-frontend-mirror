@@ -3,6 +3,8 @@ import React from 'react';
 import { act, fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { type ReactionSummary } from '../types';
@@ -108,28 +110,46 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		expect(items[6].textContent).toEqual('and 2 others');
 	});
 
-	it('should not render footer with fewer users than the limit', async () => {
-		renderReactionTooltip({
-			reactionSummary: {
-				...demoReaction,
-				users: demoReaction.users!.slice(0, 2),
-			},
+	describe('with fewer users than the limit', () => {
+		const renderWithTwoUsers = async () => {
+			renderReactionTooltip({
+				reactionSummary: {
+					...demoReaction,
+					users: demoReaction.users!.slice(0, 2),
+				},
+			});
+
+			const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+
+			const tooltipContainer = await screen.findByTestId(
+				`${RENDER_REACTIONTOOLTIP_TESTID}--container`,
+			);
+			expect(tooltipContainer).toBeInTheDocument();
+			await userEvent.hover(item);
+
+			const usersListWrapper = await screen.findByRole('tooltip');
+			expect(usersListWrapper).toBeInTheDocument();
+			return usersListWrapper.querySelectorAll('li');
+		};
+
+		it('should not render an empty footer item when the gate is on', async () => {
+			passGate('platform_reactions_tooltip_hide_empty_footer');
+			const items = await renderWithTwoUsers();
+			expect(items.length).toEqual(3);
+			expect(items[0].textContent).toEqual('emoji name');
+			expect(items[1].textContent).toEqual('User 1');
+			expect(items[2].textContent).toEqual('User 2');
 		});
 
-		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
-
-		const tooltipContainer = await screen.findByTestId(
-			`${RENDER_REACTIONTOOLTIP_TESTID}--container`,
-		);
-		expect(tooltipContainer).toBeInTheDocument();
-		await userEvent.hover(item);
-
-		const usersListWrapper = await screen.findByRole('tooltip');
-		expect(usersListWrapper).toBeInTheDocument();
-		const items = usersListWrapper.querySelectorAll('li');
-		expect(items[0].textContent).toEqual('emoji name');
-		expect(items[1].textContent).toEqual('User 1');
-		expect(items[2].textContent).toEqual('User 2');
+		it('should keep rendering the empty footer item when the gate is off', async () => {
+			failGate('platform_reactions_tooltip_hide_empty_footer');
+			const items = await renderWithTwoUsers();
+			expect(items.length).toEqual(4);
+			expect(items[0].textContent).toEqual('emoji name');
+			expect(items[1].textContent).toEqual('User 1');
+			expect(items[2].textContent).toEqual('User 2');
+			expect(items[3].textContent).toEqual('');
+		});
 	});
 
 	it('shows the agent and person names when an agent reacted', async () => {
@@ -257,7 +277,7 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalledTimes(1);
 	});
 
-	it('should render empty footer when users do not exceed the limit', async () => {
+	it('should not render overflow footer content when users do not exceed the limit', async () => {
 		renderReactionTooltip({
 			reactionSummary: {
 				...demoReaction,

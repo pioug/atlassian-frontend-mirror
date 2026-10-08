@@ -37,7 +37,6 @@ import {
 	selectRow as selectRowTransform,
 	setCellAttrs,
 } from '@atlaskit/editor-tables/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { WidthToWidest } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -536,12 +535,7 @@ export const selectColumn = (
 				return false;
 			}
 
-			let selectionTransaction: Transaction;
-			if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
-				selectionTransaction = selectColumnWithMergedEdgeRows(state.tr, column, expand);
-			} else {
-				selectionTransaction = selectColumnTransform(column, expand)(state.tr);
-			}
+			const selectionTransaction = selectColumnWithMergedEdgeRows(state.tr, column, expand);
 			const decorations = createColumnSelectedDecoration(selectionTransaction);
 			const decorationSet = updatePluginStateDecorations(
 				state,
@@ -556,12 +550,7 @@ export const selectColumn = (
 			};
 		},
 		(tr: Transaction) => {
-			let selectionTransaction: Transaction;
-			if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
-				selectionTransaction = selectColumnWithMergedEdgeRows(tr, column, expand);
-			} else {
-				selectionTransaction = selectColumnTransform(column, expand)(tr);
-			}
+			const selectionTransaction = selectColumnWithMergedEdgeRows(tr, column, expand);
 			return selectionTransaction
 				.setMeta('addToHistory', false)
 				.setMeta('selectedColumnViaKeyboard', triggeredByKeyboard);

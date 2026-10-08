@@ -1,5 +1,30 @@
 # @atlaskit/calendar
 
+## 19.5.1
+
+### Patch Changes
+
+- [`6fa49845aae2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa49845aae2e) -
+  Cleanup `feature_gate` `platform-dst-motion-uplift-list-item`. List item hover, pressed and
+  selected motion transitions are now applied unconditionally across breadcrumbs, calendar dates,
+  links, menu items, select options and side navigation items.
+
+## 19.5.0
+
+### Minor Changes
+
+- [`98a7771631acd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98a7771631acd) -
+  Cleanup `feature_gate` `platform-dst-locale-week-start-day`. Calendar and DatePicker now always
+  default the first day of the week to the first day for the given `locale` instead of Sunday (`0`),
+  and `createLocalizationProvider(...).getFirstDayOfWeek()` always resolves the locale's week info.
+  Pass an explicit `weekStartDay` to override the locale default.
+
+### Patch Changes
+
+- [`427b19ca8f2bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/427b19ca8f2bb) -
+  Expose Calendar as a labelled group for assistive technologies.
+- Updated dependencies
+
 ## 19.4.0
 
 ### Minor Changes

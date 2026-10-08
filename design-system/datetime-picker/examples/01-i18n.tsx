@@ -136,6 +136,7 @@ const _default: () => JSX.Element = () => {
 					locale={locale}
 					testId={'time-picker'}
 					timeIsEditable
+					shouldShowTimeButton
 				/>
 			</Box>
 			<Box paddingBlock="space.150">
@@ -156,6 +157,7 @@ const _default: () => JSX.Element = () => {
 					}}
 					timePickerProps={{
 						label: 'Date / time picker (default), time',
+						shouldShowTimeButton: true,
 					}}
 					clearControlLabel="Clear date / time picker (default)"
 				/>

@@ -166,7 +166,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: testId forwarding', () => 
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
-		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--container`)).toBeInTheDocument();
 	});
 });
 
@@ -184,9 +184,9 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: xcss', () => {
 		);
 
 		// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
-		// parent and not the `--content` popover host.
+		// parent and not the `--container` popover host.
 		const wrapper = screen.getByTestId('popup-content').parentElement;
-		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--content`));
+		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
 		expect(wrapper).toHaveCompiledCss('width', '280px');
 	});
 });
@@ -249,7 +249,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		// Legacy `Popup` left the popup role-less when no `role` was
 		// passed. We preserve that contract: no implicit `dialog`
 		// default, no role-based initial focus movement.
@@ -267,7 +267,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 			/>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('role', 'menu');
 	});
 
@@ -282,7 +282,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 			/>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('role', 'alertdialog');
 	});
 
@@ -297,7 +297,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 			/>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('aria-label', 'Custom label');
 	});
 
@@ -323,7 +323,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 			/>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('aria-labelledby', 'popup-title');
 	});
 });
@@ -364,7 +364,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () =>
 		);
 
 		// The popover content element should be rendered
-		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--container`)).toBeInTheDocument();
 	});
 
 	it('passes width="content" by default', () => {
@@ -372,7 +372,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () =>
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
-		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--container`)).toBeInTheDocument();
 	});
 });
 
@@ -391,7 +391,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: offset conversion', () => 
 			),
 		).not.toThrow();
 
-		expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+		expect(screen.getByTestId(`${testId}--container`)).toBeInTheDocument();
 	});
 
 	it('renders content when offset is provided', () => {
@@ -477,7 +477,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog role
 			/>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('role', 'listbox');
 		expect(content).toHaveAttribute('aria-label', 'Options list');
 	});
@@ -497,7 +497,7 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog role
 			/>,
 		);
 
-		const content = screen.getByTestId(`${testId}--content`);
+		const content = screen.getByTestId(`${testId}--container`);
 		expect(content).toHaveAttribute('role', 'tooltip');
 		expect(content).toHaveAttribute('aria-label', 'Helpful tip');
 	});

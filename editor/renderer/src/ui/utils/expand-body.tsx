@@ -11,7 +11,7 @@ import {
 	isExpandNode,
 } from './expand-search-text';
 
-type ExpandBody = {
+export type ExpandBody = {
 	/**
 	 * Opens this expand, then asks the expand above it to do the same.
 	 *
@@ -31,11 +31,13 @@ type ExpandBody = {
 	 */
 	revealed: boolean;
 	/**
-	 * The expands browser find has opened. One set is shared by a whole chain of expands.
+	 * The expands browser find or the reader has opened. One set is shared by a whole chain of
+	 * expands, and by every expand under a body a product provides itself.
 	 *
 	 * A table standing in for itself does swap out what it renders, and a nested expand in one of its
 	 * rows is rebuilt when it does. This is how that expand knows to come back open rather than
-	 * closed over the match the reader was just taken to.
+	 * closed over the match the reader was just taken to. A product that remounts what is under its
+	 * own body gets its expands back the same way.
 	 */
 	revealedByFind: WeakSet<PMNode>;
 };

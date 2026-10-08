@@ -37,19 +37,23 @@ interface AddContainerCardProps {
 	onAddAContainerClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isLoading?: boolean;
 	isDisabled?: boolean;
+	/** Ref to the card's button, e.g. to return focus to it after an overlay it opened closes. */
+	buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
 const AddContainerCardWrapper = ({
 	children,
 	onClick,
 	isDisabled,
+	buttonRef,
 }: {
 	children: React.ReactNode;
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	isDisabled?: boolean;
+	buttonRef?: React.Ref<HTMLButtonElement>;
 }) => {
 	return (
-		<Pressable xcss={styles.container} isDisabled={isDisabled} onClick={onClick}>
+		<Pressable ref={buttonRef} xcss={styles.container} isDisabled={isDisabled} onClick={onClick}>
 			{children}
 		</Pressable>
 	);
@@ -60,6 +64,7 @@ export const AddContainerCard = ({
 	onAddAContainerClick,
 	isLoading = false,
 	isDisabled = false,
+	buttonRef,
 }: AddContainerCardProps): React.JSX.Element => {
 	const { icon, title } = getContainerProperties({
 		containerType,
@@ -71,7 +76,11 @@ export const AddContainerCard = ({
 	}
 
 	return (
-		<AddContainerCardWrapper onClick={onAddAContainerClick} isDisabled={isDisabled}>
+		<AddContainerCardWrapper
+			onClick={onAddAContainerClick}
+			isDisabled={isDisabled}
+			buttonRef={buttonRef}
+		>
 			<Inline space="space.100" xcss={styles.card}>
 				<Box xcss={styles.iconWrapper}>{icon}</Box>
 				<Text maxLines={1} color="color.text.subtlest">

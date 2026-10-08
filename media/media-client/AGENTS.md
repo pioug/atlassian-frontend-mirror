@@ -49,8 +49,8 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 
 - Peer dependencies: `@atlaskit/media-core`, `@atlaskit/media-state`
 - Key internal dependencies: `@atlaskit/chunkinator`, `@atlaskit/media-common`
-- 8 feature flags registered (see `package.json` → `platform-feature-flags`)
+- 10 feature flags registered (see `package.json` → `platform-feature-flags`)
 - Notable flags: `platform_media_cdn_delivery`, `platform_media_cdn_single_host`,
-  `platform_media_auth_provider_analytics`
+  `platform_media_auth_provider_analytics`, `platform_media_unique_external_upload_name`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

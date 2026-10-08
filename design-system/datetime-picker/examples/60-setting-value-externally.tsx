@@ -83,6 +83,7 @@ export default (): React.JSX.Element => {
 					isDisabled
 					onChange={console.log}
 					id={timeId}
+					shouldShowTimeButton
 				/>
 			</Box>
 			<Box paddingBlock="space.150">
@@ -107,7 +108,7 @@ export default (): React.JSX.Element => {
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Date / time, time' }}
+					timePickerProps={{ label: 'Date / time, time', shouldShowTimeButton: true }}
 				/>
 			</Box>
 		</Box>

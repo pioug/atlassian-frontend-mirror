@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "129.1.0",
+	"version": "130.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,6 +47,7 @@
 		"./collab": "./src/collab/index.ts",
 		"./collab-agent-edit-chrome": "./src/collab/agent-edit-chrome.ts",
 		"./collab-agent-edit-changed-ranges": "./src/collab/agent-edit-changed-ranges.ts",
+		"./collab-agent-edit-chrome-ranges": "./src/collab/agent-edit-chrome-ranges.ts",
 		"./collab-agent-remote-edit-review": "./src/collab/agent-remote-edit-review.ts",
 		"./collab-agent-review-slice-compare": "./src/collab/agent-review-slice-compare.ts",
 		"./collab-defer-collab-send": "./src/collab/defer-collab-send.ts",

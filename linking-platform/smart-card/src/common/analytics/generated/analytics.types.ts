@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::4928ecfae3052d3576f2c17a7af29cc5>>
+ * @codegen <<SignedSource::9cd75b85ebe2e335394c0d7f99ba9cb1>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -43,6 +43,14 @@ export type ResolvedContextType = {
 	location?: string | null;
 };
 
+export type OneClickChatSpotlightClickedAttributesType = {
+	provider: 'google-drive' | 'github';
+	product: 'confluence_web' | 'jira_web';
+	appearance: 'inline';
+	cohort: 'treatment';
+	variant: 'v2';
+	interactionSource?: 'spotlightCta' | 'inlineAction' | null;
+};
 export type ButtonClickedCopyLinkAttributesType = {
 	actionType?: string | null;
 	id?: string | null;
@@ -134,6 +142,7 @@ export type ButtonClickedRovoChatPromptAttributesType = {
 		| null;
 	resourceType?: string | null;
 	prompt?: string | null;
+	interactionSource?: 'spotlightCta' | 'inlineAction' | null;
 };
 export type ButtonClickedCopySummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
@@ -417,6 +426,9 @@ export type SmartLinkClickedSmartlinkClickAnalyticsWorkflowsAttributesType = {
 };
 
 export type AnalyticsEventAttributes = {
+	/**
+	 * Fired once when the spotlight CTA or highlighted inline action is clicked while the spotlight is open */
+	'ui.oneClickChatSpotlight.clicked': OneClickChatSpotlightClickedAttributesType;
 	/**
 	 * Fired when an copy link is clicked */
 	'ui.button.clicked.copyLink': ButtonClickedCopyLinkAttributesType;

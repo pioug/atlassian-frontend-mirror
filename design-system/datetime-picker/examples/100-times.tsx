@@ -17,12 +17,17 @@ export default (): React.JSX.Element => {
 				times={times}
 				selectProps={{ classNamePrefix: 'timepicker-select' }}
 				testId={'timePicker'}
+				shouldShowTimeButton
 			/>
 			<Label htmlFor="react-select-datetimepicker--input">DateTimePicker - times</Label>
 			<DateTimePicker
 				clearControlLabel="Clear DateTimePicker - times"
 				id="react-select-datetimepicker--input"
-				timePickerProps={{ label: 'DateTimePicker - times, time', times }}
+				timePickerProps={{
+					label: 'DateTimePicker - times, time',
+					times,
+					shouldShowTimeButton: true,
+				}}
 				datePickerProps={{ shouldShowCalendarButton: true, label: 'DateTimePicker - times, date' }}
 			/>
 		</Box>

@@ -8,7 +8,7 @@ import React from 'react';
 import * as tokensGetGlobalTheme from '@atlaskit/tokens/get-global-theme';
 import * as tokensSetGlobalTheme from '@atlaskit/tokens/set-global-theme';
 import { themeObjectToString } from '@atlaskit/tokens/theme-object-to-string';
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import AppProvider from '../../src/app-provider';
@@ -68,7 +68,7 @@ afterEach(() => {
 	document.documentElement.removeAttribute('data-color-mode');
 	// Clean up any mounted theme styles
 	// eslint-disable-next-line testing-library/no-node-access
-	const styles = document.head.querySelectorAll('style[data-theme]');
+	const styles = document.head.querySelectorAll('style[data-theme], style[data-theme-overrides]');
 	Array.from(styles).forEach((style) => {
 		// eslint-disable-next-line testing-library/no-node-access
 		style.remove();
@@ -252,6 +252,163 @@ describe('ThemeProvider', () => {
 			const wrapper = screen.getByTestId('themed-content').closest('[data-subtree-theme]');
 			expect(wrapper).toHaveAttribute('data-color-mode', 'light');
 			expect(wrapper).toHaveAttribute('data-theme');
+		});
+
+		it('hoists registered custom theme override styles after hydration', () => {
+			passGate('platform-static-theme-loading');
+			const customTheme = {
+				light: {
+					id: 'UNSAFE-dynamic' as const,
+					overrides: {
+						dynamicForeground: '#172b4d',
+						dynamicBackground: '#f7f8f9',
+					},
+				},
+			};
+			const { rerender } = render(
+				<ThemeProvider defaultTheme={customTheme}>
+					<div>Test</div>
+				</ThemeProvider>,
+			);
+
+			const selector = 'style[data-theme-overrides]';
+			// eslint-disable-next-line testing-library/no-node-access
+			const style = document.head.querySelector<HTMLStyleElement>(selector);
+			// A standalone provider renders a subtree, so its overrides are scoped to its element.
+			const scope = screen
+				.getByText('Test')
+				// eslint-disable-next-line testing-library/no-node-access
+				.closest('[data-theme-overrides-scope]')
+				?.getAttribute('data-theme-overrides-scope');
+			expect(scope).toBeTruthy();
+			expect(style).toHaveTextContent(
+				`[data-subtree-theme][data-theme-overrides-scope="${scope}"][data-color-mode="light"][data-theme~="light:UNSAFE-dynamic"]`,
+			);
+			expect(style).toHaveTextContent('--ds-dynamic-foreground: #172b4d;');
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.querySelectorAll(selector)).toHaveLength(1);
+
+			rerender(
+				<ThemeProvider
+					defaultTheme={{
+						light: {
+							id: 'UNSAFE-dynamic',
+							overrides: {
+								dynamicForeground: '#0055cc',
+								dynamicBackground: '#ffffff',
+							},
+						},
+					}}
+				>
+					<div>Test</div>
+				</ThemeProvider>,
+			);
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.head.querySelectorAll(selector)).toHaveLength(1);
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.head.querySelector(selector)).toHaveTextContent(
+				'--ds-dynamic-foreground: #0055cc;',
+			);
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.head.querySelector(selector)).not.toHaveTextContent(
+				'--ds-dynamic-foreground: #172b4d;',
+			);
+
+			rerender(
+				<ThemeProvider defaultTheme={{ light: 'UNSAFE-dynamic' }}>
+					<div>Test</div>
+				</ThemeProvider>,
+			);
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.head.querySelector(selector)).not.toBeInTheDocument();
+		});
+
+		it('applies custom theme override styles when static theme loading is off', () => {
+			failGate('platform-static-theme-loading');
+			render(
+				<ThemeProvider
+					defaultTheme={{
+						dark: {
+							id: 'UNSAFE-dynamic-dark',
+							overrides: { dynamicForeground: '#ffffff', dynamicBackground: '#1d2125' },
+						},
+					}}
+				>
+					<div>Test</div>
+				</ThemeProvider>,
+			);
+
+			// eslint-disable-next-line testing-library/no-node-access
+			const styles = document.head.querySelectorAll('style[data-theme-overrides]');
+			expect(styles).toHaveLength(1);
+			expect(styles[0]).toHaveTextContent('--ds-dynamic-background: #1d2125;');
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.body.querySelector('style[data-theme-overrides]')).not.toBeInTheDocument();
+		});
+
+		it('scopes sibling providers’ overrides for the same custom theme to their own elements', () => {
+			const typography = (dynamicFontFamily: string) => ({
+				typography: {
+					id: 'UNSAFE-typography' as const,
+					overrides: { dynamicFontFamily, dynamicFontScale: 1 },
+				},
+			});
+			render(
+				<>
+					<ThemeProvider defaultTheme={typography('Georgia, serif')}>
+						<div>Serif</div>
+					</ThemeProvider>
+					<ThemeProvider defaultTheme={typography('monospace')}>
+						<div>Mono</div>
+					</ThemeProvider>
+				</>,
+			);
+
+			// eslint-disable-next-line testing-library/no-node-access
+			const styles = Array.from(document.head.querySelectorAll('style[data-theme-overrides]'));
+			const styleFor = (text: string) => {
+				const scope = screen
+					.getByText(text)
+					// eslint-disable-next-line testing-library/no-node-access
+					.closest('[data-theme-overrides-scope]')
+					?.getAttribute('data-theme-overrides-scope');
+				return styles.filter((style) =>
+					style.textContent?.includes(`[data-theme-overrides-scope="${scope}"]`),
+				);
+			};
+
+			// Each subtree is matched by exactly one stylesheet: its own.
+			expect(styleFor('Serif')).toHaveLength(1);
+			expect(styleFor('Serif')[0]).toHaveTextContent('--ds-dynamic-font-family: Georgia, serif;');
+			expect(styleFor('Mono')).toHaveLength(1);
+			expect(styleFor('Mono')[0]).toHaveTextContent('--ds-dynamic-font-family: monospace;');
+		});
+
+		it('keeps a nested provider’s override styles when the outer provider has none', () => {
+			passGate('platform-static-theme-loading');
+			const { unmount } = render(
+				<ThemeProvider defaultTheme={{ light: 'light' }}>
+					<ThemeProvider
+						defaultTheme={{
+							typography: {
+								id: 'UNSAFE-typography',
+								overrides: { dynamicFontFamily: 'Georgia, serif', dynamicFontScale: 1.25 },
+							},
+						}}
+					>
+						<div>Test</div>
+					</ThemeProvider>
+				</ThemeProvider>,
+			);
+
+			// eslint-disable-next-line testing-library/no-node-access
+			const styles = document.head.querySelectorAll('style[data-theme-overrides]');
+			expect(styles).toHaveLength(1);
+			expect(styles[0]).toHaveTextContent('--ds-dynamic-font-scale: 1.25;');
+
+			unmount();
+			// eslint-disable-next-line testing-library/no-node-access
+			expect(document.head.querySelector('style[data-theme-overrides]')).not.toBeInTheDocument();
 		});
 
 		describe('useSetTheme', () => {

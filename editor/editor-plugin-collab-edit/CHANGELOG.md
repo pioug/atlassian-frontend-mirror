@@ -1,5 +1,51 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 27.0.2
+
+### Patch Changes
+
+- [`9d77c18b03981`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d77c18b03981) -
+  Add transaction-aware mapping for existing agent edit highlight ranges, used by
+  platform_editor_ai_streaming_ux_experience_m1 to preserve surviving targets across streaming
+  replacements.
+
+  Keep agent highlights on edited blocks across shorter responses, restores, and cumulative AI
+  streaming replacements. Preserve earlier activity through temporary previews and restore, discard
+  ambiguous node identities, and rebuild normalized preview activity after structural collaborator
+  edits instead of indexing the saved document on every inline edit.
+
+  Use bounded snapshot traversal and require unambiguous source and destination identities when
+  preserving carried activity.
+
+  Preserve the existing changed-range detector behavior outside M1. Require unique source IDs only
+  for M1 callers, and retain unchanged preview state references on no-op transactions.
+
+- Updated dependencies
+
+## 27.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

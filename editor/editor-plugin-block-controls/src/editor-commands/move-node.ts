@@ -239,10 +239,7 @@ export const moveNodeViaShortcut = (
 			hoistedPos = state.doc.resolve(from).before(LAYOUT_COL_DEPTH);
 		}
 
-		const table =
-			isExperimentEnabled('platform_editor_fix_table_move_shortcut') && isTableSelected(selection)
-				? findTable(selection)
-				: undefined;
+		const table = isTableSelected(selection) ? findTable(selection) : undefined;
 		let currentNodePos: number;
 		if (table) {
 			currentNodePos = table.pos;

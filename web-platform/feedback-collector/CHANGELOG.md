@@ -1,5 +1,15 @@
 # @atlaskit/feedback-collector
 
+## 16.12.3
+
+### Patch Changes
+
+- [`a246ea38c543c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a246ea38c543c) -
+  Cleanup `feature_gate` `platform-design_system_team-form_conversion`. The simplified
+  `@atlaskit/form` markup is now the only code path, and the `migrate-to-simplified-form` codemod no
+  longer wraps its output in a feature gate.
+- Updated dependencies
+
 ## 16.12.2
 
 ### Patch Changes

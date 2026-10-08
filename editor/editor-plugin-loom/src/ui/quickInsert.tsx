@@ -5,6 +5,7 @@ import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { QuickInsertHandlerFn } from '@atlaskit/editor-common/types';
 import VideoIcon from '@atlaskit/icon/core/video';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import { recordVideo, recordVideoFailed } from '../pm-plugins/commands';
@@ -20,7 +21,17 @@ export const getQuickInsertItem =
 			keywords: ['loom', 'record', 'video'],
 			priority: 800,
 			isDisabledOffline: true,
-			icon: () => <VideoIcon label="" color={token('color.icon.subtle')} spacing="spacious" />,
+			icon: () => (
+				<VideoIcon
+					label=""
+					color={
+						isExperimentEnabled('platform_editor_slash_command')
+							? undefined
+							: token('color.icon.subtle')
+					}
+					spacing="spacious"
+				/>
+			),
 			action(insert, editorState) {
 				const tr = insert(undefined);
 

@@ -267,7 +267,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 				onClose={handleOnClose}
 				shouldAnimate
 				placement={topLayerPlacement}
-				testId={testId && `${testId}--content`}
+				testId={testId && `${testId}--container`}
 			>
 				{Container ? (
 					<Container
@@ -294,6 +294,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 							className={xcss}
+							data-testid={testId}
 						>
 							{content(contentProps)}
 						</div>

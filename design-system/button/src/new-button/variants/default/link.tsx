@@ -7,7 +7,6 @@ import { forwardRef, useRef } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -79,6 +78,14 @@ const styles = cssMap({
 			// @ts-expect-error
 			backgroundColor: token('color.background.disabled'),
 			// @ts-expect-error
+			color: token('color.text.disabled'),
+		},
+		// Focus and visited outrank the resting disabled color, so lock them too.
+		'&:focus': {
+			backgroundColor: token('color.background.disabled'),
+			color: token('color.text.disabled'),
+		},
+		'&:visited': {
 			color: token('color.text.disabled'),
 		},
 		'&::after': {
@@ -410,7 +417,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			{...saferRest}
 			xcss={cx(
 				styles.base,
-				!isDisabled && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
+				!isDisabled && styles.interactiveMotion,
 				appearance === 'default' && defaultStyles.root,
 				appearance === 'primary' && primaryStyles.root,
 				appearance === 'rovo' && rovoStyles.root,

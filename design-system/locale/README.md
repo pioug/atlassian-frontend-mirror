@@ -16,8 +16,8 @@ Detailed docs and example usage can be found
 ## Browser compatibility
 
 The week-info fallback requires `Intl.Locale`. It uses native `getWeekInfo()` or the legacy
-`weekInfo` getter when available, otherwise Unicode CLDR 48 regional data. It runs behind
-`platform-dst-locale-week-start-day` and does not modify `Intl.Locale.prototype`.
+`weekInfo` getter when available, otherwise Unicode CLDR 48 regional data. It does not modify
+`Intl.Locale.prototype`.
 
 ## Unicode data license
 

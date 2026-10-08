@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "148.0.2",
+	"version": "149.0.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -152,9 +152,6 @@
 		"platform_editor_a11y_codeblock_haspopup": {
 			"type": "boolean"
 		},
-		"platform_renderer_ssr_block_margin_fix": {
-			"type": "boolean"
-		},
 		"platform_native_embeds_rollout_non_maui_experience": {
 			"type": "boolean"
 		},
@@ -200,9 +197,6 @@
 		"confluence_frontend_fix_view_page_slo": {
 			"type": "boolean"
 		},
-		"platform_editor_numbered_column_in_include": {
-			"type": "boolean"
-		},
 		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		},
@@ -242,6 +236,7 @@
 		"./actions": "./src/actions/index.ts",
 		"./annotations": "./src/entry-points/annotations.tsx",
 		"./consts": "./src/entry-points/consts.ts",
+		"./expand-body": "./src/entry-points/expand-body.ts",
 		"./core": "./src/entry-points/renderer-core.tsx",
 		"./custom-nodes/loosely-lazy": "./src/entry-points/custom-nodes-loosely-lazy.ts",
 		"./custom-nodes": "./src/custom-nodes.ts",

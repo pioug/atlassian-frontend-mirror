@@ -365,7 +365,7 @@ describe('ProfileCard', () => {
 				]);
 
 				const { actionElement, defaultPrevented } = await clickActionElement(getActionLink());
-				expect(actionElement.getAttribute('href')).toBe('#');
+				expect(actionElement.getAttribute('href')).toBe('/#');
 				expect(spy).toHaveBeenCalledTimes(1);
 				expect(defaultPrevented).toBe(true);
 			});
@@ -379,7 +379,7 @@ describe('ProfileCard', () => {
 				]);
 
 				const { actionElement, defaultPrevented } = await clickActionElement(getActionLink());
-				expect(actionElement.getAttribute('href')).toBe('#');
+				expect(actionElement.getAttribute('href')).toBe('/#');
 				expect(defaultPrevented).toBe(false);
 			});
 		});

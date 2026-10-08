@@ -15,7 +15,7 @@ const documentation: StructuredContentSource = {
 			name: 'PerformanceMetrics',
 			description:
 				'Experimental code to track Editor Full Page performance on some particular scenarios',
-			status: 'general-availability',
+			status: 'release-candidate',
 			import: {
 				name: 'PerformanceMetrics',
 				package: '@atlaskit/editor-performance-metrics/react',

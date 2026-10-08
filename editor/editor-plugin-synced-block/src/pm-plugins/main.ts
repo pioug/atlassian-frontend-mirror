@@ -47,6 +47,7 @@ import type {
 	RetryCreationPosEntry,
 	RetryCreationPosMap,
 } from '../types';
+import { createReferenceSelectionView } from './createReferenceSelectionView';
 import { handleBodiedSyncBlockCreation } from './utils/handle-bodied-sync-block-creation';
 import { handleBodiedSyncBlockRemoval } from './utils/handle-bodied-sync-block-removal';
 import type {
@@ -1146,6 +1147,7 @@ export const createPlugin = (
 						: statusDecorationSet;
 				}
 			},
+
 			handleClickOn: createSelectionClickHandler(
 				['bodiedSyncBlock'],
 				(target) => !!target.closest(`.${BodiedSyncBlockSharedCssClassName.prefix}`),
@@ -1259,6 +1261,13 @@ export const createPlugin = (
 				return transformedSlice;
 			},
 		},
+		view: (view) => {
+			if (!isExperimentEnabled('platform_editor_blocks_patch_11')) {
+				return {};
+			}
+			return createReferenceSelectionView(view);
+		},
+
 		filterTransaction: (tr, state) => {
 			// Lazy-init: when no synced block currently exists in the doc and the
 			// transaction does not insert one, all downstream filter logic is a

@@ -1,4 +1,5 @@
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { DiffDescriptor } from '../../showDiffPluginType';
@@ -39,6 +40,7 @@ export type DiffDecorationSpec = BaseDecorationSpec<typeof DecorationFamily.diff
 	colorScheme?: ColorScheme;
 	decorationType: DiffDescriptor['type'];
 	diffId: string;
+	ignoreSelection?: boolean;
 	/**
 	 * The change currently stepped to. Needed on the spec because `activeIndex` indexes the filtered,
 	 * re-sorted scrollable decorations, not `diffDescriptors`.
@@ -59,6 +61,7 @@ export type DiffDecorationSpec = BaseDecorationSpec<typeof DecorationFamily.diff
 	 * consumed by `scrollToDiff`; never present on a decoration in the plugin's `DecorationSet`.
 	 */
 	scrollTarget?: Decoration;
+	stopEvent?: (event: Event) => boolean;
 };
 
 export const AnchorTypeKey = {
@@ -177,6 +180,14 @@ export const buildDiffDecorationSpec = ({
 	...(colorScheme ? { colorScheme } : {}),
 	...(nodeName ? { nodeName } : {}),
 	...(side !== undefined ? { side } : {}),
+	...(decorationType === 'widget' && fg('platform_editor_ai_show_diff_patch_2')
+		? {
+				// Widget content is outside the document. Keep its native DOM selection
+				// and let the browser handle events within it.
+				ignoreSelection: true,
+				stopEvent: () => true,
+			}
+		: {}),
 });
 
 export function buildAnchorDecorationSpec(args: {

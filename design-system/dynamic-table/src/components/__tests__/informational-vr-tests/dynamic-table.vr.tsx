@@ -17,11 +17,17 @@ snapshotInformational(Basic, {
 		// Go to page 3
 		await page.getByRole('button', { name: 'Page 3' }).click();
 		// Sort by party
-		await page.getByRole('button', { name: 'Party' }).click();
+		const partyButton = page.getByRole('button', { name: 'Party' });
+		await partyButton.click();
 
 		// Wait until the table has updated
 		// Otherwise it seems like the test can be flakey
 		await page.locator('[aria-sort="ascending"]', { hasText: 'Party' }).waitFor();
+		// A press keeps the top-layer tooltip hidden until the pointer re-enters the
+		// button, so leave and re-enter to show it with and without that gate.
+		await page.mouse.move(0, 0);
+		await partyButton.hover();
+		await page.getByRole('tooltip').waitFor();
 	},
 });
 

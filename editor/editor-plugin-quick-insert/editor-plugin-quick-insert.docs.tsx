@@ -15,7 +15,7 @@ const documentation: StructuredContentSource = {
 			kind: 'function',
 			name: 'quickInsertPlugin',
 			description: 'Quick insert plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'quickInsertPlugin',
 				package: '@atlaskit/editor-plugin-quick-insert',

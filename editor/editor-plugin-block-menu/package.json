@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "24.0.1",
+	"version": "25.0.1",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,10 +65,6 @@
 		},
 		"cc_blocks_changeboarding": {
 			"type": "boolean"
-		},
-		"platform_editor_blocks_patch_8": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"cc-maui-phase-3": {
 			"type": "boolean"

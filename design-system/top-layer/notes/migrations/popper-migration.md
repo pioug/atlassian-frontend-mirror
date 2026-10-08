@@ -583,8 +583,14 @@ a silent `console.error`.
 
 The UA stylesheet gives every popover `border: solid`, `padding: 0.25em`, `overflow: auto`, `width`
 / `height: fit-content`, `color: CanvasText` and `background-color: Canvas`. `<Popover>` overrides
-these in its own Compiled class, so the React path never sees them; the imperative adapter promotes
-an element the **caller** styles, so without a reset, promotion silently restyles and re-sizes it.
+the box and background rules in its own Compiled class. Its surface reset also resets `color` to
+`color.text`, the colour `<body>` gave the portal path, because content with no colour of its own
+(Drawer, custom tooltip components) otherwise renders in `CanvasText` (see
+[surface-reset-color.md](../decisions/surface-reset-color.md)). The imperative adapter promotes an
+element the **caller** styles, so without a reset, promotion silently restyles and re-sizes it. Its
+reset uses `color: inherit`, not `color.text`: `<Popover>` owns a fresh host, so it resets to the
+`<body>` baseline, but the adapter's element already sits styled in the caller's tree, so `inherit`
+keeps the colour it had there and promotion changes paint order only.
 
 **Inline styles are the wrong tool here.** They would beat the caller's own stylesheet, not just the
 UA's. The adapter instead stamps a `data-ds--popper-promoted` attribute and injects a single

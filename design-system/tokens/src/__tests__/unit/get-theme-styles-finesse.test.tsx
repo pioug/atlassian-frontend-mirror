@@ -31,6 +31,8 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(getThemeData(allResults)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },
 			{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+			{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
+			{ id: 'UNSAFE-dynamic-dark', attrs: { 'data-theme': 'UNSAFE-dynamic-dark' } },
 			{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
 			{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 			{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
@@ -38,6 +40,7 @@ describe('getThemeStyles finesse overrides', () => {
 			{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 			{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 			{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+			{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
 			{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 			{ id: 'light-finesse', attrs: { 'data-theme': 'light-finesse' } },
 			{ id: 'dark-finesse', attrs: { 'data-theme': 'dark-finesse' } },
@@ -83,6 +86,8 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(getThemeData(allResults)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },
 			{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+			{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
+			{ id: 'UNSAFE-dynamic-dark', attrs: { 'data-theme': 'UNSAFE-dynamic-dark' } },
 			{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
 			{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 			{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
@@ -90,6 +95,7 @@ describe('getThemeStyles finesse overrides', () => {
 			{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 			{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 			{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+			{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
 			{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 		]);
 	});

@@ -415,11 +415,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					const $from = $expandedAnchor.min($expandedHead);
 					const $to = $expandedAnchor.max($expandedHead);
 					let expandedNormalisedSel;
-					if (
-						isExperimentEnabled('platform_editor_fix_table_move_shortcut') &&
-						$from.nodeAfter &&
-						$from.nodeAfter === $to.nodeBefore
-					) {
+					if ($from.nodeAfter && $from.nodeAfter === $to.nodeBefore) {
 						// Single node
 						selectNode(tr, $from.pos, $from.nodeAfter.type.name, api);
 						expandedNormalisedSel = tr.selection;

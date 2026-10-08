@@ -13,12 +13,16 @@ export default (): React.JSX.Element => (
 		<Box paddingBlock="space.200">
 			<Heading size="large">Time - Using explicit label</Heading>
 			<Label htmlFor="arrival">Arrival time</Label>
-			<TimePicker clearControlLabel="Clear arrival time" id="arrival" />
+			<TimePicker clearControlLabel="Clear arrival time" id="arrival" shouldShowTimeButton />
 		</Box>
 
 		<Box paddingBlock="space.200">
 			<Heading size="large">Time - Using label prop only (no visible label)</Heading>
-			<TimePicker clearControlLabel="Clear departure time" label="Departure time" />
+			<TimePicker
+				clearControlLabel="Clear departure time"
+				label="Departure time"
+				shouldShowTimeButton
+			/>
 		</Box>
 
 		<Box paddingBlock="space.200">

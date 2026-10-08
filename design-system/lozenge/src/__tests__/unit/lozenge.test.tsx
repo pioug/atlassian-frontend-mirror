@@ -3,7 +3,6 @@ import React from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import Lozenge from '../../lozenge';
@@ -271,9 +270,7 @@ describe('LozengeDropdownTrigger', () => {
 		expect(handleClick).not.toHaveBeenCalled();
 	});
 
-	it('should animate loading content when the button motion gate is enabled', () => {
-		passGate('platform-dst-motion-uplift-button');
-
+	it('should animate loading content', () => {
 		render(
 			<LozengeDropdownTrigger
 				appearance="success"
@@ -292,26 +289,6 @@ describe('LozengeDropdownTrigger', () => {
 		expect(screen.getByTestId('loading-motion-trigger--loading-overlay')).toHaveCompiledCss(
 			'animation-duration',
 			'var(--ds-duration-short,.15s)',
-		);
-	});
-
-	it('should not animate loading content when the button motion gate is disabled', () => {
-		failGate('platform-dst-motion-uplift-button');
-
-		render(
-			<LozengeDropdownTrigger
-				appearance="success"
-				isLoading
-				onClick={__noop}
-				testId="loading-motion-trigger"
-			>
-				Status
-			</LozengeDropdownTrigger>,
-		);
-
-		expect(screen.getByTestId('loading-motion-trigger--content')).not.toHaveCompiledCss(
-			'transition-property',
-			'opacity',
 		);
 	});
 

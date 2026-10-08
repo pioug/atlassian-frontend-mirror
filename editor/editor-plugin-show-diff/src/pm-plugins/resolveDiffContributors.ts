@@ -27,11 +27,18 @@ const SHOW_DIFF_AGENT_BRANDS: Readonly<Partial<Record<AgentBrandColorScheme, Dif
 	'agent-brand-lovable': 'lovable',
 	'agent-brand-replit': 'replit',
 	'agent-brand-rovo': 'rovo',
+	'agent-brand-amplitude': 'amplitude',
+	'agent-brand-cortex': 'cortex',
+	'agent-brand-databricks': 'databricks',
+	'agent-brand-gemini': 'gemini',
+	'agent-brand-manus': 'manus',
+	'agent-brand-slack': 'slack',
 };
 
 /**
  * Brands that prefer the account's real avatar over their fixed glyph when the invoking profile
- * has one. Claude/ChatGPT intentionally keep their fixed glyph always (see `AGENT_KIND_ICONS` in
+ * has one. Brands with a fixed glyph (Claude, ChatGPT, Amplitude, Cortex, Databricks, Gemini, Manus,
+ * Slack) intentionally keep it always (see `AGENT_KIND_ICONS` in
  * `contributorAvatarRenderer.ts`).
  */
 const AVATAR_ELIGIBLE_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([

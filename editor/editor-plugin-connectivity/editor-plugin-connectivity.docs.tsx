@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Connectivity',
 			description: 'Connectivity plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'connectivityPlugin',
 				package: '@atlaskit/editor-plugin-connectivity',

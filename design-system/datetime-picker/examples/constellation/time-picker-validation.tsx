@@ -21,7 +21,11 @@ const TimePickerValidationExample = (): React.JSX.Element => (
 			isRequired
 			helperMessage="You have entered a valid datetime."
 			component={({ fieldProps }) => (
-				<TimePicker clearControlLabel="Clear scheduled run time" {...fieldProps} />
+				<TimePicker
+					clearControlLabel="Clear scheduled run time"
+					{...fieldProps}
+					shouldShowTimeButton
+				/>
 			)}
 		/>
 		<FormFooter>

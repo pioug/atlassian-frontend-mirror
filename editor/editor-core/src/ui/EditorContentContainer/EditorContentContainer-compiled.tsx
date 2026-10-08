@@ -1,7 +1,7 @@
 // oxlint-disable-next-line typescript-eslint/triple-slash-reference
 /// <reference path="../../types/compiled-shims.d.ts" />
 
-// TODO: EDITOR-6833 - Expected across this entire file, future violations are expected. Will try to remove them later after fully migration
+// Because we migrated with using cssMapScope API for non atomic css, so these atomic css related eslint suppression no longer needs to be fixed.
 /* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
 /**
  * @jsxRuntime classic
@@ -107,7 +107,6 @@ const denseEmojiHeightH2 = 22.25;
 const denseEmojiHeightH3 = 20.25;
 const denseEmojiHeightH4 = 18.25;
 
-// TODO: EDITOR-6932 - inline them at the end of migration
 const emojiSelectionStyles = css({
 	borderRadius: token('radius.xsmall'),
 });
@@ -207,22 +206,18 @@ const boxShadowSelectionStyles = css({
 	borderColor: 'transparent',
 });
 
-// TODO: EDITOR-6932 - inline them at the end of migration
 const dangerBorderStyles = css({
 	boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
 });
 
-// TODO: EDITOR-6932 - inline them at the end of migration
 const backgroundSelectionStyles = css({
 	backgroundColor: token('color.background.selected'),
 });
 
-// TODO: EDITOR-6932 - inline them at the end of migration
 const dangerBackgroundStyles = css({
 	backgroundColor: token('color.background.danger'),
 });
 
-// TODO: EDITOR-6932 - inline them at the end of migration
 const mentionsSelectedColor = css({
 	color: token('color.text.subtle'),
 });
@@ -416,7 +411,6 @@ const prismBorderDarkBackgroundFirefox = `linear-gradient(90deg, #0065FF80 0%, #
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 const prismBorderDarkBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), #0065FF80 0%, #0469FF80 20%, #BF63F380 50%, #FFA90080 56%, #0065FF80 100%)`;
 
-// TODO: EDITOR-6932 - inline them at the end of migration
 const borderSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 	border: `1px solid ${token('color.border.selected')}`,
@@ -1633,8 +1627,7 @@ const editorContentStyles = cssMapScoped({
 	},
 	// Move this into `smartCardStyles` below when cleaning up editor_controls_patch_15
 	editorControlsSmartCardStyles: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
 		'.inlineCardView-content-wrap': {
 			'[data-inlinecard-button-overlay="icon-wrapper-line-height"] span': {
@@ -3553,6 +3546,15 @@ const editorContentStyles = cssMapScoped({
 				display: 'contents !important',
 			},
 	},
+	layoutDragHandleWrapperStylesTopLayer: {
+		// Top-layer tooltips render their popover next to the trigger, so flatten only the direct
+		// child trigger wrapper. Otherwise it becomes a flex item and adds a section `gap`.
+		'.ProseMirror .layout-section-container [data-layout-section] > .ProseMirror-widget[data-blocks-drag-handle-container] > div:not([popover])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'contents !important',
+			},
+	},
 	layoutSectionStylesAdvanced: {
 		'.ProseMirror .layout-section-container [data-layout-section]': {
 			'> .ProseMirror-widget': {
@@ -3777,8 +3779,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	linkingVisualRefreshV1Styles: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
 		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
 		'.blockCardView-content-wrap:not(.datasourceView-content-wrap)': {
@@ -4430,6 +4431,13 @@ const editorContentStyles = cssMapScoped({
 					...dangerBackgroundStyles,
 				},
 		},
+	},
+	mentionAvatarNoWrapStyles: {
+		// Override the shared inline-node pre-wrap reset for the whole mention pill.
+		'.ProseMirror .mentionView-content-wrap.inlineNodeView > .editor-mention-primitive-with-avatar':
+			{
+				whiteSpace: 'nowrap',
+			},
 	},
 	mentionNodeStyles: {
 		'.mentionNodeViewAddZeroWidthSpace': {
@@ -5289,6 +5297,29 @@ const editorContentStyles = cssMapScoped({
 				},
 		},
 	},
+	// Hides the resize handles for node types that aren't resizable. Direct-child selectors only:
+	// a descendant `:has()` would also match a resizable node that merely contains one of these,
+	// such as a layoutSection wrapping a panel.
+	pragmaticResizerStylesHiddenForPanelAndRule: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel_c1"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						display: 'none',
+					},
+				},
+		},
+	},
+	pragmaticResizerStylesHiddenForExtensions: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="extension"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="bodiedExtension"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="multiBodiedExtension"])':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						display: 'none',
+					},
+				},
+		},
+	},
 	pragmaticStylesLayoutFirstNodeResizeHandleFix: {
 		'.fabric-editor-breakout-mark': {
 			'&:has([data-prosemirror-node-name="layoutSection"].first-node-in-document)': {
@@ -5785,8 +5816,7 @@ const editorContentStyles = cssMapScoped({
 	// fallback — `wrapBlockNodeView` sets the class and the properties in the same step. The
 	// fallbacks it does keep are the ones standard leaves unset on purpose.
 	showDiffDeletedNodeStyles: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
 		'.embedCardView-content-wrap': {
@@ -5944,8 +5974,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	smartCardDiffStyles: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
 		'.embedCardView-content-wrap': {
@@ -5957,8 +5986,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	smartCardStylesWithSearchMatch: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
 		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
 		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
@@ -6119,8 +6147,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
 		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
 		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
@@ -6281,8 +6308,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
 		// Uses editorAreaNarrowPageContainerQuery = `@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`
@@ -6301,8 +6327,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	smartLinksInLivePagesStyles: {
-		// Constant variables here has been inlined in css from EditorContentContainer, if you need to make
-		// update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/styles/smartCardStyles.ts
+		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
 		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
@@ -7881,8 +7906,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	// Hex IDs the 10-color picker persists (hues that cannot use a named colour).
-	// Applied when platform_editor_gracefully_render_status_color or
-	// platform_editor_update_status_colors is on.
+	// Always applied.
 	statusStylesHexAccent: {
 		'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.accent.teal.subtler'),
@@ -8295,8 +8319,7 @@ const editorContentStyles = cssMapScoped({
 	 * here.
 	 *
 	 * Keyed on the literals the plugin writes (`CONTRIBUTOR_TAG_CLASS`,
-	 * `CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE`), because cssMap keys must be static — rename in step. Keep
-	 * in sync with `styles/contributorTagStyles.ts`, the emotion arm.
+	 * `CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE`), because cssMap keys must be static — rename in step.
 	 *
 	 * Gated behind `confluence_ncs_step_diffing_version_history`, where the tags render.
 	 */
@@ -8618,8 +8641,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				isStatusStylesTeam26 &&
 					!isUpdateStatusColorsEnabled &&
 					editorContentStyles.statusStylesNamedSemantic,
-				(fg('platform_editor_gracefully_render_status_color') || isUpdateStatusColorsEnabled) &&
-					editorContentStyles.statusStylesHexAccent,
+				editorContentStyles.statusStylesHexAccent,
 				fg('platform_editor_ai_show_diff_patch_2') && editorContentStyles.deletedStatusStrikeStyles,
 				editorContentStyles.annotationStyles,
 				editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
@@ -8654,6 +8676,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorExperiment('advanced_layouts', true) &&
 					!fg('platform-dst-top-layer-tooltip') &&
 					editorContentStyles.layoutDragHandleWrapperStylesLegacy,
+				editorExperiment('advanced_layouts', true) &&
+					fg('platform-dst-top-layer-tooltip') &&
+					editorContentStyles.layoutDragHandleWrapperStylesTopLayer,
 				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutColumnDividerStyles,
 				editorExperiment('advanced_layouts', true) &&
 					editorContentStyles.layoutColumnDividerStylesNestedDnD,
@@ -8698,6 +8723,18 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
 					editorContentStyles.pragmaticResizerStylesExtensions,
 				editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
+				// Mirrors the two conditions above, inverted: the handles now exist for every breakout
+				// mark, so they must be hidden where resizing isn't supported.
+				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
+					!expValEqualsNoExposure(
+						'platform_editor_lovability_resize_dividers_panels',
+						'isEnabled',
+						true,
+					) &&
+					editorContentStyles.pragmaticResizerStylesHiddenForPanelAndRule,
+				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
+					!isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
+					editorContentStyles.pragmaticResizerStylesHiddenForExtensions,
 				editorExperiment('advanced_layouts', true) &&
 					editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,
 				editorContentStyles.pragmaticResizerStylesForTooltip,
@@ -8726,6 +8763,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.firstBlockNodeStyles,
 				editorContentStyles.firstNodeWidgetFixStyles,
 				editorContentStyles.mentionNodeStyles,
+				isExperimentEnabled('platform_editor_mention_avatar_nowrap') &&
+					editorContentStyles.mentionAvatarNoWrapStyles,
 				colorMode === 'dark' && editorContentStyles.agentMentionShimmerDarkMode,
 				editorContentStyles.mentionsSelectionStyles,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)

@@ -1,5 +1,12 @@
 # @atlaskit/analytics-next
 
+## 12.6.0
+
+### Minor Changes
+
+- [`c8edc44e24efd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8edc44e24efd) -
+  Add bitbucket-analytics-next-use-modern-context fg for migration to modern analytics context
+
 ## 12.5.1
 
 ### Patch Changes

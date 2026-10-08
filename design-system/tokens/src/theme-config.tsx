@@ -11,6 +11,8 @@ import type { ThemeState } from './theme-state';
  * style-dictionary will attempt to locate these in the file-system.
  */
 export type Themes =
+	| 'UNSAFE-dynamic'
+	| 'UNSAFE-dynamic-dark'
 	| 'atlassian-light'
 	| 'atlassian-light-future'
 	| 'atlassian-light-increased-contrast'
@@ -22,6 +24,7 @@ export type Themes =
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
 	| 'atlassian-typography'
+	| 'UNSAFE-typography'
 	| 'atlassian-motion';
 
 /**
@@ -77,6 +80,8 @@ export const themeIdsWithOverrides: readonly [
 	'light-increased-contrast',
 	'light',
 	'light-future',
+	'UNSAFE-dynamic',
+	'UNSAFE-dynamic-dark',
 	'UNSAFE-test-light',
 	'dark',
 	'UNSAFE-test-dark',
@@ -85,6 +90,7 @@ export const themeIdsWithOverrides: readonly [
 	'spacing',
 	'shape',
 	'typography',
+	'UNSAFE-typography',
 	'motion',
 	'light-finesse',
 	'light-increased-contrast-finesse',
@@ -219,6 +225,26 @@ export const themeConfig: Record<ThemeFileNames, ThemeConfig> = {
 		extends: 'light',
 		increasesContrastFor: 'light',
 	},
+	'UNSAFE-dynamic': {
+		id: 'UNSAFE-dynamic',
+		displayName: 'UNSAFE Dynamic Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+		extends: 'light',
+	},
+	'UNSAFE-dynamic-dark': {
+		id: 'UNSAFE-dynamic-dark',
+		displayName: 'UNSAFE Dynamic Dark Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+		extends: 'dark',
+	},
 	'UNSAFE-test-light': {
 		id: 'UNSAFE-test-light',
 		displayName: 'UNSAFE Test Light Theme',
@@ -305,6 +331,15 @@ export const themeConfig: Record<ThemeFileNames, ThemeConfig> = {
 		attributes: {
 			type: 'typography',
 		},
+	},
+	'UNSAFE-typography': {
+		id: 'UNSAFE-typography',
+		displayName: 'UNSAFE Dynamic Typography',
+		palette: 'typographyPalette',
+		attributes: {
+			type: 'typography',
+		},
+		extends: 'typography',
 	},
 	'atlassian-typography-finesse': {
 		id: 'typography-finesse',

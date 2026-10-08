@@ -2,6 +2,8 @@ import { wb, type WorkbenchExample } from '@atlassian/workbench';
 
 import BasicDarkVrExample from '../basic-dark.vr.ap';
 import BasicLightVrExample from '../basic-light.vr.ap';
+import CustomThemeEditorialBriefExample from '../custom-theme-editorial-brief.wb.ap';
+import CustomThemeJiraBoardExample from '../custom-theme-jira-board.wb.ap';
 import LinkReactResourceRouterExample from '../link-react-resource-router';
 import SubTreeThemingOutsideAppProviderVrExample from '../sub-tree-theming-outside-app-provider.vr.ap';
 import SubTreeThemingVrExample from '../sub-tree-theming.vr.ap';
@@ -14,3 +16,7 @@ export const SubTreeThemingOutsideAppProviderVr: WorkbenchExample = wb(
 	SubTreeThemingOutsideAppProviderVrExample,
 );
 export const SubTreeThemingVr: WorkbenchExample = wb(SubTreeThemingVrExample);
+export const CustomThemeJiraBoard: WorkbenchExample<typeof CustomThemeJiraBoardExample> = wb(
+	CustomThemeJiraBoardExample,
+);
+export const CustomThemeEditorialBrief: WorkbenchExample = wb(CustomThemeEditorialBriefExample);

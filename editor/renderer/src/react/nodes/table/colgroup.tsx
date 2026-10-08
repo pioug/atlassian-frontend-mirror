@@ -9,7 +9,6 @@ import {
 	akEditorTableLegacyCellMinWidth,
 	akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useRendererContext } from '../../../renderer-context';
 import type { SharedTableProps } from './types';
@@ -226,10 +225,7 @@ const renderScaleDownColgroup = (
 	} = props;
 
 	const skipMinWidth = !!(isInsideOfTable && isInsideOfSyncBlock);
-	if (
-		!columnWidths ||
-		(columnWidths.every((width) => width === 0) && fg('platform_editor_numbered_column_in_include'))
-	) {
+	if (!columnWidths || columnWidths.every((width) => width === 0)) {
 		return [];
 	}
 

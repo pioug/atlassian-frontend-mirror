@@ -16,7 +16,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -70,16 +69,10 @@ const getSelectedColumns = (selection: Selection): number[] => {
 	}
 
 	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-		let isColumnSelection: boolean;
-		if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
-			isColumnSelection =
-				selection.isColSelection() ||
-				isColumnSelectionWithMergedFirstRow(selection) ||
-				isColumnSelectionWithMergedLastRow(selection);
-		} else {
-			isColumnSelection =
-				selection.isColSelection() || isColumnSelectionWithMergedFirstRow(selection);
-		}
+		const isColumnSelection =
+			selection.isColSelection() ||
+			isColumnSelectionWithMergedFirstRow(selection) ||
+			isColumnSelectionWithMergedLastRow(selection);
 
 		if (!isColumnSelection) {
 			return [];
@@ -138,13 +131,8 @@ export const ColumnControls = ({
 	const columnParams = getRowsParams(colWidths ?? []);
 	const colIndex = hoveredCell?.colIndex;
 	const selectedColIndexes = getSelectedColumns(selection || editorView.state.selection);
-	let renderedSelectedColIndexes: number[];
-	if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
-		renderedSelectedColIndexes =
-			activeTableMenu?.type === 'column' ? [activeTableMenu.index] : selectedColIndexes;
-	} else {
-		renderedSelectedColIndexes = selectedColIndexes;
-	}
+	const renderedSelectedColIndexes =
+		activeTableMenu?.type === 'column' ? [activeTableMenu.index] : selectedColIndexes;
 
 	const firstRow = tableRef.querySelector('tr');
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;

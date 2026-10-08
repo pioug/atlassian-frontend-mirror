@@ -17,6 +17,7 @@ export interface ThemeState {
 		| 'dark-increased-contrast'
 		| 'UNSAFE-test-light'
 		| 'UNSAFE-test-dark'
+		| 'UNSAFE-dynamic'
 	>;
 	dark: Extract<
 		ThemeIds,
@@ -28,12 +29,14 @@ export interface ThemeState {
 		| 'dark-increased-contrast'
 		| 'UNSAFE-test-light'
 		| 'UNSAFE-test-dark'
+		| 'UNSAFE-dynamic'
+		| 'UNSAFE-dynamic-dark'
 	>;
 	colorMode: ThemeColorModes;
 	contrastMode: ThemeContrastModes;
 	shape: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
-	typography: Extract<ThemeIds, 'typography'>;
+	typography: Extract<ThemeIds, 'typography' | 'UNSAFE-typography'>;
 	motion?: Extract<ThemeIds, 'motion'>;
 	UNSAFE_themeOptions?: ThemeOptionsSchema;
 }

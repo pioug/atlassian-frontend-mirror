@@ -164,3 +164,24 @@ it('reads suppression again at the next qualifying opportunity', async () => {
 	rerender({ visible: true });
 	await waitFor(() => expect(result.current.reason).toBe('shown_today'));
 });
+
+it.each(['spotlightCta', 'inlineAction'] as const)(
+	'records only the first click source: %s',
+	async (source) => {
+		mockExp(experiment, { isEnabled: true });
+		const onInteraction = jest.fn();
+		const { result } = render(onInteraction);
+		await waitFor(() => expect(result.current.isEligible).toBe(true));
+		act(() => {
+			result.current.onClick(source);
+			result.current.onShown();
+			result.current.onShown();
+			result.current.onClick(source);
+			result.current.onClick(source === 'spotlightCta' ? 'inlineAction' : 'spotlightCta');
+			result.current.onDismiss();
+		});
+		expect(onInteraction.mock.calls).toEqual([['impression'], ['clicked', source]]);
+		expect(storage.impress).toHaveBeenCalledTimes(1);
+		expect(storage.dismiss).not.toHaveBeenCalled();
+	},
+);

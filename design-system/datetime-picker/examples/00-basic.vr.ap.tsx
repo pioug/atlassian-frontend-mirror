@@ -137,6 +137,7 @@ export default (): React.JSX.Element => {
 					selectProps={{
 						classNamePrefix: 'timepicker-select',
 					}}
+					shouldShowTimeButton
 				/>
 
 				<Label htmlFor="react-select-timepicker-2--input">Select time (value, isOpen)</Label>
@@ -152,6 +153,7 @@ export default (): React.JSX.Element => {
 							onChange={onValueChange}
 							onBlur={onBlur}
 							isOpen={isOpen}
+							shouldShowTimeButton
 						/>
 					)}
 				</Controlled>
@@ -167,6 +169,7 @@ export default (): React.JSX.Element => {
 					id="react-select-timepicker-3--input"
 					defaultValue="14:30"
 					onChange={onChange}
+					shouldShowTimeButton
 				/>
 
 				<Label htmlFor="react-select-timepicker-4--input">Select time (editable)</Label>
@@ -180,6 +183,7 @@ export default (): React.JSX.Element => {
 					onChange={onChange}
 					timeFormat="HH:mm:ss A"
 					timeIsEditable
+					shouldShowTimeButton
 				/>
 			</Box>
 			<Box paddingBlock="space.150">
@@ -194,7 +198,10 @@ export default (): React.JSX.Element => {
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Date / time picker (default), time' }}
+					timePickerProps={{
+						label: 'Date / time picker (default), time',
+						shouldShowTimeButton: true,
+					}}
 					id="react-select-datetimepicker-1--input"
 				/>
 
@@ -213,7 +220,10 @@ export default (): React.JSX.Element => {
 								shouldShowCalendarButton: true,
 								openCalendarLabel: 'open calendar',
 							}}
-							timePickerProps={{ label: 'Date / time picker (controlled (UTC-08:00)), time' }}
+							timePickerProps={{
+								label: 'Date / time picker (controlled (UTC-08:00)), time',
+								shouldShowTimeButton: true,
+							}}
 						/>
 					)}
 				</Controlled>
@@ -231,7 +241,10 @@ export default (): React.JSX.Element => {
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Date / time picker (uncontrolled (UTC+10:00)), time' }}
+					timePickerProps={{
+						label: 'Date / time picker (uncontrolled (UTC+10:00)), time',
+						shouldShowTimeButton: true,
+					}}
 				/>
 
 				<Label htmlFor="react-select-datetimepicker-4--input">
@@ -245,6 +258,7 @@ export default (): React.JSX.Element => {
 					timePickerProps={{
 						timeIsEditable: true,
 						label: 'Date / time picker (editable times (UTC+10:00)), time',
+						shouldShowTimeButton: true,
 					}}
 					datePickerProps={{
 						label: 'Date / time picker (editable times (UTC+10:00)), date',
@@ -266,6 +280,7 @@ export default (): React.JSX.Element => {
 					}}
 					timePickerProps={{
 						label: 'Date / time picker (editable times with value (UTC+10:00)), time',
+						shouldShowTimeButton: true,
 					}}
 				/>
 				<Code>{value}</Code>

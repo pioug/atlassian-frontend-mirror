@@ -82,6 +82,21 @@ snapshotInformational(LoadedReactions, {
 });
 
 snapshotInformational(LoadedReactions, {
+	description: 'Reaction tooltip with users less than limit and empty footer hidden',
+	prepare: async (page) => {
+		await page.getByLabel('React with grinning face emoji').hover();
+		await page.getByLabel('Black Panther').isVisible();
+	},
+	selector: {
+		byTestId: 'render-reactionTooltip',
+	},
+	featureFlags: {
+		...featureFlags,
+		platform_reactions_tooltip_hide_empty_footer: true,
+	},
+});
+
+snapshotInformational(LoadedReactions, {
 	description: 'Reaction tooltip with users more than limit',
 	prepare: async (page) => {
 		await page.getByLabel('React with Blue Star emoji').hover();

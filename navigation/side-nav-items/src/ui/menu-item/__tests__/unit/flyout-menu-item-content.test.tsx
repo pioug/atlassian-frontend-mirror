@@ -18,7 +18,6 @@ import { FlyoutMenuItemTrigger } from '../../flyout-menu-item/flyout-menu-item-t
 describe('FlyoutMenuItemContent', () => {
 	beforeEach(() => {
 		failGate('platform-dst-top-layer');
-		failGate('platform-dst-motion-uplift-button');
 	});
 
 	it('should preserve the supplied title and accessible name as content loads', async () => {

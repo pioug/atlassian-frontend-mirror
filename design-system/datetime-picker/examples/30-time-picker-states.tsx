@@ -16,6 +16,7 @@ export default (): React.JSX.Element => {
 				selectProps={{
 					classNamePrefix: 'timepicker-select',
 				}}
+				shouldShowTimeButton
 			/>
 
 			<Label htmlFor="timepicker-2--input">Disabled input</Label>
@@ -24,6 +25,7 @@ export default (): React.JSX.Element => {
 				id="timepicker-2--input"
 				isDisabled
 				onChange={console.log}
+				shouldShowTimeButton
 			/>
 		</Box>
 	);

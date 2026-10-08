@@ -1,5 +1,23 @@
 # @atlaskit/react-select
 
+## 4.12.4
+
+### Patch Changes
+
+- [`6fa49845aae2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa49845aae2e) -
+  Cleanup `feature_gate` `platform-dst-motion-uplift-list-item`. List item hover, pressed and
+  selected motion transitions are now applied unconditionally across breadcrumbs, calendar dates,
+  links, menu items, select options and side navigation items.
+
+## 4.12.3
+
+### Patch Changes
+
+- [`94195fa850094`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94195fa850094) -
+  Apply `radius.large` to the Select menu list so scrolling options stay clipped within the menu
+  shadow.
+- Updated dependencies
+
 ## 4.12.2
 
 ### Patch Changes

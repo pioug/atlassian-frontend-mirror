@@ -12,6 +12,7 @@ import {
 	useFetchSyncBlockData,
 	useFetchSyncBlockTitle,
 } from '@atlaskit/editor-synced-block-provider';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';
 import { getUnpublishedSourceType } from './getUnpublishedSourceType';
@@ -85,6 +86,18 @@ const SyncBlockRendererWrapperComponent = ({
 	// ourselves. A native listener (rather than an onClick on the div) is used
 	// so we delegate link clicks without making the container itself interactive.
 	const rendererRef = useRef<HTMLDivElement>(null);
+	const preventReferenceEditing = isExperimentEnabled('platform_editor_blocks_patch_11');
+	useEffect(() => {
+		const container = rendererRef.current;
+		if (!preventReferenceEditing || !container) {
+			return;
+		}
+		return bind(container, {
+			// Block native edits without intercepting ProseMirror's node deletion.
+			type: 'beforeinput',
+			listener: (event) => event.preventDefault(),
+		});
+	}, [preventReferenceEditing]);
 
 	useEffect(() => {
 		const containerEl = rendererRef.current;

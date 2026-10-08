@@ -2,6 +2,7 @@ import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ContributorTagModel, DiffDescriptor, TagContributor } from '../../showDiffPluginType';
+import { resolveBaseNodeName } from '../utils/baseNodeName';
 import type {
 	ResolvedDiffContributor,
 	ResolvedDiffContributors,
@@ -57,8 +58,11 @@ const leadsReplacement = (widget: TaggableDecoration): boolean =>
  */
 const isSameBlockChange = (inner: TaggableDecoration, block: TaggableDecoration): boolean =>
 	inner.spec.attributionKey === block.spec.attributionKey &&
-	block.from <= inner.from &&
-	inner.to <= block.to;
+	(inner.spec.decorationType === 'widget'
+		? // Deleted content is zero-width and sits at the start of what replaced it, so a widget at the
+			// block's edge is beside the block rather than within it and keeps its own tag.
+			block.from < inner.from && inner.to < block.to
+		: block.from <= inner.from && inner.to <= block.to);
 
 /**
  * Whether `outer` is the box `inner` sits in, for one contributor. Nested blocks they inserted read
@@ -79,6 +83,27 @@ const byLeadingPosition = (a: TagTarget, b: TagTarget): number =>
 	a.decoration.from - b.decoration.from ||
 	(a.decoration.spec.side ?? 0) - (b.decoration.spec.side ?? 0) ||
 	a.decoration.to - a.decoration.from - (b.decoration.to - b.decoration.from);
+
+/** Select the first layout column only when the inline layout range starts immediately before it. */
+const navigationLeader = (members: TagTarget[]): TagTarget => {
+	const ordered = [...members].sort(byLeadingPosition);
+	const layoutColumn = fg('confluence_ncs_step_diffing_version_history')
+		? ordered.find(
+				({ decoration }) =>
+					decoration.spec.decorationType === 'block' &&
+					resolveBaseNodeName(decoration.spec.nodeName ?? '') === 'layoutColumn',
+			)
+		: undefined;
+	const startsWholeLayout =
+		layoutColumn !== undefined &&
+		members.some(
+			({ decoration }) =>
+				decoration.spec.decorationType === 'inline' &&
+				decoration.from === layoutColumn.decoration.from - 1,
+		);
+
+	return startsWholeLayout ? layoutColumn : ordered[0];
+};
 
 /** The targets a navigation range wholly covers, leader first. */
 const containedBy = (
@@ -293,7 +318,8 @@ export const extractContributorTags = (
 		}
 
 		for (const members of byStopAndContributor.values()) {
-			const [leader, ...trailing] = [...members].sort(byLeadingPosition);
+			const leader = navigationLeader(members);
+			const trailing = members.filter((target) => target !== leader);
 			trailing.forEach((target) => fold(leader, target));
 		}
 	}

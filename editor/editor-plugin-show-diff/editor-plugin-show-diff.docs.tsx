@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Show Diff',
 			description: 'ShowDiff plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'showDiffPlugin',
 				package: '@atlaskit/editor-plugin-show-diff',

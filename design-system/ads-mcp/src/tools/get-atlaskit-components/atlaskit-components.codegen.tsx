@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::35013a8fe45c8b5f501ae712dbba3d5f>>
+ * @codegen <<SignedSource::0e042569161f64ca963faec2ca7cc689>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -775,7 +775,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['editor', 'editor-json-transformer', 'atlaskit'],
 		category: 'editor',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@compiled/react';\n/* eslint-enable @typescript-eslint/consistent-type-imports */\nimport { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';\nimport { ComposableEditor } from '@atlaskit/editor-core/composable-editor';\nimport { createDefaultPreset } from '@atlaskit/editor-core/preset-default';\nimport { usePreset } from '@atlaskit/editor-core/use-preset';\nimport { gridPlugin } from '@atlaskit/editor-plugin-grid';\nimport { mediaPlugin } from '@atlaskit/editor-plugin-media';\nimport { layoutPlugin } from '@atlaskit/editor-plugins/layout';\nimport type { EditorView } from '@atlaskit/editor-prosemirror/view';\nimport { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';\nimport { token } from '@atlaskit/tokens';\nimport { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';\nimport { JSONTransformer } from '../src/JSONTransformer-2';\nconst container = css({\n\tdisplay: 'grid',\n\tgridTemplateColumns: '50% 50%',\n\t'#output': {\n\t\tborder: `${token('border.width.selected')} solid`,\n\t\tmarginTop: token('space.100'),\n\t\tmarginRight: token('space.100'),\n\t\tmarginBottom: token('space.100'),\n\t\tmarginLeft: token('space.100'),\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\twhiteSpace: 'pre-wrap',\n\t\tfontSize: 'xx-small',\n\t\t'&:focus': {\n\t\t\toutline: 'none',\n\t\t},\n\t\t'&:empty:not(:focus)::before': {\n\t\t\tcontent: 'attr(data-placeholder)',\n\t\t\tfontSize: '14px',\n\t\t},\n\t},\n});\nconst createPreset = () =>\n\tcreateDefaultPreset({\n\t\tfeatureFlags: { macroInteractionUpdates: true },\n\t\tpaste: {},\n\t\tappearance: 'comment',\n\t})\n\t\t.add(gridPlugin)\n\t\t.add(layoutPlugin)\n\t\t.add([\n\t\t\tmediaPlugin,\n\t\t\t{\n\t\t\t\tfeatureFlags: {\n\t\t\t\t\tmediaInline: true,\n\t\t\t\t},\n\t\t\t\tprovider: storyMediaProviderFactory(),\n\t\t\t\tallowMediaSingle: true,\n\t\t\t\tallowMediaInlineImages: true,\n\t\t\t\tallowResizing: true,\n\t\t\t\tallowLinking: true,\n\t\t\t\tallowResizingInTables: true,\n\t\t\t\tallowAltTextOnImages: true,\n\t\t\t\tallowCaptions: true,\n\t\t\t\taltTextValidator: (value: string) => {\n\t\t\t\t\tconst errors = [];\n\t\t\t\t\t// Ignored via go/ees005\n\t\t\t\t\tif (!/^[A-Z]/g.test(value)) {\n\t\t\t\t\t\terrors.push('Please start with capital letter.');\n\t\t\t\t\t}\n\t\t\t\t\t// Ignored via go/ees005\n\t\t\t\t\tif (!/^[^\"<>&\\\\]*$/g.test(value)) {\n\t\t\t\t\t\terrors.push('Please remove special characters.');\n\t\t\t\t\t}\n\t\t\t\t\t// Ignored via go/ees005\n\t\t\t\t\tif (!/(\\w.+\\s).+/g.test(value)) {\n\t\t\t\t\t\terrors.push('Please use at least two words.');\n\t\t\t\t\t}\n\t\t\t\t\treturn errors;\n\t\t\t\t},\n\t\t\t},\n\t\t]);\nconst schema = getSchemaBasedOnStage('stage0');\nconst Layouts = (): jsx.JSX.Element => {\n\tconst [{ output }, setOutput] = React.useState<{ output: string }>({ output: '' });\n\tconst { current: transformer } = React.useRef(new JSONTransformer(schema));\n\tconst { preset } = usePreset(createPreset);\n\tconst handleChangeInTheEditor = React.useCallback(\n\t\t(editorView: EditorView) => {\n\t\t\tconst output = JSON.stringify(transformer.encode(editorView.state.doc), null, 2);\n\t\t\tsetOutput({ output });\n\t\t},\n\t\t[],\n\t);\n\treturn (\n\t\t<div css={container}>\n\t\t\t<ComposableEditor\n\t\t\t\tappearance=\"comment\"\n\t\t\t\tpreset={preset}\n\t\t\t\tonChange={handleChangeInTheEditor}\n\t\t\t\ttaskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}\n\t\t\t/>\n\t\t\t<div\n\t\t\t\tid=\"output\"\n\t\t\t\tdata-placeholder=\"This is an empty document (or something has gone really wrong)\"\n\t\t\t>\n\t\t\t\t{output}\n\t\t\t</div>\n\t\t</div>\n\t);\n};\nexport default Layouts;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@compiled/react';\n/* eslint-enable @typescript-eslint/consistent-type-imports */\nimport { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';\nimport { ComposableEditor } from '@atlaskit/editor-core/composable-editor';\nimport { createDefaultPreset } from '@atlaskit/editor-core/preset-default';\nimport { usePreset } from '@atlaskit/editor-core/use-preset';\nimport { gridPlugin } from '@atlaskit/editor-plugin-grid';\nimport { mediaPlugin } from '@atlaskit/editor-plugin-media';\nimport { layoutPlugin } from '@atlaskit/editor-plugins/layout';\nimport type { EditorView } from '@atlaskit/editor-prosemirror/view';\nimport { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';\nimport { token } from '@atlaskit/tokens';\nimport { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';\nimport { JSONTransformer } from '../src/JSONTransformer-2';\nconst container = css({\n\tdisplay: 'grid',\n\tgridTemplateColumns: '50% 50%',\n\t'#output': {\n\t\tborder: `${token('border.width.selected')} solid`,\n\t\tmarginTop: token('space.100'),\n\t\tmarginRight: token('space.100'),\n\t\tmarginBottom: token('space.100'),\n\t\tmarginLeft: token('space.100'),\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\twhiteSpace: 'pre-wrap',\n\t\tfontSize: 'xx-small',\n\t\t'&:focus': {\n\t\t\toutline: 'none',\n\t\t},\n\t\t'&:empty:not(:focus)::before': {\n\t\t\tcontent: 'attr(data-placeholder)',\n\t\t\tfontSize: '14px',\n\t\t},\n\t},\n});\nconst createPreset = () =>\n\tcreateDefaultPreset({\n\t\tfeatureFlags: { macroInteractionUpdates: true },\n\t\tpaste: {},\n\t\tappearance: 'comment',\n\t})\n\t\t.add(gridPlugin)\n\t\t.add(layoutPlugin)\n\t\t.add([\n\t\t\tmediaPlugin,\n\t\t\t{\n\t\t\t\tfeatureFlags: {\n\t\t\t\t\tmediaInline: true,\n\t\t\t\t},\n\t\t\t\tprovider: storyMediaProviderFactory(),\n\t\t\t\tallowMediaSingle: true,\n\t\t\t\tallowResizing: true,\n\t\t\t\tallowLinking: true,\n\t\t\t\tallowResizingInTables: true,\n\t\t\t\tallowAltTextOnImages: true,\n\t\t\t\tallowCaptions: true,\n\t\t\t\taltTextValidator: (value: string) => {\n\t\t\t\t\tconst errors = [];\n\t\t\t\t\t// Ignored via go/ees005\n\t\t\t\t\tif (!/^[A-Z]/g.test(value)) {\n\t\t\t\t\t\terrors.push('Please start with capital letter.');\n\t\t\t\t\t}\n\t\t\t\t\t// Ignored via go/ees005\n\t\t\t\t\tif (!/^[^\"<>&\\\\]*$/g.test(value)) {\n\t\t\t\t\t\terrors.push('Please remove special characters.');\n\t\t\t\t\t}\n\t\t\t\t\t// Ignored via go/ees005\n\t\t\t\t\tif (!/(\\w.+\\s).+/g.test(value)) {\n\t\t\t\t\t\terrors.push('Please use at least two words.');\n\t\t\t\t\t}\n\t\t\t\t\treturn errors;\n\t\t\t\t},\n\t\t\t},\n\t\t]);\nconst schema = getSchemaBasedOnStage('stage0');\nconst Layouts = (): jsx.JSX.Element => {\n\tconst [{ output }, setOutput] = React.useState<{ output: string }>({ output: '' });\n\tconst { current: transformer } = React.useRef(new JSONTransformer(schema));\n\tconst { preset } = usePreset(createPreset);\n\tconst handleChangeInTheEditor = React.useCallback(\n\t\t(editorView: EditorView) => {\n\t\t\tconst output = JSON.stringify(transformer.encode(editorView.state.doc), null, 2);\n\t\t\tsetOutput({ output });\n\t\t},\n\t\t[],\n\t);\n\treturn (\n\t\t<div css={container}>\n\t\t\t<ComposableEditor\n\t\t\t\tappearance=\"comment\"\n\t\t\t\tpreset={preset}\n\t\t\t\tonChange={handleChangeInTheEditor}\n\t\t\t\ttaskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}\n\t\t\t/>\n\t\t\t<div\n\t\t\t\tid=\"output\"\n\t\t\t\tdata-placeholder=\"This is an empty document (or something has gone really wrong)\"\n\t\t\t>\n\t\t\t\t{output}\n\t\t\t</div>\n\t\t</div>\n\t);\n};\nexport default Layouts;",
 		],
 		props: [],
 	},
@@ -885,7 +885,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['editor', 'editor-plugin-connectivity', 'atlaskit'],
 		category: 'editor',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DevTools } from '@af/editor-examples-helpers/utils';\nimport Button from '@atlaskit/button/default/button';\nimport { useSharedPluginState } from '@atlaskit/editor-common/hooks';\nimport type { PublicPluginAPI } from '@atlaskit/editor-common/types';\nimport type { EditorActions } from '@atlaskit/editor-core';\nimport { ComposableEditor } from '@atlaskit/editor-core/composable-editor';\nimport { usePreset } from '@atlaskit/editor-core/use-preset';\nimport { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';\nimport { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';\nimport { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';\nimport { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';\nimport { annotationPlugin } from '@atlaskit/editor-plugins/annotation';\nimport { basePlugin } from '@atlaskit/editor-plugins/base';\nimport { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';\nimport { cardPlugin } from '@atlaskit/editor-plugins/card';\nimport { connectivityPlugin, type ConnectivityPlugin } from '@atlaskit/editor-plugins/connectivity';\nimport { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';\nimport { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';\nimport { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';\nimport { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';\nimport { emojiPlugin } from '@atlaskit/editor-plugins/emoji';\nimport { extensionPlugin } from '@atlaskit/editor-plugins/extension';\nimport { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';\nimport { focusPlugin } from '@atlaskit/editor-plugins/focus';\nimport { gridPlugin } from '@atlaskit/editor-plugins/grid';\nimport { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';\nimport { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';\nimport { layoutPlugin } from '@atlaskit/editor-plugins/layout';\nimport { loomPlugin } from '@atlaskit/editor-plugins/loom';\nimport { mediaPlugin } from '@atlaskit/editor-plugins/media';\nimport { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';\nimport { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';\nimport { selectionPlugin } from '@atlaskit/editor-plugins/selection';\nimport { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';\nimport { tablesPlugin } from '@atlaskit/editor-plugins/table';\nimport { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';\nimport { widthPlugin } from '@atlaskit/editor-plugins/width';\nimport type { EditorView } from '@atlaskit/editor-prosemirror/view';\nimport { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';\nimport { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';\nimport { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';\nimport { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';\nimport { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Box, xcss } from '@atlaskit/primitives';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';\nimport { getLoomProvider } from './utils/provider/loom-provider';\nconst styles = xcss({ height: '100%' });\nconst smartCardClient = new ConfluenceCardClient('stg');\nfunction OfflineIndicator({\n\teditorApi,\n}: {\n\teditorApi: PublicPluginAPI<ConnectivityPlugin> | undefined;\n}) {\n\tconst { connectivityState } = useSharedPluginState(editorApi, ['connectivity']);\n\treturn (\n\t\t<Box as=\"span\" padding=\"space.100\">\n\t\t\tOffline status: {connectivityState?.mode}\n\t\t</Box>\n\t);\n}\nfunction SimulateMode() {\n\tconst [offline, setOffline] = useState(false);\n\treturn (\n\t\t<Button\n\t\t\tonClick={() => {\n\t\t\t\tif (!offline) {\n\t\t\t\t\tsetOffline(true);\n\t\t\t\t\twindow.dispatchEvent(new Event('offline'));\n\t\t\t\t} else {\n\t\t\t\t\tsetOffline(false);\n\t\t\t\t\twindow.dispatchEvent(new Event('online'));\n\t\t\t\t}\n\t\t\t}}\n\t\t>\n\t\t\tSimulate {offline ? 'online' : 'offline'}\n\t\t</Button>\n\t);\n}\nfunction Editor() {\n\tconst editorAnnotationProviders = useEditorAnnotationProviders();\n\tconst { preset, editorApi } = usePreset((builder) =>\n\t\tbuilder\n\t\t\t.add(basePlugin)\n\t\t\t.add(blockTypePlugin)\n\t\t\t.add(typeAheadPlugin)\n\t\t\t.add([\n\t\t\t\tquickInsertPlugin,\n\t\t\t\t{\n\t\t\t\t\tenableElementBrowser: true,\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add(hyperlinkPlugin)\n\t\t\t.add(widthPlugin)\n\t\t\t.add([\n\t\t\t\tinsertBlockPlugin,\n\t\t\t\t{\n\t\t\t\t\tshowElementBrowserLink: true,\n\t\t\t\t\tappearance: 'full-page',\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add(editorDisabledPlugin)\n\t\t\t.add(decorationsPlugin)\n\t\t\t.add(copyButtonPlugin)\n\t\t\t.add(floatingToolbarPlugin)\n\t\t\t.add(selectionPlugin)\n\t\t\t.add(guidelinePlugin)\n\t\t\t.add(gridPlugin)\n\t\t\t.add(focusPlugin)\n\t\t\t.add([\n\t\t\t\tmediaPlugin,\n\t\t\t\t{\n\t\t\t\t\tprovider: storyMediaProviderFactory(),\n\t\t\t\t\tallowMediaSingle: true,\n\t\t\t\t\tallowMediaSingleEditable: true,\n\t\t\t\t\tallowLinking: true,\n\t\t\t\t\tallowCommentsOnMedia: true,\n\t\t\t\t\tallowAdvancedToolBarOptions: true,\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add([analyticsPlugin, {}])\n\t\t\t.add(contentInsertionPlugin)\n\t\t\t.add(mentionsPlugin)\n\t\t\t.add([tablesPlugin, { tableOptions: { advanced: true } }])\n\t\t\t.add([emojiPlugin, { emojiProvider: getEmojiResource() }])\n\t\t\t.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])\n\t\t\t.add(layoutPlugin)\n\t\t\t.add([selectionToolbarPlugin, {}])\n\t\t\t.add(tasksAndDecisionsPlugin)\n\t\t\t.add([annotationPlugin, editorAnnotationProviders])\n\t\t\t.add([\n\t\t\t\tloomPlugin,\n\t\t\t\t{\n\t\t\t\t\t...getLoomProvider({\n\t\t\t\t\t\t// NOTE: DEV MOVE - A public key referencing a sandbox loom account, this will eventially be substituted\n\t\t\t\t\t\t// for a session token that will intialise the SDK.\n\t\t\t\t\t\tpublicAppId: '4dc78821-b6d2-44ee-ab43-54d0494290c8',\n\t\t\t\t\t}),\n\t\t\t\t\tshouldShowToolbarButton: true,\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add(primaryToolbarPlugin)\n\t\t\t.add(connectivityPlugin)\n\t\t\t.add(extensionPlugin),\n\t);\n\tconst [editorView, setEditorView] = React.useState<EditorView>();\n\tconst onReady = React.useCallback((editorActions: EditorActions<any>) => {\n\t\tsetEditorView(editorActions._privateGetEditorView());\n\t}, []);\n\treturn (\n\t\t<Box xcss={styles}>\n\t\t\t<SimulateMode />\n\t\t\t<DevTools editorView={editorView} />\n\t\t\t<OfflineIndicator editorApi={editorApi} />\n\t\t\t<ComposableEditor\n\t\t\t\tappearance=\"full-page\"\n\t\t\t\tpreset={preset}\n\t\t\t\tonEditorReady={onReady}\n\t\t\t\tmentionProvider={Promise.resolve(mentionResourceProvider)}\n\t\t\t\textensionProviders={(editorActions?: EditorActions) => [\n\t\t\t\t\tgetExampleExtensionProviders(editorApi, editorActions),\n\t\t\t\t]}\n\t\t\t/>\n\t\t</Box>\n\t);\n}\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={smartCardClient}>\n\t\t\t\t<Editor />\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n};",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DevTools } from '@af/editor-examples-helpers/utils';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { useSharedPluginState } from '@atlaskit/editor-common/hooks';\nimport type { PublicPluginAPI } from '@atlaskit/editor-common/types';\nimport type { EditorActions } from '@atlaskit/editor-core';\nimport { ComposableEditor } from '@atlaskit/editor-core/composable-editor';\nimport { usePreset } from '@atlaskit/editor-core/use-preset';\nimport { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';\nimport { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';\nimport { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';\nimport { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';\nimport { annotationPlugin } from '@atlaskit/editor-plugins/annotation';\nimport { basePlugin } from '@atlaskit/editor-plugins/base';\nimport { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';\nimport { cardPlugin } from '@atlaskit/editor-plugins/card';\nimport { connectivityPlugin, type ConnectivityPlugin } from '@atlaskit/editor-plugins/connectivity';\nimport { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';\nimport { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';\nimport { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';\nimport { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';\nimport { emojiPlugin } from '@atlaskit/editor-plugins/emoji';\nimport { extensionPlugin } from '@atlaskit/editor-plugins/extension';\nimport { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';\nimport { focusPlugin } from '@atlaskit/editor-plugins/focus';\nimport { gridPlugin } from '@atlaskit/editor-plugins/grid';\nimport { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';\nimport { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';\nimport { layoutPlugin } from '@atlaskit/editor-plugins/layout';\nimport { loomPlugin } from '@atlaskit/editor-plugins/loom';\nimport { mediaPlugin } from '@atlaskit/editor-plugins/media';\nimport { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';\nimport { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';\nimport { selectionPlugin } from '@atlaskit/editor-plugins/selection';\nimport { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';\nimport { tablesPlugin } from '@atlaskit/editor-plugins/table';\nimport { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';\nimport { widthPlugin } from '@atlaskit/editor-plugins/width';\nimport type { EditorView } from '@atlaskit/editor-prosemirror/view';\nimport { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';\nimport { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';\nimport { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';\nimport { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';\nimport { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';\nimport { getLoomProvider } from './utils/provider/loom-provider';\nconst styles = cssMap({ root: { height: '100%' } });\nconst smartCardClient = new ConfluenceCardClient('stg');\nfunction OfflineIndicator({\n\teditorApi,\n}: {\n\teditorApi: PublicPluginAPI<ConnectivityPlugin> | undefined;\n}) {\n\tconst { connectivityState } = useSharedPluginState(editorApi, ['connectivity']);\n\treturn (\n\t\t<Box as=\"span\" padding=\"space.100\">\n\t\t\tOffline status: {connectivityState?.mode}\n\t\t</Box>\n\t);\n}\nfunction SimulateMode() {\n\tconst [offline, setOffline] = useState(false);\n\treturn (\n\t\t<Button\n\t\t\tonClick={() => {\n\t\t\t\tif (!offline) {\n\t\t\t\t\tsetOffline(true);\n\t\t\t\t\twindow.dispatchEvent(new Event('offline'));\n\t\t\t\t} else {\n\t\t\t\t\tsetOffline(false);\n\t\t\t\t\twindow.dispatchEvent(new Event('online'));\n\t\t\t\t}\n\t\t\t}}\n\t\t>\n\t\t\tSimulate {offline ? 'online' : 'offline'}\n\t\t</Button>\n\t);\n}\nfunction Editor() {\n\tconst editorAnnotationProviders = useEditorAnnotationProviders();\n\tconst { preset, editorApi } = usePreset((builder) =>\n\t\tbuilder\n\t\t\t.add(basePlugin)\n\t\t\t.add(blockTypePlugin)\n\t\t\t.add(typeAheadPlugin)\n\t\t\t.add([\n\t\t\t\tquickInsertPlugin,\n\t\t\t\t{\n\t\t\t\t\tenableElementBrowser: true,\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add(hyperlinkPlugin)\n\t\t\t.add(widthPlugin)\n\t\t\t.add([\n\t\t\t\tinsertBlockPlugin,\n\t\t\t\t{\n\t\t\t\t\tshowElementBrowserLink: true,\n\t\t\t\t\tappearance: 'full-page',\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add(editorDisabledPlugin)\n\t\t\t.add(decorationsPlugin)\n\t\t\t.add(copyButtonPlugin)\n\t\t\t.add(floatingToolbarPlugin)\n\t\t\t.add(selectionPlugin)\n\t\t\t.add(guidelinePlugin)\n\t\t\t.add(gridPlugin)\n\t\t\t.add(focusPlugin)\n\t\t\t.add([\n\t\t\t\tmediaPlugin,\n\t\t\t\t{\n\t\t\t\t\tprovider: storyMediaProviderFactory(),\n\t\t\t\t\tallowMediaSingle: true,\n\t\t\t\t\tallowMediaSingleEditable: true,\n\t\t\t\t\tallowLinking: true,\n\t\t\t\t\tallowCommentsOnMedia: true,\n\t\t\t\t\tallowAdvancedToolBarOptions: true,\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add([analyticsPlugin, {}])\n\t\t\t.add(contentInsertionPlugin)\n\t\t\t.add(mentionsPlugin)\n\t\t\t.add([tablesPlugin, { tableOptions: { advanced: true } }])\n\t\t\t.add([emojiPlugin, { emojiProvider: getEmojiResource() }])\n\t\t\t.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])\n\t\t\t.add(layoutPlugin)\n\t\t\t.add([selectionToolbarPlugin, {}])\n\t\t\t.add(tasksAndDecisionsPlugin)\n\t\t\t.add([annotationPlugin, editorAnnotationProviders])\n\t\t\t.add([\n\t\t\t\tloomPlugin,\n\t\t\t\t{\n\t\t\t\t\t...getLoomProvider({\n\t\t\t\t\t\t// NOTE: DEV MOVE - A public key referencing a sandbox loom account, this will eventially be substituted\n\t\t\t\t\t\t// for a session token that will intialise the SDK.\n\t\t\t\t\t\tpublicAppId: '4dc78821-b6d2-44ee-ab43-54d0494290c8',\n\t\t\t\t\t}),\n\t\t\t\t\tshouldShowToolbarButton: true,\n\t\t\t\t},\n\t\t\t])\n\t\t\t.add(primaryToolbarPlugin)\n\t\t\t.add(connectivityPlugin)\n\t\t\t.add(extensionPlugin),\n\t);\n\tconst [editorView, setEditorView] = React.useState<EditorView>();\n\tconst onReady = React.useCallback((editorActions: EditorActions<any>) => {\n\t\tsetEditorView(editorActions._privateGetEditorView());\n\t}, []);\n\treturn (\n\t\t<Box xcss={styles.root}>\n\t\t\t<SimulateMode />\n\t\t\t<DevTools editorView={editorView} />\n\t\t\t<OfflineIndicator editorApi={editorApi} />\n\t\t\t<ComposableEditor\n\t\t\t\tappearance=\"full-page\"\n\t\t\t\tpreset={preset}\n\t\t\t\tonEditorReady={onReady}\n\t\t\t\tmentionProvider={Promise.resolve(mentionResourceProvider)}\n\t\t\t\textensionProviders={(editorActions?: EditorActions) => [\n\t\t\t\t\tgetExampleExtensionProviders(editorApi, editorActions),\n\t\t\t\t]}\n\t\t\t/>\n\t\t</Box>\n\t);\n}\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={smartCardClient}>\n\t\t\t\t<Editor />\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n};",
 		],
 		props: [
 			{
@@ -1086,7 +1086,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['editor', 'editor-plugin-track-changes', 'atlaskit'],
 		category: 'editor',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { EditorPresetBuilder } from '@atlaskit/editor-common/preset';\nimport { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';\nimport { ComposableEditor } from '@atlaskit/editor-core/composable-editor';\nimport { usePreset } from '@atlaskit/editor-core/use-preset';\nimport { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';\nimport { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';\nimport { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';\nimport { compositionPlugin } from '@atlaskit/editor-plugin-composition';\nimport { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';\nimport { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';\nimport { datePlugin } from '@atlaskit/editor-plugin-date';\nimport { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';\nimport { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';\nimport { emojiPlugin } from '@atlaskit/editor-plugin-emoji';\nimport { expandPlugin } from '@atlaskit/editor-plugin-expand';\nimport { extensionPlugin } from '@atlaskit/editor-plugin-extension';\nimport { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';\nimport { focusPlugin } from '@atlaskit/editor-plugin-focus';\nimport { gridPlugin } from '@atlaskit/editor-plugin-grid';\nimport { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';\nimport { historyPlugin } from '@atlaskit/editor-plugin-history';\nimport { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';\nimport { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';\nimport { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';\nimport { layoutPlugin } from '@atlaskit/editor-plugin-layout';\nimport { listPlugin } from '@atlaskit/editor-plugin-list';\nimport { mediaPlugin } from '@atlaskit/editor-plugin-media';\nimport { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';\nimport { panelPlugin } from '@atlaskit/editor-plugin-panel';\nimport { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';\nimport { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';\nimport { rulePlugin } from '@atlaskit/editor-plugin-rule';\nimport { selectionPlugin } from '@atlaskit/editor-plugin-selection';\nimport { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';\nimport { statusPlugin } from '@atlaskit/editor-plugin-status';\nimport { tablesPlugin } from '@atlaskit/editor-plugin-table';\nimport { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';\nimport { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';\nimport { widthPlugin } from '@atlaskit/editor-plugin-width';\nimport { basePlugin } from '@atlaskit/editor-plugins/base';\nimport { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { trackChangesPlugin } from '../src/trackChangesPlugin';\nconst styles = cssMap({\n\taboveEditor: {\n\t\tposition: 'fixed',\n\t\tbottom: 0,\n\t\tzIndex: 800,\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t},\n\teverythingContainer: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t},\n});\nconst createPreset = () =>\n\tnew EditorPresetBuilder()\n\t\t.add(basePlugin)\n\t\t.add(typeAheadPlugin)\n\t\t.add(widthPlugin)\n\t\t.add(compositionPlugin)\n\t\t.add([analyticsPlugin, {}])\n\t\t.add(editorDisabledPlugin)\n\t\t.add(contentInsertionPlugin)\n\t\t.add(guidelinePlugin)\n\t\t.add(selectionPlugin)\n\t\t.add(decorationsPlugin)\n\t\t.add(hyperlinkPlugin)\n\t\t.add(datePlugin)\n\t\t.add(listPlugin)\n\t\t.add(blockTypePlugin)\n\t\t.add(imageUploadPlugin)\n\t\t.add([emojiPlugin, { emojiProvider: getEmojiResource() }])\n\t\t.add(quickInsertPlugin)\n\t\t.add(rulePlugin)\n\t\t.add(codeBlockPlugin)\n\t\t.add(panelPlugin)\n\t\t.add(focusPlugin)\n\t\t.add(gridPlugin)\n\t\t.add(copyButtonPlugin)\n\t\t.add(floatingToolbarPlugin)\n\t\t.add(mediaPlugin)\n\t\t.add(statusPlugin)\n\t\t.add(mentionsPlugin)\n\t\t.add(layoutPlugin)\n\t\t.add(expandPlugin)\n\t\t.add([placeholderTextPlugin, {}])\n\t\t.add(extensionPlugin)\n\t\t.add(tasksAndDecisionsPlugin)\n\t\t.add(textFormattingPlugin)\n\t\t.add([tablesPlugin, { tableOptions: { advanced: true } }])\n\t\t.add([\n\t\t\tinsertBlockPlugin,\n\t\t\t{\n\t\t\t\tallowExpand: true,\n\t\t\t\thorizontalRuleEnabled: true,\n\t\t\t\tnativeStatusSupported: true,\n\t\t\t},\n\t\t])\n\t\t.add(historyPlugin)\n\t\t.add(showDiffPlugin)\n\t\t.add(trackChangesPlugin);\nfunction Editor(): React.JSX.Element {\n\tconst { preset, editorApi } = usePreset(createPreset);\n\tconst isSelected = useSharedPluginStateSelector(editorApi, 'trackChanges.isDisplayingChanges');\n\tconst activeIndex = useSharedPluginStateSelector(editorApi, 'showDiff.activeIndex');\n\tconst isShowDiffAvailable = useSharedPluginStateSelector(\n\t\teditorApi,\n\t\t'trackChanges.isShowDiffAvailable',\n\t);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.everythingContainer}>\n\t\t\t\t<Box xcss={styles.aboveEditor}>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\teditorApi?.core.actions.execute(editorApi?.trackChanges.commands.toggleChanges);\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\t\tisDisabled={!(isShowDiffAvailable ?? false)}\n\t\t\t\t\t>\n\t\t\t\t\t\tShow Diff\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\teditorApi?.core.actions.execute(editorApi?.showDiff.commands.scrollToNext);\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\tNext\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\teditorApi?.core.actions.execute(editorApi?.showDiff.commands.scrollToPrevious);\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\tPrevious\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button>{activeIndex}</Button>\n\t\t\t\t</Box>\n\t\t\t\t<ComposableEditor preset={preset} appearance=\"comment\" />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}\nexport default Editor;",
+			"import { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { EditorPresetBuilder } from '@atlaskit/editor-common/preset';\nimport { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';\nimport { ComposableEditor } from '@atlaskit/editor-core/composable-editor';\nimport { usePreset } from '@atlaskit/editor-core/use-preset';\nimport { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';\nimport { blockTypePlugin } from '@atlaskit/editor-plugin-block-type';\nimport { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';\nimport { compositionPlugin } from '@atlaskit/editor-plugin-composition';\nimport { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';\nimport { copyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';\nimport { datePlugin } from '@atlaskit/editor-plugin-date';\nimport { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';\nimport { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';\nimport { emojiPlugin } from '@atlaskit/editor-plugin-emoji';\nimport { expandPlugin } from '@atlaskit/editor-plugin-expand';\nimport { extensionPlugin } from '@atlaskit/editor-plugin-extension';\nimport { floatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';\nimport { focusPlugin } from '@atlaskit/editor-plugin-focus';\nimport { gridPlugin } from '@atlaskit/editor-plugin-grid';\nimport { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';\nimport { historyPlugin } from '@atlaskit/editor-plugin-history';\nimport { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';\nimport { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';\nimport { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';\nimport { layoutPlugin } from '@atlaskit/editor-plugin-layout';\nimport { listPlugin } from '@atlaskit/editor-plugin-list';\nimport { mediaPlugin } from '@atlaskit/editor-plugin-media';\nimport { mentionsPlugin } from '@atlaskit/editor-plugin-mentions';\nimport { panelPlugin } from '@atlaskit/editor-plugin-panel';\nimport { placeholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';\nimport { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';\nimport { rulePlugin } from '@atlaskit/editor-plugin-rule';\nimport { selectionPlugin } from '@atlaskit/editor-plugin-selection';\nimport { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';\nimport { statusPlugin } from '@atlaskit/editor-plugin-status';\nimport { tablesPlugin } from '@atlaskit/editor-plugin-table';\nimport { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';\nimport { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';\nimport { widthPlugin } from '@atlaskit/editor-plugin-width';\nimport { basePlugin } from '@atlaskit/editor-plugins/base';\nimport { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { trackChangesPlugin } from '../src/trackChangesPlugin';\nconst styles = cssMap({\n\taboveEditor: {\n\t\tposition: 'fixed',\n\t\tbottom: 0,\n\t\tzIndex: 800,\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t},\n\teverythingContainer: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t},\n});\nconst createPreset = () =>\n\tnew EditorPresetBuilder()\n\t\t.add(basePlugin)\n\t\t.add(typeAheadPlugin)\n\t\t.add(widthPlugin)\n\t\t.add(compositionPlugin)\n\t\t.add([analyticsPlugin, {}])\n\t\t.add(editorDisabledPlugin)\n\t\t.add(contentInsertionPlugin)\n\t\t.add(guidelinePlugin)\n\t\t.add(selectionPlugin)\n\t\t.add(decorationsPlugin)\n\t\t.add(hyperlinkPlugin)\n\t\t.add(datePlugin)\n\t\t.add(listPlugin)\n\t\t.add(blockTypePlugin)\n\t\t.add(imageUploadPlugin)\n\t\t.add([emojiPlugin, { emojiProvider: getEmojiResource() }])\n\t\t.add(quickInsertPlugin)\n\t\t.add(rulePlugin)\n\t\t.add(codeBlockPlugin)\n\t\t.add(panelPlugin)\n\t\t.add(focusPlugin)\n\t\t.add(gridPlugin)\n\t\t.add(copyButtonPlugin)\n\t\t.add(floatingToolbarPlugin)\n\t\t.add(mediaPlugin)\n\t\t.add(statusPlugin)\n\t\t.add(mentionsPlugin)\n\t\t.add(layoutPlugin)\n\t\t.add(expandPlugin)\n\t\t.add([placeholderTextPlugin, {}])\n\t\t.add(extensionPlugin)\n\t\t.add(tasksAndDecisionsPlugin)\n\t\t.add(textFormattingPlugin)\n\t\t.add([tablesPlugin, { tableOptions: { advanced: true } }])\n\t\t.add([\n\t\t\tinsertBlockPlugin,\n\t\t\t{\n\t\t\t\tallowExpand: true,\n\t\t\t\thorizontalRuleEnabled: true,\n\t\t\t\tnativeStatusSupported: true,\n\t\t\t},\n\t\t])\n\t\t.add(historyPlugin)\n\t\t.add(showDiffPlugin)\n\t\t.add(trackChangesPlugin);\nfunction Editor(): React.JSX.Element {\n\tconst { preset, editorApi } = usePreset(createPreset);\n\tconst isSelected = useSharedPluginStateSelector(editorApi, 'trackChanges.isDisplayingChanges');\n\tconst activeIndex = useSharedPluginStateSelector(editorApi, 'showDiff.activeIndex');\n\tconst isShowDiffAvailable = useSharedPluginStateSelector(\n\t\teditorApi,\n\t\t'trackChanges.isShowDiffAvailable',\n\t);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.everythingContainer}>\n\t\t\t\t<Box xcss={styles.aboveEditor}>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\teditorApi?.core.actions.execute(editorApi?.trackChanges.commands.toggleChanges);\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\t\tisDisabled={!(isShowDiffAvailable ?? false)}\n\t\t\t\t\t>\n\t\t\t\t\t\tShow Diff\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\teditorApi?.core.actions.execute(editorApi?.showDiff.commands.scrollToNext);\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\tNext\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tappearance=\"primary\"\n\t\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\t\teditorApi?.core.actions.execute(editorApi?.showDiff.commands.scrollToPrevious);\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\tPrevious\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button>{activeIndex}</Button>\n\t\t\t\t</Box>\n\t\t\t\t<ComposableEditor preset={preset} appearance=\"comment\" />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}\nexport default Editor;",
 		],
 		props: [
 			{
@@ -1473,7 +1473,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['emoji', 'typeahead', 'autocomplete'],
 		category: 'elements',
 		examples: [
-			"import React, { useRef, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { layers } from '@atlaskit/theme/constants';\n// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { lorem } from '../example-helpers';\nimport SearchTextInput from '../example-helpers/demo-search-text-input';\nimport { onClose } from '../example-helpers/on-close';\nimport { onOpen } from '../example-helpers/on-open';\nimport { onSelection } from '../example-helpers/on-selection';\nimport type { TypeaheadProps } from '../example-helpers/typeahead-props';\nimport { EmojiTypeAhead } from '../src/typeahead';\nimport type { EmojiId, OptionalEmojiDescription } from '../src/types';\nimport debug from '../src/util/logger';\nconst loremContent = (\n\t<div>\n\t\t{\n\t\t<p style={{ width: '400px' }}>{lorem}</p>\n\t</div>\n);\nexport const EmojiTypeAheadTextInput = (\n\tprops: React.PropsWithChildren<TypeaheadProps>,\n): React.JSX.Element => {\n\tconst emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();\n\tconst [active, setActive] = useState<boolean>(false);\n\tconst [query, setQuery] = useState<string>('');\n\tconst { onSelection, label, emojiProvider, position } = props;\n\tdebug('demo-emoji-text-input.render', position);\n\tconst target = position ? '#demo-input' : undefined;\n\tconst showEmojiPopup = () => {\n\t\tsetActive(true);\n\t};\n\tconst hideEmojiPopup = () => {\n\t\tsetActive(false);\n\t};\n\tconst handleSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {\n\t\thideEmojiPopup();\n\t\tonSelection(emojiId, emoji);\n\t};\n\tconst updateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {\n\t\tif (active) {\n\t\t\tsetQuery(event.target.value || '');\n\t\t}\n\t};\n\tconst handleSearchTextInputChange = (query: React.ChangeEvent<HTMLInputElement>) => {\n\t\tupdateSearch(query);\n\t};\n\tconst handleSearchTextInputUp = () => {\n\t\temojiTypeAheadRef.current?.selectPrevious();\n\t};\n\tconst handleSearchTextInputDown = () => {\n\t\temojiTypeAheadRef.current?.selectNext();\n\t};\n\tconst handleSearchTextInputEnter = () => {\n\t\temojiTypeAheadRef.current?.chooseCurrentSelection();\n\t};\n\tconst handleEmojiTypeAheadRef = (ref: EmojiTypeAhead | null) => {\n\t\temojiTypeAheadRef.current = ref;\n\t};\n\tconst handleEmojiTypeAheadSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {\n\t\thandleSelection(emojiId, emoji);\n\t};\n\tconst searchInput = (\n\t\t<SearchTextInput\n\t\t\tinputId=\"demo-input\"\n\t\t\tlabel={label}\n\t\t\tonChange={handleSearchTextInputChange}\n\t\t\tonUp={handleSearchTextInputUp}\n\t\t\tonDown={handleSearchTextInputDown}\n\t\t\tonEnter={handleSearchTextInputEnter}\n\t\t\tonEscape={hideEmojiPopup}\n\t\t\tonFocus={showEmojiPopup}\n\t\t\tonBlur={hideEmojiPopup}\n\t\t/>\n\t);\n\tlet emojiTypeAhead;\n\tif (active) {\n\t\temojiTypeAhead = (\n\t\t\t<EmojiTypeAhead\n\t\t\t\ttarget={target}\n\t\t\t\tposition={position}\n\t\t\t\tonSelection={handleEmojiTypeAheadSelection}\n\t\t\t\tonOpen={onOpen}\n\t\t\t\tonClose={onClose}\n\t\t\t\tref={handleEmojiTypeAheadRef}\n\t\t\t\tquery={query}\n\t\t\t\temojiProvider={emojiProvider}\n\t\t\t\tzIndex={layers.modal()}\n\t\t\t/>\n\t\t);\n\t}\n\treturn (\n\t\t<div style={{ padding: '10px' }}>\n\t\t\t{searchInput}\n\t\t\t{emojiTypeAhead}\n\t\t\t{loremContent}\n\t\t</div>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<EmojiTypeAheadTextInput\n\t\t\t\tlabel=\"Emoji search\"\n\t\t\t\tonSelection={onSelection}\n\t\t\t\temojiProvider={getEmojiResource()}\n\t\t\t\tposition=\"below\"\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useRef, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\n// Legacy demo layering: layers is deprecated. Use an ADS popup or overlay component\n// to manage layering in application code rather than copying this z-index override.\nimport { layers } from '@atlaskit/theme/constants';\n// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { lorem } from '../example-helpers';\nimport SearchTextInput from '../example-helpers/demo-search-text-input';\nimport { onClose } from '../example-helpers/on-close';\nimport { onOpen } from '../example-helpers/on-open';\nimport { onSelection } from '../example-helpers/on-selection';\nimport type { TypeaheadProps } from '../example-helpers/typeahead-props';\nimport { EmojiTypeAhead } from '../src/typeahead';\nimport type { EmojiId, OptionalEmojiDescription } from '../src/types';\nimport debug from '../src/util/logger';\nconst loremContent = (\n\t<div>\n\t\t{\n\t\t<p style={{ width: '400px' }}>{lorem}</p>\n\t</div>\n);\nexport const EmojiTypeAheadTextInput = (\n\tprops: React.PropsWithChildren<TypeaheadProps>,\n): React.JSX.Element => {\n\tconst emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();\n\tconst [active, setActive] = useState<boolean>(false);\n\tconst [query, setQuery] = useState<string>('');\n\tconst { onSelection, label, emojiProvider, position } = props;\n\tdebug('demo-emoji-text-input.render', position);\n\tconst target = position ? '#demo-input' : undefined;\n\tconst showEmojiPopup = () => {\n\t\tsetActive(true);\n\t};\n\tconst hideEmojiPopup = () => {\n\t\tsetActive(false);\n\t};\n\tconst handleSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {\n\t\thideEmojiPopup();\n\t\tonSelection(emojiId, emoji);\n\t};\n\tconst updateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {\n\t\tif (active) {\n\t\t\tsetQuery(event.target.value || '');\n\t\t}\n\t};\n\tconst handleSearchTextInputChange = (query: React.ChangeEvent<HTMLInputElement>) => {\n\t\tupdateSearch(query);\n\t};\n\tconst handleSearchTextInputUp = () => {\n\t\temojiTypeAheadRef.current?.selectPrevious();\n\t};\n\tconst handleSearchTextInputDown = () => {\n\t\temojiTypeAheadRef.current?.selectNext();\n\t};\n\tconst handleSearchTextInputEnter = () => {\n\t\temojiTypeAheadRef.current?.chooseCurrentSelection();\n\t};\n\tconst handleEmojiTypeAheadRef = (ref: EmojiTypeAhead | null) => {\n\t\temojiTypeAheadRef.current = ref;\n\t};\n\tconst handleEmojiTypeAheadSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {\n\t\thandleSelection(emojiId, emoji);\n\t};\n\tconst searchInput = (\n\t\t<SearchTextInput\n\t\t\tinputId=\"demo-input\"\n\t\t\tlabel={label}\n\t\t\tonChange={handleSearchTextInputChange}\n\t\t\tonUp={handleSearchTextInputUp}\n\t\t\tonDown={handleSearchTextInputDown}\n\t\t\tonEnter={handleSearchTextInputEnter}\n\t\t\tonEscape={hideEmojiPopup}\n\t\t\tonFocus={showEmojiPopup}\n\t\t\tonBlur={hideEmojiPopup}\n\t\t/>\n\t);\n\tlet emojiTypeAhead;\n\tif (active) {\n\t\temojiTypeAhead = (\n\t\t\t<EmojiTypeAhead\n\t\t\t\ttarget={target}\n\t\t\t\tposition={position}\n\t\t\t\tonSelection={handleEmojiTypeAheadSelection}\n\t\t\t\tonOpen={onOpen}\n\t\t\t\tonClose={onClose}\n\t\t\t\tref={handleEmojiTypeAheadRef}\n\t\t\t\tquery={query}\n\t\t\t\temojiProvider={emojiProvider}\n\t\t\t\tzIndex={layers.modal()}\n\t\t\t/>\n\t\t);\n\t}\n\treturn (\n\t\t<div style={{ padding: '10px' }}>\n\t\t\t{searchInput}\n\t\t\t{emojiTypeAhead}\n\t\t\t{loremContent}\n\t\t</div>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<EmojiTypeAheadTextInput\n\t\t\t\tlabel=\"Emoji search\"\n\t\t\t\tonSelection={onSelection}\n\t\t\t\temojiProvider={getEmojiResource()}\n\t\t\t\tposition=\"below\"\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -1542,7 +1542,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['feedback', 'collector', 'atlassian'],
 		category: 'web-platform',
 		examples: [
-			"import React, { useRef, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport FlagGroup from '@atlaskit/flag/flag-group';\nimport FeedbackCollector, { FeedbackFlag } from '../src';\nconst ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';\nconst name: string = 'Feedback Sender';\nconst aaid: string = 'test-aaid';\nconst DisplayFeedback = () => {\n\tconst ref = useRef<HTMLElement | null>(null);\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [displayFlag, setDisplayFlag] = useState(false);\n\tconst open = () => setIsOpen(true);\n\tconst close = () => setIsOpen(false);\n\tconst displayFlagTrue = () => setDisplayFlag(true);\n\tconst hideFlag = () => setDisplayFlag(false);\n\treturn (\n\t\t<div>\n\t\t\t<Button appearance=\"primary\" onClick={open}>\n\t\t\t\tDisplay Feedback\n\t\t\t</Button>\n\t\t\t{isOpen && (\n\t\t\t\t<FeedbackCollector\n\t\t\t\t\tlocale={'en'}\n\t\t\t\t\turl={'https://api-private.atlassian.com'}\n\t\t\t\t\tonClose={close}\n\t\t\t\t\tonSubmit={displayFlagTrue}\n\t\t\t\t\tatlassianAccountId={aaid}\n\t\t\t\t\tname={name}\n\t\t\t\t\tentrypointId={ENTRYPOINT_ID}\n\t\t\t\t\tshouldReturnFocusRef={ref}\n\t\t\t\t/>\n\t\t\t)}\n\t\t\t<FlagGroup onDismissed={hideFlag}>{displayFlag && <FeedbackFlag />}</FlagGroup>\n\t\t</div>\n\t);\n};\nexport default (): React.JSX.Element => (\n\t<>\n\t\t<>Click the button to display the feedback collector.</>\n\t\t<DisplayFeedback />\n\t</>\n);",
+			"import React, { useRef, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { FlagGroup } from '@atlaskit/flag/flag-group';\nimport FeedbackCollector, { FeedbackFlag } from '../src';\nconst ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';\nconst name: string = 'Feedback Sender';\nconst aaid: string = 'test-aaid';\nconst DisplayFeedback = () => {\n\tconst ref = useRef<HTMLElement | null>(null);\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [displayFlag, setDisplayFlag] = useState(false);\n\tconst open = () => setIsOpen(true);\n\tconst close = () => setIsOpen(false);\n\tconst displayFlagTrue = () => setDisplayFlag(true);\n\tconst hideFlag = () => setDisplayFlag(false);\n\treturn (\n\t\t<div>\n\t\t\t<Button appearance=\"primary\" onClick={open}>\n\t\t\t\tDisplay Feedback\n\t\t\t</Button>\n\t\t\t{isOpen && (\n\t\t\t\t<FeedbackCollector\n\t\t\t\t\tlocale={'en'}\n\t\t\t\t\turl={'https://api-private.atlassian.com'}\n\t\t\t\t\tonClose={close}\n\t\t\t\t\tonSubmit={displayFlagTrue}\n\t\t\t\t\tatlassianAccountId={aaid}\n\t\t\t\t\tname={name}\n\t\t\t\t\tentrypointId={ENTRYPOINT_ID}\n\t\t\t\t\tshouldReturnFocusRef={ref}\n\t\t\t\t/>\n\t\t\t)}\n\t\t\t<FlagGroup onDismissed={hideFlag}>{displayFlag && <FeedbackFlag />}</FlagGroup>\n\t\t</div>\n\t);\n};\nexport default (): React.JSX.Element => (\n\t<>\n\t\t<>Click the button to display the feedback collector.</>\n\t\t<DisplayFeedback />\n\t</>\n);",
 		],
 		props: [
 			{
@@ -4265,6 +4265,48 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'SpanSkeleton',
+		package: '@atlaskit/linking-common',
+		description:
+			'Inline variant of `Skeleton` (renders a `<span>`) for use inside text flows — e.g. while a Smart Link title resolves inside a paragraph. Same prop shape as `Skeleton`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use only when the placeholder needs to flow with surrounding text. For block-level cards reach for `Skeleton`.',
+		],
+		accessibilityGuidelines: [
+			'Same as `Skeleton` — pair with `aria-busy` on the parent that owns the resolving state. Never put the skeleton itself in the accessible name.',
+		],
+		keywords: ['linking-common', 'skeleton', 'inline', 'loading'],
+		category: 'linking',
+		examples: [],
+		props: [
+			{
+				name: 'appearance',
+				type: '"blue" | "gray" | "darkGray"',
+				defaultValue: '"gray"',
+			},
+			{
+				name: 'borderRadius',
+				type: 'string | number',
+				defaultValue: '0',
+			},
+			{
+				name: 'height',
+				type: 'string | number',
+				defaultValue: '14',
+			},
+			{
+				name: 'isShimmering',
+				type: 'boolean',
+				defaultValue: 'true',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+			},
+		],
+	},
+	{
 		name: 'Pulse',
 		package: '@atlaskit/linking-common',
 		description:
@@ -4322,48 +4364,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'Skeletons must not announce themselves to assistive tech as content. Pair with `aria-busy="true"` on the container that owns the loading state.',
 		],
 		keywords: ['linking-common', 'skeleton', 'loading', 'placeholder'],
-		category: 'linking',
-		examples: [],
-		props: [
-			{
-				name: 'appearance',
-				type: '"blue" | "gray" | "darkGray"',
-				defaultValue: '"gray"',
-			},
-			{
-				name: 'borderRadius',
-				type: 'string | number',
-				defaultValue: '0',
-			},
-			{
-				name: 'height',
-				type: 'string | number',
-				defaultValue: '14',
-			},
-			{
-				name: 'isShimmering',
-				type: 'boolean',
-				defaultValue: 'true',
-			},
-			{
-				name: 'width',
-				type: 'string | number',
-			},
-		],
-	},
-	{
-		name: 'SpanSkeleton',
-		package: '@atlaskit/linking-common',
-		description:
-			'Inline variant of `Skeleton` (renders a `<span>`) for use inside text flows — e.g. while a Smart Link title resolves inside a paragraph. Same prop shape as `Skeleton`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use only when the placeholder needs to flow with surrounding text. For block-level cards reach for `Skeleton`.',
-		],
-		accessibilityGuidelines: [
-			'Same as `Skeleton` — pair with `aria-busy` on the parent that owns the resolving state. Never put the skeleton itself in the accessible name.',
-		],
-		keywords: ['linking-common', 'skeleton', 'inline', 'loading'],
 		category: 'linking',
 		examples: [],
 		props: [
@@ -5915,7 +5915,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['reactions', 'picker', 'emoji'],
 		category: 'elements',
 		examples: [
-			"import { type EmojiProvider } from '@atlaskit/emoji/resource';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { ConnectedReactionPicker, ConnectedReactionsView, type StorePropInput } from '../src';\nimport { ExampleWrapper, Example, Constants } from './utils';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{(store: StorePropInput) => (\n\t\t\t\t<>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<strong>Memory store and Connected Picker view (same store)</strong>\n\t\t\t\t\t</p>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'Regular picker view'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionPicker\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${Constants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${Constants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'Use picker to add reaction, it will update reactions in a separate ConnectedReactionsView component below.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${Constants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${Constants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};",
+			"import { type EmojiProvider } from '@atlaskit/emoji/emoji-resource';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { ConnectedReactionPicker, ConnectedReactionsView, type StorePropInput } from '../src';\nimport { ExampleWrapper, Example, Constants } from './utils';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{(store: StorePropInput) => (\n\t\t\t\t<>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<strong>Memory store and Connected Picker view (same store)</strong>\n\t\t\t\t\t</p>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'Regular picker view'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionPicker\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${Constants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${Constants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'Use picker to add reaction, it will update reactions in a separate ConnectedReactionsView component below.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${Constants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${Constants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};",
 		],
 		props: [
 			{
@@ -6066,7 +6066,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['reactions', 'view', 'display'],
 		category: 'elements',
 		examples: [
-			"import { type EmojiProvider } from '@atlaskit/emoji/resource';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { ConnectedReactionsView, type StorePropInput } from '../src';\nimport { DefaultReactions } from '../src/shared/constants';\nimport { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{(store: StorePropInput) => (\n\t\t\t\t<>\n\t\t\t\t\t{/* Example 1 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with a built in memory store and different emoji populated and several are selected.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t{/* Example 2 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with miniMode for add reaction button'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tminiMode\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowAllEmojis\" prop - Show the \"more emoji\" selector icon for choosing emoji icons\n\t\t\t\t\t\tbeyond the default list of emojis (defaults to DEFAULT_REACTION_EMOJI_IDS)\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 3 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with allowAllEmojis prop set to true (Select custom emojis from the picker instead of just a pre-defined list)'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}2`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 4 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with allowAllEmojis flag set is not provided or false'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}3`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"pickerQuickReactionEmojiIds\" prop - emojis shown for user to select from the picker\n\t\t\t\t\t\tpopup when the reaction add button is clicked\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 5 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with non-empty pickerQuickReactionEmojiIds array populated a single item'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}4`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[{ id: '1f44d', shortName: ':thumbsup:' }]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 6 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with empty pickerQuickReactionEmojiIds array (shows the full picker selector)'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}5`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"quickReactionEmojis\" prop - emojis that will be shown in the the primary view even if\n\t\t\t\t\t\tthe reaction count is zero and no emojis were created on the post/reply yet\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 7 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with quickReactionEmojis array without any emoji (undefined or empty array) added to the container|ari item'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}6`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 8 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with quickReactionEmojis array with some quick emoji icons selections to choose'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}7`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tquickReactionEmojis={{\n\t\t\t\t\t\t\t\t\tari: `${ExampleConstants.AriPrefix}7`,\n\t\t\t\t\t\t\t\t\tcontainerAri: `${ExampleConstants.ContainerAriPrefix}1`,\n\t\t\t\t\t\t\t\t\temojiIds: DefaultReactions.slice(3, 5).map((item) => item.id ?? ''),\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 9 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with large emoji picker, emojiPickerSize could be small, medium or large (default to medium).'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}7`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\temojiPickerSize=\"large\"\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowUserDialog\" prop - enables a link within the reaction tooltip to show a full user\n\t\t\t\t\t\tlist associated with all reactions\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 10 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'Connected reactions with reactions dialog enabled'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowUserDialog\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowUserDialog\" prop with callbacks - enables a link within the reaction tooltip to\n\t\t\t\t\t\tshow a full user list associated with all reactions with event callbacks shown\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 11 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'Connected reactions with reactions dialog enabled and callbacks shown as alert dialogs'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowUserDialog\n\t\t\t\t\t\t\t\tonDialogCloseCallback={(e, event) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogCloseCallback event`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\tonDialogOpenCallback={(emojiId, source) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogOpenCallback event with emojiId = ${emojiId}, source = ${source}`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\tonDialogSelectReactionCallback={(emojiId: string) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogSelectReactionCallback event with emojiId = ${emojiId}`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t{/* Example 11 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with a built in memory store and particle emojis enabled.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tparticleEffectByEmojiEnabled\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 12 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with isViewOnly'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tisViewOnly\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};",
+			"import { type EmojiProvider } from '@atlaskit/emoji/emoji-resource';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { ConnectedReactionsView, type StorePropInput } from '../src';\nimport { DefaultReactions } from '../src/shared/constants';\nimport { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{(store: StorePropInput) => (\n\t\t\t\t<>\n\t\t\t\t\t{/* Example 1 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with a built in memory store and different emoji populated and several are selected.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t{/* Example 2 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with miniMode for add reaction button'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tminiMode\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowAllEmojis\" prop - Show the \"more emoji\" selector icon for choosing emoji icons\n\t\t\t\t\t\tbeyond the default list of emojis (defaults to DEFAULT_REACTION_EMOJI_IDS)\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 3 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with allowAllEmojis prop set to true (Select custom emojis from the picker instead of just a pre-defined list)'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}2`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 4 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with allowAllEmojis flag set is not provided or false'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}3`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"pickerQuickReactionEmojiIds\" prop - emojis shown for user to select from the picker\n\t\t\t\t\t\tpopup when the reaction add button is clicked\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 5 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with non-empty pickerQuickReactionEmojiIds array populated a single item'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}4`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[{ id: '1f44d', shortName: ':thumbsup:' }]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 6 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with empty pickerQuickReactionEmojiIds array (shows the full picker selector)'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}5`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"quickReactionEmojis\" prop - emojis that will be shown in the the primary view even if\n\t\t\t\t\t\tthe reaction count is zero and no emojis were created on the post/reply yet\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 7 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with quickReactionEmojis array without any emoji (undefined or empty array) added to the container|ari item'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}6`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 8 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with quickReactionEmojis array with some quick emoji icons selections to choose'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}7`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tquickReactionEmojis={{\n\t\t\t\t\t\t\t\t\tari: `${ExampleConstants.AriPrefix}7`,\n\t\t\t\t\t\t\t\t\tcontainerAri: `${ExampleConstants.ContainerAriPrefix}1`,\n\t\t\t\t\t\t\t\t\temojiIds: DefaultReactions.slice(3, 5).map((item) => item.id ?? ''),\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 9 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with large emoji picker, emojiPickerSize could be small, medium or large (default to medium).'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}7`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\temojiPickerSize=\"large\"\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowUserDialog\" prop - enables a link within the reaction tooltip to show a full user\n\t\t\t\t\t\tlist associated with all reactions\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 10 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'Connected reactions with reactions dialog enabled'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowUserDialog\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowUserDialog\" prop with callbacks - enables a link within the reaction tooltip to\n\t\t\t\t\t\tshow a full user list associated with all reactions with event callbacks shown\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 11 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'Connected reactions with reactions dialog enabled and callbacks shown as alert dialogs'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowUserDialog\n\t\t\t\t\t\t\t\tonDialogCloseCallback={(e, event) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogCloseCallback event`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\tonDialogOpenCallback={(emojiId, source) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogOpenCallback event with emojiId = ${emojiId}, source = ${source}`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\tonDialogSelectReactionCallback={(emojiId: string) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogSelectReactionCallback event with emojiId = ${emojiId}`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t{/* Example 11 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with a built in memory store and particle emojis enabled.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tparticleEffectByEmojiEnabled\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 12 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with isViewOnly'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tisViewOnly\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};",
 		],
 		props: [
 			{
@@ -6242,7 +6242,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'allowCollapsibleHeadings',
 				type: 'boolean',
 				description:
-					'**WARNING** this attribute is not supported outside of Confluence Full Page editors\nUntil `platform_renderer_collapsible_headings` is cleaned up.\n\nEnables collapsing top-level heading sections in a full-page, full-width, max renderer only.',
+					'**WARNING** this attribute is not supported outside of Confluence Full Page editors\nUntil `platform_editor_collapsible_headings` is cleaned up.\n\nEnables collapsing top-level heading sections in a full-page, full-width, max renderer only.',
 			},
 			{
 				name: 'allowColumnSorting',
@@ -6654,7 +6654,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'profile', 'info', 'ai'],
 		category: 'data-display',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { AgentProfileInfo } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';\nexport default function AgentProfileInfoExample(): React.JSX.Element {\n\tconst [isStarred, setIsStarred] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<AgentProfileInfo\n\t\t\t\tagentName=\"Release planner\"\n\t\t\t\tagentDescription=\"Helps teams prepare concise release updates.\"\n\t\t\t\tcreatorRender={<Text>Created by Product Operations</Text>}\n\t\t\t\tstarCountRender={<Text>24 stars</Text>}\n\t\t\t\tisStarred={isStarred}\n\t\t\t\tisHidden={false}\n\t\t\t\tonStarToggle={() => setIsStarred((value) => !value)}\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AgentProfileInfo } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';\nexport default function AgentProfileInfoExample(): React.JSX.Element {\n\tconst [isStarred, setIsStarred] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<AgentProfileInfo\n\t\t\t\tagentName=\"Release planner\"\n\t\t\t\tagentDescription=\"Helps teams prepare concise release updates.\"\n\t\t\t\tcreatorRender={<Text>Created by Product Operations</Text>}\n\t\t\t\tstarCountRender={<Text>24 stars</Text>}\n\t\t\t\tisStarred={isStarred}\n\t\t\t\tisHidden={false}\n\t\t\t\tonStarToggle={() => setIsStarred((value) => !value)}\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -6807,7 +6807,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'topic',
-				type: '"ai-mate" | "ai-mate-actions" | "ai-mate-chat-inserts" | "ai-mate-chat-input-overlay" | "ai-mate-aifc" | "rovo-remix-launch" | "rovo-remix" | "avp"',
+				type: '"ai-mate" | "ai-mate-actions" | "ai-mate-chat-inserts" | "ai-mate-chat-input-overlay" | "ai-mate-aifc" | "rovo-remix-launch" | "rovo-remix" | "rovo-skills" | "avp"',
 				isRequired: true,
 			},
 			{
@@ -6892,7 +6892,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['navigation', 'menu-item', 'button', 'side-nav'],
 		category: 'navigation',
 		examples: [
-			'import IconButton from \'@atlaskit/button/icon/button\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nimport HomeIcon from \'@atlaskit/icon/core/home\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nimport { JiraIcon } from \'@atlaskit/logo\';\nimport Lozenge from \'@atlaskit/lozenge/lozenge\';\nimport { SideNavBody } from \'@atlaskit/navigation-system/layout/side-nav\';\nimport { Inline } from \'@atlaskit/primitives/compiled\';\nimport { ButtonMenuItem, COLLAPSE_ELEM_BEFORE } from \'@atlaskit/side-nav-items/button-menu-item\';\nimport { ContainerAvatar } from \'@atlaskit/side-nav-items/container-avatar\';\nimport { MenuList } from \'@atlaskit/side-nav-items/menu-list\';\nimport MoneyIcon from \'../images/money.svg\';\nimport { MockSideNav } from \'./common/mock-side-nav\';\nfunction AddAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="Add"\n\t\t\ticon={(iconProps) => <AddIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nfunction MoreAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="More"\n\t\t\ticon={(iconProps) => <MoreIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nexport function ButtonMenuItemExample(): React.JSX.Element {\n\treturn (\n\t\t<Inline space="space.600">\n\t\t\t<MockSideNav>\n\t\t\t\t<SideNavBody>\n\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (icon)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem elemBefore={<ContainerAvatar src={MoneyIcon} />}>\n\t\t\t\t\t\t\tButton menu item (ContainerAvatar)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem elemBefore={<JiraIcon label="" size="xsmall" />}>\n\t\t\t\t\t\t\tButton menu item (app tile)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem>Button menu item (spacer)</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem elemBefore={COLLAPSE_ELEM_BEFORE}>\n\t\t\t\t\t\t\tButton menu item (no elemBefore)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tisDisabled\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (disabled)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem isSelected>Button menu item (selected)</ButtonMenuItem>\n\t\t\t\t\t</MenuList>\n\t\t\t\t</SideNavBody>\n\t\t\t</MockSideNav>\n\t\t\t<MockSideNav>\n\t\t\t\t<SideNavBody>\n\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tdescription="With description underneath"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tactions={\n\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (actions)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tactionsOnHover={\n\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (actionsOnHover)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (actions & actionsOnHover)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (elemAfter)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (elemAfter, actions & actionsOnHover)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t</MenuList>\n\t\t\t\t</SideNavBody>\n\t\t\t</MockSideNav>\n\t\t</Inline>\n\t);\n}\nexport default ButtonMenuItemExample;',
+			'import IconButton from \'@atlaskit/button/icon/button\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nimport HomeIcon from \'@atlaskit/icon/core/home\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nimport { JiraIcon } from \'@atlaskit/logo\';\nimport Lozenge from \'@atlaskit/lozenge/lozenge\';\nimport { SideNavBody } from \'@atlaskit/navigation-system/layout/side-nav\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { ButtonMenuItem, COLLAPSE_ELEM_BEFORE } from \'@atlaskit/side-nav-items/button-menu-item\';\nimport { ContainerAvatar } from \'@atlaskit/side-nav-items/container-avatar\';\nimport { MenuList } from \'@atlaskit/side-nav-items/menu-list\';\nimport MoneyIcon from \'../images/money.svg\';\nimport { MockSideNav } from \'./common/mock-side-nav\';\nfunction AddAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="Add"\n\t\t\ticon={(iconProps) => <AddIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nfunction MoreAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="More"\n\t\t\ticon={(iconProps) => <MoreIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nexport function ButtonMenuItemExample(): React.JSX.Element {\n\treturn (\n\t\t<Inline space="space.600">\n\t\t\t<MockSideNav>\n\t\t\t\t<SideNavBody>\n\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (icon)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem elemBefore={<ContainerAvatar src={MoneyIcon} />}>\n\t\t\t\t\t\t\tButton menu item (ContainerAvatar)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem elemBefore={<JiraIcon label="" size="xsmall" />}>\n\t\t\t\t\t\t\tButton menu item (app tile)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem>Button menu item (spacer)</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem elemBefore={COLLAPSE_ELEM_BEFORE}>\n\t\t\t\t\t\t\tButton menu item (no elemBefore)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tisDisabled\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (disabled)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem isSelected>Button menu item (selected)</ButtonMenuItem>\n\t\t\t\t\t</MenuList>\n\t\t\t\t</SideNavBody>\n\t\t\t</MockSideNav>\n\t\t\t<MockSideNav>\n\t\t\t\t<SideNavBody>\n\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tdescription="With description underneath"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tactions={\n\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (actions)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tactionsOnHover={\n\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (actionsOnHover)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (actions & actionsOnHover)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (elemAfter)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t\t<ButtonMenuItem\n\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tButton menu item (elemAfter, actions & actionsOnHover)\n\t\t\t\t\t\t</ButtonMenuItem>\n\t\t\t\t\t</MenuList>\n\t\t\t\t</SideNavBody>\n\t\t\t</MockSideNav>\n\t\t</Inline>\n\t);\n}\nexport default ButtonMenuItemExample;',
 		],
 		props: [
 			{
@@ -7104,7 +7104,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['navigation', 'menu-item', 'link', 'side-nav'],
 		category: 'navigation',
 		examples: [
-			'import React, { useState } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport IconButton from \'@atlaskit/button/icon/button\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nimport HomeIcon from \'@atlaskit/icon/core/home\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nimport { JiraIcon } from \'@atlaskit/logo\';\nimport Lozenge from \'@atlaskit/lozenge/lozenge\';\nimport { SideNavBody } from \'@atlaskit/navigation-system/layout/side-nav\';\nimport { Inline, Stack } from \'@atlaskit/primitives/compiled\';\nimport { ContainerAvatar } from \'@atlaskit/side-nav-items/container-avatar\';\nimport { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from \'@atlaskit/side-nav-items/link-menu-item\';\nimport { MenuList } from \'@atlaskit/side-nav-items/menu-list\';\nimport MoneyIcon from \'../images/money.svg\';\nimport { MockSideNav } from \'./common/mock-side-nav\';\nfunction AddAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="Add"\n\t\t\ticon={(iconProps) => <AddIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nfunction MoreAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="More"\n\t\t\ticon={(iconProps) => <MoreIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nconst linkMenuItemHref = \'#example-href\';\nexport function LinkMenuItemExample(): React.JSX.Element {\n\tconst [showSelectedStateExample, setShowSelectedStateExample] = useState(false);\n\treturn (\n\t\t<Stack space="space.100">\n\t\t\t<Inline space="space.600">\n\t\t\t\t<MockSideNav>\n\t\t\t\t\t<SideNavBody>\n\t\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (icon)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<ContainerAvatar src={MoneyIcon} />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (ContainerAvatar)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<JiraIcon label="" size="xsmall" />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (app tile)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem href={linkMenuItemHref}>Link menu item (spacer)</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem href={linkMenuItemHref} elemBefore={COLLAPSE_ELEM_BEFORE}>\n\t\t\t\t\t\t\t\tLink menu item (no elemBefore)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t</MenuList>\n\t\t\t\t\t</SideNavBody>\n\t\t\t\t</MockSideNav>\n\t\t\t\t<MockSideNav>\n\t\t\t\t\t<SideNavBody>\n\t\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tdescription="With description underneath"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tactions={\n\t\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (actions)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tactionsOnHover={\n\t\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (actionsOnHover)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (actions & actionsOnHover)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (elemAfter)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (elemAfter, actions & actionsOnHover)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t</MenuList>\n\t\t\t\t\t</SideNavBody>\n\t\t\t\t</MockSideNav>\n\t\t\t</Inline>\n\t\t\t<Button onClick={() => setShowSelectedStateExample(!showSelectedStateExample)}>\n\t\t\t\t{showSelectedStateExample ? \'Hide\' : \'Show\'} selected state example\n\t\t\t</Button>\n\t\t\t{showSelectedStateExample && (\n\t\t\t\t<MockSideNav>\n\t\t\t\t\t<SideNavBody>\n\t\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tisSelected\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (selected state)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t</MenuList>\n\t\t\t\t\t</SideNavBody>\n\t\t\t\t</MockSideNav>\n\t\t\t)}\n\t\t</Stack>\n\t);\n}\nexport default LinkMenuItemExample;',
+			'import React, { useState } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport IconButton from \'@atlaskit/button/icon/button\';\nimport AddIcon from \'@atlaskit/icon/core/add\';\nimport HomeIcon from \'@atlaskit/icon/core/home\';\nimport MoreIcon from \'@atlaskit/icon/core/show-more-horizontal\';\nimport { JiraIcon } from \'@atlaskit/logo\';\nimport Lozenge from \'@atlaskit/lozenge/lozenge\';\nimport { SideNavBody } from \'@atlaskit/navigation-system/layout/side-nav\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { ContainerAvatar } from \'@atlaskit/side-nav-items/container-avatar\';\nimport { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from \'@atlaskit/side-nav-items/link-menu-item\';\nimport { MenuList } from \'@atlaskit/side-nav-items/menu-list\';\nimport MoneyIcon from \'../images/money.svg\';\nimport { MockSideNav } from \'./common/mock-side-nav\';\nfunction AddAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="Add"\n\t\t\ticon={(iconProps) => <AddIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nfunction MoreAction() {\n\treturn (\n\t\t<IconButton\n\t\t\tspacing="compact"\n\t\t\tappearance="subtle"\n\t\t\tlabel="More"\n\t\t\ticon={(iconProps) => <MoreIcon {...iconProps} size="small" />}\n\t\t/>\n\t);\n}\nconst linkMenuItemHref = \'#example-href\';\nexport function LinkMenuItemExample(): React.JSX.Element {\n\tconst [showSelectedStateExample, setShowSelectedStateExample] = useState(false);\n\treturn (\n\t\t<Stack space="space.100">\n\t\t\t<Inline space="space.600">\n\t\t\t\t<MockSideNav>\n\t\t\t\t\t<SideNavBody>\n\t\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (icon)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<ContainerAvatar src={MoneyIcon} />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (ContainerAvatar)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<JiraIcon label="" size="xsmall" />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (app tile)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem href={linkMenuItemHref}>Link menu item (spacer)</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem href={linkMenuItemHref} elemBefore={COLLAPSE_ELEM_BEFORE}>\n\t\t\t\t\t\t\t\tLink menu item (no elemBefore)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t</MenuList>\n\t\t\t\t\t</SideNavBody>\n\t\t\t\t</MockSideNav>\n\t\t\t\t<MockSideNav>\n\t\t\t\t\t<SideNavBody>\n\t\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tdescription="With description underneath"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tactions={\n\t\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (actions)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tactionsOnHover={\n\t\t\t\t\t\t\t\t\t<>\n\t\t\t\t\t\t\t\t\t\t<AddAction />\n\t\t\t\t\t\t\t\t\t\t<MoreAction />\n\t\t\t\t\t\t\t\t\t</>\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (actionsOnHover)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (actions & actionsOnHover)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (elemAfter)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\telemAfter={<Lozenge>New</Lozenge>}\n\t\t\t\t\t\t\t\tactions={<MoreAction />}\n\t\t\t\t\t\t\t\tactionsOnHover={<AddAction />}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (elemAfter, actions & actionsOnHover)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t</MenuList>\n\t\t\t\t\t</SideNavBody>\n\t\t\t\t</MockSideNav>\n\t\t\t</Inline>\n\t\t\t<Button onClick={() => setShowSelectedStateExample(!showSelectedStateExample)}>\n\t\t\t\t{showSelectedStateExample ? \'Hide\' : \'Show\'} selected state example\n\t\t\t</Button>\n\t\t\t{showSelectedStateExample && (\n\t\t\t\t<MockSideNav>\n\t\t\t\t\t<SideNavBody>\n\t\t\t\t\t\t<MenuList>\n\t\t\t\t\t\t\t<LinkMenuItem\n\t\t\t\t\t\t\t\thref={linkMenuItemHref}\n\t\t\t\t\t\t\t\telemBefore={<HomeIcon label="" color="currentColor" spacing="spacious" />}\n\t\t\t\t\t\t\t\tisSelected\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLink menu item (selected state)\n\t\t\t\t\t\t\t</LinkMenuItem>\n\t\t\t\t\t\t</MenuList>\n\t\t\t\t\t</SideNavBody>\n\t\t\t\t</MockSideNav>\n\t\t\t)}\n\t\t</Stack>\n\t);\n}\nexport default LinkMenuItemExample;',
 		],
 		props: [
 			{
@@ -7223,7 +7223,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['smart-card', 'card', 'smart link', 'inline', 'block', 'embed', 'link', 'preview'],
 		category: 'linking',
 		examples: [
-			'import { cssMap } from \'@atlaskit/css\';\nimport { SmartCardProvider } from \'@atlaskit/link-provider/smart-card-provider\';\nimport { ResolvedClient, ResolvedClientEmbedUrl } from \'@atlaskit/link-test-helpers\';\nimport Link from \'@atlaskit/link/link\';\nimport { Box, Grid, Stack } from \'@atlaskit/primitives/compiled\';\nimport SectionMessage from \'@atlaskit/section-message/message\';\nimport { Card } from \'../../src\';\nconst gridStyles = cssMap({\n\troot: {\n\t\tgridTemplateColumns: \'1fr 1fr\',\n\t},\n});\nexport default (): React.JSX.Element => (\n\t<SmartCardProvider client={new ResolvedClient(\'stg\')}>\n\t\t<Box paddingBlockStart="space.300">\n\t\t\t<Grid alignItems="center" columnGap="space.100" xcss={gridStyles.root}>\n\t\t\t\t<Stack space="space.600">\n\t\t\t\t\t<SectionMessage>\n\t\t\t\t\t\tYou must be logged in to{\' \'}\n\t\t\t\t\t\t<Link\n\t\t\t\t\t\t\thref="https://pug.jira-dev.com"\n\t\t\t\t\t\t\ttarget="_blank"\n\t\t\t\t\t\t\ttitle="Login to staging environment"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tstaging environment\n\t\t\t\t\t\t</Link>{\' \'}\n\t\t\t\t\t\tto load the examples.\n\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t<Card appearance="inline" showHoverPreview={true} url={ResolvedClientEmbedUrl} />\n\t\t\t\t\t<Card appearance="block" url={ResolvedClientEmbedUrl} />\n\t\t\t\t</Stack>\n\t\t\t\t<Card appearance="embed" frameStyle="show" platform="web" url={ResolvedClientEmbedUrl} />\n\t\t\t</Grid>\n\t\t</Box>\n\t</SmartCardProvider>\n);',
+			"import { cssMap } from '@atlaskit/css';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';\nimport Link from '@atlaskit/link/link';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Grid } from '@atlaskit/primitives/compiled/grid';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport SectionMessage from '@atlaskit/section-message/message';\nimport { Card } from '../../src';\nconst gridStyles = cssMap({\n\troot: {\n\t\tgridTemplateColumns: '1fr 1fr',\n\t},\n});\nexport default (): React.JSX.Element => (\n\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t<Box paddingBlockStart=\"space.300\">\n\t\t\t<Grid alignItems=\"center\" columnGap=\"space.100\" xcss={gridStyles.root}>\n\t\t\t\t<Stack space=\"space.600\">\n\t\t\t\t\t<SectionMessage>\n\t\t\t\t\t\tYou must be logged in to{' '}\n\t\t\t\t\t\t<Link\n\t\t\t\t\t\t\thref=\"https://pug.jira-dev.com\"\n\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\ttitle=\"Login to staging environment\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tstaging environment\n\t\t\t\t\t\t</Link>{' '}\n\t\t\t\t\t\tto load the examples.\n\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t<Card appearance=\"inline\" showHoverPreview={true} url={ResolvedClientEmbedUrl} />\n\t\t\t\t\t<Card appearance=\"block\" url={ResolvedClientEmbedUrl} />\n\t\t\t\t</Stack>\n\t\t\t\t<Card appearance=\"embed\" frameStyle=\"show\" platform=\"web\" url={ResolvedClientEmbedUrl} />\n\t\t\t</Grid>\n\t\t</Box>\n\t</SmartCardProvider>\n);",
 			"import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';\nimport { Card } from '../../src';\nexport default (): React.JSX.Element => (\n\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t<Card appearance=\"block\" url={ResolvedClientUrl} />\n\t</SmartCardProvider>\n);",
 			"import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';\nimport { Card } from '../../src';\nexport default (): React.JSX.Element => (\n\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t<Card appearance=\"inline\" url={ResolvedClientUrl} />\n\t</SmartCardProvider>\n);",
 		],
@@ -7449,6 +7449,151 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'SmartLinkSize',
 				description:
 					'The size of the block and the size that the underlying elements should\ndefault to.',
+			},
+		],
+	},
+	{
+		name: 'HoverCard',
+		package: '@atlaskit/smart-card',
+		description:
+			'Hover cards can be used as a standalone component to wrap any React component and display information about a supplied URL when the user hovers over the child. Different actions are shown depending on the resource type.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when you need a Smart Link preview on hover over a custom trigger (e.g. text, icon). For hover preview on inline Smart Links in body text, use Card with showHoverPreview instead.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Provide a keyboard-accessible way to open the preview (e.g. focus or explicit trigger); do not rely on hover alone.',
+			'Ensure the trigger element has an accessible name and role (e.g. link or button).',
+			'Ensure the hover card content is announced when shown (e.g. aria-describedby or live region) and can be dismissed via keyboard.',
+		],
+		keywords: ['smart-card', 'hover card', 'hover', 'preview', 'smart link'],
+		category: 'linking',
+		examples: [
+			"import { IntlProvider } from 'react-intl';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';\nimport { HoverCard } from '../../src/hoverCard';\nimport HoverOverMe from '../utils/hover-card-box';\nexport default (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t\t<HoverCard url={ResolvedClientEmbedUrl}>\n\t\t\t\t<HoverOverMe />\n\t\t\t</HoverCard>\n\t\t</SmartCardProvider>\n\t</IntlProvider>\n);",
+		],
+		props: [
+			{
+				name: 'actionOptions',
+				type: 'CardActionVisibilityOptions & { previewAction?: { hideBlanket?: boolean; size?: EmbedModalSize; }; rovoChatAction?: { optIn: boolean; }; }',
+				description: 'Configure visibility of server and client actions',
+			},
+			{
+				name: 'allowEventPropagation',
+				type: 'boolean',
+				description: 'Allow click event to bubble up from hover preview trigger component.',
+			},
+			{
+				name: 'canOpen',
+				type: 'boolean',
+				description:
+					'Determines if the hover card is allowed to open. If changed from true to false while the\nhover card is open, the hover card will be closed.',
+			},
+			{
+				name: 'children',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				description: 'React children component over which the hover card can be triggered.',
+				isRequired: true,
+			},
+			{
+				name: 'closeOnChildClick',
+				type: 'boolean',
+				description:
+					'Determines if the hover card should close when the children passed in are\nclicked.',
+			},
+			{
+				name: 'hoverPreviewOptions',
+				type: 'HoverPreviewOptions',
+				description: 'Additional configurations for hover card.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description: 'Unique ID for a hover card. Used for analytics.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Refers to an `aria-label` attribute. Sets an accessible name for the hover card to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
+			},
+			{
+				name: 'onVisibilityChange',
+				type: '(isVisible: boolean) => void',
+				description: 'Callback function that is called when the hover card is visible or hidden.',
+			},
+			{
+				name: 'placement',
+				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				description:
+					'Where the card should sit relative to the trigger element. Omitted, the card opens below and\nto the right of the pointer, which is what an inline link in a body of text wants. Set it when\nthe card would otherwise cover the content the user is pointing at — for example a row in a\nlist, where `"left-start"` keeps the row itself visible.',
+			},
+			{
+				name: 'role',
+				type: 'string',
+				description:
+					'Use this to set the accessibility role for the hover card.\nShould be used along with `label` or `titleId` for supported roles.',
+			},
+			{
+				name: 'shouldRenderToParent',
+				type: 'boolean',
+				description:
+					'Whether the hover card should render to the parent element, to the\natlaskit-portal-container at the root of the document. Defaults to false.',
+			},
+			{
+				name: 'titleId',
+				type: 'string',
+				description:
+					'Id referenced by the hover card `aria-labelledby` attribute.\nUsage of either this, or the `label` attribute is strongly recommended.',
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description: 'Hover card will display data from this url.',
+				isRequired: true,
+			},
+			{
+				name: 'zIndex',
+				type: 'number',
+				description:
+					'Z-index that the hover card should be displayed in.\nThis is passed to the portal component.',
+			},
+		],
+	},
+	{
+		name: 'LinkUrl',
+		package: '@atlaskit/smart-card',
+		description:
+			'LinkUrl is a plain hyperlink (<a>) with a built-in safety check. Use it when you want to warn users if the link description looks like one URL but the actual destination is different.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when the link text might look like one URL but point elsewhere—e.g. user-generated or external links—so users get a warning before navigating.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Use descriptive link text that indicates the destination or action; avoid exposing only the URL when possible.',
+			'Ensure the safety-check warning (when link text and destination differ) is announced to screen readers.',
+		],
+		keywords: ['smart-card', 'link', 'url', 'safety', 'hyperlink'],
+		category: 'linking',
+		examples: [
+			'import CardClient from \'@atlaskit/link-provider/client\';\nimport { SmartCardProvider } from \'@atlaskit/link-provider/smart-card-provider\';\nimport { UnAuthClient } from \'@atlaskit/link-test-helpers\';\nimport Link from \'@atlaskit/link/link\';\nimport LinkUrl from \'../../src/view/LinkUrl\';\nexport default (): React.JSX.Element => (\n\t<div>\n\t\t<h2>Link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a URL and it\'s different from a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">atlassian.com</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>No link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a plain text.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">Here is a google link</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink description is a URL identical to a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t<p>Help</p>\n\t\t\t\t\t<Link href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t\t</Link>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://hello.atlassian.com/wiki">\n\t\t\t\t\t<div>Help</div>\n\t\t\t\t\t<span>https://hello.atlas...</span>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>Link with smart link resolver</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new CardClient(\'stg\')}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.google.com/">\n\t\t\t\t\t\thttps://www.resolved-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver with unauth\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new UnAuthClient()}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.unauth-link.com/">\n\t\t\t\t\t\thttps://www.unauth-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n);',
+		],
+		props: [
+			{
+				name: 'checkSafety',
+				type: 'boolean',
+				description: 'Determines if we want to perform a link safety check. True by default.',
+			},
+			{
+				name: 'enableResolve',
+				type: 'boolean',
+				description:
+					'Determines if we want to resolve the URL in the background for Rovo indexing. This has no impact on the UI/UX. False by default.',
+			},
+			{
+				name: 'isLinkComponent',
+				type: 'boolean',
 			},
 		],
 	},
@@ -7881,151 +8026,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'url',
 				type: 'string',
 				description: 'The URL of the link for Competitor Prompt',
-			},
-		],
-	},
-	{
-		name: 'HoverCard',
-		package: '@atlaskit/smart-card',
-		description:
-			'Hover cards can be used as a standalone component to wrap any React component and display information about a supplied URL when the user hovers over the child. Different actions are shown depending on the resource type.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when you need a Smart Link preview on hover over a custom trigger (e.g. text, icon). For hover preview on inline Smart Links in body text, use Card with showHoverPreview instead.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Provide a keyboard-accessible way to open the preview (e.g. focus or explicit trigger); do not rely on hover alone.',
-			'Ensure the trigger element has an accessible name and role (e.g. link or button).',
-			'Ensure the hover card content is announced when shown (e.g. aria-describedby or live region) and can be dismissed via keyboard.',
-		],
-		keywords: ['smart-card', 'hover card', 'hover', 'preview', 'smart link'],
-		category: 'linking',
-		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';\nimport { HoverCard } from '../../src/hoverCard';\nimport HoverOverMe from '../utils/hover-card-box';\nexport default (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<SmartCardProvider client={new ResolvedClient('stg')}>\n\t\t\t<HoverCard url={ResolvedClientEmbedUrl}>\n\t\t\t\t<HoverOverMe />\n\t\t\t</HoverCard>\n\t\t</SmartCardProvider>\n\t</IntlProvider>\n);",
-		],
-		props: [
-			{
-				name: 'actionOptions',
-				type: 'CardActionVisibilityOptions & { previewAction?: { hideBlanket?: boolean; size?: EmbedModalSize; }; rovoChatAction?: { optIn: boolean; }; }',
-				description: 'Configure visibility of server and client actions',
-			},
-			{
-				name: 'allowEventPropagation',
-				type: 'boolean',
-				description: 'Allow click event to bubble up from hover preview trigger component.',
-			},
-			{
-				name: 'canOpen',
-				type: 'boolean',
-				description:
-					'Determines if the hover card is allowed to open. If changed from true to false while the\nhover card is open, the hover card will be closed.',
-			},
-			{
-				name: 'children',
-				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
-				description: 'React children component over which the hover card can be triggered.',
-				isRequired: true,
-			},
-			{
-				name: 'closeOnChildClick',
-				type: 'boolean',
-				description:
-					'Determines if the hover card should close when the children passed in are\nclicked.',
-			},
-			{
-				name: 'hoverPreviewOptions',
-				type: 'HoverPreviewOptions',
-				description: 'Additional configurations for hover card.',
-			},
-			{
-				name: 'id',
-				type: 'string',
-				description: 'Unique ID for a hover card. Used for analytics.',
-			},
-			{
-				name: 'label',
-				type: 'string',
-				description:
-					'Refers to an `aria-label` attribute. Sets an accessible name for the hover card to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
-			},
-			{
-				name: 'onVisibilityChange',
-				type: '(isVisible: boolean) => void',
-				description: 'Callback function that is called when the hover card is visible or hidden.',
-			},
-			{
-				name: 'placement',
-				type: 'AutoPlacement | BasePlacement | VariationPlacement',
-				description:
-					'Where the card should sit relative to the trigger element. Omitted, the card opens below and\nto the right of the pointer, which is what an inline link in a body of text wants. Set it when\nthe card would otherwise cover the content the user is pointing at — for example a row in a\nlist, where `"left-start"` keeps the row itself visible.',
-			},
-			{
-				name: 'role',
-				type: 'string',
-				description:
-					'Use this to set the accessibility role for the hover card.\nShould be used along with `label` or `titleId` for supported roles.',
-			},
-			{
-				name: 'shouldRenderToParent',
-				type: 'boolean',
-				description:
-					'Whether the hover card should render to the parent element, to the\natlaskit-portal-container at the root of the document. Defaults to false.',
-			},
-			{
-				name: 'titleId',
-				type: 'string',
-				description:
-					'Id referenced by the hover card `aria-labelledby` attribute.\nUsage of either this, or the `label` attribute is strongly recommended.',
-			},
-			{
-				name: 'url',
-				type: 'string',
-				description: 'Hover card will display data from this url.',
-				isRequired: true,
-			},
-			{
-				name: 'zIndex',
-				type: 'number',
-				description:
-					'Z-index that the hover card should be displayed in.\nThis is passed to the portal component.',
-			},
-		],
-	},
-	{
-		name: 'LinkUrl',
-		package: '@atlaskit/smart-card',
-		description:
-			'LinkUrl is a plain hyperlink (<a>) with a built-in safety check. Use it when you want to warn users if the link description looks like one URL but the actual destination is different.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when the link text might look like one URL but point elsewhere—e.g. user-generated or external links—so users get a warning before navigating.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [
-			'Use descriptive link text that indicates the destination or action; avoid exposing only the URL when possible.',
-			'Ensure the safety-check warning (when link text and destination differ) is announced to screen readers.',
-		],
-		keywords: ['smart-card', 'link', 'url', 'safety', 'hyperlink'],
-		category: 'linking',
-		examples: [
-			'import CardClient from \'@atlaskit/link-provider/client\';\nimport { SmartCardProvider } from \'@atlaskit/link-provider/smart-card-provider\';\nimport { UnAuthClient } from \'@atlaskit/link-test-helpers\';\nimport Link from \'@atlaskit/link/link\';\nimport LinkUrl from \'../../src/view/LinkUrl\';\nexport default (): React.JSX.Element => (\n\t<div>\n\t\t<h2>Link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a URL and it\'s different from a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">atlassian.com</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>No link safety warning</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tLink description is a plain text.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.google.com/">Here is a google link</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink description is a URL identical to a destination.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t<p>Help</p>\n\t\t\t\t\t<Link href="https://www.atlassian.com/solutions/devops">\n\t\t\t\t\t\thttps://www.atlassian.com/solutions/devops\n\t\t\t\t\t</Link>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tLink is a multi-line URL.\n\t\t\t\t<br />\n\t\t\t\t<LinkUrl href="https://hello.atlassian.com/wiki">\n\t\t\t\t\t<div>Help</div>\n\t\t\t\t\t<span>https://hello.atlas...</span>\n\t\t\t\t</LinkUrl>\n\t\t\t</li>\n\t\t</ul>\n\t\t<h2>Link with smart link resolver</h2>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new CardClient(\'stg\')}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.google.com/">\n\t\t\t\t\t\thttps://www.resolved-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\tThis link trigger smart link resolver with unauth\n\t\t\t\t<br />\n\t\t\t\t<SmartCardProvider client={new UnAuthClient()}>\n\t\t\t\t\t<LinkUrl enableResolve={true} href="https://www.unauth-link.com/">\n\t\t\t\t\t\thttps://www.unauth-link.com/\n\t\t\t\t\t</LinkUrl>\n\t\t\t\t</SmartCardProvider>\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n);',
-		],
-		props: [
-			{
-				name: 'checkSafety',
-				type: 'boolean',
-				description: 'Determines if we want to perform a link safety check. True by default.',
-			},
-			{
-				name: 'enableResolve',
-				type: 'boolean',
-				description:
-					'Determines if we want to resolve the URL in the background for Rovo indexing. This has no impact on the UI/UX. False by default.',
-			},
-			{
-				name: 'isLinkComponent',
-				type: 'boolean',
 			},
 		],
 	},
@@ -8914,7 +8914,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'aria-haspopup',
-				type: 'boolean | "dialog"',
+				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree"',
 				description: 'Informs assistive technology that this element triggers a popup.',
 			},
 			{
@@ -9361,9 +9361,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['a2ui', 'renderer', 'rovo', 'agent', 'generative-ui', 'message-stream', 'v0.9'],
 		category: 'ai',
 		examples: [
-			"/**\n * Live A2UI v0.9 JSON playground. Paste any of three shapes (auto-detected):\n *   1. Single component object `{ component, id, ... }`\n *   2. Bare components array `[{...}, ...]`\n *   3. Envelope `{ components: [...] }`\n */\nimport React, { useMemo, useState } from 'react';\nimport { A2uiSurface } from '@a2ui/react/v0_9';\nimport type { A2uiClientAction } from '@a2ui/web_core/v0_9';\nimport { cssMap } from '@atlaskit/css';\nimport { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport TextArea from '@atlaskit/textarea/text-area';\nimport { token } from '@atlaskit/tokens';\nimport { createADSCatalog } from '@atlassian/a2ui-renderer-next/v0_9/catalog';\nimport { createSurface } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport type { V09ComponentEntry } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport CenteredLayout from './_shared/centered-layout';\nconst styles = cssMap({\n\tsurface: {\n\t\tpaddingTop: token('space.150'),\n\t\tpaddingRight: token('space.150'),\n\t\tpaddingBottom: token('space.150'),\n\t\tpaddingLeft: token('space.150'),\n\t},\n});\n// Seed value is intentionally a BARE components array to showcase the\n// auto-detection. Edit to any of the three shapes and watch the\n// \"Detected\" line update.\n// Demo composition: a raised Card containing a Column with a header Text\n// and a Row of two Buttons. Showcases the current Card layout/interaction\n// primitives in one tree so you can edit one place and see the wiring.\n//\n// The component graph is flat (every entry has a top-level `id`); parent →\n// child relationships are by id reference (`child` for Button/Card,\n// `children` for Row/Column). Edit any field and the surface re-renders.\nconst initialJson = JSON.stringify(\n\t[\n\t\t// Outer container — Card accepts a `children` array of slot ids. Its\n\t\t// `appearance` selects the raised surface treatment.\n\t\t{ component: 'Card', id: 'root', children: ['stack'], appearance: 'raised' },\n\t\t// Stacked content inside the Card.\n\t\t{ component: 'Column', id: 'stack', children: ['heading', 'description', 'actions'], gap: 12 },\n\t\t// Heading + body text. `variant` (v0.9 basic-catalog name; was\n\t\t// `usageHint` in v0.8) selects the typography branch.\n\t\t{ component: 'Text', id: 'heading', text: 'Approve this change?', variant: 'h3' },\n\t\t{\n\t\t\tcomponent: 'Text',\n\t\t\tid: 'description',\n\t\t\ttext: 'Click Approve to dispatch a v0.9 client event with source=playground.',\n\t\t\tvariant: 'body',\n\t\t},\n\t\t// Action row — two side-by-side Buttons.\n\t\t{ component: 'Row', id: 'actions', children: ['btn-approve', 'btn-cancel'], gap: 8 },\n\t\t{\n\t\t\tcomponent: 'Button',\n\t\t\tid: 'btn-approve',\n\t\t\tchild: 'lbl-approve',\n\t\t\tvariant: 'primary',\n\t\t\taction: { event: { name: 'click', context: { source: 'playground', verb: 'approve' } } },\n\t\t},\n\t\t{ component: 'Text', id: 'lbl-approve', text: 'Approve' },\n\t\t{\n\t\t\tcomponent: 'Button',\n\t\t\tid: 'btn-cancel',\n\t\t\tchild: 'lbl-cancel',\n\t\t\tvariant: 'subtle',\n\t\t\taction: { event: { name: 'click', context: { source: 'playground', verb: 'cancel' } } },\n\t\t},\n\t\t{ component: 'Text', id: 'lbl-cancel', text: 'Cancel' },\n\t],\n\tnull,\n\t2,\n);\ntype DetectedShape = {\n\tcomponents: V09ComponentEntry[];\n\tdescription: string;\n};\nconst isComponentEntry = (value: unknown): value is V09ComponentEntry =>\n\ttypeof value === 'object' &&\n\tvalue !== null &&\n\t'component' in value &&\n\t'id' in value &&\n\ttypeof (value as { id: unknown }).id === 'string' &&\n\ttypeof (value as { component: unknown }).component === 'string';\nconst detectShape = (parsed: unknown): DetectedShape => {\n\t// (1) Single component object\n\tif (isComponentEntry(parsed)) {\n\t\treturn {\n\t\t\tcomponents: [parsed],\n\t\t\tdescription: 'single component (wrapped to array)',\n\t\t};\n\t}\n\t// (2) Bare components array\n\tif (Array.isArray(parsed) && parsed.length > 0 && parsed.every(isComponentEntry)) {\n\t\treturn {\n\t\t\tcomponents: parsed,\n\t\t\tdescription: `components array (${parsed.length} entries)`,\n\t\t};\n\t}\n\t// (3) `{ components: [...] }` envelope\n\tif (\n\t\ttypeof parsed === 'object' &&\n\t\tparsed !== null &&\n\t\t!Array.isArray(parsed) &&\n\t\t'components' in parsed\n\t) {\n\t\tconst inner = (parsed as { components: unknown }).components;\n\t\tif (Array.isArray(inner) && inner.length > 0 && inner.every(isComponentEntry)) {\n\t\t\treturn {\n\t\t\t\tcomponents: inner,\n\t\t\t\tdescription: `components envelope (${inner.length} entries)`,\n\t\t\t};\n\t\t}\n\t}\n\tthrow new Error(\n\t\t'Unrecognised JSON shape. Expected: single component object, bare components array, or { components: [...] } envelope.',\n\t);\n};\nexport default function V09JsonPlaygroundExample(): React.JSX.Element {\n\tconst [src, setSrc] = useState<string>(initialJson);\n\tconst [lastEvent, setLastEvent] = useState<string>('—');\n\tconst parsed = useMemo<{ shape: DetectedShape | null; error: string | null }>(() => {\n\t\ttry {\n\t\t\tconst json: unknown = JSON.parse(src);\n\t\t\treturn { shape: detectShape(json), error: null };\n\t\t} catch (e) {\n\t\t\treturn { shape: null, error: (e as Error).message };\n\t\t}\n\t}, [src]);\n\t// Rebuild the SurfaceModel whenever the JSON changes. Surface failures\n\t// (e.g. unknown component types, schema mismatches) surface as render-time\n\t// errors inside the surface; we catch parse-stage issues above.\n\tconst surfaceResult = useMemo(() => {\n\t\tif (!parsed.shape) {\n\t\t\treturn { surface: null, error: null as string | null };\n\t\t}\n\t\ttry {\n\t\t\tconst catalog = createADSCatalog();\n\t\t\tconst { surface } = createSurface({\n\t\t\t\tcatalog,\n\t\t\t\tsurfaceId: `v09-json-playground-${Date.now()}`,\n\t\t\t\tcomponents: parsed.shape.components,\n\t\t\t\tonAction: (a: A2uiClientAction) => setLastEvent(`${a.name} → ${JSON.stringify(a.context)}`),\n\t\t\t});\n\t\t\treturn { surface, error: null };\n\t\t} catch (e) {\n\t\t\treturn { surface: null, error: (e as Error).message };\n\t\t}\n\t}, [parsed.shape]);\n\treturn (\n\t\t<CenteredLayout width=\"wide\">\n\t\t\t<Inline space=\"space.200\" alignBlock=\"start\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"medium\">A2UI v0.9 components (JSON)</Text>\n\t\t\t\t\t<TextArea\n\t\t\t\t\t\tname=\"a2ui-v09-doc\"\n\t\t\t\t\t\tvalue={src}\n\t\t\t\t\t\tminimumRows={16}\n\t\t\t\t\t\tonChange={(e) => setSrc(e.target.value)}\n\t\t\t\t\t/>\n\t\t\t\t\t{parsed.shape && <Text>Detected: {parsed.shape.description}</Text>}\n\t\t\t\t\t{parsed.error && <Text color=\"color.text.danger\">Parse error: {parsed.error}</Text>}\n\t\t\t\t\t{surfaceResult.error && (\n\t\t\t\t\t\t<Text color=\"color.text.danger\">Surface error: {surfaceResult.error}</Text>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"medium\">Rendered surface</Text>\n\t\t\t\t\t<Box xcss={styles.surface} backgroundColor=\"color.background.neutral.subtle\">\n\t\t\t\t\t\t{surfaceResult.surface && <A2uiSurface surface={surfaceResult.surface} />}\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Text>Last action: {lastEvent}</Text>\n\t\t\t\t</Stack>\n\t\t\t</Inline>\n\t\t</CenteredLayout>\n\t);\n}",
-			"/**\n * v0.9 Button playground — controls for `variant`, `disabled`, `loading`,\n * and child label. Each control change rebuilds the surface.\n */\nimport React, { useMemo, useState } from 'react';\nimport { A2uiSurface } from '@a2ui/react/v0_9';\nimport type { A2uiClientAction } from '@a2ui/web_core/v0_9';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport Select from '@atlaskit/select/default';\nimport TextField from '@atlaskit/textfield/text-field';\nimport { createADSCatalog } from '@atlassian/a2ui-renderer-next/v0_9/catalog';\nimport { createSurface } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport CenteredLayout from './_shared/centered-layout';\nimport ControlRow from './_shared/control-row';\ntype V09Action = {\n\tname: string;\n\tsurfaceId: string;\n\tsourceComponentId: string;\n\ttimestamp: string;\n\tcontext: Record<string, unknown>;\n};\n// Mirrors `@atlaskit/button/new` ButtonAppearance — the v0.9 schema's\n// `variant` enum is identical.\nconst VARIANTS = ['default', 'danger', 'primary', 'subtle', 'warning', 'discovery'] as const;\ntype Variant = (typeof VARIANTS)[number];\ntype Option = { label: string; value: Variant };\nconst variantOptions: Option[] = VARIANTS.map((v) => ({ label: v, value: v }));\nexport default function V09ButtonPlaygroundExample(): React.JSX.Element {\n\tconst [variant, setVariant] = useState<Variant>('primary');\n\tconst [disabled, setDisabled] = useState(false);\n\tconst [loading, setLoading] = useState(false);\n\tconst [label, setLabel] = useState('Approve');\n\tconst [lastAction, setLastAction] = useState<V09Action | null>(null);\n\tconst surface = useMemo(() => {\n\t\tconst catalog = createADSCatalog();\n\t\tconst { surface: s } = createSurface({\n\t\t\tcatalog,\n\t\t\tsurfaceId: `playground-${Date.now()}`,\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tcomponent: 'Button', // standard A2UI catalog name\n\t\t\t\t\tid: 'root',\n\t\t\t\t\t// `child` is a node id, resolved via buildChild() in the adapter.\n\t\t\t\t\t// The visible label lives on the referenced Text node.\n\t\t\t\t\tchild: 'label',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: { name: 'click', context: { source: 'playground' } },\n\t\t\t\t\t},\n\t\t\t\t\tvariant,\n\t\t\t\t\tdisabled,\n\t\t\t\t\tloading,\n\t\t\t\t},\n\t\t\t\t{ component: 'Text', id: 'label', text: label },\n\t\t\t],\n\t\t\tonAction: (a: A2uiClientAction) => setLastAction(a as unknown as V09Action),\n\t\t});\n\t\treturn s;\n\t}, [variant, disabled, loading, label]);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">Controls</Text>\n\t\t\t\t\t<ControlRow label=\"variant\">\n\t\t\t\t\t\t<Select<Option>\n\t\t\t\t\t\t\tinputId=\"v09-variant\"\n\t\t\t\t\t\t\tvalue={variantOptions.find((o) => o.value === variant)}\n\t\t\t\t\t\t\toptions={variantOptions}\n\t\t\t\t\t\t\tonChange={(opt) => opt && setVariant(opt.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t\t<Checkbox\n\t\t\t\t\t\t\tisChecked={disabled}\n\t\t\t\t\t\t\tonChange={(e) => setDisabled(e.currentTarget.checked)}\n\t\t\t\t\t\t\tlabel=\"disabled\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<Checkbox\n\t\t\t\t\t\t\tisChecked={loading}\n\t\t\t\t\t\t\tonChange={(e) => setLoading(e.currentTarget.checked)}\n\t\t\t\t\t\t\tlabel=\"loading\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t\t<ControlRow label=\"child (label)\">\n\t\t\t\t\t\t<TextField\n\t\t\t\t\t\t\tid=\"v09-label\"\n\t\t\t\t\t\t\tvalue={label}\n\t\t\t\t\t\t\tonChange={(e) => setLabel(e.currentTarget.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t</Stack>\n\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t<A2uiSurface surface={surface} />\n\t\t\t\t</Box>\n\t\t\t\t<Text>\n\t\t\t\t\tLast action:{' '}\n\t\t\t\t\t{lastAction\n\t\t\t\t\t\t? `${lastAction.name} → ${JSON.stringify(lastAction.context)}`\n\t\t\t\t\t\t: '— click the button —'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
-			"/**\n * v0.9 Text playground. `variant` selects the AK typography branch\n * (`h1`–`h5` → `<Heading>`, `body`/`caption` → `<Text>`); the live render\n * and wire JSON update together.\n */\n/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useMemo, useState } from 'react';\nimport { A2uiSurface } from '@a2ui/react/v0_9';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport Select from '@atlaskit/select/default';\nimport TextField from '@atlaskit/textfield/text-field';\nimport { createADSCatalog } from '@atlassian/a2ui-renderer-next/v0_9/catalog';\nimport { createSurface } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport CenteredLayout from './_shared/centered-layout';\nimport ControlRow from './_shared/control-row';\nconst styles = cssMap({\n\twireJson: {\n\t\tmargin: 0,\n\t},\n});\nconst VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'body', 'caption'] as const;\ntype Variant = (typeof VARIANTS)[number];\ntype Option = { label: string; value: Variant };\nconst variantOptions: Option[] = VARIANTS.map((v) => ({ label: v, value: v }));\nexport default function V09TextPlaygroundExample(): React.JSX.Element {\n\tconst [text, setText] = useState('The quick brown fox jumps over the lazy dog');\n\tconst [variant, setVariant] = useState<Variant>('h2');\n\tconst surface = useMemo(() => {\n\t\tconst catalog = createADSCatalog();\n\t\tconst { surface: s } = createSurface({\n\t\t\tcatalog,\n\t\t\tsurfaceId: `text-playground-${Date.now()}`,\n\t\t\tcomponents: [{ component: 'Text', id: 'root', text, variant }],\n\t\t});\n\t\treturn s;\n\t}, [text, variant]);\n\tconst wireJson = JSON.stringify({ component: 'Text', id: 'root', text, variant }, null, 2);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">Controls</Text>\n\t\t\t\t\t<ControlRow label=\"text\">\n\t\t\t\t\t\t<TextField\n\t\t\t\t\t\t\tid=\"v09-text-content\"\n\t\t\t\t\t\t\tvalue={text}\n\t\t\t\t\t\t\tonChange={(e) => setText(e.currentTarget.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t\t<ControlRow label=\"variant\">\n\t\t\t\t\t\t<Select<Option>\n\t\t\t\t\t\t\tinputId=\"v09-text-variant\"\n\t\t\t\t\t\t\tvalue={variantOptions.find((o) => o.value === variant)}\n\t\t\t\t\t\t\toptions={variantOptions}\n\t\t\t\t\t\t\tonChange={(opt) => opt && setVariant(opt.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t</Stack>\n\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t<A2uiSurface surface={surface} />\n\t\t\t\t</Box>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Wire JSON</Text>\n\t\t\t\t\t<Box padding=\"space.150\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<pre css={styles.wireJson}>{wireJson}</pre>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * Live A2UI v0.9 JSON playground. Paste any of three shapes (auto-detected):\n *   1. Single component object `{ component, id, ... }`\n *   2. Bare components array `[{...}, ...]`\n *   3. Envelope `{ components: [...] }`\n */\nimport React, { useMemo, useState } from 'react';\nimport { A2uiSurface } from '@a2ui/react/v0_9';\nimport type { A2uiClientAction } from '@a2ui/web_core/v0_9';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport TextArea from '@atlaskit/textarea/text-area';\nimport { token } from '@atlaskit/tokens';\nimport { createADSCatalog } from '@atlassian/a2ui-renderer-next/v0_9/catalog';\nimport { createSurface } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport type { V09ComponentEntry } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport CenteredLayout from './_shared/centered-layout';\nconst styles = cssMap({\n\tsurface: {\n\t\tpaddingTop: token('space.150'),\n\t\tpaddingRight: token('space.150'),\n\t\tpaddingBottom: token('space.150'),\n\t\tpaddingLeft: token('space.150'),\n\t},\n});\n// Seed value is intentionally a BARE components array to showcase the\n// auto-detection. Edit to any of the three shapes and watch the\n// \"Detected\" line update.\n// Demo composition: a raised Card containing a Column with a header Text\n// and a Row of two Buttons. Showcases the current Card layout/interaction\n// primitives in one tree so you can edit one place and see the wiring.\n//\n// The component graph is flat (every entry has a top-level `id`); parent →\n// child relationships are by id reference (`child` for Button/Card,\n// `children` for Row/Column). Edit any field and the surface re-renders.\nconst initialJson = JSON.stringify(\n\t[\n\t\t// Outer container — Card accepts a `children` array of slot ids. Its\n\t\t// `appearance` selects the raised surface treatment.\n\t\t{ component: 'Card', id: 'root', children: ['stack'], appearance: 'raised' },\n\t\t// Stacked content inside the Card.\n\t\t{ component: 'Column', id: 'stack', children: ['heading', 'description', 'actions'], gap: 12 },\n\t\t// Heading + body text. `variant` (v0.9 basic-catalog name; was\n\t\t// `usageHint` in v0.8) selects the typography branch.\n\t\t{ component: 'Text', id: 'heading', text: 'Approve this change?', variant: 'h3' },\n\t\t{\n\t\t\tcomponent: 'Text',\n\t\t\tid: 'description',\n\t\t\ttext: 'Click Approve to dispatch a v0.9 client event with source=playground.',\n\t\t\tvariant: 'body',\n\t\t},\n\t\t// Action row — two side-by-side Buttons.\n\t\t{ component: 'Row', id: 'actions', children: ['btn-approve', 'btn-cancel'], gap: 8 },\n\t\t{\n\t\t\tcomponent: 'Button',\n\t\t\tid: 'btn-approve',\n\t\t\tchild: 'lbl-approve',\n\t\t\tvariant: 'primary',\n\t\t\taction: { event: { name: 'click', context: { source: 'playground', verb: 'approve' } } },\n\t\t},\n\t\t{ component: 'Text', id: 'lbl-approve', text: 'Approve' },\n\t\t{\n\t\t\tcomponent: 'Button',\n\t\t\tid: 'btn-cancel',\n\t\t\tchild: 'lbl-cancel',\n\t\t\tvariant: 'subtle',\n\t\t\taction: { event: { name: 'click', context: { source: 'playground', verb: 'cancel' } } },\n\t\t},\n\t\t{ component: 'Text', id: 'lbl-cancel', text: 'Cancel' },\n\t],\n\tnull,\n\t2,\n);\ntype DetectedShape = {\n\tcomponents: V09ComponentEntry[];\n\tdescription: string;\n};\nconst isComponentEntry = (value: unknown): value is V09ComponentEntry =>\n\ttypeof value === 'object' &&\n\tvalue !== null &&\n\t'component' in value &&\n\t'id' in value &&\n\ttypeof (value as { id: unknown }).id === 'string' &&\n\ttypeof (value as { component: unknown }).component === 'string';\nconst detectShape = (parsed: unknown): DetectedShape => {\n\t// (1) Single component object\n\tif (isComponentEntry(parsed)) {\n\t\treturn {\n\t\t\tcomponents: [parsed],\n\t\t\tdescription: 'single component (wrapped to array)',\n\t\t};\n\t}\n\t// (2) Bare components array\n\tif (Array.isArray(parsed) && parsed.length > 0 && parsed.every(isComponentEntry)) {\n\t\treturn {\n\t\t\tcomponents: parsed,\n\t\t\tdescription: `components array (${parsed.length} entries)`,\n\t\t};\n\t}\n\t// (3) `{ components: [...] }` envelope\n\tif (\n\t\ttypeof parsed === 'object' &&\n\t\tparsed !== null &&\n\t\t!Array.isArray(parsed) &&\n\t\t'components' in parsed\n\t) {\n\t\tconst inner = (parsed as { components: unknown }).components;\n\t\tif (Array.isArray(inner) && inner.length > 0 && inner.every(isComponentEntry)) {\n\t\t\treturn {\n\t\t\t\tcomponents: inner,\n\t\t\t\tdescription: `components envelope (${inner.length} entries)`,\n\t\t\t};\n\t\t}\n\t}\n\tthrow new Error(\n\t\t'Unrecognised JSON shape. Expected: single component object, bare components array, or { components: [...] } envelope.',\n\t);\n};\nexport default function V09JsonPlaygroundExample(): React.JSX.Element {\n\tconst [src, setSrc] = useState<string>(initialJson);\n\tconst [lastEvent, setLastEvent] = useState<string>('—');\n\tconst parsed = useMemo<{ shape: DetectedShape | null; error: string | null }>(() => {\n\t\ttry {\n\t\t\tconst json: unknown = JSON.parse(src);\n\t\t\treturn { shape: detectShape(json), error: null };\n\t\t} catch (e) {\n\t\t\treturn { shape: null, error: (e as Error).message };\n\t\t}\n\t}, [src]);\n\t// Rebuild the SurfaceModel whenever the JSON changes. Surface failures\n\t// (e.g. unknown component types, schema mismatches) surface as render-time\n\t// errors inside the surface; we catch parse-stage issues above.\n\tconst surfaceResult = useMemo(() => {\n\t\tif (!parsed.shape) {\n\t\t\treturn { surface: null, error: null as string | null };\n\t\t}\n\t\ttry {\n\t\t\tconst catalog = createADSCatalog();\n\t\t\tconst { surface } = createSurface({\n\t\t\t\tcatalog,\n\t\t\t\tsurfaceId: `v09-json-playground-${Date.now()}`,\n\t\t\t\tcomponents: parsed.shape.components,\n\t\t\t\tonAction: (a: A2uiClientAction) => setLastEvent(`${a.name} → ${JSON.stringify(a.context)}`),\n\t\t\t});\n\t\t\treturn { surface, error: null };\n\t\t} catch (e) {\n\t\t\treturn { surface: null, error: (e as Error).message };\n\t\t}\n\t}, [parsed.shape]);\n\treturn (\n\t\t<CenteredLayout width=\"wide\">\n\t\t\t<Inline space=\"space.200\" alignBlock=\"start\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"medium\">A2UI v0.9 components (JSON)</Text>\n\t\t\t\t\t<TextArea\n\t\t\t\t\t\tname=\"a2ui-v09-doc\"\n\t\t\t\t\t\tvalue={src}\n\t\t\t\t\t\tminimumRows={16}\n\t\t\t\t\t\tonChange={(e) => setSrc(e.target.value)}\n\t\t\t\t\t/>\n\t\t\t\t\t{parsed.shape && <Text>Detected: {parsed.shape.description}</Text>}\n\t\t\t\t\t{parsed.error && <Text color=\"color.text.danger\">Parse error: {parsed.error}</Text>}\n\t\t\t\t\t{surfaceResult.error && (\n\t\t\t\t\t\t<Text color=\"color.text.danger\">Surface error: {surfaceResult.error}</Text>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"medium\">Rendered surface</Text>\n\t\t\t\t\t<Box xcss={styles.surface} backgroundColor=\"color.background.neutral.subtle\">\n\t\t\t\t\t\t{surfaceResult.surface && <A2uiSurface surface={surfaceResult.surface} />}\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Text>Last action: {lastEvent}</Text>\n\t\t\t\t</Stack>\n\t\t\t</Inline>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * v0.9 Button playground — controls for `variant`, `disabled`, `loading`,\n * and child label. Each control change rebuilds the surface.\n */\nimport React, { useMemo, useState } from 'react';\nimport { A2uiSurface } from '@a2ui/react/v0_9';\nimport type { A2uiClientAction } from '@a2ui/web_core/v0_9';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport Select from '@atlaskit/select/default';\nimport TextField from '@atlaskit/textfield/text-field';\nimport { createADSCatalog } from '@atlassian/a2ui-renderer-next/v0_9/catalog';\nimport { createSurface } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport CenteredLayout from './_shared/centered-layout';\nimport ControlRow from './_shared/control-row';\ntype V09Action = {\n\tname: string;\n\tsurfaceId: string;\n\tsourceComponentId: string;\n\ttimestamp: string;\n\tcontext: Record<string, unknown>;\n};\n// Mirrors `@atlaskit/button/new` ButtonAppearance — the v0.9 schema's\n// `variant` enum is identical.\nconst VARIANTS = ['default', 'danger', 'primary', 'subtle', 'warning', 'discovery'] as const;\ntype Variant = (typeof VARIANTS)[number];\ntype Option = { label: string; value: Variant };\nconst variantOptions: Option[] = VARIANTS.map((v) => ({ label: v, value: v }));\nexport default function V09ButtonPlaygroundExample(): React.JSX.Element {\n\tconst [variant, setVariant] = useState<Variant>('primary');\n\tconst [disabled, setDisabled] = useState(false);\n\tconst [loading, setLoading] = useState(false);\n\tconst [label, setLabel] = useState('Approve');\n\tconst [lastAction, setLastAction] = useState<V09Action | null>(null);\n\tconst surface = useMemo(() => {\n\t\tconst catalog = createADSCatalog();\n\t\tconst { surface: s } = createSurface({\n\t\t\tcatalog,\n\t\t\tsurfaceId: `playground-${Date.now()}`,\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tcomponent: 'Button', // standard A2UI catalog name\n\t\t\t\t\tid: 'root',\n\t\t\t\t\t// `child` is a node id, resolved via buildChild() in the adapter.\n\t\t\t\t\t// The visible label lives on the referenced Text node.\n\t\t\t\t\tchild: 'label',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: { name: 'click', context: { source: 'playground' } },\n\t\t\t\t\t},\n\t\t\t\t\tvariant,\n\t\t\t\t\tdisabled,\n\t\t\t\t\tloading,\n\t\t\t\t},\n\t\t\t\t{ component: 'Text', id: 'label', text: label },\n\t\t\t],\n\t\t\tonAction: (a: A2uiClientAction) => setLastAction(a as unknown as V09Action),\n\t\t});\n\t\treturn s;\n\t}, [variant, disabled, loading, label]);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">Controls</Text>\n\t\t\t\t\t<ControlRow label=\"variant\">\n\t\t\t\t\t\t<Select<Option>\n\t\t\t\t\t\t\tinputId=\"v09-variant\"\n\t\t\t\t\t\t\tvalue={variantOptions.find((o) => o.value === variant)}\n\t\t\t\t\t\t\toptions={variantOptions}\n\t\t\t\t\t\t\tonChange={(opt) => opt && setVariant(opt.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t\t<Checkbox\n\t\t\t\t\t\t\tisChecked={disabled}\n\t\t\t\t\t\t\tonChange={(e) => setDisabled(e.currentTarget.checked)}\n\t\t\t\t\t\t\tlabel=\"disabled\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<Checkbox\n\t\t\t\t\t\t\tisChecked={loading}\n\t\t\t\t\t\t\tonChange={(e) => setLoading(e.currentTarget.checked)}\n\t\t\t\t\t\t\tlabel=\"loading\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t\t<ControlRow label=\"child (label)\">\n\t\t\t\t\t\t<TextField\n\t\t\t\t\t\t\tid=\"v09-label\"\n\t\t\t\t\t\t\tvalue={label}\n\t\t\t\t\t\t\tonChange={(e) => setLabel(e.currentTarget.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t</Stack>\n\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t<A2uiSurface surface={surface} />\n\t\t\t\t</Box>\n\t\t\t\t<Text>\n\t\t\t\t\tLast action:{' '}\n\t\t\t\t\t{lastAction\n\t\t\t\t\t\t? `${lastAction.name} → ${JSON.stringify(lastAction.context)}`\n\t\t\t\t\t\t: '— click the button —'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * v0.9 Text playground. `variant` selects the AK typography branch\n * (`h1`–`h5` → `<Heading>`, `body`/`caption` → `<Text>`); the live render\n * and wire JSON update together.\n */\n/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useMemo, useState } from 'react';\nimport { A2uiSurface } from '@a2ui/react/v0_9';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport Select from '@atlaskit/select/default';\nimport TextField from '@atlaskit/textfield/text-field';\nimport { createADSCatalog } from '@atlassian/a2ui-renderer-next/v0_9/catalog';\nimport { createSurface } from '@atlassian/a2ui-renderer-next/v0_9/surface';\nimport CenteredLayout from './_shared/centered-layout';\nimport ControlRow from './_shared/control-row';\nconst styles = cssMap({\n\twireJson: {\n\t\tmargin: 0,\n\t},\n});\nconst VARIANTS = ['h1', 'h2', 'h3', 'h4', 'h5', 'body', 'caption'] as const;\ntype Variant = (typeof VARIANTS)[number];\ntype Option = { label: string; value: Variant };\nconst variantOptions: Option[] = VARIANTS.map((v) => ({ label: v, value: v }));\nexport default function V09TextPlaygroundExample(): React.JSX.Element {\n\tconst [text, setText] = useState('The quick brown fox jumps over the lazy dog');\n\tconst [variant, setVariant] = useState<Variant>('h2');\n\tconst surface = useMemo(() => {\n\t\tconst catalog = createADSCatalog();\n\t\tconst { surface: s } = createSurface({\n\t\t\tcatalog,\n\t\t\tsurfaceId: `text-playground-${Date.now()}`,\n\t\t\tcomponents: [{ component: 'Text', id: 'root', text, variant }],\n\t\t});\n\t\treturn s;\n\t}, [text, variant]);\n\tconst wireJson = JSON.stringify({ component: 'Text', id: 'root', text, variant }, null, 2);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">Controls</Text>\n\t\t\t\t\t<ControlRow label=\"text\">\n\t\t\t\t\t\t<TextField\n\t\t\t\t\t\t\tid=\"v09-text-content\"\n\t\t\t\t\t\t\tvalue={text}\n\t\t\t\t\t\t\tonChange={(e) => setText(e.currentTarget.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t\t<ControlRow label=\"variant\">\n\t\t\t\t\t\t<Select<Option>\n\t\t\t\t\t\t\tinputId=\"v09-text-variant\"\n\t\t\t\t\t\t\tvalue={variantOptions.find((o) => o.value === variant)}\n\t\t\t\t\t\t\toptions={variantOptions}\n\t\t\t\t\t\t\tonChange={(opt) => opt && setVariant(opt.value)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</ControlRow>\n\t\t\t\t</Stack>\n\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t<A2uiSurface surface={surface} />\n\t\t\t\t</Box>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Wire JSON</Text>\n\t\t\t\t\t<Box padding=\"space.150\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<pre css={styles.wireJson}>{wireJson}</pre>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
 		],
 		props: [
 			{
@@ -9698,7 +9698,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'locationId',
-				type: 'JiraLocationId | "assets/dashboards" | RovoLocationId | ProductLocationId | AvpLocationId',
+				type: 'JiraLocationId | "assets/dashboards" | RovoLocationId | AdminLocationId | ProductLocationId | AvpLocationId',
 				description:
 					'The normalised identifier for the surface this app is rendered in. Replaces\n`sourceApp`, `sourceAppId`, `hostingProduct` and `location`.\n\n@todo Remove undefied on platform_avp_use_locationid_jira cleanup\nThe normalised identifier for the surface this app is rendered in. Replaces\n`sourceApp`, `sourceAppId`, `hostingProduct` and `location`.\n\n@todo Remove undefied on platform_avp_use_locationid_jira cleanup',
 				isRequired: true,
@@ -10393,9 +10393,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['app-stack', 'source-stack', 'teamwork-graph', 'platform-labs', 'internal'],
 		category: 'media',
 		examples: [
-			"import Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { JiraIcon } from '@atlaskit/logo/jira-icon';\nimport { Inline } from '@atlaskit/primitives/compiled';\nimport { FigmaIcon } from '@atlassian/logo-third-party/figma';\nimport { MicrosoftTeamsIcon } from '@atlassian/logo-third-party/microsoft-teams';\nimport { SlackIcon } from '@atlassian/logo-third-party/slack';\nimport AppStack, { type AppStackItem, type AppStackItemProps } from '../src';\nconst JiraLogo = (props: AppStackItemProps) => <JiraIcon {...props} />;\nconst logos: AppStackItem[] = [\n\t{ component: MicrosoftTeamsIcon, label: 'Microsoft Teams' },\n\t{ component: JiraLogo, label: 'Jira' },\n\t{ component: SlackIcon, label: 'Slack' },\n\t{ component: FigmaIcon, label: 'Figma' },\n];\nconst styles = cssMap({\n\tbuttonContent: {\n\t\talignItems: 'center',\n\t},\n});\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<Button>\n\t\t\t<Inline\n\t\t\t\txcss={styles.buttonContent}\n\t\t\t\ttestId=\"app-stack-example\"\n\t\t\t\talignBlock=\"center\"\n\t\t\t\tspace=\"space.150\"\n\t\t\t\tshouldWrap={false}\n\t\t\t>\n\t\t\t\t<span>10 Sources</span>\n\t\t\t\t<AppStack testId=\"app-stack\" data={logos} size=\"xxsmall\" maxCount={4} label=\"App sources\" />\n\t\t\t</Inline>\n\t\t</Button>\n\t);\n}",
-			"import React, { useState } from 'react';\nimport { Label } from '@atlaskit/form/label/default';\nimport { JiraIcon } from '@atlaskit/logo/jira-icon';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport Range from '@atlaskit/range/range';\nimport { FigmaIcon } from '@atlassian/logo-third-party/figma';\nimport { GitHubIcon } from '@atlassian/logo-third-party/github';\nimport { GoogleCalendarIcon } from '@atlassian/logo-third-party/google-calendar';\nimport { MicrosoftTeamsIcon } from '@atlassian/logo-third-party/microsoft-teams';\nimport { MiroIcon } from '@atlassian/logo-third-party/miro';\nimport { SlackIcon } from '@atlassian/logo-third-party/slack';\nimport AppStack, { type AppStackItem, type AppStackItemProps } from '../src';\nconst JiraLogo = (props: AppStackItemProps) => <JiraIcon {...props} />;\nconst logos: AppStackItem[] = [\n\t{ component: MicrosoftTeamsIcon, label: 'Microsoft Teams' },\n\t{ component: JiraLogo, label: 'Jira' },\n\t{ component: SlackIcon, label: 'Slack' },\n\t{ component: GoogleCalendarIcon, label: 'Google Calendar' },\n\t{ component: GitHubIcon, label: 'GitHub' },\n\t{ component: FigmaIcon, label: 'Figma' },\n\t{ component: MiroIcon, label: 'Miro' },\n];\nexport default function MaxItems(): React.JSX.Element {\n\tconst [maxCount, setMaxCount] = useState(6);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<Label htmlFor=\"max-items-slider\">{`Max items: ${maxCount}`}</Label>\n\t\t\t<Range id=\"max-items-slider\" min={1} max={7} value={maxCount} onChange={setMaxCount} />\n\t\t\t<AppStack data={logos} maxCount={maxCount} label=\"App sources\" />\n\t\t</Stack>\n\t);\n}",
-			"import Code from '@atlaskit/code/code';\nimport { cssMap } from '@atlaskit/css';\nimport { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';\nimport { JiraIcon } from '@atlaskit/logo/jira-icon';\nimport { Box, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { FigmaIcon } from '@atlassian/logo-third-party/figma';\nimport { SlackIcon } from '@atlassian/logo-third-party/slack';\nimport AppStack, { type AppStackItem, type AppStackItemProps, type AppStackSize } from '../src';\nconst JiraLogo = (props: AppStackItemProps) => <JiraIcon {...props} />;\nconst logos: AppStackItem[] = [\n\t{ component: JiraLogo, label: 'Jira' },\n\t{ component: SlackIcon, label: 'Slack' },\n\t{ component: ConfluenceIcon, label: 'Confluence' },\n\t{ component: FigmaIcon, label: 'Figma' },\n];\nconst sizes: AppStackSize[] = ['xxsmall', 'xsmall', 'small', 'medium'];\n// App Stack has padding to ensure that clipping parents do not clip the app icons\nconst styles = cssMap({\n\tclip: { overflow: 'clip', width: 'fit-content' },\n});\nexport default function Sizes(): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.300\">\n\t\t\t{sizes.map((size) => (\n\t\t\t\t<Stack key={size} space=\"space.100\">\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<Code>{size}</Code>\n\t\t\t\t\t</Inline>\n\t\t\t\t\t<Box xcss={styles.clip}>\n\t\t\t\t\t\t<AppStack data={logos} size={size} label=\"App sources\" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t))}\n\t\t</Stack>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { JiraIcon } from '@atlaskit/logo/jira-icon';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { FigmaIcon } from '@atlassian/logo-third-party/figma';\nimport { MicrosoftTeamsIcon } from '@atlassian/logo-third-party/microsoft-teams';\nimport { SlackIcon } from '@atlassian/logo-third-party/slack';\nimport AppStack, { type AppStackItem, type AppStackItemProps } from '../src';\nconst JiraLogo = (props: AppStackItemProps) => <JiraIcon {...props} />;\nconst logos: AppStackItem[] = [\n\t{ component: MicrosoftTeamsIcon, label: 'Microsoft Teams' },\n\t{ component: JiraLogo, label: 'Jira' },\n\t{ component: SlackIcon, label: 'Slack' },\n\t{ component: FigmaIcon, label: 'Figma' },\n];\nconst styles = cssMap({\n\tbuttonContent: {\n\t\talignItems: 'center',\n\t},\n});\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<Button>\n\t\t\t<Inline\n\t\t\t\txcss={styles.buttonContent}\n\t\t\t\ttestId=\"app-stack-example\"\n\t\t\t\talignBlock=\"center\"\n\t\t\t\tspace=\"space.150\"\n\t\t\t\tshouldWrap={false}\n\t\t\t>\n\t\t\t\t<span>10 Sources</span>\n\t\t\t\t<AppStack testId=\"app-stack\" data={logos} size=\"xxsmall\" maxCount={4} label=\"App sources\" />\n\t\t\t</Inline>\n\t\t</Button>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Label } from '@atlaskit/form/label/default';\nimport { JiraIcon } from '@atlaskit/logo/jira-icon';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport Range from '@atlaskit/range/range';\nimport { FigmaIcon } from '@atlassian/logo-third-party/figma';\nimport { GitHubIcon } from '@atlassian/logo-third-party/github';\nimport { GoogleCalendarIcon } from '@atlassian/logo-third-party/google-calendar';\nimport { MicrosoftTeamsIcon } from '@atlassian/logo-third-party/microsoft-teams';\nimport { MiroIcon } from '@atlassian/logo-third-party/miro';\nimport { SlackIcon } from '@atlassian/logo-third-party/slack';\nimport AppStack, { type AppStackItem, type AppStackItemProps } from '../src';\nconst JiraLogo = (props: AppStackItemProps) => <JiraIcon {...props} />;\nconst logos: AppStackItem[] = [\n\t{ component: MicrosoftTeamsIcon, label: 'Microsoft Teams' },\n\t{ component: JiraLogo, label: 'Jira' },\n\t{ component: SlackIcon, label: 'Slack' },\n\t{ component: GoogleCalendarIcon, label: 'Google Calendar' },\n\t{ component: GitHubIcon, label: 'GitHub' },\n\t{ component: FigmaIcon, label: 'Figma' },\n\t{ component: MiroIcon, label: 'Miro' },\n];\nexport default function MaxItems(): React.JSX.Element {\n\tconst [maxCount, setMaxCount] = useState(6);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<Label htmlFor=\"max-items-slider\">{`Max items: ${maxCount}`}</Label>\n\t\t\t<Range id=\"max-items-slider\" min={1} max={7} value={maxCount} onChange={setMaxCount} />\n\t\t\t<AppStack data={logos} maxCount={maxCount} label=\"App sources\" />\n\t\t</Stack>\n\t);\n}",
+			"import Code from '@atlaskit/code/code';\nimport { cssMap } from '@atlaskit/css';\nimport { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';\nimport { JiraIcon } from '@atlaskit/logo/jira-icon';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { FigmaIcon } from '@atlassian/logo-third-party/figma';\nimport { SlackIcon } from '@atlassian/logo-third-party/slack';\nimport AppStack, { type AppStackItem, type AppStackItemProps, type AppStackSize } from '../src';\nconst JiraLogo = (props: AppStackItemProps) => <JiraIcon {...props} />;\nconst logos: AppStackItem[] = [\n\t{ component: JiraLogo, label: 'Jira' },\n\t{ component: SlackIcon, label: 'Slack' },\n\t{ component: ConfluenceIcon, label: 'Confluence' },\n\t{ component: FigmaIcon, label: 'Figma' },\n];\nconst sizes: AppStackSize[] = ['xxsmall', 'xsmall', 'small', 'medium'];\n// App Stack has padding to ensure that clipping parents do not clip the app icons\nconst styles = cssMap({\n\tclip: { overflow: 'clip', width: 'fit-content' },\n});\nexport default function Sizes(): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.300\">\n\t\t\t{sizes.map((size) => (\n\t\t\t\t<Stack key={size} space=\"space.100\">\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<Code>{size}</Code>\n\t\t\t\t\t</Inline>\n\t\t\t\t\t<Box xcss={styles.clip}>\n\t\t\t\t\t\t<AppStack data={logos} size={size} label=\"App sources\" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t))}\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -10622,7 +10622,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'aria-haspopup',
-				type: 'boolean | "dialog"',
+				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree"',
 				description: 'Informs assistive technology that this element triggers a popup.',
 			},
 			{
@@ -11598,7 +11598,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'about', 'details'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tAgentAboutSection,\n\tAgentAboutWrapper,\n} from '@atlassian/conversation-assistant-agent/ui/AgentAbout';\nexport default function AgentAboutProfileDetailsExample(): React.JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Button onClick={() => setIsVisible((visible) => !visible)}>\n\t\t\t\t\t{isVisible ? 'Hide agent details' : 'Show agent details'}\n\t\t\t\t</Button>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<AgentAboutWrapper>\n\t\t\t\t\t\t<AgentAboutSection />\n\t\t\t\t\t\t<Text>Configured for the delivery-planning workspace.</Text>\n\t\t\t\t\t</AgentAboutWrapper>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tAgentAboutSection,\n\tAgentAboutWrapper,\n} from '@atlassian/conversation-assistant-agent/ui/AgentAbout';\nexport default function AgentAboutProfileDetailsExample(): React.JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Button onClick={() => setIsVisible((visible) => !visible)}>\n\t\t\t\t\t{isVisible ? 'Hide agent details' : 'Show agent details'}\n\t\t\t\t</Button>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<AgentAboutWrapper>\n\t\t\t\t\t\t<AgentAboutSection />\n\t\t\t\t\t\t<Text>Configured for the delivery-planning workspace.</Text>\n\t\t\t\t\t</AgentAboutWrapper>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -11611,7 +11611,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'about', 'layout'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tAgentAboutSection,\n\tAgentAboutWrapper,\n} from '@atlassian/conversation-assistant-agent/ui/AgentAbout';\nexport default function AgentAboutProfileDetailsExample(): React.JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Button onClick={() => setIsVisible((visible) => !visible)}>\n\t\t\t\t\t{isVisible ? 'Hide agent details' : 'Show agent details'}\n\t\t\t\t</Button>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<AgentAboutWrapper>\n\t\t\t\t\t\t<AgentAboutSection />\n\t\t\t\t\t\t<Text>Configured for the delivery-planning workspace.</Text>\n\t\t\t\t\t</AgentAboutWrapper>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tAgentAboutSection,\n\tAgentAboutWrapper,\n} from '@atlassian/conversation-assistant-agent/ui/AgentAbout';\nexport default function AgentAboutProfileDetailsExample(): React.JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Button onClick={() => setIsVisible((visible) => !visible)}>\n\t\t\t\t\t{isVisible ? 'Hide agent details' : 'Show agent details'}\n\t\t\t\t</Button>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<AgentAboutWrapper>\n\t\t\t\t\t\t<AgentAboutSection />\n\t\t\t\t\t\t<Text>Configured for the delivery-planning workspace.</Text>\n\t\t\t\t\t</AgentAboutWrapper>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -11630,7 +11630,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'action', 'pill'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { AgentActionPill } from '@atlassian/conversation-assistant-agent/ui/AgentActionPill';\nexport default function AgentActionAvailabilityExample(): React.JSX.Element {\n\tconst [isEnabled, setIsEnabled] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<AgentActionPill\n\t\t\t\t\taction={{\n\t\t\t\t\t\tid: 'summarise-release-risks',\n\t\t\t\t\t\tdisplayName: 'Summarise release risks',\n\t\t\t\t\t\ttags: ['beta'],\n\t\t\t\t\t}}\n\t\t\t\t\tisActive={isEnabled}\n\t\t\t\t/>\n\t\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t\t<Button onClick={() => setIsEnabled((enabled) => !enabled)}>\n\t\t\t\t\t\t{isEnabled ? 'Disable action' : 'Enable action'}\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Text>\n\t\t\t\t\t\t{isEnabled ? 'Action available in chat' : 'Connect the required app to enable it'}\n\t\t\t\t\t</Text>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AgentActionPill } from '@atlassian/conversation-assistant-agent/ui/AgentActionPill';\nexport default function AgentActionAvailabilityExample(): React.JSX.Element {\n\tconst [isEnabled, setIsEnabled] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<AgentActionPill\n\t\t\t\t\taction={{\n\t\t\t\t\t\tid: 'summarise-release-risks',\n\t\t\t\t\t\tdisplayName: 'Summarise release risks',\n\t\t\t\t\t\ttags: ['beta'],\n\t\t\t\t\t}}\n\t\t\t\t\tisActive={isEnabled}\n\t\t\t\t/>\n\t\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t\t<Button onClick={() => setIsEnabled((enabled) => !enabled)}>\n\t\t\t\t\t\t{isEnabled ? 'Disable action' : 'Enable action'}\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Text>\n\t\t\t\t\t\t{isEnabled ? 'Action available in chat' : 'Connect the required app to enable it'}\n\t\t\t\t\t</Text>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -11654,7 +11654,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'tool', 'pill'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ToolPill } from '@atlassian/conversation-assistant-agent/ui/AgentActionPill';\nconst WORKFLOWS = [\n\t{\n\t\tname: 'Release planning',\n\t\ttool: 'Jira',\n\t\ticonUrl:\n\t\t\t'https://wac-cdn.atlassian.com/dam/jcr:4b4de45f-912d-40f9-b2d2-a7f1570fc408/jira-software-icon.svg',\n\t},\n\t{\n\t\tname: 'Knowledge synthesis',\n\t\ttool: 'Confluence',\n\t\ticonUrl:\n\t\t\t'https://wac-cdn.atlassian.com/dam/jcr:3eaa2ce6-5cab-4d7b-83b4-81d9d5d656a0/confluence-icon.svg',\n\t},\n];\nexport default function AgentWorkflowToolsExample(): React.JSX.Element {\n\tconst [workflowIndex, setWorkflowIndex] = useState(0);\n\tconst workflow = WORKFLOWS[workflowIndex];\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<Text weight=\"bold\">{workflow.name} agent</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<ToolPill displayName={workflow.tool} iconUrl={workflow.iconUrl} />\n\t\t\t\t<Button onClick={() => setWorkflowIndex((index) => (index + 1) % WORKFLOWS.length)}>\n\t\t\t\t\tSwitch workflow\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ToolPill } from '@atlassian/conversation-assistant-agent/ui/AgentActionPill';\nconst WORKFLOWS = [\n\t{\n\t\tname: 'Release planning',\n\t\ttool: 'Jira',\n\t\ticonUrl:\n\t\t\t'https://wac-cdn.atlassian.com/dam/jcr:4b4de45f-912d-40f9-b2d2-a7f1570fc408/jira-software-icon.svg',\n\t},\n\t{\n\t\tname: 'Knowledge synthesis',\n\t\ttool: 'Confluence',\n\t\ticonUrl:\n\t\t\t'https://wac-cdn.atlassian.com/dam/jcr:3eaa2ce6-5cab-4d7b-83b4-81d9d5d656a0/confluence-icon.svg',\n\t},\n];\nexport default function AgentWorkflowToolsExample(): React.JSX.Element {\n\tconst [workflowIndex, setWorkflowIndex] = useState(0);\n\tconst workflow = WORKFLOWS[workflowIndex];\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<Text weight=\"bold\">{workflow.name} agent</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<ToolPill displayName={workflow.tool} iconUrl={workflow.iconUrl} />\n\t\t\t\t<Button onClick={() => setWorkflowIndex((index) => (index + 1) % WORKFLOWS.length)}>\n\t\t\t\t\tSwitch workflow\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -11839,7 +11839,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'empty state', 'conversation'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { AgentEmptyState } from '@atlassian/conversation-assistant-agent/ui/AgentEmptyState';\nimport { type Agent } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nconst AGENT: Agent = {\n\tid: 'release-coach',\n\tname: 'Release coach',\n\tnamed_id: 'release-coach',\n\texternal_config_reference: 'release-coach',\n\tdescription: 'Helps delivery teams turn project signals into release-ready plans.',\n\tcreator_type: 'SYSTEM',\n\tavailable_plugins: {},\n\tis_default: false,\n\tactor_type: 'AGENT',\n\tuser_defined_conversation_starters: null,\n\tfavourite: false,\n\tdeactivated: false,\n};\nexport default function AgentEmptyStateConversationExample(): React.JSX.Element {\n\tconst [hasStartedConversation, setHasStartedConversation] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t{hasStartedConversation ? (\n\t\t\t\t<Text>Drafting a release plan with Release coach…</Text>\n\t\t\t) : (\n\t\t\t\t<AgentEmptyState agent={AGENT} />\n\t\t\t)}\n\t\t\t<Button onClick={() => setHasStartedConversation(true)}>Start a conversation</Button>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AgentEmptyState } from '@atlassian/conversation-assistant-agent/ui/AgentEmptyState';\nimport { type Agent } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nconst AGENT: Agent = {\n\tid: 'release-coach',\n\tname: 'Release coach',\n\tnamed_id: 'release-coach',\n\texternal_config_reference: 'release-coach',\n\tdescription: 'Helps delivery teams turn project signals into release-ready plans.',\n\tcreator_type: 'SYSTEM',\n\tavailable_plugins: {},\n\tis_default: false,\n\tactor_type: 'AGENT',\n\tuser_defined_conversation_starters: null,\n\tfavourite: false,\n\tdeactivated: false,\n};\nexport default function AgentEmptyStateConversationExample(): React.JSX.Element {\n\tconst [hasStartedConversation, setHasStartedConversation] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t{hasStartedConversation ? (\n\t\t\t\t<Text>Drafting a release plan with Release coach…</Text>\n\t\t\t) : (\n\t\t\t\t<AgentEmptyState agent={AGENT} />\n\t\t\t)}\n\t\t\t<Button onClick={() => setHasStartedConversation(true)}>Start a conversation</Button>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -11858,7 +11858,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'header', 'identity'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { AgentHeader } from '@atlassian/conversation-assistant-agent/ui/AgentHeader';\nconst AGENTS = [\n\t{ id: 'release-coach', name: 'Release coach' },\n\t{ id: 'incident-helper', name: 'Incident helper' },\n];\nexport default function AgentHeaderSelectionExample(): React.JSX.Element {\n\tconst [agentIndex, setAgentIndex] = useState(0);\n\tconst agent = AGENTS[agentIndex];\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<AgentHeader agentId={agent.id} agentNamedId={agent.id} />\n\t\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t\t<Text weight=\"bold\">{agent.name}</Text>\n\t\t\t\t\t<Button onClick={() => setAgentIndex((index) => (index + 1) % AGENTS.length)}>\n\t\t\t\t\t\tView next agent\n\t\t\t\t\t</Button>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AgentHeader } from '@atlassian/conversation-assistant-agent/ui/AgentHeader';\nconst AGENTS = [\n\t{ id: 'release-coach', name: 'Release coach' },\n\t{ id: 'incident-helper', name: 'Incident helper' },\n];\nexport default function AgentHeaderSelectionExample(): React.JSX.Element {\n\tconst [agentIndex, setAgentIndex] = useState(0);\n\tconst agent = AGENTS[agentIndex];\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<AgentHeader agentId={agent.id} agentNamedId={agent.id} />\n\t\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t\t<Text weight=\"bold\">{agent.name}</Text>\n\t\t\t\t\t<Button onClick={() => setAgentIndex((index) => (index + 1) % AGENTS.length)}>\n\t\t\t\t\t\tView next agent\n\t\t\t\t\t</Button>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -12058,7 +12058,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'chat', 'button'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatToAgentButton } from '@atlassian/conversation-assistant-agent/ui/AgentInteractions';\nexport default function ChatToAgentTransitionExample(): React.JSX.Element {\n\tconst [hasStartedChat, setHasStartedChat] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Text weight=\"bold\">Release coach</Text>\n\t\t\t\t{hasStartedChat ? (\n\t\t\t\t\t<Text>Opening a conversation with Release coach…</Text>\n\t\t\t\t) : (\n\t\t\t\t\t<ChatToAgentButton onClick={() => setHasStartedChat(true)} />\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatToAgentButton } from '@atlassian/conversation-assistant-agent/ui/AgentInteractions';\nexport default function ChatToAgentTransitionExample(): React.JSX.Element {\n\tconst [hasStartedChat, setHasStartedChat] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Text weight=\"bold\">Release coach</Text>\n\t\t\t\t{hasStartedChat ? (\n\t\t\t\t\t<Text>Opening a conversation with Release coach…</Text>\n\t\t\t\t) : (\n\t\t\t\t\t<ChatToAgentButton onClick={() => setHasStartedChat(true)} />\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -12447,20 +12447,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'BlankObjectExperienceInlineModalTypes',
-		package: '@atlassian/conversation-assistant-blank-object-experience',
-		description:
-			'Public blank-object-experience-inline-modal/types entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public blank-object-experience-inline-modal/types entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'BlankObjectExperienceModal',
 		package: '@atlassian/conversation-assistant-blank-object-experience',
 		description:
@@ -12531,20 +12517,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'BlankObjectExperienceModalTypes',
-		package: '@atlassian/conversation-assistant-blank-object-experience',
-		description:
-			'Public blank-object-experience-modal/types entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public blank-object-experience-modal/types entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'BlankObjectExperienceSideModal',
 		package: '@atlassian/conversation-assistant-blank-object-experience',
 		description:
@@ -12608,20 +12580,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'BlankObjectExperienceSideModalTypes',
-		package: '@atlassian/conversation-assistant-blank-object-experience',
-		description:
-			'Public blank-object-experience-side-modal/types entrypoint for @atlassian/conversation-assistant-blank-object-experience.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public blank-object-experience-side-modal/types entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'GoogleCalendarIconBorderless',
 		package: '@atlassian/conversation-assistant-chat-prompt-input',
 		description: 'Renders the borderless Google Calendar icon used in app-selection surfaces.',
@@ -12630,7 +12588,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'google calendar', 'icon'],
 		category: 'rovo',
 		examples: [
-			'import { Box, Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { GoogleCalendarIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/google-calendar/icon-borderless\';\nimport { SlackIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/slack/icon-borderless\';\nimport { Lazy3PLogoWrapper } from \'@atlassian/conversation-assistant-chat-prompt-input/Lazy3PLogoWrapper\';\nexport default function ConnectedSourcePickerIconsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="semibold">Connect a source</Text>\n\t\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<GoogleCalendarIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Slack" role="img">\n\t\t\t\t\t<SlackIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<Lazy3PLogoWrapper\n\t\t\t\t\t\tappSource="google_calendar"\n\t\t\t\t\t\trovoLogoProps={{ size: \'small\', label: \'Google Calendar\' }}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
+			'import { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { GoogleCalendarIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/google-calendar/icon-borderless\';\nimport { SlackIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/slack/icon-borderless\';\nimport { Lazy3PLogoWrapper } from \'@atlassian/conversation-assistant-chat-prompt-input/Lazy3PLogoWrapper\';\nexport default function ConnectedSourcePickerIconsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="semibold">Connect a source</Text>\n\t\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<GoogleCalendarIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Slack" role="img">\n\t\t\t\t\t<SlackIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<Lazy3PLogoWrapper\n\t\t\t\t\t\tappSource="google_calendar"\n\t\t\t\t\t\trovoLogoProps={{ size: \'small\', label: \'Google Calendar\' }}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
 		],
 		props: [],
 	},
@@ -12643,7 +12601,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'slack', 'icon'],
 		category: 'rovo',
 		examples: [
-			'import { Box, Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { GoogleCalendarIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/google-calendar/icon-borderless\';\nimport { SlackIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/slack/icon-borderless\';\nimport { Lazy3PLogoWrapper } from \'@atlassian/conversation-assistant-chat-prompt-input/Lazy3PLogoWrapper\';\nexport default function ConnectedSourcePickerIconsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="semibold">Connect a source</Text>\n\t\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<GoogleCalendarIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Slack" role="img">\n\t\t\t\t\t<SlackIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<Lazy3PLogoWrapper\n\t\t\t\t\t\tappSource="google_calendar"\n\t\t\t\t\t\trovoLogoProps={{ size: \'small\', label: \'Google Calendar\' }}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
+			'import { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { GoogleCalendarIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/google-calendar/icon-borderless\';\nimport { SlackIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/slack/icon-borderless\';\nimport { Lazy3PLogoWrapper } from \'@atlassian/conversation-assistant-chat-prompt-input/Lazy3PLogoWrapper\';\nexport default function ConnectedSourcePickerIconsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="semibold">Connect a source</Text>\n\t\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<GoogleCalendarIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Slack" role="img">\n\t\t\t\t\t<SlackIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<Lazy3PLogoWrapper\n\t\t\t\t\t\tappSource="google_calendar"\n\t\t\t\t\t\trovoLogoProps={{ size: \'small\', label: \'Google Calendar\' }}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
 		],
 		props: [],
 	},
@@ -12656,7 +12614,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'app connection', 'banner'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport {\n\tAppConnectionBanner,\n\ttype UnconnectedApp,\n} from '@atlassian/conversation-assistant-chat-prompt-input/app-connection-banner';\nconst apps: UnconnectedApp[] = [\n\t{\n\t\tsource: 'slack',\n\t\tfriendlyName: 'Slack',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/slack',\n\t\toutboundAuthUrl: 'https://id.atlassian.com/outboundAuth/start?serviceKey=slack',\n\t},\n\t{\n\t\tsource: 'google_drive',\n\t\tfriendlyName: 'Google Drive',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/google_drive',\n\t\toutboundAuthUrl: 'https://id.atlassian.com/outboundAuth/start?serviceKey=google_drive',\n\t},\n];\nexport default function AppConnectionBannerExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<AppConnectionBanner unconnectedApps={apps} onConnect={() => {}} onDismiss={() => {}} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport {\n\tAppConnectionBanner,\n\ttype UnconnectedApp,\n} from '@atlassian/conversation-assistant-chat-prompt-input/app-connection-banner';\nconst apps: UnconnectedApp[] = [\n\t{\n\t\tsource: 'slack',\n\t\tfriendlyName: 'Slack',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/slack',\n\t\toutboundAuthUrl: 'https://id.atlassian.com/outboundAuth/start?serviceKey=slack',\n\t},\n\t{\n\t\tsource: 'google_drive',\n\t\tfriendlyName: 'Google Drive',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/google_drive',\n\t\toutboundAuthUrl: 'https://id.atlassian.com/outboundAuth/start?serviceKey=google_drive',\n\t},\n];\nexport default function AppConnectionBannerExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<AppConnectionBanner unconnectedApps={apps} onConnect={() => {}} onDismiss={() => {}} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -12693,13 +12651,16 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'WarmChatContextBannerLink',
 		package: '@atlassian/conversation-assistant-chat-prompt-input',
-		description: 'Renders the link action used by warm-chat context banners.',
+		description: 'Warms the Smart Link store for the chat context banner without rendering UI.',
 		status: 'general-availability',
-		usageGuidelines: ['Use when a warm-chat context banner needs its package-owned link behavior.'],
+		usageGuidelines: [
+			'Mount inside the existing chat prompt input providers to warm the context banner Smart Link before it renders. This component returns null.',
+			'Keep its browser-context, current-page-context, and space-scoped guards aligned with ChatPromptInput.',
+		],
 		keywords: ['rovo', 'chat', 'context', 'banner'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DeactivatedAgentError } from '@atlassian/conversation-assistant-chat-prompt-input/DeactivatedAgentError';\nexport default function DeactivatedAgentErrorExample(): React.JSX.Element {\n\tconst [hasStartedNewChat, setHasStartedNewChat] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t{hasStartedNewChat ? (\n\t\t\t\t<p>New Rovo Chat</p>\n\t\t\t) : (\n\t\t\t\t<DeactivatedAgentError handleNewChatClick={() => setHasStartedNewChat(true)} />\n\t\t\t)}\n\t\t</IntlProvider>\n\t);\n}",
+			"import { WarmChatContextBannerLink } from '@atlassian/conversation-assistant-chat-prompt-input/controllers/warm-chat-context-banner-link';\n// Mount within ChatPromptInput's existing Smart Link, experience, and chat-store providers.\n// This integration component warms the context banner link; it does not render a banner.\nexport default function WarmContextBannerLink({\n\tenableBrowserContextBanner = false,\n\tuseCurrentPageContext = true,\n\tisSpaceScopedConversation = false,\n}: {\n\tenableBrowserContextBanner?: boolean;\n\tuseCurrentPageContext?: boolean;\n\tisSpaceScopedConversation?: boolean;\n}): React.JSX.Element {\n\treturn (\n\t\t<WarmChatContextBannerLink\n\t\t\tenableBrowserContextBanner={enableBrowserContextBanner}\n\t\t\tuseCurrentPageContext={useCurrentPageContext}\n\t\t\tisSpaceScopedConversation={isSpaceScopedConversation}\n\t\t/>\n\t);\n}",
 		],
 		props: [
 			{
@@ -12772,7 +12733,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'third party', 'logo'],
 		category: 'rovo',
 		examples: [
-			'import { Box, Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { GoogleCalendarIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/google-calendar/icon-borderless\';\nimport { SlackIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/slack/icon-borderless\';\nimport { Lazy3PLogoWrapper } from \'@atlassian/conversation-assistant-chat-prompt-input/Lazy3PLogoWrapper\';\nexport default function ConnectedSourcePickerIconsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="semibold">Connect a source</Text>\n\t\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<GoogleCalendarIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Slack" role="img">\n\t\t\t\t\t<SlackIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<Lazy3PLogoWrapper\n\t\t\t\t\t\tappSource="google_calendar"\n\t\t\t\t\t\trovoLogoProps={{ size: \'small\', label: \'Google Calendar\' }}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
+			'import { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { GoogleCalendarIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/google-calendar/icon-borderless\';\nimport { SlackIconBorderless } from \'@atlassian/conversation-assistant-chat-prompt-input/3p-product-configs/slack/icon-borderless\';\nimport { Lazy3PLogoWrapper } from \'@atlassian/conversation-assistant-chat-prompt-input/Lazy3PLogoWrapper\';\nexport default function ConnectedSourcePickerIconsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="semibold">Connect a source</Text>\n\t\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<GoogleCalendarIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Slack" role="img">\n\t\t\t\t\t<SlackIconBorderless />\n\t\t\t\t</Box>\n\t\t\t\t<Box aria-label="Google Calendar" role="img">\n\t\t\t\t\t<Lazy3PLogoWrapper\n\t\t\t\t\t\tappSource="google_calendar"\n\t\t\t\t\t\trovoLogoProps={{ size: \'small\', label: \'Google Calendar\' }}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
 		],
 		props: [
 			{
@@ -12861,6 +12822,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'clearModeOnSubmit',
 				type: 'boolean',
+			},
+			{
+				name: 'conciergeContextKey',
+				type: 'string',
+				description: 'Resets Agent Concierge when the host changes conversation context.',
 			},
 			{
 				name: 'contentContext',
@@ -13032,13 +12998,13 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'historyCompletion',
-				type: '{ getCompletion: (query: string) => string; disabled?: boolean; }',
+				type: '{ getCompletion: (query: string) => string | { suffix: string; candidateId: string; }; disabled?: boolean; tracking?: Pick<HistorySuggestionTracker, "accept" | "displaySuggestions" | "hideSuggestions" | "confirmInsertion" | "insertionFailed">; }',
 				description:
 					"Optional history completion supplied by the host's shared experiment decision.",
 			},
 			{
 				name: 'historyTracking',
-				type: '{ editorChanged: (text: string) => void; captureSubmission: (text: string) => HistorySuggestionSubmission; replaceDraft: () => void; isPendingInsertion: (acceptanceId?: string) => boolean; confirmInsertion: (acceptanceId: string, text: string) => void; insertionFailed: (acceptanceId: string) => void; }',
+				type: '{ accept: (acceptedDraftText: string, rank: number, method: HistoryAcceptanceMethod) => string; displaySuggestions: (orderedIds: readonly string[]) => string; hideSuggestions: (displayId?: string) => void; ... 5 more ...; insertionFailed: (acceptanceId: string) => void; }',
 			},
 			{
 				name: 'hoveredPrompt',
@@ -13227,6 +13193,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'recentSearchListSize',
 				type: 'number',
+			},
+			{
+				name: 'renderSkillsModalHeaderActions',
+				type: '(onClose: () => void) => ReactNode',
+				description: 'Renders host-owned creation actions in the full skills library modal header.',
 			},
 			{
 				name: 'searchMode',
@@ -13495,9 +13466,17 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(url: string) => void',
 			},
 			{
+				name: 'onEntityAnnotationPersonDwell',
+				type: '(durationMs: number) => void',
+			},
+			{
 				name: 'onEntityAnnotationPersonOpen',
 				type: '(method: "hover" | "click") => void',
 				description: 'Called when a Person entity annotation opens its profile card.',
+			},
+			{
+				name: 'onEntityAnnotationPersonViewed',
+				type: '(loadTimeMs: number) => void',
 			},
 			{
 				name: 'onEntityAnnotationTriggersRendered',
@@ -13536,6 +13515,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'productKey',
 				type: 'string',
 				isRequired: true,
+			},
+			{
+				name: 'renderExpandBodyAsMarkdown',
+				type: 'boolean',
+				description: 'Render expand bodies with the existing rich markdown renderer.',
 			},
 			{
 				name: 'respondedAgentId',
@@ -13619,6 +13603,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string',
 			},
 			{
+				name: 'onDwell',
+				type: '(durationMs: number, canClaimProject?: boolean) => void',
+			},
+			{
+				name: 'onFeedback',
+				type: '(feedbackValue: InferredProjectFeedbackValue, inferredProjectId: string) => void',
+				description: 'Called when the user gives thumbs feedback on the suggested project.',
+			},
+			{
 				name: 'onInteraction',
 				type: '(targetType: HoverEntityCardClickTarget) => void',
 			},
@@ -13630,6 +13623,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onPromotionResult',
 				type: '(outcome: InferredProjectPromotionOutcome, failure?: InferredProjectPromotionFailure) => void',
+			},
+			{
+				name: 'onViewed',
+				type: '(loadTimeMs: number) => void',
 			},
 			{
 				name: 'parameters',
@@ -13761,9 +13758,17 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(url: string) => void',
 			},
 			{
+				name: 'onEntityAnnotationPersonDwell',
+				type: '(durationMs: number) => void',
+			},
+			{
 				name: 'onEntityAnnotationPersonOpen',
 				type: '(method: "hover" | "click") => void',
 				description: 'Called when a Person entity annotation opens its profile card.',
+			},
+			{
+				name: 'onEntityAnnotationPersonViewed',
+				type: '(loadTimeMs: number) => void',
 			},
 			{
 				name: 'onEntityAnnotationTriggersRendered',
@@ -13794,6 +13799,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'productKey',
 				type: 'string',
 				isRequired: true,
+			},
+			{
+				name: 'renderExpandBodyAsMarkdown',
+				type: 'boolean',
 			},
 			{
 				name: 'sendLinkCountMetric',
@@ -13861,17 +13870,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 		],
-	},
-	{
-		name: 'AssignedAppsIcons',
-		package: '@atlassian/conversation-assistant-content-renderer',
-		description: 'Displays configured application icons and a label for a Rovo prompt card.',
-		status: 'general-availability',
-		usageGuidelines: ['Use on prompt cards that identify assigned knowledge applications.'],
-		keywords: ['rovo', 'prompt', 'applications', 'icons', 'knowledge'],
-		category: 'rovo',
-		examples: [],
-		props: [],
 	},
 	{
 		name: 'SourceIcons',
@@ -14073,7 +14071,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'entitlement', 'store', 'provider'],
 		category: 'rovo',
 		examples: [
-			"import { Box, Text } from '@atlaskit/primitives/compiled';\nimport { RovoEntitlementSetter } from '@atlassian/conversation-assistant-entitlement/controllers/rovo-entitlement';\nexport default function RovoEntitlementSetterExample(): React.JSX.Element {\n\tconst isRovoEnabled = true;\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<RovoEntitlementSetter isRovoEnabled={isRovoEnabled} />\n\t\t\t<Text as=\"p\">Rovo is {isRovoEnabled ? 'available' : 'unavailable'} for this host.</Text>\n\t\t</Box>\n\t);\n}",
+			"import { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoEntitlementSetter } from '@atlassian/conversation-assistant-entitlement/controllers/rovo-entitlement';\nexport default function RovoEntitlementSetterExample(): React.JSX.Element {\n\tconst isRovoEnabled = true;\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<RovoEntitlementSetter isRovoEnabled={isRovoEnabled} />\n\t\t\t<Text as=\"p\">Rovo is {isRovoEnabled ? 'available' : 'unavailable'} for this host.</Text>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14194,7 +14192,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'experience', 'ufo', 'failure'],
 		category: 'analytics',
 		examples: [
-			"import { Box, Text } from '@atlaskit/primitives/compiled';\nimport { ExperienceName } from '@atlassian/conversation-assistant-instrumentation/constants/experience-tracker';\nimport { ExperienceFailure } from '@atlassian/conversation-assistant-instrumentation/ui/ExperienceTracker';\nconst error = new Error('The Rovo Chat panel could not load.');\nexport default function ExperienceFailureExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<ExperienceFailure name={ExperienceName.LOAD_PANEL} error={error} />\n\t\t\t<Text as=\"p\">Rovo Chat could not be loaded.</Text>\n\t\t</Box>\n\t);\n}",
+			"import { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ExperienceName } from '@atlassian/conversation-assistant-instrumentation/constants/experience-tracker';\nimport { ExperienceFailure } from '@atlassian/conversation-assistant-instrumentation/ui/ExperienceTracker';\nconst error = new Error('The Rovo Chat panel could not load.');\nexport default function ExperienceFailureExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<ExperienceFailure name={ExperienceName.LOAD_PANEL} error={error} />\n\t\t\t<Text as=\"p\">Rovo Chat could not be loaded.</Text>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14204,8 +14202,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 144 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 150 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
+			},
+			{
+				name: 'teamName',
+				type: 'string',
 			},
 		],
 	},
@@ -14218,7 +14220,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'experience', 'ufo', 'start'],
 		category: 'analytics',
 		examples: [
-			"import { Box, Text } from '@atlaskit/primitives/compiled';\nimport { ExperienceName } from '@atlassian/conversation-assistant-instrumentation/constants/experience-tracker';\nimport { ExperienceStart } from '@atlassian/conversation-assistant-instrumentation/ui/ExperienceTracker';\nexport default function ExperienceStartExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<ExperienceStart name={ExperienceName.LOAD_PANEL} />\n\t\t\t<Text as=\"p\">Loading the Rovo Chat panel…</Text>\n\t\t</Box>\n\t);\n}",
+			"import { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ExperienceName } from '@atlassian/conversation-assistant-instrumentation/constants/experience-tracker';\nimport { ExperienceStart } from '@atlassian/conversation-assistant-instrumentation/ui/ExperienceTracker';\nexport default function ExperienceStartExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<ExperienceStart name={ExperienceName.LOAD_PANEL} />\n\t\t\t<Text as=\"p\">Loading the Rovo Chat panel…</Text>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14227,7 +14229,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 144 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 150 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 		],
@@ -14243,7 +14245,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'experience', 'ufo', 'success'],
 		category: 'analytics',
 		examples: [
-			"import { Box, Text } from '@atlaskit/primitives/compiled';\nimport { ExperienceName } from '@atlassian/conversation-assistant-instrumentation/constants/experience-tracker';\nimport { ExperienceSuccess } from '@atlassian/conversation-assistant-instrumentation/ui/ExperienceTracker';\nexport default function ExperienceSuccessExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<ExperienceSuccess name={ExperienceName.LOAD_PANEL} />\n\t\t\t<Text as=\"p\">The Rovo Chat panel is ready.</Text>\n\t\t</Box>\n\t);\n}",
+			"import { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ExperienceName } from '@atlassian/conversation-assistant-instrumentation/constants/experience-tracker';\nimport { ExperienceSuccess } from '@atlassian/conversation-assistant-instrumentation/ui/ExperienceTracker';\nexport default function ExperienceSuccessExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding=\"space.200\">\n\t\t\t<ExperienceSuccess name={ExperienceName.LOAD_PANEL} />\n\t\t\t<Text as=\"p\">The Rovo Chat panel is ready.</Text>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14252,7 +14254,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 144 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 150 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 			{
@@ -14303,6 +14305,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'conversationId',
 				type: 'string',
 				description: 'conversation id where the action was invoked',
+			},
+			{
+				name: 'entryPoint',
+				type: 'string',
+				description:
+					'Controlled entry point for the originating assistant message. This allows\naction renderers to preserve product-owned analytics attribution without\nderiving it again from action payload data.',
 			},
 			{
 				name: 'experienceId',
@@ -14608,7 +14616,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'confluence', 'page', 'action'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport type { DocNode } from '@atlaskit/adf-schema/doc';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport type { ActionKeys } from '@atlassian/conversation-assistant-message-actions-api/constants';\nimport type {\n\tActionRendererFor,\n\tActionRendererKeyToPayload,\n\tActionWith,\n} from '@atlassian/conversation-assistant-message-actions-api/types';\nimport { ConfluencePageCreateAction } from '@atlassian/conversation-assistant-message-actions/controllers/confluence-page-create';\nconst styles = cssMap({\n\troot: {\n\t\twidth: '500px',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tmargin: '0 auto',\n\t},\n});\nconst action: ActionWith<ActionRendererKeyToPayload[typeof ActionKeys.ConfluencePageCreate]> = {\n\tkey: 'confluence-page-create',\n\tinvocationId: '123',\n\tdata: {\n\t\tname: 'My Page',\n\t\tfolder: '123',\n\t\tcontent: JSON.stringify({\n\t\t\tversion: 1,\n\t\t\ttype: 'doc',\n\t\t\tcontent: [\n\t\t\t\t{\n\t\t\t\t\ttype: 'paragraph',\n\t\t\t\t\tcontent: [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttype: 'text',\n\t\t\t\t\t\t\ttext: 'Hello, this is a page created by the Confluence Page Create action.',\n\t\t\t\t\t\t},\n\t\t\t\t\t],\n\t\t\t\t},\n\t\t\t],\n\t\t} as DocNode),\n\t\textraInputs: {\n\t\t\tcontentTypePath: 'page',\n\t\t\trepresentation: 'atlas_doc_format',\n\t\t},\n\t},\n};\nconst defaultProps = {} as ActionRendererFor<typeof ActionKeys.ConfluencePageCreate>;\nexport default function (): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.root}>\n\t\t\t<ConfluencePageCreateAction\n\t\t\t\t{...defaultProps}\n\t\t\t\tactions={[action]}\n\t\t\t\tcloudId=\"\"\n\t\t\t\tonCustomDataConfirm={() => Promise.resolve()}\n\t\t\t\tonCancel={() => Promise.resolve()}\n\t\t\t\tgetStatus={() => 'planned'}\n\t\t\t\tgetReadonly={() => false}\n\t\t\t\tproductKey=\"\"\n\t\t\t\tmessageId=\"test-message-id\"\n\t\t\t/>\n\t\t</Box>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport type { DocNode } from '@atlaskit/adf-schema/doc';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nimport type { ActionKeys } from '@atlassian/conversation-assistant-message-actions-api/constants';\nimport type {\n\tActionRendererFor,\n\tActionRendererKeyToPayload,\n\tActionWith,\n} from '@atlassian/conversation-assistant-message-actions-api/types';\nimport { ConfluencePageCreateAction } from '@atlassian/conversation-assistant-message-actions/controllers/confluence-page-create';\nconst styles = cssMap({\n\troot: {\n\t\twidth: '500px',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tmargin: '0 auto',\n\t},\n});\nconst action: ActionWith<ActionRendererKeyToPayload[typeof ActionKeys.ConfluencePageCreate]> = {\n\tkey: 'confluence-page-create',\n\tinvocationId: '123',\n\tdata: {\n\t\tname: 'My Page',\n\t\tfolder: '123',\n\t\tcontent: JSON.stringify({\n\t\t\tversion: 1,\n\t\t\ttype: 'doc',\n\t\t\tcontent: [\n\t\t\t\t{\n\t\t\t\t\ttype: 'paragraph',\n\t\t\t\t\tcontent: [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttype: 'text',\n\t\t\t\t\t\t\ttext: 'Hello, this is a page created by the Confluence Page Create action.',\n\t\t\t\t\t\t},\n\t\t\t\t\t],\n\t\t\t\t},\n\t\t\t],\n\t\t} as DocNode),\n\t\textraInputs: {\n\t\t\tcontentTypePath: 'page',\n\t\t\trepresentation: 'atlas_doc_format',\n\t\t},\n\t},\n};\nconst defaultProps = {} as ActionRendererFor<typeof ActionKeys.ConfluencePageCreate>;\nexport default function (): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.root}>\n\t\t\t<ConfluencePageCreateAction\n\t\t\t\t{...defaultProps}\n\t\t\t\tactions={[action]}\n\t\t\t\tcloudId=\"\"\n\t\t\t\tonCustomDataConfirm={() => Promise.resolve()}\n\t\t\t\tonCancel={() => Promise.resolve()}\n\t\t\t\tgetStatus={() => 'planned'}\n\t\t\t\tgetReadonly={() => false}\n\t\t\t\tproductKey=\"\"\n\t\t\t\tmessageId=\"test-message-id\"\n\t\t\t/>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14641,6 +14649,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'conversationId',
 				type: 'string',
 				description: 'conversation id where the action was invoked',
+			},
+			{
+				name: 'entryPoint',
+				type: 'string',
+				description:
+					'Controlled entry point for the originating assistant message. This allows\naction renderers to preserve product-owned analytics attribution without\nderiving it again from action payload data.',
 			},
 			{
 				name: 'experienceId',
@@ -15143,6 +15157,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string',
 			},
 			{
+				name: 'entryPoint',
+				type: 'string',
+			},
+			{
 				name: 'experienceId',
 				type: 'string',
 			},
@@ -15331,6 +15349,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'conversationId',
 				type: 'string',
 				description: 'conversation id where the action was invoked',
+			},
+			{
+				name: 'entryPoint',
+				type: 'string',
+				description:
+					'Controlled entry point for the originating assistant message. This allows\naction renderers to preserve product-owned analytics attribution without\nderiving it again from action payload data.',
 			},
 			{
 				name: 'experienceId',
@@ -15530,7 +15554,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'schedule', 'modal', 'editor'],
 		category: 'rovo',
 		examples: [
-			"import React, { useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport type { ScheduledChatPayload } from '@atlassian/conversation-assistant-message-actions-api/scheduled-chat';\nimport { ScheduledChatEditorModal } from '@atlassian/conversation-assistant-message-actions/controllers/scheduled-chat/editor-modal';\nimport type {\n\tScheduledChatEditorMode,\n\tScheduledChatEditorSubmitContext,\n} from '@atlassian/conversation-assistant-message-actions/controllers/scheduled-chat/types';\nconst styles = cssMap({\n\troot: {\n\t\twidth: '100%',\n\t\tmaxWidth: '800px',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tmargin: '0 auto',\n\t},\n\tlogEntry: {\n\t\tpaddingTop: token('space.075'),\n\t\tpaddingBottom: token('space.075'),\n\t\tpaddingLeft: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tborderRadius: token('radius.small'),\n\t\tbackgroundColor: token('color.background.neutral'),\n\t},\n});\nconst emptyPayload: ScheduledChatPayload = {\n\tname: '',\n\tprompt: '',\n\tfrequency: 'daily',\n\tdaysOfWeek: [],\n\ttime: '09:00',\n};\nconst existingPayload: ScheduledChatPayload = {\n\tname: 'Daily AI News Briefing',\n\tprompt:\n\t\t'Summarise the most important AI news from the last 24 hours into a short briefing with bullet points. Cover model releases, research highlights, and any major industry announcements.',\n\tfrequency: 'daily',\n\tdaysOfWeek: [],\n\ttime: '09:00',\n\truleIdUuid: '00000000-0000-0000-0000-000000000000',\n};\nconst existingRRule =\n\t'BEGIN:VEVENT\\n' +\n\t'DTSTART;TZID=America/Los_Angeles:20260511T090000\\n' +\n\t'RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=9;BYMINUTE=0;BYSECOND=0\\n' +\n\t'END:VEVENT\\n';\ntype LogEntry = {\n\tid: number;\n\tmessage: string;\n};\nexport default function ScheduledChatEditorModalExample(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [mode, setMode] = useState<ScheduledChatEditorMode>('create');\n\tconst [isSubmitting, setIsSubmitting] = useState(false);\n\tconst [log, setLog] = useState<LogEntry[]>([]);\n\tconst logIdRef = React.useRef(0);\n\tconst addLog = useCallback((message: string) => {\n\t\tsetLog((prev) => [{ id: ++logIdRef.current, message }, ...prev].slice(0, 8));\n\t}, []);\n\tconst openModal = useCallback((selectedMode: ScheduledChatEditorMode) => {\n\t\tsetMode(selectedMode);\n\t\tsetIsOpen(true);\n\t}, []);\n\tconst handleClose = useCallback(() => {\n\t\tsetIsOpen(false);\n\t\taddLog('Modal closed');\n\t}, [addLog]);\n\tconst handleSubmit = useCallback(\n\t\tasync (payload: ScheduledChatPayload, context?: ScheduledChatEditorSubmitContext) => {\n\t\t\tsetIsSubmitting(true);\n\t\t\taddLog(\n\t\t\t\t`Submitting: \"${payload.name}\" | frequency: ${payload.frequency} | paused: ${context?.isPaused ?? false}`,\n\t\t\t);\n\t\t\t// Simulate API call\n\t\t\tawait new Promise((resolve) => setTimeout(resolve, 1200));\n\t\t\tsetIsSubmitting(false);\n\t\t\tsetIsOpen(false);\n\t\t\taddLog(`✅ Saved: \"${payload.name}\"`);\n\t\t},\n\t\t[addLog],\n\t);\n\tconst handleDelete = useCallback(\n\t\t(payload: ScheduledChatPayload) => {\n\t\t\tsetIsOpen(false);\n\t\t\taddLog(`🗑️ Deleted: \"${payload.name}\"`);\n\t\t},\n\t\t[addLog],\n\t);\n\tconst handlePauseChange = useCallback(\n\t\t(payload: ScheduledChatPayload, isPaused: boolean) => {\n\t\t\taddLog(`${isPaused ? '⏸️ Paused' : '▶️ Resumed'}: \"${payload.name}\"`);\n\t\t},\n\t\t[addLog],\n\t);\n\tconst initialPayload = mode === 'create' ? emptyPayload : existingPayload;\n\tconst initialPaused = mode === 'edit';\n\treturn (\n\t\t<Box xcss={styles.root}>\n\t\t\t<Stack space=\"space.300\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">Open editor modal in different modes:</Text>\n\t\t\t\t\t<Inline space=\"space.100\">\n\t\t\t\t\t\t<Button appearance=\"primary\" onClick={() => openModal('create')}>\n\t\t\t\t\t\t\tCreate mode\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button appearance=\"default\" onClick={() => openModal('edit')}>\n\t\t\t\t\t\t\tEdit mode\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button appearance=\"default\" onClick={() => openModal('rename')}>\n\t\t\t\t\t\t\tRename mode\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t</Inline>\n\t\t\t\t</Stack>\n\t\t\t\t{log.length > 0 && (\n\t\t\t\t\t<Stack space=\"space.075\">\n\t\t\t\t\t\t<Text size=\"small\" weight=\"bold\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t\tEvent log:\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t{log.map((entry) => (\n\t\t\t\t\t\t\t<Box key={entry.id} xcss={styles.logEntry}>\n\t\t\t\t\t\t\t\t<Text size=\"small\">{entry.message}</Text>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t))}\n\t\t\t\t\t</Stack>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t\t<ScheduledChatEditorModal\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tmode={mode}\n\t\t\t\tinitialPayload={initialPayload}\n\t\t\t\tinitialPaused={initialPaused}\n\t\t\t\tisSubmitting={isSubmitting}\n\t\t\t\tonClose={handleClose}\n\t\t\t\tonSubmit={handleSubmit}\n\t\t\t\tonDelete={mode !== 'create' ? handleDelete : undefined}\n\t\t\t\tonPauseChange={handlePauseChange}\n\t\t\t\t// `rRule` only applies to existing rules (edit/rename); in create\n\t\t\t\t// mode there is no persisted rule yet, so we pass undefined and\n\t\t\t\t// the modal hides the next-run subtitle.\n\t\t\t\trRule={mode === 'create' ? undefined : existingRRule}\n\t\t\t/>\n\t\t</Box>\n\t);\n}",
+			"import React, { useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport type { ScheduledChatPayload } from '@atlassian/conversation-assistant-message-actions-api/scheduled-chat';\nimport { ScheduledChatEditorModal } from '@atlassian/conversation-assistant-message-actions/controllers/scheduled-chat/editor-modal';\nimport type {\n\tScheduledChatEditorMode,\n\tScheduledChatEditorSubmitContext,\n} from '@atlassian/conversation-assistant-message-actions/controllers/scheduled-chat/types';\nconst styles = cssMap({\n\troot: {\n\t\twidth: '100%',\n\t\tmaxWidth: '800px',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tmargin: '0 auto',\n\t},\n\tlogEntry: {\n\t\tpaddingTop: token('space.075'),\n\t\tpaddingBottom: token('space.075'),\n\t\tpaddingLeft: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tborderRadius: token('radius.small'),\n\t\tbackgroundColor: token('color.background.neutral'),\n\t},\n});\nconst emptyPayload: ScheduledChatPayload = {\n\tname: '',\n\tprompt: '',\n\tfrequency: 'daily',\n\tdaysOfWeek: [],\n\ttime: '09:00',\n};\nconst existingPayload: ScheduledChatPayload = {\n\tname: 'Daily AI News Briefing',\n\tprompt:\n\t\t'Summarise the most important AI news from the last 24 hours into a short briefing with bullet points. Cover model releases, research highlights, and any major industry announcements.',\n\tfrequency: 'daily',\n\tdaysOfWeek: [],\n\ttime: '09:00',\n\truleIdUuid: '00000000-0000-0000-0000-000000000000',\n};\nconst existingRRule =\n\t'BEGIN:VEVENT\\n' +\n\t'DTSTART;TZID=America/Los_Angeles:20260511T090000\\n' +\n\t'RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=9;BYMINUTE=0;BYSECOND=0\\n' +\n\t'END:VEVENT\\n';\ntype LogEntry = {\n\tid: number;\n\tmessage: string;\n};\nexport default function ScheduledChatEditorModalExample(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [mode, setMode] = useState<ScheduledChatEditorMode>('create');\n\tconst [isSubmitting, setIsSubmitting] = useState(false);\n\tconst [log, setLog] = useState<LogEntry[]>([]);\n\tconst logIdRef = React.useRef(0);\n\tconst addLog = useCallback((message: string) => {\n\t\tsetLog((prev) => [{ id: ++logIdRef.current, message }, ...prev].slice(0, 8));\n\t}, []);\n\tconst openModal = useCallback((selectedMode: ScheduledChatEditorMode) => {\n\t\tsetMode(selectedMode);\n\t\tsetIsOpen(true);\n\t}, []);\n\tconst handleClose = useCallback(() => {\n\t\tsetIsOpen(false);\n\t\taddLog('Modal closed');\n\t}, [addLog]);\n\tconst handleSubmit = useCallback(\n\t\tasync (payload: ScheduledChatPayload, context?: ScheduledChatEditorSubmitContext) => {\n\t\t\tsetIsSubmitting(true);\n\t\t\taddLog(\n\t\t\t\t`Submitting: \"${payload.name}\" | frequency: ${payload.frequency} | paused: ${context?.isPaused ?? false}`,\n\t\t\t);\n\t\t\t// Simulate API call\n\t\t\tawait new Promise((resolve) => setTimeout(resolve, 1200));\n\t\t\tsetIsSubmitting(false);\n\t\t\tsetIsOpen(false);\n\t\t\taddLog(`✅ Saved: \"${payload.name}\"`);\n\t\t},\n\t\t[addLog],\n\t);\n\tconst handleDelete = useCallback(\n\t\t(payload: ScheduledChatPayload) => {\n\t\t\tsetIsOpen(false);\n\t\t\taddLog(`🗑️ Deleted: \"${payload.name}\"`);\n\t\t},\n\t\t[addLog],\n\t);\n\tconst handlePauseChange = useCallback(\n\t\t(payload: ScheduledChatPayload, isPaused: boolean) => {\n\t\t\taddLog(`${isPaused ? '⏸️ Paused' : '▶️ Resumed'}: \"${payload.name}\"`);\n\t\t},\n\t\t[addLog],\n\t);\n\tconst initialPayload = mode === 'create' ? emptyPayload : existingPayload;\n\tconst initialPaused = mode === 'edit';\n\treturn (\n\t\t<Box xcss={styles.root}>\n\t\t\t<Stack space=\"space.300\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">Open editor modal in different modes:</Text>\n\t\t\t\t\t<Inline space=\"space.100\">\n\t\t\t\t\t\t<Button appearance=\"primary\" onClick={() => openModal('create')}>\n\t\t\t\t\t\t\tCreate mode\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button appearance=\"default\" onClick={() => openModal('edit')}>\n\t\t\t\t\t\t\tEdit mode\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button appearance=\"default\" onClick={() => openModal('rename')}>\n\t\t\t\t\t\t\tRename mode\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t</Inline>\n\t\t\t\t</Stack>\n\t\t\t\t{log.length > 0 && (\n\t\t\t\t\t<Stack space=\"space.075\">\n\t\t\t\t\t\t<Text size=\"small\" weight=\"bold\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t\tEvent log:\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t{log.map((entry) => (\n\t\t\t\t\t\t\t<Box key={entry.id} xcss={styles.logEntry}>\n\t\t\t\t\t\t\t\t<Text size=\"small\">{entry.message}</Text>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t))}\n\t\t\t\t\t</Stack>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t\t<ScheduledChatEditorModal\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tmode={mode}\n\t\t\t\tinitialPayload={initialPayload}\n\t\t\t\tinitialPaused={initialPaused}\n\t\t\t\tisSubmitting={isSubmitting}\n\t\t\t\tonClose={handleClose}\n\t\t\t\tonSubmit={handleSubmit}\n\t\t\t\tonDelete={mode !== 'create' ? handleDelete : undefined}\n\t\t\t\tonPauseChange={handlePauseChange}\n\t\t\t\t// `rRule` only applies to existing rules (edit/rename); in create\n\t\t\t\t// mode there is no persisted rule yet, so we pass undefined and\n\t\t\t\t// the modal hides the next-run subtitle.\n\t\t\t\trRule={mode === 'create' ? undefined : existingRRule}\n\t\t\t/>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -15670,34 +15694,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'ConstantsSpotlight',
-		package: '@atlassian/conversation-assistant-onboarding',
-		description:
-			'Public constants/spotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public constants/spotlight entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
-		name: 'ControllersSpotlight',
-		package: '@atlassian/conversation-assistant-onboarding',
-		description:
-			'Public controllers/spotlight entrypoint for @atlassian/conversation-assistant-onboarding.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public controllers/spotlight entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'UiAtlasHomeFomoSpotlight',
 		package: '@atlassian/conversation-assistant-onboarding',
 		description:
@@ -15709,7 +15705,35 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'cohort',
+				type: '"value-proof" | "social-proof"',
+				description:
+					'Which arm of `rovo_chat_fomo_spotlight_in_home` to render. `value-proof`\nshows the value proposition only; `social-proof` adds teammate names,\na count and avatars.',
+				isRequired: true,
+			},
+			{
+				name: 'collaborators',
+				type: 'readonly AtlasHomeFomoSpotlightCollaborator[]',
+				description:
+					'The user\'s top collaborators, name-resolved, closest first. NOT capped —\nthe stack shows the first `MAX_FOMO_SPOTLIGHT_AVATARS` and counts the rest\nas "+N", and the copy counts all of them. Must be non-empty; eligibility is\nthe caller\'s job and is identical for both cohorts so the arms stay\ncomparable.\n\nKNOWN LIMITATION: these come from the cross-product collaboration graph and\nare NOT filtered to Rovo Chat MAU. Only the *viewer* is guaranteed non-MAU\n(server-side `rovo_chat_fomo_spotlight_filter`). The social-proof body\ntherefore asserts something we have not verified per teammate. Closing this\nneeds a per-collaborator MAU signal — see `useAtlasHomeFomoCollaborators`.',
+				isRequired: true,
+			},
+			{
+				name: 'onDismiss',
+				type: '() => void',
+				description: 'Called when the spotlight is dismissed via the X button.',
+				isRequired: true,
+			},
+			{
+				name: 'onOpened',
+				type: '() => void',
+				description:
+					'Called after the primary CTA ("Show me" / "Start a chat") has asked Rovo\nChat to open, so the caller can update local/SWR dismissal state the same\nway it does for an explicit dismiss.',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiAtlasHomeFomoSpotlightAsync',
@@ -15754,20 +15778,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [],
 	},
 	{
-		name: 'UiGettingStartedTour',
-		package: '@atlassian/conversation-assistant-onboarding',
-		description:
-			'Public ui/GettingStartedTour entrypoint for @atlassian/conversation-assistant-onboarding.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public ui/GettingStartedTour entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'UiRovoFullPageSpotlight',
 		package: '@atlassian/conversation-assistant-onboarding',
 		description:
@@ -15779,7 +15789,25 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'messageInstanceId',
+				type: 'string',
+			},
+			{
+				name: 'onDismiss',
+				type: '() => void',
+				description: 'Called when the spotlight is dismissed via the X button.',
+				isRequired: true,
+			},
+			{
+				name: 'openRovoChat',
+				type: '(event: React.MouseEvent<HTMLElement, MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'Called when the user clicks the primary CTA ("Open Rovo Chat").\nSpotlightPrimaryAction only provides a MouseEvent — analyticsEvent is\noptional here since it will always be undefined when called from the spotlight.\nThe caller\'s openRovoChat may accept an optional analyticsEvent for other\ncall sites where analytics-next instrumentation is available.',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiRovoFullPageSpotlightAsync',
@@ -15793,7 +15821,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'openRovoChat',
+				type: '(event: MouseEvent<HTMLElement, globalThis.MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'Called when the user clicks the primary CTA ("Open Rovo Chat").\nSpotlightPrimaryAction only provides a MouseEvent — analyticsEvent is\noptional here since it will always be undefined when called from the spotlight.\nThe caller\'s openRovoChat may accept an optional analyticsEvent for other\ncall sites where analytics-next instrumentation is available.',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiRovoFullPageSpotlightConsumer',
@@ -15807,7 +15843,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'openRovoChat',
+				type: '(event: React.MouseEvent<HTMLElement, MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'Called when the user clicks the primary CTA ("Open Rovo Chat").\nSpotlightPrimaryAction only provides a MouseEvent — analyticsEvent is\noptional here since it will always be undefined when called from the spotlight.\nThe caller\'s openRovoChat may accept an optional analyticsEvent for other\ncall sites where analytics-next instrumentation is available.',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiRovoFullPageSpotlightPlacement',
@@ -15821,7 +15865,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'openRovoChat',
+				type: '(event: React.MouseEvent<HTMLElement, MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'Called when the user clicks the primary CTA ("Open Rovo Chat").\nSpotlightPrimaryAction only provides a MouseEvent — analyticsEvent is\noptional here since it will always be undefined when called from the spotlight.\nThe caller\'s openRovoChat may accept an optional analyticsEvent for other\ncall sites where analytics-next instrumentation is available.',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiSmartLink3PPostAuthActions',
@@ -15835,7 +15887,23 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'extensionKey',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'projectContext',
+				type: '{ projectId: string; projectName: string; projectUrl: string; }',
+				isRequired: true,
+			},
+			{
+				name: 'provider',
+				type: 'string',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiSpotlight',
@@ -15848,20 +15916,17 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
-	},
-	{
-		name: 'UiStartTour',
-		package: '@atlassian/conversation-assistant-onboarding',
-		description: 'Public ui/StartTour entrypoint for @atlassian/conversation-assistant-onboarding.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public ui/StartTour entrypoint when integrating this Rovo capability.',
+		props: [
+			{
+				name: 'onDismiss',
+				type: '() => void',
+				isRequired: true,
+			},
+			{
+				name: 'openRovoChat',
+				type: '(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void',
+			},
 		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
 	},
 	{
 		name: 'ConversationAssistantPreviewCard',
@@ -15875,7 +15940,108 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'contentId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'contentType',
+				type: 'ContentType',
+				isRequired: true,
+			},
+			{
+				name: 'conversationId',
+				type: 'string',
+			},
+			{
+				name: 'emojiProvider',
+				type: 'Promise<EmojiProvider>',
+			},
+			{
+				name: 'fullScreen',
+				type: 'boolean',
+			},
+			{
+				name: 'invocationId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'isEnabled',
+				type: 'boolean',
+			},
+			{
+				name: 'isLastMessage',
+				type: 'boolean',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				isRequired: true,
+			},
+			{
+				name: 'messageId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'previewProduct',
+				type: 'string',
+				description: 'Product of the content which is displayed in the preview card',
+				isRequired: true,
+			},
+			{
+				name: 'product',
+				type: 'string',
+				description: 'Product of where the preview card is being displayed',
+			},
+			{
+				name: 'registerPreviewCardExperienceResult',
+				type: '(isInstrumented: boolean) => void',
+			},
+			{
+				name: 'renderPublishMenu',
+				type: '(props: { closeMenu: () => void; }) => React.ReactNode',
+			},
+			{
+				name: 'resolveAction',
+				type: '(actionKey: string, actionResolution: MessageActionResolutions, invocationId: string) => void',
+			},
+			{
+				name: 'resolveActions',
+				type: '(actionKey: string, actionResolution: MessageActionResolutions, invocationIds: string[]) => void',
+			},
+			{
+				name: 'shouldOpenPreviewInAtlassianHome',
+				type: 'boolean',
+			},
+			{
+				name: 'showSuccessFlagOnCreate',
+				type: 'boolean',
+				description:
+					'Controls whether a success flag is shown after Jira work items are created.\nDefaults to `true`. Surfaces such as rovo-chat-desktop can pass `false` to\nsuppress the AFM success flag and surface their own confirmation.',
+			},
+			{
+				name: 'stagingAreaEnabled',
+				type: 'boolean',
+			},
+			{
+				name: 'status',
+				type: 'string',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'JiraCreateWithRovoPreviewCard',
@@ -15968,7 +16134,41 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'isEnabled',
+				type: 'boolean',
+				defaultValue: 'true',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				defaultValue: 'false',
+			},
+			{
+				name: 'nextRunLabel',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'onDeleteClick',
+				type: '() => void',
+			},
+			{
+				name: 'onEditClick',
+				type: '() => void',
+			},
+			{
+				name: 'repeatLabel',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'ConversationAssistantSitePicker',
@@ -15982,7 +16182,23 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'selectedCloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'setCloudId',
+				type: '(cloudId: string) => void',
+				isRequired: true,
+			},
+			{
+				name: 'sites',
+				type: 'Site[]',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'SitePickerRefresh',
@@ -15996,7 +16212,58 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'label',
+				type: 'string',
+			},
+			{
+				name: 'selectedCloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'setCloudId',
+				type: '(cloudId: string) => void',
+				isRequired: true,
+			},
+			{
+				name: 'shouldShowLabel',
+				type: 'boolean',
+				defaultValue: 'true',
+			},
+			{
+				name: 'sites',
+				type: 'CloudSiteOption[]',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'TemplateSelector',
+		package: '@atlassian/conversation-assistant-template-selector',
+		description:
+			'Public component `TemplateSelector` from `@atlassian/conversation-assistant-template-selector/index`.',
+		status: 'general-availability',
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'onBackClick',
+				type: '() => void',
+			},
+			{
+				name: 'onTemplateSelect',
+				type: '(template: ConfluenceUnifiedTemplate) => void',
+				isRequired: true,
+			},
+			{
+				name: 'templates',
+				type: 'ConfluenceUnifiedTemplate[]',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'ChatHeaderRefresh',
@@ -16009,7 +16276,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'root alias'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeader } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderRefresh';\nexport default function ChatHeaderControlsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('Viewing the release plan');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeader\n\t\t\t\t\tagentTitleComponent={<Text weight=\"bold\">Release planning assistant</Text>}\n\t\t\t\t\tonBackClick={() => setLastAction('Returned to conversation history')}\n\t\t\t\t\tbackButtonLabel=\"Back to conversations\"\n\t\t\t\t\tonMenuClick={() => setLastAction('Opened chat menu')}\n\t\t\t\t\tonNewChatClick={() => setLastAction('Started a new release-planning chat')}\n\t\t\t\t\tonCloseClick={() => setLastAction('Closed the chat panel')}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtle\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeader } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderRefresh';\nexport default function ChatHeaderControlsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('Viewing the release plan');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeader\n\t\t\t\t\tagentTitleComponent={<Text weight=\"bold\">Release planning assistant</Text>}\n\t\t\t\t\tonBackClick={() => setLastAction('Returned to conversation history')}\n\t\t\t\t\tbackButtonLabel=\"Back to conversations\"\n\t\t\t\t\tonMenuClick={() => setLastAction('Opened chat menu')}\n\t\t\t\t\tonNewChatClick={() => setLastAction('Started a new release-planning chat')}\n\t\t\t\t\tonCloseClick={() => setLastAction('Closed the chat panel')}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtle\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16081,7 +16348,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'dashboard', 'insights', 'expandable'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { DashboardInsightsExpandable } from '@atlassian/conversation-assistant-ui-components/dashboard-insights-expandable';\nexport default function ExpandableInsightDetailsExample(): React.JSX.Element {\n\tconst [isExpanded, setIsExpanded] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<DashboardInsightsExpandable\n\t\t\t\t\ttitle=\"Why this insight matters\"\n\t\t\t\t\tonExpandChanged={setIsExpanded}\n\t\t\t\t>\n\t\t\t\t\t<Text>Support requests increased after the latest workflow change.</Text>\n\t\t\t\t</DashboardInsightsExpandable>\n\t\t\t\t<Text>{isExpanded ? 'Insight details are open' : 'Insight details are collapsed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { DashboardInsightsExpandable } from '@atlassian/conversation-assistant-ui-components/dashboard-insights-expandable';\nexport default function ExpandableInsightDetailsExample(): React.JSX.Element {\n\tconst [isExpanded, setIsExpanded] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<DashboardInsightsExpandable\n\t\t\t\t\ttitle=\"Why this insight matters\"\n\t\t\t\t\tonExpandChanged={setIsExpanded}\n\t\t\t\t>\n\t\t\t\t\t<Text>Support requests increased after the latest workflow change.</Text>\n\t\t\t\t</DashboardInsightsExpandable>\n\t\t\t\t<Text>{isExpanded ? 'Insight details are open' : 'Insight details are collapsed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16124,7 +16391,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'thinking', 'loading'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RovoThinkingIndicator } from '@atlassian/conversation-assistant-ui-components/thinking-indicator';\nexport default function RovoThinkingIndicatorExample(): React.JSX.Element {\n\tconst [isWaitingForResponse, setIsWaitingForResponse] = useState(true);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t{isWaitingForResponse ? (\n\t\t\t\t<RovoThinkingIndicator title=\"Rovo is reviewing the delivery plan\" />\n\t\t\t) : (\n\t\t\t\t<Text>Your delivery plan is ready to review.</Text>\n\t\t\t)}\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setIsWaitingForResponse(true)}>Generate plan</Button>\n\t\t\t\t<Button onClick={() => setIsWaitingForResponse(false)}>Show response</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoThinkingIndicator } from '@atlassian/conversation-assistant-ui-components/thinking-indicator';\nexport default function RovoThinkingIndicatorExample(): React.JSX.Element {\n\tconst [isWaitingForResponse, setIsWaitingForResponse] = useState(true);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t{isWaitingForResponse ? (\n\t\t\t\t<RovoThinkingIndicator title=\"Rovo is reviewing the delivery plan\" />\n\t\t\t) : (\n\t\t\t\t<Text>Your delivery plan is ready to review.</Text>\n\t\t\t)}\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setIsWaitingForResponse(true)}>Generate plan</Button>\n\t\t\t\t<Button onClick={() => setIsWaitingForResponse(false)}>Show response</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16153,7 +16420,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'close', 'button'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { CloseChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/CloseChatButton';\nimport { FullScreenButton } from '@atlassian/conversation-assistant-ui-components/ui/button/FullScreenButton';\nimport { NewChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/NewChatButton';\nexport default function ChatSurfaceControlsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [isFullScreen, setIsFullScreen] = useState(false);\n\tconst [conversationCount, setConversationCount] = useState(1);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isOpen ? (\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<CloseChatButton onClick={() => setIsOpen(false)} />\n\t\t\t\t\t\t<FullScreenButton onClick={() => setIsFullScreen(true)} />\n\t\t\t\t\t\t<NewChatButton\n\t\t\t\t\t\t\tisFullScreen={isFullScreen}\n\t\t\t\t\t\t\tonClick={() => setConversationCount((current) => current + 1)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t) : null}\n\t\t\t\t<Text>{isOpen ? `Conversation ${conversationCount}` : 'Chat closed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CloseChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/CloseChatButton';\nimport { FullScreenButton } from '@atlassian/conversation-assistant-ui-components/ui/button/FullScreenButton';\nimport { NewChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/NewChatButton';\nexport default function ChatSurfaceControlsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [isFullScreen, setIsFullScreen] = useState(false);\n\tconst [conversationCount, setConversationCount] = useState(1);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isOpen ? (\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<CloseChatButton onClick={() => setIsOpen(false)} />\n\t\t\t\t\t\t<FullScreenButton onClick={() => setIsFullScreen(true)} />\n\t\t\t\t\t\t<NewChatButton\n\t\t\t\t\t\t\tisFullScreen={isFullScreen}\n\t\t\t\t\t\t\tonClick={() => setConversationCount((current) => current + 1)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t) : null}\n\t\t\t\t<Text>{isOpen ? `Conversation ${conversationCount}` : 'Chat closed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16173,7 +16440,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'fullscreen', 'button'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { CloseChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/CloseChatButton';\nimport { FullScreenButton } from '@atlassian/conversation-assistant-ui-components/ui/button/FullScreenButton';\nimport { NewChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/NewChatButton';\nexport default function ChatSurfaceControlsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [isFullScreen, setIsFullScreen] = useState(false);\n\tconst [conversationCount, setConversationCount] = useState(1);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isOpen ? (\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<CloseChatButton onClick={() => setIsOpen(false)} />\n\t\t\t\t\t\t<FullScreenButton onClick={() => setIsFullScreen(true)} />\n\t\t\t\t\t\t<NewChatButton\n\t\t\t\t\t\t\tisFullScreen={isFullScreen}\n\t\t\t\t\t\t\tonClick={() => setConversationCount((current) => current + 1)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t) : null}\n\t\t\t\t<Text>{isOpen ? `Conversation ${conversationCount}` : 'Chat closed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CloseChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/CloseChatButton';\nimport { FullScreenButton } from '@atlassian/conversation-assistant-ui-components/ui/button/FullScreenButton';\nimport { NewChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/NewChatButton';\nexport default function ChatSurfaceControlsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [isFullScreen, setIsFullScreen] = useState(false);\n\tconst [conversationCount, setConversationCount] = useState(1);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isOpen ? (\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<CloseChatButton onClick={() => setIsOpen(false)} />\n\t\t\t\t\t\t<FullScreenButton onClick={() => setIsFullScreen(true)} />\n\t\t\t\t\t\t<NewChatButton\n\t\t\t\t\t\t\tisFullScreen={isFullScreen}\n\t\t\t\t\t\t\tonClick={() => setConversationCount((current) => current + 1)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t) : null}\n\t\t\t\t<Text>{isOpen ? `Conversation ${conversationCount}` : 'Chat closed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16193,7 +16460,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'new conversation', 'button'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { CloseChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/CloseChatButton';\nimport { FullScreenButton } from '@atlassian/conversation-assistant-ui-components/ui/button/FullScreenButton';\nimport { NewChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/NewChatButton';\nexport default function ChatSurfaceControlsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [isFullScreen, setIsFullScreen] = useState(false);\n\tconst [conversationCount, setConversationCount] = useState(1);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isOpen ? (\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<CloseChatButton onClick={() => setIsOpen(false)} />\n\t\t\t\t\t\t<FullScreenButton onClick={() => setIsFullScreen(true)} />\n\t\t\t\t\t\t<NewChatButton\n\t\t\t\t\t\t\tisFullScreen={isFullScreen}\n\t\t\t\t\t\t\tonClick={() => setConversationCount((current) => current + 1)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t) : null}\n\t\t\t\t<Text>{isOpen ? `Conversation ${conversationCount}` : 'Chat closed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CloseChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/CloseChatButton';\nimport { FullScreenButton } from '@atlassian/conversation-assistant-ui-components/ui/button/FullScreenButton';\nimport { NewChatButton } from '@atlassian/conversation-assistant-ui-components/ui/button/NewChatButton';\nexport default function ChatSurfaceControlsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [isFullScreen, setIsFullScreen] = useState(false);\n\tconst [conversationCount, setConversationCount] = useState(1);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isOpen ? (\n\t\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t\t<CloseChatButton onClick={() => setIsOpen(false)} />\n\t\t\t\t\t\t<FullScreenButton onClick={() => setIsFullScreen(true)} />\n\t\t\t\t\t\t<NewChatButton\n\t\t\t\t\t\t\tisFullScreen={isFullScreen}\n\t\t\t\t\t\t\tonClick={() => setConversationCount((current) => current + 1)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Inline>\n\t\t\t\t) : null}\n\t\t\t\t<Text>{isOpen ? `Conversation ${conversationCount}` : 'Chat closed'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16222,7 +16489,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'conversation list', 'history'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { CHAT_STORE_STATUS } from '@atlassian/conversation-assistant-store/controllers/chat/types';\nimport type { Conversation } from '@atlassian/conversation-assistant-ui-components/types';\nimport { ChatConversationListRefresh } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list-refresh/ChatConversationListRefresh';\nconst styles = cssMap({ container: { height: '420px', width: '360px' } });\nconst initialConversation: Conversation = {\n\tid: 'release-plan',\n\tname: 'Prepare the release plan',\n\tlastMessage: 'Two dependencies still need an owner.',\n\tlastMessageTimestamp: new Date().toISOString(),\n\tisEmpty: false,\n\tstatus: CHAT_STORE_STATUS.idle,\n\tlastAgentMessageStatus: 'SUCCESSFUL',\n};\nexport default function ChatConversationListRefreshExample(): React.JSX.Element {\n\tconst [conversations, setConversations] = useState([initialConversation]);\n\tconst [searchQuery, setSearchQuery] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ChatConversationListRefresh\n\t\t\t\t\tconversations={conversations}\n\t\t\t\t\tsearchQuery={searchQuery}\n\t\t\t\t\ttitle=\"Conversation history\"\n\t\t\t\t\tsearchPlaceholderText=\"Search conversations\"\n\t\t\t\t\tisSpinnerOverlayConversationIconEnabled={false}\n\t\t\t\t\tisFullScreen={false}\n\t\t\t\t\tonSearchQueryChange={setSearchQuery}\n\t\t\t\t\tonConversationSelect={() => {}}\n\t\t\t\t\tonConversationEdit={async (id, name) =>\n\t\t\t\t\t\tsetConversations((items) =>\n\t\t\t\t\t\t\titems.map((item) => (item.id === id ? { ...item, name } : item)),\n\t\t\t\t\t\t)\n\t\t\t\t\t}\n\t\t\t\t\tonConversationDelete={async (id) =>\n\t\t\t\t\t\tsetConversations((items) => items.filter((item) => item.id !== id))\n\t\t\t\t\t}\n\t\t\t\t\tonNewChatClick={() => setConversations([])}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { CHAT_STORE_STATUS } from '@atlassian/conversation-assistant-store/controllers/chat/types';\nimport type { Conversation } from '@atlassian/conversation-assistant-ui-components/types';\nimport { ChatConversationListRefresh } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list-refresh/ChatConversationListRefresh';\nconst styles = cssMap({ container: { height: '420px', width: '360px' } });\nconst initialConversation: Conversation = {\n\tid: 'release-plan',\n\tname: 'Prepare the release plan',\n\tlastMessage: 'Two dependencies still need an owner.',\n\tlastMessageTimestamp: new Date().toISOString(),\n\tisEmpty: false,\n\tstatus: CHAT_STORE_STATUS.idle,\n\tlastAgentMessageStatus: 'SUCCESSFUL',\n};\nexport default function ChatConversationListRefreshExample(): React.JSX.Element {\n\tconst [conversations, setConversations] = useState([initialConversation]);\n\tconst [searchQuery, setSearchQuery] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ChatConversationListRefresh\n\t\t\t\t\tconversations={conversations}\n\t\t\t\t\tsearchQuery={searchQuery}\n\t\t\t\t\ttitle=\"Conversation history\"\n\t\t\t\t\tsearchPlaceholderText=\"Search conversations\"\n\t\t\t\t\tisSpinnerOverlayConversationIconEnabled={false}\n\t\t\t\t\tisFullScreen={false}\n\t\t\t\t\tonSearchQueryChange={setSearchQuery}\n\t\t\t\t\tonConversationSelect={() => {}}\n\t\t\t\t\tonConversationEdit={async (id, name) =>\n\t\t\t\t\t\tsetConversations((items) =>\n\t\t\t\t\t\t\titems.map((item) => (item.id === id ? { ...item, name } : item)),\n\t\t\t\t\t\t)\n\t\t\t\t\t}\n\t\t\t\t\tonConversationDelete={async (id) =>\n\t\t\t\t\t\tsetConversations((items) => items.filter((item) => item.id !== id))\n\t\t\t\t\t}\n\t\t\t\t\tonNewChatClick={() => setConversations([])}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16408,7 +16675,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'scope', 'source'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ScopeRow } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list-refresh/scope-row';\nexport default function ConversationScopeRowExample(): React.JSX.Element {\n\tconst [openedSource, setOpenedSource] = useState('No source opened yet');\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<ScopeRow\n\t\t\t\tscope={{\n\t\t\t\t\ttype: 'confluence',\n\t\t\t\t\tsub_type: 'page',\n\t\t\t\t\tname: 'Delivery planning guide',\n\t\t\t\t\tlink: 'https://example.atlassian.net/wiki/spaces/PLANS/pages/123',\n\t\t\t\t}}\n\t\t\t\tvariant=\"default\"\n\t\t\t\tmaxLines={1}\n\t\t\t\tonScopeLinkClick={() => setOpenedSource('Opened Delivery planning guide')}\n\t\t\t/>\n\t\t\t<Text color=\"color.text.subtlest\">{openedSource}</Text>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ScopeRow } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list-refresh/scope-row';\nexport default function ConversationScopeRowExample(): React.JSX.Element {\n\tconst [openedSource, setOpenedSource] = useState('No source opened yet');\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<ScopeRow\n\t\t\t\tscope={{\n\t\t\t\t\ttype: 'confluence',\n\t\t\t\t\tsub_type: 'page',\n\t\t\t\t\tname: 'Delivery planning guide',\n\t\t\t\t\tlink: 'https://example.atlassian.net/wiki/spaces/PLANS/pages/123',\n\t\t\t\t}}\n\t\t\t\tvariant=\"default\"\n\t\t\t\tmaxLines={1}\n\t\t\t\tonScopeLinkClick={() => setOpenedSource('Opened Delivery planning guide')}\n\t\t\t/>\n\t\t\t<Text color=\"color.text.subtlest\">{openedSource}</Text>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16516,7 +16783,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'conversation list', 'history'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { CHAT_STORE_STATUS } from '@atlassian/conversation-assistant-store/controllers/chat/types';\nimport type { Conversation } from '@atlassian/conversation-assistant-ui-components/types';\nimport { ChatConversationList } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list/ChatConversationList';\nconst styles = cssMap({\n\tcontainer: { height: '420px', width: '360px' },\n});\nconst initialConversation: Conversation = {\n\tid: 'launch-plan',\n\tname: 'Prepare the launch plan',\n\tlastMessage: 'I found three open dependencies for review.',\n\tlastMessageTimestamp: new Date().toISOString(),\n\tisEmpty: false,\n\tstatus: CHAT_STORE_STATUS.idle,\n\tlastAgentMessageStatus: 'SUCCESSFUL',\n};\nexport default function ConversationHistoryExample(): React.JSX.Element {\n\tconst [conversations, setConversations] = useState([initialConversation]);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ChatConversationList\n\t\t\t\t\tconversations={conversations}\n\t\t\t\t\tcurrentConversationId={conversations[0]?.id ?? ''}\n\t\t\t\t\tisFullScreen={false}\n\t\t\t\t\tonSelectConversation={() => {}}\n\t\t\t\t\tonNewConversation={() => setConversations([])}\n\t\t\t\t\tonConfirmEditConversation={async (id, name) => {\n\t\t\t\t\t\tsetConversations((items) =>\n\t\t\t\t\t\t\titems.map((item) => (item.id === id ? { ...item, name } : item)),\n\t\t\t\t\t\t);\n\t\t\t\t\t}}\n\t\t\t\t\tonConfirmDeleteConversation={async (id) => {\n\t\t\t\t\t\tsetConversations((items) => items.filter((item) => item.id !== id));\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { CHAT_STORE_STATUS } from '@atlassian/conversation-assistant-store/controllers/chat/types';\nimport type { Conversation } from '@atlassian/conversation-assistant-ui-components/types';\nimport { ChatConversationList } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list/ChatConversationList';\nconst styles = cssMap({\n\tcontainer: { height: '420px', width: '360px' },\n});\nconst initialConversation: Conversation = {\n\tid: 'launch-plan',\n\tname: 'Prepare the launch plan',\n\tlastMessage: 'I found three open dependencies for review.',\n\tlastMessageTimestamp: new Date().toISOString(),\n\tisEmpty: false,\n\tstatus: CHAT_STORE_STATUS.idle,\n\tlastAgentMessageStatus: 'SUCCESSFUL',\n};\nexport default function ConversationHistoryExample(): React.JSX.Element {\n\tconst [conversations, setConversations] = useState([initialConversation]);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ChatConversationList\n\t\t\t\t\tconversations={conversations}\n\t\t\t\t\tcurrentConversationId={conversations[0]?.id ?? ''}\n\t\t\t\t\tisFullScreen={false}\n\t\t\t\t\tonSelectConversation={() => {}}\n\t\t\t\t\tonNewConversation={() => setConversations([])}\n\t\t\t\t\tonConfirmEditConversation={async (id, name) => {\n\t\t\t\t\t\tsetConversations((items) =>\n\t\t\t\t\t\t\titems.map((item) => (item.id === id ? { ...item, name } : item)),\n\t\t\t\t\t\t);\n\t\t\t\t\t}}\n\t\t\t\t\tonConfirmDeleteConversation={async (id) => {\n\t\t\t\t\t\tsetConversations((items) => items.filter((item) => item.id !== id));\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16634,7 +16901,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'menu'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport IconButton from '@atlaskit/button/icon/button';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeaderMenu } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenu';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\tconst sections = [\n\t\t{\n\t\t\ttitle: 'Conversation',\n\t\t\titems: [\n\t\t\t\t<MenuItem\n\t\t\t\t\tkey=\"new-chat\"\n\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\tsetLastAction('Started a new chat');\n\t\t\t\t\t\tsetIsOpen(false);\n\t\t\t\t\t}}\n\t\t\t\t/>,\n\t\t\t],\n\t\t},\n\t];\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenu\n\t\t\t\t\tsections={sections}\n\t\t\t\t\tisOpen={isOpen}\n\t\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\t\tplacement=\"bottom-end\"\n\t\t\t\t\twidth=\"240px\"\n\t\t\t\t\tmaxWidth=\"320px\"\n\t\t\t\t\ttrigger={(triggerProps) => (\n\t\t\t\t\t\t<IconButton\n\t\t\t\t\t\t\t{...triggerProps}\n\t\t\t\t\t\t\tlabel=\"More chat actions\"\n\t\t\t\t\t\t\ticon={MoreIcon}\n\t\t\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\t\t\tonClick={() => setIsOpen((open) => !open)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t)}\n\t\t\t\t\tcontent={<ChatHeaderMenuList sections={sections} />}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtlest\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport IconButton from '@atlaskit/button/icon/button';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeaderMenu } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenu';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\tconst sections = [\n\t\t{\n\t\t\ttitle: 'Conversation',\n\t\t\titems: [\n\t\t\t\t<MenuItem\n\t\t\t\t\tkey=\"new-chat\"\n\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\tonClick={() => {\n\t\t\t\t\t\tsetLastAction('Started a new chat');\n\t\t\t\t\t\tsetIsOpen(false);\n\t\t\t\t\t}}\n\t\t\t\t/>,\n\t\t\t],\n\t\t},\n\t];\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenu\n\t\t\t\t\tsections={sections}\n\t\t\t\t\tisOpen={isOpen}\n\t\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\t\tplacement=\"bottom-end\"\n\t\t\t\t\twidth=\"240px\"\n\t\t\t\t\tmaxWidth=\"320px\"\n\t\t\t\t\ttrigger={(triggerProps) => (\n\t\t\t\t\t\t<IconButton\n\t\t\t\t\t\t\t{...triggerProps}\n\t\t\t\t\t\t\tlabel=\"More chat actions\"\n\t\t\t\t\t\t\ticon={MoreIcon}\n\t\t\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\t\t\tonClick={() => setIsOpen((open) => !open)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t)}\n\t\t\t\t\tcontent={<ChatHeaderMenuList sections={sections} />}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtlest\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16717,7 +16984,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'menu list'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport RefreshIcon from '@atlaskit/icon/core/refresh';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuSectionsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenuList\n\t\t\t\t\tsections={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Conversation',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"new\"\n\t\t\t\t\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Started a new chat')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Actions',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"refresh\"\n\t\t\t\t\t\t\t\t\tlabel=\"Refresh conversation\"\n\t\t\t\t\t\t\t\t\ticon={<RefreshIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Refreshed the conversation')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<Text>{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport RefreshIcon from '@atlaskit/icon/core/refresh';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuSectionsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenuList\n\t\t\t\t\tsections={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Conversation',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"new\"\n\t\t\t\t\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Started a new chat')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Actions',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"refresh\"\n\t\t\t\t\t\t\t\t\tlabel=\"Refresh conversation\"\n\t\t\t\t\t\t\t\t\ticon={<RefreshIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Refreshed the conversation')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<Text>{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16736,7 +17003,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'menu', 'checkbox'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { CheckboxMenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/CheckboxMenuItem';\nexport default function ChatHeaderCheckboxSettingExample(): React.JSX.Element {\n\tconst [isDeepResearchEnabled, setIsDeepResearchEnabled] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<CheckboxMenuItem\n\t\t\t\tname=\"deep-research\"\n\t\t\t\tlabel=\"Use deep research\"\n\t\t\t\tlozengeText=\"Beta\"\n\t\t\t\tisChecked={isDeepResearchEnabled}\n\t\t\t\tonChange={setIsDeepResearchEnabled}\n\t\t\t/>\n\t\t\t<Text>\n\t\t\t\t{isDeepResearchEnabled\n\t\t\t\t\t? 'Rovo will research before responding.'\n\t\t\t\t\t: 'Rovo will use the standard response flow.'}\n\t\t\t</Text>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CheckboxMenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/CheckboxMenuItem';\nexport default function ChatHeaderCheckboxSettingExample(): React.JSX.Element {\n\tconst [isDeepResearchEnabled, setIsDeepResearchEnabled] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<CheckboxMenuItem\n\t\t\t\tname=\"deep-research\"\n\t\t\t\tlabel=\"Use deep research\"\n\t\t\t\tlozengeText=\"Beta\"\n\t\t\t\tisChecked={isDeepResearchEnabled}\n\t\t\t\tonChange={setIsDeepResearchEnabled}\n\t\t\t/>\n\t\t\t<Text>\n\t\t\t\t{isDeepResearchEnabled\n\t\t\t\t\t? 'Rovo will research before responding.'\n\t\t\t\t\t: 'Rovo will use the standard response flow.'}\n\t\t\t</Text>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16779,7 +17046,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'menu', 'divider'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport RefreshIcon from '@atlaskit/icon/core/refresh';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuSectionsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenuList\n\t\t\t\t\tsections={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Conversation',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"new\"\n\t\t\t\t\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Started a new chat')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Actions',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"refresh\"\n\t\t\t\t\t\t\t\t\tlabel=\"Refresh conversation\"\n\t\t\t\t\t\t\t\t\ticon={<RefreshIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Refreshed the conversation')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<Text>{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport RefreshIcon from '@atlaskit/icon/core/refresh';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuSectionsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenuList\n\t\t\t\t\tsections={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Conversation',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"new\"\n\t\t\t\t\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Started a new chat')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Actions',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"refresh\"\n\t\t\t\t\t\t\t\t\tlabel=\"Refresh conversation\"\n\t\t\t\t\t\t\t\t\ticon={<RefreshIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Refreshed the conversation')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<Text>{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16803,7 +17070,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'menu item'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport RefreshIcon from '@atlaskit/icon/core/refresh';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuSectionsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenuList\n\t\t\t\t\tsections={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Conversation',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"new\"\n\t\t\t\t\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Started a new chat')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Actions',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"refresh\"\n\t\t\t\t\t\t\t\t\tlabel=\"Refresh conversation\"\n\t\t\t\t\t\t\t\t\ticon={<RefreshIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Refreshed the conversation')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<Text>{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport RefreshIcon from '@atlaskit/icon/core/refresh';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeaderMenuList } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/ChatHeaderMenuList';\nimport { MenuItem } from '@atlassian/conversation-assistant-ui-components/ui/chat-header-menu/MenuItem';\nexport default function ChatHeaderMenuSectionsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('No action selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatHeaderMenuList\n\t\t\t\t\tsections={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Conversation',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"new\"\n\t\t\t\t\t\t\t\t\tlabel=\"Start a new chat\"\n\t\t\t\t\t\t\t\t\ticon={<EditIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Started a new chat')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\ttitle: 'Actions',\n\t\t\t\t\t\t\titems: [\n\t\t\t\t\t\t\t\t<MenuItem\n\t\t\t\t\t\t\t\t\tkey=\"refresh\"\n\t\t\t\t\t\t\t\t\tlabel=\"Refresh conversation\"\n\t\t\t\t\t\t\t\t\ticon={<RefreshIcon label=\"\" />}\n\t\t\t\t\t\t\t\t\tonClick={() => setLastAction('Refreshed the conversation')}\n\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<Text>{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16886,7 +17153,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'error', 'banner'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatErrorBanner } from '@atlassian/conversation-assistant-ui-components/ui/ChatErrorBanner';\nexport default function ChatErrorBannerRetryExample(): React.JSX.Element {\n\tconst [isMissing, setIsMissing] = useState(true);\n\tconst [isRetrying, setIsRetrying] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isMissing ? <ChatErrorBanner /> : <Text>Conversation restored.</Text>}\n\t\t\t\t<Inline space=\"space.100\">\n\t\t\t\t\t<Button onClick={() => setIsRetrying(true)} isLoading={isRetrying}>\n\t\t\t\t\t\tRetry lookup\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setIsMissing(false)}>\n\t\t\t\t\t\tDismiss\n\t\t\t\t\t</Button>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatErrorBanner } from '@atlassian/conversation-assistant-ui-components/ui/ChatErrorBanner';\nexport default function ChatErrorBannerRetryExample(): React.JSX.Element {\n\tconst [isMissing, setIsMissing] = useState(true);\n\tconst [isRetrying, setIsRetrying] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t{isMissing ? <ChatErrorBanner /> : <Text>Conversation restored.</Text>}\n\t\t\t\t<Inline space=\"space.100\">\n\t\t\t\t\t<Button onClick={() => setIsRetrying(true)} isLoading={isRetrying}>\n\t\t\t\t\t\tRetry lookup\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setIsMissing(false)}>\n\t\t\t\t\t\tDismiss\n\t\t\t\t\t</Button>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -16902,7 +17169,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'error', 'rate limit'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tChatGenericError,\n\ttype ChatGenericErrorType,\n} from '@atlassian/conversation-assistant-ui-components/ui/ChatGenericError';\nexport default function ChatGenericErrorStateExample(): React.JSX.Element {\n\tconst [errorType, setErrorType] = useState<ChatGenericErrorType>('rate-limited');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatGenericError errorType={errorType} />\n\t\t\t\t<Inline space=\"space.100\">\n\t\t\t\t\t<Button onClick={() => setErrorType('rate-limited')}>Rate limited</Button>\n\t\t\t\t\t<Button onClick={() => setErrorType('rovo-inactive')}>Rovo inactive</Button>\n\t\t\t\t</Inline>\n\t\t\t\t<Text>Current error: {errorType}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tChatGenericError,\n\ttype ChatGenericErrorType,\n} from '@atlassian/conversation-assistant-ui-components/ui/ChatGenericError';\nexport default function ChatGenericErrorStateExample(): React.JSX.Element {\n\tconst [errorType, setErrorType] = useState<ChatGenericErrorType>('rate-limited');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatGenericError errorType={errorType} />\n\t\t\t\t<Inline space=\"space.100\">\n\t\t\t\t\t<Button onClick={() => setErrorType('rate-limited')}>Rate limited</Button>\n\t\t\t\t\t<Button onClick={() => setErrorType('rovo-inactive')}>Rovo inactive</Button>\n\t\t\t\t</Inline>\n\t\t\t\t<Text>Current error: {errorType}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16924,7 +17191,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'controls'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeader } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderRefresh';\nexport default function ChatHeaderControlsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('Viewing the release plan');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeader\n\t\t\t\t\tagentTitleComponent={<Text weight=\"bold\">Release planning assistant</Text>}\n\t\t\t\t\tonBackClick={() => setLastAction('Returned to conversation history')}\n\t\t\t\t\tbackButtonLabel=\"Back to conversations\"\n\t\t\t\t\tonMenuClick={() => setLastAction('Opened chat menu')}\n\t\t\t\t\tonNewChatClick={() => setLastAction('Started a new release-planning chat')}\n\t\t\t\t\tonCloseClick={() => setLastAction('Closed the chat panel')}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtle\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeader } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderRefresh';\nexport default function ChatHeaderControlsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('Viewing the release plan');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeader\n\t\t\t\t\tagentTitleComponent={<Text weight=\"bold\">Release planning assistant</Text>}\n\t\t\t\t\tonBackClick={() => setLastAction('Returned to conversation history')}\n\t\t\t\t\tbackButtonLabel=\"Back to conversations\"\n\t\t\t\t\tonMenuClick={() => setLastAction('Opened chat menu')}\n\t\t\t\t\tonNewChatClick={() => setLastAction('Started a new release-planning chat')}\n\t\t\t\t\tonCloseClick={() => setLastAction('Closed the chat panel')}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtle\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -16959,7 +17226,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'overflow menu'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Text } from '@atlaskit/primitives/compiled';\nimport { ChatIcon } from '@atlassian/conversation-assistant-ui-components/ui/ChatIcon';\nexport default function OpenChatWithIconExample(): React.JSX.Element {\n\tconst [isChatOpen, setIsChatOpen] = useState(false);\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t<Button iconBefore={ChatIcon} onClick={() => setIsChatOpen((open) => !open)}>\n\t\t\t\t{isChatOpen ? 'Close Rovo Chat' : 'Ask Rovo'}\n\t\t\t</Button>\n\t\t\t<Text color=\"color.text.subtlest\">{isChatOpen ? 'Chat is open' : 'Chat is closed'}</Text>\n\t\t</Inline>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatIcon } from '@atlassian/conversation-assistant-ui-components/ui/ChatIcon';\nexport default function OpenChatWithIconExample(): React.JSX.Element {\n\tconst [isChatOpen, setIsChatOpen] = useState(false);\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t<Button iconBefore={ChatIcon} onClick={() => setIsChatOpen((open) => !open)}>\n\t\t\t\t{isChatOpen ? 'Close Rovo Chat' : 'Ask Rovo'}\n\t\t\t</Button>\n\t\t\t<Text color=\"color.text.subtlest\">{isChatOpen ? 'Chat is open' : 'Chat is closed'}</Text>\n\t\t</Inline>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17084,7 +17351,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'navigation'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatHeader } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderRefresh';\nexport default function ChatHeaderControlsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('Viewing the release plan');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeader\n\t\t\t\t\tagentTitleComponent={<Text weight=\"bold\">Release planning assistant</Text>}\n\t\t\t\t\tonBackClick={() => setLastAction('Returned to conversation history')}\n\t\t\t\t\tbackButtonLabel=\"Back to conversations\"\n\t\t\t\t\tonMenuClick={() => setLastAction('Opened chat menu')}\n\t\t\t\t\tonNewChatClick={() => setLastAction('Started a new release-planning chat')}\n\t\t\t\t\tonCloseClick={() => setLastAction('Closed the chat panel')}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtle\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatHeader } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderRefresh';\nexport default function ChatHeaderControlsExample(): React.JSX.Element {\n\tconst [lastAction, setLastAction] = useState('Viewing the release plan');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeader\n\t\t\t\t\tagentTitleComponent={<Text weight=\"bold\">Release planning assistant</Text>}\n\t\t\t\t\tonBackClick={() => setLastAction('Returned to conversation history')}\n\t\t\t\t\tbackButtonLabel=\"Back to conversations\"\n\t\t\t\t\tonMenuClick={() => setLastAction('Opened chat menu')}\n\t\t\t\t\tonNewChatClick={() => setLastAction('Started a new release-planning chat')}\n\t\t\t\t\tonCloseClick={() => setLastAction('Closed the chat panel')}\n\t\t\t\t/>\n\t\t\t\t<Text color=\"color.text.subtle\">{lastAction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17159,7 +17426,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'display mode'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { type RovoChatOpenMode } from '@atlaskit/rovo-triggers/params-types';\nimport { ChatHeaderSwitchModeMenu } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderSwitchModeMenu';\nexport default function ChatHeaderSwitchModeExample(): React.JSX.Element {\n\tconst [mode, setMode] = useState<RovoChatOpenMode>('sidebar');\n\tconst [isMenuOpen, setIsMenuOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeaderSwitchModeMenu\n\t\t\t\t\tmode={mode}\n\t\t\t\t\tisSwitchModeDropdownOpen={isMenuOpen}\n\t\t\t\t\tsetIsSwitchModeDropdownOpen={setIsMenuOpen}\n\t\t\t\t\tonModeChange={({ requested }) => setMode(requested)}\n\t\t\t\t\tonFullscreenClick={() => setMode('mini-modal')}\n\t\t\t\t/>\n\t\t\t\t<Text>Rovo Chat is open in {mode} mode.</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { type RovoChatOpenMode } from '@atlaskit/rovo-triggers/params-types';\nimport { ChatHeaderSwitchModeMenu } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderSwitchModeMenu';\nexport default function ChatHeaderSwitchModeExample(): React.JSX.Element {\n\tconst [mode, setMode] = useState<RovoChatOpenMode>('sidebar');\n\tconst [isMenuOpen, setIsMenuOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeaderSwitchModeMenu\n\t\t\t\t\tmode={mode}\n\t\t\t\t\tisSwitchModeDropdownOpen={isMenuOpen}\n\t\t\t\t\tsetIsSwitchModeDropdownOpen={setIsMenuOpen}\n\t\t\t\t\tonModeChange={({ requested }) => setMode(requested)}\n\t\t\t\t\tonFullscreenClick={() => setMode('mini-modal')}\n\t\t\t\t/>\n\t\t\t\t<Text>Rovo Chat is open in {mode} mode.</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17203,7 +17470,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'icon', 'sparkle'],
 		category: 'rovo',
 		examples: [
-			'import { Inline, Text } from \'@atlaskit/primitives/compiled\';\nimport { ChatIcon } from \'@atlassian/conversation-assistant-ui-components/ui/ChatIcon\';\nexport default function ChatIconInNavigationExample(): React.JSX.Element {\n\treturn (\n\t\t<Inline alignBlock="center" space="space.100">\n\t\t\t<ChatIcon />\n\t\t\t<Text>Rovo Chat</Text>\n\t\t</Inline>\n\t);\n}',
+			"import { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatIcon } from '@atlassian/conversation-assistant-ui-components/ui/ChatIcon';\nexport default function ChatIconInNavigationExample(): React.JSX.Element {\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t<ChatIcon />\n\t\t\t<Text>Rovo Chat</Text>\n\t\t</Inline>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -17219,7 +17486,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'onboarding', 'greeting'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatOnboardingGreetings } from '@atlassian/conversation-assistant-ui-components/ui/ChatOnboardingGreetings';\nexport default function ChatOnboardingGreetingsExample(): React.JSX.Element {\n\tconst [hasContinued, setHasContinued] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t{hasContinued ? (\n\t\t\t\t\t<Text>Choose a prompt to start planning your next delivery.</Text>\n\t\t\t\t) : (\n\t\t\t\t\t<ChatOnboardingGreetings\n\t\t\t\t\t\tproduct=\"jira\"\n\t\t\t\t\t\tonStepViewed={() => undefined}\n\t\t\t\t\t\tonNext={() => setHasContinued(true)}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatOnboardingGreetings } from '@atlassian/conversation-assistant-ui-components/ui/ChatOnboardingGreetings';\nexport default function ChatOnboardingGreetingsExample(): React.JSX.Element {\n\tconst [hasContinued, setHasContinued] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t{hasContinued ? (\n\t\t\t\t\t<Text>Choose a prompt to start planning your next delivery.</Text>\n\t\t\t\t) : (\n\t\t\t\t\t<ChatOnboardingGreetings\n\t\t\t\t\t\tproduct=\"jira\"\n\t\t\t\t\t\tonStepViewed={() => undefined}\n\t\t\t\t\t\tonNext={() => setHasContinued(true)}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17250,7 +17517,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'onboarding', 'prompts'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { ChatOnboardingPrompts } from \'@atlassian/conversation-assistant-ui-components/ui/ChatOnboardingPrompts\';\nexport default function ChatOnboardingPromptsExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack space="space.200">\n\t\t\t\t<ChatOnboardingPrompts\n\t\t\t\t\tproduct="jira"\n\t\t\t\t\tuserPersona="creator"\n\t\t\t\t\tonStepViewed={() => undefined}\n\t\t\t\t\tonNext={(_, attributes) => setSelectedPrompt(attributes.promptMessage)}\n\t\t\t\t/>\n\t\t\t\t{selectedPrompt ? <Text>Starting with: {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatOnboardingPrompts } from '@atlassian/conversation-assistant-ui-components/ui/ChatOnboardingPrompts';\nexport default function ChatOnboardingPromptsExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<ChatOnboardingPrompts\n\t\t\t\t\tproduct=\"jira\"\n\t\t\t\t\tuserPersona=\"creator\"\n\t\t\t\t\tonStepViewed={() => undefined}\n\t\t\t\t\tonNext={(_, attributes) => setSelectedPrompt(attributes.promptMessage)}\n\t\t\t\t/>\n\t\t\t\t{selectedPrompt ? <Text>Starting with: {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17284,7 +17551,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'spinner', 'loading'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport ColorfulSpinner from '@atlassian/conversation-assistant-ui-components/ui/ColorfulSpinner';\nexport default function ResponseSpinnerExample(): React.JSX.Element {\n\tconst [isGenerating, setIsGenerating] = useState(true);\n\tconst responseStatus = isGenerating ? 'Rovo is preparing a response' : 'Response ready to review';\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t{isGenerating ? <ColorfulSpinner label={responseStatus} size=\"small\" /> : null}\n\t\t\t\t<Text>{responseStatus}</Text>\n\t\t\t</Inline>\n\t\t\t<Button appearance=\"subtle\" onClick={() => setIsGenerating((current) => !current)}>\n\t\t\t\t{isGenerating ? 'Mark response ready' : 'Generate another response'}\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport ColorfulSpinner from '@atlassian/conversation-assistant-ui-components/ui/ColorfulSpinner';\nexport default function ResponseSpinnerExample(): React.JSX.Element {\n\tconst [isGenerating, setIsGenerating] = useState(true);\n\tconst responseStatus = isGenerating ? 'Rovo is preparing a response' : 'Response ready to review';\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t{isGenerating ? <ColorfulSpinner label={responseStatus} size=\"small\" /> : null}\n\t\t\t\t<Text>{responseStatus}</Text>\n\t\t\t</Inline>\n\t\t\t<Button appearance=\"subtle\" onClick={() => setIsGenerating((current) => !current)}>\n\t\t\t\t{isGenerating ? 'Mark response ready' : 'Generate another response'}\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17324,7 +17591,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'tooltip', 'conditional'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled';\nimport { ConditionalTooltip } from '@atlassian/conversation-assistant-ui-components/ui/ConditionalTooltip';\nexport default function ConditionalSendTooltipExample(): React.JSX.Element {\n\tconst [canSend, setCanSend] = useState(false);\n\treturn (\n\t\t<Inline space=\"space.100\">\n\t\t\t<ConditionalTooltip withTooltip={!canSend} content=\"Add a request before sending\">\n\t\t\t\t<span>\n\t\t\t\t\t<Button isDisabled={!canSend}>Send to Rovo</Button>\n\t\t\t\t</span>\n\t\t\t</ConditionalTooltip>\n\t\t\t<Button appearance=\"subtle\" onClick={() => setCanSend((current) => !current)}>\n\t\t\t\tToggle request state\n\t\t\t</Button>\n\t\t</Inline>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { ConditionalTooltip } from '@atlassian/conversation-assistant-ui-components/ui/ConditionalTooltip';\nexport default function ConditionalSendTooltipExample(): React.JSX.Element {\n\tconst [canSend, setCanSend] = useState(false);\n\treturn (\n\t\t<Inline space=\"space.100\">\n\t\t\t<ConditionalTooltip withTooltip={!canSend} content=\"Add a request before sending\">\n\t\t\t\t<span>\n\t\t\t\t\t<Button isDisabled={!canSend}>Send to Rovo</Button>\n\t\t\t\t</span>\n\t\t\t</ConditionalTooltip>\n\t\t\t<Button appearance=\"subtle\" onClick={() => setCanSend((current) => !current)}>\n\t\t\t\tToggle request state\n\t\t\t</Button>\n\t\t</Inline>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17686,7 +17953,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'greeting', 'animation'],
 		category: 'rovo',
 		examples: [
-			'import { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { CustomGreetingCard } from \'@atlassian/conversation-assistant-ui-components/ui/CustomGreetingCard\';\nexport default function CustomGreetingCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack alignInline="center" space="space.200">\n\t\t\t\t<CustomGreetingCard\n\t\t\t\t\tfirstName="Mia"\n\t\t\t\t\ttitle="What would you like to work on?"\n\t\t\t\t\tsubtitle="Ask Rovo to summarise, plan, or find work across your team."\n\t\t\t\t/>\n\t\t\t\t<Text align="center" color="color.text.subtlest">\n\t\t\t\t\tStart with a question or choose a suggested prompt below.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { CustomGreetingCard } from \'@atlassian/conversation-assistant-ui-components/ui/CustomGreetingCard\';\nexport default function CustomGreetingCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack alignInline="center" space="space.200">\n\t\t\t\t<CustomGreetingCard\n\t\t\t\t\tfirstName="Mia"\n\t\t\t\t\ttitle="What would you like to work on?"\n\t\t\t\t\tsubtitle="Ask Rovo to summarise, plan, or find work across your team."\n\t\t\t\t/>\n\t\t\t\t<Text align="center" color="color.text.subtlest">\n\t\t\t\t\tStart with a question or choose a suggested prompt below.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
 		],
 		props: [
 			{
@@ -17802,7 +18069,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'expand', 'disclosure'],
 		category: 'rovo',
 		examples: [
-			'import { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { Expander } from \'@atlassian/conversation-assistant-ui-components/ui/Expander\';\nconst SupportingDetails = (): React.JSX.Element => (\n\t<Stack space="space.100">\n\t\t<Text>Rovo used the current page and two linked work items to prepare this response.</Text>\n\t\t<Expander\n\t\t\toverrideHideText={<Text color="color.link">Hide sources</Text>}\n\t\t\toverrideShowText={<Text color="color.link">Show sources</Text>}\n\t\t>\n\t\t\t<Text>Sources: Project brief, delivery plan, and the linked work items.</Text>\n\t\t</Expander>\n\t</Stack>\n);\nconst _default: React.JSX.Element = <SupportingDetails />;\nexport default _default;',
+			'import { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { Expander } from \'@atlassian/conversation-assistant-ui-components/ui/Expander\';\nconst SupportingDetails = (): React.JSX.Element => (\n\t<Stack space="space.100">\n\t\t<Text>Rovo used the current page and two linked work items to prepare this response.</Text>\n\t\t<Expander\n\t\t\toverrideHideText={<Text color="color.link">Hide sources</Text>}\n\t\t\toverrideShowText={<Text color="color.link">Show sources</Text>}\n\t\t>\n\t\t\t<Text>Sources: Project brief, delivery plan, and the linked work items.</Text>\n\t\t</Expander>\n\t</Stack>\n);\nconst _default: React.JSX.Element = <SupportingDetails />;\nexport default _default;',
 		],
 		props: [
 			{
@@ -17831,7 +18098,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'file type', 'icon'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Text } from '@atlaskit/primitives/compiled';\nimport { FileIcon } from '@atlassian/conversation-assistant-ui-components/ui/file-icon';\nconst AttachmentLabel = ({ fileName }: { fileName: string }): React.JSX.Element => (\n\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t<FileIcon fileName={fileName} />\n\t\t<Text>{fileName}</Text>\n\t</Inline>\n);\nexport default function FileIconExample(): React.JSX.Element {\n\tconst [fileName, setFileName] = useState('delivery-plan.pdf');\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.150\">\n\t\t\t<AttachmentLabel fileName={fileName} />\n\t\t\t<Button\n\t\t\t\tappearance=\"subtle\"\n\t\t\t\tonClick={() =>\n\t\t\t\t\tsetFileName((current) =>\n\t\t\t\t\t\tcurrent.endsWith('.pdf') ? 'research-notes.docx' : 'delivery-plan.pdf',\n\t\t\t\t\t)\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tChange attachment\n\t\t\t</Button>\n\t\t</Inline>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { FileIcon } from '@atlassian/conversation-assistant-ui-components/ui/file-icon';\nconst AttachmentLabel = ({ fileName }: { fileName: string }): React.JSX.Element => (\n\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t<FileIcon fileName={fileName} />\n\t\t<Text>{fileName}</Text>\n\t</Inline>\n);\nexport default function FileIconExample(): React.JSX.Element {\n\tconst [fileName, setFileName] = useState('delivery-plan.pdf');\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.150\">\n\t\t\t<AttachmentLabel fileName={fileName} />\n\t\t\t<Button\n\t\t\t\tappearance=\"subtle\"\n\t\t\t\tonClick={() =>\n\t\t\t\t\tsetFileName((current) =>\n\t\t\t\t\t\tcurrent.endsWith('.pdf') ? 'research-notes.docx' : 'delivery-plan.pdf',\n\t\t\t\t\t)\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tChange attachment\n\t\t\t</Button>\n\t\t</Inline>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17857,7 +18124,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'file', 'icon'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Text } from '@atlaskit/primitives/compiled';\nimport { FileIconSimple } from '@atlassian/conversation-assistant-ui-components/ui/file-icon';\nconst ATTACHMENTS = ['research-plan.pdf', 'customer-interviews.mp3', 'project-brief.png'];\nexport default function FileIconSimpleSelectionExample(): React.JSX.Element {\n\tconst [attachmentIndex, setAttachmentIndex] = useState(0);\n\tconst fileName = ATTACHMENTS[attachmentIndex];\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.150\">\n\t\t\t<FileIconSimple fileName={fileName} size=\"medium\" />\n\t\t\t<Text>{fileName}</Text>\n\t\t\t<Button\n\t\t\t\tappearance=\"subtle\"\n\t\t\t\tonClick={() => setAttachmentIndex((index) => (index + 1) % ATTACHMENTS.length)}\n\t\t\t>\n\t\t\t\tChoose next attachment\n\t\t\t</Button>\n\t\t</Inline>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { FileIconSimple } from '@atlassian/conversation-assistant-ui-components/ui/file-icon';\nconst ATTACHMENTS = ['research-plan.pdf', 'customer-interviews.mp3', 'project-brief.png'];\nexport default function FileIconSimpleSelectionExample(): React.JSX.Element {\n\tconst [attachmentIndex, setAttachmentIndex] = useState(0);\n\tconst fileName = ATTACHMENTS[attachmentIndex];\n\treturn (\n\t\t<Inline alignBlock=\"center\" space=\"space.150\">\n\t\t\t<FileIconSimple fileName={fileName} size=\"medium\" />\n\t\t\t<Text>{fileName}</Text>\n\t\t\t<Button\n\t\t\t\tappearance=\"subtle\"\n\t\t\t\tonClick={() => setAttachmentIndex((index) => (index + 1) % ATTACHMENTS.length)}\n\t\t\t>\n\t\t\t\tChoose next attachment\n\t\t\t</Button>\n\t\t</Inline>\n\t);\n}",
 		],
 		props: [
 			{
@@ -17933,7 +18200,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'file upload', 'dropzone'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { FileUploadDropzone } from '@atlassian/conversation-assistant-ui-components/ui/FileUploadDropzone';\nexport default function ChatFileUploadDropzoneExample(): React.JSX.Element {\n\tconst [fileCount, setFileCount] = useState(0);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FileUploadDropzone\n\t\t\t\tmaxFiles={5}\n\t\t\t\tcurrentFileCount={fileCount}\n\t\t\t\tonFilesSelected={(files) => setFileCount((current) => current + files.length)}\n\t\t\t>\n\t\t\t\t{({ innerProps, dropzoneContent }) => (\n\t\t\t\t\t<Box {...innerProps} padding=\"space.200\">\n\t\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t\t<Text>Paste or drop files to attach them to this Rovo request.</Text>\n\t\t\t\t\t\t\t<Text>{fileCount} of 5 files attached</Text>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t\t{dropzoneContent}\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</FileUploadDropzone>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { FileUploadDropzone } from '@atlassian/conversation-assistant-ui-components/ui/FileUploadDropzone';\nexport default function ChatFileUploadDropzoneExample(): React.JSX.Element {\n\tconst [fileCount, setFileCount] = useState(0);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FileUploadDropzone\n\t\t\t\tmaxFiles={5}\n\t\t\t\tcurrentFileCount={fileCount}\n\t\t\t\tonFilesSelected={(files) => setFileCount((current) => current + files.length)}\n\t\t\t>\n\t\t\t\t{({ innerProps, dropzoneContent }) => (\n\t\t\t\t\t<Box {...innerProps} padding=\"space.200\">\n\t\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t\t<Text>Paste or drop files to attach them to this Rovo request.</Text>\n\t\t\t\t\t\t\t<Text>{fileCount} of 5 files attached</Text>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t\t{dropzoneContent}\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</FileUploadDropzone>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18114,7 +18381,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'horizontal scroll', 'controls'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { HorizontalScrollContainer } from '@atlassian/conversation-assistant-ui-components/ui/HorizontalScrollContainer';\nconst PROMPTS = ['Summarise risks', 'Draft the update', 'Find dependencies', 'Create next steps'];\nexport default function HorizontalFollowUpPromptsExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<HorizontalScrollContainer>\n\t\t\t\t\t{PROMPTS.map((prompt) => (\n\t\t\t\t\t\t<Button key={prompt} onClick={() => setSelectedPrompt(prompt)}>\n\t\t\t\t\t\t\t{prompt}\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t))}\n\t\t\t\t</HorizontalScrollContainer>\n\t\t\t\t{selectedPrompt ? <Text>Preparing: {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { HorizontalScrollContainer } from '@atlassian/conversation-assistant-ui-components/ui/HorizontalScrollContainer';\nconst PROMPTS = ['Summarise risks', 'Draft the update', 'Find dependencies', 'Create next steps'];\nexport default function HorizontalFollowUpPromptsExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<HorizontalScrollContainer>\n\t\t\t\t\t{PROMPTS.map((prompt) => (\n\t\t\t\t\t\t<Button key={prompt} onClick={() => setSelectedPrompt(prompt)}>\n\t\t\t\t\t\t\t{prompt}\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t))}\n\t\t\t\t</HorizontalScrollContainer>\n\t\t\t\t{selectedPrompt ? <Text>Preparing: {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18136,7 +18403,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'create', 'animated icon'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport { Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { LazyAnimatedCreateWithRovoIcon } from \'@atlassian/conversation-assistant-ui-components/ui/LazyAnimatedCreateWithRovoIcon\';\nexport default function CreateWithRovoProgressExample(): React.JSX.Element {\n\tconst [isCreating, setIsCreating] = useState(false);\n\treturn (\n\t\t<Stack space="space.150" alignInline="center">\n\t\t\t{isCreating ? (\n\t\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t\t<LazyAnimatedCreateWithRovoIcon\n\t\t\t\t\t\talt="Creating your project brief"\n\t\t\t\t\t\twidth="32px"\n\t\t\t\t\t\theight="32px"\n\t\t\t\t\t/>\n\t\t\t\t\t<Text>Creating a project brief from this conversation…</Text>\n\t\t\t\t</Inline>\n\t\t\t) : (\n\t\t\t\t<Text>Your project brief is ready to create.</Text>\n\t\t\t)}\n\t\t\t<Button onClick={() => setIsCreating((creating) => !creating)}>\n\t\t\t\t{isCreating ? \'Stop creating\' : \'Create project brief\'}\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LazyAnimatedCreateWithRovoIcon } from '@atlassian/conversation-assistant-ui-components/ui/LazyAnimatedCreateWithRovoIcon';\nexport default function CreateWithRovoProgressExample(): React.JSX.Element {\n\tconst [isCreating, setIsCreating] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t{isCreating ? (\n\t\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t\t<LazyAnimatedCreateWithRovoIcon\n\t\t\t\t\t\talt=\"Creating your project brief\"\n\t\t\t\t\t\twidth=\"32px\"\n\t\t\t\t\t\theight=\"32px\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Text>Creating a project brief from this conversation…</Text>\n\t\t\t\t</Inline>\n\t\t\t) : (\n\t\t\t\t<Text>Your project brief is ready to create.</Text>\n\t\t\t)}\n\t\t\t<Button onClick={() => setIsCreating((creating) => !creating)}>\n\t\t\t\t{isCreating ? 'Stop creating' : 'Create project brief'}\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18164,7 +18431,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'onboarding', 'jira dark theme'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18192,7 +18459,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'onboarding', 'confluence dark theme'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18220,7 +18487,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'onboarding', 'jira'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18246,7 +18513,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'onboarding', 'confluence'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tLazyRovoOnboardingGifDarkIcon,\n\tLazyRovoOnboardingGifDarkIconConfluence,\n\tLazyRovoOnboardingGifLightIcon,\n\tLazyRovoOnboardingGifLightIconConfluence,\n} from '@atlassian/conversation-assistant-ui-components/ui/LazyOnboardingGif';\ntype Product = 'jira' | 'confluence';\ntype ColorMode = 'light' | 'dark';\nexport default function OnboardingArtworkThemeSwitcherExample(): React.JSX.Element {\n\tconst [product, setProduct] = useState<Product>('jira');\n\tconst [colorMode, setColorMode] = useState<ColorMode>('light');\n\tconst Artwork =\n\t\tproduct === 'jira'\n\t\t\t? colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIcon\n\t\t\t\t: LazyRovoOnboardingGifDarkIcon\n\t\t\t: colorMode === 'light'\n\t\t\t\t? LazyRovoOnboardingGifLightIconConfluence\n\t\t\t\t: LazyRovoOnboardingGifDarkIconConfluence;\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<Artwork alt={`Rovo onboarding in ${product}`} width={264} height={147} />\n\t\t\t<Text>{product === 'jira' ? 'Plan work with Rovo' : 'Turn knowledge into action'}</Text>\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setProduct(product === 'jira' ? 'confluence' : 'jira')}>\n\t\t\t\t\tSwitch product\n\t\t\t\t</Button>\n\t\t\t\t<Button\n\t\t\t\t\tappearance=\"subtle\"\n\t\t\t\t\tonClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}\n\t\t\t\t>\n\t\t\t\t\tUse {colorMode === 'light' ? 'dark' : 'light'} artwork\n\t\t\t\t</Button>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18274,7 +18541,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'spinner', 'loading state'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { LoadingState } from '@atlassian/conversation-assistant-ui-components/ui/LoadingState';\nexport default function LoadingStateExample(): React.JSX.Element {\n\tconst [isLoading, setIsLoading] = useState(true);\n\tconst statusMessage = isLoading\n\t\t? 'Loading the latest planning conversation.'\n\t\t: 'Latest planning conversation loaded.';\n\treturn (\n\t\t<Stack alignInline=\"center\" space=\"space.150\">\n\t\t\t<Button appearance=\"subtle\" onClick={() => setIsLoading((current) => !current)}>\n\t\t\t\t{isLoading ? 'Show conversation' : 'Reload conversation'}\n\t\t\t</Button>\n\t\t\t{isLoading ? <LoadingState /> : <Text>{statusMessage}</Text>}\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LoadingState } from '@atlassian/conversation-assistant-ui-components/ui/LoadingState';\nexport default function LoadingStateExample(): React.JSX.Element {\n\tconst [isLoading, setIsLoading] = useState(true);\n\tconst statusMessage = isLoading\n\t\t? 'Loading the latest planning conversation.'\n\t\t: 'Latest planning conversation loaded.';\n\treturn (\n\t\t<Stack alignInline=\"center\" space=\"space.150\">\n\t\t\t<Button appearance=\"subtle\" onClick={() => setIsLoading((current) => !current)}>\n\t\t\t\t{isLoading ? 'Show conversation' : 'Reload conversation'}\n\t\t\t</Button>\n\t\t\t{isLoading ? <LoadingState /> : <Text>{statusMessage}</Text>}\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18293,7 +18560,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'loading trace', 'expandable'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { ExpandableLoadingStep } from \'@atlassian/conversation-assistant-ui-components/ui/message-loading/ExpandableLoadingStep\';\nexport default function ExpandableResponseStepExample(): React.JSX.Element {\n\tconst [isExpanded, setIsExpanded] = useState(false);\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack space="space.150">\n\t\t\t\t<ExpandableLoadingStep\n\t\t\t\t\ttitle="Reviewed the linked project work"\n\t\t\t\t\tstatus="success"\n\t\t\t\t\tisExpanded={isExpanded}\n\t\t\t\t\tonClick={() => setIsExpanded((expanded) => !expanded)}\n\t\t\t\t\tisLastItem\n\t\t\t\t>\n\t\t\t\t\t<Text>Three open dependencies need an owner before the release can start.</Text>\n\t\t\t\t</ExpandableLoadingStep>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ExpandableLoadingStep } from '@atlassian/conversation-assistant-ui-components/ui/message-loading/ExpandableLoadingStep';\nexport default function ExpandableResponseStepExample(): React.JSX.Element {\n\tconst [isExpanded, setIsExpanded] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ExpandableLoadingStep\n\t\t\t\t\ttitle=\"Reviewed the linked project work\"\n\t\t\t\t\tstatus=\"success\"\n\t\t\t\t\tisExpanded={isExpanded}\n\t\t\t\t\tonClick={() => setIsExpanded((expanded) => !expanded)}\n\t\t\t\t\tisLastItem\n\t\t\t\t>\n\t\t\t\t\t<Text>Three open dependencies need an owner before the release can start.</Text>\n\t\t\t\t</ExpandableLoadingStep>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18344,7 +18611,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'paper', 'surface'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { Paper } from '@atlassian/conversation-assistant-ui-components/ui/Paper';\nexport default function ResponseDetailPaperExample(): React.JSX.Element {\n\tconst [showEvidence, setShowEvidence] = useState(false);\n\treturn (\n\t\t<Paper variant=\"accent\" pinchCorner=\"topLeft\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Text>Rovo found a release risk in the current project plan.</Text>\n\t\t\t\t{showEvidence ? <Text>The linked dependency has no confirmed owner.</Text> : null}\n\t\t\t\t<Button appearance=\"subtle\" onClick={() => setShowEvidence((current) => !current)}>\n\t\t\t\t\t{showEvidence ? 'Hide evidence' : 'Show evidence'}\n\t\t\t\t</Button>\n\t\t\t</Stack>\n\t\t</Paper>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { Paper } from '@atlassian/conversation-assistant-ui-components/ui/Paper';\nexport default function ResponseDetailPaperExample(): React.JSX.Element {\n\tconst [showEvidence, setShowEvidence] = useState(false);\n\treturn (\n\t\t<Paper variant=\"accent\" pinchCorner=\"topLeft\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Text>Rovo found a release risk in the current project plan.</Text>\n\t\t\t\t{showEvidence ? <Text>The linked dependency has no confirmed owner.</Text> : null}\n\t\t\t\t<Button appearance=\"subtle\" onClick={() => setShowEvidence((current) => !current)}>\n\t\t\t\t\t{showEvidence ? 'Hide evidence' : 'Show evidence'}\n\t\t\t\t</Button>\n\t\t\t</Stack>\n\t\t</Paper>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18370,7 +18637,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'variant',
-				type: '"default" | "neutral" | "accent" | "accentV2"',
+				type: '"default" | "neutral" | "accent" | "accentV2" | "rovoNeutral"',
 			},
 			{
 				name: 'verticalSpace',
@@ -18390,7 +18657,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'paper', 'error message'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { PaperErrorMessage } from '@atlassian/conversation-assistant-ui-components/ui/Paper';\nexport default function PaperErrorMessageRetryExample(): React.JSX.Element {\n\tconst [isRetrying, setIsRetrying] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<PaperErrorMessage\n\t\t\t\tmessage=\"We couldn't create the release summary.\"\n\t\t\t\tcontentUnder={\n\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setIsRetrying(true)} isLoading={isRetrying}>\n\t\t\t\t\t\tTry again\n\t\t\t\t\t</Button>\n\t\t\t\t}\n\t\t\t/>\n\t\t\t{isRetrying ? <Text>Creating a new release summary…</Text> : null}\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PaperErrorMessage } from '@atlassian/conversation-assistant-ui-components/ui/Paper';\nexport default function PaperErrorMessageRetryExample(): React.JSX.Element {\n\tconst [isRetrying, setIsRetrying] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<PaperErrorMessage\n\t\t\t\tmessage=\"We couldn't create the release summary.\"\n\t\t\t\tcontentUnder={\n\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setIsRetrying(true)} isLoading={isRetrying}>\n\t\t\t\t\t\tTry again\n\t\t\t\t\t</Button>\n\t\t\t\t}\n\t\t\t/>\n\t\t\t{isRetrying ? <Text>Creating a new release summary…</Text> : null}\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -18425,7 +18692,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'variant',
-				type: '"default" | "neutral" | "accent" | "accentV2"',
+				type: '"default" | "neutral" | "accent" | "accentV2" | "rovoNeutral"',
 			},
 			{
 				name: 'verticalSpace',
@@ -18544,7 +18811,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'agent', 'icon'],
 		category: 'rovo',
 		examples: [
-			'import { Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { RovoAgentIcon } from \'@atlassian/conversation-assistant-ui-components/ui/RovoAgentIcon\';\nconst AgentIdentity = (): React.JSX.Element => (\n\t<Inline alignBlock="center" space="space.100">\n\t\t<RovoAgentIcon label="Rovo" size="medium" />\n\t\t<Text weight="medium">Rovo</Text>\n\t</Inline>\n);\nexport default function RovoAgentIconExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.050">\n\t\t\t<AgentIdentity />\n\t\t\t<Text color="color.text.subtlest">Your AI teammate for work across Atlassian.</Text>\n\t\t</Stack>\n\t);\n}',
+			'import { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { RovoAgentIcon } from \'@atlassian/conversation-assistant-ui-components/ui/RovoAgentIcon\';\nconst AgentIdentity = (): React.JSX.Element => (\n\t<Inline alignBlock="center" space="space.100">\n\t\t<RovoAgentIcon label="Rovo" size="medium" />\n\t\t<Text weight="medium">Rovo</Text>\n\t</Inline>\n);\nexport default function RovoAgentIconExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.050">\n\t\t\t<AgentIdentity />\n\t\t\t<Text color="color.text.subtlest">Your AI teammate for work across Atlassian.</Text>\n\t\t</Stack>\n\t);\n}',
 		],
 		props: [
 			{
@@ -18607,14 +18874,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'highlight', 'contextual actions'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport type { DocNode } from '@atlaskit/adf-schema/doc';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RovoChatHighlightActions } from '@atlassian/conversation-assistant-ui-components/ui/RovoChatHighlightActions';\nconst selectedContent: DocNode = {\n\ttype: 'doc',\n\tversion: 1,\n\tcontent: [\n\t\t{ type: 'paragraph', content: [{ type: 'text', text: 'Launch readiness is at risk.' }] },\n\t],\n};\nexport default function RovoChatHighlightActionsExample(): React.JSX.Element {\n\tconst [isOpeningChat, setIsOpeningChat] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<RovoChatHighlightActions\n\t\t\t\t\tonClickChat={() => setIsOpeningChat(true)}\n\t\t\t\t\tproduct=\"confluence\"\n\t\t\t\t\tselectedContent={selectedContent}\n\t\t\t\t/>\n\t\t\t\t{isOpeningChat && <Text>Opening Rovo Chat with the selected content.</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport type { DocNode } from '@atlaskit/adf-schema/doc';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoChatHighlightActions } from '@atlassian/conversation-assistant-ui-components/ui/RovoChatHighlightActions';\nconst selectedContent: DocNode = {\n\ttype: 'doc',\n\tversion: 1,\n\tcontent: [\n\t\t{ type: 'paragraph', content: [{ type: 'text', text: 'Launch readiness is at risk.' }] },\n\t],\n};\nexport default function RovoChatHighlightActionsExample(): React.JSX.Element {\n\tconst [isOpeningChat, setIsOpeningChat] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<RovoChatHighlightActions\n\t\t\t\t\tonClickChat={() => setIsOpeningChat(true)}\n\t\t\t\t\tproduct=\"confluence\"\n\t\t\t\t\tselectedContent={selectedContent}\n\t\t\t\t/>\n\t\t\t\t{isOpeningChat && <Text>Opening Rovo Chat with the selected content.</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
-			{
-				name: 'isNewToolbarEnabled',
-				type: 'boolean',
-				defaultValue: 'false',
-			},
 			{
 				name: 'onClickChat',
 				type: '() => void',
@@ -18652,7 +18914,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'greeting', 'mode'],
 		category: 'rovo',
 		examples: [
-			'import { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { RovoGreeting } from \'@atlassian/conversation-assistant-ui-components/ui/RovoGreeting\';\nexport default function RovoGreetingExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack alignInline="center" space="space.150">\n\t\t\t\t<RovoGreeting firstName="Charlie" isDeepResearchEnabled={false} />\n\t\t\t\t<Text align="center" color="color.text.subtlest">\n\t\t\t\t\tAsk Rovo to summarise work, find knowledge, or draft a plan.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { RovoGreeting } from \'@atlassian/conversation-assistant-ui-components/ui/RovoGreeting\';\nexport default function RovoGreetingExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack alignInline="center" space="space.150">\n\t\t\t\t<RovoGreeting firstName="Charlie" isDeepResearchEnabled={false} />\n\t\t\t\t<Text align="center" color="color.text.subtlest">\n\t\t\t\t\tAsk Rovo to summarise work, find knowledge, or draft a plan.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
 		],
 		props: [
 			{
@@ -18959,7 +19221,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'side navigation', 'modal'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { SideNavModal } from '@atlassian/conversation-assistant-ui-components/ui/side-nav-modal/modal';\nconst SETTINGS_ITEMS = [\n\t{\n\t\tid: 'response-style',\n\t\tlabel: 'Response style',\n\t\tcontent: () => <Text>Choose concise, balanced, or detailed Rovo responses.</Text>,\n\t},\n\t{\n\t\tid: 'connected-apps',\n\t\tlabel: 'Connected apps',\n\t\tcontent: () => <Text>Manage which connected apps Rovo can use in this space.</Text>,\n\t},\n];\nexport default function SideNavPreferencesModalExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [activeCategory, setActiveCategory] = useState('response-style');\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<Button onClick={() => setIsOpen(true)}>Open Rovo preferences</Button>\n\t\t\t<Text>Last selected: {activeCategory}</Text>\n\t\t\t<SideNavModal\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\ttitle=\"Rovo preferences\"\n\t\t\t\titems={SETTINGS_ITEMS}\n\t\t\t\tdefaultSelectedId=\"response-style\"\n\t\t\t\tsearchPlaceholder=\"Search preferences\"\n\t\t\t\tonActiveTabChange={setActiveCategory}\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SideNavModal } from '@atlassian/conversation-assistant-ui-components/ui/side-nav-modal/modal';\nconst SETTINGS_ITEMS = [\n\t{\n\t\tid: 'response-style',\n\t\tlabel: 'Response style',\n\t\tcontent: () => <Text>Choose concise, balanced, or detailed Rovo responses.</Text>,\n\t},\n\t{\n\t\tid: 'connected-apps',\n\t\tlabel: 'Connected apps',\n\t\tcontent: () => <Text>Manage which connected apps Rovo can use in this space.</Text>,\n\t},\n];\nexport default function SideNavPreferencesModalExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [activeCategory, setActiveCategory] = useState('response-style');\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<Button onClick={() => setIsOpen(true)}>Open Rovo preferences</Button>\n\t\t\t<Text>Last selected: {activeCategory}</Text>\n\t\t\t<SideNavModal\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\ttitle=\"Rovo preferences\"\n\t\t\t\titems={SETTINGS_ITEMS}\n\t\t\t\tdefaultSelectedId=\"response-style\"\n\t\t\t\tsearchPlaceholder=\"Search preferences\"\n\t\t\t\tonActiveTabChange={setActiveCategory}\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -19095,7 +19357,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'system message', 'status'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { SystemMessage } from '@atlassian/conversation-assistant-ui-components/ui/SystemMessage';\nexport default function SystemMessageExample(): React.JSX.Element {\n\tconst [hasSaved, setHasSaved] = useState(false);\n\treturn (\n\t\t<Stack alignInline=\"end\" space=\"space.100\">\n\t\t\t<Button appearance=\"subtle\" onClick={() => setHasSaved((current) => !current)}>\n\t\t\t\t{hasSaved ? 'Simulate a save failure' : 'Save conversation draft'}\n\t\t\t</Button>\n\t\t\t<SystemMessage\n\t\t\t\tisSuccessMessage={hasSaved}\n\t\t\t\tmessage={hasSaved ? 'Draft saved' : 'Changes have not been saved'}\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { SystemMessage } from '@atlassian/conversation-assistant-ui-components/ui/SystemMessage';\nexport default function SystemMessageExample(): React.JSX.Element {\n\tconst [hasSaved, setHasSaved] = useState(false);\n\treturn (\n\t\t<Stack alignInline=\"end\" space=\"space.100\">\n\t\t\t<Button appearance=\"subtle\" onClick={() => setHasSaved((current) => !current)}>\n\t\t\t\t{hasSaved ? 'Simulate a save failure' : 'Save conversation draft'}\n\t\t\t</Button>\n\t\t\t<SystemMessage\n\t\t\t\tisSuccessMessage={hasSaved}\n\t\t\t\tmessage={hasSaved ? 'Draft saved' : 'Changes have not been saved'}\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -19127,7 +19389,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'expander', 'disclosure'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { UncontrolledExpander } from \'@atlassian/conversation-assistant-ui-components/ui/UncontrolledExpander\';\nexport default function UncontrolledExpanderExample(): React.JSX.Element {\n\tconst [isExpanded, setIsExpanded] = useState(false);\n\treturn (\n\t\t<Stack space="space.100">\n\t\t\t<Text weight="medium">Sources used for this response</Text>\n\t\t\t<UncontrolledExpander\n\t\t\t\tisExpanded={isExpanded}\n\t\t\t\tshowText="Show sources"\n\t\t\t\thideText="Hide sources"\n\t\t\t\tonClick={() => setIsExpanded((current) => !current)}\n\t\t\t>\n\t\t\t\t<Text>Rovo used the Q3 planning brief and the product roadmap.</Text>\n\t\t\t</UncontrolledExpander>\n\t\t</Stack>\n\t);\n}',
+			'import React, { useState } from \'react\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { UncontrolledExpander } from \'@atlassian/conversation-assistant-ui-components/ui/UncontrolledExpander\';\nexport default function UncontrolledExpanderExample(): React.JSX.Element {\n\tconst [isExpanded, setIsExpanded] = useState(false);\n\treturn (\n\t\t<Stack space="space.100">\n\t\t\t<Text weight="medium">Sources used for this response</Text>\n\t\t\t<UncontrolledExpander\n\t\t\t\tisExpanded={isExpanded}\n\t\t\t\tshowText="Show sources"\n\t\t\t\thideText="Hide sources"\n\t\t\t\tonClick={() => setIsExpanded((current) => !current)}\n\t\t\t>\n\t\t\t\t<Text>Rovo used the Q3 planning brief and the product roadmap.</Text>\n\t\t\t</UncontrolledExpander>\n\t\t</Stack>\n\t);\n}',
 		],
 		props: [
 			{
@@ -19168,22 +19430,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'warning', 'illustration'],
 		category: 'rovo',
 		examples: [
-			'import { Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { LoadingDots } from \'@atlassian/conversation-assistant-ui-components/ui/LoadingDots\';\nimport { RovoMulticolorIcon } from \'@atlassian/conversation-assistant-ui-components/ui/RovoMulticolorIcon\';\nimport { WarningIllustration } from \'@atlassian/conversation-assistant-ui-components/ui/WarningIllustration\';\nexport default function ChatStatusVisualsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.200">\n\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t<RovoMulticolorIcon />\n\t\t\t\t<Text weight="semibold">Rovo Chat</Text>\n\t\t\t</Inline>\n\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t<LoadingDots alt="Rovo is preparing a response" />\n\t\t\t\t<Text>Rovo is preparing a response</Text>\n\t\t\t</Inline>\n\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t<WarningIllustration />\n\t\t\t\t<Text>We could not load this response. Try again.</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
+			'import { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { LoadingDots } from \'@atlassian/conversation-assistant-ui-components/ui/LoadingDots\';\nimport { RovoMulticolorIcon } from \'@atlassian/conversation-assistant-ui-components/ui/RovoMulticolorIcon\';\nimport { WarningIllustration } from \'@atlassian/conversation-assistant-ui-components/ui/WarningIllustration\';\nexport default function ChatStatusVisualsExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.200">\n\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t<RovoMulticolorIcon />\n\t\t\t\t<Text weight="semibold">Rovo Chat</Text>\n\t\t\t</Inline>\n\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t<LoadingDots alt="Rovo is preparing a response" />\n\t\t\t\t<Text>Rovo is preparing a response</Text>\n\t\t\t</Inline>\n\t\t\t<Inline space="space.100" alignBlock="center">\n\t\t\t\t<WarningIllustration />\n\t\t\t\t<Text>We could not load this response. Try again.</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}',
 		],
-		props: [],
-	},
-	{
-		name: 'UiVisualizationChartChartActionChartTypes',
-		package: '@atlassian/conversation-assistant-viz',
-		description:
-			'Public ui/visualization-chart/chart-action/chart-types entrypoint for @atlassian/conversation-assistant-viz.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public ui/visualization-chart/chart-action/chart-types entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
 		props: [],
 	},
 	{
@@ -19198,7 +19446,21 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'chartType',
+				type: 'string',
+			},
+			{
+				name: 'errorType',
+				type: '"unsupported" | "general"',
+				defaultValue: '"general"',
+			},
+			{
+				name: 'supportedTypes',
+				type: 'readonly string[]',
+			},
+		],
 	},
 	{
 		name: 'UiVisualizationChartChartLoader',
@@ -19226,7 +19488,72 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'chartTitle',
+				type: 'string',
+				description: 'Chart title',
+			},
+			{
+				name: 'chartType',
+				type: 'XYChartType | CircularChartType | "sunburst" | "distribution" | "heatmap"',
+				description: '',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				description:
+					"Cloud ID / Site ID for the current site. When provided, used by ChartApiService\ninstead of fetching from /_edge/tenant_info (which doesn't work on untenanted domains like Atlas Home)",
+			},
+			{
+				name: 'colorAccessor',
+				type: 'string | number',
+				description:
+					'Data accessor for colors\nData accessor for colors (required for pie/donut charts)\nOptional first-ring group accessor.\nNumeric data accessor used for the heatmap colour scale.',
+			},
+			{
+				name: 'data',
+				type: 'Record<string, unknown>[]',
+				description: 'Chart data in viz-platform-charts format',
+				isRequired: true,
+			},
+			{
+				name: 'height',
+				type: 'string | number',
+				description: 'Height of the chart container',
+			},
+			{
+				name: 'isChartLoading',
+				type: 'boolean',
+				description:
+					'Streamable renderer signal: false means all chart props have finished streaming',
+			},
+			{
+				name: 'messageId',
+				type: 'string',
+				description: 'Message ID for analytics tracking deduplication',
+			},
+			{
+				name: 'metricsConfig',
+				type: 'any',
+				description: 'Metrics configuration for charts that source from Metrics Layer',
+			},
+			{
+				name: 'subtitle',
+				type: 'string',
+				description: 'Chart subtitle',
+			},
+			{
+				name: 'vizConfig',
+				type: '(Omit<AreaChartSchema, "elements"> & MergeElements<AreaChartSchema, never>) | (Omit<AreaStackChartSchema, "elements"> & MergeElements<...>) | ... 9 more ... | (Omit<...> & MergeElements<...>)',
+				description: 'Viz config for the chart',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description: 'Width of the chart container',
+			},
+		],
 	},
 	{
 		name: 'UiVisualizationChartMain',
@@ -19240,7 +19567,72 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'chartTitle',
+				type: 'string',
+				description: 'Chart title',
+			},
+			{
+				name: 'chartType',
+				type: 'XYChartType | CircularChartType | "sunburst" | "distribution" | "heatmap"',
+				description: '',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				description:
+					"Cloud ID / Site ID for the current site. When provided, used by ChartApiService\ninstead of fetching from /_edge/tenant_info (which doesn't work on untenanted domains like Atlas Home)",
+			},
+			{
+				name: 'colorAccessor',
+				type: 'string | number',
+				description:
+					'Data accessor for colors\nData accessor for colors (required for pie/donut charts)\nOptional first-ring group accessor.\nNumeric data accessor used for the heatmap colour scale.',
+			},
+			{
+				name: 'data',
+				type: 'Record<string, unknown>[]',
+				description: 'Chart data in viz-platform-charts format',
+				isRequired: true,
+			},
+			{
+				name: 'height',
+				type: 'string | number',
+				description: 'Height of the chart container',
+			},
+			{
+				name: 'isChartLoading',
+				type: 'boolean',
+				description:
+					'Streamable renderer signal: false means all chart props have finished streaming',
+			},
+			{
+				name: 'messageId',
+				type: 'string',
+				description: 'Message ID for analytics tracking deduplication',
+			},
+			{
+				name: 'metricsConfig',
+				type: 'any',
+				description: 'Metrics configuration for charts that source from Metrics Layer',
+			},
+			{
+				name: 'subtitle',
+				type: 'string',
+				description: 'Chart subtitle',
+			},
+			{
+				name: 'vizConfig',
+				type: '(Omit<AreaChartSchema, "elements"> & MergeElements<AreaChartSchema, never>) | (Omit<AreaStackChartSchema, "elements"> & MergeElements<...>) | ... 9 more ... | (Omit<...> & MergeElements<...>)',
+				description: 'Viz config for the chart',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description: 'Width of the chart container',
+			},
+		],
 	},
 	{
 		name: 'UiVisualizationChartVisualizationChart',
@@ -19254,7 +19646,72 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'chartTitle',
+				type: 'string',
+				description: 'Chart title',
+			},
+			{
+				name: 'chartType',
+				type: 'XYChartType | CircularChartType | "sunburst" | "distribution" | "heatmap"',
+				description: '',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				description:
+					"Cloud ID / Site ID for the current site. When provided, used by ChartApiService\ninstead of fetching from /_edge/tenant_info (which doesn't work on untenanted domains like Atlas Home)",
+			},
+			{
+				name: 'colorAccessor',
+				type: 'string | number',
+				description:
+					'Data accessor for colors\nData accessor for colors (required for pie/donut charts)\nOptional first-ring group accessor.\nNumeric data accessor used for the heatmap colour scale.',
+			},
+			{
+				name: 'data',
+				type: 'Record<string, unknown>[]',
+				description: 'Chart data in viz-platform-charts format',
+				isRequired: true,
+			},
+			{
+				name: 'height',
+				type: 'string | number',
+				description: 'Height of the chart container',
+			},
+			{
+				name: 'isChartLoading',
+				type: 'boolean',
+				description:
+					'Streamable renderer signal: false means all chart props have finished streaming',
+			},
+			{
+				name: 'messageId',
+				type: 'string',
+				description: 'Message ID for analytics tracking deduplication',
+			},
+			{
+				name: 'metricsConfig',
+				type: 'any',
+				description: 'Metrics configuration for charts that source from Metrics Layer',
+			},
+			{
+				name: 'subtitle',
+				type: 'string',
+				description: 'Chart subtitle',
+			},
+			{
+				name: 'vizConfig',
+				type: '(Omit<AreaChartSchema, "elements"> & MergeElements<AreaChartSchema, never>) | (Omit<AreaStackChartSchema, "elements"> & MergeElements<...>) | ... 9 more ... | (Omit<...> & MergeElements<...>)',
+				description: 'Viz config for the chart',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description: 'Width of the chart container',
+			},
+		],
 	},
 	{
 		name: 'UiWidgetWrapper',
@@ -19267,21 +19724,31 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
-	},
-	{
-		name: 'UiWidgetWrapperChartPropSchema',
-		package: '@atlassian/conversation-assistant-viz',
-		description:
-			'Public ui/widget-wrapper/chart-prop-schema entrypoint for @atlassian/conversation-assistant-viz.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public ui/widget-wrapper/chart-prop-schema entrypoint when integrating this Rovo capability.',
+		props: [
+			{
+				name: 'component',
+				type: 'React.ComponentType<TProps> | React.LazyExoticComponent<React.ComponentType<TProps>>',
+				description: 'The wrapped component to render.',
+				isRequired: true,
+			},
+			{
+				name: 'extraProps',
+				type: '{ [P in keyof TProps]?: TProps[P]; }',
+				description: "Extra props merged into the component's props after streaming extraction.",
+			},
+			{
+				name: 'jsonStream',
+				type: 'string',
+				description: 'The streaming JSON string (may be incomplete / partially received).',
+				isRequired: true,
+			},
+			{
+				name: 'propSchema',
+				type: '{ [K in KeysOfUnion<TProps>]?: PropStreamingMode; }',
+				description: 'Streaming behaviour for each prop.',
+				isRequired: true,
+			},
 		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
 	},
 	{
 		name: 'AsyncConversationAssistantWidget',
@@ -19469,7 +19936,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 27 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
+				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 28 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
 				isRequired: true,
 			},
 			{
@@ -19522,7 +19989,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'uiConfigOverride',
-				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; createConversationOnMount?: { followUpSource?: string; }; ... 20 more ...; chatInputFocusRequestKey?: number; }',
+				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; skipAutoConversationSelection?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; ... 21 more ...; chatInputFocusRequestKey?: number; }',
 			},
 		],
 	},
@@ -19555,7 +20022,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'config',
-				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 27 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
+				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 28 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
 				isRequired: true,
 			},
 			{
@@ -19570,7 +20037,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'uiConfig',
-				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; createConversationOnMount?: { followUpSource?: string; }; ... 20 more ...; chatInputFocusRequestKey?: number; }',
+				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; skipAutoConversationSelection?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; ... 21 more ...; chatInputFocusRequestKey?: number; }',
 			},
 		],
 	},
@@ -19676,17 +20143,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '{ [skillSlug: string]: SkillMetadata; }',
 			},
 		],
-	},
-	{
-		name: 'SidebarPromptInlineBrowse',
-		package: '@atlassian/conversation-assistant',
-		description: 'Provides inline prompt-library browsing within a sidebar layout.',
-		status: 'general-availability',
-		usageGuidelines: ['Use when prompt discovery must remain inside a Rovo sidebar.'],
-		keywords: ['rovo', 'chat', 'prompt library', 'sidebar'],
-		category: 'rovo',
-		examples: [],
-		props: [],
 	},
 	{
 		name: 'RecommendedSpacesOnboardingModals',
@@ -19877,7 +20333,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 27 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
+				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 28 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
 				isRequired: true,
 			},
 			{
@@ -19919,10 +20375,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'examples',
 				type: '{ [x: string]: ObjectExampleData; }',
-			},
-			{
-				name: 'gettingStartedTourConfig',
-				type: '{ isTourEnabled: boolean; isTourPassive: boolean; onDismissClicked: () => void; }',
 			},
 			{
 				name: 'handleClose',
@@ -20084,6 +20536,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Optional per-prompt publishing behavior for the guided-prompt screen.',
 			},
 			{
+				name: 'resultAttributionEntryPoint',
+				type: 'string',
+				description:
+					'Controlled launch source retained for result-action analytics without changing the functional\n`entryPoint` used for routing and skill selection.',
+			},
+			{
 				name: 'secondaryPrompts',
 				type: 'SuggestedPromptTile[]',
 			},
@@ -20146,7 +20604,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'uiConfigOverride',
-				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; createConversationOnMount?: { followUpSource?: string; }; ... 20 more ...; chatInputFocusRequestKey?: number; }',
+				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; skipAutoConversationSelection?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; ... 21 more ...; chatInputFocusRequestKey?: number; }',
 			},
 			{
 				name: 'usePrimaryFallback',
@@ -21149,7 +21607,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 27 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
+				type: '{ autocompletePageContentSource?: AutocompletePageContentSource; onPromptSent?: (context: PromptSentContext) => void | Promise<void>; ... 28 more ...; loadLocalModelAutocomplete?: () => Promise<...>; }',
 				description:
 					'Config passed directly to the ConversationAssistant in the full screen chat stage.',
 				isRequired: true,
@@ -21307,7 +21765,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'uiConfig',
-				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; createConversationOnMount?: { followUpSource?: string; }; ... 20 more ...; chatInputFocusRequestKey?: number; }',
+				type: '{ externalEmbed?: boolean; fullScreen?: boolean; preserveUrlConversationId?: boolean; skipAutoConversationSelection?: boolean; initialPromptText?: string; shouldSeedInitialPromptText?: boolean; ... 21 more ...; chatInputFocusRequestKey?: number; }',
 				description: 'Optional uiConfig overrides for the ConversationAssistant.',
 			},
 			{
@@ -21496,6 +21954,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'conversationId',
 				type: 'string',
 				description: 'conversation id where the action was invoked',
+			},
+			{
+				name: 'entryPoint',
+				type: 'string',
+				description:
+					'Controlled entry point for the originating assistant message. This allows\naction renderers to preserve product-owned analytics attribution without\nderiving it again from action payload data.',
 			},
 			{
 				name: 'experienceId',
@@ -21749,6 +22213,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'conversationId',
 				type: 'string',
 				description: 'conversation id where the action was invoked',
+			},
+			{
+				name: 'entryPoint',
+				type: 'string',
+				description:
+					'Controlled entry point for the originating assistant message. This allows\naction renderers to preserve product-owned analytics attribution without\nderiving it again from action payload data.',
 			},
 			{
 				name: 'experienceId',
@@ -22055,7 +22525,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 		category: 'interaction',
 		examples: [
-			"import React, { useCallback, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { cssMap } from '@atlaskit/css';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport { Box, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { ModalContextProvider } from '@atlassian/entry-points/modal-context-provider';\nimport { FloatingToolbar, ToolbarWrapper } from '../src';\nimport type { ToolbarAction } from '../src/common/types';\nimport { asyncModalEntrypoint } from './async-modal/entrypoint';\nconst styles = cssMap({\n\tviewport: {\n\t\theight: '100vh',\n\t},\n\tcardContainer: {\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingRight: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingLeft: token('space.400'),\n\t},\n\tcard: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tborderRadius: token('radius.medium'),\n\t\tbackgroundColor: token('elevation.surface.overlay'),\n\t\tboxShadow: token('elevation.shadow.raised'),\n\t},\n});\nconst Basic = (): React.JSX.Element => {\n\tconst environment = createMockEnvironment();\n\tconst [selectedCardIds, setSelectedCardIds] = useState<number[]>([1]);\n\tconst [shouldHideToolbar, setShouldHideToolbar] = useState<boolean>(false);\n\tconst [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);\n\tconst actions: ToolbarAction[] = [\n\t\t{\n\t\t\ttype: 'perform',\n\t\t\tname: 'Example perform',\n\t\t\ticon: EditIcon,\n\t\t\tonClick: () => alert('Example perform clicked'),\n\t\t\thiddenPriority: 10, // this will be hidden first\n\t\t},\n\t\t{\n\t\t\ttype: 'popup',\n\t\t\tname: 'Example popup dialog',\n\t\t\ticon: EditIcon,\n\t\t\tonClick: () => setIsPopupOpen((currentIsPopupOpen) => !currentIsPopupOpen),\n\t\t\tonClose: () => setIsPopupOpen(false),\n\t\t\tcontent: () => <Box>Hello world</Box>,\n\t\t\trole: 'dialog',\n\t\t\tisOpen: isPopupOpen,\n\t\t},\n\t\t{\n\t\t\ttype: 'modal',\n\t\t\tname: 'Example modal',\n\t\t\ticon: EditIcon,\n\t\t\tentryPoint: asyncModalEntrypoint,\n\t\t},\n\t];\n\tconst onSelectAll = useCallback(() => {\n\t\tsetSelectedCardIds([1, 2, 3, 4, 5]);\n\t}, []);\n\tconst onClearAll = useCallback(() => {\n\t\tsetSelectedCardIds([]);\n\t}, []);\n\tconst renderHideToolbarButton = useCallback(\n\t\t() => (\n\t\t\t<Pressable\n\t\t\t\txcss={styles.card}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tsetShouldHideToolbar((currentShouldHideToolbar) => !currentShouldHideToolbar)\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Inline>\n\t\t\t\t\t<Text>{shouldHideToolbar ? 'Show toolbar' : 'Hide toolbar'}</Text>\n\t\t\t\t</Inline>\n\t\t\t</Pressable>\n\t\t),\n\t\t[shouldHideToolbar],\n\t);\n\tconst renderCards = useCallback(\n\t\t(numberOfCards: number) => (\n\t\t\t<>\n\t\t\t\t{Array.from({ length: numberOfCards }, (_, index) => {\n\t\t\t\t\tconst cardId = index + 1;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Box xcss={styles.card} key={cardId}>\n\t\t\t\t\t\t\t<Inline alignBlock=\"center\">\n\t\t\t\t\t\t\t\t<Checkbox\n\t\t\t\t\t\t\t\t\tisChecked={selectedCardIds.includes(cardId)}\n\t\t\t\t\t\t\t\t\tlabel={`example checkboxCard number ${cardId}`}\n\t\t\t\t\t\t\t\t\tonChange={() =>\n\t\t\t\t\t\t\t\t\t\tsetSelectedCardIds((currentSelectedCardIds) => {\n\t\t\t\t\t\t\t\t\t\t\tconst isCheckboxSelected = currentSelectedCardIds.includes(cardId);\n\t\t\t\t\t\t\t\t\t\t\tif (isCheckboxSelected) {\n\t\t\t\t\t\t\t\t\t\t\t\treturn currentSelectedCardIds.filter((id) => id !== cardId);\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\treturn [...currentSelectedCardIds, cardId];\n\t\t\t\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</>\n\t\t),\n\t\t[selectedCardIds],\n\t);\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<ModalContextProvider>\n\t\t\t\t\t<Box xcss={styles.viewport}>\n\t\t\t\t\t\t<Stack space=\"space.200\" xcss={styles.cardContainer}>\n\t\t\t\t\t\t\t{renderHideToolbarButton()}\n\t\t\t\t\t\t\t{renderCards(5)}\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t\t<ToolbarWrapper show={!shouldHideToolbar && selectedCardIds.length > 0}>\n\t\t\t\t\t\t\t{(maxToolbarWidth) => (\n\t\t\t\t\t\t\t\t<FloatingToolbar\n\t\t\t\t\t\t\t\t\tnumberOfSelectedItems={selectedCardIds.length}\n\t\t\t\t\t\t\t\t\tonClearAll={onClearAll}\n\t\t\t\t\t\t\t\t\tisAllSelected={false}\n\t\t\t\t\t\t\t\t\tonSelectAll={onSelectAll}\n\t\t\t\t\t\t\t\t\tactions={actions}\n\t\t\t\t\t\t\t\t\tmaxToolbarWidth={maxToolbarWidth}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</ToolbarWrapper>\n\t\t\t\t\t</Box>\n\t\t\t\t</ModalContextProvider>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n};\nexport default Basic;",
+			"import React, { useCallback, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { cssMap } from '@atlaskit/css';\nimport EditIcon from '@atlaskit/icon/core/edit';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Pressable } from '@atlaskit/primitives/compiled/pressable';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { ModalContextProvider } from '@atlassian/entry-points/modal-context-provider';\nimport { FloatingToolbar, ToolbarWrapper } from '../src';\nimport type { ToolbarAction } from '../src/common/types';\nimport { asyncModalEntrypoint } from './async-modal/entrypoint';\nconst styles = cssMap({\n\tviewport: {\n\t\theight: '100vh',\n\t},\n\tcardContainer: {\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingRight: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingLeft: token('space.400'),\n\t},\n\tcard: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tborderRadius: token('radius.medium'),\n\t\tbackgroundColor: token('elevation.surface.overlay'),\n\t\tboxShadow: token('elevation.shadow.raised'),\n\t},\n});\nconst Basic = (): React.JSX.Element => {\n\tconst environment = createMockEnvironment();\n\tconst [selectedCardIds, setSelectedCardIds] = useState<number[]>([1]);\n\tconst [shouldHideToolbar, setShouldHideToolbar] = useState<boolean>(false);\n\tconst [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);\n\tconst actions: ToolbarAction[] = [\n\t\t{\n\t\t\ttype: 'perform',\n\t\t\tname: 'Example perform',\n\t\t\ticon: EditIcon,\n\t\t\tonClick: () => alert('Example perform clicked'),\n\t\t\thiddenPriority: 10, // this will be hidden first\n\t\t},\n\t\t{\n\t\t\ttype: 'popup',\n\t\t\tname: 'Example popup dialog',\n\t\t\ticon: EditIcon,\n\t\t\tonClick: () => setIsPopupOpen((currentIsPopupOpen) => !currentIsPopupOpen),\n\t\t\tonClose: () => setIsPopupOpen(false),\n\t\t\tcontent: () => <Box>Hello world</Box>,\n\t\t\trole: 'dialog',\n\t\t\tisOpen: isPopupOpen,\n\t\t},\n\t\t{\n\t\t\ttype: 'modal',\n\t\t\tname: 'Example modal',\n\t\t\ticon: EditIcon,\n\t\t\tentryPoint: asyncModalEntrypoint,\n\t\t},\n\t];\n\tconst onSelectAll = useCallback(() => {\n\t\tsetSelectedCardIds([1, 2, 3, 4, 5]);\n\t}, []);\n\tconst onClearAll = useCallback(() => {\n\t\tsetSelectedCardIds([]);\n\t}, []);\n\tconst renderHideToolbarButton = useCallback(\n\t\t() => (\n\t\t\t<Pressable\n\t\t\t\txcss={styles.card}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tsetShouldHideToolbar((currentShouldHideToolbar) => !currentShouldHideToolbar)\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Inline>\n\t\t\t\t\t<Text>{shouldHideToolbar ? 'Show toolbar' : 'Hide toolbar'}</Text>\n\t\t\t\t</Inline>\n\t\t\t</Pressable>\n\t\t),\n\t\t[shouldHideToolbar],\n\t);\n\tconst renderCards = useCallback(\n\t\t(numberOfCards: number) => (\n\t\t\t<>\n\t\t\t\t{Array.from({ length: numberOfCards }, (_, index) => {\n\t\t\t\t\tconst cardId = index + 1;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Box xcss={styles.card} key={cardId}>\n\t\t\t\t\t\t\t<Inline alignBlock=\"center\">\n\t\t\t\t\t\t\t\t<Checkbox\n\t\t\t\t\t\t\t\t\tisChecked={selectedCardIds.includes(cardId)}\n\t\t\t\t\t\t\t\t\tlabel={`example checkboxCard number ${cardId}`}\n\t\t\t\t\t\t\t\t\tonChange={() =>\n\t\t\t\t\t\t\t\t\t\tsetSelectedCardIds((currentSelectedCardIds) => {\n\t\t\t\t\t\t\t\t\t\t\tconst isCheckboxSelected = currentSelectedCardIds.includes(cardId);\n\t\t\t\t\t\t\t\t\t\t\tif (isCheckboxSelected) {\n\t\t\t\t\t\t\t\t\t\t\t\treturn currentSelectedCardIds.filter((id) => id !== cardId);\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\treturn [...currentSelectedCardIds, cardId];\n\t\t\t\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</>\n\t\t),\n\t\t[selectedCardIds],\n\t);\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<ModalContextProvider>\n\t\t\t\t\t<Box xcss={styles.viewport}>\n\t\t\t\t\t\t<Stack space=\"space.200\" xcss={styles.cardContainer}>\n\t\t\t\t\t\t\t{renderHideToolbarButton()}\n\t\t\t\t\t\t\t{renderCards(5)}\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t\t<ToolbarWrapper show={!shouldHideToolbar && selectedCardIds.length > 0}>\n\t\t\t\t\t\t\t{(maxToolbarWidth) => (\n\t\t\t\t\t\t\t\t<FloatingToolbar\n\t\t\t\t\t\t\t\t\tnumberOfSelectedItems={selectedCardIds.length}\n\t\t\t\t\t\t\t\t\tonClearAll={onClearAll}\n\t\t\t\t\t\t\t\t\tisAllSelected={false}\n\t\t\t\t\t\t\t\t\tonSelectAll={onSelectAll}\n\t\t\t\t\t\t\t\t\tactions={actions}\n\t\t\t\t\t\t\t\t\tmaxToolbarWidth={maxToolbarWidth}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</ToolbarWrapper>\n\t\t\t\t\t</Box>\n\t\t\t\t</ModalContextProvider>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n};\nexport default Basic;",
 		],
 		props: [
 			{
@@ -22715,7 +23185,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agents', 'declarative ui', 'provider'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Box, Text } from '@atlaskit/primitives/compiled';\nimport { DeclarativeUiProvider } from '@atlassian/rovo-agent-declarative-ui/context';\nimport type { ConnectionConfigSchema, FormData } from '@atlassian/rovo-agent-declarative-ui/types';\nconst config: ConnectionConfigSchema = {\n\tschema: { type: 'object', properties: {} },\n\tuiSchema: { type: 'VerticalLayout', elements: [] },\n};\nexport default function DeclarativeUiProviderExample(): React.JSX.Element {\n\tconst [data, setData] = useState<FormData>({});\n\treturn (\n\t\t<DeclarativeUiProvider config={config} data={data} onChange={setData}>\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">Custom declarative controls render inside this provider.</Text>\n\t\t\t</Box>\n\t\t</DeclarativeUiProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { DeclarativeUiProvider } from '@atlassian/rovo-agent-declarative-ui/context';\nimport type { ConnectionConfigSchema, FormData } from '@atlassian/rovo-agent-declarative-ui/types';\nconst config: ConnectionConfigSchema = {\n\tschema: { type: 'object', properties: {} },\n\tuiSchema: { type: 'VerticalLayout', elements: [] },\n};\nexport default function DeclarativeUiProviderExample(): React.JSX.Element {\n\tconst [data, setData] = useState<FormData>({});\n\treturn (\n\t\t<DeclarativeUiProvider config={config} data={data} onChange={setData}>\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">Custom declarative controls render inside this provider.</Text>\n\t\t\t</Box>\n\t\t</DeclarativeUiProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -22884,7 +23354,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'tooltip',
-				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 15 more ...; shouldRenderToParent?: boolean; }',
+				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 16 more ...; shouldRenderToParent?: boolean; }',
 				description: 'Props passed down to the Tooltip component.',
 			},
 		],
@@ -22948,7 +23418,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'side-by-side', 'feedback bar'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport SBSFeedbackBar from '@atlassian/rovo-chat-side-by-side-evaluation/ui/sbs-feedback-bar';\nexport default function SBSFeedbackBarExample(): React.JSX.Element {\n\tconst [isDismissed, setIsDismissed] = useState(false);\n\tconst [isSubmitted, setIsSubmitted] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t{isSubmitted ? (\n\t\t\t\t<Text>Thanks for helping improve Rovo.</Text>\n\t\t\t) : !isDismissed ? (\n\t\t\t\t<SBSFeedbackBar\n\t\t\t\t\tcompetitorType=\"gemini\"\n\t\t\t\t\tevaluationId=\"customer-onboarding-review\"\n\t\t\t\t\tonSubmit={() => setIsSubmitted(true)}\n\t\t\t\t\tonSkip={() => setIsDismissed(true)}\n\t\t\t\t/>\n\t\t\t) : null}\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport SBSFeedbackBar from '@atlassian/rovo-chat-side-by-side-evaluation/ui/sbs-feedback-bar';\nexport default function SBSFeedbackBarExample(): React.JSX.Element {\n\tconst [isDismissed, setIsDismissed] = useState(false);\n\tconst [isSubmitted, setIsSubmitted] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t{isSubmitted ? (\n\t\t\t\t<Text>Thanks for helping improve Rovo.</Text>\n\t\t\t) : !isDismissed ? (\n\t\t\t\t<SBSFeedbackBar\n\t\t\t\t\tcompetitorType=\"gemini\"\n\t\t\t\t\tevaluationId=\"customer-onboarding-review\"\n\t\t\t\t\tonSubmit={() => setIsSubmitted(true)}\n\t\t\t\t\tonSkip={() => setIsDismissed(true)}\n\t\t\t\t/>\n\t\t\t) : null}\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23089,7 +23559,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'prompts', 'cards', 'grid'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport type { PromptCard } from '@atlassian/rovo-conversation-actions/prompt-cards';\nimport { PromptCardsGrid } from '@atlassian/rovo-conversation-actions/prompt-cards-grid';\nconst cards: PromptCard[] = [\n\t{\n\t\tid: 'draft-release-notes',\n\t\ttitle: 'Draft release notes',\n\t\tprompt: 'Draft customer-ready release notes from this week’s completed work.',\n\t\tuseCase: 'Create',\n\t},\n\t{\n\t\tid: 'review-project-risks',\n\t\ttitle: 'Review project risks',\n\t\tprompt: 'Identify risks, owners, and mitigations for this project update.',\n\t\tuseCase: 'Review',\n\t},\n];\nexport default function PromptLibraryGridExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<PromptCardsGrid cards={cards} onCardClick={(card) => setSelectedPrompt(card.title)} />\n\t\t\t\t{selectedPrompt ? <Text>Selected: {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport type { PromptCard } from '@atlassian/rovo-conversation-actions/prompt-cards';\nimport { PromptCardsGrid } from '@atlassian/rovo-conversation-actions/prompt-cards-grid';\nconst cards: PromptCard[] = [\n\t{\n\t\tid: 'draft-release-notes',\n\t\ttitle: 'Draft release notes',\n\t\tprompt: 'Draft customer-ready release notes from this week’s completed work.',\n\t\tuseCase: 'Create',\n\t},\n\t{\n\t\tid: 'review-project-risks',\n\t\ttitle: 'Review project risks',\n\t\tprompt: 'Identify risks, owners, and mitigations for this project update.',\n\t\tuseCase: 'Review',\n\t},\n];\nexport default function PromptLibraryGridExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<PromptCardsGrid cards={cards} onCardClick={(card) => setSelectedPrompt(card.title)} />\n\t\t\t\t{selectedPrompt ? <Text>Selected: {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23215,33 +23685,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'AcceptSharedPromptsModal',
-		package: '@atlassian/rovo-conversation-actions',
-		description: 'Lets a user review and add shared prompts to their prompt library.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Provide deduplicated prompt identifiers and site-scoped assistance service parameters.',
-		],
-		keywords: ['rovo', 'prompts', 'shared prompts', 'modal'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
-		name: 'SharedPromptsModalFromUrl',
-		package: '@atlassian/rovo-conversation-actions',
-		description:
-			'Opens the shared-prompts acceptance modal from prompt identifiers in the current URL.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Mount once near the host route and keep query-parameter cleanup enabled unless the host owns cleanup.',
-		],
-		keywords: ['rovo', 'prompts', 'url', 'modal'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'ActionsProvider',
 		package: '@atlassian/rovo-conversation-actions',
 		description:
@@ -23280,19 +23723,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'CreatePromptModal',
-		package: '@atlassian/rovo-conversation-actions',
-		description: 'Creates, edits, or duplicates a prompt-library item.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Provide initialData for edit or duplicate flows and set isEditMode only for edits.',
-		],
-		keywords: ['rovo', 'prompts', 'create prompt', 'modal'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'RovoPromptFilterDropdown',
 		package: '@atlassian/rovo-conversation-actions',
 		description: 'Multi-select prompt-library filter dropdown with optional option icons.',
@@ -23303,7 +23733,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'prompts', 'filter', 'dropdown'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport RovoPromptFilterDropdown from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoFilterStyleButton } from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoConversationSearchPrompts } from '@atlassian/rovo-conversation-actions/search-prompts';\nconst filterOptions = [\n\t{ id: 'review', label: 'Review' },\n\t{ id: 'create', label: 'Create' },\n];\nconst prompts = ['Draft release notes', 'Review project risks', 'Summarize open blockers'];\nexport default function PromptFilterTriggerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [selectedFilters, setSelectedFilters] = useState<string[]>([]);\n\tconst [filteredPrompts, setFilteredPrompts] = useState(prompts);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Prompt library</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<RovoFilterStyleButton\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((selected) => !selected)}\n\t\t\t\t\taria-label=\"Filter prompts\"\n\t\t\t\t>\n\t\t\t\t\t{isSelected ? 'Filters applied' : 'Filter prompts'}\n\t\t\t\t</RovoFilterStyleButton>\n\t\t\t\t{isSelected && <Text size=\"small\">Showing prompts for your selected use cases.</Text>}\n\t\t\t\t<RovoPromptFilterDropdown\n\t\t\t\t\tfilterOptions={filterOptions}\n\t\t\t\t\ttriggerText=\"Use case\"\n\t\t\t\t\ttitle=\"Filter prompts by use case\"\n\t\t\t\t\tfilterType=\"useCase\"\n\t\t\t\t\tselectedFilters={selectedFilters}\n\t\t\t\t\tonFilterChange={setSelectedFilters}\n\t\t\t\t/>\n\t\t\t\t<RovoConversationSearchPrompts\n\t\t\t\t\tprompts={prompts}\n\t\t\t\t\tonSearchChange={(_, filtered) => setFilteredPrompts(filtered)}\n\t\t\t\t/>\n\t\t\t\t<Text size=\"small\">{filteredPrompts.length} prompts match</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport RovoPromptFilterDropdown from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoFilterStyleButton } from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoConversationSearchPrompts } from '@atlassian/rovo-conversation-actions/search-prompts';\nconst filterOptions = [\n\t{ id: 'review', label: 'Review' },\n\t{ id: 'create', label: 'Create' },\n];\nconst prompts = ['Draft release notes', 'Review project risks', 'Summarize open blockers'];\nexport default function PromptFilterTriggerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [selectedFilters, setSelectedFilters] = useState<string[]>([]);\n\tconst [filteredPrompts, setFilteredPrompts] = useState(prompts);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Prompt library</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<RovoFilterStyleButton\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((selected) => !selected)}\n\t\t\t\t\taria-label=\"Filter prompts\"\n\t\t\t\t>\n\t\t\t\t\t{isSelected ? 'Filters applied' : 'Filter prompts'}\n\t\t\t\t</RovoFilterStyleButton>\n\t\t\t\t{isSelected && <Text size=\"small\">Showing prompts for your selected use cases.</Text>}\n\t\t\t\t<RovoPromptFilterDropdown\n\t\t\t\t\tfilterOptions={filterOptions}\n\t\t\t\t\ttriggerText=\"Use case\"\n\t\t\t\t\ttitle=\"Filter prompts by use case\"\n\t\t\t\t\tfilterType=\"useCase\"\n\t\t\t\t\tselectedFilters={selectedFilters}\n\t\t\t\t\tonFilterChange={setSelectedFilters}\n\t\t\t\t/>\n\t\t\t\t<RovoConversationSearchPrompts\n\t\t\t\t\tprompts={prompts}\n\t\t\t\t\tonSearchChange={(_, filtered) => setFilteredPrompts(filtered)}\n\t\t\t\t/>\n\t\t\t\t<Text size=\"small\">{filteredPrompts.length} prompts match</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23352,7 +23782,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'prompts', 'filter', 'button'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport RovoPromptFilterDropdown from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoFilterStyleButton } from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoConversationSearchPrompts } from '@atlassian/rovo-conversation-actions/search-prompts';\nconst filterOptions = [\n\t{ id: 'review', label: 'Review' },\n\t{ id: 'create', label: 'Create' },\n];\nconst prompts = ['Draft release notes', 'Review project risks', 'Summarize open blockers'];\nexport default function PromptFilterTriggerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [selectedFilters, setSelectedFilters] = useState<string[]>([]);\n\tconst [filteredPrompts, setFilteredPrompts] = useState(prompts);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Prompt library</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<RovoFilterStyleButton\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((selected) => !selected)}\n\t\t\t\t\taria-label=\"Filter prompts\"\n\t\t\t\t>\n\t\t\t\t\t{isSelected ? 'Filters applied' : 'Filter prompts'}\n\t\t\t\t</RovoFilterStyleButton>\n\t\t\t\t{isSelected && <Text size=\"small\">Showing prompts for your selected use cases.</Text>}\n\t\t\t\t<RovoPromptFilterDropdown\n\t\t\t\t\tfilterOptions={filterOptions}\n\t\t\t\t\ttriggerText=\"Use case\"\n\t\t\t\t\ttitle=\"Filter prompts by use case\"\n\t\t\t\t\tfilterType=\"useCase\"\n\t\t\t\t\tselectedFilters={selectedFilters}\n\t\t\t\t\tonFilterChange={setSelectedFilters}\n\t\t\t\t/>\n\t\t\t\t<RovoConversationSearchPrompts\n\t\t\t\t\tprompts={prompts}\n\t\t\t\t\tonSearchChange={(_, filtered) => setFilteredPrompts(filtered)}\n\t\t\t\t/>\n\t\t\t\t<Text size=\"small\">{filteredPrompts.length} prompts match</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport RovoPromptFilterDropdown from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoFilterStyleButton } from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoConversationSearchPrompts } from '@atlassian/rovo-conversation-actions/search-prompts';\nconst filterOptions = [\n\t{ id: 'review', label: 'Review' },\n\t{ id: 'create', label: 'Create' },\n];\nconst prompts = ['Draft release notes', 'Review project risks', 'Summarize open blockers'];\nexport default function PromptFilterTriggerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [selectedFilters, setSelectedFilters] = useState<string[]>([]);\n\tconst [filteredPrompts, setFilteredPrompts] = useState(prompts);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Prompt library</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<RovoFilterStyleButton\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((selected) => !selected)}\n\t\t\t\t\taria-label=\"Filter prompts\"\n\t\t\t\t>\n\t\t\t\t\t{isSelected ? 'Filters applied' : 'Filter prompts'}\n\t\t\t\t</RovoFilterStyleButton>\n\t\t\t\t{isSelected && <Text size=\"small\">Showing prompts for your selected use cases.</Text>}\n\t\t\t\t<RovoPromptFilterDropdown\n\t\t\t\t\tfilterOptions={filterOptions}\n\t\t\t\t\ttriggerText=\"Use case\"\n\t\t\t\t\ttitle=\"Filter prompts by use case\"\n\t\t\t\t\tfilterType=\"useCase\"\n\t\t\t\t\tselectedFilters={selectedFilters}\n\t\t\t\t\tonFilterChange={setSelectedFilters}\n\t\t\t\t/>\n\t\t\t\t<RovoConversationSearchPrompts\n\t\t\t\t\tprompts={prompts}\n\t\t\t\t\tonSearchChange={(_, filtered) => setFilteredPrompts(filtered)}\n\t\t\t\t/>\n\t\t\t\t<Text size=\"small\">{filteredPrompts.length} prompts match</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23396,7 +23826,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'prompts', 'card', 'prompt library'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { PromptCardComponent } from '@atlassian/rovo-conversation-actions/prompt-cards-grid';\nexport default function SelectablePromptCardExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<PromptCardComponent\n\t\t\t\t\tcard={{\n\t\t\t\t\t\tid: 'summarize-sprint-progress',\n\t\t\t\t\t\ttitle: 'Summarize sprint progress',\n\t\t\t\t\t\tprompt: 'Summarize the completed work, risks, and next steps for this sprint.',\n\t\t\t\t\t\tuseCase: 'Summarize',\n\t\t\t\t\t\troles: ['Program Management'],\n\t\t\t\t\t}}\n\t\t\t\t\tonClick={(card) => setSelectedPrompt(card.title)}\n\t\t\t\t/>\n\t\t\t\t{selectedPrompt ? <Text>Starting a chat with {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PromptCardComponent } from '@atlassian/rovo-conversation-actions/prompt-cards-grid';\nexport default function SelectablePromptCardExample(): React.JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<PromptCardComponent\n\t\t\t\t\tcard={{\n\t\t\t\t\t\tid: 'summarize-sprint-progress',\n\t\t\t\t\t\ttitle: 'Summarize sprint progress',\n\t\t\t\t\t\tprompt: 'Summarize the completed work, risks, and next steps for this sprint.',\n\t\t\t\t\t\tuseCase: 'Summarize',\n\t\t\t\t\t\troles: ['Program Management'],\n\t\t\t\t\t}}\n\t\t\t\t\tonClick={(card) => setSelectedPrompt(card.title)}\n\t\t\t\t/>\n\t\t\t\t{selectedPrompt ? <Text>Starting a chat with {selectedPrompt}</Text> : null}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23437,7 +23867,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agents', 'conversation starters', 'actions'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RovoAgentConversationStarters } from '@atlassian/rovo-conversation-actions/rovo-agent-conversation-starters';\nexport default function AgentConversationStartersExample(): React.JSX.Element {\n\tconst [selectedStarter, setSelectedStarter] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<RovoAgentConversationStarters\n\t\t\t\t\tagentId=\"release-planner\"\n\t\t\t\t\tconversationStarters={['Summarize this release', 'Find unresolved blockers']}\n\t\t\t\t\tonConversationStarterClick={(starter) => setSelectedStarter(starter.message)}\n\t\t\t\t/>\n\t\t\t\t{selectedStarter && <Text>Starting: {selectedStarter}</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoAgentConversationStarters } from '@atlassian/rovo-conversation-actions/rovo-agent-conversation-starters';\nexport default function AgentConversationStartersExample(): React.JSX.Element {\n\tconst [selectedStarter, setSelectedStarter] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<RovoAgentConversationStarters\n\t\t\t\t\tagentId=\"release-planner\"\n\t\t\t\t\tconversationStarters={['Summarize this release', 'Find unresolved blockers']}\n\t\t\t\t\tonConversationStarterClick={(starter) => setSelectedStarter(starter.message)}\n\t\t\t\t/>\n\t\t\t\t{selectedStarter && <Text>Starting: {selectedStarter}</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23493,7 +23923,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'conversation starter', 'pill', 'button'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport AiChatIcon from '@atlaskit/icon/core/ai-chat';\nimport type { IconProps } from '@atlaskit/icon/types';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RovoConversationStarterPill } from '@atlassian/rovo-conversation-actions/rovo-conversation-starters-ui';\nconst starters = ['Summarise this page', 'Find related work', 'Draft a status update'];\nconst StarterIcon = ({ label }: IconProps): React.JSX.Element => <AiChatIcon label={label} />;\nconst ConversationStarterPills = (): React.JSX.Element => {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Inline space=\"space.100\" shouldWrap>\n\t\t\t\t{starters.map((starter) => (\n\t\t\t\t\t<RovoConversationStarterPill\n\t\t\t\t\t\ticon={StarterIcon}\n\t\t\t\t\t\tkey={starter}\n\t\t\t\t\t\tonClick={() => setSelectedPrompt(starter)}\n\t\t\t\t\t>\n\t\t\t\t\t\t{starter}\n\t\t\t\t\t</RovoConversationStarterPill>\n\t\t\t\t))}\n\t\t\t</Inline>\n\t\t\t{selectedPrompt && <Text>Ready to send: {selectedPrompt}</Text>}\n\t\t</Stack>\n\t);\n};\nconst _default: React.JSX.Element = <ConversationStarterPills />;\nexport default _default;",
+			"import React, { useState } from 'react';\nimport AiChatIcon from '@atlaskit/icon/core/ai-chat';\nimport type { IconProps } from '@atlaskit/icon/types';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoConversationStarterPill } from '@atlassian/rovo-conversation-actions/rovo-conversation-starters-ui';\nconst starters = ['Summarise this page', 'Find related work', 'Draft a status update'];\nconst StarterIcon = ({ label }: IconProps): React.JSX.Element => <AiChatIcon label={label} />;\nconst ConversationStarterPills = (): React.JSX.Element => {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<string>();\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Inline space=\"space.100\" shouldWrap>\n\t\t\t\t{starters.map((starter) => (\n\t\t\t\t\t<RovoConversationStarterPill\n\t\t\t\t\t\ticon={StarterIcon}\n\t\t\t\t\t\tkey={starter}\n\t\t\t\t\t\tonClick={() => setSelectedPrompt(starter)}\n\t\t\t\t\t>\n\t\t\t\t\t\t{starter}\n\t\t\t\t\t</RovoConversationStarterPill>\n\t\t\t\t))}\n\t\t\t</Inline>\n\t\t\t{selectedPrompt && <Text>Ready to send: {selectedPrompt}</Text>}\n\t\t</Stack>\n\t);\n};\nconst _default: React.JSX.Element = <ConversationStarterPills />;\nexport default _default;",
 		],
 		props: [
 			{
@@ -23600,7 +24030,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'prompts', 'search', 'filter'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport RovoPromptFilterDropdown from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoFilterStyleButton } from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoConversationSearchPrompts } from '@atlassian/rovo-conversation-actions/search-prompts';\nconst filterOptions = [\n\t{ id: 'review', label: 'Review' },\n\t{ id: 'create', label: 'Create' },\n];\nconst prompts = ['Draft release notes', 'Review project risks', 'Summarize open blockers'];\nexport default function PromptFilterTriggerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [selectedFilters, setSelectedFilters] = useState<string[]>([]);\n\tconst [filteredPrompts, setFilteredPrompts] = useState(prompts);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Prompt library</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<RovoFilterStyleButton\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((selected) => !selected)}\n\t\t\t\t\taria-label=\"Filter prompts\"\n\t\t\t\t>\n\t\t\t\t\t{isSelected ? 'Filters applied' : 'Filter prompts'}\n\t\t\t\t</RovoFilterStyleButton>\n\t\t\t\t{isSelected && <Text size=\"small\">Showing prompts for your selected use cases.</Text>}\n\t\t\t\t<RovoPromptFilterDropdown\n\t\t\t\t\tfilterOptions={filterOptions}\n\t\t\t\t\ttriggerText=\"Use case\"\n\t\t\t\t\ttitle=\"Filter prompts by use case\"\n\t\t\t\t\tfilterType=\"useCase\"\n\t\t\t\t\tselectedFilters={selectedFilters}\n\t\t\t\t\tonFilterChange={setSelectedFilters}\n\t\t\t\t/>\n\t\t\t\t<RovoConversationSearchPrompts\n\t\t\t\t\tprompts={prompts}\n\t\t\t\t\tonSearchChange={(_, filtered) => setFilteredPrompts(filtered)}\n\t\t\t\t/>\n\t\t\t\t<Text size=\"small\">{filteredPrompts.length} prompts match</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport RovoPromptFilterDropdown from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoFilterStyleButton } from '@atlassian/rovo-conversation-actions/filter-prompts';\nimport { RovoConversationSearchPrompts } from '@atlassian/rovo-conversation-actions/search-prompts';\nconst filterOptions = [\n\t{ id: 'review', label: 'Review' },\n\t{ id: 'create', label: 'Create' },\n];\nconst prompts = ['Draft release notes', 'Review project risks', 'Summarize open blockers'];\nexport default function PromptFilterTriggerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [selectedFilters, setSelectedFilters] = useState<string[]>([]);\n\tconst [filteredPrompts, setFilteredPrompts] = useState(prompts);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Prompt library</Text>\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<RovoFilterStyleButton\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((selected) => !selected)}\n\t\t\t\t\taria-label=\"Filter prompts\"\n\t\t\t\t>\n\t\t\t\t\t{isSelected ? 'Filters applied' : 'Filter prompts'}\n\t\t\t\t</RovoFilterStyleButton>\n\t\t\t\t{isSelected && <Text size=\"small\">Showing prompts for your selected use cases.</Text>}\n\t\t\t\t<RovoPromptFilterDropdown\n\t\t\t\t\tfilterOptions={filterOptions}\n\t\t\t\t\ttriggerText=\"Use case\"\n\t\t\t\t\ttitle=\"Filter prompts by use case\"\n\t\t\t\t\tfilterType=\"useCase\"\n\t\t\t\t\tselectedFilters={selectedFilters}\n\t\t\t\t\tonFilterChange={setSelectedFilters}\n\t\t\t\t/>\n\t\t\t\t<RovoConversationSearchPrompts\n\t\t\t\t\tprompts={prompts}\n\t\t\t\t\tonSearchChange={(_, filtered) => setFilteredPrompts(filtered)}\n\t\t\t\t/>\n\t\t\t\t<Text size=\"small\">{filteredPrompts.length} prompts match</Text>\n\t\t\t</Inline>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23612,19 +24042,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string[]',
 			},
 		],
-	},
-	{
-		name: 'SharePromptModal',
-		package: '@atlassian/rovo-conversation-actions',
-		description: 'Shows prompt details and creates a shareable prompt-library link.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Pass the persisted share identifier and current privacy state in promptData.',
-		],
-		keywords: ['rovo', 'prompts', 'share prompt', 'modal'],
-		category: 'rovo',
-		examples: [],
-		props: [],
 	},
 	{
 		name: 'CreditsBanner',
@@ -23663,32 +24080,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'CreditsUiState',
-		package: '@atlassian/rovo-credits',
-		description: 'Public credits-ui-state entrypoint for @atlassian/rovo-credits.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public credits-ui-state entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
-		name: 'CreditsUiStateTypes',
-		package: '@atlassian/rovo-credits',
-		description: 'Public credits-ui-state/types entrypoint for @atlassian/rovo-credits.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the public credits-ui-state/types entrypoint when integrating this Rovo capability.',
-		],
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'CustomInputRovoDebugging',
 		package: '@atlassian/rovo-debugging-panel',
 		description: 'Collects a custom Rovo debugging input for an internal diagnostic workflow.',
@@ -23699,7 +24090,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'debugging', 'input'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { mockResponseRev1 } from '../src/common/ui/InformationModal/mocks';\nimport { CustomInputRovoDebugging } from '../src/ui/CustomInputRovoDebugging';\nconst styles = cssMap({\n\tcontainer: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\twidth: '100%',\n\t},\n});\nexport const DebugModalContentsExample = (): JSX.Element => {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<CustomInputRovoDebugging\n\t\t\t\t\tinitialValue={JSON.stringify(mockResponseRev1.items, null, 2)}\n\t\t\t\t\tdefaultOpenEditor={true}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n};\nexport default DebugModalContentsExample;",
+			"import { CustomInputRovoDebugging } from '@atlassian/rovo-debugging-panel/custom-input-rovo-debugging';\n// Render inside the application's existing IntlProvider and internal debugging gate.\n// Pass the diagnostic JSON collected by the application as initialValue.\nexport default function CustomDiagnostics(\n\tprops: React.ComponentProps<typeof CustomInputRovoDebugging>,\n): React.JSX.Element {\n\treturn <CustomInputRovoDebugging {...props} defaultOpenEditor />;\n}",
 		],
 		props: [
 			{
@@ -23724,7 +24115,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'debugging', 'diagnostics'],
 		category: 'rovo',
 		examples: [
-			"import { wb, type WorkbenchExample } from '@atlassian/workbench';\nimport DebugModalContentsExample from './01-debug-modal-contents';\nimport DebugModalContentsLoadingExample from './02-debug-modal-contents-loading';\nimport DebugModalContentsErrorExample from './03-debug-modal-contents-error';\nimport DebugModalContentsRev1Example from './04-debug-modal-contents-rev1';\nimport DebugModalContentsRev2Example from './04-debug-modal-contents-rev2';\nimport CustomInputDebuggingPanelExample from './05-custom-input-debugging-panel';\nexport const DebugModalContents: WorkbenchExample = wb(DebugModalContentsExample);\nexport const DebugModalContentsLoading: WorkbenchExample = wb(DebugModalContentsLoadingExample);\nexport const DebugModalContentsError: WorkbenchExample = wb(DebugModalContentsErrorExample);\nexport const DebugModalContentsRev1: WorkbenchExample = wb(DebugModalContentsRev1Example);\nexport const DebugModalContentsRev2: WorkbenchExample = wb(DebugModalContentsRev2Example);\nexport const CustomInputDebuggingPanel: WorkbenchExample = wb(CustomInputDebuggingPanelExample);",
+			"import { RovoDebuggingPanel } from '@atlassian/rovo-debugging-panel/rovo-debugging-panel';\n// Render inside the application's existing IntlProvider and internal debugging gate.\n// Supply the active conversation ID, service parameters, and modal open/close state.\nexport default function ConversationDiagnostics(\n\tprops: React.ComponentProps<typeof RovoDebuggingPanel>,\n): React.JSX.Element {\n\treturn <RovoDebuggingPanel {...props} />;\n}",
 		],
 		props: [
 			{
@@ -23784,7 +24175,23 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'collaborators',
+				type: 'readonly FomoCollaborator[]',
+				isRequired: true,
+			},
+			{
+				name: 'description',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'UiFomoNudgeIcon',
@@ -23797,7 +24204,13 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'collaborators',
+				type: 'readonly FomoCollaborator[]',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'ForYouPanel',
@@ -23861,7 +24274,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'for you', 'navigation', 'provider'],
 		category: 'rovo',
 		examples: [
-			'import { Box, Text } from \'@atlaskit/primitives/compiled\';\nimport { ForYouNavigationProvider } from \'@atlassian/rovo-for-you/navigation-store\';\nexport default function ForYouNavigationProviderExample(): React.JSX.Element {\n\treturn (\n\t\t<ForYouNavigationProvider>\n\t\t\t<Box padding="space.200">\n\t\t\t\t<Text as="p">For You content can navigate between its internal views.</Text>\n\t\t\t</Box>\n\t\t</ForYouNavigationProvider>\n\t);\n}',
+			"import { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ForYouNavigationProvider } from '@atlassian/rovo-for-you/navigation-store';\nexport default function ForYouNavigationProviderExample(): React.JSX.Element {\n\treturn (\n\t\t<ForYouNavigationProvider>\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">For You content can navigate between its internal views.</Text>\n\t\t\t</Box>\n\t\t</ForYouNavigationProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23880,7 +24293,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'insights', 'generative ai', 'indicator'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { GenerativeIndicator } from '@atlassian/rovo-growth-pulse/ui/generative-indicator';\nexport default function GenerativeIndicatorExample(): React.JSX.Element {\n\tconst [isRefreshing, setIsRefreshing] = useState(true);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t{isRefreshing && <GenerativeIndicator />}\n\t\t\t\t<Text>{isRefreshing ? 'Rovo is refreshing this insight' : 'Insight updated'}</Text>\n\t\t\t</Inline>\n\t\t\t<Button appearance=\"subtle\" onClick={() => setIsRefreshing((current) => !current)}>\n\t\t\t\tToggle refresh state\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { GenerativeIndicator } from '@atlassian/rovo-growth-pulse/ui/generative-indicator';\nexport default function GenerativeIndicatorExample(): React.JSX.Element {\n\tconst [isRefreshing, setIsRefreshing] = useState(true);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t{isRefreshing && <GenerativeIndicator />}\n\t\t\t\t<Text>{isRefreshing ? 'Rovo is refreshing this insight' : 'Insight updated'}</Text>\n\t\t\t</Inline>\n\t\t\t<Button appearance=\"subtle\" onClick={() => setIsRefreshing((current) => !current)}>\n\t\t\t\tToggle refresh state\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -23893,7 +24306,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'insights', 'banner', 'growth'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { InsightsBanner } from \'@atlassian/rovo-growth-pulse/ui/insights-banner\';\nconst InsightsBannerExample = (): React.JSX.Element => {\n\tconst [hasOpenedInsights, setHasOpenedInsights] = useState(false);\n\treturn (\n\t\t<Stack space="space.200">\n\t\t\t<InsightsBanner\n\t\t\t\tappearance="quickActions"\n\t\t\t\tgeneratedAt="2026-06-05T10:00:00Z"\n\t\t\t\tonClick={() => setHasOpenedInsights(true)}\n\t\t\t/>\n\t\t\t{hasOpenedInsights && <Text>Opening Rovo Insights</Text>}\n\t\t</Stack>\n\t);\n};\nconst _default: React.JSX.Element = (\n\t<IntlProvider locale="en">\n\t\t<InsightsBannerExample />\n\t</IntlProvider>\n);\nexport default _default;',
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { InsightsBanner } from '@atlassian/rovo-growth-pulse/ui/insights-banner';\nconst InsightsBannerExample = (): React.JSX.Element => {\n\tconst [hasOpenedInsights, setHasOpenedInsights] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<InsightsBanner\n\t\t\t\tappearance=\"quickActions\"\n\t\t\t\tgeneratedAt=\"2026-06-05T10:00:00Z\"\n\t\t\t\tonClick={() => setHasOpenedInsights(true)}\n\t\t\t/>\n\t\t\t{hasOpenedInsights && <Text>Opening Rovo Insights</Text>}\n\t\t</Stack>\n\t);\n};\nconst _default: React.JSX.Element = (\n\t<IntlProvider locale=\"en\">\n\t\t<InsightsBannerExample />\n\t</IntlProvider>\n);\nexport default _default;",
 		],
 		props: [
 			{
@@ -23926,7 +24339,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'insights', 'carousel', 'cards'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';\nimport TaskIcon from '@atlaskit/icon/core/task';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { InsightsCarousel } from '@atlassian/rovo-growth-pulse/ui/insights-carousel';\nimport type {\n\tInsightItem,\n\tInsightSubItem,\n} from '@atlassian/rovo-growth-pulse/ui/insights-feed/types';\nconst insights: InsightItem[] = [\n\t{\n\t\tid: 'waiting-on-you',\n\t\ttitle: 'Waiting on you',\n\t\tcategory: 'waiting-on-you',\n\t\ticon: TaskIcon,\n\t\ticonAppearance: 'yellowBold',\n\t\tcount: 1,\n\t\tsubItems: [\n\t\t\t{\n\t\t\t\tid: 'review-design',\n\t\t\t\ttitle: 'Review the chat design proposal',\n\t\t\t\tdescription: 'The design team is waiting for your feedback before the next review.',\n\t\t\t},\n\t\t],\n\t},\n\t{\n\t\tid: 'team-trending',\n\t\ttitle: \"What your team's into\",\n\t\tcategory: 'team-trending',\n\t\ticon: ChartTrendUpIcon,\n\t\ticonAppearance: 'purpleBold',\n\t\tcount: 1,\n\t\tsubItems: [\n\t\t\t{\n\t\t\t\tid: 'adoption',\n\t\t\t\ttitle: 'Rovo adoption is growing',\n\t\t\t\tdescription: 'Your team has opened 12 new conversations this week.',\n\t\t\t},\n\t\t],\n\t},\n];\nexport default function InsightsCarouselExample(): React.JSX.Element {\n\tconst [selectedInsight, setSelectedInsight] = useState<string | null>(null);\n\tconst handleCardClick = (_insight: InsightItem, subItem: InsightSubItem) => {\n\t\tsetSelectedInsight(subItem.title);\n\t};\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<InsightsCarousel\n\t\t\t\tinsights={insights}\n\t\t\t\tgeneratedDate=\"Generated today\"\n\t\t\t\tonCardClick={handleCardClick}\n\t\t\t\tonSeeAll={() => setSelectedInsight('All insights')}\n\t\t\t\ttestId=\"dashboard-insights\"\n\t\t\t/>\n\t\t\t{selectedInsight && (\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"semibold\">{selectedInsight}</Text>\n\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setSelectedInsight(null)}>\n\t\t\t\t\t\tClear selection\n\t\t\t\t\t</Button>\n\t\t\t\t</Stack>\n\t\t\t)}\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';\nimport TaskIcon from '@atlaskit/icon/core/task';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { InsightsCarousel } from '@atlassian/rovo-growth-pulse/ui/insights-carousel';\nimport type {\n\tInsightItem,\n\tInsightSubItem,\n} from '@atlassian/rovo-growth-pulse/ui/insights-feed/types';\nconst insights: InsightItem[] = [\n\t{\n\t\tid: 'waiting-on-you',\n\t\ttitle: 'Waiting on you',\n\t\tcategory: 'waiting-on-you',\n\t\ticon: TaskIcon,\n\t\ticonAppearance: 'yellowBold',\n\t\tcount: 1,\n\t\tsubItems: [\n\t\t\t{\n\t\t\t\tid: 'review-design',\n\t\t\t\ttitle: 'Review the chat design proposal',\n\t\t\t\tdescription: 'The design team is waiting for your feedback before the next review.',\n\t\t\t},\n\t\t],\n\t},\n\t{\n\t\tid: 'team-trending',\n\t\ttitle: \"What your team's into\",\n\t\tcategory: 'team-trending',\n\t\ticon: ChartTrendUpIcon,\n\t\ticonAppearance: 'purpleBold',\n\t\tcount: 1,\n\t\tsubItems: [\n\t\t\t{\n\t\t\t\tid: 'adoption',\n\t\t\t\ttitle: 'Rovo adoption is growing',\n\t\t\t\tdescription: 'Your team has opened 12 new conversations this week.',\n\t\t\t},\n\t\t],\n\t},\n];\nexport default function InsightsCarouselExample(): React.JSX.Element {\n\tconst [selectedInsight, setSelectedInsight] = useState<string | null>(null);\n\tconst handleCardClick = (_insight: InsightItem, subItem: InsightSubItem) => {\n\t\tsetSelectedInsight(subItem.title);\n\t};\n\treturn (\n\t\t<Stack space=\"space.150\">\n\t\t\t<InsightsCarousel\n\t\t\t\tinsights={insights}\n\t\t\t\tgeneratedDate=\"Generated today\"\n\t\t\t\tonCardClick={handleCardClick}\n\t\t\t\tonSeeAll={() => setSelectedInsight('All insights')}\n\t\t\t\ttestId=\"dashboard-insights\"\n\t\t\t/>\n\t\t\t{selectedInsight && (\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"semibold\">{selectedInsight}</Text>\n\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setSelectedInsight(null)}>\n\t\t\t\t\t\tClear selection\n\t\t\t\t\t</Button>\n\t\t\t\t</Stack>\n\t\t\t)}\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -24068,7 +24481,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'insights', 'pulse', 'tile'],
 		category: 'rovo',
 		examples: [
-			'import { Box, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { PulseTile } from \'@atlassian/rovo-growth-pulse/ui/pulse-tile\';\nconst DashboardInsights = (): React.JSX.Element => (\n\t<Box padding="space.200">\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="bold">Rovo Insights</Text>\n\t\t\t<Text color="color.text.subtlest">A summary of changes worth reviewing.</Text>\n\t\t\t<Text color="color.text.subtlest">Review new signals before the next planning session.</Text>\n\t\t\t<PulseTile testId="dashboard-pulse-tile" />\n\t\t</Stack>\n\t</Box>\n);\nexport default function PulseTileExample(): React.JSX.Element {\n\treturn <DashboardInsights />;\n}',
+			'import { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { PulseTile } from \'@atlassian/rovo-growth-pulse/ui/pulse-tile\';\nconst DashboardInsights = (): React.JSX.Element => (\n\t<Box padding="space.200">\n\t\t<Stack space="space.150">\n\t\t\t<Text weight="bold">Rovo Insights</Text>\n\t\t\t<Text color="color.text.subtlest">A summary of changes worth reviewing.</Text>\n\t\t\t<Text color="color.text.subtlest">Review new signals before the next planning session.</Text>\n\t\t\t<PulseTile testId="dashboard-pulse-tile" />\n\t\t</Stack>\n\t</Box>\n);\nexport default function PulseTileExample(): React.JSX.Element {\n\treturn <DashboardInsights />;\n}',
 		],
 		props: [
 			{
@@ -24182,7 +24595,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'link picker', 'search', 'connectors'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useRef, useState } from 'react';\nimport { jsx } from '@compiled/react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport RovoLinkPicker, { type OnSubmitParameter } from '@atlassian/rovo-link-picker/RovoLinkPicker';\nimport { MockConfigProvider } from '../mocks/providers/MockConfigProvider';\nimport { MockOrsProvider } from '../mocks/providers/MockOrsProvider';\nimport { MockRecentsProvider } from '../mocks/providers/MockRecentsProvider';\nimport { MockSearchProvider } from '../mocks/providers/MockSearchProvider';\nimport type { Providers } from '../src/common/providerTypes';\nconst styles = cssMap({\n\tcontainer: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tsection: {\n\t\tmarginTop: token('space.200'),\n\t},\n\tcaption: {\n\t\tmarginTop: token('space.050'),\n\t\tmarginBottom: token('space.100'),\n\t\tfont: token('font.body.small'),\n\t\tcolor: token('color.text.subtlest'),\n\t},\n\tpickerContainer: {\n\t\tmarginTop: token('space.100'),\n\t},\n\tsubmitted: {\n\t\tmarginTop: token('space.150'),\n\t\tfont: token('font.body.small'),\n\t\tcolor: token('color.text.subtle'),\n\t},\n});\nfunction useMockProviders(cloudId: string): Providers {\n\tconst providersRef = useRef<Providers | null>(null);\n\tif (!providersRef.current) {\n\t\tprovidersRef.current = {\n\t\t\tsearchProvider: new MockSearchProvider(),\n\t\t\trecentsProvider: new MockRecentsProvider(),\n\t\t\tconfigProvider: new MockConfigProvider(cloudId),\n\t\t};\n\t}\n\treturn providersRef.current;\n}\n/**\n * Demonstrates the \"search-only\" behavior in create mode, driven by the `disableManualUrlEntry` prop.\n *\n * When `disableManualUrlEntry` is set with no initial URL (create mode), the URL field becomes a\n * search-only input:\n * - The copy changes from \"Search recent links or paste a URL\" to \"Search or pick a result below to insert a link\".\n * - Typing a URL is treated as search text — it never enables the manual Insert button and\n *   pressing Enter does not submit a manual URL.\n * - Picking a search result inserts it (see the \"Last submitted\" line below the picker).\n *\n * Edit mode (an initial `url` is provided) keeps its existing manual URL save behavior.\n */\nexport default function RovoLinkPickerSearchOnlyExample(): React.JSX.Element {\n\tconst cloudId = 'example-cloud-id-12345';\n\tconst providers = useMockProviders(cloudId);\n\tconst [lastSubmitted, setLastSubmitted] = useState<OnSubmitParameter | null>(null);\n\treturn (\n\t\t<MockOrsProvider>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<Box xcss={styles.container}>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Create mode — search only</Heading>\n\t\t\t\t\t\t<Box xcss={styles.caption}>\n\t\t\t\t\t\t\tThe field reads “Search or pick a result below to insert a link”. Try typing{' '}\n\t\t\t\t\t\t\t<code>https://confluence.atlassian.com</code> — it is treated as a search term, the\n\t\t\t\t\t\t\tInsert button stays disabled, and Enter does not submit a manual URL. Pick a search\n\t\t\t\t\t\t\tresult to insert instead.\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={styles.pickerContainer}>\n\t\t\t\t\t\t\t<RovoLinkPicker\n\t\t\t\t\t\t\t\tcloudId={cloudId}\n\t\t\t\t\t\t\t\tdisableManualUrlEntry\n\t\t\t\t\t\t\t\tonSubmit={setLastSubmitted}\n\t\t\t\t\t\t\t\tonCancel={() => {}}\n\t\t\t\t\t\t\t\tproviders={providers}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t{lastSubmitted && (\n\t\t\t\t\t\t\t<Box xcss={styles.submitted}>\n\t\t\t\t\t\t\t\tLast submitted: <code>{lastSubmitted.url}</code> (title:{' '}\n\t\t\t\t\t\t\t\t{lastSubmitted.title ?? '—'}, inputMethod: {lastSubmitted.meta.inputMethod})\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</Box>\n\t\t\t\t</Box>\n\t\t\t</IntlProvider>\n\t\t</MockOrsProvider>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useRef, useState } from 'react';\nimport { jsx } from '@compiled/react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nimport RovoLinkPicker, { type OnSubmitParameter } from '@atlassian/rovo-link-picker/RovoLinkPicker';\nimport { MockConfigProvider } from '../mocks/providers/MockConfigProvider';\nimport { MockOrsProvider } from '../mocks/providers/MockOrsProvider';\nimport { MockRecentsProvider } from '../mocks/providers/MockRecentsProvider';\nimport { MockSearchProvider } from '../mocks/providers/MockSearchProvider';\nimport type { Providers } from '../src/common/providerTypes';\nconst styles = cssMap({\n\tcontainer: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tsection: {\n\t\tmarginTop: token('space.200'),\n\t},\n\tcaption: {\n\t\tmarginTop: token('space.050'),\n\t\tmarginBottom: token('space.100'),\n\t\tfont: token('font.body.small'),\n\t\tcolor: token('color.text.subtlest'),\n\t},\n\tpickerContainer: {\n\t\tmarginTop: token('space.100'),\n\t},\n\tsubmitted: {\n\t\tmarginTop: token('space.150'),\n\t\tfont: token('font.body.small'),\n\t\tcolor: token('color.text.subtle'),\n\t},\n});\nfunction useMockProviders(cloudId: string): Providers {\n\tconst providersRef = useRef<Providers | null>(null);\n\tif (!providersRef.current) {\n\t\tprovidersRef.current = {\n\t\t\tsearchProvider: new MockSearchProvider(),\n\t\t\trecentsProvider: new MockRecentsProvider(),\n\t\t\tconfigProvider: new MockConfigProvider(cloudId),\n\t\t};\n\t}\n\treturn providersRef.current;\n}\n/**\n * Demonstrates the \"search-only\" behavior in create mode, driven by the `disableManualUrlEntry` prop.\n *\n * When `disableManualUrlEntry` is set with no initial URL (create mode), the URL field becomes a\n * search-only input:\n * - The copy changes from \"Search recent links or paste a URL\" to \"Search or pick a result below to insert a link\".\n * - Typing a URL is treated as search text — it never enables the manual Insert button and\n *   pressing Enter does not submit a manual URL.\n * - Picking a search result inserts it (see the \"Last submitted\" line below the picker).\n *\n * Edit mode (an initial `url` is provided) keeps its existing manual URL save behavior.\n */\nexport default function RovoLinkPickerSearchOnlyExample(): React.JSX.Element {\n\tconst cloudId = 'example-cloud-id-12345';\n\tconst providers = useMockProviders(cloudId);\n\tconst [lastSubmitted, setLastSubmitted] = useState<OnSubmitParameter | null>(null);\n\treturn (\n\t\t<MockOrsProvider>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<Box xcss={styles.container}>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Create mode — search only</Heading>\n\t\t\t\t\t\t<Box xcss={styles.caption}>\n\t\t\t\t\t\t\tThe field reads “Search or pick a result below to insert a link”. Try typing{' '}\n\t\t\t\t\t\t\t<code>https://confluence.atlassian.com</code> — it is treated as a search term, the\n\t\t\t\t\t\t\tInsert button stays disabled, and Enter does not submit a manual URL. Pick a search\n\t\t\t\t\t\t\tresult to insert instead.\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={styles.pickerContainer}>\n\t\t\t\t\t\t\t<RovoLinkPicker\n\t\t\t\t\t\t\t\tcloudId={cloudId}\n\t\t\t\t\t\t\t\tdisableManualUrlEntry\n\t\t\t\t\t\t\t\tonSubmit={setLastSubmitted}\n\t\t\t\t\t\t\t\tonCancel={() => {}}\n\t\t\t\t\t\t\t\tproviders={providers}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t{lastSubmitted && (\n\t\t\t\t\t\t\t<Box xcss={styles.submitted}>\n\t\t\t\t\t\t\t\tLast submitted: <code>{lastSubmitted.url}</code> (title:{' '}\n\t\t\t\t\t\t\t\t{lastSubmitted.title ?? '—'}, inputMethod: {lastSubmitted.meta.inputMethod})\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</Box>\n\t\t\t\t</Box>\n\t\t\t</IntlProvider>\n\t\t</MockOrsProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -24311,7 +24724,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'memory', 'management', 'settings'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ManageMemoryContent } from '@atlassian/rovo-memories/ui/manage-memory-content';\nexport default function ManageMemoryContentExample(): React.JSX.Element {\n\tconst [allowMemory, setAllowMemory] = useState(true);\n\tconst [status, setStatus] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<ManageMemoryContent\n\t\t\t\t\tallowMemory={allowMemory}\n\t\t\t\t\tonAllowMemoryChange={async (enabled) => {\n\t\t\t\t\t\tsetAllowMemory(enabled);\n\t\t\t\t\t\tsetStatus(enabled ? 'Memory is on' : 'Memory is off');\n\t\t\t\t\t}}\n\t\t\t\t\tonManageMemories={() => setStatus('Opening saved memories')}\n\t\t\t\t\tonSeeWhatRovoKnows={() => setStatus('Opening Rovo knowledge')}\n\t\t\t\t\tonSeeMyActivity={() => setStatus('Opening work activity')}\n\t\t\t\t/>\n\t\t\t\t{status && <Text color=\"color.text.subtle\">{status}</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ManageMemoryContent } from '@atlassian/rovo-memories/ui/manage-memory-content';\nexport default function ManageMemoryContentExample(): React.JSX.Element {\n\tconst [allowMemory, setAllowMemory] = useState(true);\n\tconst [status, setStatus] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<ManageMemoryContent\n\t\t\t\t\tallowMemory={allowMemory}\n\t\t\t\t\tonAllowMemoryChange={async (enabled) => {\n\t\t\t\t\t\tsetAllowMemory(enabled);\n\t\t\t\t\t\tsetStatus(enabled ? 'Memory is on' : 'Memory is off');\n\t\t\t\t\t}}\n\t\t\t\t\tonManageMemories={() => setStatus('Opening saved memories')}\n\t\t\t\t\tonSeeWhatRovoKnows={() => setStatus('Opening Rovo knowledge')}\n\t\t\t\t\tonSeeMyActivity={() => setStatus('Opening work activity')}\n\t\t\t\t/>\n\t\t\t\t{status && <Text color=\"color.text.subtle\">{status}</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -24407,7 +24820,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'memory', 'list', 'management'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport MemoryList, { type MemoryItem } from '@atlassian/rovo-memories/ui/memory-list';\nconst initialMemories: MemoryItem[] = [\n\t{ id: 'response-style', content: 'Prefers concise responses with practical examples.' },\n\t{ id: 'language', content: 'Uses TypeScript and React for frontend work.' },\n];\nexport default function MemoryListExample(): React.JSX.Element {\n\tconst [memories, setMemories] = useState(initialMemories);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">What Rovo remembers</Text>\n\t\t\t\t\t<Text color=\"color.text.subtle\">\n\t\t\t\t\t\tReview or remove saved preferences from this settings surface.\n\t\t\t\t\t</Text>\n\t\t\t\t</Stack>\n\t\t\t\t<MemoryList\n\t\t\t\t\tmemories={memories}\n\t\t\t\t\tisSearchable\n\t\t\t\t\tonDelete={async (id) =>\n\t\t\t\t\t\tsetMemories((current) => current.filter((memory) => memory.id !== id))\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<Button appearance=\"subtle\" onClick={() => setMemories(initialMemories)}>\n\t\t\t\t\tRestore example memories\n\t\t\t\t</Button>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport MemoryList, { type MemoryItem } from '@atlassian/rovo-memories/ui/memory-list';\nconst initialMemories: MemoryItem[] = [\n\t{ id: 'response-style', content: 'Prefers concise responses with practical examples.' },\n\t{ id: 'language', content: 'Uses TypeScript and React for frontend work.' },\n];\nexport default function MemoryListExample(): React.JSX.Element {\n\tconst [memories, setMemories] = useState(initialMemories);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">What Rovo remembers</Text>\n\t\t\t\t\t<Text color=\"color.text.subtle\">\n\t\t\t\t\t\tReview or remove saved preferences from this settings surface.\n\t\t\t\t\t</Text>\n\t\t\t\t</Stack>\n\t\t\t\t<MemoryList\n\t\t\t\t\tmemories={memories}\n\t\t\t\t\tisSearchable\n\t\t\t\t\tonDelete={async (id) =>\n\t\t\t\t\t\tsetMemories((current) => current.filter((memory) => memory.id !== id))\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<Button appearance=\"subtle\" onClick={() => setMemories(initialMemories)}>\n\t\t\t\t\tRestore example memories\n\t\t\t\t</Button>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -24603,7 +25016,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'memory', 'work activity', 'profile'],
 		category: 'rovo',
 		examples: [
-			'import { IntlProvider } from \'react-intl\';\nimport { Box, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport WorkProfileScreen from \'@atlassian/rovo-memories/ui/work-activity-subscreen\';\nexport default function WorkProfileScreenExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Box padding="space.300" backgroundColor="color.background.neutral">\n\t\t\t\t<Stack space="space.200">\n\t\t\t\t\t<Stack space="space.050">\n\t\t\t\t\t\t<Text weight="bold">Your work activity</Text>\n\t\t\t\t\t\t<Text color="color.text.subtle">\n\t\t\t\t\t\t\tSee the recent activity that can help Rovo personalise responses.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t\t<WorkProfileScreen seeAllActivityHref="/activity" />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport WorkProfileScreen from \'@atlassian/rovo-memories/ui/work-activity-subscreen\';\nexport default function WorkProfileScreenExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Box padding="space.300" backgroundColor="color.background.neutral">\n\t\t\t\t<Stack space="space.200">\n\t\t\t\t\t<Stack space="space.050">\n\t\t\t\t\t\t<Text weight="bold">Your work activity</Text>\n\t\t\t\t\t\t<Text color="color.text.subtle">\n\t\t\t\t\t\t\tSee the recent activity that can help Rovo personalise responses.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t\t<WorkProfileScreen seeAllActivityHref="/activity" />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}',
 		],
 		props: [
 			{
@@ -24624,12 +25037,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'navigation', 'error boundary', 'recovery'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { Box, Pressable, Text } from \'@atlaskit/primitives/compiled\';\nimport { ErrorBoundary } from \'@atlassian/rovo-navigation/error-boundary\';\nexport default function NavigationErrorBoundaryExample(): React.JSX.Element {\n\tconst [isAvailable, setIsAvailable] = useState(true);\n\treturn (\n\t\t<ErrorBoundary experienceName="aiMateLoadPanel" onClose={() => setIsAvailable(false)}>\n\t\t\t{isAvailable ? (\n\t\t\t\t<Box padding="space.200">\n\t\t\t\t\t<Text as="p">Rovo navigation content</Text>\n\t\t\t\t</Box>\n\t\t\t) : (\n\t\t\t\t<Pressable onClick={() => setIsAvailable(true)}>Open navigation</Pressable>\n\t\t\t)}\n\t\t</ErrorBoundary>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Pressable } from '@atlaskit/primitives/compiled/pressable';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ErrorBoundary } from '@atlassian/rovo-navigation/error-boundary';\nexport default function NavigationErrorBoundaryExample(): React.JSX.Element {\n\tconst [isAvailable, setIsAvailable] = useState(true);\n\treturn (\n\t\t<ErrorBoundary experienceName=\"aiMateLoadPanel\" onClose={() => setIsAvailable(false)}>\n\t\t\t{isAvailable ? (\n\t\t\t\t<Box padding=\"space.200\">\n\t\t\t\t\t<Text as=\"p\">Rovo navigation content</Text>\n\t\t\t\t</Box>\n\t\t\t) : (\n\t\t\t\t<Pressable onClick={() => setIsAvailable(true)}>Open navigation</Pressable>\n\t\t\t)}\n\t\t</ErrorBoundary>\n\t);\n}",
 		],
 		props: [
 			{
 				name: 'experienceName',
-				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 144 more ... | "aiMateAifcDeepLinkLaunch"',
+				type: '"aiMateLoadPanel" | "aiMateLoadPanelComposableEditor" | "aiMateLoadInlineComposableEditor" | "aiMateLoadBrowseAgents" | "aiMateSearchBrowseAgents" | "aiMateLoadCreateAgent" | ... 150 more ... | "aiMateAifcDeepLinkLaunch"',
 				isRequired: true,
 			},
 			{
@@ -24834,7 +25247,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'navigation', 'agents', 'menu items'],
 		category: 'rovo',
 		examples: [
-			"import React, { useCallback, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box, Text } from '@atlaskit/primitives/compiled';\nimport { AgentsMenuItems } from '@atlassian/rovo-navigation/agents-list-items';\nexport default function AgentsMenuItemsExample(): React.JSX.Element {\n\tconst [destination, setDestination] = useState('agents');\n\tconst handleSelectAgent = useCallback(() => setDestination('agent'), []);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">Current destination: {destination}</Text>\n\t\t\t\t<AgentsMenuItems\n\t\t\t\t\tagents={[]}\n\t\t\t\t\tcloudId=\"current-site\"\n\t\t\t\t\tisADSNavigationEnabled\n\t\t\t\t\tonSelectAgent={handleSelectAgent}\n\t\t\t\t\tonCreateAgentClick={() => setDestination('create-agent')}\n\t\t\t\t\tonViewAllAgentsClick={() => setDestination('all-agents')}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useCallback, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AgentsMenuItems } from '@atlassian/rovo-navigation/agents-list-items';\nexport default function AgentsMenuItemsExample(): React.JSX.Element {\n\tconst [destination, setDestination] = useState('agents');\n\tconst handleSelectAgent = useCallback(() => setDestination('agent'), []);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">Current destination: {destination}</Text>\n\t\t\t\t<AgentsMenuItems\n\t\t\t\t\tagents={[]}\n\t\t\t\t\tcloudId=\"current-site\"\n\t\t\t\t\tisADSNavigationEnabled\n\t\t\t\t\tonSelectAgent={handleSelectAgent}\n\t\t\t\t\tonCreateAgentClick={() => setDestination('create-agent')}\n\t\t\t\t\tonViewAllAgentsClick={() => setDestination('all-agents')}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -25273,7 +25686,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'personalization', 'response', 'settings'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { ResponseWritingStyleCard } from '@atlassian/rovo-personalization/ui/response-writing-style-card';\nconst styles = cssMap({ container: { maxWidth: '640px' } });\nexport default function ResponseWritingStyleCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ResponseWritingStyleCard onEdit={() => {}} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { ResponseWritingStyleCard } from '@atlassian/rovo-personalization/ui/response-writing-style-card';\nconst styles = cssMap({ container: { maxWidth: '640px' } });\nexport default function ResponseWritingStyleCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ResponseWritingStyleCard onEdit={() => {}} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -25302,7 +25715,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'response style', 'custom instructions', 'settings'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport type { RovoResponseTone } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nimport { WritingStyleSettingsShortCutCard } from '@atlassian/rovo-personalization/ui/writing-style-settings-short-cut-card';\nconst styles = cssMap({ container: { maxWidth: '420px' } });\nexport default function WritingStyleSettingsShortCutCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<WritingStyleSettingsShortCutCard\n\t\t\t\t\tselectedStyleId={'professional' satisfies RovoResponseTone}\n\t\t\t\t\tonDismiss={() => {}}\n\t\t\t\t\tonSettingsClick={() => {}}\n\t\t\t\t\tonStyleSelect={() => {}}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport type { RovoResponseTone } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nimport { WritingStyleSettingsShortCutCard } from '@atlassian/rovo-personalization/ui/writing-style-settings-short-cut-card';\nconst styles = cssMap({ container: { maxWidth: '420px' } });\nexport default function WritingStyleSettingsShortCutCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<WritingStyleSettingsShortCutCard\n\t\t\t\t\tselectedStyleId={'professional' satisfies RovoResponseTone}\n\t\t\t\t\tonDismiss={() => {}}\n\t\t\t\t\tonSettingsClick={() => {}}\n\t\t\t\t\tonStyleSelect={() => {}}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -25328,7 +25741,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'writing style', 'personalization', 'card'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { ResponseWritingStyleCard } from '@atlassian/rovo-personalization/ui/response-writing-style-card';\nconst styles = cssMap({ container: { maxWidth: '640px' } });\nexport default function ResponseWritingStyleCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ResponseWritingStyleCard onEdit={() => {}} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { ResponseWritingStyleCard } from '@atlassian/rovo-personalization/ui/response-writing-style-card';\nconst styles = cssMap({ container: { maxWidth: '640px' } });\nexport default function ResponseWritingStyleCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ResponseWritingStyleCard onEdit={() => {}} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -25351,7 +25764,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'writing style', 'personalization', 'subscreen'],
 		category: 'rovo',
 		examples: [
-			'import { IntlProvider } from \'react-intl\';\nimport { Box, Text } from \'@atlaskit/primitives/compiled\';\nimport { ResponseWritingStyleSubScreen } from \'@atlassian/rovo-personalization/ui/response-writing-style-subscreen\';\nexport default function ResponseWritingStyleSubScreenExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<ResponseWritingStyleSubScreen\n\t\t\t\tresponseStyleContent={\n\t\t\t\t\t<Box padding="space.200">\n\t\t\t\t\t\t<Text as="p">Choose a concise response style for everyday questions.</Text>\n\t\t\t\t\t</Box>\n\t\t\t\t}\n\t\t\t\twritingStyleContent={\n\t\t\t\t\t<Box padding="space.200">\n\t\t\t\t\t\t<Text as="p">Use your saved writing preferences when Rovo drafts content.</Text>\n\t\t\t\t\t</Box>\n\t\t\t\t}\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { ResponseWritingStyleSubScreen } from \'@atlassian/rovo-personalization/ui/response-writing-style-subscreen\';\nexport default function ResponseWritingStyleSubScreenExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<ResponseWritingStyleSubScreen\n\t\t\t\tresponseStyleContent={\n\t\t\t\t\t<Box padding="space.200">\n\t\t\t\t\t\t<Text as="p">Choose a concise response style for everyday questions.</Text>\n\t\t\t\t\t</Box>\n\t\t\t\t}\n\t\t\t\twritingStyleContent={\n\t\t\t\t\t<Box padding="space.200">\n\t\t\t\t\t\t<Text as="p">Use your saved writing preferences when Rovo drafts content.</Text>\n\t\t\t\t\t</Box>\n\t\t\t\t}\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}',
 		],
 		props: [
 			{
@@ -25387,7 +25800,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'writing style', 'settings', 'shortcut'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport type { RovoResponseTone } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nimport { WritingStyleSettingsShortCutCard } from '@atlassian/rovo-personalization/ui/writing-style-settings-short-cut-card';\nconst styles = cssMap({ container: { maxWidth: '420px' } });\nexport default function WritingStyleSettingsShortCutCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<WritingStyleSettingsShortCutCard\n\t\t\t\t\tselectedStyleId={'professional' satisfies RovoResponseTone}\n\t\t\t\t\tonDismiss={() => {}}\n\t\t\t\t\tonSettingsClick={() => {}}\n\t\t\t\t\tonStyleSelect={() => {}}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport type { RovoResponseTone } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nimport { WritingStyleSettingsShortCutCard } from '@atlassian/rovo-personalization/ui/writing-style-settings-short-cut-card';\nconst styles = cssMap({ container: { maxWidth: '420px' } });\nexport default function WritingStyleSettingsShortCutCardExample(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<WritingStyleSettingsShortCutCard\n\t\t\t\t\tselectedStyleId={'professional' satisfies RovoResponseTone}\n\t\t\t\t\tonDismiss={() => {}}\n\t\t\t\t\tonSettingsClick={() => {}}\n\t\t\t\t\tonStyleSelect={() => {}}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -25530,7 +25943,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'ariaHasPopup',
-				type: 'boolean | "dialog"',
+				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree"',
 				description: 'Describes the popup exposed by the banner.',
 			},
 			{
@@ -25763,7 +26176,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'follow-up', 'link', 'action'],
 		category: 'rovo',
 		examples: [
-			"import React, { useCallback } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { ActionableFollowUpLink } from '@atlassian/rovo-platform-ui-components/actionable-follow-up-link';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tpaddingBlock: token('space.200'),\n\t\tpaddingInline: token('space.200'),\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t},\n});\nexport default function (): React.JSX.Element {\n\tconst handleClick = useCallback((_prompt: string) => {\n\t\t// Intentionally empty for package example.\n\t}, []);\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Text size=\"small\">If you want, I can:</Text>\n\t\t\t\t<ActionableFollowUpLink onClick={() => handleClick('Convert this to FAQ')}>\n\t\t\t\t\tConvert this to FAQ\n\t\t\t\t</ActionableFollowUpLink>\n\t\t\t\t<ActionableFollowUpLink onClick={() => handleClick('Add more target personas')}>\n\t\t\t\t\tAdd more target personas\n\t\t\t\t</ActionableFollowUpLink>\n\t\t\t\t<ActionableFollowUpLink onClick={() => handleClick('Assign a DRI per section')}>\n\t\t\t\t\tAssign a DRI per section\n\t\t\t\t</ActionableFollowUpLink>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}",
+			"import React, { useCallback } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { ActionableFollowUpLink } from '@atlassian/rovo-platform-ui-components/actionable-follow-up-link';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tpaddingBlock: token('space.200'),\n\t\tpaddingInline: token('space.200'),\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t},\n});\nexport default function (): React.JSX.Element {\n\tconst handleClick = useCallback((_prompt: string) => {\n\t\t// Intentionally empty for package example.\n\t}, []);\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Text size=\"small\">If you want, I can:</Text>\n\t\t\t\t<ActionableFollowUpLink onClick={() => handleClick('Convert this to FAQ')}>\n\t\t\t\t\tConvert this to FAQ\n\t\t\t\t</ActionableFollowUpLink>\n\t\t\t\t<ActionableFollowUpLink onClick={() => handleClick('Add more target personas')}>\n\t\t\t\t\tAdd more target personas\n\t\t\t\t</ActionableFollowUpLink>\n\t\t\t\t<ActionableFollowUpLink onClick={() => handleClick('Assign a DRI per section')}>\n\t\t\t\t\tAssign a DRI per section\n\t\t\t\t</ActionableFollowUpLink>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -25810,7 +26223,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'filter', 'application', 'selector'],
 		category: 'filters',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { AppFilterSelector } from '@atlassian/rovo-platform-ui-components/app-filter';\nconst connectedApps = [\n\t{ id: 'jira', name: 'Jira', icon: <Text>J</Text>, isSelected: true, isConnected: true },\n\t{\n\t\tid: 'confluence',\n\t\tname: 'Confluence',\n\t\ticon: <Text>C</Text>,\n\t\tisSelected: false,\n\t\tisConnected: true,\n\t},\n];\nexport default function AppFilterSelectorExample(): React.JSX.Element {\n\tconst [apps, setApps] = useState(connectedApps);\n\tconst [searchTerm, setSearchTerm] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<AppFilterSelector\n\t\t\t\tconnectedApps={apps}\n\t\t\t\tisLoading={false}\n\t\t\t\tsearchTerm={searchTerm}\n\t\t\t\tonSearchChange={setSearchTerm}\n\t\t\t\tonAppToggle={(id, isSelected) =>\n\t\t\t\t\tsetApps((current) => current.map((app) => (app.id === id ? { ...app, isSelected } : app)))\n\t\t\t\t}\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AppFilterSelector } from '@atlassian/rovo-platform-ui-components/app-filter';\nconst connectedApps = [\n\t{ id: 'jira', name: 'Jira', icon: <Text>J</Text>, isSelected: true, isConnected: true },\n\t{\n\t\tid: 'confluence',\n\t\tname: 'Confluence',\n\t\ticon: <Text>C</Text>,\n\t\tisSelected: false,\n\t\tisConnected: true,\n\t},\n];\nexport default function AppFilterSelectorExample(): React.JSX.Element {\n\tconst [apps, setApps] = useState(connectedApps);\n\tconst [searchTerm, setSearchTerm] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<AppFilterSelector\n\t\t\t\tconnectedApps={apps}\n\t\t\t\tisLoading={false}\n\t\t\t\tsearchTerm={searchTerm}\n\t\t\t\tonSearchChange={setSearchTerm}\n\t\t\t\tonAppToggle={(id, isSelected) =>\n\t\t\t\t\tsetApps((current) => current.map((app) => (app.id === id ? { ...app, isSelected } : app)))\n\t\t\t\t}\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26012,7 +26425,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'filter', 'tag', 'application'],
 		category: 'filters',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { AppFilterTag } from '@atlassian/rovo-platform-ui-components/app-filter/tag';\nexport default function AppFilterTagExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<AppFilterTag\n\t\t\t\tselectedAppIcons={[{ id: 'jira', icon: <span aria-hidden=\"true\">J</span> }]}\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonOpenChange={setIsOpen}\n\t\t\t>\n\t\t\t\t<span>Filter by app</span>\n\t\t\t</AppFilterTag>\n\t\t\t<Text>{isOpen ? 'Choose a connected app' : 'Showing Jira results'}</Text>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AppFilterTag } from '@atlassian/rovo-platform-ui-components/app-filter/tag';\nexport default function AppFilterTagExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<AppFilterTag\n\t\t\t\tselectedAppIcons={[{ id: 'jira', icon: <span aria-hidden=\"true\">J</span> }]}\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonOpenChange={setIsOpen}\n\t\t\t>\n\t\t\t\t<span>Filter by app</span>\n\t\t\t</AppFilterTag>\n\t\t\t<Text>{isOpen ? 'Choose a connected app' : 'Showing Jira results'}</Text>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26384,7 +26797,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'listEntities',
-				type: '(query: string, types: ConfluenceContentType[], spaceId?: string) => Promise<ConfluenceEntityResult[]>',
+				type: '(query: string, types: ConfluenceContentType[], spaceId?: string, requestOptions?: { throwOnError?: boolean; }) => Promise<ConfluenceEntityResult[]>',
 				isRequired: true,
 			},
 			{
@@ -26938,7 +27351,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['card', 'grid', 'layout'],
 		category: 'layout',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Pressable, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { CardGrid } from '@atlassian/rovo-platform-ui-components/card-grid';\nexport default function CardGridExample(): React.JSX.Element {\n\tconst [selectedCard, setSelectedCard] = useState('');\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<CardGrid columns={2}>\n\t\t\t\t<Pressable onClick={() => setSelectedCard('Release risks')}>Release risks</Pressable>\n\t\t\t\t<Pressable onClick={() => setSelectedCard('Customer feedback')}>\n\t\t\t\t\tCustomer feedback\n\t\t\t\t</Pressable>\n\t\t\t</CardGrid>\n\t\t\t<Text>{selectedCard ? `Selected: ${selectedCard}` : 'Select an insight collection'}</Text>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Pressable } from '@atlaskit/primitives/compiled/pressable';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CardGrid } from '@atlassian/rovo-platform-ui-components/card-grid';\nexport default function CardGridExample(): React.JSX.Element {\n\tconst [selectedCard, setSelectedCard] = useState('');\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<CardGrid columns={2}>\n\t\t\t\t<Pressable onClick={() => setSelectedCard('Release risks')}>Release risks</Pressable>\n\t\t\t\t<Pressable onClick={() => setSelectedCard('Customer feedback')}>\n\t\t\t\t\tCustomer feedback\n\t\t\t\t</Pressable>\n\t\t\t</CardGrid>\n\t\t\t<Text>{selectedCard ? `Selected: ${selectedCard}` : 'Select an insight collection'}</Text>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26965,7 +27378,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'conversation', 'list'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ChatListItem } from '@atlassian/rovo-platform-ui-components/chat-list/ChatListItem';\nexport default function ChatListItemExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatListItem\n\t\t\t\t\tid=\"project-planning\"\n\t\t\t\t\tname=\"Project planning\"\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonSelect={() => setIsSelected(true)}\n\t\t\t\t\trenderContainer={({ children }) => <Box>{children}</Box>}\n\t\t\t\t/>\n\t\t\t\t<Text>{isSelected ? 'Project planning is open' : 'Select a conversation to open it'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ChatListItem } from '@atlassian/rovo-platform-ui-components/chat-list/ChatListItem';\nexport default function ChatListItemExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<ChatListItem\n\t\t\t\t\tid=\"project-planning\"\n\t\t\t\t\tname=\"Project planning\"\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonSelect={() => setIsSelected(true)}\n\t\t\t\t\trenderContainer={({ children }) => <Box>{children}</Box>}\n\t\t\t\t/>\n\t\t\t\t<Text>{isSelected ? 'Project planning is open' : 'Select a conversation to open it'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -27100,7 +27513,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'research', 'steps', 'sources', 'trace'],
 		category: 'rovo',
 		examples: [
-			"import { Inline, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tCompactResearchSteps,\n\ttype CompactResearchStep,\n} from '@atlassian/rovo-platform-ui-components/compact-research-steps';\nconst steps: CompactResearchStep[] = [\n\t{\n\t\tstepId: 'search',\n\t\ttitle: 'Search engineering sources',\n\t\tseparatedContent: ['Found the latest architecture decision and incident review.'],\n\t\tcompleted: true,\n\t\tdocuments: [\n\t\t\t{ title: 'Architecture decisions', url: 'https://hello.atlassian.net/wiki/spaces/ENG' },\n\t\t],\n\t},\n\t{\n\t\tstepId: 'summarize',\n\t\ttitle: 'Summarize the findings',\n\t\tseparatedContent: ['Comparing the source material before drafting the answer.'],\n\t},\n];\nexport default function CompactResearchTraceExample(): React.JSX.Element {\n\treturn (\n\t\t<CompactResearchSteps\n\t\t\tsteps={steps}\n\t\t\tresponseStreaming={false}\n\t\t\tresearchCompleted\n\t\t\trenderSubstep={(substep) => (\n\t\t\t\t<Inline space=\"space.050\">\n\t\t\t\t\t<Text>{substep}</Text>\n\t\t\t\t</Inline>\n\t\t\t)}\n\t\t\tonTraceInteraction={() => {}}\n\t\t/>\n\t);\n}",
+			"import { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tCompactResearchSteps,\n\ttype CompactResearchStep,\n} from '@atlassian/rovo-platform-ui-components/compact-research-steps';\nconst steps: CompactResearchStep[] = [\n\t{\n\t\tstepId: 'search',\n\t\ttitle: 'Search engineering sources',\n\t\tseparatedContent: ['Found the latest architecture decision and incident review.'],\n\t\tcompleted: true,\n\t\tdocuments: [\n\t\t\t{ title: 'Architecture decisions', url: 'https://hello.atlassian.net/wiki/spaces/ENG' },\n\t\t],\n\t},\n\t{\n\t\tstepId: 'summarize',\n\t\ttitle: 'Summarize the findings',\n\t\tseparatedContent: ['Comparing the source material before drafting the answer.'],\n\t},\n];\nexport default function CompactResearchTraceExample(): React.JSX.Element {\n\treturn (\n\t\t<CompactResearchSteps\n\t\t\tsteps={steps}\n\t\t\tresponseStreaming={false}\n\t\t\tresearchCompleted\n\t\t\trenderSubstep={(substep) => (\n\t\t\t\t<Inline space=\"space.050\">\n\t\t\t\t\t<Text>{substep}</Text>\n\t\t\t\t</Inline>\n\t\t\t)}\n\t\t\tonTraceInteraction={() => {}}\n\t\t/>\n\t);\n}",
 		],
 		props: [
 			{
@@ -27159,7 +27572,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'research', 'steps', 'refresh'],
 		category: 'rovo',
 		examples: [
-			"import { Text } from '@atlaskit/primitives/compiled';\nimport { ResearchStepItemListRefresh } from '@atlassian/rovo-platform-ui-components/compact-research-steps/ResearchStepItemListRefresh';\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<ResearchStepItemListRefresh\n\t\t\tstep={{\n\t\t\t\tstepId: 'step-1',\n\t\t\t\ttitle: 'Searching for relevant information',\n\t\t\t\tseparatedContent: ['Searching project documentation'],\n\t\t\t\tcompleted: false,\n\t\t\t}}\n\t\t\tisLastItem\n\t\t\tisInProgress\n\t\t\trenderSubstep={(substep) => <Text size=\"small\">{substep}</Text>}\n\t\t/>\n\t);\n}",
+			"import { Text } from '@atlaskit/primitives/compiled/text';\nimport { ResearchStepItemListRefresh } from '@atlassian/rovo-platform-ui-components/compact-research-steps/ResearchStepItemListRefresh';\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<ResearchStepItemListRefresh\n\t\t\tstep={{\n\t\t\t\tstepId: 'step-1',\n\t\t\t\ttitle: 'Searching for relevant information',\n\t\t\t\tseparatedContent: ['Searching project documentation'],\n\t\t\t\tcompleted: false,\n\t\t\t}}\n\t\t\tisLastItem\n\t\t\tisInProgress\n\t\t\trenderSubstep={(substep) => <Text size=\"small\">{substep}</Text>}\n\t\t/>\n\t);\n}",
 		],
 		props: [
 			{
@@ -28640,7 +29053,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'directory', 'footer'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { DirectoryFooter } from '@atlassian/rovo-platform-ui-components/directory-footer';\nexport default function DirectoryFooterExample(): React.JSX.Element {\n\tconst [hasSubmitted, setHasSubmitted] = useState(false);\n\tconst [isCancelled, setIsCancelled] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<DirectoryFooter\n\t\t\t\t\tisSubmitEnabled={!isCancelled}\n\t\t\t\t\tonCancel={() => setIsCancelled(true)}\n\t\t\t\t\tonSubmit={() => setHasSubmitted(true)}\n\t\t\t\t\tstatusText={isCancelled ? 'Creation cancelled' : 'All required fields are complete'}\n\t\t\t\t/>\n\t\t\t\t{hasSubmitted && <Text color=\"color.text.success\">Directory entry created.</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { DirectoryFooter } from '@atlassian/rovo-platform-ui-components/directory-footer';\nexport default function DirectoryFooterExample(): React.JSX.Element {\n\tconst [hasSubmitted, setHasSubmitted] = useState(false);\n\tconst [isCancelled, setIsCancelled] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<DirectoryFooter\n\t\t\t\t\tisSubmitEnabled={!isCancelled}\n\t\t\t\t\tonCancel={() => setIsCancelled(true)}\n\t\t\t\t\tonSubmit={() => setHasSubmitted(true)}\n\t\t\t\t\tstatusText={isCancelled ? 'Creation cancelled' : 'All required fields are complete'}\n\t\t\t\t/>\n\t\t\t\t{hasSubmitted && <Text color=\"color.text.success\">Directory entry created.</Text>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -28707,12 +29120,25 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'actions',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: '',
+			},
+			{
+				name: 'backLabel',
+				type: 'string',
+			},
+			{
 				name: 'description',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'navigateBackAction',
 				type: '{ icon?: React.ComponentType<NewCoreIconProps>; label: string; onClick: () => void; }',
+			},
+			{
+				name: 'onBack',
+				type: '() => void',
 			},
 			{
 				name: 'title',
@@ -28936,7 +29362,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['browse', 'search', 'inline', 'list'],
 		category: 'navigation',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useMemo, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport {\n\ttype BrowseItem,\n\tfilterBrowseItems,\n\tInlineBrowse,\n\ttype InlineBrowseIconProps,\n} from '@atlassian/rovo-platform-ui-components/inline-browse';\nimport { getIconColor } from '@atlassian/rovo-platform-ui-components/skills/skill-colors';\nimport {\n\tDefaultSkillIcon,\n\tskillIconMap,\n\ttype SkillIconName,\n} from '@atlassian/rovo-platform-ui-components/skills/skill-icons';\nimport { SkillHoverCardContent } from '@atlassian/rovo-platform-ui-components/skills/SkillHoverCardContent';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '400px',\n\t\twidth: '320px',\n\t\tborder: `${token('border.width')} solid ${token('color.border')}`,\n\t},\n\tinnerWrapper: {\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\theight: '100%',\n\t\twidth: '100%',\n\t\toverflowX: 'hidden',\n\t},\n\theaderContainer: {\n\t\tpaddingTop: token('space.250'),\n\t\tpaddingRight: token('space.250'),\n\t\tpaddingBottom: token('space.250'),\n\t\tpaddingLeft: token('space.250'),\n\t},\n\tsearchBar: {\n\t\tpaddingLeft: token('space.250'),\n\t\tpaddingRight: token('space.250'),\n\t},\n\tsearchInput: {\n\t\twidth: '100%',\n\t\tboxSizing: 'border-box',\n\t},\n});\nconst mockBrowseItems: BrowseItem[] = [\n\t{\n\t\tid: 'summarize',\n\t\tname: 'Summarize',\n\t\tdescription: 'Generate a concise summary of the selected content or conversation.',\n\t\ticonName: 'ai-generative-text-summary',\n\t\ticonColor: getIconColor('BLUE'),\n\t\tproduct: 'Jira',\n\t},\n\t{\n\t\tid: 'create-task',\n\t\tname: 'Create task',\n\t\tdescription: 'Create a new task or issue from the current context.',\n\t\ticonName: 'work-item',\n\t\ticonColor: getIconColor('GREEN'),\n\t\tproduct: 'Jira',\n\t},\n\t{\n\t\tid: 'search',\n\t\tname: 'Search',\n\t\tdescription: 'Search across your workspace and connected apps.',\n\t\ticonName: 'search',\n\t\ticonColor: getIconColor('PURPLE'),\n\t\tproduct: 'Confluence',\n\t},\n];\nfunction InlineBrowseExampleInner(): React.ReactElement {\n\tconst [searchValue, setSearchValue] = useState('');\n\tconst filteredItems = useMemo(\n\t\t() => filterBrowseItems(mockBrowseItems, searchValue),\n\t\t[searchValue],\n\t);\n\tconst handleSelect = () => {};\n\tconst handleClose = () => {};\n\tconst renderHoverCardContent = (browseItem: BrowseItem) => {\n\t\treturn (\n\t\t\t<SkillHoverCardContent\n\t\t\t\tname={browseItem.name}\n\t\t\t\tdescription={browseItem.description}\n\t\t\t\tproduct={browseItem.product}\n\t\t\t\ticonName={browseItem.iconName as SkillIconName | undefined}\n\t\t\t\tcolor={undefined}\n\t\t\t/>\n\t\t);\n\t};\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Box xcss={styles.innerWrapper}>\n\t\t\t\t<Box xcss={styles.headerContainer}>\n\t\t\t\t\t<Heading size=\"xlarge\">Skills</Heading>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.searchBar}>\n\t\t\t\t\t<input\n\t\t\t\t\t\ttype=\"search\"\n\t\t\t\t\t\taria-label=\"Search\"\n\t\t\t\t\t\tplaceholder=\"Search\"\n\t\t\t\t\t\tvalue={searchValue}\n\t\t\t\t\t\tonChange={(e) => setSearchValue(e.target.value)}\n\t\t\t\t\t\tcss={styles.searchInput}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t\t<InlineBrowse\n\t\t\t\t\tbrowseItems={filteredItems}\n\t\t\t\t\tonSelectBrowseItem={handleSelect}\n\t\t\t\t\tonClose={handleClose}\n\t\t\t\t\ticonMap={skillIconMap as Record<string, React.ComponentType<InlineBrowseIconProps>>}\n\t\t\t\t\tdefaultIcon={DefaultSkillIcon as React.ComponentType<InlineBrowseIconProps>}\n\t\t\t\t\trenderHoverCardContent={renderHoverCardContent}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</Box>\n\t);\n}\nexport default function InlineBrowseExample(): React.ReactElement {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<InlineBrowseExampleInner />\n\t\t</IntlProvider>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useMemo, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nimport {\n\ttype BrowseItem,\n\tfilterBrowseItems,\n\tInlineBrowse,\n\ttype InlineBrowseIconProps,\n} from '@atlassian/rovo-platform-ui-components/inline-browse';\nimport { getIconColor } from '@atlassian/rovo-platform-ui-components/skills/skill-colors';\nimport {\n\tDefaultSkillIcon,\n\tskillIconMap,\n\ttype SkillIconName,\n} from '@atlassian/rovo-platform-ui-components/skills/skill-icons';\nimport { SkillHoverCardContent } from '@atlassian/rovo-platform-ui-components/skills/SkillHoverCardContent';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '400px',\n\t\twidth: '320px',\n\t\tborder: `${token('border.width')} solid ${token('color.border')}`,\n\t},\n\tinnerWrapper: {\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\theight: '100%',\n\t\twidth: '100%',\n\t\toverflowX: 'hidden',\n\t},\n\theaderContainer: {\n\t\tpaddingTop: token('space.250'),\n\t\tpaddingRight: token('space.250'),\n\t\tpaddingBottom: token('space.250'),\n\t\tpaddingLeft: token('space.250'),\n\t},\n\tsearchBar: {\n\t\tpaddingLeft: token('space.250'),\n\t\tpaddingRight: token('space.250'),\n\t},\n\tsearchInput: {\n\t\twidth: '100%',\n\t\tboxSizing: 'border-box',\n\t},\n});\nconst mockBrowseItems: BrowseItem[] = [\n\t{\n\t\tid: 'summarize',\n\t\tname: 'Summarize',\n\t\tdescription: 'Generate a concise summary of the selected content or conversation.',\n\t\ticonName: 'ai-generative-text-summary',\n\t\ticonColor: getIconColor('BLUE'),\n\t\tproduct: 'Jira',\n\t},\n\t{\n\t\tid: 'create-task',\n\t\tname: 'Create task',\n\t\tdescription: 'Create a new task or issue from the current context.',\n\t\ticonName: 'work-item',\n\t\ticonColor: getIconColor('GREEN'),\n\t\tproduct: 'Jira',\n\t},\n\t{\n\t\tid: 'search',\n\t\tname: 'Search',\n\t\tdescription: 'Search across your workspace and connected apps.',\n\t\ticonName: 'search',\n\t\ticonColor: getIconColor('PURPLE'),\n\t\tproduct: 'Confluence',\n\t},\n];\nfunction InlineBrowseExampleInner(): React.ReactElement {\n\tconst [searchValue, setSearchValue] = useState('');\n\tconst filteredItems = useMemo(\n\t\t() => filterBrowseItems(mockBrowseItems, searchValue),\n\t\t[searchValue],\n\t);\n\tconst handleSelect = () => {};\n\tconst handleClose = () => {};\n\tconst renderHoverCardContent = (browseItem: BrowseItem) => {\n\t\treturn (\n\t\t\t<SkillHoverCardContent\n\t\t\t\tname={browseItem.name}\n\t\t\t\tdescription={browseItem.description}\n\t\t\t\tproduct={browseItem.product}\n\t\t\t\ticonName={browseItem.iconName as SkillIconName | undefined}\n\t\t\t\tcolor={undefined}\n\t\t\t/>\n\t\t);\n\t};\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Box xcss={styles.innerWrapper}>\n\t\t\t\t<Box xcss={styles.headerContainer}>\n\t\t\t\t\t<Heading size=\"xlarge\">Skills</Heading>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.searchBar}>\n\t\t\t\t\t<input\n\t\t\t\t\t\ttype=\"search\"\n\t\t\t\t\t\taria-label=\"Search\"\n\t\t\t\t\t\tplaceholder=\"Search\"\n\t\t\t\t\t\tvalue={searchValue}\n\t\t\t\t\t\tonChange={(e) => setSearchValue(e.target.value)}\n\t\t\t\t\t\tcss={styles.searchInput}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t\t<InlineBrowse\n\t\t\t\t\tbrowseItems={filteredItems}\n\t\t\t\t\tonSelectBrowseItem={handleSelect}\n\t\t\t\t\tonClose={handleClose}\n\t\t\t\t\ticonMap={skillIconMap as Record<string, React.ComponentType<InlineBrowseIconProps>>}\n\t\t\t\t\tdefaultIcon={DefaultSkillIcon as React.ComponentType<InlineBrowseIconProps>}\n\t\t\t\t\trenderHoverCardContent={renderHoverCardContent}\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</Box>\n\t);\n}\nexport default function InlineBrowseExample(): React.ReactElement {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<InlineBrowseExampleInner />\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29123,7 +29549,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['insight', 'link', 'card', 'group'],
 		category: 'data-display',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@compiled/react';\nimport { cssMap } from '@compiled/react';\nimport { IntlProvider } from 'react-intl';\nimport CardClient from '@atlaskit/link-provider/client';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport SectionMessage from '@atlaskit/section-message/message';\nimport { token } from '@atlaskit/tokens';\nimport { InsightLinkCardGroup } from '@atlassian/rovo-platform-ui-components/insight-link-card-group';\nconst sampleUrls = [\n\t'https://hello.atlassian.net/wiki/spaces/RG/pages/3939193410/Rovo+Insights+Redesign+Work+Breakdown',\n\t'https://hello.atlassian.net/browse/ASIMO-4235',\n\t'https://hello.atlassian.net/wiki/spaces/RG/pages/3953115649/Daily+Rovo+Insights+Stand+Up',\n];\nconst singleUrl = [sampleUrls[0]];\nconst exampleStyles = cssMap({\n\tcontainer: {\n\t\tmaxWidth: '480px',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tsection: {\n\t\tmarginBottom: token('space.300'),\n\t},\n});\nexport default function InsightLinkCardGroupExample(): JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={new CardClient('stg')}>\n\t\t\t\t<Box xcss={exampleStyles.container}>\n\t\t\t\t\t<Stack space=\"space.400\">\n\t\t\t\t\t\t<SectionMessage title=\"Compact variant (Feed)\" appearance=\"information\">\n\t\t\t\t\t\t\t<p>Used in the insights feed. No icon border, body.small text, no subtitle.</p>\n\t\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Single URL — compact</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={singleUrl} />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Multiple URLs — compact</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionMessage title=\"Detail variant (Detail View)\" appearance=\"discovery\">\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tUsed in the insight detail view. Icon with border frame, heading.xxs title, Provider\n\t\t\t\t\t\t\t\tsubtitle, contiguous stack.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Single URL — detail</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={singleUrl} variant=\"detail\" />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Multiple URLs — detail (stacked)</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} variant=\"detail\" />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionMessage title=\"Fullscreen variant\" appearance=\"warning\">\n\t\t\t\t\t\t\t<p>Compact fullscreen has max-width constraint. Detail fullscreen does not.</p>\n\t\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Compact — fullscreen</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} isFullScreen />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Detail — fullscreen</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} variant=\"detail\" isFullScreen />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@compiled/react';\nimport { cssMap } from '@compiled/react';\nimport { IntlProvider } from 'react-intl';\nimport CardClient from '@atlaskit/link-provider/client';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport SectionMessage from '@atlaskit/section-message/message';\nimport { token } from '@atlaskit/tokens';\nimport { InsightLinkCardGroup } from '@atlassian/rovo-platform-ui-components/insight-link-card-group';\nconst sampleUrls = [\n\t'https://hello.atlassian.net/wiki/spaces/RG/pages/3939193410/Rovo+Insights+Redesign+Work+Breakdown',\n\t'https://hello.atlassian.net/browse/ASIMO-4235',\n\t'https://hello.atlassian.net/wiki/spaces/RG/pages/3953115649/Daily+Rovo+Insights+Stand+Up',\n];\nconst singleUrl = [sampleUrls[0]];\nconst exampleStyles = cssMap({\n\tcontainer: {\n\t\tmaxWidth: '480px',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tsection: {\n\t\tmarginBottom: token('space.300'),\n\t},\n});\nexport default function InsightLinkCardGroupExample(): JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={new CardClient('stg')}>\n\t\t\t\t<Box xcss={exampleStyles.container}>\n\t\t\t\t\t<Stack space=\"space.400\">\n\t\t\t\t\t\t<SectionMessage title=\"Compact variant (Feed)\" appearance=\"information\">\n\t\t\t\t\t\t\t<p>Used in the insights feed. No icon border, body.small text, no subtitle.</p>\n\t\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Single URL — compact</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={singleUrl} />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Multiple URLs — compact</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionMessage title=\"Detail variant (Detail View)\" appearance=\"discovery\">\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tUsed in the insight detail view. Icon with border frame, heading.xxs title, Provider\n\t\t\t\t\t\t\t\tsubtitle, contiguous stack.\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Single URL — detail</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={singleUrl} variant=\"detail\" />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Multiple URLs — detail (stacked)</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} variant=\"detail\" />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionMessage title=\"Fullscreen variant\" appearance=\"warning\">\n\t\t\t\t\t\t\t<p>Compact fullscreen has max-width constraint. Detail fullscreen does not.</p>\n\t\t\t\t\t\t</SectionMessage>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Compact — fullscreen</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} isFullScreen />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<Box xcss={exampleStyles.section}>\n\t\t\t\t\t\t\t<h4>Detail — fullscreen</h4>\n\t\t\t\t\t\t\t<InsightLinkCardGroup urls={sampleUrls} variant=\"detail\" isFullScreen />\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29188,7 +29614,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['ai', 'loading', 'generating', 'overlay'],
 		category: 'feedback',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport { Box, Text } from '@atlaskit/primitives/compiled';\nimport { AIGeneratingOverlay } from '@atlassian/rovo-platform-ui-components/loading-state/AIGeneratingOverlay';\nconst styles = cssMap({\n\tcontainer: {\n\t\tposition: 'relative',\n\t\tminHeight: '80px',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.container}>\n\t\t\t<Text>Content being updated</Text>\n\t\t\t<AIGeneratingOverlay label=\"Rovo is generating\" />\n\t\t</Box>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AIGeneratingOverlay } from '@atlassian/rovo-platform-ui-components/loading-state/AIGeneratingOverlay';\nconst styles = cssMap({\n\tcontainer: {\n\t\tposition: 'relative',\n\t\tminHeight: '80px',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.container}>\n\t\t\t<Text>Content being updated</Text>\n\t\t\t<AIGeneratingOverlay label=\"Rovo is generating\" />\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29213,7 +29639,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'message', 'loading', 'thinking'],
 		category: 'feedback',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { jsx } from '@atlaskit/css';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport {\n\ttype ExpandableTrace,\n\tMessageLoading,\n} from '@atlassian/rovo-platform-ui-components/loading-state/MessageLoading';\nconst mockAgent = {\n\tid: 'agent-123',\n\tnamed_id: 'test-agent',\n\tname: 'Test Agent',\n\tdescription: 'Test Agent Description',\n\tidentity_account_id: 'account-123',\n\tcreator_type: 'CUSTOMER' as const,\n\tavailable_plugins: {},\n\tis_default: false,\n\tactor_type: 'AGENT' as const,\n\tuser_defined_conversation_starters: null,\n\tfavourite: false,\n\tdeactivated: false,\n};\nexport default (): JSX.Element => {\n\tconst [traces, setTraces] = useState<ExpandableTrace[]>([\n\t\t{ title: 'Analyzing your request', status: 'loading' },\n\t\t{ title: 'Searching knowledge base', status: 'to-do' },\n\t\t{ title: 'Generating response', status: 'to-do' },\n\t]);\n\tconst simulateProgress = () => {\n\t\tsetTraces([\n\t\t\t{ title: 'Analyzing your request', status: 'success' },\n\t\t\t{ title: 'Searching knowledge base', status: 'loading' },\n\t\t\t{ title: 'Generating response', status: 'to-do' },\n\t\t]);\n\t\tsetTimeout(() => {\n\t\t\tsetTraces([\n\t\t\t\t{ title: 'Analyzing your request', status: 'success' },\n\t\t\t\t{ title: 'Searching knowledge base', status: 'success' },\n\t\t\t\t{ title: 'Generating response', status: 'loading' },\n\t\t\t]);\n\t\t}, 1500);\n\t\tsetTimeout(() => {\n\t\t\tsetTraces([\n\t\t\t\t{ title: 'Analyzing your request', status: 'success' },\n\t\t\t\t{ title: 'Searching knowledge base', status: 'success' },\n\t\t\t\t{ title: 'Generating response', status: 'success' },\n\t\t\t]);\n\t\t}, 3000);\n\t};\n\tconst reset = () => {\n\t\tsetTraces([\n\t\t\t{ title: 'Analyzing your request', status: 'loading' },\n\t\t\t{ title: 'Searching knowledge base', status: 'to-do' },\n\t\t\t{ title: 'Generating response', status: 'to-do' },\n\t\t]);\n\t};\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Box>\n\t\t\t\t<h3>Message Loading with Thinking State</h3>\n\t\t\t\t<p>This example shows the MessageLoading component with animated traces.</p>\n\t\t\t</Box>\n\t\t\t<MessageLoading thinkingText=\"Processing your request...\" traces={traces} agent={mockAgent} />\n\t\t\t<Box>\n\t\t\t\t<Button onClick={simulateProgress}>Simulate Progress</Button>\n\t\t\t\t<Button onClick={reset}>Reset</Button>\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n};",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport {\n\ttype ExpandableTrace,\n\tMessageLoading,\n} from '@atlassian/rovo-platform-ui-components/loading-state/MessageLoading';\nconst mockAgent = {\n\tid: 'agent-123',\n\tnamed_id: 'test-agent',\n\tname: 'Test Agent',\n\tdescription: 'Test Agent Description',\n\tidentity_account_id: 'account-123',\n\tcreator_type: 'CUSTOMER' as const,\n\tavailable_plugins: {},\n\tis_default: false,\n\tactor_type: 'AGENT' as const,\n\tuser_defined_conversation_starters: null,\n\tfavourite: false,\n\tdeactivated: false,\n};\nexport default (): JSX.Element => {\n\tconst [traces, setTraces] = useState<ExpandableTrace[]>([\n\t\t{ title: 'Analyzing your request', status: 'loading' },\n\t\t{ title: 'Searching knowledge base', status: 'to-do' },\n\t\t{ title: 'Generating response', status: 'to-do' },\n\t]);\n\tconst simulateProgress = () => {\n\t\tsetTraces([\n\t\t\t{ title: 'Analyzing your request', status: 'success' },\n\t\t\t{ title: 'Searching knowledge base', status: 'loading' },\n\t\t\t{ title: 'Generating response', status: 'to-do' },\n\t\t]);\n\t\tsetTimeout(() => {\n\t\t\tsetTraces([\n\t\t\t\t{ title: 'Analyzing your request', status: 'success' },\n\t\t\t\t{ title: 'Searching knowledge base', status: 'success' },\n\t\t\t\t{ title: 'Generating response', status: 'loading' },\n\t\t\t]);\n\t\t}, 1500);\n\t\tsetTimeout(() => {\n\t\t\tsetTraces([\n\t\t\t\t{ title: 'Analyzing your request', status: 'success' },\n\t\t\t\t{ title: 'Searching knowledge base', status: 'success' },\n\t\t\t\t{ title: 'Generating response', status: 'success' },\n\t\t\t]);\n\t\t}, 3000);\n\t};\n\tconst reset = () => {\n\t\tsetTraces([\n\t\t\t{ title: 'Analyzing your request', status: 'loading' },\n\t\t\t{ title: 'Searching knowledge base', status: 'to-do' },\n\t\t\t{ title: 'Generating response', status: 'to-do' },\n\t\t]);\n\t};\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Box>\n\t\t\t\t<h3>Message Loading with Thinking State</h3>\n\t\t\t\t<p>This example shows the MessageLoading component with animated traces.</p>\n\t\t\t</Box>\n\t\t\t<MessageLoading thinkingText=\"Processing your request...\" traces={traces} agent={mockAgent} />\n\t\t\t<Box>\n\t\t\t\t<Button onClick={simulateProgress}>Simulate Progress</Button>\n\t\t\t\t<Button onClick={reset}>Reset</Button>\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n};",
 		],
 		props: [
 			{
@@ -29266,7 +29692,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thinking', 'loading', 'progress'],
 		category: 'feedback',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29322,7 +29748,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'status',
-				type: '"analyzing" | "editing"',
+				type: '"analyzing" | "editing" | "waiting"',
 				defaultValue: '"analyzing"',
 			},
 			{
@@ -29378,7 +29804,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thinking', 'indicator', 'loading'],
 		category: 'feedback',
 		examples: [
-			'import { cssMap } from \'@atlaskit/css\';\nimport { Flex } from \'@atlaskit/primitives/compiled\';\nimport { AgentAvatar } from \'@atlaskit/rovo-agent-components/ui/AgentAvatar\';\nimport { RovoThinkingIndicator } from \'@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingIndicator\';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: \'100vh\',\n\t\twidth: \'100vw\',\n\t},\n\texampleContainer: {\n\t\theight: \'75px\',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Flex\n\t\t\txcss={styles.wrapper}\n\t\t\tdirection="column"\n\t\t\talignItems="center"\n\t\t\tjustifyContent="space-evenly"\n\t\t>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator:\n\t\t\t\t<RovoThinkingIndicator title="Rovo is thinking" isAnimated={false} />\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator with agent icon:\n\t\t\t\t<RovoThinkingIndicator\n\t\t\t\t\ttitle="MyAgent is analyzing"\n\t\t\t\t\tisAnimated={false}\n\t\t\t\t\ticon={\n\t\t\t\t\t\t<AgentAvatar\n\t\t\t\t\t\t\tagentNamedId={\'\'}\n\t\t\t\t\t\t\tagentId={\'123\'}\n\t\t\t\t\t\t\tagentIdentityAccountId={\'\'}\n\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\tshowBorder={false}\n\t\t\t\t\t\t\tisForgeAgent={false}\n\t\t\t\t\t\t\tforgeAgentIconUrl={\'\'}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator without logo:\n\t\t\t\t<RovoThinkingIndicator title="Rovo is analyzing" isAnimated={false} icon={false} />\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator with shimmer effect:\n\t\t\t\t<RovoThinkingIndicator title="Rovo is thinking" isAnimated={false} animation={true} />\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator with shimmer and agent icon:\n\t\t\t\t<RovoThinkingIndicator\n\t\t\t\t\ttitle="MyAgent is analyzing"\n\t\t\t\t\tisAnimated={false}\n\t\t\t\t\tanimation={true}\n\t\t\t\t\ticon={\n\t\t\t\t\t\t<AgentAvatar\n\t\t\t\t\t\t\tagentNamedId={\'\'}\n\t\t\t\t\t\t\tagentId={\'123\'}\n\t\t\t\t\t\t\tagentIdentityAccountId={\'\'}\n\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\tshowBorder={false}\n\t\t\t\t\t\t\tisForgeAgent={false}\n\t\t\t\t\t\t\tforgeAgentIconUrl={\'\'}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t</Flex>\n\t\t</Flex>\n\t);\n}',
+			'import { cssMap } from \'@atlaskit/css\';\nimport { Flex } from \'@atlaskit/primitives/compiled/flex\';\nimport { AgentAvatar } from \'@atlaskit/rovo-agent-components/ui/AgentAvatar\';\nimport { RovoThinkingIndicator } from \'@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingIndicator\';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: \'100vh\',\n\t\twidth: \'100vw\',\n\t},\n\texampleContainer: {\n\t\theight: \'75px\',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Flex\n\t\t\txcss={styles.wrapper}\n\t\t\tdirection="column"\n\t\t\talignItems="center"\n\t\t\tjustifyContent="space-evenly"\n\t\t>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator:\n\t\t\t\t<RovoThinkingIndicator title="Rovo is thinking" isAnimated={false} />\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator with agent icon:\n\t\t\t\t<RovoThinkingIndicator\n\t\t\t\t\ttitle="MyAgent is analyzing"\n\t\t\t\t\tisAnimated={false}\n\t\t\t\t\ticon={\n\t\t\t\t\t\t<AgentAvatar\n\t\t\t\t\t\t\tagentNamedId={\'\'}\n\t\t\t\t\t\t\tagentId={\'123\'}\n\t\t\t\t\t\t\tagentIdentityAccountId={\'\'}\n\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\tshowBorder={false}\n\t\t\t\t\t\t\tisForgeAgent={false}\n\t\t\t\t\t\t\tforgeAgentIconUrl={\'\'}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator without logo:\n\t\t\t\t<RovoThinkingIndicator title="Rovo is analyzing" isAnimated={false} icon={false} />\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator with shimmer effect:\n\t\t\t\t<RovoThinkingIndicator title="Rovo is thinking" isAnimated={false} animation={true} />\n\t\t\t</Flex>\n\t\t\t<Flex\n\t\t\t\txcss={styles.exampleContainer}\n\t\t\t\tdirection="column"\n\t\t\t\talignItems="center"\n\t\t\t\tjustifyContent="space-evenly"\n\t\t\t>\n\t\t\t\tThinking indicator with shimmer and agent icon:\n\t\t\t\t<RovoThinkingIndicator\n\t\t\t\t\ttitle="MyAgent is analyzing"\n\t\t\t\t\tisAnimated={false}\n\t\t\t\t\tanimation={true}\n\t\t\t\t\ticon={\n\t\t\t\t\t\t<AgentAvatar\n\t\t\t\t\t\t\tagentNamedId={\'\'}\n\t\t\t\t\t\t\tagentId={\'123\'}\n\t\t\t\t\t\t\tagentIdentityAccountId={\'\'}\n\t\t\t\t\t\t\tsize="small"\n\t\t\t\t\t\t\tshowBorder={false}\n\t\t\t\t\t\t\tisForgeAgent={false}\n\t\t\t\t\t\t\tforgeAgentIconUrl={\'\'}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t</Flex>\n\t\t</Flex>\n\t);\n}',
 		],
 		props: [
 			{
@@ -29434,7 +29860,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thinking', 'minimize', 'loading'],
 		category: 'feedback',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29496,7 +29922,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thinking', 'pill', 'status'],
 		category: 'feedback',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29513,7 +29939,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'status',
-				type: '"analyzing" | "editing"',
+				type: '"analyzing" | "editing" | "waiting"',
 				description: "Controls which short loading message is shown. Defaults to `'analyzing'`.",
 				defaultValue: '"analyzing"',
 			},
@@ -29531,7 +29957,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thinking', 'ready', 'status'],
 		category: 'feedback',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29571,7 +29997,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thinking', 'ready', 'transition'],
 		category: 'feedback',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { RovoThinkingBar } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingBar';\nimport { RovoThinkingMinimization } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingMinimization';\nimport { RovoThinkingPill } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingPill';\nimport { RovoThinkingReadyTransition } from '@atlassian/rovo-platform-ui-components/loading-state/RovoThinkingReadyTransition';\nexport default function ThinkingStateFlowExample(): React.JSX.Element {\n\tconst [isReady, setIsReady] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<RovoThinkingMinimization autoMinimizeDelayMs={null} pillProps={{ status: 'analyzing' }}>\n\t\t\t\t\t<RovoThinkingBar status=\"analyzing\" onStop={() => {}} showProgressBar />\n\t\t\t\t</RovoThinkingMinimization>\n\t\t\t\t<RovoThinkingPill status=\"analyzing\" onClick={() => {}} />\n\t\t\t\t<RovoThinkingReadyTransition\n\t\t\t\t\tisReady={isReady}\n\t\t\t\t\tthinkingBarProps={{ status: 'analyzing', onStop: () => {} }}\n\t\t\t\t\tthinkingReadyProps={{ onView: () => {}, onClose: () => {} }}\n\t\t\t\t/>\n\t\t\t\t{!isReady && <Button onClick={() => setIsReady(true)}>Finish response</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29641,7 +30067,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'message', 'footer', 'actions'],
 		category: 'actions',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { MessageFooterButtons } from '@atlassian/rovo-platform-ui-components/message-footer-buttons';\nexport default function MessageFooterButtonsExample(): React.JSX.Element {\n\tconst [feedback, setFeedback] = useState<'like' | 'dislike' | null>(null);\n\tconst [hasCopied, setHasCopied] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<MessageFooterButtons\n\t\t\t\t\thideThumbs={false}\n\t\t\t\t\tfeedbackType={feedback}\n\t\t\t\t\tonThumbClick={(isPositive) => setFeedback(isPositive ? 'like' : 'dislike')}\n\t\t\t\t\tonCopyClick={() => setHasCopied(true)}\n\t\t\t\t/>\n\t\t\t\t<Text>\n\t\t\t\t\t{hasCopied\n\t\t\t\t\t\t? 'Response copied'\n\t\t\t\t\t\t: feedback\n\t\t\t\t\t\t\t? `Feedback recorded: ${feedback}`\n\t\t\t\t\t\t\t: 'Rate or copy this response'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { MessageFooterButtons } from '@atlassian/rovo-platform-ui-components/message-footer-buttons';\nexport default function MessageFooterButtonsExample(): React.JSX.Element {\n\tconst [feedback, setFeedback] = useState<'like' | 'dislike' | null>(null);\n\tconst [hasCopied, setHasCopied] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<MessageFooterButtons\n\t\t\t\t\thideThumbs={false}\n\t\t\t\t\tfeedbackType={feedback}\n\t\t\t\t\tonThumbClick={(isPositive) => setFeedback(isPositive ? 'like' : 'dislike')}\n\t\t\t\t\tonCopyClick={() => setHasCopied(true)}\n\t\t\t\t/>\n\t\t\t\t<Text>\n\t\t\t\t\t{hasCopied\n\t\t\t\t\t\t? 'Response copied'\n\t\t\t\t\t\t: feedback\n\t\t\t\t\t\t\t? `Feedback recorded: ${feedback}`\n\t\t\t\t\t\t\t: 'Rate or copy this response'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29703,7 +30129,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'message', 'copy', 'clipboard'],
 		category: 'actions',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { CopyResponse } from '@atlassian/rovo-platform-ui-components/message-footer-buttons/copy-response/CopyResponse';\nexport default function CopyResponseExample(): React.JSX.Element {\n\tconst [hasCopied, setHasCopied] = useState(false);\n\tconst handleCopy = () => {\n\t\tsetHasCopied(true);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<CopyResponse onClick={handleCopy} />\n\t\t\t\t<Text>{hasCopied ? 'Response copied to the clipboard.' : 'Copy this Rovo response'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CopyResponse } from '@atlassian/rovo-platform-ui-components/message-footer-buttons/copy-response/CopyResponse';\nexport default function CopyResponseExample(): React.JSX.Element {\n\tconst [hasCopied, setHasCopied] = useState(false);\n\tconst handleCopy = () => {\n\t\tsetHasCopied(true);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<CopyResponse onClick={handleCopy} />\n\t\t\t\t<Text>{hasCopied ? 'Response copied to the clipboard.' : 'Copy this Rovo response'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29758,7 +30184,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'message', 'feedback', 'dislike'],
 		category: 'actions',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { DislikeAnswer } from '@atlassian/rovo-platform-ui-components/message-footer-buttons/like-answer/DislikeAnswer';\nexport default function DislikeAnswerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<DislikeAnswer\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((current) => !current)}\n\t\t\t\t/>\n\t\t\t\t<Text>\n\t\t\t\t\t{isSelected ? 'Feedback recorded for follow-up.' : 'Flag this response for follow-up'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { DislikeAnswer } from '@atlassian/rovo-platform-ui-components/message-footer-buttons/like-answer/DislikeAnswer';\nexport default function DislikeAnswerExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<DislikeAnswer\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((current) => !current)}\n\t\t\t\t/>\n\t\t\t\t<Text>\n\t\t\t\t\t{isSelected ? 'Feedback recorded for follow-up.' : 'Flag this response for follow-up'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29818,7 +30244,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'message', 'feedback', 'like', 'button'],
 		category: 'actions',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { LikeButton } from '@atlassian/rovo-platform-ui-components/message-footer-buttons/like-answer/LikeButton';\nexport default function LikeButtonExample(): React.JSX.Element {\n\tconst [isLiked, setIsLiked] = useState(false);\n\tconst handleLike = () => {\n\t\tsetIsLiked((current) => !current);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<LikeButton isSelected={isLiked} onClick={handleLike} />\n\t\t\t\t<Text>{isLiked ? 'Thanks for rating this response helpful.' : 'Rate this response'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LikeButton } from '@atlassian/rovo-platform-ui-components/message-footer-buttons/like-answer/LikeButton';\nexport default function LikeButtonExample(): React.JSX.Element {\n\tconst [isLiked, setIsLiked] = useState(false);\n\tconst handleLike = () => {\n\t\tsetIsLiked((current) => !current);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<LikeButton isSelected={isLiked} onClick={handleLike} />\n\t\t\t\t<Text>{isLiked ? 'Thanks for rating this response helpful.' : 'Rate this response'}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29915,7 +30341,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['primitive', 'loading', 'ellipsis', 'animation'],
 		category: 'loading',
 		examples: [
-			"import { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { EllipsesAnimation } from '@atlassian/rovo-platform-ui-components/primitives/EllipsesAnimation';\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text>Searching</Text>\n\t\t\t<EllipsesAnimation />\n\t\t</Stack>\n\t);\n}",
+			"import { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { EllipsesAnimation } from '@atlassian/rovo-platform-ui-components/primitives/EllipsesAnimation';\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text>Searching</Text>\n\t\t\t<EllipsesAnimation />\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29937,7 +30363,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['primitive', 'icon', 'wave', 'animation'],
 		category: 'motion',
 		examples: [
-			'import React, { useState, type ReactNode } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport { cssMap } from \'@atlaskit/css\';\nimport AppsIcon from \'@atlaskit/icon/core/apps\';\nimport BoardIcon from \'@atlaskit/icon/core/board\';\nimport DashboardIcon from \'@atlaskit/icon/core/dashboard\';\nimport PageIcon from \'@atlaskit/icon/core/page\';\nimport SearchIcon from \'@atlaskit/icon/core/search\';\nimport StarIcon from \'@atlaskit/icon/core/star-starred\';\nimport { Box, Inline, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { setupEditorExperiments } from \'@atlaskit/tmp-editor-statsig/setup\';\nimport { token } from \'@atlaskit/tokens\';\nimport { GhostIconWave } from \'@atlassian/rovo-platform-ui-components/primitives/GhostIconWave\';\n// `GhostIconWave` is gated behind the `confluence_3p_in_cwr_ghost_icons`\n// experiment and defaults to off. `expVal` checks the editor-statsig\n// package\'s internal `_overrides` before falling through to the FeatureGates\n// client, so flipping the experiment on for this example is a synchronous\n// `setupEditorExperiments` call — no FeatureGates init needed.\nsetupEditorExperiments(\'confluence\', {\n\tconfluence_3p_in_cwr_ghost_icons: true,\n});\nconst Replayable = ({ children }: { children: (replayKey: number) => ReactNode }) => {\n\tconst [replayKey, setReplayKey] = useState(0);\n\treturn (\n\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t{children(replayKey)}\n\t\t\t<Button onClick={() => setReplayKey((k) => k + 1)}>Replay</Button>\n\t\t</Inline>\n\t);\n};\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\tmaxWidth: \'600px\',\n\t},\n\tcard: {\n\t\tborderWidth: token(\'border.width\'),\n\t\tborderStyle: \'solid\',\n\t\tborderColor: token(\'color.border\'),\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\twidth: \'100%\',\n\t},\n});\nconst defaultIcons = [\n\t<AppsIcon key="apps" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page" label="" color={token(\'color.icon\')} />,\n];\nconst plainIcons = [\n\t<AppsIcon key="apps-plain" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-plain" label="" color={token(\'color.icon\')} />,\n];\nconst singleIconList = [<SearchIcon key="search-only" label="" color={token(\'color.icon\')} />];\nconst fiveIcons = [\n\t<AppsIcon key="apps-5" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-5" label="" color={token(\'color.icon\')} />,\n\t<SearchIcon key="search-5" label="" color={token(\'color.icon\')} />,\n\t<BoardIcon key="board-5" label="" color={token(\'color.icon\')} />,\n\t<DashboardIcon key="dashboard-5" label="" color={token(\'color.icon\')} />,\n\t<StarIcon key="star-5" label="" color={token(\'color.icon\')} />,\n];\nexport default function GhostIconWaveExample(): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space="space.400">\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Default — 2 icons, dashed ghost frame, 3 waves</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single icon (maxVisible=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={singleIconList} maxVisible={1} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tFive icons (maxVisible=5, faster timing) — six icons passed, only the first five render\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave\n\t\t\t\t\t\t\t\t\tkey={replayKey}\n\t\t\t\t\t\t\t\t\ticons={fiveIcons}\n\t\t\t\t\t\t\t\t\tmaxVisible={5}\n\t\t\t\t\t\t\t\t\tbobDuration={320}\n\t\t\t\t\t\t\t\t\tstagger={150}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Without ghost frame (withGhostFrame=false)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={plainIcons} withGhostFrame={false} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Tall amplitude / fast stagger (amplitude=8, stagger=80)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} amplitude={8} stagger={80} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single wave (waveCount=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} waveCount={1} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Rest state (waveCount=0)</Text>\n\t\t\t\t\t<Text size="small">\n\t\t\t\t\t\tUse this when callers only animate first-view states and keep later renders static.\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={0} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Infinite loop (waveCount=Infinity)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={Infinity} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tWith aria-label (label=&quot;Loading apps&quot;) — inspect with devtools\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} label="Loading apps" />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}',
+			'import React, { useState, type ReactNode } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport { cssMap } from \'@atlaskit/css\';\nimport AppsIcon from \'@atlaskit/icon/core/apps\';\nimport BoardIcon from \'@atlaskit/icon/core/board\';\nimport DashboardIcon from \'@atlaskit/icon/core/dashboard\';\nimport PageIcon from \'@atlaskit/icon/core/page\';\nimport SearchIcon from \'@atlaskit/icon/core/search\';\nimport StarIcon from \'@atlaskit/icon/core/star-starred\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { setupEditorExperiments } from \'@atlaskit/tmp-editor-statsig/setup\';\nimport { token } from \'@atlaskit/tokens\';\nimport { GhostIconWave } from \'@atlassian/rovo-platform-ui-components/primitives/GhostIconWave\';\n// `GhostIconWave` is gated behind the `confluence_3p_in_cwr_ghost_icons`\n// experiment and defaults to off. `expVal` checks the editor-statsig\n// package\'s internal `_overrides` before falling through to the FeatureGates\n// client, so flipping the experiment on for this example is a synchronous\n// `setupEditorExperiments` call — no FeatureGates init needed.\nsetupEditorExperiments(\'confluence\', {\n\tconfluence_3p_in_cwr_ghost_icons: true,\n});\nconst Replayable = ({ children }: { children: (replayKey: number) => ReactNode }) => {\n\tconst [replayKey, setReplayKey] = useState(0);\n\treturn (\n\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t{children(replayKey)}\n\t\t\t<Button onClick={() => setReplayKey((k) => k + 1)}>Replay</Button>\n\t\t</Inline>\n\t);\n};\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\tmaxWidth: \'600px\',\n\t},\n\tcard: {\n\t\tborderWidth: token(\'border.width\'),\n\t\tborderStyle: \'solid\',\n\t\tborderColor: token(\'color.border\'),\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\twidth: \'100%\',\n\t},\n});\nconst defaultIcons = [\n\t<AppsIcon key="apps" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page" label="" color={token(\'color.icon\')} />,\n];\nconst plainIcons = [\n\t<AppsIcon key="apps-plain" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-plain" label="" color={token(\'color.icon\')} />,\n];\nconst singleIconList = [<SearchIcon key="search-only" label="" color={token(\'color.icon\')} />];\nconst fiveIcons = [\n\t<AppsIcon key="apps-5" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-5" label="" color={token(\'color.icon\')} />,\n\t<SearchIcon key="search-5" label="" color={token(\'color.icon\')} />,\n\t<BoardIcon key="board-5" label="" color={token(\'color.icon\')} />,\n\t<DashboardIcon key="dashboard-5" label="" color={token(\'color.icon\')} />,\n\t<StarIcon key="star-5" label="" color={token(\'color.icon\')} />,\n];\nexport default function GhostIconWaveExample(): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space="space.400">\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Default — 2 icons, dashed ghost frame, 3 waves</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single icon (maxVisible=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={singleIconList} maxVisible={1} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tFive icons (maxVisible=5, faster timing) — six icons passed, only the first five render\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave\n\t\t\t\t\t\t\t\t\tkey={replayKey}\n\t\t\t\t\t\t\t\t\ticons={fiveIcons}\n\t\t\t\t\t\t\t\t\tmaxVisible={5}\n\t\t\t\t\t\t\t\t\tbobDuration={320}\n\t\t\t\t\t\t\t\t\tstagger={150}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Without ghost frame (withGhostFrame=false)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={plainIcons} withGhostFrame={false} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Tall amplitude / fast stagger (amplitude=8, stagger=80)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} amplitude={8} stagger={80} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single wave (waveCount=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} waveCount={1} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Rest state (waveCount=0)</Text>\n\t\t\t\t\t<Text size="small">\n\t\t\t\t\t\tUse this when callers only animate first-view states and keep later renders static.\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={0} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Infinite loop (waveCount=Infinity)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={Infinity} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tWith aria-label (label=&quot;Loading apps&quot;) — inspect with devtools\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} label="Loading apps" />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}',
 		],
 		props: [
 			{
@@ -30051,7 +30477,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['primitive', 'loading', 'status', 'indicator'],
 		category: 'feedback',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tStatusIndicator,\n\ttype LoadingStatus,\n} from '@atlassian/rovo-platform-ui-components/primitives/LoadingStatusIndicator';\nexport default function StatusIndicatorExample(): React.JSX.Element {\n\tconst [status, setStatus] = useState<LoadingStatus>('loading');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t<StatusIndicator status={status} />\n\t\t\t\t\t<Text>Insight refresh: {status}</Text>\n\t\t\t\t</Inline>\n\t\t\t\t<Button\n\t\t\t\t\tonClick={() => setStatus((current) => (current === 'loading' ? 'success' : 'loading'))}\n\t\t\t\t>\n\t\t\t\t\tToggle refresh state\n\t\t\t\t</Button>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tStatusIndicator,\n\ttype LoadingStatus,\n} from '@atlassian/rovo-platform-ui-components/primitives/LoadingStatusIndicator';\nexport default function StatusIndicatorExample(): React.JSX.Element {\n\tconst [status, setStatus] = useState<LoadingStatus>('loading');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Inline alignBlock=\"center\" space=\"space.100\">\n\t\t\t\t\t<StatusIndicator status={status} />\n\t\t\t\t\t<Text>Insight refresh: {status}</Text>\n\t\t\t\t</Inline>\n\t\t\t\t<Button\n\t\t\t\t\tonClick={() => setStatus((current) => (current === 'loading' ? 'success' : 'loading'))}\n\t\t\t\t>\n\t\t\t\t\tToggle refresh state\n\t\t\t\t</Button>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30100,7 +30526,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['primitive', 'progress', 'rainbow', 'loading'],
 		category: 'feedback',
 		examples: [
-			'import React, { useEffect, useRef, useState } from \'react\';\nimport { cssMap } from \'@atlaskit/css\';\nimport { Box, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport Range from \'@atlaskit/range/range\';\nimport { token } from \'@atlaskit/tokens\';\nimport { RainbowProgressBar } from \'@atlassian/rovo-platform-ui-components/primitives/RainbowProgressBar\';\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\tmaxWidth: \'600px\',\n\t},\n\tcard: {\n\t\tborderStyle: \'solid\',\n\t\tborderColor: token(\'color.border\'),\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\twidth: \'100%\',\n\t},\n});\nconst ANIMATION_DURATION_MS = 8000;\nconst PAUSE_AT_ENDS_MS = 800;\n/**\n * Smoothly animates a value from 0 → 1 using requestAnimationFrame,\n * pausing briefly at 0% and 100% before repeating.\n */\nfunction useAnimatingValue(): number {\n\tconst [value, setValue] = useState(0);\n\tconst rafRef = useRef<number>(0);\n\tconst timeoutRef = useRef<ReturnType<typeof setTimeout>>();\n\tuseEffect(() => {\n\t\tlet startTime: number | null = null;\n\t\tconst tick = (timestamp: number) => {\n\t\t\tif (startTime === null) {\n\t\t\t\tstartTime = timestamp;\n\t\t\t}\n\t\t\tconst elapsed = timestamp - startTime;\n\t\t\tconst progress = Math.min(1, elapsed / ANIMATION_DURATION_MS);\n\t\t\t// Ease-out for smooth deceleration as it approaches the target\n\t\t\tconst eased = 1 - Math.pow(1 - progress, 2);\n\t\t\tsetValue(eased);\n\t\t\tif (progress < 1) {\n\t\t\t\trafRef.current = requestAnimationFrame(tick);\n\t\t\t} else {\n\t\t\t\t// Pause at 100%, then reset to 0 and pause again\n\t\t\t\ttimeoutRef.current = setTimeout(() => {\n\t\t\t\t\tsetValue(0);\n\t\t\t\t\ttimeoutRef.current = setTimeout(() => {\n\t\t\t\t\t\tstartTime = null;\n\t\t\t\t\t\trafRef.current = requestAnimationFrame(tick);\n\t\t\t\t\t}, PAUSE_AT_ENDS_MS);\n\t\t\t\t}, PAUSE_AT_ENDS_MS);\n\t\t\t}\n\t\t};\n\t\t// Initial pause at 0% before starting\n\t\ttimeoutRef.current = setTimeout(() => {\n\t\t\trafRef.current = requestAnimationFrame(tick);\n\t\t}, PAUSE_AT_ENDS_MS);\n\t\treturn () => {\n\t\t\tcancelAnimationFrame(rafRef.current);\n\t\t\tclearTimeout(timeoutRef.current);\n\t\t};\n\t}, []);\n\treturn value;\n}\nexport default function RainbowProgressBarExample(): React.JSX.Element {\n\tconst animatingValue = useAnimatingValue();\n\tconst [determinateValue, setDeterminateValue] = useState(50);\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space="space.400">\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Start — full bar animates</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-start" status="start" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Planning — colors cycle through 30% of the bar</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-planning" status="planning" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Running — colors cycle through 60% of the bar</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-running" status="running" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Complete — solid green bar</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-complete" status="complete" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tDeterminate (rainbow) — animated 0→100% — {Math.round(animatingValue * 100)}%\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar\n\t\t\t\t\t\t\ttestId="rainbow-determinate-animated"\n\t\t\t\t\t\t\tprogress={animatingValue * 100}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tDeterminate (static-rainbow) — animated 0→100% — {Math.round(animatingValue * 100)}%\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar\n\t\t\t\t\t\t\ttestId="rainbow-determinate-static"\n\t\t\t\t\t\t\tprogress={animatingValue * 100}\n\t\t\t\t\t\t\tappearance="static-rainbow"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tDeterminate (solid color) — animated 0→100% — {Math.round(animatingValue * 100)}%\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar\n\t\t\t\t\t\t\ttestId="rainbow-determinate-solid"\n\t\t\t\t\t\t\tprogress={animatingValue * 100}\n\t\t\t\t\t\t\tappearance={token(\'color.chart.categorical.1\')}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Determinate — manual slider — {determinateValue}%</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-determinate" progress={determinateValue} />\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Range\n\t\t\t\t\t\tmin={0}\n\t\t\t\t\t\tmax={100}\n\t\t\t\t\t\tvalue={determinateValue}\n\t\t\t\t\t\tonChange={(next) => setDeterminateValue(next)}\n\t\t\t\t\t/>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}',
+			'import React, { useEffect, useRef, useState } from \'react\';\nimport { cssMap } from \'@atlaskit/css\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport Range from \'@atlaskit/range/range\';\nimport { token } from \'@atlaskit/tokens\';\nimport { RainbowProgressBar } from \'@atlassian/rovo-platform-ui-components/primitives/RainbowProgressBar\';\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\tmaxWidth: \'600px\',\n\t},\n\tcard: {\n\t\tborderStyle: \'solid\',\n\t\tborderColor: token(\'color.border\'),\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\twidth: \'100%\',\n\t},\n});\nconst ANIMATION_DURATION_MS = 8000;\nconst PAUSE_AT_ENDS_MS = 800;\n/**\n * Smoothly animates a value from 0 → 1 using requestAnimationFrame,\n * pausing briefly at 0% and 100% before repeating.\n */\nfunction useAnimatingValue(): number {\n\tconst [value, setValue] = useState(0);\n\tconst rafRef = useRef<number>(0);\n\tconst timeoutRef = useRef<ReturnType<typeof setTimeout>>();\n\tuseEffect(() => {\n\t\tlet startTime: number | null = null;\n\t\tconst tick = (timestamp: number) => {\n\t\t\tif (startTime === null) {\n\t\t\t\tstartTime = timestamp;\n\t\t\t}\n\t\t\tconst elapsed = timestamp - startTime;\n\t\t\tconst progress = Math.min(1, elapsed / ANIMATION_DURATION_MS);\n\t\t\t// Ease-out for smooth deceleration as it approaches the target\n\t\t\tconst eased = 1 - Math.pow(1 - progress, 2);\n\t\t\tsetValue(eased);\n\t\t\tif (progress < 1) {\n\t\t\t\trafRef.current = requestAnimationFrame(tick);\n\t\t\t} else {\n\t\t\t\t// Pause at 100%, then reset to 0 and pause again\n\t\t\t\ttimeoutRef.current = setTimeout(() => {\n\t\t\t\t\tsetValue(0);\n\t\t\t\t\ttimeoutRef.current = setTimeout(() => {\n\t\t\t\t\t\tstartTime = null;\n\t\t\t\t\t\trafRef.current = requestAnimationFrame(tick);\n\t\t\t\t\t}, PAUSE_AT_ENDS_MS);\n\t\t\t\t}, PAUSE_AT_ENDS_MS);\n\t\t\t}\n\t\t};\n\t\t// Initial pause at 0% before starting\n\t\ttimeoutRef.current = setTimeout(() => {\n\t\t\trafRef.current = requestAnimationFrame(tick);\n\t\t}, PAUSE_AT_ENDS_MS);\n\t\treturn () => {\n\t\t\tcancelAnimationFrame(rafRef.current);\n\t\t\tclearTimeout(timeoutRef.current);\n\t\t};\n\t}, []);\n\treturn value;\n}\nexport default function RainbowProgressBarExample(): React.JSX.Element {\n\tconst animatingValue = useAnimatingValue();\n\tconst [determinateValue, setDeterminateValue] = useState(50);\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space="space.400">\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Start — full bar animates</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-start" status="start" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Planning — colors cycle through 30% of the bar</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-planning" status="planning" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Running — colors cycle through 60% of the bar</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-running" status="running" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Complete — solid green bar</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-complete" status="complete" />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tDeterminate (rainbow) — animated 0→100% — {Math.round(animatingValue * 100)}%\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar\n\t\t\t\t\t\t\ttestId="rainbow-determinate-animated"\n\t\t\t\t\t\t\tprogress={animatingValue * 100}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tDeterminate (static-rainbow) — animated 0→100% — {Math.round(animatingValue * 100)}%\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar\n\t\t\t\t\t\t\ttestId="rainbow-determinate-static"\n\t\t\t\t\t\t\tprogress={animatingValue * 100}\n\t\t\t\t\t\t\tappearance="static-rainbow"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tDeterminate (solid color) — animated 0→100% — {Math.round(animatingValue * 100)}%\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar\n\t\t\t\t\t\t\ttestId="rainbow-determinate-solid"\n\t\t\t\t\t\t\tprogress={animatingValue * 100}\n\t\t\t\t\t\t\tappearance={token(\'color.chart.categorical.1\')}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Determinate — manual slider — {determinateValue}%</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<RainbowProgressBar testId="rainbow-determinate" progress={determinateValue} />\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Range\n\t\t\t\t\t\tmin={0}\n\t\t\t\t\t\tmax={100}\n\t\t\t\t\t\tvalue={determinateValue}\n\t\t\t\t\t\tonChange={(next) => setDeterminateValue(next)}\n\t\t\t\t\t/>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}',
 		],
 		props: [
 			{
@@ -30145,7 +30571,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['primitive', 'text', 'shimmer', 'loading'],
 		category: 'feedback',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { ShimmerText } from '@atlassian/rovo-platform-ui-components/primitives/ShimmerText';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '100vh',\n\t\twidth: '30vw',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\texampleContainer: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tgap: token('space.200'),\n\t},\n\tcomparisonContainer: {\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tgap: token('space.050'),\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<h2>ShimmerText Examples</h2>\n\t\t\t<Stack space=\"space.200\" xcss={styles.exampleContainer}>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Default (medium size, regular weight)</h3>\n\t\t\t\t\t<ShimmerText>Searching for relevant information...</ShimmerText>\n\t\t\t\t\t<Text size=\"medium\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Small size</h3>\n\t\t\t\t\t<ShimmerText size=\"small\">Analyzing query parameters...</ShimmerText>\n\t\t\t\t\t<Text size=\"small\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Large size</h3>\n\t\t\t\t\t<ShimmerText size=\"large\">Processing your request...</ShimmerText>\n\t\t\t\t\t<Text size=\"large\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Medium weight</h3>\n\t\t\t\t\t<ShimmerText weight=\"medium\">Gathering user context...</ShimmerText>\n\t\t\t\t\t<Text size=\"medium\" weight=\"medium\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Semibold weight</h3>\n\t\t\t\t\t<ShimmerText weight=\"semibold\">Reviewing documentation...</ShimmerText>\n\t\t\t\t\t<Text size=\"medium\" weight=\"semibold\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Long text example</h3>\n\t\t\t\t\t<ShimmerText>\n\t\t\t\t\t\tThis is a longer example of shimmer text that demonstrates how the animation works\n\t\t\t\t\t\tacross multiple words and a longer sentence.\n\t\t\t\t\t</ShimmerText>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { ShimmerText } from '@atlassian/rovo-platform-ui-components/primitives/ShimmerText';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '100vh',\n\t\twidth: '30vw',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\texampleContainer: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tgap: token('space.200'),\n\t},\n\tcomparisonContainer: {\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tgap: token('space.050'),\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<h2>ShimmerText Examples</h2>\n\t\t\t<Stack space=\"space.200\" xcss={styles.exampleContainer}>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Default (medium size, regular weight)</h3>\n\t\t\t\t\t<ShimmerText>Searching for relevant information...</ShimmerText>\n\t\t\t\t\t<Text size=\"medium\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Small size</h3>\n\t\t\t\t\t<ShimmerText size=\"small\">Analyzing query parameters...</ShimmerText>\n\t\t\t\t\t<Text size=\"small\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Large size</h3>\n\t\t\t\t\t<ShimmerText size=\"large\">Processing your request...</ShimmerText>\n\t\t\t\t\t<Text size=\"large\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Medium weight</h3>\n\t\t\t\t\t<ShimmerText weight=\"medium\">Gathering user context...</ShimmerText>\n\t\t\t\t\t<Text size=\"medium\" weight=\"medium\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Semibold weight</h3>\n\t\t\t\t\t<ShimmerText weight=\"semibold\">Reviewing documentation...</ShimmerText>\n\t\t\t\t\t<Text size=\"medium\" weight=\"semibold\" color=\"color.text.subtlest\">\n\t\t\t\t\t\t(Regular text for comparison)\n\t\t\t\t\t</Text>\n\t\t\t\t</Box>\n\t\t\t\t<Box xcss={styles.comparisonContainer}>\n\t\t\t\t\t<h3>Long text example</h3>\n\t\t\t\t\t<ShimmerText>\n\t\t\t\t\t\tThis is a longer example of shimmer text that demonstrates how the animation works\n\t\t\t\t\t\tacross multiple words and a longer sentence.\n\t\t\t\t\t</ShimmerText>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30217,7 +30643,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'reasoning', 'mode', 'menu'],
 		category: 'forms',
 		examples: [
-			"import React, { useState } from 'react';\nimport AiModelIcon from '@atlaskit/icon-lab/core/ai-model';\nimport RandomizeIcon from '@atlaskit/icon-lab/core/randomize';\nimport EpicIcon from '@atlaskit/icon/core/epic';\nimport Lozenge from '@atlaskit/lozenge/lozenge';\nimport { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { ReasoningModeMenu } from '@atlassian/rovo-platform-ui-components/reasoning-mode-menu';\nimport type { ReasoningModeMenuItem } from '@atlassian/rovo-platform-ui-components/reasoning-mode-menu/types';\nexport default function ReasoningModeMenuExample(): React.JSX.Element {\n\tconst [selectedMode, setSelectedMode] = useState('auto');\n\tconst items: ReasoningModeMenuItem[] = [\n\t\t{\n\t\t\tid: 'auto',\n\t\t\ttitle: 'Auto',\n\t\t\tsubtitle: 'Rovo picks the right reasoning mode',\n\t\t\ticon: <RandomizeIcon label=\"\" spacing=\"spacious\" />,\n\t\t\tisSelected: selectedMode === 'auto',\n\t\t\tonSelect: () => setSelectedMode('auto'),\n\t\t},\n\t\t{\n\t\t\tid: 'fast',\n\t\t\ttitle: 'Fast',\n\t\t\tsubtitle: 'Quick responses for simple requests',\n\t\t\ticon: <EpicIcon label=\"\" spacing=\"spacious\" />,\n\t\t\tisSelected: selectedMode === 'fast',\n\t\t\tonSelect: () => setSelectedMode('fast'),\n\t\t},\n\t\t{\n\t\t\tid: 'think-deeper',\n\t\t\ttitle: 'Think deeper',\n\t\t\tsubtitle: 'More thorough reasoning for complex requests',\n\t\t\ticon: <AiModelIcon label=\"\" spacing=\"spacious\" />,\n\t\t\tisSelected: selectedMode === 'think-deeper',\n\t\t\tlozengeLabel: <Lozenge appearance=\"discovery\">New</Lozenge>,\n\t\t\tonSelect: () => setSelectedMode('think-deeper'),\n\t\t},\n\t];\n\tconst selectedItem = items.find((item) => item.isSelected);\n\treturn (\n\t\t<Box padding=\"space.400\">\n\t\t\t<Stack space=\"space.300\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">ReasoningModeMenu</Text>\n\t\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\t\tShared reasoning mode menu with translated labels supplied by the caller.\n\t\t\t\t\t</Text>\n\t\t\t\t</Stack>\n\t\t\t\t<Inline>\n\t\t\t\t\t<ReasoningModeMenu\n\t\t\t\t\t\ttriggerLabel={selectedItem?.title ?? 'Reasoning'}\n\t\t\t\t\t\ttriggerIcon={RandomizeIcon}\n\t\t\t\t\t\theadingLabel=\"Reasoning\"\n\t\t\t\t\t\titems={items}\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport AiModelIcon from '@atlaskit/icon-lab/core/ai-model';\nimport RandomizeIcon from '@atlaskit/icon-lab/core/randomize';\nimport EpicIcon from '@atlaskit/icon/core/epic';\nimport Lozenge from '@atlaskit/lozenge/lozenge';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ReasoningModeMenu } from '@atlassian/rovo-platform-ui-components/reasoning-mode-menu';\nimport type { ReasoningModeMenuItem } from '@atlassian/rovo-platform-ui-components/reasoning-mode-menu/types';\nexport default function ReasoningModeMenuExample(): React.JSX.Element {\n\tconst [selectedMode, setSelectedMode] = useState('auto');\n\tconst items: ReasoningModeMenuItem[] = [\n\t\t{\n\t\t\tid: 'auto',\n\t\t\ttitle: 'Auto',\n\t\t\tsubtitle: 'Rovo picks the right reasoning mode',\n\t\t\ticon: <RandomizeIcon label=\"\" spacing=\"spacious\" />,\n\t\t\tisSelected: selectedMode === 'auto',\n\t\t\tonSelect: () => setSelectedMode('auto'),\n\t\t},\n\t\t{\n\t\t\tid: 'fast',\n\t\t\ttitle: 'Fast',\n\t\t\tsubtitle: 'Quick responses for simple requests',\n\t\t\ticon: <EpicIcon label=\"\" spacing=\"spacious\" />,\n\t\t\tisSelected: selectedMode === 'fast',\n\t\t\tonSelect: () => setSelectedMode('fast'),\n\t\t},\n\t\t{\n\t\t\tid: 'think-deeper',\n\t\t\ttitle: 'Think deeper',\n\t\t\tsubtitle: 'More thorough reasoning for complex requests',\n\t\t\ticon: <AiModelIcon label=\"\" spacing=\"spacious\" />,\n\t\t\tisSelected: selectedMode === 'think-deeper',\n\t\t\tlozengeLabel: <Lozenge appearance=\"discovery\">New</Lozenge>,\n\t\t\tonSelect: () => setSelectedMode('think-deeper'),\n\t\t},\n\t];\n\tconst selectedItem = items.find((item) => item.isSelected);\n\treturn (\n\t\t<Box padding=\"space.400\">\n\t\t\t<Stack space=\"space.300\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"bold\">ReasoningModeMenu</Text>\n\t\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\t\tShared reasoning mode menu with translated labels supplied by the caller.\n\t\t\t\t\t</Text>\n\t\t\t\t</Stack>\n\t\t\t\t<Inline>\n\t\t\t\t\t<ReasoningModeMenu\n\t\t\t\t\t\ttriggerLabel={selectedItem?.title ?? 'Reasoning'}\n\t\t\t\t\t\ttriggerIcon={RandomizeIcon}\n\t\t\t\t\t\theadingLabel=\"Reasoning\"\n\t\t\t\t\t\titems={items}\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30510,7 +30936,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'session', 'list', 'collection'],
 		category: 'rovo',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListActionMenu } from '@atlassian/rovo-platform-ui-components/session-list/SessionListActionMenu';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListItem } from '@atlassian/rovo-platform-ui-components/session-list/SessionListItem';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n\tcompactList: {\n\t\twidth: '320px',\n\t\tmaxWidth: '100%',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Compact linked context</Heading>\n\t\t\t\t<Box role=\"list\" xcss={styles.compactList}>\n\t\t\t\t\t<SessionListItem\n\t\t\t\t\t\tsession={{\n\t\t\t\t\t\t\tid: 'compact-linked',\n\t\t\t\t\t\t\ttitle: 'Review the quarterly customer development plan',\n\t\t\t\t\t\t\tstate: 'INPUT_REQUIRED',\n\t\t\t\t\t\t\tcontexts: [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tid: 'linked-plan',\n\t\t\t\t\t\t\t\t\tlabel: 'Quarterly customer development work graph',\n\t\t\t\t\t\t\t\t\ttype: 'confluence',\n\t\t\t\t\t\t\t\t\turl: 'https://example.atlassian.net/wiki/pages/123',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonActivate={() => {}}\n\t\t\t\t\t\tactions={<SessionListActionMenu name=\"Review the plan\" onDelete={() => {}} />}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\tonOpenConversation={() => {}}\n\t\t\t\t\tsessions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-full',\n\t\t\t\t\t\t\t\tname: 'Prepare the quarterly review',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: 'INPUT_REQUIRED',\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-204', label: 'DS-204', type: 'jira' }],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'in-progress',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-in-progress',\n\t\t\t\t\t\t\t\tname: 'Build the release summary',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: 'WORKING',\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-205', label: 'DS-205', type: 'jira' }],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'unread',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-unread',\n\t\t\t\t\t\t\t\tname: 'Review the updated plan',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'sparse',\n\t\t\t\t\t\t\tconversationChannel: { name: 'Summarize the planning notes' },\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListActionMenu } from '@atlassian/rovo-platform-ui-components/session-list/SessionListActionMenu';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListItem } from '@atlassian/rovo-platform-ui-components/session-list/SessionListItem';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n\tcompactList: {\n\t\twidth: '320px',\n\t\tmaxWidth: '100%',\n\t},\n});\nexport default function (): React.JSX.Element {\n\tconst [status, setStatus] = useState<'WORKING' | 'INPUT_REQUIRED' | undefined>('WORKING');\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setStatus('WORKING')}>Working</Button>\n\t\t\t\t<Button onClick={() => setStatus('INPUT_REQUIRED')}>Needs input</Button>\n\t\t\t\t<Button onClick={() => setStatus(undefined)}>Unread</Button>\n\t\t\t</Inline>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Compact working session</Heading>\n\t\t\t\t<Box role=\"list\" xcss={styles.compactList}>\n\t\t\t\t\t<SessionListItem\n\t\t\t\t\t\tsession={{\n\t\t\t\t\t\t\tid: 'compact-working',\n\t\t\t\t\t\t\ttitle: 'Build the release summary',\n\t\t\t\t\t\t\tstate: status,\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tconversationChannel: { name: 'Build the release summary', readStatus: false },\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonActivate={() => {}}\n\t\t\t\t\t\tactions={<SessionListActionMenu name=\"Build the release summary\" onDelete={() => {}} />}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Compact linked context</Heading>\n\t\t\t\t<Box role=\"list\" xcss={styles.compactList}>\n\t\t\t\t\t<SessionListItem\n\t\t\t\t\t\tsession={{\n\t\t\t\t\t\t\tid: 'compact-linked',\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\ttitle: 'Review the quarterly customer development plan',\n\t\t\t\t\t\t\tstate: status,\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tname: 'Review the quarterly customer development plan',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tcontexts: [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tid: 'linked-plan',\n\t\t\t\t\t\t\t\t\tlabel: 'Quarterly customer development work graph',\n\t\t\t\t\t\t\t\t\ttype: 'confluence',\n\t\t\t\t\t\t\t\t\turl: 'https://example.atlassian.net/wiki/pages/123',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonActivate={() => {}}\n\t\t\t\t\t\tactions={<SessionListActionMenu name=\"Review the plan\" onDelete={() => {}} />}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\tonOpenConversation={() => {}}\n\t\t\t\t\tsessions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-full',\n\t\t\t\t\t\t\t\tname: 'Prepare the quarterly review',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: 'INPUT_REQUIRED',\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-204', label: 'DS-204', type: 'jira' }],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'in-progress',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-in-progress',\n\t\t\t\t\t\t\t\tname: 'Build the release summary',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: status,\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-205', label: 'DS-205', type: 'jira' }],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'unread',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-unread',\n\t\t\t\t\t\t\t\tname: 'Review the updated plan',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'sparse',\n\t\t\t\t\t\t\tconversationChannel: { name: 'Summarize the planning notes' },\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30555,7 +30981,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'session', 'pagination', 'loading', 'error'],
 		category: 'rovo',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListActionMenu } from '@atlassian/rovo-platform-ui-components/session-list/SessionListActionMenu';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListItem } from '@atlassian/rovo-platform-ui-components/session-list/SessionListItem';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n\tcompactList: {\n\t\twidth: '320px',\n\t\tmaxWidth: '100%',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Compact linked context</Heading>\n\t\t\t\t<Box role=\"list\" xcss={styles.compactList}>\n\t\t\t\t\t<SessionListItem\n\t\t\t\t\t\tsession={{\n\t\t\t\t\t\t\tid: 'compact-linked',\n\t\t\t\t\t\t\ttitle: 'Review the quarterly customer development plan',\n\t\t\t\t\t\t\tstate: 'INPUT_REQUIRED',\n\t\t\t\t\t\t\tcontexts: [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tid: 'linked-plan',\n\t\t\t\t\t\t\t\t\tlabel: 'Quarterly customer development work graph',\n\t\t\t\t\t\t\t\t\ttype: 'confluence',\n\t\t\t\t\t\t\t\t\turl: 'https://example.atlassian.net/wiki/pages/123',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonActivate={() => {}}\n\t\t\t\t\t\tactions={<SessionListActionMenu name=\"Review the plan\" onDelete={() => {}} />}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\tonOpenConversation={() => {}}\n\t\t\t\t\tsessions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-full',\n\t\t\t\t\t\t\t\tname: 'Prepare the quarterly review',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: 'INPUT_REQUIRED',\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-204', label: 'DS-204', type: 'jira' }],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'in-progress',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-in-progress',\n\t\t\t\t\t\t\t\tname: 'Build the release summary',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: 'WORKING',\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-205', label: 'DS-205', type: 'jira' }],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'unread',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-unread',\n\t\t\t\t\t\t\t\tname: 'Review the updated plan',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'sparse',\n\t\t\t\t\t\t\tconversationChannel: { name: 'Summarize the planning notes' },\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListActionMenu } from '@atlassian/rovo-platform-ui-components/session-list/SessionListActionMenu';\nimport { SessionListEmpty } from '@atlassian/rovo-platform-ui-components/session-list/SessionListEmpty';\nimport { SessionListError } from '@atlassian/rovo-platform-ui-components/session-list/SessionListError';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nimport { SessionListItem } from '@atlassian/rovo-platform-ui-components/session-list/SessionListItem';\nimport { SessionListLoading } from '@atlassian/rovo-platform-ui-components/session-list/SessionListLoading';\nconst styles = cssMap({\n\twrapper: {\n\t\twidth: '100%',\n\t\tmaxWidth: '1000px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.400'),\n\t\tpaddingBottom: token('space.400'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t},\n\tcompactList: {\n\t\twidth: '320px',\n\t\tmaxWidth: '100%',\n\t},\n});\nexport default function (): React.JSX.Element {\n\tconst [status, setStatus] = useState<'WORKING' | 'INPUT_REQUIRED' | undefined>('WORKING');\n\treturn (\n\t\t<Stack xcss={styles.wrapper} space=\"space.400\">\n\t\t\t<Inline space=\"space.100\">\n\t\t\t\t<Button onClick={() => setStatus('WORKING')}>Working</Button>\n\t\t\t\t<Button onClick={() => setStatus('INPUT_REQUIRED')}>Needs input</Button>\n\t\t\t\t<Button onClick={() => setStatus(undefined)}>Unread</Button>\n\t\t\t</Inline>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Compact working session</Heading>\n\t\t\t\t<Box role=\"list\" xcss={styles.compactList}>\n\t\t\t\t\t<SessionListItem\n\t\t\t\t\t\tsession={{\n\t\t\t\t\t\t\tid: 'compact-working',\n\t\t\t\t\t\t\ttitle: 'Build the release summary',\n\t\t\t\t\t\t\tstate: status,\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tconversationChannel: { name: 'Build the release summary', readStatus: false },\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonActivate={() => {}}\n\t\t\t\t\t\tactions={<SessionListActionMenu name=\"Build the release summary\" onDelete={() => {}} />}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Compact linked context</Heading>\n\t\t\t\t<Box role=\"list\" xcss={styles.compactList}>\n\t\t\t\t\t<SessionListItem\n\t\t\t\t\t\tsession={{\n\t\t\t\t\t\t\tid: 'compact-linked',\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\ttitle: 'Review the quarterly customer development plan',\n\t\t\t\t\t\t\tstate: status,\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tname: 'Review the quarterly customer development plan',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tcontexts: [\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tid: 'linked-plan',\n\t\t\t\t\t\t\t\t\tlabel: 'Quarterly customer development work graph',\n\t\t\t\t\t\t\t\t\ttype: 'confluence',\n\t\t\t\t\t\t\t\t\turl: 'https://example.atlassian.net/wiki/pages/123',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonActivate={() => {}}\n\t\t\t\t\t\tactions={<SessionListActionMenu name=\"Review the plan\" onDelete={() => {}} />}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Populated</Heading>\n\t\t\t\t<SessionList\n\t\t\t\t\tariaLabel=\"Agent sessions\"\n\t\t\t\t\tonOpenConversation={() => {}}\n\t\t\t\t\tsessions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'full',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-full',\n\t\t\t\t\t\t\t\tname: 'Prepare the quarterly review',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: 'INPUT_REQUIRED',\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-204', label: 'DS-204', type: 'jira' }],\n\t\t\t\t\t\t\tlastStateChangeAt: Date.now() - 300_000,\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'in-progress',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-in-progress',\n\t\t\t\t\t\t\t\tname: 'Build the release summary',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\tstate: status,\n\t\t\t\t\t\t\tdisplayAgent: { id: 'planning-agent', name: 'Planning agent' },\n\t\t\t\t\t\t\tcontexts: [{ id: 'DS-205', label: 'DS-205', type: 'jira' }],\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'unread',\n\t\t\t\t\t\t\tconversationChannel: {\n\t\t\t\t\t\t\t\tid: 'conversation-unread',\n\t\t\t\t\t\t\t\tname: 'Review the updated plan',\n\t\t\t\t\t\t\t\treadStatus: false,\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tid: 'sparse',\n\t\t\t\t\t\t\tconversationChannel: { name: 'Summarize the planning notes' },\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t/>\n\t\t\t\t<SessionListFooter state=\"end\" label=\"You have reached the end\" />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Loading</Heading>\n\t\t\t\t<SessionListLoading label=\"Loading items\" rowCount={3} />\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Empty</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListEmpty\n\t\t\t\t\t\theader=\"Nothing needs your input\"\n\t\t\t\t\t\tdescription=\"When an agent needs a decision or confirmation from you, it'll show up here.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error with retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Check your connection and try again.\"\n\t\t\t\t\t\tretryLabel=\"Try again\"\n\t\t\t\t\t\tonRetry={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<Heading size=\"medium\">Error without retry</Heading>\n\t\t\t\t<Box>\n\t\t\t\t\t<SessionListError\n\t\t\t\t\t\theader=\"We couldn't load this page\"\n\t\t\t\t\t\tdescription=\"Retrying isn't available for this page.\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30585,13 +31011,20 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'agent', 'session', 'row', 'unread'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nconst styles = cssMap({\n\tpage: {\n\t\twidth: '100%',\n\t\tmaxWidth: '720px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n});\nconst SESSIONS = [\n\t{\n\t\tid: 'full',\n\t\tconversationChannel: {\n\t\t\tid: 'conversation-full',\n\t\t\tname: 'Prepare the quarterly customer insights review',\n\t\t\treadStatus: false,\n\t\t},\n\t\tstate: 'INPUT_REQUIRED' as const,\n\t\tdisplayAgent: { id: 'insights-agent', name: 'Insights agent' },\n\t\tcontexts: [\n\t\t\t{\n\t\t\t\tid: 'DS-204',\n\t\t\t\tlabel: 'DS-204',\n\t\t\t\ttype: 'jira' as const,\n\t\t\t\turl: 'https://example.atlassian.net/browse/DS-204',\n\t\t\t},\n\t\t],\n\t},\n\t{\n\t\tid: 'sparse',\n\t\tconversationChannel: { name: 'Summarize the planning notes' },\n\t},\n];\nexport default function SessionListPopulatedExample(): React.JSX.Element {\n\tconst sessions = React.useMemo(\n\t\t() =>\n\t\t\tSESSIONS.map((session) => ({\n\t\t\t\t...session,\n\t\t\t\tlastStateChangeAt: session.id === 'full' ? Date.now() - 300_000 : undefined,\n\t\t\t})),\n\t\t[],\n\t);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.page}>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<SessionList sessions={sessions} onOpenConversation={() => {}} />\n\t\t\t\t\t<SessionListFooter state=\"loading\" label=\"Loading more sessions\" />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport { SessionList } from '@atlassian/rovo-platform-ui-components/session-list/SessionList';\nimport { SessionListFooter } from '@atlassian/rovo-platform-ui-components/session-list/SessionListFooter';\nconst styles = cssMap({\n\tpage: {\n\t\twidth: '100%',\n\t\tmaxWidth: '720px',\n\t\tmarginInlineStart: 'auto',\n\t\tmarginInlineEnd: 'auto',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n});\nconst SESSIONS = [\n\t{\n\t\tid: 'full',\n\t\tconversationChannel: {\n\t\t\tid: 'conversation-full',\n\t\t\tname: 'Prepare the quarterly customer insights review',\n\t\t\treadStatus: false,\n\t\t},\n\t\tstate: 'INPUT_REQUIRED' as const,\n\t\tdisplayAgent: { id: 'insights-agent', name: 'Insights agent' },\n\t\tcontexts: [\n\t\t\t{\n\t\t\t\tid: 'DS-204',\n\t\t\t\tlabel: 'DS-204',\n\t\t\t\ttype: 'jira' as const,\n\t\t\t\turl: 'https://example.atlassian.net/browse/DS-204',\n\t\t\t},\n\t\t],\n\t},\n\t{\n\t\tid: 'sparse',\n\t\tconversationChannel: { name: 'Summarize the planning notes' },\n\t},\n];\nexport default function SessionListPopulatedExample(): React.JSX.Element {\n\tconst sessions = React.useMemo(\n\t\t() =>\n\t\t\tSESSIONS.map((session) => ({\n\t\t\t\t...session,\n\t\t\t\tlastStateChangeAt: session.id === 'full' ? Date.now() - 300_000 : undefined,\n\t\t\t})),\n\t\t[],\n\t);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.page}>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<SessionList sessions={sessions} onOpenConversation={() => {}} />\n\t\t\t\t\t<SessionListFooter state=\"loading\" label=\"Loading more sessions\" />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
 				name: 'actions',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				description: 'Optional host-owned controls, rendered beside the row activation target.',
+			},
+			{
+				name: 'forceCompact',
+				type: 'boolean',
+				description:
+					'Always use the compact layout regardless of available width. Defaults to false.',
+				defaultValue: 'false',
 			},
 			{
 				name: 'hasDivider',
@@ -30629,24 +31062,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'SessionStatusBadge',
-		package: '@atlassian/rovo-platform-ui-components',
-		description: 'A semantic status badge for compact conversation and session surfaces.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import SessionStatusBadge from its explicit package entrypoint; avoid reaching into package source paths.',
-			'Use SessionStatusIcon when a compact leading status indicator is needed without the badge container.',
-			"Derive reusable status types with ComponentProps<typeof SessionStatusBadge>['status'] rather than importing a separate status type.",
-			'Pass semantic status values such as needs-input instead of hard-coding copy, color, or icon choices in consuming surfaces.',
-		],
-		keywords: ['rovo', 'status', 'badge', 'notice', 'needs-input'],
-		category: 'rovo',
-		examples: [
-			'import { IntlProvider } from \'react-intl\';\nimport { SessionStatusBadge } from \'@atlassian/rovo-platform-ui-components/session-details/SessionStatusBadge\';\nimport { SessionStatusIcon } from \'@atlassian/rovo-platform-ui-components/session-details/SessionStatusIcon\';\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<div>\n\t\t\t\t<SessionStatusBadge status="needs-input" />\n\t\t\t\t<SessionStatusIcon status="needs-input" label="Needs input" />\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}',
-		],
-		props: [],
-	},
-	{
 		name: 'SkillCard',
 		package: '@atlassian/rovo-platform-ui-components',
 		description: 'A card that presents a Rovo skill and its summary.',
@@ -30658,9 +31073,94 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'skill', 'card'],
 		category: 'data-display',
 		examples: [
-			'import React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { SkillCardView } from \'@atlassian/rovo-platform-ui-components/skills/skill-card\';\nexport default function SkillCardExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [hasReadDetails, setHasReadDetails] = useState(false);\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<Stack space="space.100">\n\t\t\t\t<SkillCardView\n\t\t\t\t\ttitle="Create work items"\n\t\t\t\t\tcontent={<Text>Turn a request into a Jira work item.</Text>}\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((current) => !current)}\n\t\t\t\t\tonRead={() => setHasReadDetails(true)}\n\t\t\t\t/>\n\t\t\t\t{hasReadDetails && (\n\t\t\t\t\t<Text color="color.text.subtlest">Skill details opened for review.</Text>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SkillCardView } from '@atlassian/rovo-platform-ui-components/skills/skill-card';\nexport default function SkillCardExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\tconst [hasReadDetails, setHasReadDetails] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<SkillCardView\n\t\t\t\t\ttitle=\"Create work items\"\n\t\t\t\t\tcontent={<Text>Turn a request into a Jira work item.</Text>}\n\t\t\t\t\tisSelected={isSelected}\n\t\t\t\t\tonClick={() => setIsSelected((current) => !current)}\n\t\t\t\t\tonRead={() => setHasReadDetails(true)}\n\t\t\t\t/>\n\t\t\t\t{hasReadDetails && (\n\t\t\t\t\t<Text color=\"color.text.subtlest\">Skill details opened for review.</Text>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
-		props: [],
+		props: [
+			{
+				name: 'actions',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Replaces Read; displayed beside the checkbox.',
+			},
+			{
+				name: 'attribution',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'content',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+			{
+				name: 'createdBy',
+				type: '{ accountId: string; avatarUrl?: string; displayName: string; }',
+			},
+			{
+				name: 'currentUserId',
+				type: 'string',
+			},
+			{
+				name: 'isBeta',
+				type: 'boolean',
+			},
+			{
+				name: 'isPressable',
+				type: 'boolean',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isSelectable',
+				type: 'boolean',
+				defaultValue: 'true',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				isRequired: true,
+			},
+			{
+				name: 'isSelectionDisabled',
+				type: 'boolean',
+				defaultValue: 'false',
+			},
+			{
+				name: 'onClick',
+				type: '() => void',
+				isRequired: true,
+			},
+			{
+				name: 'onRead',
+				type: '() => void',
+			},
+			{
+				name: 'onSelect',
+				type: '() => void',
+			},
+			{
+				name: 'primaryActionRef',
+				type: '((instance: HTMLButtonElement) => void) | React.RefObject<HTMLButtonElement>',
+			},
+			{
+				name: 'relevantFor',
+				type: '"PLATFORM_SKILL" | "CUSTOM_SKILL"',
+			},
+			{
+				name: 'skillColor',
+				type: '"LIME" | "RED" | "ORANGE" | "YELLOW" | "GREEN" | "TEAL" | "BLUE" | "PURPLE" | "MAGENTA" | "GRAY" | "DEFAULT"',
+			},
+			{
+				name: 'skillIconKey',
+				type: '"form" | "search" | "summary" | "add" | "transition" | "alert" | "skill" | "assets" | "chart-bar-line" | "ai-generative-text" | "work-item" | "lock-locked" | "chart-pie" | "plan" | ... 22 more ... | "text-review"',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'titleTag',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+		],
 	},
 	{
 		name: 'SkillIcon',
@@ -30749,7 +31249,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'skill', 'hover', 'card'],
 		category: 'overlays',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SkillHoverCard } from '@atlassian/rovo-platform-ui-components/skills/SkillHoverCard';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '100vh',\n\t\twidth: '50vw',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\texampleContainer: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tflex: 1,\n\t\tjustifyContent: 'flex-start',\n\t},\n\thoverBox: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t\tborderRadius: token('radius.small'),\n\t\tcursor: 'pointer',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Flex xcss={styles.wrapper} direction=\"column\" alignItems=\"start\">\n\t\t\t<Box xcss={styles.exampleContainer}>\n\t\t\t\t<SkillHoverCard\n\t\t\t\t\tname=\"Create Report\"\n\t\t\t\t\tdescription=\"Easily create, design, and share professional diagrams\"\n\t\t\t\t\ticonName=\"chart-pie\"\n\t\t\t\t\tproduct=\"Jira\"\n\t\t\t\t>\n\t\t\t\t\t<Pressable xcss={styles.hoverBox}>Hover me</Pressable>\n\t\t\t\t</SkillHoverCard>\n\t\t\t</Box>\n\t\t</Flex>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Flex } from '@atlaskit/primitives/compiled/flex';\nimport { Pressable } from '@atlaskit/primitives/compiled/pressable';\nimport { token } from '@atlaskit/tokens';\nimport { SkillHoverCard } from '@atlassian/rovo-platform-ui-components/skills/SkillHoverCard';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '100vh',\n\t\twidth: '50vw',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\texampleContainer: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tflex: 1,\n\t\tjustifyContent: 'flex-start',\n\t},\n\thoverBox: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t\tborderRadius: token('radius.small'),\n\t\tcursor: 'pointer',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Flex xcss={styles.wrapper} direction=\"column\" alignItems=\"start\">\n\t\t\t<Box xcss={styles.exampleContainer}>\n\t\t\t\t<SkillHoverCard\n\t\t\t\t\tname=\"Create Report\"\n\t\t\t\t\tdescription=\"Easily create, design, and share professional diagrams\"\n\t\t\t\t\ticonName=\"chart-pie\"\n\t\t\t\t\tproduct=\"Jira\"\n\t\t\t\t>\n\t\t\t\t\t<Pressable xcss={styles.hoverBox}>Hover me</Pressable>\n\t\t\t\t</SkillHoverCard>\n\t\t\t</Box>\n\t\t</Flex>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30864,7 +31364,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'skill', 'hover', 'card', 'content'],
 		category: 'overlays',
 		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport { Box, Flex } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SkillHoverCardContent } from '@atlassian/rovo-platform-ui-components/skills/SkillHoverCardContent';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '100vh',\n\t\twidth: '50vw',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\texampleContainer: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tflex: 1,\n\t\tjustifyContent: 'flex-start',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Flex xcss={styles.wrapper} direction=\"column\" alignItems=\"start\">\n\t\t\t<Box xcss={styles.exampleContainer}>\n\t\t\t\t<SkillHoverCardContent\n\t\t\t\t\tname=\"Create Report\"\n\t\t\t\t\tdescription=\"Easily create, design, and share professional diagrams\"\n\t\t\t\t\ticonName=\"chart-pie\"\n\t\t\t\t\tproduct=\"Jira\"\n\t\t\t\t\tproductIconUrl=\"https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype\"\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</Flex>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Flex } from '@atlaskit/primitives/compiled/flex';\nimport { token } from '@atlaskit/tokens';\nimport { SkillHoverCardContent } from '@atlassian/rovo-platform-ui-components/skills/SkillHoverCardContent';\nconst styles = cssMap({\n\twrapper: {\n\t\theight: '100vh',\n\t\twidth: '50vw',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\texampleContainer: {\n\t\tpaddingTop: token('space.100'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.100'),\n\t\tpaddingLeft: token('space.100'),\n\t\tdisplay: 'flex',\n\t\tflexDirection: 'column',\n\t\tflex: 1,\n\t\tjustifyContent: 'flex-start',\n\t},\n});\nexport default function (): React.JSX.Element {\n\treturn (\n\t\t<Flex xcss={styles.wrapper} direction=\"column\" alignItems=\"start\">\n\t\t\t<Box xcss={styles.exampleContainer}>\n\t\t\t\t<SkillHoverCardContent\n\t\t\t\t\tname=\"Create Report\"\n\t\t\t\t\tdescription=\"Easily create, design, and share professional diagrams\"\n\t\t\t\t\ticonName=\"chart-pie\"\n\t\t\t\t\tproduct=\"Jira\"\n\t\t\t\t\tproductIconUrl=\"https://product-fabric.atlassian.net/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype\"\n\t\t\t\t/>\n\t\t\t</Box>\n\t\t</Flex>\n\t);\n}",
 		],
 		props: [
 			{
@@ -31080,7 +31580,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'thread', 'conversation', 'card'],
 		category: 'data-display',
 		examples: [
-			"import React, { useCallback } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box, Stack } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { ThreadCard } from '@atlassian/rovo-platform-ui-components/thread-card';\n// Simple colored SVG icons encoded as data URIs so they render in standalone examples\n// without needing the Atlassian gateway.\nconst confluenceIconUrl =\n\t\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230065FF'/%3E%3Cpath d='M6 16.5c.3-.5 1-1.8 2.5-1.8s2.5 1 3.5 1 1.5-.4 2-.8c.2-.2.5-.1.6.1l1 1.7c.2.2.1.5-.1.6-.7.5-1.7 1-3.5 1s-2.5-1-3.5-1-1.2.3-1.5.7c-.2.2-.5.3-.7.1L6.2 17c-.2-.1-.3-.3-.2-.5zm12-9c-.3.5-1 1.8-2.5 1.8s-2.5-1-3.5-1-1.5.4-2 .8c-.2.2-.5.1-.6-.1l-1-1.7c-.2-.2-.1-.5.1-.6.7-.5 1.7-1 3.5-1s2.5 1 3.5 1 1.2-.3 1.5-.7c.2-.2.5-.3.7-.1l.1.1c.2.1.3.3.2.5z' fill='%23fff'/%3E%3C/svg%3E\";\nconst jiraIconUrl =\n\t\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230052CC'/%3E%3Cpath d='M17.3 11.3l-4.6-4.6-1.4-1.4c-.4-.4-1-.4-1.4 0L8.5 6.7l1.8 1.8c.4-.1.9 0 1.2.3.3.3.4.8.3 1.2l1.7 1.7c.4-.1.9 0 1.2.3.4.4.4 1 0 1.4s-1 .4-1.4 0c-.4-.3-.4-.9-.1-1.3L11.5 9.4v3.2c.1.1.2.1.3.2.4.4.4 1 0 1.4s-1 .4-1.4 0-.4-1 0-1.4c.1-.1.2-.2.4-.3V9.3c-.1-.1-.3-.2-.4-.3-.3-.3-.4-.8-.2-1.2L8.4 6l-1.7 1.7c-.4.4-.4 1 0 1.4l4.6 4.6 1.4 1.4c.4.4 1 .4 1.4 0l1.4-1.4 4.6-4.6c.4-.4.4-1-.1-1.4l-.7-.4z' fill='%23fff'/%3E%3C/svg%3E\";\nconst sampleSourceUrls = [confluenceIconUrl, jiraIconUrl];\nconst styles = cssMap({\n\twrapper: {\n\t\tminHeight: '100vh',\n\t\twidth: '360px',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tsection: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.100'),\n\t\tborderRadius: token('radius.medium'),\n\t\tborder: `${token('border.width')} solid ${token('color.border')}`,\n\t},\n});\nexport default function (): React.JSX.Element {\n\tconst handleDailyBriefClick = useCallback((_threadId: string, _threadTitle: string) => {\n\t\t// Intentionally empty\n\t}, []);\n\tconst handleCreateProjectClick = useCallback((_threadId: string, _threadTitle: string) => {\n\t\t// Intentionally empty\n\t}, []);\n\tconst handleChatClick = useCallback((_threadId: string, _threadTitle: string) => {\n\t\t// Intentionally empty\n\t}, []);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.wrapper}>\n\t\t\t\t<Heading size=\"medium\">ThreadCard examples</Heading>\n\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Non-clickable + Daily brief CTA</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-1\"\n\t\t\t\t\t\t\ttitle=\"Atlassian Design System updates\"\n\t\t\t\t\t\t\tsubtitle=\"Recent changes to component APIs\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonDailyBriefClick={handleDailyBriefClick}\n\t\t\t\t\t\t\tonChatClick={handleChatClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Clickable + Daily brief CTA</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-2\"\n\t\t\t\t\t\t\ttitle=\"Q3 sprint planning and roadmap\"\n\t\t\t\t\t\t\tsubtitle=\"Highlights across Jira and Confluence\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonDailyBriefClick={handleDailyBriefClick}\n\t\t\t\t\t\t\tonChatClick={handleChatClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Non-clickable + Create project CTA</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-3\"\n\t\t\t\t\t\t\ttitle=\"New project idea\"\n\t\t\t\t\t\t\tsubtitle=\"Set up a project to track this work\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonCreateProjectClick={handleCreateProjectClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">\n\t\t\t\t\t\t\tAll CTAs (create project takes precedence over daily brief)\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-3\"\n\t\t\t\t\t\t\ttitle=\"Mixed CTA example\"\n\t\t\t\t\t\t\tsubtitle=\"Create project wins when both callbacks are provided\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonCreateProjectClick={handleCreateProjectClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Create project takes precedence over Daily brief</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-5\"\n\t\t\t\t\t\t\ttitle=\"Mixed CTA example\"\n\t\t\t\t\t\t\tsubtitle=\"Create project wins when both callbacks are provided\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonDailyBriefClick={handleDailyBriefClick}\n\t\t\t\t\t\t\tonCreateProjectClick={handleCreateProjectClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useCallback } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport { ThreadCard } from '@atlassian/rovo-platform-ui-components/thread-card';\n// Simple colored SVG icons encoded as data URIs so they render in standalone examples\n// without needing the Atlassian gateway.\nconst confluenceIconUrl =\n\t\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230065FF'/%3E%3Cpath d='M6 16.5c.3-.5 1-1.8 2.5-1.8s2.5 1 3.5 1 1.5-.4 2-.8c.2-.2.5-.1.6.1l1 1.7c.2.2.1.5-.1.6-.7.5-1.7 1-3.5 1s-2.5-1-3.5-1-1.2.3-1.5.7c-.2.2-.5.3-.7.1L6.2 17c-.2-.1-.3-.3-.2-.5zm12-9c-.3.5-1 1.8-2.5 1.8s-2.5-1-3.5-1-1.5.4-2 .8c-.2.2-.5.1-.6-.1l-1-1.7c-.2-.2-.1-.5.1-.6.7-.5 1.7-1 3.5-1s2.5 1 3.5 1 1.2-.3 1.5-.7c.2-.2.5-.3.7-.1l.1.1c.2.1.3.3.2.5z' fill='%23fff'/%3E%3C/svg%3E\";\nconst jiraIconUrl =\n\t\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='4' fill='%230052CC'/%3E%3Cpath d='M17.3 11.3l-4.6-4.6-1.4-1.4c-.4-.4-1-.4-1.4 0L8.5 6.7l1.8 1.8c.4-.1.9 0 1.2.3.3.3.4.8.3 1.2l1.7 1.7c.4-.1.9 0 1.2.3.4.4.4 1 0 1.4s-1 .4-1.4 0c-.4-.3-.4-.9-.1-1.3L11.5 9.4v3.2c.1.1.2.1.3.2.4.4.4 1 0 1.4s-1 .4-1.4 0-.4-1 0-1.4c.1-.1.2-.2.4-.3V9.3c-.1-.1-.3-.2-.4-.3-.3-.3-.4-.8-.2-1.2L8.4 6l-1.7 1.7c-.4.4-.4 1 0 1.4l4.6 4.6 1.4 1.4c.4.4 1 .4 1.4 0l1.4-1.4 4.6-4.6c.4-.4.4-1-.1-1.4l-.7-.4z' fill='%23fff'/%3E%3C/svg%3E\";\nconst sampleSourceUrls = [confluenceIconUrl, jiraIconUrl];\nconst styles = cssMap({\n\twrapper: {\n\t\tminHeight: '100vh',\n\t\twidth: '360px',\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tsection: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.100'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.100'),\n\t\tborderRadius: token('radius.medium'),\n\t\tborder: `${token('border.width')} solid ${token('color.border')}`,\n\t},\n});\nexport default function (): React.JSX.Element {\n\tconst handleDailyBriefClick = useCallback((_threadId: string, _threadTitle: string) => {\n\t\t// Intentionally empty\n\t}, []);\n\tconst handleCreateProjectClick = useCallback((_threadId: string, _threadTitle: string) => {\n\t\t// Intentionally empty\n\t}, []);\n\tconst handleChatClick = useCallback((_threadId: string, _threadTitle: string) => {\n\t\t// Intentionally empty\n\t}, []);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.wrapper}>\n\t\t\t\t<Heading size=\"medium\">ThreadCard examples</Heading>\n\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Non-clickable + Daily brief CTA</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-1\"\n\t\t\t\t\t\t\ttitle=\"Atlassian Design System updates\"\n\t\t\t\t\t\t\tsubtitle=\"Recent changes to component APIs\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonDailyBriefClick={handleDailyBriefClick}\n\t\t\t\t\t\t\tonChatClick={handleChatClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Clickable + Daily brief CTA</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-2\"\n\t\t\t\t\t\t\ttitle=\"Q3 sprint planning and roadmap\"\n\t\t\t\t\t\t\tsubtitle=\"Highlights across Jira and Confluence\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonDailyBriefClick={handleDailyBriefClick}\n\t\t\t\t\t\t\tonChatClick={handleChatClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Non-clickable + Create project CTA</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-3\"\n\t\t\t\t\t\t\ttitle=\"New project idea\"\n\t\t\t\t\t\t\tsubtitle=\"Set up a project to track this work\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonCreateProjectClick={handleCreateProjectClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">\n\t\t\t\t\t\t\tAll CTAs (create project takes precedence over daily brief)\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-3\"\n\t\t\t\t\t\t\ttitle=\"Mixed CTA example\"\n\t\t\t\t\t\t\tsubtitle=\"Create project wins when both callbacks are provided\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonCreateProjectClick={handleCreateProjectClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<Box xcss={styles.section}>\n\t\t\t\t\t\t<Heading size=\"small\">Create project takes precedence over Daily brief</Heading>\n\t\t\t\t\t\t<ThreadCard\n\t\t\t\t\t\t\tthreadId=\"thread-5\"\n\t\t\t\t\t\t\ttitle=\"Mixed CTA example\"\n\t\t\t\t\t\t\tsubtitle=\"Create project wins when both callbacks are provided\"\n\t\t\t\t\t\t\tsourceUrls={sampleSourceUrls}\n\t\t\t\t\t\t\tonDailyBriefClick={handleDailyBriefClick}\n\t\t\t\t\t\t\tonCreateProjectClick={handleCreateProjectClick}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -31165,7 +31665,25 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'openChatMode',
+				type: '"sidebar" | "mini-modal"',
+				description: 'Whether the CTA should open Rovo chat in the sidebar or the mini-modal.',
+				defaultValue: "'sidebar'",
+			},
+			{
+				name: 'product',
+				type: '"jira" | "confluence"',
+				description: 'The host product. Used for analytics attribution.',
+				isRequired: true,
+			},
+			{
+				name: 'prompt',
+				type: 'string',
+				description: 'Optional prompt seeded into Rovo chat when the CTA is clicked.',
+			},
+		],
 	},
 	{
 		name: 'RovoReintroductionModal',
@@ -31237,9 +31755,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'service agent', 'search trigger'],
 		category: 'rovo',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { DiProvider, injectable } from 'react-magnetic-di';\nimport { RovoWidgetConfigProvider } from '../src/controllers/rovo-widget-config-context';\nimport { loadRovoWidgetSDKScript } from '../src/services/widget-script/utils';\nimport { RovoSearchWidgetTrigger } from '../src/ui/rovo-search-widget-trigger';\nconst mockRovoWidgetConfig = {\n\tagentId: 'test-agent-id-123',\n};\nconst mockLoadRovoWidgetSDKScript = injectable(\n\tloadRovoWidgetSDKScript,\n\t() => Promise.resolve() as any,\n);\nexport default (): React.JSX.Element => (\n\t<DiProvider use={[mockLoadRovoWidgetSDKScript]}>\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<RovoWidgetConfigProvider rovoWidgetConfig={mockRovoWidgetConfig}>\n\t\t\t\t<div style={{ padding: '20px' }}>\n\t\t\t\t\t<h3>Rovo Search Widget Trigger - Default</h3>\n\t\t\t\t\t<RovoSearchWidgetTrigger\n\t\t\t\t\t\tsiteId=\"test-site-123\"\n\t\t\t\t\t\thelpCenterAri=\"ari:cloud:help-center:test:help-center/123\"\n\t\t\t\t\t\tsurface=\"HUB\"\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</RovoWidgetConfigProvider>\n\t\t</IntlProvider>\n\t</DiProvider>\n);",
+			"import { RovoWidgetConfigProvider } from '@atlassian/rovo-service-agent/controllers/rovo-widget-config-context';\nimport { RovoSearchWidgetTrigger } from '@atlassian/rovo-service-agent/rovo-search-widget-trigger';\n// Render inside the application's existing IntlProvider and widget availability gate.\n// Supply the configured agent and the current site's help-center identifiers.\nexport default function ServiceAgentSearch({\n\trovoWidgetConfig,\n\t...triggerProps\n}: React.ComponentProps<typeof RovoSearchWidgetTrigger> &\n\tPick<React.ComponentProps<typeof RovoWidgetConfigProvider>, 'rovoWidgetConfig'>): React.JSX.Element {\n\treturn (\n\t\t<RovoWidgetConfigProvider rovoWidgetConfig={rovoWidgetConfig}>\n\t\t\t<RovoSearchWidgetTrigger {...triggerProps} />\n\t\t</RovoWidgetConfigProvider>\n\t);\n}",
 		],
 		props: [
+			{
+				name: 'brandPrimaryColor',
+				type: 'string',
+				description:
+					"Hub primary colour as a hex; forwarded to the widget and switches on the pill's brand styles.",
+			},
 			{
 				name: 'helpCenterAri',
 				type: 'string',
@@ -31295,6 +31819,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		category: 'rovo',
 		examples: [],
 		props: [
+			{
+				name: 'brandPrimaryColor',
+				type: 'string',
+				description:
+					'Hub primary colour as a hex. Absent for hosts that do not brand the widget, keeping their URL unchanged.',
+			},
 			{
 				name: 'hostOwnsFocus',
 				type: 'boolean',
@@ -31643,7 +32173,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'skills', 'tag', 'metadata'],
 		category: 'rovo',
 		examples: [
-			'import { Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { ConnectedSkillTag } from \'@atlassian/rovo-skills/ui/connected-skill-tag\';\ntype ResearchStepProps = {\n\tsiteId: string;\n\tskillSlug: string;\n\tisComplete: boolean;\n};\nconst ResearchStep = ({ siteId, skillSlug, isComplete }: ResearchStepProps): React.JSX.Element => (\n\t<Stack space="space.050">\n\t\t<Text>Researching with</Text>\n\t\t<ConnectedSkillTag siteId={siteId} slug={skillSlug} shimmer={!isComplete} />\n\t</Stack>\n);\nconst _default: React.JSX.Element = (\n\t<ResearchStep isComplete={false} siteId="your-cloud-id" skillSlug="jira-issues" />\n);\nexport default _default;',
+			'import { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { ConnectedSkillTag } from \'@atlassian/rovo-skills/ui/connected-skill-tag\';\ntype ResearchStepProps = {\n\tsiteId: string;\n\tskillSlug: string;\n\tisComplete: boolean;\n};\nconst ResearchStep = ({ siteId, skillSlug, isComplete }: ResearchStepProps): React.JSX.Element => (\n\t<Stack space="space.050">\n\t\t<Text>Researching with</Text>\n\t\t<ConnectedSkillTag siteId={siteId} slug={skillSlug} shimmer={!isComplete} />\n\t</Stack>\n);\nconst _default: React.JSX.Element = (\n\t<ResearchStep isComplete={false} siteId="your-cloud-id" skillSlug="jira-issues" />\n);\nexport default _default;',
 		],
 		props: [
 			{
@@ -31692,7 +32222,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'browse', 'navigation'],
 		category: 'rovo',
 		examples: [
-			"import { Stack, Text } from '@atlaskit/primitives/compiled';\nimport type { SpaceSource } from '@atlassian/rovo-spaces/ui/CreateSpaceModal/types';\nimport { RecommendedSpacesSourcesTrigger } from '@atlassian/rovo-spaces/ui/RecommendedSpacesSourcesTrigger';\nconst sources: SpaceSource[] = [\n\t{\n\t\tari: 'ari:cloud:confluence:space/ENG',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/ENG',\n\t\tsourceType: 'confluence',\n\t\tconversationIds: [],\n\t\tname: 'Engineering updates',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira:project/ENG',\n\t\turl: 'https://example.atlassian.net/projects/ENG',\n\t\tsourceType: 'jira',\n\t\tconversationIds: [],\n\t\tname: 'Engineering work',\n\t},\n];\nexport default function RecommendedSpaceSourcesExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Engineering space</Text>\n\t\t\t<RecommendedSpacesSourcesTrigger\n\t\t\t\tsources={sources}\n\t\t\t\tsourceUrls={sources.map(({ url }) => url)}\n\t\t\t\tspaceTitle=\"Engineering space\"\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
+			"import { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport type { SpaceSource } from '@atlassian/rovo-spaces/ui/CreateSpaceModal/types';\nimport { RecommendedSpacesSourcesTrigger } from '@atlassian/rovo-spaces/ui/RecommendedSpacesSourcesTrigger';\nconst sources: SpaceSource[] = [\n\t{\n\t\tari: 'ari:cloud:confluence:space/ENG',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/ENG',\n\t\tsourceType: 'confluence',\n\t\tconversationIds: [],\n\t\tname: 'Engineering updates',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira:project/ENG',\n\t\turl: 'https://example.atlassian.net/projects/ENG',\n\t\tsourceType: 'jira',\n\t\tconversationIds: [],\n\t\tname: 'Engineering work',\n\t},\n];\nexport default function RecommendedSpaceSourcesExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Engineering space</Text>\n\t\t\t<RecommendedSpacesSourcesTrigger\n\t\t\t\tsources={sources}\n\t\t\t\tsourceUrls={sources.map(({ url }) => url)}\n\t\t\t\tspaceTitle=\"Engineering space\"\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -31955,7 +32485,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'recommendations', 'empty state'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RecommendedSpacesEmptyState } from '@atlassian/rovo-spaces/ui/RecommendedSpacesEmptyState';\nexport default function RecommendedSpacesEmptyStateExample(): React.JSX.Element {\n\tconst [created, setCreated] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack alignInline=\"center\" space=\"space.150\">\n\t\t\t\t<RecommendedSpacesEmptyState onCreateSpace={() => setCreated(true)} />\n\t\t\t\t{created && (\n\t\t\t\t\t<Box>\n\t\t\t\t\t\t<Text>Space creation started.</Text>\n\t\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setCreated(false)}>\n\t\t\t\t\t\t\tDismiss\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RecommendedSpacesEmptyState } from '@atlassian/rovo-spaces/ui/RecommendedSpacesEmptyState';\nexport default function RecommendedSpacesEmptyStateExample(): React.JSX.Element {\n\tconst [created, setCreated] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack alignInline=\"center\" space=\"space.150\">\n\t\t\t\t<RecommendedSpacesEmptyState onCreateSpace={() => setCreated(true)} />\n\t\t\t\t{created && (\n\t\t\t\t\t<Box>\n\t\t\t\t\t\t<Text>Space creation started.</Text>\n\t\t\t\t\t\t<Button appearance=\"subtle\" onClick={() => setCreated(false)}>\n\t\t\t\t\t\t\tDismiss\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -31973,7 +32503,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'recommendations', 'sources'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RecommendedSpacesIconTileStack } from '@atlassian/rovo-spaces/ui/RecommendedSpacesIconTileStack';\nexport default function RecommendedSpacesIconTileStackExample(): React.JSX.Element {\n\tconst [showSources, setShowSources] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<RecommendedSpacesIconTileStack />\n\t\t\t<Text align=\"center\">Connect work from the tools your team already uses.</Text>\n\t\t\t{showSources ? (\n\t\t\t\t<Text align=\"center\">Jira, Slack, Miro, and Google Calendar are available.</Text>\n\t\t\t) : null}\n\t\t\t<Button appearance=\"subtle\" onClick={() => setShowSources((current) => !current)}>\n\t\t\t\t{showSources ? 'Hide connected sources' : 'Show connected sources'}\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RecommendedSpacesIconTileStack } from '@atlassian/rovo-spaces/ui/RecommendedSpacesIconTileStack';\nexport default function RecommendedSpacesIconTileStackExample(): React.JSX.Element {\n\tconst [showSources, setShowSources] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.150\" alignInline=\"center\">\n\t\t\t<RecommendedSpacesIconTileStack />\n\t\t\t<Text align=\"center\">Connect work from the tools your team already uses.</Text>\n\t\t\t{showSources ? (\n\t\t\t\t<Text align=\"center\">Jira, Slack, Miro, and Google Calendar are available.</Text>\n\t\t\t) : null}\n\t\t\t<Button appearance=\"subtle\" onClick={() => setShowSources((current) => !current)}>\n\t\t\t\t{showSources ? 'Hide connected sources' : 'Show connected sources'}\n\t\t\t</Button>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -31986,7 +32516,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'recommendations', 'onboarding'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { RecommendedSpacesIntro } from '@atlassian/rovo-spaces/ui/RecommendedSpacesIntro';\nexport default function RecommendedSpacesIntroExample(): React.JSX.Element {\n\tconst [hasStarted, setHasStarted] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<RecommendedSpacesIntro />\n\t\t\t\t{hasStarted ? <Text>Opening recommended Spaces…</Text> : null}\n\t\t\t\t<Button onClick={() => setHasStarted(true)}>Review recommended Spaces</Button>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RecommendedSpacesIntro } from '@atlassian/rovo-spaces/ui/RecommendedSpacesIntro';\nexport default function RecommendedSpacesIntroExample(): React.JSX.Element {\n\tconst [hasStarted, setHasStarted] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<RecommendedSpacesIntro />\n\t\t\t\t{hasStarted ? <Text>Opening recommended Spaces…</Text> : null}\n\t\t\t\t<Button onClick={() => setHasStarted(true)}>Review recommended Spaces</Button>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -31999,7 +32529,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'recommendations', 'sources'],
 		category: 'rovo',
 		examples: [
-			"import { Stack, Text } from '@atlaskit/primitives/compiled';\nimport type { SpaceSource } from '@atlassian/rovo-spaces/ui/CreateSpaceModal/types';\nimport { RecommendedSpacesSourcesTrigger } from '@atlassian/rovo-spaces/ui/RecommendedSpacesSourcesTrigger';\nconst sources: SpaceSource[] = [\n\t{\n\t\tari: 'ari:cloud:confluence:space/ENG',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/ENG',\n\t\tsourceType: 'confluence',\n\t\tconversationIds: [],\n\t\tname: 'Engineering updates',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira:project/ENG',\n\t\turl: 'https://example.atlassian.net/projects/ENG',\n\t\tsourceType: 'jira',\n\t\tconversationIds: [],\n\t\tname: 'Engineering work',\n\t},\n];\nexport default function RecommendedSpaceSourcesExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Engineering space</Text>\n\t\t\t<RecommendedSpacesSourcesTrigger\n\t\t\t\tsources={sources}\n\t\t\t\tsourceUrls={sources.map(({ url }) => url)}\n\t\t\t\tspaceTitle=\"Engineering space\"\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
+			"import { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport type { SpaceSource } from '@atlassian/rovo-spaces/ui/CreateSpaceModal/types';\nimport { RecommendedSpacesSourcesTrigger } from '@atlassian/rovo-spaces/ui/RecommendedSpacesSourcesTrigger';\nconst sources: SpaceSource[] = [\n\t{\n\t\tari: 'ari:cloud:confluence:space/ENG',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/ENG',\n\t\tsourceType: 'confluence',\n\t\tconversationIds: [],\n\t\tname: 'Engineering updates',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira:project/ENG',\n\t\turl: 'https://example.atlassian.net/projects/ENG',\n\t\tsourceType: 'jira',\n\t\tconversationIds: [],\n\t\tname: 'Engineering work',\n\t},\n];\nexport default function RecommendedSpaceSourcesExample(): React.JSX.Element {\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<Text weight=\"semibold\">Engineering space</Text>\n\t\t\t<RecommendedSpacesSourcesTrigger\n\t\t\t\tsources={sources}\n\t\t\t\tsourceUrls={sources.map(({ url }) => url)}\n\t\t\t\tspaceTitle=\"Engineering space\"\n\t\t\t/>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32033,7 +32563,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'smart context', 'recommendations'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { SmartContextRecommendationsModal } from '@atlassian/rovo-spaces/ui/SmartContextRecommendationsModal';\nimport type { SmartContextRecommendation } from '@atlassian/rovo-spaces/ui/SmartContextRecommendationsModal/types';\nconst recommendations: SmartContextRecommendation[] = [\n\t{\n\t\trecommendationId: 'engineering-docs',\n\t\ttype: 'link',\n\t\tname: 'Engineering handbook',\n\t\turl: 'https://hello.atlassian.net/wiki/spaces/ENG/pages/handbook',\n\t\tari: 'ari:cloud:confluence:page/handbook',\n\t\tsourceType: 'confluence.page',\n\t\tmetadata: [{ text: 'Confluence', icon: 'link' }],\n\t},\n];\nexport default function SmartContextRecommendationsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [selectedIds, setSelectedIds] = useState<string[]>([]);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\t\tAdd recommended context\n\t\t\t\t</Button>\n\t\t\t\t<SmartContextRecommendationsModal\n\t\t\t\t\tisOpen={isOpen}\n\t\t\t\t\trecommendationType=\"link\"\n\t\t\t\t\trecommendations={recommendations}\n\t\t\t\t\tselectedRecommendationIds={selectedIds}\n\t\t\t\t\tonSelectionChange={setSelectedIds}\n\t\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\t\tonSubmit={() => setIsOpen(false)}\n\t\t\t\t/>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { SmartContextRecommendationsModal } from '@atlassian/rovo-spaces/ui/SmartContextRecommendationsModal';\nimport type { SmartContextRecommendation } from '@atlassian/rovo-spaces/ui/SmartContextRecommendationsModal/types';\nconst recommendations: SmartContextRecommendation[] = [\n\t{\n\t\trecommendationId: 'engineering-docs',\n\t\ttype: 'link',\n\t\tname: 'Engineering handbook',\n\t\turl: 'https://hello.atlassian.net/wiki/spaces/ENG/pages/handbook',\n\t\tari: 'ari:cloud:confluence:page/handbook',\n\t\tsourceType: 'confluence.page',\n\t\tmetadata: [{ text: 'Confluence', icon: 'link' }],\n\t},\n];\nexport default function SmartContextRecommendationsExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\tconst [selectedIds, setSelectedIds] = useState<string[]>([]);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\t\tAdd recommended context\n\t\t\t\t</Button>\n\t\t\t\t<SmartContextRecommendationsModal\n\t\t\t\t\tisOpen={isOpen}\n\t\t\t\t\trecommendationType=\"link\"\n\t\t\t\t\trecommendations={recommendations}\n\t\t\t\t\tselectedRecommendationIds={selectedIds}\n\t\t\t\t\tonSelectionChange={setSelectedIds}\n\t\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\t\tonSubmit={() => setIsOpen(false)}\n\t\t\t\t/>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32096,7 +32626,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'about', 'metadata'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { SpaceAboutCard } from '@atlassian/rovo-spaces/ui/SpaceAboutCard';\nexport default function SpaceAboutCardExample(): React.JSX.Element {\n\tconst [isEditing, setIsEditing] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<SpaceAboutCard\n\t\t\t\t\tdescription=\"Shared context for the Q3 customer onboarding launch.\"\n\t\t\t\t\tonEditClick={() => setIsEditing(true)}\n\t\t\t\t/>\n\t\t\t\t{isEditing && <Button>Edit the Space description</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { SpaceAboutCard } from '@atlassian/rovo-spaces/ui/SpaceAboutCard';\nexport default function SpaceAboutCardExample(): React.JSX.Element {\n\tconst [isEditing, setIsEditing] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<SpaceAboutCard\n\t\t\t\t\tdescription=\"Shared context for the Q3 customer onboarding launch.\"\n\t\t\t\t\tonEditClick={() => setIsEditing(true)}\n\t\t\t\t/>\n\t\t\t\t{isEditing && <Button>Edit the Space description</Button>}\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32120,7 +32650,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'spaces', 'bar', 'navigation'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack, Text } from '@atlaskit/primitives/compiled';\nimport { SpaceBar } from '@atlassian/rovo-spaces/ui/SpaceBar';\nexport default function SpaceBarNavigationExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<SpaceBar\n\t\t\t\tname=\"Engineering updates\"\n\t\t\t\tcloudId=\"example-cloud\"\n\t\t\t\tonClick={() => setIsSelected(true)}\n\t\t\t/>\n\t\t\t{isSelected ? <Text>Showing Engineering updates</Text> : <Button>Open the space</Button>}\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SpaceBar } from '@atlassian/rovo-spaces/ui/SpaceBar';\nexport default function SpaceBarNavigationExample(): React.JSX.Element {\n\tconst [isSelected, setIsSelected] = useState(false);\n\treturn (\n\t\t<Stack space=\"space.100\">\n\t\t\t<SpaceBar\n\t\t\t\tname=\"Engineering updates\"\n\t\t\t\tcloudId=\"example-cloud\"\n\t\t\t\tonClick={() => setIsSelected(true)}\n\t\t\t/>\n\t\t\t{isSelected ? <Text>Showing Engineering updates</Text> : <Button>Open the space</Button>}\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32332,7 +32862,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'modal', 'provider', 'lifecycle'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Box, Pressable, Text } from '@atlaskit/primitives/compiled';\nimport { RovodalProvider } from '@atlassian/rovodal-context/provider';\nexport default function RovodalProviderExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\treturn (\n\t\t<RovodalProvider id=\"rovo-chat-modal\" isOpen={isOpen} state={{ entryPoint: 'navigation' }}>\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">Rovo modal lifecycle: {isOpen ? 'open' : 'closed'}</Text>\n\t\t\t\t<Pressable onClick={() => setIsOpen((open) => !open)}>\n\t\t\t\t\t{isOpen ? 'Close modal state' : 'Open modal state'}\n\t\t\t\t</Pressable>\n\t\t\t</Box>\n\t\t</RovodalProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Pressable } from '@atlaskit/primitives/compiled/pressable';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovodalProvider } from '@atlassian/rovodal-context/provider';\nexport default function RovodalProviderExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(true);\n\treturn (\n\t\t<RovodalProvider id=\"rovo-chat-modal\" isOpen={isOpen} state={{ entryPoint: 'navigation' }}>\n\t\t\t<Box padding=\"space.200\">\n\t\t\t\t<Text as=\"p\">Rovo modal lifecycle: {isOpen ? 'open' : 'closed'}</Text>\n\t\t\t\t<Pressable onClick={() => setIsOpen((open) => !open)}>\n\t\t\t\t\t{isOpen ? 'Close modal state' : 'Open modal state'}\n\t\t\t\t</Pressable>\n\t\t\t</Box>\n\t\t</RovodalProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32366,7 +32896,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'modal', 'canvas', 'chat'],
 		category: 'rovo',
 		examples: [
-			'import React, { useState } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport { Box, Stack, Text } from \'@atlaskit/primitives/compiled\';\nimport { Rovodal } from \'@atlassian/rovodal/ui/rovodal\';\nexport default function RovodalExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<>\n\t\t\t<Button appearance="primary" onClick={() => setIsOpen(true)}>\n\t\t\t\tReview implementation plan\n\t\t\t</Button>\n\t\t\t<Rovodal\n\t\t\t\tid="implementation-plan"\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\ttitle="Implementation plan"\n\t\t\t\tcanvas={\n\t\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t\t<Text weight="semibold">Update the customer onboarding flow</Text>\n\t\t\t\t\t\t<Text>Rovo identified three implementation steps and the affected owners.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t}\n\t\t\t\tchat={<Box>Ask Rovo to refine this plan before sharing it.</Box>}\n\t\t\t/>\n\t\t</>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { Rovodal } from '@atlassian/rovodal/ui/rovodal';\nexport default function RovodalExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<>\n\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\tReview implementation plan\n\t\t\t</Button>\n\t\t\t<Rovodal\n\t\t\t\tid=\"implementation-plan\"\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t\ttitle=\"Implementation plan\"\n\t\t\t\tcanvas={\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<Text weight=\"semibold\">Update the customer onboarding flow</Text>\n\t\t\t\t\t\t<Text>Rovo identified three implementation steps and the affected owners.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t}\n\t\t\t\tchat={<Box>Ask Rovo to refine this plan before sharing it.</Box>}\n\t\t\t/>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32747,7 +33277,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovodev', 'debugging', 'troubleshooting', 'modal'],
 		category: 'agents',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { FlagsProvider } from '@atlaskit/flag/flags-provider';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport { ModalContextProvider } from '@atlassian/entry-points/modal-context-provider';\nimport RovodevDebugPopup from '../src';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FlagsProvider>\n\t\t\t\t<ModalContextProvider>\n\t\t\t\t\t<Stack>\n\t\t\t\t\t\t<RovodevDebugPopup\n\t\t\t\t\t\t\tsessionId=\"bdf44aa2-a850-47b0-9b0e-68e23ad9adf9\"\n\t\t\t\t\t\t\tenv=\"staging\"\n\t\t\t\t\t\t\tcloudId=\"test-cloud-id\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Stack>\n\t\t\t\t</ModalContextProvider>\n\t\t\t</FlagsProvider>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { FlagsProvider } from '@atlaskit/flag/flags-provider';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { ModalContextProvider } from '@atlassian/entry-points/modal-context-provider';\nimport RovodevDebugPopup from '../src';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FlagsProvider>\n\t\t\t\t<ModalContextProvider>\n\t\t\t\t\t<Stack>\n\t\t\t\t\t\t<RovodevDebugPopup\n\t\t\t\t\t\t\tsessionId=\"bdf44aa2-a850-47b0-9b0e-68e23ad9adf9\"\n\t\t\t\t\t\t\tenv=\"staging\"\n\t\t\t\t\t\t\tcloudId=\"test-cloud-id\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Stack>\n\t\t\t\t</ModalContextProvider>\n\t\t\t</FlagsProvider>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32822,7 +33352,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovodev', 'live preview', 'port', 'toggle'],
 		category: 'agents',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport { Stack } from '@atlaskit/primitives/compiled';\nimport RovodevLaunchLivePreviewPopup from '../src';\nexport default function Basic(): React.JSX.Element {\n\tconst environment = createMockEnvironment();\n\tconst [showIframe, setShowIframe] = useState(false);\n\tconst [portNumber, setPortNumber] = useState('3000');\n\tuseEffect(() => {\n\t\tconst timer = setTimeout(() => {\n\t\t\tsetShowIframe(true);\n\t\t}, 2000);\n\t\treturn () => clearTimeout(timer);\n\t}, []);\n\tconst iframeHtml = `\n\t\t<html>\n\t\t\t<body style=\"display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; flex-direction: column; gap: 20px;\">\n\t\t\t\t<h1>VS Code</h1>\n\t\t\t\t<button id=\"editPortBtn\" style=\"padding: 8px 16px; cursor: pointer;\">Edit Port</button>\n\t\t\t\t<div id=\"response\" style=\"margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 4px; min-width: 200px; white-space: pre-wrap;\">Current port: 3000</div>\n\t\t\t\t<script>\n\t\t\t\t\tlet currentPort = '3000';\n\t\t\t\t\tfunction setupPostMessageHandler() {\n\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\ttype: 'vscode-command-handler-ready'\n\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\tconst messageHandler = (event) => {\n\t\t\t\t\t\t\tif (event.data?.type === 'vscode-command') {\n\t\t\t\t\t\t\t\tconst { command, args = [], messageId } = event.data;\n\t\t\t\t\t\t\t\tconst responseDiv = document.getElementById('response');\n\t\t\t\t\t\t\t\tconsole.log('Received vscode-command:', { command, args });\n\t\t\t\t\t\t\t\tif (command === 'workbench.action.launchLivePreview') {\n\t\t\t\t\t\t\t\t\tconst [portNumber] = args;\n\t\t\t\t\t\t\t\t\tcurrentPort = portNumber;\n\t\t\t\t\t\t\t\t\tresponseDiv.textContent = \"Launching live preview on port: \" + portNumber;\n\t\t\t\t\t\t\t\t\tresponseDiv.style.background = '#ccffcc';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (command === 'workbench.action.changePreviewPort') {\n\t\t\t\t\t\t\t\t\tconst [newPort] = args;\n\t\t\t\t\t\t\t\t\tcurrentPort = newPort;\n\t\t\t\t\t\t\t\t\tresponseDiv.textContent = \"Port changed to: \" + newPort;\n\t\t\t\t\t\t\t\t\tresponseDiv.style.background = '#ccffcc';\n\t\t\t\t\t\t\t\t\t// Send response back\n\t\t\t\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\t\t\t\ttype: 'vscode-command-response',\n\t\t\t\t\t\t\t\t\t\tmessageId,\n\t\t\t\t\t\t\t\t\t\tresult: { success: true, message: 'Port updated' }\n\t\t\t\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (command === 'workbench.action.dismissEditPortModal') {\n\t\t\t\t\t\t\t\t\tresponseDiv.textContent = \"Modal dismissed. Current port: \" + currentPort;\n\t\t\t\t\t\t\t\t\tresponseDiv.style.background = '#ffffcc';\n\t\t\t\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\t\t\t\ttype: 'vscode-command-response',\n\t\t\t\t\t\t\t\t\t\tmessageId,\n\t\t\t\t\t\t\t\t\t\tresult: { success: true, message: 'Modal dismissed' }\n\t\t\t\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t};\n\t\t\t\t\t\twindow.addEventListener('message', messageHandler);\n\t\t\t\t\t\t// Edit port button sends message to parent to open modal\n\t\t\t\t\t\tdocument.getElementById('editPortBtn').addEventListener('click', () => {\n\t\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\t\ttype: 'onOpenEditPortModal',\n\t\t\t\t\t\t\t\tcurrentPort: parseInt(currentPort, 10)\n\t\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\t\tdocument.getElementById('response').textContent = 'Opening edit port modal...';\n\t\t\t\t\t\t\tdocument.getElementById('response').style.background = '#cce5ff';\n\t\t\t\t\t\t});\n\t\t\t\t\t\treturn () => window.removeEventListener('message', messageHandler);\n\t\t\t\t\t}\n\t\t\t\t\tsetupPostMessageHandler();\n\t\t\t\t</script>\n\t\t\t</body>\n\t\t</html>\n\t`;\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t{showIframe && (\n\t\t\t\t\t\t<RovodevLaunchLivePreviewPopup\n\t\t\t\t\t\t\tsetPortNumber={setPortNumber}\n\t\t\t\t\t\t\tportNumber={portNumber}\n\t\t\t\t\t\t\tsessionId=\"bdf44aa2-a850-47b0-9b0e-68e23ad9adf9\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t)}\n\t\t\t\t\t<div>\n\t\t\t\t\t\t{showIframe && (\n\t\t\t\t\t\t\t<iframe\n\t\t\t\t\t\t\t\tid=\"vscode\"\n\t\t\t\t\t\t\t\tsrcDoc={iframeHtml}\n\t\t\t\t\t\t\t\twidth=\"400px\"\n\t\t\t\t\t\t\t\theight=\"400px\"\n\t\t\t\t\t\t\t\ttitle=\"VS Code Dummy\"\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</div>\n\t\t\t\t</Stack>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport RovodevLaunchLivePreviewPopup from '../src';\nexport default function Basic(): React.JSX.Element {\n\tconst environment = createMockEnvironment();\n\tconst [showIframe, setShowIframe] = useState(false);\n\tconst [portNumber, setPortNumber] = useState('3000');\n\tuseEffect(() => {\n\t\tconst timer = setTimeout(() => {\n\t\t\tsetShowIframe(true);\n\t\t}, 2000);\n\t\treturn () => clearTimeout(timer);\n\t}, []);\n\tconst iframeHtml = `\n\t\t<html>\n\t\t\t<body style=\"display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; flex-direction: column; gap: 20px;\">\n\t\t\t\t<h1>VS Code</h1>\n\t\t\t\t<button id=\"editPortBtn\" style=\"padding: 8px 16px; cursor: pointer;\">Edit Port</button>\n\t\t\t\t<div id=\"response\" style=\"margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 4px; min-width: 200px; white-space: pre-wrap;\">Current port: 3000</div>\n\t\t\t\t<script>\n\t\t\t\t\tlet currentPort = '3000';\n\t\t\t\t\tfunction setupPostMessageHandler() {\n\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\ttype: 'vscode-command-handler-ready'\n\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\tconst messageHandler = (event) => {\n\t\t\t\t\t\t\tif (event.data?.type === 'vscode-command') {\n\t\t\t\t\t\t\t\tconst { command, args = [], messageId } = event.data;\n\t\t\t\t\t\t\t\tconst responseDiv = document.getElementById('response');\n\t\t\t\t\t\t\t\tconsole.log('Received vscode-command:', { command, args });\n\t\t\t\t\t\t\t\tif (command === 'workbench.action.launchLivePreview') {\n\t\t\t\t\t\t\t\t\tconst [portNumber] = args;\n\t\t\t\t\t\t\t\t\tcurrentPort = portNumber;\n\t\t\t\t\t\t\t\t\tresponseDiv.textContent = \"Launching live preview on port: \" + portNumber;\n\t\t\t\t\t\t\t\t\tresponseDiv.style.background = '#ccffcc';\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (command === 'workbench.action.changePreviewPort') {\n\t\t\t\t\t\t\t\t\tconst [newPort] = args;\n\t\t\t\t\t\t\t\t\tcurrentPort = newPort;\n\t\t\t\t\t\t\t\t\tresponseDiv.textContent = \"Port changed to: \" + newPort;\n\t\t\t\t\t\t\t\t\tresponseDiv.style.background = '#ccffcc';\n\t\t\t\t\t\t\t\t\t// Send response back\n\t\t\t\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\t\t\t\ttype: 'vscode-command-response',\n\t\t\t\t\t\t\t\t\t\tmessageId,\n\t\t\t\t\t\t\t\t\t\tresult: { success: true, message: 'Port updated' }\n\t\t\t\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tif (command === 'workbench.action.dismissEditPortModal') {\n\t\t\t\t\t\t\t\t\tresponseDiv.textContent = \"Modal dismissed. Current port: \" + currentPort;\n\t\t\t\t\t\t\t\t\tresponseDiv.style.background = '#ffffcc';\n\t\t\t\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\t\t\t\ttype: 'vscode-command-response',\n\t\t\t\t\t\t\t\t\t\tmessageId,\n\t\t\t\t\t\t\t\t\t\tresult: { success: true, message: 'Modal dismissed' }\n\t\t\t\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t};\n\t\t\t\t\t\twindow.addEventListener('message', messageHandler);\n\t\t\t\t\t\t// Edit port button sends message to parent to open modal\n\t\t\t\t\t\tdocument.getElementById('editPortBtn').addEventListener('click', () => {\n\t\t\t\t\t\t\twindow.parent.postMessage({\n\t\t\t\t\t\t\t\ttype: 'onOpenEditPortModal',\n\t\t\t\t\t\t\t\tcurrentPort: parseInt(currentPort, 10)\n\t\t\t\t\t\t\t}, '*');\n\t\t\t\t\t\t\tdocument.getElementById('response').textContent = 'Opening edit port modal...';\n\t\t\t\t\t\t\tdocument.getElementById('response').style.background = '#cce5ff';\n\t\t\t\t\t\t});\n\t\t\t\t\t\treturn () => window.removeEventListener('message', messageHandler);\n\t\t\t\t\t}\n\t\t\t\t\tsetupPostMessageHandler();\n\t\t\t\t</script>\n\t\t\t</body>\n\t\t</html>\n\t`;\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t{showIframe && (\n\t\t\t\t\t\t<RovodevLaunchLivePreviewPopup\n\t\t\t\t\t\t\tsetPortNumber={setPortNumber}\n\t\t\t\t\t\t\tportNumber={portNumber}\n\t\t\t\t\t\t\tsessionId=\"bdf44aa2-a850-47b0-9b0e-68e23ad9adf9\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t)}\n\t\t\t\t\t<div>\n\t\t\t\t\t\t{showIframe && (\n\t\t\t\t\t\t\t<iframe\n\t\t\t\t\t\t\t\tid=\"vscode\"\n\t\t\t\t\t\t\t\tsrcDoc={iframeHtml}\n\t\t\t\t\t\t\t\twidth=\"400px\"\n\t\t\t\t\t\t\t\theight=\"400px\"\n\t\t\t\t\t\t\t\ttitle=\"VS Code Dummy\"\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</div>\n\t\t\t\t</Stack>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -32855,7 +33385,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovodev', 'saved prompts', 'repository', 'prompt browser'],
 		category: 'agents',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box, Text } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { SavedPromptBrowser } from '../src';\nimport { createMockRelayEnvironment, SavedPromptBrowserTestHarness } from './shared';\nconst styles = cssMap({\n\tcontainer: {\n\t\twidth: '300px',\n\t\tmarginTop: token('space.200'),\n\t\tmarginRight: token('space.200'),\n\t\tmarginBottom: token('space.200'),\n\t\tmarginLeft: token('space.200'),\n\t\theight: '300px',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderRadius: token('radius.xlarge'),\n\t},\n\tselectedPrompt: {\n\t\tmarginTop: token('space.200'),\n\t\tpaddingTop: token('space.150'),\n\t\tpaddingRight: token('space.150'),\n\t\tpaddingBottom: token('space.150'),\n\t\tpaddingLeft: token('space.150'),\n\t\tbackgroundColor: token('color.background.accent.blue.subtlest'),\n\t\tborderRadius: token('radius.small'),\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.accent.blue'),\n\t\tborderStyle: 'solid',\n\t},\n});\nexport default function Basic(): JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<{ path: string; repoName: string } | null>(\n\t\tnull,\n\t);\n\tconst environment = createMockRelayEnvironment();\n\tconst handleAddPrompt = (prompt: { path: string; repoName: string }) => {\n\t\tconsole.log('Prompt selected:', prompt);\n\t\tsetSelectedPrompt(prompt);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t\t<Box xcss={styles.container}>\n\t\t\t\t\t<SavedPromptBrowserTestHarness>\n\t\t\t\t\t\t{(props) => <SavedPromptBrowser {...props} onAddPrompt={handleAddPrompt} />}\n\t\t\t\t\t</SavedPromptBrowserTestHarness>\n\t\t\t\t\t{selectedPrompt && (\n\t\t\t\t\t\t<Box xcss={styles.selectedPrompt}>\n\t\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\t\tSelected prompt: {selectedPrompt.path} from {selectedPrompt.repoName}\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t)}\n\t\t\t\t</Box>\n\t\t\t</RelayEnvironmentProvider>\n\t\t</IntlProvider>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { SavedPromptBrowser } from '../src';\nimport { createMockRelayEnvironment, SavedPromptBrowserTestHarness } from './shared';\nconst styles = cssMap({\n\tcontainer: {\n\t\twidth: '300px',\n\t\tmarginTop: token('space.200'),\n\t\tmarginRight: token('space.200'),\n\t\tmarginBottom: token('space.200'),\n\t\tmarginLeft: token('space.200'),\n\t\theight: '300px',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderRadius: token('radius.xlarge'),\n\t},\n\tselectedPrompt: {\n\t\tmarginTop: token('space.200'),\n\t\tpaddingTop: token('space.150'),\n\t\tpaddingRight: token('space.150'),\n\t\tpaddingBottom: token('space.150'),\n\t\tpaddingLeft: token('space.150'),\n\t\tbackgroundColor: token('color.background.accent.blue.subtlest'),\n\t\tborderRadius: token('radius.small'),\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.accent.blue'),\n\t\tborderStyle: 'solid',\n\t},\n});\nexport default function Basic(): JSX.Element {\n\tconst [selectedPrompt, setSelectedPrompt] = useState<{ path: string; repoName: string } | null>(\n\t\tnull,\n\t);\n\tconst environment = createMockRelayEnvironment();\n\tconst handleAddPrompt = (prompt: { path: string; repoName: string }) => {\n\t\tconsole.log('Prompt selected:', prompt);\n\t\tsetSelectedPrompt(prompt);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t\t<Box xcss={styles.container}>\n\t\t\t\t\t<SavedPromptBrowserTestHarness>\n\t\t\t\t\t\t{(props) => <SavedPromptBrowser {...props} onAddPrompt={handleAddPrompt} />}\n\t\t\t\t\t</SavedPromptBrowserTestHarness>\n\t\t\t\t\t{selectedPrompt && (\n\t\t\t\t\t\t<Box xcss={styles.selectedPrompt}>\n\t\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\t\tSelected prompt: {selectedPrompt.path} from {selectedPrompt.repoName}\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t)}\n\t\t\t\t</Box>\n\t\t\t</RelayEnvironmentProvider>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -33114,7 +33644,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'smart creation', 'preview', 'loading'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Box, Stack, Text } from '@atlaskit/primitives/compiled';\nimport { LoadingScreen } from '@atlassian/smart-creation/loading-screen';\nexport default function LoadingScreenExample(): React.JSX.Element {\n\tconst [isPreparing, setIsPreparing] = useState(true);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Button onClick={() => setIsPreparing((current) => !current)}>\n\t\t\t\t{isPreparing ? 'Show preview' : 'Regenerate preview'}\n\t\t\t</Button>\n\t\t\t<Box paddingBlock=\"space.400\">\n\t\t\t\t{isPreparing ? (\n\t\t\t\t\t<LoadingScreen />\n\t\t\t\t) : (\n\t\t\t\t\t<Text>Your generated project plan is ready to review.</Text>\n\t\t\t\t)}\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LoadingScreen } from '@atlassian/smart-creation/loading-screen';\nexport default function LoadingScreenExample(): React.JSX.Element {\n\tconst [isPreparing, setIsPreparing] = useState(true);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Button onClick={() => setIsPreparing((current) => !current)}>\n\t\t\t\t{isPreparing ? 'Show preview' : 'Regenerate preview'}\n\t\t\t</Button>\n\t\t\t<Box paddingBlock=\"space.400\">\n\t\t\t\t{isPreparing ? (\n\t\t\t\t\t<LoadingScreen />\n\t\t\t\t) : (\n\t\t\t\t\t<Text>Your generated project plan is ready to review.</Text>\n\t\t\t\t)}\n\t\t\t</Box>\n\t\t</Stack>\n\t);\n}",
 		],
 		props: [
 			{
@@ -33408,20 +33938,19 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'AgentCard',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays a Rovo agent as a reusable Studio browse card.',
+		description: 'Present agents with verified identity and optional footer actions.',
 		status: 'general-availability',
-		usageGuidelines: [
-			'Use in agent browse surfaces when agent data is already available to the caller.',
-		],
-		keywords: ['rovo', 'agent', 'card', 'studio'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nconst agent = {\n\tid: 'engineering-knowledge',\n\tname: 'Engineering knowledge',\n\tdescription: 'Finds architecture decisions and engineering guidance.',\n\tcreatorName: 'Platform team',\n\tisVerified: true,\n\tcoverColor: '#1868DB',\n};\nexport default function AgentCardExample(): React.JSX.Element {\n\tconst [openedAgent, setOpenedAgent] = useState<string>();\n\treturn (\n\t\t<>\n\t\t\t<AgentCard agent={agent} onClick={setOpenedAgent} />\n\t\t\t{openedAgent ? <Text>Opening {agent.name}</Text> : null}\n\t\t</>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nimport { ExampleFrame, ExampleAgentCover, agents } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nexport function AgentCardDefaultPreview(): React.JSX.Element {\n\tconst props = { agent: agents[0] };\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<AgentCard {...props} slots={{ cover: ExampleAgentCover }} />\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardDefaultPreview;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { cssMap } from '@atlaskit/css';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport FireIcon from '@atlaskit/icon-lab/core/fire';\nimport RovoChatIcon from '@atlaskit/icon/core/rovo-chat';\nimport ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';\nimport Lozenge from '@atlaskit/lozenge/new/lozenge';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nimport { type AgentCardFooterProps } from '@atlassian/studio-browse-kit/agent-card';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nimport { ExampleFrame, ExampleAgentCover, agents } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nconst ChatAndDropdownFooter = ({ agent, testId }: AgentCardFooterProps): React.JSX.Element => (\n\t<Inline space=\"space.100\" alignBlock=\"center\" testId={testId}>\n\t\t<IconButton\n\t\t\tspacing=\"compact\"\n\t\t\ticon={(iconProps) => <RovoChatIcon {...iconProps} size=\"small\" />}\n\t\t\tlabel={`Chat with ${agent.name}`}\n\t\t/>\n\t\t<DropdownMenu\n\t\t\ttrigger={({ triggerRef, ...triggerProps }) => (\n\t\t\t\t<IconButton\n\t\t\t\t\tspacing=\"compact\"\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\tref={triggerRef}\n\t\t\t\t\ticon={(iconProps) => <ShowMoreHorizontalIcon {...iconProps} size=\"small\" />}\n\t\t\t\t\tlabel={`More actions for ${agent.name}`}\n\t\t\t\t/>\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>View agent</DropdownItem>\n\t\t\t\t<DropdownItem>Copy link</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</Inline>\n);\nconst PopularMetadata = ({ testId }: AgentCardFooterProps): React.JSX.Element => (\n\t<CardMetadata testId={testId}>\n\t\t<Lozenge appearance=\"accent-yellow\" iconBefore={FireIcon}>\n\t\t\tPopular\n\t\t</Lozenge>\n\t</CardMetadata>\n);\nexport function AgentCardWithActionsPreview(): React.JSX.Element {\n\tconst props = {\n\t\tagent: {\n\t\t\t...agents[0],\n\t\t\tcreatorName: 'Software Engineering',\n\t\t\tdescription: 'Ensures written code adheres to standards.',\n\t\t},\n\t\tslots: { footer: ChatAndDropdownFooter, metadata: PopularMetadata },\n\t};\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<AgentCard {...props} slots={{ cover: ExampleAgentCover, ...props.slots }} />\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardWithActionsPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport {\n\tconfluenceIcon,\n\tjiraIcon,\n\tjiraServiceManagementIcon as jsmIcon,\n} from '@atlaskit/logo/raw-icons';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nimport { type AgentCardFooterProps } from '@atlassian/studio-browse-kit/agent-card';\nimport { ToolList } from '@atlassian/studio-browse-kit/ui/tool-list';\nimport { ExampleFrame, ExampleAgentCover, agents } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nconst ToolsFooter = ({ testId }: AgentCardFooterProps): React.JSX.Element => (\n\t<ToolList\n\t\ttestId={testId}\n\t\titems={[\n\t\t\t{ id: 'jira', name: 'Jira', iconUrl: jiraIcon },\n\t\t\t{ id: 'confluence', name: 'Confluence', iconUrl: confluenceIcon },\n\t\t\t{ id: 'jsm', name: 'Jira Service Management', iconUrl: jsmIcon },\n\t\t]}\n\t/>\n);\nexport function AgentCardWithToolsListPreview(): React.JSX.Element {\n\tconst props = { agent: agents[0], slots: { footer: ToolsFooter } };\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<AgentCard {...props} slots={{ cover: ExampleAgentCover, ...props.slots }} />\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardWithToolsListPreview;",
 		],
 		props: [
 			{
 				name: 'agent',
-				type: '{ id: string; name: string; description?: string; isVerified?: boolean; isFavourite?: boolean; creatorName?: React.ReactNode; iconUrl?: string; stars?: number; rating?: string; installs?: number; coverColor?: string; coverImageUrl?: string; }',
+				type: '{ id: string; name: string; description?: string; isVerified?: boolean; isFavourite?: boolean; creatorName?: React.ReactNode; iconUrl?: string; stars?: number; rating?: string; installs?: number; coverColor?: string; }',
 				isRequired: true,
 			},
 			{
@@ -33459,15 +33988,62 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'AgentCardRelay',
+		name: 'AgentCardActions',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays a Rovo agent card backed by a Relay fragment reference.',
+		description: 'Add chat and permission-aware actions to an agent surface.',
 		status: 'general-availability',
-		usageGuidelines: ['Use in Relay-backed agent result lists and browse experiences.'],
-		keywords: ['rovo', 'agent', 'card', 'relay'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			'import { AgentCardSkeleton } from \'@atlassian/studio-browse-kit/agent-card-skeleton\';\nexport default function AgentCardLoadingExample(): React.JSX.Element {\n\treturn <AgentCardSkeleton testId="agent-card-loading" />;\n}',
+			"import { AgentCardActions } from '@atlassian/studio-browse-kit/agent-card-actions';\nimport { CLOUD_ID, ConnectedExample, ExampleFrame, agents } from '../examples-utils/support';\nexport function AgentCardActionsDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample agentData={[agents[0]]}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<AgentCardActions agentRef={agentRefs[0]} cloudId={CLOUD_ID} onChat={() => {}} />\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardActionsDefaultPreview;",
+			"import { AgentCardActions } from '@atlassian/studio-browse-kit/agent-card-actions';\nimport { CLOUD_ID, ConnectedExample, ExampleFrame, agents } from '../examples-utils/support';\nexport function AgentCardActionsWithLabelPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample agentData={[agents[0]]}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<AgentCardActions\n\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\tshowChatLabel\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardActionsWithLabelPreview;",
+		],
+		props: [
+			{
+				name: 'agentRef',
+				type: '{ readonly " $data"?: AgentCardActions_StudioBrowseKit$data; readonly " $fragmentSpreads": FragmentRefs<"AgentCardActions_StudioBrowseKit">; }',
+				isRequired: true,
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+			},
+			{
+				name: 'onChat',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onFavouriteChange',
+				type: '(agentRelayId: string, isFavourite: boolean, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onVerificationChange',
+				type: '(agentRelayId: string, isVerified: boolean, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onViewAgent',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'showChatLabel',
+				type: 'boolean',
+			},
+			{
+				name: 'spacing',
+				type: '"default" | "compact"',
+				defaultValue: '"compact"',
+			},
+		],
+	},
+	{
+		name: 'AgentCardRelay',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Render an agent card from a Relay fragment reference.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentCardRelay } from '@atlassian/studio-browse-kit/agent-card-relay';\nimport { CLOUD_ID, ConnectedExample, ExampleFrame, agents } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nexport function AgentCardRelayDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample\n\t\t\t\tagentData={[agents[0]]}\n\t\t\t\tpermissions={{\n\t\t\t\t\tcanArchive: false,\n\t\t\t\t\tcanDuplicate: false,\n\t\t\t\t\tcanCreateAgents: false,\n\t\t\t\t\tcanGovernAgents: false,\n\t\t\t\t}}\n\t\t\t>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<AgentCardRelay\n\t\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardRelayDefaultPreview;",
 		],
 		props: [
 			{
@@ -33529,28 +34105,99 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'AgentCardRelayById',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Load and display an agent card by its ID.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'agentAri',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'as',
+				type: 'string',
+				description:
+					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
+				defaultValue: "'div'",
+			},
+			{
+				name: 'backgroundColor',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 223 more ... | "elevation.surface.raised.pressed"',
+				description: 'Token representing background color with a built-in fallback value.',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
+				name: 'onChat',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onClick',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onFavouriteChange',
+				type: '(agentRelayId: string, isFavourite: boolean, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onVerificationChange',
+				type: '(agentRelayId: string, isVerified: boolean, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onViewAgent',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'slots',
+				type: '{ cover?: React.ComponentType<CardCoverProps>; content?: React.ComponentType<CardContentProps>; metadata?: React.ComponentType<AgentMetadataProps>; badge?: React.ComponentType<...>; footer?: React.ComponentType<...>; }',
+			},
+			{
+				name: 'versionType',
+				type: '"%future added value" | "DRAFT" | "LIVE" | "SUPERSEDED"',
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description:
+					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
+			},
+		],
+	},
+	{
 		name: 'AgentCardSkeleton',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays the loading placeholder for a Rovo agent card.',
+		description: 'Reserve the agent card layout while data loads.',
 		status: 'general-availability',
-		usageGuidelines: ['Use while agent-card data is loading in a browse grid.'],
-		keywords: ['rovo', 'agent', 'card', 'skeleton'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			'import { AgentCardSkeleton } from \'@atlassian/studio-browse-kit/agent-card-skeleton\';\nexport default function AgentCardLoadingExample(): React.JSX.Element {\n\treturn <AgentCardSkeleton testId="agent-card-loading" />;\n}',
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentCardSkeleton } from '@atlassian/studio-browse-kit/agent-card-skeleton';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nexport function AgentCardSkeletonPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<AgentCardSkeleton />\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardSkeletonPreview;",
 		],
 		props: [],
 	},
 	{
 		name: 'AgentList',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays Relay-backed Rovo agents in the Studio browse list layout.',
+		description: 'Browse agents in a card grid with optional headings and expandable rows.',
 		status: 'general-availability',
-		usageGuidelines: ['Use for a collection of Rovo agent results with standard agent actions.'],
-		keywords: ['rovo', 'agent', 'list', 'relay'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"import { AgentMetadata } from '@atlassian/studio-browse-kit/agent-metadata';\nexport default function AgentMetadataExample(): React.JSX.Element {\n\treturn (\n\t\t<AgentMetadata\n\t\t\tagent={{\n\t\t\t\tid: 'release-notes',\n\t\t\t\tname: 'Release notes',\n\t\t\t\tcreatorName: 'Product operations',\n\t\t\t}}\n\t\t/>\n\t);\n}",
+			"import { AgentList } from '@atlassian/studio-browse-kit/agent-list';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample, agents, rovo } from '../examples-utils/support';\nexport function AgentListWithAgentsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample agentData={[rovo, ...agents]}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<AgentList\n\t\t\t\t\t\tagentRefs={agentRefs}\n\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\tcolumns={4}\n\t\t\t\t\t\theading=\"Recommended for you\"\n\t\t\t\t\t\tonSelect={() => {}}\n\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentListWithAgentsPreview;",
+			"import { AgentList } from '@atlassian/studio-browse-kit/agent-list';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample, agents } from '../examples-utils/support';\nexport function AgentListCollapsibleGridPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample agentData={agents}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<AgentList\n\t\t\t\t\t\tagentRefs={agentRefs}\n\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\tcolumns={4}\n\t\t\t\t\t\theading=\"Recommended for you\"\n\t\t\t\t\t\tisCollapsible\n\t\t\t\t\t\tcollapsedItemCount={4}\n\t\t\t\t\t\tonSelect={() => {}}\n\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentListCollapsibleGridPreview;",
+			"import { AgentList } from '@atlassian/studio-browse-kit/agent-list';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function AgentListLoadingPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<AgentList columns={4} agentRefs={[]} heading=\"Most popular in your organization\" isLoading />\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentListLoadingPreview;",
 		],
 		props: [
 			{
@@ -33630,56 +34277,125 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'AgentMetadata',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays the standard metadata associated with a Rovo agent card.',
+		description: 'Place creator attribution in a custom agent card footer.',
 		status: 'general-availability',
-		usageGuidelines: ['Use inside custom agent-card compositions that need standard metadata.'],
-		keywords: ['rovo', 'agent', 'metadata', 'card'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"import { AgentMetadata } from '@atlassian/studio-browse-kit/agent-metadata';\nexport default function AgentMetadataExample(): React.JSX.Element {\n\treturn (\n\t\t<AgentMetadata\n\t\t\tagent={{\n\t\t\t\tid: 'release-notes',\n\t\t\t\tname: 'Release notes',\n\t\t\t\tcreatorName: 'Product operations',\n\t\t\t}}\n\t\t/>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nimport { AgentMetadata } from '@atlassian/studio-browse-kit/agent-metadata';\nimport { ExampleFrame, ExampleAgentCover, agents } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nexport function AgentMetadataPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<AgentCard agent={agents[0]} slots={{ cover: ExampleAgentCover, footer: AgentMetadata }} />\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentMetadataPreview;",
 		],
 		props: [
 			{
 				name: 'agent',
-				type: '{ id: string; name: string; description?: string; isVerified?: boolean; isFavourite?: boolean; creatorName?: React.ReactNode; iconUrl?: string; stars?: number; rating?: string; installs?: number; coverColor?: string; coverImageUrl?: string; }',
+				type: '{ id: string; name: string; description?: string; isVerified?: boolean; isFavourite?: boolean; creatorName?: React.ReactNode; iconUrl?: string; stars?: number; rating?: string; installs?: number; coverColor?: string; }',
 				isRequired: true,
 			},
 		],
 	},
 	{
-		name: 'BrowseAgent',
+		name: 'HeroCardSkeleton',
 		package: '@atlassian/studio-browse-kit',
-		description:
-			'Displays the full Rovo agent browsing experience with category and nested-view support.',
+		description: 'Reserve the featured recommendation layout while data loads.',
 		status: 'general-availability',
-		usageGuidelines: ['Use as the primary agent-discovery surface in Studio or another Rovo host.'],
-		keywords: ['rovo', 'agent', 'browse', 'discovery'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
-		examples: [],
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { HeroCardSkeleton } from '@atlassian/studio-browse-kit/hero-card-skeleton';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '480px', maxWidth: '100%' } });\nexport function HeroCardSkeletonPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<HeroCardSkeleton />\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default HeroCardSkeletonPreview;",
+		],
 		props: [],
 	},
 	{
-		name: 'BrowseAgentView',
+		name: 'IntroLayout',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Provides nested-view state and presentation for the Rovo agent browser.',
+		description: 'Pair an introductory tile with browse recommendations.',
 		status: 'general-availability',
-		usageGuidelines: ['Wrap Browse Agent content that can open nested previews or detail views.'],
-		keywords: ['rovo', 'agent', 'browse', 'view'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [],
-		props: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+			{
+				name: 'description',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'footer',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'icon',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'RovoAgentCardCover',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Give the default Rovo agent its Cosmos cover.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nimport { RovoAgentCardCover } from '@atlassian/studio-browse-kit/rovo-agent-card-cover';\nimport { CosmosEffect } from '@atlassian/studio-browse-kit/ui/cosmos-effect';\nimport { ExampleFrame, rovo } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '280px', maxWidth: '100%' } });\nexport function RovoCardPreview({\n\tisDisabled = false,\n}: {\n\tisDisabled?: boolean;\n}): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<CosmosEffect>\n\t\t\t\t\t<AgentCard\n\t\t\t\t\t\tagent={rovo}\n\t\t\t\t\t\tslots={{ cover: RovoAgentCardCover }}\n\t\t\t\t\t\tisDisabled={isDisabled}\n\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\ttestId=\"rovo-card\"\n\t\t\t\t\t/>\n\t\t\t\t</CosmosEffect>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default RovoCardPreview;",
+		],
+		props: [
+			{
+				name: 'avatar',
+				type: 'React.ComponentClass<{ name: string; iconUrl?: string; }, any> | React.FunctionComponent<{ name: string; iconUrl?: string; }>',
+			},
+			{
+				name: 'background',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'badge',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'coverColor',
+				type: 'string',
+			},
+			{
+				name: 'coverStyle',
+				type: '"grid" | "plain" | "gradient"',
+			},
+			{
+				name: 'iconUrl',
+				type: 'string',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				isRequired: true,
+			},
+		],
 	},
 	{
 		name: 'TemplateCard',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays an Atlassian Studio template in the shared browse-card treatment.',
+		description: 'Select a template and open its connected preview.',
 		status: 'general-availability',
-		usageGuidelines: [
-			'Use in template browse experiences alongside the shared Studio card primitives.',
-		],
-		keywords: ['rovo', 'studio', 'template', 'card'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
-		examples: [],
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplateCard } from '@atlassian/studio-browse-kit/template-card';\nimport { ConnectedExample, ExampleFrame, cardTemplates } from '../examples-utils/support';\nconst styles = cssMap({ card: { maxWidth: '320px' } });\nexport function TemplateCardDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample templateData={cardTemplates}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<TemplateCard templateRef={templateRefs[1]} onClick={() => {}} />\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateCardDefaultPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplateCard } from '@atlassian/studio-browse-kit/template-card';\nimport { ConnectedExample, ExampleFrame, cardTemplates } from '../examples-utils/support';\nconst styles = cssMap({ card: { maxWidth: '320px' } });\nexport function TemplateCardPopularPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample templateData={cardTemplates}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<TemplateCard templateRef={templateRefs[0]} onClick={() => {}} />\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateCardPopularPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplateCard } from '@atlassian/studio-browse-kit/template-card';\nimport { ConnectedExample, ExampleFrame, cardTemplates } from '../examples-utils/support';\nconst styles = cssMap({ card: { maxWidth: '320px' } });\nexport function TemplateCardManyAppsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample templateData={cardTemplates}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<TemplateCard templateRef={templateRefs[4]} onClick={() => {}} />\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateCardManyAppsPreview;",
+		],
 		props: [
 			{
 				name: 'as',
@@ -33726,12 +34442,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'TemplateList',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays Atlassian Studio templates in a reusable browse list.',
+		description: 'Browse templates and preview the selected template.',
 		status: 'general-availability',
-		usageGuidelines: ['Use for collections of Studio or Rovo templates.'],
-		keywords: ['rovo', 'studio', 'template', 'list'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
-		examples: [],
+		examples: [
+			"import { TemplateList } from '@atlassian/studio-browse-kit/template-list';\nimport { ConnectedExample, ExampleFrame, cardTemplates } from '../examples-utils/support';\nexport function TemplateListDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample templateData={cardTemplates}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<TemplateList\n\t\t\t\t\t\tcolumns={4}\n\t\t\t\t\t\theading=\"Templates\"\n\t\t\t\t\t\ttemplateRefs={templateRefs}\n\t\t\t\t\t\tonSelect={() => {}}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateListDefaultPreview;",
+			"import { TemplateList } from '@atlassian/studio-browse-kit/template-list';\nimport { ConnectedExample, ExampleFrame, cardTemplates } from '../examples-utils/support';\nexport function TemplateListCollapsiblePreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample templateData={cardTemplates}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<TemplateList\n\t\t\t\t\t\tcolumns={4}\n\t\t\t\t\t\theading=\"Templates\"\n\t\t\t\t\t\ttemplateRefs={templateRefs}\n\t\t\t\t\t\tonSelect={() => {}}\n\t\t\t\t\t\tisCollapsible\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateListCollapsiblePreview;",
+			"import { TemplateList } from '@atlassian/studio-browse-kit/template-list';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function TemplateListEmptyPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<TemplateList columns={4} heading=\"Templates\" templateRefs={[]} />\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateListEmptyPreview;",
+		],
 		props: [
 			{
 				name: 'columns',
@@ -33775,17 +34494,166 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'Card',
+		name: 'TemplatePreviewView',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Provides the interactive outer container for a Studio browse card.',
+		description: 'Preview a template and create or customize an agent from it.',
 		status: 'general-availability',
-		usageGuidelines: [
-			'Compose with CardCover, CardContent, and CardMetadata for custom browse entities.',
-		],
-		keywords: ['studio', 'browse', 'card', 'container'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nconst styles = cssMap({\n\troot: { width: '320px' },\n});\nexport default function SelectableAgentCardExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<div css={styles.root}>\n\t\t\t<Card ariaLabel=\"Open the Engineering knowledge agent\" onClick={() => setIsOpen(true)}>\n\t\t\t\t<CardCover name=\"Engineering knowledge\" coverStyle=\"grid\" />\n\t\t\t\t<CardContent\n\t\t\t\t\tname=\"Engineering knowledge\"\n\t\t\t\t\tsubtitle=\"Rovo agent\"\n\t\t\t\t\tdescription=\"Finds relevant architecture decisions and engineering guidance.\"\n\t\t\t\t/>\n\t\t\t\t<CardMetadata items={[{ key: 'scope', label: 'Connected to engineering spaces' }]} />\n\t\t\t</Card>\n\t\t\t{isOpen ? <Text>Opening Engineering knowledge…</Text> : null}\n\t\t</div>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplatePreviewView } from '@atlassian/studio-browse-kit/template-preview-view';\nimport { CLOUD_ID, ConnectedExample, ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ frame: { maxWidth: '660px' } });\nexport function TemplatePreviewDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.frame}>\n\t\t\t\t\t\t<TemplatePreviewView\n\t\t\t\t\t\t\tparams={{\n\t\t\t\t\t\t\t\tcloudId: CLOUD_ID,\n\t\t\t\t\t\t\t\ttemplateRef: templateRefs[0],\n\t\t\t\t\t\t\t\tproduct: 'atlassian-studio',\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplatePreviewDefaultPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplatePreviewView } from '@atlassian/studio-browse-kit/template-preview-view';\nimport { CLOUD_ID, ConnectedExample, ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ frame: { maxWidth: '660px' } });\nexport function TemplatePreviewSelectingTheAgentInPlacePreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.frame}>\n\t\t\t\t\t\t<TemplatePreviewView\n\t\t\t\t\t\t\tparams={{\n\t\t\t\t\t\t\t\tcloudId: CLOUD_ID,\n\t\t\t\t\t\t\t\ttemplateRef: templateRefs[0],\n\t\t\t\t\t\t\t\tproduct: 'rovo',\n\t\t\t\t\t\t\t\tonSelectAgent: () => {},\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplatePreviewSelectingTheAgentInPlacePreview;",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport ModalDialog from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport { TemplatePreviewView } from '@atlassian/studio-browse-kit/template-preview-view';\nimport { CLOUD_ID, ConnectedExample, ExampleFrame } from '../examples-utils/support';\nexport function TemplatePreviewModalPreview(): React.JSX.Element {\n\tconst [isOpen, setOpen] = useState(true);\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Button onClick={() => setOpen(true)}>Preview template</Button>\n\t\t\t{isOpen && (\n\t\t\t\t<ModalDialog width=\"large\" onClose={() => setOpen(false)}>\n\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t<ModalTitle>Template preview</ModalTitle>\n\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t<ConnectedExample>\n\t\t\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t\t\t<TemplatePreviewView\n\t\t\t\t\t\t\t\tparams={{\n\t\t\t\t\t\t\t\t\tcloudId: CLOUD_ID,\n\t\t\t\t\t\t\t\t\ttemplateRef: templateRefs[0],\n\t\t\t\t\t\t\t\t\tproduct: 'atlassian-studio',\n\t\t\t\t\t\t\t\t\tisModalContent: true,\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</ConnectedExample>\n\t\t\t\t</ModalDialog>\n\t\t\t)}\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplatePreviewModalPreview;",
+		],
+		props: [
+			{
+				name: 'params',
+				type: '{ cloudId: string; isModalContent?: boolean; onSelectAgent?: (agentAri: string) => void; product: string; templateRef: TemplateView_StudioBrowseKit$key; testId?: string; }',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'AgentDeleteConfirm',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Confirm deletion and submit the agent deletion mutation.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'agentId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'agentName',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'agentRelayId',
+				type: 'string',
+			},
+			{
+				name: 'isOpen',
+				type: 'boolean',
+				isRequired: true,
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'AgentAuthor',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Resolve an agent’s creator attribution from a Relay fragment.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'agentRef',
+				type: '{ readonly " $data"?: AgentAuthor_StudioBrowseKit$data; readonly " $fragmentSpreads": FragmentRefs<"AgentAuthor_StudioBrowseKit">; }',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'AgentHeroCard',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Feature an agent with a summary and independent chat action.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentHeroCard } from '@atlassian/studio-browse-kit/ui/agent-hero-card/AgentHeroCard';\nimport { HERO_AGENT } from '../examples-utils/agent-hero-card-support';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '480px', maxWidth: '100%' } });\nexport function AgentHeroCardDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample agentData={[HERO_AGENT]}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<AgentHeroCard\n\t\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentHeroCardDefaultPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentHeroCard } from '@atlassian/studio-browse-kit/ui/agent-hero-card/AgentHeroCard';\nimport { HERO_AGENT } from '../examples-utils/agent-hero-card-support';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '480px', maxWidth: '100%' } });\nexport function AgentHeroCardLongContentPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample\n\t\t\t\tagentData={[\n\t\t\t\t\t{\n\t\t\t\t\t\t...HERO_AGENT,\n\t\t\t\t\t\tname: 'Mobile application delivery and release planning assistant',\n\t\t\t\t\t\tdescription:\n\t\t\t\t\t\t\t'Plans releases, coordinates dependencies, and keeps track of work across your mobile teams. It brings together project updates, flags outstanding decisions, and prepares a clear plan for the next release.',\n\t\t\t\t\t},\n\t\t\t\t]}\n\t\t\t>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<AgentHeroCard\n\t\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentHeroCardLongContentPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { AgentHeroCard } from '@atlassian/studio-browse-kit/ui/agent-hero-card/AgentHeroCard';\nimport { HERO_AGENT } from '../examples-utils/agent-hero-card-support';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '480px', maxWidth: '100%' } });\nexport function AgentHeroCardDisabledPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample agentData={[HERO_AGENT]}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<AgentHeroCard\n\t\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t\tisDisabled\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentHeroCardDisabledPreview;",
+		],
+		props: [
+			{
+				name: 'agentRef',
+				type: '{ readonly " $data"?: AgentHeroCard_StudioBrowseKit$data; readonly " $fragmentSpreads": FragmentRefs<"AgentHeroCard_StudioBrowseKit">; }',
+				isRequired: true,
+			},
+			{
+				name: 'as',
+				type: 'string',
+				description:
+					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
+				defaultValue: "'div'",
+			},
+			{
+				name: 'backgroundColor',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 223 more ... | "elevation.surface.raised.pressed"',
+				description: 'Token representing background color with a built-in fallback value.',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
+				name: 'onChat',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onClick',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onFavouriteChange',
+				type: '(agentRelayId: string, isFavourite: boolean, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onVerificationChange',
+				type: '(agentRelayId: string, isVerified: boolean, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'onViewAgent',
+				type: '(agentId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description:
+					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
+			},
+		],
+	},
+	{
+		name: 'EmptyState',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Explain an empty agent collection.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { EmptyState } from '@atlassian/studio-browse-kit/ui/agent-list/components/EmptyState';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function AgentListEmptyStatePreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<EmptyState />\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentListEmptyStatePreview;",
+		],
+		props: [],
+	},
+	{
+		name: 'Card',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Compose a browse card with distinct primary and footer actions.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\">\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardDefaultPreview;",
+			"import Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardFooter } from '@atlassian/studio-browse-kit/ui/card-footer';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardInteractivePreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\" onClick={() => {}}>\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardFooter>\n\t\t\t\t\t\t<Button spacing=\"compact\">Chat</Button>\n\t\t\t\t\t</CardFooter>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardInteractivePreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardDisabledPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\" onClick={() => {}} isDisabled>\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardDisabledPreview;",
 		],
 		props: [
 			{
@@ -33833,16 +34701,41 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'CardAvatarFrame',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Size a custom image or fallback avatar in a card cover.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Non-interactive content. Direct img children (including ADS Image) are sized automatically.',
+			},
+			{
+				name: 'isHexagon',
+				type: 'boolean',
+				description: 'Crop the content to the rounded ADS hexagon. Defaults to false.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'Accessible name for the fallback avatar. Omit when the avatar is decorative.',
+			},
+		],
+	},
+	{
 		name: 'CardContent',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays the primary name and description content of a Studio browse card.',
+		description: 'Present a card title, attribution, and associated description.',
 		status: 'general-availability',
-		usageGuidelines: ['Use inside Card for the entity title and description.'],
-		keywords: ['studio', 'browse', 'card', 'content'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
-		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nconst styles = cssMap({\n\troot: { width: '320px' },\n});\nexport default function SelectableAgentCardExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<div css={styles.root}>\n\t\t\t<Card ariaLabel=\"Open the Engineering knowledge agent\" onClick={() => setIsOpen(true)}>\n\t\t\t\t<CardCover name=\"Engineering knowledge\" coverStyle=\"grid\" />\n\t\t\t\t<CardContent\n\t\t\t\t\tname=\"Engineering knowledge\"\n\t\t\t\t\tsubtitle=\"Rovo agent\"\n\t\t\t\t\tdescription=\"Finds relevant architecture decisions and engineering guidance.\"\n\t\t\t\t/>\n\t\t\t\t<CardMetadata items={[{ key: 'scope', label: 'Connected to engineering spaces' }]} />\n\t\t\t</Card>\n\t\t\t{isOpen ? <Text>Opening Engineering knowledge…</Text> : null}\n\t\t</div>\n\t);\n}",
-		],
+		examples: [],
 		props: [
 			{
 				name: 'badge',
@@ -33851,6 +34744,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'description',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'descriptionId',
+				type: 'string',
+				description: "ID for associating the visible description with the card's primary action.",
 			},
 			{
 				name: 'headerActions',
@@ -33870,18 +34768,23 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'CardCover',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays the icon, image, or decorative cover for a Studio browse card.',
+		description: 'Provide a card’s visual identity and custom avatar.',
 		status: 'general-availability',
-		usageGuidelines: ['Use as the visual header of a Card.'],
-		keywords: ['studio', 'browse', 'card', 'cover'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nconst styles = cssMap({\n\troot: { width: '320px' },\n});\nexport default function SelectableAgentCardExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<div css={styles.root}>\n\t\t\t<Card ariaLabel=\"Open the Engineering knowledge agent\" onClick={() => setIsOpen(true)}>\n\t\t\t\t<CardCover name=\"Engineering knowledge\" coverStyle=\"grid\" />\n\t\t\t\t<CardContent\n\t\t\t\t\tname=\"Engineering knowledge\"\n\t\t\t\t\tsubtitle=\"Rovo agent\"\n\t\t\t\t\tdescription=\"Finds relevant architecture decisions and engineering guidance.\"\n\t\t\t\t/>\n\t\t\t\t<CardMetadata items={[{ key: 'scope', label: 'Connected to engineering spaces' }]} />\n\t\t\t</Card>\n\t\t\t{isOpen ? <Text>Opening Engineering knowledge…</Text> : null}\n\t\t</div>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { ExampleAgentAvatar, agents } from '../examples-utils/support';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardCoverGridPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\" hasCutout>\n\t\t\t\t\t<CardCover\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tavatar={ExampleAgentAvatar}\n\t\t\t\t\t\ticonUrl={agents[0].iconUrl}\n\t\t\t\t\t\tcoverStyle=\"grid\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardCoverGridPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { ExampleAgentAvatar, agents } from '../examples-utils/support';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardCoverPlainPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\" hasCutout>\n\t\t\t\t\t<CardCover\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tavatar={ExampleAgentAvatar}\n\t\t\t\t\t\ticonUrl={agents[0].iconUrl}\n\t\t\t\t\t\tcoverStyle=\"plain\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardCoverPlainPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { ExampleAgentAvatar, agents } from '../examples-utils/support';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardCoverGradientPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\" hasCutout>\n\t\t\t\t\t<CardCover\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tavatar={ExampleAgentAvatar}\n\t\t\t\t\t\ticonUrl={agents[0].iconUrl}\n\t\t\t\t\t\tcoverStyle=\"gradient\"\n\t\t\t\t\t\tcoverColor={token('color.background.accent.blue.subtle')}\n\t\t\t\t\t/>\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardCoverGradientPreview;",
 		],
 		props: [
 			{
 				name: 'avatar',
 				type: 'React.ComponentClass<{ name: string; iconUrl?: string; }, any> | React.FunctionComponent<{ name: string; iconUrl?: string; }>',
+			},
+			{
+				name: 'background',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 			},
 			{
 				name: 'badge',
@@ -33893,10 +34796,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'coverColor',
-				type: 'string',
-			},
-			{
-				name: 'coverImageUrl',
 				type: 'string',
 			},
 			{
@@ -33915,15 +34814,35 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'CardList',
+		name: 'CardFooter',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Arranges Studio browse cards in a responsive grid.',
+		description: 'Place independent actions in a card footer.',
 		status: 'general-availability',
-		usageGuidelines: ['Use to present cards with the package-standard responsive column behavior.'],
-		keywords: ['studio', 'browse', 'card', 'grid'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			'/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from \'react\';\nimport { IntlProvider } from \'react-intl\';\nimport { cssMap, jsx } from \'@atlaskit/css\';\nimport { Card } from \'@atlassian/studio-browse-kit/ui/card\';\nimport { CardContent } from \'@atlassian/studio-browse-kit/ui/card-content\';\nimport { CardList } from \'@atlassian/studio-browse-kit/ui/card-list\';\nconst styles = cssMap({\n\troot: { maxWidth: \'720px\' },\n});\nexport default function RecommendedAgentListExample(): React.JSX.Element {\n\tconst [selectedAgent, setSelectedAgent] = useState<string>();\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<div css={styles.root}>\n\t\t\t\t<CardList columns={2} heading="Recommended agents" isCollapsible>\n\t\t\t\t\t<Card ariaLabel="Open Release notes" onClick={() => setSelectedAgent(\'Release notes\')}>\n\t\t\t\t\t\t<CardContent name="Release notes" description="Summarises changes for a release." />\n\t\t\t\t\t</Card>\n\t\t\t\t\t<Card\n\t\t\t\t\t\tariaLabel="Open Incident helper"\n\t\t\t\t\t\tonClick={() => setSelectedAgent(\'Incident helper\')}\n\t\t\t\t\t>\n\t\t\t\t\t\t<CardContent name="Incident helper" description="Finds the latest incident context." />\n\t\t\t\t\t</Card>\n\t\t\t\t\t<Card\n\t\t\t\t\t\tariaLabel="Open Project planner"\n\t\t\t\t\t\tonClick={() => setSelectedAgent(\'Project planner\')}\n\t\t\t\t\t>\n\t\t\t\t\t\t<CardContent\n\t\t\t\t\t\t\tname="Project planner"\n\t\t\t\t\t\t\tdescription="Turns a brief into an actionable plan."\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Card>\n\t\t\t\t</CardList>\n\t\t\t\t{selectedAgent ? <p>Opening {selectedAgent}…</p> : null}\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}',
+			"import Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardFooter } from '@atlassian/studio-browse-kit/ui/card-footer';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardFooterButtonsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\">\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardFooter>\n\t\t\t\t\t\t<Button spacing=\"compact\" appearance=\"primary\">\n\t\t\t\t\t\t\tChat\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button spacing=\"compact\">View profile</Button>\n\t\t\t\t\t</CardFooter>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardFooterButtonsPreview;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { cssMap } from '@atlaskit/css';\nimport LinkIcon from '@atlaskit/icon/core/link';\nimport RovoChatIcon from '@atlaskit/icon/core/rovo-chat';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardFooter } from '@atlassian/studio-browse-kit/ui/card-footer';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardFooterIconsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\">\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardFooter>\n\t\t\t\t\t\t<IconButton\n\t\t\t\t\t\t\tspacing=\"compact\"\n\t\t\t\t\t\t\ticon={RovoChatIcon}\n\t\t\t\t\t\t\tlabel=\"Chat with Release notes writer\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<IconButton spacing=\"compact\" icon={LinkIcon} label=\"Copy agent link\" />\n\t\t\t\t\t</CardFooter>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardFooterIconsPreview;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'CardList',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Lay out filtered results in a responsive card grid.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardList } from '@atlassian/studio-browse-kit/ui/card-list';\nimport { ExampleFrame, agents, rovo } from '../examples-utils/support';\nexport function CardListDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<CardList\n\t\t\t\tcolumns={4}\n\t\t\t\theading=\"Recommended agents\"\n\t\t\t\tsubtitle=\"Start with an agent built for everyday work.\"\n\t\t\t>\n\t\t\t\t{[rovo, ...agents].map((agent) => (\n\t\t\t\t\t<Card key={agent.id} ariaLabel={agent.name} onClick={() => {}}>\n\t\t\t\t\t\t<CardContent\n\t\t\t\t\t\t\tname={agent.name}\n\t\t\t\t\t\t\tsubtitle={agent.creatorName}\n\t\t\t\t\t\t\tdescription={agent.description}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Card>\n\t\t\t\t))}\n\t\t\t</CardList>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardListDefaultPreview;",
+			"import { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardList } from '@atlassian/studio-browse-kit/ui/card-list';\nimport { ExampleFrame, agents, rovo } from '../examples-utils/support';\nexport function CardListCollapsiblePreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<CardList\n\t\t\t\tcolumns={4}\n\t\t\t\theading=\"Recommended agents\"\n\t\t\t\tsubtitle=\"Start with an agent built for everyday work.\"\n\t\t\t\tisCollapsible\n\t\t\t\tcollapsedItemCount={4}\n\t\t\t\tshouldScrollOnExpand\n\t\t\t>\n\t\t\t\t{[rovo, ...agents].map((agent) => (\n\t\t\t\t\t<Card key={agent.id} ariaLabel={agent.name} onClick={() => {}}>\n\t\t\t\t\t\t<CardContent\n\t\t\t\t\t\t\tname={agent.name}\n\t\t\t\t\t\t\tsubtitle={agent.creatorName}\n\t\t\t\t\t\t\tdescription={agent.description}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Card>\n\t\t\t\t))}\n\t\t\t</CardList>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardListCollapsiblePreview;",
+			"import { AgentCardSkeleton } from '@atlassian/studio-browse-kit/agent-card-skeleton';\nimport { CardList } from '@atlassian/studio-browse-kit/ui/card-list';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function CardListLoadingPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<CardList\n\t\t\t\tchildren={null}\n\t\t\t\tcolumns={4}\n\t\t\t\theading=\"Recommended agents\"\n\t\t\t\tloadingState={Array.from({ length: 4 }, (_, index) => (\n\t\t\t\t\t<AgentCardSkeleton key={index} />\n\t\t\t\t))}\n\t\t\t/>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardListLoadingPreview;",
 		],
 		props: [
 			{
@@ -33980,13 +34899,13 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'CardMetadata',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays supporting metadata rows within a Studio browse card.',
+		description: 'Present supporting information alongside a card’s footer actions.',
 		status: 'general-availability',
-		usageGuidelines: ['Use inside Card for secondary entity attributes and labels.'],
-		keywords: ['studio', 'browse', 'card', 'metadata'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nconst styles = cssMap({\n\troot: { width: '320px' },\n});\nexport default function SelectableAgentCardExample(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<div css={styles.root}>\n\t\t\t<Card ariaLabel=\"Open the Engineering knowledge agent\" onClick={() => setIsOpen(true)}>\n\t\t\t\t<CardCover name=\"Engineering knowledge\" coverStyle=\"grid\" />\n\t\t\t\t<CardContent\n\t\t\t\t\tname=\"Engineering knowledge\"\n\t\t\t\t\tsubtitle=\"Rovo agent\"\n\t\t\t\t\tdescription=\"Finds relevant architecture decisions and engineering guidance.\"\n\t\t\t\t/>\n\t\t\t\t<CardMetadata items={[{ key: 'scope', label: 'Connected to engineering spaces' }]} />\n\t\t\t</Card>\n\t\t\t{isOpen ? <Text>Opening Engineering knowledge…</Text> : null}\n\t\t</div>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardMetadataItemsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\">\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardMetadata\n\t\t\t\t\t\titems={[\n\t\t\t\t\t\t\t{ key: 'creator', label: 'Release engineering' },\n\t\t\t\t\t\t\t{ key: 'usage', label: 'Used 142 times' },\n\t\t\t\t\t\t]}\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardMetadataItemsPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport FireIcon from '@atlaskit/icon-lab/core/fire';\nimport Lozenge from '@atlaskit/lozenge/new/lozenge';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { CardMetadata } from '@atlassian/studio-browse-kit/ui/card-metadata';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nexport function CardPopularPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Release notes writer\">\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Release notes writer\"\n\t\t\t\t\t\tsubtitle=\"Release engineering\"\n\t\t\t\t\t\tdescription=\"Turn completed Jira work into clear release notes for your customers.\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CardMetadata>\n\t\t\t\t\t\t<Lozenge appearance=\"accent-yellow\" iconBefore={FireIcon}>\n\t\t\t\t\t\t\tPopular\n\t\t\t\t\t\t</Lozenge>\n\t\t\t\t\t</CardMetadata>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CardPopularPreview;",
 		],
 		props: [
 			{
@@ -34006,14 +34925,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 	{
 		name: 'CategoryBar',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays browse categories with overflow handling and selection state.',
+		description: 'Filter a collection with a labelled category control.',
 		status: 'general-availability',
-		usageGuidelines: ['Use to switch between categories in a Studio or Rovo browse experience.'],
-		keywords: ['studio', 'browse', 'category', 'navigation'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
-		examples: [
-			"import React, { useState } from 'react';\nimport { Text } from '@atlaskit/primitives/compiled';\nimport { CategoryBar } from '@atlassian/studio-browse-kit/ui/category-bar';\ntype AgentCategory = 'all' | 'recent' | 'recommended';\nexport default function AgentCategoryBarExample(): React.JSX.Element {\n\tconst [selectedCategory, setSelectedCategory] = useState<AgentCategory>('all');\n\treturn (\n\t\t<>\n\t\t\t<CategoryBar\n\t\t\t\tlabel=\"Agent categories\"\n\t\t\t\tselectedCategory={selectedCategory}\n\t\t\t\tonSelect={setSelectedCategory}\n\t\t\t\titems={[\n\t\t\t\t\t{ id: 'all', label: 'All agents' },\n\t\t\t\t\t{ id: 'recent', label: 'Recently used' },\n\t\t\t\t]}\n\t\t\t\tmoreItems={[{ id: 'recommended', label: 'Recommended' }]}\n\t\t\t\tmoreLabel=\"More\"\n\t\t\t/>\n\t\t\t<Text>Showing {selectedCategory} agents</Text>\n\t\t</>\n\t);\n}",
-		],
+		examples: [],
 		props: [
 			{
 				name: 'items',
@@ -34047,39 +34963,35 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'Profile',
+		name: 'CosmosBackground',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Provides the layout container for a Studio entity profile.',
+		description: 'Compose decorative Cosmos artwork into a Rovo surface.',
 		status: 'general-availability',
-		usageGuidelines: [
-			'Compose with the profile subcomponents to build agent or template profiles.',
-		],
-		keywords: ['studio', 'profile', 'agent', 'layout'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"import { Text } from '@atlaskit/primitives/compiled';\nimport { Profile } from '@atlassian/studio-browse-kit/ui/profile';\nimport { ProfileAttribute } from '@atlassian/studio-browse-kit/ui/profile-attribute';\nimport { ProfileAttributes } from '@atlassian/studio-browse-kit/ui/profile-attributes';\nexport default function AgentProfileAttributeExample(): React.JSX.Element {\n\treturn (\n\t\t<Profile>\n\t\t\t<ProfileAttributes>\n\t\t\t\t<ProfileAttribute label=\"Availability\">\n\t\t\t\t\t<Text>Available to everyone in the Engineering workspace</Text>\n\t\t\t\t</ProfileAttribute>\n\t\t\t\t<ProfileAttribute label=\"Knowledge\">\n\t\t\t\t\t<Text>Architecture decisions and team documentation</Text>\n\t\t\t\t</ProfileAttribute>\n\t\t\t</ProfileAttributes>\n\t\t</Profile>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CosmosBackground } from '@atlassian/studio-browse-kit/ui/cosmos-background';\nimport { RovoAgentAvatar } from '@atlassian/studio-browse-kit/ui/rovo-agent-avatar';\nconst RovoAvatar = (): React.JSX.Element => <RovoAgentAvatar name=\"Rovo\" />;\nexport function CosmosBackgroundPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<Card ariaLabel=\"Rovo\" hasCutout onClick={() => {}}>\n\t\t\t\t\t<CardCover\n\t\t\t\t\t\tname=\"Rovo\"\n\t\t\t\t\t\tavatar={RovoAvatar}\n\t\t\t\t\t\tbackground={<CosmosBackground enableReflection={false} />}\n\t\t\t\t\t/>\n\t\t\t\t\t<CardContent\n\t\t\t\t\t\tname=\"Rovo\"\n\t\t\t\t\t\tsubtitle=\"Atlassian\"\n\t\t\t\t\t\tdescription=\"Find answers, explore ideas, and get work done with your AI teammate.\"\n\t\t\t\t\t/>\n\t\t\t\t</Card>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CosmosBackgroundPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CosmosBackground } from '@atlassian/studio-browse-kit/ui/cosmos-background';\nimport { CosmosEffect } from '@atlassian/studio-browse-kit/ui/cosmos-effect';\nimport { RovoAgentAvatar } from '@atlassian/studio-browse-kit/ui/rovo-agent-avatar';\nconst RovoAvatar = (): React.JSX.Element => <RovoAgentAvatar name=\"Rovo\" />;\nexport function CosmosEffectCardPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<CosmosEffect>\n\t\t\t\t\t<Card ariaLabel=\"Rovo\" hasCutout onClick={() => {}}>\n\t\t\t\t\t\t<CardCover name=\"Rovo\" avatar={RovoAvatar} background={<CosmosBackground />} />\n\t\t\t\t\t\t<CardContent\n\t\t\t\t\t\t\tname=\"Rovo\"\n\t\t\t\t\t\t\tsubtitle=\"Atlassian\"\n\t\t\t\t\t\t\tdescription=\"Find answers, explore ideas, and get work done with your AI teammate.\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Card>\n\t\t\t\t</CosmosEffect>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CosmosEffectCardPreview;",
 		],
 		props: [
 			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-			},
-			{
-				name: 'header',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				name: 'enableReflection',
+				type: 'boolean',
+				description: 'Disable the reflection to render only the static black grid.',
+				defaultValue: 'true',
 			},
 		],
 	},
 	{
-		name: 'ProfileAttribute',
+		name: 'CosmosEffect',
 		package: '@atlassian/studio-browse-kit',
-		description: 'Displays one labelled attribute in a Studio entity profile.',
+		description: 'Add pointer and keyboard focus lighting to a Rovo card.',
 		status: 'general-availability',
-		usageGuidelines: ['Use within profile attribute groups for a single labelled value.'],
-		keywords: ['studio', 'profile', 'attribute', 'label'],
+		keywords: ['studio', 'browse'],
 		category: 'rovo',
 		examples: [
-			"import { Text } from '@atlaskit/primitives/compiled';\nimport { Profile } from '@atlassian/studio-browse-kit/ui/profile';\nimport { ProfileAttribute } from '@atlassian/studio-browse-kit/ui/profile-attribute';\nimport { ProfileAttributes } from '@atlassian/studio-browse-kit/ui/profile-attributes';\nexport default function AgentProfileAttributeExample(): React.JSX.Element {\n\treturn (\n\t\t<Profile>\n\t\t\t<ProfileAttributes>\n\t\t\t\t<ProfileAttribute label=\"Availability\">\n\t\t\t\t\t<Text>Available to everyone in the Engineering workspace</Text>\n\t\t\t\t</ProfileAttribute>\n\t\t\t\t<ProfileAttribute label=\"Knowledge\">\n\t\t\t\t\t<Text>Architecture decisions and team documentation</Text>\n\t\t\t\t</ProfileAttribute>\n\t\t\t</ProfileAttributes>\n\t\t</Profile>\n\t);\n}",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Card } from '@atlassian/studio-browse-kit/ui/card';\nimport { CardContent } from '@atlassian/studio-browse-kit/ui/card-content';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '320px', maxWidth: '100%' } });\nimport { CardCover } from '@atlassian/studio-browse-kit/ui/card-cover';\nimport { CosmosBackground } from '@atlassian/studio-browse-kit/ui/cosmos-background';\nimport { CosmosEffect } from '@atlassian/studio-browse-kit/ui/cosmos-effect';\nimport { RovoAgentAvatar } from '@atlassian/studio-browse-kit/ui/rovo-agent-avatar';\nconst RovoAvatar = (): React.JSX.Element => <RovoAgentAvatar name=\"Rovo\" />;\nexport function CosmosEffectCardPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Box xcss={styles.card}>\n\t\t\t\t<CosmosEffect>\n\t\t\t\t\t<Card ariaLabel=\"Rovo\" hasCutout onClick={() => {}}>\n\t\t\t\t\t\t<CardCover name=\"Rovo\" avatar={RovoAvatar} background={<CosmosBackground />} />\n\t\t\t\t\t\t<CardContent\n\t\t\t\t\t\t\tname=\"Rovo\"\n\t\t\t\t\t\t\tsubtitle=\"Atlassian\"\n\t\t\t\t\t\t\tdescription=\"Find answers, explore ideas, and get work done with your AI teammate.\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Card>\n\t\t\t\t</CosmosEffect>\n\t\t\t</Box>\n\t\t</ExampleFrame>\n\t);\n}\nexport default CosmosEffectCardPreview;",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport ModalBody from '@atlaskit/modal-dialog/modal-body';\nimport ModalDialog from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalFooter from '@atlaskit/modal-dialog/modal-footer';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CosmosBackground } from '@atlassian/studio-browse-kit/ui/cosmos-background';\nimport { CosmosEffect } from '@atlassian/studio-browse-kit/ui/cosmos-effect';\nimport { RovoAgentAvatar } from '@atlassian/studio-browse-kit/ui/rovo-agent-avatar';\nimport { ExampleFrame } from '../examples-utils/support';\nconst styles = cssMap({\n\tbanner: { position: 'relative', height: '160px', display: 'grid', placeItems: 'center' },\n\tavatar: { position: 'relative' },\n});\nexport function CosmosEffectModalPreview(): React.JSX.Element {\n\tconst [isOpen, setOpen] = useState(true);\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Button onClick={() => setOpen(true)}>About Rovo</Button>\n\t\t\t{isOpen && (\n\t\t\t\t<ModalDialog onClose={() => setOpen(false)}>\n\t\t\t\t\t<CosmosEffect layout=\"modal\">\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Rovo</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<Box xcss={styles.banner}>\n\t\t\t\t\t\t\t<CosmosBackground />\n\t\t\t\t\t\t\t<Box xcss={styles.avatar}>\n\t\t\t\t\t\t\t\t<RovoAgentAvatar name=\"Rovo\" size=\"xxlarge\" />\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<Text>Find answers, explore ideas, and get work done with your AI teammate.</Text>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={() => setOpen(false)}>\n\t\t\t\t\t\t\t\tDone\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</CosmosEffect>\n\t\t\t\t</ModalDialog>\n\t\t\t)}\n\t\t</ExampleFrame>\n\t);\n}\nexport default CosmosEffectModalPreview;",
 		],
 		props: [
 			{
@@ -34088,14 +35000,146 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
-				name: 'isInteractive',
-				type: 'boolean',
-				defaultValue: 'false',
+				name: 'layout',
+				type: '"modal" | "card"',
+				description: 'Preserve the modal header/body flex layout when tracking the full profile.',
+				defaultValue: '"card"',
 			},
+		],
+	},
+	{
+		name: 'HeroCardList',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Lay out featured agents and templates in a responsive collection.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { AgentHeroCard } from '@atlassian/studio-browse-kit/ui/agent-hero-card/AgentHeroCard';\nimport { HeroCardList } from '@atlassian/studio-browse-kit/ui/hero-card-list';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample } from '../examples-utils/support';\nexport function HeroCardsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<HeroCardList\n\t\t\t\t\t\ttitle=\"Featured agents\"\n\t\t\t\t\t\tsubtitle=\"Start with an agent built for everyday work.\"\n\t\t\t\t\t>\n\t\t\t\t\t\t{agentRefs.slice(0, 2).map((agentRef) => (\n\t\t\t\t\t\t\t<AgentHeroCard\n\t\t\t\t\t\t\t\tkey={agentRef.id}\n\t\t\t\t\t\t\t\tagentRef={agentRef}\n\t\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t))}\n\t\t\t\t\t</HeroCardList>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default HeroCardsPreview;",
+			"import { AgentHeroCard } from '@atlassian/studio-browse-kit/ui/agent-hero-card/AgentHeroCard';\nimport { HeroCardList } from '@atlassian/studio-browse-kit/ui/hero-card-list';\nimport { TemplateHeroCard } from '@atlassian/studio-browse-kit/ui/template-hero-card/TemplateHeroCard';\nimport { CLOUD_ID, ExampleFrame, ConnectedExample } from '../examples-utils/support';\nexport function MixedHeroCardsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample>\n\t\t\t\t{({ agentRefs, templateRefs }) => (\n\t\t\t\t\t<HeroCardList\n\t\t\t\t\t\ttitle=\"Get started\"\n\t\t\t\t\t\tsubtitle=\"Use an agent or build your own from a template.\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<AgentHeroCard\n\t\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<TemplateHeroCard templateRef={templateRefs[0]} onClick={() => {}} />\n\t\t\t\t\t</HeroCardList>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default MixedHeroCardsPreview;",
+			"import { HeroCardList } from '@atlassian/studio-browse-kit/ui/hero-card-list';\nimport { TemplateHeroCard } from '@atlassian/studio-browse-kit/ui/template-hero-card/TemplateHeroCard';\nimport { ExampleFrame, ConnectedExample } from '../examples-utils/support';\nexport function HeroTemplatesPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame wide>\n\t\t\t<ConnectedExample>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<HeroCardList\n\t\t\t\t\t\ttitle=\"Get started\"\n\t\t\t\t\t\tsubtitle=\"Use an agent or build your own from a template.\"\n\t\t\t\t\t>\n\t\t\t\t\t\t{templateRefs.map((templateRef) => (\n\t\t\t\t\t\t\t<TemplateHeroCard key={templateRef.id} templateRef={templateRef} onClick={() => {}} />\n\t\t\t\t\t\t))}\n\t\t\t\t\t</HeroCardList>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default HeroTemplatesPreview;",
+		],
+		props: [
 			{
-				name: 'label',
+				name: 'children',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
 				isRequired: true,
+			},
+			{
+				name: 'subtitle',
+				type: 'string',
+			},
+			{
+				name: 'title',
+				type: 'string',
+			},
+		],
+	},
+	{
+		name: 'MoreAboutRovo',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Introduce Rovo alongside agent recommendations.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
+		name: 'RovoAgentAvatar',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Render Rovo’s identity on cards and introductory surfaces.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			'import { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { RovoAgentAvatar } from \'@atlassian/studio-browse-kit/ui/rovo-agent-avatar\';\nimport { ExampleFrame } from \'../examples-utils/support\';\nexport function RovoAgentAvatarPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<Inline space="space.400" alignBlock="end">\n\t\t\t\t<Stack space="space.150" alignInline="center">\n\t\t\t\t\t<RovoAgentAvatar name="Rovo" size="xlarge" />\n\t\t\t\t\t<Text>Card avatar</Text>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.150" alignInline="center">\n\t\t\t\t\t<RovoAgentAvatar name="Rovo" size="xxlarge" />\n\t\t\t\t\t<Text>Profile avatar</Text>\n\t\t\t\t</Stack>\n\t\t\t</Inline>\n\t\t</ExampleFrame>\n\t);\n}\nexport default RovoAgentAvatarPreview;',
+		],
+		props: [
+			{
+				name: 'name',
+				type: 'string',
+			},
+			{
+				name: 'size',
+				type: '"xlarge" | "xxlarge"',
+				defaultValue: '"xlarge"',
+			},
+		],
+	},
+	{
+		name: 'TemplateHeroCard',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Feature a template alongside recommended agents.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplateHeroCard } from '@atlassian/studio-browse-kit/ui/template-hero-card/TemplateHeroCard';\nimport { ExampleFrame, ConnectedExample, cardTemplates } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '640px', maxWidth: '100%' } });\nexport function TemplateHeroCardDefaultPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample templateData={[cardTemplates[0]]}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<TemplateHeroCard templateRef={templateRefs[0]} onClick={() => {}} />\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateHeroCardDefaultPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplateHeroCard } from '@atlassian/studio-browse-kit/ui/template-hero-card/TemplateHeroCard';\nimport { ExampleFrame, ConnectedExample, cardTemplates } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '640px', maxWidth: '100%' } });\nexport function TemplateHeroCardLongContentPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample\n\t\t\t\ttemplateData={[\n\t\t\t\t\t{\n\t\t\t\t\t\t...cardTemplates[0],\n\t\t\t\t\t\tname: 'Meeting notes and cross-team delivery planning assistant',\n\t\t\t\t\t\tdescription:\n\t\t\t\t\t\t\t'Summarizes meetings, tracks decisions, and coordinates follow-up actions across teams. It identifies dependencies, highlights outstanding questions, and prepares a shared plan so everyone knows what to do next.',\n\t\t\t\t\t},\n\t\t\t\t]}\n\t\t\t>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<TemplateHeroCard templateRef={templateRefs[0]} onClick={() => {}} />\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateHeroCardLongContentPreview;",
+			"import { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { TemplateHeroCard } from '@atlassian/studio-browse-kit/ui/template-hero-card/TemplateHeroCard';\nimport { ExampleFrame, ConnectedExample, cardTemplates } from '../examples-utils/support';\nconst styles = cssMap({ card: { width: '640px', maxWidth: '100%' } });\nexport function TemplateHeroCardDisabledPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample templateData={[cardTemplates[0]]}>\n\t\t\t\t{({ templateRefs }) => (\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<TemplateHeroCard templateRef={templateRefs[0]} onClick={() => {}} isDisabled />\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default TemplateHeroCardDisabledPreview;",
+		],
+		props: [
+			{
+				name: 'as',
+				type: 'string',
+				description:
+					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
+				defaultValue: "'div'",
+			},
+			{
+				name: 'backgroundColor',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 223 more ... | "elevation.surface.raised.pressed"',
+				description: 'Token representing background color with a built-in fallback value.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: "Disables the card's primary action and removes its hover feedback.",
+			},
+			{
+				name: 'isPopular',
+				type: 'boolean',
+			},
+			{
+				name: 'onClick',
+				type: '(templateId: string, analyticsContext?: BrowseCardAnalyticsContext) => void',
+			},
+			{
+				name: 'templateRef',
+				type: '{ readonly " $data"?: TemplateHeroCard_StudioBrowseKit$data; readonly " $fragmentSpreads": FragmentRefs<"TemplateHeroCard_StudioBrowseKit">; }',
+				isRequired: true,
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description:
+					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
+			},
+		],
+	},
+	{
+		name: 'ToolList',
+		package: '@atlassian/studio-browse-kit',
+		description: 'Display the apps used by a workflow or template.',
+		status: 'general-availability',
+		keywords: ['studio', 'browse'],
+		category: 'rovo',
+		examples: [
+			"import { confluenceIcon, jiraIcon, jiraServiceManagementIcon } from '@atlaskit/logo/raw-icons';\nimport { ToolList } from '@atlassian/studio-browse-kit/ui/tool-list';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function ToolListBasicPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ToolList\n\t\t\t\titems={[\n\t\t\t\t\t{ id: 'jira', name: 'Jira', iconUrl: jiraIcon },\n\t\t\t\t\t{ id: 'confluence', name: 'Confluence', iconUrl: confluenceIcon },\n\t\t\t\t\t{ id: 'jsm', name: 'Jira Service Management', iconUrl: jiraServiceManagementIcon },\n\t\t\t\t]}\n\t\t\t/>\n\t\t</ExampleFrame>\n\t);\n}\nexport default ToolListBasicPreview;",
+			"import { jiraIcon } from '@atlaskit/logo/raw-icons';\nimport { ToolList } from '@atlassian/studio-browse-kit/ui/tool-list';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function ToolListSingleAppPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ToolList items={[{ id: 'jira', name: 'Jira', iconUrl: jiraIcon }]} />\n\t\t</ExampleFrame>\n\t);\n}\nexport default ToolListSingleAppPreview;",
+			"import { bitbucketIcon, confluenceIcon, jiraIcon, loomIcon } from '@atlaskit/logo/raw-icons';\nimport { ToolList } from '@atlassian/studio-browse-kit/ui/tool-list';\nimport { ExampleFrame } from '../examples-utils/support';\nexport function ToolListCompactPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ToolList\n\t\t\t\tsize=\"small\"\n\t\t\t\titems={[\n\t\t\t\t\t{ id: 'jira', name: 'Jira', iconUrl: jiraIcon },\n\t\t\t\t\t{ id: 'confluence', name: 'Confluence', iconUrl: confluenceIcon },\n\t\t\t\t\t{ id: 'bitbucket', name: 'Bitbucket', iconUrl: bitbucketIcon },\n\t\t\t\t\t{ id: 'loom', name: 'Loom', iconUrl: loomIcon },\n\t\t\t\t]}\n\t\t\t/>\n\t\t</ExampleFrame>\n\t);\n}\nexport default ToolListCompactPreview;",
+		],
+		props: [
+			{
+				name: 'items',
+				type: 'ToolListItem[]',
+				isRequired: true,
+			},
+			{
+				name: 'size',
+				type: '"small" | "medium"',
+				defaultValue: '"medium"',
 			},
 		],
 	},

@@ -146,10 +146,7 @@ const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 		<div
 			css={[
 				optionStyles.root,
-				!isDisabled &&
-					!isSelected &&
-					fg('platform-dst-motion-uplift-list-item') &&
-					optionStyles.motion,
+				!isDisabled && !isSelected && optionStyles.motion,
 				isFocused && optionStyles.focused,
 				isFocused &&
 					!isSelected &&
@@ -157,10 +154,7 @@ const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 					optionStyles.finesseFocused,
 				isSelected && optionStyles.selected,
 				isFocused && isSelected && optionStyles.focusedSelected,
-				!isDisabled &&
-					isSelected &&
-					fg('platform-dst-motion-uplift-list-item') &&
-					optionStyles.motionSelected,
+				!isDisabled && isSelected && optionStyles.motionSelected,
 				isDisabled && optionStyles.disabled,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

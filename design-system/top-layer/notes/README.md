@@ -101,6 +101,10 @@ Architectural decisions, design rationale, and decision logs.
   Anchor Positioning path writes `position-visibility: always`, so the browser never hides an
   anchored surface on top-layer's behalf. The initial value `anchors-visible` strongly hides a
   popover whose anchor is fully clipped or `visibility: hidden`, invisibly to geometry-based tests
+- **[surface-reset-color.md](./decisions/surface-reset-color.md)**: Decision: the `Popover` and
+  `Dialog` host reset sets `color: token('color.text')`. The UA sets `color: CanvasText` on
+  `[popover]` and `dialog`, so the host never inherited a colour. Reverses the phase0b "leave-out"
+  for `color`; `font` stays excluded
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
 - **[host-specificity-boost.md](./decisions/host-specificity-boost.md)** — Decision: why the

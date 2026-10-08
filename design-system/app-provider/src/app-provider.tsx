@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { ThemeWithCustomOverrides } from '@atlaskit/tokens/custom-theme-overrides';
 import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
 
 import { AppProviderThemingEnabledContext } from './app-provider-theming-enabled-context';
@@ -7,19 +8,18 @@ import { InsideAppProviderContext } from './inside-app-provider-context';
 import RouterLinkProvider, { type RouterLinkComponent } from './router-link-provider';
 import { useScrollbarHarmonisation } from './scrollbar-harmonisation/use-scrollbar-harmonisation';
 import { ThemeProvider } from './theme-provider';
-import { type Theme } from './theme-provider/context/theme';
 import { useIsInsideAppProvider } from './use-is-inside-app-provider';
 
-interface AppProviderProps {
+export interface AppProviderProps {
 	/**
 	 * Initial color mode.
 	 */
 	defaultColorMode?: ThemeColorModes;
 
 	/**
-	 * Theme settings.
+	 * Theme settings. Registered custom themes can provide an ID and overrides inline.
 	 */
-	defaultTheme?: Partial<Theme>;
+	defaultTheme?: ThemeWithCustomOverrides;
 
 	/**
 	 * A configured router link component.

@@ -16,10 +16,6 @@ export type ToolbarUIComponentFactory = (
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { ToolbarSize } from './ToolbarSize';
 // eslint-disable-next-line @atlaskit/editor/no-re-export
-export { ToolbarWidths } from './ToolbarWidths';
-// eslint-disable-next-line @atlaskit/editor/no-re-export
 export { ToolbarWidthsNext } from './ToolbarWidthsNext';
-// eslint-disable-next-line @atlaskit/editor/no-re-export
-export { ToolbarWidthsFullPage } from './ToolbarWidthsFullPage';
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { ToolbarWidthsFullPageNext } from './ToolbarWidthsFullPageNext';

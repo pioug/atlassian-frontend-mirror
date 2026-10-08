@@ -1,5 +1,20 @@
 # @atlassian/smart-user-picker
 
+## 12.4.0
+
+### Minor Changes
+
+- [`c7652bdd626c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7652bdd626c8) -
+  Declare React 19 support alongside React 18 and enable React 19 testing for smart user picker.
+
+## 12.3.1
+
+### Patch Changes
+
+- [`5ea0eed463aca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ea0eed463aca) -
+  Use hook-based analytics and an explicit error-boundary fallback, preserving UFO failure reporting
+  and retries on parent updates.
+
 ## 12.3.0
 
 ### Minor Changes

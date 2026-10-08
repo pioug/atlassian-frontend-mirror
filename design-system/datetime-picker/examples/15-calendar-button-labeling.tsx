@@ -51,7 +51,7 @@ export default (): React.JSX.Element => {
 					label: '`label` prop, Date',
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: '`label` prop, Time' }}
+				timePickerProps={{ label: '`label` prop, Time', shouldShowTimeButton: true }}
 			/>
 		</Box>
 	);

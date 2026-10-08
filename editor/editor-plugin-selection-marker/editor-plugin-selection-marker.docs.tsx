@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Selection Marker',
 			description: 'Selection marker plugin for @atlaskit/editor-core.',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'selectionMarkerPlugin',
 				package: '@atlaskit/editor-plugin-selection-marker',

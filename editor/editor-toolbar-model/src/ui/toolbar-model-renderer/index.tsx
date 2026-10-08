@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import type { RegisterToolbar, RegisterComponent, ToolbarComponentTypes } from '../../types';
 import { getSortedChildren, isSection, NoOp } from './common';
 import type { ToolbarProps } from './types';
@@ -47,24 +45,14 @@ const hasMenuItems = (
 	menuSections: RegisterComponent[],
 	allComponents: Exclude<RegisterComponent, RegisterToolbar>[],
 ): boolean => {
-	if (expValEquals('platform_editor_toolbar_hide_overflow_menu', 'isEnabled', true)) {
-		return menuSections.some((menuSection) => {
-			return allComponents.some((component: RegisterComponent): boolean => {
-				return (
-					component.type === 'menu-item' &&
-					component.parents.some((parent) => parent.key === menuSection.key) &&
-					(!('isHidden' in component) || !component.isHidden?.())
-				);
-			});
-		});
-	}
-
 	return menuSections.some((menuSection) => {
-		return allComponents.some(
-			(component) =>
+		return allComponents.some((component: RegisterComponent): boolean => {
+			return (
 				component.type === 'menu-item' &&
-				component.parents.some((parent) => parent.key === menuSection.key),
-		);
+				component.parents.some((parent) => parent.key === menuSection.key) &&
+				(!('isHidden' in component) || !component.isHidden?.())
+			);
+		});
 	});
 };
 

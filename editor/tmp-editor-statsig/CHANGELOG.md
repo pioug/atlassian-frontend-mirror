@@ -1,5 +1,36 @@
 # @atlaskit/editor-statsig-tmp
 
+## 228.0.0
+
+### Major Changes
+
+- [`bff0e6a89cf54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bff0e6a89cf54) -
+  Clean up experiment `platform_editor_toolbar_hide_overflow_menu`
+
+## 227.0.0
+
+### Major Changes
+
+- [`6e3052e841e82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e3052e841e82) -
+  Clean up experiment `platform_rovo_support_create_inline_comment`
+
+## 226.0.0
+
+### Major Changes
+
+- [`685643d223f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/685643d223f9d) -
+  Complete cleanup of the `cc_fd_db_top_editor_toolbar` experiment. Always sort featured toolbar
+  insert items by provider priority across platforms, matching quick insert ordering. Remove
+  hardcoded whiteboard pinning and preserve provider descriptions, retaining the shipped
+  `new-description` behavior without product checks, preset options, or experiment setup.
+
+  Breaking change in `@atlaskit/tmp-editor-statsig`: remove `cc_fd_db_top_editor_toolbar` from
+  `editorExperimentsConfig` and `testMultivariateOverrides`. Consumers referencing
+  `editorExperimentsConfig.cc_fd_db_top_editor_toolbar` or calling
+  `expVal('cc_fd_db_top_editor_toolbar', ...)` (or other typed experiment helpers) will receive
+  TypeScript errors after upgrading. To migrate, remove those experiment queries and test overrides,
+  and retain the shipped `new-description` behavior instead of branching on the removed experiment.
+
 ## 225.0.0
 
 ### Major Changes

@@ -113,6 +113,7 @@ import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import * as editorSSRRendererModule from '@atlaskit/editor-ssr-renderer';
+import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -293,6 +294,58 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			expect(result.getByLabelText(editingArea)).toHaveFocus();
+		});
+	});
+
+	describe('optimistic toolbar initial selection', () => {
+		const defaultValue = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{ type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Heading' }] },
+				{ type: 'paragraph', content: [{ type: 'text', text: 'Last paragraph' }] },
+			],
+		};
+
+		eeTest.describe('platform_editor_ssr_toolbar_optimistic', 'enabled').variant(true, () => {
+			it.each(['full-page', 'full-width', 'max'] as const)(
+				'matches the SSR selection for %s when the experiment is enabled',
+				(appearance) => {
+					const onEditorCreated = jest.fn(({ view }: { view: EditorView }) => view.state);
+					renderWithIntl(
+						<ReactEditorView
+							{...requiredProps({ appearance, defaultValue })}
+							onEditorCreated={onEditorCreated}
+						/>,
+					);
+
+					const state = onEditorCreated.mock.results[0].value as EditorState;
+					const ssrState = createSSREditorState({
+						doc: state.doc,
+						schema: state.schema,
+						pmPlugins: [],
+					});
+					expect(ssrState.selection.$from.parent.type.name).toBe('heading');
+					expect(state.selection.toJSON()).toEqual(ssrState.selection.toJSON());
+					expect(state.selection.$from.parent.attrs.level).toBe(2);
+				},
+			);
+		});
+
+		eeTest.describe('platform_editor_ssr_toolbar_optimistic', 'disabled').variant(false, () => {
+			it('preserves the Max width end selection when the experiment is disabled', () => {
+				const onEditorCreated = jest.fn(({ view }: { view: EditorView }) => view.state);
+				renderWithIntl(
+					<ReactEditorView
+						{...requiredProps({ appearance: 'max', defaultValue })}
+						onEditorCreated={onEditorCreated}
+					/>,
+				);
+
+				const state = onEditorCreated.mock.results[0].value as EditorState;
+				expect(state.selection.$from.parent.type.name).toBe('paragraph');
+				expect(state.selection.from).toBe(state.doc.content.size - 1);
+			});
 		});
 	});
 

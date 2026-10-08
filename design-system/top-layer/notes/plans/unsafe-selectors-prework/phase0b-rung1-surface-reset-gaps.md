@@ -156,6 +156,9 @@ stylesheets are additional).
 | `direction`, `unicode-bidi`                                 | Yes                                                                                   | Yes                                                                                  | Yes — deliberately, `popover.tsx:57` (RTL must inherit)                                             | **leave-out** — correct as written                                                                                                                                                                                          |
 | `text-decoration`                                           | No                                                                                    | **No** — propagates through the box tree, and propagation stops at out-of-flow boxes | No                                                                                                  | **leave-out** — the plan's claim is verified                                                                                                                                                                                |
 
+> The `color` row is superseded by `notes/decisions/surface-reset-color.md` (2026-10-07): the host
+> now resets `color` to `color.text`.
+
 ### Implementation note on the font cluster
 
 `font: token('font.body')` would reset `font-style`, `font-weight`, `font-size`, `line-height` and

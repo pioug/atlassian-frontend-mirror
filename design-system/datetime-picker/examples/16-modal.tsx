@@ -48,6 +48,7 @@ export default function DefaultModal(): React.JSX.Element {
 									clearControlLabel="Clear select time (default)"
 									id="timepicker"
 									testId="timepicker"
+									shouldShowTimeButton
 								/>
 								<Label htmlFor="datetime-picker">Date / time picker (default)</Label>
 								<DateTimePicker
@@ -58,7 +59,10 @@ export default function DefaultModal(): React.JSX.Element {
 										shouldShowCalendarButton: true,
 										openCalendarLabel: 'open calendar',
 									}}
-									timePickerProps={{ label: 'Date / time picker (default), time' }}
+									timePickerProps={{
+										label: 'Date / time picker (default), time',
+										shouldShowTimeButton: true,
+									}}
 									id="datetime-picker"
 								/>
 							</Box>

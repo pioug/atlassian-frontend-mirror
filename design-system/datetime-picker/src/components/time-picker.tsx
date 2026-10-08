@@ -1,8 +1,13 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, {
 	type CSSProperties,
 	forwardRef,
 	useCallback,
 	useEffect,
+	useId,
 	useReducer,
 	useState,
 } from 'react';
@@ -11,7 +16,10 @@ import React, {
 import { format, isValid } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import IconButton from '@atlaskit/button/icon/button';
+import { cssMap, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
+import ClockIcon from '@atlaskit/icon/core/clock';
 import {
 	createLocalizationProvider,
 	type LocalizationProvider,
@@ -23,6 +31,7 @@ import Select from '@atlaskit/select/default';
 import type {
 	ActionMeta,
 	GroupType,
+	InputActionMeta,
 	OptionType,
 	SelectComponentsConfig,
 	ValueType,
@@ -35,6 +44,7 @@ import { FixedLayerMenu } from '../internal/fixed-layer-menu';
 import { FixedLayerMenuTopLayer } from '../internal/fixed-layer-menu-top-layer';
 import parseTime from '../internal/parse-time';
 import { convertTokens } from '../internal/parse-tokens';
+import { PickerButtonContainer } from '../internal/picker-button-container';
 import { placeholderDatetime } from '../internal/placeholder-date-time';
 import { makeSingleValue } from '../internal/single-value';
 import { type Appearance, type Spacing, type TimePickerBaseProps } from '../types';
@@ -57,6 +67,12 @@ const menuStyles: CSSProperties = {
 	/* React-Popper has already offset the menu so we need to reset the margin, otherwise the offset value is doubled */
 	margin: 0,
 };
+
+const styles = cssMap({
+	pickerContainer: {
+		position: 'relative',
+	},
+});
 
 const analyticsAttributes = {
 	componentName: 'timePicker',
@@ -95,12 +111,14 @@ const TimePicker: React.ForwardRefExoticComponent<
 			label = '',
 			locale = 'en-US',
 			name = '',
+			openTimeLabel = 'Open time picker',
 			onBlur: providedOnBlur = __noop,
 			onChange: providedOnChange = __noop,
 			onFocus: providedOnFocus = __noop,
 			parseInputValue = (time: string, _timeFormat: string) => parseTime(time),
 			placeholder,
 			selectProps = {},
+			shouldShowTimeButton = false,
 			spacing = 'default' as Spacing,
 			testId,
 			timeFormat,
@@ -120,6 +138,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 		// TODO: Remove isFocused? Does it do anything?
 		const [_, setIsFocused] = useState<boolean>(false);
 		const [isOpen, setIsOpen] = useState<boolean>(defaultIsOpen);
+		const [shouldFocusTimeInput, setShouldFocusTimeInput] = useState(false);
 		const [value, setValue] = useState<string>(defaultValue);
 
 		// Hack to force update: https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
@@ -142,6 +161,17 @@ const TimePicker: React.ForwardRefExoticComponent<
 				setIsOpen(providedIsOpen);
 			}
 		}, [providedIsOpen]);
+
+		useEffect(() => {
+			if (!isOpen || !shouldFocusTimeInput) {
+				return;
+			}
+
+			const innerCombobox: HTMLInputElement | undefined | null =
+				containerRef?.querySelector('[role="combobox"]');
+			innerCombobox?.focus();
+			setShouldFocusTimeInput(false);
+		}, [containerRef, isOpen, shouldFocusTimeInput]);
 
 		const onChange = useCallback(
 			(newValue: ValueType<OptionType> | string, action?: ActionMeta<OptionType>) => {
@@ -230,11 +260,39 @@ const TimePicker: React.ForwardRefExoticComponent<
 			}
 		};
 
+		const onTimeButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+			const nextIsOpen = !isOpen;
+			setIsOpen(nextIsOpen);
+			if (nextIsOpen) {
+				otherSelectProps.onMenuOpen?.();
+			} else {
+				otherSelectProps.onMenuClose?.();
+			}
+			event.stopPropagation();
+		};
+
+		const onTimeButtonKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+			if (!isOpen && (event.key === ' ' || event.key === 'Enter')) {
+				setShouldFocusTimeInput(true);
+			}
+		};
+
 		const ICON_PADDING = 2;
 		const GRID_SIZE = 8;
 		const l10n: LocalizationProvider = createLocalizationProvider(locale);
 		const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
 		const SelectComponent = timeIsEditable ? CreatableSelect : Select;
+
+		const onInputChange = (inputValue: string, actionMeta: InputActionMeta) => {
+			otherSelectProps.onInputChange?.(inputValue, actionMeta);
+
+			// Keep the menu-opening behavior aligned with DatePicker: entering text
+			// opens the available options, even when the optional time button disables
+			// opening on focus.
+			if (actionMeta.action === 'input-change') {
+				setIsOpen(true);
+			}
+		};
 
 		/**
 		 * There are multiple props that can change how the time is formatted.
@@ -287,7 +345,8 @@ const TimePicker: React.ForwardRefExoticComponent<
 			initialValue = null;
 		}
 
-		const SingleValue = makeSingleValue({ lang: locale });
+		const valueId = useId();
+		const SingleValue = makeSingleValue({ id: valueId, lang: locale });
 
 		const selectComponents: SelectComponentsConfig<OptionType> = {
 			DropdownIndicator: EmptyComponent,
@@ -297,6 +356,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 		};
 
 		const renderIconContainer = Boolean(!hideIcon && value);
+		const fullOpenTimeLabel = label ? `${label}, ${openTimeLabel}` : openTimeLabel;
 
 		const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
 
@@ -324,6 +384,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 		return (
 			<div
 				{...innerProps}
+				css={styles.pickerContainer}
 				ref={setInternalContainerRef}
 				data-testid={testId && `${testId}--container`}
 			>
@@ -335,7 +396,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 					onKeyDown={onSelectKeyDown}
 				/>
 				<SelectComponent
-					aria-describedby={ariaDescribedBy}
+					aria-describedby={ariaDescribedBy ? `${ariaDescribedBy} ${valueId}` : valueId}
 					aria-label={label || undefined}
 					appearance={appearance}
 					autoFocus={autoFocus}
@@ -347,7 +408,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 					isRequired={isRequired}
 					menuIsOpen={isOpen && !isDisabled}
 					menuPlacement="auto"
-					openMenuOnFocus
+					openMenuOnFocus={!shouldShowTimeButton}
 					onBlur={onBlur}
 					onCreateOption={onCreateOption}
 					onChange={onChange}
@@ -364,7 +425,20 @@ const TimePicker: React.ForwardRefExoticComponent<
 					isInvalid={isInvalid}
 					testId={testId}
 					{...otherSelectProps}
+					onInputChange={onInputChange}
 				/>
+				{shouldShowTimeButton && !isDisabled ? (
+					<PickerButtonContainer hasClearIndicator={renderIconContainer}>
+						<IconButton
+							appearance="subtle"
+							label={fullOpenTimeLabel}
+							icon={(iconProps) => <ClockIcon {...iconProps} color={token('color.icon')} />}
+							onClick={onTimeButtonClick}
+							onKeyDown={onTimeButtonKeyDown}
+							testId={testId && `${testId}--open-time-button`}
+						/>
+					</PickerButtonContainer>
+				) : null}
 			</div>
 		);
 	},

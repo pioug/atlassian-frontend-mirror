@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 26.0.2
+
+### Patch Changes
+
+- [`9a027411fdcf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a027411fdcf2) -
+  Clean up feature gate `platform_editor_ai_add_undoredo_jira`
+
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

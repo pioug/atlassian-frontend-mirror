@@ -1,5 +1,58 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 24.1.0
+
+### Minor Changes
+
+- [`1b8ffa1d31cb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b8ffa1d31cb6) -
+  Treat Amplitude, Cortex, Databricks, Gemini, Manus and Slack as third-party agent brands alongside
+  Figma, Lovable and Replit: they resolve from the attribution agent type, share the fixed
+  third-party participant colour slot, and show their profile avatar in the contributor tag, like
+  Figma, Lovable and Replit.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- [`646c02ae8de28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/646c02ae8de28) -
+  Fix contributor tag and step mismatch in show diff: the spacer widget no longer becomes an
+  untagged navigation stop when contributor tags are shown, and block cards inside a table now carry
+  attribution.
+- [`7b18b1db6b6d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b18b1db6b6d3) -
+  EDITOR-9415 Allow native browser selection and copying within diff widgets behind
+  platform_editor_ai_show_diff_patch_2
+
+## 24.0.1
+
+### Patch Changes
+
+- [`37fc21aa0e358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37fc21aa0e358) -
+  Show contributor tags for layout changes in version history when
+  `confluence_ncs_step_diffing_version_history` is enabled
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.1
 
 ### Patch Changes

@@ -12,6 +12,7 @@ import TimePickerValidation from '../../examples/constellation/time-picker-valid
 import TimePickerLocale from '../../examples/constellation/time-picker-locale';
 import TimePickerFormatting from '../../examples/constellation/time-picker-formatting';
 import TimePickerEditable from '../../examples/constellation/time-picker-editable';
+import TimePickerClockButton from '../../examples/31-time-picker-button';
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
 	Motion has been updated in Time picker and is in Early Access. The motion updates are currently
@@ -31,6 +32,16 @@ the tab order.
 	packageName="@atlaskit/datetime-picker"
 	featureFlagSwitchers={['motionInput']}
 />
+
+## Clock button
+
+Use `shouldShowTimeButton` to provide a clock button that opens the list of time options. With this
+button enabled, keyboard focus alone does not open the list; users can select the clock button or
+begin typing instead.
+
+Use `openTimeLabel` to provide a clear, contextual label for the clock button.
+
+<Example Component={TimePickerClockButton} packageName="@atlaskit/datetime-picker" />
 
 ## Form
 

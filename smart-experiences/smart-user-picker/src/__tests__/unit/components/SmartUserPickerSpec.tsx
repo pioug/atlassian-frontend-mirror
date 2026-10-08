@@ -1088,6 +1088,9 @@ describe('SmartUserPicker', () => {
 		});
 
 		describe('analytics', () => {
+			beforeEach(() => {
+				failGate('analytics-next-use-legacy-context');
+			});
 			const onEvent = jest.fn();
 
 			const constructPayload = (

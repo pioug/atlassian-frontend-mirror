@@ -8,6 +8,7 @@ import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import type { CardActionOptions } from '../../../view/Card/types';
 import { getExtensionKey } from '../../getExtensionKey';
 import { useSmartCardState } from '../../store';
+import type { RovoInteractionSource } from '../use-invoke-client-action/types';
 import useRovoConfig from '../use-rovo-config';
 import { evaluateExperiment, evaluateOpportunity, type EligibilityResult } from './evaluate';
 import {
@@ -21,7 +22,7 @@ import {
 export type SpotlightInteraction = 'impression' | 'clicked' | 'dismissed';
 
 export interface SpotlightEligibility extends EligibilityResult {
-	onClick: () => boolean;
+	onClick: (source?: RovoInteractionSource) => boolean;
 	onDismiss: () => void;
 	onShown: () => void;
 	product?: string;
@@ -36,7 +37,7 @@ export default function useOneClickChatSpotlightEligibility({
 }: {
 	actionOptions?: CardActionOptions;
 	isOpportunity: boolean;
-	onInteraction: (interaction: SpotlightInteraction) => void;
+	onInteraction: (interaction: SpotlightInteraction, source?: RovoInteractionSource) => void;
 	url?: string;
 }): SpotlightEligibility {
 	const card = useSmartCardState(url ?? '');
@@ -165,7 +166,7 @@ export default function useOneClickChatSpotlightEligibility({
 	}, [eligibility.isEligible, suppression]);
 
 	const finish = useCallback(
-		(kind: 'clicked' | 'dismissed') => {
+		(kind: 'clicked' | 'dismissed', source?: RovoInteractionSource) => {
 			if (!shown.current || ended.current) {
 				return false;
 			}
@@ -173,7 +174,11 @@ export default function useOneClickChatSpotlightEligibility({
 			if (kind === 'dismissed') {
 				suppression?.dismiss(Date.now());
 			}
-			interaction.current(kind);
+			if (source) {
+				interaction.current(kind, source);
+			} else {
+				interaction.current(kind);
+			}
 			releaseSpotlight(owner.current);
 			setEligibility({
 				isEligible: false,
@@ -184,7 +189,10 @@ export default function useOneClickChatSpotlightEligibility({
 		[suppression],
 	);
 
-	const onClick = useCallback(() => finish('clicked'), [finish]);
+	const onClick = useCallback(
+		(source?: RovoInteractionSource) => finish('clicked', source),
+		[finish],
+	);
 	const onDismiss = useCallback(() => {
 		finish('dismissed');
 	}, [finish]);

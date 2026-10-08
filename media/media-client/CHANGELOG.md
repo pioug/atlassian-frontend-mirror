@@ -1,5 +1,35 @@
 # @atlaskit/media-client
 
+## 39.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.1.5
+
+### Patch Changes
+
+- [`0d4a7d7340b59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d4a7d7340b59) -
+  `uploadExternal` now derives a collision-resistant filename for external uploads, behind the
+  `platform_media_unique_external_upload_name` feature gate. Endpoint-style source URLs such as
+  `/binary` previously produced an identical filename for every image, so publishing collapsed the
+  copied page attachments into several versions of a single attachment. The generated name keeps the
+  source extension when the URL supplies one and otherwise derives it from the response MIME type.
+  Anonymised uploads are unchanged.
+
 ## 39.1.4
 
 ### Patch Changes

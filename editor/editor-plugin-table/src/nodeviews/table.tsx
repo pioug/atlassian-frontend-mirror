@@ -31,7 +31,6 @@ import type {
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
@@ -203,9 +202,7 @@ export default class TableView extends ReactNodeView<Props> {
 		if (node && this.table && !node.contains(this.table)) {
 			// Patch to prevent selection collapsing when moving the table down with ctrl + shift + down
 			const selectionBeforeMove = this.view.state.selection;
-			const shouldPreserveCellSelection =
-				isExperimentEnabled('platform_editor_fix_table_move_shortcut') &&
-				selectionBeforeMove instanceof CellSelection;
+			const shouldPreserveCellSelection = selectionBeforeMove instanceof CellSelection;
 
 			// Store the current ignoreMutation handler so we can restore it later
 			oldIgnoreMutation = this.ignoreMutation;

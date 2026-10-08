@@ -33,7 +33,7 @@ export default (): React.JSX.Element => (
 				shouldShowCalendarButton: true,
 				label: 'Timezone Compatible Datetime, date',
 			}}
-			timePickerProps={{ label: 'Timezone Compatible Datetime, time' }}
+			timePickerProps={{ label: 'Timezone Compatible Datetime, time', shouldShowTimeButton: true }}
 		/>
 	</Box>
 );

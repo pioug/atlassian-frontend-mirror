@@ -24,6 +24,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
@@ -125,8 +126,9 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 	 * through to the browser so that users can select and copy text within a
 	 * reference sync block.
 	 *
-	 * Events that originate inside the sync block content area (but not the label)
-	 * are stopped so ProseMirror does not intercept them for node-level selection.
+	 * With patch_11, native selection changes select the containing node without taking focus.
+	 * Without it, events inside the content area (but not the label) are stopped
+	 * and mousedown explicitly selects the node.
 	 * This includes the full click-drag cycle (mousedown, mousemove, mouseup),
 	 * click, dblclick, selectstart and cut. The `cut` event is stopped because
 	 * mousedown explicitly sets a NodeSelection on the sync block — without
@@ -166,8 +168,20 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			// NodeSelection), we let PM handle the copy event so the
 			// "sync-block-copied" flag is set for the reference paste flow.
 			if (eventType === 'copy') {
-				const selection = window.getSelection();
-				return !!(selection && selection.toString().length > 0);
+				const selection = this.view.dom.ownerDocument.getSelection();
+				if (!selection || selection.toString().length === 0) {
+					return false;
+				}
+				if (!isExperimentEnabled('platform_editor_blocks_patch_11')) {
+					return true;
+				}
+				// A native whole-node selection also contains text; only delegate renderer highlights.
+				const renderer = target.closest(`.${SyncBlockSharedCssClassName.renderer}`);
+				return !!(
+					renderer &&
+					renderer.contains(selection.anchorNode) &&
+					renderer.contains(selection.focusNode)
+				);
 			}
 
 			// For `cut`: when text is selected inside the renderer, stop the
@@ -200,6 +214,10 @@ export class SyncBlock extends ReactNodeView<SyncBlockNodeViewProps> {
 			}
 
 			if (STOPPED_EVENT_TYPES.includes(eventType)) {
+				if (isExperimentEnabled('platform_editor_blocks_patch_11')) {
+					// Preserve renderer focus; the selection listener tracks the containing node.
+					return true;
+				}
 				// Ensure the syncBlock has a NodeSelection so the floating
 				// toolbar is visible while the user interacts with the renderer.
 				// stopEvent prevents PM from processing the mousedown, so we

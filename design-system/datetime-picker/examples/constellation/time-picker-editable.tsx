@@ -11,6 +11,7 @@ export default function App(): React.JSX.Element {
 				clearControlLabel="Clear editable time example"
 				timeIsEditable
 				id="timepicker-editable-time"
+				shouldShowTimeButton
 			/>
 		</>
 	);

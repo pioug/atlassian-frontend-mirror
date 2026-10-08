@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.0
+
+### Patch Changes
+
+- [`8de064ccdb113`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8de064ccdb113) -
+  Prevent native editing of reference synced block content and error messages and synchronize native
+  reference text selection with ProseMirror so normal editor deletion handles the containing
+  reference and preserving text selection and link interactions behind the
+  platform_editor_blocks_patch_11 experiment.
+- Updated dependencies
+
+## 23.0.4
+
+### Patch Changes
+
+- [`59547e8338ae0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59547e8338ae0) -
+  Clean up feature gate `platform_editor_blocks_patch_8`
+- Updated dependencies
+
+## 23.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.2
 
 ### Patch Changes

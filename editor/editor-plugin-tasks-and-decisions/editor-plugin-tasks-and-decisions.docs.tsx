@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Tasks And Decisions',
 			description: 'Tasks and decisions plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'tasksAndDecisionsPlugin',
 				package: '@atlaskit/editor-plugin-tasks-and-decisions',

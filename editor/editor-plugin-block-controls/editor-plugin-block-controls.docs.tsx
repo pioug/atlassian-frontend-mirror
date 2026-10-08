@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Block Controls',
 			description: 'Block controls plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'blockControlsPlugin',
 				package: '@atlaskit/editor-plugin-block-controls',

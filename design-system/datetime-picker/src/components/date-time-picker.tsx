@@ -591,12 +591,14 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 						label={timePickerLabel}
 						locale={timePickerProps.locale || locale}
 						name={timePickerProps.name}
+						openTimeLabel={timePickerProps.openTimeLabel}
 						onBlur={onTimeBlur}
 						onChange={onTimeChange}
 						onFocus={onTimeFocus}
 						parseInputValue={timePickerProps.parseInputValue}
 						placeholder={timePickerProps.placeholder}
 						selectProps={mergedTimePickerSelectProps}
+						shouldShowTimeButton={timePickerProps.shouldShowTimeButton}
 						spacing={timePickerProps.spacing || spacing}
 						testId={timePickerProps.testId || (testId && `${testId}--timepicker`)}
 						timeFormat={timePickerProps.timeFormat}

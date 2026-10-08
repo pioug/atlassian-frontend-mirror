@@ -8,7 +8,14 @@ type TSurfaceResetDeclarations = {
 	textAlign: 'start';
 	textIndent: '0';
 	textTransform: 'none';
+	color: 'var(--ds-text)';
 };
+
+/**
+ * `cssMap` widens string literals to `string`, but keeps the literal type that
+ * `token()` returns.
+ */
+type TCompiledValue<TValue> = TValue extends `var(--ds-${string})` ? TValue : string;
 
 /**
  * The surface reset is duplicated in `popover/popover.tsx` and
@@ -19,7 +26,11 @@ type TSurfaceResetDeclarations = {
  * `string`. The host specificity VR tests check the values.
  */
 export type TBoostedSurfaceReset<TSelector extends string> = CompiledStyles<{
-	[TKey in TSelector]: { [TProperty in keyof TSurfaceResetDeclarations]: string };
+	[TKey in TSelector]: {
+		[TProperty in keyof TSurfaceResetDeclarations]: TCompiledValue<
+			TSurfaceResetDeclarations[TProperty]
+		>;
+	};
 }>;
 
 type TIsIdentical<A, B> =

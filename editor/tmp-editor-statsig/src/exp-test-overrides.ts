@@ -29,7 +29,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_hover_card_preview_panel: 'control',
 	cc_editor_insm_outlier_events: 'test',
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
-	cc_fd_db_top_editor_toolbar: 'control',
 	platform_editor_paste_actions_menu_v2: 'control',
 	confluence_quick_insert_embeds: 'control',
 	cc_cwr_prompt_strength_indicator: 'control',

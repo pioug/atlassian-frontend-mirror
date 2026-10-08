@@ -6,7 +6,6 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -23,17 +22,13 @@ const styles = cssMap({
 		height: '2.2857142857142856em',
 		paddingBlock: token('space.0'),
 		borderRadius: token('radius.medium'),
-		transition: 'background 0.1s ease-out',
+		transition: token('motion.button.hovered'),
 		position: 'relative',
 		// Remove the default underline for link buttons
 		textDecoration: 'none',
 		'&:hover, &:active, &:focus': {
 			textDecoration: 'none',
 		},
-	},
-	// platform-dst-motion-uplift-button TODO: Merge into base after rollout
-	interactiveMotion: {
-		transition: token('motion.button.hovered'),
 		'&:active': {
 			transition: token('motion.button.pressed'),
 		},
@@ -189,7 +184,6 @@ export const ThemedPressable: React.ForwardRefExoticComponent<
 					appearanceStyles[appearance],
 					isSelected && styles.selected,
 					isDisabled && styles.disabled,
-					fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
 				)}
 				isDisabled={isDisabled}
 			/>

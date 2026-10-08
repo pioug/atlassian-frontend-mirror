@@ -39,7 +39,7 @@ test.describe('Inline message: top-layer focus contract', () => {
 		const trigger = page.getByTestId('inline-message--button');
 		await trigger.click();
 
-		const popup = page.getByTestId('inline-message--popup--content');
+		const popup = page.getByTestId('inline-message--popup--container');
 		await expect(popup).toBeVisible();
 
 		await expect(page.getByTestId('inline-message-first-button')).toBeFocused();
@@ -56,7 +56,7 @@ test.describe('Inline message: top-layer focus contract', () => {
 		const trigger = page.getByTestId('inline-message--button');
 		await trigger.click();
 
-		const popup = page.getByTestId('inline-message--popup--content');
+		const popup = page.getByTestId('inline-message--popup--container');
 		await expect(popup).toBeVisible();
 
 		await page.keyboard.press('Escape');
@@ -77,7 +77,7 @@ test.describe('Inline message: top-layer focus contract', () => {
 		const trigger = page.getByTestId('inline-message--button');
 		await trigger.click();
 
-		const popup = page.getByTestId('inline-message--popup--content');
+		const popup = page.getByTestId('inline-message--popup--container');
 		await expect(popup).toBeVisible();
 
 		const first = page.getByTestId('inline-message-first-button');

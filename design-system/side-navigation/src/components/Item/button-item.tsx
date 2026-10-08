@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/menu/button-item';
 import type { ButtonItemProps } from '@atlaskit/menu/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -90,17 +89,15 @@ export const ButtonItem: React.ForwardRefExoticComponent<
 	if (!shouldRender) {
 		return null;
 	}
-	const isMotionEnabled = fg('platform-dst-motion-uplift-list-item');
-
 	return (
 		<Button
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 			css={[
 				styles.root,
-				isMotionEnabled && styles.rootMotion,
+				styles.rootMotion,
 				props.isSelected && styles.selectedStyles,
-				props.isSelected && isMotionEnabled && styles.selectedMotion,
+				props.isSelected && styles.selectedMotion,
 			]}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}

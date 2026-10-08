@@ -23,7 +23,7 @@ const DateTimePickerDisableComplexExample = (): React.JSX.Element => (
 				shouldShowCalendarButton: true,
 				label: 'Appointment date',
 			}}
-			timePickerProps={{ label: 'Appointment time' }}
+			timePickerProps={{ label: 'Appointment time', shouldShowTimeButton: true }}
 		/>
 	</>
 );

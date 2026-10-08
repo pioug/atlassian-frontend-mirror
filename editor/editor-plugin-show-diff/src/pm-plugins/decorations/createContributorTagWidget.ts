@@ -7,6 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ShowDiffPlugin } from '../../showDiffPluginType';
 import { ContributorTagController } from '../../ui/ContributorTag/contributorTagController';
+import { resolveBaseNodeName } from '../utils/baseNodeName';
 import { buildCharsByOffset, isWhitespaceChar } from '../utils/charsByOffset';
 import { clampAnchorPosIntoCell, createAnchorNameSpan } from './createAnchorDecorationWidgets';
 import {
@@ -237,6 +238,18 @@ export const resolveHoistedCodeBlockAnchor = (
 	return { anchorName, codeBlockStart, marker };
 };
 
+/** Find the position before a layout for a tag anchored to one of its columns. */
+const resolveLayoutSectionStart = (doc: PMNode, pos: number): number | undefined => {
+	if (resolveBaseNodeName(doc.nodeAt(pos)?.type.name ?? '') !== 'layoutColumn') {
+		return undefined;
+	}
+
+	const $pos = doc.resolve(pos);
+	return resolveBaseNodeName($pos.parent.type.name) === 'layoutSection'
+		? $pos.before($pos.depth)
+		: undefined;
+};
+
 /**
  * The contributor tag widget for one diff range, placed on the first visible character the range
  * highlights — or, with `anchorAtRangeStart`, at `from` itself. A host inside a code block is
@@ -286,8 +299,6 @@ export const createContributorTagWidget = ({
 	// A change inside a code block is hoisted out of it, anchored to its own marker; anything else
 	// keeps its own anchor.
 	const hoisted = resolveHoistedCodeBlockAnchor(doc, anchorPos, diffId);
-	// Keep the host out of the table row's grid (EDITOR-8442).
-	const hostPos = clampAnchorPosIntoCell(doc, hoisted?.codeBlockStart ?? anchorPos, 1);
 
 	// Inline diffs pass no anchorName. Give them their own point anchor instead of the
 	// `position: relative` fallback, which drifts left once the range wraps a line (EDITOR-9286).
@@ -295,6 +306,11 @@ export const createContributorTagWidget = ({
 	const effectiveAnchorName = hoisted?.anchorName ?? anchorName ?? ownAnchorName;
 	const tagAnchorName =
 		effectiveAnchorName && supportsAnchorPositioning() ? effectiveAnchorName : undefined;
+	const layoutSectionStart = tagAnchorName ? resolveLayoutSectionStart(doc, anchorPos) : undefined;
+	// Keep the host out of the table row's grid (EDITOR-8442). Layout-column tags are hoisted before
+	// their layout so the advanced layout widget-flattening rule cannot put them behind nearby text.
+	const hostPos =
+		layoutSectionStart ?? clampAnchorPosIntoCell(doc, hoisted?.codeBlockStart ?? anchorPos, 1);
 
 	const decorations: Decoration[] = [];
 	if (hoisted) {

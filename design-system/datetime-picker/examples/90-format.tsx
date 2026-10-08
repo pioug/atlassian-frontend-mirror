@@ -24,6 +24,7 @@ export default (): React.JSX.Element => {
 				id="react-select-time--input"
 				onChange={console.log}
 				timeFormat="h:mm a"
+				shouldShowTimeButton
 			/>
 			<Label htmlFor="react-select-date--input">DatePicker - dateFormat (DD/MM/YYYY)</Label>
 			<DatePicker
@@ -42,6 +43,7 @@ export default (): React.JSX.Element => {
 				timePickerProps={{
 					timeFormat: 'HH:mm',
 					label: 'DateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY), time',
+					shouldShowTimeButton: true,
 				}}
 				datePickerProps={{
 					shouldShowCalendarButton: true,

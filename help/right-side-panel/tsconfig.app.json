@@ -46,10 +46,19 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../help-layout/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/page/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

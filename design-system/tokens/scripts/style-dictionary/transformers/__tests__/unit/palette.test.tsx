@@ -99,6 +99,22 @@ describe('palette transformer', () => {
 		expect(actual).toEqual('#00000000');
 	});
 
+	it('should transfer var() values', () => {
+		const token: PaintToken<string> = {
+			attributes: {
+				group: 'paint',
+				description: '',
+				state: 'active',
+				introduced: '0.1.0',
+			},
+			value: 'var(--ds-dynamic-foreground, #000)',
+		};
+
+		const actual = palette.transformer({ original: token } as any, {});
+
+		expect(actual).toEqual('var(--ds-dynamic-foreground, #000)');
+	});
+
 	it('should throw error if invalid color format is provided', () => {
 		const token = {
 			path: ['color', 'background'],

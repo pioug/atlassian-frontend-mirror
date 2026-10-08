@@ -1,5 +1,14 @@
 # @atlaskit/breadcrumbs
 
+## 17.8.6
+
+### Patch Changes
+
+- [`6fa49845aae2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa49845aae2e) -
+  Cleanup `feature_gate` `platform-dst-motion-uplift-list-item`. List item hover, pressed and
+  selected motion transitions are now applied unconditionally across breadcrumbs, calendar dates,
+  links, menu items, select options and side navigation items.
+
 ## 17.8.5
 
 ### Patch Changes

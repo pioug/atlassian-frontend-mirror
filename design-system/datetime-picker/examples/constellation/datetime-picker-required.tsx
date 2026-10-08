@@ -13,7 +13,7 @@ const DateTimePickerRequiredExample = (): React.JSX.Element => (
 				{...rest}
 				clearControlLabel="Clear log entry"
 				datePickerProps={{ shouldShowCalendarButton: true, label: 'Log entry, date' }}
-				timePickerProps={{ label: 'Log entry, time' }}
+				timePickerProps={{ label: 'Log entry, time', shouldShowTimeButton: true }}
 			/>
 		)}
 	/>

@@ -33,6 +33,7 @@ import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecoratio
 import type { ResolvedDiffContributors } from './decorations/colorSchemes/attributions';
 import type { ContributorTagMountContext } from './decorations/createContributorTagWidget';
 import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
+import { getWidgetElement } from './decorations/utils/getWidgetElement';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
 import { getDefaultDiffType } from './getDefaultDiffType';
 import { getScrollableDecorations } from './getScrollableDecorations';
@@ -440,6 +441,42 @@ export const createPlugin = (
 			};
 		},
 		props: {
+			handleDOMEvents: {
+				// Bypass ProseMirror's copy handler without preventing native browser copy
+				// when the selection is completely contained within an inverted diff widget
+				copy: (view) => {
+					if (!fg('platform_editor_ai_show_diff_patch_2')) {
+						return false;
+					}
+
+					const pluginState = showDiffPluginKey.getState(view.state);
+					if (!pluginState?.isDisplayingChanges || !pluginState.isInverted) {
+						return false;
+					}
+
+					const selection = view.dom.ownerDocument.getSelection();
+					if (!selection || selection.isCollapsed || selection.rangeCount !== 1) {
+						return false;
+					}
+
+					const range = selection.getRangeAt(0);
+					return pluginState.decorations
+						.find()
+						.filter(isDiffDecoration)
+						.some((decoration) => {
+							if (decoration.spec.decorationType !== 'widget') {
+								return false;
+							}
+							const dom = getWidgetElement(decoration);
+							return Boolean(
+								dom &&
+								view.dom.contains(dom) &&
+								dom.contains(range.startContainer) &&
+								dom.contains(range.endContainer),
+							);
+						});
+				},
+			},
 			decorations: (state: EditorState) => {
 				const pluginState = showDiffPluginKey.getState(state);
 				return pluginState?.decorations;

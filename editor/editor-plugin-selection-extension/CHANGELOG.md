@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 29.0.1
+
+### Patch Changes
+
+- [`bff0e6a89cf54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bff0e6a89cf54) -
+  Clean up experiment `platform_editor_toolbar_hide_overflow_menu`
+- Updated dependencies
+
+## 29.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.1
 
 ### Patch Changes

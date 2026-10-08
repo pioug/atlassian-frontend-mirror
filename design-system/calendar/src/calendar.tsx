@@ -195,6 +195,8 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 
 	return (
 		<div
+			role="group"
+			aria-label={label}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			style={style}
@@ -203,12 +205,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 			data-testid={testId && `${testId}--container`}
 			ref={ref}
 		>
-			<Box
-				xcss={styles.box}
-				padding="space.200"
-				aria-label={label}
-				testId={testId && `${testId}--calendar`}
-			>
+			<Box xcss={styles.box} padding="space.200" testId={testId && `${testId}--calendar`}>
 				<Stack space="space.150">
 					<Header
 						// The month number needs to be translated to index in the month

@@ -1,5 +1,15 @@
 # @atlaskit/inline-edit
 
+## 16.4.6
+
+### Patch Changes
+
+- [`13952a4f4a1a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13952a4f4a1a0) -
+  Cleanup `feature_gate` `platform-dst-motion-uplift-button`. The motion uplift for buttons and
+  other interactive surfaces (button, lozenge dropdown trigger, inline edit read view, page layout
+  resize control grab area, and top nav themed anchors/pressables) is now always on.
+- Updated dependencies
+
 ## 16.4.5
 
 ### Patch Changes

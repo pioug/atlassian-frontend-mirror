@@ -1,5 +1,102 @@
 # @atlaskit/editor-common
 
+## 130.2.0
+
+### Minor Changes
+
+- [`9d77c18b03981`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d77c18b03981) -
+  Add transaction-aware mapping for existing agent edit highlight ranges, used by
+  platform_editor_ai_streaming_ux_experience_m1 to preserve surviving targets across streaming
+  replacements.
+
+  Keep agent highlights on edited blocks across shorter responses, restores, and cumulative AI
+  streaming replacements. Preserve earlier activity through temporary previews and restore, discard
+  ambiguous node identities, and rebuild normalized preview activity after structural collaborator
+  edits instead of indexing the saved document on every inline edit.
+
+  Use bounded snapshot traversal and require unambiguous source and destination identities when
+  preserving carried activity.
+
+  Preserve the existing changed-range detector behavior outside M1. Require unique source IDs only
+  for M1 callers, and retain unchanged preview state references on no-op transactions.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.1.0
+
+### Minor Changes
+
+- [`dd269d6b8b56d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd269d6b8b56d) -
+  Add optional `experimentalConfigurationOptions?: Record<string, boolean>` to `CardOptions` from
+  `@atlaskit/editor-common/card/cardOptions`, inherited by `@atlaskit/editor-plugin-card` options.
+
+  Setting `platform_sl_3p_preauth_value_modal_killswitch` to `false` in these options prevents the
+  editor from mounting the pre-auth modal listener. A value of `true`, an omitted key, or omitted
+  options preserve existing eligibility and rollout behavior; they do not override the kill switch
+  or experiment allocation. Unrelated keys are ignored by this feature.
+
+### Patch Changes
+
+- [`3006f5a69e3d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3006f5a69e3d5) -
+  Lower sticky table headers, masks, and dependent controls below the agent control under the
+  platform_editor_sticky_headers_zindex experiment.
+- [`bbbf2f64617dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbbf2f64617dd) -
+  Slash menu visual tweaks under platform_editor_slash_command: show View more when a search has
+  matches, use color.icon for item icons, rename the Other section to Other elements, and use
+  sentence case for the Block template gallery title
+- Updated dependencies
+
+## 130.0.0
+
+### Major Changes
+
+- [`92fc57a354c33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92fc57a354c33) -
+  Clean up feature gate `platform_editor_toolbar_responsive_fixes`. The responsive toolbar behaviour
+  is now permanently enabled. Remove the obsolete `ToolbarWidths` and `ToolbarWidthsFullPage`
+  exports; consumers should use `ToolbarWidthsNext` and `ToolbarWidthsFullPageNext`. Also remove the
+  unread `BlockTypePluginOptions.isUndoRedoButtonsEnabled` option, which no longer affects toolbar
+  sizing.
+
+### Minor Changes
+
+- [`6887d068f2246`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6887d068f2246) -
+  [ux] Add hover and keyboard-focus comment targeting and unresolved comment badges for eligible
+  extensions in the renderer behind cc_maui_annotations_on_extensions. Add the optional
+  isBlockNodeSupported provider predicate in editor-common. Convert renderer positions to node
+  positions so chart comments create node marks, and preserve the hover range when focus moves
+  between controls within a chart. Memoize extension comment eligibility by node and provider
+  predicate to avoid repeating manifest lookups on unrelated renders. Keep the hover-target callback
+  stable as draft ranges change. Explicitly gate extension range-to-position conversion so disabling
+  cc_maui_annotations_on_extensions preserves the previous text and media targeting behavior.
+
+  Keep chart draft anchors and local comment creation on the selected extension, and render saved
+  annotation anchors beside the chart contents so adding or removing comments does not remount the
+  iframe. These fixes remain behind cc_maui_annotations_on_extensions.
+
+  Use node-mark removal for eligible extension comments so deleting a chart comment removes its
+  annotation from the returned document and sends the correct removal step for persistence, behind
+  cc_maui_annotations_on_extensions.
+
+### Patch Changes
+
+- [`6be0c3f7c55b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6be0c3f7c55b3) -
+  Clean up experiment `platform_editor_slash_app_category_analytics`
+- Updated dependencies
+
+## 129.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 129.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 129.1.0
 
 ### Minor Changes

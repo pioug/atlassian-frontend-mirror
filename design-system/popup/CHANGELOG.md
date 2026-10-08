@@ -1,5 +1,24 @@
 # @atlaskit/popup
 
+## 9.0.2
+
+### Patch Changes
+
+- [`c0d0247b0e650`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0d0247b0e650) -
+  With `platform-dst-top-layer` enabled, restore the raw `testId` on the default popup content
+  wrapper. Custom `popupComponent` implementations continue receiving the raw ID. The popover host
+  uses `${testId}--container` instead of `${testId}--content`, matching legacy Popup test ID naming
+  in both APIs.
+
+## 9.0.1
+
+### Patch Changes
+
+- [`edd874d160803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edd874d160803) -
+  Updated popup's focus trap fix made behind "platform_dst-popup-trigger-initial-focus-ref" to be
+  behind a second "platform-dst-popup-trigger-focus-fix" feature gate to coordinate rollout to all
+  consumers.
+
 ## 9.0.0
 
 ### Major Changes

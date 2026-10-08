@@ -16,6 +16,7 @@ import type {
 	DatasourceResponseSchemaProperty,
 	DatasourceTableStatusType,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
@@ -118,6 +119,7 @@ export const useDatasourceTableState = ({
 	const [extensionKey, setExtensionKey] = useState<DatasourceTableState['extensionKey']>();
 	const [providerName, setProviderName] = useState<DatasourceTableState['providerName']>(undefined);
 	const abortController = useRef(new AbortController());
+	const responseItemAris = useRef(new Set<string>());
 
 	const { getDatasourceData, getDatasourceDetails } = useDatasourceClientExtension();
 
@@ -272,11 +274,33 @@ export const useDatasourceTableState = ({
 				setDestinationObjectTypes(destinationObjectTypes);
 				setTotalCount(totalCount);
 				setNextCursor(nextPageCursor);
+
+				const isDuplicateRowDeduplicationEnabled = fg('platform_sllv_duplicated_row');
+				if (shouldRequestFirstPage && isDuplicateRowDeduplicationEnabled) {
+					responseItemAris.current.clear();
+				}
+
+				const itemsToAdd = isDuplicateRowDeduplicationEnabled
+					? items.filter((item) => {
+							const ari = item.ari?.data;
+							if (typeof ari !== 'string') {
+								return true;
+							}
+
+							if (responseItemAris.current.has(ari)) {
+								return false;
+							}
+
+							responseItemAris.current.add(ari);
+							return true;
+						})
+					: items;
+
 				setResponseItems((currentResponseItems) => {
 					if (shouldRequestFirstPage) {
-						return items;
+						return itemsToAdd;
 					}
-					return [...currentResponseItems, ...items];
+					return [...currentResponseItems, ...itemsToAdd];
 				});
 
 				/**
@@ -290,15 +314,19 @@ export const useDatasourceTableState = ({
 				const entityType = objectTypesEntity;
 
 				const newIds = onAddItems(
-					items,
+					itemsToAdd,
 					typeof integrationKey === 'string' ? integrationKey : undefined,
 					entityType,
 				);
-				setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
+				setResponseItemIds((currentIds) =>
+					isDuplicateRowDeduplicationEnabled && shouldRequestFirstPage
+						? newIds
+						: [...currentIds, ...newIds],
+				);
 
 				if (!isFedRamp()) {
 					if (typeof integrationKey === 'string') {
-						const aris = items.reduce<string[]>(
+						const aris = itemsToAdd.reduce<string[]>(
 							(acc, item) => (typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc),
 							[],
 						);
@@ -329,7 +357,7 @@ export const useDatasourceTableState = ({
 				const isUserLoadingNextPage = responseItems.length !== 0 && !shouldRequestFirstPage;
 				if (isUserLoadingNextPage) {
 					const currentLoadedItemCount = responseItems.length;
-					const newlyLoadedItemCount = items?.length || 0;
+					const newlyLoadedItemCount = itemsToAdd.length;
 
 					fireEvent('track.nextItem.loaded', {
 						extensionKey,
@@ -385,6 +413,7 @@ export const useDatasourceTableState = ({
 
 	const reset = useCallback(
 		(options?: ResetOptions) => {
+			responseItemAris.current.clear();
 			setResponseItems(initialEmptyArray);
 			setResponseItemIds(initialEmptyArray);
 			setHasNextPage(true);

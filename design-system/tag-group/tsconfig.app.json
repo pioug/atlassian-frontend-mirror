@@ -52,6 +52,9 @@
 			"path": "../avatar/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -62,6 +65,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"

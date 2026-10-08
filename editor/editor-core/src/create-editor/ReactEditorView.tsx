@@ -417,7 +417,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				props,
 				doc: defaultValue,
 				// ED-4759: Don't set selection at end for full-page editor - should be at start.
-				selectionAtStart: isFullPage(nextAppearance),
+				// Match SSR's start selection so the optimistic toolbar hydrates with the same block type.
+				selectionAtStart:
+					isFullPage(nextAppearance) ||
+					(nextAppearance === 'max' &&
+						expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)),
 			});
 
 			if (expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)) {

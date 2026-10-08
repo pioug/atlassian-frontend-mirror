@@ -22,7 +22,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Spac
 		const trigger = page.getByTestId('the-inline-message--button');
 		await expect(trigger).toBeVisible();
 
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 		await expect(popup).toBeHidden();
 
 		await trigger.click();
@@ -43,7 +43,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Spac
 		const trigger = page.getByTestId('the-inline-message--button');
 		await expect(trigger).toBeVisible();
 
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 		await expect(popup).toBeHidden();
 
 		await trigger.focus();
@@ -65,7 +65,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.1 Keyboard (Click/Enter/Spac
 		const trigger = page.getByTestId('the-inline-message--button');
 		await expect(trigger).toBeVisible();
 
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 		await expect(popup).toBeHidden();
 
 		await trigger.focus();
@@ -87,7 +87,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/C
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -110,7 +110,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/C
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -133,7 +133,7 @@ test.describe('InlineMessage top-layer — WCAG 2.1.2 No Keyboard Trap (Escape/C
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -158,7 +158,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.3 Focus Order', () => {
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -182,7 +182,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.3 Focus Order', () => {
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -226,7 +226,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.7 Focus Visible', () => {
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -255,7 +255,7 @@ test.describe('InlineMessage top-layer — WCAG 2.4.11 Focus Not Obscured', () =
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -283,14 +283,14 @@ test.describe('InlineMessage top-layer — WCAG 1.3.2 Meaningful Sequence (Conte
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await trigger.click();
 
 		await expect(popup).toBeVisible();
 
 		const popupElement = await page
-			.locator('[data-testid="the-inline-message--popup--content"]')
+			.locator('[data-testid="the-inline-message--popup--container"]')
 			.elementHandle();
 		const isInDocument = await page.evaluate(
 			(element) => document.body.contains(element),
@@ -336,7 +336,7 @@ test.describe('InlineMessage top-layer — WCAG 4.1.2 Name, Role, Value', () => 
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 
@@ -384,7 +384,7 @@ test.describe('InlineMessage top-layer — Component Structure and Content', () 
 		);
 
 		const trigger = page.getByTestId('the-inline-message--button');
-		const popup = page.getByTestId('the-inline-message--popup--content');
+		const popup = page.getByTestId('the-inline-message--popup--container');
 
 		await expect(popup).toBeHidden();
 

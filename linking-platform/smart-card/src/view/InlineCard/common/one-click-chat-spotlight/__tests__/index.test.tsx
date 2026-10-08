@@ -132,16 +132,22 @@ it.each([
 		fireEvent.click(screen.getByRole('button', { name: 'See takeaways' }));
 		expect(mockInvoke).toHaveBeenCalledTimes(1);
 		expect(mockInvoke).toHaveBeenCalledWith(
-			expect.objectContaining({ prompt, actionSubjectId: 'rovoChatPrompt' }),
+			expect.objectContaining({
+				prompt,
+				actionSubjectId: 'rovoChatPrompt',
+				interactionSource: 'spotlightCta',
+			}),
 		);
 		await mockInvoke.mock.calls[0][0].actionFn();
 		expect(sendPromptMessage).toHaveBeenCalled();
 		const events = spotlightEvents();
+		expect(events[1].attributes.interactionSource).toBe('spotlightCta');
 		expect(events.map((event) => event.action)).toEqual(['viewed', 'clicked']);
 		for (const event of events) {
 			expect(Object.keys(event.attributes).sort()).toEqual([
 				'appearance',
 				'cohort',
+				...(event.action === 'clicked' ? ['interactionSource'] : []),
 				'product',
 				'provider',
 				'variant',
@@ -175,6 +181,9 @@ it.each([false, null])('leaves the existing action intact for cohort %s', async 
 	expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument();
 	fireEvent.click(screen.getByTestId('action'));
 	expect(mockInvoke).toHaveBeenCalledTimes(1);
+	expect(mockInvoke).toHaveBeenCalledWith(
+		expect.objectContaining({ interactionSource: 'inlineAction' }),
+	);
 	expect(spotlightEvents()).toEqual([]);
 });
 
@@ -219,6 +228,12 @@ it('preserves the highlighted action and counts its click once', async () => {
 	expect(mockInvoke).toHaveBeenCalledTimes(1);
 	expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed', 'clicked']);
 	expect(mockNavigate).not.toHaveBeenCalled();
+	expect(spotlightEvents()[1].attributes.interactionSource).toBe('inlineAction');
+	expect(mockInvoke).toHaveBeenCalledWith(
+		expect.objectContaining({ interactionSource: 'inlineAction' }),
+	);
+	fireEvent.click(screen.getByTestId('action'));
+	expect(spotlightEvents()).toHaveLength(2);
 });
 
 it('dismisses with Escape exactly once', async () => {

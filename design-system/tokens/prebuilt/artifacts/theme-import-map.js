@@ -15,7 +15,7 @@ function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::3f58b313f1e628496675dd91b81ecfa1>>
+ * @codegen <<SignedSource::b1d12c60fe57e05a2251249c2cea7224>>
  * @codegenCommand yarn build tokens
  */
 
@@ -48,6 +48,18 @@ var themeImportsMap = exports.themeImportMap = {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_atlassian-light-increased-contrast" */
       './themes/atlassian-light-increased-contrast'));
+    });
+  },
+  'UNSAFE-dynamic': function UNSAFEDynamic() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_UNSAFE-dynamic" */
+      './themes/UNSAFE-dynamic'));
+    });
+  },
+  'UNSAFE-dynamic-dark': function UNSAFEDynamicDark() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_UNSAFE-dynamic-dark" */
+      './themes/UNSAFE-dynamic-dark'));
     });
   },
   'UNSAFE-test-light': function UNSAFETestLight() {
@@ -102,6 +114,12 @@ var themeImportsMap = exports.themeImportMap = {
     return Promise.resolve().then(function () {
       return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_atlassian-typography" */
       './themes/atlassian-typography'));
+    });
+  },
+  'UNSAFE-typography': function UNSAFETypography() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require( /* webpackChunkName: "@atlaskit-internal_UNSAFE-typography" */
+      './themes/UNSAFE-typography'));
     });
   },
   'typography-finesse': function typographyFinesse() {

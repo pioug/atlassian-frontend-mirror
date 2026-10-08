@@ -1,5 +1,70 @@
 # @atlaskit/renderer
 
+## 149.0.1
+
+### Patch Changes
+
+- [`87d0a38064f7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d0a38064f7e) -
+  Remove the rolled-out platform_renderer_ssr_block_margin_fix gate and preserve stable SSR block
+  spacing.
+- [`17d7056a9a663`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17d7056a9a663) -
+  Clean up feature gate `platform_editor_numbered_column_in_include`
+- Updated dependencies
+
+## 149.0.0
+
+### Patch Changes
+
+- [`6887d068f2246`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6887d068f2246) -
+  [ux] Add hover and keyboard-focus comment targeting and unresolved comment badges for eligible
+  extensions in the renderer behind cc_maui_annotations_on_extensions. Add the optional
+  isBlockNodeSupported provider predicate in editor-common. Convert renderer positions to node
+  positions so chart comments create node marks, and preserve the hover range when focus moves
+  between controls within a chart. Memoize extension comment eligibility by node and provider
+  predicate to avoid repeating manifest lookups on unrelated renders. Keep the hover-target callback
+  stable as draft ranges change. Explicitly gate extension range-to-position conversion so disabling
+  cc_maui_annotations_on_extensions preserves the previous text and media targeting behavior.
+
+  Keep chart draft anchors and local comment creation on the selected extension, and render saved
+  annotation anchors beside the chart contents so adding or removing comments does not remount the
+  iframe. These fixes remain behind cc_maui_annotations_on_extensions.
+
+  Use node-mark removal for eligible extension comments so deleting a chart comment removes its
+  annotation from the returned document and sends the correct removal step for persistence, behind
+  cc_maui_annotations_on_extensions.
+
+- Updated dependencies
+
+## 148.1.0
+
+### Minor Changes
+
+- [`f115a893c63dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f115a893c63dd) -
+  Exports `ExpandBodyProvider` (`@atlaskit/renderer/expand-body`), so a product can provide the
+  outermost expand body itself. Expands under it share one `revealedByFind` set, so they come back
+  as browser find left them when the product remounts them, such as when it replaces a lightly
+  rendered subtree with its full render. Under `cc_light_mode_table_virtualization`, the set also
+  records expands the reader opens and closes, so they come back as the reader left them too.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 148.0.4
+
+### Patch Changes
+
+- [`b50791096b149`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b50791096b149) -
+  Reduce built-in paragraph serializer props allocation behind
+  platform_renderer_paragraph_props_fast_path.
+- Updated dependencies
+
+## 148.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 148.0.2
 
 ### Patch Changes

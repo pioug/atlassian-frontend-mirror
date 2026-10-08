@@ -1,6 +1,8 @@
 import { type FireEventFunction } from '../../../common/analytics/types';
 import { type CardInnerAppearance } from '../../../view/Card/types';
 
+export type RovoInteractionSource = 'spotlightCta' | 'inlineAction';
+
 export type UseInvokeClientActionProps = {
 	/**
 	 * A function to dispatch analytics events.
@@ -16,6 +18,7 @@ export type InvokeClientActionSubjectId =
 	| 'shortcutGoToLink';
 
 type InvokeRovoChatClientActionProps = {
+	interactionSource?: RovoInteractionSource;
 	prompt?: string;
 };
 

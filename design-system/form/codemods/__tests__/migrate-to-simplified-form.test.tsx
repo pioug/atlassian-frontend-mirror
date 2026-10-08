@@ -200,50 +200,24 @@ const formElement = (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => (
-  fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps}>
-        <input />
-      </form>
-    )}
-  </Form>
+  <Form onSubmit={() => {}}><input /></Form>
 );
 
 const FormComponent2 = () => (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps}>
-          <input />
-        </form>
-      )}
-    </Form>}
+    <Form onSubmit={() => {}}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
-    return fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps}>
-          <input />
-        </form>
-      )}
-    </Form>;
+    return <Form onSubmit={() => {}}><input /></Form>;
   }
 }
 
 const formElement = (
-  fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps}>
-        <input />
-      </form>
-    )}
-  </Form>
+  <Form onSubmit={() => {}}><input /></Form>
 );
       `,
 		'should convert from function with no props on form',
@@ -306,50 +280,24 @@ const formElement = (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => (
-  fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps: renamed }) => (
-      <form {...renamed}>
-        <input />
-      </form>
-    )}
-  </Form>
+  <Form onSubmit={() => {}}><input /></Form>
 );
 
 const FormComponent2 = () => (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps: renamed }) => (
-        <form {...renamed}>
-          <input />
-        </form>
-      )}
-    </Form>}
+    <Form onSubmit={() => {}}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
-    return fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps: renamed }) => (
-        <form {...renamed}>
-          <input />
-        </form>
-      )}
-    </Form>;
+    return <Form onSubmit={() => {}}><input /></Form>;
   }
 }
 
 const formElement = (
-  fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps: renamed }) => (
-      <form {...renamed}>
-        <input />
-      </form>
-    )}
-  </Form>
+  <Form onSubmit={() => {}}><input /></Form>
 );
       `,
 		'should convert from function with no props on form',
@@ -412,66 +360,42 @@ const formElement = (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: "bar"
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo="bar">
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
 
 const FormComponent2 = () => (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         foo: "bar"
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo="bar">
-          <input />
-        </form>
-      )}
-    </Form>}
+      }}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
-    return fg('platform-design_system_team-form_conversion') ? <Form
-      onSubmit={() => {}}
-      formProps={{
-        foo: "bar"
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo="bar">
-          <input />
-        </form>
-      )}
-    </Form>;
+    return (
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          foo: "bar"
+        }}><input /></Form>
+    );
   }
 }
 
 const formElement = (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: "bar"
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo="bar">
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
       `,
 		'should convert from function with single prop on form',
@@ -534,68 +458,42 @@ const formElement = shouldRender && (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => shouldRender && (
-  (fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: "bar"
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo="bar">
-        <input />
-      </form>
-    )}
-  </Form>)
+    }}><input /></Form>
 );
 
 const FormComponent2 = () => shouldRender && (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         foo: "bar"
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo="bar">
-          <input />
-        </form>
-      )}
-    </Form>}
+      }}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
     return shouldRender && (
-      (fg('platform-design_system_team-form_conversion') ? <Form
+      <Form
         onSubmit={() => {}}
         formProps={{
           foo: "bar"
-        }}><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} foo="bar">
-            <input />
-          </form>
-        )}
-      </Form>)
+        }}><input /></Form>
     );
   }
 }
 
 const formElement = shouldRender && (
-  (fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: "bar"
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo="bar">
-        <input />
-      </form>
-    )}
-  </Form>)
+    }}><input /></Form>
 );
       `,
 		'should convert from function with single prop on form after conditional',
@@ -656,55 +554,29 @@ const formElement = shouldRender && (
   );
         `,
 			`
-  import React from 'react';
+import React from 'react';
   import Form from '@atlaskit/form';
 
-  import { fg } from '@atlaskit/platform-feature-flags';
-
   const FormComponent1 = () => (
-    fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
-          <input />
-        </form>
-      )}
-    </Form>
+    <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
   );
 
   const FormComponent2 = () => (
     <>
-      {fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
-            <input />
-          </form>
-        )}
-      </Form>}
+      <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
     </>
   );
 
   class FormComponent3 extends React.Component {
     render() {
-      return fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
-            <input />
-          </form>
-        )}
-      </Form>;
+      return <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>;
     }
   }
 
   const formElement = (
-    fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate>
-          <input />
-        </form>
-      )}
-    </Form>
+    <Form onSubmit={() => {}} autocomplete="off" id="foo" name="bar" noValidate><input /></Form>
   );
-`,
+        `,
 			'should migrate existing props on `form` into their respective props on `Form`',
 		);
 
@@ -762,53 +634,27 @@ const formElement = shouldRender && (
   );
         `,
 			`
-  import React from 'react';
+import React from 'react';
   import Form from '@atlaskit/form';
 
-  import { fg } from '@atlaskit/platform-feature-flags';
-
   const FormComponent1 = () => (
-    fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} aria-label="foo" aria-labelledby="bar">
-          <input />
-        </form>
-      )}
-    </Form>
+    <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
   );
 
   const FormComponent2 = () => (
     <>
-      {fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} aria-label="foo" aria-labelledby="bar">
-            <input />
-          </form>
-        )}
-      </Form>}
+      <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
     </>
   );
 
   class FormComponent3 extends React.Component {
     render() {
-      return fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} aria-label="foo" aria-labelledby="bar">
-            <input />
-          </form>
-        )}
-      </Form>;
+      return <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>;
     }
   }
 
   const formElement = (
-    fg('platform-design_system_team-form_conversion') ? <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} aria-label="foo" aria-labelledby="bar">
-          <input />
-        </form>
-      )}
-    </Form>
+    <Form onSubmit={() => {}} label="foo" labelId="bar"><input /></Form>
   );
         `,
 			'should migrate existing props on `form` into different names',
@@ -868,13 +714,11 @@ const formElement = shouldRender && (
   );
         `,
 			`
-  import React from 'react';
+import React from 'react';
   import Form from '@atlaskit/form';
 
-  import { fg } from '@atlaskit/platform-feature-flags';
-
   const FormComponent1 = () => (
-    fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         quu: "qux"
@@ -882,18 +726,12 @@ const formElement = shouldRender && (
       autocomplete="off"
       id="foo"
       name="bar"
-      noValidate><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
-          <input />
-        </form>
-      )}
-    </Form>
+      noValidate><input /></Form>
   );
 
   const FormComponent2 = () => (
     <>
-      {fg('platform-design_system_team-form_conversion') ? <Form
+      <Form
         onSubmit={() => {}}
         formProps={{
           quu: "qux"
@@ -901,38 +739,28 @@ const formElement = shouldRender && (
         autocomplete="off"
         id="foo"
         name="bar"
-        noValidate><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
-            <input />
-          </form>
-        )}
-      </Form>}
+        noValidate><input /></Form>
     </>
   );
 
   class FormComponent3 extends React.Component {
     render() {
-      return fg('platform-design_system_team-form_conversion') ? <Form
-        onSubmit={() => {}}
-        formProps={{
-          quu: "qux"
-        }}
-        autocomplete="off"
-        id="foo"
-        name="bar"
-        noValidate><input /></Form> : <Form onSubmit={() => {}}>
-        {({ formProps }) => (
-          <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
-            <input />
-          </form>
-        )}
-      </Form>;
+      return (
+        <Form
+          onSubmit={() => {}}
+          formProps={{
+            quu: "qux"
+          }}
+          autocomplete="off"
+          id="foo"
+          name="bar"
+          noValidate><input /></Form>
+      );
     }
   }
 
   const formElement = (
-    fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         quu: "qux"
@@ -940,13 +768,7 @@ const formElement = shouldRender && (
       autocomplete="off"
       id="foo"
       name="bar"
-      noValidate><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} autocomplete="off" id="foo" name="bar" noValidate quu="qux">
-          <input />
-        </form>
-      )}
-    </Form>
+      noValidate><input /></Form>
   );
         `,
 			'should migrate existing props on `form` into their respective props on `Form` and also use `formProps` if needed',
@@ -1010,70 +832,46 @@ const formElement = (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: "bar",
       baz: "qux"
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo="bar" baz="qux">
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
 
 const FormComponent2 = () => (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         foo: "bar",
         baz: "qux"
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo="bar" baz="qux">
-          <input />
-        </form>
-      )}
-    </Form>}
+      }}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
-    return fg('platform-design_system_team-form_conversion') ? <Form
-      onSubmit={() => {}}
-      formProps={{
-        foo: "bar",
-        baz: "qux"
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo="bar" baz="qux">
-          <input />
-        </form>
-      )}
-    </Form>;
+    return (
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          foo: "bar",
+          baz: "qux"
+        }}><input /></Form>
+    );
   }
 }
 
 const formElement = (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: "bar",
       baz: "qux"
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo="bar" baz="qux">
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
       `,
 		'should convert from function with multiple props on form',
@@ -1135,70 +933,46 @@ const formElement = (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: 'bar',
       baz: { qux: 'qux' }
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
 
 const FormComponent2 = () => (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         foo: 'bar',
         baz: { qux: 'qux' }
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
-          <input />
-        </form>
-      )}
-    </Form>}
+      }}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
-    return fg('platform-design_system_team-form_conversion') ? <Form
-      onSubmit={() => {}}
-      formProps={{
-        foo: 'bar',
-        baz: { qux: 'qux' }
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
-          <input />
-        </form>
-      )}
-    </Form>;
+    return (
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          foo: 'bar',
+          baz: { qux: 'qux' }
+        }}><input /></Form>
+    );
   }
 }
 
 const formElement = (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: 'bar',
       baz: { qux: 'qux' }
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo={'bar'} baz={{ qux: 'qux' }}>
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
       `,
 		'should convert from function with multiple expression container props on form',
@@ -1260,66 +1034,42 @@ const formElement = (
 import React from 'react';
 import Form from '@atlaskit/form';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const FormComponent1 = () => (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: true
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo>
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
 
 const FormComponent2 = () => (
   <>
-    {fg('platform-design_system_team-form_conversion') ? <Form
+    <Form
       onSubmit={() => {}}
       formProps={{
         foo: true
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo>
-          <input />
-        </form>
-      )}
-    </Form>}
+      }}><input /></Form>
   </>
 );
 
 class FormComponent3 extends React.Component {
   render() {
-    return fg('platform-design_system_team-form_conversion') ? <Form
-      onSubmit={() => {}}
-      formProps={{
-        foo: true
-      }}><input /></Form> : <Form onSubmit={() => {}}>
-      {({ formProps }) => (
-        <form {...formProps} foo>
-          <input />
-        </form>
-      )}
-    </Form>;
+    return (
+      <Form
+        onSubmit={() => {}}
+        formProps={{
+          foo: true
+        }}><input /></Form>
+    );
   }
 }
 
 const formElement = (
-  fg('platform-design_system_team-form_conversion') ? <Form
+  <Form
     onSubmit={() => {}}
     formProps={{
       foo: true
-    }}><input /></Form> : <Form onSubmit={() => {}}>
-    {({ formProps }) => (
-      <form {...formProps} foo>
-        <input />
-      </form>
-    )}
-  </Form>
+    }}><input /></Form>
 );
       `,
 		'should convert from function with boolean props on form',

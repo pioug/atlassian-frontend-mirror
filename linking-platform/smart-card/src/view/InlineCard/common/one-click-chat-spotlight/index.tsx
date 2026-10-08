@@ -29,6 +29,7 @@ import { token } from '@atlaskit/tokens';
 
 import { EVENT_CHANNEL } from '../../../../common/analytics/constants';
 import { getExtensionKey } from '../../../../state/getExtensionKey';
+import type { RovoInteractionSource } from '../../../../state/hooks/use-invoke-client-action/types';
 import useOneClickChatSpotlightEligibility, {
 	type SpotlightInteraction,
 } from '../../../../state/hooks/use-one-click-chat-spotlight-eligibility';
@@ -262,7 +263,7 @@ export function OneClickChatSpotlight({
 	const card = useSmartCardState(url ?? '');
 	const provider = getExtensionKey(card.details);
 	const onInteraction = useCallback(
-		(interaction: SpotlightInteraction) => {
+		(interaction: SpotlightInteraction, interactionSource?: RovoInteractionSource) => {
 			createAnalyticsEvent({
 				eventType: interaction === 'impression' ? 'track' : 'ui',
 				action: interaction === 'impression' ? 'viewed' : interaction,
@@ -274,6 +275,7 @@ export function OneClickChatSpotlight({
 					appearance: 'inline',
 					cohort: 'treatment',
 					variant: 'v2',
+					...(interactionSource ? { interactionSource } : {}),
 				},
 			}).fire(EVENT_CHANNEL);
 		},
@@ -332,7 +334,7 @@ export function OneClickChatSpotlight({
 							ref={ref}
 							onClickCapture={() => {
 								if (spotlight.isEligible) {
-									spotlight.onClick();
+									spotlight.onClick('inlineAction');
 								}
 							}}
 						>
@@ -347,7 +349,7 @@ export function OneClickChatSpotlight({
 							actionLabel={intl.formatMessage(messages.action)}
 							onDismiss={spotlight.onDismiss}
 							onAction={() => {
-								if (spotlight.onClick()) {
+								if (spotlight.onClick('spotlightCta')) {
 									onInvoke();
 								}
 							}}

@@ -3,7 +3,6 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTableClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 export const getSelectedColumnIndexes = (selectionRect: Rect): number[] => {
 	const columnIndexes: number[] = [];
@@ -117,15 +116,11 @@ export const isFullRowOrColumnSelected = (selection: Selection): boolean => {
 	if (!(selection instanceof CellSelection)) {
 		return false;
 	}
-	const isExistingFullRowOrColumnSelection =
+	return (
 		selection.isRowSelection() ||
 		selection.isColSelection() ||
 		isRowSelectionWithMergedFirstColumn(selection) ||
-		isColumnSelectionWithMergedFirstRow(selection);
-
-	if (isExperimentEnabled('platform_editor_table_menu_updates_patch_5')) {
-		return isExistingFullRowOrColumnSelection || isColumnSelectionWithMergedLastRow(selection);
-	} else {
-		return isExistingFullRowOrColumnSelection;
-	}
+		isColumnSelectionWithMergedFirstRow(selection) ||
+		isColumnSelectionWithMergedLastRow(selection)
+	);
 };

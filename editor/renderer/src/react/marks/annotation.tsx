@@ -19,6 +19,7 @@ const AnnotationComponent = ({
 	annotationParentIds = [],
 	allowAnnotations,
 	useBlockLevel,
+	isExtension,
 	isMediaInline,
 }: MarkProps<AnnotationMarkMeta>): React.JSX.Element => {
 	const data: AnnotationDataAttributes = {
@@ -40,6 +41,7 @@ const AnnotationComponent = ({
 				annotationParentIds={annotationParentIds}
 				annotationType={annotationType}
 				useBlockLevel={useBlockLevel}
+				isExtension={isExtension}
 			>
 				{children}
 			</AnnotationMark>

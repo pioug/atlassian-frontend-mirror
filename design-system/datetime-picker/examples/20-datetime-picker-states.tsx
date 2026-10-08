@@ -17,7 +17,11 @@ export default (): React.JSX.Element => {
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Stock, time' }}
+				timePickerProps={{
+					label: 'Stock, time',
+					openTimeLabel: 'open time options',
+					shouldShowTimeButton: true,
+				}}
 			/>
 
 			<Label htmlFor="react-select-stock-value--input">Stock with value</Label>
@@ -31,7 +35,11 @@ export default (): React.JSX.Element => {
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Stock with value, time' }}
+				timePickerProps={{
+					label: 'Stock with value, time',
+					openTimeLabel: 'open time options',
+					shouldShowTimeButton: true,
+				}}
 			/>
 
 			<Label htmlFor="react-select-disabled--input">Disabled input</Label>
@@ -44,7 +52,11 @@ export default (): React.JSX.Element => {
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Disabled input, time' }}
+				timePickerProps={{
+					label: 'Disabled input, time',
+					openTimeLabel: 'open time options',
+					shouldShowTimeButton: true,
+				}}
 			/>
 
 			<Label htmlFor="react-select-disabled-value--input">Disabled input with value</Label>
@@ -58,7 +70,11 @@ export default (): React.JSX.Element => {
 					shouldShowCalendarButton: true,
 					openCalendarLabel: 'open calendar',
 				}}
-				timePickerProps={{ label: 'Disabled input with value, time' }}
+				timePickerProps={{
+					label: 'Disabled input with value, time',
+					openTimeLabel: 'open time options',
+					shouldShowTimeButton: true,
+				}}
 			/>
 
 			<Label htmlFor="react-select-custom-date--input">Custom date format</Label>
@@ -73,7 +89,11 @@ export default (): React.JSX.Element => {
 					openCalendarLabel: 'open calendar',
 				}}
 				clearControlLabel="Clear custom date format"
-				timePickerProps={{ label: 'Custom date format, time' }}
+				timePickerProps={{
+					label: 'Custom date format, time',
+					openTimeLabel: 'open time options',
+					shouldShowTimeButton: true,
+				}}
 			/>
 
 			<Label htmlFor="react-select-custom-value--input">Custom date format with value</Label>
@@ -89,7 +109,11 @@ export default (): React.JSX.Element => {
 				}}
 				defaultValue="2020-10-10"
 				clearControlLabel="Clear custom date format with value"
-				timePickerProps={{ label: 'Custom date format with value, time' }}
+				timePickerProps={{
+					label: 'Custom date format with value, time',
+					openTimeLabel: 'open time options',
+					shouldShowTimeButton: true,
+				}}
 			/>
 		</Box>
 	);

@@ -24,6 +24,7 @@ import type {
 } from '@atlaskit/media-state/file-state';
 import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { RECENTS_COLLECTION } from '../../constants';
 import { getFileStreamsCache } from '../../file-streams-cache';
@@ -180,6 +181,36 @@ export interface FileFetcher {
 		files: Array<{ id: string; collectionName?: string }>,
 	): Promise<{ [key: string]: number }>;
 }
+
+const EXTERNAL_UPLOAD_FALLBACK_STEM = 'image';
+// Only used to resolve relative urls so their path can be read; never requested.
+const EXTERNAL_UPLOAD_URL_BASE = 'https://media.invalid';
+
+// A leading dot names a file rather than an extension, so `.gitignore` splits to a stem.
+const splitExtension = (name: string): [stem: string, extension: string] => {
+	const index = name.lastIndexOf('.');
+	return index > 0 ? [name.slice(0, index), name.slice(index)] : [name, ''];
+};
+
+// Publishing copies media into page attachments keyed by filename, and same-named files collapse
+// into versions of a single attachment. External URLs are frequently endpoint-style (for example
+// `/binary`), so the stem is made unique before the upload reaches Media Services.
+const buildExternalUploadName = (url: string, anonymizeFilename?: boolean): string => {
+	if (anonymizeFilename) {
+		return crypto.randomUUID();
+	}
+
+	if (!fg('platform_media_unique_external_upload_name')) {
+		return url.split('/').pop() || '';
+	}
+
+	// Reading the path drops any query string, which would otherwise be captured as part of the
+	// extension and suppress the MIME-derived fallback.
+	const urlName = new URL(url, EXTERNAL_UPLOAD_URL_BASE).pathname.split('/').pop() || '';
+	const [stem, extension] = splitExtension(urlName);
+
+	return `${stem || EXTERNAL_UPLOAD_FALLBACK_STEM}-${crypto.randomUUID()}${extension}`;
+};
 
 export class FileFetcherImpl implements FileFetcher {
 	private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
@@ -432,7 +463,7 @@ export class FileFetcherImpl implements FileFetcher {
 
 			resolve({ value: blob as Blob, origin: 'remote' });
 		});
-		const initialName = anonymizeFilename ? crypto.randomUUID() : url.split('/').pop() || '';
+		const initialName = buildExternalUploadName(url, anonymizeFilename);
 		// we create a initial fileState with the minimum info that we have at this point
 		const fileState: ProcessingFileState = {
 			status: 'processing',
@@ -456,10 +487,11 @@ export class FileFetcherImpl implements FileFetcher {
 			}
 
 			const { type, size } = blob;
-			const extension =
-				anonymizeFilename && isExperimentEnabled('cc_maui_polish_changes_batch_8')
-					? getExtension(type)
-					: undefined;
+			const extensionAllowed = anonymizeFilename
+				? isExperimentEnabled('cc_maui_polish_changes_batch_8')
+				: fg('platform_media_unique_external_upload_name');
+			const [, existingExtension] = splitExtension(initialName);
+			const extension = extensionAllowed && !existingExtension ? getExtension(type) : undefined;
 			const name = extension ? `${initialName}.${extension}` : initialName;
 			const file: UploadableFile = {
 				content: blob,

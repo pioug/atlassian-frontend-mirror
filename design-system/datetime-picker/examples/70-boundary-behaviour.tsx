@@ -66,7 +66,7 @@ export default (): React.JSX.Element => {
 								defaultValue={dateTimePickerValue}
 								onChange={onDateTimePickerChange}
 								datePickerProps={{ shouldShowCalendarButton: true, label: 'DateTime, date' }}
-								timePickerProps={{ label: 'DateTime, time' }}
+								timePickerProps={{ label: 'DateTime, time', shouldShowTimeButton: true }}
 								clearControlLabel="Clear DateTime"
 							/>
 							<Label htmlFor="paragraphs-below">Paragraphs below: {textBelow}</Label>

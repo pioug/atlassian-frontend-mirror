@@ -7,7 +7,7 @@ import { type WrappedComponentProps, injectIntl } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
 
-import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
@@ -620,7 +620,14 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 	}
 }
 
+const SmartUserPickerWithIntl = injectIntl(SmartUserPickerWithoutAnalytics);
+
+type SmartUserPickerRef = React.ComponentRef<typeof SmartUserPickerWithIntl>;
+
 // TODO: Smart User picker team will have to add a type annotation here
-export const SmartUserPicker: any = withAnalyticsEvents()(
-	injectIntl(SmartUserPickerWithoutAnalytics),
-);
+export const SmartUserPicker: any = React.forwardRef<SmartUserPickerRef, Props>((props, ref) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	return (
+		<SmartUserPickerWithIntl {...props} createAnalyticsEvent={createAnalyticsEvent} ref={ref} />
+	);
+});

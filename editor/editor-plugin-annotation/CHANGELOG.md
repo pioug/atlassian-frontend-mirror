@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-annotation
 
+## 26.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- [`f6f0e4453badb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6f0e4453badb) -
+  Add `resolveAnnotatableTargetFromLocalId`, which resolves a `localId` to the node an annotation
+  can be applied to — the node itself when it accepts the annotation mark or is a supported block
+  node, otherwise its closest accepting ancestor. Internal helper, not yet used by any code path.
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

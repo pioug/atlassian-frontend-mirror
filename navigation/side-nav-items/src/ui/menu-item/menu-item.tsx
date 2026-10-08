@@ -726,14 +726,12 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				ref={visualContentRef}
 				css={[
 					containerStyles.root,
-					fg('platform-dst-motion-uplift-list-item') && containerStyles.rootMotion,
+					containerStyles.rootMotion,
 					nestedOpenPopupStyles.root,
 					isFinesseEnabled && containerStyles.rootFinesse,
 					isFinesseEnabled && nestedOpenPopupStyles.rootFinesse,
 					isSelected && containerStyles.selected,
-					isSelected &&
-						fg('platform-dst-motion-uplift-list-item') &&
-						containerStyles.selectedMotion,
+					isSelected && containerStyles.selectedMotion,
 					isSelected && nestedOpenPopupStyles.selected,
 					isDragging && containerStyles.dragging,
 					description && containerStyles.hasDescription,
@@ -794,13 +792,11 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								onClick={handleClick as MenuItemOnClick<HTMLAnchorElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
-									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
+									buttonOrAnchorStyles.rootMotion,
 									isFinesseEnabled && buttonOrAnchorStyles.rootFinesse,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
-									isSelected &&
-										fg('platform-dst-motion-uplift-list-item') &&
-										buttonOrAnchorStyles.selectedMotion,
+									isSelected && buttonOrAnchorStyles.selectedMotion,
 									hasDragIndicator && buttonOrAnchorStyles.hasDragIndicator,
 								)}
 								// Needed to override Anchor style due to a compiled/emotion conflict
@@ -841,13 +837,11 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								onClick={handleClick as MenuItemOnClick<HTMLButtonElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
-									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
+									buttonOrAnchorStyles.rootMotion,
 									isFinesseEnabled && buttonOrAnchorStyles.rootFinesse,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
-									isSelected &&
-										fg('platform-dst-motion-uplift-list-item') &&
-										buttonOrAnchorStyles.selectedMotion,
+									isSelected && buttonOrAnchorStyles.selectedMotion,
 									hasDragIndicator && buttonOrAnchorStyles.hasDragIndicator,
 								)}
 								aria-expanded={ariaExpanded}

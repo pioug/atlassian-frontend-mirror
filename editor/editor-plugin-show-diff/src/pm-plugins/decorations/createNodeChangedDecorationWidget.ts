@@ -8,6 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { RevealOptions } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
+import { resolveBaseNodeName } from '../utils/baseNodeName';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import type { ColorScheme } from './colorSchemes/types';
@@ -363,6 +364,7 @@ export const createNodeChangedDecorationWidget = ({
 	// Match the rendering predicate above: an empty paragraph has no widget to tag, while whitespace
 	// text in a rendered widget remains eligible.
 	const canTagWidget = showContributorTags && !shouldSkipDeletedEmptyParagraphDecoration;
+	let contributorTagAnchorName: string | undefined;
 	const decorations: Decoration[] = [];
 	const replacementNode = newDoc.nodeAt(change.fromB);
 	const firstReplacedNode = slice.content.firstChild;
@@ -502,6 +504,21 @@ export const createNodeChangedDecorationWidget = ({
 			colorScheme,
 		);
 		if (nodeView) {
+			if (
+				canTagWidget &&
+				contributorTagAnchorName === undefined &&
+				resolveBaseNodeName(node.type.name) === 'layoutColumn' &&
+				nodeView instanceof HTMLElement &&
+				fg('confluence_ncs_step_diffing_version_history')
+			) {
+				// The deleted column is rendered inside this widget; anchor to its box.
+				contributorTagAnchorName = buildAnchorDecorationKey({
+					diffId,
+					anchorType: AnchorTypeKey.tag,
+				});
+				nodeView.style.setProperty('anchor-name', `--${contributorTagAnchorName}`);
+			}
+
 			if (node.isInline) {
 				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
 				wrapper.append(nodeView);
@@ -554,7 +571,7 @@ export const createNodeChangedDecorationWidget = ({
 		decorations.push(hoistedCodeBlockAnchor.marker);
 	}
 
-	let contributorTagAnchorName: string | undefined = hoistedCodeBlockAnchor?.anchorName;
+	contributorTagAnchorName = hoistedCodeBlockAnchor?.anchorName ?? contributorTagAnchorName;
 	if (!isInserted && deletedColumns?.length) {
 		const table = dom.querySelector('table');
 		const firstRow = table?.rows[0];
@@ -795,14 +812,19 @@ export const createNodeChangedDecorationWidget = ({
 			}
 
 			decorations.push(
-				Decoration.widget(safeInsertPos, defaultSpacer, {
-					...buildDiffDecorationSpec({
-						colorScheme,
-						decorationType: 'widget',
-						diffId: crypto.randomUUID(),
-						isInserted,
-					}),
-				}),
+				Decoration.widget(
+					safeInsertPos,
+					defaultSpacer,
+					// Spacing only: a diff spec would make it an untagged navigation stop.
+					showContributorTags
+						? {}
+						: buildDiffDecorationSpec({
+								colorScheme,
+								decorationType: 'widget',
+								diffId: crypto.randomUUID(),
+								isInserted,
+							}),
+				),
 			);
 		}
 	}

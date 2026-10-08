@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { act } from 'react';
 
-import { act, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
@@ -77,7 +77,9 @@ describe('Toolbar', () => {
 		.describe('platform_editor_preview_panel_responsiveness', 'preview_panel_responsiveness')
 		.each(() => {
 			it('should re-render with different toolbar size when toolbar width changes', async () => {
-				setElementWidth(501);
+				// Widths are chosen against ToolbarWidthsFullPageNext, which is now the only
+				// full-page breakpoint scale: M > 576, XXL > 1200, XXXS <= 410.
+				setElementWidth(600);
 
 				const toolbarItem = getMockedToolbarItem();
 				render(
@@ -98,7 +100,7 @@ describe('Toolbar', () => {
 					}),
 				);
 
-				act(() => setWidth(1000));
+				act(() => setWidth(1300));
 
 				expect(toolbarItem).toHaveBeenCalledWith(
 					expect.objectContaining({

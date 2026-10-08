@@ -1,5 +1,3 @@
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import {
 	DEFAULT_LOZENGE_APPEARANCE,
 	getColorLabelKey,
@@ -26,10 +24,12 @@ describe('status-colors', () => {
 		expect(getColorLabelKey('chartreuse')).toBe('neutralColor');
 	});
 
-	// Graceful degradation: an older client without the gate must fall back rather than
-	// break. Nothing else covers this — the VR suites all run with the gate on.
-	it('leaves hex on the neutral fallback when the gate is off', () => {
-		failGate('platform_editor_gracefully_render_status_color');
-		expect(getLozengeAppearance('#B3F5FF')).toBe(DEFAULT_LOZENGE_APPEARANCE);
+	it('renders persisted hex ids with their accent appearance', () => {
+		expect(getLozengeAppearance('#B3F5FF')).toBe('accent-teal');
+		expect(getLozengeAppearance('#fdd0ec')).toBe('accent-magenta');
+	});
+
+	it('falls back to the neutral appearance for an unregistered colour', () => {
+		expect(getLozengeAppearance('#123ABC')).toBe(DEFAULT_LOZENGE_APPEARANCE);
 	});
 });

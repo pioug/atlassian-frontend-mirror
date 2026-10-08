@@ -7,7 +7,6 @@ import { forwardRef, memo, type Ref, useRef } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -351,7 +350,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 						// Base props only
 						xcss={cx(
 							styles.base,
-							!isDisabled && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
+							!isDisabled && styles.interactiveMotion,
 							appearance === 'default' && defaultStyles.root,
 							appearance === 'primary' && primaryStyles.root,
 							appearance === 'rovo' && rovoStyles.root,
@@ -403,7 +402,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 			ref={mergeRefs([localRef, ref])}
 			xcss={cx(
 				styles.base,
-				!isDisabled && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
+				!isDisabled && styles.interactiveMotion,
 				appearance === 'default' && defaultStyles.root,
 				appearance === 'primary' && primaryStyles.root,
 				appearance === 'rovo' && rovoStyles.root,

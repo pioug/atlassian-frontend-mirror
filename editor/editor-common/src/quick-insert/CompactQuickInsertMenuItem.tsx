@@ -1,6 +1,12 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useId, useMemo, useState } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { css } from '@compiled/react';
+
+import { cssMap, jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable.
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
@@ -48,6 +54,21 @@ const styles = cssMap({
 		paddingInline: token('space.050'),
 	},
 });
+
+const iconColorStyles = css({ color: token('color.icon') });
+
+// Some icons pin a neutral colour inline (for example the Forge and Spotlight icons use
+// color.icon.subtle or color.icon.accent.gray), which would ignore the colour set by the menu item.
+// Reset only those so every icon follows the menu item (color.icon, or the disabled colour).
+// Do NOT widen this to all icon colours: some icons are intentionally coloured (for example skill
+// and brand icons that use other --ds-icon-accent-* tokens) and must keep their own colour.
+/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-important-styles -- Icons pin their colour with an inline style, which only an !important rule on a descendant selector can override. */
+const pinnedIconColorResetStyles = css({
+	'& [style*="--ds-icon-subtle"], & [style*="--ds-icon-accent-gray"]': {
+		color: 'inherit !important',
+	},
+});
+/* eslint-enable @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-important-styles */
 
 const itemStyles = xcss({
 	alignItems: 'center',
@@ -147,7 +168,7 @@ export const CompactQuickInsertMenuItem = ({
 		iconBefore && shouldWrapIcon ? <Box xcss={styles.iconLarge}>{iconBefore}</Box> : iconBefore;
 
 	return (
-		<>
+		<React.Fragment>
 			<Pressable
 				ref={setReferenceElement}
 				aria-label={ariaLabel}
@@ -159,9 +180,17 @@ export const CompactQuickInsertMenuItem = ({
 				role="option"
 				xcss={isDisabled ? disabledItemStyles : isSelected ? selectedItemStyles : itemStyles}
 			>
-				{wrappedIcon && <Box xcss={styles.iconContainer}>{wrappedIcon}</Box>}
+				{wrappedIcon && (
+					<Box xcss={styles.iconContainer}>
+						<span css={[pinnedIconColorResetStyles, !isDisabled && iconColorStyles]}>
+							{wrappedIcon}
+						</span>
+					</Box>
+				)}
 				<Inline alignBlock="center" spread="space-between" xcss={styles.content}>
-					{titleContent ?? <Text>{title}</Text>}
+					{titleContent ?? (
+						<Text color={isDisabled ? 'color.text.disabled' : 'color.text'}>{title}</Text>
+					)}
 					{shortcut && (
 						<Box as="span" xcss={styles.shortcut}>
 							{shortcut}
@@ -182,6 +211,6 @@ export const CompactQuickInsertMenuItem = ({
 					shouldClampText={shouldClampPreview}
 				/>
 			)}
-		</>
+		</React.Fragment>
 	);
 };

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 27.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- [`daf8bd93659e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf8bd93659e4) -
+  Clean up experiment `platform_editor_fix_table_move_shortcut`
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

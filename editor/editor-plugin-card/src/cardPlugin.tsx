@@ -184,9 +184,15 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			editorViewForPasteMenu = editorView;
 
 			const breakoutEnabled = options.editorAppearance === 'full-page';
+			const isPreAuthModalOptedOut =
+				options.experimentalConfigurationOptions?.platform_sl_3p_preauth_value_modal_killswitch ===
+				false;
+			const isPreAuthModalKillswitchEnabled = fg('platform_sl_3p_preauth_value_modal_killswitch');
+			const shouldRenderPreAuthValuePropositionModal =
+				!isPreAuthModalOptedOut && isPreAuthModalKillswitchEnabled;
 			return (
 				<>
-					{fg('platform_sl_3p_preauth_value_modal_killswitch') ? (
+					{shouldRenderPreAuthValuePropositionModal ? (
 						<PreAuthValuePropositionModalListener api={api} cardPluginEvents={cardPluginEvents} />
 					) : null}
 					{shouldRegisterPasteDisplayAsMenu && (

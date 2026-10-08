@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Block Menu',
 			description: 'BlockMenu plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'blockMenuPlugin',
 				package: '@atlaskit/editor-plugin-block-menu',

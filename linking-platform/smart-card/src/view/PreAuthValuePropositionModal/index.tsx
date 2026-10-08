@@ -57,9 +57,9 @@ const messages = defineMessages({
 	},
 	embedBenefit: {
 		id: 'smart-card.view.PreAuthValuePropositionModal.embedBenefit',
-		defaultMessage: '<b>Embed</b> richer link previews without leaving your workflow',
+		defaultMessage: '<b>See</b> richer link previews without leaving your workflow',
 		description:
-			'Explains the benefit of embedding richer Smart Link previews without leaving the current workflow.',
+			'Explains the benefit of seeing richer Smart Link previews without leaving the current workflow.',
 	},
 	searchBenefit: {
 		id: 'smart-card.view.PreAuthValuePropositionModal.searchBenefit',
@@ -69,8 +69,9 @@ const messages = defineMessages({
 	},
 	seeBenefit: {
 		id: 'smart-card.view.PreAuthValuePropositionModal.seeBenefit',
-		defaultMessage: '<b>See</b> Rovo answers grounded in your {providerName} content',
-		description: 'Explains the Rovo benefit. providerName is supplied by the Smart Link response.',
+		defaultMessage: '<b>Get</b> answers grounded in your {providerName} context',
+		description:
+			'Explains the benefit of answers grounded in provider context. providerName is supplied by the Smart Link response.',
 	},
 	title: {
 		id: 'smart-card.view.PreAuthValuePropositionModal.title',
@@ -171,10 +172,10 @@ const ModalCopy = ({
 					<Box xcss={styles.bodyCopy}>
 						<Stack space="space.200">
 							<Text as="p" color="color.text" size="large">
-								<FormattedMessage {...messages.seeBenefit} values={messageValues} />
+								<FormattedMessage {...messages.searchBenefit} values={messageValues} />
 							</Text>
 							<Text as="p" color="color.text" size="large">
-								<FormattedMessage {...messages.searchBenefit} values={messageValues} />
+								<FormattedMessage {...messages.seeBenefit} values={messageValues} />
 							</Text>
 							<Text as="p" color="color.text" size="large">
 								<FormattedMessage {...messages.embedBenefit} values={messageValues} />

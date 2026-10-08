@@ -9,7 +9,6 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -652,7 +651,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 				ref={mergeRefs([localRef, ref])}
 				xcss={cx(
 					styles.base,
-					isInteractive && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
+					isInteractive && styles.interactiveMotion,
 					appearance === 'default' && defaultStyles.root,
 					appearance === 'default' && isInteractive && defaultStyles.interactive,
 					appearance === 'primary' && primaryStyles.root,

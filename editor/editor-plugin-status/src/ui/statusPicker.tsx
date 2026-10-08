@@ -130,12 +130,13 @@ const suggestedStatusesContainerAlignedBottomPaddingStyles = css({
 const suggestedStatusesContainerStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
-	gap: token('space.100', '8px'),
+	gap: token('space.050', '4px'),
 	margin: 0,
 	padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token(
 		'space.050',
 		'4px',
 	)}`,
+	paddingLeft: token('space.100', '8px'),
 });
 
 // Fixed input plus capped scrolling color controls and suggestions. The ten-color picker is
@@ -156,30 +157,19 @@ const statusPickerWidthStyles = css({
 	width: `${STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH}px`,
 });
 
-// When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
-// `suggestedStatusesContainerStyles` and remove its conditional style array.
-const suggestedStatusesContainerPatchStyles = css({
-	gap: token('space.050', '4px'),
-	paddingLeft: token('space.100', '8px'),
-});
-
 const suggestedStatusButtonStyles = css({
 	background: 'transparent',
 	border: 0,
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	justifyContent: 'flex-start',
+	// Allow this flex item to shrink so long statuses can truncate.
+	minWidth: 0,
 	padding: 0,
 	'&:focus-visible': {
 		outline: `2px solid ${token('color.border.focused', '#0C66E4')}`,
 		outlineOffset: token('space.025', '2px'),
 	},
-});
-
-// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_1`.
-const suggestedStatusButtonOldStyles = css({
-	display: 'flex',
-	width: '100%',
 });
 
 const suggestedStatusButtonWrapperStyles = css({
@@ -199,13 +189,6 @@ const suggestedStatusButtonWrapperStyles = css({
 	'&:hover': {
 		borderColor: token('color.border', '#091E4224'),
 	},
-});
-
-// When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
-// `suggestedStatusButtonStyles` and remove its conditional style array.
-const suggestedStatusButtonPatchStyles = css({
-	// Allow this flex item to shrink so long statuses can truncate.
-	minWidth: 0,
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -428,21 +411,16 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	) {
 		const { isNew, focusStatusInput, api, suggestedStatuses } = this.props;
 		const { color, text } = this.state;
-		const suggestionsPatchEnabled =
-			isExperimentEnabled('platform_editor_status_popup_suggestions') &&
-			fg('platform_editor_status_popup_suggestions_patch_1');
+		const isSuggestionsEnabled = isExperimentEnabled('platform_editor_status_popup_suggestions');
 		const isUpdateStatusColorsEnabled =
 			isExperimentEnabled('platform_editor_update_status_colors') ||
 			isExperimentEnabled('platform_editor_update_status_colors_jira');
 		const suggestedStatusList =
-			suggestedStatuses?.length &&
-			isExperimentEnabled('platform_editor_status_popup_suggestions') ? (
+			suggestedStatuses?.length && isSuggestionsEnabled ? (
 				<div
 					css={[
 						suggestedStatusesContainerStyles,
-						suggestionsPatchEnabled ? suggestedStatusesContainerPatchStyles : undefined,
-						suggestionsPatchEnabled &&
-						(isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3'))
+						isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3')
 							? suggestedStatusesContainerAlignedBottomPaddingStyles
 							: undefined,
 					]}
@@ -450,17 +428,12 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 				>
 					{suggestedStatuses.map((suggestedStatus, index) => (
 						<div
-							css={suggestionsPatchEnabled ? suggestedStatusButtonWrapperStyles : undefined}
+							css={suggestedStatusButtonWrapperStyles}
 							key={`${suggestedStatus.color}:${suggestedStatus.text}`}
 						>
 							<button
 								type="button"
-								css={[
-									suggestedStatusButtonStyles,
-									suggestionsPatchEnabled
-										? suggestedStatusButtonPatchStyles
-										: suggestedStatusButtonOldStyles,
-								]}
+								css={suggestedStatusButtonStyles}
 								onClick={() => this.onSuggestedStatusClick(suggestedStatus, index + 1)}
 								onKeyDown={this.handleSuggestedStatusKeyDown}
 								aria-label={suggestedStatus.displayText}
@@ -477,20 +450,17 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 				</div>
 			) : null;
 		const pickerContent = (
-			<React.Fragment>
-				<AkStatusPicker
-					autoFocus={isNew || focusStatusInput}
-					selectedColor={color}
-					text={text}
-					onColorClick={this.onColorClick}
-					onColorHover={this.onColorHover}
-					onTextChanged={this.onTextChanged}
-					onEnter={this.onEnter}
-					palette={isUpdateStatusColorsEnabled ? 'extended' : 'default'}
-					scrollableContent={suggestionsPatchEnabled ? suggestedStatusList : undefined}
-				/>
-				{suggestionsPatchEnabled ? null : suggestedStatusList}
-			</React.Fragment>
+			<AkStatusPicker
+				autoFocus={isNew || focusStatusInput}
+				selectedColor={color}
+				text={text}
+				onColorClick={this.onColorClick}
+				onColorHover={this.onColorHover}
+				onTextChanged={this.onTextChanged}
+				onEnter={this.onEnter}
+				palette={isUpdateStatusColorsEnabled ? 'extended' : 'default'}
+				scrollableContent={suggestedStatusList}
+			/>
 		);
 		return (
 			<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
@@ -499,13 +469,13 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 						fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 							? pickerContainerStylesTeam26
 							: pickerContainerStyles,
-						suggestionsPatchEnabled && isUpdateStatusColorsEnabled
+						isSuggestionsEnabled && isUpdateStatusColorsEnabled
 							? statusPickerWidthStyles
 							: undefined,
-						suggestionsPatchEnabled && !isUpdateStatusColorsEnabled
+						isSuggestionsEnabled && !isUpdateStatusColorsEnabled
 							? statusPickerWidthStylesOld
 							: undefined,
-						suggestionsPatchEnabled &&
+						isSuggestionsEnabled &&
 						!!suggestedStatusList &&
 						(isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3'))
 							? pickerContainerNoBottomPaddingStyles
@@ -548,10 +518,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					handleEscapeKeydown={this.handleEscapeKeydown}
 					zIndex={akEditorFloatingDialogZIndex}
 					fitHeight={
-						isExperimentEnabled('platform_editor_status_popup_suggestions') &&
-						fg('platform_editor_status_popup_suggestions_patch_1')
-							? fitHeight
-							: 40
+						isExperimentEnabled('platform_editor_status_popup_suggestions') ? fitHeight : 40
 					}
 					mountTo={mountTo}
 					boundariesElement={boundariesElement}

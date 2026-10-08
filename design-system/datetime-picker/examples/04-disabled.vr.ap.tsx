@@ -26,7 +26,12 @@ export default function DisabledExample(): React.JSX.Element {
 			<div>
 				<Heading size="large">Time picker (disabled)</Heading>
 				<Label htmlFor="time-picker">Select time</Label>
-				<TimePicker clearControlLabel="Clear time" id="time-picker" isDisabled />
+				<TimePicker
+					clearControlLabel="Clear time"
+					id="time-picker"
+					isDisabled
+					shouldShowTimeButton
+				/>
 			</div>
 
 			<div>
@@ -40,7 +45,7 @@ export default function DisabledExample(): React.JSX.Element {
 						shouldShowCalendarButton: true,
 						openCalendarLabel: 'open calendar',
 					}}
-					timePickerProps={{ label: 'Date / time picker, time' }}
+					timePickerProps={{ label: 'Date / time picker, time', shouldShowTimeButton: true }}
 					id="date-time-picker"
 					isDisabled
 				/>

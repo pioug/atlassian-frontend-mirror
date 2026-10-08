@@ -63,7 +63,11 @@ export const useFocusManager = ({
 		return () => {
 			cancelAllFrames();
 			focusTrap.deactivate();
-			if (fg('platform_dst-popup-trigger-initial-focus-ref') && shouldReturnFocus) {
+			if (
+				(fg('platform-dst-popup-trigger-focus-fix') ||
+					fg('platform_dst-popup-trigger-initial-focus-ref')) &&
+				shouldReturnFocus
+			) {
 				requestFrame(() => {
 					if (
 						triggerRef?.isConnected &&

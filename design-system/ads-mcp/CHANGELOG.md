@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 1.10.12
+
+### Patch Changes
+
+- [`16bc7afeedb37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16bc7afeedb37) -
+  Refresh Studio Browse Kit component examples in the offering catalogs. Use one column for hero
+  card lists below 980px and two columns at 980px and wider. Align preview cards to the right edge
+  of the hero content area.
+
 ## 1.10.11
 
 ### Patch Changes

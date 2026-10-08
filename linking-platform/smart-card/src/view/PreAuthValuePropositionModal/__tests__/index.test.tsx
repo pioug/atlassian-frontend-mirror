@@ -107,14 +107,27 @@ describe('PreAuthValuePropositionModal', () => {
 		const connectButton = screen.getByRole('button', { name: 'Connect Google Drive' });
 		expect(connectButton).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+		const searchBenefit = screen.getByText(
+			/across Google Drive and Atlassian content in one place/,
+		);
+		const answersBenefit = screen.getByText(/answers grounded in your Google Drive context/);
+		const previewBenefit = screen.getByText(/richer link previews without leaving your workflow/);
+		expect(searchBenefit).toHaveTextContent(
+			'Search across Google Drive and Atlassian content in one place',
+		);
+		expect(answersBenefit).toHaveTextContent('Get answers grounded in your Google Drive context');
+		expect(previewBenefit).toHaveTextContent(
+			'See richer link previews without leaving your workflow',
+		);
+		expect(screen.getByText('Search', { selector: 'strong' }).parentElement).toBe(searchBenefit);
+		expect(screen.getByText('Get', { selector: 'strong' }).parentElement).toBe(answersBenefit);
+		expect(screen.getByText('See', { selector: 'strong' }).parentElement).toBe(previewBenefit);
 		expect(
-			screen.getByText(/Rovo answers grounded in your Google Drive content/),
-		).toBeInTheDocument();
+			searchBenefit.compareDocumentPosition(answersBenefit) & Node.DOCUMENT_POSITION_FOLLOWING,
+		).toBeTruthy();
 		expect(
-			screen.getByText(/across Google Drive and Atlassian content in one place/),
-		).toBeInTheDocument();
-		const embedBenefit = screen.getByText(/richer link previews without leaving your workflow/);
-		expect(embedBenefit).toBeInTheDocument();
+			answersBenefit.compareDocumentPosition(previewBenefit) & Node.DOCUMENT_POSITION_FOLLOWING,
+		).toBeTruthy();
 		expect(
 			screen.getByTestId('pre-auth-value-proposition-modal-provider-icon-image'),
 		).toHaveAttribute('src', 'https://example.com/google-drive-icon.png');
@@ -122,7 +135,7 @@ describe('PreAuthValuePropositionModal', () => {
 		expect(socialProof).toHaveTextContent('45% of your team sees Google Drive previews');
 		expect(socialProof.tagName).toBe('P');
 		expect(
-			embedBenefit.compareDocumentPosition(socialProof) & Node.DOCUMENT_POSITION_FOLLOWING,
+			previewBenefit.compareDocumentPosition(socialProof) & Node.DOCUMENT_POSITION_FOLLOWING,
 		).toBeTruthy();
 		expect(
 			socialProof.compareDocumentPosition(connectButton) & Node.DOCUMENT_POSITION_FOLLOWING,
@@ -145,9 +158,9 @@ describe('PreAuthValuePropositionModal', () => {
 		).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Connect Google Drive' })).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
-		expect(
-			screen.getByText(/Rovo answers grounded in your Google Drive content/),
-		).toBeInTheDocument();
+		expect(screen.getByText(/answers grounded in your Google Drive context/)).toHaveTextContent(
+			'Get answers grounded in your Google Drive context',
+		);
 		expect(
 			await screen.findByTestId('pre-auth-value-proposition-modal-illustration'),
 		).toBeInTheDocument();

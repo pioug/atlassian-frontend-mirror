@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
-import React, { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useReducer, useRef } from 'react';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { Position } from '../types';
 
@@ -168,10 +170,13 @@ export const AnnotationRangeDispatchContext: React.Context<AnnotationRangeDispat
 export const AnnotationRangeProviderInner = ({
 	children,
 	allowCommentsOnMedia,
+	hasBlockNodeSupport,
 }: {
 	allowCommentsOnMedia?: boolean;
 	children?: ReactNode;
+	hasBlockNodeSupport?: boolean;
 }): React.JSX.Element => {
+	const extensionCommentsEnabled = !!hasBlockNodeSupport && fg('cc_maui_annotations_on_extensions');
 	const [
 		{
 			selectionRange,
@@ -193,18 +198,49 @@ export const AnnotationRangeProviderInner = ({
 		[],
 	);
 
-	const setHoverTarget = useCallback((target: HTMLElement) => {
-		// the HoverComponent expects an element deeply nested inside media, these classes work with the current implementation
-		const mediaNode = target.querySelector('.media-card-inline-player, .media-file-card-view');
-		if (!mediaNode) {
-			return;
-		}
-		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- range for media hover highlight
-		const range = document.createRange();
-		range.setStartBefore(mediaNode);
-		range.setEndAfter(mediaNode);
-		dispatch({ type: 'setHover', range });
-	}, []);
+	const hoverDraftRangeRef = useRef(hoverDraftRange);
+	hoverDraftRangeRef.current = hoverDraftRange;
+
+	const setHoverTarget = useCallback(
+		(target: HTMLElement) => {
+			const draftRange = hoverDraftRangeRef.current;
+			const draftTarget = draftRange?.startContainer.childNodes[draftRange.startOffset];
+			if (
+				extensionCommentsEnabled &&
+				draftTarget instanceof HTMLElement &&
+				draftTarget.matches('.ak-renderer-extension[data-inline-comments-target="true"]')
+			) {
+				// Keep the composer callbacks bound to the chart chosen when its draft opened.
+				return;
+			}
+			// The HoverComponent expects an element deeply nested inside media or the eligible
+			// block node's wrapper. Each selector is only included when its comment type is
+			// supported, so hover targeting never activates on an ineligible block node.
+			const selectors = [
+				allowCommentsOnMedia && '.media-card-inline-player, .media-file-card-view',
+				extensionCommentsEnabled && '.ak-renderer-extension[data-inline-comments-target="true"]',
+			]
+				.filter((selector): selector is string => Boolean(selector))
+				.join(', ');
+
+			const hoverableNode =
+				extensionCommentsEnabled &&
+				target.matches('.ak-renderer-extension[data-inline-comments-target="true"]')
+					? target
+					: selectors
+						? target.querySelector(selectors)
+						: null;
+			if (!hoverableNode) {
+				return;
+			}
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- range for media/extension hover highlight
+			const range = document.createRange();
+			range.setStartBefore(hoverableNode);
+			range.setEndAfter(hoverableNode);
+			dispatch({ type: 'setHover', range });
+		},
+		[allowCommentsOnMedia, extensionCommentsEnabled],
+	);
 
 	const promoteSelectionToDraft = useCallback((position: Position | null) => {
 		dispatch({ type: 'promoteSelectionToDraft', position });
@@ -248,7 +284,7 @@ export const AnnotationRangeProviderInner = ({
 			clearSelectionRange,
 			clearHoverRange,
 			setSelectionRange,
-			setHoverTarget: !!allowCommentsOnMedia ? setHoverTarget : undefined,
+			setHoverTarget: allowCommentsOnMedia || extensionCommentsEnabled ? setHoverTarget : undefined,
 			promoteSelectionToDraft,
 			promoteHoverToDraft,
 			clearSelectionDraft,
@@ -256,6 +292,7 @@ export const AnnotationRangeProviderInner = ({
 		}),
 		[
 			allowCommentsOnMedia,
+			extensionCommentsEnabled,
 			clearSelectionRange,
 			clearHoverRange,
 			setSelectionRange,
@@ -279,10 +316,12 @@ export const AnnotationRangeProviderInner = ({
 export const AnnotationRangeProvider = ({
 	children,
 	allowCommentsOnMedia,
+	hasBlockNodeSupport,
 	isNestedRender,
 }: {
 	allowCommentsOnMedia?: boolean;
 	children?: ReactNode;
+	hasBlockNodeSupport?: boolean;
 	isNestedRender?: boolean;
 }): React.JSX.Element => {
 	/*
@@ -293,7 +332,10 @@ export const AnnotationRangeProvider = ({
 	return isNestedRender ? (
 		<>{children}</>
 	) : (
-		<AnnotationRangeProviderInner allowCommentsOnMedia={allowCommentsOnMedia}>
+		<AnnotationRangeProviderInner
+			allowCommentsOnMedia={allowCommentsOnMedia}
+			hasBlockNodeSupport={hasBlockNodeSupport}
+		>
 			{children}
 		</AnnotationRangeProviderInner>
 	);

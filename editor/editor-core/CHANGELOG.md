@@ -1,5 +1,75 @@
 # @atlaskit/editor-core
 
+## 236.0.4
+
+### Patch Changes
+
+- [`c32526f4b7ef1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c32526f4b7ef1) -
+  Clean up feature gate `platform_editor_gracefully_render_status_color`
+- Updated dependencies
+
+## 236.0.3
+
+### Patch Changes
+
+- [`924117a678e71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/924117a678e71) -
+  remove dead code after compiled css migration and clean up ratcheting excludes entries
+- [`6574477bf6411`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6574477bf6411) -
+  Keep mention avatars and names together on one line behind the
+  platform_editor_mention_avatar_nowrap experiment.
+- Updated dependencies
+
+## 236.0.2
+
+### Patch Changes
+
+- [`a16143d8e4856`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16143d8e4856) -
+  [ux] Behind `platform_editor_reduce_forced_layout`, breakout resize handles are now built while
+  the mark view is still detached, so ProseMirror attaches them together with the node instead of a
+  deferred pass inserting them a frame later. Whether a node type is resizable is now decided in
+  CSS, which needs no position lookup.
+- [`2468546ab106d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2468546ab106d) -
+  Align the initial Max width editor selection with SSR when platform_editor_ssr_toolbar_optimistic
+  is enabled to prevent toolbar text hydration mismatches.
+- Updated dependencies
+
+## 236.0.1
+
+### Patch Changes
+
+- [`aaf461aabb51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaf461aabb51c) -
+  Under `platform-dst-top-layer-tooltip` with advanced layouts, the layout column drag handle no
+  longer adds an extra flex gap that moves the columns when it mounts.
+- Updated dependencies
+
+## 236.0.0
+
+### Patch Changes
+
+- [`6be0c3f7c55b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6be0c3f7c55b3) -
+  Clean up experiment `platform_editor_slash_app_category_analytics`
+- [`92fc57a354c33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92fc57a354c33) -
+  Clean up feature gate `platform_editor_toolbar_responsive_fixes`. The responsive toolbar behaviour
+  is now permanently enabled. Remove the obsolete `ToolbarWidths` and `ToolbarWidthsFullPage`
+  exports; consumers should use `ToolbarWidthsNext` and `ToolbarWidthsFullPageNext`. Also remove the
+  unread `BlockTypePluginOptions.isUndoRedoButtonsEnabled` option, which no longer affects toolbar
+  sizing.
+- Updated dependencies
+
+## 235.0.4
+
+### Patch Changes
+
+- [`aca9d41fbef7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aca9d41fbef7d) -
+  Restore the overflow shadow on modernised comment editor toolbars after the compiled CSS cleanup.
+- Updated dependencies
+
+## 235.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 235.0.2
 
 ### Patch Changes

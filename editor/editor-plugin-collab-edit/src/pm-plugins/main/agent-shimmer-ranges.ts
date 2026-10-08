@@ -309,9 +309,8 @@ export const getAgentEditChromeRanges = (
 		// rolls back unconfirmed local steps before applying these remote steps, and
 		// replays the local steps afterwards. Select the actual applied remote indexes;
 		// the shared extractor maps them through every later step into tr.doc.
-		const requester = isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1')
-			? getAgentEditRequester(json, view)
-			: null;
+		const m1Enabled = isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1');
+		const requester = m1Enabled ? getAgentEditRequester(json, view) : null;
 		const includedStepIndexes: number[] = [];
 		json.forEach((rawStep, index) => {
 			const belongsToSelectedAgent = !requester || isStepFromAgentEdit(rawStep, requester);
@@ -319,7 +318,9 @@ export const getAgentEditChromeRanges = (
 				includedStepIndexes.push(rebasedSteps + index);
 			}
 		});
-		const ranges = getAgentEditChangedRanges(tr, includedStepIndexes);
+		const ranges = getAgentEditChangedRanges(tr, includedStepIndexes, {
+			requireUniqueSourceIds: m1Enabled,
+		});
 		if (!ranges.length) {
 			onNotShown?.('nothingToShow', agentType);
 		}

@@ -3,13 +3,18 @@
  * @jsx jsx
  * @jsxFrag React.Fragment
  */
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { SUBTREE_THEME_ATTRIBUTE } from '@atlaskit/tokens/constants';
+import {
+	CUSTOM_THEME_SCOPE_ATTRIBUTE,
+	getThemeAndOverrides,
+	type ThemeWithCustomOverrides,
+} from '@atlaskit/tokens/custom-theme-overrides';
 import { getThemeHtmlAttrs } from '@atlaskit/tokens/get-theme-html-attrs';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import type { ThemeColorModes } from '@atlaskit/tokens/theme-color-modes';
@@ -56,7 +61,7 @@ const contentStyles = cssMap({
 
 export interface ThemeProviderProps {
 	defaultColorMode?: ThemeColorModes;
-	defaultTheme?: Partial<Theme>;
+	defaultTheme?: ThemeWithCustomOverrides;
 	children: React.ReactNode;
 }
 
@@ -75,23 +80,6 @@ export function ThemeProvider({
 		getReconciledColorMode(defaultColorMode),
 	);
 
-	const [theme, setTheme] = useState<Theme>(() => ({
-		...defaultThemeSettings,
-		...defaultTheme,
-	}));
-	const [hasHoistedInlineThemeStyles, setHasHoistedInlineThemeStyles] = useState(false);
-
-	const setColorMode = useCallback((colorMode: ThemeColorModes) => {
-		setChosenColorMode(colorMode);
-		setReconciledColorMode(getReconciledColorMode(colorMode));
-	}, []);
-
-	const setPartialTheme = useCallback((nextTheme: Partial<Theme>) => {
-		setTheme((theme) => ({ ...theme, ...nextTheme }));
-	}, []);
-
-	const lastSetGlobalThemePromiseRef = useRef<ReturnType<typeof setGlobalTheme> | null>(null);
-
 	const isInsideAppProvider = useIsInsideAppProvider();
 	const isAppProviderThemingEnabled = useIsAppProviderThemingEnabled();
 	const isInsideThemeProvider = useIsInsideThemeProvider();
@@ -109,24 +97,98 @@ export function ThemeProvider({
 	const isRootThemeProvider =
 		isInsideAppProvider && !isInsideThemeProvider && isAppProviderThemingEnabled;
 
+	/**
+	 * Each provider owns its own override stylesheet, so nested providers don't overwrite or remove
+	 * each other's overrides. `useId` is stable between the server render and hydration.
+	 *
+	 * Subtree providers also scope their override selector to their own element. Otherwise every
+	 * subtree using the same custom theme would match every provider's overrides, and the last
+	 * stylesheet in the document would win. The root provider targets `html`, which subtrees
+	 * inherit from.
+	 */
+	const customThemeOverridesStyleId = useId();
+	const { theme: normalizedDefaultTheme, inlineStyles } = getThemeAndOverrides(
+		defaultTheme,
+		isRootThemeProvider ? undefined : customThemeOverridesStyleId,
+	);
+	const [theme, setTheme] = useState<Theme>(() => ({
+		...defaultThemeSettings,
+		...normalizedDefaultTheme,
+	}));
+	const [hasHoistedInlineThemeStyles, setHasHoistedInlineThemeStyles] = useState(false);
+
+	const setColorMode = useCallback((colorMode: ThemeColorModes) => {
+		setChosenColorMode(colorMode);
+		setReconciledColorMode(getReconciledColorMode(colorMode));
+	}, []);
+
+	const setPartialTheme = useCallback((nextTheme: Partial<Theme>) => {
+		setTheme((theme) => ({ ...theme, ...nextTheme }));
+	}, []);
+
+	const lastSetGlobalThemePromiseRef = useRef<ReturnType<typeof setGlobalTheme> | null>(null);
+
+	/**
+	 * Custom theme overrides apply regardless of `platform-static-theme-loading`: that gate only
+	 * controls how the theme stylesheets themselves are loaded.
+	 */
+	const inlineThemeStylesOverrides = inlineStyles;
+
 	useLayoutEffect(() => {
-		if (!fg('platform-static-theme-loading') || hasHoistedInlineThemeStyles) {
-			return;
+		return () => {
+			document.head
+				.querySelector(`style[data-theme-overrides="${customThemeOverridesStyleId}"]`)
+				?.remove();
+		};
+	}, [customThemeOverridesStyleId]);
+
+	useLayoutEffect(() => {
+		const isStaticThemeLoadingEnabled = fg('platform-static-theme-loading');
+
+		if (isStaticThemeLoadingEnabled && !hasHoistedInlineThemeStyles) {
+			getInlineThemeStyles(theme, chosenColorMode).forEach(({ id, css }) => {
+				if (document.head.querySelector(`style[data-theme="${id}"]`)) {
+					return;
+				}
+
+				const style = document.createElement('style');
+				style.dataset.theme = id;
+				style.textContent = css;
+				document.head.appendChild(style);
+			});
 		}
 
-		getInlineThemeStyles(theme, chosenColorMode).forEach(({ id, css }) => {
-			if (document.head.querySelector(`style[data-theme="${id}"]`)) {
-				return;
+		const existingOverrideStyle = document.head.querySelector<HTMLStyleElement>(
+			`style[data-theme-overrides="${customThemeOverridesStyleId}"]`,
+		);
+
+		if (inlineThemeStylesOverrides) {
+			if (existingOverrideStyle) {
+				existingOverrideStyle.textContent = inlineThemeStylesOverrides;
+			} else {
+				const style = document.createElement('style');
+				style.dataset.themeOverrides = customThemeOverridesStyleId;
+				style.textContent = inlineThemeStylesOverrides;
+				document.head.appendChild(style);
 			}
+		} else {
+			existingOverrideStyle?.remove();
+		}
 
-			const style = document.createElement('style');
-			style.dataset.theme = id;
-			style.textContent = css;
-			document.head.appendChild(style);
-		});
-
-		setHasHoistedInlineThemeStyles(true);
-	}, [chosenColorMode, hasHoistedInlineThemeStyles, theme]);
+		// Only re-render to drop the inline styles when there are any to drop.
+		if (
+			!hasHoistedInlineThemeStyles &&
+			(isStaticThemeLoadingEnabled || inlineThemeStylesOverrides)
+		) {
+			setHasHoistedInlineThemeStyles(true);
+		}
+	}, [
+		chosenColorMode,
+		customThemeOverridesStyleId,
+		hasHoistedInlineThemeStyles,
+		inlineThemeStylesOverrides,
+		theme,
+	]);
 
 	useEffect(() => {
 		if (isRootThemeProvider) {
@@ -198,12 +260,15 @@ export function ThemeProvider({
 			colorMode: reconciledColorMode,
 		}),
 		[SUBTREE_THEME_ATTRIBUTE]: true,
+		// Matches this provider's scoped override selector. Only set when there are overrides.
+		...(inlineThemeStylesOverrides
+			? { [CUSTOM_THEME_SCOPE_ATTRIBUTE]: customThemeOverridesStyleId }
+			: {}),
 	};
 	const inlineThemeStyles =
 		fg('platform-static-theme-loading') && !hasHoistedInlineThemeStyles
 			? getInlineThemeStyles(theme, chosenColorMode)
 			: [];
-
 	return (
 		<InsideThemeProviderContext.Provider value={true}>
 			<ColorModeContext.Provider value={reconciledColorMode}>
@@ -212,6 +277,13 @@ export function ThemeProvider({
 						<SetThemeContext.Provider value={setPartialTheme}>
 							{!isRootThemeProvider ? (
 								<div {...attrs} css={contentStyles.body}>
+									{!hasHoistedInlineThemeStyles &&
+										inlineThemeStylesOverrides && (
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+											<style data-theme-overrides={customThemeOverridesStyleId}>
+												{inlineThemeStylesOverrides}
+											</style>
+										)}
 									{inlineThemeStyles.map(({ id, css }) => (
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 										<style data-theme={id} key={id}>
@@ -222,6 +294,13 @@ export function ThemeProvider({
 								</div>
 							) : (
 								<>
+									{!hasHoistedInlineThemeStyles &&
+										inlineThemeStylesOverrides && (
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+											<style data-theme-overrides={customThemeOverridesStyleId}>
+												{inlineThemeStylesOverrides}
+											</style>
+										)}
 									{inlineThemeStyles.map(({ id, css }) => (
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 										<style data-theme={id} key={id}>

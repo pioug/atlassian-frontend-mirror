@@ -21,6 +21,7 @@ const TAGGABLE_BLOCK_NODES: ReadonlySet<string> = new Set([
 	'embedCard',
 	'expand',
 	'extension',
+	'layoutColumn',
 	'media',
 	'multiBodiedExtension',
 	'panel',

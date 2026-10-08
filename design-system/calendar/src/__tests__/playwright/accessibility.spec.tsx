@@ -6,5 +6,8 @@ test('Calendar component should pass base aXe audit', async ({ page }) => {
 		'calendar',
 		'testing',
 	);
-	await expect(page.locator('[data-testid="the-calendar--calendar"]')).toBeVisible();
+	await expect(page.getByRole('group', { name: 'calendar' })).toBeVisible();
+	await expect(page.locator('[data-testid="the-calendar--calendar"]')).not.toHaveAttribute(
+		'aria-label',
+	);
 });

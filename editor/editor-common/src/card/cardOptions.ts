@@ -65,6 +65,11 @@ export interface CardOptions {
 	 */
 	allowWrapping?: boolean;
 	/**
+	 * Boolean configuration options for experimental Smart Link features.
+	 * Omitted keys preserve each feature's default behavior.
+	 */
+	experimentalConfigurationOptions?: Record<string, boolean>;
+	/**
 	 * A flag to determine whether page is SSRed. Directly render card if page is SSRed
 	 * with resolved data and skip lazy load process.
 	 * Default is false.

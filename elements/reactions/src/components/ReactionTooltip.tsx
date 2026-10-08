@@ -138,6 +138,11 @@ export const ReactionTooltip = ({
 		}
 	};
 
+	const hasOverflow = users.length > maxReactions;
+	// Only render the footer <li> when there is overflow text to show; an empty <li> adds
+	// unwanted vertical space at the bottom of the tooltip.
+	const shouldRenderFooter = hasOverflow || !fg('platform_reactions_tooltip_hide_empty_footer');
+
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
@@ -160,31 +165,33 @@ export const ReactionTooltip = ({
 						</li>
 					))}
 					{/* If count of reactions higher than given threshold then render custom message */}
-					<li css={footerStyle}>
-						{users.length > maxReactions &&
-							(allowUserDialog && handleOpenReactionsDialog ? (
-								<button
-									type="button"
-									css={[footerButtonStyle, footerButtonColorStyle, underlineStyle]}
-									onClick={handleClick}
-									onMouseDown={(e) => e.preventDefault()}
-								>
+					{shouldRenderFooter ? (
+						<li css={footerStyle}>
+							{hasOverflow &&
+								(allowUserDialog && handleOpenReactionsDialog ? (
+									<button
+										type="button"
+										css={[footerButtonStyle, footerButtonColorStyle, underlineStyle]}
+										onClick={handleClick}
+										onMouseDown={(e) => e.preventDefault()}
+									>
+										<FormattedMessage
+											{...messages.otherUsers}
+											values={{
+												count: users.length - maxReactions,
+											}}
+										/>
+									</button>
+								) : (
 									<FormattedMessage
 										{...messages.otherUsers}
 										values={{
 											count: users.length - maxReactions,
 										}}
 									/>
-								</button>
-							) : (
-								<FormattedMessage
-									{...messages.otherUsers}
-									values={{
-										count: users.length - maxReactions,
-									}}
-								/>
-							))}
-					</li>
+								))}
+						</li>
+					) : null}
 				</ul>
 			</div>
 		);

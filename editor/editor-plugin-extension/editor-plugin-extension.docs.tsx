@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Editor Plugin Extension',
 			description: 'editor-plugin-extension plugin for @atlaskit/editor-core',
-			status: 'general-availability',
+			status: 'internal',
 			import: {
 				name: 'extensionPlugin',
 				package: '@atlaskit/editor-plugin-extension',

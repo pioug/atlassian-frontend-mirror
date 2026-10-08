@@ -96,7 +96,6 @@ const surfaceStyles = cssMap({
 		flexDirection: 'column',
 
 		backgroundColor: token('elevation.surface.overlay'),
-		color: token('color.text'),
 		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
 		pointerEvents: 'auto',
 

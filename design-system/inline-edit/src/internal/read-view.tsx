@@ -5,7 +5,6 @@
 import React, { useRef } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -58,14 +57,10 @@ const readViewWrapperStyles = css({
 	borderRadius: token('radius.medium'),
 	borderStyle: 'solid',
 	borderWidth: token('border.width.selected'),
-	transition: 'background 0.2s',
+	transition: token('motion.button.hovered'),
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
-});
-
-const readViewWrapperMotionStyles = css({
-	transition: token('motion.button.hovered'), //move this into readViewWrapperStyles once fg is rolled out
 });
 
 const readViewFitContainerWidthStyles = css({
@@ -132,11 +127,7 @@ const ReadView: ({
 			></Pressable>
 			{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 			<div
-				css={[
-					readViewWrapperStyles,
-					readViewFitContainerWidth && readViewFitContainerWidthStyles,
-					fg('platform-dst-motion-uplift-button') && readViewWrapperMotionStyles,
-				]}
+				css={[readViewWrapperStyles, readViewFitContainerWidth && readViewFitContainerWidthStyles]}
 				/**
 				 * It is not normally acceptable to add click handlers to non-interactive elements
 				 * as this is an accessibility anti-pattern. However, because this instance is

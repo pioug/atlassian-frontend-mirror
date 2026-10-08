@@ -11,11 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { commitStatusPicker, updateStatus } from '../pm-plugins/actions';
 import type { StatusPlugin } from '../statusPluginType';
 import type { StatusType, ClosingPayload } from '../types';
-import {
-	getSuggestedStatuses,
-	MAX_SUGGESTED_STATUSES,
-	MAX_SUGGESTED_STATUSES_OLD,
-} from './getSuggestedStatuses';
+import { getSuggestedStatuses } from './getSuggestedStatuses';
 import StatusPicker from './statusPicker';
 
 interface ContentComponentProps {
@@ -118,9 +114,6 @@ export function ContentComponent({
 			currentPos: showStatusPickerAt,
 			currentStatus: { color, localId, text },
 			doc: editorView.state.doc,
-			limit: fg('platform_editor_status_popup_suggestions_patch_1')
-				? MAX_SUGGESTED_STATUSES
-				: MAX_SUGGESTED_STATUSES_OLD,
 			shouldUppercaseText: fg('platform-dst-lozenge-tag-badge-visual-uplifts'),
 		});
 	}, [showStatusPickerAt, editorView.state.doc]);

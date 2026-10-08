@@ -11,7 +11,6 @@ import {
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
 // oxlint-disable-next-line import/no-duplicates
@@ -80,10 +79,7 @@ const registerFirstPartyExtensions = (
 ) => {
 	const components: RegisterComponent[] = [];
 
-	if (
-		extensions.length === 0 &&
-		expValEquals('platform_editor_toolbar_hide_overflow_menu', 'isEnabled', true)
-	) {
+	if (extensions.length === 0) {
 		return components;
 	}
 
@@ -111,10 +107,7 @@ const registerExternalExtensions = (
 ) => {
 	const components: RegisterComponent[] = [];
 
-	if (
-		extensions.length === 0 &&
-		expValEquals('platform_editor_toolbar_hide_overflow_menu', 'isEnabled', true)
-	) {
+	if (extensions.length === 0) {
 		return components;
 	}
 

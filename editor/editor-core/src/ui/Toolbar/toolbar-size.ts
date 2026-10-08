@@ -1,12 +1,9 @@
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import {
 	ToolbarSize,
-	ToolbarWidths,
-	ToolbarWidthsFullPage,
 	ToolbarWidthsFullPageNext,
 	ToolbarWidthsNext,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isFullPage } from '../../utils/is-full-page';
 import type { ToolbarBreakPoint } from './toolbar-types';
@@ -20,19 +17,6 @@ const toolbarSizesFullPageNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsFullPageNext.S, size: ToolbarSize.S },
 ];
 
-// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-/** @deprecated
- * To be removed as part of ED-25129 in favour of toolbarSizesFullPageNext along with references
- * to platform_editor_toolbar_responsive_fixes feature gate
- */
-const toolbarSizesFullPage: ToolbarBreakPoint[] = [
-	{ width: ToolbarWidthsFullPage.XXL, size: ToolbarSize.XXL },
-	{ width: ToolbarWidthsFullPage.XL, size: ToolbarSize.XL },
-	{ width: ToolbarWidthsFullPage.L, size: ToolbarSize.L },
-	{ width: ToolbarWidthsFullPage.M, size: ToolbarSize.M },
-	{ width: ToolbarWidthsFullPage.S, size: ToolbarSize.S },
-];
-
 const toolbarSizesNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsNext.XXL, size: ToolbarSize.XXL },
 	{ width: ToolbarWidthsNext.XL, size: ToolbarSize.XL },
@@ -41,27 +25,8 @@ const toolbarSizesNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsNext.S, size: ToolbarSize.S },
 ];
 
-// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-/** @deprecated
- * To be removed as part of ED-25129 in favour of toolbarSizesNext along with references
- * to platform_editor_toolbar_responsive_fixes feature gate
- */
-const toolbarSizes: ToolbarBreakPoint[] = [
-	{ width: ToolbarWidths.XXL, size: ToolbarSize.XXL },
-	{ width: ToolbarWidths.XL, size: ToolbarSize.XL },
-	{ width: ToolbarWidths.L, size: ToolbarSize.L },
-	{ width: ToolbarWidths.M, size: ToolbarSize.M },
-	{ width: ToolbarWidths.S, size: ToolbarSize.S },
-];
-
 const toolbarSizesForAppearance = (appearance?: EditorAppearance) =>
-	isFullPage(appearance)
-		? fg('platform_editor_toolbar_responsive_fixes')
-			? toolbarSizesFullPageNext
-			: toolbarSizesFullPage
-		: fg('platform_editor_toolbar_responsive_fixes')
-			? toolbarSizesNext
-			: toolbarSizes;
+	isFullPage(appearance) ? toolbarSizesFullPageNext : toolbarSizesNext;
 
 export const toolbarSizeToWidth = (
 	toolbarSize: ToolbarSize,
@@ -69,7 +34,7 @@ export const toolbarSizeToWidth = (
 ): number => {
 	return (
 		toolbarSizesForAppearance(appearance).find(({ size }) => toolbarSize === size) || {
-			width: ToolbarWidths.S,
+			width: ToolbarWidthsNext.S,
 		}
 	).width;
 };

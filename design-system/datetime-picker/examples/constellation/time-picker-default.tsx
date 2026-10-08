@@ -6,7 +6,11 @@ import { Label } from '@atlaskit/form/label/default';
 const TimePickerDefaultExample = (): React.JSX.Element => (
 	<>
 		<Label htmlFor="default-time-picker-example">Choose time</Label>
-		<TimePicker clearControlLabel="Clear choose time" id="default-time-picker-example" />
+		<TimePicker
+			clearControlLabel="Clear choose time"
+			id="default-time-picker-example"
+			shouldShowTimeButton
+		/>
 	</>
 );
 

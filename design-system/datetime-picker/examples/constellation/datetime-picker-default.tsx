@@ -10,7 +10,11 @@ const DateTimePickerDefaultExample = (): React.JSX.Element => (
 			id="datetime"
 			clearControlLabel="Clear default example"
 			datePickerProps={{ shouldShowCalendarButton: true, label: 'Appointment date' }}
-			timePickerProps={{ label: 'Appointment time' }}
+			timePickerProps={{
+				label: 'Appointment time',
+				openTimeLabel: 'Open appointment time options',
+				shouldShowTimeButton: true,
+			}}
 		/>
 	</>
 );

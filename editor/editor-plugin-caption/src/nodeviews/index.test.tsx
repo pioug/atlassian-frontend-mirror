@@ -13,6 +13,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { caption, doc, media, mediaSingle, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import captionNodeView from './index';
 
@@ -146,5 +148,51 @@ describe('nodeview updating based on child count', () => {
 		nodeView['_viewShouldUpdate'] = jest.fn((_node) => false);
 
 		expect(nodeView.viewShouldUpdate(newNode)).toBeTruthy();
+	});
+});
+
+describe('CaptionNodeView: destroy', () => {
+	const eventDispatcher = {} as EventDispatcher;
+	const node = caption('hi')(getSchemaBasedOnStage('stage0'));
+	const view = {
+		state: {
+			selection: {
+				from: 0,
+				to: 0,
+				$anchor: { pos: 0 },
+				$head: { pos: 20 },
+			},
+		},
+	} as EditorView;
+	const getPos = jest.fn();
+
+	it('removes the node view portal when the experiment is enabled', () => {
+		mockExpEnabled('platform_editor_reduce_memory_leaks');
+		const removeSpy = jest.fn();
+		const portalProviderAPI = {
+			render(component: () => React.ReactElement | number | string | null) {
+				component();
+			},
+			remove: removeSpy,
+		} as unknown as PortalProviderAPI;
+
+		captionNodeView(portalProviderAPI, eventDispatcher, undefined)(node, view, getPos).destroy();
+
+		expect(removeSpy).toHaveBeenCalledTimes(1);
+	});
+
+	it('keeps prior behaviour and skips the portal removal when the experiment is disabled', () => {
+		mockExpDisabled('platform_editor_reduce_memory_leaks');
+		const removeSpy = jest.fn();
+		const portalProviderAPI = {
+			render(component: () => React.ReactElement | number | string | null) {
+				component();
+			},
+			remove: removeSpy,
+		} as unknown as PortalProviderAPI;
+
+		captionNodeView(portalProviderAPI, eventDispatcher, undefined)(node, view, getPos).destroy();
+
+		expect(removeSpy).not.toHaveBeenCalled();
 	});
 });

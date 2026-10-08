@@ -9,7 +9,7 @@ const TimePickerRequiredExample = (): React.JSX.Element => (
 		label="Start Time"
 		isRequired
 		component={({ fieldProps: { ...rest } }) => (
-			<TimePicker clearControlLabel="Clear start time" {...rest} />
+			<TimePicker clearControlLabel="Clear start time" {...rest} shouldShowTimeButton />
 		)}
 	/>
 );

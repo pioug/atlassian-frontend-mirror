@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
@@ -29,14 +29,24 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnalyticsEventPayload } from '../../analytics/events';
 import { RendererCssClassName } from '../../consts';
+import { ProvidersContext } from '../../ui/annotations/context';
+import { useAnnotationHoverDispatch } from '../../ui/annotations/contexts/AnnotationHoverContext';
+import { useAnnotationRangeDispatch } from '../../ui/annotations/contexts/AnnotationRangeContext';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import { calcBreakoutWidthCss } from '../utils/breakout';
+import { ExtensionComments } from './extension-comments';
 
 interface Props {
+	allowAnnotations?: boolean;
+	allowAnnotationsDraftMode?: boolean;
+	dataAttributes?: {
+		'data-renderer-start-pos': number;
+	};
 	extensionHandlers?: ExtensionHandlers;
 	extensionKey: string;
+	extensionNode?: PMNode;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
 	/**
@@ -65,8 +75,14 @@ interface Props {
 type AllOrNone<T> = T | { [K in keyof T]?: never };
 
 type RenderExtensionOptions = {
+	dataAttributes?: Props['dataAttributes'];
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	isCommentTarget?: boolean;
 	isTopLevel?: boolean;
+	onBlur?: React.FocusEventHandler<HTMLDivElement>;
+	onFocus?: React.FocusEventHandler<HTMLDivElement>;
+	onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+	onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 	rendererAppearance?: RendererAppearance;
 } & AllOrNone<OverflowShadowProps>;
 
@@ -272,11 +288,17 @@ export const renderExtension = (
 			}}
 			data-layout={layout}
 			data-local-id={localId}
+			data-renderer-start-pos={options.dataAttributes?.['data-renderer-start-pos']}
 			data-testid="extension--wrapper"
 			data-node-type="extension"
+			data-inline-comments-target={options.isCommentTarget || undefined}
 			data-top-level={isTopLevel || undefined}
 			data-forge-inline={isNativeForgeInline || undefined}
 			data-migrated-inline={isMigratedInlineBodied || undefined}
+			onBlur={options.onBlur}
+			onFocus={options.onFocus}
+			onMouseEnter={options.onMouseEnter}
+			onMouseLeave={options.onMouseLeave}
 		>
 			<div
 				tabIndex={options.tabIndex}
@@ -318,6 +340,62 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 		localId,
 		isInsideOfInlineExtension,
 	} = props;
+	const providers = useContext(ProvidersContext);
+	const { setHoverTarget } = useAnnotationRangeDispatch();
+	const { cancelTimeout, initiateTimeout, setIsWithinRange } = useAnnotationHoverDispatch();
+	const isBlockNodeSupported = providers?.inlineComment?.isBlockNodeSupported;
+	const isCommentTarget = useMemo(
+		() =>
+			Boolean(
+				fg('cc_maui_annotations_on_extensions') &&
+				props.extensionNode &&
+				isBlockNodeSupported?.(props.extensionNode) === true,
+			),
+		[props.extensionNode, isBlockNodeSupported],
+	);
+	const isFullPageRenderer =
+		props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width';
+	const onMouseEnter = useCallback<React.MouseEventHandler<HTMLDivElement>>(
+		(event) => {
+			cancelTimeout();
+			if (event.buttons === 0) {
+				setHoverTarget?.(event.currentTarget);
+				setIsWithinRange(true);
+			}
+		},
+		[cancelTimeout, setHoverTarget, setIsWithinRange],
+	);
+	const onMouseLeave = useCallback(() => initiateTimeout(), [initiateTimeout]);
+	const onFocus = useCallback<React.FocusEventHandler<HTMLDivElement>>(
+		(event) => {
+			if (event.currentTarget.contains(event.relatedTarget as Node | null)) {
+				return;
+			}
+			cancelTimeout();
+			setHoverTarget?.(event.currentTarget);
+			setIsWithinRange(true);
+		},
+		[cancelTimeout, setHoverTarget, setIsWithinRange],
+	);
+	const onBlur = useCallback<React.FocusEventHandler<HTMLDivElement>>(
+		(event) => {
+			if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+				initiateTimeout();
+			}
+		},
+		[initiateTimeout],
+	);
+	const commentTargetOptions =
+		isCommentTarget && isFullPageRenderer
+			? { isCommentTarget: true, onBlur, onFocus, onMouseEnter, onMouseLeave }
+			: { isCommentTarget };
+	const commentProps = {
+		enabled: isCommentTarget,
+		allowAnnotations: props.allowAnnotations && fg('cc_maui_annotations_on_extensions'),
+		allowAnnotationsDraftMode: props.allowAnnotationsDraftMode,
+		startPos: props.dataAttributes?.['data-renderer-start-pos'],
+		marks: props.marks,
+	};
 
 	return (
 		<ExtensionRenderer
@@ -331,14 +409,24 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					// Return the result directly if it's a valid JSX.Element
 					if (result && React.isValidElement(result)) {
 						return renderExtension(
-							result,
+							<ExtensionComments
+								enabled={commentProps.enabled}
+								allowAnnotations={commentProps.allowAnnotations}
+								allowAnnotationsDraftMode={commentProps.allowAnnotationsDraftMode}
+								startPos={commentProps.startPos}
+								marks={commentProps.marks}
+							>
+								{result}
+							</ExtensionComments>,
 							layout,
 							{
+								dataAttributes: props.dataAttributes,
 								isTopLevel: path.length < 1,
 								handleRef,
 								shadowClassNames,
 								tabIndex: props.tabIndex,
 								rendererAppearance: props.rendererAppearance,
+								...commentTargetOptions,
 							},
 							undefined,
 							parameters?.extensionId,
@@ -365,14 +453,24 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 
 				// Always return default content if anything goes wrong
 				return renderExtension(
-					text || 'extension',
+					<ExtensionComments
+						enabled={commentProps.enabled}
+						allowAnnotations={commentProps.allowAnnotations}
+						allowAnnotationsDraftMode={commentProps.allowAnnotationsDraftMode}
+						startPos={commentProps.startPos}
+						marks={commentProps.marks}
+					>
+						{text || 'extension'}
+					</ExtensionComments>,
 					layout,
 					{
+						dataAttributes: props.dataAttributes,
 						isTopLevel: path.length < 1,
 						handleRef,
 						shadowClassNames,
 						tabIndex: props.tabIndex,
 						rendererAppearance: props.rendererAppearance,
+						...commentTargetOptions,
 					},
 					undefined,
 					parameters?.extensionId,

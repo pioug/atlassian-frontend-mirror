@@ -1,5 +1,6 @@
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
 	AddNodeMarkStep,
 	AddMarkStep,
@@ -173,6 +174,8 @@ interface AnnotationTypeProvider<Type> {
 export type InlineCommentAnnotationProvider =
 	AnnotationTypeProvider<AnnotationTypes.INLINE_COMMENT> & {
 		hoverComponent?: React.ComponentType<InlineCommentHoverComponentProps>;
+		/** Determines whether a specific block node supports inline comments. */
+		isBlockNodeSupported?: (node: PMNode) => boolean;
 		selectionComponent?: React.ComponentType<
 			React.PropsWithChildren<InlineCommentSelectionComponentProps>
 		>;

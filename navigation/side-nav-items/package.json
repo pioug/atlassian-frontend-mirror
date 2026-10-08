@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "2.5.6",
+	"version": "2.5.7",
 	"description": "Menu items and elements for the side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -99,9 +99,6 @@
 		"platform-dst-top-layer": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform-dst-motion-uplift-list-item": {
-			"type": "boolean"
 		},
 		"platform-dst-tokens-finesse": {
 			"type": "boolean"

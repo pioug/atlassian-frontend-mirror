@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-card
 
+## 32.1.0
+
+### Minor Changes
+
+- [`dd269d6b8b56d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd269d6b8b56d) -
+  Add optional `experimentalConfigurationOptions?: Record<string, boolean>` to `CardOptions` from
+  `@atlaskit/editor-common/card/cardOptions`, inherited by `@atlaskit/editor-plugin-card` options.
+
+  Setting `platform_sl_3p_preauth_value_modal_killswitch` to `false` in these options prevents the
+  editor from mounting the pre-auth modal listener. A value of `true`, an omitted key, or omitted
+  options preserve existing eligibility and rollout behavior; they do not override the kill switch
+  or experiment allocation. Unrelated keys are ignored by this feature.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.1
 
 ### Patch Changes

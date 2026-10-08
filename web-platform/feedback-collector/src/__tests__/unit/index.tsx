@@ -982,40 +982,31 @@ We have some formatting here
 			expect(options).toHaveLength(customFeedbackOptions.length);
 		});
 
-		it.each([false, true])(
-			'should keep Escape inside an open feedback type select when form conversion is %s',
-			async (isFormConversionEnabled) => {
-				const mockOnEscape = jest.fn();
+		it('should keep Escape inside an open feedback type select', async () => {
+			const mockOnEscape = jest.fn();
 
-				if (isFormConversionEnabled) {
-					passGate('platform-design_system_team-form_conversion');
-				} else {
-					failGate('platform-design_system_team-form_conversion');
-				}
+			render(
+				<div
+					onKeyDown={(event) => {
+						if (event.key === 'Escape') {
+							mockOnEscape();
+						}
+					}}
+				>
+					<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />
+				</div>,
+			);
 
-				render(
-					<div
-						onKeyDown={(event) => {
-							if (event.key === 'Escape') {
-								mockOnEscape();
-							}
-						}}
-					>
-						<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />
-					</div>,
-				);
+			const combobox = screen.getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
 
-				const combobox = screen.getByRole('combobox', { name: 'Select feedback' });
-				fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
+			await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'true'));
 
-				await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'true'));
+			fireEvent.keyDown(combobox, { key: 'Escape', code: 'Escape' });
 
-				fireEvent.keyDown(combobox, { key: 'Escape', code: 'Escape' });
-
-				await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'false'));
-				expect(mockOnEscape).not.toHaveBeenCalled();
-			},
-		);
+			await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'false'));
+			expect(mockOnEscape).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('Submit button behavior', () => {

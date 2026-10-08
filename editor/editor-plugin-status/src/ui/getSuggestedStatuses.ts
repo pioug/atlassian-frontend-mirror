@@ -20,8 +20,6 @@ type GetSuggestedStatusesArgs = {
 };
 
 export const MAX_SUGGESTED_STATUSES = 20;
-// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_1`.
-export const MAX_SUGGESTED_STATUSES_OLD = 7;
 
 // `color` may be a legacy name or a hex value that render the same hue (e.g. `green` and
 // `#D3F1A7` both resolve to `accent-lime`), so the key is built from the resolved appearance

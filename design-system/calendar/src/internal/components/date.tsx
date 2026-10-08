@@ -119,8 +119,6 @@ const dateCellStyles = css({
 	},
 });
 
-// platform-dst-motion-uplift-list-item cleanup: once fully rolled out, fold these
-// transitions into the styles above and drop the gate in the `css` array below.
 const dateCellMotionStyles = css({
 	transition: token('motion.listitem.hovered'),
 	'&:hover': {
@@ -230,10 +228,8 @@ const Date: import('react').MemoExoticComponent<
 							isSelected && dateCellSelectedStyle,
 							isSelected && fg('platform-dst-tokens-finesse') && dateCellSelectedFinesseStyle,
 							isDisabled && dateCellDisabledStyle,
-							fg('platform-dst-motion-uplift-list-item') && dateCellMotionStyles,
-							(isSelected || isPreviouslySelected) &&
-								fg('platform-dst-motion-uplift-list-item') &&
-								dateCellSelectedMotionStyles,
+							dateCellMotionStyles,
+							(isSelected || isPreviouslySelected) && dateCellSelectedMotionStyles,
 						]}
 						aria-current={isToday ? 'date' : undefined}
 						aria-disabled={isDisabled || undefined}

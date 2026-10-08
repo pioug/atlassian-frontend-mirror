@@ -17,6 +17,12 @@ const BRAND_PARTICIPANT_COLOR_INDEX: Readonly<Partial<Record<AgentBrandColorSche
 	'agent-brand-figma': 9,
 	'agent-brand-lovable': 9,
 	'agent-brand-replit': 9,
+	'agent-brand-amplitude': 9,
+	'agent-brand-cortex': 9,
+	'agent-brand-databricks': 9,
+	'agent-brand-gemini': 9,
+	'agent-brand-manus': 9,
+	'agent-brand-slack': 9,
 };
 
 /** Brands whose registered `bold`/`boldText` values take precedence over their palette slot. */
@@ -26,6 +32,12 @@ const BRAND_EXACT_COLOR_SCHEMES: ReadonlySet<AgentBrandColorScheme> = new Set([
 	'agent-brand-figma',
 	'agent-brand-lovable',
 	'agent-brand-replit',
+	'agent-brand-amplitude',
+	'agent-brand-cortex',
+	'agent-brand-databricks',
+	'agent-brand-gemini',
+	'agent-brand-manus',
+	'agent-brand-slack',
 ]);
 
 /** Maps Agent Studio's semantic palette to the established telepointer palette slots. */

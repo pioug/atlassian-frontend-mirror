@@ -1,11 +1,11 @@
 import React from 'react';
 
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
-import { RovoIcon } from '@atlaskit/logo';
-import { EndItem, TopNavEnd } from '@atlaskit/navigation-system';
-import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { TopNav, TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
 import { parseHex } from '@atlaskit/navigation-system/theming/color-utils/parse-hex';
 import { TopNavButton } from '@atlaskit/navigation-system/theming/top-nav-button';
+import { EndItem } from '@atlaskit/navigation-system/top-nav-items';
 
 import { MockRoot } from '../../utils/mock-root';
 

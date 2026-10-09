@@ -7,7 +7,8 @@ import React, { forwardRef } from 'react';
 import { jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Focusable, Text } from '@atlaskit/primitives/compiled';
+import { Focusable } from '@atlaskit/primitives/compiled/focusable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { type TabMotionAttributes } from '../internal/tab-motion-context';
 import { type TabAttributesType, type TabProps } from '../types';

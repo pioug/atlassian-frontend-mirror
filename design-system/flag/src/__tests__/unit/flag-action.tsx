@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Flag from '../../flag';

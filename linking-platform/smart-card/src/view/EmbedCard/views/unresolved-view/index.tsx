@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import Heading from '@atlaskit/heading/heading';
 import LinkGlyph from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { ExpandedFrame } from '../../components/ExpandedFrame';

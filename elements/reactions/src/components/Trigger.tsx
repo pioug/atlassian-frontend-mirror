@@ -13,7 +13,8 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { type PickerSize } from '@atlaskit/emoji/types';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

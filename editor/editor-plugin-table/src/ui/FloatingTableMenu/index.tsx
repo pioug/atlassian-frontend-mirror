@@ -14,7 +14,6 @@ import {
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarKeyboardNavigationProvider } from '@atlaskit/editor-toolbar/toolbar-keyboard-navigation-provider';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { closeActiveTableMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -186,8 +185,7 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 		!isDragMenuOpen ||
 		!targetCellPosition ||
 		editorView.state.doc.nodeSize <= targetCellPosition ||
-		(isExperimentEnabled('platform_editor_table_menu_updates_patch_4') &&
-			isTableSelected(editorView.state.selection))
+		isTableSelected(editorView.state.selection)
 	) {
 		return null;
 	}

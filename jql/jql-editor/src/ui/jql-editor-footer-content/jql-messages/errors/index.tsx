@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { di } from 'react-magnetic-di';
 
 import { ErrorMessage } from '@atlaskit/form/error-message';
-import { JQLSyntaxError } from '@atlaskit/jql-ast';
+import { JQLSyntaxError } from '@atlaskit/jql-ast/jql-syntax-error';
 
 import { JQL_EDITOR_INPUT_ID, JQL_EDITOR_VALIDATION_ID } from '../../../../common/constants';
 import { commonMessages } from '../../../../common/messages';

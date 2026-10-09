@@ -1,4 +1,4 @@
-import { toBeValidAGGQuery } from '@atlassian/ptc-test-utils/graphql-jest';
+import { toBeValidAGGQuery } from '@atlassian/ptc-test-utils/is-valid-query-test';
 
 import teamMembershipQuery from './team-membership-query';
 import { TeamsUserQuery } from './user-query';

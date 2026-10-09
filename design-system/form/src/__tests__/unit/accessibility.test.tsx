@@ -2,13 +2,15 @@ import React, { type ReactElement } from 'react';
 
 import cases from 'jest-in-case';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range/range';
 import TextField from '@atlaskit/textfield/text-field';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CharacterCounterField } from '../../character-counter-field';
 import { CheckboxField } from '../../checkbox-field';

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';

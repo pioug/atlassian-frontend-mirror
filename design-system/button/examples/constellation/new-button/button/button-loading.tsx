@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 const ButtonLoadingExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);

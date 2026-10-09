@@ -4,6 +4,7 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -476,6 +477,9 @@ export class SourceSyncBlockStoreManager {
 	}
 
 	public getLocalSourceSnapshot(resourceId: ResourceId): LocalSourceSnapshot | undefined {
+		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
+			return undefined;
+		}
 		const cached = this.syncBlockCache.get(resourceId);
 		if (!cached || cached.status === 'deleted') {
 			return undefined;
@@ -491,6 +495,9 @@ export class SourceSyncBlockStoreManager {
 		resourceId: ResourceId,
 		callback: LocalSourceSubscriber,
 	): () => void {
+		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
+			return () => {};
+		}
 		let subscribers = this.localSourceSubscribers.get(resourceId);
 		if (!subscribers) {
 			subscribers = new Set();

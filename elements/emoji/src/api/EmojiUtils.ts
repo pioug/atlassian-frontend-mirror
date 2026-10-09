@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { type ServiceConfig } from '@atlaskit/util-service-support';
+import type { ServiceConfig } from '@atlaskit/util-service-support/types';
 
 import { type EmojiId } from '../types';
 

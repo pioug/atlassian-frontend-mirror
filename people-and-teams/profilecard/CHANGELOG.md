@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 27.1.21
+
+### Patch Changes
+
+- [`50bc4a72faa22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50bc4a72faa22) -
+  Clean up feature gate `confluence_fix_agent_profile_card_flash`. The agent profile card now always
+  starts in its loading state and re-fetches on account id change, so the brief error flash is gone
+  for everyone.
+- Updated dependencies
+
 ## 27.1.20
 
 ### Patch Changes

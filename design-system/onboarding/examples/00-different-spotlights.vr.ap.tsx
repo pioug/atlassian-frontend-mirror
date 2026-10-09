@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import UndoIcon from '@atlaskit/icon/core/undo';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { SpotlightCard } from '@atlaskit/onboarding';
+import SpotlightCard from '@atlaskit/onboarding/spotlight-card';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 

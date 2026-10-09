@@ -30,6 +30,6 @@ export const searchTokensInputSchema: z.ZodObject<
 	includeMetadata: z
 		.boolean()
 		.default(false)
-		.describe('Include usage guidelines in each result (default false).')
+		.describe('Include the token description and usage guidelines in each result (default false).')
 		.optional(),
 });

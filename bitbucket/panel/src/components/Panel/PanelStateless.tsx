@@ -6,7 +6,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import Button from '@atlaskit/button/button';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import * as styles from './styledPanel';
 

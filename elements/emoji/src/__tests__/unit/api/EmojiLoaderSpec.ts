@@ -2,7 +2,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 import * as sinon from 'sinon';
 
-import type { SecurityOptions } from '@atlaskit/util-service-support';
+import type { SecurityOptions } from '@atlaskit/util-service-support/types';
 
 import EmojiLoader from '../../../api/EmojiLoader';
 import type { EmojiLoaderConfig } from '../../../api/EmojiUtils';

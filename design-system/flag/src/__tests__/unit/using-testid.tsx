@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import Flag from '../../flag';

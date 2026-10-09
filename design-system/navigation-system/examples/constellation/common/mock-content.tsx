@@ -1,15 +1,12 @@
 import React from 'react';
 
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { TopNavEnd, TopNavMiddle, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Profile,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 
 import { MockSearch } from '../../utils/mock-search';
 

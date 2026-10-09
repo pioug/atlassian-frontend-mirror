@@ -23,7 +23,7 @@ import ProjectIcon from '@atlaskit/icon/core/project';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import Link from '@atlaskit/link/link';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
@@ -47,14 +47,10 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Search,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';

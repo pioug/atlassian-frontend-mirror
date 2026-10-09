@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
-import { render, screen } from '@atlassian/testing-library';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import ShowcaseExample from '../../../../examples/internal-logo-component/01-showcase.vr.ap';
 import { JiraIcon } from '../../../artifacts/logo-components/jira/icon';

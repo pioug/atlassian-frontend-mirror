@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { LoadingError } from '../src/ui/common/error-state/loading-error';

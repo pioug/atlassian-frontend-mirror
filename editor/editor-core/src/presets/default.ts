@@ -155,6 +155,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 					useStandardNodeWidth: options.blockMenu?.useStandardNodeWidth ?? false,
 					blockLinkHashPrefix: options.blockMenu?.blockLinkHashPrefix,
 					getLinkPath: options.blockMenu?.getLinkPath,
+					enableCopyLinkToSelection: options.blockMenu?.enableCopyLinkToSelection,
 				},
 			],
 			Boolean(options.blockMenu?.enabled ?? false),

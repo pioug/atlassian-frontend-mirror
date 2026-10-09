@@ -7,7 +7,8 @@ import { type Dispatch, type SetStateAction } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { cssMap, jsx } from '@atlaskit/css';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 

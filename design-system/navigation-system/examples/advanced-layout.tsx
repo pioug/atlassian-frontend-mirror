@@ -3,15 +3,16 @@
  * @jsx jsx
  */
 
-import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
+import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { HomeIcon } from '@atlaskit/logo';
+import { HomeIcon } from '@atlaskit/logo/home/icon';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
-import PageHeader from '@atlaskit/page-header';
+import PageHeader from '@atlaskit/page-header/page-header';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.5.8",
+	"version": "46.6.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -263,6 +263,10 @@
 		"./use-fire3-p-workflows-click-event": "./src/view/SmartLinkEvents/useFire3PWorkflowsClickEvent.tsx"
 	},
 	"platform-feature-flags": {
+		"billplat_jira_list_dropdown_top_layer": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_sl_one_click_chat_spotlight_v2_fg": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -270,9 +274,6 @@
 		"confluence_ep_shim_macro_links_v2": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_navx_3298_message_wrapper": {
-			"type": "boolean"
 		},
 		"platform_bandicoots-smartlink-unresolved-error-key": {
 			"type": "boolean"
@@ -328,6 +329,9 @@
 			"type": "boolean"
 		},
 		"platform_sl_3p_post_auth_chat_open_fg": {
+			"type": "boolean"
+		},
+		"platform_sl_click_inside_iframe": {
 			"type": "boolean"
 		},
 		"platform_smartlink_inline_resolve_optimization": {

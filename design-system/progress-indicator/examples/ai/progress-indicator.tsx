@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import ProgressIndicator from '@atlaskit/progress-indicator/progress-dots';
 
 const Examples = (): React.JSX.Element => (
 	<>

@@ -1,35 +1,20 @@
+import { tokens } from '@atlaskit/tokens/token-metadata';
+
 import { getAllTokensTool } from '../../src/tools/get-all-tokens/get-all-tokens-tool';
 
-jest.mock('@atlaskit/tokens/token-metadata', () => ({
-	tokens: [
-		{
-			name: 'test.token',
-			exampleValue: '#FFFFFF',
-			usageGuidelines: {
-				usage: 'example usage',
-				cssProperties: ['background-color'],
-			},
-		},
-	],
-}));
-
 describe('ads_get_all_tokens tool', () => {
-	it('Lists the tokens in JSON format', async () => {
-		const [tokenResult] = (await getAllTokensTool()).content;
-		expect(tokenResult.type).toEqual('text');
-		expect(tokenResult.text).toEqual(
-			JSON.stringify(
-				{
-					name: 'test.token',
-					exampleValue: '#FFFFFF',
-					usageGuidelines: {
-						usage: 'example usage',
-						cssProperties: ['background-color'],
-					},
-				},
-				null,
-				2,
-			),
-		);
+	it('lists the real tokens with their unchanged canonical descriptions', async () => {
+		const { content } = await getAllTokensTool();
+		expect(content).toHaveLength(tokens.length);
+		content.forEach((tokenResult, index) => {
+			const sourceToken = tokens[index];
+			expect(tokenResult.type).toBe('text');
+			expect(JSON.parse(tokenResult.text)).toEqual({
+				name: sourceToken.name,
+				description: sourceToken.description,
+				exampleValue: sourceToken.exampleValue,
+				usageGuidelines: sourceToken.usageGuidelines,
+			});
+		});
 	});
 });

@@ -3,7 +3,7 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import Icon from '@atlaskit/icon/core/text-style';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 

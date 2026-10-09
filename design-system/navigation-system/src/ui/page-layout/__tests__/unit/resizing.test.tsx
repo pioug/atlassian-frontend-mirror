@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import Button from '@atlaskit/button/default/button';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import Select from '@atlaskit/select/default';
@@ -13,8 +13,9 @@ import {
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { resetMatchMedia } from '@atlassian/test-utils';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { resetMatchMedia } from '@atlassian/test-utils/match-media';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { Aside } from '../../aside';
 import { Main } from '../../main/main';

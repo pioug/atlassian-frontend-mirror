@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
+import ProgressTracker from '@atlaskit/progress-tracker/progress-tracker';
+import type { Stages } from '@atlaskit/progress-tracker/types';
 
 const items: Stages = [
 	{

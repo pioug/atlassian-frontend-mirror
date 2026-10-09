@@ -3,7 +3,7 @@ import React, { lazy, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import AutomationIcon from '@atlaskit/icon/core/automation';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../../../constants';

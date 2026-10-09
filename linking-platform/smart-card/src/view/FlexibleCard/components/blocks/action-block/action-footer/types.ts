@@ -1,4 +1,4 @@
-import type { Space } from '@atlaskit/primitives/compiled';
+import type { PositiveSpaceToken as Space } from '@atlaskit/primitives/compiled/components/types';
 
 import type { ActionMessage } from '../../../actions/action/types';
 

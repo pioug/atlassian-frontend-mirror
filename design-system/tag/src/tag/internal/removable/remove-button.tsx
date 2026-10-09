@@ -6,7 +6,7 @@ import { type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandl
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CloseIcon from '@atlaskit/icon/core/cross';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 export type RemoveButtonProps = {

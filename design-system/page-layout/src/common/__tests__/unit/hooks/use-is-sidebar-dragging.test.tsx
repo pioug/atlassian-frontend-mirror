@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 
 import { Content, LeftSidebar, PageLayout } from '../../../../index';
 import { IS_SIDEBAR_DRAGGING } from '../../../constants';

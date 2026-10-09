@@ -6,12 +6,14 @@ import { useCallback, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { EmojiPicker } from '@atlaskit/emoji/picker';
+import EmojiPicker from '@atlaskit/emoji/emoji-picker';
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { useDelayedState } from '../hooks/useDelayedState';

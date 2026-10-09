@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { currentUser } from '@atlaskit/util-data-test/get-emoji-provider';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 

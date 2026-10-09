@@ -1,5 +1,5 @@
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 // This import is just to get types
 import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from '../../constants';

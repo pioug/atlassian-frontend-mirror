@@ -3,7 +3,9 @@
 import React from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { RadioSelect as AtlaskitRadioSelect } from '../../../radio-select';
 

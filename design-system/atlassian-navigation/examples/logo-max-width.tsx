@@ -1,12 +1,13 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	CustomProductHome,
-	ProductHome,
-} from '@atlaskit/atlassian-navigation';
-import { JiraServiceManagementIcon, JiraServiceManagementLogo } from '@atlaskit/logo';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { CustomProductHome } from '@atlaskit/atlassian-navigation/custom-product-home';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
+import { JiraServiceManagementLogoCS as JiraServiceManagementLogo } from '@atlaskit/logo/jira-service-management/logo';
 
 import customIcon from './shared/assets/atlassian-icon.png';
 import customLogo from './shared/assets/custom-logo-wide.png';

@@ -1,6 +1,11 @@
 import React, { PureComponent } from 'react';
 
-import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';
+import { Cell } from '@atlaskit/table-tree/cell';
+import { Header } from '@atlaskit/table-tree/header';
+import { Headers } from '@atlaskit/table-tree/headers';
+import { Row } from '@atlaskit/table-tree/row';
+import { Rows } from '@atlaskit/table-tree/rows';
+import TableTree from '@atlaskit/table-tree/table-tree';
 
 import staticData from './data-cleancode-toc.json';
 

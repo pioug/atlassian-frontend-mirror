@@ -8,7 +8,6 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TablePluginState } from '../types';
@@ -82,9 +81,7 @@ const updateTargetCellPosition: BuilderTablePluginState =
 				pluginState.activeTableMenu?.type === 'row' ||
 				pluginState.activeTableMenu?.type === 'column';
 			const shouldPreserveActiveDragMenu =
-				isExperimentEnabled('platform_editor_table_menu_updates_patch_4') &&
-				isActiveDragMenu &&
-				tr.selection instanceof CellSelection;
+				isActiveDragMenu && tr.selection instanceof CellSelection;
 
 			const shouldCloseMenu =
 				hasActiveTableMenu &&

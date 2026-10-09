@@ -1,6 +1,6 @@
 import React, { cloneElement, type ChangeEvent, useState } from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { EmojiResource, type EmojiProvider, type EmojiResourceConfig } from '../src/resource';
 import type { Props } from './demo-resource-control';

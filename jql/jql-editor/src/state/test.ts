@@ -5,7 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { Subscription } from 'rxjs/Subscription';
 
-import { JQLParseError } from '@atlaskit/jql-ast';
+import { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
 import type {
 	JQLRuleSuggestion,
 	JQLSuggestions,

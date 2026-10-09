@@ -2,7 +2,7 @@ import React, { type ComponentProps } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
 import ButtonGroup from '../../../containers/button-group';

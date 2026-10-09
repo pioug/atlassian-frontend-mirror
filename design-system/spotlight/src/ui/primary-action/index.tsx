@@ -5,7 +5,8 @@
 import { forwardRef, type ReactNode, useContext } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
+import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';

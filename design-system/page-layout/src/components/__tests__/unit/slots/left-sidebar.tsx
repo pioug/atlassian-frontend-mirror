@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {

@@ -2,7 +2,8 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import Heading from '@atlaskit/heading/heading';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { type User } from '../../types';
 import * as Styled from './styles';

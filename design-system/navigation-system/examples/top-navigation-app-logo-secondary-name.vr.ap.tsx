@@ -8,7 +8,8 @@ import { StudioIcon } from '@atlaskit/logo/studio/icon';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { AppLogo, AppSwitcher, Profile } from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 

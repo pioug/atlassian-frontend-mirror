@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { TrelloIcon, TrelloLogo } from '@atlaskit/logo';
+import { TrelloIcon } from '@atlaskit/logo/trello-icon';
+import { TrelloLogoCS as TrelloLogo } from '@atlaskit/logo/trello/logo';
 
 import LogoTable from '../utils/logo-table';
 

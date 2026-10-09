@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import DynamicTableStateless from '@atlaskit/dynamic-table/stateless';
 import { type SortOrderType } from '@atlaskit/dynamic-table/types';
 
 import { head as baseHead, caption, rows } from './content/sample-data';

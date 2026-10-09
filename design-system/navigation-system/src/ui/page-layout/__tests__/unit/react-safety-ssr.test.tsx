@@ -2,7 +2,7 @@ import React from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
-import { resetMatchMedia } from '@atlassian/test-utils';
+import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 
 import CompositionExample from '../../../../../examples/composition.vr.ap';
 

@@ -10,7 +10,7 @@ import Heading from '@atlaskit/heading/heading';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import BoardIcon from '@atlaskit/icon/core/board';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import {
 	FlyoutBody,
 	FlyoutFooter,

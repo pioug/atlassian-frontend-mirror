@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import { type ProfilecardProps } from '../../../types';
 import { ProfilecardInternal as ProfileCard } from '../ProfilecardInternal';

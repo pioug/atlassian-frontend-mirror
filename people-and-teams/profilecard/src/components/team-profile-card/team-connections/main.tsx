@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import LinkItem from '@atlaskit/menu/link-item';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { ContainerIcon } from '@atlaskit/teams-public/container-icon';
 import type { TeamLinkCardProps } from '@atlaskit/teams-public/team-link-card';

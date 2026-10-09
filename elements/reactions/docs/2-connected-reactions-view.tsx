@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, Example, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message/message';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import ConnectedReactionsViewExample from '../examples/01-connected-reactions-view';
 

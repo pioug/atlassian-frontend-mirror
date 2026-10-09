@@ -8,7 +8,10 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import AtlaskitRadioGroup from '@atlaskit/radio/radio-group';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';

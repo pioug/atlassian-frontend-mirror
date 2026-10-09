@@ -2,7 +2,7 @@ import React from 'react';
 
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import type { AnchorProps } from '@atlaskit/primitives/compiled';
+import type { AnchorProps } from '@atlaskit/primitives/compiled/anchor';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

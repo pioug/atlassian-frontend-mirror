@@ -7,17 +7,15 @@ import { cloneElement, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
-import {
-	BitbucketIcon,
-	ConfluenceIcon,
-	JiraIcon,
-	JiraServiceManagementIcon,
-	OpsgenieIcon,
-	StatuspageIcon,
-	TrelloIcon,
-} from '@atlaskit/logo';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
+import { OpsgenieIcon } from '@atlaskit/logo/opsgenie-icon';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
+import { TrelloIcon } from '@atlaskit/logo/trello-icon';
 import FadeIn from '@atlaskit/motion/fade-in';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';

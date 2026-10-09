@@ -1,4 +1,4 @@
-import { type BackgroundColor } from '@atlaskit/primitives/compiled';
+import type { BackgroundColorToken as BackgroundColor } from '@atlaskit/primitives/compiled/utils/types';
 
 import { type AppearanceTypes } from './types';
 

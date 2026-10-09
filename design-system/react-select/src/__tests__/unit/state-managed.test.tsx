@@ -9,7 +9,7 @@ import { type EventType, fireEvent, render, screen } from '@testing-library/reac
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 
 import Select from '../../state-manager';
 

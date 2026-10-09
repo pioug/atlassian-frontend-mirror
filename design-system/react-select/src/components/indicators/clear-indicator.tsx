@@ -9,7 +9,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import CrossIcon from '@atlaskit/icon/core/cross-circle';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';

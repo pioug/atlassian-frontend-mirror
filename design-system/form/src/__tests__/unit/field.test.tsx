@@ -1,12 +1,14 @@
 import React, { type ReactNode } from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import Select from '@atlaskit/select/default';
 import type { ValueType } from '@atlaskit/select/types';
 import TextField from '@atlaskit/textfield/text-field';
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { ErrorMessage } from '../../error-message';
 import Field from '../../field';

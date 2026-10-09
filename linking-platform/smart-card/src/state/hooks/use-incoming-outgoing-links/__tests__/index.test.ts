@@ -1,6 +1,6 @@
 import 'jest-extended';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { renderHook } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { currentSiteCloudIdService } from '../../../services/current-site-cloud-id';
 import useIncomingOutgoingAri from '../index';

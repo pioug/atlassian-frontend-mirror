@@ -8,15 +8,19 @@ import React, { Fragment, type KeyboardEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	ProductHome,
-	Search,
-	Settings,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Search } from '@atlaskit/atlassian-navigation/search';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Settings } from '@atlaskit/atlassian-navigation/settings';
 import Avatar from '@atlaskit/avatar/avatar';
 import { Drawer } from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
@@ -26,7 +30,8 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import { Label } from '@atlaskit/form/label/default';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorPeopleIcon from '@atlaskit/icon/core/people-group';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 import ButtonItem from '@atlaskit/menu/button-item';
 import HeadingItem from '@atlaskit/menu/heading-item';
 import MenuGroup from '@atlaskit/menu/menu-group';

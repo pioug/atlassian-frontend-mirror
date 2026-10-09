@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "149.0.1",
+	"version": "149.0.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -149,6 +149,10 @@
 		"worker-plugin": "root:*"
 	},
 	"platform-feature-flags": {
+		"confluence_forge_early_render_reserve_height": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_a11y_codeblock_haspopup": {
 			"type": "boolean"
 		},

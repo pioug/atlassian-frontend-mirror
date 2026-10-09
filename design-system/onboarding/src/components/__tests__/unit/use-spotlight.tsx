@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { SpotlightContext } from '../../spotlight-manager';
 import useSpotlight from '../../use-spotlight';

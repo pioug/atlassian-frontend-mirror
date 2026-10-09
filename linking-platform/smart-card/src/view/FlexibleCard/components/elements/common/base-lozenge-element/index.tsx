@@ -12,6 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/tag/simple';
 import { token } from '@atlaskit/tokens';
 
+import { ElementName } from '../../../../../../constants';
 import type { LinkLozengeInvokeActions } from '../../../../../../extractors/common/lozenge/types';
 import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 import type { ElementProps } from '../../../elements';
@@ -90,6 +91,11 @@ const BaseLozengeElement = ({
 			testId={testId}
 			text={text}
 			zIndex={ui?.zIndex}
+			shouldRenderToParent={
+				fg('billplat_jira_list_dropdown_top_layer') &&
+				name === ElementName.State &&
+				Boolean(ui?.shouldRenderStatusToParent)
+			}
 			onAfterChanged={onAfterChanged}
 			{...(trailingMetric && fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 				? { trailingMetric }

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { type ChangeParams, handleOnChange } from '../../utils';
 import CustomLabel from './custom-label';

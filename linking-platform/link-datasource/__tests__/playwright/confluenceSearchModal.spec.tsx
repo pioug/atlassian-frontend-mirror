@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 
 import { expect, test } from '@af/integration-testing';
-import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11y } from '@atlassian/a11y-playwright-testing/skip-decorator';
 const sitePickerSelector =
 	'[data-testid="confluence-search-datasource-modal--site-selector__control"]';
 

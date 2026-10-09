@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { JiraIcon } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { AppLogo, CustomTitle } from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
+import { CustomTitle } from '@atlaskit/navigation-system/top-nav-items/custom-title';
 
 import { MockTopBar } from '../common/mock-top-bar';
 

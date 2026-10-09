@@ -6,7 +6,7 @@ import { Fragment, type ReactNode, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 const toggleStyles = css({

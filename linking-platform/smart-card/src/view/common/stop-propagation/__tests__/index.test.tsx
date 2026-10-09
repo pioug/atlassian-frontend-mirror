@@ -1,8 +1,10 @@
 import React from 'react';
 
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { StopPropagation } from '../index';
 

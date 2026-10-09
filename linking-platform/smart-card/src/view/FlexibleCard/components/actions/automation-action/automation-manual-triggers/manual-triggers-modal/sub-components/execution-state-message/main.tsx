@@ -5,7 +5,7 @@
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 

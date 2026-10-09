@@ -9,7 +9,7 @@ import { css } from '@compiled/react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { useBreadcrumbsSize } from './internal/use-breadcrumbs-size';

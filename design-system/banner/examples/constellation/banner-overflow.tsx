@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { Box } from '@atlaskit/primitives/compiled/box';
 

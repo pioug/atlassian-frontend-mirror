@@ -1,6 +1,6 @@
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
-import type { EmojiDescriptionWithVariations } from '@atlaskit/emoji';
+import type { EmojiDescriptionWithVariations } from '@atlaskit/emoji/types';
 import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 
 import { getSiteEmojiData } from './get-site-emoji-data';

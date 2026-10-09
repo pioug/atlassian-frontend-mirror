@@ -20,7 +20,9 @@ import { Panel } from '@atlaskit/navigation-system/layout/panel';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';

@@ -2,15 +2,17 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Grid } from '@atlaskit/primitives';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/grid';
 
 import { AgentAvatar } from '../src/ui/agent-avatar';
 
 export default function (): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- the rule does not yet recognise @atlaskit/primitives subpath entry points */}
 			<Box padding="space.300" backgroundColor="color.background.accent.gray.subtlest.pressed">
 				<Grid templateColumns="1fr 1fr" gap="space.200">
 					{[

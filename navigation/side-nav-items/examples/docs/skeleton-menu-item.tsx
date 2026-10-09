@@ -5,7 +5,8 @@
 import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { SkeletonMenuItem } from '@atlaskit/side-nav-items/skeleton';
 import { token } from '@atlaskit/tokens';
 

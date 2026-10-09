@@ -1,7 +1,7 @@
 import React, { type FC, type ReactNode } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const avatarSectionStyles = cssMap({
 	root: {

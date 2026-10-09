@@ -8,7 +8,8 @@ import React from 'react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { jsx } from '@atlaskit/css';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization/getCachedProviderPctMapAndRefresh';

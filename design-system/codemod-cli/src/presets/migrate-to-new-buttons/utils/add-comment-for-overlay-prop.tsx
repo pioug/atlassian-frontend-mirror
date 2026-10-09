@@ -1,6 +1,6 @@
 import type { API, Collection, JSXElement } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 import { overlayPropComment } from './constants';
 

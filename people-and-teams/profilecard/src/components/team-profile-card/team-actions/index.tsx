@@ -2,7 +2,8 @@ import React, { Suspense, useCallback, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { type Flag, GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
+import { type Flag, KudosType } from '@atlaskit/give-kudos/types';
 import ButtonItem from '@atlaskit/menu/button-item';
 
 import { extractIdFromAri } from '../../../client/extractIdFromAri';

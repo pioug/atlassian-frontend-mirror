@@ -6,7 +6,9 @@
 import { useCallback } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import type { TriggerProps } from '@atlaskit/tooltip/types';

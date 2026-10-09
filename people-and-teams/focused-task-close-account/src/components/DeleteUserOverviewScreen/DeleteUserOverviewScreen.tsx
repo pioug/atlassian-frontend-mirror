@@ -5,7 +5,7 @@ import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 import Button from '@atlaskit/button/button';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 
 import { commonMessages, overviewMessages } from '../../messages';

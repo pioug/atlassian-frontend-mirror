@@ -11,7 +11,7 @@ import { css, jsx } from '@compiled/react';
 import type { CustomThemeButtonProps } from '@atlaskit/button/custom-theme-button-types';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { actionTextColor } from './action-text-color';

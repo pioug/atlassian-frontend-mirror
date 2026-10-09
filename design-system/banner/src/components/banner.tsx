@@ -5,7 +5,9 @@
 import React, { type CSSProperties, forwardRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { type BackgroundColor, Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import type { BackgroundColorToken as BackgroundColor } from '@atlaskit/primitives/compiled/utils/types';
 import { token } from '@atlaskit/tokens';
 
 const CSS_VAR_TEXT_COLOR = '--banner-text-color';

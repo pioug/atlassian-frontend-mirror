@@ -1,5 +1,5 @@
-import { utils } from '@atlaskit/util-service-support';
-import type { ServiceConfig } from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support/constants';
+import type { ServiceConfig } from '@atlaskit/util-service-support/types';
 
 import type { Document, BatchDocumentResponse } from '../model';
 import type { Provider } from './provider';

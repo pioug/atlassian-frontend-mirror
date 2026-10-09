@@ -1,6 +1,7 @@
 import React, { forwardRef, type Ref } from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import RouterLinkProvider, { type RouterLinkComponentProps } from '../../src/router-link-provider';
 import { useRouterLink } from '../../src/router-link-provider/hooks/use-router-link';

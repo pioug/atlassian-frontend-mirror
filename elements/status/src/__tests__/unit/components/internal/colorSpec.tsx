@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, screen } from '@testing-library/react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { ANALYTICS_HOVER_DELAY } from '../../../../components/constants';
 import Color from '../../../../components/internal/color';

@@ -1,3 +1,5 @@
+import { searchTokensTool } from '@atlaskit/ads-mcp/tools/search-tokens';
+
 import { formatComponent } from '../output/format-component';
 import { formatDisambiguation } from '../output/format-disambiguation';
 import { formatDocObject } from '../output/format-doc-object';
@@ -206,6 +208,48 @@ describe('formatLintRules', () => {
 });
 
 describe('formatToken', () => {
+	it.each([
+		'color.background.selected',
+		'color.background.selected.hovered',
+		'color.background.selected.pressed',
+		'color.background.selected.bold',
+		'color.background.selected.bold.hovered',
+		'color.background.selected.bold.pressed',
+		'color.blanket.selected',
+		'color.border.selected',
+		'color.border.focused',
+		'color.text.selected',
+		'color.icon.selected',
+		'border.width.selected',
+		'border.width.focused',
+	])('renders the canonical MCP description for %s', async (name) => {
+		const result = await searchTokensTool({ terms: [name], limit: 1, includeMetadata: true });
+		const token = JSON.parse(result.content[0].text as string)[0];
+		const out = formatToken(token);
+
+		expect(token.name).toBe(name);
+		expect(token.description).toEqual(expect.any(String));
+		expect(out).toContain(`Guidelines:\n  ${token.description}`);
+	});
+
+	it('uses the unchanged per-token description instead of shared category guidance', () => {
+		const description = 'Use for selected borders.\nPreserve this token-specific guidance.';
+		const out = formatToken({
+			name: 'color.border.selected',
+			description,
+			usageGuidelines: {
+				usage: 'Generic border guidance mentioning color.border.focused.',
+				cssProperties: ['border-color', 'outline-color'],
+			},
+		});
+
+		expect(out).toContain(`Guidelines:\n  ${description}`);
+		expect(out).not.toContain('Generic border guidance');
+		expect(out).not.toContain('color.border.focused');
+		expect(out).toContain('border-color');
+		expect(out).toContain('outline-color');
+	});
+
 	it('renders name, example value, and a token(...) usage line', () => {
 		const out = formatToken([
 			{

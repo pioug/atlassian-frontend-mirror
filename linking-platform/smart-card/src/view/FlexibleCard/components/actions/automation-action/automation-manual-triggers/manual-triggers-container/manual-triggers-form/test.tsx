@@ -2,8 +2,9 @@ import React from 'react';
 
 import { act } from 'react-dom/test-utils';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { fireEvent, screen } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { mockTransformedRules } from '../common/mocks';
 import { renderWithDi } from '../common/test-utils/render-with-di';

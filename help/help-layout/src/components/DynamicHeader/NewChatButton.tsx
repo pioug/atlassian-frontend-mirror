@@ -9,7 +9,7 @@ import { useIntl } from 'react-intl';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Button from '@atlaskit/button/default/button';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 import { messages } from '../../messages';
 

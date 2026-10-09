@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { renderWithDi, screen } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { renderWithDi } from '@atlassian/testing-library/render-with-di';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { componentWithFG } from './index';
 

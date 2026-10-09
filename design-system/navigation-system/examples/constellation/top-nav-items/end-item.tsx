@@ -1,8 +1,8 @@
 import React from 'react';
 
 import AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';
-import { EndItem } from '@atlaskit/navigation-system';
 import { TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
+import { EndItem } from '@atlaskit/navigation-system/top-nav-items';
 
 import { MockTopBar } from '../common/mock-top-bar';
 

@@ -13,7 +13,7 @@ import Calendar from '@atlaskit/calendar/calendar';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
-import InlineMessage from '@atlaskit/inline-message';
+import InlineMessage from '@atlaskit/inline-message/inline-message';
 import Link from '@atlaskit/link/link';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
@@ -23,7 +23,7 @@ import Radio from '@atlaskit/radio/radio';
 import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import type { ThemeOptionsSchema } from '@atlaskit/tokens/theme-config';
+import type { ThemeOptionsSchema } from '@atlaskit/tokens/theme-options-schema';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { generateColors } from '../src/utils/generate-colors';

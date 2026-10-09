@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { JiraProductDiscoveryIcon, JiraProductDiscoveryLogo } from '@atlaskit/logo';
+import { JiraProductDiscoveryIcon } from '@atlaskit/logo/jira-product-discovery/icon';
+import { JiraProductDiscoveryLogoCS as JiraProductDiscoveryLogo } from '@atlaskit/logo/jira-product-discovery/logo';
 
 import LogoTable from '../utils/logo-table';
 

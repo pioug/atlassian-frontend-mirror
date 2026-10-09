@@ -200,7 +200,8 @@ function Component({
 			const openInNewTab = resolveNavigation
 				? event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1
 				: isSpecialEvent(event);
-			const target = openInNewTab ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
+			const isInIframe = fg('platform_sl_click_inside_iframe') && window.top !== window;
+			const target = openInNewTab || isInIframe ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
 
 			onClick?.(event, { url, destinationUrl });
 

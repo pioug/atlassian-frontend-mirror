@@ -1,5 +1,7 @@
+import { screen } from '@atlassian/testing-library/screen';
+import { act, waitForElementToBeRemoved } from '@atlassian/testing-library/testing-library/react';
 // oxlint-disable-next-line @typescript-eslint/consistent-type-imports -- userEvent only used in typeof userEvent.setup for param typing
-import { act, screen, userEvent, waitForElementToBeRemoved } from '@atlassian/testing-library';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 /**
  * This function checks for an exact string match across all children elements.

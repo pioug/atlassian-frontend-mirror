@@ -37,6 +37,7 @@ const SyncBlockRendererWrapperComponent = ({
 	localId,
 	api,
 }: Props): React.JSX.Element => {
+	const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
 	const syncBlockFetchResult = useFetchSyncBlockData(
 		syncBlockStore,
 		resourceId,
@@ -47,7 +48,9 @@ const SyncBlockRendererWrapperComponent = ({
 
 	const contentUpdatedAt = syncBlockFetchResult?.syncBlockInstance?.data?.contentUpdatedAt;
 	const isUnpublishedBlock = syncBlockFetchResult.syncBlockInstance?.data?.status === 'unpublished';
-	const localSameDocumentSource = syncBlockFetchResult.syncBlockInstance?.localSameDocumentSource;
+	const localSameDocumentSource = isSamePageSyncEnabled
+		? syncBlockFetchResult.syncBlockInstance?.localSameDocumentSource
+		: undefined;
 	const localSourceBlockInstanceId = localSameDocumentSource?.sourceBlockInstanceId;
 	const [localSourceInfo, setLocalSourceInfo] = useState<SyncBlockSourceInfo>();
 	useEffect(() => {

@@ -3,7 +3,8 @@ import React from 'react';
 import { cx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { components } from '@atlaskit/react-select/components';
 import type { MenuListComponentProps } from '@atlaskit/select/types';
 import Spinner from '@atlaskit/spinner/spinner';

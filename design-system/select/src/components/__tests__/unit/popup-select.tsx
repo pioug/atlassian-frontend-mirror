@@ -2,8 +2,11 @@
 
 import React from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
-import { fireEvent, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { PopupSelect } from '../../../popup-select/popup-select';
 import { type OptionsType } from '../../../types';

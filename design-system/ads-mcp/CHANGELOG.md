@@ -1,5 +1,18 @@
 # @atlaskit/ads-mcp
 
+## 1.11.0
+
+### Minor Changes
+
+- [`9b565c62c7a8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b565c62c7a8d) -
+  Return the canonical per-token description from the tokens package in detailed token searches and
+  CLI JSON output. Show that description as the CLI's token guidance instead of generic category
+  guidance, while retaining CSS property hints and compact search results.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.12
 
 ### Patch Changes

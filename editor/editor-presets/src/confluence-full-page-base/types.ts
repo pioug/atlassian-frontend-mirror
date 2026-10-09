@@ -107,7 +107,7 @@ import type { UnsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupport
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import type { AgentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension';

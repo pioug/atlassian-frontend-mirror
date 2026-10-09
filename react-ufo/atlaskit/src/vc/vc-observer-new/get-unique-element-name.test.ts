@@ -1,4 +1,4 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import getElementName, { type SelectorConfig } from './get-unique-element-name'; // Adjust the import path as necessary
 

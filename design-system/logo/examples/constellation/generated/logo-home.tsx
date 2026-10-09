@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { HomeIcon, HomeLogo } from '@atlaskit/logo';
+import { HomeIcon } from '@atlaskit/logo/home/icon';
+import { HomeLogoCS as HomeLogo } from '@atlaskit/logo/home/logo';
 
 import LogoTable from '../utils/logo-table';
 

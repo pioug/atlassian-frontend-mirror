@@ -1,6 +1,6 @@
 import React, { type FC, type ReactNode, useState } from 'react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import Button from '@atlaskit/button/default/button';
 import Code from '@atlaskit/code/code';
 import { cssMap } from '@atlaskit/css';

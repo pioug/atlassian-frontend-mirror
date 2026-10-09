@@ -1,9 +1,10 @@
-import { type UploadingEmojiProvider, type EmojiRepository } from '@atlaskit/emoji/resource';
-import {
-	type EmojiDescription,
-	type EmojiId,
-	type EmojiUpload,
-	type OptionalEmojiDescriptionWithVariations,
+import type EmojiRepository from '@atlaskit/emoji/emoji-repository';
+import type {
+	EmojiDescription,
+	EmojiId,
+	EmojiUpload,
+	OptionalEmojiDescriptionWithVariations,
+	UploadingEmojiProvider,
 } from '@atlaskit/emoji/types';
 
 import { emojiFromUpload } from './emoji-from-upload';

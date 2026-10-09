@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import DynamicTableStateless from '@atlaskit/dynamic-table/stateless';
 import { type SortOrderType } from '@atlaskit/dynamic-table/types';
 
 import { caption, visuallyRefreshedHead, visuallyRefreshedRows } from './content/sample-data';

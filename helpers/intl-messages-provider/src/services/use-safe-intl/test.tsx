@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { DEFAULT_LOCALE_STATE } from '../../common/constants';
 import { useSafeIntl } from './index';

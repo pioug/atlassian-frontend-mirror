@@ -27,7 +27,7 @@ import {
 import { getRowDeleteButtonParams, getRowHeights } from '../../pm-plugins/utils/row-controls';
 import type { PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-import { stickyRowZIndex } from '../consts';
+import { getTableZIndexes } from '../sticky-header-z-index';
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
 import type { CellSelectionType } from './types';
@@ -343,7 +343,7 @@ class FloatingDeleteButton extends Component<Props, State> {
 							// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 							top: pos.top,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							zIndex: stickyRowZIndex,
+							zIndex: getTableZIndexes().mask,
 							// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 							left:
 								rect.left +

@@ -6,7 +6,8 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

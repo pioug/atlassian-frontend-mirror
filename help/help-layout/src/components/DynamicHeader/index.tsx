@@ -8,7 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 import IconButton from '@atlaskit/button/icon/button';
 import Heading from '@atlaskit/heading/heading';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
-import { Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { type HeaderContent } from '../../model/HelpLayout';

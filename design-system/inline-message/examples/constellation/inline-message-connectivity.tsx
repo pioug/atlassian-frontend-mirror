@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InlineMessage from '@atlaskit/inline-message';
+import InlineMessage from '@atlaskit/inline-message/inline-message';
 import Link from '@atlaskit/link/link';
 import { Text } from '@atlaskit/primitives/compiled/text';
 

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-mentions
 
+## 28.1.0
+
+### Minor Changes
+
+- [`e07a1b5505804`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e07a1b5505804) -
+  [ux] Add experiment-gated support for rendering agent mention avatars as hexagons in React
+  mentions and editable editor mention node views.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.2
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import React from 'react';
 import { act, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import ProfileClient from '../../client/ProfileCardClient';
 import ProfileCardResourced from '../../components/User/ProfileCardResourced';

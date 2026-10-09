@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider, type MessageDescriptor } from 'react-intl';
 
 import { useTeamContainers } from '@atlaskit/teams-public/use-team-containers/use-team-containers';
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { TeamProfileCard, type TeamProfileCardProps } from './main';
 import { mockProfileData } from './mocks';

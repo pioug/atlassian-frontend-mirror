@@ -10,7 +10,9 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';

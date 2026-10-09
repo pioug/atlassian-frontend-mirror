@@ -41,7 +41,7 @@ const getDeclaration = (symbol: Symbol) => {
 /**
  * @param {Symbol} componentSymbol is the component symbol declared in
  *     the component index file. e.g.
- *     export type { SimpleTagProps as TagProps } from './tag/__generated__/index.partial';
+ *     export type { RemovableTagProps as TagProps } from './tag/__generated__/index.partial';
  * @param {SourceFile} sourceFile is the source file of the component prop symbol
  *     that was extracted from the component index file.
  * @return {Symbol} the base component symbol that is defined in the source file.
@@ -664,7 +664,7 @@ const componentPathMap: Record<string, string | false> = {
 	TabsList: 'tabs',
 	TabPanel: 'tabs',
 	Tab: 'tabs',
-	SimpleTag: 'tag',
+	RemovableTag: 'tag',
 	Grid: false,
 	Bleed: false,
 };

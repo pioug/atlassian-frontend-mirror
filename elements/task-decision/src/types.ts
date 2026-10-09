@@ -1,4 +1,4 @@
-import { type ServiceConfig } from '@atlaskit/util-service-support';
+import type { ServiceConfig } from '@atlaskit/util-service-support/types';
 
 export type DecisionState = 'DECIDED';
 export type DecisionStatus = 'CREATED';

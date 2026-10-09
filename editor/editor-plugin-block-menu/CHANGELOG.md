@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 25.1.0
+
+### Minor Changes
+
+- [`a4adb021ec6f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4adb021ec6f2) -
+  Add `enableCopyLinkToSelection` block menu option (default `false`) so the "Copy link" item and
+  its keyboard shortcut are opt-in per editor preset, and enable it for Confluence presets. The
+  option is only respected behind the `platform_editor_block_menu_copy_link_opt_in` feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

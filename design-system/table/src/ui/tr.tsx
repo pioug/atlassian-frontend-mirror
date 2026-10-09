@@ -5,7 +5,7 @@
 import type { FC, ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Focusable } from '@atlaskit/primitives/compiled';
+import { Focusable } from '@atlaskit/primitives/compiled/focusable';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

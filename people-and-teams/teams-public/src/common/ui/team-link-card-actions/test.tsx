@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { type ContainerTypes } from '../../types';
 import { TeamLinkCardActions } from './index';

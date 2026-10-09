@@ -7,7 +7,9 @@ import { type ChangeEvent, useState } from 'react';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 type Checkboxes = Record<string, boolean>;
 

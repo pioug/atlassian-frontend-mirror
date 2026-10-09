@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import StarIcon from '@atlaskit/icon/core/star-unstarred';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 

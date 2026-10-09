@@ -1,10 +1,12 @@
 import React from 'react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link/link';
-import Page, { Grid, GridColumn } from '@atlaskit/page';
+import Grid from '@atlaskit/page/grid';
+import { GridColumn } from '@atlaskit/page/grid-column';
+import Page from '@atlaskit/page/page';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 

@@ -4,7 +4,9 @@ import { IntlProvider } from 'react-intl';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { AgentDropdownMenu } from './AgentDropdownMenu';
 

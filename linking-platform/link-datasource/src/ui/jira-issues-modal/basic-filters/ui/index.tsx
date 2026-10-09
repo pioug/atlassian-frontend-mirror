@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';

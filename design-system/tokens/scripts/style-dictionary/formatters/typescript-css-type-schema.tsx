@@ -1,7 +1,7 @@
 import type { Format, TransformedToken } from 'style-dictionary';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { getCSSCustomProperty } from '../../../src/utils/get-css-custom-property';
 

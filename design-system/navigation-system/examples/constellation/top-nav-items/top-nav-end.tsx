@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Badge from '@atlaskit/badge/badge';
-import { Help } from '@atlaskit/navigation-system';
 import { TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';
-import { Notifications, Settings } from '@atlaskit/navigation-system/top-nav-items';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 
 import { MockTopBar } from '../common/mock-top-bar';
 

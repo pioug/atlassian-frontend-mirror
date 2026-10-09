@@ -1,6 +1,6 @@
 import { type ComponentType } from 'react';
 
-import type { GridProps } from '@atlaskit/primitives/compiled';
+import type { GridProps } from '@atlaskit/primitives/compiled/grid';
 
 import { type TeamContainersSkeletonProps } from '../../common/ui/team-containers-skeleton';
 import type { AddContainerCardProps } from './add-container-card/AddContainerCard';

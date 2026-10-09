@@ -53,12 +53,24 @@ jest.mock('@atlaskit/icon/icon-tile', () =>
 	)),
 );
 
-jest.mock('@atlaskit/logo', () => {
+jest.mock('@atlaskit/icon/icon-tile', () =>
+	jest.fn(({ appearance }: { appearance: string }) => (
+		<span data-testid="icon-tile" data-appearance={appearance} />
+	)),
+);
+
+jest.mock('@atlaskit/logo/confluence-icon', () => {
 	mockConfluenceIcon = jest.fn(({ testId }: { testId?: string }) => <span data-testid={testId} />);
-	mockJiraIcon = jest.fn(({ testId }: { testId?: string }) => <span data-testid={testId} />);
 
 	return {
+		...jest.requireActual('@atlaskit/logo/confluence-icon'),
 		ConfluenceIcon: mockConfluenceIcon,
+	};
+});
+jest.mock('@atlaskit/logo/jira-icon', () => {
+	mockJiraIcon = jest.fn(({ testId }: { testId?: string }) => <span data-testid={testId} />);
+	return {
+		...jest.requireActual('@atlaskit/logo/jira-icon'),
 		JiraIcon: mockJiraIcon,
 	};
 });

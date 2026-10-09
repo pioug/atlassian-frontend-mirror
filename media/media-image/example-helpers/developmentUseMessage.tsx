@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import InlineMessage from '@atlaskit/inline-message';
+import InlineMessage from '@atlaskit/inline-message/inline-message';
 
 const DevelopmentUseMessage: React.FC = () => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

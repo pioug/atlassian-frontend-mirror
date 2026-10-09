@@ -2,7 +2,8 @@ import React from 'react';
 
 import cases from 'jest-in-case';
 
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import AvatarImage from '../../internal/avatar-image';
 import { type SizeType } from '../../types';

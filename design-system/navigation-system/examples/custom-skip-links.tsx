@@ -13,7 +13,7 @@ import Heading from '@atlaskit/heading/heading';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';
@@ -29,16 +29,12 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Notifications,
-	Profile,
-	Search,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';

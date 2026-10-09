@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
-import Comment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
+import { CommentAction } from '@atlaskit/comment/action-item';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import Comment from '@atlaskit/comment/comment';
+import { CommentTime } from '@atlaskit/comment/time';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';

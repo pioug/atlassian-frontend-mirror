@@ -5,7 +5,7 @@ import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-
 import { waitFor } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import {
 	COLOR_MODE_ATTRIBUTE,

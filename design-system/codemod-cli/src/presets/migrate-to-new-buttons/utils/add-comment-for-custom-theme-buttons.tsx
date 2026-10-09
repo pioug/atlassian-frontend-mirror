@@ -1,6 +1,6 @@
 import type { API, Collection } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 import { addCommentForOverlayProp } from './add-comment-for-overlay-prop';
 import { customThemeButtonComment } from './constants';

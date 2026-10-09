@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ConfluenceIcon } from '@atlaskit/logo';
-import { AppLogo, TopNavStart } from '@atlaskit/navigation-system';
-import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { TopNav, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { parseHex } from '@atlaskit/navigation-system/theming/color-utils/parse-hex';
+import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
 
 import { MockRoot } from '../../utils/mock-root';
 

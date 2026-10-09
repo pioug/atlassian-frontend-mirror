@@ -7,7 +7,9 @@
  * See `notes/decisions/anchored-popover-at-point.md` for why this is a sibling
  * hook instead of an anchor union inside `useAnchoredPopover`.
  */
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { type TAnchoredPopoverOptions, useAnchoredPopover } from './use-anchored-popover';
 

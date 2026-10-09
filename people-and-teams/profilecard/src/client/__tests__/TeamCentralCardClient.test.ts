@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
+import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-linter';
 
 import { buildReportingLinesQuery } from '../buildReportingLinesQuery';
 import { directoryGraphqlQuery } from '../directoryGraphqlQuery';

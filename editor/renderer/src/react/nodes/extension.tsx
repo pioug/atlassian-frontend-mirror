@@ -201,6 +201,11 @@ export const renderExtension = (
 	 */
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
 	const extensionHeight = nodeHeight || viewportSize;
+	// Forge manifest heights already include px; Connect node heights are numeric strings.
+	const extensionMinHeight =
+		extensionHeight?.endsWith('px') && fg('confluence_forge_early_render_reserve_height')
+			? extensionHeight
+			: extensionHeight && `${extensionHeight}px`;
 	/**
 	 * Scoped to nodes inserted by an app declaring `layout: inline-bodied`, which is what writes
 	 * `atlassianForgeInlineBodied`. The output-type marker alone would also match migrated Connect
@@ -284,7 +289,7 @@ export const renderExtension = (
 							? undefined
 							: '100%',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
+				minHeight: isInline ? undefined : extensionMinHeight,
 			}}
 			data-layout={layout}
 			data-local-id={localId}

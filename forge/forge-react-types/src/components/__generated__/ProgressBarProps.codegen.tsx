@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformProgressBar from '@atlaskit/progress-bar';
+import PlatformProgressBar from '@atlaskit/progress-bar/progress-bar';
 
 type PlatformProgressBarProps = React.ComponentProps<typeof PlatformProgressBar>;
 

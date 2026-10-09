@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { selectField } from '@atlassian/teams-app-internal-playground/fields';
-import {
-	Playground,
-	type PlaygroundConfig,
-} from '@atlassian/teams-app-internal-playground/playground';
+import { Playground } from '@atlassian/teams-app-internal-playground/playground';
+import type { Config as PlaygroundConfig } from '@atlassian/teams-app-internal-playground/types';
 
 import ConfluenceIcon from '../src/common/assets/ConfluenceIcon.svg';
 import JiraIcon from '../src/common/assets/JiraIcon.svg';

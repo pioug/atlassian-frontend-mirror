@@ -1,4 +1,4 @@
-import { EmojiRepository } from '@atlaskit/emoji/resource';
+import EmojiRepository from '@atlaskit/emoji/emoji-repository';
 
 import { getEmojis } from './get-emojis';
 

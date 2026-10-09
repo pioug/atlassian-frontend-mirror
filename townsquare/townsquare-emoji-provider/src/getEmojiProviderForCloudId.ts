@@ -1,7 +1,5 @@
-import EmojiResource, {
-	type EmojiProvider,
-	type EmojiResourceConfig,
-} from '@atlaskit/emoji/emoji-resource';
+import EmojiResource, { type EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 
 import { resources } from './resources';
 import { withSelectedToneEmitter } from './withSelectedToneEmitter';

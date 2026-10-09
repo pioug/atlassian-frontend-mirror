@@ -6,7 +6,13 @@
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { Content, LeftSidebar, Main, PageLayout } from '@atlaskit/page-layout';
+import { Content } from '@atlaskit/page-layout/content';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { LeftSidebar } from '@atlaskit/page-layout/left-sidebar';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Main } from '@atlaskit/page-layout/main';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PageLayout } from '@atlaskit/page-layout/page-layout';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Header } from '@atlaskit/side-navigation/header';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';

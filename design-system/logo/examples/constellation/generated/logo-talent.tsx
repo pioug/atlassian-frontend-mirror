@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { TalentIcon, TalentLogo } from '@atlaskit/logo';
+import { TalentIcon } from '@atlaskit/logo/talent/icon';
+import { TalentLogoCS as TalentLogo } from '@atlaskit/logo/talent/logo';
 
 import LogoTable from '../utils/logo-table';
 

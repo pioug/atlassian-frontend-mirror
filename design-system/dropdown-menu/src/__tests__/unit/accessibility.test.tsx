@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import DropdownItemCheckbox from '../../checkbox/dropdown-item-checkbox';

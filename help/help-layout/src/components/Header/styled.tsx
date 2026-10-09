@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { type TransitionStatus } from '../constants';

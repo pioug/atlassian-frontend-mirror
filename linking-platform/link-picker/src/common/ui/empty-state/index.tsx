@@ -4,7 +4,8 @@
  */
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

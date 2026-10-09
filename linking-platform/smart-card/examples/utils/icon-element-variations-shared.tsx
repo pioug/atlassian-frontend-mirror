@@ -6,7 +6,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

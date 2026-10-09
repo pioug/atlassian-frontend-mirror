@@ -4,6 +4,7 @@ import { getParameters } from '../utils/utils';
 export const NATIVE_EMBED_INITIAL_LAYOUT_FALLBACK_ASPECT_RATIO = '760 / 600';
 
 export type NativeEmbedInitialLayoutManifest = {
+	id?: string;
 	lockResizeAspectRatio?: boolean | (() => boolean);
 	parameterDefaults?: {
 		height?: number;
@@ -29,6 +30,14 @@ export type ResolveNativeEmbedInitialLayoutInput = {
 	placeholderId?: string;
 };
 
+export const resolveNativeEmbedEffectiveWidth = ({
+	manifest,
+	width,
+}: {
+	manifest?: NativeEmbedInitialLayoutManifest;
+	width?: number;
+}): number | undefined => width ?? manifest?.parameterDefaults?.width;
+
 /**
  * Resolve the dimensions needed to reserve native embed layout before the full iframe UI is ready.
  *
@@ -41,7 +50,7 @@ export const resolveNativeEmbedInitialLayout = ({
 	placeholderId,
 }: ResolveNativeEmbedInitialLayoutInput): NativeEmbedInitialLayout => {
 	const { alignment, aspectRatio, height, width } = getParameters(parameters);
-	const effectiveWidth = width ?? manifest?.parameterDefaults?.width;
+	const effectiveWidth = resolveNativeEmbedEffectiveWidth({ manifest, width });
 
 	// `getParameters` always supplies default values, so inspect raw macroParams to distinguish
 	// stored dimensions from package defaults. This prevents the default aspectRatio from affecting

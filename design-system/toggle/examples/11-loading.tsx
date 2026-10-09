@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import { Label } from '@atlaskit/form/label/default';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 const LoadingExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(false);

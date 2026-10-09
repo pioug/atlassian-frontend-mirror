@@ -3,8 +3,8 @@ import React from 'react';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { bind } from 'bind-event-listener';
 
-import { Box } from '@atlaskit/primitives/compiled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';

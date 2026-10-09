@@ -7,7 +7,7 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import Button from '@atlaskit/button/button';
 import Heading from '@atlaskit/heading/heading';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import SomethingWrongImage from '../../../assets/SomethingWrongImage';
 import { messages } from '../../../messages';

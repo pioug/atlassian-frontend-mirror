@@ -1,4 +1,4 @@
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../../utils/mocks';
 import { useSmartCardState } from '../../../store';

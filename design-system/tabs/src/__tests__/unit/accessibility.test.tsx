@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import CustomTabs from '../../../examples/constellation/tab-custom';

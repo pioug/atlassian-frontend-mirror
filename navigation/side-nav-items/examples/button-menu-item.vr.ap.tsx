@@ -18,8 +18,10 @@ import Lozenge from '@atlaskit/lozenge/lozenge';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
-import { ButtonMenuItem, COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/button-menu-item';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
+import { COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';
 

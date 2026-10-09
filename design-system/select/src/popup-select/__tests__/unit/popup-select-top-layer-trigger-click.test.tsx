@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { type OptionsType } from '../../../types';
 import { PopupSelect } from '../../popup-select';

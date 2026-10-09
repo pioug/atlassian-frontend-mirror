@@ -11,7 +11,10 @@ import { graphql, usePaginationFragment } from 'react-relay';
 import { jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import Select from '@atlaskit/select/default';
 

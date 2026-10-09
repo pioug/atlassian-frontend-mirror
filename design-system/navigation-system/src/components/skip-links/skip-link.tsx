@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Anchor } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
 import type { SkipLinkData } from '../../context/skip-links/types';

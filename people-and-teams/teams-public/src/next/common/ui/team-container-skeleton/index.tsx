@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Grid, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CompassIcon, CompassLogo } from '@atlaskit/logo';
+import { CompassIcon } from '@atlaskit/logo/compass/icon';
+import { CompassLogoCS as CompassLogo } from '@atlaskit/logo/compass/logo';
 
 import LogoTable from '../utils/logo-table';
 

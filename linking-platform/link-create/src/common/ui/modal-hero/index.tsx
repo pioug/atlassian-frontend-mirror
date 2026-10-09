@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { ErrorBoundary } from '../../../common/ui/error-boundary';
 

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 2.10.5
+
+### Patch Changes
+
+- [`e46d6779917f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e46d6779917f7) -
+  Adds new optional properties to UI Kit Tag Component: 'isRemovable' | 'removeButtonLabel' |
+  'onAfterRemoveAction' | 'onBeforeRemoveAction'
+
 ## 2.10.4
 
 ### Patch Changes

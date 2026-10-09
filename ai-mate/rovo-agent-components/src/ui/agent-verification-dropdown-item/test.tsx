@@ -5,7 +5,9 @@ import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay
 import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
-import { act, render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import type { testAgentVerificationDropdownItemQuery } from './__generated__/testAgentVerificationDropdownItemQuery.graphql';
 import { AgentVerificationDropdownItem } from './index';

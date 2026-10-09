@@ -32,7 +32,7 @@ import {
 import { ActionOperationStatus } from '@atlaskit/linking-types/datasource-actions';
 import type { Input } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';

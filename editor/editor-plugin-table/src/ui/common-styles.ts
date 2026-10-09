@@ -20,7 +20,6 @@ import {
 	akEditorSelectedNodeClassName,
 	akEditorSmallZIndex,
 	akEditorStickyHeaderZIndex,
-	akEditorTableCellOnStickyHeaderZIndex,
 	akEditorTableNumberColumnWidth,
 	akEditorTableToolbarSize,
 	akEditorUnitZIndex,
@@ -41,18 +40,13 @@ import { token } from '@atlaskit/tokens';
 import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
 import { TableCssClassName as ClassName } from '../types';
 import {
-	aboveNativeStickyHeaderZIndex,
-	belowNativeStickyHeaderZIndex,
 	columnControlsDecorationHeight,
 	dragRowControlsWidth,
-	nativeStickyHeaderZIndex,
 	resizeHandlerAreaWidth,
-	resizeHandlerZIndex,
 	resizeLineWidth,
 	rowControlsZIndex,
 	stickyHeaderBorderBottomWidth,
 	stickyRowOffsetTop,
-	stickyRowZIndex,
 	tableBorderColor,
 	tableBorderDeleteColor,
 	tableBorderRadiusSize,
@@ -73,6 +67,7 @@ import {
 	tableToolbarSize,
 } from './consts';
 import { roundedTableOverrides } from './rounded-table-styles';
+import { getTableZIndexes } from './sticky-header-z-index';
 import {
 	columnControlsDecoration,
 	columnControlsLineMarker,
@@ -342,6 +337,12 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 
+	${isExperimentEnabled('platform_editor_sticky_headers_zindex')
+		? `.${ClassName.TABLE_CONTAINER} {
+			--ak-editor-table-resize-handle-z-index: ${getTableZIndexes().resizeHandle};
+		}`
+		: ''}
+
 	${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
 		? `
 		.ak-editor-panel:not([data-panel-type="custom"]) .${ClassName.TABLE_CONTAINER} {
@@ -494,7 +495,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		display: grid;
 
 		/* to keep it above cell selection but below date and other nodes popups that are inside sticky header */
-		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 5};
+		z-index: ${getTableZIndexes().header};
 
 		overflow-y: visible;
 		overflow-x: hidden;
@@ -610,14 +611,14 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		top: ${tableMarginTop}px;
 		z-index: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? akEditorSmallZIndex
-			: `calc(${akEditorTableCellOnStickyHeaderZIndex} - 5)`};
+			: `calc(${getTableZIndexes().header})`};
 		box-shadow:
 			inset -1px 1px ${tableBorderColor},
 			inset 1px -1px ${tableBorderColor};
 
 		&.${ClassName.NATIVE_STICKY_ACTIVE} {
 			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? `z-index: ${nativeStickyHeaderZIndex};`
+				? `z-index: ${getTableZIndexes().header};`
 				: ''}
 			box-shadow:
 				inset -1px 1px ${tableBorderColor},
@@ -651,7 +652,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		margin-bottom: -${tableMarginTop}px;
 		position: sticky;
 		border-top: ${tableMarginTop}px solid transparent;
-		z-index: ${stickyRowZIndex};
+		z-index: ${getTableZIndexes().mask};
 	}
 
 	.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY_ACTIVE})::before {
@@ -689,7 +690,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		> div
 		> .${ClassName.DRAG_ROW_CONTROLS} {
 		top: ${tableColumnControlsHeight}px;
-		z-index: ${aboveNativeStickyHeaderZIndex};
+		z-index: ${getTableZIndexes().aboveHeader};
 	}
 
 	.${ClassName.TABLE_CONTAINER}:has(> .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
@@ -701,7 +702,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 		> div
 		> .${ClassName.DRAG_ROW_CONTROLS} {
-		z-index: ${belowNativeStickyHeaderZIndex};
+		z-index: ${getTableZIndexes().belowHeader};
 	}
 
 	/** Corrects position of numbered column when sticky header top mask is present */
@@ -960,7 +961,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			height: ${tableColumnControlsHeight}px;
 			position: absolute;
 			top: ${token('space.negative.150')};
-			z-index: ${resizeHandlerZIndex};
+			z-index: ${getTableZIndexes().resizeHandle};
 		}
 
 		.${ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER} {
@@ -1287,7 +1288,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				left: -1px;
 				top: -1px;
 				bottom: 0;
-				z-index: ${akEditorUnitZIndex * 100};
+				z-index: ${getTableZIndexes().dangerOverlay};
 				display: inline-block;
 				pointer-events: none;
 				background: ${tableCellDeleteColor};
@@ -1312,13 +1313,13 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			}
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				${tableBorderStyles()};
-				z-index: ${akEditorUnitZIndex * 100};
+				z-index: ${getTableZIndexes().dangerOverlay};
 				background: ${tableCellDeleteColor};
 			}
 
 			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				${tableBorderStyles()};
-				z-index: ${akEditorUnitZIndex * 100};
+				z-index: ${getTableZIndexes().dangerOverlay};
 				background: ${tableCellDeleteColor};
 			}
 		}
@@ -1371,7 +1372,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position: fixed;
 		position-area: top center;
 		position-visibility: anchors-visible;
-		z-index: ${nativeStickyHeaderZIndex + 1};
+		z-index: ${getTableZIndexes().aboveHeader};
 		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? isExperimentEnabled('platform_editor_table_q4_patch_8')
 				? `
@@ -1401,7 +1402,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
 			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
 			: token('elevation.surface')};
-		z-index: ${nativeStickyHeaderZIndex - 1};
+		z-index: ${getTableZIndexes().belowHeader};
 	}
 
 	/** Mask for numbered column content to the left of the header row */
@@ -1499,8 +1500,8 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 	.${ClassName.TABLE_STICKY} .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		position: fixed;
-		/* higher zIndex than sticky header which is akEditorTableCellOnStickyHeaderZIndex - 5 */
-		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
+		/* Keep column controls above the sticky header in both experiment cohorts. */
+		z-index: ${getTableZIndexes().aboveHeader};
 	}
 
 	${expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')

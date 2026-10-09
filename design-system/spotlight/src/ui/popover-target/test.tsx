@@ -2,8 +2,8 @@
 
 import React, { useContext, useLayoutEffect } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { render, waitFor } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightContext } from '../../controllers/context';
 import { PopoverProvider } from '../popover-provider';

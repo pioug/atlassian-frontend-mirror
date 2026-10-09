@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
+import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 
 const TestIcon = <AtlassianIcon label="" size="small" />;

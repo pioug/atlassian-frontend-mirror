@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProgressTracker } from '@atlaskit/progress-tracker';
+import ProgressTracker from '@atlaskit/progress-tracker/progress-tracker';
 
 const Example = (): React.JSX.Element => (
 	<ProgressTracker

@@ -5,7 +5,6 @@ import { di } from 'react-magnetic-di';
 import { ErrorMessage } from '@atlaskit/form/error-message';
 import Field from '@atlaskit/form/field';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Select from '@atlaskit/select/default';
 
 import messages from '../../common/messages';
@@ -49,17 +48,11 @@ const SelectInputPrompt = ({ userInputPrompt }: SelectInputPromptProps): React.J
 						menuPosition="fixed"
 						{...fieldProps}
 					/>
-					{fg('platform_navx_3298_message_wrapper') ? (
-						<MessageWrapper>
-							{error === Errors.EMPTY && (
-								<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
-							)}
-						</MessageWrapper>
-					) : (
-						error === Errors.EMPTY && (
+					<MessageWrapper>
+						{error === Errors.EMPTY && (
 							<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
-						)
-					)}
+						)}
+					</MessageWrapper>
 				</>
 			)}
 		</Field>

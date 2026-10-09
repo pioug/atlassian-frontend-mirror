@@ -10,7 +10,7 @@ import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/core/add';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';

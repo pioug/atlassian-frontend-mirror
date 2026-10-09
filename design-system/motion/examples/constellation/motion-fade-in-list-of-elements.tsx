@@ -7,14 +7,12 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import {
-	BitbucketIcon,
-	ConfluenceIcon,
-	JiraIcon,
-	JiraServiceManagementIcon,
-	StatuspageIcon,
-	TrelloIcon,
-} from '@atlaskit/logo';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
+import { TrelloIcon } from '@atlaskit/logo/trello-icon';
 import Motion from '@atlaskit/motion/entering/motion';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { Inline } from '@atlaskit/primitives/compiled/inline';

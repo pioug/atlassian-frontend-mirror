@@ -1,4 +1,4 @@
-import type { UserSearchProductAttributes, UserSearchQuery } from '@atlaskit/smart-common';
+import type { UserSearchProductAttributes, UserSearchQuery } from '@atlaskit/smart-common/types';
 
 export type UseUserRecommendationsProps = {
 	/**

@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { parseFile } from './parse-file';
 import { toMarkdown } from './to-markdown';

@@ -1,7 +1,8 @@
 import React, { createRef } from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { act, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { type OptionsType } from '../../../types';
 import { PopupSelect } from '../../popup-select';

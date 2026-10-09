@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { DateLabelDropdownTrigger } from '@atlaskit/date-label';
+import { DateLabelDropdownTrigger } from '@atlaskit/date-label/date-label';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

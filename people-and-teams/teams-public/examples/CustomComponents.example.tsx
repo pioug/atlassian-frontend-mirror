@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { Playground } from '@atlassian/teams-app-internal-playground/playground';
 
 import { TeamContainers } from '../src/ui/team-containers/main';

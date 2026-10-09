@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { TopNavMiddle } from '@atlaskit/navigation-system';
-import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
+import { TopNav, TopNavMiddle } from '@atlaskit/navigation-system/layout/top-nav';
 import { parseHex } from '@atlaskit/navigation-system/theming/color-utils/parse-hex';
 import { useLegacySearchTheme } from '@atlaskit/navigation-system/theming/use-legacy-search-theme';
 

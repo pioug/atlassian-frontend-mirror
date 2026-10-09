@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { render as rtlRender, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render as rtlRender } from '@atlassian/testing-library/testing-library/react';
 
 import Badge from '../../badge';
 

@@ -10,7 +10,8 @@ import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl';
 
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { LINK_CREATE_FORM_POST_CREATE_FIELD } from '../../common/constants';

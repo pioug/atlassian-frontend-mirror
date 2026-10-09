@@ -4,8 +4,8 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
-import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
+import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import getMockProfileClient from '../../../mocks/mock-profile-client';
@@ -17,8 +17,8 @@ import ProfilecardTrigger from '../ProfileCardTrigger';
 
 const mockClient = getMockProfileClient(ProfileClient, 0);
 
-jest.mock('@atlaskit/give-kudos', () => ({
-	...jest.requireActual('@atlaskit/give-kudos'),
+jest.mock('@atlaskit/give-kudos/give-kudos-launcher', () => ({
+	...jest.requireActual('@atlaskit/give-kudos/give-kudos-launcher'),
 	GiveKudosLauncherLazy: jest.fn(),
 }));
 

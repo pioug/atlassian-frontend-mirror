@@ -1,7 +1,8 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { type RequestServiceOptions, utils } from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support/constants';
+import type { RequestServiceOptions } from '@atlaskit/util-service-support/types';
 
 import { objectKeyToString, toggleTaskState, toObjectKey } from '../type-helpers';
 import {

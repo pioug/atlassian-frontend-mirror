@@ -50,6 +50,7 @@ import {
 	getPluginState,
 	inlineCommentPluginKey,
 	isSupportedBlockNode,
+	shouldHideRemixAnnotation,
 } from './utils';
 
 const fetchProviderStates = async (
@@ -542,6 +543,10 @@ export const inlineCommentPlugin = (
 				// everytime we need to update the decorations. This handler will be called alot. We should be caching
 				// the decorations in plugin state and only updating them when required.
 				state.doc.descendants((node: PMNode, pos: number) => {
+					// Do not render saved chart marks as text highlights when annotation support is off.
+					if (shouldHideRemixAnnotation(node)) {
+						return false;
+					}
 					// Inline comment on mediaInline is not supported as part of comments on media project
 					// Thus, we skip the decoration for mediaInline node
 					if (node.type.name === 'mediaInline') {

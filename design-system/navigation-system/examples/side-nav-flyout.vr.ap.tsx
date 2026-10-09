@@ -24,7 +24,7 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontal from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';
@@ -39,14 +39,10 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Search,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';

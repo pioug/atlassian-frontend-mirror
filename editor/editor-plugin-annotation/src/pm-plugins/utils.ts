@@ -175,6 +175,12 @@ export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
 	return `view-annotation-wrapper_${keys}`;
 };
 
+// During rollback, hide chart highlights and automatic comment opening, not saved marks.
+export const shouldHideRemixAnnotation = (node: Node): boolean =>
+	node.type.name === 'extension' &&
+	node.attrs.extensionKey === 'native-embed:maui' &&
+	!fg('cc_maui_annotations_on_extensions');
+
 export const findAnnotationsInSelection = (selection: Selection, doc: Node): AnnotationInfo[] => {
 	const { empty, $anchor, anchor } = selection;
 	// Only detect annotations on caret selection
@@ -207,13 +213,17 @@ export const findAnnotationsInSelection = (selection: Selection, doc: Node): Ann
 	}
 
 	const annotationMark = doc.type.schema.marks.annotation;
-	const anchorAnnotationMarks = node?.marks || [];
+	const anchorAnnotationMarks = node && !shouldHideRemixAnnotation(node) ? node.marks : [];
 
 	let marks: readonly Mark[] = [];
 	if (annotationMark.isInSet(anchorAnnotationMarks)) {
 		marks = anchorAnnotationMarks;
 	}
-	if (nodeBefore && annotationMark.isInSet(nodeBefore.marks)) {
+	if (
+		nodeBefore &&
+		!shouldHideRemixAnnotation(nodeBefore) &&
+		annotationMark.isInSet(nodeBefore.marks)
+	) {
 		const existingMarkIds = marks.map((m) => m.attrs.id);
 		marks = marks.concat(...nodeBefore.marks.filter((m) => !existingMarkIds.includes(m.attrs.id)));
 	}
@@ -573,6 +583,9 @@ export const isBlockNodeAnnotationsSelected = (
 	selectedAnnotations: AnnotationInfo[] = [],
 ): boolean => {
 	if (selectedAnnotations.length && selection instanceof NodeSelection) {
+		if (shouldHideRemixAnnotation(selection.node)) {
+			return false;
+		}
 		const node =
 			selection.node.type.name === 'mediaSingle' ? selection.node.firstChild : selection.node;
 		const annotationMarks: AnnotationInfo[] =

@@ -26,16 +26,16 @@ const styles = cssMap({
 		alignSelf: 'center',
 	},
 	middleLayer: {
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 	},
 	foreground: {
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 	},
 	valueList: {
 		paddingInline: 0,
@@ -53,7 +53,7 @@ const styles = cssMap({
 		textTransform: 'capitalize',
 	},
 	valueListItemValue: {
-		marginTop: 0,
+		marginBlockStart: 0,
 		marginInlineStart: 0,
 	},
 	valueListItemValueText: {

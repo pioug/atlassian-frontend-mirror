@@ -7,9 +7,9 @@ import { type ReactNode } from 'react';
 import Button from '@atlaskit/button/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { SpotlightCard } from '@atlaskit/onboarding';
+import SpotlightCard from '@atlaskit/onboarding/spotlight-card';
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import ProgressIndicator from '@atlaskit/progress-indicator/progress-dots';
 import { token } from '@atlaskit/tokens';
 
 const wrapperStyles = css({

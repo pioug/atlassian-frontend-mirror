@@ -4,7 +4,7 @@ import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

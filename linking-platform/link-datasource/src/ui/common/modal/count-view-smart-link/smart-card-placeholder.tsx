@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -10,7 +10,8 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Anchor, Pressable } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import type { BreadcrumbsItemProps } from '../../types';

@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import Button from '@atlaskit/button/default/button';
 
 import InlineMessage from '../../inline-message';

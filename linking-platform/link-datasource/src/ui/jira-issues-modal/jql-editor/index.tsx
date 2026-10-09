@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { type Jast } from '@atlaskit/jql-ast';
+import type { Jast } from '@atlaskit/jql-ast/query';
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/use-autocomplete-provider';
 import JQLEditor from '@atlaskit/jql-editor/ui';
 

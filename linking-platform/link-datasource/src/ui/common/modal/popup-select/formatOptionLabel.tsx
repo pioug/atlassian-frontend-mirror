@@ -4,7 +4,8 @@ import Avatar from '@atlaskit/avatar/avatar';
 import { cssMap, cx } from '@atlaskit/css';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import {

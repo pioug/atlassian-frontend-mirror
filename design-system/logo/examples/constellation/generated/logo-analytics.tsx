@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AnalyticsIcon, AnalyticsLogo } from '@atlaskit/logo';
+import { AnalyticsIcon } from '@atlaskit/logo/analytics/icon';
+import { AnalyticsLogoCS as AnalyticsLogo } from '@atlaskit/logo/analytics/logo';
 
 import LogoTable from '../utils/logo-table';
 

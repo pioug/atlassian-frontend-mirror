@@ -16,8 +16,7 @@ import Heading from '@atlaskit/heading/heading';
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ScreenIcon from '@atlaskit/icon/core/screen';
-import { JiraIcon } from '@atlaskit/logo';
-import { SideNavHeader } from '@atlaskit/navigation-system';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
@@ -26,6 +25,7 @@ import {
 	SideNav,
 	SideNavBody,
 	SideNavToggleButton,
+	SideNavHeader,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -33,15 +33,12 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Notifications,
-	Profile,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';

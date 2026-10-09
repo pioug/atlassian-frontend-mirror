@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 export default function Example(): React.JSX.Element {
 	return (

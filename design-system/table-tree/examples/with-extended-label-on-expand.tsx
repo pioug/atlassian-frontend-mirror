@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TableTree from '@atlaskit/table-tree';
+import TableTree from '@atlaskit/table-tree/table-tree';
 
 type Content = { title: string; numbering: string; page: number };
 

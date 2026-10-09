@@ -10,7 +10,10 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { default as PlatformComment, CommentAuthor, CommentTime, CommentAction } from '@atlaskit/comment';
+import { default as PlatformComment } from '@atlaskit/comment/comment';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import { CommentTime } from '@atlaskit/comment/time';
+import { CommentAction } from '@atlaskit/comment/action-item';
 
 export type CommentProps = Omit<
 	React.ComponentProps<typeof PlatformComment>,

@@ -7,7 +7,7 @@ import { type CSSProperties, type FC, useMemo } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { type Breakpoint, type ResponsiveObject } from '@atlaskit/primitives/responsive';
+import type { Breakpoint, ResponsiveObject } from '@atlaskit/primitives/responsive/types';
 
 import { GRID_COLUMNS } from './config';
 import type { GridItemProps, SpanObject, StartObject } from './types';

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { type EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
@@ -17,9 +17,10 @@ import { RENDER_REACTION_TESTID } from './Reaction';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
 import { RENDER_SUMMARY_VIEW_POPUP_TESTID, ReactionSummaryView } from './ReactionSummaryView';
 
-jest.mock('@atlaskit/emoji/picker', () => ({
-	...jest.requireActual('@atlaskit/emoji/picker'),
-	EmojiPicker: () => <div>EmojiPicker</div>,
+jest.mock('@atlaskit/emoji/emoji-picker', () => ({
+	...jest.requireActual('@atlaskit/emoji/emoji-picker'),
+	__esModule: true,
+	default: () => <div>EmojiPicker</div>,
 }));
 
 jest.mock('../hooks/useDelayedState', () => ({

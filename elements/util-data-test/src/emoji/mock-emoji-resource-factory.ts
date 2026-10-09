@@ -1,4 +1,4 @@
-import { type EmojiRepository } from '@atlaskit/emoji/resource';
+import type EmojiRepository from '@atlaskit/emoji/emoji-repository';
 
 import { MockEmojiResource } from './mock-emoji-resource';
 import { type MockEmojiResourceConfig, type PromiseBuilder } from './types';

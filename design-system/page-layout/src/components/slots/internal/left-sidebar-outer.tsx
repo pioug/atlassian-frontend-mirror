@@ -18,7 +18,7 @@ import { css, jsx } from '@emotion/react';
 import { easeOut } from '@atlaskit/motion/curves';
 import { prefersReducedMotion } from '@atlaskit/motion/utils/accessibility';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { UNSAFE_media } from '@atlaskit/primitives/responsive';
+import { UNSAFE_media } from '@atlaskit/primitives/media-helper/default';
 import { token } from '@atlaskit/tokens';
 
 import {

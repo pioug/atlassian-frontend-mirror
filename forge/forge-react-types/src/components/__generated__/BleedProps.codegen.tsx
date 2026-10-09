@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { Bleed as PlatformBleed } from '@atlaskit/primitives/compiled';
+import { Bleed as PlatformBleed } from '@atlaskit/primitives/compiled/bleed';
 
 type PlatformBleedProps = React.ComponentProps<typeof PlatformBleed>;
 

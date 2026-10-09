@@ -1,6 +1,6 @@
 import type { ErrorInfo } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { type ErrorPayload, installErrorHandler, reportError } from './reportError';
 

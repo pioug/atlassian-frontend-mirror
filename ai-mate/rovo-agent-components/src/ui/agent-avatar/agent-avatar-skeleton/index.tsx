@@ -6,7 +6,7 @@ import { jsx } from '@compiled/react';
 
 import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 import type { SizeType } from '@atlaskit/avatar/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Skeleton from '@atlaskit/skeleton';
 
 import { AGENT_AVATAR_CLIP_PATH } from '../index';

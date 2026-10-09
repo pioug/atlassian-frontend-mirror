@@ -1,4 +1,5 @@
-import { changeImportEntryPoint, type JSCodeshift, type Collection } from '@atlaskit/codemod-utils';
+import type { JSCodeshift, Collection } from '@atlaskit/codemod-utils';
+import { changeImportEntryPoint } from '@atlaskit/codemod-utils/utils';
 
 export const updateImportEntryPointsForJiraSchema: ((
 	j: JSCodeshift,

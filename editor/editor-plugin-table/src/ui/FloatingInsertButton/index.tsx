@@ -21,10 +21,10 @@ import { closestElement } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -35,6 +35,7 @@ import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils/nodes';
 import { isFullRowOrColumnSelected } from '../../pm-plugins/utils/selection';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
+import { getTableZIndexes } from '../sticky-header-z-index';
 import getPopupOptions from './getPopupOptions';
 import { DragAndDropInsertButton } from './InsertButton';
 
@@ -198,18 +199,21 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				targetCellRef.getBoundingClientRect().top - tableRef.getBoundingClientRect().top,
 			);
 		}
-		// Fixed the 'add column button' not visible issue when sticky header is enabled
-		// By setting the Popup z-index higher than the sticky header z-index ( common-styles.ts tr.sticky)
-		// Only when inserting a column, otherwise set to undefined
-		// Need to set z-index in the Popup, set z-index in the <DragAndDropInsertButton /> will not work
-		const zIndex: number | undefined =
+		// Column inserts sit above the header; row inserts scroll behind it.
+		// Set the layer on the Popup because its children share its stacking context.
+		let zIndex: number | undefined;
+		if (type === 'row' && isExperimentEnabled('platform_editor_sticky_headers_zindex')) {
+			zIndex = getTableZIndexes().belowHeader;
+		} else if (
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',
 				'test_with_overflow',
-			) || type === 'column'
-				? akEditorTableCellOnStickyHeaderZIndex
-				: undefined;
+			) ||
+			type === 'column'
+		) {
+			zIndex = getTableZIndexes().headerButton;
+		}
 
 		return (
 			<Popup

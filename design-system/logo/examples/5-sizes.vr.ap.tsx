@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Code from '@atlaskit/code/code';
-import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { ConfluenceLogoCS as ConfluenceLogo } from '@atlaskit/logo/confluence/logo';
 
 export default (): React.JSX.Element => (
 	<div data-testid="sizes">

@@ -1,7 +1,7 @@
 import './range-validator.mock';
 import React from 'react';
 
-import { act, render } from '@atlassian/testing-library';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import type RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import InlineMessage from '@atlaskit/inline-message';
+import InlineMessage from '@atlaskit/inline-message/inline-message';
 import Link from '@atlaskit/link/link';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';

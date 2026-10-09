@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { resetMatchMedia } from '@atlassian/test-utils';
+import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 
 import CompositionExample from '../../../../../examples/composition.vr.ap';
 

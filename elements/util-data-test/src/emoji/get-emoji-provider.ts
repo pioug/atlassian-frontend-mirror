@@ -1,4 +1,4 @@
-import { EmojiRepository } from '@atlaskit/emoji/resource';
+import EmojiRepository from '@atlaskit/emoji/emoji-repository';
 import type { EmojiProvider, EmojiServiceResponse } from '@atlaskit/emoji/types';
 import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 

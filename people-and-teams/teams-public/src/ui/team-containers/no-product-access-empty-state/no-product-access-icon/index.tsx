@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import Image from '@atlaskit/image';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import NoProductAccessSVG from '../../../../common/assets/NoProductAccess.svg';
 

@@ -8,7 +8,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { ANALYTICS_MEDIA_CHANNEL } from '../../analytics/constants';
 import { type ContextPublicAttributes, type ContextStaticProps } from '../../analytics/types';

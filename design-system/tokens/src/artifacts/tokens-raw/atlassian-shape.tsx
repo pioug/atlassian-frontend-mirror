@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::139953049673c5a74ab686e4a2ddaf50>>
+ * @codegen <<SignedSource::dacfb9678c4e6bee99dafbec63f62895>>
  * @codegenCommand yarn build tokens
  */
 
@@ -327,7 +327,7 @@ const tokens: Token[] = [
         "2px"
       ],
       "introduced": "6.1.0",
-      "description": "The width used to indicate a selected element, such as an active tab or a chosen item."
+      "description": "Use for the width of a border or visual indicator that communicates selection, such as an active tab or a chosen item. Pair with color.border.selected. Do not use as a substitute for a separate keyboard focus indicator."
     },
     "value": "2px",
     "filePath": "schema/themes/atlassian-shape/shape.tsx",
@@ -340,7 +340,7 @@ const tokens: Token[] = [
           "2px"
         ],
         "introduced": "6.1.0",
-        "description": "The width used to indicate a selected element, such as an active tab or a chosen item."
+        "description": "Use for the width of a border or visual indicator that communicates selection, such as an active tab or a chosen item. Pair with color.border.selected. Do not use as a substitute for a separate keyboard focus indicator."
       },
       "value": "BorderWidth2"
     },
@@ -360,7 +360,7 @@ const tokens: Token[] = [
         "2px"
       ],
       "introduced": "6.1.0",
-      "description": "The width used for the focus ring on interactive elements."
+      "description": "Use for the width of the focus ring on an interactive element that currently has keyboard or input focus. Pair with color.border.focused. When the element is also selected, keep the selection indicator and add the focus ring."
     },
     "value": "2px",
     "filePath": "schema/themes/atlassian-shape/shape.tsx",
@@ -373,7 +373,7 @@ const tokens: Token[] = [
           "2px"
         ],
         "introduced": "6.1.0",
-        "description": "The width used for the focus ring on interactive elements."
+        "description": "Use for the width of the focus ring on an interactive element that currently has keyboard or input focus. Pair with color.border.focused. When the element is also selected, keep the selection indicator and add the focus ring."
       },
       "value": "BorderWidth2"
     },

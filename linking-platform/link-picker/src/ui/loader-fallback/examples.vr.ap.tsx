@@ -7,7 +7,8 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { MockLinkPickerPromisePlugin } from '../../__tests__/__helpers/mock-plugins';

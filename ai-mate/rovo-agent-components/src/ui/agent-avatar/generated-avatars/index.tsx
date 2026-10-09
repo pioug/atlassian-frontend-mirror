@@ -8,7 +8,7 @@ import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import type { AgentCreatorType } from '../../../common/types';

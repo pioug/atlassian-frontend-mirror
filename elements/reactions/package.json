@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "36.7.7",
+	"version": "36.7.9",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -136,10 +136,6 @@
 		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-custom-button": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_optimistic_reaction_emoji": {
 			"type": "boolean"

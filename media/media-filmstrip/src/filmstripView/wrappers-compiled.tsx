@@ -10,7 +10,6 @@ import { css } from '@compiled/react';
 
 import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import ArrowRight from '@atlaskit/icon/core/arrow-right';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { MediaFilmStripListItemSelector } from '.';
@@ -162,12 +161,7 @@ export const ArrowLeftWrapper = ({
 } & OnClick): JSX.Element => {
 	return (
 		<button
-			css={[
-				resetButtonStyle,
-				arrowWrapperStyles,
-				arrowLeftWrapperStyles,
-				fg('platform-dst-motion-uplift-custom-button') && arrowWrapperMotionStyles,
-			]}
+			css={[resetButtonStyle, arrowWrapperStyles, arrowLeftWrapperStyles, arrowWrapperMotionStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className="arrow"
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
@@ -193,7 +187,7 @@ export const ArrowRightWrapper = ({
 				resetButtonStyle,
 				arrowWrapperStyles,
 				arrowRightWrapperStyles,
-				fg('platform-dst-motion-uplift-custom-button') && arrowWrapperMotionStyles,
+				arrowWrapperMotionStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className="arrow"

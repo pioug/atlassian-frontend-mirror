@@ -4,7 +4,7 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { createPartialSignedArtifact } from '@atlassian/codegen';
+import { createPartialSignedArtifact } from '@atlassian/codegen/partial-signed-artifact';
 
 import { createSpacingStylesFromTemplate } from './spacing-codegen-template';
 

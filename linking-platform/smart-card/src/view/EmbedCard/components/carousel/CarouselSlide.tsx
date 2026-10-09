@@ -12,7 +12,9 @@ import Heading from '@atlaskit/heading/heading';
 import SmartLinkIcon from '@atlaskit/icon/core/smart-link';
 import IconTile from '@atlaskit/icon/icon-tile';
 import Image from '@atlaskit/image';
-import { Box, Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';

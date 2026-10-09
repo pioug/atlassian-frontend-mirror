@@ -7,7 +7,7 @@ import { Project } from 'ts-morph';
 import type { Symbol, InterfaceDeclaration, PropertySignature, SourceFile } from 'ts-morph';
 
 /* eslint-disable @typescript-eslint/no-wrapper-object-types */
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 /**
  * Strips the `createSignedArtifact` JSDoc header from a codegen file so that

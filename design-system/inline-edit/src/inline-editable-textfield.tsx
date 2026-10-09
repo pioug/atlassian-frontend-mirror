@@ -3,7 +3,7 @@ import React, { useCallback, useRef } from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

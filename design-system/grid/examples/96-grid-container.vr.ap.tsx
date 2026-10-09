@@ -1,8 +1,12 @@
 import React from 'react';
 
-import Grid, { GridContainer, GridItem } from '@atlaskit/grid';
+import Grid from '@atlaskit/grid/grid';
+import { GridContainer } from '@atlaskit/grid/grid-container';
+import { GridItem } from '@atlaskit/grid/grid-item';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const itemStyles = xcss({
 	display: 'flex',

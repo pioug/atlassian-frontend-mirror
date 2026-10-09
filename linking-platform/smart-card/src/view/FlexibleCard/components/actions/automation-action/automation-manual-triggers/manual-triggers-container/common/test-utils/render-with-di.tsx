@@ -3,7 +3,7 @@ import React, { type ComponentProps, Fragment, type ReactElement } from 'react';
 import { IntlProvider } from 'react-intl'; // eslint-disable-line import/no-extraneous-dependencies
 import { DiProvider } from 'react-magnetic-di';
 
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 type RenderOptions = NonNullable<Parameters<typeof render>[1]>;
 

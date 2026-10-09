@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProgressBar from '@atlaskit/progress-bar';
+import ProgressBar from '@atlaskit/progress-bar/progress-bar';
 
 const ProgressBarInverseExample = (): React.JSX.Element => {
 	return <ProgressBar appearance="inverse" ariaLabel="Done: 6 of 10 work items" value={0.6} />;

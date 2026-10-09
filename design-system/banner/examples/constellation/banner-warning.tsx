@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import Link from '@atlaskit/link/link';
 

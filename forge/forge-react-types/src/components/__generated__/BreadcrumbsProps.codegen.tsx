@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformBreadcrumbs from '@atlaskit/breadcrumbs';
+import PlatformBreadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
 
 type PlatformBreadcrumbsProps = React.ComponentProps<typeof PlatformBreadcrumbs>;
 

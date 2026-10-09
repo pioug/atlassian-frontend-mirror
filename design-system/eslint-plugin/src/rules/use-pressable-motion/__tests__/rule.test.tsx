@@ -87,7 +87,7 @@ tester.run('use-pressable-motion', rule, {
 				import { fg } from '@atlassian/jira-feature-gating';
 				const baseStyles = xcss({ ':hover': { backgroundColor: 'red' } });
 				const motionStyles = xcss({ transition: token('motion.listitem.hovered') });
-				<Pressable xcss={[baseStyles, fg('platform-dst-motion-uplift-custom-button') && motionStyles]} />;
+				<Pressable xcss={[baseStyles, fg('some-motion-gate') && motionStyles]} />;
 			`,
 		},
 		{
@@ -99,7 +99,7 @@ tester.run('use-pressable-motion', rule, {
 				import { fg } from '@atlassian/jira-feature-gating';
 				const baseStyles = xcss({ ':active': { color: 'red' } });
 				const motionStyles = xcss({ ':active': { transition: token('motion.listitem.pressed') } });
-				<Pressable xcss={[baseStyles, fg('platform-dst-motion-uplift-custom-button') && motionStyles]} />;
+				<Pressable xcss={[baseStyles, fg('some-motion-gate') && motionStyles]} />;
 			`,
 		},
 	],

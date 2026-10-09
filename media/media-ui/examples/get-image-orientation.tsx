@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import Page, { Grid, GridColumn } from '@atlaskit/page';
+import Grid from '@atlaskit/page/grid';
+import { GridColumn } from '@atlaskit/page/grid-column';
+import Page from '@atlaskit/page/page';
 
 import {
 	InputWrapper,

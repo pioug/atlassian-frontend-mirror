@@ -10,7 +10,7 @@ import {
 	type JSXSpreadAttribute,
 } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 import { spreadPropsComment } from '../utils/comments';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';

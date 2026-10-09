@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import AkButton from '@atlaskit/button/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import MobileHeader from '../components/MobileHeader';
 

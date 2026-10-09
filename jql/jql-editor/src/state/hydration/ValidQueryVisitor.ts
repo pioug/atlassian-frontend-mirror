@@ -1,14 +1,12 @@
-import {
-	AbstractJastVisitor,
-	type Clause,
-	type CompoundClause,
-	type FunctionOperand,
-	type ListOperand,
-	type NotClause,
-	type Query,
-	type TerminalClause,
-	type ValueOperand,
-} from '@atlaskit/jql-ast';
+import { AbstractJastVisitor } from '@atlaskit/jql-ast/abstract-jast-visitor';
+import type {
+	Clause,
+	CompoundClause,
+	NotClause,
+	TerminalClause,
+} from '@atlaskit/jql-ast/ast/clause';
+import type { FunctionOperand, ListOperand, ValueOperand } from '@atlaskit/jql-ast/ast/operand';
+import type { Query } from '@atlaskit/jql-ast/query';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

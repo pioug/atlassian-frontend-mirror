@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 type IconWrapperProps = {

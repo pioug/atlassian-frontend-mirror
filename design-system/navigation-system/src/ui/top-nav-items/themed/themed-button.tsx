@@ -6,7 +6,7 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { PressableProps } from '@atlaskit/primitives/compiled';
+import type { PressableProps } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import IconRenderer from '../icon-renderer';

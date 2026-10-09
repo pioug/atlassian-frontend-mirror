@@ -2,10 +2,13 @@ import React, { type ReactNode } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { type UserSource } from '../../types';

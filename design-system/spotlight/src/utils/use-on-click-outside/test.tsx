@@ -1,6 +1,6 @@
 import React, { type MutableRefObject } from 'react';
 
-import { fireEvent, render } from '@atlassian/testing-library';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
 import { useOnClickOutside } from './index';

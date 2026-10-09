@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { HubIcon, HubLogo } from '@atlaskit/logo';
+import { HubIcon } from '@atlaskit/logo/hub/icon';
+import { HubLogoCS as HubLogo } from '@atlaskit/logo/hub/logo';
 
 import LogoTable from '../utils/logo-table';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { resetMatchMedia } from '@atlassian/test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';

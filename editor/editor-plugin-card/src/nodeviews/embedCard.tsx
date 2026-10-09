@@ -44,6 +44,7 @@ import {
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 import type { CardContext } from '@atlaskit/link-provider/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
@@ -58,6 +59,7 @@ import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContex
 import { BlockCardComponent } from './blockCard';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
+import { isIntersectionObserverSupported } from './isIntersectionObserverSupported';
 
 /**
  * Returns a forced aspect ratio for URLs that have a known canvas shape,
@@ -221,9 +223,12 @@ export class EmbedCardComponent extends React.PureComponent<
 
 	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
+		this.scrollContainer =
+			isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+			isIntersectionObserverSupported()
+				? undefined
+				: // eslint-disable-next-line @atlaskit/editor/no-as-casting
+					findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 		this.state = {
 			hasPreview: true,
 		};

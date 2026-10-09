@@ -3,7 +3,9 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 import { AgentDropdownMenu } from '../src/ui/agent-dropdown-menu';
 

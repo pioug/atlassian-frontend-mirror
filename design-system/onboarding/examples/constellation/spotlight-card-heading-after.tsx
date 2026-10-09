@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import CloseIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { SpotlightCard } from '@atlaskit/onboarding';
+import SpotlightCard from '@atlaskit/onboarding/spotlight-card';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightCardHeadingAfterExample = (): React.JSX.Element => {

@@ -20,7 +20,7 @@ import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import SectionMessage from '@atlaskit/section-message/message';
 import TextArea from '@atlaskit/textarea/text-area';

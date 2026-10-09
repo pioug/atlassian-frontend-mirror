@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { Label } from './label';

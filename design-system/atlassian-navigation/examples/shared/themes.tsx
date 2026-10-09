@@ -1,5 +1,7 @@
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { generateTheme, type NavigationTheme } from '@atlaskit/atlassian-navigation';
+import { generateTheme } from '@atlaskit/atlassian-navigation/theme-generator';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { NavigationTheme } from '@atlaskit/atlassian-navigation/theme/types';
 
 export const theme: NavigationTheme[] = [
 	generateTheme({

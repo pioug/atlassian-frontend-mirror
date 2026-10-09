@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-annotation
 
+## 26.0.2
+
+### Patch Changes
+
+- [`0b815dd6718ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b815dd6718ea) -
+  When cc_maui_annotations_on_extensions is off, prevent saved Remix chart comments from showing
+  yellow text highlights or opening automatically when editor selection moves beside the chart. Keep
+  annotation marks in the document and preserve explicit comment navigation. Creation-experiment
+  behavior, media comments, and other extensions are unchanged.
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

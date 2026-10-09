@@ -284,6 +284,9 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	private getLocalReference(resourceId: ResourceId): SyncBlockInstance | undefined {
+		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
+			return undefined;
+		}
 		const parsed = this.getSameDocumentReferenceParts(resourceId);
 		if (!parsed) {
 			return undefined;
@@ -1018,8 +1021,11 @@ export class ReferenceSyncBlockStoreManager {
 		if (isExperimentEnabled('platform_editor_blocks_patch_11')) {
 			this.subscribedSinceLastFlush = true;
 		}
-		const sameDocumentParts = this.getSameDocumentReferenceParts(resourceId);
-		let localReference = this.getLocalReference(resourceId);
+		const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
+		const sameDocumentParts = isSamePageSyncEnabled
+			? this.getSameDocumentReferenceParts(resourceId)
+			: undefined;
+		let localReference = isSamePageSyncEnabled ? this.getLocalReference(resourceId) : undefined;
 
 		const unsubscribeRemote = this._subscriptionManager.subscribeToSyncBlock(
 			resourceId,

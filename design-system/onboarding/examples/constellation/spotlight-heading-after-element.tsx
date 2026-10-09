@@ -5,12 +5,13 @@ import IconButton from '@atlaskit/button/icon/button';
 import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightHeadingAfterElement = (): React.JSX.Element => {

@@ -41,7 +41,8 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { CreateButton, Settings } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemContent,

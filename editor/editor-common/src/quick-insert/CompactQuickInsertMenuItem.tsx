@@ -7,9 +7,13 @@ import React, { useId, useMemo, useState } from 'react';
 import { css } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable.
-import { Pressable, xcss } from '@atlaskit/primitives';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable.
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 import { QuickInsertHoverPreview } from './QuickInsertHoverPreview';

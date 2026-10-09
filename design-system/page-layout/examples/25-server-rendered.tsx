@@ -8,23 +8,32 @@ import React, { Fragment, useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Banner } from '@atlaskit/page-layout/banner-slot';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import {
-	Banner,
 	BANNER_HEIGHT,
-	Content,
 	LEFT_PANEL_WIDTH,
 	LEFT_SIDEBAR_WIDTH,
-	LeftPanel,
-	LeftSidebar,
-	Main,
-	PageLayout,
 	RIGHT_PANEL_WIDTH,
 	RIGHT_SIDEBAR_WIDTH,
-	RightPanel,
-	RightSidebar,
 	TOP_NAVIGATION_HEIGHT,
-	TopNavigation,
-} from '@atlaskit/page-layout';
+} from '@atlaskit/page-layout/constants';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Content } from '@atlaskit/page-layout/content';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { LeftPanel } from '@atlaskit/page-layout/left-panel';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { LeftSidebar } from '@atlaskit/page-layout/left-sidebar';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Main } from '@atlaskit/page-layout/main';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PageLayout } from '@atlaskit/page-layout/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { RightPanel } from '@atlaskit/page-layout/right-panel';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { RightSidebar } from '@atlaskit/page-layout/right-sidebar';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { TopNavigation } from '@atlaskit/page-layout/top-navigation';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { act, fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import Tooltip from '../../tooltip';
 

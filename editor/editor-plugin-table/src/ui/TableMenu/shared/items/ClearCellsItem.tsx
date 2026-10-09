@@ -10,7 +10,6 @@ import {
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { emptyMultipleCellsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
@@ -28,9 +27,7 @@ export const ClearCellsItem = ({ api }: TableMenuComponentsParams): React.JSX.El
 		tableMenuContext?.selectedRowCount ?? 1,
 	);
 	const shouldShowShortcut =
-		!isExperimentEnabled('platform_editor_table_menu_updates_patch_4') ||
-		tableMenuContext?.surface.key !== CELL_MENU.key ||
-		selectedCellCount > 1;
+		tableMenuContext?.surface.key !== CELL_MENU.key || selectedCellCount > 1;
 
 	const handleClick = () => {
 		if (!editorView) {

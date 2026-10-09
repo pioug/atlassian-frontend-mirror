@@ -1,5 +1,5 @@
 import { expect } from '@af/integration-testing';
-import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing/skip-file-decorator';
 
 import { test } from './user-picker';
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to

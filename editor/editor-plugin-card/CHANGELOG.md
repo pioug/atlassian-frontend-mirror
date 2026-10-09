@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 32.1.1
+
+### Patch Changes
+
+- [`abb8145e77f80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abb8145e77f80) -
+  Behind `platform_editor_reduce_forced_layout_2`, the inline, block and embed card node views no
+  longer call `findOverflowScrollParent` on the editor DOM when `IntersectionObserver` is available.
+  That lookup walked every ancestor calling `getComputedStyle`, forcing a style recalculation once
+  per card, and its only consumer was Smart Card's `container` prop. `container` is read in exactly
+  one place — `LazyLazilyRenderCard`, which Smart Card only renders when `IntersectionObserver` is
+  unsupported — so on every supported browser the result was discarded. The lookup is still
+  performed when `IntersectionObserver` is unavailable, preserving the legacy behaviour.
+- Updated dependencies
+
 ## 32.1.0
 
 ### Minor Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { GoalsIcon, GoalsLogo } from '@atlaskit/logo';
+import { GoalsIcon } from '@atlaskit/logo/goals/icon';
+import { GoalsLogoCS as GoalsLogo } from '@atlaskit/logo/goals/logo';
 
 import LogoTable from '../utils/logo-table';
 

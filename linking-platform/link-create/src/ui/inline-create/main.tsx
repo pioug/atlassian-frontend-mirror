@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
 import type { LinkCreateProps } from '../../common/types';

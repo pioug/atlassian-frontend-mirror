@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import DynamicTable from '@atlaskit/dynamic-table';
+import DynamicTable from '@atlaskit/dynamic-table/stateful';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import SectionMessage from '@atlaskit/section-message/message';
 

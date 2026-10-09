@@ -13,7 +13,9 @@ import Form from '@atlaskit/form/form';
 import type { OnSubmitHandler } from '@atlaskit/form/types';
 import Heading from '@atlaskit/heading/heading';
 import { useResizingHeight } from '@atlaskit/motion/use-resizing-height';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { type FormValues } from '../types';

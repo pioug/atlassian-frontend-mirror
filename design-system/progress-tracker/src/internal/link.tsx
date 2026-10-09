@@ -1,7 +1,7 @@
 import React, { type FC } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Anchor } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
 import { type Stage } from '../types';

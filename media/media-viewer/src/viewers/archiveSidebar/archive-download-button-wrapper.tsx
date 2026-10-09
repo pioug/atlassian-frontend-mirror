@@ -9,7 +9,6 @@ import { jsx, css } from '@compiled/react'; // eslint-disable-line @atlaskit/ui-
 import { useIntl } from 'react-intl';
 
 import { messages } from '@atlaskit/media-ui/messages';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { Children } from './styleWrappers';
@@ -71,7 +70,7 @@ export const ArchiveDownloadButtonWrapper = ({
 			css={[
 				archiveDownloadButtonWrapperStyleFix,
 				archiveDownloadButtonWrapperStyles,
-				fg('platform-dst-motion-uplift-custom-button') && archiveDownloadButtonMotionStyles,
+				archiveDownloadButtonMotionStyles,
 			]}
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 			data-testid="media-archiveDownloadButton"

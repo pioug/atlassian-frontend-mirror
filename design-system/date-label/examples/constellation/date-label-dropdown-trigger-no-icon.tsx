@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DateLabelDropdownTrigger } from '@atlaskit/date-label';
+import { DateLabelDropdownTrigger } from '@atlaskit/date-label/date-label';
 
 export default function DateLabelDropdownTriggerNoIcon(): React.JSX.Element {
 	return (

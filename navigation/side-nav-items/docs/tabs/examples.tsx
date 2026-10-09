@@ -3,7 +3,7 @@ import React from 'react';
 import { Example, md } from '@atlaskit/docs';
 import Image from '@atlaskit/image/image';
 import Link from '@atlaskit/link/link';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import sideNavItemsExamplesDark from './images/sideNavItems-examples-dark.png';
 import sideNavItemsExamplesLight from './images/sideNavItems-examples-light.png';

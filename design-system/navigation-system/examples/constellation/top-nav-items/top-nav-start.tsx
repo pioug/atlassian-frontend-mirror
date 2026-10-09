@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';

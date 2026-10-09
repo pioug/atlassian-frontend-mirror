@@ -1,4 +1,4 @@
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 jest.mock('../../../services/current-site-cloud-id/getCurrentSiteCloudId', () => ({
 	getCurrentSiteCloudId: jest.fn(),

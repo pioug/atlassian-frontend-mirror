@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, screen } from '@testing-library/react';
 
-import { type EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import {

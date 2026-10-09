@@ -98,7 +98,7 @@ export type Props = {
 	/** Optional way of being notified when the selected result changes due to keyboard nav */
 	onSelectedResultIdChanged?: (id: SelectedResultId) => void;
 	// Internal: injected by withAnalytics(). Fire a private analytics event
-	firePrivateAnalyticsEvent?: (eventName: string, eventData: Object) => void;
+	firePrivateAnalyticsEvent?: (eventName: string, eventData: object) => void;
 	/** React component to be used for rendering links */
 	linkComponent?: React.ComponentType<any>;
 	/** The elements to render to the right of the search input. */

@@ -1,6 +1,6 @@
 import type { Format } from 'style-dictionary';
 
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { typescriptFormatter } from './typescript-formatter';
 

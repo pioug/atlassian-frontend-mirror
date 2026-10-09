@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 149.0.2
+
+### Patch Changes
+
+- [`8fe99b7e9d198`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fe99b7e9d198) -
+  Add `resolveAnnotatableTargetFromLocalId`, which resolves a `localId` to the node an annotation
+  can be applied to — the node itself when it accepts the annotation mark or is a supported block
+  node, otherwise its closest accepting ancestor. Mirrors the editor implementation so both sides
+  resolve the same node. Internal helper, not yet used by any code path.
+- [`06e85e54427d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06e85e54427d1) -
+  Correct Forge named viewport height reservation in View and Editor behind
+  confluence_forge_early_render_reserve_height while preserving numeric Connect heights.
+- Updated dependencies
+
 ## 149.0.1
 
 ### Patch Changes

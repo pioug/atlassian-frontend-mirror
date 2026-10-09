@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformToggle from '@atlaskit/toggle';
+import PlatformToggle from '@atlaskit/toggle/toggle';
 import type { EventHandlerProps } from './types.codegen';
 
 type PlatformToggleProps = React.ComponentProps<typeof PlatformToggle>;

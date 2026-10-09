@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { EditorThemeContext } from '../../hooks/use-editor-theme';
 import { useEditorTheme } from '../../hooks/use-editor-theme/useEditorTheme';

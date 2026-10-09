@@ -60,6 +60,15 @@ function popperToTopLayerOffset(
 }
 
 /**
+ * SSR-safe `instanceof HTMLElement`. This runs during render, and the server
+ * has no `HTMLElement` global. No hydration mismatch: refs are unset on the
+ * server and on the first client render, so both sides get the same result.
+ */
+function isHTMLElement(value: HTMLElement | VirtualElement | undefined): value is HTMLElement {
+	return typeof HTMLElement !== 'undefined' && value instanceof HTMLElement;
+}
+
+/**
  * FF-on implementation of `@atlaskit/popper`'s `<Popper>` primitive.
  *
  * Renders the consumer's render-prop output into a `<Popover>` from
@@ -91,12 +100,11 @@ export function PopperTopLayer<CustomModifiers>({
 	// Real DOM nodes are anchored by `useAnchoredPopover`; popper
 	// `VirtualElement`s go to `useAnchoredPopoverAtPoint`, which owns a synthetic
 	// anchor element in `document.body`.
-	const htmlAnchor: HTMLElement | null =
-		effectiveReference instanceof HTMLElement ? effectiveReference : null;
+	const htmlAnchor: HTMLElement | null = isHTMLElement(effectiveReference)
+		? effectiveReference
+		: null;
 	const virtualReference: VirtualElement | null =
-		effectiveReference != null && !(effectiveReference instanceof HTMLElement)
-			? effectiveReference
-			: null;
+		effectiveReference != null && !isHTMLElement(effectiveReference) ? effectiveReference : null;
 
 	const htmlAnchorRef = useRef<HTMLElement | null>(htmlAnchor);
 	htmlAnchorRef.current = htmlAnchor;

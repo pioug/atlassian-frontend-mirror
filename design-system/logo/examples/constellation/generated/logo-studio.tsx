@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { StudioIcon, StudioLogo } from '@atlaskit/logo';
+import { StudioIcon } from '@atlaskit/logo/studio/icon';
+import { StudioLogoCS as StudioLogo } from '@atlaskit/logo/studio/logo';
 
 import LogoTable from '../utils/logo-table';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SuccessProgressBar } from '@atlaskit/progress-bar';
+import { SuccessProgressBar } from '@atlaskit/progress-bar/success-progress-bar';
 
 const SuccessProgressBarCompleteExample = (): React.JSX.Element => {
 	return <SuccessProgressBar ariaLabel="Done: 10 of 10 work items" value={1} />;

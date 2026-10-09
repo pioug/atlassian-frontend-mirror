@@ -2,7 +2,7 @@ import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';
 import { useDispatchAnalytics } from '../useDispatchAnalytics';

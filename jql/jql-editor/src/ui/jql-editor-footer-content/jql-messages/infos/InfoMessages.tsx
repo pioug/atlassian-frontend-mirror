@@ -4,7 +4,7 @@ import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { MessageContainer } from '../format/MessageContainer';

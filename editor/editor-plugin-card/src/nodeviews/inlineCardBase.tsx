@@ -15,6 +15,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
 import type { SmartCardProps } from './genericCard';
+import { isIntersectionObserverSupported } from './isIntersectionObserverSupported';
 
 export const InlineCard: React.MemoExoticComponent<
 	({
@@ -76,9 +77,12 @@ export const InlineCard: React.MemoExoticComponent<
 		}, [getPos, view]);
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			() => findOverflowScrollParent(view.dom as HTMLElement) || undefined,
+			() =>
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+				isIntersectionObserverSupported()
+					? undefined
+					: // eslint-disable-next-line @atlaskit/editor/no-as-casting
+						findOverflowScrollParent(view.dom as HTMLElement) || undefined,
 			[view.dom],
 		);
 

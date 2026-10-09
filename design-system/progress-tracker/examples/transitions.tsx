@@ -2,7 +2,8 @@ import React, { type FC, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
+import ProgressTracker from '@atlaskit/progress-tracker/progress-tracker';
+import type { Stages } from '@atlaskit/progress-tracker/types';
 
 const items: Stages = [...Array(6)].map((_num, index) => {
 	return {

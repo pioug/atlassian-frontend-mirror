@@ -198,7 +198,7 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		});
 	};
 
-	private renderItems(): JSX.Element | null {
+	private renderItems(): React.JSX.Element | null {
 		const { mentions } = this.props;
 
 		if (mentions && mentions.length) {
@@ -246,8 +246,8 @@ export default class MentionList extends React.PureComponent<Props, State> {
 		// just continue to show the existing mentions we have
 		const mustShowError = resourceError && !hasMentions;
 
-		let errorSection: JSX.Element | undefined;
-		let resultSection: JSX.Element | undefined;
+		let errorSection: React.JSX.Element | undefined;
+		let resultSection: React.JSX.Element | undefined;
 		if (mustShowError) {
 			errorSection = <MentionListError error={resourceError} />;
 		} else if (hasMentions) {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "6.12.0",
+	"version": "6.12.1",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -47,9 +47,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_navx_fix_nested_footer_landmark": {
-			"type": "boolean"
-		},
-		"platform_navx_3298_message_wrapper": {
 			"type": "boolean"
 		},
 		"add-disable-manual-url-capability-technical": {

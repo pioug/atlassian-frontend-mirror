@@ -1,8 +1,5 @@
-import {
-	type KeyValues,
-	type RequestServiceOptions,
-	utils as serviceUtils,
-} from '@atlaskit/util-service-support';
+import { utils as serviceUtils } from '@atlaskit/util-service-support/constants';
+import type { KeyValues, RequestServiceOptions } from '@atlaskit/util-service-support/types';
 
 import { type EmojiServiceResponse } from '../types';
 import { calculateScale } from './calculateScale';

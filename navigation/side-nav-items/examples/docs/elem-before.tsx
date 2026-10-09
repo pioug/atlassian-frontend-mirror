@@ -2,16 +2,16 @@ import React from 'react';
 
 import ClockIcon from '@atlaskit/icon/core/clock';
 import HomeIcon from '@atlaskit/icon/core/home';
-import { JiraIcon } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	ExpandableMenuItem,
 	ExpandableMenuItemTrigger,
 } from '@atlaskit/side-nav-items/expandable-menu-item';
-import { FlyoutMenuItem, FlyoutMenuItemTrigger } from '@atlaskit/side-nav-items/flyout-menu-item';
-import { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
+import { FlyoutMenuItem, FlyoutMenuItemTrigger, COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/flyout-menu-item';
+import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 
 import MoneyIcon from '../images/money.svg';

@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 
 import Status from '@atlaskit/avatar/status';
 import { cssMap } from '@atlaskit/css';
-import { type EmojiProvider, ResourcedEmoji } from '@atlaskit/emoji';
-import { Box } from '@atlaskit/primitives/compiled';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 export const getTownsquareEmojiProvider = async (): Promise<EmojiProvider> => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import CodeBlock from '@atlaskit/code/code-block';
 import { Label } from '@atlaskit/form/label/default';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 const exampleCodeBlock = `import Message from '../../../src/packages/components/example-of-a-really-long-import-path/message'

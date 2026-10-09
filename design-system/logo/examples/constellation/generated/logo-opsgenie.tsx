@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { OpsgenieIcon, OpsgenieLogo } from '@atlaskit/logo';
+import { OpsgenieIcon } from '@atlaskit/logo/opsgenie-icon';
+import { OpsgenieLogoCS as OpsgenieLogo } from '@atlaskit/logo/opsgenie/logo';
 
 import LogoTable from '../utils/logo-table';
 

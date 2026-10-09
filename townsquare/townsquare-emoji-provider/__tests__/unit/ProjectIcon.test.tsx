@@ -4,8 +4,10 @@ import { render, screen } from '@testing-library/react';
 
 import { ProjectIcon } from '../../src/ProjectIcon';
 
-jest.mock('@atlaskit/emoji', () => ({
-	ResourcedEmoji: ({ emojiId }: any) => (
+jest.mock('@atlaskit/emoji/resourced-emoji', () => ({
+	...jest.requireActual('@atlaskit/emoji/resourced-emoji'),
+	__esModule: true,
+	default: ({ emojiId }: any) => (
 		<span data-testid="resourced-emoji" data-emoji-id={emojiId?.shortName}>
 			{emojiId?.shortName}
 		</span>
@@ -22,7 +24,8 @@ jest.mock('@atlaskit/avatar/status', () => ({
 	),
 }));
 
-jest.mock('@atlaskit/primitives/compiled', () => ({
+jest.mock('@atlaskit/primitives/compiled/box', () => ({
+	...jest.requireActual('@atlaskit/primitives/compiled/box'),
 	Box: ({ children }: any) => <div data-testid="box">{children}</div>,
 }));
 

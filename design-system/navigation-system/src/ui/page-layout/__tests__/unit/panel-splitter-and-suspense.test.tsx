@@ -1,8 +1,8 @@
 import React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { toBeSuspendable } from '@af/react-unit-testing';
-import { resetMatchMedia } from '@atlassian/test-utils';
+import { toBeSuspendable } from '@af/react-unit-testing/to-be-suspendable';
+import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';

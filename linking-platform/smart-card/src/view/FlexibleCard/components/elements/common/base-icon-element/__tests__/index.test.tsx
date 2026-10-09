@@ -10,7 +10,8 @@ import { IntlProvider } from 'react-intl';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { IconType, SmartLinkSize } from '../../../../../../../constants';
 import IconElement from '../index';

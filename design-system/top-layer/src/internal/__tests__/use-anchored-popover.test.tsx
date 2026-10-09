@@ -3,7 +3,8 @@ import React, { type RefObject, useRef } from 'react';
 import { hydrateRoot, type Root } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { useAnchoredPopover } from '../use-anchored-popover';
 

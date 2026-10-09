@@ -7,7 +7,7 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import AkButton from '@atlaskit/button/default/button';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { messages } from '../i18n';

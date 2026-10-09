@@ -10,7 +10,7 @@ import { type MessageDescriptor, useIntl } from 'react-intl';
 import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { PopupSelect } from '@atlaskit/select/popup-select';
 import type { OptionType, ValueType } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';

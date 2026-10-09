@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { SizeType } from '@atlaskit/avatar/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { FallbackAvatar } from './fallback';

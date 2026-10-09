@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { AssetsIcon } from '@atlaskit/logo';
-import { Box } from '@atlaskit/primitives/compiled';
+import { AssetsIcon } from '@atlaskit/logo/assets/icon';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

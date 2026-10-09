@@ -10,7 +10,9 @@ import { css, jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
 import Link from '@atlaskit/link/link';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';

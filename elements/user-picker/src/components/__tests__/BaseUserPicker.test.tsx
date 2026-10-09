@@ -4,7 +4,7 @@ import { screen, act, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import Select from '@atlaskit/select/default';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { BaseUserPicker } from '../BaseUserPicker';
 class TestSelect extends React.Component {

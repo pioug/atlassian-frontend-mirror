@@ -1,4 +1,4 @@
-import { isListOperator } from '@atlaskit/jql-ast';
+import { isListOperator } from '@atlaskit/jql-ast/ast/operator';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type SelectableAutocompleteOption } from './components/types';

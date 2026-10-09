@@ -61,7 +61,7 @@ const color: AttributeSchema<TextColorTokenSchema<BaseToken>> = {
 					state: 'active',
 					introduced: '0.6.0',
 					description:
-						'Use for text in selected or opened states, such as tabs and dropdown buttons.',
+						'Use for text that communicates selection, such as the active tab or a selected navigation item, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.text.inverse instead. Do not use for unselected links, brand emphasis, or hover alone. Keep the selected text treatment when the element also has focus.',
 				},
 			},
 			danger: {

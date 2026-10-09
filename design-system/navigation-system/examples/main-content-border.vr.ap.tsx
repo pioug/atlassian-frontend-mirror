@@ -10,20 +10,23 @@ import Heading from '@atlaskit/heading/heading';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
-import { Main, Root, Search, SideNav, SideNavBody } from '@atlaskit/navigation-system';
-import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import {
+	SideNavToggleButton,
+	SideNav,
+	SideNavBody,
+} from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
 	TopNavEnd,
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';

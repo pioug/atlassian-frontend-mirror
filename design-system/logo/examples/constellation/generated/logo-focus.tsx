@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { FocusIcon, FocusLogo } from '@atlaskit/logo';
+import { FocusIcon } from '@atlaskit/logo/focus/icon';
+import { FocusLogoCS as FocusLogo } from '@atlaskit/logo/focus/logo';
 
 import LogoTable from '../utils/logo-table';
 

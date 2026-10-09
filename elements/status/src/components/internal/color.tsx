@@ -9,7 +9,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { ANALYTICS_HOVER_DELAY } from '../constants';

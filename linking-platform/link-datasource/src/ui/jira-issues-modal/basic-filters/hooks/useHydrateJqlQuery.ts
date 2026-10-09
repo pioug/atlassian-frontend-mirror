@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { OPERAND_EMPTY } from '@atlaskit/jql-ast';
+import { OPERAND_EMPTY } from '@atlaskit/jql-ast/operand';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { type CommonBasicFilterHookState } from '../../../common/modal/popup-select/types';

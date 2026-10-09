@@ -1,6 +1,12 @@
 import React from 'react';
 
-import Table, { Cell, HeadCell, Row, SortableColumn, TBody, THead } from '@atlaskit/table';
+import { TBody } from '@atlaskit/table/body';
+import { HeadCell } from '@atlaskit/table/head-cell';
+import { Row } from '@atlaskit/table/row';
+import { SortableColumn } from '@atlaskit/table/sortable-column';
+import Table from '@atlaskit/table/table';
+import { Cell } from '@atlaskit/table/td';
+import { THead } from '@atlaskit/table/thead';
 
 import { head, rows } from './content/dynamic-table-data';
 

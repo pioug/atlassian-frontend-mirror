@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 
 /**
  * **usePopupAppearance()**

@@ -10,8 +10,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import IconButton from '@atlaskit/button/icon/button';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
-import { RovoIcon } from '@atlaskit/logo';
-import { Text } from '@atlaskit/primitives/compiled';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

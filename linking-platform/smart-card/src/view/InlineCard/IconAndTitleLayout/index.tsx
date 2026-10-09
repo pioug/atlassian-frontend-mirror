@@ -11,7 +11,7 @@ import ImageLoader from 'react-render-image';
 
 import { cssMap } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { isProfileType } from '../../../utils/is-profile-type';

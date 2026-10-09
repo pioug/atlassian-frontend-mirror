@@ -4,7 +4,9 @@ import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 
 import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 import { SmartLinkModalContext } from '../src/state/modal';
 import type { SmartLinkModalAPI } from '../src/state/modal/types';

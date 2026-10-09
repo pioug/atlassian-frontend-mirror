@@ -1,7 +1,9 @@
 import React, { type FC, type ReactNode } from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import Comment, { CommentAction, CommentAuthor } from '@atlaskit/comment';
+import { CommentAction } from '@atlaskit/comment/action-item';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import Comment from '@atlaskit/comment/comment';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 

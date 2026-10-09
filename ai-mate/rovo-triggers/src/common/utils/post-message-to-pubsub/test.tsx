@@ -3,7 +3,7 @@ import React from 'react';
 import { act, render, renderHook, waitFor } from '@testing-library/react';
 import { bind } from 'bind-event-listener';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { usePublish } from '../../../main';
 

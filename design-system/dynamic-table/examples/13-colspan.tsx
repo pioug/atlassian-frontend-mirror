@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DynamicTable from '@atlaskit/dynamic-table';
+import DynamicTable from '@atlaskit/dynamic-table/stateful';
 
 const days = ['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 

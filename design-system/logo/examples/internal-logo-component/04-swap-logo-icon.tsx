@@ -9,7 +9,7 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Select from '@atlaskit/select/default';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { rows } from './utils/all-components';
 import { appOrder, selectOptions } from './utils/constants';

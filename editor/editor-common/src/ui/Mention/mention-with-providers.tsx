@@ -13,6 +13,7 @@ import type { MentionEventHandlers } from '../EventHandlers';
 import type {
 	MentionNodeDataIdentifier,
 	MentionNodeDataProvider,
+	MentionNodeDataUserType,
 } from './mention-node-data-provider';
 import ResourcedMentionWithProfilecard from './mention-with-profilecard';
 
@@ -27,7 +28,7 @@ export interface Props {
 	mentionProvider?: Promise<MentionProvider>;
 	profilecardProvider?: Promise<ProfilecardProvider>;
 	text: string;
-	userType?: MentionUserType;
+	userType?: MentionNodeDataUserType;
 }
 
 export interface MentionWithProvidersProps extends Props {
@@ -78,7 +79,7 @@ const useMentionNodeData = ({
 }: {
 	id: string;
 	mentionNodeDataProvider: MentionNodeDataProvider;
-	userType?: MentionUserType;
+	userType?: MentionNodeDataUserType;
 }) => {
 	const reportFailure = useAvatarFailureReporter();
 	const reportedResolution = useRef<{
@@ -228,6 +229,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 			profilecardProvider && profilecardProviderResolver && GENERIC_USER_IDS.indexOf(id) === -1
 				? ResourcedMentionWithProfilecard
 				: ResourcedMention;
+		const mentionUserType: MentionUserType | undefined = userType === 'AGENT' ? 'APP' : userType;
 
 		const ssrPlaceholderId = `mention-${id}`;
 
@@ -262,7 +264,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 				text={text}
 				accessLevel={accessLevel}
 				localId={localId}
-				userType={userType}
+				userType={mentionUserType}
 				mentionProvider={mentionProvider}
 				appType={mentionNodeData?.appType}
 				avatarUrl={mentionNodeData?.avatarUrl}

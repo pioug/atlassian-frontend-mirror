@@ -11,7 +11,10 @@ import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar/avatar-
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import type { TextColor } from '@atlaskit/primitives/compiled/components/types';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

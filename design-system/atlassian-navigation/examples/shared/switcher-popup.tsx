@@ -8,12 +8,12 @@ import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AppSwitcher } from '@atlaskit/atlassian-navigation';
+import { AppSwitcher } from '@atlaskit/atlassian-navigation/app-switcher';
 import { Popup } from '@atlaskit/popup/popup';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
-import AtlassianSwitcher from '@atlassian/switcher';
-import { mockEndpoints, REQUEST_FAST } from '@atlassian/switcher-test-utils';
+import { mockEndpoints, REQUEST_FAST } from '@atlassian/switcher-test-utils/mock-endpoints';
+import { AtlassianSwitcherLoader as AtlassianSwitcher } from '@atlassian/switcher/loaders';
 
 import { withAnalyticsLogger, withIntlProvider } from '../helpers';
 

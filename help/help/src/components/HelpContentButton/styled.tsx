@@ -7,7 +7,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const wrappedSpanStyles = css({
@@ -103,10 +102,7 @@ export const HelpContentButtonContainer = ({
 				onKeyDown={onKeyDown}
 				id={id}
 				tabIndex={tabIndex}
-				css={[
-					helpContentButtonContainerStyles,
-					fg('platform-dst-motion-uplift-custom-button') && helpContentButtonMotionStyles,
-				]}
+				css={[helpContentButtonContainerStyles, helpContentButtonMotionStyles]}
 			>
 				<span css={wrappedSpanStyles}>{children}</span>
 			</button>

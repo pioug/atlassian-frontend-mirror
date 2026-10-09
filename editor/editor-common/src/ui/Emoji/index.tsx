@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 
-import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import type { EmojiProvider, EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import type { EmojiId } from '@atlaskit/emoji/types';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiId, EmojiProvider } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ProviderFactory } from '../../provider-factory';

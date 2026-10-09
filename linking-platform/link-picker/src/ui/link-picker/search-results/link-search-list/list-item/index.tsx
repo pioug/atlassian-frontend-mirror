@@ -13,7 +13,7 @@ import {
 import { css, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';

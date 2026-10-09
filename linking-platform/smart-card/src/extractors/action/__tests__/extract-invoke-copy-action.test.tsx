@@ -1,4 +1,4 @@
-import { userEvent } from '@atlassian/testing-library';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CardAction } from '../../../constants';
 import { ActionName } from '../../../index';

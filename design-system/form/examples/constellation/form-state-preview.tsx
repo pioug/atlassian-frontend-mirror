@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import { cssMap, jsx } from '@atlaskit/css';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';

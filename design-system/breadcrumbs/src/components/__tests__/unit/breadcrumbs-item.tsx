@@ -4,7 +4,10 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import BreadcrumbsItem from '../../breadcrumbs-item';
 import { BreadcrumbsSizeProvider } from '../../internal/breadcrumbs-size-provider';

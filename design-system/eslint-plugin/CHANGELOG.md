@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.6
+
+### Patch Changes
+
+- [`34d6cd041f793`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d6cd041f793) -
+  Cleanup `feature_gate` `platform-dst-motion-uplift-custom-button`. The design system motion uplift
+  for custom buttons and `Pressable` primitives is now permanently enabled: the gated motion styles
+  are applied unconditionally and the pre-uplift transition styles have been removed.
+
 ## 16.13.5
 
 ### Patch Changes

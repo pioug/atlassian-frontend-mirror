@@ -11,7 +11,7 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import Buttons from './internal/buttons';

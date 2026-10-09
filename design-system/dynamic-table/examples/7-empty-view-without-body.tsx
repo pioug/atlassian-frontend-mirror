@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import DynamicTableStateless from '@atlaskit/dynamic-table/stateless';
 
 import { head } from './content/sample-data';
 

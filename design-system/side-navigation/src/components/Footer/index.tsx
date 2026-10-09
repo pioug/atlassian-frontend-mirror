@@ -7,7 +7,9 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { type HeaderProps } from '../Header';

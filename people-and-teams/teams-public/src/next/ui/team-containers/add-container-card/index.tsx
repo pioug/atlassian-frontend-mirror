@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { type ContainerTypes } from '../../../../common/types';

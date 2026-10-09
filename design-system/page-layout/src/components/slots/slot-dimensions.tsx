@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { UNSAFE_media } from '@atlaskit/primitives/responsive';
+import { UNSAFE_media } from '@atlaskit/primitives/media-helper/default';
 
 interface SlotDimensionsProps {
 	variableName: string;

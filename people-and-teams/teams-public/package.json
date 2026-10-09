@@ -94,7 +94,6 @@
 		"graphql": "root:*",
 		"graphql-tag": "root:*",
 		"react-loosely-lazy": "root:*",
-		"react-router-dom": "^6.30.6",
 		"react-sweet-state": "root:*",
 		"string-hash": "root:*"
 	},
@@ -119,7 +118,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.2.0",
+	"version": "3.3.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

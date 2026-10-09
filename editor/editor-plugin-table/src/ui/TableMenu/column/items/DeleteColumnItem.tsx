@@ -11,7 +11,6 @@ import {
 	ToolbarDropdownItem,
 	ToolbarKeyboardShortcutHint,
 } from '@atlaskit/editor-toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	clearHoverSelection,
@@ -30,9 +29,7 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 	const tableMenuContext = useTableMenuContext();
 	const { editorView } = tableMenuContext ?? {};
 	const selectedColumnCount = tableMenuContext?.selectedColumnCount ?? 1;
-	const shouldShowShortcut =
-		!isExperimentEnabled('platform_editor_table_menu_updates_patch_4') ||
-		tableMenuContext?.surface.key !== CELL_MENU.key;
+	const shouldShowShortcut = tableMenuContext?.surface.key !== CELL_MENU.key;
 	const { formatMessage } = useIntl();
 	const { isCommentEditor, isTableFixedColumnWidthsOptionEnabled, isTableScalingEnabled } =
 		useSharedPluginStateWithSelector(api ?? undefined, ['table'], (states) => {

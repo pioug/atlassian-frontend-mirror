@@ -9,9 +9,11 @@ import { useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { cx } from '@atlaskit/css';
-import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiProvider, EmojiId } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import {

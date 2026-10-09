@@ -10,7 +10,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { cssMap as strictCssMap } from '@atlaskit/css';
 import DownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Inline, Pressable } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';

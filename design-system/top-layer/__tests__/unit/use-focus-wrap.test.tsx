@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { type TPhase } from '../../src/internal/use-animated-visibility';
 import { useFocusWrap } from '../../src/internal/use-focus-wrap';

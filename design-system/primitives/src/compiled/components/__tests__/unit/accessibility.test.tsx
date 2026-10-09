@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import { cssMap } from '@atlaskit/css';
 
 import { Box, Flex, Grid, Inline, Stack, Text } from '../../../index';

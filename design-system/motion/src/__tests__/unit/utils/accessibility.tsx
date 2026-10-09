@@ -1,4 +1,5 @@
-import { act, renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { act } from '@atlassian/testing-library/testing-library/react';
 
 import { useIsReducedMotion } from '../../../utils/use-is-reduced-motion';
 

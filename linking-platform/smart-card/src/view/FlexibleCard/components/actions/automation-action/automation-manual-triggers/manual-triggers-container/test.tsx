@@ -2,7 +2,8 @@ import React from 'react';
 
 import { injectable } from 'react-magnetic-di';
 
-import { act, fireEvent, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { mockTransformedRules } from './common/mocks';
 import { renderWithDi } from './common/test-utils/render-with-di';

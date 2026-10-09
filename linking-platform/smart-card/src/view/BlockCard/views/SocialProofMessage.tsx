@@ -2,7 +2,8 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { messages } from '../../../messages';
 import type { SocialProofTier } from '../../../state/hooks/use-social-proof-experiment';

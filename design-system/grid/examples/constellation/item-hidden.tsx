@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
-import Grid, { GridItem } from '@atlaskit/grid';
+import Grid from '@atlaskit/grid/grid';
+import { GridItem } from '@atlaskit/grid/grid-item';
 
 import { SkeletonBox } from './shared/skeleton-box';
 

@@ -169,7 +169,11 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			const extensionHeight =
 				this.reactComponentProps?.extensionNodeViewOptions?.getExtensionHeight?.(this.node);
 			if (extensionHeight) {
-				htmlElement.style.setProperty('min-height', `${extensionHeight}px`);
+				const minHeight =
+					extensionHeight.endsWith('px') && fg('confluence_forge_early_render_reserve_height')
+						? extensionHeight
+						: `${extensionHeight}px`;
+				htmlElement.style.setProperty('min-height', minHeight);
 			}
 			return htmlElement;
 		}

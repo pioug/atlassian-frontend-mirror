@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import Pagination from '@atlaskit/pagination';
+import Pagination from '@atlaskit/pagination/pagination';
 
 import type { I18nShape } from '../types';
 

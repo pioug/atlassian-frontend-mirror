@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 
 import ComposedMenuGroupExample from '../../../examples/05-menu-group.vr.ap';
 import ButtonItemExample from '../../../examples/button-item.vr.ap';

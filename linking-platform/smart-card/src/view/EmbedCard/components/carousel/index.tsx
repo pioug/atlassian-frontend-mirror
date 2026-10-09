@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { jsx, keyframes } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import CarouselSlide from './CarouselSlide';
 import type { CarouselSize, CarouselItem } from './types';

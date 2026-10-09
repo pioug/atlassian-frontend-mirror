@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import UFOInteractionContext from '../../interaction-context';
 import UFOInteractionIDContext from '../../interaction-id-context';

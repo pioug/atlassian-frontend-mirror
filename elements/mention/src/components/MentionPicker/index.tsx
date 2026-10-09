@@ -2,9 +2,8 @@ import React from 'react';
 
 import { type IntlShape, type WithIntlProps, injectIntl } from 'react-intl';
 
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import { type MentionProvider } from '../../api/MentionResource';
 import { type PresenceProvider } from '../../api/PresenceResource';
@@ -62,7 +61,12 @@ export const MentionPickerWithAnalytics: React.ForwardRefExoticComponent<
 		keyof WithAnalyticsEventsProps
 	> &
 		React.RefAttributes<any>
-> = withAnalyticsEvents({})(MentionPickerWithIntl);
+> = React.forwardRef<MentionPicker, Props>((props, ref) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	return <MentionPickerWithIntl {...props} createAnalyticsEvent={createAnalyticsEvent} ref={ref} />;
+});
+
+MentionPickerWithAnalytics.displayName = 'MentionPickerWithAnalytics';
 
 // Merges with the `const` above so that `MentionPickerWithAnalytics` is usable in a type
 // position as the component instance type (e.g. for refs). Both halves of a declaration

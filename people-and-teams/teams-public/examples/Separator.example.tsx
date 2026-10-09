@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { Playground } from '@atlassian/teams-app-internal-playground/playground';
 
 import { Separator } from '../src/common/ui/separator';

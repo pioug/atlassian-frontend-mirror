@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Code from '@atlaskit/code/code';
 import Heading from '@atlaskit/heading/heading';
-import Pagination from '@atlaskit/pagination';
+import Pagination from '@atlaskit/pagination/pagination';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default function AnalyticsExample(): React.JSX.Element {

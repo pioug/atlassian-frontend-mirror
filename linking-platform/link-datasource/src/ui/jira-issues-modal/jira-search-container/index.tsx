@@ -9,9 +9,11 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { type Jast } from '@atlaskit/jql-ast';
+import type { Jast } from '@atlaskit/jql-ast/query';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

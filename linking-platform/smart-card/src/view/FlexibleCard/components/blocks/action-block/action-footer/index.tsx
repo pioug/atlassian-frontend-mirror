@@ -6,7 +6,8 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { type ActionMessageAppearance } from '../../../actions/action/types';

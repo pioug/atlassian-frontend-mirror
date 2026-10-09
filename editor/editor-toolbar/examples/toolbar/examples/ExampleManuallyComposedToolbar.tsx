@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
-import Toggle from '@atlaskit/toggle';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 

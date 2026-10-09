@@ -6,7 +6,10 @@
 import { useEffect, useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Flex, Grid, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { type AnonymousAsset, getAllAnonymousAssets } from '../src';

@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { Flex as PlatformFlex } from '@atlaskit/primitives';
+import { Flex as PlatformFlex } from '@atlaskit/primitives/components/flex';
 
 type PlatformFlexProps = React.ComponentProps<typeof PlatformFlex>;
 

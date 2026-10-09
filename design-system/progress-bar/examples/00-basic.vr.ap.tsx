@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProgressBar from '@atlaskit/progress-bar';
+import ProgressBar from '@atlaskit/progress-bar/progress-bar';
 import { token } from '@atlaskit/tokens';
 
 export const progress = 0.4;

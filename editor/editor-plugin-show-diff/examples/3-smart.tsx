@@ -79,7 +79,7 @@ import { AddMarkStep, Mapping, ReplaceStep, StepMap } from '@atlaskit/editor-pro
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import type {

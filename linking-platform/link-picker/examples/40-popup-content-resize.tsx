@@ -2,8 +2,9 @@ import React, { Fragment, useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
-import Toggle from '@atlaskit/toggle';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
 import LinkPicker, { type LinkPickerState } from '../src';

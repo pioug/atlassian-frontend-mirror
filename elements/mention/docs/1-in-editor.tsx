@@ -1,6 +1,6 @@
 import Link from '@atlaskit/link/link';
 import React from 'react';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import MentionWithEditorExample from '../examples/14-mention-with-editor-extending-abstract-mention-resource';

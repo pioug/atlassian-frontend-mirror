@@ -2,7 +2,7 @@ import React, { type ComponentProps } from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 
 import ProgressBar from '../../components/progress-bar';
 import SuccessProgressBar from '../../components/success-progress-bar';

@@ -7,7 +7,7 @@ import { cssMap, jsx, styled } from '@compiled/react';
 import Form from '@atlaskit/form/form';
 import type { OnSubmitHandler } from '@atlaskit/form/types';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

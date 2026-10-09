@@ -8,17 +8,23 @@ import React, { Fragment, useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	Banner,
-	Content,
-	LeftPanel,
-	LeftSidebarWithoutResize,
-	Main,
-	PageLayout,
-	RightPanel,
-	RightSidebar,
-	TopNavigation,
-} from '@atlaskit/page-layout';
+import { Banner } from '@atlaskit/page-layout/banner-slot';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Content } from '@atlaskit/page-layout/content';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { LeftPanel } from '@atlaskit/page-layout/left-panel';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { LeftSidebarWithoutResize } from '@atlaskit/page-layout/left-sidebar-without-resize';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Main } from '@atlaskit/page-layout/main';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PageLayout } from '@atlaskit/page-layout/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { RightPanel } from '@atlaskit/page-layout/right-panel';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { RightSidebar } from '@atlaskit/page-layout/right-sidebar';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { TopNavigation } from '@atlaskit/page-layout/top-navigation';
 import { token } from '@atlaskit/tokens';
 
 import {

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { TeamsIcon, TeamsLogo } from '@atlaskit/logo';
+import { TeamsIcon } from '@atlaskit/logo/teams/icon';
+import { TeamsLogoCS as TeamsLogo } from '@atlaskit/logo/teams/logo';
 
 import LogoTable from '../utils/logo-table';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import { JQLParseError } from '@atlaskit/jql-ast';
+import { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
 
 import { useEditorStateHasJqlError, useExternalMessages, useJqlError } from '../../state';
 import { type ExternalMessagesNormalized } from '../../state/types';

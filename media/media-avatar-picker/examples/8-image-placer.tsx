@@ -8,7 +8,9 @@ import React from 'react';
 import { jsx, css } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
-import Page, { Grid, GridColumn } from '@atlaskit/page';
+import Grid from '@atlaskit/page/grid';
+import { GridColumn } from '@atlaskit/page/grid-column';
+import Page from '@atlaskit/page/page';
 import { token } from '@atlaskit/tokens';
 
 import { ImagePlacer, type ImageActions } from '../src/image-placer';

@@ -13,9 +13,7 @@ import { expect, test } from '@af/integration-testing';
 const featureFlag = 'platform-dst-top-layer';
 
 test.describe('ModalDialog top-layer — initial focus matrix', () => {
-	test('default modal focuses the first focusable element (close button in header)', async ({
-		page,
-	}) => {
+	test('default modal focuses its first control in modern React mode', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/98-testing-initial-focus-matrix.tsx')
 		>('design-system', 'modal-dialog', 'testing-initial-focus-matrix', {
@@ -23,19 +21,15 @@ test.describe('ModalDialog top-layer — initial focus matrix', () => {
 			'react-18-mode': 'modern',
 		});
 
-		await page.getByTestId('default-modal-trigger').click();
-
+		const trigger = page.getByTestId('default-modal-trigger');
 		const dialog = page.getByTestId('default-modal');
-		await expect(dialog).toBeVisible();
 
-		// The close button in the header is the first focusable element.
-		const closeButton = dialog.getByRole('button', { name: 'Close Modal' });
-		await expect(closeButton).toBeFocused();
+		await trigger.click();
+		await expect(dialog).toBeVisible();
+		await expect(page.getByTestId('default-modal--close-button')).toBeFocused();
 	});
 
-	test('modal with native [autofocus] element focuses that element instead of the close button', async ({
-		page,
-	}) => {
+	test('native [autofocus] wins in modern React mode', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../../../examples/98-testing-initial-focus-matrix.tsx')
 		>('design-system', 'modal-dialog', 'testing-initial-focus-matrix', {
@@ -43,11 +37,11 @@ test.describe('ModalDialog top-layer — initial focus matrix', () => {
 			'react-18-mode': 'modern',
 		});
 
-		await page.getByTestId('native-autofocus-modal-trigger').click();
-
+		const trigger = page.getByTestId('native-autofocus-modal-trigger');
 		const dialog = page.getByTestId('native-autofocus-modal');
-		await expect(dialog).toBeVisible();
 
+		await trigger.click();
+		await expect(dialog).toBeVisible();
 		await expect(page.getByTestId('native-autofocus-input')).toBeFocused();
 	});
 });

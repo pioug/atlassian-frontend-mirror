@@ -13,8 +13,8 @@ jest.mock('react-intl', () => ({
 	}),
 }));
 
-jest.mock('@atlaskit/give-kudos', () => ({
-	...jest.requireActual('@atlaskit/give-kudos'),
+jest.mock('@atlaskit/give-kudos/give-kudos-launcher', () => ({
+	...jest.requireActual('@atlaskit/give-kudos/give-kudos-launcher'),
 	GiveKudosLauncherLazy: jest
 		.fn()
 		.mockImplementation(({ isOpen }) => (isOpen ? <div>GiveKudosLauncherLazy</div> : null)),

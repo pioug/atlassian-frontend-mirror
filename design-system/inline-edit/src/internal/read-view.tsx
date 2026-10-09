@@ -5,7 +5,7 @@
 import React, { useRef } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 const readViewContainerStyles = css({

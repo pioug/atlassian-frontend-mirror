@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { Dialog } from '../../src/dialog/dialog-content';
 import { Popover } from '../../src/popover/popover';

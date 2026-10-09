@@ -2,7 +2,8 @@ declare var global: any;
 declare var window: any;
 import React from 'react';
 
-import { render, screen, act, fireEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, act, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { FilmstripView } from '../../filmstripView';
 

@@ -4,7 +4,12 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { Anchor, Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { token } from '@atlaskit/tokens';
 

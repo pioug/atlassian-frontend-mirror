@@ -3,8 +3,9 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import Heading from '@atlaskit/heading/heading';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { AgentAvatar } from '../src/ui/agent-avatar';
 import { imageAgentAvatar } from './helpers';
@@ -12,6 +13,7 @@ import { imageAgentAvatar } from './helpers';
 export default function (): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- the rule does not yet recognise @atlaskit/primitives subpath entry points */}
 			<Box padding="space.300" backgroundColor="color.background.accent.purple.subtler.pressed">
 				<Stack alignInline="center">
 					<Heading size="medium">Sizes</Heading>

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { Label } from '@atlaskit/form/label/default';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import ExampleBox from '../shared/example-box';
 

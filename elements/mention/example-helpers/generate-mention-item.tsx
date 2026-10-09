@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export const generateMentionItem = (
-	component: JSX.Element,
+	component: React.JSX.Element,
 	description?: string,
 ): React.JSX.Element => (
 	<div>

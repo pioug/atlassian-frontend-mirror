@@ -1,8 +1,5 @@
-import {
-	type RequestServiceOptions,
-	type ServiceConfig,
-	utils,
-} from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support/constants';
+import type { RequestServiceOptions, ServiceConfig } from '@atlaskit/util-service-support/types';
 
 import { type Reactions, type ReactionSummary, type Client } from '../types';
 

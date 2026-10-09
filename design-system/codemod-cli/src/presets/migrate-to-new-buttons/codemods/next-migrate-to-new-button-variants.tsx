@@ -8,7 +8,7 @@ import {
 	type ImportSpecifier,
 } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
 import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';

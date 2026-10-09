@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
-import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { DialogScrollLock } from '../../src/dialog-scroll-lock';
 import { createCloseEvent } from '../../src/dialog/create-close-event';

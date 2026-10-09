@@ -7,7 +7,10 @@ import React from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { ConfluenceIcon, CustomerServiceManagementIcon, JiraIcon, LoomIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { CustomerServiceManagementIcon } from '@atlaskit/logo/customer-service-management/icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { LoomIcon } from '@atlaskit/logo/loom/icon';
 import type { LogoProps } from '@atlaskit/logo/types';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Text } from '@atlaskit/primitives/compiled/text';

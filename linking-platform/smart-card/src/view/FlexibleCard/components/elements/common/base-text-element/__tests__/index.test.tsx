@@ -5,7 +5,8 @@
 import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { messages } from '../../../../../../../messages';
 import Text from '../index';

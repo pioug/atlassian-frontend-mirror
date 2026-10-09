@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { ExpandableMenuItem } from '../../expandable-menu-item/expandable-menu-item';
 import { ExpandableMenuItemContent } from '../../expandable-menu-item/expandable-menu-item-content';

@@ -5,7 +5,7 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { Label } from '@atlaskit/form/label/default';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import NestedDropdownMenuExample from './12-nested-dropdown';
 

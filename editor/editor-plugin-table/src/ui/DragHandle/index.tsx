@@ -13,7 +13,6 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -255,7 +254,7 @@ const DragHandleComponent = ({
 	}, [api]);
 
 	const keepActiveDragMenuOrHideToolbar = useCallback(() => {
-		if (!isExperimentEnabled('platform_editor_table_menu_updates_patch_4') || !api) {
+		if (!api) {
 			return;
 		}
 		const activeTableMenu = (
@@ -339,7 +338,7 @@ const DragHandleComponent = ({
 					// return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing
 					// -> this is bad for a11y but is the current standard new copy/paste keyboard shortcuts should be introduced instead
 					editorView.focus();
-					if (isExperimentEnabled('platform_editor_table_menu_updates_patch_4') && e.shiftKey) {
+					if (e.shiftKey) {
 						keepActiveDragMenuOrHideToolbar();
 						return;
 					}

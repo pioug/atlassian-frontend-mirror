@@ -4,22 +4,32 @@ import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { useCallbackWithAnalytics } from '@atlaskit/analytics-next/useCallbackWithAnalytics';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AppSwitcher,
-	AtlassianNavigation,
-	Create,
-	Help,
-	Notifications,
-	PrimaryButton,
-	type PrimaryButtonProps,
-	ProductHome,
-	Profile,
-	Search,
-	Settings,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
+import { AppSwitcher } from '@atlaskit/atlassian-navigation/app-switcher';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Create } from '@atlaskit/atlassian-navigation/create';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Help } from '@atlaskit/atlassian-navigation/help';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Notifications } from '@atlaskit/atlassian-navigation/notifications';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { PrimaryButtonProps } from '@atlaskit/atlassian-navigation/primary-button/types';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Profile } from '@atlaskit/atlassian-navigation/profile';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Search } from '@atlaskit/atlassian-navigation/search';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Settings } from '@atlaskit/atlassian-navigation/settings';
 import Badge from '@atlaskit/badge/badge';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 import ButtonItem from '@atlaskit/menu/button-item';
 
 const useNavigationAnalytics = (subject: string) => {

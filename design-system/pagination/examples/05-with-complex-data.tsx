@@ -1,7 +1,7 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
 import Code from '@atlaskit/code/code';
-import Pagination from '@atlaskit/pagination';
+import Pagination from '@atlaskit/pagination/pagination';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 

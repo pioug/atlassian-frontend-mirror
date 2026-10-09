@@ -5,7 +5,8 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiProvider, EmojiId } from '@atlaskit/emoji/types';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 

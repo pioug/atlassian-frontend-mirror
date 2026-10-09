@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled';
+import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled/anchor';
 
 import { buildNavigationInput } from '../common/utils/buildNavigationInput';
 import type { NavigationIntentProps } from '../common/utils/getNavigationProps';

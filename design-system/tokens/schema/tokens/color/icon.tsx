@@ -58,7 +58,7 @@ const color: AttributeSchema<IconColorTokenSchema<BaseToken>> = {
 					state: 'active',
 					introduced: '0.6.2',
 					description:
-						'Use for icons in selected or opened states, such as those used in dropdown buttons.',
+						'Use for icons that communicate selection, such as icons in selected navigation items, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.icon.inverse instead. Do not use for brand emphasis or hover alone. Keep the selected icon treatment when the element also has focus.',
 				},
 			},
 			danger: {

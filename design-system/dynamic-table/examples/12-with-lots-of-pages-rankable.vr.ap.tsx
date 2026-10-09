@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import DynamicTable from '@atlaskit/dynamic-table';
-import Toggle from '@atlaskit/toggle';
+import DynamicTable from '@atlaskit/dynamic-table/stateful';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { createHead, rows } from './content/sample-data';
 

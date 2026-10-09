@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { FeedbackIcon, FeedbackLogo } from '@atlaskit/logo';
+import { FeedbackIcon } from '@atlaskit/logo/feedback/icon';
+import { FeedbackLogoCS as FeedbackLogo } from '@atlaskit/logo/feedback/logo';
 
 import LogoTable from '../utils/logo-table';
 

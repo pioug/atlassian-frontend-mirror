@@ -6,7 +6,7 @@ import React from 'react';
 import { captureMessage } from '@sentry/browser';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { cleanup, render, waitFor } from '@atlassian/testing-library';
+import { cleanup, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { BODY_FORMAT_TYPES } from '../../../model/HelpArticle';
 import ArticleBody from '../index';

@@ -18,13 +18,9 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppSwitcher,
-	CreateButton,
-	CustomLogo,
-	Profile,
-	Search,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppSwitcher, CustomLogo, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
 
 import placeholder20x20 from './images/20x20.png';
 import placeholder20x200 from './images/20x200.png';

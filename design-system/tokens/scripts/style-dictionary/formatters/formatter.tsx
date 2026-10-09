@@ -1,7 +1,7 @@
 import type { Format } from 'style-dictionary';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { additionalChecks } from '../../../src/utils/custom-theme-token-contrast-check';
 import { getTokenId } from '../../../src/utils/get-token-id';

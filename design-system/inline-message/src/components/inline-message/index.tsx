@@ -9,7 +9,10 @@ import { cssMap, jsx } from '@compiled/react';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import { Popup } from '@atlaskit/popup/popup';
 import type { PopupProps } from '@atlaskit/popup/types';
-import { Box, Inline, Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import type { IconAppearance, IconSpacing, PopupPlacement } from '../../types';

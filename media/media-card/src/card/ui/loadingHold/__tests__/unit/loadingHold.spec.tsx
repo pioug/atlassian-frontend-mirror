@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { LoadingHold } from '../../loadingHold';
 

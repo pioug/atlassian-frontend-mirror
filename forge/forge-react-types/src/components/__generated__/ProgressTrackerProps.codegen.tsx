@@ -9,10 +9,8 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type {
-	ProgressTrackerProps as PlatformProgressTrackerProps,
-	Stage as PlatformStage,
-} from '@atlaskit/progress-tracker';
+import type { ProgressTrackerProps as PlatformProgressTrackerProps } from '@atlaskit/progress-tracker/progress-tracker';
+import type { Stage as PlatformStage } from '@atlaskit/progress-tracker/types';
 
 type Stage = Pick<PlatformStage, 'id' | 'label' | 'percentageComplete' | 'status' | 'onClick'>;
 

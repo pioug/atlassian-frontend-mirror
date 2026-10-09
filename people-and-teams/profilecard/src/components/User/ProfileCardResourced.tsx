@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 
-import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
+import { KudosType } from '@atlaskit/give-kudos/types';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 

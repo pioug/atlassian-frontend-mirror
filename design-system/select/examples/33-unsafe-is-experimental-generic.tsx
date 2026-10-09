@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import { Label } from '@atlaskit/form/label/default';
@@ -8,9 +8,15 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import Lozenge, { type LozengeProps } from '@atlaskit/lozenge/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Inline } from '@atlaskit/primitives/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Pressable from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Text } from '@atlaskit/primitives/text';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { components } from '@atlaskit/react-select/components';
 import Select from '@atlaskit/select/default';
 import type { MenuProps, OptionProps, ValueType } from '@atlaskit/select/types';

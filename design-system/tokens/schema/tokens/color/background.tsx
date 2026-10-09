@@ -18,7 +18,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 					state: 'active',
 					introduced: '0.6.0',
 					description:
-						"Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements",
+						'Use as a translucent blanket to communicate selection when changing the background of the selected content is not possible, such as selected Editor blocks. The content beneath remains visible. Do not use to indicate keyboard focus or hover alone.',
 				},
 			},
 			danger: {
@@ -369,7 +369,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							state: 'active',
 							introduced: '0.6.2',
 							description:
-								'Use for the background of elements in a selected state, such as in opened dropdown buttons.',
+								'Use for the background of an element that communicates selection, such as a selected navigation item, or the opened state of a dropdown trigger. Use color.background.selected.hovered or color.background.selected.pressed when interacting with a selected element. Selection is distinct from keyboard focus and hover alone.',
 						},
 					},
 					hovered: {
@@ -377,7 +377,8 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							group: 'paint',
 							state: 'active',
 							introduced: '0.6.2',
-							description: 'Hovered state for color.background.selected',
+							description:
+								'Use for the background of an element that is selected and hovered. This preserves selection while showing pointer hover; do not use for an unselected element or keyboard focus alone.',
 						},
 					},
 					pressed: {
@@ -385,7 +386,8 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							group: 'paint',
 							state: 'active',
 							introduced: '0.6.2',
-							description: 'Pressed state for color.background.selected',
+							description:
+								'Use for the background of an element that is selected and being pressed. Return to color.background.selected or color.background.selected.hovered when the press ends and the element remains selected. Do not use for an unselected element or keyboard focus alone.',
 						},
 					},
 				},
@@ -396,7 +398,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							state: 'active',
 							introduced: '0.6.2',
 							description:
-								'Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons.',
+								'Use for the bold background of selected controls, such as checked checkboxes and selected radio buttons. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for primary actions or keyboard focus alone.',
 						},
 					},
 					hovered: {
@@ -404,7 +406,8 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							group: 'paint',
 							state: 'active',
 							introduced: '0.6.2',
-							description: 'Hovered state of color.background.selected.bold',
+							description:
+								'Use for the background of a selected control that uses color.background.selected.bold while it is hovered, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone.',
 						},
 					},
 					pressed: {
@@ -412,7 +415,8 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 							group: 'paint',
 							state: 'active',
 							introduced: '0.6.2',
-							description: 'Pressed state of color.background.selected.bold',
+							description:
+								'Use for the background of a selected control that uses color.background.selected.bold while it is being pressed, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone.',
 						},
 					},
 				},

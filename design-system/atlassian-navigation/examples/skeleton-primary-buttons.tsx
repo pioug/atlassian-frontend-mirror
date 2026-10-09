@@ -1,13 +1,17 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AtlassianNavigation, ProductHome } from '@atlaskit/atlassian-navigation';
-import { SkeletonCreateButton, SkeletonIconButton } from '@atlaskit/atlassian-navigation/skeleton';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+import { SkeletonCreateButton } from '@atlaskit/atlassian-navigation/skeleton-create-button';
 import { SkeletonHelpButton } from '@atlaskit/atlassian-navigation/skeleton-help-button';
+import { SkeletonIconButton } from '@atlaskit/atlassian-navigation/skeleton-icon-button';
 import { SkeletonNotificationButton } from '@atlaskit/atlassian-navigation/skeleton-notification-button';
 import { SkeletonSettingsButton } from '@atlaskit/atlassian-navigation/skeleton-settings-button';
 import { SkeletonSwitcherButton } from '@atlaskit/atlassian-navigation/skeleton-switcher-button';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 
 import { avatarUrl } from './shared/profile-popup';
 

@@ -55,7 +55,7 @@ export type { TabPanelProps, TTabPanel } from './TabPanelProps.codegen';
 export type { TabProps, TTab } from './TabProps.codegen';
 export type { TabsProps, TTabs } from './TabsProps.codegen';
 export type { TagGroupProps, TTagGroup } from './TagGroupProps.codegen';
-export type { SimpleTagProps as TagProps, TSimpleTag as TTag } from './TagProps.codegen';
+export type { RemovableTagProps as TagProps, TRemovableTag as TTag } from './TagProps.codegen';
 export type { TextAreaProps, TTextArea } from './TextAreaProps.codegen';
 export type { TextfieldProps, TTextfield } from './TextfieldProps.codegen';
 export type { TileProps, TTile } from './TileProps.codegen';

@@ -5,22 +5,27 @@ import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
 import type MediaAboveSm from '@atlaskit/css/at-rules/media-above-sm';
 import type MediaAboveXl from '@atlaskit/css/at-rules/media-above-xl';
 import type MediaAboveXs from '@atlaskit/css/at-rules/media-above-xs';
-import { type GridProps } from '@atlaskit/grid';
+import type { GridProps } from '@atlaskit/grid/grid';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	Content,
-	LeftSidebarWithoutResize,
-	Main,
-	PageLayout,
-	RightPanel,
-	TopNavigation,
-} from '@atlaskit/page-layout';
+import { Content } from '@atlaskit/page-layout/content';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { LeftSidebarWithoutResize } from '@atlaskit/page-layout/left-sidebar-without-resize';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Main } from '@atlaskit/page-layout/main';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PageLayout } from '@atlaskit/page-layout/page-layout';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { RightPanel } from '@atlaskit/page-layout/right-panel';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { TopNavigation } from '@atlaskit/page-layout/top-navigation';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive/constants';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 import GridCards from './01-grid-cards.vr.ap';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import useIntersectionObserver from '../index';
 

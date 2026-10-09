@@ -10,7 +10,7 @@ import outdent from 'outdent';
 
 import format from '@af/formatting/sync';
 import { getPathSafeName, type LintRule } from '@atlaskit/eslint-utils/create-rule';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { type ExternalRuleMeta, externalRules } from '../src/rules/external-rules';
 

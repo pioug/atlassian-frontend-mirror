@@ -9,7 +9,8 @@ import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import { AppLogo, AppSwitcher, Profile } from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
 
 // eslint-disable-next-line import/extensions -- PNG asset imports in this package require the explicit extension for module resolution.
 import dstLogo from './images/dst.png';

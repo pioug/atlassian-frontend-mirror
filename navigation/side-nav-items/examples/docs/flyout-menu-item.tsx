@@ -6,9 +6,10 @@ import BoardIcon from '@atlaskit/icon/core/board';
 import ClockIcon from '@atlaskit/icon/core/clock';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { JiraIcon } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	COLLAPSE_ELEM_BEFORE,

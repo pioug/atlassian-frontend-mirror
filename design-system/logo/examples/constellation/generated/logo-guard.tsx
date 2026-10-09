@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { GuardIcon, GuardLogo } from '@atlaskit/logo';
+import { GuardIcon } from '@atlaskit/logo/guard/icon';
+import { GuardLogoCS as GuardLogo } from '@atlaskit/logo/guard/logo';
 
 import LogoTable from '../utils/logo-table';
 

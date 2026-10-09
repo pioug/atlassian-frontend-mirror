@@ -1,7 +1,7 @@
 import type { Instance } from '@popperjs/core';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { act } from '@atlassian/testing-library';
+import { act } from '@atlassian/testing-library/testing-library/react';
 
 import { createPopper } from '../../entry-points/unsafe-imperative';
 

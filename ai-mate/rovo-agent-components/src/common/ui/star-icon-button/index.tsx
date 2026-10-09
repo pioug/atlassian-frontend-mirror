@@ -10,7 +10,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import StarIconMigration from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIconMigration from '@atlaskit/icon/core/star-unstarred';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import messages from './messages';

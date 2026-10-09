@@ -6,8 +6,9 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
+import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
 import { token } from '@atlaskit/tokens';
 
 const resizableContainerStyles = css({

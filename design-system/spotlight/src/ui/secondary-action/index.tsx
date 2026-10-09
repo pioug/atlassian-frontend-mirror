@@ -5,26 +5,13 @@
 import { forwardRef, type ReactNode, useContext } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Pressable, type PressableProps, Text } from '@atlaskit/primitives/compiled';
+import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled/pressable';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';
 
 const styles = cssMap({
-	root: {
-		color: token('color.text.inverse'),
-		borderRadius: token('radius.small'),
-		backgroundColor: token('color.background.neutral.bold'),
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.bold.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.bold.pressed'),
-			transition: token('motion.button.pressed'),
-		},
-		transition: token('motion.button.hovered'),
-	},
 	rootMotion: {
 		color: token('color.text.inverse'),
 		borderRadius: token('radius.small'),
@@ -85,7 +72,7 @@ export const SpotlightSecondaryAction: React.ForwardRefExoticComponent<
 				aria-label={ariaLabel}
 				ref={ref}
 				testId={testId}
-				xcss={fg('platform-dst-motion-uplift-custom-button') ? styles.rootMotion : styles.root}
+				xcss={styles.rootMotion}
 				onClick={onClick || back}
 			>
 				<Text as="span">{children}</Text>

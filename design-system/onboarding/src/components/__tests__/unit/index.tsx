@@ -2,11 +2,14 @@ import React, { forwardRef, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { render, screen, userEvent, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import {
 	Modal,

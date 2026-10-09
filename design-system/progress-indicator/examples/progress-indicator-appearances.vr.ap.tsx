@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import ProgressIndicator from '@atlaskit/progress-indicator/progress-dots';
 
 const Wrapper = ({ children, isInverted }: { children: React.ReactNode; isInverted?: boolean }) => {
 	return (

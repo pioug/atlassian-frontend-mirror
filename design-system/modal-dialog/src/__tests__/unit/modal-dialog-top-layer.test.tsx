@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
-import { act, fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
+import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import ModalBody from '../../modal-body';
 import ModalDialog from '../../modal-dialog';

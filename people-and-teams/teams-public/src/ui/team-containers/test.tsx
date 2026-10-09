@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { messages } from '../../common/utils/get-container-properties';
 import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';

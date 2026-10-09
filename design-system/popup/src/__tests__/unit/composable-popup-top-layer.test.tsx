@@ -3,8 +3,9 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { render, screen } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { Popup } from '../../compositional/popup';
 import { PopupContent } from '../../compositional/popup-content';

@@ -5,7 +5,7 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEv
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { type UserSearchItem } from '@atlaskit/smart-common';
+import type { UserSearchItem } from '@atlaskit/smart-common/types';
 
 import { type UseUserRecommendationsProps } from '../../types';
 

@@ -1,17 +1,11 @@
 import mergeWith from 'lodash/mergeWith';
 
-import {
-	AbstractJastVisitor,
-	COMPOUND_OPERATOR_AND,
-	COMPOUND_OPERATOR_OR,
-	type CompoundClause,
-	JastBuilder,
-	OPERATOR_EQUALS,
-	OPERATOR_IN,
-	OPERATOR_LIKE,
-	type OrderByField,
-	type TerminalClause,
-} from '@atlaskit/jql-ast';
+import { AbstractJastVisitor } from '@atlaskit/jql-ast/abstract-jast-visitor';
+import type { CompoundClause, TerminalClause } from '@atlaskit/jql-ast/ast/clause';
+import type { OrderByField } from '@atlaskit/jql-ast/ast/order-by';
+import { COMPOUND_OPERATOR_AND, COMPOUND_OPERATOR_OR } from '@atlaskit/jql-ast/compound';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
+import { OPERATOR_EQUALS, OPERATOR_IN, OPERATOR_LIKE } from '@atlaskit/jql-ast/operator';
 
 import { ALLOWED_ORDER_BY_KEYS } from '../../jira-search-container';
 import { isValidJql } from './index';

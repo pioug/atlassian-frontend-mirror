@@ -4,7 +4,9 @@ import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

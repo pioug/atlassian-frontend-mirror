@@ -2,7 +2,7 @@
 
 import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
-import { screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 

@@ -1,7 +1,7 @@
 import { getImportDeclaration } from '@hypermod/utils';
 import { type API, type ASTPath, type FileInfo, type JSXElement } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 const LOZENGE_ENTRY_POINT = '@atlaskit/lozenge';
 const PRINT_SETTINGS = { quote: 'single' as const };

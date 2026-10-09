@@ -1,6 +1,6 @@
 import type { API, FileInfo, Options } from 'jscodeshift';
 
-import { createTransformer } from '@atlaskit/codemod-utils';
+import { createTransformer } from '@atlaskit/codemod-utils/utils';
 
 import { validatorExports, validatorTypes } from './migrates/entry-points';
 

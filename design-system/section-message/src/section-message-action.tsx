@@ -7,7 +7,8 @@ import { forwardRef, Fragment, memo } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Link from '@atlaskit/link/link';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import type { SectionMessageActionProps } from './types';

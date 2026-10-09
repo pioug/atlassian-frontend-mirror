@@ -4,8 +4,6 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-
 import type { ProfileClient } from '../../../types';
 import { AgentProfileCardResourced } from '../AgentProfileCardResourced';
 
@@ -78,24 +76,22 @@ describe('AgentProfileCardResourced', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.on('confluence_fix_agent_profile_card_flash', 'confluence flashing fix enabled', () => {
-		it('uses the stable loading path when Confluence agent profile card flashing fix is enabled', async () => {
-			const resourceClient = createResourceClient();
-			const { rerender } = renderCard(resourceClient);
+	it('does not re-fetch the agent profile when re-rendered with the same account id', async () => {
+		const resourceClient = createResourceClient();
+		const { rerender } = renderCard(resourceClient);
 
-			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
+		await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 
-			rerender(
-				<IntlProvider locale="en">
-					<AgentProfileCardResourced
-						accountId="agent-account-id"
-						cloudId="cloud-id"
-						resourceClient={resourceClient}
-					/>
-				</IntlProvider>,
-			);
+		rerender(
+			<IntlProvider locale="en">
+				<AgentProfileCardResourced
+					accountId="agent-account-id"
+					cloudId="cloud-id"
+					resourceClient={resourceClient}
+				/>
+			</IntlProvider>,
+		);
 
-			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
-		});
+		await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 	});
 });

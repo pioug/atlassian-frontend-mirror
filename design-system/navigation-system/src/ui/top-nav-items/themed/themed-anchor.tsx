@@ -7,7 +7,7 @@ import React from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
-import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled';
+import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
 import { getPrimitiveSpreadProps } from './get-primitives-spread-props';

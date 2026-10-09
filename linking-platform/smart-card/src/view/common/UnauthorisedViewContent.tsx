@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Anchor } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';

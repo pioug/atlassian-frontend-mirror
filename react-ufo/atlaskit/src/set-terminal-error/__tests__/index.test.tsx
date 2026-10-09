@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { getActiveTrace } from '../../experience-trace-id-context/get-active-trace';
 import UFOInteractionContext, { type UFOInteractionContextType } from '../../interaction-context';

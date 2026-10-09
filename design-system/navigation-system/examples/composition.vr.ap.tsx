@@ -25,7 +25,7 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontalCoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import Link from '@atlaskit/link/link';
-import { JiraIcon } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
@@ -45,16 +45,12 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	Notifications,
-	Profile,
-	Search,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Popup } from '@atlaskit/popup/popup';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformPagination from '@atlaskit/pagination';
+import PlatformPagination from '@atlaskit/pagination/pagination';
 
 type PlatformPaginationProps = React.ComponentProps<typeof PlatformPagination>;
 

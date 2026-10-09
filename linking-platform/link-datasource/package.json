@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.3.4",
+	"version": "7.3.5",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -170,9 +170,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_datasource_missing_columns_error": {
-			"type": "boolean"
-		},
-		"platform_navx_3298_message_wrapper": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {

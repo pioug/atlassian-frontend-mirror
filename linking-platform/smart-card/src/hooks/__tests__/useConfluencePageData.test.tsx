@@ -1,5 +1,5 @@
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { CONFLUENCE_EXTENSION_KEYS, useConfluencePageData } from '../useConfluencePageData';
 

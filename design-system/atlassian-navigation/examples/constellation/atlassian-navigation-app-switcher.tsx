@@ -1,7 +1,9 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AppSwitcher, AtlassianNavigation } from '@atlaskit/atlassian-navigation';
+import { AppSwitcher } from '@atlaskit/atlassian-navigation/app-switcher';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
 
 const DefaultAppSwitcher = () => <AppSwitcher tooltip="Switch to..." />;
 

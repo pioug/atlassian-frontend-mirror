@@ -1,5 +1,24 @@
 # @atlaskit/mention
 
+## 30.1.9
+
+### Patch Changes
+
+- [`7375271ebdd21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7375271ebdd21) -
+  Add an explicit error fallback to the mention UFO boundary while preserving retries on parent
+  updates and UFO failure reporting.
+
+  Replace mention analytics HOCs with hook wrappers while preserving event decoration and forwarded
+  refs.
+
+  Use the scoped React.JSX namespace for element type annotations.
+
+## 30.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.7
 
 ### Patch Changes

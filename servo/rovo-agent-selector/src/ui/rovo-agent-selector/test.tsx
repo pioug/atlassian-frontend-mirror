@@ -10,7 +10,11 @@ import {
 } from 'relay-test-utils';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { renderWithDi, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import { renderWithDi } from '@atlassian/testing-library/render-with-di';
+import { screen } from '@atlassian/testing-library/screen';
+import { waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { generateMockAgentEdges } from '../../common/utils/generate-mock-agent-edges';
 import { AGENT_SELECT_ID, RovoAgentSelector } from './index';

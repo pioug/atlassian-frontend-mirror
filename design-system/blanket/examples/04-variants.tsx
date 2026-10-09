@@ -14,7 +14,7 @@ import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-pr
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 const labelStyles = css({

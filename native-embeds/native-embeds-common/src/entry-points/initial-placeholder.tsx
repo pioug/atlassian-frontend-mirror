@@ -17,7 +17,10 @@ import {
 	type NativeEmbedInitialLayout,
 	type ResolveNativeEmbedInitialLayoutInput,
 } from './initial-layout';
-import { nativeEmbedAlignmentStyles } from './native-embed-styles';
+import {
+	nativeEmbedAlignmentStyles,
+	nativeEmbedInlineMauiWidthStyles,
+} from './native-embed-styles';
 
 export { resolveNativeEmbedInitialLayout, type NativeEmbedInitialLayout };
 
@@ -82,6 +85,7 @@ export const NativeEmbedInitialPlaceholderFrame = ({
 
 export type NativeEmbedInitialPlaceholderProps = ResolveNativeEmbedInitialLayoutInput & {
 	firstPaint?: boolean;
+	shouldFillInlineWidth?: boolean;
 	testId?: string;
 };
 
@@ -95,6 +99,7 @@ export const NativeEmbedInitialPlaceholder = ({
 	manifest,
 	parameters,
 	placeholderId,
+	shouldFillInlineWidth = false,
 	testId,
 }: NativeEmbedInitialPlaceholderProps): React.JSX.Element => {
 	const {
@@ -105,16 +110,22 @@ export const NativeEmbedInitialPlaceholder = ({
 		lockAspectRatio,
 		placeholderId: resolvedPlaceholderId,
 	} = resolveNativeEmbedInitialLayout({ manifest, parameters, placeholderId });
+	const fillInlineWidth =
+		shouldFillInlineWidth && manifest?.id === 'maui' && effectiveWidth === undefined;
 
 	return (
 		<div
 			data-native-embed-alignment={alignment}
+			// Only MAUI needs inline sizing; preserve other experiences' existing placeholder styles.
+			data-native-embed-experience={manifest?.id === 'maui' ? 'maui' : undefined}
+			data-native-embed-inline-width={fillInlineWidth ? 'true' : undefined}
 			data-native-embed-first-paint-placeholder={firstPaint ? 'true' : undefined}
 			data-native-embed-initial-placeholder="true"
 			data-native-embed-width={effectiveWidth}
 			data-native-embed-show-border={hasEmbedBorder ? 'true' : 'false'}
 		>
 			<Global styles={nativeEmbedAlignmentStyles} />
+			{fillInlineWidth && <Global styles={nativeEmbedInlineMauiWidthStyles} />}
 			<NativeEmbedInitialPlaceholderFrame
 				effectiveHeight={effectiveHeight}
 				effectiveWidth={effectiveWidth}

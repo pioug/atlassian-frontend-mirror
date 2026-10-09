@@ -10,7 +10,9 @@ import { FormattedList, FormattedMessage } from 'react-intl';
 import Button from '@atlaskit/button/standard-button';
 import AKLink from '@atlaskit/link/link';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { ClassNames, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
+import { Inline, type InlineProps } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';

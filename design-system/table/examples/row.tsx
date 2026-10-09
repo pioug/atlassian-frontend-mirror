@@ -3,11 +3,14 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar/avatar';
 import AvatarItem from '@atlaskit/avatar/avatar-item';
 import { cssMap } from '@atlaskit/css';
-import { Date as AKDate } from '@atlaskit/date';
+import { Date as AKDate } from '@atlaskit/date/date';
 import Icon from '@atlaskit/icon/core/archive-box';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-import Table, { Cell, Row, TBody } from '@atlaskit/table';
+import { TBody } from '@atlaskit/table/body';
+import { Row } from '@atlaskit/table/row';
+import Table from '@atlaskit/table/table';
+import { Cell } from '@atlaskit/table/td';
 import { token } from '@atlaskit/tokens';
 
 import { userData } from './content/users';

@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformBanner from '@atlaskit/banner';
+import PlatformBanner from '@atlaskit/banner/banner';
 
 type PlatformBannerProps = React.ComponentProps<typeof PlatformBanner>;
 

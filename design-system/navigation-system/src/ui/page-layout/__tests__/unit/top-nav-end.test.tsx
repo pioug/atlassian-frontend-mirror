@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled/responsive/index';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -10,15 +10,12 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import { EndItem } from '../../../top-nav-items/end-item';
 import { TopNavEnd } from '../../top-nav/top-nav-end';
 
-jest.mock('@atlaskit/primitives/compiled/responsive/index', () => {
-	const actual = jest.requireActual('@atlaskit/primitives/compiled/responsive/index');
-	return {
-		...actual,
-		UNSAFE_useMediaQuery: jest.fn(() => ({
-			matches: false, // default value
-		})),
-	};
-});
+jest.mock('@atlaskit/primitives/compiled/use-media-query', () => ({
+	...jest.requireActual('@atlaskit/primitives/compiled/use-media-query'),
+	UNSAFE_useMediaQuery: jest.fn(() => ({
+		matches: false, // default value
+	})),
+}));
 
 const mockUseMediaQuery = UNSAFE_useMediaQuery as jest.Mock;
 

@@ -4,7 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
 import RovoIcon from '@atlaskit/icon-lab/core/rovo';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

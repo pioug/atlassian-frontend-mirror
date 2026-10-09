@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { JiraIcon } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { AppLogo } from '@atlaskit/navigation-system/top-nav-items';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 
 import TagGroupAlignStart from '../../../../examples/constellation/tag-group-alignment-start';
 import TagGroup from '../../../../examples/constellation/tag-group-default';

@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import TextArea from '@atlaskit/textarea/text-area';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 import { DEFAULT_ADF } from './utils/adf-validation/default-adf';

@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { components } from '@atlaskit/react-select/components';
 import type { OptionProps as AkOptionProps } from '@atlaskit/select/types';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

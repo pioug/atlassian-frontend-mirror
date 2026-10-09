@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import type { ButtonItemProps, CustomItemComponentProps } from '@atlaskit/menu/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import useChildIdsEffect from '../../common/use-child-ids-effect';
 import { ButtonItem } from '../Item/button-item';

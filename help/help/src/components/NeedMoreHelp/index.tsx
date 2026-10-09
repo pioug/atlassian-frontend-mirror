@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 import { messages } from '../../messages';
 import { VIEW } from '../constants';

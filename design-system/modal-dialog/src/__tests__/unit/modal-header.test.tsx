@@ -1,9 +1,10 @@
 import React, { type MouseEventHandler } from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import noop from '@atlaskit/ds-lib/noop';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { useModal } from '../../hooks';
 import ModalDialog from '../../modal-dialog';

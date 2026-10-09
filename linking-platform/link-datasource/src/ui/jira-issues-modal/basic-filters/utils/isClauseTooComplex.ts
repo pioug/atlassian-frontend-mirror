@@ -1,10 +1,6 @@
-import {
-	type Clause,
-	CLAUSE_TYPE_COMPOUND,
-	CLAUSE_TYPE_TERMINAL,
-	OPERAND_TYPE_VALUE,
-	type TerminalClause,
-} from '@atlaskit/jql-ast';
+import type { Clause, TerminalClause } from '@atlaskit/jql-ast/ast/clause';
+import { CLAUSE_TYPE_COMPOUND, CLAUSE_TYPE_TERMINAL } from '@atlaskit/jql-ast/clause';
+import { OPERAND_TYPE_VALUE } from '@atlaskit/jql-ast/operand';
 
 import { removeFuzzyCharacter } from './removeFuzzyCharacter';
 

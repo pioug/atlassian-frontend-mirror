@@ -2,7 +2,8 @@
 
 import debounce from 'lodash/debounce';
 
-import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
+import { utils as serviceUtils } from '@atlaskit/util-service-support/constants';
+import type { KeyValues } from '@atlaskit/util-service-support/types';
 
 import { isAppMention } from '../is-app-mention';
 import { isTeamMention } from '../is-team-mention';

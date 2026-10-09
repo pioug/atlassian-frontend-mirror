@@ -1,18 +1,13 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- * @jsxFrag React.Fragment
- */
 /* eslint-disable @atlaskit/design-system/no-deprecated-imports, @typescript-eslint/no-restricted-types -- Preserve existing mention implementation while focus-ring usage is reviewed separately. */
 
 import React from 'react';
 
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { usePatchedProps } from '@atlaskit/analytics-next/usePatchedProps';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import { type MentionEventHandler } from '../../types';
 import { fireAnalyticsMentionEvent } from '../../util/fire-analytics-mention-event';
@@ -59,7 +54,7 @@ export type OwnProps = {
 
 export type Props = OwnProps & WithAnalyticsEventsProps;
 
-const MentionWithAnalytics = withAnalyticsEvents({
+const mentionEventMap = {
 	onClick: (createEvent: CreateUIAnalyticsEvent, props: Props): UIAnalyticsEvent => {
 		const { id, text, accessLevel } = props;
 		const event = fireAnalyticsMentionEvent(createEvent)(
@@ -84,12 +79,27 @@ const MentionWithAnalytics = withAnalyticsEvents({
 		);
 		return event;
 	},
-})(MentionInternal);
+};
 
 // oxlint-disable-next-line eslint/no-redeclare
 const Mention: React.ForwardRefExoticComponent<
 	Omit<OwnProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
-> = MentionWithAnalytics;
+> = React.forwardRef<MentionInternal, OwnProps>((props, ref) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	// Keep the existing event decoration, including the analytics argument passed to callbacks.
+	const { patchedEventProps } = usePatchedProps(mentionEventMap, props);
+
+	return (
+		<MentionInternal
+			{...props}
+			{...patchedEventProps}
+			createAnalyticsEvent={createAnalyticsEvent}
+			ref={ref}
+		/>
+	);
+});
+
+Mention.displayName = 'Mention';
 
 type Mention = MentionInternal;
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { createIntl, createIntlCache } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { render } from '@atlassian/testing-library/render';
 
 import { WhatsNewResultsLoading } from '../../index';

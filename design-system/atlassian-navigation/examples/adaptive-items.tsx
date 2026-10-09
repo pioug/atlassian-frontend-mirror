@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	Create,
-	PrimaryButton,
-	type PrimaryButtonProps,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Create } from '@atlaskit/atlassian-navigation/create';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { PrimaryButtonProps } from '@atlaskit/atlassian-navigation/primary-button/types';
 import Button from '@atlaskit/button/default/button';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { token } from '@atlaskit/tokens';

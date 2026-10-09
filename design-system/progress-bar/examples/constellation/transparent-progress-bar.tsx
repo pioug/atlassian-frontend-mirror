@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TransparentProgressBar } from '@atlaskit/progress-bar';
+import { TransparentProgressBar } from '@atlaskit/progress-bar/transparent-progress-bar';
 
 const TransparentProgressBarExample = (): React.JSX.Element => {
 	return <TransparentProgressBar ariaLabel="Done: 4 of 10 work items" value={0.4} />;

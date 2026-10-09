@@ -1,6 +1,6 @@
 import { EventEmitter2 } from 'eventemitter2';
 
-import { utils as serviceUtils } from '@atlaskit/util-service-support';
+import { utils as serviceUtils } from '@atlaskit/util-service-support/constants';
 
 import {
 	type ActionablePubSubClient,

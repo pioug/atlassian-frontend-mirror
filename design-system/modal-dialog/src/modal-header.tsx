@@ -5,7 +5,7 @@
 import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { CloseButton } from './close-button';

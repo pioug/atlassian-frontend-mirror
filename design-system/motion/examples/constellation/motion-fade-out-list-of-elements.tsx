@@ -8,14 +8,12 @@ import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import {
-	BitbucketIcon,
-	ConfluenceIcon,
-	JiraServiceManagementIcon,
-	OpsgenieIcon,
-	StatuspageIcon,
-} from '@atlaskit/logo';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
+import { OpsgenieIcon } from '@atlaskit/logo/opsgenie-icon';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
 import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Inline } from '@atlaskit/primitives/compiled/inline';

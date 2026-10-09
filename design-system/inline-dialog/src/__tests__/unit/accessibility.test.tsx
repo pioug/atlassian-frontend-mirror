@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import Button from '@atlaskit/button/default/button';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

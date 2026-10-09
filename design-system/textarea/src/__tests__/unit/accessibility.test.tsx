@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import cases from 'jest-in-case';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 
 import TextArea from '../../text-area';
 

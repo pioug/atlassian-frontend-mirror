@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { Search } from '@atlaskit/atlassian-navigation';
+import { Search } from '@atlaskit/atlassian-navigation/search';
 
 const onClick = (...args: any[]) => {
 	console.log('search click', ...args);

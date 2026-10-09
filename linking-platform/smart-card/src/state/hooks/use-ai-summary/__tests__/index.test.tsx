@@ -5,7 +5,7 @@ import fetchMock from 'jest-fetch-mock';
 import { IntlProvider } from 'react-intl';
 import TestRenderer from 'react-test-renderer';
 
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { aiSummaryMocks } from '../../__tests__/__mocks__/ai-summary-mocks';
 import { readStream } from '../ai-summary-service/readStream';

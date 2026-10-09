@@ -11,6 +11,7 @@
  */
 type TokenPayload = {
 	name?: string;
+	description?: string;
 	exampleValue?: string;
 	usageGuidelines?: {
 		usage?: string;
@@ -41,8 +42,12 @@ export const formatToken = (data: unknown): string | null => {
 		sections.push('', `Example value: ${token.exampleValue}`);
 	}
 
-	if (token.usageGuidelines?.usage) {
-		sections.push('', 'Guidelines:', `  ${oneLine(token.usageGuidelines.usage)}`);
+	// Prefer the canonical per-token description over the broader category guidance.
+	const guidance =
+		token.description ||
+		(token.usageGuidelines?.usage ? oneLine(token.usageGuidelines.usage) : undefined);
+	if (guidance) {
+		sections.push('', 'Guidelines:', `  ${guidance}`);
 	}
 
 	if (token.usageGuidelines?.cssProperties?.length) {

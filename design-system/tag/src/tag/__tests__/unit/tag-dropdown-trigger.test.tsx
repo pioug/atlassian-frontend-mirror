@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
-import { fireEvent, render as rtlRender, screen } from '@atlassian/testing-library';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render as rtlRender } from '@atlassian/testing-library/testing-library/react';
 
 import TagDropdownTrigger from '../../../tag-new/tag-dropdown-trigger';
 

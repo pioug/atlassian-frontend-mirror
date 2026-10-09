@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { Focusable } from '@atlaskit/primitives/compiled';
+import { Focusable } from '@atlaskit/primitives/compiled/focusable';
 
 import { type TabPanelAttributesType, type TabPanelProps } from '../types';
 import useTabPanel from '../use-tab-panel';

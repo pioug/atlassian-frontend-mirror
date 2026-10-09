@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { axe } from '@af/accessibility-testing';
-import { render } from '@atlassian/testing-library';
+import { axe } from '@af/accessibility-testing/jest-axe';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { Manager } from '../../manager';
 import { Popper } from '../../popper';

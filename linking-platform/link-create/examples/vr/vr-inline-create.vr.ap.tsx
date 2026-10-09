@@ -7,7 +7,7 @@ import type { ComponentType } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';

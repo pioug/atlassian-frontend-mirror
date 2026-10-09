@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 3.2.46
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.45
 
 ### Patch Changes

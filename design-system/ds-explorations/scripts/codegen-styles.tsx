@@ -3,7 +3,8 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 
-import { createPartialSignedArtifact, createSignedArtifact } from '@atlassian/codegen';
+import { createPartialSignedArtifact } from '@atlassian/codegen/partial-signed-artifact';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { createColorMapTemplate } from './color-map-template';
 import { createInteractionStylesFromTemplate } from './interaction-codegen';

@@ -2,7 +2,8 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import ActionsContainer from './styled/actions-container';

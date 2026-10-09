@@ -8,7 +8,8 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';

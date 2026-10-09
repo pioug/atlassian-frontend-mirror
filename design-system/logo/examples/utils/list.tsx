@@ -2,94 +2,28 @@ import { type ComponentType } from 'react';
 
 import {
 	AdminIcon,
-	AdminLogo,
-	AlignIcon,
-	AlignLogo,
+	AdminIcon as AtlassianAdminIcon,
+	AdminIcon as AtlassianAdministrationIcon,
+} from '@atlaskit/logo/admin/icon';
+import {
+	AdminLogoCS as AdminLogo,
+	AdminLogoCS as AtlassianAdministrationLogo,
+	AdminLogoCS as AtlassianAdminLogo,
+} from '@atlaskit/logo/admin/logo';
+import { AlignIcon, AlignIcon as JiraAlignIcon } from '@atlaskit/logo/align/icon';
+import { AlignLogoCS as AlignLogo, AlignLogoCS as JiraAlignLogo } from '@atlaskit/logo/align/logo';
+import {
 	AnalyticsIcon,
-	AnalyticsLogo,
-	AssetsIcon,
-	AssetsLogo,
-	AtlassianAdminIcon,
-	AtlassianAdministrationIcon,
-	AtlassianAdministrationLogo,
-	AtlassianAdminLogo,
-	AtlassianAnalyticsIcon,
-	AtlassianAnalyticsLogo,
-	BambooIcon,
-	BambooLogo,
-	BitbucketDataCenterIcon,
-	BitbucketDataCenterLogo,
-	BitbucketIcon,
-	BitbucketLogo,
-	ChatIcon,
-	ChatLogo,
-	CompassIcon,
-	CompassLogo,
-	ConfluenceDataCenterIcon,
-	ConfluenceDataCenterLogo,
-	ConfluenceIcon,
-	ConfluenceLogo,
-	CrowdIcon,
-	CrowdLogo,
-	CustomerServiceManagementIcon,
-	CustomerServiceManagementLogo,
-	DxIcon,
-	FeedbackIcon,
-	FeedbackLogo,
-	FocusIcon,
-	FocusLogo,
-	GoalsIcon,
-	GoalsLogo,
-	GuardIcon,
-	GuardLogo,
-	HomeIcon,
-	HomeLogo,
-	HubIcon,
-	HubLogo,
-	JiraAlignIcon,
-	JiraAlignLogo,
-	JiraCodingAgentIcon,
-	JiraDataCenterIcon,
-	JiraDataCenterLogo,
-	JiraIcon,
-	JiraLogo,
-	JiraProductDiscoveryIcon,
-	JiraProductDiscoveryLogo,
-	JiraServiceManagementDataCenterIcon,
-	JiraServiceManagementDataCenterLogo,
-	JiraServiceManagementIcon,
-	JiraServiceManagementLogo,
-	LoomAttributionIcon,
-	LoomAttributionLogo,
-	LoomBlurpleIcon,
-	LoomBlurpleLogo,
-	LoomIcon,
-	LoomLogo,
-	OpsgenieIcon,
-	OpsgenieLogo,
-	ProjectsIcon,
-	ProjectsLogo,
-	RovoDevAgentIcon,
-	RovoDevAgentLogo,
-	RovoDevIcon,
-	RovoDevLogo,
-	RovoIcon,
-	RovoLogo,
-	SearchIcon,
-	SearchLogo,
-	StatuspageIcon,
-	StatuspageLogo,
-	StudioIcon,
-	StudioLogo,
-	TalentIcon,
-	TalentLogo,
-	TeamsIcon,
-	TeamsLogo,
-	TrelloIcon,
-	TrelloLogo,
-} from '@atlaskit/logo';
+	AnalyticsIcon as AtlassianAnalyticsIcon,
+} from '@atlaskit/logo/analytics/icon';
+import {
+	AnalyticsLogoCS as AnalyticsLogo,
+	AnalyticsLogoCS as AtlassianAnalyticsLogo,
+} from '@atlaskit/logo/analytics/logo';
 import { ArtifactsIcon } from '@atlaskit/logo/artifacts/icon';
 import { ArtifactsLogo } from '@atlaskit/logo/artifacts/logo';
+import { AssetsIcon } from '@atlaskit/logo/assets/icon';
+import { AssetsLogoCS as AssetsLogo } from '@atlaskit/logo/assets/logo';
 import { AtlasIcon } from '@atlaskit/logo/atlas-icon';
 import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
 import { AtlassianAccessLogo } from '@atlaskit/logo/atlassian-access/logo';
@@ -97,13 +31,82 @@ import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
 import { AtlassianMarketplaceLogo } from '@atlaskit/logo/atlassian-marketplace/logo';
 import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
+import { BambooIcon } from '@atlaskit/logo/bamboo/icon';
+import { BambooLogoCS as BambooLogo } from '@atlaskit/logo/bamboo/logo';
+import { BitbucketDataCenterIcon } from '@atlaskit/logo/bitbucket-data-center/icon';
+import { BitbucketDataCenterLogoCS as BitbucketDataCenterLogo } from '@atlaskit/logo/bitbucket-data-center/logo';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { BitbucketLogoCS as BitbucketLogo } from '@atlaskit/logo/bitbucket/logo';
+import { ChatIcon } from '@atlaskit/logo/chat/icon';
+import { ChatLogoCS as ChatLogo } from '@atlaskit/logo/chat/logo';
+import { CompassIcon } from '@atlaskit/logo/compass/icon';
+import { CompassLogoCS as CompassLogo } from '@atlaskit/logo/compass/logo';
+import { ConfluenceDataCenterIcon } from '@atlaskit/logo/confluence-data-center/icon';
+import { ConfluenceDataCenterLogoCS as ConfluenceDataCenterLogo } from '@atlaskit/logo/confluence-data-center/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { ConfluenceLogoCS as ConfluenceLogo } from '@atlaskit/logo/confluence/logo';
+import { CrowdIcon } from '@atlaskit/logo/crowd/icon';
+import { CrowdLogoCS as CrowdLogo } from '@atlaskit/logo/crowd/logo';
+import { CustomerServiceManagementIcon } from '@atlaskit/logo/customer-service-management/icon';
+import { CustomerServiceManagementLogoCS as CustomerServiceManagementLogo } from '@atlaskit/logo/customer-service-management/logo';
+import { DxIcon } from '@atlaskit/logo/dx/icon';
+import { FeedbackIcon } from '@atlaskit/logo/feedback/icon';
+import { FeedbackLogoCS as FeedbackLogo } from '@atlaskit/logo/feedback/logo';
+import { FocusIcon } from '@atlaskit/logo/focus/icon';
+import { FocusLogoCS as FocusLogo } from '@atlaskit/logo/focus/logo';
+import { GoalsIcon } from '@atlaskit/logo/goals/icon';
+import { GoalsLogoCS as GoalsLogo } from '@atlaskit/logo/goals/logo';
+import { GuardIcon } from '@atlaskit/logo/guard/icon';
+import { GuardLogoCS as GuardLogo } from '@atlaskit/logo/guard/logo';
+import { HomeIcon } from '@atlaskit/logo/home/icon';
+import { HomeLogoCS as HomeLogo } from '@atlaskit/logo/home/logo';
+import { HubIcon } from '@atlaskit/logo/hub/icon';
+import { HubLogoCS as HubLogo } from '@atlaskit/logo/hub/logo';
 import { InsightsIcon } from '@atlaskit/logo/insights/icon';
 import { InsightsLogo } from '@atlaskit/logo/insights/logo';
+import { JiraCodingAgentIcon } from '@atlaskit/logo/jira-coding-agent/icon';
+import { JiraDataCenterIcon } from '@atlaskit/logo/jira-data-center/icon';
+import { JiraDataCenterLogoCS as JiraDataCenterLogo } from '@atlaskit/logo/jira-data-center/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraProductDiscoveryIcon } from '@atlaskit/logo/jira-product-discovery/icon';
+import { JiraProductDiscoveryLogoCS as JiraProductDiscoveryLogo } from '@atlaskit/logo/jira-product-discovery/logo';
+import { JiraServiceManagementDataCenterIcon } from '@atlaskit/logo/jira-service-management-data-center/icon';
+import { JiraServiceManagementDataCenterLogoCS as JiraServiceManagementDataCenterLogo } from '@atlaskit/logo/jira-service-management-data-center/logo';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
+import { JiraServiceManagementLogoCS as JiraServiceManagementLogo } from '@atlaskit/logo/jira-service-management/logo';
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import { JiraSoftwareLogo } from '@atlaskit/logo/jira-software/logo';
 import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
 import { JiraWorkManagementLogo } from '@atlaskit/logo/jira-work-management/logo';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 import { AtlasLogo } from '@atlaskit/logo/logo';
+import { LoomAttributionLogoCS as LoomAttributionLogo } from '@atlaskit/logo/loom-attribution/logo';
+import { LoomInternalIcon as LoomBlurpleIcon } from '@atlaskit/logo/loom-internal/icon';
+import { LoomInternalLogoCS as LoomBlurpleLogo } from '@atlaskit/logo/loom-internal/logo';
+import { LoomIcon as LoomAttributionIcon, LoomIcon } from '@atlaskit/logo/loom/icon';
+import { LoomLogoCS as LoomLogo } from '@atlaskit/logo/loom/logo';
+import { OpsgenieIcon } from '@atlaskit/logo/opsgenie-icon';
+import { OpsgenieLogoCS as OpsgenieLogo } from '@atlaskit/logo/opsgenie/logo';
+import { ProjectsIcon } from '@atlaskit/logo/projects/icon';
+import { ProjectsLogoCS as ProjectsLogo } from '@atlaskit/logo/projects/logo';
+import { RovoDevAgentIcon } from '@atlaskit/logo/rovo-dev-agent/icon';
+import { RovoDevAgentLogoCS as RovoDevAgentLogo } from '@atlaskit/logo/rovo-dev-agent/logo';
+import { RovoDevIcon } from '@atlaskit/logo/rovo-dev/icon';
+import { RovoDevLogoCS as RovoDevLogo } from '@atlaskit/logo/rovo-dev/logo';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { RovoLogoCS as RovoLogo } from '@atlaskit/logo/rovo/logo';
+import { SearchIcon } from '@atlaskit/logo/search/icon';
+import { SearchLogoCS as SearchLogo } from '@atlaskit/logo/search/logo';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
+import { StatuspageLogoCS as StatuspageLogo } from '@atlaskit/logo/statuspage/logo';
+import { StudioIcon } from '@atlaskit/logo/studio/icon';
+import { StudioLogoCS as StudioLogo } from '@atlaskit/logo/studio/logo';
+import { TalentIcon } from '@atlaskit/logo/talent/icon';
+import { TalentLogoCS as TalentLogo } from '@atlaskit/logo/talent/logo';
+import { TeamsIcon } from '@atlaskit/logo/teams/icon';
+import { TeamsLogoCS as TeamsLogo } from '@atlaskit/logo/teams/logo';
+import { TrelloIcon } from '@atlaskit/logo/trello-icon';
+import { TrelloLogoCS as TrelloLogo } from '@atlaskit/logo/trello/logo';
 import type { LogoProps } from '@atlaskit/logo/types';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

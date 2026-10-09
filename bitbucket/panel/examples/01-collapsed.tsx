@@ -2,7 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import Page, { Grid, GridColumn } from '@atlaskit/page';
+import Grid from '@atlaskit/page/grid';
+import { GridColumn } from '@atlaskit/page/grid-column';
+import Page from '@atlaskit/page/page';
 
 import Panel from '../src';
 

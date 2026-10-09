@@ -8,8 +8,13 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable.
-import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
+/* eslint-disable @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable. */
+import { Box } from '@atlaskit/primitives/box';
+import { Inline } from '@atlaskit/primitives/inline';
+import { Pressable } from '@atlaskit/primitives/pressable';
+import { Stack } from '@atlaskit/primitives/stack';
+import { Text } from '@atlaskit/primitives/text';
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';

@@ -4,7 +4,8 @@ import type { ReactNode } from 'react';
 import { cssMap } from '@atlaskit/css';
 import WarningOutlineIcon from '@atlaskit/icon-lab/core/warning-outline';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

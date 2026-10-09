@@ -14,7 +14,7 @@ import ChevronRight from '@atlaskit/icon/core/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/utils/durations';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { UNSAFE_media } from '@atlaskit/primitives/responsive';
+import { UNSAFE_media } from '@atlaskit/primitives/media-helper/default';
 import { token } from '@atlaskit/tokens';
 
 import { RESIZE_BUTTON_SELECTOR } from '../../common/constants';

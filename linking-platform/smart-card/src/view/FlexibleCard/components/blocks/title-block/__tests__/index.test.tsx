@@ -7,7 +7,9 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import {
 	makeCustomActionItem,

@@ -3,7 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { LoadingBar } from '../../loadingBar';
 

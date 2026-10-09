@@ -2,7 +2,7 @@ import React from 'react';
 
 import { screen } from '@testing-library/react';
 
-import { type EmojiDescription, type EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
@@ -18,12 +18,11 @@ const grinning: EmojiDescription = emojiRepository.findByShortName(
 	':grinning:',
 ) as EmojiDescription;
 
-jest.mock('@atlaskit/emoji', () => {
-	return {
-		...jest.requireActual<typeof import('@atlaskit/emoji')>('@atlaskit/emoji'),
-		ResourcedEmoji: () => <>ResourcedEmoji</>,
-	};
-});
+jest.mock('@atlaskit/emoji/resourced-emoji', () => ({
+	...jest.requireActual('@atlaskit/emoji/resourced-emoji'),
+	__esModule: true,
+	default: () => <>ResourcedEmoji</>,
+}));
 
 const renderReactionParticleEffect = () =>
 	renderWithIntl(

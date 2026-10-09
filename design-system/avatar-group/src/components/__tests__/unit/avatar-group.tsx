@@ -4,7 +4,11 @@ import type { AppearanceType, SizeType } from '@atlaskit/avatar/types';
 import __noop from '@atlaskit/ds-lib/noop';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { act, render, screen, userEvent, within } from '@atlassian/testing-library';
+import { act } from '@atlassian/testing-library/act';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import AvatarGroup from '../../avatar-group';
 import { type AvatarProps } from '../../types';

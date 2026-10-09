@@ -7,7 +7,8 @@ import { useIntl } from 'react-intl';
 
 import Button, { type ButtonProps } from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../../common/ui/chat-icon';

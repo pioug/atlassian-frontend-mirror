@@ -6,11 +6,11 @@ import { useEffect, useState, useCallback, useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Tabs from '@atlaskit/tabs/tabs';
 import { type SelectedType } from '@atlaskit/tabs/types';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { useRequestAnimationFrame } from '../../../utils/use-request-animation-frame';
 import { useSetTimeout } from '../../../utils/use-set-timeout';

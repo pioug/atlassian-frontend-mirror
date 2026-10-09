@@ -9,7 +9,7 @@ import ScorecardIcon from '@atlaskit/icon/core/scorecard';
 import TextIcon from '@atlaskit/icon/core/text';
 import ThemeIcon from '@atlaskit/icon/core/theme';
 import VehicleCarIcon from '@atlaskit/icon/core/vehicle-car';
-import type { Operation } from '@atlaskit/side-nav-items/drag-and-drop/hitbox';
+import type { Operation } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item';
 import { token } from '@atlaskit/tokens';
 
 import { ProjectTile } from './projects/project-tile';

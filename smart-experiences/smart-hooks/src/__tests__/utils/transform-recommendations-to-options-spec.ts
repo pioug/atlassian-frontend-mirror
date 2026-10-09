@@ -1,6 +1,6 @@
 import { type IntlShape } from 'react-intl';
 
-import { EntityType } from '@atlaskit/smart-common';
+import { EntityType } from '@atlaskit/smart-common/types';
 
 import transformRecommendationsToOptions from '../../utils/transform-recommendations-to-options';
 

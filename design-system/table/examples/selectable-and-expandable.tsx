@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { Date as AKDate } from '@atlaskit/date';
+import { Date as AKDate } from '@atlaskit/date/date';
 import SectionMessage from '@atlaskit/section-message/message';
-import Table, {
-	Cell,
-	ExpandableCell,
-	ExpandableRow,
-	ExpandableRowContent,
-	HeadCell,
-	Row,
-	TBody,
-	THead,
-} from '@atlaskit/table';
+import { TBody } from '@atlaskit/table/body';
+import { ExpandableCell } from '@atlaskit/table/expandable-cell';
+import { ExpandableRow } from '@atlaskit/table/expandable-row';
+import { ExpandableRowContent } from '@atlaskit/table/expandable-row-content';
+import { HeadCell } from '@atlaskit/table/head-cell';
+import { Row } from '@atlaskit/table/row';
+import Table from '@atlaskit/table/table';
+import { Cell } from '@atlaskit/table/td';
+import { THead } from '@atlaskit/table/thead';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 export default function SelectableAndExpandable(): React.JSX.Element {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import DropdownItemCheckbox from '../../checkbox/dropdown-item-checkbox';
 import DropdownItemCheckboxGroup from '../../checkbox/dropdown-item-checkbox-group';

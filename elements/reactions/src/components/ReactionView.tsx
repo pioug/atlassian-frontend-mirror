@@ -8,7 +8,8 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar/Avatar';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Spinner from '@atlaskit/spinner/spinner';
 import TabPanel from '@atlaskit/tabs/tab-panel';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
 import React, { type ErrorInfo } from 'react';
 
-import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
+import type { WithSamplingUFOExperience } from '@atlaskit/emoji/sampling-ufo';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 
 export interface UfoErrorBoundaryProps {

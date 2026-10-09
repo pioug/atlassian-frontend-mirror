@@ -9,7 +9,9 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import TrashIcon from '@atlaskit/icon/core/delete';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src';

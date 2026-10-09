@@ -5,9 +5,9 @@ import userEvent from '@testing-library/user-event';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { type EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
@@ -40,8 +40,10 @@ jest.mock('../shared/constants', () => ({
 	SAMPLING_RATE_REACTIONS_RENDERED_EXP: 1,
 }));
 
-jest.mock('@atlaskit/emoji/picker', () => ({
-	EmojiPicker: ({ contentId }: { contentId?: string }) => (
+jest.mock('@atlaskit/emoji/emoji-picker', () => ({
+	...jest.requireActual('@atlaskit/emoji/emoji-picker'),
+	__esModule: true,
+	default: ({ contentId }: { contentId?: string }) => (
 		<div data-content-id={contentId} data-testid="mock-emoji-picker">
 			EmojiPicker
 		</div>

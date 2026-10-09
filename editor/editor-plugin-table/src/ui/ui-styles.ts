@@ -16,7 +16,6 @@ import {
 	insertLineWidth,
 	lineMarkerSize,
 	resizeHandlerAreaWidth,
-	resizeHandlerZIndex,
 	resizeLineWidth,
 	tableBorderColor,
 	tableBorderDeleteColor,
@@ -33,6 +32,7 @@ import {
 	tableToolbarSelectedColor,
 	tableToolbarSize,
 } from './consts';
+import { getTableZIndexes } from './sticky-header-z-index';
 
 const InsertLine = (cssString?: string) => css`
 	.${ClassName.CONTROLS_INSERT_LINE} {
@@ -481,7 +481,7 @@ export const columnControlsDecoration = (): SerializedStyles => {
 				&.${ClassName.HOVERED_CELL_IN_DANGER} .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
 					background-color: ${tableToolbarDeleteColor};
 					border-color: ${tableBorderDeleteColor};
-					z-index: ${akEditorUnitZIndex * 100};
+					z-index: ${getTableZIndexes().dangerOverlay};
 				}
 			}
 		}
@@ -516,7 +516,7 @@ export const columnControlsDecoration = (): SerializedStyles => {
 					border-color: ${tableBorderDeleteColor};
 					border-left: ${tableCellBorderWidth}px solid ${tableBorderDeleteColor};
 					left: -${tableCellBorderWidth}px;
-					z-index: ${akEditorUnitZIndex * 100};
+					z-index: ${getTableZIndexes().dangerOverlay};
 				}
 			}
 		}
@@ -678,7 +678,7 @@ export const resizeHandle = (): SerializedStyles => css`
 			top: 0;
 			right: -${resizeHandlerAreaWidth / 2}px;
 			cursor: col-resize;
-			z-index: ${resizeHandlerZIndex};
+			z-index: ${getTableZIndexes().resizeHandle};
 		}
 
 		tr
@@ -694,7 +694,7 @@ export const resizeHandle = (): SerializedStyles => css`
 			top: 0;
 			right: 0;
 			cursor: col-resize;
-			z-index: ${resizeHandlerZIndex};
+			z-index: ${getTableZIndexes().resizeHandle};
 		}
 
 		${resizeLineStyles()}

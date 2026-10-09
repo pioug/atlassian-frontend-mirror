@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import type { ResponsiveObject } from '@atlaskit/primitives/responsive';
+import type { ResponsiveObject } from '@atlaskit/primitives/responsive/types';
 
 type SpanOptions = 'none' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SpanObject = ResponsiveObject<SpanOptions>;

@@ -1,6 +1,6 @@
 import { of } from 'rxjs/observable/of';
 
-import { OPERATORS } from '@atlaskit/jql-ast';
+import { OPERATORS } from '@atlaskit/jql-ast/operator';
 import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 import { ORDERED_OPERATORS, sortOperators } from './index';

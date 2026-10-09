@@ -66,9 +66,10 @@ it('preserves every legacy runtime binding and the segment flush re-export', () 
 	expect(legacy.clearState).toBe(clearState);
 	expect(legacy.flushSsrRenderProfilerTraces).toBe(flushSsrRenderProfilerTraces);
 	expect(direct.flushSsrRenderProfilerTraces).toBe(flushSsrRenderProfilerTraces);
-	expect(jest.requireActual('@atlaskit/react-ufo/segment').flushSsrRenderProfilerTraces).toBe(
-		flushSsrRenderProfilerTraces,
-	);
+	expect(
+		jest.requireActual('@atlaskit/react-ufo/flush-ssr-render-profiler-traces')
+			.flushSsrRenderProfilerTraces,
+	).toBe(flushSsrRenderProfilerTraces);
 });
 
 it('shares one span across legacy/direct renders and flushes its latest end only once', () => {

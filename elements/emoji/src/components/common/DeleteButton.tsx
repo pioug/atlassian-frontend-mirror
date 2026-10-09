@@ -6,7 +6,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { deleteEmojiLabel } from '../../util/constants';

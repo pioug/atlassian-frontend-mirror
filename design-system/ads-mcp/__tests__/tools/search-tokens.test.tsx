@@ -1,3 +1,5 @@
+import { tokens } from '@atlaskit/tokens/token-metadata';
+
 import { searchTokensTool } from '../../src/tools/search-tokens/search-tokens-tool';
 
 /**
@@ -90,7 +92,7 @@ const expectedTokenResults: [string[], string[]][] = [
 	[['border radius'], ['radius.xsmall', 'radius.small']],
 	[
 		['border', 'radius'],
-		['radius.tile', 'border.width', 'radius.xsmall', 'radius.small'],
+		['radius.tile', 'border.width.selected', 'radius.xsmall', 'radius.small'],
 	],
 	[['border width'], ['border.width', 'border.width.selected']],
 	[
@@ -115,9 +117,9 @@ const expectedTokenResults: [string[], string[]][] = [
 		[
 			'color.chart.neutral',
 			'radius.tile',
-			'border.width',
-			'color.background.danger.subtle',
 			'border.width.selected',
+			'color.background.danger.subtle',
+			'border.width',
 			'color.text.accent.gray',
 			'color.background.neutral.hovered',
 			'color.background.neutral.pressed',
@@ -169,12 +171,40 @@ describe('search_tokens tool', () => {
 		const metadataToken = JSON.parse(metadataResult.content[0].text as string)[0];
 		expect(metadataToken).toEqual({
 			name: 'border.width.focused',
+			description: tokens.find((token) => token.name === 'border.width.focused')?.description,
 			exampleValue: expect.any(String),
 			usageGuidelines: {
 				usage: expect.any(String),
 				cssProperties: expect.arrayContaining(['border-width']),
 			},
 		});
+	});
+
+	it.each([
+		'color.background.selected',
+		'color.background.selected.hovered',
+		'color.background.selected.pressed',
+		'color.background.selected.bold',
+		'color.background.selected.bold.hovered',
+		'color.background.selected.bold.pressed',
+		'color.blanket.selected',
+		'color.border.selected',
+		'color.border.focused',
+		'color.text.selected',
+		'color.icon.selected',
+		'border.width.selected',
+		'border.width.focused',
+		'color.text',
+		'space.100',
+	])('returns the unchanged tokens-package description for %s', async (name) => {
+		const sourceToken = tokens.find((token) => token.name === name);
+		expect(sourceToken?.description).toEqual(expect.any(String));
+
+		const result = await searchTokensTool({ terms: [name], limit: 1, includeMetadata: true });
+		const returnedToken = JSON.parse(result.content[0].text as string)[0];
+		expect(returnedToken.name).toBe(name);
+		expect(returnedToken.description).toBe(sourceToken?.description);
+		expect(returnedToken.usageGuidelines).toEqual(sourceToken?.usageGuidelines);
 	});
 
 	it('Returns an error listing available tokens when there are no matches', async () => {

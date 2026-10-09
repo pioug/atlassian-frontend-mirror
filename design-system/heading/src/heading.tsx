@@ -8,9 +8,10 @@ import { forwardRef, type ReactNode, type Ref } from 'react';
 
 import { type CompiledStyles, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- the rule does not yet recognise @atlaskit/primitives subpath entry points
+import { useSurface as UNSAFE_useSurface } from '@atlaskit/primitives/utils/surface-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
-import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
+import { inverseColorMap as UNSAFE_inverseColorMap } from '@atlaskit/primitives/xcss/inverse-color';
 import { token } from '@atlaskit/tokens';
 
 import { useHeading } from './use-heading';

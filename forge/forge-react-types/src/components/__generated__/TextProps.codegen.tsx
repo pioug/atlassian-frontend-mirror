@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { Text as PlatformText } from '@atlaskit/primitives/compiled';
+import { Text as PlatformText } from '@atlaskit/primitives/compiled/text';
 
 type OriginalPlatformProps = Pick<
 	PlatformTextProps,

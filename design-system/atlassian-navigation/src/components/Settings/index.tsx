@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { IconButton } from '../IconButton';

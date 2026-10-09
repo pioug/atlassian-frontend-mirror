@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';

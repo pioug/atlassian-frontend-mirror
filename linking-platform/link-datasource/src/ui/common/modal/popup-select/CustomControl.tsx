@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { components } from '@atlaskit/react-select/components';
 import type { ControlProps } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';

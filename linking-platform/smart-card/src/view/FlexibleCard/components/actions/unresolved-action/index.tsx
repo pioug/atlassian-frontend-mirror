@@ -3,7 +3,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { InternalActionName } from '../../../../../constants';

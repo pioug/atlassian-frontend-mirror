@@ -7,7 +7,7 @@ import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { CloseButton } from './close-button';

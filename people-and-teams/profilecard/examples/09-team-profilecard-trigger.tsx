@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 
 import TeamProfilecardTrigger from '../src/components/Team/TeamProfileCardTrigger';

@@ -3,7 +3,7 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 import debounce from 'lodash/debounce';
 import * as queryString from 'query-string';
 
-import { type SecurityOptions } from '@atlaskit/util-service-support';
+import type { SecurityOptions } from '@atlaskit/util-service-support/types';
 
 import { MentionResource, type MentionResourceConfig } from '../../../api/MentionResource';
 import { type MentionDescription } from '../../../types';

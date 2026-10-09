@@ -4,7 +4,9 @@ import { cssMap } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
 import Heading from '@atlaskit/heading/heading';
-import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

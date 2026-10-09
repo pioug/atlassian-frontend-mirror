@@ -4,7 +4,9 @@ import { shouldIgnoreLog } from '@af/suppress-react-warnings';
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
 import Range from '@atlaskit/range/range';
-import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import Form from '../../form';
 import { RangeField } from '../../range-field';

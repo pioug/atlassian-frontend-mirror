@@ -1,6 +1,6 @@
 import type { API, FileInfo, JSXAttribute } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 /**
  * Maps old Lozenge appearance values to the new semantic appearance values.

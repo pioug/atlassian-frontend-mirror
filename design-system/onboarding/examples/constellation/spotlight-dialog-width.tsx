@@ -7,12 +7,13 @@ import CommentAddIcon from '@atlaskit/icon/core/comment-add';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import FullscreenEnterIcon from '@atlaskit/icon/core/fullscreen-enter';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 import { token } from '@atlaskit/tokens';
 
 const SpotlightDialogWidth = (): React.JSX.Element => {

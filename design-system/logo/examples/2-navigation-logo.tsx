@@ -9,34 +9,35 @@ import { css, jsx } from '@compiled/react';
 
 import {
 	AdminIcon,
-	AlignIcon,
+	AdminIcon as AtlassianAdminIcon,
+	AdminIcon as AtlassianAdministrationIcon,
+} from '@atlaskit/logo/admin/icon';
+import { AlignIcon } from '@atlaskit/logo/align/icon';
+import {
 	AnalyticsIcon,
-	AtlassianAdminIcon,
-	AtlassianAdministrationIcon,
-	AtlassianAnalyticsIcon,
-	BitbucketIcon,
-	CompassIcon,
-	ConfluenceIcon,
-	DxIcon,
-	FocusIcon,
-	GuardIcon,
-	JiraIcon,
-	JiraProductDiscoveryIcon,
-	JiraServiceManagementIcon,
-	LoomAttributionIcon,
-	LoomIcon,
-	OpsgenieIcon,
-	RovoIcon,
-	StatuspageIcon,
-	TrelloIcon,
-} from '@atlaskit/logo';
+	AnalyticsIcon as AtlassianAnalyticsIcon,
+} from '@atlaskit/logo/analytics/icon';
 import { ArtifactsIcon } from '@atlaskit/logo/artifacts/icon';
 import { AtlassianAccessIcon } from '@atlaskit/logo/atlassian-access/icon';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { AtlassianMarketplaceIcon } from '@atlaskit/logo/atlassian-marketplace/icon';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { CompassIcon } from '@atlaskit/logo/compass/icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { DxIcon } from '@atlaskit/logo/dx/icon';
+import { FocusIcon } from '@atlaskit/logo/focus/icon';
+import { GuardIcon } from '@atlaskit/logo/guard/icon';
 import { InsightsIcon } from '@atlaskit/logo/insights/icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraProductDiscoveryIcon } from '@atlaskit/logo/jira-product-discovery/icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
 import { JiraWorkManagementIcon } from '@atlaskit/logo/jira-work-management/icon';
+import { LoomIcon as LoomAttributionIcon, LoomIcon } from '@atlaskit/logo/loom/icon';
+import { OpsgenieIcon } from '@atlaskit/logo/opsgenie-icon';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
+import { TrelloIcon } from '@atlaskit/logo/trello-icon';
 import { token } from '@atlaskit/tokens';
 
 const logoOptions = [

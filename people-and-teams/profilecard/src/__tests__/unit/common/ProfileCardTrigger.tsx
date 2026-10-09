@@ -5,9 +5,9 @@ import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { Text } from '@atlaskit/primitives/compiled';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import ProfileCardTrigger from '../../../components/common/ProfileCardTrigger';
 

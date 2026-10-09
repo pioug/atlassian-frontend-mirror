@@ -2,7 +2,8 @@ import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { Manager } from '../../manager';
 import { Popper } from '../../popper';

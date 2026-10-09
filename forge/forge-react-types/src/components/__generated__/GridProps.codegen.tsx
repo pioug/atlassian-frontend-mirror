@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { Grid as PlatformGrid } from '@atlaskit/primitives';
+import { Grid as PlatformGrid } from '@atlaskit/primitives/grid';
 
 type PlatformGridProps = React.ComponentProps<typeof PlatformGrid>;
 

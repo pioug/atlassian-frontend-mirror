@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, screen } from '@testing-library/react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import EmojiRadioButton from '../../../../components/common/EmojiRadioButton';
 import { type Props as EmojiRadioButtonProps } from '../../../../components/common/EmojiRadioButton';

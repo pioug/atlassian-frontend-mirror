@@ -26,5 +26,7 @@ export function blockMenuPluginOptions({ options }: Props): BlockMenuPluginOptio
 	return {
 		getLinkPath: options.getLinkPath,
 		blockLinkHashPrefix: options.blockLinkHashPrefix,
+		// Confluence assigns block localIds and handles block link hashes, so Copy link is supported
+		enableCopyLinkToSelection: true,
 	};
 }

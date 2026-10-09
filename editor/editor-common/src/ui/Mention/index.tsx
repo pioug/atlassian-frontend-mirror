@@ -2,7 +2,6 @@
 
 import React, { PureComponent } from 'react';
 
-import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -11,7 +10,10 @@ import { ProviderFactory, WithProviders } from '../../provider-factory';
 import type { Providers } from '../../provider-factory';
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
-import type { MentionNodeDataProvider } from './mention-node-data-provider';
+import type {
+	MentionNodeDataProvider,
+	MentionNodeDataUserType,
+} from './mention-node-data-provider';
 import {
 	MissingMentionAvatarProvider,
 	MentionWithAvatarProviders,
@@ -22,6 +24,8 @@ type ProviderName = 'mentionProvider' | 'profilecardProvider';
 
 const MENTION_PROVIDERS: ProviderName[] = ['mentionProvider', 'profilecardProvider'];
 const GENERIC_MENTION_IDS = ['HipChat', 'all', 'here'];
+const isAgentMentionUserType = (userType: MentionNodeDataUserType | undefined): boolean =>
+	userType === 'APP' || userType === 'AGENT';
 
 export interface MentionProps {
 	accessLevel?: string;
@@ -33,7 +37,7 @@ export interface MentionProps {
 	mentionNodeDataProvider?: MentionNodeDataProvider;
 	providers?: ProviderFactory;
 	text: string;
-	userType?: MentionUserType;
+	userType?: MentionNodeDataUserType;
 }
 
 export interface MentionState {
@@ -84,7 +88,9 @@ export default class Mention extends PureComponent<MentionProps, object> {
 			(cohort === 'person' ||
 				cohort === 'all' ||
 				isExperimentEnabled('platform_editor_mention_node_avatar') ||
-				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
+				isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
+				(isAgentMentionUserType(userType) &&
+					isExperimentEnabled('platform_editor_drop3_hexagon_agent_avatar')));
 
 		if (isAvatarEnabled && mentionNodeDataProvider) {
 			return (

@@ -1,10 +1,10 @@
-import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { usePopupAppearance } from '../../use-appearance';
 
-jest.mock('@atlaskit/primitives/compiled');
+jest.mock('@atlaskit/primitives/compiled/use-media-query');
 
 const mockUseMediaQuery = UNSAFE_useMediaQuery as jest.Mock;
 

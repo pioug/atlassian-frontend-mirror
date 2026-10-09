@@ -2,7 +2,9 @@ import React, { forwardRef } from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { waitForTooltipToHide } from '../../testing';
 import Tooltip from '../../tooltip';

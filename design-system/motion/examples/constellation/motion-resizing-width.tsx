@@ -10,7 +10,7 @@ import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { useResizing } from '@atlaskit/motion/use-resizing';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

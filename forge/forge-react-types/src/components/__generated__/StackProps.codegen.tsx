@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import { Stack as PlatformStack } from '@atlaskit/primitives';
+import { Stack as PlatformStack } from '@atlaskit/primitives/stack';
 
 type PlatformStackProps = React.ComponentProps<typeof PlatformStack>;
 

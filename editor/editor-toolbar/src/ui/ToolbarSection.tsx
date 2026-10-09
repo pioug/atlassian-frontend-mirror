@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 export enum SeparatorPosition {

@@ -5,16 +5,14 @@
 import { jsx } from '@compiled/react';
 
 import AKBadge from '@atlaskit/badge/badge';
-import {
-	BitbucketIcon,
-	CompassIcon,
-	ConfluenceIcon,
-	CustomerServiceManagementIcon,
-	JiraIcon,
-	JiraServiceManagementIcon,
-	OpsgenieIcon,
-	TrelloIcon,
-} from '@atlaskit/logo';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { CompassIcon } from '@atlaskit/logo/compass/icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { CustomerServiceManagementIcon } from '@atlaskit/logo/customer-service-management/icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
+import { OpsgenieIcon } from '@atlaskit/logo/opsgenie-icon';
+import { TrelloIcon } from '@atlaskit/logo/trello-icon';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -26,13 +24,13 @@ import {
 	AppLogo,
 	AppSwitcher,
 	ChatButton,
-	CreateButton,
-	Help,
-	Profile,
 	Search,
-	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import placeholder200x200 from './images/200x200.png';

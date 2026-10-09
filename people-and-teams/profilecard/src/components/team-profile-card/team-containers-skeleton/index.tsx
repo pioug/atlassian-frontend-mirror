@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import type { TeamContainersSkeletonProps } from '@atlaskit/teams-public/team-containers-skeleton';
 import { token } from '@atlaskit/tokens';
 

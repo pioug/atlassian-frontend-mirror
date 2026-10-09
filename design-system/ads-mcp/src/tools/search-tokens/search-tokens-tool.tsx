@@ -73,7 +73,9 @@ export const searchTokensTool = async ({
 	const matchedTokens = matchedItems.map((item: Token) => ({
 		name: item.name,
 		exampleValue: item.exampleValue,
-		...(includeMetadata ? { usageGuidelines: item.usageGuidelines } : {}),
+		...(includeMetadata
+			? { description: item.description, usageGuidelines: item.usageGuidelines }
+			: {}),
 	}));
 
 	if (!matchedTokens.length) {

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
 import SectionMessage from '@atlaskit/section-message/message';
-import TableTree, {
-	Cell,
-	Header,
-	Headers,
-	Row,
-	Rows,
-	TableTreeDataHelper,
-} from '@atlaskit/table-tree';
+import { Cell } from '@atlaskit/table-tree/cell';
+import { Header } from '@atlaskit/table-tree/header';
+import { Headers } from '@atlaskit/table-tree/headers';
+import { Row } from '@atlaskit/table-tree/row';
+import { Rows } from '@atlaskit/table-tree/rows';
+import TableTree from '@atlaskit/table-tree/table-tree';
+import { TableTreeDataHelper } from '@atlaskit/table-tree/table-tree-data-helper';
 
 type Item = (typeof ROOTS)[number];
 

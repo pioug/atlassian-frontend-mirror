@@ -3,11 +3,9 @@ import React, { useCallback } from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
-import {
-	ANALYTICS_BRIDGE_CHANNEL,
-	extractAWCDataFromEvent,
-	fireUIAnalytics,
-} from '@atlassian/analytics-bridge';
+import { ANALYTICS_BRIDGE_CHANNEL } from '@atlassian/analytics-bridge/constants';
+import { extractAWCDataFromEvent } from '@atlassian/analytics-bridge/extract-awc-data-from-event';
+import { fireUIAnalytics } from '@atlassian/analytics-bridge/fire-analytics/fire-analytics';
 
 export default function AnalyticsGASv3(): React.JSX.Element {
 	const handleEvent = useCallback((event: UIAnalyticsEvent, channel?: string) => {

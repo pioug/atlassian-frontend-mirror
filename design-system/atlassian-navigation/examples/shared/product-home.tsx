@@ -1,19 +1,21 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AppHome, CustomProductHome, ProductHome } from '@atlaskit/atlassian-navigation';
-import {
-	BitbucketIcon,
-	BitbucketLogo,
-	CompassIcon,
-	CompassLogo,
-	ConfluenceIcon,
-	ConfluenceLogo,
-	JiraIcon,
-	JiraLogo,
-	JiraServiceManagementIcon,
-	JiraServiceManagementLogo,
-} from '@atlaskit/logo';
+import { AppHome } from '@atlaskit/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { CustomProductHome } from '@atlaskit/atlassian-navigation/custom-product-home';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { BitbucketLogoCS as BitbucketLogo } from '@atlaskit/logo/bitbucket/logo';
+import { CompassIcon } from '@atlaskit/logo/compass/icon';
+import { CompassLogoCS as CompassLogo } from '@atlaskit/logo/compass/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { ConfluenceLogoCS as ConfluenceLogo } from '@atlaskit/logo/confluence/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
+import { JiraServiceManagementLogoCS as JiraServiceManagementLogo } from '@atlaskit/logo/jira-service-management/logo';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 
 import atlassianIconUrl from './assets/atlassian-icon.png';
 import atlassianLogoUrl from './assets/atlassian-logo.png';

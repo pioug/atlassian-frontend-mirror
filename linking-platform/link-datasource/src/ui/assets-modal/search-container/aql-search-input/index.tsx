@@ -15,8 +15,7 @@ import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import SearchIcon from '@atlaskit/icon/core/search';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Spinner from '@atlaskit/spinner/spinner';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
@@ -151,18 +150,11 @@ export const AqlSearchInput = ({
 							testId={testId}
 							aria-label={formatMessage(searchInputMessages.placeholder)}
 						/>
-						{fg('platform_navx_3298_message_wrapper') ? (
-							<MessageWrapper>
-								{lastValidationResult.type === 'invalid' && lastValidationResult.error && (
-									<ErrorMessage>{lastValidationResult.error}</ErrorMessage>
-								)}
-							</MessageWrapper>
-						) : (
-							lastValidationResult.type === 'invalid' &&
-							lastValidationResult.error && (
+						<MessageWrapper>
+							{lastValidationResult.type === 'invalid' && lastValidationResult.error && (
 								<ErrorMessage>{lastValidationResult.error}</ErrorMessage>
-							)
-						)}
+							)}
+						</MessageWrapper>
 					</Fragment>
 				)}
 			</Field>

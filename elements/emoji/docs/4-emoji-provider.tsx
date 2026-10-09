@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, code } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message/message';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const _default_1: any = md`
 Emoji provider mainly controls what type of emojis you want to support, how to resolve emojis, and how to upload custom emojis if enabled.

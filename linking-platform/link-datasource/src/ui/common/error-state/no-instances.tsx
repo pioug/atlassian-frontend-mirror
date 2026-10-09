@@ -5,7 +5,8 @@
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl';
 
-import { Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { NoInstancesSvg } from './no-instances-svg';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';

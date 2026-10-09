@@ -1,4 +1,9 @@
-import { emojiImage, emojiNode, emojiPlaceholder, emojiSprite } from '@atlaskit/emoji';
+import {
+	emojiImage,
+	emojiNodeStyles as emojiNode,
+	placeholder as emojiPlaceholder,
+	emojiSprite,
+} from '@atlaskit/emoji/styles';
 
 // Constant variables here has been inlined in css from EditorContentContainer, if you need to make
 // update here, please also update packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx

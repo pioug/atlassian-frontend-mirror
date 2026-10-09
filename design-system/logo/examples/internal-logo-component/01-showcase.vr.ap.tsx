@@ -8,7 +8,12 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Select from '@atlaskit/select/default';
-import Table, { Cell, HeadCell, Row, TBody, THead } from '@atlaskit/table';
+import { TBody } from '@atlaskit/table/body';
+import { HeadCell } from '@atlaskit/table/head-cell';
+import { Row } from '@atlaskit/table/row';
+import Table from '@atlaskit/table/table';
+import { Cell } from '@atlaskit/table/td';
+import { THead } from '@atlaskit/table/thead';
 
 import { rows } from './utils/all-components';
 import { appOrder, selectOptions } from './utils/constants';

@@ -7,7 +7,11 @@ import Heading from '@atlaskit/heading/heading';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { Spotlight, SpotlightManager, SpotlightTransition } from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { Highlight } from './styled';
@@ -24,7 +28,7 @@ const targetElementStyles = cssMap({
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class SpotlightNodeExample extends Component<Object, State> {
+export default class SpotlightNodeExample extends Component<object, State> {
 	drawer: React.RefObject<HTMLElement> = React.createRef<HTMLElement>();
 	state = { drawerIsVisible: false, spotlightIsVisible: false };
 

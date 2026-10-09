@@ -16,12 +16,12 @@ import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
 import {
-	nativeStickyHeaderZIndex,
 	tableBorderColor,
 	tableBorderDeleteColor,
 	tableBorderSelectedColor,
 	tableCellSelectedColor,
 } from './consts';
+import { getTableZIndexes } from './sticky-header-z-index';
 
 const roundedTableCellCornerStyles = (): SerializedStyles => css`
 	.${ClassName.TABLE_NODE_WRAPPER} > table {
@@ -487,7 +487,7 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
 			: token('elevation.surface')};
 		pointer-events: none;
-		z-index: ${nativeStickyHeaderZIndex};
+		z-index: ${getTableZIndexes().header};
 	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column='true']

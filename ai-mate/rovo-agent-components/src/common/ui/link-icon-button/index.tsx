@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import messages from './messages';

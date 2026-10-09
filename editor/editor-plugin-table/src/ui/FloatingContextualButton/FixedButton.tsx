@@ -3,12 +3,12 @@ import { createPortal } from 'react-dom';
 
 import rafSchedule from 'raf-schd';
 
-import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import { TableCssClassName as ClassName } from '../../types';
 import { insertColumnButtonOffset } from '../common-styles';
+import { getTableZIndexes } from '../sticky-header-z-index';
 
 const BUTTON_WIDTH = 20;
 
@@ -182,7 +182,7 @@ export const FixedButton = ({
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					top: fixedButtonTop + stickyHeader.padding + offset * 2,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					zIndex: akEditorTableCellOnStickyHeaderZIndex,
+					zIndex: getTableZIndexes().headerButton,
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					left,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

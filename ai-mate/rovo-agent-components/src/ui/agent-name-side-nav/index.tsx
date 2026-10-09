@@ -5,7 +5,7 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 // This workaround prevents unwanted text truncation in LinkMenuItem caused by the current

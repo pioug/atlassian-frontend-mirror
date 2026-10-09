@@ -9,7 +9,7 @@ import { type MessageDescriptor, useIntl } from 'react-intl';
 import IconButton from '@atlaskit/button/icon/button';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

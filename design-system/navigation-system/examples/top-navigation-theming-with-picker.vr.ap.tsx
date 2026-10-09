@@ -8,11 +8,13 @@ import { jsx } from '@compiled/react';
 
 import AKBadge from '@atlaskit/badge/badge';
 import { Label } from '@atlaskit/form/label/default';
-import { ConfluenceIcon } from '@atlaskit/logo';
-import { Main, Root, SideNav } from '@atlaskit/navigation-system';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { Root } from '@atlaskit/navigation-system/layout/root';
 import {
 	SideNavPanelSplitter,
 	SideNavToggleButton,
+	SideNav,
 } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -20,16 +22,12 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	ChatButton,
-	CreateButton,
-	Help,
-	Notifications,
-	Profile,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, ChatButton } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 import { WithResponsiveViewport } from './utils/example-utils';

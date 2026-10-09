@@ -5,8 +5,10 @@ import { replaceRaf } from 'raf-stub';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Avatar from '@atlaskit/avatar/avatar';
-import { Anchor } from '@atlaskit/primitives/compiled';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import AvatarTag from '../../../tag-new/avatar-tag';
 import { default as TagNew } from '../../../tag-new/tag-new';

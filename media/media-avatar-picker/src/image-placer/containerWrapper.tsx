@@ -5,7 +5,7 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const containerWrapperStyles = cssMap({
 	root: {

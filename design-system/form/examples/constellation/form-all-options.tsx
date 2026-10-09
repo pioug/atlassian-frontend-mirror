@@ -23,7 +23,7 @@ import Select from '@atlaskit/select/default';
 import type { OptionType, ValueType } from '@atlaskit/select/types';
 import TextArea from '@atlaskit/textarea/text-area';
 import TextField from '@atlaskit/textfield/text-field';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 const FormAllOptionsExample = (): React.JSX.Element => (
 	<Flex direction="column">

@@ -7,7 +7,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const whatsNewResultListItemWrapperStyles = css({
@@ -61,10 +60,7 @@ export const WhatsNewResultListItemWrapper = ({
 }): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/no-html-button, @atlaskit/ui-styling-standard/enforce-style-prop
 	<button
-		css={[
-			whatsNewResultListItemWrapperStyles,
-			fg('platform-dst-motion-uplift-custom-button') && whatsNewResultListItemMotionStyles,
-		]}
+		css={[whatsNewResultListItemWrapperStyles, whatsNewResultListItemMotionStyles]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		style={styles}
 		{...rest}

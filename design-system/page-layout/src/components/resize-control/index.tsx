@@ -21,7 +21,7 @@ import { bindAll, type UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive/use-media-query';
 
 import {
 	COLLAPSED_LEFT_SIDEBAR_WIDTH,

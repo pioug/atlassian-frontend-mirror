@@ -3,7 +3,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { step } from '../../../../__tests__/unit/__utils__/raf';
 import { ButtonItem } from '../../../Item/button-item';

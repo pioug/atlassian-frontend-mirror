@@ -10,7 +10,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Flag from '@atlaskit/flag/flag';
 import FlagGroup from '@atlaskit/flag/flag-group';
 import type { FlagProps } from '@atlaskit/flag/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { GiveKudosLauncher } from '../src';

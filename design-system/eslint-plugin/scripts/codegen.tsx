@@ -10,7 +10,7 @@ import tsx from 'tsx/cjs/api';
 
 import format from '@af/formatting/sync';
 import type { LintRule } from '@atlaskit/eslint-utils/create-rule';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 const { naming }: { naming: ESLintRCNaming } = Legacy;
 

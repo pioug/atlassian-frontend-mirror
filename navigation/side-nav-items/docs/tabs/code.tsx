@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Disclosure, TSProps } from '@atlaskit/docs';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export const CodeTab: JSX.Element = (
 	<>

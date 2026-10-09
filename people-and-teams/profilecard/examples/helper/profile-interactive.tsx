@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import uid from 'uid/index.js';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, type BoxProps } from '@atlaskit/primitives/compiled';
+import { Box, type BoxProps } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { ProfilecardInternal as ProfileCard } from '../../src/components/User/ProfilecardInternal';

@@ -1,6 +1,6 @@
 import React, { PureComponent, Children } from 'react';
 
-import { DecisionList as AkDecisionList } from '@atlaskit/task-decision';
+import AkDecisionList from '@atlaskit/task-decision/decision-list';
 
 export interface Props {
 	children?: JSX.Element | JSX.Element[];

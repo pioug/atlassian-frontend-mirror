@@ -1,4 +1,4 @@
-import { normaliseJqlString } from '@atlaskit/jql-ast';
+import { normaliseJqlString } from '@atlaskit/jql-ast/normalise-jql-string';
 
 /**
  * Normalise a JQL string for use as a hydration map key.

@@ -9,8 +9,10 @@ import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Main } from '../../main/main';
 import { Root } from '../../root';

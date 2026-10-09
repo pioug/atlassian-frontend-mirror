@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { fireEvent, render } from '@atlassian/testing-library';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import ModalDialog from '../../modal-dialog';
 import ModalTransition from '../../modal-transition';

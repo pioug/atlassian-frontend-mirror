@@ -14,14 +14,14 @@ import {
 import {
 	AppSwitcher,
 	ChatButton,
-	CreateButton,
 	CustomLogo,
-	Help,
-	Notifications,
-	Profile,
 	Search,
-	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 

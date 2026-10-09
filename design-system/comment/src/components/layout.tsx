@@ -6,7 +6,9 @@
 import { type FC, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import AvatarSlot from './slots/avatar-slot';

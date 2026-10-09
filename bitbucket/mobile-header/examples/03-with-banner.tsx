@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import IconButton from '@atlaskit/button/icon/button';
 import MenuIcon from '@atlaskit/icon/core/menu';
 import WarningIcon from '@atlaskit/icon/core/status-warning';

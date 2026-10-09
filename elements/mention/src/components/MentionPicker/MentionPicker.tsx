@@ -3,7 +3,7 @@ import React from 'react';
 import { IntlProvider, type IntlShape } from 'react-intl';
 
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import {
 	type ErrorCallback,

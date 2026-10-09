@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { type Team } from '../../types';

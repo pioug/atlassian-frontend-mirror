@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import UFOInteractionContext, { type LabelStack } from '../../interaction-context';
 import UFOSegment from '../segment';

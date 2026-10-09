@@ -2,12 +2,8 @@ import React from 'react';
 
 import { fireEvent } from '@testing-library/react';
 
-import {
-	type EmojiDescription,
-	type EmojiProvider,
-	type OnEmojiEvent,
-	toEmojiId,
-} from '@atlaskit/emoji';
+import { toEmojiId } from '@atlaskit/emoji';
+import type { EmojiDescription, EmojiProvider, OnEmojiEvent } from '@atlaskit/emoji/types';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 

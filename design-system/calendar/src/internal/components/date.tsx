@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Grid } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 import { token } from '@atlaskit/tokens';
 
 import type { TabIndex } from '../../types';

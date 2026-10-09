@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { TH, type THProps } from './ui/th';
 

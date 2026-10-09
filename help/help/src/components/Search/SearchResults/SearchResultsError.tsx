@@ -3,7 +3,7 @@ import React from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import Button from '@atlaskit/button/button';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import ErrorImage from '../../../assets/ErrorImage';
 import { messages } from '../../../messages';

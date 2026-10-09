@@ -1,4 +1,4 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { RLLPlaceholderHandlers } from './index';
 

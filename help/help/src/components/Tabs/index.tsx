@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react';
 
-import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { TabContainer, TabLabels, TabLabel } from './styled';
 

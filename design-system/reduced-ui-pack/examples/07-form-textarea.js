@@ -11,7 +11,7 @@ export default () => (
 			<h2>Add a comment</h2>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 			<div className="ak-field-group">
-				<label htmlFor="description">Comment</label>
+				<label htmlFor="comment">Comment</label>
 				<textarea
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="ak-field-textarea"

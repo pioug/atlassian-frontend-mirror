@@ -6,7 +6,7 @@ import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay
 import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { RovoAgentSelector } from '../src';
 import { generateMockAgentEdges } from '../src/common/utils/generate-mock-agent-edges';

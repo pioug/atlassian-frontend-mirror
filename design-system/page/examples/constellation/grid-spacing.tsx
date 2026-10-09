@@ -1,6 +1,8 @@
 import React from 'react';
 
-import Page, { Grid, GridColumn } from '@atlaskit/page';
+import Grid from '@atlaskit/page/grid';
+import { GridColumn } from '@atlaskit/page/grid-column';
+import Page from '@atlaskit/page/page';
 
 import { Dummy } from '../common/dummy';
 import VerticalSpace from '../common/vertical-space';

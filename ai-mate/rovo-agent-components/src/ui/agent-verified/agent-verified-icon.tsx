@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import VerifiedIcon from '@atlaskit/icon/core/status-verified';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

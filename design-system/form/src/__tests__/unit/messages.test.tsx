@@ -2,8 +2,10 @@ import React from 'react';
 
 import TextField from '@atlaskit/textfield/text-field';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen, userEvent } from '@atlassian/testing-library';
 import { act } from '@atlassian/testing-library/act';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { ErrorMessage } from '../../error-message';
 import Field from '../../field';

@@ -1,4 +1,4 @@
-import { isValidAGGQuery } from '@atlassian/ptc-test-utils/graphql-jest';
+import { isValidAGGQuery } from '@atlassian/ptc-test-utils/is-valid-query';
 
 import { AGGQuery } from '../AGGQuery';
 import { getOrgIdForCloudIdFromAGG } from '../getOrgIdForCloudIdFromAGG';

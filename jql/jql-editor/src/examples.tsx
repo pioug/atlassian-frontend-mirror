@@ -2,7 +2,7 @@ import React from 'react';
 
 import { injectable } from 'react-magnetic-di';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { Template } from '../examples-utils/template';
 import { TemplateReadOnly } from '../examples-utils/template-read-only';

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { hierarchy } from '@visx/hierarchy';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 

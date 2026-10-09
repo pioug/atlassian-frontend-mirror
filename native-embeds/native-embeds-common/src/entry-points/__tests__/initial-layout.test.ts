@@ -1,5 +1,8 @@
 import { setParameters } from '../../index';
-import { resolveNativeEmbedInitialLayout } from '../initial-layout';
+import {
+	resolveNativeEmbedEffectiveWidth,
+	resolveNativeEmbedInitialLayout,
+} from '../initial-layout';
 
 describe('resolveNativeEmbedInitialLayout', () => {
 	it('returns fallback dimensions for undefined params', () => {
@@ -86,4 +89,25 @@ describe('resolveNativeEmbedInitialLayout', () => {
 			effectiveWidth: 800,
 		});
 	});
+});
+
+describe('resolveNativeEmbedEffectiveWidth', () => {
+	it.each([
+		{ width: undefined, defaultWidth: undefined, expectedWidth: undefined },
+		{ width: undefined, defaultWidth: 760, expectedWidth: 760 },
+		{ width: 900, defaultWidth: undefined, expectedWidth: 900 },
+		{ width: 900, defaultWidth: 760, expectedWidth: 900 },
+		{ width: 0, defaultWidth: 760, expectedWidth: 0 },
+	])(
+		'resolves stored width $width with manifest default $defaultWidth',
+		({ width, defaultWidth, expectedWidth }) => {
+			expect(
+				resolveNativeEmbedEffectiveWidth({
+					manifest:
+						defaultWidth === undefined ? undefined : { parameterDefaults: { width: defaultWidth } },
+					width,
+				}),
+			).toBe(expectedWidth);
+		},
+	);
 });

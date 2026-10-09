@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { JiraDataCenterIcon, JiraDataCenterLogo } from '@atlaskit/logo';
+import { JiraDataCenterIcon } from '@atlaskit/logo/jira-data-center/icon';
+import { JiraDataCenterLogoCS as JiraDataCenterLogo } from '@atlaskit/logo/jira-data-center/logo';
 
 import LogoTable from '../utils/logo-table';
 

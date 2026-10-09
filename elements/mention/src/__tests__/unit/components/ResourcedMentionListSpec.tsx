@@ -5,7 +5,8 @@ import { IntlProvider } from 'react-intl';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import ResourcedMentionList, { type Props } from '../../../components/ResourcedMentionList';
 import * as fireSliAnalyticsEventModule from '../../../util/fire-sli-analytics-event';

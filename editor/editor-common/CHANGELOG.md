@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 130.3.0
+
+### Minor Changes
+
+- [`e07a1b5505804`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e07a1b5505804) -
+  [ux] Add experiment-gated support for rendering agent mention avatars as hexagons in React
+  mentions and editable editor mention node views.
+
+### Patch Changes
+
+- [`e8e50c0062722`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8e50c0062722) -
+  Clean up experiment `platform_editor_media_external_badge_bbc_fix`
+- [`06e85e54427d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06e85e54427d1) -
+  Correct Forge named viewport height reservation in View and Editor behind
+  confluence_forge_early_render_reserve_height while preserving numeric Connect heights.
+- Updated dependencies
+
+## 130.2.1
+
+### Patch Changes
+
+- [`a43e85621e87c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a43e85621e87c) -
+  Lower sticky table headers, masks, and dependent controls below the agent control under the
+  platform_editor_sticky_headers_zindex experiment.
+- Updated dependencies
+
 ## 130.2.0
 
 ### Minor Changes

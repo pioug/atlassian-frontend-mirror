@@ -5,7 +5,9 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 
 const styles = cssMap({
 	labelStyles: {

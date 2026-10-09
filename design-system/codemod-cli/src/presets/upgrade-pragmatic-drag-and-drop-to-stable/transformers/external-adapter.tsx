@@ -1,6 +1,6 @@
 import type { API, FileInfo } from 'jscodeshift';
 
-import { addCommentToStartOfFile } from '@atlaskit/codemod-utils';
+import { addCommentToStartOfFile } from '@atlaskit/codemod-utils/support';
 
 export const pleaseMigrateMessage = `
   The file adapter has been replaced by a new (more powerful) external adapter.

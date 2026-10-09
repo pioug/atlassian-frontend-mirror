@@ -10,8 +10,9 @@ import { useIntl } from 'react-intl';
 import type { ButtonProps } from '@atlaskit/button/button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import AgentIcon from '@atlaskit/icon/core/ai-agent';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { ChatPillIcon } from '../chat-icon';
@@ -99,11 +100,7 @@ export const ChatPill: ForwardRefExoticComponent<
 	} & RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, ChatPillProps>(
 	({ children, whiteSpacePreWrap = true, renderIcon = true, ...props }, ref) => (
-		<Pressable
-			ref={ref}
-			{...props}
-			xcss={fg('platform-dst-motion-uplift-custom-button') ? styles.button_motion : styles.button}
-		>
+		<Pressable ref={ref} {...props} xcss={styles.button_motion}>
 			<div css={stylesCompiled.pillLineHeight}>
 				<Inline space="space.075" alignBlock="baseline">
 					{renderIcon ? <ChatPillIcon /> : null}
@@ -124,11 +121,7 @@ export const BrowseAgentsPill: ForwardRefExoticComponent<
 	const { formatMessage } = useIntl();
 
 	return (
-		<Pressable
-			ref={ref}
-			{...props}
-			xcss={fg('platform-dst-motion-uplift-custom-button') ? styles.button_motion : styles.button}
-		>
+		<Pressable ref={ref} {...props} xcss={styles.button_motion}>
 			<div css={stylesCompiled.pillLineHeight}>
 				<Inline space="space.050" xcss={styles.buttonInline}>
 					<AgentIcon color="currentColor" label="" />

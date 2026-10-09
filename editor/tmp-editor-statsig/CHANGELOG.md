@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 229.0.0
+
+### Major Changes
+
+- [`fe1c8168637b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe1c8168637b6) -
+  Clean up experiment `jira_editor_a11y_toolbar_fixes`
+- [`e8e50c0062722`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8e50c0062722) -
+  Clean up experiment `platform_editor_media_external_badge_bbc_fix`
+
 ## 228.0.0
 
 ### Major Changes

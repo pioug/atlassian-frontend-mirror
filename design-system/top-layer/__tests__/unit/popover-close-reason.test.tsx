@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { act, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { Popover } from '../../src/popover/popover';
 

@@ -5,7 +5,10 @@
 
 import { css, jsx } from '@compiled/react';
 
-import TableTree, { Header, Headers, Rows } from '@atlaskit/table-tree';
+import { Header } from '@atlaskit/table-tree/header';
+import { Headers } from '@atlaskit/table-tree/headers';
+import { Rows } from '@atlaskit/table-tree/rows';
+import TableTree from '@atlaskit/table-tree/table-tree';
 
 /**
  * For VR testing purposes we are overriding the animation timing

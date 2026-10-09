@@ -90,6 +90,7 @@ export type InitialPluginConfiguration = {
 	};
 	blockMenuPlugin?: {
 		blockLinkHashPrefix?: string;
+		enableCopyLinkToSelection?: boolean;
 		enabled?: boolean;
 		getLinkPath?: () => string | null;
 		useStandardNodeWidth?: boolean;
@@ -193,6 +194,8 @@ export default function createUniversalPresetInternal({
 				initialPluginConfiguration?.blockMenuPlugin?.useStandardNodeWidth ?? false,
 			blockLinkHashPrefix: initialPluginConfiguration?.blockMenuPlugin?.blockLinkHashPrefix,
 			getLinkPath: initialPluginConfiguration?.blockMenuPlugin?.getLinkPath,
+			enableCopyLinkToSelection:
+				initialPluginConfiguration?.blockMenuPlugin?.enableCopyLinkToSelection,
 		},
 		appearance,
 		createAnalyticsEvent,

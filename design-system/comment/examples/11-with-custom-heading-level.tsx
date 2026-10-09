@@ -1,7 +1,10 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import Comment, { CommentAuthor, CommentEdited, CommentTime } from '@atlaskit/comment';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import Comment from '@atlaskit/comment/comment';
+import { CommentEdited } from '@atlaskit/comment/edited';
+import { CommentTime } from '@atlaskit/comment/time';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 

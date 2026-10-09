@@ -1,8 +1,10 @@
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { FlyoutBody } from '../../flyout-menu-item/flyout-body';

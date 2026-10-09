@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 46.6.0
+
+### Minor Changes
+
+- [`3a1738f3cde77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a1738f3cde77) -
+  Add optional `ui.shouldRenderStatusToParent` to render a status menu beside its trigger in the DOM
+  through Dropdown Menu's existing `shouldRenderToParent` option. The option defaults to false and
+  requires `billplat_jira_list_dropdown_top_layer`. The independent `platform-dst-top-layer` rollout
+  retains precedence when enabled.
+
+### Patch Changes
+
+- [`cb9f9a0085ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb9f9a0085ea8) -
+  Cleanup `feature_gate` `platform_navx_3298_message_wrapper`. Form helper and error messages are
+  now always rendered inside a `MessageWrapper` live region, and the Rovo link picker's display-text
+  helper is permanently associated with its input via `aria-describedby`.
+- Updated dependencies
+
+## 46.5.9
+
+### Patch Changes
+
+- [`540dfbc983a9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/540dfbc983a9c) -
+  Open link click in new tab when click inside iframe
+
 ## 46.5.8
 
 ### Patch Changes

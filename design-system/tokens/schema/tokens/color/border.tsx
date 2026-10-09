@@ -34,7 +34,8 @@ const color: AttributeSchema<BorderColorTokenSchema<BaseToken>> = {
 					group: 'paint',
 					state: 'active',
 					introduced: '0.6.0',
-					description: 'Use for focus rings of elements in a focus state.',
+					description:
+						'Use for the focus ring or border of an element that currently has keyboard or input focus. Do not use to indicate selection or hover alone. When an element is both selected and focused, keep its selected treatment and add a separate focus indicator.',
 				},
 			},
 			input: {
@@ -79,7 +80,7 @@ const color: AttributeSchema<BorderColorTokenSchema<BaseToken>> = {
 					state: 'active',
 					introduced: '0.6.2',
 					description:
-						'Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items.',
+						'Use for borders or visual indicators that communicate selection, such as the active tab or a selected menu item, or the opened state of a dropdown trigger. Do not use as a keyboard focus indicator; use color.border.focused for focus and preserve the selected treatment when both states apply.',
 				},
 			},
 			danger: {

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { type isRotated } from '../../imageMetaData/isRotated';
 import { MediaImage, type MediaImageProps } from '../../mediaImage';

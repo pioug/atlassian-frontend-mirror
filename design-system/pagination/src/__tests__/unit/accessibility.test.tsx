@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import Button from '@atlaskit/button/standard-button';
 
 import Pagination, { type PaginationPropTypes } from '../../index';

@@ -1,6 +1,7 @@
 import React, { Component, createRef, forwardRef } from 'react';
 
-import { renderWithDi, screen } from '@atlassian/testing-library';
+import { renderWithDi } from '@atlassian/testing-library/render-with-di';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { componentWithCondition } from './index';
 

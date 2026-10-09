@@ -1,6 +1,6 @@
-import { JastBuilder } from '@atlaskit/jql-ast';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { normaliseHydrationKey } from './normaliseHydrationKey';
 import { ValidQueryVisitor } from './ValidQueryVisitor';

@@ -15,7 +15,8 @@ import {
 
 import AkButton from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

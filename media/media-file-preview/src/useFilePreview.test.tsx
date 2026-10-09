@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/media-client';
 import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';
 import { mediaFilePreviewCache } from './getPreview/cache';

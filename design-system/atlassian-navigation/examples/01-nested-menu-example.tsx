@@ -8,18 +8,21 @@ import React, { Fragment, type KeyboardEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	ProductHome,
-	Settings,
-} from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Settings } from '@atlaskit/atlassian-navigation/settings';
 import { Drawer } from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 import ButtonItem from '@atlaskit/menu/button-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';

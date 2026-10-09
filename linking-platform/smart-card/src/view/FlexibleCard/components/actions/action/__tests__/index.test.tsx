@@ -7,8 +7,10 @@ import { css, jsx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type InternalFlexibleUiOptions } from '../../../../types';

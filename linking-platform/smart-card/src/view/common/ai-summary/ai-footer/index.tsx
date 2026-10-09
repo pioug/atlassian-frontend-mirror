@@ -7,7 +7,8 @@ import { FormattedMessage } from 'react-intl';
 
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import Link from '@atlaskit/link/link';
-import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { CONTENT_URL_ROVO } from '../../../../constants';

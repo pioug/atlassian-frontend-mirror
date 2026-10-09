@@ -2,7 +2,7 @@ import React, { type CSSProperties } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import Page from '@atlaskit/page';
+import Page from '@atlaskit/page/page';
 import { token } from '@atlaskit/tokens';
 
 import { MediaImage } from '../src/mediaImage';

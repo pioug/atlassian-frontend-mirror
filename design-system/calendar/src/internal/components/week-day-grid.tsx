@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Grid } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 
 interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
 	testId?: string;

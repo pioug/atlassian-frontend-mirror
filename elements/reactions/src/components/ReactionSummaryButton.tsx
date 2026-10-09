@@ -7,8 +7,11 @@ import { forwardRef, useMemo, type ForwardRefExoticComponent, type RefAttributes
 import { cssMap, jsx, cx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { ResourcedEmoji } from '@atlaskit/emoji';
-import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
@@ -61,6 +64,11 @@ interface ReactionSummaryButtonProps extends Pick<
 	emojisToShow?: number;
 
 	/**
+	 * Optional prop to indicate whether the summary popup is open, used for aria-expanded
+	 */
+	isOpen?: boolean;
+
+	/**
 	 * event handler when the summary button is clicked to view all reactions
 	 */
 	onClick: () => void;
@@ -99,11 +107,6 @@ interface ReactionSummaryButtonProps extends Pick<
 	 * Optional prop to set the most recently clicked emoji id
 	 */
 	summaryViewParticleEffectEmojiId?: { id: string; shortName: string } | null;
-
-	/**
-	 * Optional prop to indicate whether the summary popup is open, used for aria-expanded
-	 */
-	isOpen?: boolean;
 }
 
 /**

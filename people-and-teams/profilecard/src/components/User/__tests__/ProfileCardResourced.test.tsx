@@ -3,12 +3,12 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
+import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
 
 import ProfileCardResourced from '../ProfileCardResourced';
 
-jest.mock('@atlaskit/give-kudos', () => ({
-	...jest.requireActual('@atlaskit/give-kudos'),
+jest.mock('@atlaskit/give-kudos/give-kudos-launcher', () => ({
+	...jest.requireActual('@atlaskit/give-kudos/give-kudos-launcher'),
 	GiveKudosLauncherLazy: jest.fn(),
 }));
 

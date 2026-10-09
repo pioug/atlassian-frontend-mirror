@@ -1,12 +1,9 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import {
-	AbstractResource,
-	type OnProviderChange,
-	type ServiceConfig,
-	utils as serviceUtils,
-} from '@atlaskit/util-service-support';
+import { utils as serviceUtils } from '@atlaskit/util-service-support/constants';
+import { AbstractResource } from '@atlaskit/util-service-support/serviceResources';
+import type { OnProviderChange, ServiceConfig } from '@atlaskit/util-service-support/types';
 
 import type { CategoryId } from '../components/picker/categories';
 import {

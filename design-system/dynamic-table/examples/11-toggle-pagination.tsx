@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import Code from '@atlaskit/code/code';
-import DynamicTable from '@atlaskit/dynamic-table';
+import DynamicTable from '@atlaskit/dynamic-table/stateful';
 
 import { caption, head, rows } from './content/sample-data';
 

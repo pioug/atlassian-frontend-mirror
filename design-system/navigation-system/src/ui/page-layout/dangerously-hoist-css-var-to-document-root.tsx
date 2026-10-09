@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { type MediaQuery } from '@atlaskit/primitives/responsive';
+import type { MediaQuery } from '@atlaskit/primitives/responsive/types';
 
 const getCssStringValue = (value: string | number): string =>
 	typeof value === 'number' ? `${value}px` : value;

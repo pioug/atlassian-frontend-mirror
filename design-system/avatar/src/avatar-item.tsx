@@ -7,7 +7,7 @@ import { type CSSProperties, forwardRef, Fragment, type ReactNode } from 'react'
 import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import getCustomElement from './internal/get-custom-element';

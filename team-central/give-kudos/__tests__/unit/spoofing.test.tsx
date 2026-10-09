@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render } from '@atlassian/testing-library';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { FlagEventType } from '../../src/types';
 import GiveKudosLauncher from '../../src/ui/GiveKudosLauncher/main';

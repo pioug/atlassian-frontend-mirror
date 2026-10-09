@@ -1,12 +1,13 @@
 import React, { type KeyboardEvent, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	PrimaryButton,
-	type PrimaryButtonProps,
-	PrimaryDropdownButton,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { PrimaryButtonProps } from '@atlaskit/atlassian-navigation/primary-button/types';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
 import ButtonItem from '@atlaskit/menu/button-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';

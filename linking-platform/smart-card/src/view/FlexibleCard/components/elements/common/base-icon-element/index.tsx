@@ -12,7 +12,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
 
@@ -337,6 +337,7 @@ const IconElement = ({
 			className={className}
 		>
 			{isTiledIcon ? (
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- the rule does not yet recognise @atlaskit/primitives subpath entry points
 				<Tile size={size} hasBorder backgroundColor="white" label={label} testId={`${testId}-tile`}>
 					{element}
 				</Tile>

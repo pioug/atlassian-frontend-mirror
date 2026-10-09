@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { selectField, toggleField } from '@atlassian/teams-app-internal-playground/fields';
-import {
-	Playground,
-	type PlaygroundConfig,
-} from '@atlassian/teams-app-internal-playground/playground';
+import { Playground } from '@atlassian/teams-app-internal-playground/playground';
+import type { Config as PlaygroundConfig } from '@atlassian/teams-app-internal-playground/types';
 
 import { TeamContainers } from '../src/ui/team-containers/main';
 

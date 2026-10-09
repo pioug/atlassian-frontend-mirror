@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c25b6178d5189344dbd5e08e2e13619b>>
+ * @codegen <<SignedSource::5fe28fde9f84f65da4f55e608e01a49f>>
  * @codegenCommand yarn build tokens
  */
 
@@ -4323,7 +4323,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+      "description": "Use for the background of an element that communicates selection, such as a selected navigation item, or the opened state of a dropdown trigger. Use color.background.selected.hovered or color.background.selected.pressed when interacting with a selected element. Selection is distinct from keyboard focus and hover alone."
     },
     "value": "#E9F2FE",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -4333,7 +4333,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+        "description": "Use for the background of an element that communicates selection, such as a selected navigation item, or the opened state of a dropdown trigger. Use color.background.selected.hovered or color.background.selected.pressed when interacting with a selected element. Selection is distinct from keyboard focus and hover alone."
       },
       "value": "Blue100"
     },
@@ -4352,7 +4352,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Hovered state for color.background.selected"
+      "description": "Use for the background of an element that is selected and hovered. This preserves selection while showing pointer hover; do not use for an unselected element or keyboard focus alone."
     },
     "value": "#CFE1FD",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -4362,7 +4362,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Hovered state for color.background.selected"
+        "description": "Use for the background of an element that is selected and hovered. This preserves selection while showing pointer hover; do not use for an unselected element or keyboard focus alone."
       },
       "value": "Blue200"
     },
@@ -4381,7 +4381,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Pressed state for color.background.selected"
+      "description": "Use for the background of an element that is selected and being pressed. Return to color.background.selected or color.background.selected.hovered when the press ends and the element remains selected. Do not use for an unselected element or keyboard focus alone."
     },
     "value": "#8FB8F6",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -4391,7 +4391,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Pressed state for color.background.selected"
+        "description": "Use for the background of an element that is selected and being pressed. Return to color.background.selected or color.background.selected.hovered when the press ends and the element remains selected. Do not use for an unselected element or keyboard focus alone."
       },
       "value": "Blue300"
     },
@@ -4410,7 +4410,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+      "description": "Use for the bold background of selected controls, such as checked checkboxes and selected radio buttons. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for primary actions or keyboard focus alone."
     },
     "value": "#1868DB",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -4420,7 +4420,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
+        "description": "Use for the bold background of selected controls, such as checked checkboxes and selected radio buttons. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for primary actions or keyboard focus alone."
       },
       "value": "Blue700"
     },
@@ -4439,7 +4439,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Hovered state of color.background.selected.bold"
+      "description": "Use for the background of a selected control that uses color.background.selected.bold while it is hovered, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone."
     },
     "value": "#1558BC",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -4449,7 +4449,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Hovered state of color.background.selected.bold"
+        "description": "Use for the background of a selected control that uses color.background.selected.bold while it is hovered, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone."
       },
       "value": "Blue800"
     },
@@ -4468,7 +4468,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Pressed state of color.background.selected.bold"
+      "description": "Use for the background of a selected control that uses color.background.selected.bold while it is being pressed, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone."
     },
     "value": "#123263",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -4478,7 +4478,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Pressed state of color.background.selected.bold"
+        "description": "Use for the background of a selected control that uses color.background.selected.bold while it is being pressed, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone."
       },
       "value": "Blue900"
     },
@@ -6869,7 +6869,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for focus rings of elements in a focus state."
+      "description": "Use for the focus ring or border of an element that currently has keyboard or input focus. Do not use to indicate selection or hover alone. When an element is both selected and focused, keep its selected treatment and add a separate focus indicator."
     },
     "value": "#4688EC",
     "filePath": "schema/themes/atlassian-light/color/border.tsx",
@@ -6879,7 +6879,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for focus rings of elements in a focus state."
+        "description": "Use for the focus ring or border of an element that currently has keyboard or input focus. Do not use to indicate selection or hover alone. When an element is both selected and focused, keep its selected treatment and add a separate focus indicator."
       },
       "value": "Blue500"
     },
@@ -6979,7 +6979,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
+      "description": "Use for borders or visual indicators that communicate selection, such as the active tab or a selected menu item, or the opened state of a dropdown trigger. Do not use as a keyboard focus indicator; use color.border.focused for focus and preserve the selected treatment when both states apply."
     },
     "value": "#1868DB",
     "filePath": "schema/themes/atlassian-light/color/border.tsx",
@@ -6989,7 +6989,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
+        "description": "Use for borders or visual indicators that communicate selection, such as the active tab or a selected menu item, or the opened state of a dropdown trigger. Do not use as a keyboard focus indicator; use color.border.focused for focus and preserve the selected treatment when both states apply."
       },
       "value": "Blue700"
     },
@@ -8311,7 +8311,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+      "description": "Use for text that communicates selection, such as the active tab or a selected navigation item, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.text.inverse instead. Do not use for unselected links, brand emphasis, or hover alone. Keep the selected text treatment when the element also has focus."
     },
     "value": "#1868DB",
     "filePath": "schema/themes/atlassian-light/color/text.tsx",
@@ -8321,7 +8321,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
+        "description": "Use for text that communicates selection, such as the active tab or a selected navigation item, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.text.inverse instead. Do not use for unselected links, brand emphasis, or hover alone. Keep the selected text treatment when the element also has focus."
       },
       "value": "Blue700"
     },
@@ -9088,7 +9088,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.2",
-      "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
+      "description": "Use for icons that communicate selection, such as icons in selected navigation items, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.icon.inverse instead. Do not use for brand emphasis or hover alone. Keep the selected icon treatment when the element also has focus."
     },
     "value": "#1868DB",
     "filePath": "schema/themes/atlassian-light/color/icon.tsx",
@@ -9098,7 +9098,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.2",
-        "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
+        "description": "Use for icons that communicate selection, such as icons in selected navigation items, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.icon.inverse instead. Do not use for brand emphasis or hover alone. Keep the selected icon treatment when the element also has focus."
       },
       "value": "Blue700"
     },
@@ -9605,7 +9605,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+      "description": "Use as a translucent blanket to communicate selection when changing the background of the selected content is not possible, such as selected Editor blocks. The content beneath remains visible. Do not use to indicate keyboard focus or hover alone."
     },
     "value": "#388BFF14",
     "filePath": "schema/themes/atlassian-light/color/background.tsx",
@@ -9615,7 +9615,7 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+        "description": "Use as a translucent blanket to communicate selection when changing the background of the selected content is not possible, such as selected Editor blocks. The content beneath remains visible. Do not use to indicate keyboard focus or hover alone."
       },
       "value": "#388BFF14"
     },

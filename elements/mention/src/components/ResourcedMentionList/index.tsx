@@ -1,8 +1,7 @@
 import React from 'react';
 
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import { type MentionProvider } from '../../api/MentionResource';
 import { type PresenceProvider } from '../../api/PresenceResource';
@@ -25,7 +24,18 @@ export interface State {
 // oxlint-disable-next-line eslint/no-redeclare
 const ResourcedMentionList: React.ForwardRefExoticComponent<
 	Omit<Props, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
-> = withAnalyticsEvents({})(ResourcedMentionListWithoutAnalytics);
+> = React.forwardRef<ResourcedMentionListWithoutAnalytics, Props>((props, ref) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	return (
+		<ResourcedMentionListWithoutAnalytics
+			{...props}
+			createAnalyticsEvent={createAnalyticsEvent}
+			ref={ref}
+		/>
+	);
+});
+
+ResourcedMentionList.displayName = 'ResourcedMentionList';
 
 type ResourcedMentionList = ResourcedMentionListWithoutAnalytics;
 

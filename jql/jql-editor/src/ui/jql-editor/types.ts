@@ -1,6 +1,6 @@
 import { type ElementType, type FocusEvent, type MouseEvent, type Ref } from 'react';
 
-import { type Jast } from '@atlaskit/jql-ast';
+import type { Jast } from '@atlaskit/jql-ast/query';
 import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 import { type CustomComponents, type ExternalMessage } from '../../state/types';

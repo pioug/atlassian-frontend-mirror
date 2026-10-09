@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { TopNavMiddle } from '@atlaskit/navigation-system/layout/top-nav';
-import { CreateButton, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
 
 import { MockTopBar } from '../common/mock-top-bar';
 

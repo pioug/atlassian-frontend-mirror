@@ -49,11 +49,7 @@ export const AgentProfileCardResourced = (
 	props: AgentProfileCardResourcedProps,
 ): React.JSX.Element => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
-	// Initialize as true when fix is enabled since we fetch immediately on mount,
-	// avoiding a brief error screen flash before the useEffect fires.
-	const [isLoading, setIsLoading] = useState<boolean>(
-		fg('confluence_fix_agent_profile_card_flash'),
-	);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState();
 	const [isPermitted, setIsPermitted] = useState<boolean>(true);
 
@@ -87,11 +83,8 @@ export const AgentProfileCardResourced = (
 		}) => {
 			try {
 				let userCreatorInfo;
-				const currentCreatorUserId = fg('confluence_fix_agent_profile_card_flash')
-					? creator_type === 'CUSTOMER' && creator
-						? getAAIDFromARI(creator)
-						: undefined
-					: creatorUserId;
+				const currentCreatorUserId =
+					creator_type === 'CUSTOMER' && creator ? getAAIDFromARI(creator) : undefined;
 
 				if (currentCreatorUserId && props.cloudId) {
 					userCreatorInfo = await props.resourceClient.getProfile(
@@ -100,15 +93,13 @@ export const AgentProfileCardResourced = (
 						fireEvent,
 					);
 
-					if (fg('confluence_fix_agent_profile_card_flash')) {
-						profileHref = navigateToTeamsApp({
-							type: 'USER',
-							payload: {
-								userId: currentCreatorUserId,
-							},
-							cloudId: props.cloudId,
-						}).href;
-					}
+					profileHref = navigateToTeamsApp({
+						type: 'USER',
+						payload: {
+							userId: currentCreatorUserId,
+						},
+						cloudId: props.cloudId,
+					}).href;
 				}
 
 				const creatorInfo = getAgentCreator({
@@ -135,7 +126,7 @@ export const AgentProfileCardResourced = (
 				return undefined;
 			}
 		},
-		[creatorUserId, fireEvent, props.cloudId, props.resourceClient, profileHref],
+		[fireEvent, props.cloudId, props.resourceClient, profileHref],
 	);
 
 	const fetchData = useCallback(async () => {
@@ -175,22 +166,12 @@ export const AgentProfileCardResourced = (
 	// agentData changes → creatorUserId → getCreator → fetchData ref changes → useEffect re-fires.
 	// Reset state on accountId change so stale data from the previous agent isn't briefly shown.
 	useEffect(() => {
-		if (!fg('confluence_fix_agent_profile_card_flash')) {
-			return;
-		}
 		setAgentData(undefined);
 		setError(undefined);
 		setIsLoading(true);
 		fetchData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.accountId]);
-
-	useEffect(() => {
-		if (fg('confluence_fix_agent_profile_card_flash')) {
-			return;
-		}
-		fetchData();
-	}, [fetchData]);
 
 	const forbiddenAgent = useMemo(
 		() =>

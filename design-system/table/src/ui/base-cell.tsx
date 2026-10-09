@@ -1,7 +1,9 @@
 import React, { forwardRef, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, type BoxProps, type XCSS, xcss } from '@atlaskit/primitives';
+import { Box, type BoxProps } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { type XCSS, xcss } from '@atlaskit/primitives/xcss/xcss';
 
 export type BaseCellProps = {
 	/**

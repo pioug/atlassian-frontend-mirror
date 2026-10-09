@@ -1,6 +1,6 @@
 import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
 import { type ThemeIdsWithOverrides } from '../../theme-config';

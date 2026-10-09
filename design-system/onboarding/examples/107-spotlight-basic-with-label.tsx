@@ -3,12 +3,13 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 

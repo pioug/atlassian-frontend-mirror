@@ -2,7 +2,7 @@ import React from 'react';
 
 import { screen, render, fireEvent, act, waitFor, renderHook } from '@testing-library/react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import type { Position } from '../../../types';

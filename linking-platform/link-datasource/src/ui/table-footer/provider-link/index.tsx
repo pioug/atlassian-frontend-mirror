@@ -3,8 +3,9 @@ import React, { useMemo } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { AssetsIcon } from '@atlaskit/logo';
-import { Anchor, Inline } from '@atlaskit/primitives/compiled';
+import { AssetsIcon } from '@atlaskit/logo/assets/icon';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

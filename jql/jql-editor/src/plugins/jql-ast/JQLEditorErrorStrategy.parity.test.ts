@@ -1,6 +1,6 @@
 import { type ParserErrorListener, type Recognizer, type Token } from 'antlr4ts';
 
-import { JastBuilder } from '@atlaskit/jql-ast';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 
 import { mockIntl } from '../../../mocks';
 import { getJavaCodeFromChar } from './getJavaCodeFromChar';

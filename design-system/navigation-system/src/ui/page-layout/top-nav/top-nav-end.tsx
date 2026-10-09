@@ -12,7 +12,7 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
-import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled/responsive/index';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 import { token } from '@atlaskit/tokens';
 
 import { List } from '../../../components/list';

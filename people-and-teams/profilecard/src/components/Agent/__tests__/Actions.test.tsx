@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import type { RovoAgentProfileCardInfo } from '../../../types';
 import { AgentActions } from '../Actions';

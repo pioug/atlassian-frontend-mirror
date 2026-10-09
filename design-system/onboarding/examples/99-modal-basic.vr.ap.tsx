@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { Modal } from '@atlaskit/onboarding';
+import Modal from '@atlaskit/onboarding/modal';
 
 import welcomeImage from './assets/this-is-new-jira.png';
 

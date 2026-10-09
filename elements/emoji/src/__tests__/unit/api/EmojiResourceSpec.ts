@@ -7,7 +7,7 @@ import type {
 	OnProviderChange,
 	SecurityOptions,
 	ServiceConfig,
-} from '@atlaskit/util-service-support';
+} from '@atlaskit/util-service-support/types';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 

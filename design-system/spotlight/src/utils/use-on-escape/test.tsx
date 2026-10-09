@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@atlassian/testing-library';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { useOnEscape } from './index';
 

@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { SpotlightContextProvider } from '../../../controllers/context';
 import { SpotlightBody } from '../../body';

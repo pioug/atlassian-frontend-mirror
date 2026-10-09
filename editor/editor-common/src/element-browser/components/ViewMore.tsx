@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import ButtonItem from '@atlaskit/menu/button-item';
 import Section from '@atlaskit/menu/section';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { toolbarInsertBlockMessages } from '../../messages/insert-block';

@@ -37,7 +37,7 @@ export default class TeamMentionDescriptionByline extends React.PureComponent<De
 		}
 	};
 
-	private getBylineComponent = (message: JSX.Element) => (
+	private getBylineComponent = (message: React.JSX.Element) => (
 		<DescriptionBylineStyle>{message}</DescriptionBylineStyle>
 	);
 

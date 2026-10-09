@@ -13,6 +13,7 @@ export const getAllTokensTool = async (): Promise<{
 		text: JSON.stringify(
 			{
 				name: token.name,
+				description: token.description,
 				exampleValue: token.exampleValue,
 				usageGuidelines: token.usageGuidelines,
 			},

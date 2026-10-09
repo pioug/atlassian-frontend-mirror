@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
-import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import ProgressIndicator from '@atlaskit/progress-indicator/progress-dots';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

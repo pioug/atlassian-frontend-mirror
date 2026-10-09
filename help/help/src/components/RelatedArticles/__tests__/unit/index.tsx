@@ -4,7 +4,7 @@ import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { messages } from '../../../../messages';
 import { type ArticleItem } from '../../../../model/Article';

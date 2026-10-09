@@ -3,7 +3,10 @@ import React, { useCallback, useState } from 'react';
 import { cssMap } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
-import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import type { InputActionMeta, ValueType } from '@atlaskit/select/types';
 
 import { FilterPopupSelect } from '../src/ui/common/modal/popup-select';

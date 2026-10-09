@@ -6,7 +6,7 @@ import React, { useMemo, useReducer } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import AKBanner from '@atlaskit/banner';
+import AKBanner from '@atlaskit/banner/banner';
 import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import BoardIcon from '@atlaskit/icon/core/board';
@@ -35,7 +35,7 @@ import type { LEFT_PANEL_WIDTH as LEFT_PANEL_WIDTH_TYPE } from '@atlaskit/naviga
 import type { LEFT_SIDEBAR_WIDTH as LEFT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
 import type { RIGHT_PANEL_WIDTH as RIGHT_PANEL_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
 import type { RIGHT_SIDEBAR_WIDTH as RIGHT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/navigation-system/legacy/css-variables';
-import { Help } from '@atlaskit/navigation-system/top-nav-items';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled

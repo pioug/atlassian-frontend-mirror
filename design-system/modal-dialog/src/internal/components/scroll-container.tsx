@@ -12,7 +12,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
-import { Focusable } from '@atlaskit/primitives/compiled';
+import { Focusable } from '@atlaskit/primitives/compiled/focusable';
 import { token } from '@atlaskit/tokens';
 
 const keylineColor = token('color.border');

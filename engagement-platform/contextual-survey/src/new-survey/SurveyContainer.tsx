@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import Image from '@atlaskit/image';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 interface Props {

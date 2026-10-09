@@ -11,6 +11,8 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 
+import { searchTokensTool } from '@atlaskit/ads-mcp/tools/search-tokens';
+
 describe('npm binary entrypoint', () => {
 	it('installs the skill and falls back to npx when Atlas is unavailable', () => {
 		const cwd = mkdtempSync(path.join(os.tmpdir(), 'ads-cli-bin-init-'));
@@ -150,13 +152,19 @@ describe('npm binary entrypoint', () => {
 		}
 	});
 
-	it('returns full metadata for an individual token', () => {
+	it('returns full metadata for an individual token', async () => {
+		const metadataResult = await searchTokensTool({
+			terms: ['color.border.selected'],
+			limit: 1,
+			includeMetadata: true,
+		});
+		const metadataToken = JSON.parse(metadataResult.content[0].text as string)[0];
 		const result = spawnSync(
 			process.execPath,
 			[
 				path.join(__dirname, '..', '..', 'bin', 'ads-cli.js'),
 				'token',
-				'border.width.focused',
+				'color.border.selected',
 				'--json',
 			],
 			{ encoding: 'utf8' },
@@ -167,14 +175,52 @@ describe('npm binary entrypoint', () => {
 		expect(result.stderr).toBe('');
 		expect(envelope.data).toEqual(
 			expect.objectContaining({
-				name: 'border.width.focused',
+				name: 'color.border.selected',
+				description: metadataToken.description,
 				usageGuidelines: expect.objectContaining({
 					usage: expect.any(String),
-					cssProperties: expect.arrayContaining(['border-width']),
+					cssProperties: expect.arrayContaining(['border-color']),
 				}),
-				usage: "token('border.width.focused')",
+				usage: "token('color.border.selected')",
 			}),
 		);
+	});
+
+	it.each([
+		'color.background.selected',
+		'color.background.selected.hovered',
+		'color.background.selected.pressed',
+		'color.background.selected.bold',
+		'color.background.selected.bold.hovered',
+		'color.background.selected.bold.pressed',
+		'color.blanket.selected',
+		'color.border.selected',
+		'color.border.focused',
+		'color.text.selected',
+		'color.icon.selected',
+		'border.width.selected',
+		'border.width.focused',
+	])('renders the canonical description for %s rather than generic guidance', async (name) => {
+		const metadataResult = await searchTokensTool({
+			terms: [name],
+			limit: 1,
+			includeMetadata: true,
+		});
+		const metadataToken = JSON.parse(metadataResult.content[0].text as string)[0];
+		const result = spawnSync(
+			process.execPath,
+			[path.join(__dirname, '..', '..', 'bin', 'ads-cli.js'), 'token', name],
+			{ encoding: 'utf8' },
+		);
+
+		expect(result.status).toBe(0);
+		expect(result.stderr).toBe('');
+		expect(metadataToken.name).toBe(name);
+		expect(metadataToken.description).toEqual(expect.any(String));
+		expect(result.stdout).toContain(`Guidelines:\n  ${metadataToken.description}\n`);
+		for (const property of metadataToken.usageGuidelines.cssProperties) {
+			expect(result.stdout).toContain(property);
+		}
 	});
 
 	it('lets large JSON output drain before exiting', () => {

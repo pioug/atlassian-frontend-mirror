@@ -25,6 +25,7 @@ import {
 	SMART_LINK_APPEARANCE,
 } from '@atlaskit/editor-smart-link-draggable';
 import type { CardContext } from '@atlaskit/link-provider/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
@@ -34,6 +35,7 @@ import { isDatasourceNode } from '../pm-plugins/utils';
 import { SmartCardSSRReactContextsProvider } from '../ui/SmartCardSSRReactContextsProvider';
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
+import { isIntersectionObserverSupported } from './isIntersectionObserverSupported';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BlockCardComponent extends React.PureComponent<
@@ -44,9 +46,12 @@ export class BlockCardComponent extends React.PureComponent<
 
 	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
-		// Ignored via go/ees005
-		// eslint-disable-next-line @atlaskit/editor/no-as-casting
-		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
+		this.scrollContainer =
+			isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+			isIntersectionObserverSupported()
+				? undefined
+				: // eslint-disable-next-line @atlaskit/editor/no-as-casting
+					findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 
 	onResolve = (data: { title?: string; url?: string }): void => {

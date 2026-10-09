@@ -1,5 +1,15 @@
 # @atlaskit/link-picker
 
+## 6.12.1
+
+### Patch Changes
+
+- [`cb9f9a0085ea8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb9f9a0085ea8) -
+  Cleanup `feature_gate` `platform_navx_3298_message_wrapper`. Form helper and error messages are
+  now always rendered inside a `MessageWrapper` live region, and the Rovo link picker's display-text
+  helper is permanently associated with its input via `aria-describedby`.
+- Updated dependencies
+
 ## 6.12.0
 
 ### Minor Changes

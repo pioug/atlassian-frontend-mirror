@@ -3,9 +3,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
-import { ResourcedEmoji } from '@atlaskit/emoji';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
 import ProjectIcon from '@atlaskit/icon/core/project';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { useHydratedProject } from '../../../../state';

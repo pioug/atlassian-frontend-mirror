@@ -10,7 +10,8 @@ import {
 } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Pressable, Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

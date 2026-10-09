@@ -1,6 +1,5 @@
-import { useLayoutEffect } from 'react';
-
 import { getDocument } from '@atlaskit/browser-apis';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 type TDialogScrollLockProps = {
 	/**

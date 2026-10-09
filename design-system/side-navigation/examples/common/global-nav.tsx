@@ -1,7 +1,11 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AppSwitcher, AtlassianNavigation, ProductHome } from '@atlaskit/atlassian-navigation';
+import { AppSwitcher } from '@atlaskit/atlassian-navigation/app-switcher';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 

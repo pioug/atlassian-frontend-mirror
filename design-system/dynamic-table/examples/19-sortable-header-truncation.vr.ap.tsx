@@ -6,7 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import DynamicTableStateless from '@atlaskit/dynamic-table/stateless';
 
 const longHeader = 'A sortable header label that should visibly truncate';
 

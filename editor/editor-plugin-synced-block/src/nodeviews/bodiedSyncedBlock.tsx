@@ -22,6 +22,7 @@ import type {
 	SyncBlockStoreManager,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SourceSyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { getUnpublishedSourceType } from '../ui/getUnpublishedSourceType';
@@ -61,12 +62,18 @@ export const SourceSyncBlockLabel = ({
 	resourceId: string;
 	sourceManager?: SourceSyncBlockStoreManager;
 }): React.JSX.Element => {
+	const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
 	const [isUnpublished, setIsUnpublished] = useState(
-		() => sourceManager?.getLocalSourceSnapshot(resourceId)?.status === 'unpublished',
+		() =>
+			isSamePageSyncEnabled &&
+			sourceManager?.getLocalSourceSnapshot(resourceId)?.status === 'unpublished',
 	);
 	const [sourceInfo, setSourceInfo] = useState<SyncBlockSourceInfo>();
 
 	useEffect(() => {
+		if (!isSamePageSyncEnabled) {
+			return;
+		}
 		let isMounted = true;
 		void sourceManager?.getSyncBlockSourceInfo(localId).then((nextSourceInfo) => {
 			if (isMounted) {
@@ -80,14 +87,14 @@ export const SourceSyncBlockLabel = ({
 			isMounted = false;
 			unsubscribe?.();
 		};
-	}, [localId, resourceId, sourceManager]);
+	}, [isSamePageSyncEnabled, localId, resourceId, sourceManager]);
 
 	return (
 		<SyncBlockLabel
 			isSource={true}
 			localId={localId}
 			unpublishedInfo={
-				isUnpublished
+				isSamePageSyncEnabled && isUnpublished
 					? {
 							sourceType: getUnpublishedSourceType({
 								sourceAri: sourceInfo?.sourceAri,

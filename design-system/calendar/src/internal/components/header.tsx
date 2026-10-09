@@ -13,7 +13,8 @@ import ChevronDoubleLeftIcon from '@atlaskit/icon/core/chevron-double-left';
 import ChevronDoubleRightIcon from '@atlaskit/icon/core/chevron-double-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { type TabIndex } from '../../types';

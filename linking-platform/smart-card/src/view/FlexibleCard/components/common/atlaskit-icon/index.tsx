@@ -4,7 +4,8 @@ import Loadable from 'react-loadable';
 
 import IconTile from '@atlaskit/icon/icon-tile';
 import type { IconTileProps } from '@atlaskit/icon/types';
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 

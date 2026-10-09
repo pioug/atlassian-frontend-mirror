@@ -8,7 +8,11 @@ import { jsx } from '@compiled/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { SpotlightManager, SpotlightPulse, SpotlightTarget } from '@atlaskit/onboarding';
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import { Pulse as SpotlightPulse } from '@atlaskit/onboarding/target';
 
 /**
  * This example shows how to use <SpotlightPulse />. This can be used when you want a pulse keyframe

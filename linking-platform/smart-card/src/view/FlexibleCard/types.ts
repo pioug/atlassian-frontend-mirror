@@ -183,6 +183,11 @@ export type FlexibleUiOptions = {
 	removeBlockRestriction?: boolean;
 
 	/**
+	 * Render the status menu beside its trigger in the DOM. Defaults to false.
+	 */
+	shouldRenderStatusToParent?: boolean;
+
+	/**
 	 * Determines the default padding and sizing of the underlying blocks and
 	 * elements within Flexible UI.
 	 */

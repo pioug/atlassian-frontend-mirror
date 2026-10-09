@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.24
+
+### Patch Changes
+
+- [`fe1c8168637b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe1c8168637b6) -
+  Clean up experiment `jira_editor_a11y_toolbar_fixes`
+- Updated dependencies
+
 ## 2.8.23
 
 ### Patch Changes

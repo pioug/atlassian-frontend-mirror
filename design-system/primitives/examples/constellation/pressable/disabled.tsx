@@ -8,7 +8,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

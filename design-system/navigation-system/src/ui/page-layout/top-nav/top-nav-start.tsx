@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
+import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-attach-ref';

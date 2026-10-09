@@ -2,10 +2,12 @@ import React from 'react';
 
 import { renderToString } from 'react-dom/server';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Root } from '../../root';
 import { SideNav } from '../../side-nav/side-nav';

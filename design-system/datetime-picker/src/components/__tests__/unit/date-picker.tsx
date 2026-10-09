@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { convertTokens } from '../../../internal/parse-tokens';

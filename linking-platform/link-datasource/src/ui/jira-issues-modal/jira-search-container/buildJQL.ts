@@ -1,17 +1,11 @@
-import {
-	COMPOUND_OPERATOR_AND,
-	COMPOUND_OPERATOR_OR,
-	creators,
-	type Jast,
-	JastBuilder,
-	OPERATOR_EQUALS,
-	OPERATOR_IN,
-	OPERATOR_LIKE,
-	type OperatorValue,
-	ORDER_BY_DIRECTION_ASC,
-	ORDER_BY_DIRECTION_DESC,
-	print,
-} from '@atlaskit/jql-ast';
+import type { OperatorValue } from '@atlaskit/jql-ast/ast/operator';
+import { COMPOUND_OPERATOR_AND, COMPOUND_OPERATOR_OR } from '@atlaskit/jql-ast/compound';
+import creators from '@atlaskit/jql-ast/creators';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
+import { OPERATOR_EQUALS, OPERATOR_IN, OPERATOR_LIKE } from '@atlaskit/jql-ast/operator';
+import { ORDER_BY_DIRECTION_ASC, ORDER_BY_DIRECTION_DESC } from '@atlaskit/jql-ast/order-by';
+import { print } from '@atlaskit/jql-ast/printers';
+import type { Jast } from '@atlaskit/jql-ast/query';
 
 import { type BasicFilterFieldType, type SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';

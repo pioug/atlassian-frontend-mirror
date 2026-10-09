@@ -5,8 +5,8 @@ import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss';
-import Toggle from '@atlaskit/toggle';
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
+import Toggle from '@atlaskit/toggle/toggle';
 
 const baseStyles = xcss({
 	paddingBlock: 'space.500',

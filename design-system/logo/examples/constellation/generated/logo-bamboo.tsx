@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { BambooIcon, BambooLogo } from '@atlaskit/logo';
+import { BambooIcon } from '@atlaskit/logo/bamboo/icon';
+import { BambooLogoCS as BambooLogo } from '@atlaskit/logo/bamboo/logo';
 
 import LogoTable from '../utils/logo-table';
 

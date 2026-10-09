@@ -1,7 +1,7 @@
 import { type JSCodeshift } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
-import { addCommentToStartOfFile, getNamedSpecifier } from '@atlaskit/codemod-utils';
+import { addCommentToStartOfFile, getNamedSpecifier } from '@atlaskit/codemod-utils/support';
 
 import { getJSXAttributesByName } from './get-jsx-attributes-by-name';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/button';
 import ButtonTheme from '@atlaskit/button/theme';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { modalButtonTheme, spotlightButtonTheme } from '@atlaskit/onboarding';
+import { modalButtonTheme, spotlightButtonTheme } from '@atlaskit/onboarding/theme';
 
 export default (): React.JSX.Element => {
 	return (

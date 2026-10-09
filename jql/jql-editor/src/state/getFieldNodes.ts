@@ -1,14 +1,8 @@
-import {
-	AbstractJastVisitor,
-	type CompoundClause,
-	type Field,
-	type Jast,
-	type NotClause,
-	type OrderBy,
-	type OrderByField,
-	type Query,
-	type TerminalClause,
-} from '@atlaskit/jql-ast';
+import { AbstractJastVisitor } from '@atlaskit/jql-ast/abstract-jast-visitor';
+import type { CompoundClause, NotClause, TerminalClause } from '@atlaskit/jql-ast/ast/clause';
+import type { OrderBy, OrderByField } from '@atlaskit/jql-ast/ast/order-by';
+import type { Field } from '@atlaskit/jql-ast/field';
+import type { Jast, Query } from '@atlaskit/jql-ast/query';
 
 class FindFieldsVisitor extends AbstractJastVisitor<void> {
 	public fields: Set<string> = new Set();

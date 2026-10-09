@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AlignIcon, AlignLogo } from '@atlaskit/logo';
+import { AlignIcon } from '@atlaskit/logo/align/icon';
+import { AlignLogoCS as AlignLogo } from '@atlaskit/logo/align/logo';
 
 import LogoTable from '../utils/logo-table';
 

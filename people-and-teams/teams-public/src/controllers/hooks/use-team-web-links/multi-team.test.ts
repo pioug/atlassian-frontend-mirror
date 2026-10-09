@@ -1,5 +1,6 @@
 import { teamsClient } from '@atlaskit/teams-client/client';
-import { act, renderHook, waitFor } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { act, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { useTeamWebLinks } from './multi-team';
 

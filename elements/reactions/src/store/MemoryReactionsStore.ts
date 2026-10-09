@@ -1,5 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { WithSamplingUFOExperience } from '@atlaskit/emoji';
+import type { WithSamplingUFOExperience } from '@atlaskit/emoji/sampling-ufo';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 

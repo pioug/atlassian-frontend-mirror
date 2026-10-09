@@ -20,7 +20,7 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 					suggest: ['2px'],
 					introduced: '6.1.0',
 					description:
-						'The width used to indicate a selected element, such as an active tab or a chosen item.',
+						'Use for the width of a border or visual indicator that communicates selection, such as an active tab or a chosen item. Pair with color.border.selected. Do not use as a substitute for a separate keyboard focus indicator.',
 				},
 			},
 			focused: {
@@ -29,7 +29,8 @@ const shape: AttributeSchema<ShapeTokenSchema<ShapePaletteToken>> = {
 					state: 'active',
 					suggest: ['2px'],
 					introduced: '6.1.0',
-					description: 'The width used for the focus ring on interactive elements.',
+					description:
+						'Use for the width of the focus ring on an interactive element that currently has keyboard or input focus. Pair with color.border.focused. When the element is also selected, keep the selection indicator and add the focus ring.',
 				},
 			},
 		},

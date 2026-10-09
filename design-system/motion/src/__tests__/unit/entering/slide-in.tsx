@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import SlideIn from '../../../entering/slide-in';

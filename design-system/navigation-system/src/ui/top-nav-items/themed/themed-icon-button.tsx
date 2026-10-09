@@ -7,7 +7,7 @@ import React, { forwardRef } from 'react';
 import { jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import type { PressableProps } from '@atlaskit/primitives/compiled';
+import type { PressableProps } from '@atlaskit/primitives/compiled/pressable';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

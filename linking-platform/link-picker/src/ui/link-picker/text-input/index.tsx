@@ -23,8 +23,8 @@ import Field from '@atlaskit/form/field';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import Textfield from '@atlaskit/textfield/text-field';
 import type { TextfieldProps as TextFieldProps } from '@atlaskit/textfield/types';
 import { token } from '@atlaskit/tokens';
@@ -205,21 +205,12 @@ export const TextInput = ({
 									isInvalid={!!error}
 									aria-describedby={`${restProps['aria-describedby']} ${fieldProps.id}-error ${fieldProps.id}-helper`}
 								/>
-								{fg('platform_navx_3298_message_wrapper') ? (
-									<MessageWrapper>
-										{helperMessage && (
-											<HelperMessage testId={testIds.linkHelperText}>{helperMessage}</HelperMessage>
-										)}
-										{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}
-									</MessageWrapper>
-								) : (
-									<>
-										{helperMessage && (
-											<HelperMessage testId={testIds.linkHelperText}>{helperMessage}</HelperMessage>
-										)}
-										{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}
-									</>
-								)}
+								<MessageWrapper>
+									{helperMessage && (
+										<HelperMessage testId={testIds.linkHelperText}>{helperMessage}</HelperMessage>
+									)}
+									{error && <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>}
+								</MessageWrapper>
 							</Fragment>
 						</ConditionalSpotlightTargetWrapper>
 					);

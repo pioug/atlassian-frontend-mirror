@@ -2,7 +2,7 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import NotificationIcon from '@atlaskit/icon/core/notification';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { BadgeContainer } from '../BadgeContainer';

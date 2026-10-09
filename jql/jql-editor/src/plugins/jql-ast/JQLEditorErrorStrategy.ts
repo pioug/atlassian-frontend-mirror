@@ -11,7 +11,7 @@ import { type NoViableAltException } from 'antlr4ts/NoViableAltException';
 import { type RecognitionException } from 'antlr4ts/RecognitionException';
 import { type IntlShape } from 'react-intl';
 
-import { normaliseJqlString } from '@atlaskit/jql-ast';
+import { normaliseJqlString } from '@atlaskit/jql-ast/normalise-jql-string';
 import { JQLAutocomplete } from '@atlaskit/jql-autocomplete/jql-autocomplete';
 import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
 import { JQLParser } from '@atlaskit/jql-parser/JQLParser';

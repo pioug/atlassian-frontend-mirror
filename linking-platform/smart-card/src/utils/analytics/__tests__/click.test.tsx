@@ -3,7 +3,11 @@ import React from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import '@atlaskit/link-test-helpers/jest';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { render } from '@atlassian/testing-library/testing-library/react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { withLinkClickedEvent } from '../withLinkClickedEvent';
 

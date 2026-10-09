@@ -2,21 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	forwardRef,
-	type Ref,
-	useCallback,
-	useId,
-	useLayoutEffect,
-	useMemo,
-	useRef,
-} from 'react';
+import React, { forwardRef, type Ref, useCallback, useId, useMemo, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import once from '@atlaskit/ds-lib/once';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 

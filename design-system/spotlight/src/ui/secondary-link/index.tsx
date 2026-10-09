@@ -5,7 +5,8 @@
 import { forwardRef, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Anchor, Text } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

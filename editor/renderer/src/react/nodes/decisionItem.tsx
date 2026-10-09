@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DecisionItem as AkDecisionItem } from '@atlaskit/task-decision';
+import AkDecisionItem from '@atlaskit/task-decision/decision-item';
 
 import type { NodeProps } from '../types';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage, injectIntl, IntlProvider } from 'react-intl';
 
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { messages } from '../../../../messages';
 import withIntlProvider from '../index';

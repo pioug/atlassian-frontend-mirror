@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 
-import DynamicTable from '@atlaskit/dynamic-table';
+import DynamicTable from '@atlaskit/dynamic-table/stateful';
 
 const caption = 'Example sorting with DynamicTable';
 

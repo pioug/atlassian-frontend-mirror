@@ -1,5 +1,5 @@
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 describe('usePopoverId', () => {
 	it('returns a non-empty string', () => {

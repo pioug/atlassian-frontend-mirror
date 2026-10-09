@@ -5,7 +5,8 @@ import noop from 'lodash/noop';
 import { type IntlShape } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import { JQLParseError, JQLSyntaxError } from '@atlaskit/jql-ast';
+import { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
+import { JQLSyntaxError } from '@atlaskit/jql-ast/jql-syntax-error';
 
 import { mockIntl } from '../../../../../mocks';
 import { JQL_EDITOR_VALIDATION_ID } from '../../../../common/constants';

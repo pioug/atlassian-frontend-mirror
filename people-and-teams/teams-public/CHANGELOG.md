@@ -1,5 +1,16 @@
 # @atlaskit/teams-public
 
+## 3.3.0
+
+### Minor Changes
+
+- [`9a2c5e03b2dcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a2c5e03b2dcb) -
+  Remove unused react-router-dom dependency
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

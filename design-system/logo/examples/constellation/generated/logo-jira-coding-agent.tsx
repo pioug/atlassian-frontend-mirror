@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { JiraCodingAgentIcon } from '@atlaskit/logo';
+import { JiraCodingAgentIcon } from '@atlaskit/logo/jira-coding-agent/icon';
 
 import LogoTable from '../utils/logo-table';
 

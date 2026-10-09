@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
+import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-linter';
 
 import { AGGErrors } from '../../util/AGGErrors';
 import { AGGQuery } from '../AGGQuery';

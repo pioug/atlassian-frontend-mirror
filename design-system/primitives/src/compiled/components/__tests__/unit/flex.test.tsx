@@ -5,7 +5,7 @@
 import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 

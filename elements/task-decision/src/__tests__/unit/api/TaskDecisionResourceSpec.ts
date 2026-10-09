@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import URLSearchParams from 'url-search-params';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import TaskDecisionResource, { type ItemStateManager } from '../../../api/TaskDecisionResource';
 import { objectKeyToString } from '../../../type-helpers';

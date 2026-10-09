@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { useAnchoredPopover } from '../use-anchored-popover';
 import { type TAnchorPoint, useAnchoredPopoverAtPoint } from '../use-anchored-popover-at-point';

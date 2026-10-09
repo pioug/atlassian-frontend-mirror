@@ -1,4 +1,5 @@
-import { renderHook, waitFor } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { useMessages } from './index';
 

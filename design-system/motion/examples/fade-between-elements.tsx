@@ -8,7 +8,8 @@ import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraServiceManagementIcon } from '@atlaskit/logo/jira-service-management-icon';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import FadeIn from '@atlaskit/motion/fade-in';
 

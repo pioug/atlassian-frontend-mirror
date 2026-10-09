@@ -44,34 +44,6 @@ const styles = cssMap({
 		},
 	},
 
-	hoverableReactionPickerSelectorEmojiButton: {
-		outline: 'none',
-		display: 'flex',
-		transformOrigin: 'center center 0',
-		paddingTop: token('space.025'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
-		backgroundColor: token('color.background.neutral.subtle'),
-		borderWidth: token('border.width'),
-		borderStyle: 'solid',
-		borderColor: token('color.border'),
-		borderRadius: token('radius.small'),
-		color: token('color.text.subtle'),
-		marginTop: token('space.0'),
-		marginRight: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
-
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.subtle.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed'),
-			transition: token('motion.button.pressed'),
-		},
-		transition: token('motion.button.hovered'),
-	},
 	hoverableReactionPickerSelectorEmojiButtonMotion: {
 		outline: 'none',
 		display: 'flex',
@@ -182,9 +154,7 @@ export const EmojiButton = ({
 			})}
 			xcss={
 				hoverableReactionPickerSelectorEmoji
-					? fg('platform-dst-motion-uplift-custom-button')
-						? styles.hoverableReactionPickerSelectorEmojiButtonMotion
-						: styles.hoverableReactionPickerSelectorEmojiButton
+					? styles.hoverableReactionPickerSelectorEmojiButtonMotion
 					: styles.emojiButton
 			}
 		>

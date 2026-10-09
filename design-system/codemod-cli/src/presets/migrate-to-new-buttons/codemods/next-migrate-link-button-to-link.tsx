@@ -3,7 +3,7 @@
 import { getImportDeclaration } from '@hypermod/utils';
 import { type API, type ASTPath, type FileInfo, type ImportDeclaration } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 import {
 	NEW_BUTTON_ENTRY_POINT,

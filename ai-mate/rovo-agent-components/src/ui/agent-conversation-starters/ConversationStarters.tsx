@@ -3,8 +3,10 @@ import React from 'react';
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx } from '@atlaskit/css';
 import RetryIcon from '@atlaskit/icon/core/retry';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { AgentChatIcon } from '../../common/ui/agent-chat-icon';
@@ -114,11 +116,7 @@ export const ConversationStarters = ({
 						xcss={refreshDesignEnabled && styles.conversationStaterItem}
 					>
 						<Pressable
-							xcss={
-								fg('platform-dst-motion-uplift-custom-button')
-									? styles.button_motion
-									: styles.button
-							}
+							xcss={styles.button_motion}
 							onClick={() => onConversationStarterClick(starter)}
 							testId="conversation-starter"
 						>

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AdminIcon, AdminLogo } from '@atlaskit/logo';
+import { AdminIcon } from '@atlaskit/logo/admin/icon';
+import { AdminLogoCS as AdminLogo } from '@atlaskit/logo/admin/logo';
 
 import LogoTable from '../utils/logo-table';
 

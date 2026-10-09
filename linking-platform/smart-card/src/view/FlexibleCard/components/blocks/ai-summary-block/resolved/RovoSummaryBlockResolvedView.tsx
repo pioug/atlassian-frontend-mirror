@@ -9,8 +9,10 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
-import { RovoIcon } from '@atlaskit/logo';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkDirection } from '../../../../../../constants';

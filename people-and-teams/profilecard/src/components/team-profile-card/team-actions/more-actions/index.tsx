@@ -7,7 +7,7 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { Popup } from '@atlaskit/popup/popup';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { messages } from './messages';
 

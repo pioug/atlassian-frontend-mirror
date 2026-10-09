@@ -343,13 +343,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-25
-	jira_editor_a11y_toolbar_fixes: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-18
 	platform_editor_locale_datepicker: {
 		defaultValue: boolean;
@@ -699,13 +692,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-26
 	platform_editor_remix_in_block_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-24
-	platform_editor_media_external_badge_bbc_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1106,16 +1092,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
-	// Added 2026-03-24
-	platform_editor_media_external_badge_bbc_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_media_external_badge_bbc_fix',
-			bitbucket: 'platform_editor_media_external_badge_bbc_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
 	// Added 2024-08-08
 	'example-boolean': createBooleanExperiment({
 		productKeys: {
@@ -1335,15 +1311,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
-	}),
-	// Added 2026-06-25
-	jira_editor_a11y_toolbar_fixes: createBooleanExperiment({
-		productKeys: {
-			confluence: 'jira_editor_a11y_toolbar_fixes',
-			jira: 'jira_editor_a11y_toolbar_fixes',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2026-06-09
 	platform_editor_blocks: createBooleanExperiment({

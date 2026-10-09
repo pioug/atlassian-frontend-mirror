@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
 import SuccessIcon from '@atlaskit/icon/core/check-circle';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

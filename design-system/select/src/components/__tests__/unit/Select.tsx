@@ -6,10 +6,13 @@ import React, { type ReactNode } from 'react';
 import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { components } from '@atlaskit/react-select/components';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { act, render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import AsyncSelect from '../../../async-select';
 import { CheckboxSelect } from '../../../checkbox-select';

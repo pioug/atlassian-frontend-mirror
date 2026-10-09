@@ -6,7 +6,8 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { v4 as uuid } from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { EntityType, fetchUserRecommendations, type UserSearchItem } from '@atlaskit/smart-common';
+import { fetchUserRecommendations } from '@atlaskit/smart-common/recommendations-client';
+import { EntityType, type UserSearchItem } from '@atlaskit/smart-common/types';
 
 import type { UseUserRecommendationsProps } from '../../types';
 import useFunctionUsageTracking from '../use-function-usage-tracking';

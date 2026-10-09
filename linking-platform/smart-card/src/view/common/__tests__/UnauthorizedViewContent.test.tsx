@@ -3,7 +3,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import UnauthorisedViewContent from '../UnauthorisedViewContent';
 

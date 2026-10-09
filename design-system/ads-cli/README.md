@@ -135,7 +135,9 @@ exists; JSON output reports the skills, `AGENTS.md`, Atlas, and next-step status
   same compact fields shown by the human rows rather than embedding every component prop and
   example. Each search record includes a machine-readable `followUp`; run that exact detail command
   for the full component, token, or icon data. Exact detail commands retain the information shown by
-  their human view, including token `usageGuidelines` and `usage`, and an icon `import`.
+  their human view, including the canonical token `description`, shared `usageGuidelines`, token
+  `usage`, and an icon `import`. Individual token views use the tokens package's per-token
+  description as their guidance, falling back to category guidance only if no description exists.
   `manifest --json` is the intentional exception: it remains the full CLI contract.
 - **Lookups never silently guess.** `component`/`token`/`icon <name>` — and a fuzzy
   `lint-rules <term>` — render the entry whose name matches exactly (case-insensitively). If there

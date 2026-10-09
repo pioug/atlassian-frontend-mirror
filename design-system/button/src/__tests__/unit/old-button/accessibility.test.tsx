@@ -6,7 +6,7 @@
 import { jsx } from '@emotion/react';
 import { render, screen } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 
 import ButtonGroup from '../../../containers/button-group';
 import Button from '../../../old-button/button';

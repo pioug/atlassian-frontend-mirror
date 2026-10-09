@@ -14,7 +14,7 @@ import Button from '@atlaskit/button/default/button';
 import { Label } from '@atlaskit/form/label/default';
 import ArrowDown from '@atlaskit/icon/core/arrow-down';
 import ArrowUp from '@atlaskit/icon/core/arrow-up';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 import { appearances } from '../examples-util/appearances';

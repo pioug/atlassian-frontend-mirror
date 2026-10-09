@@ -7,7 +7,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

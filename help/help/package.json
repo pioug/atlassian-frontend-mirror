@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "12.2.6",
+	"version": "12.2.7",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -100,9 +100,6 @@
 	],
 	"platform-feature-flags": {
 		"jfp_a11y_fix_sr_accessibility_for_button_group": {
-			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-custom-button": {
 			"type": "boolean"
 		}
 	}

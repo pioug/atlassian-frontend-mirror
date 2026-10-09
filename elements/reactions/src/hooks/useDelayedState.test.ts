@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { useDelayedState } from './useDelayedState';
 

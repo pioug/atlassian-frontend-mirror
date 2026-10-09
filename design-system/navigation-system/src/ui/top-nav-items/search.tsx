@@ -8,7 +8,9 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import SearchIcon from '@atlaskit/icon/core/search';
 import type { NewIconProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Pressable, Show, Text } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Show } from '@atlaskit/primitives/compiled/show';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';

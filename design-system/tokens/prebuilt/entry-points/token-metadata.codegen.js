@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::dbedcfb3842d35975fed7e6c224d691e>>
+ * @codegen <<SignedSource::56f1b46b239fd8ba0a11933ca693c7ad>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2005,7 +2005,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.background.selected',
   path: ['color', 'background', 'selected', '[default]', '[default]'],
-  description: 'Use for the background of elements in a selected state, such as in opened dropdown buttons.',
+  description: 'Use for the background of an element that communicates selection, such as a selected navigation item, or the opened state of a dropdown trigger. Use color.background.selected.hovered or color.background.selected.pressed when interacting with a selected element. Selection is distinct from keyboard focus and hover alone.',
   exampleValue: '#E9F2FE',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
@@ -2014,7 +2014,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.background.selected.hovered',
   path: ['color', 'background', 'selected', '[default]', 'hovered'],
-  description: 'Hovered state for color.background.selected',
+  description: 'Use for the background of an element that is selected and hovered. This preserves selection while showing pointer hover; do not use for an unselected element or keyboard focus alone.',
   exampleValue: '#CFE1FD',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
@@ -2023,7 +2023,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.background.selected.pressed',
   path: ['color', 'background', 'selected', '[default]', 'pressed'],
-  description: 'Pressed state for color.background.selected',
+  description: 'Use for the background of an element that is selected and being pressed. Return to color.background.selected or color.background.selected.hovered when the press ends and the element remains selected. Do not use for an unselected element or keyboard focus alone.',
   exampleValue: '#8FB8F6',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
@@ -2032,7 +2032,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.background.selected.bold',
   path: ['color', 'background', 'selected', 'bold', '[default]'],
-  description: 'Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons.',
+  description: 'Use for the bold background of selected controls, such as checked checkboxes and selected radio buttons. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for primary actions or keyboard focus alone.',
   exampleValue: '#1868DB',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
@@ -2041,7 +2041,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.background.selected.bold.hovered',
   path: ['color', 'background', 'selected', 'bold', 'hovered'],
-  description: 'Hovered state of color.background.selected.bold',
+  description: 'Use for the background of a selected control that uses color.background.selected.bold while it is hovered, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone.',
   exampleValue: '#1558BC',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
@@ -2050,7 +2050,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.background.selected.bold.pressed',
   path: ['color', 'background', 'selected', 'bold', 'pressed'],
-  description: 'Pressed state of color.background.selected.bold',
+  description: 'Use for the background of a selected control that uses color.background.selected.bold while it is being pressed, such as a checked checkbox. Pair with color.text.inverse or color.icon.inverse for foreground content. Do not use for an unselected control or keyboard focus alone.',
   exampleValue: '#123263',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
@@ -2797,7 +2797,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.border.focused',
   path: ['color', 'border', 'focused'],
-  description: 'Use for focus rings of elements in a focus state.',
+  description: 'Use for the focus ring or border of an element that currently has keyboard or input focus. Do not use to indicate selection or hover alone. When an element is both selected and focused, keep its selected treatment and add a separate focus indicator.',
   exampleValue: '#4688EC',
   usageGuidelines: {
     usage: 'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
@@ -2833,7 +2833,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.border.selected',
   path: ['color', 'border', 'selected'],
-  description: 'Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items.',
+  description: 'Use for borders or visual indicators that communicate selection, such as the active tab or a selected menu item, or the opened state of a dropdown trigger. Do not use as a keyboard focus indicator; use color.border.focused for focus and preserve the selected treatment when both states apply.',
   exampleValue: '#1868DB',
   usageGuidelines: {
     usage: 'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
@@ -3256,7 +3256,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.text.selected',
   path: ['color', 'text', 'selected'],
-  description: 'Use for text in selected or opened states, such as tabs and dropdown buttons.',
+  description: 'Use for text that communicates selection, such as the active tab or a selected navigation item, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.text.inverse instead. Do not use for unselected links, brand emphasis, or hover alone. Keep the selected text treatment when the element also has focus.',
   exampleValue: '#1868DB',
   usageGuidelines: {
     usage: 'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
@@ -3508,7 +3508,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.icon.selected',
   path: ['color', 'icon', 'selected'],
-  description: 'Use for icons in selected or opened states, such as those used in dropdown buttons.',
+  description: 'Use for icons that communicate selection, such as icons in selected navigation items, or the opened state of a dropdown trigger. On bold selected backgrounds, use color.icon.inverse instead. Do not use for brand emphasis or hover alone. Keep the selected icon treatment when the element also has focus.',
   exampleValue: '#1868DB',
   usageGuidelines: {
     usage: 'The color for icons. Use for graphical icon elements (e.g. color.icon.brand)',
@@ -3679,7 +3679,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'color.blanket.selected',
   path: ['color', 'blanket', 'selected'],
-  description: "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements",
+  description: 'Use as a translucent blanket to communicate selection when changing the background of the selected content is not possible, such as selected Editor blocks. The content beneath remains visible. Do not use to indicate keyboard focus or hover alone.',
   exampleValue: '#388BFF14',
   usageGuidelines: {
     usage: 'The color for overlay "blankets" such as modals/dimmers/overlays (e.g. color.blanket)',
@@ -5416,7 +5416,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'border.width.selected',
   path: ['border', 'width', 'selected'],
-  description: 'The width used to indicate a selected element, such as an active tab or a chosen item.',
+  description: 'Use for the width of a border or visual indicator that communicates selection, such as an active tab or a chosen item. Pair with color.border.selected. Do not use as a substitute for a separate keyboard focus indicator.',
   exampleValue: '0.125rem',
   usageGuidelines: {
     usage: 'Controls the thickness of borders/dividers (e.g. border.width, border.width.selected). Use to standardize border widths throughout UI',
@@ -5425,7 +5425,7 @@ var tokens = exports.tokens = [{
 }, {
   name: 'border.width.focused',
   path: ['border', 'width', 'focused'],
-  description: 'The width used for the focus ring on interactive elements.',
+  description: 'Use for the width of the focus ring on an interactive element that currently has keyboard or input focus. Pair with color.border.focused. When the element is also selected, keep the selection indicator and add the focus ring.',
   exampleValue: '0.125rem',
   usageGuidelines: {
     usage: 'Controls the thickness of borders/dividers (e.g. border.width, border.width.selected). Use to standardize border widths throughout UI',

@@ -7,8 +7,11 @@ import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
-import { render, screen } from '@atlassian/testing-library';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
+import { ElementName } from '../../../../../../../constants';
+import * as uiOptions from '../../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';
 import BaseLozengeElement, { type BaseLozengeElementProps } from '../index';
@@ -122,6 +125,56 @@ describe('Element: Lozenge', () => {
 
 		afterEach(() => {
 			jest.clearAllMocks();
+			jest.restoreAllMocks();
+		});
+
+		describe.each([false, true])('lozenge visual uplift: %s', (visualUplift) => {
+			it.each([
+				{ name: ElementName.State, billplatGate: true, optIn: true, rendersToParent: true },
+				{ name: ElementName.State, billplatGate: false, optIn: true, rendersToParent: false },
+				{ name: ElementName.State, billplatGate: true, optIn: false, rendersToParent: false },
+				{ name: ElementName.State, billplatGate: true, optIn: undefined, rendersToParent: false },
+				{ name: ElementName.Priority, billplatGate: true, optIn: true, rendersToParent: false },
+			])(
+				'scopes parent rendering to status: name=$name billplatGate=$billplatGate optIn=$optIn',
+				async ({ name, billplatGate, optIn, rendersToParent }) => {
+					failGate('platform-dst-top-layer');
+					(billplatGate ? passGate : failGate)('billplat_jira_list_dropdown_top_layer');
+					(visualUplift ? passGate : failGate)('platform-dst-lozenge-tag-badge-visual-uplifts');
+					jest.spyOn(uiOptions, 'useFlexibleUiOptionContext').mockReturnValue({
+						shouldRenderStatusToParent: optIn,
+					});
+					jest
+						.spyOn(useInvoke, 'default')
+						.mockReturnValue(jest.fn().mockResolvedValue([{ id: 'done', text: 'Done' }]));
+					jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
+					const { container } = renderComponent({ action, name });
+					const trigger = await screen.findByRole('button', {
+						name: `Change status: ${defaultText}`,
+					});
+					expect(trigger).not.toHaveAttribute('aria-owns');
+					await userEvent.click(trigger);
+					const menu = await screen.findByRole('menu');
+					const menuId = trigger.getAttribute('aria-controls');
+					expect(menuId).toBeTruthy();
+					const content = document.getElementById(menuId ?? '');
+					expect(content).toContainElement(menu);
+					if (rendersToParent) {
+						expect(container).toContainElement(content);
+						const triggerRoot = visualUplift ? trigger.parentElement : trigger;
+						expect(triggerRoot?.parentElement).toContainElement(content);
+						expect(trigger.compareDocumentPosition(content as Node)).toBe(
+							Node.DOCUMENT_POSITION_FOLLOWING,
+						);
+					} else {
+						expect(container).not.toContainElement(content);
+					}
+					expect(trigger).not.toHaveAttribute('aria-owns');
+					fireEvent.keyDown(menu, { key: 'Escape', code: 'Escape' });
+					await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+					expect(trigger).not.toHaveAttribute('aria-owns');
+				},
+			);
 		});
 
 		it('renders with action', async () => {

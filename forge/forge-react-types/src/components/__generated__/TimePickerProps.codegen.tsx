@@ -9,7 +9,7 @@
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
-import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
+import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker/types';
 
 export interface FieldProps {
 	'aria-invalid': 'true' | 'false';

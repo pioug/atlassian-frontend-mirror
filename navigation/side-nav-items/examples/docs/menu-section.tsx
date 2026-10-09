@@ -9,7 +9,7 @@ import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { ContainerAvatar } from '@atlaskit/side-nav-items/container-avatar';
 import {
 	ExpandableMenuItem,

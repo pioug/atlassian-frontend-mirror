@@ -1,4 +1,5 @@
-import { type RequestServiceOptions, utils } from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support/constants';
+import type { RequestServiceOptions } from '@atlaskit/util-service-support/types';
 
 import {
 	type NotificationLogProvider,

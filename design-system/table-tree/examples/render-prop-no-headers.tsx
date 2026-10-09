@@ -1,6 +1,9 @@
 import React from 'react';
 
-import TableTree, { Cell, Row, Rows } from '@atlaskit/table-tree';
+import { Cell } from '@atlaskit/table-tree/cell';
+import { Row } from '@atlaskit/table-tree/row';
+import { Rows } from '@atlaskit/table-tree/rows';
+import TableTree from '@atlaskit/table-tree/table-tree';
 
 import staticData from './data-cleancode-toc.json';
 

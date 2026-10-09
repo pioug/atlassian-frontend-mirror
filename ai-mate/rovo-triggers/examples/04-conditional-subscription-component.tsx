@@ -6,7 +6,10 @@ import { useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { Subscriber, usePublish } from '../src/main';
@@ -138,6 +141,7 @@ const Sub = ({ topic }: { topic: Topic }) => {
 	const [checked, setChecked] = useState(false);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- the rule does not yet recognise @atlaskit/primitives subpath entry points
 		<Box xcss={styles.subscriberChild} backgroundColor="color.background.accent.blue.subtler">
 			<Heading size="medium">
 				Subscriber
@@ -189,6 +193,7 @@ const Sub = ({ topic }: { topic: Topic }) => {
 
 export default function (): JSX.Element {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- the rule does not yet recognise @atlaskit/primitives subpath entry points
 		<Box xcss={styles.content} backgroundColor="color.background.accent.gray.subtler">
 			<Stack space="space.150" xcss={styles.description}>
 				<Heading size="medium">Description</Heading>

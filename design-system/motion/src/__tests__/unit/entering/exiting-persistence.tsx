@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { act, render, screen, waitFor, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { within } from '@atlassian/testing-library/within';
 
 import ExitingPersistence, { ExitingContext } from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';

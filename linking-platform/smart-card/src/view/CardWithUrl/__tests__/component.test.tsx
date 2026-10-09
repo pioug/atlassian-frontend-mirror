@@ -12,6 +12,7 @@ import { UnAuthClient } from '@atlaskit/link-test-helpers';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { fireEvent, render, userEvent } from '@atlassian/testing-library';
 
 import { getClickUrl } from '../../../state/getClickUrl';
@@ -503,6 +504,37 @@ describe('embedded Flexible Card destinations', () => {
 			expect(open).toHaveBeenCalledWith(destination, target);
 		},
 	);
+
+	describe('when running inside an iframe', () => {
+		let originalTop: Window | null;
+
+		beforeEach(() => {
+			originalTop = window.top;
+			Object.defineProperty(window, 'top', { value: null, configurable: true });
+		});
+
+		afterEach(() => {
+			Object.defineProperty(window, 'top', { value: originalTop, configurable: true });
+		});
+
+		ffTest.off('platform_sl_click_inside_iframe', 'uses the existing target', () => {
+			it('uses the target provided by the navigation policy', () => {
+				const { links } = setup();
+				fireEvent.click(links[0]);
+
+				expect(open).toHaveBeenCalledWith(destination, '_top');
+			});
+		});
+
+		ffTest.on('platform_sl_click_inside_iframe', 'opens the link in a new tab', () => {
+			it('overrides the navigation policy target', () => {
+				const { links } = setup();
+				fireEvent.click(links[0]);
+
+				expect(open).toHaveBeenCalledWith(destination, '_blank');
+			});
+		});
+	});
 
 	it('uses the anchor destination and frame target supplied by the policy', () => {
 		policy.mockReturnValue({ url: '#heading', target: '_self' });

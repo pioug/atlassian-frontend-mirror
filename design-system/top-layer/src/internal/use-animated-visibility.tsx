@@ -1,4 +1,6 @@
-import { type RefObject, useCallback, useEffect, useLayoutEffect, useReducer, useRef } from 'react';
+import { type RefObject, useCallback, useEffect, useReducer, useRef } from 'react';
+
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { isNativeElementOpen } from './is-native-element-open';
 import { prefersReducedMotion } from './reduced-motion';

@@ -3,8 +3,8 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import { v4 as uuid } from 'uuid';
 
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
-import { fetchUserRecommendations } from '@atlaskit/smart-common';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { fetchUserRecommendations } from '@atlaskit/smart-common/recommendations-client';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { mockUserSearchData } from '../../../example-helpers/mock-urs-data';
 import useUserRecommendations, {
@@ -30,8 +30,8 @@ jest.mock('@atlaskit/analytics-next/createAndFireEvents', () => ({
 	default: jest.fn().mockReturnValue(jest.fn().mockReturnValue(jest.fn())),
 }));
 
-jest.mock('@atlaskit/smart-common', () => ({
-	...(jest.requireActual('@atlaskit/smart-common') as Object),
+jest.mock('@atlaskit/smart-common/recommendations-client', () => ({
+	...jest.requireActual('@atlaskit/smart-common/recommendations-client'),
 	fetchUserRecommendations: jest.fn(),
 }));
 

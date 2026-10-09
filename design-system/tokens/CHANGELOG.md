@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 20.4.1
+
+### Patch Changes
+
+- [`9b565c62c7a8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b565c62c7a8d) -
+  Clarify the intended usage of selected and focused color and border-width tokens, including
+  selected hover and press variants. Make inverse text and icon pairings explicit for bold selected
+  backgrounds in each standalone token description. Distinguish selection from keyboard focus, brand
+  emphasis, and unselected interactions without changing token values or theme mappings.
+
 ## 20.4.0
 
 ### Minor Changes

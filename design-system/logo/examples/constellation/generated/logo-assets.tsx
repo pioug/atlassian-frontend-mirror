@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AssetsIcon, AssetsLogo } from '@atlaskit/logo';
+import { AssetsIcon } from '@atlaskit/logo/assets/icon';
+import { AssetsLogoCS as AssetsLogo } from '@atlaskit/logo/assets/logo';
 
 import LogoTable from '../utils/logo-table';
 

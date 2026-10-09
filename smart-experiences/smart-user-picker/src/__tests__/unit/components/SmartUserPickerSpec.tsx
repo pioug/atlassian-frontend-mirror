@@ -9,7 +9,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // Commented due to HOT-111922
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 import type { DefaultValue, OptionData, Team, User } from '@atlaskit/user-picker/types';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartUserPicker from '../../../components';

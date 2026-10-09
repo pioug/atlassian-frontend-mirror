@@ -9,7 +9,9 @@ import AiGenerativeRemoveIcon from '@atlaskit/icon-lab/core/ai-generative-remove
 import AiGenerativeTextIcon from '@atlaskit/icon-lab/core/ai-generative-text';
 import AiSearchIcon from '@atlaskit/icon-lab/core/ai-search';
 import Link from '@atlaskit/link/link';
-import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

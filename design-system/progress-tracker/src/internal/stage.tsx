@@ -7,7 +7,7 @@ import { type CSSProperties, PureComponent } from 'react';
 import { css, keyframes } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import ProgressBar from './bar';

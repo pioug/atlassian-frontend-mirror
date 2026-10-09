@@ -7,7 +7,7 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
-import type { AnchorProps } from '@atlaskit/primitives/compiled';
+import type { AnchorProps } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
 import { ThemedAnchor } from './themed-anchor';

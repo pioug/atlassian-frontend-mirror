@@ -2,10 +2,13 @@ import React, { type MouseEvent } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import HomeIcon from '@atlaskit/icon/core/home';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { render, screen, userEvent, waitFor, within } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { ButtonMenuItem } from '../../button-menu-item';
 import { FlyoutBody } from '../../flyout-menu-item/flyout-body';

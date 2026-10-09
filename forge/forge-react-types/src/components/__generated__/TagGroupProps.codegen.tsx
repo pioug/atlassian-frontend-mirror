@@ -10,7 +10,7 @@
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformTagGroup from '@atlaskit/tag-group';
+import PlatformTagGroup from '@atlaskit/tag-group/tag-group';
 
 type PlatformTagGroupProps = React.ComponentProps<typeof PlatformTagGroup>;
 

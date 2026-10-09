@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import Page from '@atlaskit/page';
+import Page from '@atlaskit/page/page';
 import { token } from '@atlaskit/tokens';
 
 interface VRTestCaseOpts {

@@ -1,6 +1,11 @@
 import React from 'react';
 
-import Table, { Cell, HeadCell, Row, TBody, THead } from '@atlaskit/table';
+import { TBody } from '@atlaskit/table/body';
+import { HeadCell } from '@atlaskit/table/head-cell';
+import { Row } from '@atlaskit/table/row';
+import Table from '@atlaskit/table/table';
+import { Cell } from '@atlaskit/table/td';
+import { THead } from '@atlaskit/table/thead';
 
 import { presidents } from './content/presidents';
 

@@ -10,9 +10,10 @@
  * See `notes/architecture/positioning.md` and
  * `notes/decisions/fit-available-space.md`.
  */
-import { type RefObject, useLayoutEffect, useMemo } from 'react';
+import { type RefObject, useMemo } from 'react';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { applyAnchorPositioning } from './anchor-positioning/apply-anchor-positioning';
 import {

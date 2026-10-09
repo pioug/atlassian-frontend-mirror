@@ -3,7 +3,7 @@ import React from 'react';
 import { act, renderHook } from '@testing-library/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import mockedPluginData from '../../../../../__tests__/__helpers/mock-plugin-data';
 import { ANALYTICS_CHANNEL } from '../../../../../common/constants';

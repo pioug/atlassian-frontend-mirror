@@ -4,7 +4,10 @@ Unlike its sister icon info files, this one is manually curated
 
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { JiraSoftwareIcon } from '@atlaskit/logo/jira-software-icon';
-import { BitbucketIcon, ConfluenceIcon, JiraIcon, StatuspageIcon } from '@atlaskit/logo';
+import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
 
 type IconInfo = {
     componentName: string;

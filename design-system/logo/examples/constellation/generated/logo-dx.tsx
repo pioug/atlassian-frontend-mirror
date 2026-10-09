@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DxIcon } from '@atlaskit/logo';
+import { DxIcon } from '@atlaskit/logo/dx/icon';
 
 import LogoTable from '../utils/logo-table';
 

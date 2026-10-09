@@ -1,17 +1,17 @@
 import mergeWith from 'lodash/mergeWith';
 
+import { AbstractJastVisitor } from '@atlaskit/jql-ast/abstract-jast-visitor';
+import type { TerminalClause } from '@atlaskit/jql-ast/ast/clause';
+import type { Operand } from '@atlaskit/jql-ast/ast/operand';
+import type { Field } from '@atlaskit/jql-ast/field';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
+import { NODE_TYPE_ORDER_BY } from '@atlaskit/jql-ast/node';
 import {
-	AbstractJastVisitor,
-	type Field,
-	JastBuilder,
-	NODE_TYPE_ORDER_BY,
-	type Operand,
 	OPERAND_EMPTY,
 	OPERAND_TYPE_KEYWORD,
 	OPERAND_TYPE_LIST,
 	OPERAND_TYPE_VALUE,
-	type TerminalClause,
-} from '@atlaskit/jql-ast';
+} from '@atlaskit/jql-ast/operand';
 
 import { isQueryTooComplex } from './isQueryTooComplex';
 

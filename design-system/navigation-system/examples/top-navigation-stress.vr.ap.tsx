@@ -17,7 +17,7 @@ import EditionsIcon from '@atlaskit/icon-lab/core/editions';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import CreditCardIcon from '@atlaskit/icon/core/credit-card';
 import PremiumIcon from '@atlaskit/icon/core/premium';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -26,17 +26,13 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import { TopNavButton } from '@atlaskit/navigation-system/theming/top-nav-button';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	CustomLogo,
-	CustomTitle,
-	Help,
-	Notifications,
-	Profile,
-	Settings,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, CustomLogo } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { CustomTitle } from '@atlaskit/navigation-system/top-nav-items/custom-title';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

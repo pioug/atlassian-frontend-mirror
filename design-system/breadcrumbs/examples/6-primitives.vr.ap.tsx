@@ -14,8 +14,9 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
+import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
 import { BreadcrumbsItemPrimitive, BreadcrumbsRoot } from '@atlaskit/breadcrumbs/primitives';
 import { useOverflowCollapse } from '@atlaskit/breadcrumbs/use-overflow-collapse';
 import Button from '@atlaskit/button/default/button';

@@ -3,8 +3,8 @@ import React from 'react';
 import { injectable } from 'react-magnetic-di';
 
 import Field from '@atlaskit/form/field';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { screen } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { createGenericComponent } from '../../common/create-generic-component';
 import { renderWithDi } from '../../common/test-utils/render-with-di';

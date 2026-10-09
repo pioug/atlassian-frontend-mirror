@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import Comment, { CommentAuthor, CommentTime } from '@atlaskit/comment';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import Comment from '@atlaskit/comment/comment';
+import { CommentTime } from '@atlaskit/comment/time';
 
 import sampleAvatar from '../images/avatar_400x400.jpg';
 

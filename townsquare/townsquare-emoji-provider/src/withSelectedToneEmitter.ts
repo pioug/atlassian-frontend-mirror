@@ -1,4 +1,4 @@
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 
 const DEFAULT_TONE = 0;
 const SELECTED_TONE_CHANGED_EVENT = 'SELECTED_TONE_CHANGED_EVENT';

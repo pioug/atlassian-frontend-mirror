@@ -8,7 +8,8 @@ import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';

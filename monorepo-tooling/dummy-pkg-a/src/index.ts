@@ -1,4 +1,4 @@
-import { getDynamicImportName } from '@atlaskit/codemod-utils';
+import { getDynamicImportName } from '@atlaskit/codemod-utils/support';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export default 'dummy-pkg-a' as const;

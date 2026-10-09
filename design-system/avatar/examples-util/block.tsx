@@ -3,7 +3,8 @@ import React from 'react';
 import { type ReactNode } from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export const Block: ({
 	children,

@@ -3,8 +3,10 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
-import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Aside } from '../../aside';
 import { ChatPanel } from '../../chat-panel';

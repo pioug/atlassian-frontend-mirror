@@ -2,7 +2,9 @@ import React from 'react';
 
 import { replaceRaf } from 'raf-stub';
 
-import { act, render, screen, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
+import { within } from '@atlassian/testing-library/within';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import ShrinkOut from '../../../entering/shrink-out';

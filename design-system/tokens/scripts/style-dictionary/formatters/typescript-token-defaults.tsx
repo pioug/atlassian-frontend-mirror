@@ -1,7 +1,7 @@
 import type { Format } from 'style-dictionary';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { getTokenId } from '../../../src/utils/get-token-id';
 import { getValue } from '../get-value';

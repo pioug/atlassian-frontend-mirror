@@ -3,8 +3,10 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { type ActionProps } from '../action/types';
 import { default as DeleteAction } from '../delete-action';

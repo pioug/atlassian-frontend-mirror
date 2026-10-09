@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 
 import AuthNav from '../../../examples/10-authenticated-example';
 import AnonymousNav from '../../../examples/20-anonymous-example';

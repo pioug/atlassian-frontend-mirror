@@ -8,7 +8,8 @@ import Field from '@atlaskit/form/field';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import ThumbsDownIcon from '@atlaskit/icon/core/thumbs-down';
 import ThumbsUpIcon from '@atlaskit/icon/core/thumbs-up';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Textfield from '@atlaskit/textfield/text-field';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

@@ -1,5 +1,14 @@
 # @atlaskit/popper
 
+## 9.4.7
+
+### Patch Changes
+
+- [`4247678302a95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4247678302a95) -
+  Fixed server-side rendering errors and warnings in the top-layer popover, dialog and popper paths
+  (`platform-dst-top-layer`).
+- Updated dependencies
+
 ## 9.4.6
 
 ### Patch Changes

@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import Tooltip from '../../tooltip';
 

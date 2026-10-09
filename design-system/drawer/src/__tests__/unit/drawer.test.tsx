@@ -7,7 +7,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import __noop from '@atlaskit/ds-lib/noop';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import { token } from '@atlaskit/tokens';

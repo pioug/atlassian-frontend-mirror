@@ -13,7 +13,7 @@ import withAnalyticsContext, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 
 import { messages } from '../../messages';

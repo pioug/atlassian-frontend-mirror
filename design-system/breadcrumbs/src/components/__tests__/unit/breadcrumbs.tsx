@@ -1,8 +1,10 @@
 import React, { createRef } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { fireEvent, render, screen, within } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { within } from '@atlassian/testing-library/within';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 

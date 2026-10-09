@@ -3,9 +3,9 @@
  *
  * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
  *
- * @codegen <<SignedSource::6581ebba6afba50295cdc009a21f3a5b>>
+ * @codegen <<SignedSource::4f639bf68a8f83e17ca41c44772062a7>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::c41e4f3315ca4258155822a2960b4f13>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::7f755f1963a57513697cc7d212458848>>
  */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */
@@ -20,6 +20,7 @@
  * @see https://developer.atlassian.com/platform/forge/ui-kit/components/xcss/
  */
 
+
 import { token } from '@atlaskit/tokens';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -28,16 +29,16 @@ import type { SerializedStyles } from '@emotion/serialize';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a8fa3bcb5a39f872a309ff3ad9b23d54>>
+ * @codegen <<SignedSource::515adb91be80b339763c40b099d603df>>
  * @codegenId forge-tokens
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
- * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::8817f4073995e5dc9c2bb766316632d6>>
  */
-/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn", perfectionist/sort-object-types: "off" */
 export const dimensionMap = {
 	'100%': '100%',
 	'size.100': '1rem',
@@ -1174,6 +1175,7 @@ export const borderColorMap: {
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
+	'color.border.input.search': 'var(--ds-border-input-search)';
 	'color.border.inverse': 'var(--ds-border-inverse)';
 	'color.border.selected': 'var(--ds-border-selected)';
 	'color.border.brand': 'var(--ds-border-brand)';
@@ -1214,6 +1216,7 @@ export const borderColorMap: {
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
+	'color.border.input.search': token('color.border.input.search', '#0B120E24'),
 	'color.border.inverse': token('color.border.inverse', '#FFFFFF'),
 	'color.border.selected': token('color.border.selected', '#1868DB'),
 	'color.border.brand': token('color.border.brand', '#1868DB'),

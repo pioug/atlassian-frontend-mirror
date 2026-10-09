@@ -54,6 +54,7 @@ import LinkWithSafetyCheckExample from './103-link-with-safety-check';
 import WithInlineEditExample from './104-with-inline-edit';
 import DeepLinkTargetExample from './105-deep-link-target';
 import AddTelepointerExample from './200-add-telepointer';
+import ViewportHeightFixture from './250-viewport-height-fixture';
 
 export const Basic: WorkbenchExample<typeof BasicExample> = wb(BasicExample);
 export const FullPageWithCustomPanel: WorkbenchExample<typeof FullPageWithCustomPanelExample> = wb(
@@ -163,3 +164,6 @@ export const ResizedMediaLayout: WorkbenchExample<typeof ResizedMediaLayoutExamp
 	wb(ResizedMediaLayoutExample);
 export const TableLayout: WorkbenchExample<typeof TableLayoutExample> = wb(TableLayoutExample);
 export const Testing: WorkbenchExample<typeof TestingExample> = wb(TestingExample);
+
+export const ViewportHeight: WorkbenchExample<typeof ViewportHeightFixture> =
+	wb(ViewportHeightFixture);

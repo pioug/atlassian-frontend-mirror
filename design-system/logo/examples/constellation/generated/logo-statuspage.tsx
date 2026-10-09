@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { StatuspageIcon, StatuspageLogo } from '@atlaskit/logo';
+import { StatuspageIcon } from '@atlaskit/logo/statuspage-icon';
+import { StatuspageLogoCS as StatuspageLogo } from '@atlaskit/logo/statuspage/logo';
 
 import LogoTable from '../utils/logo-table';
 

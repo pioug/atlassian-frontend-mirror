@@ -6,7 +6,7 @@ import React, { forwardRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
+import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { getPrimitiveSpreadProps } from './get-primitives-spread-props';

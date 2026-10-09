@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	Create,
-	PrimaryButton,
-	type PrimaryButtonProps,
-	PrimaryDropdownButton,
-	type PrimaryDropdownButtonProps,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Create } from '@atlaskit/atlassian-navigation/create';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { PrimaryButtonProps } from '@atlaskit/atlassian-navigation/primary-button/types';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import type { PrimaryDropdownButtonProps } from '@atlaskit/atlassian-navigation/primary-dropdown-button/types';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import ChevronIcon from '@atlaskit/icon/core/chevron-down';

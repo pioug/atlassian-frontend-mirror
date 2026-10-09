@@ -13,7 +13,9 @@ import { replaceRaf } from 'raf-stub';
 
 import Button from '@atlaskit/button/default/button';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Popup } from '../../popup';
 import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';

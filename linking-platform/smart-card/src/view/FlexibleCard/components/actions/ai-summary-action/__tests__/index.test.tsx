@@ -1,7 +1,11 @@
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { render, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
+import {
+	render,
+	waitForElementToBeRemoved,
+} from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import '@atlaskit/link-test-helpers/jest';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';

@@ -3,7 +3,9 @@ import React, { useCallback, useState } from 'react';
 import fetchMock from 'fetch-mock';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import AgentProfileCard from '../src/components/Agent/AgentProfileCard';

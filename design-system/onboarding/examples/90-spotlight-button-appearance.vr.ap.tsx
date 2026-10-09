@@ -8,12 +8,13 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/button';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 
 import { Highlight } from './styled';
 

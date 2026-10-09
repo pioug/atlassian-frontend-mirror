@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from '@atlaskit/page';
+import Page from '@atlaskit/page/page';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 

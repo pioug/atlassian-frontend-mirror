@@ -8,12 +8,13 @@ import { Component } from 'react';
 import { css, jsx } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 import { token } from '@atlaskit/tokens';
 
 interface State {
@@ -34,7 +35,7 @@ const relativeDivStyles = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class SpotlightRelativeTarget extends Component<Object, State> {
+export default class SpotlightRelativeTarget extends Component<object, State> {
 	state: State = { active: false };
 
 	render(): JSX.Element {

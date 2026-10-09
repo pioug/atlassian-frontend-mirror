@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CrowdIcon, CrowdLogo } from '@atlaskit/logo';
+import { CrowdIcon } from '@atlaskit/logo/crowd/icon';
+import { CrowdLogoCS as CrowdLogo } from '@atlaskit/logo/crowd/logo';
 
 import LogoTable from '../utils/logo-table';
 

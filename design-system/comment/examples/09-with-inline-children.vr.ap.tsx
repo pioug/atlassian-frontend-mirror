@@ -2,7 +2,8 @@ import React, { type ReactNode, useState } from 'react';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import Code from '@atlaskit/code/code';
-import Comment, { CommentAuthor } from '@atlaskit/comment';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import Comment from '@atlaskit/comment/comment';
 
 import avatarImg from './images/avatar_400x400.jpg';
 

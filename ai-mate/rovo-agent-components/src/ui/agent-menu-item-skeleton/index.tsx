@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
 

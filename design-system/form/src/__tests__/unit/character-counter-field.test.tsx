@@ -4,8 +4,10 @@ import Button from '@atlaskit/button/default/button';
 import TextArea from '@atlaskit/textarea/text-area';
 import TextField from '@atlaskit/textfield/text-field';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 import { act } from '@atlassian/testing-library/act';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CharacterCounterField } from '../../character-counter-field';
 import Form from '../../form';

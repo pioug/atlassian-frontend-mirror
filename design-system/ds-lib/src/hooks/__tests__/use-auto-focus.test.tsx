@@ -2,7 +2,7 @@ import React, { createRef, useRef } from 'react';
 
 import { render, renderHook } from '@testing-library/react';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import useAutoFocus from '../use-auto-focus';
 

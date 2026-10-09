@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { usePopoverId } from '../../src/entry-points/use-popover-id';
 import { getAriaForTrigger } from '../../src/internal/get-aria-for-trigger';

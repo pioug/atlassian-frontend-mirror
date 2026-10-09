@@ -1,5 +1,5 @@
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { Space } from '@atlaskit/primitives/compiled';
+import type { PositiveSpaceToken as Space } from '@atlaskit/primitives/compiled/components/types';
 
 import type { SmartLinkSize } from '../../../../../../constants';
 import type { ActionProps } from '../types';

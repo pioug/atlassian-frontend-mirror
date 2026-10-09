@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Badge from '@atlaskit/badge/badge';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 type ToolbarKeyboardShortcutHintProps = {
 	isDisabled?: boolean;

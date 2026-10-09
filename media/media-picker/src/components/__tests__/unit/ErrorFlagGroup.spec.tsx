@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { type FileEmptyData, type UploadRejectionData } from '../../../types';
 import ErrorFlagGroup from '../../errorFlagGroup/ErrorFlagGroup';

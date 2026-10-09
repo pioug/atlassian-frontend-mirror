@@ -1,18 +1,17 @@
 import React, { useReducer } from 'react';
 
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Help,
-	LogIn,
-	SideNavToggleButton,
 	TopNav,
 	TopNavEnd,
 	TopNavMiddle,
 	TopNavStart,
-} from '@atlaskit/navigation-system';
+} from '@atlaskit/navigation-system/layout/top-nav';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { LogIn } from '@atlaskit/navigation-system/top-nav-items/log-in';
 
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRoot } from './utils/mock-root';

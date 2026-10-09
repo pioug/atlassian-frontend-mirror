@@ -4,7 +4,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import EditIcon from '@atlaskit/icon/core/edit';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 const IconButtonLoadingExample = (): React.JSX.Element => {
 	const [isLoading, setIsLoading] = useState(true);

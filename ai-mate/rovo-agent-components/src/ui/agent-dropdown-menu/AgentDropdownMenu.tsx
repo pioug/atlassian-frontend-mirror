@@ -16,7 +16,7 @@ import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group'
 import type { DropdownMenuProps } from '@atlaskit/dropdown-menu/types';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import {

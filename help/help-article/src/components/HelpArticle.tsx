@@ -2,7 +2,7 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
 import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';

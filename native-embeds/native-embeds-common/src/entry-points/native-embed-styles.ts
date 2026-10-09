@@ -235,4 +235,30 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	},
 });
 
+// Kept separate so baseline and unidentified placeholders never install treatment-only CSS.
+export const nativeEmbedInlineMauiWidthStyles: SerializedStyles = css({
+	// Inline MAUI embeds otherwise shrink-wrap the iframe's intrinsic 300px width. Match only the
+	// owning wrapper, and leave persisted or manifest-derived widths and other experiences alone.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target the immediate inline renderer wrapper through its own unsized MAUI child
+	'.inline-extension-renderer:has(> [data-native-embed-experience="maui"][data-native-embed-inline-width="true"]:not([data-native-embed-width]))':
+		{
+			width: '100%',
+			marginLeft: 0,
+			marginRight: 0,
+		},
+	// The editor has an extra inline-flex container. Both its outer span and native flex child
+	// must fill the paragraph; expanding only the span leaves the iframe at its intrinsic width.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target only the editor wrapper that directly owns an eligible unsized MAUI embed
+	'.inline-extension:has(> .extension-container.inline > [data-native-embed-experience="maui"][data-native-embed-inline-width="true"]:not([data-native-embed-width]))':
+		{
+			width: '100%',
+		},
+	// SSR HTML parsing can separate the outer span from this container, so match its own child.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Size only the inline editor container's eligible unsized MAUI flex child
+	'.extension-container.inline > [data-native-embed-experience="maui"][data-native-embed-inline-width="true"]:not([data-native-embed-width])':
+		{
+			width: '100%',
+		},
+});
+
 /* eslint-enable @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-important-styles */

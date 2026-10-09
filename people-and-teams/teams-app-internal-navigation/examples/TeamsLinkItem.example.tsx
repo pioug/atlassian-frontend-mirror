@@ -3,10 +3,8 @@ import React from 'react';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { selectField, textField } from '@atlassian/teams-app-internal-playground/fields';
-import {
-	Playground,
-	type PlaygroundConfig,
-} from '@atlassian/teams-app-internal-playground/playground';
+import { Playground } from '@atlassian/teams-app-internal-playground/playground';
+import type { Config as PlaygroundConfig } from '@atlassian/teams-app-internal-playground/types';
 
 import { TeamsLinkItem } from '../src/ui/TeamsLinkItem';
 

@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { bind } from 'bind-event-listener';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { usePageLayoutResize } from '@atlaskit/page-layout';
+import { usePageLayoutResize } from '@atlaskit/page-layout/sidebar-resize-context';
 
 export const ExpandLeftSidebarKeyboardShortcut = () => {
 	const { toggleLeftSidebar } = usePageLayoutResize();

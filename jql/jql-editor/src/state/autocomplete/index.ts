@@ -19,7 +19,7 @@ import {
 	OPERATOR_WAS_IN,
 	OPERATOR_WAS_NOT,
 	OPERATOR_WAS_NOT_IN,
-} from '@atlaskit/jql-ast';
+} from '@atlaskit/jql-ast/operator';
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 
 // Opinionated order in which we want to render operators

@@ -8,7 +8,8 @@ import { css } from '@compiled/react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { Anchor, type AnchorProps, Box } from '@atlaskit/primitives/compiled';
+import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -65,6 +65,16 @@ export type BlockMenuPluginOptions = {
 	blockLinkHashPrefix?: string;
 
 	/**
+	 * When true, shows the "Copy link" block menu item and enables its keyboard shortcut.
+	 *
+	 * Copy link requires blocks to have localIds (e.g. via `@atlaskit/editor-plugin-local-id`)
+	 * and the product to handle block link hashes in the URL, so it is opt-in.
+	 * Only respected when `platform_editor_block_menu_copy_link_opt_in` is enabled.
+	 * @default false
+	 */
+	enableCopyLinkToSelection?: boolean;
+
+	/**
 	 * Optional function to retrieve the current link path for the editor context.
 	 * @returns The current link path as a string, or null if no path is available
 	 */

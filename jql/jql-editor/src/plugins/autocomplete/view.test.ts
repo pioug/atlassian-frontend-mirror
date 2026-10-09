@@ -1,4 +1,4 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { type SelectableAutocompleteOption } from './components/types';
 import { shouldInsertOpeningParenthesis } from './shouldInsertOpeningParenthesis';

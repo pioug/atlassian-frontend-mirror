@@ -4,7 +4,8 @@ import { cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
-import { Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
 import { asyncPopupSelectMessages } from './messages';

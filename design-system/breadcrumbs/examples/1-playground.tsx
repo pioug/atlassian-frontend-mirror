@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
 import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
+import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
 import Button from '@atlaskit/button/default/button';
 import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';

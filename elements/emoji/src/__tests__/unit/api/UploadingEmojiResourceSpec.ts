@@ -7,7 +7,7 @@ import type {
 	OnProviderChange,
 	SecurityOptions,
 	ServiceConfig,
-} from '@atlaskit/util-service-support';
+} from '@atlaskit/util-service-support/types';
 
 import type {
 	EmojiProvider,

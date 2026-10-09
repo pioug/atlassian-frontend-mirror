@@ -17,7 +17,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import Portal from '@atlaskit/portal/portal';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import PopperWrapper from './popper-wrapper';
 import { PopupTopLayer } from './popup-top-layer';

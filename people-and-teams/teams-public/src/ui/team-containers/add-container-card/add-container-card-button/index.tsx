@@ -2,7 +2,9 @@ import React from 'react';
 
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import type { ContainerTypes } from '../../../../common/types';
 

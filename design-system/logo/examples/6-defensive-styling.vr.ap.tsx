@@ -4,7 +4,8 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { token } from '@atlaskit/tokens';
 
 /**

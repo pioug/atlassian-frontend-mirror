@@ -1,5 +1,19 @@
 # @atlaskit/native-embeds-common
 
+## 2.7.0
+
+### Minor Changes
+
+- [`446290e38a4af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/446290e38a4af) -
+  Fix unsized inline MAUI embeds shrinking to the iframe's intrinsic width in renderer and editor.
+  Add optional manifest identity to the shared initial-layout contract so MAUI loading placeholders
+  receive the same placement styles when their sizing manifest is available. Gate inline placement
+  behind `cc_maui_inline_embed_width_fix`, evaluating only unsized inline MAUI embeds and keeping
+  Control and Test styling isolated through per-embed metadata.
+
+  Export a shared effective-width resolver from the existing initial-layout entry point so loading
+  exposure eligibility and placeholder dimensions use the same stored/default width precedence.
+
 ## 2.6.5
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 24.0.3
+
+### Patch Changes
+
+- [`f53a04e7c8b40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f53a04e7c8b40) -
+  Restore the editor-synced-block-same-page-sync experiment guards to prevent Jira fetch-only
+  renderers from entering the same-document write-provider path.
+- Updated dependencies
+
 ## 24.0.2
 
 ### Patch Changes

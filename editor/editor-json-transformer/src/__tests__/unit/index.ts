@@ -63,7 +63,7 @@ import {
 	layoutSection,
 	layoutColumn,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { JSONTransformer } from '../../JSONTransformer-2';
 import * as markOverride from '../../markOverrideRules';

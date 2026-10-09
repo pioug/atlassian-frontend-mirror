@@ -1,4 +1,4 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing/skip-file-decorator';
 
 import { rendererTestCase as test, expect } from './not-libra';
 import { tableADF, tableWithCustomWidthADF } from './width-provider.spec.ts-fixtures';

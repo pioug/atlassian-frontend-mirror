@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ConfluenceDataCenterIcon, ConfluenceDataCenterLogo } from '@atlaskit/logo';
+import { ConfluenceDataCenterIcon } from '@atlaskit/logo/confluence-data-center/icon';
+import { ConfluenceDataCenterLogoCS as ConfluenceDataCenterLogo } from '@atlaskit/logo/confluence-data-center/logo';
 
 import LogoTable from '../utils/logo-table';
 

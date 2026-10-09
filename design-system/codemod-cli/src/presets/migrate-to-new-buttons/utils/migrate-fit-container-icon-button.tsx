@@ -1,6 +1,6 @@
 import type { API, ASTPath, JSXElement } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { addCommentBefore } from '@atlaskit/codemod-utils/support';
 
 import {
 	NEW_BUTTON_VARIANTS,

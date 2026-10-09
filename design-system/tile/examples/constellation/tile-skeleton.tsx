@@ -6,7 +6,7 @@ import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Skeleton from '@atlaskit/skeleton';
 import Tile from '@atlaskit/tile/tile';
 import TileSkeleton from '@atlaskit/tile/tile-skeleton';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 export default function TileSkeletonExample(): React.JSX.Element {

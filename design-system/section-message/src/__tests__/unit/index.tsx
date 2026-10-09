@@ -11,7 +11,8 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import SectionMessage from '../../section-message';

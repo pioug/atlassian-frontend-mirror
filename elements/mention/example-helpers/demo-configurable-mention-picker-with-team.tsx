@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { type MentionResourceConfig } from '../src/api/MentionResource';

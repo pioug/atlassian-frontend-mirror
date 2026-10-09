@@ -4,8 +4,10 @@ import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
-import { act, render, screen, userEvent } from '@atlassian/testing-library';
+import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { SideNavPanelSplitter } from '../../panel-splitter/side-nav-panel-splitter';
 import { Root } from '../../root';

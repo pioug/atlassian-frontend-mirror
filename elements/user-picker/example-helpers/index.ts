@@ -1,10 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { userPickerCustomData } from '@atlaskit/util-data-test/user-picker-custom-data';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {
-	userPickerData,
-	userPickerTeamData,
-	userPickerCustomData,
-} from '@atlaskit/util-data-test/user-picker';
+import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { userPickerTeamData } from '@atlaskit/util-data-test/user-picker-team-data';
 
 import { type OptionData } from '../src/types';
 import { isTesting } from './isTesting';

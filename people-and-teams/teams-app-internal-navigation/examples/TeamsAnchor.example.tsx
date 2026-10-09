@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { selectField, textField } from '@atlassian/teams-app-internal-playground/fields';
-import {
-	Playground,
-	type PlaygroundConfig,
-} from '@atlassian/teams-app-internal-playground/playground';
+import { Playground } from '@atlassian/teams-app-internal-playground/playground';
+import type { Config as PlaygroundConfig } from '@atlassian/teams-app-internal-playground/types';
 
 import { TeamsAnchor } from '../src/ui/TeamsAnchor';
 

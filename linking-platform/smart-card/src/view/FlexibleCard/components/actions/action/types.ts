@@ -2,7 +2,7 @@ import type { ReactChild, ReactNode } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { Appearance } from '@atlaskit/button/old-button/types';
-import type { Space } from '@atlaskit/primitives/compiled';
+import type { PositiveSpaceToken as Space } from '@atlaskit/primitives/compiled/components/types';
 
 import type { CardDisplay, SmartLinkSize } from '../../../../../constants';
 

@@ -1,8 +1,13 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
-import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
-import { Table, TBody, TD, TH, THead, TR } from '@atlaskit/table/primitives';
+import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/constants';
+import { Table } from '@atlaskit/table/primitives/table';
+import { TBody } from '@atlaskit/table/primitives/tbody';
+import { TH } from '@atlaskit/table/primitives/th';
+import { THead } from '@atlaskit/table/primitives/thead';
+import { TR } from '@atlaskit/table/primitives/tr';
+import { Cell as TD } from '@atlaskit/table/td';
 
 // TODO: This needs a new home.  We may want to show this here, but where does this live?
 export const BreakpointsTable: () => React.JSX.Element = () => (

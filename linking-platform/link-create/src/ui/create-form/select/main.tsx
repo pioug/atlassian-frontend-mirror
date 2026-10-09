@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { components } from '@atlaskit/react-select/components';
 import AkSelect from '@atlaskit/select/default';
 import type { OptionProps, OptionType, SingleValueProps } from '@atlaskit/select/types';

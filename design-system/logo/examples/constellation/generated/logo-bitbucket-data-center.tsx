@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { BitbucketDataCenterIcon, BitbucketDataCenterLogo } from '@atlaskit/logo';
+import { BitbucketDataCenterIcon } from '@atlaskit/logo/bitbucket-data-center/icon';
+import { BitbucketDataCenterLogoCS as BitbucketDataCenterLogo } from '@atlaskit/logo/bitbucket-data-center/logo';
 
 import LogoTable from '../utils/logo-table';
 

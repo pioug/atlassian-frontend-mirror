@@ -4,7 +4,9 @@ import IconButton from '@atlaskit/button/icon/button';
 import LinkIconButton from '@atlaskit/button/icon/link';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline, xcss } from '@atlaskit/primitives';
+import { Inline } from '@atlaskit/primitives/inline';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const wrapperStyles = xcss({
 	padding: 'space.200',

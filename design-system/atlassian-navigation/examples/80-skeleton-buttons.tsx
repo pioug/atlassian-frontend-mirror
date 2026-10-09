@@ -8,21 +8,22 @@ import React, { Fragment, type KeyboardEvent, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	ProductHome,
-	Settings,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
-import {
-	SkeletonCreateButton,
-	SkeletonIconButton,
-	SkeletonPrimaryButton,
-} from '@atlaskit/atlassian-navigation/skeleton';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { Settings } from '@atlaskit/atlassian-navigation/settings';
+import { SkeletonCreateButton } from '@atlaskit/atlassian-navigation/skeleton-create-button';
 import { SkeletonHelpButton } from '@atlaskit/atlassian-navigation/skeleton-help-button';
+import { SkeletonIconButton } from '@atlaskit/atlassian-navigation/skeleton-icon-button';
 import { SkeletonNotificationButton } from '@atlaskit/atlassian-navigation/skeleton-notification-button';
+import { SkeletonPrimaryButton } from '@atlaskit/atlassian-navigation/skeleton-primary-button';
 import { SkeletonSettingsButton } from '@atlaskit/atlassian-navigation/skeleton-settings-button';
 import { SkeletonSwitcherButton } from '@atlaskit/atlassian-navigation/skeleton-switcher-button';
 import Button from '@atlaskit/button/default/button';
@@ -31,7 +32,8 @@ import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
 import Link from '@atlaskit/link/link';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 import ButtonItem from '@atlaskit/menu/button-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';

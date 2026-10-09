@@ -6,7 +6,7 @@ import { type CSSProperties, type JSX } from 'react';
 
 import { css, cx, jsx } from '@compiled/react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';

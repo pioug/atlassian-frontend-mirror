@@ -1,6 +1,8 @@
-import { type RefObject, useCallback, useLayoutEffect, useState } from 'react';
+import { type RefObject, useCallback, useState } from 'react';
 
 import { bind, bindAll } from 'bind-event-listener';
+
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { readViewport } from './read-viewport';
 

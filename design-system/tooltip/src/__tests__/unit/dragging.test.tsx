@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { act, fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { register } from '../../internal/drag-manager';
 import Tooltip from '../../tooltip';

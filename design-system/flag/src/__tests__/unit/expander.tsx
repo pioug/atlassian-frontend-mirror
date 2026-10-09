@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Flag from '../../flag';

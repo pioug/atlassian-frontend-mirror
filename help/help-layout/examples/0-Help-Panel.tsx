@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import Page from '@atlaskit/page';
+import Page from '@atlaskit/page/page';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
 import HelpLayout from '../src/index';

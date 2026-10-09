@@ -1,4 +1,4 @@
-import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11y } from '@atlassian/a11y-playwright-testing/skip-decorator';
 
 import { adf } from './datasource.spec.ts-fixtures';
 import { rendererTestCase as test, expect } from './not-libra';

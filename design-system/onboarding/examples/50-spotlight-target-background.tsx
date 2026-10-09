@@ -9,7 +9,11 @@ import Lorem from 'react-lorem-component';
 
 import Code from '@atlaskit/code/code';
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import { Spotlight, SpotlightManager, SpotlightTarget } from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+// eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
 import { token } from '@atlaskit/tokens';
 
 import { Highlight, HighlightGroup } from './styled';
@@ -28,7 +32,7 @@ interface State {
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export default class SpotlightTargetBackgroundExample extends Component<Object, State> {
+export default class SpotlightTargetBackgroundExample extends Component<object, State> {
 	state: State = { active: null };
 
 	start = (): void => this.setState({ active: 0 });

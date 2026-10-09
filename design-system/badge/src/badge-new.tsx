@@ -6,7 +6,7 @@ import { memo, type ReactNode } from 'react';
 
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 

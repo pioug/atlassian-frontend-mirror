@@ -7,7 +7,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import { Flex } from '@atlaskit/primitives/compiled'; // eslint-disable-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Flex } from '@atlaskit/primitives/compiled/flex'; // eslint-disable-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { components } from '@atlaskit/react-select/components';
 import type { PopupSelect } from '@atlaskit/select/popup-select';
 

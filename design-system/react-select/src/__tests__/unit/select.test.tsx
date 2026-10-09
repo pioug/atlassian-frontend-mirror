@@ -22,7 +22,7 @@ import { type EventType, fireEvent, render, screen, waitFor, within } from '@tes
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
-import { skipA11yAudit } from '@af/accessibility-testing';
+import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import __noop from '@atlaskit/ds-lib/noop';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Grid, { GridItem } from '@atlaskit/grid';
+import Grid from '@atlaskit/grid/grid';
+import { GridItem } from '@atlaskit/grid/grid-item';
 
 export default (): React.JSX.Element => (
 	<Grid testId="grid">

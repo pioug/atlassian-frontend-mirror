@@ -17,7 +17,7 @@ import type {
 	User,
 	Team,
 } from '@atlaskit/user-picker/types';
-import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party';
+import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party/integrations';
 
 import '../example-helpers/mock-ufo';
 import { options } from '../example-helpers/options';

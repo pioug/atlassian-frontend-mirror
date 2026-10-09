@@ -2,7 +2,7 @@ import React from 'react';
 
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
 import { TopNavButton, TopNavLinkButton } from '@atlaskit/navigation-system/theming/top-nav-button';

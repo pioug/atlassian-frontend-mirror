@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
 
 import AKBadge from '@atlaskit/badge/badge';
-import { JiraIcon } from '@atlaskit/logo';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
 	TopNav,
@@ -18,14 +18,14 @@ import {
 	AppLogo,
 	AppSwitcher,
 	ChatButton,
-	CreateButton,
 	CustomLogo,
-	CustomTitle,
-	Help,
-	Profile,
-	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { CustomTitle } from '@atlaskit/navigation-system/top-nav-items/custom-title';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { WithResponsiveViewport } from './utils/example-utils';

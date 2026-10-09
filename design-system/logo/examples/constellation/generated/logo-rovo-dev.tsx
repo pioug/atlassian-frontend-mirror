@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { RovoDevIcon, RovoDevLogo } from '@atlaskit/logo';
+import { RovoDevIcon } from '@atlaskit/logo/rovo-dev/icon';
+import { RovoDevLogoCS as RovoDevLogo } from '@atlaskit/logo/rovo-dev/logo';
 
 import LogoTable from '../utils/logo-table';
 

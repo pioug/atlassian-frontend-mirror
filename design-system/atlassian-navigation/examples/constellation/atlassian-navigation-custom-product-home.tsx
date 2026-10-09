@@ -1,7 +1,9 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AtlassianNavigation, CustomProductHome } from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { CustomProductHome } from '@atlaskit/atlassian-navigation/custom-product-home';
 
 import customIcon from '../shared/assets/atlassian-icon.png';
 import customLogo from '../shared/assets/custom-logo-wide.png';

@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives/compiled';
-import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { ExpandedFrame } from '../../../components/ExpandedFrame';

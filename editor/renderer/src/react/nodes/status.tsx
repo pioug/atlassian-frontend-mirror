@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Status as AkStatus } from '@atlaskit/status/element';
-import type { Color } from '@atlaskit/status/element';
+import { Status as AkStatus } from '@atlaskit/status/status';
+import type { Color } from '@atlaskit/status/status';
 
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';

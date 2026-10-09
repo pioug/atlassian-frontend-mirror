@@ -2,7 +2,7 @@ import React from 'react';
 
 import { replaceRaf } from 'raf-stub';
 
-import { act, fireEvent, render } from '@atlassian/testing-library';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { ElementBox } from '../../use-element-box';
 

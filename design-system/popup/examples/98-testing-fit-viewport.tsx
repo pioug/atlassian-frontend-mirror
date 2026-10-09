@@ -7,7 +7,8 @@ import { forwardRef, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { cssMap as strictCssMap } from '@atlaskit/css';
-import Popup, { type PopupComponentProps } from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
+import type { PopupComponentProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
 
 // `Popup`'s `xcss` takes the strict map. A fixed `width` is what the real call

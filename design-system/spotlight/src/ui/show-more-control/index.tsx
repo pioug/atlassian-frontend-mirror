@@ -6,25 +6,10 @@ import { forwardRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
+import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	root: {
-		paddingBlock: token('space.075'),
-		color: token('color.text.inverse'),
-		borderRadius: token('radius.small'),
-		backgroundColor: token('color.background.neutral.bold'),
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.bold.hovered'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.neutral.bold.pressed'),
-			transition: token('motion.button.pressed'),
-		},
-		transition: token('motion.button.hovered'),
-	},
 	rootMotion: {
 		paddingBlock: token('space.075'),
 		color: token('color.text.inverse'),
@@ -66,12 +51,7 @@ export const SpotlightShowMoreControl: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLButtonElement, SpotlightShowMoreControlProps>(
 	({ onClick, testId }: SpotlightShowMoreControlProps, ref) => {
 		return (
-			<Pressable
-				xcss={fg('platform-dst-motion-uplift-custom-button') ? styles.rootMotion : styles.root}
-				onClick={onClick}
-				ref={ref}
-				testId={testId}
-			>
+			<Pressable xcss={styles.rootMotion} onClick={onClick} ref={ref} testId={testId}>
 				<ShowMoreHorizontalIcon label="Show more" />
 			</Pressable>
 		);

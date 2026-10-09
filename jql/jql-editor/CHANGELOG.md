@@ -1,5 +1,17 @@
 # @atlaskit/jql-editor
 
+## 8.1.0
+
+### Minor Changes
+
+- [`27564eb2ca9ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27564eb2ca9ad) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

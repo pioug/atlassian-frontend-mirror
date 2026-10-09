@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { cssMap } from '@atlaskit/css';
 import { Label } from '@atlaskit/form/label/default';
-import { Grid } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 import Select from '@atlaskit/select/default';
 import Textfield from '@atlaskit/textfield/text-field';
 

@@ -12,11 +12,11 @@ import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { FLAG_ID } from '../blockMenuPluginType';
 import { blockMenuPluginKey } from '../pm-plugins/main';
+import { isCopyLinkEnabled } from '../pm-plugins/utils/isCopyLinkEnabled';
 import { useBlockMenu } from './block-menu-provider';
 import { BLOCK_MENU_ITEM_NAME } from './consts';
 import { copyLink } from './utils/copyLink';
@@ -79,8 +79,7 @@ const CopyLinkDropdownItemContent = ({ api, config }: Props & WrappedComponentPr
 		});
 	}, [api, blockLinkHashPrefix, getLinkPath, onDropdownOpenChanged, selection]);
 
-	// Hide copy link when `platform_editor_adf_with_localid` feature flag is off
-	if (!fg('platform_editor_adf_with_localid')) {
+	if (!isCopyLinkEnabled(config)) {
 		return null;
 	}
 

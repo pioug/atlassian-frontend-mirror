@@ -1,4 +1,4 @@
-import type { Color as ColorType } from '@atlaskit/status/element';
+import type { Color as ColorType } from '@atlaskit/status/status';
 
 import type { closingMethods } from '../ui/statusPicker';
 

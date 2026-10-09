@@ -87,7 +87,7 @@ import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
 import { tallImage, asMockFunction, sleep } from '@atlaskit/media-test-helpers';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import {

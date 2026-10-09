@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
-import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import ProgressIndicator from '@atlaskit/progress-indicator/progress-dots';
 
 const CozyExample = (): React.JSX.Element => {
 	const [selectedIndex, setSelectedIndex] = useState(0);

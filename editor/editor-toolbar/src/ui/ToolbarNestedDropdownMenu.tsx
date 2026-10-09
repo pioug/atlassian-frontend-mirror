@@ -17,7 +17,7 @@ import { mergeRefs } from 'use-callback-ref';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
 import { ToolbarTooltip } from './ToolbarTooltip';

@@ -5,7 +5,8 @@
 import { IntlProvider } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Grid } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 import { token } from '@atlaskit/tokens';
 
 import { AgentProfileCreator, AgentProfileInfo } from '../src/ui/agent-profile-info';

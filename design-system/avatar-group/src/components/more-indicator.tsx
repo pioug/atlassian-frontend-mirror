@@ -7,7 +7,6 @@ import { type CSSProperties, forwardRef, useCallback } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { AppearanceType, AvatarClickEventHandler } from '@atlaskit/avatar/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type AvatarGroupSize } from './types';
@@ -247,7 +246,7 @@ const MoreIndicator: React.ForwardRefExoticComponent<
 					widthHeightMap[size],
 					fontMap[size],
 					isActive && styles.active,
-					fg('platform-dst-motion-uplift-custom-button') && styles.motion,
+					styles.motion,
 				]}
 			>
 				+{displayCount}

@@ -15,7 +15,7 @@ import TagIcon from '@atlaskit/icon/core/tag';
 import CheckboxIcon from '@atlaskit/icon/core/task';
 import TextIcon from '@atlaskit/icon/core/text';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { normaliseJqlString } from '@atlaskit/jql-ast';
+import { normaliseJqlString } from '@atlaskit/jql-ast/normalise-jql-string';
 import type { Position } from '@atlaskit/jql-autocomplete/types';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

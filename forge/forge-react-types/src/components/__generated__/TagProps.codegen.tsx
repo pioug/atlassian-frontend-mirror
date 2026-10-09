@@ -3,25 +3,25 @@
  *
  * Extract component prop types from UIKit 2 components - TagProps
  *
- * @codegen <<SignedSource::207ff41907aa29f2807a61c193049a84>>
+ * @codegen <<SignedSource::0ce4d376a33be2e7548bab001cacf9de>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tag/__generated__/index.partial.tsx <<SignedSource::c7b50bdfe39850c3363f4d8e0c100e53>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tag/__generated__/index.partial.tsx <<SignedSource::3ad5cf8f8aefc08bc5eab701d17d3bfe>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import React from 'react';
-import PlatformSimpleTag from '@atlaskit/tag/tag/simple';
+import PlatformRemovableTag from '@atlaskit/tag/removable-tag';
 
-type PlatformSimpleTagProps = React.ComponentProps<typeof PlatformSimpleTag>;
+type PlatformRemovableTagProps = React.ComponentProps<typeof PlatformRemovableTag>;
 
-export type SimpleTagProps = Pick<
-  PlatformSimpleTagProps,
-  'text' | 'appearance' | 'color' | 'elemBefore' | 'href' | 'testId'
+export type RemovableTagProps = Pick<
+  PlatformRemovableTagProps,
+  'text' | 'appearance' | 'color' | 'elemBefore' | 'href' | 'testId' | 'isRemovable' | 'removeButtonLabel' | 'onAfterRemoveAction' | 'onBeforeRemoveAction'
 >;
 
 /**
  * A tag labels UI objects for quick recognition and navigation.
  *
- * @see [SimpleTag](https://developer.atlassian.com/platform/forge/ui-kit/components/tag/) in UI Kit documentation for more information
+ * @see [RemovableTag](https://developer.atlassian.com/platform/forge/ui-kit/components/tag/) in UI Kit documentation for more information
  */
-export type TSimpleTag<T> = (props: SimpleTagProps) => T;
+export type TRemovableTag<T> = (props: RemovableTagProps) => T;

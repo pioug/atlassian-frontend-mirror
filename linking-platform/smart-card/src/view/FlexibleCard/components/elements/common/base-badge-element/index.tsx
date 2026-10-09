@@ -9,7 +9,7 @@ import React, { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../../constants';

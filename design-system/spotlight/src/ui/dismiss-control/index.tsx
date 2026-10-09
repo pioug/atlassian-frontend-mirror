@@ -6,7 +6,7 @@ import { forwardRef, useContext } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
-import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled';
+import { Pressable, type PressableProps } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { SpotlightContext } from '../../controllers/context';

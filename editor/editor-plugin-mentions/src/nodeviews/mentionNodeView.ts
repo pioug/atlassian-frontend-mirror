@@ -74,6 +74,9 @@ const isMentionTextAnAaid = (text: string): boolean => AAID_MENTION_TEXT_PATTERN
 const isAgentMentionsExperimentEnabled = (): boolean =>
 	expVal('platform_editor_agent_mentions', 'isEnabled', false);
 
+const isAgentMentionUserType = (userType: string | null | undefined): boolean =>
+	userType === 'APP' || userType === 'AGENT';
+
 /**
  * Returns true if the node is an APP/AGENT mention whose stored text is a raw
  * AAID (e.g. '@712020:uuid') rather than a resolved display name.
@@ -82,7 +85,7 @@ const isAgentMentionsExperimentEnabled = (): boolean =>
  */
 const isAgentAaidText = (node: PMNode, isAgentMentionsEnabled: boolean): boolean =>
 	isAgentMentionsEnabled &&
-	(node.attrs.userType === 'APP' || node.attrs.userType === 'AGENT') &&
+	isAgentMentionUserType(node.attrs.userType) &&
 	!!node.attrs.text &&
 	isMentionTextAnAaid(node.attrs.text);
 
@@ -255,7 +258,9 @@ export class MentionNodeView implements NodeView {
 			(cohort === 'person' ||
 				cohort === 'all' ||
 				isExperimentEnabled('platform_editor_mention_node_avatar') ||
-				isExperimentEnabled('platform_editor_mention_node_graphql_provider'));
+				isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
+				(isAgentMentionUserType(node.attrs.userType) &&
+					isExperimentEnabled('platform_editor_drop3_hexagon_agent_avatar')));
 
 		this.hasAvatarSlot = hasProvider && isAvatarEnabled;
 

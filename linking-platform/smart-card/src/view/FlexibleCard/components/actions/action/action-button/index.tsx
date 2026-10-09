@@ -13,7 +13,7 @@ import LinkIconButton from '@atlaskit/button/icon/link';
 import LinkButton from '@atlaskit/button/link';
 import LoadingButton from '@atlaskit/button/loading-button';
 import type { IconProp } from '@atlaskit/button/variants/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

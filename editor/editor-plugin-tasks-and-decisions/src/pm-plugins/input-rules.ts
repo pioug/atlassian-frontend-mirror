@@ -1,7 +1,8 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags, InputRuleWrapper } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
 import { createRule } from '@atlaskit/editor-common/utils';
 import type {
 	Fragment,
@@ -13,7 +14,8 @@ import type {
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
-import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules/constants';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
 
 import type {
 	AddItemAttrs,

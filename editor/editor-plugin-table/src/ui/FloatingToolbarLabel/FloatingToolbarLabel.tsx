@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Popup } from '@atlaskit/editor-common/ui';
+import Popup from '@atlaskit/editor-common/Popup';
 
 interface Props {
 	alignX?: 'left' | 'center' | 'right';

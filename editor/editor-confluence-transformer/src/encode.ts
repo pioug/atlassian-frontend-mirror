@@ -3,7 +3,8 @@ import { hexToRgb } from '@atlaskit/adf-schema/hex-to-rgb';
 import type { MediaAttributes } from '@atlaskit/adf-schema/media';
 import type { RichMediaAttributes as MediaSingleAttributes } from '@atlaskit/adf-schema/rich-media-common';
 import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
-import { timestampToIsoFormat, calcTableColumnWidths } from '@atlaskit/editor-common/utils';
+import { timestampToIsoFormat } from '@atlaskit/editor-common/utils/date';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils/table';
 import type { Fragment, Node as PMNode, Mark, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { AC_XMLNS, FAB_XMLNS, default as encodeCxhtml } from './encode-cxhtml';

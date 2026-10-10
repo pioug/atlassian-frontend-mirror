@@ -3,13 +3,13 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
-	INPUT_METHOD,
 	RendererSyncBlockEventPayload,
-	OperationalAEP,
 	SyncBlockEventPayload,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import type { OperationalAEP } from '@atlaskit/editor-common/analytics/types/utils';
 
 import { SyncBlockError } from '../common/types';
 import type { DeletionMechanism, DeletionReason } from '../common/types';

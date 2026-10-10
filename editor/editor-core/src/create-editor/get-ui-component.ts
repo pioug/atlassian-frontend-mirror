@@ -1,4 +1,4 @@
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 
 import type { EditorAppearanceComponentProps } from '../types/editor-appearance-component';
 import Chromeless from '../ui/Appearance/Chromeless';

@@ -9,13 +9,15 @@ import { jsx, css } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
-import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { token } from '@atlaskit/tokens';
 

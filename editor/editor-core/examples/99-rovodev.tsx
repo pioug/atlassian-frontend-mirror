@@ -13,7 +13,7 @@ import { createRoot } from 'react-dom/client';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';

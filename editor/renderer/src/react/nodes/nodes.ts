@@ -2,7 +2,8 @@
 
 import type React from 'react';
 
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
 
 import Expand from '../../ui/Expand';
 import BlockCard from './blockCard';

@@ -11,8 +11,9 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
-import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages/find-replace';
 
 import type { MatchCaseProps } from '../types';
 import Find from './Find';

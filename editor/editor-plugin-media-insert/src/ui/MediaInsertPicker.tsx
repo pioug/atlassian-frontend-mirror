@@ -10,21 +10,19 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 	MEDIA_INSERT_TAB,
-} from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	DEFAULT_MEDIA_INSERT_TAB_RANK,
 	MEDIA_INSERT_TAB_RANK,
 } from '@atlaskit/editor-common/media-insert/rank';
-import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
-import {
-	PlainOutsideClickTargetRefContext,
-	Popup,
-	withOuterListeners,
-} from '@atlaskit/editor-common/ui';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { mediaInsertMessages } from '@atlaskit/editor-common/messages/media-insert';
+import Popup from '@atlaskit/editor-common/Popup';
+import { PlainOutsideClickTargetRefContext } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import withOuterListeners from '@atlaskit/editor-common/with-outer-listeners';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box, Focusable, Text } from '@atlaskit/primitives/compiled';
 import TabList from '@atlaskit/tabs/tab-list';

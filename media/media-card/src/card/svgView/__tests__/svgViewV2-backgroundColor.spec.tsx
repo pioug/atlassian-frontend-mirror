@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { render, screen } from '@atlassian/testing-library';
 
 import { SvgView } from '../svgViewV2';

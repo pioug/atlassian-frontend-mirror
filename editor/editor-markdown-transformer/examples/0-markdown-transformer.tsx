@@ -11,7 +11,9 @@ import React from 'react';
 import { jsx, css } from '@compiled/react';
 
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports -- Example file, requires core
-import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
+import Editor from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';
 import { token } from '@atlaskit/tokens';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 

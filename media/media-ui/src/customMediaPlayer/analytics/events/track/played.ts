@@ -1,4 +1,4 @@
-import { type TrackAttributes, type TrackEventPayload } from '@atlaskit/media-common';
+import type { TrackAttributes, TrackEventPayload } from '@atlaskit/media-common/analytics/types';
 
 import { type CustomMediaPlayerType, type WithCustomMediaPlayerType } from '../../../types';
 import {

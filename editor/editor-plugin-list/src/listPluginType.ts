@@ -1,8 +1,11 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type {

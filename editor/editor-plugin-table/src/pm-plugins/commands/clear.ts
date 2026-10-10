@@ -1,7 +1,9 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { emptyCell, findCellClosestToPos, isSelectionType } from '@atlaskit/editor-tables/utils';
+import { findCellClosestToPos } from '@atlaskit/editor-tables/utils';
+import { emptyCell } from '@atlaskit/editor-tables/utils/empty-cells';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 
 export const clearMultipleCells =
 	(targetCellPosition?: number): Command =>

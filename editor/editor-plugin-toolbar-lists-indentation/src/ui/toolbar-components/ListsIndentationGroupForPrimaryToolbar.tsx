@@ -1,14 +1,15 @@
 import React from 'react';
 
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import {
 	LISTS_INDENTATION_GROUP,
 	LISTS_INDENTATION_GROUP_COLLAPSED,
 	TEXT_SECTION_PRIMARY_TOOLBAR,
-	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
-	useEditorToolbar,
-} from '@atlaskit/editor-common/toolbar';
-import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TEXT_SECTION_PRIMARY_TOOLBAR_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { Show } from '@atlaskit/editor-toolbar/show';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 
 const ListsIndentationGroup = ({ children }: { children: React.ReactNode }) => {
 	const { editorAppearance } = useEditorToolbar();

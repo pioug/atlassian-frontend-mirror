@@ -7,15 +7,15 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { IconCode } from '@atlaskit/editor-common/assets';
 import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_CODE_BLOCK_MENU_ITEM,
-	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';

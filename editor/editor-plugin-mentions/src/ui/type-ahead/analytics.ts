@@ -1,6 +1,6 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isSpecialMention } from '@atlaskit/mention/is-special-mention';
 import type { UserRole, MentionDescription } from '@atlaskit/mention/types';

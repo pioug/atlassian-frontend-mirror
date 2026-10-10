@@ -1,5 +1,6 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import { mapSlice, timestampToString } from '@atlaskit/editor-common/utils';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { timestampToString } from '@atlaskit/editor-common/utils/date';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

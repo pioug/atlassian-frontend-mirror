@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
 
 const CustomGlyph = () => (
 	<svg width="24" height="24" fill="none" viewBox="0 0 24 24">

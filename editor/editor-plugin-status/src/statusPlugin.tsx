@@ -7,20 +7,19 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconStatus } from '@atlaskit/editor-common/assets';
 import {
+	TRANSFORM_STRUCTURE_STATUS_MENU_ITEM,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
-	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import { TRANSFORM_STRUCTURE_STATUS_MENU_ITEM } from '@atlaskit/editor-common/block-menu/key';
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
 import { addInlineComment, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import {
-	annotationMessages,
-	toolbarInsertBlockMessages as messages,
-} from '@atlaskit/editor-common/messages';
-import { IconStatus } from '@atlaskit/editor-common/quick-insert';
-import type { FloatingToolbarItem, Command } from '@atlaskit/editor-common/types';
-import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
+import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

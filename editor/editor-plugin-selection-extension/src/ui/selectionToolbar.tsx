@@ -1,11 +1,11 @@
 import React from 'react';
 
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarCustom,
 	FloatingToolbarOverflowDropdownOptions,
-	SelectionToolbarGroup,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { SelectionToolbarGroup } from '@atlaskit/editor-common/types/selection-toolbar';
 
 import type { ExtensionConfiguration } from '../types';
 import { getToolbarItemExtensions } from './extensions';

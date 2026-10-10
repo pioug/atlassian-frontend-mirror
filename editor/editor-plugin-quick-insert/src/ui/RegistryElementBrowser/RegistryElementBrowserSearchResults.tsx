@@ -11,7 +11,7 @@ import LinkButton from '@atlaskit/button/link';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
-import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { getQuickInsertMenuItemParents } from '@atlaskit/editor-common/quick-insert/get-menu-item-parents';
 import { getQuickInsertProviderMenuItemKey } from '@atlaskit/editor-common/quick-insert/get-provider-menu-item-key';

@@ -1,5 +1,5 @@
 import { mention } from '@atlaskit/adf-schema/mention';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';

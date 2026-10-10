@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { type MediaClient, type MediaFileArtifacts, type MediaType } from '@atlaskit/media-client';
+import type { MediaFileArtifacts } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/media-client/media';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 type NativeMediaViewerProps = {
 	id: string;

@@ -1,16 +1,16 @@
 import type { ComponentType, ReactNode } from 'react';
 
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media/media-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type { CustomizedHelperMessage, InsertMediaSingle } from './types';

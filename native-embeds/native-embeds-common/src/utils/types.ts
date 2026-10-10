@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 import type { BUILTIN_TOOLBAR_KEYS, EDITOR_TOOLBAR_HANDLER_KEYS } from './constants';

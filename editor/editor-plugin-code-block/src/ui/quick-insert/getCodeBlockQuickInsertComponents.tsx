@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { CODE_BLOCK_MENU_ITEM, STRUCTURE_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
 import { STRUCTURE_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { CodeBlockPlugin } from '../../codeBlockPluginType';

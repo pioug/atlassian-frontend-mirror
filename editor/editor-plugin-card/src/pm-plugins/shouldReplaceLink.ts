@@ -1,5 +1,5 @@
 import { normalizeUrl } from '@atlaskit/adf-schema/normalize-url';
-import { md } from '@atlaskit/editor-common/paste';
+import { md } from '@atlaskit/editor-common/paste/md';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export function shouldReplaceLink(

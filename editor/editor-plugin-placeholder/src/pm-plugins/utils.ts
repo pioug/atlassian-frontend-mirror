@@ -1,10 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import {
-	bracketTyped,
-	hasDocAsParent,
-	isEmptyDocument,
-	isEmptyParagraph,
-} from '@atlaskit/editor-common/utils';
+import { hasDocAsParent, isEmptyDocument, isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { bracketTyped } from '@atlaskit/editor-common/utils/document';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';

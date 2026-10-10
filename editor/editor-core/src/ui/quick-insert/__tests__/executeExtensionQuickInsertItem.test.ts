@@ -1,7 +1,8 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
-import type { EditorCommand, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type EditorActions from '../../../actions';

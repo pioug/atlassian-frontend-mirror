@@ -29,7 +29,7 @@ customFields:
     value: 1
   - name: Trusted Reviewer Teams
     type: text
-    value: ari:cloud:identity::team/7cfec967-4cef-4e5d-882a-9458a150a2df
+    value: ari:cloud:identity::team/7cfec967-4cef-4e5d-882a-9458a150a2df,ari:cloud:identity::team/0ba7be15-f43b-46ff-9f2b-191c430689c8
   - name: Technical Owner
     type: user
     value: ari:cloud:identity::user/557057:39edaad5-841d-4699-ac7c-527acd6a72ec # Peter Obara

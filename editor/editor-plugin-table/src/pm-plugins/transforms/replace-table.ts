@@ -1,5 +1,7 @@
-import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';

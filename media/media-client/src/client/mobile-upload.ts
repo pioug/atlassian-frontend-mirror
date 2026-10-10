@@ -2,7 +2,7 @@ import type Dataloader from 'dataloader';
 import { type LRUMap } from 'lru_map';
 import { type Interpreter } from 'xstate';
 
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
 import type {
 	ErrorFileState,
 	FileState,

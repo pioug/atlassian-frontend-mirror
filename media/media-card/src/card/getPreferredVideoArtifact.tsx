@@ -1,4 +1,4 @@
-import { type FileState, type MediaFileArtifacts } from '@atlaskit/media-client';
+import type { FileState, MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 
 export const getPreferredVideoArtifact = (
 	fileState: FileState,

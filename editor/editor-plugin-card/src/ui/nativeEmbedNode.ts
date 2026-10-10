@@ -1,16 +1,12 @@
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	type AnalyticsEventPayload,
-	type EditorAnalyticsAPI,
-	type SMART_LINK_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { SMART_LINK_TYPE } from '@atlaskit/editor-common/analytics/types/node-events';
 import {
 	NATIVE_EMBED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_TYPE,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/manifest-helpers';
 import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

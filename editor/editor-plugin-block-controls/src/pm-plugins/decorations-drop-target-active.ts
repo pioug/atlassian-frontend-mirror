@@ -1,9 +1,9 @@
 import memoizeOne from 'memoize-one';
 import type { IntlShape } from 'react-intl';
 
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';

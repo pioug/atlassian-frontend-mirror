@@ -1,4 +1,4 @@
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
 
 import { INPUT_METHOD } from '../analytics';
 import { TOOLBARS } from './keys';

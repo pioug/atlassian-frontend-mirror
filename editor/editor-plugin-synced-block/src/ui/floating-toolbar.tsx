@@ -2,27 +2,27 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import commonMessages, {
-	syncBlockMessages as messages,
-	toolbarInsertBlockMessages,
-} from '@atlaskit/editor-common/messages';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	FloatingToolbarConfig,
 	FloatingToolbarCustomRenderContext,
 	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/consts';
-import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';

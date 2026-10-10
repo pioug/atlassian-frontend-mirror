@@ -1,14 +1,15 @@
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
-} from '@atlaskit/editor-common/analytics';
-import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
-import { inputRuleWithAnalytics as ruleWithAnalytics } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics/types/list-events';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
+import { inputRuleWithAnalytics as ruleWithAnalytics } from '@atlaskit/editor-common/utils/input-rules';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 

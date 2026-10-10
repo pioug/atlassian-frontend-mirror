@@ -13,10 +13,11 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
+import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers/intersection-observer';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { Box } from '@atlaskit/primitives/compiled';
-import { Card, type CardProps } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import type { CardProps } from '@atlaskit/smart-card/card/types';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 

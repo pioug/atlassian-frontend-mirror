@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { textColor } from '@atlaskit/adf-schema/text-color';
-import type {
-	Command,
-	FloatingToolbarCustom,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { changeColor as changeColorCommand } from './editor-commands/change-color';

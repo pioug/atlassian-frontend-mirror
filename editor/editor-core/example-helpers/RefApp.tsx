@@ -7,12 +7,12 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { jsx } from '@emotion/react';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { toJSON } from '@atlaskit/editor-common/utils';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { toJSON } from '@atlaskit/editor-common/utils/nodes';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { ReactRenderer } from '@atlaskit/renderer';
+import ReactRenderer from '@atlaskit/renderer/renderer';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

@@ -1,12 +1,13 @@
 import { getNodeSelectionForPos, selectNodeAtPos } from '@atlaskit/editor-common/node-selection';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { selectTableClosestToPos } from '@atlaskit/editor-tables/select-table-closest-to-pos';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';

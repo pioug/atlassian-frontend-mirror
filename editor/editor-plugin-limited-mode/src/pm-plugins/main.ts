@@ -1,7 +1,7 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { shouldEnableLimitedModeForDocument } from '@atlaskit/editor-common/should-enable-limited-mode';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

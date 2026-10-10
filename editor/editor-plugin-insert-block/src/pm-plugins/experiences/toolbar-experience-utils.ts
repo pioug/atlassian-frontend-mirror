@@ -1,4 +1,4 @@
-import type { ExperienceCheckResult } from '@atlaskit/editor-common/experiences';
+import type { ExperienceCheckResult } from '@atlaskit/editor-common/experiences/ExperienceCheck';
 
 /**
  * DOM marker selectors for node types inserted via toolbar actions.

@@ -1,6 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 
-import { EditorMainToolbarModel, EditorPageModel } from '@af/editor-libra/page-models';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models/editor-main-toolbar-model';
+import { EditorPageModel } from '@af/editor-libra/page-models/editor-page-model';
 import { snapshotInformational } from '@af/visual-regression';
 
 import { EditorWithElementBrowser } from './element-browser.fixtures.vr.ap';

@@ -1,4 +1,4 @@
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 
 import { key } from '../pm-plugins/main';

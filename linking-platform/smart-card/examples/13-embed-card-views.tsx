@@ -4,9 +4,9 @@ import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,
 	ResolvedClientUrlNoPreview,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Stack } from '@atlaskit/primitives/compiled';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 
 import CardViewExample from './card-view';
 import CardViewSection from './card-view/card-view-section';

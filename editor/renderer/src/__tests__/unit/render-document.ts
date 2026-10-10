@@ -1,13 +1,16 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { validateADFEntity } from '@atlaskit/editor-common/utils';
+import { validateADFEntity } from '@atlaskit/editor-common/validate-using-spec';
 
 import { renderDocument } from '../../render-document';
 import type { Serializer } from '../../serializer';
 
 // Spy on the real implementation: what matters is how *often* validation runs, not what it returns.
-jest.mock('@atlaskit/editor-common/utils', () => {
-	const actual = jest.requireActual('@atlaskit/editor-common/utils');
-	return { ...actual, validateADFEntity: jest.fn(actual.validateADFEntity) };
+jest.mock('@atlaskit/editor-common/validate-using-spec', () => {
+	const actual = jest.requireActual('@atlaskit/editor-common/validate-using-spec');
+	return {
+		...jest.requireActual('@atlaskit/editor-common/validate-using-spec'),
+		validateADFEntity: jest.fn(actual.validateADFEntity),
+	};
 });
 
 const validateSpy = validateADFEntity as jest.Mock;

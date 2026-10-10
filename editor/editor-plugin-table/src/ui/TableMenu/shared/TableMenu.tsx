@@ -1,12 +1,12 @@
 import React, { memo, useMemo } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
-import type { MenuType, RegisterComponent } from '@atlaskit/editor-ui-control-model';
-import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
+import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
+import type { MenuType, RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import { canSplitCellSelection } from '../../../pm-plugins/commands/split-cell';
 import { canMergeCellSelection } from '../../../pm-plugins/transforms/merge';

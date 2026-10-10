@@ -1,6 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { type FileState } from '@atlaskit/media-client';
-import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+import type { ProcessingFailedState, FileState } from '@atlaskit/media-state/file-state';
 
 import { MediaCardError } from '../MediaCardError';
 import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';

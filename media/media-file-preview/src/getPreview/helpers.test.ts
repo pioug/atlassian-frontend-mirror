@@ -1,5 +1,5 @@
 jest.mock('@atlaskit/media-ui/imageMetaData/getOrientation');
-import { type MediaClient } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
 
 import { isLocalPreviewError } from '../isLocalPreviewError';

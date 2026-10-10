@@ -1,4 +1,4 @@
-import type { ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityProvider } from '@atlaskit/activity-provider/types';
 import type { EmojiProvider } from '@atlaskit/emoji/types';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';

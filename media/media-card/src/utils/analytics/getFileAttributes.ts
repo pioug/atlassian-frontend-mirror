@@ -1,5 +1,6 @@
-import { type FileDetails, type FileStatus } from '@atlaskit/media-client';
-import { type FileAttributes } from '@atlaskit/media-common/analytics';
+import type { FileStatus } from '@atlaskit/media-client/file-state';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { FileAttributes } from '@atlaskit/media-common/analytics/types';
 
 export const getFileAttributes = (
 	metadata: FileDetails,

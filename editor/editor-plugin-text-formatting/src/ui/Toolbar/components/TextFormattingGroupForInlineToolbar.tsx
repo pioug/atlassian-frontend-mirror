@@ -4,13 +4,12 @@ import {
 	TEXT_FORMATTING_GROUP_INLINE,
 	TEXT_FORMATTING_HERO_BUTTON,
 	TEXT_SECTION,
-	TEXT_SECTION_RANK,
 	TEXT_FORMATTING_GROUP,
-	TEXT_FORMAT_GROUP_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TEXT_SECTION_RANK, TEXT_FORMAT_GROUP_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 
 import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import { FormatOptions } from '../types';

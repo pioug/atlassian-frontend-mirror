@@ -1,12 +1,12 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	CategoryInformation,
 	CategoryKey,
 	LegacyCategoryKey,
 	QuickInsertInformationAttributes,
 } from '@atlaskit/editor-common/analytics/types/quick-insert-events';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { getQuickInsertMenuItemParents } from '@atlaskit/editor-common/quick-insert/get-menu-item-parents';
 import {
 	BLOCK_TEMPLATES_SECTION,

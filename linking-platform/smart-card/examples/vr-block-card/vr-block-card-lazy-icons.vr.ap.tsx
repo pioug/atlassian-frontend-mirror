@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-import { withWaitForItem } from '@atlaskit/link-test-helpers';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 
 import {
 	BlockCardLazyIconsExample1,

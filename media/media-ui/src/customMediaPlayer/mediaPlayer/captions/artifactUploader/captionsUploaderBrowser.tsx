@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 
-import { type MediaItemDetails } from '@atlaskit/media-client';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaItemDetails } from '@atlaskit/media-client/media';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import { messages } from '../../../../messages';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';

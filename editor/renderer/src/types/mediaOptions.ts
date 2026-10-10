@@ -1,6 +1,7 @@
-import type { MediaFeatureFlags, SSR } from '@atlaskit/media-common';
+import type { SSR } from '@atlaskit/media-common/main-types';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 
 export type MediaSSR = {
 	config: MediaClientConfig;

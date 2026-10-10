@@ -1,4 +1,4 @@
-import { isUndefined, omitBy } from '@atlaskit/media-common';
+import { isUndefined, omitBy } from '@atlaskit/media-common/helpers';
 
 import type { VideoState, VideoStatus } from '../../react-video-renderer/video';
 

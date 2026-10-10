@@ -1,20 +1,20 @@
-import type { HyperlinkState } from '@atlaskit/editor-common/link';
+import type { HyperlinkState } from '@atlaskit/editor-common/link/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { HyperlinkPluginOptions as CommonHyperlinkPluginOptions } from '@atlaskit/editor-common/types/hyperlink';
 import type {
-	EditorCommand,
-	HyperlinkPluginOptions as CommonHyperlinkPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { CardPlugin } from '@atlaskit/editor-plugin-card';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { CardPlugin } from '@atlaskit/editor-plugin-card/cardPluginType';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
+import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar/selection-toolbar-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 
 import type {
 	HideLinkToolbar,

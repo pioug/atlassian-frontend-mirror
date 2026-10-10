@@ -1,8 +1,6 @@
-import {
-	type FileState,
-	globalMediaEventEmitter,
-	type MediaViewedEventPayload,
-} from '@atlaskit/media-client';
+import type { MediaViewedEventPayload } from '@atlaskit/media-client/events';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 const fileAddedListener = (fileState: FileState) => {
 	// eslint-disable-next-line no-console

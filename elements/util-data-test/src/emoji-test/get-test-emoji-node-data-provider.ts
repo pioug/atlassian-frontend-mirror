@@ -1,4 +1,4 @@
-import { EmojiNodeDataProvider } from '@atlaskit/editor-plugin-emoji';
+import { EmojiNodeDataProvider } from '@atlaskit/editor-plugin-emoji/EmojiNodeDataProvider';
 
 import { MockEmojiResource } from '../emoji/mock-emoji-resource';
 import { getTestEmojiRepository } from './get-test-emoji-repository';

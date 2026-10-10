@@ -1,12 +1,12 @@
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { HistoryPlugin } from '@atlaskit/editor-plugin-history/historyPluginType';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
+import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
 
 export interface TrackChangesPluginOptions {
 	/**

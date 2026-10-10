@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { type MediaType, type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 import { render, screen, fireEvent } from '@atlassian/testing-library';
 
 import { ImageRenderer } from '../imageRenderer';

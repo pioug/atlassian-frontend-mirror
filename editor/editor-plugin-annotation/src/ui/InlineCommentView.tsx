@@ -1,31 +1,29 @@
 import React from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import type {
-	AnalyticsEventPayload,
-	AnnotationAEP,
-	DispatchAnalyticsEvent,
-	EditorAnalyticsAPI,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	CONTENT_COMPONENT,
 	EVENT_TYPE,
-	RESOLVE_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { AnnotationAEP } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import {
 	getAnnotationInlineNodeTypes,
 	getRangeInlineNodeNames,
-} from '@atlaskit/editor-common/utils';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/utils/annotation';
 import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

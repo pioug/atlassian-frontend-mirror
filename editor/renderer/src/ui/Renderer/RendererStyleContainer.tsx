@@ -11,41 +11,29 @@ import { css, jsx, type SerializedStyles } from '@emotion/react'; // oxlint-igno
 import { bulletListSelector } from '@atlaskit/adf-schema/bullet-list';
 import { orderedListSelector } from '@atlaskit/adf-schema/ordered-list';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { editorUGCTokensRefreshed } from '@atlaskit/editor-common/editor-ugc-token-names';
+import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline/styles';
+import { shadowClassNames } from '@atlaskit/editor-common/OverflowShadow';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles/date';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/styles/emoji';
+import { listItemCounterPadding } from '@atlaskit/editor-common/styles/lists';
+import { richMediaClassName } from '@atlaskit/editor-common/styles/media-single';
+import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles/smart-card';
 import {
-	EmojiSharedCssClassName,
-	defaultEmojiHeight,
-	defaultDenseEmojiHeight,
-	defaultInlineEmojiHeight,
-	scaledEmojiHeightH1,
-	scaledEmojiHeightH2,
-	scaledEmojiHeightH3,
-	scaledEmojiHeightH4,
-	denseEmojiHeightH1,
-	denseEmojiHeightH2,
-	denseEmojiHeightH3,
-	denseEmojiHeightH4,
-} from '@atlaskit/editor-common/emoji';
-import { INLINE_IMAGE_WRAPPER_CLASS_NAME } from '@atlaskit/editor-common/media-inline';
+	BodiedSyncBlockSharedCssClassName,
+	SyncBlockSharedCssClassName,
+} from '@atlaskit/editor-common/styles/sync-block';
 import {
-	CodeBlockSharedCssClassName,
-	DateSharedCssClassName,
-	listItemCounterPadding,
-	richMediaClassName,
-	SmartCardSharedCssClassName,
 	tableCellBorderWidth,
 	tableCellMinWidth,
 	tableCellPadding,
 	tableMarginTop,
-	TableSharedCssClassName,
-	TaskDecisionSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
-import {
-	BodiedSyncBlockSharedCssClassName,
-	SyncBlockSharedCssClassName,
-} from '@atlaskit/editor-common/sync-block';
-import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
-import { editorUGCTokensRefreshed } from '@atlaskit/editor-common/ugc-tokens';
-import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/styles/table';
+import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles/task-decision';
+import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table/consts';
+import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
@@ -66,7 +54,20 @@ import {
 	gridMediumMaxWidth,
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
+import {
+	defaultEmojiHeight,
+	defaultDenseEmojiHeight,
+	defaultInlineEmojiHeight,
+	scaledEmojiHeightH1,
+	scaledEmojiHeightH2,
+	scaledEmojiHeightH3,
+	scaledEmojiHeightH4,
+	denseEmojiHeightH1,
+	denseEmojiHeightH2,
+	denseEmojiHeightH3,
+	denseEmojiHeightH4,
+} from '@atlaskit/emoji/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

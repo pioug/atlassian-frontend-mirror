@@ -3,8 +3,8 @@ import React from 'react';
 import { EditorState } from 'prosemirror-state';
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';

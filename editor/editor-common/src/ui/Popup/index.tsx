@@ -6,7 +6,7 @@ import type { FocusTrap, Options as FocusTrapOptions } from 'focus-trap';
 import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
 
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { Position } from './utils';

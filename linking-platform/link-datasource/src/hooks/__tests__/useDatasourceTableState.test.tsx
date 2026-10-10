@@ -15,8 +15,9 @@ import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/u
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
-import { flushPromises } from '@atlaskit/link-test-helpers';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 

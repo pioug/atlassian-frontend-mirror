@@ -1,8 +1,8 @@
 import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { insm } from '@atlaskit/insm';
+import { insm } from '@atlaskit/insm/api';
 
 import type {
 	CreateTypeAheadDecorations,

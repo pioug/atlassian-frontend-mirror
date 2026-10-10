@@ -14,12 +14,15 @@ jest.mock('@atlaskit/platform-feature-flags/getBooleanFF', () => ({
 }));
 
 // Mock the block menu utilities
+jest.mock('@atlaskit/editor-common/block-menu/scroll-to-block-utils', () => ({
+	...jest.requireActual('@atlaskit/editor-common/block-menu/scroll-to-block-utils'),
+	expandAllParentsThenScroll: jest.fn(),
+	findNodeWithExpandParents: jest.fn(),
+}));
 jest.mock('@atlaskit/editor-common/block-menu', () => ({
 	...jest.requireActual('@atlaskit/editor-common/block-menu'),
-	expandAllParentsThenScroll: jest.fn(),
 	expandElement: jest.fn(),
 	isExpandCollapsed: jest.fn(),
-	findNodeWithExpandParents: jest.fn(),
 	getLocalIdSelector: jest.fn(),
 }));
 

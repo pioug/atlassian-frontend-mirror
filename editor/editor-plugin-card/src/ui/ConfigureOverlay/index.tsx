@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { OverlayButton } from '@atlaskit/editor-common/link';
+import { OverlayButton } from '@atlaskit/editor-common/link/ConfigureLinkOverlay';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 

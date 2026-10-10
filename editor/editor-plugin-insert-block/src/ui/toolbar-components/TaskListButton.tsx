@@ -2,12 +2,15 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { ToolTipContent, insertTaskList } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarButton, ToolbarTooltip, TaskIcon } from '@atlaskit/editor-toolbar';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { TaskIcon } from '@atlaskit/editor-toolbar/task-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 
 import { Flex } from '@atlaskit/primitives/compiled';
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import LinkUrl from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

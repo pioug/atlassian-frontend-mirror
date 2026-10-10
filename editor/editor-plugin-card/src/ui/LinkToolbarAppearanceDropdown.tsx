@@ -1,19 +1,18 @@
 import React from 'react';
 
-import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import {
-	appearancePropsMap,
-	commandWithMetadata,
-	getDropdownOption,
-} from '@atlaskit/editor-common/card';
-import type { OptionConfig } from '@atlaskit/editor-common/card';
-import { cardMessages as messages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { appearancePropsMap } from '@atlaskit/editor-common/card';
+import { getDropdownOption } from '@atlaskit/editor-common/card/link-toolbar-dropdown-options';
+import type { OptionConfig } from '@atlaskit/editor-common/card/types';
+import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	DropdownOptions,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';

@@ -1,5 +1,6 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { getStepRange, processRawValue } from '@atlaskit/editor-common/utils';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import { getStepRange } from '@atlaskit/editor-common/utils';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

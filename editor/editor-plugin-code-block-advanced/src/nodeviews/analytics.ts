@@ -1,5 +1,5 @@
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 
 export type CodeFoldingTrigger = 'gutter' | 'placeholder';
 

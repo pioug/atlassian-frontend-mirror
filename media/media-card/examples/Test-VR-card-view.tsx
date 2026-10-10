@@ -10,8 +10,10 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
-import { type FileDetails, type MediaType } from '@atlaskit/media-client';
-import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { MediaType } from '@atlaskit/media-common/main-types';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
+import { wideTransparentImage } from '@atlaskit/media-test-helpers/wideTransparentImageURI';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';

@@ -1,21 +1,18 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	type INPUT_METHOD,
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	type DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { copyDomNodeWithResult, toDOM } from '@atlaskit/editor-common/copy-button';
-import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection';
-import type {
-	Command,
-	CommandDispatch,
-	EditorCommand,
-	ExtractInjectionAPI,
-	TypeAheadInsert,
-} from '@atlaskit/editor-common/types';
+import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection/utils';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import {
 	type Schema,
 	DOMSerializer,
@@ -36,7 +33,7 @@ import {
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

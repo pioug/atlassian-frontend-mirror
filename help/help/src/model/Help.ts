@@ -1,5 +1,5 @@
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 
 import type { Props as HelpContentButtonProps } from '../components/HelpContentButton';
 import { type Article, type ArticleItem, type ArticleFeedback } from './Article';

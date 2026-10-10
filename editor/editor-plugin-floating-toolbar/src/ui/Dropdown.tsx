@@ -8,19 +8,17 @@ import React, { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
+import type { OpenChangedEvent } from '@atlaskit/editor-common/DropList';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type {
-	CommandDispatch,
 	DropdownOptions,
 	DropdownOptionT,
 	ExtensionDropdownOptions,
 	FloatingToolbarOverflowDropdownOptions,
-} from '@atlaskit/editor-common/types';
-import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
-import {
-	ArrowKeyNavigationType,
-	DropdownContainer as UiDropdown,
-} from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';

@@ -1,17 +1,19 @@
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	USER_CONTEXT,
-} from '@atlaskit/editor-common/analytics';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { Command, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
-import { autoJoinTr } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { USER_CONTEXT } from '@atlaskit/editor-common/analytics/types/insert-events';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import { autoJoinTr } from '@atlaskit/editor-common/utils/autojoin';
 import type { NodeType, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { NodeRange } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';

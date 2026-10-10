@@ -4,7 +4,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ForbiddenWithObjectRequestAccessClient,
 	ResolvedClientUrl,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { Card } from '../../src';
 

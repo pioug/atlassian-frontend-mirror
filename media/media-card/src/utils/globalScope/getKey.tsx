@@ -1,4 +1,4 @@
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 
 const dashed = (param?: string) => (param ? `-${param}` : '');
 

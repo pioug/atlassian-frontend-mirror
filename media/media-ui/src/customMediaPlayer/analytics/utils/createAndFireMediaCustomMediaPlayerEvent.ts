@@ -1,7 +1,7 @@
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 
 import type { CustomMediaPlayerAnalyticsEventPayload } from './analytics';
 

@@ -1,17 +1,17 @@
 import type { IndentationMarkAttributes } from '@atlaskit/adf-schema/indentation';
-import type {
-	EditorAnalyticsAPI,
-	FormatEventPayload,
-	INDENT_DIRECTION,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	INDENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	FormatEventPayload,
+	INDENT_DIRECTION,
+} from '@atlaskit/editor-common/analytics/types/format-events';
+import { INDENT_TYPE } from '@atlaskit/editor-common/analytics/types/format-events';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { GetAttrsChange } from '../indentationPluginType';

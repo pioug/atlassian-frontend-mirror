@@ -1,4 +1,4 @@
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 export interface SerializableObject {
 	[key: string]: string | number | boolean | null | undefined | SerializableObject;

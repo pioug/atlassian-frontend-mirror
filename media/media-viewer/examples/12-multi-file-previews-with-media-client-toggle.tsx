@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import {
-	I18NWrapper,
-	defaultCollectionName,
-	addGlobalEventEmitterListeners,
-	createStorybookMediaClientConfig,
-} from '@atlaskit/media-test-helpers';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import {
 	docIdentifier,

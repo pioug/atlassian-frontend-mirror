@@ -2,29 +2,29 @@ import React from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import commonMessages, {
-	layoutMessages,
-	layoutMessages as toolbarMessages,
-} from '@atlaskit/editor-common/messages';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import commonMessages from '@atlaskit/editor-common/messages';
+import {
+	toolbarMessages as layoutMessages,
+	toolbarMessages,
+} from '@atlaskit/editor-common/messages/layout';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	CommandDispatch,
 	DropdownOptions,
-	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarCopyButton,
 	FloatingToolbarItem,
 	FloatingToolbarSeparator,
 	Icon,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LayoutOneColumnIcon from '@atlaskit/icon/core/layout-one-column';

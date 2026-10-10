@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ForbiddenWithObjectRequestAccessClient } from '@atlaskit/link-test-helpers';
+import { ForbiddenWithObjectRequestAccessClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import VRCardView from '../utils/vr-card-view';
 

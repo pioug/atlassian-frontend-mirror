@@ -3,7 +3,7 @@ import type { UnbindFn } from 'bind-event-listener';
 
 import { isBlockControlsSuppressionTarget } from '@atlaskit/editor-common/block-controls-suppression';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

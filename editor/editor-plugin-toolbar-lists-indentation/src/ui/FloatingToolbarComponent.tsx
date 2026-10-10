@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

@@ -1,6 +1,6 @@
 import { mediaSingleSpec } from '@atlaskit/adf-schema/media-single-spec';
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 

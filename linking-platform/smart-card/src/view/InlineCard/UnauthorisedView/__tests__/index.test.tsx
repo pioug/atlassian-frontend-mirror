@@ -3,7 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { getCachedProviderPctMapAndRefresh } from '../../../../state/services/personalization/getCachedProviderPctMapAndRefresh';

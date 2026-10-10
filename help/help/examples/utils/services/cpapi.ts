@@ -1,6 +1,6 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
 
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
 
 import type { WhatsNewArticleItem, WhatsNewArticle, articleId } from '../../../src';
 

@@ -1,4 +1,4 @@
-import { type MediaClientErrorReason } from '@atlaskit/media-client';
+import type { MediaClientErrorReason } from '@atlaskit/media-client/errors/types';
 
 import { isMediaFileStateError } from './isMediaFileStateError';
 

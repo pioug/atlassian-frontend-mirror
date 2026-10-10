@@ -9,8 +9,8 @@ import { IntlProvider } from 'react-intl';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorContext } from '@atlaskit/editor-core/editor-context';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { AbstractMentionResource } from '@atlaskit/mention/abstract-mention-resource';
 import type {

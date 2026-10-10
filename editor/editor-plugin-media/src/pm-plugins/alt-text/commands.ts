@@ -1,12 +1,13 @@
-import type { EditorAnalyticsAPI, MediaAltTextActionType } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { Command } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { MediaAltTextActionType } from '@atlaskit/editor-common/analytics/types/media-events';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 

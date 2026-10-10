@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
 import type { GroupType } from '@atlaskit/select/types';
 
 export const NONE_LANGUAGE_VALUE = 'none';

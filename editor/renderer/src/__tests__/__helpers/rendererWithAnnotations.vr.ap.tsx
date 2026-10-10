@@ -6,12 +6,12 @@ import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type { InlineCommentAnnotationProvider } from '@atlaskit/editor-common/types/annotation';
 import type {
 	AnnotationUpdateEventPayloads,
 	AnnotationUpdateEvent,
-	InlineCommentAnnotationProvider,
-} from '@atlaskit/editor-common/types';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/emitter';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types/emitter';
 
 import Renderer from '../../ui/Renderer';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';

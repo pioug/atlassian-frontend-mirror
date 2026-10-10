@@ -4,19 +4,15 @@
 import memoizeOne from 'memoize-one';
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import {
-	nativeEmbedsFallbackTransform,
-	transformContainerNodes,
-	transformMediaLinkMarks,
-	transformNestedTablesIncomingDocument,
-} from '@atlaskit/adf-utils/transforms';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import {
-	findAndTrackUnsupportedContentNodes,
-	validateADFEntity,
-} from '@atlaskit/editor-common/utils';
-import type { ADFStage } from '@atlaskit/editor-common/validator';
+import { transformContainerNodes } from '@atlaskit/adf-utils/depth-limited-nesting-container-nodes-transform';
+import { transformMediaLinkMarks } from '@atlaskit/adf-utils/media-link-transform';
+import { nativeEmbedsFallbackTransform } from '@atlaskit/adf-utils/native-embeds-fallback-transform';
+import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils/get-unsupported-content-level-data';
+import { findAndTrackUnsupportedContentNodes } from '@atlaskit/editor-common/utils/track-unsupported-content';
+import type { ADFStage } from '@atlaskit/editor-common/utils/validator';
+import { validateADFEntity } from '@atlaskit/editor-common/validate-using-spec';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

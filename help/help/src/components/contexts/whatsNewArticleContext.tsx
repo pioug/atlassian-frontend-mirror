@@ -1,7 +1,7 @@
 import React, { useState, useCallback, type PropsWithChildren } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 
 import { type articleId } from '../../model/Help';
 import { REQUEST_STATE } from '../../model/Requests';

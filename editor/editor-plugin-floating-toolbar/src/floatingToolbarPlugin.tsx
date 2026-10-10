@@ -3,41 +3,38 @@ import React from 'react';
 import camelCase from 'lodash/camelCase';
 import type { IntlShape } from 'react-intl';
 
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type {
-	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
 	FLOATING_CONTROLS_TITLE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	CONTENT_COMPONENT,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import {
-	// Deprecated API - Look at removing this sometime in the future
-	useSharedPluginState,
-} from '@atlaskit/editor-common/hooks';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { Position } from '@atlaskit/editor-common/Popup/utils';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
 	FloatingToolbarOverflowDropdown,
-	PMPlugin,
-	UiComponentFactoryParams,
-} from '@atlaskit/editor-common/types';
-import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
-import { Popup } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';

@@ -1,12 +1,13 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
 import {
 	EditorDateInputModel,
 	EditorDateModel,
-	EditorFloatingToolbarModel,
-	EditorNodeContainerModel,
-	EditorPopupModel,
-	EditorTableModel,
-} from '@af/editor-libra/page-models';
+} from '@af/editor-libra/page-models/editor-date-model';
+import { EditorFloatingToolbarModel } from '@af/editor-libra/page-models/editor-floating-toolbar-model';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
+import { EditorPopupModel } from '@af/editor-libra/page-models/editor-popup-model';
+import { EditorTableModel } from '@af/editor-libra/page-models/editor-table-model';
 
 import { tableAdf, twoDatesAdf } from './full-page.spec.ts-fixtures/adf';
 

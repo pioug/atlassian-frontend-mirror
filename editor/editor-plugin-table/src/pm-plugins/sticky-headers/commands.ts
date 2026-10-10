@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 
 import { createCommand } from './plugin-state';
 import type { RowStickyState } from './types';

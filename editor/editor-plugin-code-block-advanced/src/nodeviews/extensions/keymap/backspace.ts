@@ -1,6 +1,6 @@
 import type { EditorView as CodeMirror } from '@codemirror/view';
 
-import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

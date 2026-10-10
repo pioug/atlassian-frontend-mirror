@@ -1,5 +1,6 @@
-import type { InsertedImageProperties } from '@atlaskit/editor-common/provider-factory';
-import type { Command, ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+import type { InsertedImageProperties } from '@atlaskit/editor-common/provider-factory/image-upload-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types/image-upload-reference-event';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import type { ImageUploadPluginState } from '../types';

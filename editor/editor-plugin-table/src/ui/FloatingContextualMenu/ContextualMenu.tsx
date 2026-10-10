@@ -19,33 +19,30 @@ type DropdownItem = MenuItem & {
 	};
 };
 
-import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import {
-	backgroundPaletteTooltipMessages,
-	cellBackgroundColorPalette,
-	cellBackgroundColorPaletteNew,
-	ColorPalette,
-	getSelectedRowAndColumnFromPalette,
-} from '@atlaskit/editor-common/ui-color';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import {
-	ArrowKeyNavigationProvider,
-	ArrowKeyNavigationType,
-	DropdownMenu,
-} from '@atlaskit/editor-common/ui-menu';
-import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
-import { closestElement } from '@atlaskit/editor-common/utils';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles/dropdown-menu';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import { cellBackgroundColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import ColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette';
+import cellBackgroundColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette/cellBackgroundColorPalette';
+import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color/ColorPalette/utils';
+import { ArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import DropdownMenu from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/UserIntentPopupWrapper';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
-import { splitCell } from '@atlaskit/editor-tables/utils';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
+import type { Rect } from '@atlaskit/editor-tables/rect';
+import { splitCell } from '@atlaskit/editor-tables/utils/split-cell';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
 import TableCellMergeIcon from '@atlaskit/icon/core/table-cell-merge';

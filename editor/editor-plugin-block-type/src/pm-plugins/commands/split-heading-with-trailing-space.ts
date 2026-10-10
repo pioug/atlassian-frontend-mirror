@@ -1,4 +1,4 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { splitBlockAs } from '@atlaskit/editor-prosemirror/commands';
 import type { NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 

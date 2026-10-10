@@ -3,9 +3,9 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/default/button';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset/builder';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 
 import { ComposableEditor } from '../../../composable-editor';
 import { EditorContext } from '../../../index';

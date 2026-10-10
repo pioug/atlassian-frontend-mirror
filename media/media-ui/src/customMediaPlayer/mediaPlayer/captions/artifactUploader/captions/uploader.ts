@@ -1,5 +1,7 @@
-import type { MediaClient, FileIdentifier } from '@atlaskit/media-client';
-import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 
 import type { ArtifactUploaderProps } from '../types';
 import { parseError } from './util';

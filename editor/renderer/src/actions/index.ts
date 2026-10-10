@@ -5,18 +5,18 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnnotationActionResult,
 	AnnotationByMatches,
-	SelectionContext,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/annotation';
+import type { SelectionContext } from '@atlaskit/editor-common/types/selection';
 import {
 	canApplyAnnotationOnRange,
 	getAnnotationIdsFromRange,
 	getAnnotationInlineNodeTypes,
 	isEmptyTextSelectionRenderer,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/annotation';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Mark, Node, Schema } from '@atlaskit/editor-prosemirror/model';

@@ -2,19 +2,21 @@ import React from 'react';
 
 import {
 	ALIGNMENT_GROUP,
-	ALIGNMENT_GROUP_RANK,
 	ALIGNMENT_MENU,
 	ALIGNMENT_MENU_SECTION,
 	TEXT_SECTION,
+	TEXT_COLLAPSED_MENU,
+	TEXT_SECTION_PRIMARY_TOOLBAR,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	ALIGNMENT_GROUP_RANK,
 	TEXT_SECTION_RANK,
 	ALIGNMENT_MENU_RANK,
 	TEXT_COLLAPSED_MENU_RANK,
-	TEXT_COLLAPSED_MENU,
-	TEXT_SECTION_PRIMARY_TOOLBAR,
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';

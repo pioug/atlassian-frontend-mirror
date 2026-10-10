@@ -1,5 +1,5 @@
-import { useResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
-import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
+import { useResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences/hooks';
+import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences/user-preferences';
 
 import {
 	clearOverrideUserPreference,

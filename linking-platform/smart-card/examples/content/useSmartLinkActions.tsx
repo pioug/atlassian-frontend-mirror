@@ -2,7 +2,10 @@ import React, { useCallback } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { Card } from '../../src';

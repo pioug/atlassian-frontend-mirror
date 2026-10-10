@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-metrics
 
+## 27.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.2
 
 ### Patch Changes

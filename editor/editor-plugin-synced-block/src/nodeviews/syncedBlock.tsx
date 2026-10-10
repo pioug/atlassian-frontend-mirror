@@ -2,28 +2,26 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 // oxlint-disable-next-line import/no-duplicates
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
-import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
+import type { ReactComponentProps } from '@atlaskit/editor-common/react-node-view/types';
 import {
 	SyncBlockSharedCssClassName,
 	SyncBlockLabelSharedCssClassName,
-	SyncBlockActionsProvider,
-} from '@atlaskit/editor-common/sync-block';
-import type {
-	ExtractInjectionAPI,
-	getPosHandlerNode,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/styles/sync-block';
+import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block/SyncBlockActionsContext';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { removeSyncedBlockAtPos } from '../editor-commands';

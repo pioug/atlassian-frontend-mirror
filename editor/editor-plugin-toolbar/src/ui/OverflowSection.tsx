@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { SeparatorPosition } from '@atlaskit/editor-toolbar';
-import { ToolbarSection } from '@atlaskit/editor-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { SeparatorPosition } from '@atlaskit/editor-toolbar/toolbar-section';
+import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
 
 export const OverflowSection = ({
 	children,

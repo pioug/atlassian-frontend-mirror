@@ -1,8 +1,6 @@
-import Fetcher, {
-	type FrontendExperimentsResponse,
-	ResponseError,
-	// @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
-} from '@atlaskit/feature-gate-fetcher/src';
+import { ResponseError } from '@atlaskit/feature-gate-fetcher/errors';
+import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
+import type { FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher/types';
 import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
@@ -13,8 +11,8 @@ import {
 import Refresh, { NO_CACHE_RETRY_OPTIONS_DEFAULT, SCHEDULER_OPTIONS_DEFAULT } from '../Refresh';
 import { type ProviderOptions } from '../types';
 
-jest.mock('@atlaskit/feature-gate-fetcher', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-fetcher'),
+jest.mock('@atlaskit/feature-gate-fetcher/Fetcher', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-fetcher/Fetcher'),
 	fetchExperimentValues: jest.fn(),
 	fetchClientSdk: jest.fn(),
 }));

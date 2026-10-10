@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	toggleBold,
 	toggleCode,
@@ -13,7 +12,8 @@ import {
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
 import {
 	BOLD_MENU_ITEM,
 	CODE_MENU_ITEM,
@@ -21,24 +21,22 @@ import {
 	STRIKE_MENU_ITEM,
 	SUBSCRIPT_MENU_ITEM,
 	SUPERSCRIPT_MENU_ITEM,
-	TEXT_FORMATTING_MENU_SECTION_RANK,
 	UNDERLINE_MENU_ITEM,
-	getInputMethodFromParentKeys,
-} from '@atlaskit/editor-common/toolbar';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TEXT_FORMATTING_MENU_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 // oxlint-disable-next-line import/no-duplicates
-import type { TextFormattingState } from '@atlaskit/editor-common/types';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	BoldIcon,
-	ItalicIcon,
-	UnderlineIcon,
-	CodeIcon,
-	StrikeThroughIcon,
-	SubscriptIcon,
-	SuperscriptIcon,
-} from '@atlaskit/editor-toolbar';
-import type { IconComponent } from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { TextFormattingState } from '@atlaskit/editor-common/types/text-formatting';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { BoldIcon } from '@atlaskit/editor-toolbar/bold-icon';
+import { CodeIcon } from '@atlaskit/editor-toolbar/code-icon';
+import { ItalicIcon } from '@atlaskit/editor-toolbar/italic-icon';
+import { StrikeThroughIcon } from '@atlaskit/editor-toolbar/strike-through-icon';
+import { SubscriptIcon } from '@atlaskit/editor-toolbar/subscript-icon';
+import { SuperscriptIcon } from '@atlaskit/editor-toolbar/superscript-icon';
+import type { IconComponent } from '@atlaskit/editor-toolbar/types';
+import { UnderlineIcon } from '@atlaskit/editor-toolbar/underline-icon';
 
 import {
 	toggleStrongWithAnalytics,

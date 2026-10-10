@@ -5,13 +5,14 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
-import type { EmptyStateHandler, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 

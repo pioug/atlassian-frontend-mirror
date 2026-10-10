@@ -1,6 +1,6 @@
 import { normalizeMarkdownCodeBlockAttrsInSlice } from '@atlaskit/editor-common/code-block';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import { md } from '@atlaskit/editor-common/paste';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { md } from '@atlaskit/editor-common/paste/md';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';

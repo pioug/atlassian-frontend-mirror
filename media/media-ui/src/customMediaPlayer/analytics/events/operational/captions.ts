@@ -1,9 +1,9 @@
-import { type RequestMetadata } from '@atlaskit/media-client';
-import {
-	type OperationalEventPayload,
-	type OperationalAttributes,
-	type WithTraceContext,
-} from '@atlaskit/media-common';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
+import type {
+	OperationalEventPayload,
+	OperationalAttributes,
+	WithTraceContext,
+} from '@atlaskit/media-common/analytics/types';
 
 import type { WithCustomMediaPlayerType } from '../../../types';
 

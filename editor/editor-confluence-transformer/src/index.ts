@@ -1,7 +1,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-import type { Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import encode from './encode';

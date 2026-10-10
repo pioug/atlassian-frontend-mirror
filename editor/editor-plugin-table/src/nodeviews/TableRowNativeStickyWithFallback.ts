@@ -5,13 +5,13 @@ import {
 	ACTION_SUBJECT_ID,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
-import { tableMarginTop } from '@atlaskit/editor-common/styles';
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
+import { tableMarginTop } from '@atlaskit/editor-common/styles/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';

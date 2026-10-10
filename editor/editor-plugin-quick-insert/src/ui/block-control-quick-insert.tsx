@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { BLOCK_CONTROLS_LEFT_GROUP } from '@atlaskit/editor-common/block-controls/surface-keys';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterButton } from '@atlaskit/editor-ui-control-model/types';
 

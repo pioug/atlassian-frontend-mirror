@@ -6,22 +6,22 @@ import {
 	lazyNodeViewDecorationPluginKey,
 	testOnlyIgnoreLazyNodeView,
 } from '@atlaskit/editor-common/lazy-node-view';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
-import type { EditorActions } from '@atlaskit/editor-core';
+import type { EditorActions } from '@atlaskit/editor-core/actions';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { cardPlugin } from '@atlaskit/editor-plugin-card';
-import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { extensionPlugin } from '@atlaskit/editor-plugin-extension';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { listPlugin } from '@atlaskit/editor-plugin-list';
-import { mediaPlugin } from '@atlaskit/editor-plugin-media';
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
-import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
+import { cardPlugin } from '@atlaskit/editor-plugin-card/cardPlugin';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced/codeBlockAdvancedPlugin';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion/contentInsertionPlugin';
+import { extensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPlugin';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid/gridPlugin';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline/guidelinePlugin';
+import { listPlugin } from '@atlaskit/editor-plugin-list/list-plugin';
+import { mediaPlugin } from '@atlaskit/editor-plugin-media/media-plugin';
+import { tablePlugin as tablesPlugin } from '@atlaskit/editor-plugin-table/table-plugin';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions/tasks-and-decisions-plugin';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

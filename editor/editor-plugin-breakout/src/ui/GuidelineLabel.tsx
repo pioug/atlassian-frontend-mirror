@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
-import type { BreakoutMode, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import Popup from '@atlaskit/editor-common/Popup';
+import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer/ResizerBreakoutModeLabel';
+import type { BreakoutMode } from '@atlaskit/editor-common/types/breakout';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

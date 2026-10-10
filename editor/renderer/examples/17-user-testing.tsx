@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { token } from '@atlaskit/tokens';

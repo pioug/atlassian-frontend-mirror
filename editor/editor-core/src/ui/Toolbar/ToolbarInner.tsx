@@ -2,7 +2,7 @@ import React from 'react';
 
 import isEqual from 'lodash/isEqual';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 
 import type EditorActions from '../../actions';
 import type { ToolbarInnerProps } from './toolbar-types';

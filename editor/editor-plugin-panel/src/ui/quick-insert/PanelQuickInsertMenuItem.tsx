@@ -10,7 +10,7 @@ import {
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { PanelPlugin } from '../../panelPluginType';
 import { createPanelAction } from '../../pm-plugins/commands/create-panel-action';

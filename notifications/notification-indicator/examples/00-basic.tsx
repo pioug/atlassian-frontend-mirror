@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 
 import { NotificationIndicator } from '../src';
 

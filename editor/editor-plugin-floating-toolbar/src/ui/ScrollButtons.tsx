@@ -9,8 +9,8 @@ import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 
-import { messages } from '@atlaskit/editor-common/floating-toolbar';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import messages from '@atlaskit/editor-common/floating-toolbar/messages';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';

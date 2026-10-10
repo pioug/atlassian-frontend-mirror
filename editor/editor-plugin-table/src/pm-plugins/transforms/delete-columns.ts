@@ -1,11 +1,11 @@
 import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
-import { AddColumnStep } from '@atlaskit/custom-steps';
-import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
+import { AddColumnStep } from '@atlaskit/custom-steps/add-column';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics/types/table-events';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 

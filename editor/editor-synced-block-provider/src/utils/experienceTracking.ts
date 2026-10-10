@@ -1,16 +1,14 @@
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload as EditorAnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { ExperienceEventPayload } from '@atlaskit/editor-common/analytics/types/experience-events';
 import type {
-	AnalyticsEventPayload as EditorAnalyticsEventPayload,
-	DispatchAnalyticsEvent,
-	ExperienceEventPayload,
 	SyncBlockEventPayload,
 	RendererSyncBlockEventPayload,
-} from '@atlaskit/editor-common/analytics';
-import {
-	Experience,
-	EXPERIENCE_ID,
-	ExperienceCheckTimeout,
-} from '@atlaskit/editor-common/experiences';
+} from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { EXPERIENCE_ID } from '@atlaskit/editor-common/experiences/consts';
+import { Experience } from '@atlaskit/editor-common/experiences/Experience';
+import { ExperienceCheckTimeout } from '@atlaskit/editor-common/experiences/ExperienceCheckTimeout';
 
 const TIMEOUT_DURATION = 30000;
 

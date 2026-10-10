@@ -1,8 +1,9 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
-import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
-import { shouldForceTracking } from '@atlaskit/editor-common/utils';
-import type { ToolbarInsertBlockButtonsConfig } from '@atlaskit/editor-plugin-insert-block';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import { shouldForceTracking } from '@atlaskit/editor-common/utils/should-force-tracking';
+import type { ToolbarInsertBlockButtonsConfig } from '@atlaskit/editor-plugin-insert-block/types';
 import type { QuickInsertPluginOptions } from '@atlaskit/editor-plugin-quick-insert/quick-insert-plugin-type';
 import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility-utils';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
@@ -53,7 +54,7 @@ import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-deci
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
 import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
-import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar/responsive-container';
 
 import type {
 	BeforeAndAfterToolbarComponents,

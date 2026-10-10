@@ -7,15 +7,13 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import {
-	InformationCircleIcon,
-	SortAscendingIcon,
-	ToolbarDropdownItem,
-} from '@atlaskit/editor-toolbar';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circle-icon';
+import { SortAscendingIcon } from '@atlaskit/editor-toolbar/sort-ascending-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

@@ -8,16 +8,17 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
+import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils/breadcrumbs-misc-actions';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
-import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { TitleInput, MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
+import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers/MockActivityResource';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers/PageElements';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';

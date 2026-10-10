@@ -1,17 +1,19 @@
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	NextEditorPlugin,
 	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
 	TypeAheadHandler,
 	TypeAheadItem,
 	TypeAheadSectionTitleUpdate,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
+} from '@atlaskit/editor-common/types/type-ahead';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel/contextPanelPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics/metrics-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 

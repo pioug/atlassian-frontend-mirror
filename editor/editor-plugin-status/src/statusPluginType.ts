@@ -1,9 +1,13 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { NextEditorPlugin, OptionalPlugin, Command } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type {

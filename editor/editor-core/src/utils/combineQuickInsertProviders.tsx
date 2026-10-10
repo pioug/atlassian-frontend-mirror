@@ -1,5 +1,5 @@
-import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
-import { combineProviders } from '@atlaskit/editor-common/provider-helpers';
+import combineProviders from '@atlaskit/editor-common/combine-providers';
+import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 
 export function combineQuickInsertProviders(
 	quickInsertProviders: Array<QuickInsertProvider | Promise<QuickInsertProvider>>,

@@ -1,10 +1,10 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	type EditorAnalyticsAPI,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 

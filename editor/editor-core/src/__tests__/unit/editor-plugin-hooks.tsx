@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 
 import { render } from '@testing-library/react';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type { EditorAppearance, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 

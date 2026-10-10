@@ -30,7 +30,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import DownloadIcon from '@atlaskit/icon/core/download';
-import { type FileDetails } from '@atlaskit/media-client';
+import type { FileDetails } from '@atlaskit/media-client/item';
 import {
 	createPollingMaxAttemptsError,
 	createMediaStoreError,

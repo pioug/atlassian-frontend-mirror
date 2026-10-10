@@ -1,5 +1,5 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 
 export const UNSAFE_PROPERTY_SET_ERROR =
 	'Setting an unsafe property on transaction after dispatch!';

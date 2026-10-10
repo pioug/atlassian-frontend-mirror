@@ -6,7 +6,10 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';

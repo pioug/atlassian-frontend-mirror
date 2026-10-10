@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
-import { ToolbarTooltip, ToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar/selection-toolbar-plugin-type';
+import { ToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionToolbarItemConfiguration } from '../../types';

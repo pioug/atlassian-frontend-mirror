@@ -1,19 +1,22 @@
 import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import {
 	TABLE_ACTION,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/table-events';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { insm } from '@atlaskit/insm';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { insm } from '@atlaskit/insm/api';
 
 import type { PluginInjectionAPI } from '../../types';
 import { stopKeyboardColumnResizing } from '../commands/column-resize';

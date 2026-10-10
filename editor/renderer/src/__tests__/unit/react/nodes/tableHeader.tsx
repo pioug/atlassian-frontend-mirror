@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { SortOrder } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
@@ -15,9 +15,10 @@ import { TableHeader } from '../../../../react/nodes/tableCell';
 
 const MOCK_SORTING_ICON_ID = 'mock-sort-icon';
 
-jest.mock('@atlaskit/editor-common/table', () => ({
+jest.mock('@atlaskit/editor-common/table/SortingIcon', () => ({
+	...jest.requireActual('@atlaskit/editor-common/table/SortingIcon'),
 	__esModule: true,
-	SortingIcon: (props: any) => <div data-testid={MOCK_SORTING_ICON_ID} {...props} />,
+	default: (props: any) => <div data-testid={MOCK_SORTING_ICON_ID} {...props} />,
 }));
 
 const renderInTable = (cell: React.ReactNode) =>

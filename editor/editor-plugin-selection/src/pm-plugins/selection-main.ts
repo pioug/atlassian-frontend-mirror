@@ -1,8 +1,8 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { SelectionPluginState } from '@atlaskit/editor-common/selection/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 // oxlint-disable-next-line import/no-duplicates
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type Selection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

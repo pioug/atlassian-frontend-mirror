@@ -1,9 +1,10 @@
-import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
 import {
-	adfNode,
 	JSONSchemaTransformerName,
 	ValidatorSpecTransformerName,
-} from '@atlaskit/adf-schema-generator';
+} from '@atlaskit/adf-schema-generator/transformerNames';
+import type { ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 export const unsupportedBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 	'unsupportedBlock',

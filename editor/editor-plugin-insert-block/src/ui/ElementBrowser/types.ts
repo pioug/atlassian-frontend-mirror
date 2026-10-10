@@ -1,5 +1,5 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

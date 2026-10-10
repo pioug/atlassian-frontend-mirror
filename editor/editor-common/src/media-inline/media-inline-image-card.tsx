@@ -14,10 +14,12 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { fireFailedOperationalEvent as fireFailedMediaInlineEvent } from '@atlaskit/media-card/inline/fire-failed-operational-event';
 import { fireSucceededOperationalEvent as fireSucceededMediaInlineEvent } from '@atlaskit/media-card/inline/fire-succeeded-operational-event';
 import { MediaCardError } from '@atlaskit/media-card/media-card-error';
-import type { FileIdentifier, FileState, MediaClient } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
 import { FileFetcherError } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { MediaViewer } from '@atlaskit/media-viewer';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

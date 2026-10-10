@@ -1,11 +1,11 @@
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 import {
-	closestElement,
-	dedupe,
 	isEmptyNode,
 	isSelectionInsideLastNodeInDocument,
 	shallowEqual,
 } from '@atlaskit/editor-common/utils';
+import { dedupe } from '@atlaskit/editor-common/utils/dedupe';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

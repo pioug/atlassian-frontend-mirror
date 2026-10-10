@@ -10,13 +10,13 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { clearFormatting, findKeymapByDescription, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles/plugins';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import TextIcon from '@atlaskit/icon/core/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

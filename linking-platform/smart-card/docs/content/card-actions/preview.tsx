@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+import { ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import StagingCardExample from '../../../examples/content/staging-card-example';
 import embedExplained from '../../content/embed-explained';

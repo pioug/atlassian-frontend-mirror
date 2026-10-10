@@ -1,4 +1,4 @@
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import { getCellMenuComponents } from '../cell/getCellMenuComponents';
 import { getColumnMenuComponents } from '../column/getColumnMenuComponents';

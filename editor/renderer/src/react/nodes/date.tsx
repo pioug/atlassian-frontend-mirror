@@ -3,12 +3,12 @@ import React, { memo } from 'react';
 import { injectIntl } from 'react-intl';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
-import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles/date';
 import {
 	isPastDate,
 	timestampToString,
 	timestampToTaskContext,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/date';
 
 import { useRendererContext } from '../../renderer-context';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';

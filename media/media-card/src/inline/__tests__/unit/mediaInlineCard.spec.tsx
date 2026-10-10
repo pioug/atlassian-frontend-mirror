@@ -3,12 +3,10 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { type MediaClientConfig } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import {
-	createMockedMediaApi,
-	createServerUnauthorizedError,
-} from '@atlaskit/media-client/test-helpers';
+import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';

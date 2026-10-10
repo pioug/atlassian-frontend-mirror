@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ForbiddenClient } from '@atlaskit/link-test-helpers';
+import { ForbiddenClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import VRCardView from '../utils/vr-card-view';
 

@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
-import { typeAheadListMessages as messages } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages as messages } from '@atlaskit/editor-common/type-ahead/messages';
 
 import { EmptyState } from './EmptyState';
 import { GenericErrorSVG } from './GenericErrorSVG';

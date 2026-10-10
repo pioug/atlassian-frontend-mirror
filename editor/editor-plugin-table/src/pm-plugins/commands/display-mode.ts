@@ -1,4 +1,4 @@
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 export const setTableDisplayMode: EditorCommand = ({ tr }) => {

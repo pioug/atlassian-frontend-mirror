@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ButtonItem from '@atlaskit/menu/button-item';
 import HeadingItem from '@atlaskit/menu/heading-item';

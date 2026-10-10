@@ -3,7 +3,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { Card } from '../../src';
 

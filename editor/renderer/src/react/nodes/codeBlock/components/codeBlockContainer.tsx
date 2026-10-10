@@ -8,7 +8,7 @@ import type { ReactNode } from 'react';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
 import { token } from '@atlaskit/tokens';
 
 import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';

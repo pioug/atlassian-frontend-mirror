@@ -2,8 +2,8 @@ import type { IntlShape } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { createADFFromHTML } from '@atlaskit/editor-common/utils/create-adf-from-html';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder/placeholder-plugin-type';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

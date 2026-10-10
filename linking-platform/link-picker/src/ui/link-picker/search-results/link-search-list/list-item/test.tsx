@@ -3,7 +3,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import MockDate from 'mockdate';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { LinkSearchListItem } from './index';

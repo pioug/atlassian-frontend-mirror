@@ -3,7 +3,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 

@@ -9,27 +9,23 @@ import { v4 as uuid } from 'uuid';
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { isConfluenceSlideUrl } from '@atlaskit/editor-card-provider/url-checkers';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import RichMediaWrapper from '@atlaskit/editor-common/MediaSingle';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import type {
-	ColumnResizingPluginState,
-	ExtractInjectionAPI,
-	GridType,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
-import {
-	findOverflowScrollParent,
-	MediaSingle as RichMediaWrapper,
-	UnsupportedBlock,
-} from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
+import type { GridType } from '@atlaskit/editor-common/types/grid';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import type { ColumnResizingPluginState } from '@atlaskit/editor-common/types/tables';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
-import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { Highlights } from '@atlaskit/editor-plugin-grid';
+import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { Highlights } from '@atlaskit/editor-plugin-grid/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -37,7 +33,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
@@ -47,7 +43,8 @@ import type { CardContext } from '@atlaskit/link-provider/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
+import { Card as SmartCard } from '@atlaskit/smart-card/card/lazy';
+import { EmbedResizeMessageListener } from '@atlaskit/smart-card/embed-resize-message-listener';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';

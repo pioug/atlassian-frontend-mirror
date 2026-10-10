@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { LimitedModePluginOptions } from '@atlaskit/editor-plugin-limited-mode';
+import type { LimitedModePluginOptions } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
 
 interface Props {
 	options: {

@@ -12,7 +12,7 @@ import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest/
 import JQLEditor from '@atlaskit/jql-editor/ui';
 import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 import { mockAutoCompleteData, mockSuggestionData } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { JiraJQLEditor, type JiraJQLEditorProps } from './index';
 

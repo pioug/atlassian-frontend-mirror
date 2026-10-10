@@ -8,12 +8,12 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import {
-	createStorybookMediaClientConfig,
 	videoFileId,
 	imageFileId,
 	videoLargeFileId,
 	videoHorizontalFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { MainWrapper } from '../example-helpers';
 import { inlineCardVideoWrapperItemStyles } from '../example-helpers/styles';

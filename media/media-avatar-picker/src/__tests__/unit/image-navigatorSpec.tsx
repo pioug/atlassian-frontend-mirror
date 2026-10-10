@@ -7,7 +7,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { smallImage } from '@atlaskit/media-test-helpers';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
 
 import * as isImageRemoteModule from '../../image-cropper/isImageRemote';
 import ImageNavigator, { viewport } from '../../image-navigator';

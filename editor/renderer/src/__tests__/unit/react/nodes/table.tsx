@@ -5,15 +5,21 @@ import userEvent from '@testing-library/user-event';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
-import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
+import { inlineCard } from '@atlaskit/adf-utils/inline-card';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { table } from '@atlaskit/adf-utils/table';
+import { tableCell as td } from '@atlaskit/adf-utils/table-cell';
+import { tableHeader as th } from '@atlaskit/adf-utils/table-header';
+import { tableRow as tr } from '@atlaskit/adf-utils/table-row';
+import { shadowClassNames } from '@atlaskit/editor-common/OverflowShadow';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
+import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorTableNumberColumnWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorTableLegacyCellMinWidth as tableCellMinWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 

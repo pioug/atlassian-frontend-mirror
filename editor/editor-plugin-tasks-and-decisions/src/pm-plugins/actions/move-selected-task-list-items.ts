@@ -1,9 +1,9 @@
+import { buildReplacementFragment } from '@atlaskit/editor-common/lists/build-replacement-fragment';
+import { narrowReplacementRange } from '@atlaskit/editor-common/lists/narrow-replacement-range';
 import {
-	buildReplacementFragment,
 	computeSelectionOffsets,
-	narrowReplacementRange,
 	restoreSelection,
-} from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/lists/restore-selection';
 import { findFarthestParentNode } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

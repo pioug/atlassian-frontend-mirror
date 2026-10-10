@@ -1,7 +1,7 @@
 import type React from 'react';
 
 import type { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnnotationUpdateEmitter,
 	AnnotationManager,

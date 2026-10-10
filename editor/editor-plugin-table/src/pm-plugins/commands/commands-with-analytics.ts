@@ -5,36 +5,31 @@ import {
 	type Layout as TableLayout,
 } from '@atlaskit/adf-schema/tableNodes';
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import type {
-	AnalyticsEventPayload,
-	CHANGE_ALIGNMENT_REASON,
-	EditorAnalyticsAPI,
-} from '@atlaskit/editor-common/analytics';
+import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/analytics/types/table-events';
+import {
 	TABLE_ACTION,
 	TABLE_DISPLAY_MODE,
-} from '@atlaskit/editor-common/analytics';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import type {
-	Command,
-	EditorCommand,
-	GetEditorContainerWidth,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/table-events';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
-import {
-	findCellClosestToPos,
-	findCellRectClosestToPos,
-	getSelectionRect,
-} from '@atlaskit/editor-tables/utils';
+import { findCellClosestToPos, findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 import type {
 	AlignmentOptions,

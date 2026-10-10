@@ -11,13 +11,13 @@ import { type DatabaseSchema } from 'kakapo/dist/Database';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import {
-	type MediaItemDetails,
-	type TouchFileDescriptor,
-	type ItemsPayload,
-	type ResponseFileItem,
-} from '@atlaskit/media-client';
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
+import type { MediaItemDetails } from '@atlaskit/media-client/media';
+import type {
+	TouchFileDescriptor,
+	ItemsPayload,
+	ResponseFileItem,
+} from '@atlaskit/media-client/media-store/types';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
 
 import { vrVideoDetails } from '../../exampleMediaItems';
 import { defaultBaseUrl } from '../../mediaClientProvider';

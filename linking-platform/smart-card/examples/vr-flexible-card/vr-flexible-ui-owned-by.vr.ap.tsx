@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { OwnedByElement } from '@atlaskit/smart-card';
+import { OwnedByElement } from '@atlaskit/smart-card/flexible/owned-by-element';
 
 import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 import { getContext } from '../utils/flexible-ui';

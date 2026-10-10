@@ -7,10 +7,11 @@ import { v4 as uuid } from 'uuid';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
-import type { Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

@@ -1,11 +1,9 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-	EditorAppearance,
-	ToolbarSize,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type EditorActions from '../../actions';

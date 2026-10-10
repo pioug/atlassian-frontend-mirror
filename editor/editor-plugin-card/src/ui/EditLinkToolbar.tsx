@@ -1,27 +1,28 @@
 import React from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { ACTION, buildEditLinkPayload, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { ACTION_SUBJECT_ID, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { commandWithMetadata } from '@atlaskit/editor-common/card';
-import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link';
-import { HyperlinkAddToolbar as HyperlinkToolbar } from '@atlaskit/editor-common/link';
-import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-	Command,
-	ExtractInjectionAPI,
-	FloatingToolbarConfig,
-	FloatingToolbarItem,
-	LinkInputType,
-	LinkPickerOptions,
-} from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { buildEditLinkPayload } from '@atlaskit/editor-common/analytics/linking-utils';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
+import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
 import {
 	LINKPICKER_HEIGHT_IN_PX,
 	RECENT_SEARCH_HEIGHT_IN_PX,
 	RECENT_SEARCH_WIDTH_IN_PX,
-} from '@atlaskit/editor-common/ui';
-import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+} from '@atlaskit/editor-common/link-search-constants';
+import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link/HyperlinkAddToolbar';
+import { HyperlinkAddToolbar as HyperlinkToolbar } from '@atlaskit/editor-common/link/HyperlinkAddToolbar';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type {
+	FloatingToolbarConfig,
+	FloatingToolbarItem,
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { LinkInputType, LinkPickerOptions } from '@atlaskit/editor-common/types/hyperlink';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

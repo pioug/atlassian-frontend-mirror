@@ -3,7 +3,7 @@ import React from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
-import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common/withMediaAnalyticsContext';
 
 import { MediaPlayerBase } from './mediaPlayerBase';
 import { type MediaPlayerProps } from './types';

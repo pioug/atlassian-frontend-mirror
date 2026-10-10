@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 

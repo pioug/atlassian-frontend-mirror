@@ -1,4 +1,4 @@
-import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor-provider';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

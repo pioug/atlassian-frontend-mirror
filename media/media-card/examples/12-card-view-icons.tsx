@@ -9,7 +9,8 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
-import { type FileDetails, type MediaType } from '@atlaskit/media-client';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

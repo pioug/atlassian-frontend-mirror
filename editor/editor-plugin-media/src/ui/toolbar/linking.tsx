@@ -8,18 +8,22 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { linkMessages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import {
+	RECENT_SEARCH_HEIGHT_IN_PX,
+	RECENT_SEARCH_WIDTH_IN_PX,
+} from '@atlaskit/editor-common/link-search-constants';
+import { linkMessages } from '@atlaskit/editor-common/messages/link';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	FloatingToolbarConfig,
 	FloatingToolbarItem,
 	FloatingToolbarOverflowDropdownOptions,
-} from '@atlaskit/editor-common/types';
-import { RECENT_SEARCH_HEIGHT_IN_PX, RECENT_SEARCH_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';

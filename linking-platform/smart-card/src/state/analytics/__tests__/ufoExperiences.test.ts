@@ -5,7 +5,7 @@ jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 
 import * as jestExtendedMatchers from 'jest-extended';
 
-import { type JestFunction } from '@atlaskit/media-test-helpers';
+import type { JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
 

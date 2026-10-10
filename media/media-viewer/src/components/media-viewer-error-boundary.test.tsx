@@ -3,9 +3,9 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 
 import { MediaViewerWithErrorBoundary } from './media-viewer-error-boundary';
 import * as mediaViewerWithMediaClientModule from './media-viewer-with-media-client';

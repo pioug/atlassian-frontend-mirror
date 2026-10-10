@@ -3,7 +3,7 @@ import React from 'react';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import { type Camera } from '@atlaskit/media-ui/camera/camera';
 import { type Vector2 } from '@atlaskit/media-ui/vector2';
 

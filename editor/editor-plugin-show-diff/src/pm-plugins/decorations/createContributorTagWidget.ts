@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

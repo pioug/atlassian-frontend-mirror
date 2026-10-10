@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import ElementBrowser from '@atlaskit/editor-common/element-browser/ElementBrowserLoader';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
 import type {
-	Command,
-	EditorAppearance,
-	ExtractInjectionAPI,
-	PMPlugin,
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
-} from '@atlaskit/editor-common/types';
-import { ToolbarSize } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
-import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/types/toolbar';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type/block-type';
+import {
+	BLOCK_QUOTE,
+	CODE_BLOCK,
+	PANEL,
+} from '@atlaskit/editor-plugin-block-type/consts/block-types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';

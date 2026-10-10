@@ -11,12 +11,14 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { ExtensionAPI, ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { DropdownMenuItem, DropdownSeparator } from '@atlaskit/editor-common/floating-toolbar';
+import { DropdownMenuItem } from '@atlaskit/editor-common/DropdownMenuItem';
+import { DropdownSeparator } from '@atlaskit/editor-common/DropdownSeparator';
+import type { ExtensionAPI } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import type {
 	DropdownOptionT,
 	FloatingToolbarOverflowDropdownOptions,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import HeadingItem from '@atlaskit/menu/heading-item';
 import type { ButtonItemProps } from '@atlaskit/menu/types';

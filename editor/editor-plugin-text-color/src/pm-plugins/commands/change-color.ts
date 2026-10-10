@@ -1,14 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { getHadMarkAttributes } from '@atlaskit/editor-common/mark';
-import type { Command, HigherOrderCommand } from '@atlaskit/editor-common/types';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import type { Command, HigherOrderCommand } from '@atlaskit/editor-common/types/command';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 
 import type { TextColorInputMethod } from '../../types';
 import { pluginKey } from '../main';

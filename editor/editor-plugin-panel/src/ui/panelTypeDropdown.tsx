@@ -3,13 +3,13 @@ import type React from 'react';
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { panelMessages as messages } from '@atlaskit/editor-common/messages';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { panelMessages as messages } from '@atlaskit/editor-common/messages/panel';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	DropdownOptionT,
 	FloatingToolbarDropdown,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';

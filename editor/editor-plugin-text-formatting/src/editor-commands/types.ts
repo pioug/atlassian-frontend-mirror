@@ -1,9 +1,8 @@
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type {
-	EditorCommand,
-	ExtractInjectionAPI,
-	InputMethodBasic,
-} from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { InputMethodBasic } from '@atlaskit/editor-common/types/text-formatting';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 

@@ -12,20 +12,17 @@ import { jsx, css } from '@emotion/react';
 
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import {
-	WidthConsumer,
-	UnsupportedBlock,
-	MediaSingle as UIMediaSingle,
-	WidthContext,
-} from '@atlaskit/editor-common/ui';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import UIMediaSingle from '@atlaskit/editor-common/MediaSingle';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import { WidthConsumer, WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullPageNarrowBreakout,
 	akEditorFullWidthLayoutWidth,
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
@@ -34,7 +31,8 @@ import {
 import { SmartCardContext } from '@atlaskit/link-provider/context';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import { EmbedResizeMessageListener } from '@atlaskit/smart-card/embed-resize-message-listener';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

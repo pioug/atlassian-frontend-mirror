@@ -2,18 +2,17 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { ACTION_SUBJECT_ID, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners as withOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { EmojiPicker } from '@atlaskit/emoji';
 import type { EmojiId } from '@atlaskit/emoji';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

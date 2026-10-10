@@ -1,8 +1,9 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { cellWrapping, splitCellWithType } from '@atlaskit/editor-tables/utils';
+import { cellWrapping } from '@atlaskit/editor-tables/utils';
+import { splitCellWithType } from '@atlaskit/editor-tables/utils/split-cell-with-type';
 
 import type { TablePluginState } from '../../types';
 import { getPluginState } from '../plugin-factory';

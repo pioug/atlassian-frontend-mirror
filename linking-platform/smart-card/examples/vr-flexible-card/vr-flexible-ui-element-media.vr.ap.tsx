@@ -5,7 +5,8 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { smallImage, wideImage } from '@atlaskit/media-test-helpers';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
+import { wideImage } from '@atlaskit/media-test-helpers/wideImageURI';
 import { token } from '@atlaskit/tokens';
 
 import { MediaType } from '../../src/constants';

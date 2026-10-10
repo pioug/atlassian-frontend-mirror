@@ -1,9 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type {
-	SyncBlockProduct,
-	SyncBlockStoreManager,
-} from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 
 import type { SyncedBlockFeedbackContext } from '../syncedBlockPluginType';
 

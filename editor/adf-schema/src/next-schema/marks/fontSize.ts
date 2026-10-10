@@ -1,4 +1,5 @@
-import { adfMark, type ADFMark, type ADFMarkSpec } from '@atlaskit/adf-schema-generator';
+import { adfMark, type ADFMark } from '@atlaskit/adf-schema-generator/adfMark';
+import type { ADFMarkSpec } from '@atlaskit/adf-schema-generator/types/ADFMarkSpec';
 
 /**
  * fontSize mark - applies size styling to block-level content

@@ -1,7 +1,7 @@
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,

@@ -2,13 +2,13 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 
 import { ErrorBoundary } from '../../index';
 

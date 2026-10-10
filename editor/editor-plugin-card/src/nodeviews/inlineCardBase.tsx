@@ -4,10 +4,10 @@ import rafSchedule from 'raf-schd';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Card as SmartCard } from '@atlaskit/smart-card';
+import { Card as SmartCard } from '@atlaskit/smart-card/card/lazy';
 import type { OnClickCallback } from '@atlaskit/smart-card/card/types';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

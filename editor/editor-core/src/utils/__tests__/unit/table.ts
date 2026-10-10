@@ -1,4 +1,4 @@
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';

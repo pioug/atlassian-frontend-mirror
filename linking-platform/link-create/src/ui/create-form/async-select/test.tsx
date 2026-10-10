@@ -4,7 +4,7 @@ import { act, render, screen } from '@testing-library/react';
 import { Form } from 'react-final-form';
 import { IntlProvider } from 'react-intl';
 
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import AkAsyncSelect from '@atlaskit/select/async-select';
 
 import { LinkCreateCallbackProvider } from '../../../controllers/callback-context/main';

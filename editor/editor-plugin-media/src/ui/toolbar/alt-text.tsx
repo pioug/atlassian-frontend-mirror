@@ -2,19 +2,19 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { addAltText, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { altTextMessages as messages } from '@atlaskit/editor-common/media';
-import { MediaSharedClassNames as ClassNames } from '@atlaskit/editor-common/styles';
+import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/link-search-constants';
+import { altTextMessages as messages } from '@atlaskit/editor-common/media/altText';
+import { ClassNames } from '@atlaskit/editor-common/styles/media';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarCustom,
 	FloatingToolbarOverflowDropdownOptions,
-} from '@atlaskit/editor-common/types';
-import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
-import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

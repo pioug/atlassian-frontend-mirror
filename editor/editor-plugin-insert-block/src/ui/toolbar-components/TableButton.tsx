@@ -8,12 +8,15 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { ToolTipContent, getAriaKeyshortcuts, toggleTable } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar, TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarButton, ToolbarTooltip, TableIcon } from '@atlaskit/editor-toolbar';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { TableIcon } from '@atlaskit/editor-toolbar/table-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 

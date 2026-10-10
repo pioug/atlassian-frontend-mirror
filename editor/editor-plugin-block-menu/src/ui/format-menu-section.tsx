@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 

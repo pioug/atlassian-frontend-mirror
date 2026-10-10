@@ -3,11 +3,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import type {
 	AnnotationProviders,
 	InlineCommentViewComponentProps,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/annotation';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types/emitter';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 import RendererActions from '../../../../actions/index';

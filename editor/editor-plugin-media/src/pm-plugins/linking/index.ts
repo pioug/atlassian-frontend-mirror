@@ -1,8 +1,8 @@
 import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command } from '@atlaskit/editor-common/types';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,

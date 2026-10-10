@@ -11,7 +11,7 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

@@ -7,7 +7,7 @@ import React from 'react';
 
 import { renderHook } from '@testing-library/react';
 
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useFilePreview } from '../useFilePreview';

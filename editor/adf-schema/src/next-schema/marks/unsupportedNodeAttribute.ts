@@ -1,9 +1,10 @@
-import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
+import type { ADFMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMark } from '@atlaskit/adf-schema-generator/adfMark';
 import {
-	adfMark,
 	JSONSchemaTransformerName,
 	ValidatorSpecTransformerName,
-} from '@atlaskit/adf-schema-generator';
+} from '@atlaskit/adf-schema-generator/transformerNames';
+import type { ADFMarkSpec } from '@atlaskit/adf-schema-generator/types/ADFMarkSpec';
 
 export const unsupportedNodeAttribute: ADFMark<ADFMarkSpec> = adfMark(
 	'unsupportedNodeAttribute',

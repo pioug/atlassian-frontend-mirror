@@ -5,13 +5,14 @@ import { Component } from 'react';
 import Button from '@atlaskit/button/default/button';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import { type FileState, MediaClient } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,
-	mediaPickerAuthProvider,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/collectionNames';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 
 import { MainWrapper } from '../example-helpers/mainWrapper';
 import { PopupContainer } from '../example-helpers/PopupContainer';

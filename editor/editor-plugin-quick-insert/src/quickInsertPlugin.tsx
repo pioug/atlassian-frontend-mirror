@@ -2,26 +2,24 @@ import React from 'react';
 
 import { type IntlShape, useIntl } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type {
-	ProviderFactory,
 	QuickInsertItem,
 	QuickInsertProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert';
+} from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type {
-	Command,
-	EditorCommand,
-	EmptyStateHandler,
-	ExtractInjectionAPI,
-	QuickInsertHandler,
-	TypeAheadHandler,
-} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { QuickInsertHandler } from '@atlaskit/editor-common/types/quick-insert';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

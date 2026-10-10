@@ -1,15 +1,15 @@
 import React from 'react';
 
 import {
-	type MediaClient,
-	type FileItem,
-	type FileState,
 	isImageRepresentationReady,
 	isErrorFileState,
 	addFileAttrsToUrl,
 } from '@atlaskit/media-client';
-import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { FileItem } from '@atlaskit/media-client/item';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

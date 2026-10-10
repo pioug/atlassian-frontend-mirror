@@ -1,5 +1,5 @@
 import { isMarkAllowedInRange, isMarkExcluded } from '@atlaskit/editor-common/mark';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 

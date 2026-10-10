@@ -1,14 +1,15 @@
 // TODO: ED-26962 - Ideally this should use the custom toggleMark function from @atlaskit/editor-common so we also disable the options when selecting inline nodes but it disables the marks when the selection is empty at this point in time which is undesirable
 // import { toggleMark } from '@atlaskit/editor-common/mark';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	moveLeft as keymapMoveLeft,
 	moveRight as keymapMoveRight,
 } from '@atlaskit/editor-common/keymaps';
-import { anyMarkActive, wholeSelectionHasMarks } from '@atlaskit/editor-common/mark';
+import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import { wholeSelectionHasMarks } from '@atlaskit/editor-common/mark/text-formatting';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { TextFormattingState } from '@atlaskit/editor-common/types';
+import type { TextFormattingState } from '@atlaskit/editor-common/types/text-formatting';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';

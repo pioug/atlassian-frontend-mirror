@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-import { withWaitForItem } from '@atlaskit/link-test-helpers';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 
 import type { Card } from '../../src';
 import type { CardSSR } from '../../src/ssr';

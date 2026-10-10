@@ -1,12 +1,12 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import type {
 	DeletionMechanism,
 	DeletionReason,
 } from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';

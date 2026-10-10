@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ForbiddenWithObjectRequestAccessClient } from '@atlaskit/link-test-helpers';
+import { ForbiddenWithObjectRequestAccessClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { Card } from '../../src';
 import { type OnErrorCallback } from '../../src/view/types';

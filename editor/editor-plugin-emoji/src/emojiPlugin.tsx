@@ -6,25 +6,23 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconEmoji } from '@atlaskit/editor-common/assets';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import {
-	annotationMessages,
-	toolbarInsertBlockMessages as messages,
-} from '@atlaskit/editor-common/messages';
-import { IconEmoji } from '@atlaskit/editor-common/quick-insert';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type {
-	Command,
-	ExtractInjectionAPI,
-	FloatingToolbarItem,
-	PMPluginFactoryParams,
 	TypeAheadHandler,
 	TypeAheadInsert,
 	TypeAheadItem,
-} from '@atlaskit/editor-common/types';
-import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/types/type-ahead';
+import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

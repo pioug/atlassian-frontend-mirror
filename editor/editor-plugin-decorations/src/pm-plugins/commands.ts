@@ -1,9 +1,10 @@
-import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection/utils';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection, TableMap } from '@atlaskit/editor-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTableClosestToPos } from '@atlaskit/editor-tables/utils';
 
 import type { HoverDecorationCommand } from '../decorationsPluginType';

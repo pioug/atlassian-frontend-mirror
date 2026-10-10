@@ -1,4 +1,4 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';

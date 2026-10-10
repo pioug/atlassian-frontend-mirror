@@ -1,7 +1,8 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
-import { pluginFactory, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';

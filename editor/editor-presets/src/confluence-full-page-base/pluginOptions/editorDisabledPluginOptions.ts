@@ -1,4 +1,4 @@
-import type { EditorDisabledPluginOptions } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorDisabledPluginOptions } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
 
 interface Props {
 	options: {

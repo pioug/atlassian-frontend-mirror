@@ -1,8 +1,8 @@
-import {
-	type SuccessAttributes,
-	type WithFileAttributes,
-	type WithTraceContext,
-} from '@atlaskit/media-common';
+import type {
+	SuccessAttributes,
+	WithFileAttributes,
+	WithTraceContext,
+} from '@atlaskit/media-common/analytics/types';
 
 import { type MediaViewerFailureAttributes } from '../..';
 import { type MediaFileEventPayload } from './_mediaFile';

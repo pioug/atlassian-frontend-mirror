@@ -2,13 +2,11 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import {
-	getExamplesProviders,
-	useConfluenceFullPagePreset,
-} from '@af/editor-examples-helpers/example-presets';
+import { getExamplesProviders } from '@af/editor-examples-helpers/example-presets/getExamplesProviders';
+import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets/useConfluenceFullPagePreset';
 import Button from '@atlaskit/button/standard-button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers/PageElements';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';

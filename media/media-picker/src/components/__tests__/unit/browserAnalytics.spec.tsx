@@ -2,14 +2,12 @@ import React from 'react';
 
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import {
-	RequestError,
-	type TouchFileDescriptor,
-	createMediaSubject,
-	fromObservable,
-} from '@atlaskit/media-client';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { RequestError } from '@atlaskit/media-client';
+import { createMediaSubject } from '@atlaskit/media-client/create-media-subject';
+import { fromObservable } from '@atlaskit/media-client/from-observable';
+import type { TouchFileDescriptor } from '@atlaskit/media-client/media-store/types';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { type LocalUploadConfig } from '../../../../src/components/types';

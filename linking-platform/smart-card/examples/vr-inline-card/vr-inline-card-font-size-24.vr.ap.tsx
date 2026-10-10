@@ -7,7 +7,7 @@ import {
 	NotFoundWithSiteAccessExistsClient,
 	ResolvedClient,
 	UnAuthClient,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import CardViewSection from '../card-view/card-view-section';

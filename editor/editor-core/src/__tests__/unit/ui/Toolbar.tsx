@@ -2,10 +2,10 @@ import React, { act } from 'react';
 
 import { render } from '@testing-library/react';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
@@ -42,7 +42,8 @@ jest.mock('../../../ui/Toolbar/hooks', () => {
 });
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
-jest.mock('@atlaskit/editor-common/core-utils', () => ({
+jest.mock('@atlaskit/editor-common/is-ssr', () => ({
+	...jest.requireActual('@atlaskit/editor-common/is-ssr'),
 	isSSR: jest.fn(),
 }));
 

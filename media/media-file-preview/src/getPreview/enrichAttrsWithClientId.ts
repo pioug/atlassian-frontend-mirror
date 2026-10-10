@@ -1,4 +1,5 @@
-import { type MediaBlobUrlAttrs, type MediaClient } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { mergeClientIdIntoAttrs } from './mergeClientIdIntoAttrs';

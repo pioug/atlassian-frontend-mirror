@@ -1,5 +1,6 @@
-import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles';
-import { closestElement, containsClassName, parsePx } from '@atlaskit/editor-common/utils';
+import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles/table';
+import { containsClassName, parsePx } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

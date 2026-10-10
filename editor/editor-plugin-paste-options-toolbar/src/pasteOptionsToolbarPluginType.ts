@@ -1,9 +1,12 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { PastePlugin } from '@atlaskit/editor-plugin-paste';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { PastePlugin } from '@atlaskit/editor-plugin-paste/paste-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import type { ToolbarDropdownOption } from './types/types';
 import type { PasteMenuRuleFactories } from './ui/utils/paste-menu-rules/types';

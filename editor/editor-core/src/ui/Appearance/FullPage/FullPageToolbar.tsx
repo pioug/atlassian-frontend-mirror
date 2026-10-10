@@ -4,20 +4,20 @@ import React, { useEffect, useCallback, useState } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { messages } from '@atlaskit/editor-common/messages/full-page';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type {
-	EditorAppearance,
-	FeatureFlags,
 	OptionalPlugin,
 	PublicPluginAPI,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
-import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ToolbarArrowKeyNavigationProvider';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { AvatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
 import type { BeforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';

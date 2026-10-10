@@ -1,6 +1,6 @@
 import { type CSSProperties } from 'react';
 
-import type { FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 
 import type { MediaSVGError } from './MediaSVGError';
 

@@ -7,8 +7,8 @@ import { useCallback, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- example file
 import { css, jsx } from '@emotion/react';
 
-import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
-import type { EditorAPI } from '@af/editor-examples-helpers/example-presets';
+import { FullPageBase } from '@af/editor-examples-helpers/example-presets/FullPageBase';
+import type { EditorAPI } from '@af/editor-examples-helpers/example-presets/types';
 // eslint-disable-next-line no-restricted-imports -- This standalone development example must enable the experiment before the editor initializes.
 import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';

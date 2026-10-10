@@ -1,4 +1,4 @@
-import { type FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher';
+import type { FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher/types';
 import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
 
 import { getFrontendExperimentsResult, getValidatedPollingInterval } from '../utils';

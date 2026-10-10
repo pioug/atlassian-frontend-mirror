@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';

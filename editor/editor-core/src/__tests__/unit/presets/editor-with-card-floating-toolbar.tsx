@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
 
 import { Editor } from '../../../index';
 

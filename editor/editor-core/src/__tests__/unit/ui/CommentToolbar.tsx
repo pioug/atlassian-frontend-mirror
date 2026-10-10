@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { TOOLBARS } from '@atlaskit/editor-common/toolbar/keys';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';

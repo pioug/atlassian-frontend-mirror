@@ -7,7 +7,7 @@ import type { DocNode } from '@atlaskit/adf-schema/doc';
 import {
 	getSyncBlockNodesFromDoc,
 	useMemoizedSyncedBlockNodeComponent,
-} from '@atlaskit/editor-synced-block-renderer';
+} from '@atlaskit/editor-synced-block-renderer/use-synced-block-node-component';
 import { mockSyncedBlockProviderWithStaticData } from '@atlaskit/editor-test-helpers/sync-block-mock-providers';
 
 import { Renderer } from '../../entry-points/renderer-default';
@@ -15,7 +15,7 @@ import type { RendererProps } from '../../ui/renderer-props';
 
 const mockEnvironment = createMockEnvironment();
 
-import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
+import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block/SyncBlockActionsContext';
 
 import type { RendererContentMode } from '../../ui/Renderer/types';
 import {

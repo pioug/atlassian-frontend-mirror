@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import {
 	render,

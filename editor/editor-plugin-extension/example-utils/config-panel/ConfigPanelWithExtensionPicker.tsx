@@ -12,12 +12,10 @@ import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CodeBlock from '@atlaskit/code/code-block';
-import type {
-	ExtensionModule,
-	ExtensionProvider,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
+import type { ExtensionModule } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions/manifest-helpers';
 import Heading from '@atlaskit/heading/heading';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

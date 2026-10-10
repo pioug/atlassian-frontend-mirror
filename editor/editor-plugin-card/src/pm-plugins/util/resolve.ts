@@ -1,8 +1,10 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { CardOptions, EmbedCardNodeTransformer } from '@atlaskit/editor-common/card';
-import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import { canRenderDatasource, hasDocAsParent } from '@atlaskit/editor-common/utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
+import type { EmbedCardNodeTransformer } from '@atlaskit/editor-common/card/types';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
+import { hasDocAsParent } from '@atlaskit/editor-common/utils';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {

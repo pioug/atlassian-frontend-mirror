@@ -10,7 +10,7 @@
  */
 import { embedCard, embedCardWithLocalId } from '@atlaskit/adf-schema/embed-card';
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type {
 	AttributeSpec,
 	DOMOutputSpec,
@@ -21,7 +21,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 

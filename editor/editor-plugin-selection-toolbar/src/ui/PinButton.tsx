@@ -2,11 +2,13 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { PinnedIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+import { selectionToolbarMessages } from '@atlaskit/editor-common/messages/selection-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { PinnedIcon } from '@atlaskit/editor-toolbar/pinned-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 

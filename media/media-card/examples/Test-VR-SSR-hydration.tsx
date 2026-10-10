@@ -4,13 +4,10 @@ import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
 import Loadable from 'react-loadable';
 
-import { type SSR } from '@atlaskit/media-common';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import {
-	createStorybookMediaClientConfig,
-	imageFileId,
-	videoFileId,
-} from '@atlaskit/media-test-helpers';
+import { imageFileId, videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';

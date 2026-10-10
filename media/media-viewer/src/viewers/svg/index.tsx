@@ -12,8 +12,9 @@ import { useIntl } from 'react-intl';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { type FileIdentifier } from '@atlaskit/media-client';
-import { ANALYTICS_MEDIA_CHANNEL, type MediaTraceContext } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import MediaSvg from '@atlaskit/media-svg/media-svg';
 import type { MediaSVGError } from '@atlaskit/media-svg/media-svg-error';
 import { Camera } from '@atlaskit/media-ui/camera/camera';

@@ -1,7 +1,7 @@
 import memoizeOne from 'memoize-one';
 
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import combineExtensionProviders from '@atlaskit/editor-common/extensions/combine-extension-providers';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 
 import type EditorActions from '../actions';
 import type { ExtensionProvidersProp } from '../types/editor-props';

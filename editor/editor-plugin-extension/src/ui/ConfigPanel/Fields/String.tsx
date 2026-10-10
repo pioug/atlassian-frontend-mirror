@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import type { StringField } from '@atlaskit/editor-common/extensions';
+import type { StringField } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
 import TextArea from '@atlaskit/textarea/text-area';
 import TextField from '@atlaskit/textfield/text-field';

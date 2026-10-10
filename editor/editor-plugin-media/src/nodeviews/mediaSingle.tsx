@@ -9,24 +9,25 @@ import { useCallback, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { isNodeSelectedOrInRange, SelectedState } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { SelectedState } from '@atlaskit/editor-common/utils';
 import {
 	applyContentVisibility,
 	estimateMediaSingleIntrinsicSize,
 } from '@atlaskit/editor-common/utils/content-visibility';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils/nodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

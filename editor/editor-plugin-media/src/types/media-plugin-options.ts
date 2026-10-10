@@ -1,6 +1,6 @@
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ErrorReporter } from '@atlaskit/editor-common/utils';
+import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 
 import type { CustomMediaPicker, MediaState } from './index';
 

@@ -4,9 +4,9 @@ import cloneDeepWith from 'lodash/cloneDeepWith';
 
 import Button from '@atlaskit/button/default/button';
 import { code } from '@atlaskit/docs';
-import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset';
-import type { EditorProps } from '@atlaskit/editor-core';
-import { createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
+import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset/builder';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
+import { createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal/universal';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import { Box } from '@atlaskit/primitives/compiled';
 

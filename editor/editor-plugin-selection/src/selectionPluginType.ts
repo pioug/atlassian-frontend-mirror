@@ -1,10 +1,10 @@
-import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { EditorSelectionAPI, SelectionPluginOptions } from './types';

@@ -1,31 +1,31 @@
 import type { IntlShape } from 'react-intl';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import type { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	DIRECTION,
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
 	PublicPluginAPI,
-} from '@atlaskit/editor-common/types';
-import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { BlockCollapsePlugin } from '@atlaskit/editor-plugin-block-collapse/blockCollapsePluginType';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
-import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
-import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
-import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics/metrics-plugin-type';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert/quick-insert-plugin-type';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
 import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration, DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';

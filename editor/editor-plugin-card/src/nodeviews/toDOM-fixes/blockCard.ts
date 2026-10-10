@@ -1,6 +1,6 @@
 import { blockCard, blockCardWithLocalId } from '@atlaskit/adf-schema/block-card';
 import type { DatasourceAttributes, DataType, UrlType } from '@atlaskit/adf-schema/block-card';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type {
 	AttributeSpec,
 	DOMOutputSpec,

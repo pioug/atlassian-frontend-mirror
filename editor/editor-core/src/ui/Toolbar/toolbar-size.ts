@@ -1,9 +1,9 @@
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import {
 	ToolbarSize,
 	ToolbarWidthsFullPageNext,
 	ToolbarWidthsNext,
 } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 
 import { isFullPage } from '../../utils/is-full-page';
 import type { ToolbarBreakPoint } from './toolbar-types';

@@ -1,4 +1,4 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 
 import { ACTIONS } from '../actions';
 import { pluginKey as typeAheadPluginKey } from '../key';

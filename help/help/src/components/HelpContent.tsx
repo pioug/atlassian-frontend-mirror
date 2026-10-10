@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import HelpLayout from '@atlaskit/help-layout';
+import HelpLayout from '@atlaskit/help-layout/HelpLayout';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import SearchIcon from '@atlaskit/icon/core/search';
 

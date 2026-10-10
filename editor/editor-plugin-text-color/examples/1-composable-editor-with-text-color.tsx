@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { historyPlugin } from '@atlaskit/editor-plugins/history';

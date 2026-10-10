@@ -1,8 +1,8 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CompletionSource } from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

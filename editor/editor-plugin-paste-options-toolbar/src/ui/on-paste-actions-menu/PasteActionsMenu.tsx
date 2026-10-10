@@ -1,21 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import Popup from '@atlaskit/editor-common/Popup';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
+import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar/context';
 import {
 	AI_PASTE_MENU_SECTION,
-	EditorToolbarProvider,
 	PASTE_MENU,
 	SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
-import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+} from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { hideToolbar, highlightContent, showToolbar } from '../../editor-commands/commands';

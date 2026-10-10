@@ -6,13 +6,14 @@ import {
 	lazyNodeViewDecorationPluginKey,
 	testOnlyIgnoreLazyNodeView,
 } from '@atlaskit/editor-common/lazy-node-view';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
-import type { EditorActions, EditorProps } from '@atlaskit/editor-core';
+import type { EditorActions } from '@atlaskit/editor-core/actions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal';
+import { createUniversalPresetInternal } from '@atlaskit/editor-core/preset-universal/universal';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

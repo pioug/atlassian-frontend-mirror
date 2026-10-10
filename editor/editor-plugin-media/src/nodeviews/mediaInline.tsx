@@ -8,27 +8,25 @@ import { useEffect, useMemo, useState } from 'react';
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline-image-card';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/SelectionBasedNodeView';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-	ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
-import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import MediaInlineCard from '@atlaskit/media-card/loader';
-import type { FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
 

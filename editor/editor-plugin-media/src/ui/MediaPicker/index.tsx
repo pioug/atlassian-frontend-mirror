@@ -1,10 +1,11 @@
 import React from 'react';
 
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { BrowserWrapper } from './BrowserWrapper';

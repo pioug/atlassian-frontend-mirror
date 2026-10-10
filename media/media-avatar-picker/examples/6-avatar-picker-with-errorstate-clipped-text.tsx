@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { tallImage } from '@atlaskit/media-test-helpers';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 
 import { generateAvatars } from '../example-helpers';
 import { type Avatar, AvatarPickerDialog } from '../src';

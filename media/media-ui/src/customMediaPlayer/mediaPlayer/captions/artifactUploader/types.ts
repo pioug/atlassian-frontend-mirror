@@ -1,5 +1,6 @@
-import { type FileIdentifier, type MediaItemDetails } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaItemDetails } from '@atlaskit/media-client/media';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 export const artifactUploadTypes: {
 	captions: string[];

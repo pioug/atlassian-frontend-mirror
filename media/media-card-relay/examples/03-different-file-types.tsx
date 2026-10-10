@@ -14,8 +14,8 @@
 
 import { css, jsx } from '@compiled/react';
 
-import type { FileIdentifier } from '@atlaskit/media-client';
 import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	audioFileId,
@@ -23,7 +23,7 @@ import {
 	largePdfFileId,
 	unknownFileId,
 	videoFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
 
 import { MediaCardRelay } from '../src';
 import RelayMock, {

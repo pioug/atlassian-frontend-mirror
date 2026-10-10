@@ -1,6 +1,9 @@
 import Loadable from 'react-loadable';
 
-import type { CustomRendererProps, ViewerOptionsProps } from '@atlaskit/media-viewer';
+import type {
+	CustomRendererProps,
+	ViewerOptionsProps,
+} from '@atlaskit/media-viewer/viewer-options';
 
 jest.mock('../../../../../analytics/events/operational/zipEntryLoadSucceeded', () => ({
 	createZipEntryLoadSucceededEvent: jest.fn(),
@@ -9,23 +12,20 @@ jest.mock('../../../../../analytics/events/operational/zipEntryLoadFailed', () =
 	createZipEntryLoadFailedEvent: jest.fn(),
 }));
 
-jest.mock('@atlaskit/media-client', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-client');
-	return {
-		...actualModule,
-		request: jest.fn().mockResolvedValue({
-			text: jest.fn().mockResolvedValue('some-src'),
-			arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
-		}),
-	};
-});
+jest.mock('@atlaskit/media-client/request', () => ({
+	...jest.requireActual('@atlaskit/media-client/request'),
+	request: jest.fn().mockResolvedValue({
+		text: jest.fn().mockResolvedValue('some-src'),
+		arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
+	}),
+}));
 
 import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 jest.mock('unzipit', () => ({

@@ -2,9 +2,9 @@ import {
 	LISTS_INDENTATION_GROUP,
 	LISTS_INDENTATION_GROUP_INLINE,
 	TEXT_SECTION,
-	TEXT_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TEXT_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 export const getListsIndentationGroupForInlineToolbar = (): RegisterComponent[] => {
 	return [

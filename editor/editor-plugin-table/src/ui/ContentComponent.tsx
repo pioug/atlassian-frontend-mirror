@@ -1,19 +1,17 @@
 import React from 'react';
 
-import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
-import type {
-	ExtractInjectionAPI,
-	GetEditorContainerWidth,
-	GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
+import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer/ResizerBreakoutModeLabel';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

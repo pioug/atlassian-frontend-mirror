@@ -6,7 +6,8 @@ import type { ReactElement } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { SortAscendingIcon, SortDescendingIcon } from '@atlaskit/editor-toolbar';
+import { SortAscendingIcon } from '@atlaskit/editor-toolbar/sort-ascending-icon';
+import { SortDescendingIcon } from '@atlaskit/editor-toolbar/sort-descending-icon';
 
 import { SortOrder } from '../types';
 

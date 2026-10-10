@@ -2,21 +2,19 @@ import React, { useCallback } from 'react';
 
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	addColumnAfter,
 	addColumnBefore,
 	getAriaKeyshortcuts,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import { layoutMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	TableColumnAddLeftIcon,
-	TableColumnAddRightIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
+import { toolbarMessages as layoutMessages } from '@atlaskit/editor-common/messages/layout';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { TableColumnAddLeftIcon } from '@atlaskit/editor-toolbar/column-add-left-icon';
+import { TableColumnAddRightIcon } from '@atlaskit/editor-toolbar/column-add-right-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import {

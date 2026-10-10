@@ -4,8 +4,8 @@ import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
-import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji/emojiPlugin';
+import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -29,10 +29,8 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
-import {
-	ExampleCreateInlineCommentComponent,
-	ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/create';
+import { ExampleViewInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/view';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 const highlightAdfDoc = {

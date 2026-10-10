@@ -1,4 +1,5 @@
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import { pluginKey, ACTIONS } from '../pm-plugins/main';
 import type { TextColorPlugin } from '../textColorPluginType';

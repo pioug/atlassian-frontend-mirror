@@ -8,11 +8,11 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnnotationByMatches,
 	InlineCommentHoverComponentProps,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/annotation';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ApplyAnnotation } from '../../../actions/index';

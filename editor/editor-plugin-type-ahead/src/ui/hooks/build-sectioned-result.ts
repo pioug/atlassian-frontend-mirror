@@ -4,7 +4,7 @@ import type {
 	TypeAheadHandler,
 	TypeAheadItem,
 	TypeAheadSection,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/type-ahead';
 
 import type { TypeAheadResolvedSection } from '../../types';
 

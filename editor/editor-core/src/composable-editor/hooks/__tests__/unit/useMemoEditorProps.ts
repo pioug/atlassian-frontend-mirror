@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
 
 import type { EditorNextProps, EditorProps } from '../../../../types/editor-props';
 import type { WithAppearanceComponent } from '../../../../types/with-appearance-component';

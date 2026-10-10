@@ -1,5 +1,5 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Rebaseable } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

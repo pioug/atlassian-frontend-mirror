@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,

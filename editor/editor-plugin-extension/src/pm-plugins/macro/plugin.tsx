@@ -1,5 +1,6 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

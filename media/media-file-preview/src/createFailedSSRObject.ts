@@ -1,4 +1,4 @@
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import type { SSRStatusFail } from './analytics';
 import { extractErrorInfo } from './extractErrorInfo';

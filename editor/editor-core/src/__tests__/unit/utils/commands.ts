@@ -1,7 +1,8 @@
 import { uuid } from '@atlaskit/adf-schema/uuid';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
-import type { Command } from '@atlaskit/editor-common/types';
-import { filterCommand as filter, isEmptySelectionAtStart } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { filterCommand as filter } from '@atlaskit/editor-common/utils';
+import { isEmptySelectionAtStart } from '@atlaskit/editor-common/utils/commands';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

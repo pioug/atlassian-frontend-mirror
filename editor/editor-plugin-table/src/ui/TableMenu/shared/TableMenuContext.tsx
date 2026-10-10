@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { MenuType } from '@atlaskit/editor-ui-control-model';
+import type { MenuType } from '@atlaskit/editor-ui-control-model/types';
 
 export type TableMenuContextValue = {
 	canMergeCells?: boolean;

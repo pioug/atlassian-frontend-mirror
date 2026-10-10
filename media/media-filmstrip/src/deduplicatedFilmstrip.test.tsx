@@ -3,11 +3,11 @@ import React from 'react';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { getFileStreamsCache } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import { getFileStreamsCache } from '@atlaskit/media-client/file-streams-cache';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 
 import { DeduplicatedFilmStrip } from './deduplicatedFilmstrip';
 

@@ -1,5 +1,5 @@
-import { createFixedGuidelinesFromLengths } from '@atlaskit/editor-common/guideline';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { createFixedGuidelinesFromLengths } from '@atlaskit/editor-common/guideline/fixedGuideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
 
 import type { GuidelineExcludeConfig } from './snapping';
 import { calculateDefaultSnappings, calculateDefaultTablePreserveSnappings } from './snapping';

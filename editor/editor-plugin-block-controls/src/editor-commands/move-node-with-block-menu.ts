@@ -1,6 +1,7 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { DIRECTION } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';

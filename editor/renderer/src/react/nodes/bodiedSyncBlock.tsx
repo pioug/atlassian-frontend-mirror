@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
 
 interface Props {
 	children: React.ReactNode;

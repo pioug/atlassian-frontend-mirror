@@ -2,7 +2,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { unsafeOverflowAutoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
 // eslint-disable-next-line import/order
-import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 import type { DraggableSourceData } from '../../../types';
 // eslint-disable-next-line import/order

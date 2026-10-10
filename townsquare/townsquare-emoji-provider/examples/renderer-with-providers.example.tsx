@@ -5,9 +5,9 @@ import { IntlProvider } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { cssMap } from '@atlaskit/css';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { Box } from '@atlaskit/primitives/compiled';
-import { ReactRenderer } from '@atlaskit/renderer';
+import ReactRenderer from '@atlaskit/renderer/renderer';
 import { token } from '@atlaskit/tokens';
 
 import { getEmojiProviderForCloudId } from '../src/provider';

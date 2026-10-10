@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cardMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/card';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import {
 	ASSETS_MENU_ITEM,
@@ -9,8 +9,8 @@ import {
 	JIRA_WORK_ITEMS_MENU_ITEM,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { DATA_AND_CHARTS_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';

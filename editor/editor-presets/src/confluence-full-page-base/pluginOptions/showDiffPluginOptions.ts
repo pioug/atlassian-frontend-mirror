@@ -1,4 +1,4 @@
-import type { DiffParams } from '@atlaskit/editor-plugin-show-diff';
+import type { DiffParams } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
 
 interface Props {
 	options: DiffParams | undefined;

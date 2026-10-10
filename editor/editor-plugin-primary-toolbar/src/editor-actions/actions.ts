@@ -1,4 +1,4 @@
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 
 import type { ComponentRegistry, ToolbarElementNames } from '../primaryToolbarPluginType';
 

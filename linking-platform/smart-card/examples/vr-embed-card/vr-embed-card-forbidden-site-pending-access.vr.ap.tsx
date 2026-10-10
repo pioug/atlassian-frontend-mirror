@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ForbiddenWithSitePendingRequestClient } from '@atlaskit/link-test-helpers';
+import { ForbiddenWithSitePendingRequestClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import VRCardView from '../utils/vr-card-view';
 

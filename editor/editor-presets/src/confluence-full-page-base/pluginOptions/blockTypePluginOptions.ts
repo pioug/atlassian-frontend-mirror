@@ -1,4 +1,4 @@
-import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type';
+import type { BlockTypePluginOptions } from '@atlaskit/editor-plugin-block-type/types';
 
 interface Props {
 	options: never;

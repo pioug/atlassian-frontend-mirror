@@ -307,7 +307,9 @@ describe('DatePicker', () => {
 				);
 
 				const value = screen.getByText(
-					`${exampleDate.parts.day.padStart(2, '0')}/${exampleDate.parts.month.padStart(2, '0')}/${exampleDate.parts.year}`,
+					`${exampleDate.parts.day.padStart(2, '0')}/${exampleDate.parts.month.padStart(2, '0')}/${
+						exampleDate.parts.year
+					}`,
 				);
 
 				expect(value).toHaveAttribute('lang', lang);
@@ -322,7 +324,9 @@ describe('DatePicker', () => {
 				);
 
 				const value = screen.getByText(
-					`${exampleDate.parts.day.padStart(2, '0')}/${exampleDate.parts.month.padStart(2, '0')}/${exampleDate.parts.year}`,
+					`${exampleDate.parts.day.padStart(2, '0')}/${exampleDate.parts.month.padStart(2, '0')}/${
+						exampleDate.parts.year
+					}`,
 				);
 
 				expect(value).toHaveAttribute('lang', 'en-GB');
@@ -435,12 +439,8 @@ describe('DatePicker', () => {
 					jest.useRealTimers();
 				});
 
-				it.each([
-					[false, '1926-02-01'],
-					[true, '2026-02-01'],
-				])('emits the expected century with reference date gate %s', async (enabled, expected) => {
+				it('emits the expected century with the current reference date', async () => {
 					const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-					(enabled ? passGate : failGate)('platform-dst-dp-current-reference-date');
 					const onChangeSpy = jest.fn();
 					render(createDatePicker({ dateFormat: 'DD.MM.YY', onChange: onChangeSpy }));
 
@@ -448,7 +448,7 @@ describe('DatePicker', () => {
 					expect(onChangeSpy).not.toHaveBeenCalled();
 					await user.keyboard('{Enter}');
 
-					expect(onChangeSpy).toHaveBeenCalledWith(expected, expect.any(Object));
+					expect(onChangeSpy).toHaveBeenCalledWith('2026-02-01', expect.any(Object));
 					expect(screen.getByTestId(testIdContainer)).toHaveTextContent('01.02.26');
 				});
 			});

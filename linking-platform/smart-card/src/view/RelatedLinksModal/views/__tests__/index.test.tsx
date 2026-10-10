@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 import '@atlaskit/link-test-helpers/jest';

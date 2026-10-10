@@ -1,4 +1,4 @@
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types/selection';
 
 export type FormatResult =
 	| {

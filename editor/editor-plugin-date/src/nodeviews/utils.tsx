@@ -4,7 +4,7 @@ import {
 	isPastDate,
 	timestampToString,
 	timestampToTaskContext,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/date';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 

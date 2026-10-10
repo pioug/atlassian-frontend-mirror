@@ -4,22 +4,22 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 import rafSchd from 'raf-schd';
 import { useIntl } from 'react-intl';
 
-import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { TableEventPayload } from '@atlaskit/editor-common/analytics/types/table-events';
 import {
 	CHANGE_ALIGNMENT_REASON,
-	INPUT_METHOD,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/table-events';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
+import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline/updateGuideline';
 import { focusTableResizer, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
-import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import ResizerNext from '@atlaskit/editor-common/resizer/Resizer';
+import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -28,9 +28,9 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { insm } from '@atlaskit/insm';
+import { insm } from '@atlaskit/insm/api';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 

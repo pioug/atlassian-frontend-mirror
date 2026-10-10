@@ -5,7 +5,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import Link from '@atlaskit/link/link';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message/message';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 
 const StagingCardExample = ({
 	url = 'about:blank',

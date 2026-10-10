@@ -1,8 +1,8 @@
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { find } from '@atlaskit/editor-common/quick-insert';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
-import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types';
-import { dedupe } from '@atlaskit/editor-common/utils';
+import { find } from '@atlaskit/editor-common/quick-insert/utils';
+import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types/quick-insert';
+import { dedupe } from '@atlaskit/editor-common/utils/dedupe';
 
 type GetQuickInsertSuggestions = (
 	searchOptions: QuickInsertSearchOptions,

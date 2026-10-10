@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';

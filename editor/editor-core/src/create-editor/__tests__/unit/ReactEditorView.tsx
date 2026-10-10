@@ -70,8 +70,8 @@ jest.mock('@atlaskit/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig
 	},
 }));
 
-jest.mock('@atlaskit/editor-common/analytics', () => ({
-	...jest.requireActual<object>('@atlaskit/editor-common/analytics'),
+jest.mock('@atlaskit/editor-common/analytics/fire-analytics-event', () => ({
+	...jest.requireActual('@atlaskit/editor-common/analytics/fire-analytics-event'),
 	fireAnalyticsEvent: jest.fn(),
 }));
 
@@ -91,19 +91,24 @@ import { act, screen, cleanup, waitFor } from '@testing-library/react';
 import { createIntl } from 'react-intl';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
+import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/events';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
-import * as coreUtilsModule from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import * as isSSRModule from '@atlaskit/editor-common/is-ssr';
+import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import {
 	processRawValue,
 	processRawValueWithoutValidation,
 } from '@atlaskit/editor-common/process-raw-value';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI, NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type {
+	PublicPluginAPI,
+	NextEditorPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { SEVERITY } from '@atlaskit/editor-common/utils';
+import { toJSON } from '@atlaskit/editor-common/utils/nodes';
 import type { EditorProps } from '@atlaskit/editor-core/editor';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { replaceDocument } from '@atlaskit/editor-plugin-collab-edit/src/pm-plugins/utils';
@@ -111,9 +116,9 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { editorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
-import * as editorSSRRendererModule from '@atlaskit/editor-ssr-renderer';
 import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
+import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer/editor-ssr-renderer';
+import * as editorSSRRendererModule from '@atlaskit/editor-ssr-renderer/editor-ssr-renderer';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -1361,11 +1366,11 @@ describe('@atlaskit/editor-core', () => {
 
 		describe('SSR environment', () => {
 			beforeEach(() => {
-				jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(true);
+				jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(true);
 			});
 
 			afterEach(() => {
-				jest.spyOn(coreUtilsModule, 'isSSR').mockReset();
+				jest.spyOn(isSSRModule, 'isSSR').mockReset();
 			});
 
 			it('ReactEditorView is rendered well', () => {
@@ -1468,7 +1473,7 @@ describe('@atlaskit/editor-core', () => {
 				cleanup();
 
 				// Browser
-				jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
+				jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(false);
 				renderWithIntl(<ReactEditorView {...props} />);
 				const browserEditor = screen.getAllByRole('textbox')[0];
 				const browserTagName = ssrEditor.tagName.toLowerCase();
@@ -1481,11 +1486,11 @@ describe('@atlaskit/editor-core', () => {
 
 		describe('browser environment', () => {
 			beforeEach(() => {
-				jest.spyOn(coreUtilsModule, 'isSSR').mockReturnValue(false);
+				jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(false);
 			});
 
 			afterEach(() => {
-				jest.spyOn(coreUtilsModule, 'isSSR').mockReset();
+				jest.spyOn(isSSRModule, 'isSSR').mockReset();
 			});
 
 			it('ReactEditorView is rendered well', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 
 import { ANALYTICS_CHANNEL } from '../constants';
 import { withLinkPickerAnalyticsContext } from './index';

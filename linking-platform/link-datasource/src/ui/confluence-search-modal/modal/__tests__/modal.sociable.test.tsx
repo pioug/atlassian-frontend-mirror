@@ -6,7 +6,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';

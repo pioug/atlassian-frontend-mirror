@@ -1,4 +1,4 @@
-import type { PrimaryToolbarPluginOptions } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { PrimaryToolbarPluginOptions } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
 
 interface Props {
 	options: {

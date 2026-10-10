@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 19.3.1
+
+### Patch Changes
+
+- [`43a440595095c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43a440595095c) -
+  Remove the current-reference-date feature gate. Current-date parsing is now permanent.
+
 ## 19.3.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 
 import {
 	TEST_BASE_DATA,

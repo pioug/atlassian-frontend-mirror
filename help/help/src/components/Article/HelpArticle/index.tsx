@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
-import HelpArticleContent from '@atlaskit/help-article';
+import HelpArticleContent from '@atlaskit/help-article/HelpArticle';
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
 
 import {
 	type ArticleFeedback,

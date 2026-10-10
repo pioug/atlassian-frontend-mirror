@@ -2,15 +2,13 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { deleteRow, tooltip } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	DeleteIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { DeleteIcon } from '@atlaskit/editor-toolbar/delete-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import {
 	clearHoverSelection,

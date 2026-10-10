@@ -1,7 +1,7 @@
 import memoizeOne from 'memoize-one';
 import type { MemoizedFn } from 'memoize-one';
 
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type {
 	Mark,

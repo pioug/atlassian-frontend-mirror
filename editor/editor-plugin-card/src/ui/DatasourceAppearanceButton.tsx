@@ -8,10 +8,10 @@ import { useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

@@ -6,17 +6,16 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { expandedState } from '@atlaskit/editor-common/expand';
-import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { expandSelectionBounds, GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { messages as blockControlsMessages } from '@atlaskit/editor-common/messages/block-controls';
+import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
-import {
-	type Command,
-	type EditorCommand,
-	type ExtractInjectionAPI,
-	DIRECTION,
-} from '@atlaskit/editor-common/types';
+import { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import {
 	isNodeTypeValidChildOf,

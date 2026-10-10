@@ -2,8 +2,8 @@ import {
 	TRANSFORM_SUGGESTED_MENU_SECTION,
 	TRANSFORM_CREATE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
-} from '@atlaskit/editor-common/block-menu';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/block-menu/key';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 import {

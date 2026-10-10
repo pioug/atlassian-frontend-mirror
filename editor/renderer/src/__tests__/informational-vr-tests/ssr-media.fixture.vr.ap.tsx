@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-client/test-helpers';
-import type { SSR } from '@atlaskit/media-common';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import { Renderer } from '../../entry-points/renderer-default';

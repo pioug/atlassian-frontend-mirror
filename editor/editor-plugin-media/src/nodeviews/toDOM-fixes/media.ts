@@ -1,5 +1,5 @@
 import { media } from '@atlaskit/adf-schema/media';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type {
 	AttributeSpec,
 	DOMOutputSpec,

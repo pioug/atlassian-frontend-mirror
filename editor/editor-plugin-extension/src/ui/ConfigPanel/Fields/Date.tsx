@@ -4,7 +4,7 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
-import type { DateField } from '@atlaskit/editor-common/extensions';
+import type { DateField } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
 
 import FieldMessages from '../FieldMessages';

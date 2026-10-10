@@ -1,8 +1,8 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { ResourceId, BlockInstanceId } from '../common/types';

@@ -7,47 +7,46 @@ import { useMergeRefs } from 'use-callback-ref';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import {
-	type FileDetails,
-	type FileIdentifier,
-	type FileState,
-	globalMediaEventEmitter,
-	type Identifier,
-	type ImageResizeMode,
-	type MediaBlobUrlAttrs,
-	RECENTS_COLLECTION,
-	imageResizeModeToFileImageMode,
 	isProcessedFileState,
-	type NonErrorFileState,
 	isErrorFileState,
 	toCommonMediaClientError,
-	type AuthProviderSucceededEventPayload,
-	type AuthProviderFailedEventPayload,
 } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
+import type {
+	AuthProviderSucceededEventPayload,
+	AuthProviderFailedEventPayload,
+} from '@atlaskit/media-client/events';
+import type { NonErrorFileState } from '@atlaskit/media-client/file-state';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { FileIdentifier, Identifier } from '@atlaskit/media-client/identifier';
+import {
+	type ImageResizeMode,
+	imageResizeModeToFileImageMode,
+} from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
+import type { FileDetails } from '@atlaskit/media-client/item';
 import {
 	mapSsrMediaItemToFileState,
 	type SsrMediaItem,
 } from '@atlaskit/media-client/ssr-media-item';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 import {
 	isMimeTypeSupportedByBrowser,
-	type MediaFeatureFlags,
-	type MediaTraceContext,
-	type NumericalCardDimensions,
-	type SSR,
 	isVideoMimeTypeSupportedByBrowser,
-	getRandomTelemetryId,
-} from '@atlaskit/media-common';
+} from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview/media-file-preview-error';
 import type { MediaFilePreview } from '@atlaskit/media-file-preview/types';
 import { useFilePreview } from '@atlaskit/media-file-preview/use-file-preview';
-import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+import type { ProcessingFailedState, FileState } from '@atlaskit/media-state/file-state';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
-import {
-	MediaViewer,
-	type ViewerOptionsProps,
-	type MediaViewerExtensions,
-} from '@atlaskit/media-viewer';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
+import type { ViewerOptionsProps } from '@atlaskit/media-viewer/viewer-options';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { getActiveTrace } from '@atlaskit/react-ufo/get-active-trace';

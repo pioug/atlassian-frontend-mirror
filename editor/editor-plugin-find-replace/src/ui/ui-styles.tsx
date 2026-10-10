@@ -7,7 +7,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 const fontSize = 14;

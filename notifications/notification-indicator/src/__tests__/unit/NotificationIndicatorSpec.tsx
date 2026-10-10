@@ -2,10 +2,10 @@ import React from 'react';
 
 import { act, render, screen, waitFor } from '@testing-library/react';
 
-import {
-	type NotificationCountResponse,
-	type NotificationLogProvider,
-} from '@atlaskit/notification-log-client';
+import type {
+	NotificationCountResponse,
+	NotificationLogProvider,
+} from '@atlaskit/notification-log-client/types';
 
 import NotificationIndicator, {
 	type ValueUpdatingParams,

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink/hyperlinkPlugin';
+import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { loomPlugin } from '@atlaskit/editor-plugins/loom';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';

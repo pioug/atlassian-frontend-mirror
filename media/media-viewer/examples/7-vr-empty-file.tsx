@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { type Identifier, MediaClient } from '@atlaskit/media-client';
-import {
-	defaultCollectionName,
-	createStorybookMediaClientConfig,
-} from '@atlaskit/media-test-helpers';
-import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { emptyImage } from '../example-helpers';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';

@@ -1,7 +1,5 @@
-import {
-	isIgnored as isIgnoredByGapCursor,
-	isSelectionAtStartOfNode,
-} from '@atlaskit/editor-common/selection';
+import { isSelectionAtStartOfNode } from '@atlaskit/editor-common/selection';
+import { isIgnored as isIgnoredByGapCursor } from '@atlaskit/editor-common/selection/is-ignored';
 import { isEmptyParagraph, isListItemNode } from '@atlaskit/editor-common/utils';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
@@ -24,7 +22,7 @@ import {
 	hasParentNode,
 } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { selectionPluginKey } from '../types';

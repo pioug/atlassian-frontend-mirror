@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { tallImage } from '@atlaskit/media-test-helpers';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 
 import StatefulAvatarPickerDialog from '../example-helpers/StatefulAvatarPickerDialog';
 

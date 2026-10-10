@@ -1,5 +1,5 @@
-import { type MediaType } from '@atlaskit/media-client';
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
+import type { MediaType } from '@atlaskit/media-common/main-types';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
 
 import { getMimeTypeFromFilename } from './getMimeTypeFromFilename';
 

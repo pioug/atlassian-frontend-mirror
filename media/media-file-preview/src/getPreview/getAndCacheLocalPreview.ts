@@ -1,9 +1,7 @@
-import {
-	type FilePreview,
-	type MediaBlobUrlAttrs,
-	type MediaClient,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
+import type { FilePreview } from '@atlaskit/media-state/file-state';
 
 import { type MediaFilePreview, type MediaFilePreviewDimensions } from '../types';
 import { enrichAttrsWithClientId } from './enrichAttrsWithClientId';

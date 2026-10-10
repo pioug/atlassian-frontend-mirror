@@ -1,15 +1,16 @@
 import React from 'react';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorFloatingDialogZIndex,
 	akEditorFloatingOverlapPanelZIndex,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';

@@ -8,13 +8,13 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import TextIcon from '@atlaskit/icon/core/text';
 
 import type { PlaceholderTextPlugin } from '../../placeholderTextPluginType';

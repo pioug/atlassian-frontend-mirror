@@ -2,10 +2,11 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { TableColumnsDistributeIcon } from '@atlaskit/editor-toolbar/columns-distribute-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { distributeColumnsWidthsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';

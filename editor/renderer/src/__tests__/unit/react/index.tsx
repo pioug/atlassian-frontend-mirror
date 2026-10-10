@@ -10,7 +10,8 @@ import {
 	getSchemaBasedOnStage,
 	defaultSchema as schema,
 } from '@atlaskit/adf-schema/schema-default';
-import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';

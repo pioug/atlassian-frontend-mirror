@@ -15,7 +15,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';

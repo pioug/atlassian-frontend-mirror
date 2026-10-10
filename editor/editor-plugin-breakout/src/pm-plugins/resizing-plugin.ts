@@ -1,14 +1,14 @@
 import type { IntlShape } from 'react-intl';
 
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	getBreakoutResizableNodeTypes,
 	getBreakoutResizableNodeTypesNew,
-	stepAddsOneOf,
 } from '@atlaskit/editor-common/utils';
 import { getChangedNodes, isReplaceDocOperation } from '@atlaskit/editor-common/utils/document';
+import { stepAddsOneOf } from '@atlaskit/editor-common/utils/editor-core-utils';
 import type { Mark, Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -24,7 +24,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import type { TableColumnOrdering } from '@atlaskit/custom-steps';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps/types';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

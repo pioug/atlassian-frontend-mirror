@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { RefsNode } from '@atlaskit/editor-common/types/doc-builder';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';

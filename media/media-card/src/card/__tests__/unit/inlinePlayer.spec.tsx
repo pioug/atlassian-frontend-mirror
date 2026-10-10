@@ -4,18 +4,14 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import {
-	globalMediaEventEmitter,
-	type MediaViewedEventPayload,
-	type FileState,
-} from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import {
-	createMockedMediaApi,
-	createProcessingFileItem,
-} from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
+import type { MediaViewedEventPayload } from '@atlaskit/media-client/events';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import { createProcessingFileItem } from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import type { FileState } from '@atlaskit/media-state/file-state';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
+import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';

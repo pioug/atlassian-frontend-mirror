@@ -6,23 +6,19 @@ import type { WrappedComponentProps, WithIntlProps } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnalyticsDispatch,
 	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
 	FireAnalyticsCallback,
-} from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	fireAnalyticsEvent,
-	PLATFORMS,
-} from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+} from '@atlaskit/editor-common/analytics/types/events';
+import { PLATFORMS } from '@atlaskit/editor-common/analytics/types/general-events';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
 import { isPerformanceAPIAvailable } from '@atlaskit/editor-common/is-performance-api-available';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
@@ -30,26 +26,26 @@ import {
 	getRequestToResponseTime,
 	getResponseEndTime,
 } from '@atlaskit/editor-common/performance/navigation';
-import {
-	profileSSROperation,
-	SSRRenderMeasure,
-} from '@atlaskit/editor-common/performance/ssr-measures';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
-} from '@atlaskit/editor-common/preset';
-import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
+} from '@atlaskit/editor-common/preset/builder';
+import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset/plugin-injection-api';
 import {
 	processRawValue,
 	processRawValueWithoutValidation,
 } from '@atlaskit/editor-common/process-raw-value';
+import { profileSSROperation } from '@atlaskit/editor-common/profileSSROperation';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { SSRRenderMeasure } from '@atlaskit/editor-common/SSRRenderMeasure';
 import type {
-	ContextIdentifierProvider,
-	ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
-import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
+	PublicPluginAPI,
+	Transformer,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import ReactEditorViewContext from '@atlaskit/editor-common/ui-react/ReactEditorViewContext';
+import useConstructor from '@atlaskit/editor-common/useConstructor';
+import usePreviousState from '@atlaskit/editor-common/usePreviousState';
 import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
@@ -61,9 +57,9 @@ import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
 import { createSSRPMPlugins } from '@atlaskit/editor-ssr-renderer/create-ssr-pm-plugins';
+import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer/editor-ssr-renderer';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data';
 import { getInteractionId } from '@atlaskit/react-ufo/get-interaction-id';

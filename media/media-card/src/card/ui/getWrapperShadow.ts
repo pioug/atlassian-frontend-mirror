@@ -1,4 +1,4 @@
-import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/consts';
+import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 // This is a trick to simulate the blue border without affecting the dimensions.

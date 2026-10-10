@@ -1,6 +1,6 @@
 import React, { useCallback, createContext, useContext, useRef } from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';

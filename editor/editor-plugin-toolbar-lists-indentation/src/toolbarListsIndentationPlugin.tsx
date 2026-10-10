@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
-	Command,
-	ExtractInjectionAPI,
-	FeatureFlags,
-	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
-} from '@atlaskit/editor-common/types';
-import { ToolbarSize } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/toolbar';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

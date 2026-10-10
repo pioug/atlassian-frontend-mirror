@@ -3,7 +3,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import { akEditorWrappedNodeZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorWrappedNodeZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 const richMediaClassName = 'rich-media-item';

@@ -2,10 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { layoutMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { toolbarMessages as layoutMessages } from '@atlaskit/editor-common/messages/layout';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { TableColumnsDistributeIcon } from '@atlaskit/editor-toolbar/columns-distribute-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { isDistributedUniformly } from '../../pm-plugins/utils/layout-column-distribution';

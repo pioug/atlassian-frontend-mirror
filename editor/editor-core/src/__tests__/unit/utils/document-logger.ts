@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { getDocStructure } from '@atlaskit/editor-common/core-utils';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { getDocStructure } from '@atlaskit/editor-common/document-logger';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	date,

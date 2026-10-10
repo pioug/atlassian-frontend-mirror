@@ -8,10 +8,8 @@ import { useMemo, type JSXElementConstructor, type ReactElement } from 'react';
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl';
 
-import {
-	type EditorAnalyticsAPI,
-	TOOLBAR_ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/toolbar-button';
 import {
 	type Keymap,
 	getAriaKeyshortcuts,
@@ -25,16 +23,16 @@ import {
 	tooltip,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	Command,
-	EditorCommand,
 	InputMethodToolbar,
 	TextFormattingState,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/text-formatting';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import BoldIcon from '@atlaskit/icon/core/text-bold';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';

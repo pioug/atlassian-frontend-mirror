@@ -7,14 +7,14 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection } from '@atlaskit/editor-tables';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

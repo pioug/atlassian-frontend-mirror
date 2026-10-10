@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types';
+import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types/annotation';
 
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';

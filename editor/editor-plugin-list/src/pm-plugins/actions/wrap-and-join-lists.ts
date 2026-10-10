@@ -1,5 +1,5 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import { autoJoinTr } from '@atlaskit/editor-common/utils';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { autoJoinTr } from '@atlaskit/editor-common/utils/autojoin';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, NodeRange, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

@@ -9,7 +9,8 @@ import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { createStorybookMediaClient, videoSquareFileId } from '@atlaskit/media-test-helpers';
+import { videoSquareFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClient } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

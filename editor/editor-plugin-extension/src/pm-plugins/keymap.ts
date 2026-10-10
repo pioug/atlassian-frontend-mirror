@@ -1,6 +1,6 @@
 import { bindKeymapWithCommand, escape } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import { clearEditingContext } from '../editor-commands/commands';

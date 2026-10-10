@@ -1,4 +1,4 @@
-import { ConfigCollection } from '@atlaskit/config-common-libs';
+import { ConfigCollection } from '@atlaskit/config-common-libs/collection';
 
 import { ConfigClient } from './main';
 

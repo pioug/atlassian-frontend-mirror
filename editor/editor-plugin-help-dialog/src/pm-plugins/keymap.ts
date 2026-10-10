@@ -1,11 +1,11 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { bindKeymapWithCommand, openHelp } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';

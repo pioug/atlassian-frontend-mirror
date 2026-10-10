@@ -7,7 +7,7 @@ import React from 'react';
 
 import { jsx } from '@compiled/react';
 
-import type { FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { render, screen } from '@atlassian/testing-library';
 
 import { SvgView } from '../svgImage-compiled';

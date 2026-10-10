@@ -1,5 +1,5 @@
 import { isRequestError } from '@atlaskit/media-client';
-import type { MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 const getRequestErrorDetails = (err: any) => {
 	if (isRequestError(err)) {

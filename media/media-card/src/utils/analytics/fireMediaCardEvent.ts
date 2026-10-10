@@ -1,8 +1,6 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import {
-	ANALYTICS_MEDIA_CHANNEL,
-	sanitiseAnalyticsPayload,
-} from '@atlaskit/media-common/analytics';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import { sanitiseAnalyticsPayload } from '@atlaskit/media-common/sanitisePayload';
 
 import type { MediaCardAnalyticsEventPayload } from './analytics';
 

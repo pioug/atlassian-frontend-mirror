@@ -5,7 +5,7 @@ import {
 	BLOCK_CONTROLS_DRAG_HANDLE,
 	BLOCK_CONTROLS_LEFT_GROUP,
 } from '@atlaskit/editor-common/block-controls/surface-keys';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterButton } from '@atlaskit/editor-ui-control-model/types';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';

@@ -1,6 +1,7 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
-import type { AnalyticsEventPayload, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { getStateContext } from './editor-state-context';

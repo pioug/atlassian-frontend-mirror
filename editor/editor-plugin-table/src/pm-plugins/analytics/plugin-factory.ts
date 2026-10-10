@@ -1,6 +1,6 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { Command } from '@atlaskit/editor-common/types';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticPluginAction } from './actions';

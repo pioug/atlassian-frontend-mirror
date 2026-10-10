@@ -1,16 +1,16 @@
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-	EditorCommand,
-	TypeAheadSectionTitleUpdate,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BasePlugin } from '@atlaskit/editor-plugin-base';
-import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadSectionTitleUpdate } from '@atlaskit/editor-common/types/type-ahead';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BasePlugin } from '@atlaskit/editor-plugin-base/basePluginType';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier/contextIdentifierPluginType';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { MentionProvider } from '@atlaskit/mention/types';
 
 import type { InsertMentionParameters } from './editor-commands';

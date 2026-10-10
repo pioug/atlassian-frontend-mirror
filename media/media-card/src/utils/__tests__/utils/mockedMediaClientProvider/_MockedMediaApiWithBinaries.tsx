@@ -1,7 +1,7 @@
-import { type MediaApi } from '@atlaskit/media-client';
-import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
+import type { GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 // TODO: these types should be exported from here (the public package), and imported in test-data
-import { type ItemWithBinaries } from '@atlaskit/media-test-data';
+import type { ItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries/types';
 
 import { dataURItoBlob } from './_helpers';
 

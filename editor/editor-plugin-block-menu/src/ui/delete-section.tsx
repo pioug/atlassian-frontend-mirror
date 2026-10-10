@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 export const DeleteSection = ({
 	children,

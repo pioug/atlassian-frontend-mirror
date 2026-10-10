@@ -4,8 +4,8 @@ import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { type FileIdentifier } from '@atlaskit/media-client';
-import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import KeyboardEventWithKeyCode from '@atlaskit/media-test-helpers/keyboardEventWithKeyCode';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 

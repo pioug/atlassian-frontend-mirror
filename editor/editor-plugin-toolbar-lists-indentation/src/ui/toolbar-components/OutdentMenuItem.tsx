@@ -3,15 +3,14 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { outdent as toggleOutdentKeymap, formatShortcut } from '@atlaskit/editor-common/keymaps';
-import { indentationMessages } from '@atlaskit/editor-common/messages';
-import { getInputMethodFromParentKeys, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	OutdentIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { messages as indentationMessages } from '@atlaskit/editor-common/messages/indentation';
+import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { OutdentIcon } from '@atlaskit/editor-toolbar/outdent-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { useIndentationState } from '../utils/hooks';

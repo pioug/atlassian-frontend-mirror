@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
-import type { Identifier, MediaClientConfig } from '@atlaskit/media-client';
-import { MediaViewer, type MediaViewerExtensions } from '@atlaskit/media-viewer';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 
 import { isExternalMedia } from '../../ui/toolbar/utils';
 

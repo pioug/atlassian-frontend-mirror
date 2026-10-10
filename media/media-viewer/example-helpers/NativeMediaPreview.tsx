@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { type MediaClient, type Identifier, type MediaFileArtifacts } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
 

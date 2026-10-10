@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
 
-import { EditorPageModel } from '@af/editor-libra/page-models';
+import { EditorPageModel } from '@af/editor-libra/page-models/editor-page-model';
 import { snapshotInformational } from '@af/visual-regression';
 // eslint-disable-next-line
 import { deviceViewPorts } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';

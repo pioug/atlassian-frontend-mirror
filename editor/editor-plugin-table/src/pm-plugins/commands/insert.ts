@@ -1,31 +1,31 @@
 // #region Imports
-import { AddColumnStep } from '@atlaskit/custom-steps';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { AddColumnStep } from '@atlaskit/custom-steps/add-column';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TABLE_OVERFLOW_CHANGE_TRIGGER,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics/types/table-events';
 import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
 	isNestedTablesSupported,
 } from '@atlaskit/editor-common/nesting';
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-	addColumnAt as addColumnAtPMUtils,
-	addRowAt,
-	findTable,
-	selectedRect,
-} from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { addColumnAt as addColumnAtPMUtils } from '@atlaskit/editor-tables/utils/add-column-at';
+import { addRowAt } from '@atlaskit/editor-tables/utils/add-row-at';
+import { selectedRect } from '@atlaskit/editor-tables/utils/selection-rect';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PluginInjectionAPI } from '../../types';

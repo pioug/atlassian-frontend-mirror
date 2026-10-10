@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 
 import type { AvatarGroupPlugin } from './avatarGroupPluginType';
 import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';

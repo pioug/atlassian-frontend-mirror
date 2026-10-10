@@ -13,7 +13,7 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

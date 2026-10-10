@@ -2,7 +2,7 @@ import { bind, bindAll } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
 import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
 import { token } from '@atlaskit/tokens';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { blockCollapsePlugin } from '@atlaskit/editor-plugins/block-collapse/blockCollapsePlugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

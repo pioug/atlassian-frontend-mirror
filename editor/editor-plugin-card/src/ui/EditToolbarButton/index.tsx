@@ -8,15 +8,12 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
-import { linkToolbarMessages, cardMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	FloatingToolbarButton as Button,
-	FloatingToolbarSeparator as Separator,
-} from '@atlaskit/editor-common/ui';
-import {
-	ArrowKeyNavigationType,
-	DropdownContainer as UiDropdown,
-} from '@atlaskit/editor-common/ui-menu';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';

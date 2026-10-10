@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import dateFnsFormat from 'date-fns/format';
 import { IntlProvider } from 'react-intl';
 
-import { type MediaType } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/media-client/media';
 import {
 	largeImageFileId,
 	smallImageFileId,
@@ -18,7 +18,7 @@ import {
 	audioFileId,
 	docFileId,
 	videoProcessingFailedId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 import Range from '@atlaskit/range/range';
 

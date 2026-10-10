@@ -1,7 +1,7 @@
 import type { SyntheticEvent } from 'react';
 
 import type { CardEvent, InlineCardEvent } from '@atlaskit/media-card/types';
-import type { Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 
 export interface CardSurroundings {
 	collectionName: string;

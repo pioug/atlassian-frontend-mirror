@@ -9,7 +9,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import { Popup } from '@atlaskit/editor-common/ui';
+import Popup from '@atlaskit/editor-common/Popup';
 
 import { container } from './styles';
 

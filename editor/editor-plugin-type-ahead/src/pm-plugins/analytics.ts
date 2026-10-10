@@ -3,9 +3,9 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadInputMethod } from '../types';

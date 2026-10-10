@@ -9,7 +9,7 @@ import { bindAll } from 'bind-event-listener';
 import { v4 as uuid } from 'uuid';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TriggerProps as TooltipTriggerProps } from '@atlaskit/tooltip/types';
 

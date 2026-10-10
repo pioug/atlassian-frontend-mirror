@@ -5,7 +5,7 @@ import type { PropsWithChildren } from 'react';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import RendererActions from '../../actions/index';

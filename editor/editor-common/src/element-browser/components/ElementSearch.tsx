@@ -11,8 +11,8 @@ import { injectIntl } from 'react-intl';
 
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import Textfield from '@atlaskit/textfield/text-field';

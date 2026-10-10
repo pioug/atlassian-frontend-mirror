@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 
 import { Help } from '../../index';
 

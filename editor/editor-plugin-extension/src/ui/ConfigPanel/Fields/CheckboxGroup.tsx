@@ -9,7 +9,10 @@ import { Fragment, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox/checkbox';
-import type { EnumCheckboxField, Option } from '@atlaskit/editor-common/extensions';
+import type {
+	EnumCheckboxField,
+	Option,
+} from '@atlaskit/editor-common/extensions/field-definitions';
 import type { FieldProps } from '@atlaskit/form/field';
 import Field from '@atlaskit/form/field';
 import { Fieldset as AKFieldset } from '@atlaskit/form/fieldset';

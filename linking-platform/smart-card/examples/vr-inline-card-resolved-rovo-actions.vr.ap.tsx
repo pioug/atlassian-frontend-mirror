@@ -3,13 +3,10 @@ import React from 'react';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import {
-	SlackMessage,
-	GithubFile,
-	GoogleDoc,
-	GoogleDocUrl,
-	iconGoogleDrive,
-} from '@atlaskit/link-test-helpers';
+import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
+import { GoogleDoc, GoogleDocUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
+import { GithubFile } from '@atlaskit/link-test-helpers/smart-card/mocks/github';
+import { SlackMessage } from '@atlaskit/link-test-helpers/smart-card/mocks/slack';
 
 import { Card } from '../src';
 import ExampleContainer from './utils/example-container';

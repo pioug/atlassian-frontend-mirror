@@ -7,7 +7,7 @@ import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from '
 
 import { css, jsx } from '@compiled/react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 
 import { MediaSVGError } from './MediaSVGError';
 import type { ContentSource, MediaSvgProps } from './types';

@@ -1,6 +1,6 @@
 import type { MouseEvent } from 'react';
 
-import type { CardProps } from '@atlaskit/smart-card';
+import type { CardProps } from '@atlaskit/smart-card/card/types';
 
 import type { Providers } from '../provider-factory';
 

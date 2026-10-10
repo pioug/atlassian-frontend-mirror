@@ -1,8 +1,12 @@
 import React from 'react';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
-import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotation';
+import type { AnnotationState } from '@atlaskit/editor-common/types/emitter';
+import {
+	AnnotationUpdateEmitter,
+	AnnotationUpdateEvent,
+} from '@atlaskit/editor-common/types/emitter';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { render, waitFor } from '@atlassian/testing-library';

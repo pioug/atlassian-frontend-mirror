@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
-import type { Command } from '@atlaskit/editor-common/types';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

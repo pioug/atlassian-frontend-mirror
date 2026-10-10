@@ -7,14 +7,15 @@ import { IntlProvider } from 'react-intl';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { WidthContext } from '@atlaskit/editor-common/ui';
+import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -41,10 +42,10 @@ jest.mock('@atlaskit/link-datasource/datasource-table-view-with-wrappers', () =>
 	};
 });
 
-jest.mock('@atlaskit/smart-card', () => {
-	const originalModule = jest.requireActual('@atlaskit/smart-card');
+jest.mock('@atlaskit/smart-card/card/lazy', () => {
+	const originalModule = jest.requireActual('@atlaskit/smart-card/card/lazy');
 	return {
-		...originalModule,
+		...jest.requireActual('@atlaskit/smart-card/card/lazy'),
 		Card: jest.fn((props) => <originalModule.Card {...props} />),
 	};
 });

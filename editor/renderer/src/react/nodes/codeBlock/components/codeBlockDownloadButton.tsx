@@ -10,7 +10,7 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
-import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

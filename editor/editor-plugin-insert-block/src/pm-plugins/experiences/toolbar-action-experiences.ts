@@ -1,18 +1,16 @@
 import { bind } from 'bind-event-listener';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import {
-	Experience,
-	EXPERIENCE_ID,
-	ExperienceCheckDomMutation,
-	ExperienceCheckPopupMutation,
-	ExperienceCheckTimeout,
-	getSelectionAncestorDOM,
-} from '@atlaskit/editor-common/experiences';
-import type { ExperienceCheckPopupMutationConfig } from '@atlaskit/editor-common/experiences';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { getSelectionAncestorDOM } from '@atlaskit/editor-common/experiences';
+import { EXPERIENCE_ID } from '@atlaskit/editor-common/experiences/consts';
+import { Experience } from '@atlaskit/editor-common/experiences/Experience';
+import { ExperienceCheckDomMutation } from '@atlaskit/editor-common/experiences/ExperienceCheckDomMutation';
+import { ExperienceCheckPopupMutation } from '@atlaskit/editor-common/experiences/ExperienceCheckPopupMutation';
+import type { ExperienceCheckPopupMutationConfig } from '@atlaskit/editor-common/experiences/ExperienceCheckPopupMutation';
+import { ExperienceCheckTimeout } from '@atlaskit/editor-common/experiences/ExperienceCheckTimeout';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

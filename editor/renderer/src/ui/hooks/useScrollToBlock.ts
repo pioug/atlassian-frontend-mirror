@@ -3,13 +3,15 @@ import { useEffect } from 'react';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { getDocument } from '@atlaskit/browser-apis';
 import {
-	DEFAULT_BLOCK_LINK_HASH_PREFIX,
-	expandAllParentsThenScroll,
 	expandElement,
 	isExpandCollapsed,
-	findNodeWithExpandParents,
 	getLocalIdSelector,
 } from '@atlaskit/editor-common/block-menu';
+import { DEFAULT_BLOCK_LINK_HASH_PREFIX } from '@atlaskit/editor-common/block-menu/block-link';
+import {
+	expandAllParentsThenScroll,
+	findNodeWithExpandParents,
+} from '@atlaskit/editor-common/block-menu/scroll-to-block-utils';
 
 import { useStableScroll } from './useStableScroll';
 

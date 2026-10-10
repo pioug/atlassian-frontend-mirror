@@ -8,17 +8,17 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils/create-wrap-selection-transaction';
 import ExpandElementIcon from '@atlaskit/icon-lab/core/expand-element';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

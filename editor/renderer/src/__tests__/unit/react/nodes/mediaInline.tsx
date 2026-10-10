@@ -16,15 +16,18 @@ import React from 'react';
 
 import { act, screen, waitFor } from '@testing-library/react';
 
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import type { InlineCardEvent } from '@atlaskit/media-card/types';
-import type { FileDetails } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import {
+	fakeMediaClient,
+	getDefaultMediaClientConfig,
+} from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import MediaInline from '../../../../react/nodes/mediaInline';
 

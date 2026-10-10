@@ -1,5 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { expectToEqual } from '@atlaskit/media-test-helpers';
+import { expectToEqual } from '@atlaskit/media-test-helpers/jestHelpers';
 
 import {
 	TEST_BASE_DATA,

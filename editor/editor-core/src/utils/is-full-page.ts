@@ -1,4 +1,4 @@
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 
 export function isFullPage(
 	appearance?: EditorAppearance,

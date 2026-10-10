@@ -2,15 +2,13 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { addRowBefore, tooltip } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import {
-	TableRowAddAboveIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { TableRowAddAboveIcon } from '@atlaskit/editor-toolbar/row-add-above-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { insertRowWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';

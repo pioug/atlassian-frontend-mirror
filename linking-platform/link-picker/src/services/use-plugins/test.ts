@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import { ManualPromise } from '@atlaskit/link-test-helpers';
+import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
 
 import {
 	MockLinkPickerGeneratorPlugin,

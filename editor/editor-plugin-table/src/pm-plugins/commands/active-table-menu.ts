@@ -1,4 +1,4 @@
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ActiveTableMenu, PluginInjectionAPI } from '../../types';

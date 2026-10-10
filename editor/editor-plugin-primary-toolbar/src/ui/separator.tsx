@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
+import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles/plugins';
 
 export default (): jsx.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

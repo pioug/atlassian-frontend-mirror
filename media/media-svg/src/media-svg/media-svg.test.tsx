@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 
 import * as svgRendererModule from '../media-svg/svgRenderer-compiled';
 import { failDataURIConversionOnce } from '../test-helpers/mockFileReader';

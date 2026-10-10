@@ -1,4 +1,4 @@
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 

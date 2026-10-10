@@ -7,18 +7,19 @@ import * as adfCustomSteps from '@atlaskit/adf-schema/steps';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as atlaskKitCustomSteps from '@atlaskit/custom-steps';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	fireAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type { CollabEditProvider, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
 	EditorState,
 	ReadonlyTransaction,

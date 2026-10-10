@@ -1,15 +1,13 @@
 import React from 'react';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import {
-	PanelInfoIcon,
-	PanelSuccessIcon,
-	PanelNoteIcon,
-	PanelWarningIcon,
-	PanelErrorIcon,
-} from '@atlaskit/editor-common/icons';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { PanelErrorIcon } from '@atlaskit/editor-common/icons/PanelErrorIcon';
+import { PanelInfoIcon } from '@atlaskit/editor-common/icons/PanelInfoIcon';
+import { PanelNoteIcon } from '@atlaskit/editor-common/icons/PanelNoteIcon';
+import { PanelSuccessIcon } from '@atlaskit/editor-common/icons/PanelSuccessIcon';
+import { PanelWarningIcon } from '@atlaskit/editor-common/icons/PanelWarningIcon';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import TipIcon from '@atlaskit/icon/core/lightbulb';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

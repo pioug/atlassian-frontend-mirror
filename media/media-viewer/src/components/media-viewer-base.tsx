@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { type Identifier } from '@atlaskit/media-client';
 import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 
 import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
 import { isSameIdentifier } from '../utils/isSameIdentifier';

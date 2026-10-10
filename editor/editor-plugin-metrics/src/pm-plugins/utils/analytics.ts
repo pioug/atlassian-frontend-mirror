@@ -1,10 +1,10 @@
+import type { ActiveSessionEventPayload } from '@atlaskit/editor-common/analytics/types/activity-session-events';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { ActiveSessionEventPayload } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import type { MetricsState } from '../main';

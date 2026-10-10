@@ -12,8 +12,8 @@ import {
 	createAnnotationManager,
 } from '@atlaskit/editor-common/annotation';
 import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotation';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import type { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

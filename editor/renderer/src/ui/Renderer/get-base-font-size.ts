@@ -1,7 +1,7 @@
 import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import type { RendererAppearance, RendererContentMode } from './types';
 

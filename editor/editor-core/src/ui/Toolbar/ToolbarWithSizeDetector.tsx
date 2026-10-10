@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';

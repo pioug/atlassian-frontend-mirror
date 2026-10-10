@@ -1,4 +1,4 @@
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import {
 	archiveFileId,
 	audioFileId,
@@ -28,7 +28,7 @@ import {
 	codeFileId,
 	emailFileId,
 	emailUnsupportedFileId,
-} from '@atlaskit/media-client/test-helpers';
+} from '@atlaskit/media-client/test-helpers/example-media-items';
 
 export const imageIdentifier: FileIdentifier = {
 	...imageFileId,

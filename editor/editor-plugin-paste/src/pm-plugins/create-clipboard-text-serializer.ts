@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { timestampToString } from '@atlaskit/editor-common/utils';
+import { timestampToString } from '@atlaskit/editor-common/utils/date';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 /**

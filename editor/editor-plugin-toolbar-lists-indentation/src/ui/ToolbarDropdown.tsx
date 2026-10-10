@@ -14,19 +14,16 @@ import {
 	outdent as toggleOutdentKeymap,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import { indentationMessages, listMessages } from '@atlaskit/editor-common/messages';
-import {
-	Shortcut,
-	ToolbarDropdownTriggerWrapper,
-	ToolbarDropdownWrapper,
-	ToolbarExpandIcon,
-	ToolbarSeparator,
-} from '@atlaskit/editor-common/ui';
-import {
-	DropdownMenuWithKeyboardNavigation as DropdownMenu,
-	ToolbarButton,
-} from '@atlaskit/editor-common/ui-menu';
-import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
+import { messages as indentationMessages } from '@atlaskit/editor-common/messages/indentation';
+import { messages as listMessages } from '@atlaskit/editor-common/messages/list';
+import { Shortcut } from '@atlaskit/editor-common/Shortcut';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { ToolbarDropdownTriggerWrapper } from '@atlaskit/editor-common/ui-toolbar/DropdownTriggerWrapper';
+import { ToolbarDropdownWrapper } from '@atlaskit/editor-common/ui-toolbar/DropdownWrapper';
+import { ToolbarExpandIcon } from '@atlaskit/editor-common/ui-toolbar/ExpandIcon';
+import { ToolbarSeparator } from '@atlaskit/editor-common/ui-toolbar/Separator';
+import type { DropdownItem } from '@atlaskit/editor-plugin-block-type/ToolbarBlockType';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import TextIndentLeftIcon from '@atlaskit/icon/core/text-indent-left';

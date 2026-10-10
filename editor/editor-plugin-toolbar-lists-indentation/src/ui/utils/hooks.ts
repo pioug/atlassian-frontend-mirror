@@ -1,7 +1,7 @@
 import type { EditorState } from 'prosemirror-state';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 
 import {
 	getIndentationButtonsState,

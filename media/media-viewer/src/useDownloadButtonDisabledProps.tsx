@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 
-import { type MediaClient } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import { messages } from '@atlaskit/media-ui/messages';
 
 export const useDownloadButtonDisabledProps: any = (mediaClient: MediaClient) => {

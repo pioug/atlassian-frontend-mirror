@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { MediaType } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 export const checkMediaType = async (

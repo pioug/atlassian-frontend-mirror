@@ -2,14 +2,12 @@ import React, { useMemo, useRef, useLayoutEffect } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import {
-	profileSSROperation,
-	SSRRenderMeasure,
-} from '@atlaskit/editor-common/performance/ssr-measures';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
+import { profileSSROperation } from '@atlaskit/editor-common/profileSSROperation';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import { SSRRenderMeasure } from '@atlaskit/editor-common/SSRRenderMeasure';
+import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
 // oxlint-disable-next-line import/no-duplicates
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';

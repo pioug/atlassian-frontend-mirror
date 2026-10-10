@@ -2,12 +2,12 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { pickPanelTypeForInsertion } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

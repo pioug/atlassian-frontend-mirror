@@ -12,27 +12,26 @@ import type {
 	ExtendedMediaAttributes,
 	Layout as MediaSingleLayout,
 } from '@atlaskit/adf-schema/rich-media-common';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import { captionMessages } from '@atlaskit/editor-common/media';
+import { getMaxWidthForNestedNode } from '@atlaskit/editor-common/media-single';
 import {
-	calcMediaSinglePixelWidth,
 	DEFAULT_IMAGE_HEIGHT,
 	DEFAULT_IMAGE_WIDTH,
-	ExternalImageBadge,
-	getMaxWidthForNestedNode,
 	MEDIA_SINGLE_GUTTER_SIZE,
-	MediaBadges,
-} from '@atlaskit/editor-common/media-single';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/media-single/constants';
+import { ExternalImageBadge } from '@atlaskit/editor-common/media-single/ExternalImageBadge';
+import { MediaBadges } from '@atlaskit/editor-common/media-single/MediaBadges';
+import { calcMediaSinglePixelWidth } from '@atlaskit/editor-common/media-single/utils';
+import { captionMessages } from '@atlaskit/editor-common/media/caption';
+import MediaSingle from '@atlaskit/editor-common/MediaSingle';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
-import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { MediaSingle } from '@atlaskit/editor-common/ui';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import usePreviousState from '@atlaskit/editor-common/usePreviousState';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';

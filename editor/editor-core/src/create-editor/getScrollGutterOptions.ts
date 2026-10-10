@@ -1,4 +1,4 @@
-import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugins/base';
+import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugin-base/plugin';
 
 import type { EditorProps } from '../types/editor-props';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';

@@ -1,6 +1,6 @@
 import { getDocument } from '@atlaskit/browser-apis';
-import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
+import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles/drag-handle';
 
 const POPUP_WRAPPER_TEST_ID = 'popup-wrapper';
 const EDITOR_CONTENT_CONTAINER_SELECTOR = '[data-testid="editor-content-container"]';

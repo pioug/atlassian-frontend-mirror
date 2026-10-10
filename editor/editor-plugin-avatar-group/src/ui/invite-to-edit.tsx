@@ -8,7 +8,7 @@ import React, { Fragment, type PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 
 import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import AddIcon from '@atlaskit/icon/core/add';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

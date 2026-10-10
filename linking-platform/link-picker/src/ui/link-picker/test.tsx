@@ -13,7 +13,8 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';

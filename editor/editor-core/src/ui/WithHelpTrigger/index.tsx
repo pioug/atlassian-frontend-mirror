@@ -1,13 +1,13 @@
 import React from 'react';
 
-import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics/types/events';
 import { createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { EditorContext } from '@atlaskit/editor-common/UNSAFE_do_not_use_editor_context';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';

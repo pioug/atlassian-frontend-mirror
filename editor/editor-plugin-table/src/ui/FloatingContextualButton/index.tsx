@@ -10,18 +10,18 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { focusToContextMenuTrigger } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { Popup } from '@atlaskit/editor-common/ui';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import Popup from '@atlaskit/editor-common/Popup';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles/constants';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

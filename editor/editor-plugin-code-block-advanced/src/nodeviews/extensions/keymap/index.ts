@@ -4,8 +4,8 @@ import { keymap as cmKeymap } from '@codemirror/view';
 import type { KeyBinding } from '@codemirror/view';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
-import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
 import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

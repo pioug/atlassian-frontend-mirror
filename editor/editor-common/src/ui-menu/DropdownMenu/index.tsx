@@ -10,7 +10,7 @@ import React, { PureComponent, useCallback, useContext, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 import CustomItem from '@atlaskit/menu/custom-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';

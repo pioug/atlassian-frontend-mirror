@@ -1,12 +1,12 @@
 import React, { memo, useEffect, useMemo } from 'react';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { handleSSRErrorsAnalytics } from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block';
-import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider';
-import type { MediaSSR } from '@atlaskit/renderer';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { handleSSRErrorsAnalytics } from '@atlaskit/editor-common/sync-block/ssr_error';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block/synced-block-plugin-type';
+import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider/useFetchSyncBlockData';
+import type { MediaSSR } from '@atlaskit/renderer/media-options';
 
 import type { SyncedBlockRendererOptions } from '../types';
 import { renderSyncedBlockContent } from './renderSyncedBlockContent';

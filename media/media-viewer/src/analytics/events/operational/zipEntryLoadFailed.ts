@@ -1,6 +1,6 @@
 import { type ZipEntry } from 'unzipit';
 
-import { type FileState } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import type { MediaViewerFailureAttributes } from '../..';
 import { getErrorDetail } from '../../../getErrorDetail';

@@ -5,22 +5,20 @@ import ReactDOMServer from 'react-dom/server';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import {
-	type FileIdentifier,
-	MediaClient,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { type SSR } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { SSR } from '@atlaskit/media-common/main-types';
+import { imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 /**
  * Development use only
  * The purpose of this example is to explore on edge cases for this component's
  * feature. Some ways of using the component in here might not be the standard
  * way. It is discouraged to use this code as a base for consumers.
  */
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { tallImage } from '@atlaskit/media-test-helpers';
-import { imageFileId } from '@atlaskit/media-test-helpers';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import DevelopmentUseMessage from '../example-helpers/developmentUseMessage';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { url } from '@atlaskit/link-test-helpers';
+import { url } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
 
 import { Card, TitleBlock } from '../../src';
 

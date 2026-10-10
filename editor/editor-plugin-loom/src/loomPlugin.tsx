@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

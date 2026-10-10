@@ -1,5 +1,5 @@
-import { MediaClient } from '@atlaskit/media-client';
 import { mediaClientsMap, getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
 
 describe('getMediaClient', () => {
 	beforeEach(() => {

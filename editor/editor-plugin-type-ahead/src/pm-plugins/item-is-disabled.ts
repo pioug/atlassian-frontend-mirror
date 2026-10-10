@@ -1,5 +1,6 @@
-import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 

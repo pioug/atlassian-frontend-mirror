@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
+import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles/task-decision';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

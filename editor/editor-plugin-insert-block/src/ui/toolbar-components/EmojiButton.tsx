@@ -2,11 +2,14 @@ import React, { useRef } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent, insertEmoji } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
-import { ToolbarButton, ToolbarTooltip, EmojiIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { EmojiIcon } from '@atlaskit/editor-toolbar/emoji-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
+import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 
 import { useEmojiPickerPopup } from './hooks/useEmojiPickerPopup';
 import { EmojiPickerPopup } from './popups/EmojiPickerPopup';

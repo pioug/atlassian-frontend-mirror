@@ -4,9 +4,9 @@ import { cssMap } from '@compiled/react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import type { CorePlugin } from '@atlaskit/editor-common/types';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id';
+import type { CorePlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id/local-id-plugin-type';
 import Heading from '@atlaskit/heading/heading';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';

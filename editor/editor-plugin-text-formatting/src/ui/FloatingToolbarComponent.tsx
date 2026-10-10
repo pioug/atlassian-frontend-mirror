@@ -9,11 +9,11 @@ import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

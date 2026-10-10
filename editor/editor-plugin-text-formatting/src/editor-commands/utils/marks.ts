@@ -1,5 +1,6 @@
 import { entireSelectionContainsMark } from '@atlaskit/editor-common/mark';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark, MarkType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

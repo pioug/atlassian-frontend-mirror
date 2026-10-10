@@ -5,9 +5,9 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { mapMediaItemToFileState } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { useFileHashes } from '@atlaskit/media-client-react/use-file-hashes';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 
 describe('useFileHashes', () => {
 	it('should return the hashes of files provided they already exist in state', async () => {

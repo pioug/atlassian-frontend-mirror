@@ -2,8 +2,8 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { render, screen } from '@atlassian/testing-library';
 
 import { Outcome } from '../../../../domain/outcome';

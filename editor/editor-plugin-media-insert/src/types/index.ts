@@ -1,6 +1,7 @@
-import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { UiComponentFactoryParams, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics/types/insert-events';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
 import type { MediaState, MediaStateEventSubscriber } from '@atlaskit/editor-plugin-media/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

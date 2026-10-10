@@ -1,8 +1,8 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers/get-example-extension-providers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 

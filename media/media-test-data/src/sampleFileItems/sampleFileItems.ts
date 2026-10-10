@@ -1,4 +1,5 @@
-import { RECENTS_COLLECTION, type ResponseFileItem } from '@atlaskit/media-client';
+import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
+import type { ResponseFileItem } from '@atlaskit/media-client/media-store/types';
 import {
 	assign,
 	copy,

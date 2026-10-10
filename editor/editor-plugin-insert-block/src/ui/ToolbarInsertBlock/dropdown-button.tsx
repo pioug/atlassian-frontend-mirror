@@ -8,8 +8,8 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 

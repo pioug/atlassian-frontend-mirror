@@ -1,4 +1,4 @@
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { filterPluginsForReconfigure } from '../../filter-plugins-for-reconfigure';

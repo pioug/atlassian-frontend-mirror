@@ -1,8 +1,8 @@
 import React, { type ReactNode } from 'react';
 
-import { TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model';
+import { TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar/keys';
+import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 export const MenuSection = ({
 	children,

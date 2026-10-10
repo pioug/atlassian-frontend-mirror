@@ -5,8 +5,8 @@ import { IntlProvider } from 'react-intl';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { withWaitForItem } from '@atlaskit/link-test-helpers';
 import { mockBasicFilterAGGFetchRequests, mockSite } from '@atlaskit/link-test-helpers/datasource';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

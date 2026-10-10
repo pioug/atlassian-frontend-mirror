@@ -1,12 +1,10 @@
 import type { ComponentType, PropsWithChildren } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type {
-	BLOCK_ACTIONS_FEATURED_EXTENSION_SECTION_KEYS,
-	BlockMenuPlacement,
-} from '@atlaskit/editor-common/block-menu';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { BLOCK_ACTIONS_FEATURED_EXTENSION_SECTION_KEYS } from '@atlaskit/editor-common/block-menu/key';
+import type { BlockMenuPlacement } from '@atlaskit/editor-common/block-menu/placement';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export type MenuItemsType = Array<{

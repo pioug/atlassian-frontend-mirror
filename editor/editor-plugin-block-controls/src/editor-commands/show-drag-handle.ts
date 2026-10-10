@@ -1,4 +1,5 @@
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';

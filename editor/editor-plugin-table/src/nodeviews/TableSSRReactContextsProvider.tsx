@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 
 interface Props {
 	children: ReactNode;

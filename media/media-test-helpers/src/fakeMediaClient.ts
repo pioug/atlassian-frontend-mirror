@@ -1,4 +1,4 @@
-import { MediaClient } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import getJest from './getJest';

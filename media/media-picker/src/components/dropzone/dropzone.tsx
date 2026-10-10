@@ -3,8 +3,9 @@ import React from 'react';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { MediaClient } from '@atlaskit/media-client';
-import { withMediaAnalyticsContext, type MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common/withMediaAnalyticsContext';
 
 import {
 	type DropzoneConfig,

@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
-import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Flex } from '@atlaskit/primitives/compiled';

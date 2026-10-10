@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	QuickInsertSearchOptions,
 	QuickInsertSharedState,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/quick-insert';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

@@ -1,5 +1,6 @@
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { CommandDispatch, EditorCommand } from '@atlaskit/editor-common/types';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Fragment, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 

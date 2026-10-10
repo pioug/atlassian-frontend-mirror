@@ -4,26 +4,24 @@ import { render } from '@testing-library/react';
 
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import '@atlaskit/link-test-helpers/jest';
-import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
+import UIMediaSingle from '@atlaskit/editor-common/MediaSingle';
+import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { Pressable } from '@atlaskit/primitives/compiled';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { RendererAppearance } from '@atlaskit/renderer';
-import { Card } from '@atlaskit/smart-card';
+import type { RendererAppearance } from '@atlaskit/renderer/types';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmbedCard from '../../../../react/nodes/embedCard';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
 
-jest.mock('@atlaskit/smart-card', () => {
-	const originalModule = jest.requireActual('@atlaskit/smart-card');
-	return {
-		...originalModule,
-		Card: jest.fn(() => <div data-testid="smart-card" />),
-	};
-});
+jest.mock('@atlaskit/smart-card/card/lazy', () => ({
+	...jest.requireActual('@atlaskit/smart-card/card/lazy'),
+	Card: jest.fn(() => <div data-testid="smart-card" />),
+}));
 
 jest.mock('@atlaskit/smart-card/ssr', () => ({
 	CardSSR: jest.fn(() => <div data-testid="smart-card-ssr" />),

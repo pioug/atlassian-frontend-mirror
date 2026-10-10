@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { getDarkModeLCHColor } from '@atlaskit/adf-schema/get-dark-mode-lch-color';
 import type { TextColorAttributes } from '@atlaskit/adf-schema/text-color';
-import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import type { MarkProps } from '../types';

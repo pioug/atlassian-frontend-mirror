@@ -1,12 +1,10 @@
 import { type ReactNode } from 'react';
 
-import {
-	type MediaClient,
-	type MediaStoreGetFileImageParams,
-	type FileIdentifier,
-} from '@atlaskit/media-client';
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react/with-media-client';
-import type { SSR } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { SSR } from '@atlaskit/media-common/main-types';
 export type MediaImageStatus = 'loading' | 'error' | 'processed' | 'succeeded';
 
 export interface MediaImageInternalProps {

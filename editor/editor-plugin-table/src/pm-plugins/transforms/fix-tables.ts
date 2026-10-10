@@ -1,11 +1,11 @@
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import type { ReportInvalidNodeAttrs } from '../../types';
 import { calculateColumnWidth, getCellsRefsInColumn } from '../table-resizing/utils/column-state';

@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { type FileStatus as CommonFileStatus } from '@atlaskit/media-common';
+import type { FileStatus as CommonFileStatus } from '@atlaskit/media-common/main-types';
 import type { FilePreview, FileState, ErrorFileState } from '@atlaskit/media-state/file-state';
 
 export type FileStatus = CommonFileStatus;

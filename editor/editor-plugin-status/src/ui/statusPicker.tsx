@@ -13,16 +13,14 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
-import { statusMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners as withOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
+import { messages } from '@atlaskit/editor-common/messages/status';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/UserIntentPopupWrapper';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

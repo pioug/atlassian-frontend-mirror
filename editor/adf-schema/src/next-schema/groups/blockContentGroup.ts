@@ -1,4 +1,5 @@
-import { adfNodeGroup, type ADFNodeGroup } from '@atlaskit/adf-schema-generator';
+import { adfNodeGroup } from '@atlaskit/adf-schema-generator/adfNodeGroup';
+import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator/types/ADFNodeGroup';
 
 import { blockCard } from '../nodes/blockCard';
 import { blockquote } from '../nodes/blockquote';

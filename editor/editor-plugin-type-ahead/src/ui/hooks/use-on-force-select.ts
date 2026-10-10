@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types';
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { insertTypeAheadItem } from '../../pm-plugins/commands/insert-type-ahead-item';

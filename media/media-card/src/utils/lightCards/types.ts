@@ -1,4 +1,4 @@
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 import { type CardDimensions } from '../../types';
 

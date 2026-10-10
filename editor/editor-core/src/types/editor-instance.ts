@@ -1,10 +1,10 @@
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type {
-	ToolbarUIComponentFactory,
 	UIComponentFactory,
 	ReactHookFactory,
-} from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/types/ui-components';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { OnEditorViewStateUpdated } from '../create-editor/get-plugins';

@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
-	StoryList,
-	wideImage,
-	defaultBaseUrl,
 	generateFilesFromTestData,
 	MediaMock,
-	defaultCollectionName,
 	type MockFileInputParams,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/media-mock';
+import { defaultBaseUrl } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { StoryList } from '@atlaskit/media-test-helpers/story-list';
+import { wideImage } from '@atlaskit/media-test-helpers/wideImageURI';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

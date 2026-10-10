@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { type MediaType, type FileState, type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaType } from '@atlaskit/media-common/main-types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import {
 	FileStateFactory,

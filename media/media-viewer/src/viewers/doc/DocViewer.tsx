@@ -7,12 +7,14 @@ import React, { useReducer } from 'react';
 
 import { jsx, css } from '@compiled/react';
 
-import { type MediaClient, type FileState, isCommonMediaClientError } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
-import { useStaticCallback } from '@atlaskit/media-common';
-import { isExcelFile } from '@atlaskit/media-common/mediaTypeUtils';
+import { isCommonMediaClientError } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { isExcelFile } from '@atlaskit/media-common/isExcelFile';
+import { useStaticCallback } from '@atlaskit/media-common/useStaticCallback';
 import { DocumentViewer } from '@atlaskit/media-document-viewer/document-viewer';
 import { DOCUMENT_SCROLL_ROOT_ID } from '@atlaskit/media-document-viewer/get-document-root';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 

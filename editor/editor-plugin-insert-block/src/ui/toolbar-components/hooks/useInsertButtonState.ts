@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { Breakpoint } from '@atlaskit/editor-toolbar';
+import type { Breakpoint } from '@atlaskit/editor-toolbar/show';
 import type { EmojiProvider } from '@atlaskit/emoji';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';

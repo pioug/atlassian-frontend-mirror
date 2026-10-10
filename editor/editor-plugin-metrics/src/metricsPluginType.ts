@@ -1,11 +1,11 @@
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-	UserPreferencesProvider,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/types/user-preferences';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { MetricsState } from './pm-plugins/main';

@@ -4,8 +4,8 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { getRandomTelemetryId } from '@atlaskit/media-common';
-import { tallImage } from '@atlaskit/media-common/test-helpers';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
+import { tallImage } from '@atlaskit/media-common/tallImageURI';
 
 import { FileInput } from '../example-helpers/FileInput';
 import { ImagePreview } from '../example-helpers/ImagePreview';

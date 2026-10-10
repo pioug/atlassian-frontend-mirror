@@ -6,7 +6,7 @@ import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library';

@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { messages } from '@atlaskit/editor-common/quick-insert';
+import { messages } from '@atlaskit/editor-common/quick-insert/messages';
 
 export function getCategories(intl: IntlShape): {
 	title: string;

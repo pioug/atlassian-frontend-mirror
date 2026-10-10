@@ -10,8 +10,9 @@ import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { stopMeasure } from '@atlaskit/editor-common/performance-measures';
-import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotation';
+import type { AnnotationState } from '@atlaskit/editor-common/types/emitter';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types/emitter';
 import {
 	SEVERITY,
 	UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
@@ -28,10 +29,10 @@ import { ValidationContextProvider } from '../../ValidationContext';
 import { adfNestedTableData } from '../__fixtures__/mockData';
 const mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
-jest.mock('@atlaskit/editor-common/ui', () => {
+jest.mock('@atlaskit/editor-common/WithCreateAnalyticsEvent', () => {
 	const WithCreateAnalyticsEventMock = (props: any) => props.render(mockCreateAnalyticsEvent);
 	return {
-		...jest.requireActual<object>('@atlaskit/editor-common/ui'),
+		...jest.requireActual('@atlaskit/editor-common/WithCreateAnalyticsEvent'),
 		WithCreateAnalyticsEvent: WithCreateAnalyticsEventMock,
 	};
 });
@@ -706,8 +707,10 @@ describe('unsupported content levels severity', () => {
 
 			beforeEach(() => {
 				jest.resetModules();
-				jest.doMock('@atlaskit/editor-common/utils', () => ({
-					...jest.requireActual<object>('@atlaskit/editor-common/utils'),
+				jest.doMock('@atlaskit/editor-common/utils/get-unsupported-content-level-data', () => ({
+					...jest.requireActual<object>(
+						'@atlaskit/editor-common/utils/get-unsupported-content-level-data',
+					),
 					getUnsupportedContentLevelData: jest.fn(() => {
 						throw new Error('custom mocked error');
 					}),

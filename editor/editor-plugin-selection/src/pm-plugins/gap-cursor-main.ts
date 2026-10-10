@@ -1,11 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Side as GapCursorSide, Side } from '@atlaskit/editor-common/selection';
+import { setGapCursorAtPos } from '@atlaskit/editor-common/selection/actions';
 import {
 	GapCursorSelection,
-	Side as GapCursorSide,
 	JSON_ID,
-	setGapCursorAtPos,
-	Side,
-} from '@atlaskit/editor-common/selection';
+} from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

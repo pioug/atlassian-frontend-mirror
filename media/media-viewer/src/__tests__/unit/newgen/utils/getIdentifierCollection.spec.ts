@@ -1,4 +1,4 @@
-import { type ExternalImageIdentifier, type FileIdentifier } from '@atlaskit/media-client';
+import type { ExternalImageIdentifier, FileIdentifier } from '@atlaskit/media-client/identifier';
 
 import { getIdentifierCollection } from '../../../../utils/getIdentifierCollection';
 

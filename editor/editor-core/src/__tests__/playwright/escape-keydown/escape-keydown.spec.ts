@@ -1,11 +1,10 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
-import {
-	EditorDateModel,
-	EditorEmojiModel,
-	EditorMainToolbarModel,
-	EditorNodeContainerModel,
-	EditorPopupModel,
-} from '@af/editor-libra/page-models';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorDateModel } from '@af/editor-libra/page-models/editor-date-model';
+import { EditorEmojiModel } from '@af/editor-libra/page-models/editor-emoji-model';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models/editor-main-toolbar-model';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
+import { EditorPopupModel } from '@af/editor-libra/page-models/editor-popup-model';
 import { fixTest } from '@af/integration-testing';
 
 import { adfDate, emptyDocument } from './escape-keydown.spec.ts-fixtures';

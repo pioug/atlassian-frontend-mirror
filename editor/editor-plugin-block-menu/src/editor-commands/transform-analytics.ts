@@ -4,9 +4,9 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 

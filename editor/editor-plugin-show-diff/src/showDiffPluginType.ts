@@ -1,15 +1,15 @@
 import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
 import type { StepJson } from '@atlaskit/editor-common/collab';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
 	NextEditorPlugin,
-	EditorCommand,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 

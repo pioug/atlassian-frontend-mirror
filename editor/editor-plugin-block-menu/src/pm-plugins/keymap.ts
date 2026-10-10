@@ -1,7 +1,9 @@
-import { bindKeymapWithCommand, copyLinkToBlock, keymap } from '@atlaskit/editor-common/keymaps';
+import { keymap } from '@atlaskit/editor-common/keymap';
+import { bindKeymapWithCommand, copyLinkToBlock } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';
 import { FLAG_ID } from '../blockMenuPluginType';

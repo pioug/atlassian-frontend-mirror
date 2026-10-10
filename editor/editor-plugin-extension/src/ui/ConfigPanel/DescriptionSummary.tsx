@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';
 

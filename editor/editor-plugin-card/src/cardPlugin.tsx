@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 
-import { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import type { CardProvider, QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	IconDatasourceAssetsObjects,
 	IconDatasourceConfluenceSearch,
 	IconDatasourceJiraIssue,
-} from '@atlaskit/editor-common/quick-insert';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/assets';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';

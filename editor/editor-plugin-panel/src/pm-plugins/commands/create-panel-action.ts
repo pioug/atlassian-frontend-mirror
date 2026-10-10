@@ -5,11 +5,11 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
-import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils/create-wrap-selection-transaction';
 import { pickPanelTypeForInsertion } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

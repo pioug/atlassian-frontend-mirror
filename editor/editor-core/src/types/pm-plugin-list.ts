@@ -1,4 +1,4 @@
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { EditorConfig } from './editor-config';

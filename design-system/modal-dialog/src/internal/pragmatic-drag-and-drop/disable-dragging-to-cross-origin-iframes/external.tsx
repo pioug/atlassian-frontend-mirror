@@ -1,5 +1,5 @@
 import { monitorForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-external';
-import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 import { makeFixForAdapter } from './make-fix-for-adapter';
 

@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { getMediaEnvironment, getMediaRegion, type RequestMetadata } from '@atlaskit/media-client';
-import { type FileAttributes, getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
+import { getMediaEnvironment, getMediaRegion } from '@atlaskit/media-client';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
+import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
+import type { FileAttributes } from '@atlaskit/media-common/analytics/types';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';

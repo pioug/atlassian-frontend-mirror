@@ -1,4 +1,4 @@
-import { ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
+import { ignoreResizerMutations } from '@atlaskit/editor-common/resizer/BreakoutResizer';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';

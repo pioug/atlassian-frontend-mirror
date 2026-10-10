@@ -1,7 +1,7 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';

@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { CodeBlockPlugin } from '../index';
 import { removeAutoDetection, updateAutoDetectState } from '../utils/auto-detect-state';

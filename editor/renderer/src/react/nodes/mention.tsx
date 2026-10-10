@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
-import { Mention, type MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import Mention from '@atlaskit/editor-common/ui-mention';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';

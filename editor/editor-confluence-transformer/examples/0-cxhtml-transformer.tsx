@@ -14,17 +14,19 @@ import { pd } from 'pretty-data';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
-import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
-import { EditorContext, WithEditorActions } from '@atlaskit/editor-core';
+import type { EditorActions } from '@atlaskit/editor-core/actions';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
+import type { EditorProps } from '@atlaskit/editor-core/editor';
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers/PageElements';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import Spinner from '@atlaskit/spinner/spinner';

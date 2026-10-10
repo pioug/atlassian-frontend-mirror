@@ -1,7 +1,7 @@
 import type { CommentAction as AkCommentAction } from '@atlaskit/comment';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EditorProps } from '@atlaskit/editor-core';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
 
 import type { SuccessHandler } from '../internal/actions';
 import type { EventData } from '../internal/analytics';

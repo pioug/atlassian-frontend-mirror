@@ -7,7 +7,7 @@ import { forwardRef, useEffect, useState } from 'react';
 import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
-import { useStaticCallback } from '@atlaskit/media-common';
+import { useStaticCallback } from '@atlaskit/media-common/useStaticCallback';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { Annotations } from './annotations';

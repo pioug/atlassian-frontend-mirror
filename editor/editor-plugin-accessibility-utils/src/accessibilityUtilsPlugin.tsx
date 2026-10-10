@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

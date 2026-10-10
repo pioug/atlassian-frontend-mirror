@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	toggleBulletList as toggleBulletListKeymap,
 	toggleOrderedList as toggleOrderedListKeymap,
@@ -10,16 +9,16 @@ import {
 	formatShortcut,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
-import { listMessages, tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
+import { messages as listMessages } from '@atlaskit/editor-common/messages/list';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ListBulletedIcon,
-	ListNumberedIcon,
-	ToolbarButton,
-	ToolbarTooltip,
-} from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { ListBulletedIcon } from '@atlaskit/editor-toolbar/list-bulleted-icon';
+import { ListNumberedIcon } from '@atlaskit/editor-toolbar/list-numbered-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import TaskIcon from '@atlaskit/icon/core/task';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';

@@ -1,7 +1,7 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
 jest.mock('../../client/media-store/resolveInitialAuth');
-import { nextTick } from '@atlaskit/media-common/test-helpers';
+import { nextTick } from '@atlaskit/media-common/nextTick';
 import type { Auth } from '@atlaskit/media-core/auth';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 

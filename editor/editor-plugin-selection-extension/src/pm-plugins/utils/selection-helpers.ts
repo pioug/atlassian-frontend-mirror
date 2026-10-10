@@ -1,4 +1,4 @@
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import {
 	Fragment,
 	type Node as PMNode,

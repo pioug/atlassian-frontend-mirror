@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 
 import { performTypeAheadSelection } from '../../../pm-plugins/commands/insert-type-ahead-item';
 import { useTypeAheadContext } from '../useTypeAheadContext';

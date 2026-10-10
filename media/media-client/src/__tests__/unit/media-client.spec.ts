@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
+import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/jestHelpers';
 import type { AuthProvider, Auth } from '@atlaskit/media-core/auth';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';

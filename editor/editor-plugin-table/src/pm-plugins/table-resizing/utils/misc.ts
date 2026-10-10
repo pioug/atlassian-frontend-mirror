@@ -5,8 +5,8 @@ import {
 	layoutToWidth,
 } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils/table';
 import type { NodeSpec, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -16,7 +16,7 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TableOptions } from '../../../nodeviews/types';

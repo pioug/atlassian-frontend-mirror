@@ -9,19 +9,15 @@ import { jsx } from '@emotion/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import { toJSON } from '@atlaskit/editor-common/utils';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import { toJSON } from '@atlaskit/editor-common/utils/nodes';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-	imageUploadHandler,
-	MockActivityResource,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers/imageUpload';
+import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers/MockActivityResource';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';

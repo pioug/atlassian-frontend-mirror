@@ -4,7 +4,7 @@ import { screen, render, fireEvent } from '@testing-library/react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { basePlugin } from '@atlaskit/editor-plugin-base/basePlugin';
 
 import * as clickAreaHelper from '../../../../ui/Addon/outsideProsemirrorEditorClickHandler';
 

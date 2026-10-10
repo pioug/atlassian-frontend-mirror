@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import React, { useCallback, useMemo } from 'react';
 
-import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
+import { useSmartLinkActions } from '@atlaskit/smart-card/hook/use-smart-link-actions';
 
 type PreviewInvokerProps = {
 	appearance: 'inline' | 'block' | 'embed';

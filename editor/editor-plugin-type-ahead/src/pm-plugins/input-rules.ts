@@ -1,9 +1,11 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags, InputRuleWrapper } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
 import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules/constants';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
 
 import { openTypeAheadAtCursor } from '../pm-plugins/commands/open-typeahead-at-cursor';
 import type { TypeAheadHandler } from '../types';

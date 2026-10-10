@@ -7,7 +7,7 @@ import { type MouseEvent, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { mentionMessages } from '@atlaskit/editor-common/messages';
+import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

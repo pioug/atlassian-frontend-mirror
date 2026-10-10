@@ -1,4 +1,5 @@
-import { type MediaClient, type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
 
 import { getSSRPreview } from './getSSRPreview';
 

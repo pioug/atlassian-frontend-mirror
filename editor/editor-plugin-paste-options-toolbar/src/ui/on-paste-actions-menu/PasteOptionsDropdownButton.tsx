@@ -9,7 +9,8 @@ import { jsx } from '@compiled/react';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { CustomTriggerProps } from '@atlaskit/dropdown-menu/types';
-import { ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 /**
  * A compact dropdown button for paste options, styled like floating toolbar buttons.

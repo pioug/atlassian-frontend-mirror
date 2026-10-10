@@ -1,5 +1,9 @@
-import type { ADFMark, ADFMarkGroup, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
-import { MarkExcludesNone, adfMark, adfMarkGroup } from '@atlaskit/adf-schema-generator';
+import type { ADFMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMarkGroup } from '@atlaskit/adf-schema-generator/adfMarkGroup';
+import type { ADFMarkGroup } from '@atlaskit/adf-schema-generator/types/ADFMarkGroup';
+import type { ADFMarkSpec } from '@atlaskit/adf-schema-generator/types/ADFMarkSpec';
+import { MarkExcludesNone } from '@atlaskit/adf-schema-generator/types/ADFMarkSpec';
 
 export const annotation: ADFMark<ADFMarkSpec> = adfMark('annotation');
 export const annotationGroup: ADFMarkGroup = adfMarkGroup('annotation', [annotation]);

@@ -1,5 +1,5 @@
-import type { Command } from '@atlaskit/editor-common/types';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 
 import type { PluginInjectionAPI } from '../../types';
 import { pluginKey } from '../plugin-key';

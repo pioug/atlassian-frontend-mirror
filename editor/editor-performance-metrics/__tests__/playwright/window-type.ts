@@ -1,4 +1,4 @@
-import type { EditorPerformanceObserver } from '@atlaskit/editor-performance-metrics';
+import type { EditorPerformanceObserver } from '@atlaskit/editor-performance-metrics/editorPerformanceObserver';
 import type { TTVCTargets } from '@atlaskit/editor-performance-metrics/react';
 import type {
 	Timeline,

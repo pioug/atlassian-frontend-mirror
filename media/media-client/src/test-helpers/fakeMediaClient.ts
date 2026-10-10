@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { asMock } from '@atlaskit/media-common/test-helpers';
+import { asMock } from '@atlaskit/media-common/jestHelpers';
 import type { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import { MediaClient } from '../';

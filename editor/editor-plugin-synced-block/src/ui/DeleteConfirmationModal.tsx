@@ -5,16 +5,16 @@ import { useIntl } from 'react-intl';
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
 	DeletionReason,
 	SyncBlockAttrs,
-	SyncBlockStoreManager,
-} from '@atlaskit/editor-synced-block-provider';
+} from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';

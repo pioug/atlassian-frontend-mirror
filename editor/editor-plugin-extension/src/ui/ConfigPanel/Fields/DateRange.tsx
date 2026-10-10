@@ -10,8 +10,11 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
-import type { DateRangeField, DateRangeResult } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import type {
+	DateRangeField,
+	DateRangeResult,
+} from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import TextField from '@atlaskit/textfield/text-field';

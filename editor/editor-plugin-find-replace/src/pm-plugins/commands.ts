@@ -1,4 +1,4 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';

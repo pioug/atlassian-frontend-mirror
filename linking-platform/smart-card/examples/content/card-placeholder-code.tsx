@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient } from '@atlaskit/link-test-helpers';
+import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';

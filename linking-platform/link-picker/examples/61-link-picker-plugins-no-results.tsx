@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 import {
 	type LinkPickerPluginsConfiguration,
 	useLinkPickerPlugins,
-} from '@atlassian/link-picker-plugins';
+} from '@atlassian/link-picker-plugins/use-link-picker-plugins';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';

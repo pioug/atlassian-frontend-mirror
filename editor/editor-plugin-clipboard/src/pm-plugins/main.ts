@@ -1,8 +1,8 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
 import { getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { DOMSerializer, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

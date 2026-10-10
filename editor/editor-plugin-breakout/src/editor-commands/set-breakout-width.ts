@@ -1,5 +1,6 @@
 import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
-import type { BreakoutMode, Command } from '@atlaskit/editor-common/types';
+import type { BreakoutMode } from '@atlaskit/editor-common/types/breakout';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

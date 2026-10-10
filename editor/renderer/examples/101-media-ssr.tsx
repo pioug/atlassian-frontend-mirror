@@ -7,9 +7,9 @@ import Loadable from 'react-loadable';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { SSR } from '@atlaskit/media-common';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { default as Renderer } from '../src/ui/Renderer';
 import doc from './helper/ssr-media-adf.json';

@@ -1,4 +1,5 @@
-import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 
 export const isSameIdentifier = (id1: Identifier, id2: Identifier): boolean => {
 	if (isFileIdentifier(id1) && isFileIdentifier(id2)) {

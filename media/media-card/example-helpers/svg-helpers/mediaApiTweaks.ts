@@ -1,6 +1,6 @@
-import { type MediaApi } from '@atlaskit/media-client';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
 import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
-import { sleep } from '@atlaskit/media-test-helpers';
+import { sleep } from '@atlaskit/media-test-helpers/nextTick';
 
 type Endpoints = Partial<Record<keyof MediaApi, number>>;
 

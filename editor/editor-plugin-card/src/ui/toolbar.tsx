@@ -3,56 +3,54 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
-import type {
-	ACTION_SUBJECT_ID,
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import {
+	buildOpenedSettingsPayload,
+	buildVisitedNonHyperLinkPayload,
+} from '@atlaskit/editor-common/analytics/linking-utils';
+import type { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID as ACTION_SUBJECTID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	buildOpenedSettingsPayload,
-	buildVisitedNonHyperLinkPayload,
-} from '@atlaskit/editor-common/analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
-import {
-	buildLayoutButtons,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
+import buildLayoutButtons, {
 	buildLayoutDropdown,
-	commandWithMetadata,
-} from '@atlaskit/editor-common/card';
-import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link';
-import commonMessages, {
-	annotationMessages,
-	linkMessages,
-	linkToolbarMessages,
-	cardMessages as messages,
-} from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-	FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
-	richMediaClassName,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/card/MediaAndEmbedsToolbar';
+import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link/utils';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import { linkMessages } from '@atlaskit/editor-common/messages/link';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { richMediaClassName } from '@atlaskit/editor-common/styles/media-single';
+import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from '@atlaskit/editor-common/styles/smartCard';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
-	LinkPickerOptions,
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { LinkPickerOptions } from '@atlaskit/editor-common/types/hyperlink';
+import type {
+	ExtractInjectionAPI,
 	PluginDependenciesAPI,
-} from '@atlaskit/editor-common/types';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
@@ -60,7 +58,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import CogIcon from '@atlaskit/icon/core/settings';
-import type { CardAppearance } from '@atlaskit/smart-card';
+import type { CardAppearance } from '@atlaskit/smart-card/card/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { cardPlugin } from '../index';

@@ -1,5 +1,6 @@
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { TypeAheadHandler, TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 

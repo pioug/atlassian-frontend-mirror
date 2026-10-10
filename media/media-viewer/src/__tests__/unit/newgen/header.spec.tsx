@@ -4,11 +4,11 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { IntlProvider, createIntl } from 'react-intl';
 
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
-import { type Identifier } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
-import { fakeIntl } from '@atlaskit/media-test-helpers';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
+import { fakeIntl } from '@atlaskit/media-test-helpers/fakeI18n';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { Header, type Props as HeaderProps } from '../../../header';

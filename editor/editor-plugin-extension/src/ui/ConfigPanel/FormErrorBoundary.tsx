@@ -7,16 +7,12 @@ import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsCon
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	editorAnalyticsChannel,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import { editorAnalyticsChannel } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message/message';
 

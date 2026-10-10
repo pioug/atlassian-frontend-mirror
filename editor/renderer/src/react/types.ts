@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from 'react';
 
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { AnalyticsEventPayload } from '../analytics/events';

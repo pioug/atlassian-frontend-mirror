@@ -1,5 +1,5 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { RefsNode } from '@atlaskit/editor-common/types';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { RefsNode } from '@atlaskit/editor-common/types/doc-builder';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

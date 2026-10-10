@@ -1,14 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META } from '@atlaskit/editor-common/block-type';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
-	EditorCommand,
-	ExtractInjectionAPI,
 	HeadingLevels,
 	HeadingLevelsAndNormalText,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/block-type';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

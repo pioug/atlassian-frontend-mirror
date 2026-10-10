@@ -5,7 +5,6 @@ import dateFnsFormat from 'date-fns/format';
 import { type HeadType } from '@atlaskit/dynamic-table/types';
 import CheckCircleOutlineIcon from '@atlaskit/icon/core/check-circle';
 import {
-	createUploadMediaClientConfig,
 	audioNoCoverFileId,
 	largeImageFileId,
 	smallImageFileId,
@@ -14,7 +13,8 @@ import {
 	docFileId,
 	gifFileId,
 	videoProcessingFailedId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 
 import { createMockFileData, RenderMediaTableWithFieldRange } from '../example-helpers/helpers';

@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorContentMode } from '@atlaskit/editor-common/types';
+import type { EditorContentMode } from '@atlaskit/editor-common/types/editor-appearance';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { ContentFormatPluginState, ContentFormatPlugin } from './contentFormatPluginType';

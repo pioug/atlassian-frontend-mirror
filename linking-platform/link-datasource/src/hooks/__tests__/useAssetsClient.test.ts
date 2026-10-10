@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { fetchIsUnitsEnabledForAssets } from '../../services/fetchIsUnitsEnabledForAssets';

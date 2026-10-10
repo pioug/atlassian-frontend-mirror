@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,

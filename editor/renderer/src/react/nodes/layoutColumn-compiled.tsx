@@ -13,7 +13,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import { WidthProvider } from '@atlaskit/editor-common/ui';
+import { WidthProvider } from '@atlaskit/editor-common/WidthProvider';
 
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
 const clearNextSiblingMarginTopStyle = css({

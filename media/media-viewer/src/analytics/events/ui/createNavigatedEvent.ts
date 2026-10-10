@@ -1,4 +1,5 @@
-import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 
 import { type NavigationDirection, type NavigationSource } from '../../../navigation';
 import { inputFromSource } from './inputFromSource';

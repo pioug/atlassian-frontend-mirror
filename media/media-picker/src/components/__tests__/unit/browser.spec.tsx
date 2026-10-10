@@ -3,7 +3,7 @@ import React from 'react';
 jest.mock('../../../service/uploadServiceImpl');
 
 import Button from '@atlaskit/button/standard-button';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';

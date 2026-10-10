@@ -4,8 +4,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { BaseTheme } from '@atlaskit/editor-common/ui';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import { BaseTheme } from '@atlaskit/editor-common/BaseTheme';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';

@@ -1,13 +1,15 @@
 import {
+	TRANSFORM_TEXTFORMATTING_MENU_SECTION,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_BULLETED_LIST_MENU_ITEM,
 	TRANSFORM_STRUCTURE_NUMBERED_LIST_MENU_ITEM,
+} from '@atlaskit/editor-common/block-menu/key';
+import {
+	TRANSFORM_TEXT_FORMATTING_MENU_SECTION_RANK,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import { TRANSFORM_TEXTFORMATTING_MENU_SECTION } from '@atlaskit/editor-common/block-menu/key';
-import { TRANSFORM_TEXT_FORMATTING_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
+} from '@atlaskit/editor-common/block-menu/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ListPlugin } from '../listPluginType';

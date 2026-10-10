@@ -1,5 +1,5 @@
-import type { PopupProps } from '@atlaskit/editor-common/ui';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import type { Props as PopupProps } from '@atlaskit/editor-common/Popup';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import type { TableDirection } from '../../types';
 import { tableInsertColumnButtonOffset, tableInsertColumnButtonSize } from '../consts';

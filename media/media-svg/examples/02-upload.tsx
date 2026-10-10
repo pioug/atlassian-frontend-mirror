@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form/label/default';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
-import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import MediaSvg from '../src/media-svg';
 import { ControlsBox } from './helpers/controls';

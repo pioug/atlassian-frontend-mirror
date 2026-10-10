@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

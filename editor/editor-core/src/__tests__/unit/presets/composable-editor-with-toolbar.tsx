@@ -3,14 +3,14 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/default/button';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	ExtractInjectionAPI,
 	NextEditorPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import { ComposableEditor } from '../../../composable-editor';

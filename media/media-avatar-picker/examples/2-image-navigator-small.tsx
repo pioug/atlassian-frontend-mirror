@@ -3,7 +3,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { smallImage } from '@atlaskit/media-test-helpers';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
 import { token } from '@atlaskit/tokens';
 
 import ImageNavigator from '../src/image-navigator';

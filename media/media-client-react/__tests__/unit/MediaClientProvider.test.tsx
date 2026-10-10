@@ -2,7 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 import { MediaClientProvider } from '../../src/MediaClientProvider';
 import { useMediaClient } from '../../src/useMediaClient';

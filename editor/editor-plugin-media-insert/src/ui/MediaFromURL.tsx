@@ -5,17 +5,17 @@ import { useIntl } from 'react-intl';
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	type AnalyticsEventPayload,
-	type DispatchAnalyticsEvent,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { mediaInsertMessages } from '@atlaskit/editor-common/messages/media-insert';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { ErrorMessage } from '@atlaskit/form/error-message';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';

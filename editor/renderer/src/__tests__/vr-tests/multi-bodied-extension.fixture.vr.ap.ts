@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import combineExtensionProviders from '@atlaskit/editor-common/extensions/combine-extension-providers';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/fakeXProductExtensions';

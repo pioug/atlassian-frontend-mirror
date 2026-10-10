@@ -11,12 +11,12 @@ import { jsx, css } from '@emotion/react';
 import { v4 as uuid } from 'uuid';
 
 import Button from '@atlaskit/button/default/button';
+import Popup from '@atlaskit/editor-common/Popup';
 // AFP-2532 TODO: Fix automatic suppressions below
 import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
-import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types/annotation';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-helpers';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/create';
 import AddCommentIcon from '@atlaskit/icon/core/comment';
 import { token } from '@atlaskit/tokens';
 

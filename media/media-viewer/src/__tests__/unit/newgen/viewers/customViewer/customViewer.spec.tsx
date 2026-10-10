@@ -1,28 +1,26 @@
 import { CustomViewer, type Props } from '../../../../../viewers/customViewer/customViewer';
 
-jest.mock('@atlaskit/media-client', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-client');
-	return {
-		...actualModule,
-		request: jest.fn().mockResolvedValue({
-			text: jest.fn().mockResolvedValue('some-src'),
-			arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
-		}),
-	};
-});
+jest.mock('@atlaskit/media-client/request', () => ({
+	...jest.requireActual('@atlaskit/media-client/request'),
+	request: jest.fn().mockResolvedValue({
+		text: jest.fn().mockResolvedValue('some-src'),
+		arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
+	}),
+}));
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import {
-	globalMediaEventEmitter,
-	type NonErrorFileState,
-	type ProcessedFileState,
-} from '@atlaskit/media-client';
-import { sleep } from '@atlaskit/media-common/test-helpers';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import type { CustomRendererConfig, CustomRendererProps } from '@atlaskit/media-viewer';
+import type { NonErrorFileState } from '@atlaskit/media-client/file-state';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import { sleep } from '@atlaskit/media-common/nextTick';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import type {
+	CustomRendererConfig,
+	CustomRendererProps,
+} from '@atlaskit/media-viewer/viewer-options';
 
 import { MediaViewerError } from '../../../../../MediaViewerError';
 

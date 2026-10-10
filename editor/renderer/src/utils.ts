@@ -2,9 +2,9 @@
 // Entry file in package.json
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { Transformer } from '@atlaskit/editor-common/types';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import type { ADNode } from '@atlaskit/editor-common/validator';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ADNode } from '@atlaskit/editor-common/utils/validator';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 

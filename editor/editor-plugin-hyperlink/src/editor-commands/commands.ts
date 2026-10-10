@@ -1,26 +1,30 @@
 import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { EditorAnalyticsAPI, UnlinkToolbarAEP } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import {
+	buildEditLinkPayload,
+	unlinkPayload,
+} from '@atlaskit/editor-common/analytics/linking-utils';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	buildEditLinkPayload,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	unlinkPayload,
-} from '@atlaskit/editor-common/analytics';
-import {
-	addLinkMetadata,
-	type CardPluginActions,
-	commandWithMetadata,
-} from '@atlaskit/editor-common/card';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { UnlinkToolbarAEP } from '@atlaskit/editor-common/analytics/types/link-tool-bar-events';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
+import type { CardPluginActions } from '@atlaskit/editor-common/card/types';
+import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import type { Command, EditorCommand, LinkInputType } from '@atlaskit/editor-common/types';
-import { getLinkCreationAnalyticsEvent, normalizeUrl } from '@atlaskit/editor-common/utils';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { LinkInputType } from '@atlaskit/editor-common/types/hyperlink';
+import { normalizeUrl } from '@atlaskit/editor-common/utils';
+import { getLinkCreationAnalyticsEvent } from '@atlaskit/editor-common/utils/hyperlink';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

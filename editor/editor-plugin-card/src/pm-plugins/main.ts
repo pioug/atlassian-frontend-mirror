@@ -1,10 +1,11 @@
 import rafSchedule from 'raf-schd';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/getInlineNodeViewProducer';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles/smartCard';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';

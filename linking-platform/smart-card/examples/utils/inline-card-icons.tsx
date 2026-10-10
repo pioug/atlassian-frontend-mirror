@@ -2,10 +2,13 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
-import { generateContext, type GenerateContextProp } from '@atlaskit/link-test-helpers';
+import {
+	generateContext,
+	type GenerateContextProp,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/dynamic-icons';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
-import type { Card } from '@atlaskit/smart-card';
+import type { Card } from '@atlaskit/smart-card/card/lazy';
 import type { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import CardViewSection from '../card-view/card-view-section';

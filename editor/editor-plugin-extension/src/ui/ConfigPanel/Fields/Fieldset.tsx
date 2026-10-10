@@ -10,13 +10,13 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
+import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type {
-	ExtensionManifest,
 	FieldDefinition,
 	Fieldset,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/field-definitions';
 import Heading from '@atlaskit/heading/heading';
 import AddCircleIcon from '@atlaskit/icon/core/add';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

@@ -1,4 +1,4 @@
-import { asMockFunction } from '@atlaskit/media-common/test-helpers';
+import { asMockFunction } from '@atlaskit/media-common/jestHelpers';
 import type { FilePreview } from '@atlaskit/media-state/file-state';
 
 import { getVideoDimensionsFromBlob } from '../../getVideoDimensionsFromBlob';

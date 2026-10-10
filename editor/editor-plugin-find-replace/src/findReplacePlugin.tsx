@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
-	type PMPlugin,
-	ToolbarSize,
-	type ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

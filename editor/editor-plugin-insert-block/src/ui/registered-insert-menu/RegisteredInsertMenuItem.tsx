@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';

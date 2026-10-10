@@ -1,4 +1,4 @@
-import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 import { type UploadParams } from '../types';
 

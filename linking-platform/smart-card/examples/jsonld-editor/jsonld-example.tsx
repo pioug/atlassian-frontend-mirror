@@ -2,11 +2,13 @@ import React, { useCallback } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { AsanaTask } from '@atlaskit/link-test-helpers/smart-card/mocks/asana';
 import {
-	AsanaTask,
 	AtlasGoal,
 	AtlasProject,
 	AtlasProjectNoPreview,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/atlas';
+import {
 	BitbucketBranch,
 	BitbucketCommit,
 	BitbucketFile1,
@@ -17,28 +19,32 @@ import {
 	BitbucketRepository1,
 	BitbucketRepository2,
 	BitbucketSourceCodeReference,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/bitbucket';
+import {
 	ConfluenceBlogPost,
 	ConfluencePage,
 	ConfluenceSpace,
 	ConfluenceTemplate,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/confluence';
+import { GoogleDoc } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
+import {
 	GithubFile,
 	GitHubIssue,
 	GithubPullRequest,
 	GithubPullRequestJson,
 	GithubRepository,
 	GithubSourceCodeReference,
-	GoogleDoc,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/github';
+import {
 	JiraIssue,
 	JiraIssueAssigned,
 	JiraProject,
 	JiraTasks,
-	ProfileObject,
-	SlackChannel,
-	SlackMessage,
-	TrelloBoard,
-	TrelloCard,
-	YouTubeVideo,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/jira';
+import { ProfileObject } from '@atlaskit/link-test-helpers/smart-card/mocks/profile';
+import { SlackChannel, SlackMessage } from '@atlaskit/link-test-helpers/smart-card/mocks/slack';
+import { TrelloBoard, TrelloCard } from '@atlaskit/link-test-helpers/smart-card/mocks/trello';
+import { YouTubeVideo } from '@atlaskit/link-test-helpers/smart-card/mocks/youtube';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import { getJsonLdResponse } from '../utils/flexible-ui';

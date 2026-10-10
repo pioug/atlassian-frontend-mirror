@@ -1,4 +1,4 @@
-import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
 
 export const nativeFields: FieldDefinition[] = [
 	{

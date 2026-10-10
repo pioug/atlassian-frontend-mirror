@@ -7,7 +7,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/types';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { GoogleDoc } from '@atlaskit/link-test-helpers';
+import { GoogleDoc } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { act, fireEvent, render } from '@atlassian/testing-library';

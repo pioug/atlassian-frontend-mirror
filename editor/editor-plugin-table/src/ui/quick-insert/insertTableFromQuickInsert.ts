@@ -4,12 +4,13 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	type INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
-import type { ExtractInjectionAPI, TypeAheadInsert } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

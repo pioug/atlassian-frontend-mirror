@@ -15,7 +15,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';

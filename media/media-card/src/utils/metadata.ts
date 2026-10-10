@@ -1,12 +1,11 @@
-import {
-	type FileState,
-	type FileDetails,
-	isErrorFileState,
-	type Identifier,
-	isFileIdentifier,
-	type ErrorFileState,
-} from '@atlaskit/media-client';
-import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+import { isErrorFileState, isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type {
+	ProcessingFailedState,
+	FileState,
+	ErrorFileState,
+} from '@atlaskit/media-state/file-state';
 
 const getProcessingStatusFromFileState = (status: FileState['status']) => {
 	switch (status) {

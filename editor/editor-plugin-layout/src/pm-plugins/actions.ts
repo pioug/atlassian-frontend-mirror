@@ -1,21 +1,20 @@
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	LAYOUT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type {
-	Command,
-	EditorCommand,
-	ExtractInjectionAPI,
-	TOOLBAR_MENU_TYPE,
-} from '@atlaskit/editor-common/types';
-import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { LAYOUT_TYPE } from '@atlaskit/editor-common/analytics/types/node-events';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getStepRange, isEmptyDocument } from '@atlaskit/editor-common/utils';
+import { flatmap, mapChildren } from '@atlaskit/editor-common/utils/slice';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';

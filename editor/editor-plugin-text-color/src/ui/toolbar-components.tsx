@@ -2,23 +2,28 @@ import React from 'react';
 
 import {
 	TEXT_SECTION,
-	TEXT_SECTION_RANK,
 	TEXT_COLOR_HIGHLIGHT_GROUP,
 	TEXT_COLOR_HIGHLIGHT_MENU,
 	TEXT_COLOR_HIGHLIGHT_MENU_SECTION,
 	TEXT_COLOR_MENU_ITEM,
+	TEXT_COLLAPSED_MENU,
+	CLEAR_COLOR_MENU_ITEM,
+	COLOR_ACCESSIBILITY_MENU_ITEM,
+	TEXT_SECTION_PRIMARY_TOOLBAR,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	TEXT_SECTION_RANK,
 	TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK,
 	TEXT_COLOR_HIGHLIGHT_GROUP_RANK,
 	TEXT_COLOR_HIGHLIGHT_MENU_RANK,
 	TEXT_COLLAPSED_MENU_RANK,
-	TEXT_COLLAPSED_MENU,
-	CLEAR_COLOR_MENU_ITEM,
-	COLOR_ACCESSIBILITY_MENU_ITEM,
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
-	TEXT_SECTION_PRIMARY_TOOLBAR,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
+	RegisterComponent,
+	ToolbarComponentTypes,
+} from '@atlaskit/editor-toolbar-model/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextColorPlugin } from '../textColorPluginType';

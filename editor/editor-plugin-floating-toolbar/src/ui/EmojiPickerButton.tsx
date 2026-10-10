@@ -8,15 +8,13 @@ import React, { useCallback, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import IconButton from '@atlaskit/button/icon/button';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
+import Popup from '@atlaskit/editor-common/Popup';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';

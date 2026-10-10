@@ -7,11 +7,11 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 
 import type { LayoutPlugin } from '../layoutPluginType';

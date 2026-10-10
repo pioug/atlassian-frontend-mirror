@@ -1,8 +1,6 @@
 import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
-import type {
-	AnnotationPluginOptions,
-	InlineCommentAnnotationProvider,
-} from '@atlaskit/editor-plugin-annotation';
+import type { AnnotationPluginOptions } from '@atlaskit/editor-plugin-annotation/annotationPluginType';
+import type { InlineCommentAnnotationProvider } from '@atlaskit/editor-plugin-annotation/types';
 
 interface Props {
 	options: {

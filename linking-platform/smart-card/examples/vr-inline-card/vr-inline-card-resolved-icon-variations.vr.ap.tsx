@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { ResolvedClient, withWaitForItem } from '@atlaskit/link-test-helpers';
-import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card';
+import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 
 import VRCardView from '../utils/vr-card-view';
 

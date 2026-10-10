@@ -17,7 +17,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { participantColors } from '@atlaskit/editor-shared-styles';
+import { participantColors } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 

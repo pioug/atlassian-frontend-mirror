@@ -1,4 +1,4 @@
-import { adfToValidatorSpec } from '@atlaskit/adf-schema-generator';
+import { adfToValidatorSpec } from '@atlaskit/adf-schema-generator/adfToValidatorSpec';
 
 import adfNode from '../../../src/next-schema/full-schema.adf';
 

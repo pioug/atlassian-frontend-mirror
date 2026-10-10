@@ -1,28 +1,23 @@
-jest.mock('@atlaskit/media-client', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-client');
-	return {
-		...actualModule,
-		request: jest.fn().mockResolvedValue({
-			text: jest.fn().mockResolvedValue('some-src'),
-			arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
-		}),
-	};
-});
+jest.mock('@atlaskit/media-client/request', () => ({
+	...jest.requireActual('@atlaskit/media-client/request'),
+	request: jest.fn().mockResolvedValue({
+		text: jest.fn().mockResolvedValue('some-src'),
+		arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
+	}),
+}));
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import type { MediaViewedEventPayload } from '@atlaskit/media-client/events';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import {
-	globalMediaEventEmitter,
-	type MediaViewedEventPayload,
-	type ProcessedFileState,
-} from '@atlaskit/media-client';
-import {
-	fakeMediaClient,
 	expectFunctionToHaveBeenCalledWith,
 	asMockFunction,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/jestHelpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 

@@ -1,14 +1,14 @@
-import type { BreakoutEventPayload } from '@atlaskit/editor-common/analytics';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { BreakoutEventPayload } from '@atlaskit/editor-common/analytics/types/breakout-events';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import type {
 	BaseEventPayload,
 	DragLocationHistory,
+	ElementDragPayload,
 	ElementDragType,
-} from '@atlaskit/pragmatic-drag-and-drop/types';
+} from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';

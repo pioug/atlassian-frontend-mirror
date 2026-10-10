@@ -1,24 +1,24 @@
 import assert from 'assert';
 
-import type {
-	EditorAnalyticsAPI,
-	ExtensionType,
-	SelectionJson,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TARGET_SELECTION_SOURCE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	ExtensionType,
+	SelectionJson,
+} from '@atlaskit/editor-common/analytics/types/extension-events';
+import { TARGET_SELECTION_SOURCE } from '@atlaskit/editor-common/analytics/types/extension-events';
 import { normaliseNestedLayout } from '@atlaskit/editor-common/insert';
 import type {
 	MacroAttributes,
 	MacroProvider,
-	Providers,
-} from '@atlaskit/editor-common/provider-factory';
-import { getValidNode } from '@atlaskit/editor-common/validator';
+} from '@atlaskit/editor-common/provider-factory/macro-provider';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import { getValidNode } from '@atlaskit/editor-common/utils/validator';
 import type { Node as PmNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';

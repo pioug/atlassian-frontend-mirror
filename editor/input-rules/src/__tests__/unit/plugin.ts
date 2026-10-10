@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

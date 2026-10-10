@@ -7,13 +7,14 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';

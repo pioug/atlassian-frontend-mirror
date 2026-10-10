@@ -5,24 +5,25 @@ import React from 'react';
 import type { UrlType } from '@atlaskit/adf-schema/block-card';
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
+import type { OverflowShadowProps } from '@atlaskit/editor-common/OverflowShadow';
+import overflowShadow from '@atlaskit/editor-common/OverflowShadow';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { tableMarginTop } from '@atlaskit/editor-common/styles/table';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
-import { overflowShadow } from '@atlaskit/editor-common/ui';
 import {
-	createCompareNodes,
 	convertProsemirrorTableNodeToArrayOfRows,
 	hasMergedCell,
-	compose,
 } from '@atlaskit/editor-common/utils';
-import type { Diff } from '@atlaskit/editor-common/utils';
+import { createCompareNodes } from '@atlaskit/editor-common/utils/compareNodes';
+import { compose } from '@atlaskit/editor-common/utils/compose';
+import type { Diff } from '@atlaskit/editor-common/utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -1,4 +1,4 @@
-import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider/common/types';
 
 export type UnpublishedSourceType = 'blog' | 'jiraWorkItem' | 'page';
 

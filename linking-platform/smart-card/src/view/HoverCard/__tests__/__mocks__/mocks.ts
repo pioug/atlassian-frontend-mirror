@@ -1,11 +1,8 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import {
-	avatar1 as AvatarImage,
-	iconBitbucket,
-	iconGoogleDrive,
-	forbiddenJira as JiraPreviewImage,
-	overrideEmbedContent,
-} from '@atlaskit/link-test-helpers';
+import { iconBitbucket, iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
+import { avatar1 as AvatarImage } from '@atlaskit/link-test-helpers/smart-card/images/avatar-1';
+import { forbiddenJira as JiraPreviewImage } from '@atlaskit/link-test-helpers/smart-card/images/forbidden-jira';
+import { overrideEmbedContent } from '@atlaskit/link-test-helpers/smart-card/mocks/embed-content';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 
 export const mockBaseResponse: {

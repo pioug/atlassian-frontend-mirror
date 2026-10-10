@@ -7,7 +7,7 @@ import HeadingItem from '@atlaskit/menu/heading-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 import { Popup } from '@atlaskit/popup/popup';
 
 const HelpContent = () => (

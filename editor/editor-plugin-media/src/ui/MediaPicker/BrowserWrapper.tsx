@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { BrowserLoader as Browser } from '@atlaskit/media-picker/browser';
 import type { BrowserConfig } from '@atlaskit/media-picker/types';
 

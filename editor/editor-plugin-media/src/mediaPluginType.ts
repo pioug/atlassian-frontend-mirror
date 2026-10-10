@@ -1,29 +1,32 @@
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
-import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
-	EditorCommand,
+	InputMethodInsertMedia,
+	InsertMediaVia,
+} from '@atlaskit/editor-common/analytics/types/insert-events';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
-import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation/annotationPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier/contextIdentifierPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus/focusPluginType';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid/gridPluginType';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline/guidelinePluginType';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
 import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
-import type { MediaEditingPlugin } from '@atlaskit/editor-plugin-media-editing';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { MediaEditingPlugin } from '@atlaskit/editor-plugin-media-editing/media-editing-plugin-type';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { AIGeneratingSource } from './pm-plugins/ai-generating-decoration';

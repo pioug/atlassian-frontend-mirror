@@ -1,6 +1,9 @@
 import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import { getBlockMarkAttrs, getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists';
+import {
+	getBlockMarkAttrs,
+	getFirstParagraphBlockMarkAttrs,
+} from '@atlaskit/editor-common/lists/block-mark';
 import { createBlockTaskItem, isTaskList } from '@atlaskit/editor-common/transforms';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';

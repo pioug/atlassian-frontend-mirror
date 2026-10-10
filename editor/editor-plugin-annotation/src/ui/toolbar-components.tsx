@@ -3,13 +3,12 @@ import React from 'react';
 import {
 	TOOLBARS,
 	COLLAB_SECTION,
-	TOOLBAR_RANK,
 	COMMENT_GROUP,
-	COLLAB_SECTION_RANK,
 	COMMENT_HERO_BUTTON,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TOOLBAR_RANK, COLLAB_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import type { AnnotationProviders } from '../types';

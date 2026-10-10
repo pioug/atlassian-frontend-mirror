@@ -2,11 +2,11 @@ import React from 'react';
 
 import {
 	TRANSFORM_MENU_SECTION,
-	TRANSFORM_MENU_SECTION_RANK,
 	BLOCK_ACTIONS_CREATE_SYNCED_BLOCK_MENU_ITEM,
-} from '@atlaskit/editor-common/block-menu';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { CreateOrCopySyncedBlockDropdownItem } from './CreateSyncedBlockDropdownItem';

@@ -2,9 +2,12 @@ import React from 'react';
 
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
-import { p, table, th, tr } from '@atlaskit/adf-utils/builders';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { table } from '@atlaskit/adf-utils/table';
+import { tableHeader as th } from '@atlaskit/adf-utils/table-header';
+import { tableRow as tr } from '@atlaskit/adf-utils/table-row';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 

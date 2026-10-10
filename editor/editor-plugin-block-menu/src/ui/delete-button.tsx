@@ -3,21 +3,22 @@ import React, { useCallback, useEffect } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl, useIntl } from 'react-intl';
 
-import type { BlockMenuEventPayload, NodeDeletedAEP } from '@atlaskit/editor-common/analytics';
+import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics/types/block-menu-events';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { NodeDeletedAEP } from '@atlaskit/editor-common/analytics/types/node-events';
+import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
 import {
 	deleteSelectedRange,
 	getSourceNodesFromSelectionRange,
-} from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/selection/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Box } from '@atlaskit/primitives/box';

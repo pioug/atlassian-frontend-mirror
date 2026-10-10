@@ -13,17 +13,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import {
-	TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM,
-	TRANSFORM_STRUCTURE_MENU_SECTION,
-	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import {
-	layoutMessages,
-	toolbarInsertBlockMessages as messages,
-} from '@atlaskit/editor-common/messages';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	IconFiveColumnLayout,
 	IconFourColumnLayout,
@@ -31,12 +21,18 @@ import {
 	IconOneColumnLayout,
 	IconThreeColumnLayout,
 	IconTwoColumnLayout,
-} from '@atlaskit/editor-common/quick-insert';
-import type {
-	FloatingToolbarConfig,
-	PMPlugin,
-	UiComponentFactoryParams,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/assets';
+import {
+	TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { toolbarMessages as layoutMessages } from '@atlaskit/editor-common/messages/layout';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';

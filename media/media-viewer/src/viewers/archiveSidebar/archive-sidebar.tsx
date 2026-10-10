@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type ZipEntry, type ZipInfo, unzip } from 'unzipit';
 
-import { type MediaClient } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 import type { ArchiveViewerError } from '../../ArchiveViewerError';
 import { extractArchiveFolderName } from '../../utils/extractArchiveFolderName';

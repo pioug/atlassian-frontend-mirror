@@ -5,7 +5,7 @@ import { cssMap } from '@atlaskit/css';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select/default';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { token } from '@atlaskit/tokens';
 
 import { FlexibleCardViewExample } from './card-view';

@@ -19,7 +19,7 @@ import { act } from 'react';
 import { waitFor, render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
+import { asMock, asMockFunction } from '@atlaskit/media-common/jestHelpers';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 

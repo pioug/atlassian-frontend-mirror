@@ -10,19 +10,18 @@ import {
 	type AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { ErrorEventAttributes, ErrorEventPayload } from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	editorAnalyticsChannel,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { getDocStructure } from '@atlaskit/editor-common/core-utils';
+import { editorAnalyticsChannel } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	ErrorEventAttributes,
+	ErrorEventPayload,
+} from '@atlaskit/editor-common/analytics/types/events';
+import { getDocStructure } from '@atlaskit/editor-common/document-logger';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/intl-error-boundary';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils/browser-extensions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { isOutdatedBrowser } from '../utils/outdatedBrowsers';

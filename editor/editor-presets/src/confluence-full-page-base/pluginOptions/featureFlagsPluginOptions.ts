@@ -1,4 +1,4 @@
-import type { FeatureFlagsPluginOptions } from '@atlaskit/editor-plugin-feature-flags';
+import type { FeatureFlagsPluginOptions } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 interface Props {

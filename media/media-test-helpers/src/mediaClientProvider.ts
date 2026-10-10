@@ -1,4 +1,4 @@
-import { MediaClient } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import { StoryBookAuthProvider } from './authProvider';

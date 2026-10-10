@@ -1,4 +1,4 @@
-import type { Breakpoint } from '@atlaskit/editor-toolbar';
+import type { Breakpoint } from '@atlaskit/editor-toolbar/show';
 
 /**
  * Controls the behavior and placement of the contextual formatting toolbar in the editor.

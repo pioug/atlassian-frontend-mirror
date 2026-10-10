@@ -1,4 +1,4 @@
-import { type MediaBlobUrlAttrs } from '@atlaskit/media-client';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
 
 /**
  * Merges a clientId into mediaBlobUrlAttrs for cross-client copy support.

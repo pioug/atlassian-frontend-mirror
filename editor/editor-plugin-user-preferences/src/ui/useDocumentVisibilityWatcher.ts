@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences-provider';
 
 export const useDocumentVisibilityWatcher = (
 	userPreferencesProvider?: UserPreferencesProvider,

@@ -4,19 +4,18 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { getActiveLinkMark } from '@atlaskit/editor-common/link';
-import { PASTE_MENU, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { getActiveLinkMark } from '@atlaskit/editor-common/link/utils';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { PASTE_MENU } from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	ToolbarDropdownItemSection,
-	ToolbarTooltip,
-	useToolbarDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import type {
 	AsyncHiddenContext,
 	RegisterComponent,

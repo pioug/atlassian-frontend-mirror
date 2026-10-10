@@ -1,7 +1,7 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { MentionUserType } from '@atlaskit/adf-schema/mention';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type {
 	EditorState,
 	ReadonlyTransaction,

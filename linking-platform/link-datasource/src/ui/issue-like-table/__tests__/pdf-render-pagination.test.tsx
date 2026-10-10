@@ -9,8 +9,8 @@ import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-cont
 import {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
-} from '@atlaskit/link-test-helpers';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+} from '@atlaskit/link-test-helpers/intersection-observer';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,

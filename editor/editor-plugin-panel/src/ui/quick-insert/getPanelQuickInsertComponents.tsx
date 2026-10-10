@@ -3,7 +3,7 @@ import React from 'react';
 import type { MessageDescriptor } from 'react-intl';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import {
 	CUSTOM_PANEL_MENU_ITEM,
@@ -15,7 +15,7 @@ import {
 	WARNING_PANEL_MENU_ITEM,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { STRUCTURE_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 import PencilIcon from '@atlaskit/icon-lab/core/pencil';
 import StatusWorkflowCancelledIcon from '@atlaskit/icon-lab/core/status-workflow-cancelled';

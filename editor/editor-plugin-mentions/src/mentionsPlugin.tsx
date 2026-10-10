@@ -5,16 +5,15 @@ import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import { IconMention } from '@atlaskit/editor-common/assets';
-import {
-	toolbarInsertBlockMessages as messages,
-	mentionMessages,
-} from '@atlaskit/editor-common/messages';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { isPromise } from '@atlaskit/mention/is-promise';
 import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';

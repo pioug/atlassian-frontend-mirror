@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { TOOLBARS } from '@atlaskit/editor-common/toolbar';
+import { TOOLBARS } from '@atlaskit/editor-common/toolbar/keys';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type {
-	EditorAppearance,
 	OptionalPlugin,
 	PublicPluginAPI,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

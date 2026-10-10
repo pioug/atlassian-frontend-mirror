@@ -1,17 +1,15 @@
-import {
-	panelC1FallbackTransform,
-	panelC1FallbackTransformV2,
-	syncBlockFallbackTransform,
-	transformDedupeMarks,
-	transformIndentationMarks,
-	transformInvalidMediaContent,
-	transformMediaLinkMarks,
-	transformNestedTablesIncomingDocument,
-	transformNodesMissingContent,
-	transformTextLinkCodeMarks,
-	transformMediaSingleWidth,
-	transformContainerNodes,
-} from '@atlaskit/adf-utils/transforms';
+import { transformDedupeMarks } from '@atlaskit/adf-utils/dedupe-marks-transform';
+import { transformContainerNodes } from '@atlaskit/adf-utils/depth-limited-nesting-container-nodes-transform';
+import { transformIndentationMarks } from '@atlaskit/adf-utils/indentation-marks-transform';
+import { transformInvalidMediaContent } from '@atlaskit/adf-utils/invalid-media-content-transform';
+import { transformMediaLinkMarks } from '@atlaskit/adf-utils/media-link-transform';
+import { transformNodesMissingContent } from '@atlaskit/adf-utils/nodes-missing-content-transform';
+import { panelC1FallbackTransform } from '@atlaskit/adf-utils/panel-c1-fallback-transform';
+import { panelC1FallbackTransformV2 } from '@atlaskit/adf-utils/panel-c1-fallback-transform-v2';
+import { syncBlockFallbackTransform } from '@atlaskit/adf-utils/sync-block-fallback-transform';
+import { transformTextLinkCodeMarks } from '@atlaskit/adf-utils/text-link-code-transform';
+import { transformMediaSingleWidth } from '@atlaskit/adf-utils/transform-media-single-width';
+import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';

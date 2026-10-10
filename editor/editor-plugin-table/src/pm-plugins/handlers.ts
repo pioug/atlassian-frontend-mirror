@@ -1,7 +1,7 @@
 // #region Imports
-import { TableSortStep } from '@atlaskit/custom-steps';
-import type { TableColumnOrdering } from '@atlaskit/custom-steps';
-import { isTextInput } from '@atlaskit/editor-common/utils';
+import { TableSortStep } from '@atlaskit/custom-steps/sort-column';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps/types';
+import { isTextInput } from '@atlaskit/editor-common/utils/is-text-input';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';

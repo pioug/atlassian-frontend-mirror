@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
+	TypeAheadSectionTitleDisplay,
 	TypeAheadHandler,
 	TypeAheadItem,
 	TypeAheadStats,
-	UiComponentFactoryParams,
-} from '@atlaskit/editor-common/types';
-import type { TypeAheadSectionTitleDisplay } from '@atlaskit/editor-common/types/type-ahead';
+} from '@atlaskit/editor-common/types/type-ahead';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
 import type {
 	EditorState,
 	ReadonlyTransaction,

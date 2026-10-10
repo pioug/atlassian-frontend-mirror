@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';

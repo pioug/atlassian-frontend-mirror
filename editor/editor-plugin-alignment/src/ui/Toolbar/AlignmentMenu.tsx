@@ -2,10 +2,11 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownMenu, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+import { alignmentMessages as messages } from '@atlaskit/editor-common/alignment';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { alignmentOptions } from './options';

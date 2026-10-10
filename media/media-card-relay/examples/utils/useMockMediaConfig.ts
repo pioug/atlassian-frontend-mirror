@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import type { Auth, MediaClientConfig } from '@atlaskit/media-core/auth';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 export const useMockMediaConfig = (): MediaClientConfig | null => {
 	const [config, setConfig] = useState<MediaClientConfig | null>(null);

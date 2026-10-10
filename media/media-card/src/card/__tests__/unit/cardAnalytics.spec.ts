@@ -1,11 +1,11 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { createRateLimitedError } from '@atlaskit/media-client/test-helpers';
-import {
-	type FileAttributes,
-	ANALYTICS_MEDIA_CHANNEL,
-	type PerformanceAttributes,
-	type MediaTraceContext,
-} from '@atlaskit/media-common';
+import type {
+	FileAttributes,
+	PerformanceAttributes,
+	MediaTraceContext,
+} from '@atlaskit/media-common/analytics/types';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 
 import { MediaCardError } from '../../../MediaCardError';
 import type { SSRStatus } from '../../../utils/analytics/analytics';

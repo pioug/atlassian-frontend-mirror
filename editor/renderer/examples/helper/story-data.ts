@@ -1,4 +1,7 @@
-import { videoLargeFileId, videoSquareFileId } from '@atlaskit/media-test-helpers';
+import {
+	videoLargeFileId,
+	videoSquareFileId,
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { grinEmoji, evilburnsEmoji } from '@atlaskit/util-data-test/emoji-samples';
 
 type EmojiAttrs = {

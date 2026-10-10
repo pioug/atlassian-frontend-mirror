@@ -2,9 +2,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import type { MediaClient } from '@atlaskit/media-client';
 import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
 import { MediaContext, MediaProvider } from '@atlaskit/media-client-react/media-provider';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 describe('MediaProvider', () => {
 	const mockMediaClientConfig = {

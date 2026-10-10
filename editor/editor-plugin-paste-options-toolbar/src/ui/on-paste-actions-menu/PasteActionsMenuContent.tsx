@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { PASTE_MENU } from '@atlaskit/editor-common/toolbar';
+import { PASTE_MENU } from '@atlaskit/editor-common/toolbar/keys';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
-import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
+import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type {
 	AsyncHiddenContext,
 	RegisterComponent,

@@ -1,4 +1,4 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionMenuItemConfiguration, SelectionExtension } from '../../types';

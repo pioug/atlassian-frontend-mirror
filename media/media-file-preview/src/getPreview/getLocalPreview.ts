@@ -1,5 +1,5 @@
-import { type FilePreview } from '@atlaskit/media-client';
-import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
+import type { FilePreview } from '@atlaskit/media-state/file-state';
 import { getOrientation } from '@atlaskit/media-ui/imageMetaData/getOrientation';
 
 import { LocalPreviewError } from '../LocalPreviewError';

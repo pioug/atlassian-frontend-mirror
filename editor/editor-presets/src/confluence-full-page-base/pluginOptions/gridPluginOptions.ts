@@ -1,4 +1,4 @@
-import type { GridPluginOptions } from '@atlaskit/editor-plugin-grid';
+import type { GridPluginOptions } from '@atlaskit/editor-plugin-grid/types';
 
 interface Props {
 	options: never;

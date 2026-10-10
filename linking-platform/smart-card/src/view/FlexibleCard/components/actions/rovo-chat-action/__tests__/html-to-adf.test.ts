@@ -1,4 +1,4 @@
-import * as builders from '@atlaskit/adf-utils/builders';
+import * as paragraphBuilder from '@atlaskit/adf-utils/paragraph';
 
 import htmlToAdf from '../html-to-adf';
 
@@ -260,7 +260,7 @@ describe('htmlToAdf', () => {
 	});
 
 	it('should return html string on error', () => {
-		jest.spyOn(builders, 'p').mockImplementationOnce(() => {
+		jest.spyOn(paragraphBuilder, 'paragraph').mockImplementationOnce(() => {
 			throw new Error();
 		});
 		const html = '<p>test</p>';

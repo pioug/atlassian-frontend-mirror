@@ -7,7 +7,7 @@ import { List } from 'react-virtualized/dist/commonjs/List';
 
 import { getQuickInsertMenuRows } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
-import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import type { TypeAheadMenuModel } from './buildTypeAheadMenuModel';

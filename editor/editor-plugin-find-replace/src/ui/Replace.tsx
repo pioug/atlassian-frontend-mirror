@@ -4,14 +4,14 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	TRIGGER_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages/find-replace';
 import { ValidMessage } from '@atlaskit/form/valid-message';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';

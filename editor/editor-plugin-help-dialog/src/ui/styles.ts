@@ -1,7 +1,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { akEditorUnitZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorUnitZIndex,
+	relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

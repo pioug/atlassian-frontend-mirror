@@ -9,8 +9,9 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { messages } from '@atlaskit/editor-common/messages/block-controls';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

@@ -10,15 +10,15 @@ import { injectIntl } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
-	type EditorAnalyticsAPI,
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';

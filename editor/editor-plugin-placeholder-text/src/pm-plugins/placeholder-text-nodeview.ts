@@ -1,6 +1,6 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';

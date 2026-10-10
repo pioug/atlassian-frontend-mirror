@@ -2,20 +2,20 @@ import React from 'react';
 
 import memoizeOne from 'memoize-one';
 
-import {
-	getExtensionModuleNodePrivateProps,
-	getNodeRenderer,
-} from '@atlaskit/editor-common/extensions';
 import type {
 	ExtensionHandler,
 	ExtensionHandlers,
 	ExtensionParams,
-	ExtensionProvider,
-	Parameters as ExtensionParameters,
 	MultiBodiedExtensionActions,
-} from '@atlaskit/editor-common/extensions';
-import { useProvider } from '@atlaskit/editor-common/provider-factory';
-import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import {
+	getExtensionModuleNodePrivateProps,
+	getNodeRenderer,
+} from '@atlaskit/editor-common/extensions/extension-handlers';
+import type { Parameters as ExtensionParameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import { useProvider } from '@atlaskit/editor-common/provider-factory/context';
+import { getExtensionRenderer } from '@atlaskit/editor-common/utils/extension-handler';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type useMultiBodiedExtensionContextProps = {

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { SyncBlockError } from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider/providers/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockRendererOptions } from '../types';

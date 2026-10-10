@@ -1,4 +1,4 @@
-import type { GetClient, LoomPluginOptions, VideoMeta } from '@atlaskit/editor-plugin-loom';
+import type { GetClient, LoomPluginOptions, VideoMeta } from '@atlaskit/editor-plugin-loom/types';
 
 type LoomProviderConfig = {
 	publicAppId?: string;

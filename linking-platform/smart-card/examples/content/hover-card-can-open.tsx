@@ -4,7 +4,10 @@ import { IntlProvider } from 'react-intl';
 
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientEmbedUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import { HoverCard } from '../../src/hoverCard';

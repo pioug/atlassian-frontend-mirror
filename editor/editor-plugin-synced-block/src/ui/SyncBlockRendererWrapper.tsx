@@ -2,16 +2,14 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import {
-	SyncBlockError,
-	type SyncBlockSourceInfo,
-	type SyncBlockStoreManager,
-	useFetchSyncBlockData,
-	useFetchSyncBlockTitle,
-} from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockSourceInfo } from '@atlaskit/editor-synced-block-provider/providers/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+import { useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider/useFetchSyncBlockData';
+import { useFetchSyncBlockTitle } from '@atlaskit/editor-synced-block-provider/useFetchSyncBlockTitle';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin, SyncedBlockRendererProps } from '../syncedBlockPluginType';

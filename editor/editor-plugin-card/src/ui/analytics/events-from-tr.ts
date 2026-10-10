@@ -1,8 +1,9 @@
 import { LinkMetaStep } from '@atlaskit/adf-schema/steps/link-meta-step';
-import { TableSortStep } from '@atlaskit/custom-steps';
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import { TableSortStep } from '@atlaskit/custom-steps/sort-column';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
 import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
-import { isLinkMark, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { isLinkMark } from '@atlaskit/editor-common/utils/nodes';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,

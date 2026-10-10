@@ -1,7 +1,10 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPlugin';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 import type { showPlaceholderFloatingToolbar } from './editor-actions/actions';
 

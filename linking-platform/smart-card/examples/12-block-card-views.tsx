@@ -2,10 +2,10 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { HelperMessage } from '@atlaskit/form/helper-message';
-import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card';
+import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range/range';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { token } from '@atlaskit/tokens';
 
 import CardViewExample from './card-view';

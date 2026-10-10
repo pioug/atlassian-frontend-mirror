@@ -1,4 +1,5 @@
-import { closestElement, containsClassName } from '@atlaskit/editor-common/utils';
+import { containsClassName } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 
 import { TableCssClassName as ClassName } from '../../types';
 

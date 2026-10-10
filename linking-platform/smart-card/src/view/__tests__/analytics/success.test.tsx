@@ -10,8 +10,8 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { asMock, type JestFunction } from '@atlaskit/media-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
+import { asMock, type JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 

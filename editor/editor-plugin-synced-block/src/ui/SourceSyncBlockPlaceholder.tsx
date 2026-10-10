@@ -10,8 +10,8 @@ import { useMemo } from 'react';
 import { css, Global, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
-import { placeholderTextMessages } from '@atlaskit/editor-common/messages';
-import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { placeholderTextMessages } from '@atlaskit/editor-common/messages/placeholder-text';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
 import { token } from '@atlaskit/tokens';
 
 const getSourceSyncBlockPlaceholderStyles = (placeholderText: string) =>

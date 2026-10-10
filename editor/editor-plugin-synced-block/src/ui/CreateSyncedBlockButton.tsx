@@ -2,12 +2,13 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { syncBlockMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { syncBlockMessages } from '@atlaskit/editor-common/messages/syncBlock';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { type Identifier, MediaClient } from '@atlaskit/media-client';
-import { svgFileIds } from '@atlaskit/media-client/test-helpers';
-import {
-	externalImageIdentifier,
-	defaultCollectionName,
-	createStorybookMediaClientConfig,
-} from '@atlaskit/media-test-helpers';
-import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers/example-media-items';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { externalImageIdentifier } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import {
 	archiveItem,

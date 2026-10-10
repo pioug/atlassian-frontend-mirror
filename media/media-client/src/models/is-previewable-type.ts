@@ -1,4 +1,4 @@
-import { type MediaType } from '@atlaskit/media-common';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 export const isPreviewableType = (type: MediaType): boolean => {
 	const defaultPreviewableTypes = ['audio', 'video', 'image', 'doc'];

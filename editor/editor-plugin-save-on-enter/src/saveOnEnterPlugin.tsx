@@ -1,15 +1,15 @@
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';

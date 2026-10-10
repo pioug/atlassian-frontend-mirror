@@ -1,14 +1,12 @@
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
 
-import {
-	type FileIdentifier,
-	type FileState,
-	MediaClient,
-	createMediaSubject,
-	type FileDetails,
-} from '@atlaskit/media-client';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import { createMediaSubject } from '@atlaskit/media-client/create-media-subject';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { mediaStore } from '@atlaskit/media-state/media-store';
 
 import { tallImage } from '../../images';

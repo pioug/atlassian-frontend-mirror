@@ -1,20 +1,19 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	ExtractInjectionAPI,
-	InputRuleHandler,
-	InputRuleWrapper,
-} from '@atlaskit/editor-common/types';
-import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { createRule } from '@atlaskit/editor-common/utils';
+import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils/input-rules';
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
-import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules/constants';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';

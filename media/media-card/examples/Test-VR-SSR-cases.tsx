@@ -10,12 +10,12 @@ import React, { useEffect, useMemo } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import ReactDOMServer from 'react-dom/server';
 
-import { MediaClient } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import { type SSR } from '@atlaskit/media-common';
-import { tallImage } from '@atlaskit/media-test-helpers';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { imageFileId } from '@atlaskit/media-test-helpers';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { SSR } from '@atlaskit/media-common/main-types';
+import { imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';

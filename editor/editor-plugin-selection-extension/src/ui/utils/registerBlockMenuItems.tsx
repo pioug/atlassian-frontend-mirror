@@ -2,21 +2,23 @@ import React from 'react';
 
 import {
 	TRANSFORM_MENU_SECTION,
-	TRANSFORM_MENU_SECTION_RANK,
 	BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM,
-	BLOCK_ACTIONS_FEATURED_EXTENSION_ITEM_RANK,
-	MAIN_BLOCK_MENU_SECTION_RANK,
 	TRANSFORM_CREATE_MENU_SECTION,
-	TRANSFORM_CREATE_MENU_SECTION_RANK,
 	TRANSFORM_DEFAULT_EXTENSION_SLOT_MENU_ITEM,
 	TRANSFORM_STRUCTURE_EXTENSION_SLOT_MENU_ITEM,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
+} from '@atlaskit/editor-common/block-menu/key';
+import {
+	TRANSFORM_MENU_SECTION_RANK,
+	BLOCK_ACTIONS_FEATURED_EXTENSION_ITEM_RANK,
+	MAIN_BLOCK_MENU_SECTION_RANK,
+	TRANSFORM_CREATE_MENU_SECTION_RANK,
 	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu';
+} from '@atlaskit/editor-common/block-menu/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration, GetMenuItemsContext } from '../../types';

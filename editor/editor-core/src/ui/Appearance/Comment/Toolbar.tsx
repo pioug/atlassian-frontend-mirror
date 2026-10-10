@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui-toolbar';
 
 import { FixedToolbarCompiled } from './FixedToolbar-compiled';
 import { StickyToolbarCompiled } from './StickyToolbar-compiled';

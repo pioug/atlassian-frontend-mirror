@@ -28,16 +28,21 @@ import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
+import { doc } from '@atlaskit/adf-utils/doc';
+import { heading } from '@atlaskit/adf-utils/heading';
+import { link as a } from '@atlaskit/adf-utils/link';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { strong as b } from '@atlaskit/adf-utils/strong';
+import { text } from '@atlaskit/adf-utils/text';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
-import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import * as renderDocumentModule from '../../../render-document';
 import Renderer from '../../../ui/Renderer';

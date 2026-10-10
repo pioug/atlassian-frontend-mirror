@@ -10,16 +10,14 @@ import { injectIntl } from 'react-intl';
 import Calendar from '@atlaskit/calendar/calendar';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import { css, jsx } from '@atlaskit/css';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { dateMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	PlainOutsideClickTargetRefContext,
-	Popup,
-	withOuterListeners,
-} from '@atlaskit/editor-common/ui';
-import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages } from '@atlaskit/editor-common/messages/date';
+import Popup from '@atlaskit/editor-common/Popup';
+import { PlainOutsideClickTargetRefContext } from '@atlaskit/editor-common/ui';
+import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils/date';
+import withOuterListeners from '@atlaskit/editor-common/with-outer-listeners';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';

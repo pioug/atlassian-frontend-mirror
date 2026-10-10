@@ -1,14 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	DELETE_DIRECTION,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
-import { isEmptySelectionAtEnd, walkNextNode } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { DELETE_DIRECTION } from '@atlaskit/editor-common/analytics/types/list-events';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { isEmptySelectionAtEnd, walkNextNode } from '@atlaskit/editor-common/utils/commands';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 

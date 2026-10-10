@@ -6,12 +6,10 @@ import type { MemoizedFn } from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import {
-	blockTypeMessages,
-	toolbarInsertBlockMessages as messages,
-} from '@atlaskit/editor-common/messages';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { BlockType } from '@atlaskit/editor-plugin-block-type';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import type { BlockType } from '@atlaskit/editor-plugin-block-type/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 

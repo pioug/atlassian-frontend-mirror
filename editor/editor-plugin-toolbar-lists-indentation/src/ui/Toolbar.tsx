@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
 import {
 	getAriaKeyshortcuts,
 	toggleBulletList as toggleBulletListKeymap,
@@ -16,9 +17,11 @@ import {
 	tooltip,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
-import { indentationMessages, listMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarButtonGroup, ToolbarSeparator } from '@atlaskit/editor-common/ui';
-import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { messages as indentationMessages } from '@atlaskit/editor-common/messages/indentation';
+import { messages } from '@atlaskit/editor-common/messages/list';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { ToolbarButtonGroup } from '@atlaskit/editor-common/ui-toolbar/ButtonGroup';
+import { ToolbarSeparator } from '@atlaskit/editor-common/ui-toolbar/Separator';
 import BulletedListIcon from '@atlaskit/icon/core/list-bulleted';
 import NumberListIcon from '@atlaskit/icon/core/list-numbered';
 import OutdentIcon from '@atlaskit/icon/core/text-indent-left';

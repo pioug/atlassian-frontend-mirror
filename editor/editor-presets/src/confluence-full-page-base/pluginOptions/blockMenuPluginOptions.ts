@@ -1,4 +1,4 @@
-import type { BlockMenuPluginOptions } from '@atlaskit/editor-plugin-block-menu';
+import type { BlockMenuPluginOptions } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 
 interface Props {
 	options: {

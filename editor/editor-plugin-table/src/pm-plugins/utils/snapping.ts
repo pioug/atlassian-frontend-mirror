@@ -1,5 +1,5 @@
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { isVerticalPosition } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
+import { isVerticalPosition } from '@atlaskit/editor-common/guideline/utils';
 import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorDefaultLayoutWidth,
@@ -8,7 +8,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 	akEditorMaxWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 const numberOfLanesInDefaultLayoutWidth = 12;

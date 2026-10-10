@@ -26,9 +26,8 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
 	dragToMoveLeft,
@@ -38,9 +37,11 @@ import {
 	TooltipContentWithMultipleShortcuts,
 	type Keymap,
 } from '@atlaskit/editor-common/keymaps';
-import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import { DRAG_HANDLE_WIDTH, tableControlsSpacing } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { messages as blockControlsMessages } from '@atlaskit/editor-common/messages/block-controls';
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
+import { tableControlsSpacing } from '@atlaskit/editor-common/styles/table';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -49,7 +50,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 	akEditorTableToolbarSize,
 	relativeSizeToBaseFontSize,
-} from '@atlaskit/editor-shared-styles/consts';
+} from '@atlaskit/editor-shared-styles/constants';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

@@ -8,13 +8,16 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { ToolbarButton, ToolbarTooltip, ImageIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ImageIcon } from '@atlaskit/editor-toolbar/image-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
+import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';

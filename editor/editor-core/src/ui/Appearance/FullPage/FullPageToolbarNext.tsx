@@ -8,18 +8,18 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import {
-	shouldShowPrimaryToolbar,
-	TOOLBARS,
-	VIEW_MODE_TOGGLE_SECTION,
-} from '@atlaskit/editor-common/toolbar';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { shouldShowPrimaryToolbar } from '@atlaskit/editor-common/toolbar';
+import { TOOLBARS, VIEW_MODE_TOGGLE_SECTION } from '@atlaskit/editor-common/toolbar/keys';
+import type {
+	OptionalPlugin,
+	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ToolbarArrowKeyNavigationProvider';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Form } from 'react-final-form';
 
-import { AsyncSelect } from '@atlaskit/link-create';
+import { AsyncSelect } from '@atlaskit/link-create/async-select';
 
 import { FormContextProvider } from '../../src/controllers/form-context/main';
 import { type AsyncSelectProps } from '../../src/ui/create-form/async-select/types';

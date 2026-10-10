@@ -2,7 +2,10 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientEmbedUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import Link from '@atlaskit/link/link';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Grid } from '@atlaskit/primitives/compiled/grid';

@@ -1,4 +1,5 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
 import { fixTest } from '@af/integration-testing';
 import { BROWSERS } from '@af/integration-testing/config/constants';
 

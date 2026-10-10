@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
+import Popup from '@atlaskit/editor-common/Popup';
 import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

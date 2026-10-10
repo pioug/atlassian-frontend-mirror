@@ -4,7 +4,7 @@ import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { NetworkError } from '@atlaskit/linking-common/network-error';
 import type {
 	DatasourceDataRequest,

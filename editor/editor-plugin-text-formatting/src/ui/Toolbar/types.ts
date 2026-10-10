@@ -1,8 +1,8 @@
 import type { WrappedComponentProps } from 'react-intl';
 
-import type { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/toolbar-button';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 
 export enum IconTypes {
 	strong = 'strong',

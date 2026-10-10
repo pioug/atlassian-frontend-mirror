@@ -13,33 +13,33 @@ import { css, cssMapScoped, jsx, keyframes } from '@compiled/react';
 
 // eslint-disable-next-line import/order
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import type { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles/annotation';
+import type { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
+import type { expandClassNames } from '@atlaskit/editor-common/styles/expand';
+import type { richMediaClassName } from '@atlaskit/editor-common/styles/media-single';
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 // TODO: add back tableSharedStyle when migrate table styles
 // import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
-import type { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import type {
-	AnnotationSharedClassNames,
-	richMediaClassName,
-	expandClassNames,
-	SmartCardSharedCssClassName,
-	CodeBlockSharedCssClassName,
-	tableCellBorderWidth,
-	tableCellMinWidth,
-	tableMarginTop,
-	TaskDecisionSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
+import type { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
+import type { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles/smart-card';
 import type {
 	BodiedSyncBlockSharedCssClassName,
 	SyncBlockSharedCssClassName,
 	SyncBlockLabelSharedCssClassName,
 	SyncBlockStateCssClassName,
-} from '@atlaskit/editor-common/sync-block';
+} from '@atlaskit/editor-common/styles/sync-block';
+import type {
+	tableCellBorderWidth,
+	tableCellMinWidth,
+	tableMarginTop,
+} from '@atlaskit/editor-common/styles/table';
+import type { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles/task-decision';
 import { tableCellBackgroundColorVariablesForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import type {
 	EditorAppearance,
 	EditorContentMode,
-	FeatureFlags,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import {
 	akEditorFullPageDefaultFontSize,
 	type akEditorFullPageDenseFontSize,
@@ -47,7 +47,7 @@ import {
 	type akEditorShadowZIndex,
 	type akEditorSwoopCubicBezier,
 	type akEditorTableNumberColumnWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { overflowShadowForCompiled } from '@atlaskit/editor-shared-styles/overflow-shadow-for-compiled';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';

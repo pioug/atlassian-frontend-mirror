@@ -1,8 +1,9 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
-import type { Providers, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention/types';
 

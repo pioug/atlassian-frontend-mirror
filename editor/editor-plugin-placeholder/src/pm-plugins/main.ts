@@ -2,7 +2,7 @@ import type { IntlShape } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 

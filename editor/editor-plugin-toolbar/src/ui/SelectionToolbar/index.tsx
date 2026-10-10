@@ -2,35 +2,31 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import {
-	EditorToolbarProvider,
-	EditorToolbarUIProvider,
-	shouldShowSelectionToolbar,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import Popup from '@atlaskit/editor-common/Popup';
+import { shouldShowSelectionToolbar } from '@atlaskit/editor-common/toolbar';
+import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar/context';
+import { EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar/EditorToolbarUIProvider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import {
 	calculateToolbarPositionTrackHead,
 	calculateToolbarPositionOnCellSelection,
-} from '@atlaskit/editor-common/utils';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import { AllSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import {
-	ToolbarSection,
-	ToolbarButtonGroup,
-	ToolbarDropdownItemSection,
-	useToolbarUI,
-} from '@atlaskit/editor-toolbar';
-import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
-import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model/toolbar-model-renderer';
+import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
+import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

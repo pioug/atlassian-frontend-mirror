@@ -14,23 +14,24 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block/constants';
+import type { FloatingToolbarCustomRenderContext } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
+import { getPageIdAndTypeFromConfluencePageAri } from '@atlaskit/editor-synced-block-provider/clients/confluence/ari';
 import type {
-	ExtractInjectionAPI,
-	FloatingToolbarCustomRenderContext,
-} from '@atlaskit/editor-common/types';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
-import { ArrowKeyNavigationType, DropdownContainer } from '@atlaskit/editor-common/ui-menu';
-import { getPageIdAndTypeFromConfluencePageAri } from '@atlaskit/editor-synced-block-provider';
-import type {
-	SyncBlockSourceInfo,
-	SyncBlockStoreManager,
 	ReferencesSourceInfo,
 	SyncBlockProduct,
-} from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockJiraIssueType } from '@atlaskit/editor-synced-block-provider/types';
+} from '@atlaskit/editor-synced-block-provider/common/types';
+import type {
+	SyncBlockJiraIssueType,
+	SyncBlockSourceInfo,
+} from '@atlaskit/editor-synced-block-provider/providers/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 // eslint-disable-next-line import/order -- CI requires icon-lab imports before core icon imports.
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BugIcon from '@atlaskit/icon/core/bug';

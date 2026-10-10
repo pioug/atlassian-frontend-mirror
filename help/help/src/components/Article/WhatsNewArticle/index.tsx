@@ -4,8 +4,8 @@ import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'reac
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import Button from '@atlaskit/button/button';
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
-import HelpArticleContent from '@atlaskit/help-article';
+import HelpArticleContent from '@atlaskit/help-article/HelpArticle';
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { token } from '@atlaskit/tokens';
 

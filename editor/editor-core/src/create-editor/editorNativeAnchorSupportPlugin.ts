@@ -1,4 +1,4 @@
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';

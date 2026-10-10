@@ -11,7 +11,7 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

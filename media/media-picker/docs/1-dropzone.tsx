@@ -1,6 +1,6 @@
 import React from 'react';
 import { md } from '@atlaskit/docs';
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 import dropZoneExamples from './content/dropzone/example';
 import dropZoneProps from './content/dropzone/props';
 const _default_1: any = md`

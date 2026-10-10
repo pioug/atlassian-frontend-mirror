@@ -8,7 +8,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
-import { messages } from '@atlaskit/editor-common/extensions';
+import { messages } from '@atlaskit/editor-common/extensions/messages';
 import CheckCircleIcon from '@atlaskit/icon/core/status-success';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';

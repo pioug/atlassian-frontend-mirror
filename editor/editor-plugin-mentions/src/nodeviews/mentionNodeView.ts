@@ -1,18 +1,18 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import type {
 	MentionNodeDataIdentifier,
 	MentionNodeDataProvider,
 } from '@atlaskit/editor-common/mention';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
 	VanillaTooltip,
 } from '@atlaskit/editor-common/vanilla-tooltip';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 // oxlint-disable-next-line import/no-duplicates
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

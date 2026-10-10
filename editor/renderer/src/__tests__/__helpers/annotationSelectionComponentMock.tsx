@@ -4,8 +4,8 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 
 import Button from '@atlaskit/button/standard-button';
-import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types/annotation';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import AddCommentIcon from '@atlaskit/icon/core/comment';
 

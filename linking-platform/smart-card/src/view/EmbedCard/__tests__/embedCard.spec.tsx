@@ -8,7 +8,7 @@ import type { ProductType } from '@atlaskit/linking-common/types';
 import {
 	expectFunctionToHaveBeenCalledWith,
 	type JestFunction,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/jestHelpers';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

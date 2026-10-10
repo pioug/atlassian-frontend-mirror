@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';

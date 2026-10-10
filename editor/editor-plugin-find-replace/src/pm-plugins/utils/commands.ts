@@ -1,4 +1,4 @@
-import type { Command, HigherOrderCommand } from '@atlaskit/editor-common/types';
+import type { Command, HigherOrderCommand } from '@atlaskit/editor-common/types/command';
 
 export const withScrollIntoView: HigherOrderCommand =
 	(command: Command): Command =>

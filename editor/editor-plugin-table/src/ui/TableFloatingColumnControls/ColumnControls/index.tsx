@@ -7,15 +7,15 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
-import { CellSelection } from '@atlaskit/editor-tables';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {

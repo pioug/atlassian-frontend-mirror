@@ -3,11 +3,12 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { getHadMarkAttributes } from '@atlaskit/editor-common/mark';
 import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { getActiveColorNew } from '../pm-plugins/utils/color';

@@ -11,25 +11,23 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
 import {
 	findKeymapByDescription,
 	getAriaKeyshortcuts,
 	tooltip,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
-import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	ArrowKeyNavigationType,
-	Dropdown,
-	TOOLBAR_BUTTON,
-	ToolbarButton,
-} from '@atlaskit/editor-common/ui-menu';
+import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages/find-replace';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import DropdownWithOuterListeners from '@atlaskit/editor-common/ui-menu/Dropdown';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import {
 	akEditorFloatingPanelZIndex,
 	akEditorMobileMaxWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import SearchIcon from '@atlaskit/icon/core/search';
 import { token } from '@atlaskit/tokens';
 
@@ -146,7 +144,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 					isButtonHidden && toolbarButtonWrapperHidden,
 				]}
 			>
-				<Dropdown
+				<DropdownWithOuterListeners
 					mountTo={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}
 					scrollableElement={popupsScrollableElement}
@@ -199,7 +197,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 							{...this.props}
 						/>
 					</div>
-				</Dropdown>
+				</DropdownWithOuterListeners>
 			</div>
 		);
 	}

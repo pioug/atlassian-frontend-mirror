@@ -1,5 +1,6 @@
-import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import { removeMark } from '@atlaskit/editor-common/mark';
+import { toggleMark } from '@atlaskit/editor-common/mark/commands';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTIONS, pluginKey } from '../pm-plugins/main';

@@ -1,8 +1,9 @@
 import { type ReactNode } from 'react';
 
-import { type Identifier, type MediaClient } from '@atlaskit/media-client';
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react/with-media-client';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 import { type ViewerOptionsProps } from '../viewerOptions';
 

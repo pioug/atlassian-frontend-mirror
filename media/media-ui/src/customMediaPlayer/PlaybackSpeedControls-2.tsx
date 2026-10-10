@@ -3,7 +3,7 @@ import { Component } from 'react';
 
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
-import { type NumericalCardDimensions } from '@atlaskit/media-common';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { PopupSelect } from '@atlaskit/select/popup-select';
 import {

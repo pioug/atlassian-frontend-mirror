@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils/annotation';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';

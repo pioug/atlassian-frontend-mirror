@@ -2,24 +2,26 @@
 import { v4 as uuid } from 'uuid';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	MODE,
-	PLATFORMS,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { MODE, PLATFORMS } from '@atlaskit/editor-common/analytics/types/general-events';
 import { expandedState } from '@atlaskit/editor-common/expand';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { expandClassNames } from '@atlaskit/editor-common/styles/expand';
 import { findExpand } from '@atlaskit/editor-common/transforms';
 // oxlint-disable-next-line import/no-duplicates
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils/create-wrap-selection-transaction';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';

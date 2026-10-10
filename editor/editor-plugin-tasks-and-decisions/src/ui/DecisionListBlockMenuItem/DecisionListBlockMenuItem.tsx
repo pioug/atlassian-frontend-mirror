@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import DecisionIcon from '@atlaskit/icon/core/decision';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';

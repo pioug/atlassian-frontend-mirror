@@ -1,5 +1,8 @@
-import type { ADFMark, ADFMarkGroup, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
-import { adfMark, adfMarkGroup } from '@atlaskit/adf-schema-generator';
+import type { ADFMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMarkGroup } from '@atlaskit/adf-schema-generator/adfMarkGroup';
+import type { ADFMarkGroup } from '@atlaskit/adf-schema-generator/types/ADFMarkGroup';
+import type { ADFMarkSpec } from '@atlaskit/adf-schema-generator/types/ADFMarkSpec';
 
 export const backgroundColor: ADFMark<ADFMarkSpec> = adfMark('backgroundColor');
 export const textColor: ADFMark<ADFMarkSpec> = adfMark('textColor');

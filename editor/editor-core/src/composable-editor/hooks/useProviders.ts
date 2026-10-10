@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 
+import type { AutoformattingProvider } from '@atlaskit/editor-common/provider-factory/autoformatting-provider';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import type {
-	AutoformattingProvider,
-	CardProvider,
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+	OptionalPlugin,
+	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { CardPlugin } from '@atlaskit/editor-plugins/card';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
 import type { CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Form } from 'react-final-form';
 
-import { Select } from '@atlaskit/link-create';
+import { Select } from '@atlaskit/link-create/select';
 
 import { FormContextProvider } from '../../src/controllers/form-context/main';
 import { type SelectProps } from '../../src/ui/create-form/select/types';

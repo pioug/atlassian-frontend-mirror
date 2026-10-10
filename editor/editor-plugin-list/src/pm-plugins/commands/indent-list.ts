@@ -1,14 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists/analytics';
 import { PassiveTransaction } from '@atlaskit/editor-common/preset';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import { isBulletList } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';

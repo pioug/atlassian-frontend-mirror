@@ -1,5 +1,6 @@
-import { type FileStatus, type FileState } from '@atlaskit/media-client';
-import { type WithFileAttributes } from '@atlaskit/media-common';
+import type { FileStatus } from '@atlaskit/media-client/file-state';
+import type { WithFileAttributes } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import type { PrimaryErrorReason } from '../../../errors';
 import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';

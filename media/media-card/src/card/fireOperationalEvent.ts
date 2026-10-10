@@ -1,9 +1,9 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import {
-	type FileAttributes,
-	type MediaTraceContext,
-	type PerformanceAttributes,
-} from '@atlaskit/media-common';
+import type {
+	FileAttributes,
+	MediaTraceContext,
+	PerformanceAttributes,
+} from '@atlaskit/media-common/analytics/types';
 import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

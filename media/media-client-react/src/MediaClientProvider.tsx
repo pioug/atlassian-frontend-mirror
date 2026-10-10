@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
-import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 import { getMediaClient } from './getMediaClient';
 

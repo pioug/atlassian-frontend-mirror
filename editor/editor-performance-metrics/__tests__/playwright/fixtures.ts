@@ -18,10 +18,11 @@ import {
 	type Page,
 } from '@af/integration-testing';
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
-import { EditorPerformanceMetrics } from '@atlaskit/editor-performance-metrics/metrics';
+import { EditorPerformanceMetrics } from '@atlaskit/editor-performance-metrics/metrics/editorPerformanceMetrics';
 import type { TTVCTargets } from '@atlaskit/editor-performance-metrics/react';
-import { createTimelineFromEvents } from '@atlaskit/editor-performance-metrics/timeline';
-import type { Timeline, TimelineEvent } from '@atlaskit/editor-performance-metrics/timeline';
+import { createTimelineFromEvents } from '@atlaskit/editor-performance-metrics/timeline/timeline';
+import type { Timeline } from '@atlaskit/editor-performance-metrics/timeline/timelineInterfaces';
+import type { TimelineEvent } from '@atlaskit/editor-performance-metrics/timeline/timelineTypes';
 
 import type { WindowWithEditorPerformanceGlobals } from './window-type';
 

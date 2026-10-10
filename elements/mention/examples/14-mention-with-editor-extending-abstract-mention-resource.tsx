@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type EditorProps, EditorContext, ToolbarHelp } from '@atlaskit/editor-core';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
+import { ToolbarHelp } from '@atlaskit/editor-core/ToolbarHelp';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

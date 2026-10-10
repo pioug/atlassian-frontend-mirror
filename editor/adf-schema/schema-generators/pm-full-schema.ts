@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { adfToPm } from '@atlaskit/adf-schema-generator';
+import { adfToPm } from '@atlaskit/adf-schema-generator/adfToPm';
 
 import adfNode from '../src/next-schema/full-schema.adf';
 import { writeToFile } from './helpers/writeToFile';

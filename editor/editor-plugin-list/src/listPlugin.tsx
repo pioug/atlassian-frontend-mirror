@@ -12,10 +12,10 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconList, IconListNumber } from '@atlaskit/editor-common/assets';
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
-import { listMessages as messages } from '@atlaskit/editor-common/messages';
-import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
+import { messages } from '@atlaskit/editor-common/messages/list';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

@@ -9,13 +9,13 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
+import { expandClassNames } from '@atlaskit/editor-common/styles/expand';
 import {
 	expandLayoutWrapperStyle,
 	ExpandLayoutWrapperWithRef,
-	expandMessages,
-} from '@atlaskit/editor-common/ui';
-import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+	messages as expandMessages,
+} from '@atlaskit/editor-common/ui-expand';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

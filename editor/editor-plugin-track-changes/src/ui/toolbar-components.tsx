@@ -3,12 +3,14 @@ import React from 'react';
 import {
 	TRACK_CHANGES_BUTTON,
 	TRACK_CHANGES_GROUP,
-	TRACK_CHANGES_SECTION_RANK,
 	TRACK_CHANGES_SECTION,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	TRACK_CHANGES_SECTION_RANK,
 	TRACK_CHANGES_GROUP_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { TrackChangesPlugin, TrackChangesPluginOptions } from '../trackChangesPluginType';
 import { TrackChangesToolbarButton } from './TrackChangesToolbarButton';

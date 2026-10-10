@@ -1,7 +1,9 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
-import { type FileIdentifier, type FileDetails, type MediaType } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 export const defaultFileDetails: Partial<FileDetails> = {
 	createdAt: 1630986510989,

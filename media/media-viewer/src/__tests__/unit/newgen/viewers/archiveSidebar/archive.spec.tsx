@@ -21,8 +21,8 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';

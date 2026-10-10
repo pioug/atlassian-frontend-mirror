@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorContext } from '@atlaskit/editor-core/editor-context';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';

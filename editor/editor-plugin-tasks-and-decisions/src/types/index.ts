@@ -1,8 +1,9 @@
 import type { DecisionItemDefinition } from '@atlaskit/adf-schema/decision-item';
 import type { BlockTaskItemDefinition, TaskItemDefinition } from '@atlaskit/adf-schema/task-item';
-import type { INPUT_METHOD, USER_CONTEXT } from '@atlaskit/editor-common/analytics';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { USER_CONTEXT } from '@atlaskit/editor-common/analytics/types/insert-events';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types/selection';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';

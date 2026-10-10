@@ -8,40 +8,38 @@ import React, { useCallback, useEffect, useState } from 'react';
 import applyDevTools from 'prosemirror-dev-tools';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import {
-	blockCard,
-	blockQuote,
-	codeBlock,
-	decisionItem,
-	decisionList,
-	doc,
-	expand,
-	heading,
-	layoutColumn,
-	layoutSection,
-	media,
-	mediaSingle,
-	panel,
-	p,
-	table,
-	taskItem,
-	taskList,
-	td,
-	text,
-	th,
-	tr,
-} from '@atlaskit/adf-utils/builders';
+import { blockCard } from '@atlaskit/adf-utils/block-card';
+import { blockQuote } from '@atlaskit/adf-utils/blockquote';
+import { codeBlock } from '@atlaskit/adf-utils/code-block';
+import { decisionItem } from '@atlaskit/adf-utils/decision-item';
+import { decisionList } from '@atlaskit/adf-utils/decision-list';
+import { doc } from '@atlaskit/adf-utils/doc';
+import { expand } from '@atlaskit/adf-utils/expand';
+import { heading } from '@atlaskit/adf-utils/heading';
+import { layoutColumn } from '@atlaskit/adf-utils/layout-column';
+import { layoutSection } from '@atlaskit/adf-utils/layout-section';
+import { media } from '@atlaskit/adf-utils/media';
+import { mediaSingle } from '@atlaskit/adf-utils/media-single';
+import { panel } from '@atlaskit/adf-utils/panel';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { table } from '@atlaskit/adf-utils/table';
+import { tableCell as td } from '@atlaskit/adf-utils/table-cell';
+import { tableHeader as th } from '@atlaskit/adf-utils/table-header';
+import { tableRow as tr } from '@atlaskit/adf-utils/table-row';
+import { taskItem } from '@atlaskit/adf-utils/task-item';
+import { taskList } from '@atlaskit/adf-utils/task-list';
+import { text } from '@atlaskit/adf-utils/text';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
+import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';

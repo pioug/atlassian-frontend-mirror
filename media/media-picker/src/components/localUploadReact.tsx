@@ -3,12 +3,10 @@ import { Component } from 'react';
 import { start, end } from 'perf-marks';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import {
-	type MediaClient,
-	getMediaClientErrorReason,
-	isCommonMediaClientError,
-} from '@atlaskit/media-client';
-import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
+import { getMediaClientErrorReason, isCommonMediaClientError } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 import { type UploadService } from '../service/types';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';

@@ -1,10 +1,10 @@
 import type { IntlShape } from 'react-intl';
 
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import { messages } from '@atlaskit/editor-common/messages/block-controls';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';

@@ -4,14 +4,14 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl, useIntl } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics';
-import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { DIRECTION } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics/types/block-menu-events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
+import { messages } from '@atlaskit/editor-common/messages/block-menu';
+import { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';

@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 
 import type { NestedRendererType } from './ui/Renderer/types';
 

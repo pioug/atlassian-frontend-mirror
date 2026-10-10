@@ -2,20 +2,18 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	toggleOrderedList as toggleOrderedListKeymap,
 	formatShortcut,
 } from '@atlaskit/editor-common/keymaps';
-import { listMessages } from '@atlaskit/editor-common/messages';
+import { messages as listMessages } from '@atlaskit/editor-common/messages/list';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ListNumberedIcon,
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-} from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { ListNumberedIcon } from '@atlaskit/editor-toolbar/list-numbered-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 

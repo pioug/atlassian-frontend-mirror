@@ -5,8 +5,8 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection } from '@atlaskit/editor-tables';
-import { selectedRect } from '@atlaskit/editor-tables/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { selectedRect } from '@atlaskit/editor-tables/utils/selection-rect';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';

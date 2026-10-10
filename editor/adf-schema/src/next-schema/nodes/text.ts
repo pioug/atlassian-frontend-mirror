@@ -1,5 +1,6 @@
-import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
-import { adfNode } from '@atlaskit/adf-schema-generator';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
+import type { ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 import { annotation } from '../marks/annotation';
 import { code } from '../marks/code';

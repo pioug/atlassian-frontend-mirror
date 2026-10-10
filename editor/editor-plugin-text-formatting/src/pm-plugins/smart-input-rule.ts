@@ -1,18 +1,18 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	PUNC,
-	SYMBOL,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { PUNC, SYMBOL } from '@atlaskit/editor-common/analytics/types/substitute-events';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
-import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
+import { createRule } from '@atlaskit/editor-common/utils';
+import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils/input-rules';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { createPlugin } from '@atlaskit/prosemirror-input-rules';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
 
 // We don't agressively upgrade single quotes to smart quotes because
 // they may clash with an emoji. Only do that when we have a matching

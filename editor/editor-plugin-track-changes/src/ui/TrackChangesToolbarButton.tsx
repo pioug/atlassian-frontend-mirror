@@ -4,11 +4,13 @@ import { useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { toggleViewChanges, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { trackChangesMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { HistoryIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+import { trackChangesMessages } from '@atlaskit/editor-common/messages/track-changes';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { HistoryIcon } from '@atlaskit/editor-toolbar/history-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 

@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import type { ReactNode } from 'react';
 
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
-import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 
 import {
 	TaskItemsFormatProvider,

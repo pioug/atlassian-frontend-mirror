@@ -1,7 +1,7 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { addInlineComment, bindKeymapWithCommand } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import type { AnnotationPlugin } from '../annotationPluginType';

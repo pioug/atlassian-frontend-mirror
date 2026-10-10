@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { DatasourceModalType, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types/datasource';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { AssetsConfigModalWithWrappers as AssetsConfigModal } from '@atlaskit/link-datasource/assets-config-modal-with-wrappers';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';

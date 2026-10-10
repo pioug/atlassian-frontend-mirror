@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { AuthContext, MediaApiConfig, Auth } from '@atlaskit/media-core/auth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 import { isClientBasedAuth } from '@atlaskit/media-core/is-client-based-auth';

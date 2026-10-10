@@ -1,4 +1,4 @@
-import type { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
+import type { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types/annotation';
 
 export const ExampleViewInlineCommentComponent = (
 	props: React.PropsWithChildren<InlineCommentViewComponentProps>,

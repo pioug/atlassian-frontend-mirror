@@ -3,40 +3,40 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import commonMessages, { panelMessages as messages } from '@atlaskit/editor-common/messages';
-import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { panelMessages as messages } from '@atlaskit/editor-common/messages/panel';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/styles/panel';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarColorPicker,
 	FloatingToolbarConfig,
 	FloatingToolbarEmojiPicker,
 	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import {
-	DEFAULT_BORDER_COLOR,
-	panelBackgroundPalette,
-	panelBackgroundPaletteNew,
-} from '@atlaskit/editor-common/ui-color';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color/ColorPalette/Palettes/common';
+import { panelBackgroundPalette } from '@atlaskit/editor-common/ui-color/ColorPalette/panelBackgroundPalette';
+import { panelBackgroundPaletteNew } from '@atlaskit/editor-common/ui-color/ColorPalette/panelBackgroundPaletteNew';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';

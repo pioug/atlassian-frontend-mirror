@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { iconGoogleDrive } from '@atlaskit/link-test-helpers';
+import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
 
 import useActionFlags from '../../src/state/hooks/use-action-flags';
 import VRTestWrapper from '../utils/vr-test-wrapper';

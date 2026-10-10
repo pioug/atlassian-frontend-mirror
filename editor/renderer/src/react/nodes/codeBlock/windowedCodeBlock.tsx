@@ -7,7 +7,7 @@ import { Fragment, lazy, memo, Suspense, useState } from 'react';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useInViewport } from '../../hooks/use-in-viewport';

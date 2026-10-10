@@ -5,7 +5,8 @@ import { defineMessages } from 'react-intl';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-smart-link-lifecycle-analytics';
 import Link from '@atlaskit/link/link';
 import { token } from '@atlaskit/tokens';
-import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin/atlassian-link-picker-plugin';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageWrapper } from '../example-helpers/common';

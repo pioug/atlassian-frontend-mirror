@@ -36,13 +36,14 @@ import Loadable from 'react-loadable';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { MediaType } from '@atlaskit/adf-schema/media';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { createPlaceholderImageDataUrl } from '@atlaskit/editor-test-helpers/placeholder-images';
 import type { CardEvent } from '@atlaskit/media-card/types';
-import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { sleep, nextTick, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { sleep, nextTick } from '@atlaskit/media-test-helpers/nextTick';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import Media from '../../../../react/nodes/media';
@@ -59,7 +60,7 @@ import {
 // eslint-disable-next-line import/no-commonjs
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
-import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils/imageLoader';
 import {
 	MediaClientContext,
 	MediaClientProvider,
@@ -78,8 +79,8 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 
 // External cards render a loading card until `withImageLoader` has seen the image load, which never
 // happens in jsdom. Skipping the HOC lets the tests drive `imageStatus` through the prop instead.
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/utils/imageLoader', () => ({
+	...jest.requireActual('@atlaskit/editor-common/utils/imageLoader'),
 	withImageLoader: (Wrapped: unknown) => Wrapped,
 }));
 

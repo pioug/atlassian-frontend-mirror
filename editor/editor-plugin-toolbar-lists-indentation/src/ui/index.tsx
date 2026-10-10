@@ -3,8 +3,9 @@
  * @jsx jsx
  */
 import { jsx } from '@atlaskit/css';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

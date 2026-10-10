@@ -6,15 +6,14 @@ import memoizeOne from 'memoize-one';
 
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
-import { setNodeSelection, setTextSelection, withImageLoader } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { setNodeSelection, setTextSelection } from '@atlaskit/editor-common/utils';
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils/imageLoader';
+import { withImageLoader } from '@atlaskit/editor-common/utils/imageLoader';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -22,9 +21,8 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import Card from '@atlaskit/media-card/cardLoader';
 import { CardLoading } from '@atlaskit/media-card/cardLoading';
 import type { CardDimensions, CardEvent, CardOnClickCallback } from '@atlaskit/media-card/types';
-import type { Identifier } from '@atlaskit/media-client';
-import type { SSR } from '@atlaskit/media-common';
-import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

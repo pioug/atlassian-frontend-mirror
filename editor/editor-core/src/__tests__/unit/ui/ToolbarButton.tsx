@@ -5,8 +5,9 @@ import { userEvent } from '@testing-library/user-event';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 
 const noop = () => {};
 

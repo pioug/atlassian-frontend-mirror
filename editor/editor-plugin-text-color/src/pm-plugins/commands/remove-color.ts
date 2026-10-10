@@ -1,6 +1,6 @@
 import { removeMark } from '@atlaskit/editor-common/mark';
 import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 
 import { ACTIONS, pluginKey } from '../main';
 

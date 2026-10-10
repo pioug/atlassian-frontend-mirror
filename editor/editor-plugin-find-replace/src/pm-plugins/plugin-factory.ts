@@ -1,6 +1,7 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { Command } from '@atlaskit/editor-common/types';
-import { pluginFactory, stepHasSlice } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { stepHasSlice } from '@atlaskit/editor-common/utils';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type {
 	EditorState,
 	ReadonlyTransaction,

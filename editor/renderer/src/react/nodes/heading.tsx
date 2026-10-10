@@ -13,7 +13,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';

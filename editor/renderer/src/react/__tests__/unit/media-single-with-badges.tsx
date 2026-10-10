@@ -13,8 +13,8 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import MediaWithDraftAnnotation from '../../nodes/media';
 
-jest.mock('@atlaskit/editor-common/media-single', () => ({
-	...jest.requireActual('@atlaskit/editor-common/media-single'),
+jest.mock('@atlaskit/editor-common/media-single/CommentBadgeNext', () => ({
+	...jest.requireActual('@atlaskit/editor-common/media-single/CommentBadgeNext'),
 	CommentBadgeNext: () => <span data-testid="comment-badge">Comment Component</span>,
 }));
 

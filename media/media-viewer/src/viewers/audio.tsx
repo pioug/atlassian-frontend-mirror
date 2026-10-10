@@ -1,13 +1,10 @@
 import React from 'react';
 
 import AudioIcon from '@atlaskit/icon/core/audio';
-import {
-	type ProcessedFileState,
-	type MediaClient,
-	type FileState,
-	globalMediaEventEmitter,
-} from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { ProcessedFileState, FileState } from '@atlaskit/media-state/file-state';
 import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 

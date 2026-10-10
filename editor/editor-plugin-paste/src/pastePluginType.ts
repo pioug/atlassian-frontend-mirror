@@ -1,22 +1,22 @@
 import type { MessageDescriptor } from 'react-intl';
 
-import type { PasteSource } from '@atlaskit/editor-common/analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { PasteSource } from '@atlaskit/editor-common/analytics/types/paste-events';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
+import type { PasteWarningOptions } from '@atlaskit/editor-common/types';
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-	PasteWarningOptions,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
-import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history';
-import type { CardPlugin } from '@atlaskit/editor-plugin-card';
-import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { ListPlugin } from '@atlaskit/editor-plugin-list';
-import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
-import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation/annotationPluginType';
+import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history/betterTypeHistoryPluginType';
+import type { CardPlugin } from '@atlaskit/editor-plugin-card/cardPluginType';
+import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { ListPlugin } from '@atlaskit/editor-plugin-list/list-plugin-type';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media/media-plugin-type';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions/mentions-plugin-type';
 import type { Fragment, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

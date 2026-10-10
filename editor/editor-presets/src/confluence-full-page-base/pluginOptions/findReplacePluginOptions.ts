@@ -1,4 +1,4 @@
-import type { FindReplacePluginOptions } from '@atlaskit/editor-plugin-find-replace';
+import type { FindReplacePluginOptions } from '@atlaskit/editor-plugin-find-replace/findReplacePluginType';
 
 interface Props {
 	options: never;

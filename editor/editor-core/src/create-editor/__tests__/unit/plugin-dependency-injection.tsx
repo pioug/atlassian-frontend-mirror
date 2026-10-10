@@ -5,10 +5,10 @@ import React from 'react';
 import { replaceRaf } from 'raf-stub';
 import { createIntl } from 'react-intl';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

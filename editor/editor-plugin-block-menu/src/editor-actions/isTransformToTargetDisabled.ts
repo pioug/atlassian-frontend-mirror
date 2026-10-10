@@ -1,4 +1,4 @@
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection/utils';
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';

@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import * as uuid from 'uuid';
 
-import { type MediaUpload } from '@atlaskit/media-client';
+import type { MediaUpload } from '@atlaskit/media-client/media';
 
 import { getFutureDate } from '../../utils/mockData';
 import { type ChunkId } from './chunk';

@@ -2,15 +2,15 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
-// oxlint-disable-next-line import/no-duplicates
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { selectionToolbarMessages } from '@atlaskit/editor-common/messages/selection-toolbar';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarButton,
 	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+// oxlint-disable-next-line import/no-duplicates
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 

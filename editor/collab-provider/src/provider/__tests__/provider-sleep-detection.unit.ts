@@ -2,9 +2,6 @@ import { replaceRaf } from 'raf-stub';
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
@@ -59,7 +56,6 @@ jest.mock('../../channel', () => {
 	};
 });
 
-const SLEEP_EXPERIMENT = 'collab_check_sleep_detection_experiment';
 const OUT_OF_SYNC_PERIOD = 3000;
 const SUSPENSION = 10 * 60 * 1000;
 
@@ -124,7 +120,6 @@ describe('sleep detection on reconnect', () => {
 	};
 
 	it('catches up when a suspension is detected but the disconnect looks brief', () => {
-		mockExpEnabled(SLEEP_EXPERIMENT);
 		reportSleepDuration(SUSPENSION);
 		disconnectFor(300);
 		reconnect();
@@ -136,17 +131,7 @@ describe('sleep detection on reconnect', () => {
 		);
 	});
 
-	it('does not catch up on a suspension when the experiment is disabled', () => {
-		mockExpDisabled(SLEEP_EXPERIMENT);
-		reportSleepDuration(SUSPENSION);
-		disconnectFor(300);
-		reconnect();
-
-		expect(catchup).not.toHaveBeenCalled();
-	});
-
 	it('does not catch up on a brief disconnect with no suspension', () => {
-		mockExpEnabled(SLEEP_EXPERIMENT);
 		reportSleepDuration(1000);
 		disconnectFor(300);
 		reconnect();
@@ -155,7 +140,6 @@ describe('sleep detection on reconnect', () => {
 	});
 
 	it('still catches up on a long disconnect', () => {
-		mockExpEnabled(SLEEP_EXPERIMENT);
 		reportSleepDuration(1000);
 		disconnectFor(5000);
 		reconnect();
@@ -168,7 +152,6 @@ describe('sleep detection on reconnect', () => {
 	});
 
 	it('advances its watermark once reconnected so a suspension is not counted twice', () => {
-		mockExpEnabled(SLEEP_EXPERIMENT);
 		reportSleepDuration(SUSPENSION);
 		disconnectFor(300);
 		reconnect();
@@ -181,49 +164,33 @@ describe('sleep detection on reconnect', () => {
 		expect(lastWatermark).toBeGreaterThanOrEqual(watermarkAfterReconnect);
 	});
 
-	describe('experiment exposure', () => {
-		beforeEach(() => {
-			mockExpEnabled(SLEEP_EXPERIMENT);
-		});
+	it('does not catch up on an initial connection', () => {
+		reportSleepDuration(SUSPENSION);
+		reconnect(false);
 
-		it('is not fired on an initial connection', () => {
-			reportSleepDuration(SUSPENSION);
-			reconnect(false);
+		expect(catchup).not.toHaveBeenCalled();
+	});
 
-			expect(wasExperimentExposed(SLEEP_EXPERIMENT)).toBe(false);
-		});
+	it('does not catch up when there was no disconnect', () => {
+		reportSleepDuration(SUSPENSION);
+		reconnect();
 
-		it('is not fired when there was no disconnect', () => {
-			reportSleepDuration(SUSPENSION);
-			reconnect();
+		expect(catchup).not.toHaveBeenCalled();
+	});
 
-			expect(wasExperimentExposed(SLEEP_EXPERIMENT)).toBe(false);
-			expect(catchup).not.toHaveBeenCalled();
-		});
+	it('catches up when the disconnect alone already reaches the out of sync period', () => {
+		reportSleepDuration(SUSPENSION);
+		disconnectFor(OUT_OF_SYNC_PERIOD);
+		reconnect();
 
-		it('is not fired when the disconnect alone already exceeds the out of sync period', () => {
-			reportSleepDuration(SUSPENSION);
-			disconnectFor(OUT_OF_SYNC_PERIOD);
-			reconnect();
+		expect(catchup).toHaveBeenCalled();
+	});
 
-			expect(wasExperimentExposed(SLEEP_EXPERIMENT)).toBe(false);
-			expect(catchup).toHaveBeenCalled();
-		});
+	it('does not catch up when the suspension is just under the out of sync period', () => {
+		reportSleepDuration(OUT_OF_SYNC_PERIOD - 1);
+		disconnectFor(300);
+		reconnect();
 
-		it('is not fired when no suspension was detected', () => {
-			reportSleepDuration(OUT_OF_SYNC_PERIOD - 1);
-			disconnectFor(300);
-			reconnect();
-
-			expect(wasExperimentExposed(SLEEP_EXPERIMENT)).toBe(false);
-		});
-
-		it('is fired when the suspension decides the outcome', () => {
-			reportSleepDuration(SUSPENSION);
-			disconnectFor(300);
-			reconnect();
-
-			expect(wasExperimentExposed(SLEEP_EXPERIMENT)).toBe(true);
-		});
+		expect(catchup).not.toHaveBeenCalled();
 	});
 });

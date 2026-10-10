@@ -5,7 +5,7 @@ import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,
 	ResolvedClientUrl,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 

@@ -1,9 +1,5 @@
-import {
-	type MediaClientError,
-	type MediaClientErrorReason,
-	MediaStoreError,
-	RequestError,
-} from '@atlaskit/media-client';
+import { MediaStoreError, RequestError } from '@atlaskit/media-client';
+import type { MediaClientError, MediaClientErrorReason } from '@atlaskit/media-client/errors/types';
 import { type FileState } from '@atlaskit/media-state/file-state';
 
 import type { ArchiveViewerErrorReason } from '../../../ArchiveViewerError';

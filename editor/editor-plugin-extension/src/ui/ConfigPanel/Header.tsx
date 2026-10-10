@@ -10,13 +10,11 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
+import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 // oxlint-disable-next-line import/no-duplicates
-import type { Icon } from '@atlaskit/editor-common/extensions';
-import {
-	configPanelMessages as messages,
-	type ExtensionDeprecationStatus,
-} from '@atlaskit/editor-common/extensions';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import type { Icon } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionDeprecationStatus } from '@atlaskit/editor-common/extensions/extension-manifest';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Text, xcss } from '@atlaskit/primitives';

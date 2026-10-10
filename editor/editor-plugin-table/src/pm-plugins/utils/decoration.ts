@@ -6,7 +6,7 @@ import type { IntlShape } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 
 import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { nonNullable } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type {
@@ -18,7 +18,9 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getCellsInRow, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { getCellsInRow } from '@atlaskit/editor-tables/utils/get-cells-in-row';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 import type { Cell, CellColumnPositioning } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';

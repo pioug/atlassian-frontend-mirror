@@ -6,7 +6,7 @@ import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
-import { messages } from '@atlaskit/editor-common/floating-toolbar';
+import messages from '@atlaskit/editor-common/floating-toolbar/messages';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react';
 
-import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import type { Experience } from '@atlaskit/editor-common/experiences';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { SyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import type { Experience } from '@atlaskit/editor-common/experiences/Experience';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

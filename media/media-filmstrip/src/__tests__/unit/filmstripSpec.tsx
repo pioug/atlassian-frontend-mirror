@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { type Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { render, screen } from '@atlassian/testing-library';
 
 import { Filmstrip, type FilmstripProps, type FilmstripItem } from '../..';

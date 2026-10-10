@@ -2,7 +2,10 @@
 import { v4 as uuid } from 'uuid';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { isCSSAnchorSupported, isCSSAttrAnchorSupported } from '@atlaskit/editor-common/styles';
+import {
+	isCSSAnchorSupported,
+	isCSSAttrAnchorSupported,
+} from '@atlaskit/editor-common/styles/native-anchor';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';

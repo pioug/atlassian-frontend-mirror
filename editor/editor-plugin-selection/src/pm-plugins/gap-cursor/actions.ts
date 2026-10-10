@@ -1,17 +1,13 @@
-import {
-	atTheBeginningOfDoc,
-	atTheEndOfDoc,
-	GapCursorSelection,
-	Side,
-	isValidTargetNode,
-} from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
+import { atTheBeginningOfDoc, atTheEndOfDoc, Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { isValidTargetNode } from '@atlaskit/editor-common/selection/is-valid-target-node';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import {
 	isMediaNode,
 	isNodeBeforeMediaNode,
 	isPositionNearTableRow,
 } from '@atlaskit/editor-common/utils';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';

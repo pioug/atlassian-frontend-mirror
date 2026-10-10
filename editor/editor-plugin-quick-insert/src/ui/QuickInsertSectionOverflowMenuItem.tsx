@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import AddIcon from '@atlaskit/icon/core/add';
 
 import type { QuickInsertPlugin } from '../quickInsertPluginType';

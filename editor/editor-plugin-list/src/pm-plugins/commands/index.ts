@@ -1,28 +1,26 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
+import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists/analytics';
 import {
 	getBlockMarkAttrs,
-	getCommonListAnalyticsAttributes,
 	getFirstParagraphBlockMarkAttrs,
-	moveTargetIntoList,
 	reconcileBlockMarkForContainerAtPos,
 	reconcileBlockMarkForParagraphAtPos,
-} from '@atlaskit/editor-common/lists';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
-import {
-	filterCommand as filter,
-	hasVisibleContent,
-	isEmptySelectionAtStart,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/lists/block-mark';
+import { moveTargetIntoList } from '@atlaskit/editor-common/lists/replace-content';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { filterCommand as filter, hasVisibleContent } from '@atlaskit/editor-common/utils';
+import { isEmptySelectionAtStart } from '@atlaskit/editor-common/utils/commands';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';

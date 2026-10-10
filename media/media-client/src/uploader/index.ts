@@ -3,7 +3,7 @@ import { concatMap } from 'rxjs/operators/concatMap';
 
 import { chunkinator } from '@atlaskit/chunkinator/chunkinator';
 import type { Chunk, ChunkinatorFile } from '@atlaskit/chunkinator/domain';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 
 import type { MediaStore } from '../client/media-store/MediaStore';

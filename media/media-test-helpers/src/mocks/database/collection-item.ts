@@ -1,11 +1,8 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import * as uuid from 'uuid';
 
-import {
-	type MediaType,
-	type MediaItemDetails,
-	type MediaFileProcessingStatus,
-} from '@atlaskit/media-client';
+import type { MediaItemDetails, MediaFileProcessingStatus } from '@atlaskit/media-client/media';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 import { mapDataUriToBlob } from '../../utils';
 import {

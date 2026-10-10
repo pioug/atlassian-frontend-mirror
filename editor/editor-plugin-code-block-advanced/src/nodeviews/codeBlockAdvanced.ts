@@ -11,16 +11,13 @@ import {
 	areCodeBlockLineNumbersHidden,
 	isCodeBlockWordWrapEnabled,
 } from '@atlaskit/editor-common/code-block';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
-import type {
-	getPosHandler,
-	getPosHandlerNode,
-	ExtractInjectionAPI,
-	EditorContentMode,
-} from '@atlaskit/editor-common/types';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
-import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
+import type { EditorContentMode } from '@atlaskit/editor-common/types/editor-appearance';
+import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
+import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type {

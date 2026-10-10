@@ -5,15 +5,14 @@ import type {
 	TableAttributes,
 	Layout as TableLayout,
 } from '@atlaskit/adf-schema/tableNodes';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
-import {
-	closestElement,
-	isParagraph,
-	isTextSelection,
-	mapSlice,
-} from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { isTextSelection } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
+import { isParagraph } from '@atlaskit/editor-common/utils/nodes';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
 import type { Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -21,22 +20,20 @@ import type { ContentNodeWithPos, NodeWithPos } from '@atlaskit/editor-prosemirr
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findCellClosestToPos, findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
+import { getCellsInColumn } from '@atlaskit/editor-tables/utils/get-cells-in-column';
+import { getCellsInRow } from '@atlaskit/editor-tables/utils/get-cells-in-row';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
+import { removeTable } from '@atlaskit/editor-tables/utils/remove-table';
 import {
-	findCellClosestToPos,
-	findTable,
-	getCellsInColumn,
-	getCellsInRow,
-	getSelectionRect,
-	isSelectionType,
-	isTableSelected,
-	removeTable,
 	selectColumns as selectColumnsTransform,
 	selectColumn as selectColumnTransform,
-	selectionCell,
 	selectRows as selectRowsTransform,
 	selectRow as selectRowTransform,
-	setCellAttrs,
-} from '@atlaskit/editor-tables/utils';
+} from '@atlaskit/editor-tables/utils/select-nodes';
+import { selectionCell } from '@atlaskit/editor-tables/utils/selection-cell';
+import { setCellAttrs } from '@atlaskit/editor-tables/utils/set-cell-attrs';
 
 import type { WidthToWidest } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';

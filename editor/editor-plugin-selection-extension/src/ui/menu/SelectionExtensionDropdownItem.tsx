@@ -10,9 +10,10 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import { ToolbarDropdownItem, ToolbarTooltip } from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';

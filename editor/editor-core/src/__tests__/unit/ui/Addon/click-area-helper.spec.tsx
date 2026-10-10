@@ -3,10 +3,11 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import * as commands from '@atlaskit/editor-common/commands';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import * as selectionUtils from '@atlaskit/editor-common/selection';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { closestElement } from '@atlaskit/editor-common/utils';
+import { Side } from '@atlaskit/editor-common/selection';
+import * as selectionActions from '@atlaskit/editor-common/selection/actions';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -19,16 +20,16 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { checkForModal } from '../../../../ui/Addon/checkForModal';
 import { clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
 
-jest.mock('@atlaskit/editor-common/selection', () => ({
+jest.mock('@atlaskit/editor-common/selection/actions', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/editor-common/selection'),
+	...jest.requireActual<Object>('@atlaskit/editor-common/selection/actions'),
 }));
 jest.mock('@atlaskit/editor-common/commands', () => ({
 	__esModule: true,
 	...jest.requireActual<Object>('@atlaskit/editor-common/commands'),
 }));
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/utils/dom', () => ({
+	...jest.requireActual('@atlaskit/editor-common/utils/dom'),
 	closestElement: jest.fn(),
 }));
 
@@ -120,7 +121,7 @@ describe('Editor click area handler', () => {
 				hasFocusSpy.mockReturnValue(true);
 				addParagraphAtEndMock = jest.spyOn(commands, 'addParagraphAtEnd');
 				addParagraphAtEndMock.mockImplementation(() => {});
-				setSelectionTopLevelBlockMock = jest.spyOn(selectionUtils, 'setSelectionTopLevelBlocks');
+				setSelectionTopLevelBlockMock = jest.spyOn(selectionActions, 'setSelectionTopLevelBlocks');
 				setSelectionTopLevelBlockMock.mockImplementation(() => {});
 			});
 

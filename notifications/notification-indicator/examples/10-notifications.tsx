@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import {
-	type NotificationCountResponse,
-	type NotificationLogProvider,
-} from '@atlaskit/notification-log-client';
+import type {
+	NotificationCountResponse,
+	NotificationLogProvider,
+} from '@atlaskit/notification-log-client/types';
 
 import { NotificationIndicator } from '../src';
 

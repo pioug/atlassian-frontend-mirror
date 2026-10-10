@@ -2,7 +2,7 @@ import React from 'react';
 
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { AsanaTask } from '@atlaskit/link-test-helpers';
+import { AsanaTask } from '@atlaskit/link-test-helpers/smart-card/mocks/asana';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import '../examples-helpers';

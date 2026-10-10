@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import type { AnnotationState } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
+import type { AnnotationState } from '@atlaskit/editor-common/types/emitter';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';

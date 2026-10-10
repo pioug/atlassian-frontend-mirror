@@ -1,6 +1,5 @@
-import { type FileState } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
-import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { ProcessingFailedState, FileState } from '@atlaskit/media-state/file-state';
 
 import type { MediaViewerFailureAttributes } from '../..';
 import { getErrorDetail } from '../../../getErrorDetail';

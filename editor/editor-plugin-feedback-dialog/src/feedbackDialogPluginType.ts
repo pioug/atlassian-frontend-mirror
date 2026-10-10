@@ -1,5 +1,9 @@
-import type { FeedbackInfo, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeedbackInfo } from '@atlaskit/editor-common/types/feedback-dialog';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 
 import type { openFeedbackDialog } from './feedbackDialogPlugin';
 

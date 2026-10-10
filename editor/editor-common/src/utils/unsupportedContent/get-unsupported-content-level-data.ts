@@ -1,4 +1,4 @@
-import { traverse } from '@atlaskit/adf-utils/traverse';
+import { traverse } from '@atlaskit/adf-utils/traverse/main';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from './UNSUPPORTED_CONTENT_LEVEL_SEVERITY';

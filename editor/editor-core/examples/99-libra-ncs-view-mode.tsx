@@ -3,20 +3,18 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { EditorInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorContext } from '@atlaskit/editor-core/editor-context';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePlugin';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/create';
+import { ExampleViewInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/view';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
-import {
-	ExampleCreateInlineCommentComponent,
-	ExampleViewInlineCommentComponent,
-} from '@atlaskit/editor-test-helpers/example-helpers';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';

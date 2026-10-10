@@ -3,7 +3,7 @@ import React from 'react';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import {
 	mockTransformedUserHydrationResponse,

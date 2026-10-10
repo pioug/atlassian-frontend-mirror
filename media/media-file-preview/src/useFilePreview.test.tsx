@@ -2,14 +2,15 @@ import React, { act } from 'react';
 
 import { renderHook, waitFor } from '@testing-library/react';
 
-import {
-	addFileAttrsToUrl,
-	type FileIdentifier,
-	type MediaStoreGetFileImageParams,
-	type ResponseFileItem,
-} from '@atlaskit/media-client';
+import { addFileAttrsToUrl } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type {
+	MediaStoreGetFileImageParams,
+	ResponseFileItem,
+} from '@atlaskit/media-client/media-store/types';
 import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
+import { sampleBinaries } from '@atlaskit/media-test-data/sample-binaries';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { tallImage } from '@atlaskit/media-test-helpers';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 
 import ImageCropper from '../src/image-cropper';
 

@@ -1,12 +1,12 @@
 import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { fullPageMessages } from '@atlaskit/editor-common/messages';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
+import { messages as fullPageMessages } from '@atlaskit/editor-common/messages/full-page';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui-toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ToolbarKeyboardNavigationProviderConfig } from '@atlaskit/editor-toolbar';
+import type { ToolbarKeyboardNavigationProviderConfig } from '@atlaskit/editor-toolbar/types';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { getFocusableElements, isShortcutToFocusToolbar } from '../utils/toolbar';

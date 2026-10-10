@@ -2,14 +2,12 @@ import React, { useRef } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
-import {
-	MoreItemsIcon,
-	ToolbarButton,
-	ToolbarTooltip,
-	useToolbarUI,
-} from '@atlaskit/editor-toolbar';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import { MoreItemsIcon } from '@atlaskit/editor-toolbar/more-items-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
+import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 
 import { useTableSelectorPopup } from './hooks/useTableSelectorPopup';
 import { TableSelectorPopupWrapper } from './popups/TableSelectorPopupWrapper';

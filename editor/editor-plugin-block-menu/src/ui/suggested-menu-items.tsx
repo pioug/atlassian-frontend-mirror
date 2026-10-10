@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { useSuggestedItems } from './hooks/useSuggestedItems';

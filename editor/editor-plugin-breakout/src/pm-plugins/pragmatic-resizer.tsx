@@ -3,15 +3,18 @@ import React, { useLayoutEffect, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import { breakoutMessages as messages } from '@atlaskit/editor-common/messages';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { messages } from '@atlaskit/editor-common/messages/breakout';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
 	VanillaTooltip,
 } from '@atlaskit/editor-common/vanilla-tooltip';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
-import type { BaseEventPayload, ElementDragType } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type {
+	BaseEventPayload,
+	ElementDragType,
+} from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 
-import { layoutMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { toolbarMessages as layoutMessages } from '@atlaskit/editor-common/messages/layout';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
-import type { RegisterComponent, SurfaceFallbacks } from '@atlaskit/editor-ui-control-model';
+import type { SurfaceFallbacks } from '@atlaskit/editor-ui-control-model/surface-renderer/types';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { DeleteColumnDropdownItem } from './DeleteColumnDropdownItem';

@@ -1,12 +1,12 @@
 import React from 'react';
 
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import {
 	APPS_SECTION,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
-	useEditorToolbar,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { ExtensionConfiguration, ExtensionMenuItemConfiguration } from '../../types';

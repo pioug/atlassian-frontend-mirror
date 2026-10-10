@@ -10,9 +10,10 @@ import type { FC, NamedExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
 
 import type { EmojiAttributes } from '@atlaskit/adf-schema/emoji';
-import { messages } from '@atlaskit/editor-common/emoji';
-import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import { messages } from '@atlaskit/editor-common/emoji/messages';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';

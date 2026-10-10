@@ -1,22 +1,24 @@
 import React, { useCallback } from 'react';
 
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar';
-import { EditorToolbarProvider, EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { EditorToolbarContextType } from '@atlaskit/editor-common/toolbar/context';
+import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar/context';
+import { EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar/EditorToolbarUIProvider';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type {
+	OptionalPlugin,
+	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	ToolbarButtonGroup,
-	ToolbarDropdownItemSection,
-	ToolbarSection,
-} from '@atlaskit/editor-toolbar';
-import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
-import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model';
-import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model';
+import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model/toolbar-model-renderer';
+import type { RegisterComponent, RegisterToolbar } from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
+import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar/ui-context';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MarkdownModePlugin } from '../../types/markdown-mode';

@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import * as EventDispatcher from '@atlaskit/editor-common/event-dispatcher';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 
 import EditorContext from '../../../ui/EditorContext';
 import WithHelpTrigger from '../../../ui/WithHelpTrigger';

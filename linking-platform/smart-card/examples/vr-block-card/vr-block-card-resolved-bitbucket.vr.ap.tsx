@@ -9,7 +9,7 @@ import {
 	BitbucketProject,
 	BitbucketPullRequest1,
 	BitbucketRepository1,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/bitbucket';
 
 import VRCardView from '../utils/vr-card-view';
 

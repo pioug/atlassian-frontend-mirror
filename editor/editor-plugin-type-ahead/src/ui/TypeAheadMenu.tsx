@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

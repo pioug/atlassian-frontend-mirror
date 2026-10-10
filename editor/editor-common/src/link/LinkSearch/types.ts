@@ -1,6 +1,6 @@
 import type { KeyboardEvent } from 'react';
 
-import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider/types';
 
 import type { INPUT_METHOD } from '../../analytics';
 

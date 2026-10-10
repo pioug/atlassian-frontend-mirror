@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 
-import { useStaticCallback } from '@atlaskit/media-common';
+import { useStaticCallback } from '@atlaskit/media-common/useStaticCallback';
 
 import type { Font, PageContent, PageRangeContent } from './types';
 

@@ -5,7 +5,7 @@
 import { useEffect } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { ACTION } from '@atlaskit/editor-common/analytics';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
 import { clearMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 
 import type { EditorNextProps, EditorProps } from '../../types/editor-props';

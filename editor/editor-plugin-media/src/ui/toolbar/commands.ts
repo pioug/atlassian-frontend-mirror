@@ -1,20 +1,18 @@
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema/border';
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
-import type {
-	Command,
-	EditorContainerWidth as WidthPluginState,
-} from '@atlaskit/editor-common/types';
-import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

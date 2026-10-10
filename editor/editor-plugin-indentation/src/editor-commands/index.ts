@@ -1,9 +1,10 @@
 import type { IndentationMarkAttributes } from '@atlaskit/adf-schema/indentation';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INDENT_DIRECTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { INDENT_DIRECTION } from '@atlaskit/editor-common/analytics/types/format-events';
 import { toggleBlockMark } from '@atlaskit/editor-common/commands';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Node as PmNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { default as getAttrsWithChangesRecorder } from './getAttrsWithChangesRecorder';

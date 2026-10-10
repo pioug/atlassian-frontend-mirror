@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Button from '@atlaskit/button/standard-button';
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { Popup } from '@atlaskit/popup/popup';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

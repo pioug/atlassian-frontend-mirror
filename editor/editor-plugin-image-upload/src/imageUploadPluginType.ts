@@ -1,4 +1,5 @@
-import type { Command, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 type ImageUploadActions = {
 	startUpload: () => Command;

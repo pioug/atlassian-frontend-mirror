@@ -3,7 +3,8 @@ import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { renderWithIntl, ResolvedClient } from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
+import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import * as componentModule from '../../component';

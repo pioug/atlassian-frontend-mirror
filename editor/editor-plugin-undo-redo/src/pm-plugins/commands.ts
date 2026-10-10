@@ -1,5 +1,6 @@
-import { ACTION, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';
 

@@ -1,8 +1,11 @@
-import type { EditorAppearance, EditorContentMode } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	EditorContentMode,
+} from '@atlaskit/editor-common/types/editor-appearance';
 import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 /**
  * @param appearance

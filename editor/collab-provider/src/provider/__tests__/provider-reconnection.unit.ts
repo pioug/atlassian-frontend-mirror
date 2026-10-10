@@ -3,8 +3,6 @@ import { replaceRaf } from 'raf-stub';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
@@ -125,7 +123,6 @@ describe('reconnection analytics', () => {
 	afterEach(jest.clearAllMocks);
 
 	it('Should not reconnecting analytics after being disconnected for less than 3s', async () => {
-		mockExpDisabled('collab_check_sleep_detection_experiment');
 		const fakeAnalyticsWebClient = {
 			sendOperationalEvent: jest.fn(),
 			sendScreenEvent: jest.fn(),
@@ -358,7 +355,6 @@ describe('reconnection analytics', () => {
 	});
 
 	it('Should trigger reconnecting analytics when a suspension is detected and the disconnect looks brief', async () => {
-		mockExpEnabled('collab_check_sleep_detection_experiment');
 		// Reset catchupv2 mock to return empty steps for this test
 		(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
 			onCatchupComplete([]);

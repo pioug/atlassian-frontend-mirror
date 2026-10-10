@@ -1,4 +1,4 @@
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import type { CustomMediaPlayerType } from '../../../types';
 import type { CaptionAttributes } from './captions';

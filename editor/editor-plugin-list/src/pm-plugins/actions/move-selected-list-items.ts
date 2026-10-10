@@ -1,8 +1,8 @@
+import { narrowReplacementRange } from '@atlaskit/editor-common/lists/narrow-replacement-range';
 import {
 	computeSelectionOffsets,
-	narrowReplacementRange,
 	restoreSelection,
-} from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/lists/restore-selection';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { MAX_NESTED_LIST_INDENTATION } from '../../types';

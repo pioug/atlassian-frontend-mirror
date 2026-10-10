@@ -14,15 +14,18 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { overflowShadow } from '@atlaskit/editor-common/ui';
-import type { OverflowShadowProps, OverflowShadowState } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import overflowShadow from '@atlaskit/editor-common/OverflowShadow';
+import type {
+	OverflowShadowProps,
+	OverflowShadowState,
+} from '@atlaskit/editor-common/OverflowShadow';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -1,6 +1,9 @@
 import type { InlineCardDefinition } from '@atlaskit/adf-schema/inline-card';
-import { inlineCard } from '@atlaskit/adf-utils/builders';
-import type { ExtensionManifest, MaybeADFEntity } from '@atlaskit/editor-common/extensions';
+import { inlineCard } from '@atlaskit/adf-utils/inline-card';
+import type {
+	ExtensionManifest,
+	MaybeADFEntity,
+} from '@atlaskit/editor-common/extensions/extension-manifest';
 
 import enableGoogleDrive from './enable-googledrive';
 

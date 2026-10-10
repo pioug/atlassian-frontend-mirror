@@ -1,13 +1,13 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles';
+import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles/table';
 import {
 	akEditorTableCellOnStickyHeaderZIndex,
 	akEditorTableToolbarSize,
 	akEditorUnitZIndex,
 	akRichMediaResizeZIndex,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';

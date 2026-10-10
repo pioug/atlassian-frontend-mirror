@@ -7,20 +7,20 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor-provider';
 import {
 	isMeasuring,
 	startMeasure,
 	stopMeasure,
 } from '@atlaskit/editor-common/performance-measures';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles/drag-handle';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui-toolbar';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import type {
 	EditorState,
@@ -34,7 +34,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
-import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
-	defaultBaseUrl,
-	defaultCollectionName,
 	generateFilesFromTestData,
 	MediaMock,
 	type MockFileInputParams,
-	wideImage,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/media-mock';
+import { defaultBaseUrl } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { wideImage } from '@atlaskit/media-test-helpers/wideImageURI';
 
 import { MainWrapper } from '../example-helpers';
 import Card from '../src/card/cardLoader';

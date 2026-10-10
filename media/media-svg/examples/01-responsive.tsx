@@ -7,9 +7,9 @@ import { Fragment, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form/label/default';
-import { type FileIdentifier } from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Select from '@atlaskit/select/default';
 
 import MediaSvg from '../src/media-svg';

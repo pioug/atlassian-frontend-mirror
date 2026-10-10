@@ -6,7 +6,7 @@ import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
 
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { DispatchAnalyticsEvent, MediaEventPayload } from '../../analytics';

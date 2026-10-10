@@ -2,9 +2,10 @@ import type React from 'react';
 
 import type { MessageDescriptor } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
-import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { TypeAheadQuickInsertItem } from './quick-insert/TypeAheadQuickInsertItem';

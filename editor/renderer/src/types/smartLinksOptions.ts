@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { CardProps } from '@atlaskit/smart-card';
+import type { CardProps } from '@atlaskit/smart-card/card/types';
 
 export interface SmartLinksOptions {
 	/**

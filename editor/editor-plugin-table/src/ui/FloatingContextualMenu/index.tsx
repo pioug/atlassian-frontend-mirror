@@ -5,21 +5,20 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorFloatingDialogZIndex,
 	akEditorFloatingOverlapPanelZIndex,
-} from '@atlaskit/editor-shared-styles';
-import {
-	findCellRectClosestToPos,
-	getSelectionRect,
-	isSelectionType,
-} from '@atlaskit/editor-tables/utils';
+} from '@atlaskit/editor-shared-styles/constants';
+import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';

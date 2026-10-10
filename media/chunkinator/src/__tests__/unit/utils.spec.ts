@@ -2,7 +2,7 @@ import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import { toArray } from 'rxjs/operators/toArray';
 
-import { asMock } from '@atlaskit/media-common/test-helpers';
+import { asMock } from '@atlaskit/media-common/jestHelpers';
 
 import { asyncMap } from '../../asyncMap';
 import { fetchBlob } from '../../fetchBlob';

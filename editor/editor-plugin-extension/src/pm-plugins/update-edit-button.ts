@@ -1,5 +1,6 @@
-import type { ExtensionProvider, UpdateExtension } from '@atlaskit/editor-common/extensions';
-import { getExtensionModuleNode } from '@atlaskit/editor-common/extensions';
+import type { UpdateExtension } from '@atlaskit/editor-common/extensions/extension-handler';
+import { getExtensionModuleNode } from '@atlaskit/editor-common/extensions/extension-handlers';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateState } from '../editor-commands/commands';

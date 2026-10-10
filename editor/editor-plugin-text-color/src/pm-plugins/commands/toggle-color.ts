@@ -1,6 +1,7 @@
-import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
+import { removeMark } from '@atlaskit/editor-common/mark';
+import { toggleMark } from '@atlaskit/editor-common/mark/commands';
 import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTIONS, pluginKey } from '../main';

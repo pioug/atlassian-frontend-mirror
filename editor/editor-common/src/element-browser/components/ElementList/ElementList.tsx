@@ -19,7 +19,7 @@ import withAnalyticsContext, {
 	type WithContextProps,
 } from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -4,12 +4,12 @@ import { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { type FileState } from '@atlaskit/media-client';
+import { defaultMediaPickerCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import {
-	defaultMediaPickerCollectionName,
 	createUploadMediaClientConfig,
 	createStorybookMediaClientConfig,
-	fakeMediaClient,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Spinner from '@atlaskit/spinner/spinner';
 import Toggle from '@atlaskit/toggle';
 

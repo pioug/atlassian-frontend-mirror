@@ -1,6 +1,6 @@
 import { bindKeymapWithCommand, enter, tab } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 

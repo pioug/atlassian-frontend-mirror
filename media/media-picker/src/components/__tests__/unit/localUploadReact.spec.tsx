@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import { type UploadService } from '../../../service/types';
 import {

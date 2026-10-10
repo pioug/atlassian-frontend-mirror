@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {
-	DragDropContext,
-	type DragStart,
-	Droppable,
-	type DropResult,
+import type {
+	DragStart,
+	DropResult,
 } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+import { DragDropContext } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/drag-drop-context';
+import { Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/droppable';
 
 import type { WithSortedPageRowsProps } from '../../hoc/with-sorted-page-rows';
 import {

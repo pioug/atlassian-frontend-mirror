@@ -1,13 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { copyHTMLToClipboard, getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import {
 	copyDomNode,
 	getSelectedNodeOrNodeParentByNodeType,
 	toDOM,
 } from '@atlaskit/editor-common/copy-button';
-import type { ExtractInjectionAPI, Command, CommandDispatch } from '@atlaskit/editor-common/types';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 

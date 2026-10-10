@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 import example from '../content/example';
 import props from '../content/props';
 

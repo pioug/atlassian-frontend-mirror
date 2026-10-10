@@ -4,23 +4,21 @@ import uniqueId from 'lodash/uniqueId';
 import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import {
-	messages,
-	EmojiSharedCssClassName,
-	defaultEmojiHeight,
-} from '@atlaskit/editor-common/emoji';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { messages } from '@atlaskit/editor-common/emoji/messages';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { EmojiSharedCssClassName } from '@atlaskit/editor-common/styles/emoji';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
 	VanillaTooltip,
 } from '@atlaskit/editor-common/vanilla-tooltip';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { defaultEmojiHeight } from '@atlaskit/emoji/constants';
 import { emojiIdToEmoji } from '@atlaskit/emoji/emoji-id-to-emoji';
 import type {
 	EmojiDescription,

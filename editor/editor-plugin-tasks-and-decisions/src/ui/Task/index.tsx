@@ -4,11 +4,12 @@ import React, { PureComponent } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { ContentRef } from '@atlaskit/task-decision';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';

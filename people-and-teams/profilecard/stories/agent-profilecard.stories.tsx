@@ -4,11 +4,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 
 import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
-import {
-	withAnalyticsLogger,
-	withMaxWidth,
-	withStorybookLinkHarness,
-} from '@atlassian/platform-storybook-helpers';
+import { withAnalyticsLogger } from '@atlassian/platform-storybook-helpers/analytics-logger';
+import { withStorybookLinkHarness } from '@atlassian/platform-storybook-helpers/link-harness';
+import { withMaxWidth } from '@atlassian/platform-storybook-helpers/max-width';
 
 import AgentProfileCard from '../src/components/Agent/AgentProfileCard';
 import { simpleProfileClient } from '../src/mocks/simple-mock-clients';

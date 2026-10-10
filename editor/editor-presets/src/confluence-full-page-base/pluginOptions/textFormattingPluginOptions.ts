@@ -1,4 +1,4 @@
-import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugin-text-formatting';
+import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugin-text-formatting/text-formatting-plugin-type';
 
 interface Params {
 	options: never;

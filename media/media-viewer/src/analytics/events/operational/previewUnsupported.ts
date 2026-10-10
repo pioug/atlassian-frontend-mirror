@@ -1,5 +1,5 @@
-import { type FileState } from '@atlaskit/media-client';
-import { type WithFileAttributes } from '@atlaskit/media-common';
+import type { WithFileAttributes } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { getFileAttributes } from '../../getFileAttributes';
 import { type MediaFileEventPayload } from './_mediaFile';

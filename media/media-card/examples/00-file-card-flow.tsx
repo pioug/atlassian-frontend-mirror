@@ -10,14 +10,12 @@ import { Component, type SyntheticEvent } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/default/button';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaSubscribable } from '@atlaskit/media-client/media-subscribable/types';
+import { UploadController } from '@atlaskit/media-client/upload-controller';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
-	UploadController,
-	type FileIdentifier,
-	MediaClient,
-	type MediaSubscribable,
-} from '@atlaskit/media-client';
-import {
-	defaultCollectionName,
 	genericFileId,
 	audioFileId,
 	audioNoCoverFileId,
@@ -30,9 +28,9 @@ import {
 	errorFileId,
 	gifFileId,
 	noMetadataFileId,
-	createUploadMediaClientConfig,
 	emptyImageFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { MainWrapper } from '../example-helpers';
 import { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';

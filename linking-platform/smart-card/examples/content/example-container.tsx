@@ -2,7 +2,10 @@ import React, { type PropsWithChildren } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { avatar1, avatar2, avatar3, image1 as previewImage } from '@atlaskit/link-test-helpers';
+import { avatar1 } from '@atlaskit/link-test-helpers/smart-card/images/avatar-1';
+import { avatar2 } from '@atlaskit/link-test-helpers/smart-card/images/avatar-2';
+import { avatar3 } from '@atlaskit/link-test-helpers/smart-card/images/avatar-3';
+import { image1 as previewImage } from '@atlaskit/link-test-helpers/smart-card/images/rectangle';
 
 import { ActionName, IconType, MediaType, SmartLinkStatus } from '../../src/constants';
 import { FlexibleCardContext } from '../../src/state/flexible-ui-context';

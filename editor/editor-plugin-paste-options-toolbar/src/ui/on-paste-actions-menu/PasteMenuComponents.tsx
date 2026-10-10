@@ -3,10 +3,9 @@ import React, { useCallback } from 'react';
 import { cssMap, cx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
+import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages/paste-options-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import {
-	useEditorToolbar,
 	PASTE_MENU,
 	PASTE_MENU_SECTION,
 	PASTE_NESTED_MENU,
@@ -14,19 +13,20 @@ import {
 	PASTE_RICH_TEXT_MENU_ITEM,
 	PASTE_MARKDOWN_MENU_ITEM,
 	PASTE_PLAIN_TEXT_MENU_ITEM,
+	AI_PASTE_MENU_SECTION,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
 	PASTE_MENU_RANK,
 	PASTE_MENU_SECTION_RANK,
 	PASTE_NESTED_MENU_RANK,
 	PASTE_MENU_NESTED_SECTION_RANK,
-	AI_PASTE_MENU_SECTION,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ClipboardIcon from '@atlaskit/icon/core/clipboard';

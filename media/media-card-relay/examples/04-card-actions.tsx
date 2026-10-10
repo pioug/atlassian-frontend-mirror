@@ -17,7 +17,7 @@ import { css, jsx } from '@compiled/react';
 import type { CardAction } from '@atlaskit/media-card/actions';
 import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { imageFileId } from '@atlaskit/media-test-helpers';
+import { imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 
 import { MediaCardRelay } from '../src';
 import RelayMock, { useMockMediaItemRef, MOCK_IMAGE_ITEM } from './utils/relay-mock';

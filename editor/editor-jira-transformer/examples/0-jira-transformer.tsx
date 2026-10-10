@@ -9,7 +9,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
+import Editor from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

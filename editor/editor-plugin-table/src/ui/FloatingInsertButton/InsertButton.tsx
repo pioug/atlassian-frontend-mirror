@@ -8,10 +8,10 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { addColumnAfter, addRowAfter, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { tableMarginTop } from '@atlaskit/editor-common/styles';
-import { closestElement } from '@atlaskit/editor-common/utils';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { tableMarginTop } from '@atlaskit/editor-common/styles/table';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

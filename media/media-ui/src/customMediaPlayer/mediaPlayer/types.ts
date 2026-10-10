@@ -1,6 +1,8 @@
-import { type FileIdentifier, type FileState } from '@atlaskit/media-client';
 import type { MediaParsedSettings } from '@atlaskit/media-client-react/media-parsed-settings';
-import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { type WithShowControlMethodProp } from '../../types';
 import type { WithPlaybackProps } from '../analytics/utils/playbackAttributes';

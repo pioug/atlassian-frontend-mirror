@@ -1,8 +1,8 @@
 import type {
 	OptionalPlugin,
 	PublicPluginAPI,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 
 // Primary toolbar doesn't actually use plugin state so the state selector doesn't update as intended

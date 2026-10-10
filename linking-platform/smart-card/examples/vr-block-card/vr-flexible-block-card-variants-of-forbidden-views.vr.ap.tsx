@@ -5,7 +5,7 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { forbiddenJira as JiraPreviewImage } from '@atlaskit/link-test-helpers';
+import { forbiddenJira as JiraPreviewImage } from '@atlaskit/link-test-helpers/smart-card/images/forbidden-jira';
 import { token } from '@atlaskit/tokens';
 
 import { BlockCard } from '../../src/view/BlockCard';

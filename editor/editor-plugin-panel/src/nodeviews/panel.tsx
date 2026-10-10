@@ -5,24 +5,19 @@ import { v4 as uuid } from 'uuid';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema/panel';
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { Emoji } from '@atlaskit/editor-common/emoji';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import {
-	PanelErrorIcon,
-	PanelInfoIcon,
-	PanelNoteIcon,
-	PanelSuccessIcon,
-	PanelWarningIcon,
-} from '@atlaskit/editor-common/icons';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-	ExtractInjectionAPI,
-	getPosHandler,
-	getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { PanelErrorIcon } from '@atlaskit/editor-common/icons/PanelErrorIcon';
+import { PanelInfoIcon } from '@atlaskit/editor-common/icons/PanelInfoIcon';
+import { PanelNoteIcon } from '@atlaskit/editor-common/icons/PanelNoteIcon';
+import { PanelSuccessIcon } from '@atlaskit/editor-common/icons/PanelSuccessIcon';
+import { PanelWarningIcon } from '@atlaskit/editor-common/icons/PanelWarningIcon';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
+import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import Emoji from '@atlaskit/editor-common/ui-emoji';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

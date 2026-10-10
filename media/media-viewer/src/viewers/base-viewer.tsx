@@ -3,8 +3,10 @@ import React, { Fragment } from 'react';
 import deepEqual from 'deep-equal';
 import { FormattedMessage } from 'react-intl';
 
-import { type MediaClient, type FileState, globalMediaEventEmitter } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { messages } from '@atlaskit/media-ui/messages';
 
 import type { Outcome } from '../domain/outcome';

@@ -1,7 +1,7 @@
 import {
 	AnnotationSharedClassNames,
 	BlockAnnotationSharedClassNames,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/styles/annotation';
 
 export const getAnnotationViewClassname = (
 	isUnresolved: boolean,

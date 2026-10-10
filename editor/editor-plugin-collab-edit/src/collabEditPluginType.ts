@@ -1,13 +1,13 @@
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

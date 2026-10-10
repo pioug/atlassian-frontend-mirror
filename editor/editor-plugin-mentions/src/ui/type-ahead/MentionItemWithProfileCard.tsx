@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import type { MentionAttributes, MentionUserType } from '@atlaskit/adf-schema/mention';
 import { cssMap } from '@atlaskit/css';
-import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
 import MentionItem from '@atlaskit/mention/mention-item';
 import type { MentionDescription } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

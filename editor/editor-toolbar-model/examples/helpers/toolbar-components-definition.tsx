@@ -1,35 +1,33 @@
 import React from 'react';
 
-import {
-	AIAdjustLengthIcon,
-	AIChatIcon,
-	AICommandIcon,
-	BoldIcon,
-	CommentIcon,
-	HeadingFiveIcon,
-	HeadingFourIcon,
-	HeadingOneIcon,
-	HeadingSixIcon,
-	HeadingThreeIcon,
-	HeadingTwoIcon,
-	ItalicIcon,
-	LinkIcon,
-	ListBulletedIcon,
-	ListNumberedIcon,
-	MoreItemsIcon,
-	PinIcon,
-	QuoteIcon,
-	TextColorIcon,
-	TextIcon,
-	ToolbarButton,
-	ToolbarButtonGroup,
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarDropdownMenu,
-	ToolbarKeyboardShortcutHint,
-	ToolbarSection,
-} from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { AIAdjustLengthIcon } from '@atlaskit/editor-toolbar/ai-adjust-length-icon';
+import { AIChatIcon } from '@atlaskit/editor-toolbar/ai-chat-icon';
+import { AICommandIcon } from '@atlaskit/editor-toolbar/ai-command-icon';
+import { BoldIcon } from '@atlaskit/editor-toolbar/bold-icon';
+import { CommentIcon } from '@atlaskit/editor-toolbar/comment-icon';
+import { HeadingFiveIcon } from '@atlaskit/editor-toolbar/heading-five-icon';
+import { HeadingFourIcon } from '@atlaskit/editor-toolbar/heading-four-icon';
+import { HeadingOneIcon } from '@atlaskit/editor-toolbar/heading-one-icon';
+import { HeadingSixIcon } from '@atlaskit/editor-toolbar/heading-six-icon';
+import { HeadingThreeIcon } from '@atlaskit/editor-toolbar/heading-three-icon';
+import { HeadingTwoIcon } from '@atlaskit/editor-toolbar/heading-two-icon';
+import { ItalicIcon } from '@atlaskit/editor-toolbar/italic-icon';
+import { LinkIcon } from '@atlaskit/editor-toolbar/link-icon';
+import { ListBulletedIcon } from '@atlaskit/editor-toolbar/list-bulleted-icon';
+import { ListNumberedIcon } from '@atlaskit/editor-toolbar/list-numbered-icon';
+import { MoreItemsIcon } from '@atlaskit/editor-toolbar/more-items-icon';
+import { PinIcon } from '@atlaskit/editor-toolbar/pin-icon';
+import { QuoteIcon } from '@atlaskit/editor-toolbar/quote-icon';
+import { TextColorIcon } from '@atlaskit/editor-toolbar/text-color-icon';
+import { TextIcon } from '@atlaskit/editor-toolbar/text-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
+import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 

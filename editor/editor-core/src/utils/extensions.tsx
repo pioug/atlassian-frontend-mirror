@@ -5,23 +5,26 @@ import Loadable from 'react-loadable';
 import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	fireAnalyticsEvent,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { getQuickInsertItemsFromModule, resolveImport } from '@atlaskit/editor-common/extensions';
-import type { ExtensionAPI, ExtensionProvider, MenuItem } from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtensionAPI } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import { resolveImport } from '@atlaskit/editor-common/extensions/manifest-helpers';
+import { getQuickInsertItemsFromModule } from '@atlaskit/editor-common/extensions/module-helpers';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import type {
 	QuickInsertItem,
 	QuickInsertProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';

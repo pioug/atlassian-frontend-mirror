@@ -2,10 +2,10 @@ import { createIntl } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { timestampToString } from '@atlaskit/editor-common/utils';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import { timestampToString } from '@atlaskit/editor-common/utils/date';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

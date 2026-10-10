@@ -1,21 +1,22 @@
 import type { IntlShape } from 'react-intl/src/types';
 
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { TableMap } from '@atlaskit/editor-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import type { CellAttributes, Direction } from '@atlaskit/editor-tables/types';
 import {
 	findCellClosestToPos,
 	findCellRectClosestToPos,
 	findTableClosestToPos,
-	getSelectionRect,
-	isSelectionType,
 	nextCell,
 } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 
 import { TableDecorations } from '../../types';
 import type { PluginInjectionAPI, TablePluginAction } from '../../types';

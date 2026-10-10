@@ -1,4 +1,4 @@
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

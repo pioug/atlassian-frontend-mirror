@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider/types';

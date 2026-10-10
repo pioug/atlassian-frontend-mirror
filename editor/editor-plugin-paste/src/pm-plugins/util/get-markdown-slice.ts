@@ -1,4 +1,4 @@
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 

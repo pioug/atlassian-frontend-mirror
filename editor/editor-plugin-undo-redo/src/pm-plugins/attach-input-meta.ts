@@ -1,8 +1,13 @@
-import type { EditorAnalyticsAPI, ACTION } from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT, EVENT_TYPE, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { HigherOrderCommand, Command } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
+import {
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { HigherOrderCommand, Command } from '@atlaskit/editor-common/types/command';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

@@ -9,42 +9,38 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import type {
-	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
-	EditorAnalyticsAPI,
 	TextColorShowPaletteToggleAEP,
 	TextColorShowPaletteToggleAttr,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/color-events';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
-import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
+import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons/DynamicStrokeIconDecoration';
+import { textColorMessages as messages } from '@atlaskit/editor-common/messages/text-color';
+import { expandIconContainerStyle } from '@atlaskit/editor-common/styles/expand';
 import {
-	expandIconContainerStyle,
 	separatorStyles,
 	triggerWrapperStylesWithPadding,
 	wrapperStyle,
-} from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ColorPalette,
-	getSelectedRowAndColumnFromPalette,
-	textPaletteTooltipMessages,
-} from '@atlaskit/editor-common/ui-color';
-import {
-	ArrowKeyNavigationType,
-	DropdownContainer as Dropdown,
-	TOOLBAR_BUTTON,
-	ToolbarButton,
-} from '@atlaskit/editor-common/ui-menu';
-import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
+} from '@atlaskit/editor-common/styles/plugins';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import ColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette';
+import { textPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color/ColorPalette/utils';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

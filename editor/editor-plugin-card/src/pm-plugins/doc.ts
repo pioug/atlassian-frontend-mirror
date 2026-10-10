@@ -3,37 +3,35 @@ import isEqual from 'lodash/isEqual';
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type {
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-	SmartLinkNodeContext,
-	UnlinkToolbarAEP,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { unlinkPayload } from '@atlaskit/editor-common/analytics/linking-utils';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	SMART_LINK_TYPE,
-	unlinkPayload,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { UnlinkToolbarAEP } from '@atlaskit/editor-common/analytics/types/link-tool-bar-events';
+import { SMART_LINK_TYPE } from '@atlaskit/editor-common/analytics/types/node-events';
+import type { SmartLinkNodeContext } from '@atlaskit/editor-common/analytics/types/smart-links';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type {
 	CardReplacementInputMethod,
 	EmbedCardNodeTransformer,
 	EmbedCardTransformAttrs,
-} from '@atlaskit/editor-common/card';
-import { getActiveLinkMark } from '@atlaskit/editor-common/link';
-import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import type { Command } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/card/types';
+import { getActiveLinkMark } from '@atlaskit/editor-common/link/utils';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils/annotation';
+import { nodesBetweenChanged } from '@atlaskit/editor-common/utils/document';
 import {
-	getAnnotationMarksForPos,
 	getLinkCreationAnalyticsEvent,
 	isFromCurrentDomain,
-	nodesBetweenChanged,
-	processRawValue,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/hyperlink';
 import type {
 	Attrs,
 	Mark,

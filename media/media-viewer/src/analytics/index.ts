@@ -1,9 +1,9 @@
-import { type RequestMetadata } from '@atlaskit/media-client';
-import {
-	type WithFileAttributes,
-	type FailureAttributes,
-	type WithTraceContext,
-} from '@atlaskit/media-common/analytics';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
+import type {
+	WithFileAttributes,
+	FailureAttributes,
+	WithTraceContext,
+} from '@atlaskit/media-common/analytics/types';
 import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 import { type PrimaryErrorReason } from '../errors';

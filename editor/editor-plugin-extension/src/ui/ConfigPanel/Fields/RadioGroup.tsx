@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import type { EnumRadioField } from '@atlaskit/editor-common/extensions';
+import type { EnumRadioField } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
 import RadioGroup from '@atlaskit/radio/radio-group';
 

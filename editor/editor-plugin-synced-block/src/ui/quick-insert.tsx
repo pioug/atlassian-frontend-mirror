@@ -4,16 +4,16 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { IconSyncBlock } from '@atlaskit/editor-common/assets';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
 import type {
 	QuickInsertActionInsert,
 	QuickInsertItem,
-} from '@atlaskit/editor-common/provider-factory';
-import { IconSyncBlock } from '@atlaskit/editor-common/quick-insert';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

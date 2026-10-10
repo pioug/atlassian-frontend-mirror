@@ -1,6 +1,9 @@
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { akEditorBreakoutPadding, breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorBreakoutPadding,
+	breakoutWideScaleRatio,
+} from '@atlaskit/editor-shared-styles/constants';
 
 import type { EditorContainerWidth } from '../../types';
 import { calcColumnsFromPx } from './calcColumnsFromPx';

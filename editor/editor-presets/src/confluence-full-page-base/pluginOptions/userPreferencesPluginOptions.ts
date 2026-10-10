@@ -1,5 +1,5 @@
-import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences';
-import type { UserPreferencesPluginOptions } from '@atlaskit/editor-plugin-user-preferences';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences-provider';
+import type { UserPreferencesPluginOptions } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 
 interface Props {
 	options: {

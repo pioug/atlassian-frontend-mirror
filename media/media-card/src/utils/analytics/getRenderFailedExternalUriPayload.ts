@@ -1,4 +1,4 @@
-import { type FileAttributes, type PerformanceAttributes } from '@atlaskit/media-common/analytics';
+import type { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common/analytics/types';
 
 import type { RenderFailedEventPayload } from './analytics';
 

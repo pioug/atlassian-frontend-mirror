@@ -3,17 +3,14 @@ import React, { useEffect, useState } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+import { getCustomFieldResolver } from '@atlaskit/editor-common/extensions/extension-fields-helpers';
 import type {
-	CustomField,
 	CustomFieldResolver,
 	ExtensionManifest,
-	Option,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import {
-	getCustomFieldResolver,
-	configPanelMessages as messages,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { CustomField, Option } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
 import AsyncCreatableSelect from '@atlaskit/select/async-creatable-select';
 import type { ValueType } from '@atlaskit/select/types';

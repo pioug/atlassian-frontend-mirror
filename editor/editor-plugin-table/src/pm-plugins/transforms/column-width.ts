@@ -1,5 +1,5 @@
 import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';

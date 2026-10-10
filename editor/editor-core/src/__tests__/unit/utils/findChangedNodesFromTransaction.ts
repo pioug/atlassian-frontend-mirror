@@ -1,4 +1,4 @@
-import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { RefsNode } from '@atlaskit/editor-common/types/doc-builder';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {

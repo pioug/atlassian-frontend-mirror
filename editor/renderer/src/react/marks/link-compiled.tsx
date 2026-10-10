@@ -12,7 +12,7 @@ import type { ComponentProps } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import { LinkUrl } from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
 
 const anchorStyles = css({

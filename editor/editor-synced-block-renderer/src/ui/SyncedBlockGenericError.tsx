@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
 
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
 

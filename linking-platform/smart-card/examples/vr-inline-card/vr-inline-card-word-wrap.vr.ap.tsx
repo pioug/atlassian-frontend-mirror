@@ -13,7 +13,7 @@ import {
 	ResolvedClient,
 	ResolvingClient,
 	UnAuthClient,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

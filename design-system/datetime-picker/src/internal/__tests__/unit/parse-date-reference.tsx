@@ -2,7 +2,6 @@
 import { format, isValid, parseISO } from 'date-fns';
 
 import { createLocalizationProvider } from '@atlaskit/locale/localization-provider';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { parseDate } from '../../parse-date';
 
@@ -18,26 +17,17 @@ describe('parseDate reference date', () => {
 		jest.useRealTimers();
 	});
 
-	it.each([
-		[false, '1926-02-01'],
-		[true, '2026-02-01'],
-	])('parses two-digit years with reference date gate %s', (referenceDateGate, expected) => {
-		(referenceDateGate ? passGate : failGate)('platform-dst-dp-current-reference-date');
-
+	it('parses two-digit years with the current reference date', () => {
 		const parsed = parseDate('01.02.26', {
 			parseInputValue: undefined,
 			dateFormat: 'DD.MM.YY',
 			l10n,
 		});
 
-		expect(format(parsed, 'yyyy-MM-dd')).toBe(expected);
+		expect(format(parsed, 'yyyy-MM-dd')).toBe('2026-02-01');
 	});
 
 	describe('current reference date enabled', () => {
-		beforeEach(() => {
-			passGate('platform-dst-dp-current-reference-date');
-		});
-
 		it.each([
 			[2026, '01.02.03', 'DD.MM.YY', '2003-02-01'],
 			[2026, '09/Jul/18', 'DD/MMM/YY', '2018-07-09'],

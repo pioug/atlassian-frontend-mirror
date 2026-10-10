@@ -1,11 +1,12 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
 import {
 	EditorExtensionDeleteConfirmationModel,
 	EditorExtensionModel,
-	EditorFloatingToolbarModel,
-	EditorGapCursorModel,
-	EditorNodeContainerModel,
-} from '@af/editor-libra/page-models';
+} from '@af/editor-libra/page-models/editor-extension-model';
+import { EditorFloatingToolbarModel } from '@af/editor-libra/page-models/editor-floating-toolbar-model';
+import { EditorGapCursorModel } from '@af/editor-libra/page-models/editor-gap-cursor-model';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 

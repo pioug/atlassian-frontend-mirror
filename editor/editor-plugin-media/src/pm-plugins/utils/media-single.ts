@@ -1,45 +1,42 @@
 import memoizeOne, { type MemoizedFn } from 'memoize-one';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
-import type {
-	EditorAnalyticsAPI,
-	InputMethodInsertMedia,
-	InsertEventPayload,
-	MediaSwitchType,
-	// oxlint-disable-next-line import/no-duplicates
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	type InsertMediaVia,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	InputMethodInsertMedia,
+	InsertEventPayload,
+	InsertMediaVia,
+} from '@atlaskit/editor-common/analytics/types/insert-events';
+import type { MediaSwitchType } from '@atlaskit/editor-common/analytics/types/media-events';
 import { safeInsert, shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
+import { getMediaSingleInitialWidth } from '@atlaskit/editor-common/media-single';
 import {
 	DEFAULT_IMAGE_WIDTH,
-	getMaxWidthForNestedNodeNext,
-	getMediaSingleInitialWidth,
 	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
 	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
-} from '@atlaskit/editor-common/media-single';
+} from '@atlaskit/editor-common/media-single/constants';
+import { getMaxWidthForNestedNodeNext } from '@atlaskit/editor-common/media-single/utils';
+import { startPositionOfParent } from '@atlaskit/editor-common/selection';
 import {
 	atTheBeginningOfBlock,
 	selectionIsAtTheBeginningOfBlock,
-	startPositionOfParent,
-} from '@atlaskit/editor-common/selection';
-import type {
-	Command,
-	EditorCommand,
-	EditorContainerWidth as WidthPluginState,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/selection/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
 import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

@@ -1,4 +1,4 @@
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import { type PluginItemPayload } from '../domain/plugin';
 import { type SelectedItem } from '../popup/domain';

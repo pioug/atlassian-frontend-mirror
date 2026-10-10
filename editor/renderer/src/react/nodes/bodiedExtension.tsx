@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';

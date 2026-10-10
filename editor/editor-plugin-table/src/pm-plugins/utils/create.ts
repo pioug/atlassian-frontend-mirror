@@ -1,6 +1,6 @@
 import type { TableAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
-import { createTable } from '@atlaskit/editor-tables/utils';
+import { createTable } from '@atlaskit/editor-tables/utils/create-table';
 
 import { TABLE_MAX_WIDTH, TABLE_FULL_WIDTH } from '../table-resizing/utils/consts';
 const NESTED_TABLE_DEFAULT_ROWS = 2;

@@ -6,23 +6,19 @@ import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import ButtonGroup from '@atlaskit/button/button-group';
-import type {
-	ExtensionAPI,
-	ExtensionManifest,
-	ExtensionProvider,
-	ExtensionToolbarButton,
-} from '@atlaskit/editor-common/extensions';
-import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
+import type { ExtensionAPI } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionToolbarButton } from '@atlaskit/editor-common/extensions/extension-manifest-toolbar-item';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions/module-helpers';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import {
 	isNestedTablesSupported,
 	isSelectionTableNestedInTable,
 } from '@atlaskit/editor-common/nesting';
-import {
-	FloatingToolbarButton as Button,
-	FloatingToolbarSeparator as Separator,
-} from '@atlaskit/editor-common/ui';
-import { nodeToJSON } from '@atlaskit/editor-common/utils';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import { nodeToJSON } from '@atlaskit/editor-common/utils/nodes';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

@@ -9,7 +9,7 @@ import { PureComponent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
+import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers/imageUpload';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

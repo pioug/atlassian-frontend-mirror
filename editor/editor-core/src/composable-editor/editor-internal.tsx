@@ -5,15 +5,15 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { usePortalProvider } from '@atlaskit/editor-common/portal';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
-} from '@atlaskit/editor-common/preset';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { Transformer } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/preset/builder';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { usePortalProvider } from '@atlaskit/editor-common/usePortalProvider';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorFontSize } from '@atlaskit/editor-shared-styles';
+import { editorFontSize } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type EditorActions from '../actions';

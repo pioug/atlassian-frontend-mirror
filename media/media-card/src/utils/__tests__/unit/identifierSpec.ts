@@ -1,4 +1,5 @@
-import { type FileIdentifier, isFileIdentifier } from '@atlaskit/media-client';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 
 const fileIdentifier: FileIdentifier = {
 	mediaItemType: 'file',

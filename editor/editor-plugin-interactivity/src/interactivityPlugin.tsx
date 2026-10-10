@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 
 import { fireInteractivityEvent } from './analytics/fire-interactivity-event';
 import { InteractivityCollector } from './collector/interactivity-collector';

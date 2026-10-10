@@ -1,4 +1,5 @@
-import { type SSR, type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import type {
 	Auth,
 	AsapBasedAuth,

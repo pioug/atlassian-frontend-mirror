@@ -8,14 +8,12 @@ import React, { useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
-import { type Identifier, MediaClient } from '@atlaskit/media-client';
-import {
-	createStorybookMediaClientConfig,
-	defaultCollectionName,
-	htmlFileId,
-	I18NWrapper,
-} from '@atlaskit/media-test-helpers';
-import { zipFileWithHtmlId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { zipFileWithHtmlId, htmlFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';

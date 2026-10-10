@@ -5,23 +5,26 @@ import { renderHook, waitFor } from '@testing-library/react';
 import {
 	getExtensionModuleNodePrivateProps,
 	getNodeRenderer,
-} from '@atlaskit/editor-common/extensions';
-import { useProvider } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/extensions/extension-handlers';
+import { useProvider } from '@atlaskit/editor-common/provider-factory/context';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { useMultiBodiedExtensionContext } from '../../../../../react/nodes/multiBodiedExtension/context';
 
 jest.mock('memoize-one', () => jest.fn((fn) => fn));
 
-jest.mock('@atlaskit/editor-common/extensions', () => ({
-	...jest.requireActual('@atlaskit/editor-common/extensions'),
+jest.mock('@atlaskit/editor-common/extensions/extension-provider', () => ({
+	...jest.requireActual('@atlaskit/editor-common/extensions/extension-provider'),
 	ExtensionProvider: jest.fn(),
+}));
+jest.mock('@atlaskit/editor-common/extensions/extension-handlers', () => ({
+	...jest.requireActual('@atlaskit/editor-common/extensions/extension-handlers'),
 	getExtensionModuleNodePrivateProps: jest.fn(),
 	getNodeRenderer: jest.fn(),
 }));
 
-jest.mock('@atlaskit/editor-common/provider-factory', () => ({
-	...jest.requireActual('@atlaskit/editor-common/provider-factory'),
+jest.mock('@atlaskit/editor-common/provider-factory/context', () => ({
+	...jest.requireActual('@atlaskit/editor-common/provider-factory/context'),
 	useProvider: jest.fn(),
 }));
 

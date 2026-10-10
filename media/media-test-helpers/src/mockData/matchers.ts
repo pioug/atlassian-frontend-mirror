@@ -1,6 +1,6 @@
 import { type MockRequest } from 'xhr-mock';
 
-import { matches } from '@atlaskit/media-common';
+import { matches } from '@atlaskit/media-common/helpers';
 
 import { type RequestData } from '.';
 

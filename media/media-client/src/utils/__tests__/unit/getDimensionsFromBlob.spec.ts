@@ -1,4 +1,4 @@
-import { asMockFunction } from '@atlaskit/media-common/test-helpers';
+import { asMockFunction } from '@atlaskit/media-common/jestHelpers';
 
 import { getDimensionsFromBlob, type Dimensions } from '../../getDimensionsFromBlob';
 import { getImageDimensionsFromBlob } from '../../getImageDimensionsFromBlob';

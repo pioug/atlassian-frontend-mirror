@@ -1,4 +1,4 @@
-import { type PackageAttributes } from '@atlaskit/media-common';
+import type { PackageAttributes } from '@atlaskit/media-common/analytics/types';
 
 import type { ComponentName } from './analytics';
 

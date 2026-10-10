@@ -1,4 +1,4 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import type {
 	CollabEditProvider,
 	CollabEventConflictPayload,
@@ -10,8 +10,8 @@ import type {
 	CollabEvents,
 	CollabTelepointerPayload,
 } from '@atlaskit/editor-common/collab';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { PrivateCollabEditOptions } from '../../types';

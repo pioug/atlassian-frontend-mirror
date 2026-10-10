@@ -5,10 +5,10 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { IconFeedback } from '@atlaskit/editor-common/quick-insert';
-import type { FeedbackInfo } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconFeedback } from '@atlaskit/editor-common/assets';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import type { FeedbackInfo } from '@atlaskit/editor-common/types/feedback-dialog';
 
 import type { FeedbackDialogPlugin } from './feedbackDialogPluginType';
 import loadJiraCollectorDialogScript from './ui/loadJiraCollectorDialogScript';

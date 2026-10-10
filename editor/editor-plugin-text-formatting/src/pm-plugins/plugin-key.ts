@@ -1,4 +1,4 @@
-import type { TextFormattingState } from '@atlaskit/editor-common/types';
+import type { TextFormattingState } from '@atlaskit/editor-common/types/text-formatting';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export const pluginKey: PluginKey<TextFormattingState> = new PluginKey<TextFormattingState>(

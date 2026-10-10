@@ -1,9 +1,12 @@
-import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
 import {
 	breakoutResizableNodes as breakoutResizableNodesNew,
 	getBreakoutResizableNodes,
 } from '@atlaskit/editor-common/utils';
-import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorUnitZIndex,
+	akRichMediaResizeZIndex,
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

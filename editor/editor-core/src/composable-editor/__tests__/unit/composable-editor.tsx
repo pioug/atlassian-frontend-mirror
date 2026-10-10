@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-import { type MediaClientConfig } from '@atlaskit/media-client';
-import {
-	generateItemWithBinaries,
-	type ItemWithBinaries,
-	type GeneratedItemWithBinaries,
-} from '@atlaskit/media-test-data';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import type {
+	ItemWithBinaries,
+	GeneratedItemWithBinaries,
+} from '@atlaskit/media-test-data/items-with-binaries/types';
 
 import { MainWrapper } from '../example-helpers';
 import CardLoader from '../src/card/cardLoader';

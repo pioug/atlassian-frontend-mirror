@@ -11,13 +11,15 @@ import { jsx, css } from '@emotion/react';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type {
+	InlineCommentHoverComponentProps,
+	InlineCommentSelectionComponentProps,
+	InlineCommentViewComponentProps,
+} from '@atlaskit/editor-common/types/annotation';
 import {
 	AnnotationUpdateEmitter,
 	AnnotationUpdateEvent,
-	type InlineCommentHoverComponentProps,
-	type InlineCommentSelectionComponentProps,
-	type InlineCommentViewComponentProps,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/emitter';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';

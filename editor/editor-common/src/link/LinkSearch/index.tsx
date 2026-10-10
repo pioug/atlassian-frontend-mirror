@@ -4,7 +4,7 @@ import type { KeyboardEvent } from 'react';
 import { injectIntl } from 'react-intl';
 import type { WrappedComponentProps } from 'react-intl';
 
-import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider/types';
 
 import { INPUT_METHOD } from '../../analytics';
 import type { Diff } from '../../utils';

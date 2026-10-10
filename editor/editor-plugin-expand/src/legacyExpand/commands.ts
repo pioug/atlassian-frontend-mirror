@@ -1,19 +1,21 @@
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	MODE,
-	PLATFORMS,
-} from '@atlaskit/editor-common/analytics';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { MODE, PLATFORMS } from '@atlaskit/editor-common/analytics/types/general-events';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { expandClassNames } from '@atlaskit/editor-common/styles/expand';
 import { findExpand } from '@atlaskit/editor-common/transforms';
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils/create-wrap-selection-transaction';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

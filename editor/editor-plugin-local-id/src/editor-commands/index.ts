@@ -1,4 +1,4 @@
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 
 import type { AddMissingLocalIdsOptions } from '../localIdPluginType';
 import { addMissingLocalIdsToDocument } from '../pm-plugins/add-missing-local-ids';

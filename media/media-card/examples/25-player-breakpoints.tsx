@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 import Heading from '@atlaskit/heading/heading';
-import type { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
-import type { Identifier } from '@atlaskit/media-client';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';

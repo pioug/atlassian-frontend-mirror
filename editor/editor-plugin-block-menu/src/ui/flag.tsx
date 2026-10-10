@@ -3,9 +3,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { messages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';

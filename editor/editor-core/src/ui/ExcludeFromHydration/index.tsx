@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 
 /**
  * ExcludeFromHydration component delays rendering of its children until after the initial

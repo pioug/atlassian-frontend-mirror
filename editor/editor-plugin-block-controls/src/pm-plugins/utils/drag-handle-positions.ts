@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 
-import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

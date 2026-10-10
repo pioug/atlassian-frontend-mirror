@@ -1,4 +1,6 @@
-import { type MediaType, type ImageResizeMode, type Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 import { type CardPreview } from '../../../types';
 

@@ -6,7 +6,7 @@ import { render, screen } from '@atlassian/testing-library';
 
 jest.mock('../../image-cropper/isImageRemote');
 
-import { asMock } from '@atlaskit/media-test-helpers';
+import { asMock } from '@atlaskit/media-test-helpers/jestHelpers';
 
 import { isImageRemote } from '../../image-cropper/isImageRemote';
 import {

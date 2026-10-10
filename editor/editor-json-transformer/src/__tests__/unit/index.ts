@@ -10,7 +10,7 @@ import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { Options } from '@atlaskit/editor-test-helpers/create-editor';

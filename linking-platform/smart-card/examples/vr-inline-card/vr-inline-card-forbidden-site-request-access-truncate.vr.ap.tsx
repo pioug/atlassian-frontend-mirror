@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ForbiddenWithSiteRequestAccessClient } from '@atlaskit/link-test-helpers';
+import { ForbiddenWithSiteRequestAccessClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 

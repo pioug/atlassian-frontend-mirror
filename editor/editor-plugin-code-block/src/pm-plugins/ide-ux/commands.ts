@@ -1,14 +1,16 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import {
 	INDENT_DIRECTION,
 	INDENT_TYPE,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/format-events';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 

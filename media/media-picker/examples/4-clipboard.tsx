@@ -3,10 +3,8 @@ import React from 'react';
 import { Component } from 'react';
 
 import Button from '@atlaskit/button/button';
-import {
-	mediaPickerAuthProvider,
-	defaultMediaPickerCollectionName,
-} from '@atlaskit/media-test-helpers';
+import { defaultMediaPickerCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import Spinner from '@atlaskit/spinner/spinner';
 import Toggle from '@atlaskit/toggle';

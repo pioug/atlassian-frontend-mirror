@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { FindReplacePlugin } from '../findReplacePluginType';

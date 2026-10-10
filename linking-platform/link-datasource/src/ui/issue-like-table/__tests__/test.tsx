@@ -19,11 +19,12 @@ import invariant from 'tiny-invariant';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
-	flushPromises,
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
-} from '@atlaskit/link-test-helpers';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+} from '@atlaskit/link-test-helpers/intersection-observer';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,

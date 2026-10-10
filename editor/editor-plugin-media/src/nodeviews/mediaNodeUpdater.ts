@@ -4,29 +4,28 @@ import { v4 as uuidV4 } from 'uuid';
 import type { MediaAttributes } from '@atlaskit/adf-schema/media';
 import type { MediaInlineAttributes } from '@atlaskit/adf-schema/media-inline';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import {
+	DEFAULT_IMAGE_HEIGHT,
+	DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-single/constants';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type {
-	CopyDestination,
-	CopySourceFile,
-	FileState,
-	MediaClient,
-} from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
 import {
 	getAttrsFromUrl,
 	isImageRepresentationReady,
 	isMediaBlobUrl,
 } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
-import { getClientIdForFile, type MediaTraceContext } from '@atlaskit/media-common';
+import type { CopyDestination, CopySourceFile } from '@atlaskit/media-client/file-fetcher';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getClientIdForFile } from '@atlaskit/media-common/clientIdCache';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {

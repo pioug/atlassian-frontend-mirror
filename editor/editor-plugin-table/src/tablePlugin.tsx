@@ -20,24 +20,26 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command, EditorPlugin, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
+import { tableEditing } from '@atlaskit/editor-tables/pm-plugins/table-editing';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

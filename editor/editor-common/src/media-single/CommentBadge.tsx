@@ -11,7 +11,7 @@ import debounce from 'lodash/debounce';
 import type { IntlShape } from 'react-intl';
 
 import CustomThemeButton from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles/constants';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';

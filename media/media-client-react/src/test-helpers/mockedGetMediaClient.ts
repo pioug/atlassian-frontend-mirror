@@ -1,4 +1,6 @@
-import { MediaClient, type MediaClientConfig, type MediaStore } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStore } from '@atlaskit/media-client/media-store';
 
 import { mediaClientsMap } from '../getMediaClient';
 

@@ -1,5 +1,5 @@
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
 
 const lightPanelColors = {
 	info: '#DEEBFF',

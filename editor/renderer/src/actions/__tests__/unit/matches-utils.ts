@@ -1,5 +1,5 @@
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

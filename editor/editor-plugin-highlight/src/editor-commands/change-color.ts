@@ -1,22 +1,21 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type {
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { getHadMarkAttributes, removeMark, toggleMark } from '@atlaskit/editor-common/mark';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { getHadMarkAttributes, removeMark } from '@atlaskit/editor-common/mark';
+import { toggleMark } from '@atlaskit/editor-common/mark/commands';
 import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
 import {
 	REMOVE_HIGHLIGHT_COLOR,
 	highlightColorPalette,
-	highlightColorPaletteNew,
-} from '@atlaskit/editor-common/ui-color';
+} from '@atlaskit/editor-common/ui-color/ColorPalette/highlightColorPalette';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	activateVideoControls,
 	bindKeymapWithCommand,
@@ -14,18 +14,18 @@ import {
 	tab,
 	undo,
 } from '@atlaskit/editor-common/keymaps';
-import { mediaResizeAnnouncerMessMessages as mediaResizeAnnouncerMess } from '@atlaskit/editor-common/media';
-import {
-	calcMediaSingleMaxWidth,
-	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
-} from '@atlaskit/editor-common/media-single';
+import { calcMediaSingleMaxWidth } from '@atlaskit/editor-common/media-single';
+import { MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH } from '@atlaskit/editor-common/media-single/constants';
+import { mediaResizeAnnouncerMessMessages as mediaResizeAnnouncerMess } from '@atlaskit/editor-common/media/mediaResizeAnnouncerMess';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import {

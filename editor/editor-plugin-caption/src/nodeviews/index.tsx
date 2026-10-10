@@ -3,22 +3,19 @@ import React from 'react';
 import { RawIntlProvider, type IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import Caption from '@atlaskit/editor-common/Caption';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
 import type {
 	ForwardRef,
 	ReactComponentProps,
 	shouldUpdate,
-} from '@atlaskit/editor-common/react-node-view';
-import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
-import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import type {
-	ExtractInjectionAPI,
-	getPosHandler,
-	getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
-import { Caption } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/react-node-view/types';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/SelectionBasedNodeView';
+import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

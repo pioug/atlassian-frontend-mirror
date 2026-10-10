@@ -1,7 +1,7 @@
 import type React from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
-import { type NumericalCardDimensions } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 
 import { type MediaCardErrorInfo } from '../analytics';
 import { printFunctionCall } from '../printFunctionCall';

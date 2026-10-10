@@ -1,8 +1,5 @@
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	type AnalyticsEventPayload,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 
 export function mapActionSubjectIdToAttributes(
 	payload: AnalyticsEventPayload,

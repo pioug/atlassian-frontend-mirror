@@ -3,7 +3,7 @@ import React from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import '@atlaskit/link-test-helpers/jest';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { screen, waitFor, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';

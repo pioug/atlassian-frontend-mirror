@@ -1,8 +1,8 @@
-import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { DatasourceModalType } from '@atlaskit/editor-common/types';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types/datasource';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
-import type { SmartLinkEvents } from '@atlaskit/smart-card';
+import type { SmartLinkEvents } from '@atlaskit/smart-card/smart-link-events';
 
 import type { CardInfo, CardPluginAction, Request, ToolbarResolvedAttributes } from '../types';
 import type { DatasourceTableLayout } from '../ui/LayoutButton/types';

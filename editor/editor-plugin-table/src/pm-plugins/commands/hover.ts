@@ -1,8 +1,10 @@
 // eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 // #region Imports
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getCellsInColumn, getCellsInRow } from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { getCellsInColumn } from '@atlaskit/editor-tables/utils/get-cells-in-column';
+import { getCellsInRow } from '@atlaskit/editor-tables/utils/get-cells-in-row';
 
 import type { Cell, CellColumnPositioning } from '../../types';
 import { TableDecorations } from '../../types';

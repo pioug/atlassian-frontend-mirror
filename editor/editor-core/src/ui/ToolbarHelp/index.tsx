@@ -3,8 +3,8 @@ import React from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import type { EditorState, PluginKey, Transaction } from '@atlaskit/editor-prosemirror/state';
 import QuestionIcon from '@atlaskit/icon/core/question-circle';

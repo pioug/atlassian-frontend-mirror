@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { testSetupPlugin } from '@af/editor-libra/setup-plugin';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';

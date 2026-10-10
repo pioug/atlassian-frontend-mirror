@@ -3,12 +3,11 @@ import React from 'react';
 import {
 	LINKING_BUTTON,
 	LINKING_GROUP,
-	LINKING_GROUP_RANK,
 	LINKING_SECTION,
-	LINKING_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { LINKING_GROUP_RANK, LINKING_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 import { LinkButton } from './toolbar/LinkButton';

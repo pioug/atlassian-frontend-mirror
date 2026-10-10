@@ -3,7 +3,7 @@ import type { ForwardRefExoticComponent, RefAttributes } from 'react';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type { NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 
 import NotificationIndicator, {
 	type Props,

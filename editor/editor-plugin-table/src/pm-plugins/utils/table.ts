@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/table';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';

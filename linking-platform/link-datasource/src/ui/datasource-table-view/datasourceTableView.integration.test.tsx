@@ -7,8 +7,8 @@ import { defaultRegistry } from 'react-sweet-state';
 
 import { mockActionsDiscoveryEmptyResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockActionsDiscoveryEmptyResponse';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { ORS_ACTIONS_DISCOVERY_ENDPOINT } from '@atlaskit/link-test-helpers/datasource';
+import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers/intersection-observer';
 import type {
 	DatasourceDataResponseItem,
 	DatasourceDataSchema,

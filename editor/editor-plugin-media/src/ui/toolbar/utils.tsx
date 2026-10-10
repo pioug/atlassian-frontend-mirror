@@ -5,16 +5,16 @@ import type { IntlShape } from 'react-intl';
 
 import type { ExternalMediaAttributes, MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { LayoutIcon } from '@atlaskit/editor-common/card';
-import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
-import { mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages';
+import type { LayoutIcon } from '@atlaskit/editor-common/card/MediaAndEmbedsToolbar';
+import { wrappedLayouts } from '@atlaskit/editor-common/media-single/constants';
+import { toolbarMessages as mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages/media-and-embed-toolbar';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarItem,
 	FloatingToolbarDropdown,
 	DropdownOptionT,
-	ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { nonWrappedLayouts } from '@atlaskit/editor-common/utils';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -25,7 +25,7 @@ import {
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';

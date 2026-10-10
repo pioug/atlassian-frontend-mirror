@@ -6,35 +6,33 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import {
-	blockQuote,
-	bulletList,
-	code,
-	codeBlock,
-	doc,
-	em,
-	expand,
-	heading,
-	layoutColumn,
-	layoutSection,
-	li,
-	link,
-	panel,
-	p,
-	strong,
-	table,
-	td,
-	text,
-	th,
-	tr,
-} from '@atlaskit/adf-utils/builders';
+import { blockQuote } from '@atlaskit/adf-utils/blockquote';
+import { bulletList } from '@atlaskit/adf-utils/bullet-list';
+import { code } from '@atlaskit/adf-utils/code';
+import { codeBlock } from '@atlaskit/adf-utils/code-block';
+import { doc } from '@atlaskit/adf-utils/doc';
+import { em } from '@atlaskit/adf-utils/em';
+import { expand } from '@atlaskit/adf-utils/expand';
+import { heading } from '@atlaskit/adf-utils/heading';
+import { layoutColumn } from '@atlaskit/adf-utils/layout-column';
+import { layoutSection } from '@atlaskit/adf-utils/layout-section';
+import { link } from '@atlaskit/adf-utils/link';
+import { listItem as li } from '@atlaskit/adf-utils/list-item';
+import { panel } from '@atlaskit/adf-utils/panel';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { strong } from '@atlaskit/adf-utils/strong';
+import { table } from '@atlaskit/adf-utils/table';
+import { tableCell as td } from '@atlaskit/adf-utils/table-cell';
+import { tableHeader as th } from '@atlaskit/adf-utils/table-header';
+import { tableRow as tr } from '@atlaskit/adf-utils/table-row';
+import { text } from '@atlaskit/adf-utils/text';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import DropdownItemCheckboxGroup from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';

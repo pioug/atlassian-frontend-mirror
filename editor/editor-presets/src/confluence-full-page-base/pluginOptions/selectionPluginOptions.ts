@@ -1,4 +1,4 @@
-import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
+import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection/types';
 
 interface Props {
 	options: {

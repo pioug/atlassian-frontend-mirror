@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
-import {
-	type GeneratedItemWithBinaries,
-	type ItemWithBinariesGenerator,
-} from '@atlaskit/media-test-data';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type {
+	GeneratedItemWithBinaries,
+	ItemWithBinariesGenerator,
+} from '@atlaskit/media-test-data/items-with-binaries/types';
 
 import {
 	createMockedMediaClientProviderWithBinaries,

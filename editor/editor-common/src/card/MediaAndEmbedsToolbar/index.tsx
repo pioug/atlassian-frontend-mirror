@@ -10,7 +10,7 @@ import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
+import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles/constants';
 import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
 import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import AlignImageRightIcon from '@atlaskit/icon/core/align-image-right';

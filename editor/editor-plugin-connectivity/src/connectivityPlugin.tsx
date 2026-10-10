@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 
 import type { ConnectivityPlugin, Mode } from './connectivityPluginType';
 import { createPlugin, key } from './pm-plugins/main';

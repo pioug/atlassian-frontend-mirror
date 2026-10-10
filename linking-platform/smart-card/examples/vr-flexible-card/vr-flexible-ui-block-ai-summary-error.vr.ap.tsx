@@ -4,8 +4,10 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { JiraIssue } from '@atlaskit/link-test-helpers';
-import { Card, SnippetBlock, TitleBlock } from '@atlaskit/smart-card';
+import { JiraIssue } from '@atlaskit/link-test-helpers/smart-card/mocks/jira';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import { SnippetBlock } from '@atlaskit/smart-card/snippet-block';
+import { TitleBlock } from '@atlaskit/smart-card/title-block';
 
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
 import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';

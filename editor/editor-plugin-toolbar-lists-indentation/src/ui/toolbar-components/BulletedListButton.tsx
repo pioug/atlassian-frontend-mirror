@@ -5,9 +5,11 @@ import {
 	ToolTipContent,
 	getAriaKeyshortcuts,
 } from '@atlaskit/editor-common/keymaps';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ListBulletedIcon, ToolbarButton, ToolbarTooltip } from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { ListBulletedIcon } from '@atlaskit/editor-toolbar/list-bulleted-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { useBulletedListInfo } from './BulletedListMenuItem';

@@ -14,28 +14,28 @@ import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	fireAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import type {
-	ExtensionManifest,
-	FieldDefinition,
 	OnSaveCallback,
 	OnSaveCallbackAsync,
-	Parameters,
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type {
+	FieldDefinition,
 	TabField,
 	TabGroupField,
-} from '@atlaskit/editor-common/extensions';
-import { isTabGroup, configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/field-definitions';
+import { isTabGroup } from '@atlaskit/editor-common/extensions/field-definitions';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
-} from '@atlaskit/editor-common/hooks';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

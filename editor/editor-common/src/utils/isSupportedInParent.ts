@@ -1,6 +1,6 @@
 import type { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { CardAppearance } from '@atlaskit/smart-card';
+import type { CardAppearance } from '@atlaskit/smart-card/card/types';
 
 /**
  * Checks if a particular node fragment is supported in the parent

@@ -20,7 +20,8 @@ import JQLEditor from '@atlaskit/jql-editor/ui';
 import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';

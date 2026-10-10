@@ -1,6 +1,7 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
-import { defaultCollectionName, mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 
 import { MediaClientProvider } from '../src/MediaClientProvider';
 import { useFileState } from '../src/useFileState';

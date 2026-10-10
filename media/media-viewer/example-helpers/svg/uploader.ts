@@ -1,8 +1,8 @@
 import { type SyntheticEvent, useState } from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
-import { type MediaClientConfig } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 export const useSvgUploader = (
 	config: MediaClientConfig,

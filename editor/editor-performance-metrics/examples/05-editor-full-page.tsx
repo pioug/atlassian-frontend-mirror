@@ -6,8 +6,8 @@ import { useLayoutEffect } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
-import { getGlobalEditorMetricsObserver } from '@atlaskit/editor-performance-metrics';
+import { FullPageBase } from '@af/editor-examples-helpers/example-presets/FullPageBase';
+import { getGlobalEditorMetricsObserver } from '@atlaskit/editor-performance-metrics/global';
 
 import type { WindowWithEditorPerformanceGlobals } from '../__tests__/playwright/window-type';
 

@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 231.0.0
+
+### Major Changes
+
+- [`97378f96d7fe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97378f96d7fe3) -
+  Clean up experiment `confluence_fe_disable_comment_if_offline_fix`. The experiment has shipped, so
+  its registration has been removed from the editor experiments config.
+
+## 230.0.0
+
+### Major Changes
+
+- [`92dc1743772fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92dc1743772fd) -
+  Replace `rovo_remix_experience_context` checks with the shipped `isEnabled: true` behavior and
+  remove the experiment registration. Consumers must stop reading the removed experiment key.
+
+  Remove the unused `@atlaskit/tmp-editor-statsig` dependency from image generation. Consumers
+  relying on that transitive dependency must declare it directly.
+
 ## 229.0.0
 
 ### Major Changes

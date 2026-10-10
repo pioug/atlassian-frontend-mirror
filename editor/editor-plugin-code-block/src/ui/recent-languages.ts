@@ -1,4 +1,4 @@
-import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
+import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 
 import { DEFAULT_LANGUAGES, getLanguageIdentifier } from '../pm-plugins/language-list';
 import {

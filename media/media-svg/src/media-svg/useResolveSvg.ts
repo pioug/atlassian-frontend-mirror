@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { type FileIdentifier, type FilePreview, type MediaClient } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FilePreview } from '@atlaskit/media-state/file-state';
 
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { usePrevious } from '../utils/usePrevious';

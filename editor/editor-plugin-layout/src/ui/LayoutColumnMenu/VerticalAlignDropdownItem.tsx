@@ -3,8 +3,8 @@ import React, { useCallback } from 'react';
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-selection';

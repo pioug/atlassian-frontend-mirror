@@ -1,4 +1,4 @@
-import { type FileAttributes, type MediaTraceContext } from '@atlaskit/media-common/analytics';
+import type { FileAttributes, MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import type { MediaCardError } from '../../MediaCardError';
 import { type CardStatus } from '../../types';

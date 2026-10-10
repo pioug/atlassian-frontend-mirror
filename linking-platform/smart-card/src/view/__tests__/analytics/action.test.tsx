@@ -11,7 +11,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library';
 
 import { ActionName, Card, TitleBlock } from '../../../index';

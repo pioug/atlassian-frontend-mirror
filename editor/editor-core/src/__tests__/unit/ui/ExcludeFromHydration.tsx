@@ -1,10 +1,11 @@
 import React from 'react';
 
-jest.mock('@atlaskit/editor-common/core-utils', () => ({
+jest.mock('@atlaskit/editor-common/is-ssr', () => ({
+	...jest.requireActual('@atlaskit/editor-common/is-ssr'),
 	isSSR: jest.fn(),
 }));
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { render, screen } from '@atlassian/testing-library';
 
 import ExcludeFromHydration from '../../../ui/ExcludeFromHydration';

@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { type Identifier } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { generateItemWithBinaries, type ItemWithBinaries } from '@atlaskit/media-test-data';
-import {
-	createStorybookMediaClientConfig,
-	defaultCollectionName,
-	I18NWrapper,
-} from '@atlaskit/media-test-helpers';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import type { ItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries/types';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { MainWrapper } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src';

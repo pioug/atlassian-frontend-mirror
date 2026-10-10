@@ -1,4 +1,4 @@
-import type { LayoutPluginOptions } from '@atlaskit/editor-plugin-layout';
+import type { LayoutPluginOptions } from '@atlaskit/editor-plugin-layout/types';
 
 import type { FullPageEditorAppearance } from '../types';
 

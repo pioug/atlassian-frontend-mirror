@@ -1,14 +1,14 @@
 import type { BlockTransformExtension } from '@atlaskit/editor-common/block-menu/block-transform-extension';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import type {

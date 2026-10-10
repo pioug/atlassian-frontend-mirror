@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientWithLongTitleUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientWithLongTitleUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range/range';
 

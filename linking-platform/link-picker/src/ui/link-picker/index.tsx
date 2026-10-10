@@ -28,7 +28,7 @@ import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import LinkUrl from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

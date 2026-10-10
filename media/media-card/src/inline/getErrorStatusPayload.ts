@@ -1,4 +1,4 @@
-import { type FileState } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import type { MediaCardError } from '../MediaCardError';
 import type { RenderInlineCardFailedEventPayload } from '../utils/analytics/analytics';

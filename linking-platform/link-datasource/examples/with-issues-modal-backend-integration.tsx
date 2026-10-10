@@ -14,7 +14,7 @@ import SmartCardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 
 import {
 	type JiraIssueDatasourceParameters,

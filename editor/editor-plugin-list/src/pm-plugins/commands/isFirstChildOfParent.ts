@@ -1,4 +1,4 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export const isFirstChildOfParent = (state: EditorState): boolean => {

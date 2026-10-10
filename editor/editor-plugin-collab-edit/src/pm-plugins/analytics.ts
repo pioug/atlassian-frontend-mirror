@@ -1,13 +1,13 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
 	ErrorEventPayload,
-} from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { AgentEditShimmerNotShownReason } from '@atlaskit/editor-common/analytics/types/agent-edit-shimmer-events';
-import { getDocStructure } from '@atlaskit/editor-common/core-utils';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/events';
+import { getDocStructure } from '@atlaskit/editor-common/document-logger';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils/browser-extensions';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export const addSynchronyErrorAnalytics = (

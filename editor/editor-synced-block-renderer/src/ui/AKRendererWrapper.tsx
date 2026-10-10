@@ -3,16 +3,14 @@ import React, { memo, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import {
-	ReactRenderer,
-	ValidationContextProvider,
-	defaultNodeComponents,
-} from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
+import { nodeToReact as defaultNodeComponents } from '@atlaskit/renderer/nodes';
+import ReactRenderer from '@atlaskit/renderer/renderer';
 import { RendererContextProvider } from '@atlaskit/renderer/renderer-context';
+import { ValidationContextProvider } from '@atlaskit/renderer/validation-context';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { SyncedBlockRendererOptions } from '../types';

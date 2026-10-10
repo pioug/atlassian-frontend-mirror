@@ -10,9 +10,12 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { NodeNestingTransformError } from '@atlaskit/adf-utils/transforms';
-import type { MacroAttributes, MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import type { Transformer } from '@atlaskit/editor-common/types';
+import { NodeNestingTransformError } from '@atlaskit/adf-utils/errors';
+import type {
+	MacroAttributes,
+	MacroProvider,
+} from '@atlaskit/editor-common/provider-factory/macro-provider';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';

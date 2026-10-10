@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react';
 
-import {
-	type FileIdentifier,
-	type FileState,
-	isNonErrorFinalFileState,
-	type ProcessedFileState,
-	type ProcessingFailedState,
-} from '@atlaskit/media-client';
+import { isNonErrorFinalFileState } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type {
+	FileState,
+	ProcessedFileState,
+	ProcessingFailedState,
+} from '@atlaskit/media-state/file-state';
 
 import { useMediaClient } from './useMediaClient';
 import { useMediaStore } from './useMediaStore';

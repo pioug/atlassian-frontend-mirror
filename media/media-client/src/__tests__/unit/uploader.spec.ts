@@ -7,7 +7,8 @@ import { mapTo } from 'rxjs/operators/mapTo';
 import { chunkinator } from '@atlaskit/chunkinator/chunkinator';
 import type { HashedBlob } from '@atlaskit/chunkinator/domain';
 import * as getMediaFeatureFlag from '@atlaskit/media-common';
-import { asMockFunction, nextTick } from '@atlaskit/media-common/test-helpers';
+import { asMockFunction } from '@atlaskit/media-common/jestHelpers';
+import { nextTick } from '@atlaskit/media-common/nextTick';
 import type { AuthProvider, MediaApiConfig } from '@atlaskit/media-core/auth';
 
 import { uploadFile, type UploadableFileUpfrontIds, type MediaStore } from '../..';

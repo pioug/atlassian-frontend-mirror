@@ -4,22 +4,21 @@ import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl
 import { injectIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
-import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
-import type {
-	ContextIdentifierProvider,
-	ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
-import { useProvider } from '@atlaskit/editor-common/provider-factory';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline-image-card';
+import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline/types';
+import { useProvider } from '@atlaskit/editor-common/provider-factory/context';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import MediaInlineCard from '@atlaskit/media-card/loader';
 import type { InlineCardEvent } from '@atlaskit/media-card/types';
-import type { FileIdentifier, FileState } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';

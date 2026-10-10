@@ -19,7 +19,6 @@
 import { isValid, parse } from 'date-fns';
 
 import type { LocalizationProvider } from '@atlaskit/locale/localization-provider';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { defaultDateFormat } from './default-date-format';
 import { convertTokens } from './parse-tokens';
@@ -57,7 +56,7 @@ export const parseDate: (
 	if (dateFormat) {
 		// date-fns uses the reference year to resolve two-digit years and fill
 		// omitted years. Use the current local date rather than the Unix epoch.
-		const referenceDate = fg('platform-dst-dp-current-reference-date') ? new Date() : new Date(0);
+		const referenceDate = new Date();
 		const parsed = parse(date, convertTokens(dateFormat), referenceDate);
 		// `dateFormat` is a display format, so typed input does not always match
 		// it. Locale parsing stays as the fallback so those entries still work.

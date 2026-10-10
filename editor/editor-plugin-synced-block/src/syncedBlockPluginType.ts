@@ -1,33 +1,31 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	ExtractInjectionAPI,
-	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types/selection';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
-import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { ContentFormatPlugin } from '@atlaskit/editor-plugin-content-format';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
-import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { ContentFormatPlugin } from '@atlaskit/editor-plugin-content-format/contentFormatPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus/focusPluginType';
+import type { HistoryPlugin } from '@atlaskit/editor-plugin-history/historyPluginType';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type {
-	SyncBlockDataProviderInterface,
-	UseFetchSyncBlockDataResult,
-} from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockDataProviderInterface } from '@atlaskit/editor-synced-block-provider/providers/types';
+import type { UseFetchSyncBlockDataResult } from '@atlaskit/editor-synced-block-provider/useFetchSyncBlockData';
 
 import type { SyncedBlockSharedState } from './types';
 

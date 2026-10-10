@@ -1,4 +1,4 @@
-import { type FileState } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { isExternalImageItem } from './isExternalImageItem';
 import type { FileItem } from './item-viewer';

@@ -13,8 +13,8 @@ import rafSchd from 'raf-schd';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
-import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages/find-replace';
 import { Label } from '@atlaskit/form/label/default';
 import TextLetterCaseIcon from '@atlaskit/icon-lab/core/text-letter-case';
 import type { IconProps } from '@atlaskit/icon/types';

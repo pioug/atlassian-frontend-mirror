@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
 
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 type MenuSectionProps = {
 	children?: React.ReactNode;

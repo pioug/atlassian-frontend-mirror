@@ -3,7 +3,8 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getSelectionRect, isRowSelected } from '@atlaskit/editor-tables/utils';
+import { findTable, isRowSelected } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { TableCssClassName as ClassName } from '../../types';

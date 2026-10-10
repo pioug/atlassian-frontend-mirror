@@ -1,7 +1,7 @@
 jest.mock('../../imageMetaData/metatags');
 jest.mock('../../imageMetaData/isRotated');
 
-import { asMock } from '@atlaskit/media-common/test-helpers';
+import { asMock } from '@atlaskit/media-common/jestHelpers';
 
 import { getImageInfo } from '../../imageMetaData/getImageInfo';
 import { getMetaTagNumericValue } from '../../imageMetaData/getMetaTagNumericValue';

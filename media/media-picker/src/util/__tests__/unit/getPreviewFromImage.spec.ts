@@ -1,7 +1,7 @@
 jest.mock('@atlaskit/media-ui/getFileInfo');
 jest.mock('@atlaskit/media-ui/imageMetaData/getImageInfo');
 
-import { asMock } from '@atlaskit/media-test-helpers';
+import { asMock } from '@atlaskit/media-test-helpers/jestHelpers';
 import { getFileInfo } from '@atlaskit/media-ui/getFileInfo';
 import { getImageInfo } from '@atlaskit/media-ui/imageMetaData/getImageInfo';
 

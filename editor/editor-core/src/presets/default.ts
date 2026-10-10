@@ -1,14 +1,12 @@
 // #region Imports
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
-import type {
-	EditorAppearance,
-	FeatureFlags,
-	PerformanceTracking,
-} from '@atlaskit/editor-common/types';
-import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { PerformanceTracking } from '@atlaskit/editor-common/types/performance-tracking';
+import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
 import { basePlugin } from '@atlaskit/editor-plugins/base';

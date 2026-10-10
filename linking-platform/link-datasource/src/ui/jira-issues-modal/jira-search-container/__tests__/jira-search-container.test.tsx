@@ -12,7 +12,8 @@ import {
 	fieldValuesResponseForStatusesMapped,
 	mockSite,
 } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 

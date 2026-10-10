@@ -1,4 +1,4 @@
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/analytics';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 

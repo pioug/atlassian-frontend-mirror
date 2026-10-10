@@ -1,4 +1,4 @@
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 export interface DroppedPlugin {

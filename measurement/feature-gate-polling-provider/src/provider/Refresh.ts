@@ -1,10 +1,11 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import Fetcher, {
-	type FetcherOptions,
-	type FrontendExperimentsResponse,
-	ResponseError,
-} from '@atlaskit/feature-gate-fetcher';
+import { ResponseError } from '@atlaskit/feature-gate-fetcher/errors';
+import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
+import type {
+	FetcherOptions,
+	FrontendExperimentsResponse,
+} from '@atlaskit/feature-gate-fetcher/types';
 
 import { type ExperimentValuesEntry, type RulesetProfile } from '../database/types';
 import { type PollingConfig, type ProviderOptions } from './types';

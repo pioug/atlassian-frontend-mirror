@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import React from 'react';
 
-import type { FileState, MediaClient, NonErrorFileState } from '@atlaskit/media-client';
+import type { NonErrorFileState } from '@atlaskit/media-client/file-state';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { Spinner } from '../../loading';
 import { MediaViewerError } from '../../MediaViewerError';

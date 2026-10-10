@@ -1,4 +1,4 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { addAltText, bindKeymapWithCommand, escape } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';

@@ -2,13 +2,14 @@ import type {
 	ExtensionManifest,
 	ExtensionModule,
 	ExtensionModuleNodes,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { mockFieldResolver } from '@atlaskit/editor-test-helpers/example-helpers/confluence-fields-data-providers';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
 	cqlDeserializer,
 	cqlSerializer,
-	mockFieldResolver,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+} from '@atlaskit/editor-test-helpers/example-helpers/cql-helpers';
 
 import { customFields, nativeFields } from './fields';
 

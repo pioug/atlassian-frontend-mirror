@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
+import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages/help-dialog';
 import Heading from '@atlaskit/heading/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import { Text } from '@atlaskit/primitives/compiled';

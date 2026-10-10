@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
 
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import {
 	SyncBlockSharedCssClassName,
 	SyncBlockRendererDataAttributeName,
-	handleSSRErrorsAnalytics,
-} from '@atlaskit/editor-common/sync-block';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
-import { SyncBlockError, useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider';
-import type { MediaSSR, NodeProps } from '@atlaskit/renderer';
+} from '@atlaskit/editor-common/styles/sync-block';
+import { handleSSRErrorsAnalytics } from '@atlaskit/editor-common/sync-block/ssr_error';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+import { useFetchSyncBlockData } from '@atlaskit/editor-synced-block-provider/useFetchSyncBlockData';
+import type { MediaSSR } from '@atlaskit/renderer/media-options';
+import type { NodeProps } from '@atlaskit/renderer/react/types';
 
 import type { SyncedBlockRendererOptions } from '../types';
 import { renderSyncedBlockContent } from './renderSyncedBlockContent';

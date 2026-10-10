@@ -1,8 +1,5 @@
-import {
-	type MediaFeatureFlags,
-	defaultMediaFeatureFlags,
-	getMediaFeatureFlag,
-} from '@atlaskit/media-common';
+import { defaultMediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 const mediaFeatureFlagsKeys = Object.keys(defaultMediaFeatureFlags) as Array<
 	keyof MediaFeatureFlags

@@ -1,14 +1,15 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { keymap } from '@atlaskit/editor-common/keymap';
 import {
 	applyYellowHighlight,
 	bindKeymapWithCommand,
-	keymap,
 	toggleHighlightPalette,
 } from '@atlaskit/editor-common/keymaps';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { highlightColorPalette, highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import { highlightColorPalette } from '@atlaskit/editor-common/ui-color/ColorPalette/highlightColorPalette';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { changeColor } from '../editor-commands/change-color';

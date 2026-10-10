@@ -9,7 +9,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	toggleHeading1,
 	toggleHeading2,
@@ -19,13 +19,14 @@ import {
 	toggleHeading6,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/block-type';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI, HeadingLevels } from '@atlaskit/editor-common/types';
+import type { HeadingLevels } from '@atlaskit/editor-common/types/block-type';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
 import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';

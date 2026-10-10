@@ -1,6 +1,6 @@
-import { LIST_TEXT_SCENARIOS } from '@atlaskit/editor-common/analytics';
-import type { WalkNode } from '@atlaskit/editor-common/utils';
+import { LIST_TEXT_SCENARIOS } from '@atlaskit/editor-common/analytics/types/list-events';
 import { isListItemNode, isListNode, isParagraphNode } from '@atlaskit/editor-common/utils';
+import type { WalkNode } from '@atlaskit/editor-common/utils/commands';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

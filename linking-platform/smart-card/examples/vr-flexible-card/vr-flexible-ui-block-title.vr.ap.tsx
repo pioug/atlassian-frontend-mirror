@@ -7,7 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { iconGoogleDrive } from '@atlaskit/link-test-helpers';
+import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
 import type { CardType } from '@atlaskit/linking-common/types';
 
 import { type ActionItem } from '../../src';

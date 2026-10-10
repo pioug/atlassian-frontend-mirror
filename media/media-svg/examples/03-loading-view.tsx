@@ -1,11 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 
 import Button from '@atlaskit/button/button';
-import { type FileIdentifier, type MediaApi } from '@atlaskit/media-client';
-import {
-	generateItemWithBinaries,
-	type ItemWithBinariesGenerator,
-} from '@atlaskit/media-test-data';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import type { ItemWithBinariesGenerator } from '@atlaskit/media-test-data/items-with-binaries/types';
 import Select from '@atlaskit/select/default';
 
 import MediaSvg from '../src/media-svg';

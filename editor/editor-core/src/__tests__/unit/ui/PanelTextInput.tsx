@@ -3,7 +3,7 @@ import React from 'react';
 import type { RenderResult } from '@testing-library/react';
 import { fireEvent, render } from '@testing-library/react';
 
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
+import PanelTextInput from '@atlaskit/editor-common/PanelTextInput';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 const noop = () => {};

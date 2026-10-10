@@ -6,15 +6,15 @@ import { IntlProvider } from 'react-intl';
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import Button from '@atlaskit/button/default/button';
-import {
-	LinkPicker,
-	type LinkPickerProps,
-	type LinkSearchListItemData,
-} from '@atlaskit/link-picker';
+import { LinkPicker } from '@atlaskit/link-picker';
+import type { LinkPickerProps, LinkSearchListItemData } from '@atlaskit/link-picker/types';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { Popup } from '@atlaskit/popup/popup';
 import type { PopupProps } from '@atlaskit/popup/types';
-import { FooterBlock, Card, SmartLinkSize, TitleBlock, ActionName } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import { SmartLinkSize, ActionName } from '@atlaskit/smart-card/enums';
+import { FooterBlock } from '@atlaskit/smart-card/footer-block';
+import { TitleBlock } from '@atlaskit/smart-card/title-block';
 
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 

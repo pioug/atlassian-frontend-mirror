@@ -92,13 +92,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-01
-	rovo_remix_experience_context: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-05
 	'databases-native-embeds-v2': {
 		defaultValue: boolean;
@@ -802,13 +795,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-04-30
-	confluence_fe_disable_comment_if_offline_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-30
 	platform_editor_use_html_plus_parser: {
 		defaultValue: boolean;
 		param: string;
@@ -1063,14 +1049,6 @@ export const editorExperimentsConfig: {
 	confluence_inline_comments_fix_stale_selection: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_inline_comments_fix_stale_selection',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-01
-	rovo_remix_experience_context: createBooleanExperiment({
-		productKeys: {
-			confluence: 'rovo_remix_experience_context',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1852,14 +1830,6 @@ export const editorExperimentsConfig: {
 	confluence_live_doc_table_sort_bugfix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_live_doc_table_sort_bugfix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-30
-	confluence_fe_disable_comment_if_offline_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_fe_disable_comment_if_offline_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

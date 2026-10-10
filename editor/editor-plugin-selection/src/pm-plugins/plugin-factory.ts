@@ -1,7 +1,7 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { SelectionPluginState } from '@atlaskit/editor-common/selection/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type {
 	EditorState,
 	ReadonlyTransaction,

@@ -1,4 +1,4 @@
-import type { ToolbarListsIndentationPluginOptions } from '@atlaskit/editor-plugin-toolbar-lists-indentation';
+import type { ToolbarListsIndentationPluginOptions } from '@atlaskit/editor-plugin-toolbar-lists-indentation/toolbar-lists-indentation-plugin-type';
 
 interface Props {
 	options: never;

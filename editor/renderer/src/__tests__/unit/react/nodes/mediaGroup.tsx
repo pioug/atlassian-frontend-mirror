@@ -32,9 +32,9 @@ import React from 'react';
 import { act } from '@testing-library/react';
 import * as sinon from 'sinon';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -42,8 +42,9 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
 import type { CardEvent } from '@atlaskit/media-card/types';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { imageFileId, genericFileId, nextTick } from '@atlaskit/media-test-helpers';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import { imageFileId, genericFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { nextTick } from '@atlaskit/media-test-helpers/nextTick';
 
 import Media from '../../../../react/nodes/media';
 import MediaGroup from '../../../../react/nodes/mediaGroup';

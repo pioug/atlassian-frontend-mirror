@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';

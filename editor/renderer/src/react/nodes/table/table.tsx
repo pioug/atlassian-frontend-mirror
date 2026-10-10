@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { Colgroup, colWidthSum } from './colgroup';

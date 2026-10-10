@@ -1,4 +1,8 @@
-import type { MenuItemType, MenuSectionType, MenuType } from '@atlaskit/editor-ui-control-model';
+import type {
+	MenuItemType,
+	MenuSectionType,
+	MenuType,
+} from '@atlaskit/editor-ui-control-model/types';
 
 import { BACKGROUND_COLOR_ITEM, CLEAR_CELLS_ITEM } from '../shared/keys';
 

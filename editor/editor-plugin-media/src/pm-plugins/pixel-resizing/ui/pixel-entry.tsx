@@ -12,7 +12,7 @@ import { jsx, css } from '@emotion/react';
 
 import Button from '@atlaskit/button/button';
 import IconButton from '@atlaskit/button/icon/button';
-import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
+import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media/pixelEntry';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import CrossIcon from '@atlaskit/icon/core/cross';

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ReactNode } from 'react';
 
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import { ResourcedTaskItem } from '@atlaskit/task-decision';
 import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
 

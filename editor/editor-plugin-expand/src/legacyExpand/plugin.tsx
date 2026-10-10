@@ -8,15 +8,15 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { IconExpand } from '@atlaskit/editor-common/assets';
 import {
 	TRANSFORM_STRUCTURE_EXPAND_MENU_ITEM,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
-	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils/create-wrap-selection-transaction';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { toggleExpandRange } from '../editor-commands/toggleExpandRange';

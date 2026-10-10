@@ -6,21 +6,19 @@ import { useIntl } from 'react-intl';
 import { PanelType } from '@atlaskit/adf-schema/panel';
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, cx } from '@atlaskit/css';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { colorAccessibilityMessages as messages } from '@atlaskit/editor-common/messages';
-import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { colorAccessibilityMessages as messages } from '@atlaskit/editor-common/messages/color-accessibility';
+import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/styles/panel';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getTextColorInNonActiveTheme } from '@atlaskit/editor-common/ui-color';
 import {
-	getTextColorInNonActiveTheme,
 	getTokenCSSVariableValue,
 	getTokenCSSVariableValueForNonActiveTheme,
-} from '@atlaskit/editor-common/ui-color';
-import {
-	hexToEditorBackgroundPaletteColor,
-	hexToEditorTextBackgroundPaletteColor,
-	hexToEditorTextPaletteColor,
-} from '@atlaskit/editor-palette';
+} from '@atlaskit/editor-common/ui-color/ColorPalette/utils';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
+import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
 import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';

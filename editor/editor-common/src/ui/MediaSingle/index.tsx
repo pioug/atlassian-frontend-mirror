@@ -12,7 +12,7 @@ import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-medi
 import {
 	akEditorMediaResizeHandlerPaddingWide,
 	DEFAULT_EMBED_CARD_WIDTH,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 

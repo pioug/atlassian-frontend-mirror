@@ -1,4 +1,4 @@
-import { closestElement } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { checkForModal } from './checkForModal';

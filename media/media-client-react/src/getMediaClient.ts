@@ -1,4 +1,5 @@
-import { MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
 
 export const mediaClientsMap: Map<MediaClientConfig, MediaClient> = new Map<
 	MediaClientConfig,

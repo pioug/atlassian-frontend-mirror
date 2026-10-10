@@ -12,9 +12,12 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
-import { type FileState } from '@atlaskit/media-client';
-import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
-import { fakeIntl, smallImageFileId, asMock } from '@atlaskit/media-test-helpers';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
+import type { FileState } from '@atlaskit/media-state/file-state';
+import { smallImageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { fakeIntl } from '@atlaskit/media-test-helpers/fakeI18n';
+import { asMock } from '@atlaskit/media-test-helpers/jestHelpers';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@atlassian/testing-library';

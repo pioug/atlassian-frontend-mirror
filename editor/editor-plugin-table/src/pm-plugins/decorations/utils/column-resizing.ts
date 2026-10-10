@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { TableDecorations } from '../../../types';

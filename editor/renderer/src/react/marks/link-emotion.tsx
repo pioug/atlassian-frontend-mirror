@@ -13,7 +13,7 @@ import type { ComponentProps } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- intentional: emotion fallback for compiled migration; `jsx` is used as the JSX pragma (see @jsx jsx above) so must be a value import
 import { css, jsx } from '@emotion/react';
 
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import { LinkUrl } from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
 
 const anchorStyles = css({

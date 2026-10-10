@@ -6,27 +6,24 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconImages } from '@atlaskit/editor-common/assets';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPlugin, PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { IconImages } from '@atlaskit/editor-common/quick-insert';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type {
-	EditorAppearance,
-	ExtractInjectionAPI,
-	PMPlugin,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

@@ -6,12 +6,13 @@ import type { IntlShape } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import type { getInlineNodeViewProducer } from '@atlaskit/editor-common/getInlineNodeViewProducer';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import type { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { findOverflowScrollParent, UnsupportedBlock } from '@atlaskit/editor-common/ui';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
-import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
+import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
 	Decoration,
@@ -26,7 +27,7 @@ import {
 } from '@atlaskit/editor-smart-link-draggable';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Card as SmartCard } from '@atlaskit/smart-card';
+import { Card as SmartCard } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import { Datasource } from '../nodeviews/datasource';

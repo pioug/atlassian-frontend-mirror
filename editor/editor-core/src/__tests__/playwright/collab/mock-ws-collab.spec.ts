@@ -1,5 +1,6 @@
-import { expect, editorMockCollaborativeTestCase as test } from '@af/editor-libra';
-import { EditorTelepointerModel } from '@af/editor-libra/page-models';
+import { expect } from '@af/editor-libra/matchers';
+import { editorMockCollaborativeTestCase as test } from '@af/editor-libra/mock-collab-test-case';
+import { EditorTelepointerModel } from '@af/editor-libra/page-models/editor-telepointer-model';
 import { fixTest } from '@af/integration-testing';
 import { BROWSERS } from '@af/integration-testing/config/constants';
 import { doc, p, table, tr, tdEmpty, thEmpty } from '@atlaskit/editor-test-helpers/doc-builder';

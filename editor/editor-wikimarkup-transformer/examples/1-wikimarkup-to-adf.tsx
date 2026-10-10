@@ -9,12 +9,12 @@ import { css, jsx } from '@emotion/react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { MentionProvider } from '@atlaskit/mention/types';
-import { ReactRenderer } from '@atlaskit/renderer';
+import ReactRenderer from '@atlaskit/renderer/renderer';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';

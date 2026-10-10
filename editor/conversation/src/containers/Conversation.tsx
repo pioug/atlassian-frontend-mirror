@@ -5,7 +5,7 @@ import type { ThunkDispatch } from 'redux-thunk';
 
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { CommentAction as AkCommentAction } from '@atlaskit/comment';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 
 import type { ResourceProvider } from '../api/ConversationResource';
 import Conversation from '../components/Conversation';

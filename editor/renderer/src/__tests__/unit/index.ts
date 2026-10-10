@@ -3,11 +3,9 @@ import assert from 'assert';
 import sinon from 'sinon';
 
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import {
-	nativeEmbedsFallbackTransform,
-	NodeNestingTransformError,
-	transformNestedTablesIncomingDocument,
-} from '@atlaskit/adf-utils/transforms';
+import { NodeNestingTransformError } from '@atlaskit/adf-utils/errors';
+import { nativeEmbedsFallbackTransform } from '@atlaskit/adf-utils/native-embeds-fallback-transform';
+import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
@@ -19,18 +17,22 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
  *
  * This is a workaround: https://github.com/microsoft/TypeScript/issues/38568#issuecomment-628637477
  */
-jest.mock('@atlaskit/editor-common/utils', () => ({
+jest.mock('@atlaskit/editor-common/validate-using-spec', () => ({
 	__esModule: true,
-	...jest.requireActual<object>('@atlaskit/editor-common/utils'),
+	...jest.requireActual<object>('@atlaskit/editor-common/validate-using-spec'),
 }));
 
-jest.mock('@atlaskit/adf-utils/transforms', () => ({
+jest.mock('@atlaskit/adf-utils/native-embeds-fallback-transform', () => ({
+	...jest.requireActual('@atlaskit/adf-utils/native-embeds-fallback-transform'),
 	__esModule: true,
-	...jest.requireActual<object>('@atlaskit/adf-utils/transforms'),
 	nativeEmbedsFallbackTransform: jest.fn((adf) => ({
 		transformedAdf: adf,
 		hasValidTransform: false,
 	})),
+}));
+jest.mock('@atlaskit/adf-utils/transforms', () => ({
+	...jest.requireActual('@atlaskit/adf-utils/transforms'),
+	__esModule: true,
 	transformNestedTablesIncomingDocument: jest.fn((adf) => ({
 		transformedAdf: adf,
 		isTransformed: true,
@@ -47,8 +49,8 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(() => false),
 }));
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import * as commonUtils from '@atlaskit/editor-common/utils';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import * as commonUtils from '@atlaskit/editor-common/validate-using-spec';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { PLATFORM } from '../../analytics/events';

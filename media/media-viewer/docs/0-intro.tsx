@@ -2,7 +2,7 @@ import React from 'react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
 import props from './content/props';
 import example from './content/example';
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 
 const _default_1: any = md`
 ${(<AtlassianInternalWarning />)}

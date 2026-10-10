@@ -3,7 +3,7 @@ import { Server, type Router, type Database } from 'kakapo';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { type MediaFile } from '@atlaskit/media-client';
+import type { MediaFile } from '@atlaskit/media-client/media';
 import { dataURItoFile } from '@atlaskit/media-ui/dataURItoFile';
 
 import { smallImage } from '../dataURIs/smallImageURI';

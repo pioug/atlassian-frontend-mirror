@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock/media-client-mock-provider';
 
 import { Renderer } from '../../entry-points/renderer-default';
 import { caption } from './__fixtures__/caption-adf';

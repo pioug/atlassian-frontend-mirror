@@ -3,13 +3,14 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import {
 	expandSelectionToBlockRange,
 	getSourceNodesFromSelectionRange,
-} from '@atlaskit/editor-common/selection';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/selection/utils';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
-import { CellSelection } from '@atlaskit/editor-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';

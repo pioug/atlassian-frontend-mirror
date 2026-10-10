@@ -1,22 +1,22 @@
 import type { RichMediaAttributes } from '@atlaskit/adf-schema/rich-media-common';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { ACTION } from '@atlaskit/editor-common/analytics';
+import type { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
+import type { CardOptions, OnClickCallback } from '@atlaskit/editor-common/card/cardOptions';
 import type {
-	CardOptions,
 	CardReplacementInputMethod,
 	EmbedCardTransformers,
-	OnClickCallback,
-} from '@atlaskit/editor-common/card';
-import type { CardAppearance, CardProvider } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/card/types';
 import type {
-	DatasourceModalType,
-	EditorAppearance,
-	LinkPickerOptions,
-} from '@atlaskit/editor-common/types';
+	CardAppearance,
+	CardProvider,
+} from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types/datasource';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { LinkPickerOptions } from '@atlaskit/editor-common/types/hyperlink';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common/types';
-import type { SmartLinkEvents } from '@atlaskit/smart-card';
+import type { SmartLinkEvents } from '@atlaskit/smart-card/smart-link-events';
 
 import type { EditorCardPluginEvents } from '../ui/analytics/create-events-queue';
 import type { CardPluginEvent } from '../ui/analytics/types';

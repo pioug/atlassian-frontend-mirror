@@ -3,16 +3,19 @@ import React from 'react';
 import {
 	UNDO_BUTTON,
 	REDO_BUTTON,
-	UNDO_CHANGES_GROUP_RANK,
 	UNDO_CHANGES_GROUP,
-	REDO_CHANGES_GROUP_RANK,
 	REDO_CHANGES_GROUP,
 	TRACK_CHANGES_SECTION,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	UNDO_CHANGES_GROUP_RANK,
+	REDO_CHANGES_GROUP_RANK,
 	TRACK_CHANGES_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { Show } from '@atlaskit/editor-toolbar/show';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 
 import type { UndoRedoPlugin } from '../../undoRedoPluginType';
 import { RedoButton } from './RedoButton';

@@ -2,7 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
-import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules';
+import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules/constants';
 
 import type { ScrollIntoViewPlugin } from './scrollIntoViewPluginType';
 

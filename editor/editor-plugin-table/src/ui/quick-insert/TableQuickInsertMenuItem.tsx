@@ -3,14 +3,14 @@ import React, { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import GridIcon from '@atlaskit/icon/core/grid';
 
 import type { TablePlugin, TablePluginOptions } from '../../tablePluginType';

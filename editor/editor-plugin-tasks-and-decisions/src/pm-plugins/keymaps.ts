@@ -1,17 +1,19 @@
 import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import {
 	INDENT_DIRECTION,
 	INDENT_TYPE,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+} from '@atlaskit/editor-common/analytics/types/format-events';
 import {
 	toggleTaskItemCheckbox,
 	toggleTaskList as toggleTaskListKeymap,
@@ -20,16 +22,19 @@ import {
 	getBlockMarkAttrs,
 	getFirstParagraphBlockMarkAttrs,
 	reconcileBlockMarkForParagraphAtPos,
-} from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/lists/block-mark';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import {
 	deleteEmptyParagraphAndMoveBlockUp,
-	filterCommand as filter,
 	isEmptySelectionAtEnd,
 	isEmptySelectionAtStart,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/commands';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import { autoJoin, chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';

@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import {
 	localStorageFetchProvider,
 	localStorageWriteProvider,
-} from '@af/editor-examples-helpers/utils';
-import { CollapsedEditor, Editor, EditorContext } from '@atlaskit/editor-core';
-import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
-import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
-import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
+} from '@af/editor-examples-helpers/utils/sync-block-local-storage-provider';
+import { CollapsedEditor } from '@atlaskit/editor-core/CollapsedEditor';
+import Editor from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block/synced-block-plugin-type';
+import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider/syncBlockProvider';
+import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer/get-synced-block-renderer';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { token } from '@atlaskit/tokens';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';

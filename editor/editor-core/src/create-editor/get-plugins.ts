@@ -1,17 +1,16 @@
 import type { IntlShape } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { MarkConfig, NodeConfig } from '@atlaskit/editor-common/types/prosemirror-config';
 import type {
-	FeatureFlags,
-	MarkConfig,
-	NodeConfig,
 	ReactHookFactory,
 	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/ui-components';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 

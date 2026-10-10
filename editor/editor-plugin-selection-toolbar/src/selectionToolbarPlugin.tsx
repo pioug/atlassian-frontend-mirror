@@ -3,19 +3,19 @@ import React from 'react';
 import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
 import type {
-	Command,
-	FloatingToolbarItem,
 	SelectionToolbarGroup,
 	SelectionToolbarHandler,
-	ToolbarUIComponentFactory,
-	UserPreferencesProvider,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/selection-toolbar';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/types/user-preferences';
 import {
 	calculateToolbarPositionAboveSelection,
 	calculateToolbarPositionOnCellSelection,
 	calculateToolbarPositionTrackHead,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

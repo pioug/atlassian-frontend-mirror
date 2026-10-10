@@ -4,7 +4,7 @@ import type { EditorView as CodeMirror } from '@codemirror/view';
 
 import { setCodeBlockFoldState, getCodeBlockFoldState } from '@atlaskit/editor-common/code-block';
 import type { FoldRange } from '@atlaskit/editor-common/code-block';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';

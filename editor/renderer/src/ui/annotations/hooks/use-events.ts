@@ -9,14 +9,14 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types/annotation';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import type {
 	AnnotationUpdateEventPayloads,
-	InlineCommentViewComponentProps,
 	OnAnnotationClickPayload,
 	AnnotationUpdateEmitter,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/emitter';
 
 import {
 	useAnnotationManagerDispatch,

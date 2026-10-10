@@ -1,10 +1,8 @@
 import React from 'react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
-import {
-	createRxjsNotice,
-	createMediaUseOnlyNotice,
-	createSingletonNotice,
-} from '@atlaskit/media-common/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/rxjs-notice';
+import { createMediaUseOnlyNotice } from '@atlaskit/media-common/media-use-only';
+import { createSingletonNotice } from '@atlaskit/media-common/singleton-notice';
 
 const packageName = 'Media Core';
 

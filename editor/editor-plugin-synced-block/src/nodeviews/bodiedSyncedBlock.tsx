@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
-import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { Mode } from '@atlaskit/editor-common/connectivity/mode';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
-import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
-import type {
-	ExtractInjectionAPI,
-	getPosHandlerNode,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
-import { isOfflineMode, type Mode } from '@atlaskit/editor-plugin-connectivity';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import {
 	DOMSerializer,
 	type DOMOutputSpec,
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { SyncBlockSourceInfo } from '@atlaskit/editor-synced-block-provider/providers/types';
 import type {
-	SyncBlockSourceInfo,
+	SourceSyncBlockStoreManager,
 	SyncBlockStoreManager,
-} from '@atlaskit/editor-synced-block-provider';
-import type { SourceSyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+} from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';

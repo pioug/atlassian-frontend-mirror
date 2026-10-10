@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { act, fireEvent, screen } from '@atlassian/testing-library';
 
 import Carousel from '../index';

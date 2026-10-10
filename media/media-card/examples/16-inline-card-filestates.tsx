@@ -5,6 +5,8 @@ import { MediaClientContext } from '@atlaskit/media-client-react/media-client-pr
 import {
 	type SimulationSettings,
 	useRunSimulation,
+} from '@atlaskit/media-test-helpers/fileSimulation';
+import {
 	simulateProcessed,
 	simulateProcessing,
 	simulateImmediateFailProcessing,
@@ -17,7 +19,7 @@ import {
 	type StandardSimulation,
 	simulateAlwaysLoading,
 	simulateAlwaysProcessing,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/simulations';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

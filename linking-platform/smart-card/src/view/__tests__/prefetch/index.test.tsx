@@ -22,8 +22,8 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 import {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
-} from '@atlaskit/link-test-helpers';
-import { type JestFunction } from '@atlaskit/media-test-helpers';
+} from '@atlaskit/link-test-helpers/intersection-observer';
+import type { JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';

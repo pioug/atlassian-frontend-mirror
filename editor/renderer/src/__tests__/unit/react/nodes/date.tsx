@@ -4,8 +4,8 @@ import { render } from '@testing-library/react';
 import { createIntl, IntlProvider } from 'react-intl';
 import type { IntlShape } from 'react-intl';
 
-import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { timestampToString, todayTimestampInUTC } from '@atlaskit/editor-common/utils';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles/date';
+import { timestampToString, todayTimestampInUTC } from '@atlaskit/editor-common/utils/date';
 
 import { DateComponent } from '../../../../react/nodes/date';
 import { RendererContextProvider } from '../../../../renderer-context';

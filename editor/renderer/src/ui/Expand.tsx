@@ -13,19 +13,19 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ExpandIconWrapper,
 	ExpandLayoutWrapperWithRef,
-	expandMessages,
-	WidthProvider,
-} from '@atlaskit/editor-common/ui';
+	messages as expandMessages,
+} from '@atlaskit/editor-common/ui-expand';
+import { WidthProvider } from '@atlaskit/editor-common/WidthProvider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorLineHeight,
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';

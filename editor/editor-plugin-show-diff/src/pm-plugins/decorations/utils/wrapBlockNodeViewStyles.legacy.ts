@@ -8,7 +8,7 @@
  * remains unchanged. Delete this file at experiment cleanup, together with
  * `colorSchemes/standard.ts`, `colorSchemes/traditional.ts` (EDITOR-8281).
  */
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 

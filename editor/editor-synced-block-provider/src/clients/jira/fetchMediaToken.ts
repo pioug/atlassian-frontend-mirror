@@ -1,4 +1,4 @@
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 
 import { fetchWithRetry } from '../../utils/retry';
 import type { TokenData } from '../confluence/fetchMediaToken';

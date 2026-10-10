@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 import type { TableSharedStateInternal } from '../../../../types';
 import { useTableMenuContext } from '../../shared/TableMenuContext';

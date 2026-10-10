@@ -7,10 +7,10 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { APIError } from '@atlaskit/linking-common/api-error';
 import '@atlaskit/link-test-helpers/jest';
-import { flushPromises } from '@atlaskit/media-test-helpers';
+import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
 import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
 
 import { fakeFactory } from '../../../utils/fake-factory';

@@ -1,4 +1,5 @@
-import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 
 export const extendTraceContext = (
 	traceContext?: MediaTraceContext,

@@ -1,5 +1,5 @@
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
-import type { AvatarGroupPluginOptions } from '@atlaskit/editor-plugin-avatar-group';
+import type { AvatarGroupPluginOptions } from '@atlaskit/editor-plugin-avatar-group/avatarGroupPluginType';
 
 interface Props {
 	options: {

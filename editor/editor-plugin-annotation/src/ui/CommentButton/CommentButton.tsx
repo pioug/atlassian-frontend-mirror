@@ -2,18 +2,15 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent, addInlineComment } from '@atlaskit/editor-common/keymaps';
-import { annotationMessages } from '@atlaskit/editor-common/messages';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ToolbarButton,
-	CommentIcon as NewCommentIcon,
-	ToolbarTooltip,
-} from '@atlaskit/editor-toolbar';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { CommentIcon as NewCommentIcon } from '@atlaskit/editor-toolbar/comment-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnnotationPlugin } from '../../annotationPluginType';
 import { isSelectionValid } from '../../pm-plugins/utils';
@@ -107,9 +104,7 @@ export const CommentButton = ({
 			return commentDisabledMessage;
 		} else {
 			// i.e. isOffline. No tooltip message needed.
-			return expValEquals('confluence_fe_disable_comment_if_offline_fix', 'isEnabled', true)
-				? undefined
-				: commentDisabledMessage;
+			return undefined;
 		}
 	};
 

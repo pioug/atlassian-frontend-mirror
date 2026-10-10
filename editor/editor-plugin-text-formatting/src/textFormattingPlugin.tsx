@@ -6,11 +6,9 @@ import { strike } from '@atlaskit/adf-schema/strike';
 import { strong } from '@atlaskit/adf-schema/strong';
 import { subsup } from '@atlaskit/adf-schema/subsup';
 import { underline } from '@atlaskit/adf-schema/underline';
-import type {
-	Command,
-	FloatingToolbarCustom,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {

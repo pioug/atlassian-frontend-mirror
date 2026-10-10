@@ -1,14 +1,12 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import type {
-	Command,
-	EditorActionsOptions as EditorActions,
-	EditorAppearance,
-	ExtractInjectionAPI,
-	ImageUploadPluginReferenceEvent,
-} from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { BlockType } from '@atlaskit/editor-plugin-block-type';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory/macro-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorActionsOptions as EditorActions } from '@atlaskit/editor-common/types/editor-actions';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types/image-upload-reference-event';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import type { BlockType } from '@atlaskit/editor-plugin-block-type/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiProvider } from '@atlaskit/emoji';

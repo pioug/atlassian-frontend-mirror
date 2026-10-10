@@ -1,4 +1,4 @@
-import type { Breakpoint } from '@atlaskit/editor-toolbar';
+import type { Breakpoint } from '@atlaskit/editor-toolbar/show';
 
 import type { ToolbarInsertBlockButtonsConfig } from '../../../types';
 import type { BlockMenuItem } from '../../ToolbarInsertBlock/create-items';

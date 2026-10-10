@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { dropPlaceholderMessages } from '@atlaskit/editor-common/media';
+import { dropPlaceholderMessages } from '@atlaskit/editor-common/media/dropPlaceholder';
 import DocumentFilledIcon from '@atlaskit/icon/core/file';
 import { token } from '@atlaskit/tokens';
 

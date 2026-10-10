@@ -1,14 +1,14 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import DefaultExtensionProvider from '@atlaskit/editor-common/extensions/default-extension-provider';
 import type {
 	ExtensionManifest,
 	ExtensionModule,
-	ExtensionProvider,
-} from '@atlaskit/editor-common/extensions';
-import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';

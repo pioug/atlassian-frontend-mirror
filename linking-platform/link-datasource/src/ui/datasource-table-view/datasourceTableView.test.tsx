@@ -7,7 +7,8 @@ import { defaultRegistry } from 'react-sweet-state';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import type {
 	DatasourceDataResponseItem,
 	DatasourceTableStatusType,

@@ -5,8 +5,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import { RendererCssClassName } from '../../../../consts';

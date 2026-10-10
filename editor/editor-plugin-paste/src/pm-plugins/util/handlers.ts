@@ -2,52 +2,50 @@
 import { v4 as uuid } from 'uuid';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
-import { transformContainerNodes } from '@atlaskit/adf-utils/transforms';
-import type {
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-	InputMethodInsertMedia,
-} from '@atlaskit/editor-common/analytics';
+import { transformContainerNodes } from '@atlaskit/adf-utils/depth-limited-nesting-container-nodes-transform';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics/types/insert-events';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
-import { insideTable } from '@atlaskit/editor-common/core-utils';
-import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
+import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card/types';
+import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions/extension-manifest';
+import { insideTable } from '@atlaskit/editor-common/inside';
 import {
 	getBlockMarkAttrs,
 	getFirstParagraphBlockMarkAttrs,
 	reconcileBlockMarkForContainerAtPos,
 	reconcileBlockMarkForParagraphAtPos,
 	reconcileBlockMarkInRange,
-} from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/lists/block-mark';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
 import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import {
 	canLinkBeCreatedInRange,
 	insideTableCell,
 	isInListItem,
-	isLinkMark,
 	isListItemNode,
 	isListNode,
 	isNodeEmpty,
-	isParagraph,
-	isText,
-	linkifyContent,
-	mapSlice,
 } from '@atlaskit/editor-common/utils';
+import { linkifyContent } from '@atlaskit/editor-common/utils/hyperlink';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
-import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
-import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
+import { isLinkMark, isParagraph, isText } from '@atlaskit/editor-common/utils/nodes';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
+import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension/extensionPluginType';
+import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list/types';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
 import type {
 	Mark,
@@ -69,7 +67,7 @@ import {
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
+import { replaceSelectedTable } from '@atlaskit/editor-tables/utils/replace-table';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

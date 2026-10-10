@@ -2,15 +2,13 @@ import React from 'react';
 
 import { bodiedSyncBlock } from '@atlaskit/adf-schema/bodied-sync-block';
 import { syncBlock } from '@atlaskit/adf-schema/sync-block';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type {
-	EditorCommand,
-	ExtractInjectionAPI,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {

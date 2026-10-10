@@ -6,8 +6,9 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EmojiId } from '@atlaskit/emoji/types';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';

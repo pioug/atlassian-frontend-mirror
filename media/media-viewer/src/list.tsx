@@ -1,11 +1,9 @@
 import React, { type Ref, useState, useRef } from 'react';
 
-import { type Identifier } from '@atlaskit/media-client';
-import {
-	type MediaFeatureFlags,
-	type MediaTraceContext,
-	getRandomTelemetryId,
-} from '@atlaskit/media-common';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 

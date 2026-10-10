@@ -1,6 +1,7 @@
-import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

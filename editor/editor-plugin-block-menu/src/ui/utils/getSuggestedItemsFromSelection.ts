@@ -1,4 +1,4 @@
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { RegisterBlockMenuItem } from '../../blockMenuPluginType';

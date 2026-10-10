@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useState } from 'react';
 
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { PlainOutsideClickTargetRefContext, withOuterListeners } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { PlainOutsideClickTargetRefContext } from '@atlaskit/editor-common/ui';
+import withOuterListeners from '@atlaskit/editor-common/with-outer-listeners';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 

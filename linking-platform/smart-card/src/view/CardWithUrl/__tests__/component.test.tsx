@@ -8,7 +8,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { UnAuthClient } from '@atlaskit/link-test-helpers';
+import { UnAuthClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

@@ -1,4 +1,4 @@
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles/constants';
 
 import { getBaseFontSize } from '../../utils/getBaseFontSize';
 

@@ -4,9 +4,9 @@ import { v4 as uuid } from 'uuid';
 import { extension, extensionWithAnnotationStage0 } from '@atlaskit/adf-schema/extension';
 import { inlineExtension } from '@atlaskit/adf-schema/inline-extension';
 import { extensionFrame, multiBodiedExtension } from '@atlaskit/adf-schema/multi-bodied-extension';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

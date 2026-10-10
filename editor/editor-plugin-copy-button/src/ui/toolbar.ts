@@ -1,15 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import commonMessages from '@atlaskit/editor-common/messages';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { MarkOptions, NodeOptions } from '@atlaskit/editor-common/types/copy-button';
 import type {
-	ExtractInjectionAPI,
-	Command,
 	FloatingToolbarButton,
 	FloatingToolbarItem,
 	FloatingToolbarSeparator,
-	MarkOptions,
-	NodeOptions,
-} from '@atlaskit/editor-common/types';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import CopyIcon from '@atlaskit/icon/core/copy';
 

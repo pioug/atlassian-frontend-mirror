@@ -3,7 +3,7 @@ import React from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
+import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types/floating-toolbar';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 
 import { CheckboxModal } from './CheckboxModal';

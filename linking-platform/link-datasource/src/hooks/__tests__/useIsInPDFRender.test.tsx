@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { useIsInPDFRender } from '../useIsInPDFRender';
 

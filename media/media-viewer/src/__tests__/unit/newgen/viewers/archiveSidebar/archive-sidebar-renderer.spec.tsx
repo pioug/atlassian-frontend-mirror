@@ -15,8 +15,9 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { unzip } from 'unzipit';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
-import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { sleep } from '@atlaskit/media-test-helpers/nextTick';
 import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
 import ArchiveSidebarRenderer, {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { withWaitForItem } from '@atlaskit/link-test-helpers';
 import type { Product, Site } from '@atlaskit/link-test-helpers/datasource';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 
 import { ExampleIssueLikeTableExample } from '../../examples-helpers/buildIssueLikeTable';
 import VRTestWrapper from '../utils/VRWrapper';

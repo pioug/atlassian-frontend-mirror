@@ -1,8 +1,8 @@
-import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
 import type {
 	MentionsChangedHandler,
 	MentionsPluginOptions,
-} from '@atlaskit/editor-plugin-mentions';
+} from '@atlaskit/editor-plugin-mentions/types';
 import type { MentionProvider } from '@atlaskit/mention/types';
 
 interface Props {

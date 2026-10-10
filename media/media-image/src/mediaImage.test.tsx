@@ -12,8 +12,8 @@ import { render, screen } from '@testing-library/react';
 
 import { type MediaClientConfig } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 
 import { MediaImageWithMediaClient } from './mediaImage';
 import { type MediaImageChildrenProps } from './types';

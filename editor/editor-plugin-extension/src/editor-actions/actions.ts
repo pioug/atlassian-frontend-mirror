@@ -1,19 +1,23 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TARGET_SELECTION_SOURCE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TARGET_SELECTION_SOURCE } from '@atlaskit/editor-common/analytics/types/extension-events';
 import type {
-	EditorAnalyticsAPI,
 	ExtensionType,
 	SelectionJson,
-} from '@atlaskit/editor-common/analytics';
-import type { ExtensionAPI, Parameters, UpdateExtension } from '@atlaskit/editor-common/extensions';
-import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+} from '@atlaskit/editor-common/analytics/types/extension-events';
+import type {
+	ExtensionAPI,
+	UpdateExtension,
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory/macro-provider';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
 import type { Fragment, Mark, Node as PmNode, Schema } from '@atlaskit/editor-prosemirror/model';
 // oxlint-disable-next-line import/no-duplicates
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

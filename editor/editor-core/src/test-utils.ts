@@ -2,16 +2,15 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
-import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
+import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset/plugin-injection-api';
+import type { MarkConfig, NodeConfig } from '@atlaskit/editor-common/types/prosemirror-config';
 import type {
-	MarkConfig,
 	NamedReactHookFactory,
-	NodeConfig,
 	ReactHookFactory,
 	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
-import { basePlugin } from '@atlaskit/editor-plugins/base';
+} from '@atlaskit/editor-common/types/ui-components';
+import { basePlugin } from '@atlaskit/editor-plugin-base/basePlugin';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin } from '@atlaskit/editor-prosemirror/state';
 

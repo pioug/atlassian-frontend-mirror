@@ -1,10 +1,8 @@
 import React from 'react';
 
-import {
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 import type {

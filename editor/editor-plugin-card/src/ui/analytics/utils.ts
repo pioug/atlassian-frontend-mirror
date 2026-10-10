@@ -1,4 +1,4 @@
-import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 

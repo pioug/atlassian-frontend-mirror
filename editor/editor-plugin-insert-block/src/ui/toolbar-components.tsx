@@ -4,35 +4,39 @@ import {
 	INSERT_BLOCK_SECTION,
 	TASK_LIST_GROUP,
 	MEDIA_GROUP,
-	INSERT_BLOCK_SECTION_RANK,
 	TASK_LIST_BUTTON,
-	TASK_LIST_GROUP_RANK,
 	MEDIA_BUTTON,
 	MENTION_GROUP,
-	MEDIA_GROUP_RANK,
 	MENTION_BUTTON,
-	MENTION_GROUP_RANK,
 	EMOJI_GROUP,
 	EMOJI_BUTTON,
-	EMOJI_GROUP_RANK,
 	LAYOUT_GROUP,
 	LAYOUT_BUTTON,
-	LAYOUT_GROUP_RANK,
-	TABLE_GROUP_RANK,
 	TABLE_BUTTON,
 	TABLE_GROUP,
 	TABLE_SIZE_PICKER,
 	INSERT_GROUP,
 	INSERT_BUTTON,
-	INSERT_GROUP_RANK,
 	CODE_BLOCK_GROUP,
 	CODE_BLOCK_BUTTON,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	INSERT_BLOCK_SECTION_RANK,
+	TASK_LIST_GROUP_RANK,
+	MEDIA_GROUP_RANK,
+	MENTION_GROUP_RANK,
+	EMOJI_GROUP_RANK,
+	LAYOUT_GROUP_RANK,
+	TABLE_GROUP_RANK,
+	INSERT_GROUP_RANK,
 	CODE_BLOCK_GROUP_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import type { Breakpoint } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { Show } from '@atlaskit/editor-toolbar/show';
+import type { Breakpoint } from '@atlaskit/editor-toolbar/show';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { InsertBlockPlugin } from '../insertBlockPluginType';

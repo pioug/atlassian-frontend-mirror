@@ -4,7 +4,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 

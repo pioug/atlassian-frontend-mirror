@@ -7,21 +7,22 @@ import debounce from 'lodash/debounce';
 import styled from 'styled-components';
 
 import AkAvatar from '@atlaskit/avatar/avatar';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { EditorActions, EditorProps } from '@atlaskit/editor-core';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { EditorActions } from '@atlaskit/editor-core/actions';
+import { CollapsedEditor } from '@atlaskit/editor-core/CollapsedEditor';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import type { InitialPluginConfiguration } from '@atlaskit/editor-core/preset-universal/universal';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
+import { ToolbarHelp } from '@atlaskit/editor-core/ToolbarHelp';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
 import {
-	EditorContext,
-	WithEditorActions,
-	CollapsedEditor,
-	ToolbarHelp,
 	name as packageName,
 	version as packageVersion,
-} from '@atlaskit/editor-core';
-import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
-import type { InitialPluginConfiguration } from '@atlaskit/editor-core/preset-universal';
-import { usePreset } from '@atlaskit/editor-core/use-preset';
+} from '@atlaskit/editor-core/version-wrapper';
+import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 
 import type { User } from '../model/User';

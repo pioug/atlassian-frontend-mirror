@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { RefsNode } from '@atlaskit/editor-common/types';
+import type { RefsNode } from '@atlaskit/editor-common/types/doc-builder';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';

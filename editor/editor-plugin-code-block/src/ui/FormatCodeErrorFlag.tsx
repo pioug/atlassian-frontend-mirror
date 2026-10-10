@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';

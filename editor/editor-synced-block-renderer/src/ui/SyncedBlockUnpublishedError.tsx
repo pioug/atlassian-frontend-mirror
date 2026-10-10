@@ -3,8 +3,8 @@ import React from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider/common/types';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
 import { Anchor } from '@atlaskit/primitives/compiled';
 

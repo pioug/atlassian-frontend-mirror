@@ -8,15 +8,15 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { canUseDOM } from 'exenv';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { vrVideoDetails } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import {
-	defaultCollectionName,
-	createStorybookMediaClientConfig,
 	MediaMock,
-	vrVideoDetails,
 	generateFilesFromTestData,
 	type MockFile,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/media-mock';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { MainWrapper } from '../example-helpers';
 import { inlineCardVideoWrapperItemStyles } from '../example-helpers/styles';

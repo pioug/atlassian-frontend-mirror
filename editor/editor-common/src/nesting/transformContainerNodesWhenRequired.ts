@@ -1,4 +1,4 @@
-import { traverse } from '@atlaskit/adf-utils/traverse';
+import { traverse } from '@atlaskit/adf-utils/traverse/main';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';

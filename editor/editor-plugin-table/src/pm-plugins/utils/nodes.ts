@@ -1,4 +1,4 @@
-import { mapChildren } from '@atlaskit/editor-common/utils';
+import { mapChildren } from '@atlaskit/editor-common/utils/slice';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

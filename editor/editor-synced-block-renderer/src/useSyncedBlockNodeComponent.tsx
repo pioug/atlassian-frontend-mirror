@@ -1,20 +1,18 @@
 import React, { useCallback, useEffect } from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block';
+import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block/SyncBlockActionsContext';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import {
-	convertSyncBlockJSONNodeToSyncBlockNode,
-	useMemoizedSyncBlockStoreManager,
-} from '@atlaskit/editor-synced-block-provider';
 import type {
 	SyncBlockNode,
-	SyncedBlockProvider,
 	SyncBlockPrefetchData,
-} from '@atlaskit/editor-synced-block-provider';
+} from '@atlaskit/editor-synced-block-provider/common/types';
+import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider/syncBlockProvider';
+import { useMemoizedSyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+import { convertSyncBlockJSONNodeToSyncBlockNode } from '@atlaskit/editor-synced-block-provider/utils';
 
 import type { SyncedBlockRendererOptions } from './types';
 import { SyncedBlockNodeComponentRenderer } from './ui/SyncedBlockNodeComponentRenderer';

@@ -1,4 +1,4 @@
-import { type FileState, type ProcessedFileState } from '@atlaskit/media-client';
+import type { FileState, ProcessedFileState } from '@atlaskit/media-state/file-state';
 
 import { type RenderInlineCardSucceededEventPayload } from '../utils/analytics';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import Client from '@atlaskit/link-provider/client';
-import { AtlasGoal, AtlasProject } from '@atlaskit/link-test-helpers';
+import { AtlasGoal, AtlasProject } from '@atlaskit/link-test-helpers/smart-card/mocks/atlas';
 
 import VRCardView from '../utils/vr-card-view';
 

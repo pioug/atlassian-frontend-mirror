@@ -6,12 +6,12 @@ import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import type { JQLEditorProps } from '@atlaskit/jql-editor/ui/types';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import {
 	fieldValuesResponseForStatusesMapped,
 	mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

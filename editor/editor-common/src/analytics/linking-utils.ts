@@ -1,4 +1,4 @@
-import type { CardAppearance } from '@atlaskit/smart-card';
+import type { CardAppearance } from '@atlaskit/smart-card/card/types';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE, INPUT_METHOD } from './types/enums';
 import type { AnalyticsEventPayload } from './types/events';

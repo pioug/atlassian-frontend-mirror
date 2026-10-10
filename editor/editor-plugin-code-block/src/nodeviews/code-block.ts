@@ -1,10 +1,7 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { codeBlockWrappedStates, defaultWordWrapState } from '@atlaskit/editor-common/code-block';
-import type {
-	ExtractInjectionAPI,
-	getPosHandler,
-	getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
+import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

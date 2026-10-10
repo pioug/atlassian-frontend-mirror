@@ -8,13 +8,13 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
-	createUploadMediaClientConfig,
-	defaultCollectionName,
 	MediaMock,
 	generateFilesFromTestData,
 	type MockFileInputParams,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/media-mock';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { MainWrapper } from '../example-helpers';
 import { mediaInlineTableStyles, mediaInlineWrapperStyles } from '../example-helpers/styles';

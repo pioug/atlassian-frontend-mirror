@@ -7,7 +7,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import Link from '@atlaskit/link/link';
 import { Popup } from '@atlaskit/popup/popup';
 import { token } from '@atlaskit/tokens';
-import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin/atlassian-link-picker-plugin';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
 import { LinkPicker, type LinkPickerProps } from '../src';

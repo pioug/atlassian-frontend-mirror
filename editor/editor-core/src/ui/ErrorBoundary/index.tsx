@@ -1,8 +1,9 @@
 import React from 'react';
 
-import type { DispatchAnalyticsEvent, ErrorEventPayload } from '@atlaskit/editor-common/analytics';
-import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ErrorEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 
 type ErrorCrashPayload = Extract<ErrorEventPayload, { action: ACTION.EDITOR_CRASHED }>;
 

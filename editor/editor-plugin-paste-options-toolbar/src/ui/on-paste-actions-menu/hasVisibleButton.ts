@@ -1,4 +1,4 @@
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 const isComponentOrAncestorHidden = (
 	component: RegisterComponent,

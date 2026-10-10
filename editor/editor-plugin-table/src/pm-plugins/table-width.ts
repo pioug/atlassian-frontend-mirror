@@ -5,10 +5,10 @@
  */
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
 import { isReplaceDocOperation } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -16,7 +16,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxWidthLayoutWidth,
 	akEditorWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import { TABLE_MAX_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';

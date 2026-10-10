@@ -5,7 +5,7 @@ import {
 	AGENT_ATTRIBUTION_META,
 	type AgentAttributionTransactionMeta,
 } from '@atlaskit/editor-common/transaction-agent-attribution';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types/editor-actions';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

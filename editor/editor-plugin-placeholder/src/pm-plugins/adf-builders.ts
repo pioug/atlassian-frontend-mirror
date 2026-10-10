@@ -1,8 +1,9 @@
 import type { IntlShape } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { code, text } from '@atlaskit/adf-utils/builders';
-import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
+import { code } from '@atlaskit/adf-utils/code';
+import { text } from '@atlaskit/adf-utils/text';
+import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages/placeholder-text';
 
 export const createShortEmptyNodePlaceholderADF = ({ formatMessage }: IntlShape): DocNode =>
 	({

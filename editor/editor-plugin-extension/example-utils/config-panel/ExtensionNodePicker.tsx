@@ -12,9 +12,9 @@ import type {
 	ExtensionModule,
 	ExtensionModuleActionObject,
 	ExtensionModuleNode,
-	ExtensionProvider,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ButtonItem from '@atlaskit/menu/button-item';
 import HeadingItem from '@atlaskit/menu/heading-item';

@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
+import type { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/EventHandlers';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
-import type { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';

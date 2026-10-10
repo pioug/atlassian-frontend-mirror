@@ -1,16 +1,14 @@
 import React, { useCallback, useContext, useMemo, useRef } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
+import Popup from '@atlaskit/editor-common/Popup';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorFloatingDialogZIndex,
 	akEditorFloatingOverlapPanelZIndex,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { ToolbarKeyboardNavigationProvider } from '@atlaskit/editor-toolbar/toolbar-keyboard-navigation-provider';

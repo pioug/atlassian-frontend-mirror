@@ -3,16 +3,14 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	Command,
-	ExtractInjectionAPI,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
-import { insm } from '@atlaskit/insm';
+import { insm } from '@atlaskit/insm/api';
 import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/analytics';
 import {
 	ComponentNames,

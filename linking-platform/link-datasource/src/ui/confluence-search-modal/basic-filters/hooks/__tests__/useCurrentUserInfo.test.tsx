@@ -7,7 +7,7 @@ import {
 	failedUserQueryResponse,
 	successfulUserQueryResponse,
 } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { useBasicFilterAGG } from '../../../../../services/useBasicFilterAGG';
 import { useCurrentUserInfo } from '../useCurrentUserInfo';

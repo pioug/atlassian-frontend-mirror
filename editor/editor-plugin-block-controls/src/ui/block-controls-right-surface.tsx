@@ -7,7 +7,7 @@ import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROLS_RIGHT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { token } from '@atlaskit/tokens';

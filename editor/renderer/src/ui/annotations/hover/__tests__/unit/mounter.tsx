@@ -6,11 +6,11 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/annotation';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

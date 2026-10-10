@@ -7,16 +7,14 @@ import Loadable from 'react-loadable';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-	UnsupportedBlock,
-	UnsupportedInline,
-	type EventHandlers,
-} from '@atlaskit/editor-common/ui';
-import type { Diff } from '@atlaskit/editor-common/utils';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { MediaInlineAttrs } from '@atlaskit/editor-common/media-inline/types';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
+import type { Diff } from '@atlaskit/editor-common/utils/types';
 import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 import type { MediaSSR } from '../../types/mediaOptions';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';

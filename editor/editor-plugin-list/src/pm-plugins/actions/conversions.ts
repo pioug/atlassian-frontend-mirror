@@ -1,5 +1,5 @@
-import { joinSiblingLists } from '@atlaskit/editor-common/lists';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { joinSiblingLists } from '@atlaskit/editor-common/lists/node';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { isEmptyParagraph, isListNode } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeRange } from '@atlaskit/editor-prosemirror/model';

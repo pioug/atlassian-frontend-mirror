@@ -1,4 +1,5 @@
-import { type FileIdentifier, type ImageResizeMode } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
 
 import type { MediaCardError } from '../../MediaCardError';
 

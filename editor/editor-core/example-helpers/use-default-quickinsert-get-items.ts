@@ -1,15 +1,15 @@
 import React from 'react';
 
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import type {
 	QuickInsertItem,
 	QuickInsertProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import { find } from '@atlaskit/editor-common/quick-insert';
+} from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import { find } from '@atlaskit/editor-common/quick-insert/utils';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers/get-example-extension-providers';
 
 import type EditorActions from '../src/actions';
 import { usePresetContext } from '../src/presets/context';

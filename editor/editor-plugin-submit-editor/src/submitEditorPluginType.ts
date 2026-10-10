@@ -1,5 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MediaPlugin } from '@atlaskit/editor-plugin-media/media-plugin-type';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type SubmitEditorPluginOptions = (editorView: EditorView) => void;

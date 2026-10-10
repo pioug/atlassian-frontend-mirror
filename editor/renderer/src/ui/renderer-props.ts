@@ -1,17 +1,17 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility/types';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { AnnotationProviders } from '@atlaskit/editor-common/types';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import type { ADFStage } from '@atlaskit/editor-common/validator';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotation';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils/get-unsupported-content-level-data';
+import type { ADFStage } from '@atlaskit/editor-common/utils/validator';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiProviderLookupOrder, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 

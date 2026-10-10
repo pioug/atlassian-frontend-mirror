@@ -1,6 +1,6 @@
 import { sanitizeNodes } from '@atlaskit/adf-schema/sanitizeNodes';
 import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
-import type { MarkConfig, NodeConfig } from '@atlaskit/editor-common/types';
+import type { MarkConfig, NodeConfig } from '@atlaskit/editor-common/types/prosemirror-config';
 import type {
 	DOMOutputSpec,
 	MarkSpec,

@@ -1,11 +1,10 @@
 import React from 'react';
 
-import {
-	type TouchFileDescriptor,
-	createMediaSubject,
-	fromObservable,
-} from '@atlaskit/media-client';
-import { expectFunctionToHaveBeenCalledWith, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { createMediaSubject } from '@atlaskit/media-client/create-media-subject';
+import { fromObservable } from '@atlaskit/media-client/from-observable';
+import type { TouchFileDescriptor } from '@atlaskit/media-client/media-store/types';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers/jestHelpers';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { type BrowserConfig, type UploadErrorEventPayload } from '../../../types';

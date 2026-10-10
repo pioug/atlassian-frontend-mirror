@@ -3,9 +3,12 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
-import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
-import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { awaitError } from '@atlaskit/media-test-helpers/await-error';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as buildImgErrorDiagnosticsModule from '../../../../../buildImgErrorDiagnostics';

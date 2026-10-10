@@ -2,7 +2,7 @@ import rafSchedule from 'raf-schd';
 
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import { PluginKey, type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

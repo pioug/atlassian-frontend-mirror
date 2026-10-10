@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { type MediaClient, type FileState } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { Outcome } from '../../domain/outcome';

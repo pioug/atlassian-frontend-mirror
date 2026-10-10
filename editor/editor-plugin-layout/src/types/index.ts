@@ -1,7 +1,5 @@
-import type {
-	EditorAppearance,
-	LongPressSelectionPluginOptions,
-} from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types/selection';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {

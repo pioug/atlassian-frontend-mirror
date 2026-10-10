@@ -11,7 +11,7 @@ import { Compartment, EditorState } from '@codemirror/state';
 import { EditorView, lineNumbers, gutters } from '@codemirror/view';
 import { jsx, css } from '@compiled/react';
 
-import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
+import type { ErrorFileState, FileState } from '@atlaskit/media-state/file-state';
 import { token } from '@atlaskit/tokens';
 
 import type { MediaViewerError } from '../../../MediaViewerError';

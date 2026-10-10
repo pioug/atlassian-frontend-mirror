@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import type { SelectOption } from '@atlaskit/editor-common/types';
+import type { SelectOption } from '@atlaskit/editor-common/types/floating-toolbar';
 import Select from '@atlaskit/select/default';
 import type { ValueType } from '@atlaskit/select/types';
 

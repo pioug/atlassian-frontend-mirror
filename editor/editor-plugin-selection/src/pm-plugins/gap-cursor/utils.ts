@@ -1,9 +1,7 @@
-import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
+import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single/constants';
 import { Side } from '@atlaskit/editor-common/selection';
-import {
-	TableSharedCssClassName,
-	UnsupportedSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { UnsupportedSharedCssClassName } from '@atlaskit/editor-common/styles/unsupported-content';
 import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

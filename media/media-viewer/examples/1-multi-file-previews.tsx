@@ -1,16 +1,16 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { type Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
 	externalImageIdentifier,
 	externalSmallImageIdentifier,
-	createStorybookMediaClient,
-	defaultCollectionName,
-} from '@atlaskit/media-test-helpers';
-import { videoFileId } from '@atlaskit/media-test-helpers';
-import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClient } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import {
 	docIdentifier,

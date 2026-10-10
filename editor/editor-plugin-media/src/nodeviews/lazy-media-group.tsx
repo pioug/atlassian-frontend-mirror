@@ -1,10 +1,10 @@
 import type { IntlShape } from 'react-intl';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { MediaPluginOptions } from '../types';

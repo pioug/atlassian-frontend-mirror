@@ -12,22 +12,18 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconDate } from '@atlaskit/editor-common/assets';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import {
-	annotationMessages,
-	toolbarInsertBlockMessages as messages,
-} from '@atlaskit/editor-common/messages';
-import { IconDate } from '@atlaskit/editor-common/quick-insert';
-import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type {
-	Command,
-	ExtractInjectionAPI,
-	FloatingToolbarItem,
-	UiComponentFactoryParams,
-} from '@atlaskit/editor-common/types';
-import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles/date';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
+import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

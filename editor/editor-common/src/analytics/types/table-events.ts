@@ -1,5 +1,5 @@
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
+import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
 
 import type { EditorBreakpointKey } from '../../utils/analytics';
 import type { ACTION_SUBJECT, INPUT_METHOD, ACTION_SUBJECT_ID } from './enums';

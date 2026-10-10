@@ -1,5 +1,5 @@
-import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator';
-import { adfNodeGroup } from '@atlaskit/adf-schema-generator';
+import { adfNodeGroup } from '@atlaskit/adf-schema-generator/adfNodeGroup';
+import type { ADFNodeGroup } from '@atlaskit/adf-schema-generator/types/ADFNodeGroup';
 
 import { confluenceJiraIssue } from '../nodes/confluenceJiraIssue';
 import { confluenceUnsupportedInline } from '../nodes/confluenceUnsupportedInline';

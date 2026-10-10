@@ -3,12 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import {
-	AtlasProject,
-	overrideEmbedContent,
-	renderWithIntl,
-	ResolvedClient,
-} from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
+import { AtlasProject } from '@atlaskit/link-test-helpers/smart-card/mocks/atlas';
+import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import { overrideEmbedContent } from '@atlaskit/link-test-helpers/smart-card/mocks/embed-content';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import useResolve from '../../../state/hooks/use-resolve';

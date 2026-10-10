@@ -1,5 +1,5 @@
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types/editor-actions';
 
 import type { DocumentServiceInterface } from './interface-document-service';
 

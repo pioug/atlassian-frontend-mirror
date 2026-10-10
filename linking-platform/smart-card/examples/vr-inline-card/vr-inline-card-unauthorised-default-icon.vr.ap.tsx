@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UnAuthClientWithNoIcon } from '@atlaskit/link-test-helpers';
+import { UnAuthClientWithNoIcon } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import VRCardView from '../utils/vr-card-view';
 

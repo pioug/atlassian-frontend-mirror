@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/table';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

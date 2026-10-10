@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import type { Command } from '@atlaskit/editor-common/types';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';

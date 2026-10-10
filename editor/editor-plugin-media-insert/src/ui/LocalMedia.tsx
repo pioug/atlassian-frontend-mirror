@@ -3,9 +3,10 @@ import React, { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { mediaInsertMessages } from '@atlaskit/editor-common/messages/media-insert';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import type { MediaState, MediaStateEventListener } from '@atlaskit/editor-plugin-media/types';
 import UploadIcon from '@atlaskit/icon/core/upload';
 import { BrowserLoader as Browser } from '@atlaskit/media-picker/browser';

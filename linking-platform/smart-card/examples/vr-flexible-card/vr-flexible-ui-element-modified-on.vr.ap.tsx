@@ -4,7 +4,7 @@
  */
 import { jsx } from '@compiled/react';
 
-import { ModifiedOnElement } from '@atlaskit/smart-card';
+import { ModifiedOnElement } from '@atlaskit/smart-card/flexible/modified-on-element';
 
 import { FlexibleCardContext } from '../../src/state/flexible-ui-context';
 import { getContext } from '../utils/flexible-ui';

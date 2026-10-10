@@ -1,13 +1,14 @@
 import type { IntlShape } from 'react-intl/src/types';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import {
 	addColumnAfter,
 	addColumnAfterVO,
@@ -42,10 +43,9 @@ import {
 	startColumnResizing,
 	toggleTable,
 } from '@atlaskit/editor-common/keymaps';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

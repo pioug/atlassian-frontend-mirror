@@ -1,8 +1,6 @@
-import type {
-	EditorCommand,
-	EditorContentMode,
-	NextEditorPlugin,
-} from '@atlaskit/editor-common/types';
+import type { EditorContentMode } from '@atlaskit/editor-common/types/editor-appearance';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 export type ContentFormatPluginOptions = {
 	initialContentMode: EditorContentMode;

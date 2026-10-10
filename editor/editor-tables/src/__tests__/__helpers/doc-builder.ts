@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { DocBuilder, RefsNode } from '@atlaskit/editor-common/types';
+import type { DocBuilder, RefsNode } from '@atlaskit/editor-common/types/doc-builder';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { BuilderContent } from '@atlaskit/editor-test-helpers/doc-builder';

@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
-import type { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
 import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import { videoMp4SaganAliensId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
 import {
-	I18NWrapper,
 	createStorybookMediaClientConfig,
 	createUploadMediaClientConfig,
-	videoMp4SaganAliensId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Flex, xcss } from '@atlaskit/primitives';

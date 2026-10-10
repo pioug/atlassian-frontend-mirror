@@ -10,7 +10,10 @@ import type { ReactElement } from 'react';
 
 import type { MessageDescriptor } from 'react-intl';
 
-import type { AllowedBlockTypes, HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+import type {
+	AllowedBlockTypes,
+	HeadingLevelsAndNormalText,
+} from '@atlaskit/editor-common/types/block-type';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export type BlockTypeName =

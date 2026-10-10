@@ -9,23 +9,19 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
 import type { BorderMarkAttributes } from '@atlaskit/adf-schema/border';
-import { imageBorderMessages as messages } from '@atlaskit/editor-common/media';
-import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { Icon } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	borderColorPalette,
-	borderPaletteTooltipMessages,
-	ColorPalette,
-} from '@atlaskit/editor-common/ui-color';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import {
-	ArrowKeyNavigationProvider,
-	ArrowKeyNavigationType,
-	DropdownMenu,
-	ToolbarButton,
-} from '@atlaskit/editor-common/ui-menu';
-import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+import { imageBorderMessages as messages } from '@atlaskit/editor-common/media/imageBorder';
+import Popup from '@atlaskit/editor-common/Popup';
+import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles/dropdown-menu';
+import type { Icon } from '@atlaskit/editor-common/types/floating-toolbar';
+import ColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette';
+import borderColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette/borderColorPalette';
+import { borderPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import { ArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import DropdownMenu from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette/border';
 import BorderIcon from '@atlaskit/icon/core/border';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';

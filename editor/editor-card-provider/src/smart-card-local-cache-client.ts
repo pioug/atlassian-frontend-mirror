@@ -1,4 +1,4 @@
-import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
+import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

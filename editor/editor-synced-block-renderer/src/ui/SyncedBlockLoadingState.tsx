@@ -3,8 +3,8 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';
 

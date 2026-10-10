@@ -1,10 +1,6 @@
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	getAnalyticsEventsFromTransaction,
-} from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { getAnalyticsEventsFromTransaction } from '@atlaskit/editor-common/analytics/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';

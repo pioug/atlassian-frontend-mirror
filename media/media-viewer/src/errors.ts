@@ -1,4 +1,4 @@
-import { type MediaClientErrorReason } from '@atlaskit/media-client';
+import type { MediaClientErrorReason } from '@atlaskit/media-client/errors/types';
 
 import type { ArchiveViewerErrorReason } from './ArchiveViewerError';
 import type { MediaViewerErrorReason } from './MediaViewerError';

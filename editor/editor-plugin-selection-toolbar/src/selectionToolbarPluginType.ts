@@ -1,16 +1,16 @@
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-	UserPreferencesProvider,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/types/user-preferences';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 
 import type { ToolbarDocking } from './types';
 

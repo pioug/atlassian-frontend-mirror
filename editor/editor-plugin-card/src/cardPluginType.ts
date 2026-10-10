@@ -1,28 +1,31 @@
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import type { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { CardPluginActions, CardReplacementInputMethod } from '@atlaskit/editor-common/card';
-import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import type { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
-	Command,
-	EditorCommand,
+	CardPluginActions,
+	CardReplacementInputMethod,
+} from '@atlaskit/editor-common/card/types';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
-import type { BasePlugin } from '@atlaskit/editor-plugin-base';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation/pm-plugins/types';
+import type { BasePlugin } from '@atlaskit/editor-plugin-base/basePluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
+import type { GridPlugin } from '@atlaskit/editor-plugin-grid/gridPluginType';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 
 import type { CardPluginOptions, CardPluginState } from './types';
 

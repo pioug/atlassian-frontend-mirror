@@ -4,7 +4,7 @@ import * as testMocks from './index.test.mock';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { ACTION_RESOLVING } from '@atlaskit/linking-common/actions';
 import { APIError, type APIErrorKind } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';

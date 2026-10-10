@@ -2,9 +2,10 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { layoutMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { NestedDropdownRightIcon, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
+import { toolbarMessages as layoutMessages } from '@atlaskit/editor-common/messages/layout';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { NestedDropdownRightIcon } from '@atlaskit/editor-toolbar/nested-dropdown-right-icon';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
 import { getLayoutColumnValign } from '../../pm-plugins/utils/layout-column-selection';

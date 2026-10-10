@@ -8,8 +8,9 @@ jest.mock('@atlaskit/media-ui/browser', () => ({
 
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
-import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 import { act, render } from '@atlassian/testing-library';
 

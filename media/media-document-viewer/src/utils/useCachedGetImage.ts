@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { useStaticCallback } from '@atlaskit/media-common';
+import { useStaticCallback } from '@atlaskit/media-common/useStaticCallback';
 
 export const useCachedGetImage = (
 	getPageImageUrl: (pageNumber: number, zoom: number) => Promise<string>,

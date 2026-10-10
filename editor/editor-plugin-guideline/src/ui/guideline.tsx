@@ -5,8 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { isVerticalPosition } from '@atlaskit/editor-common/guideline';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
+import { isVerticalPosition } from '@atlaskit/editor-common/guideline/utils';
 import { token } from '@atlaskit/tokens';
 
 import { getPositionStyles } from './positionStyles';

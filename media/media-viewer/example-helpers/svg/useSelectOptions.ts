@@ -1,6 +1,6 @@
 import { useState, useMemo, type Dispatch, type SetStateAction } from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 
 export const useSelectOptions = (
 	identifiers: FileIdentifier[],

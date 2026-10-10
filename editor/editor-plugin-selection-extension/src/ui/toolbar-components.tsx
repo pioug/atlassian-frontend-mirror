@@ -5,12 +5,14 @@ import {
 	EXTERNAL_EXTENSIONS_MENU_ITEM,
 	FIRST_PARTY_EXTENSIONS_MENU_ITEM,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
+	TOOLBARS,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
 	OVERFLOW_EXTENSIONS_MENU_SECTION_RANK,
 	TOOLBAR_RANK,
-	TOOLBARS,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
 // oxlint-disable-next-line import/no-duplicates

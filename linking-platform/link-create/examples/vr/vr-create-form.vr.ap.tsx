@@ -1,12 +1,9 @@
 import React from 'react';
 
-import {
-	AsyncSelect,
-	CreateForm,
-	type CreateFormProps,
-	Select,
-	TextField,
-} from '@atlaskit/link-create';
+import { AsyncSelect } from '@atlaskit/link-create/async-select';
+import { CreateForm, type CreateFormProps } from '@atlaskit/link-create/create-form';
+import { Select } from '@atlaskit/link-create/select';
+import { TextField } from '@atlaskit/link-create/text-field';
 
 const createTextFieldExample = (props: Partial<CreateFormProps<FormData>>): React.ComponentType => {
 	return function Example() {

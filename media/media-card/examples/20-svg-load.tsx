@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/button';
 import { Label } from '@atlaskit/form/label/default';
-import {
-	type ImageResizeMode,
-	type FileIdentifier,
-	type MediaClientConfig,
-	isErrorFileState,
-} from '@atlaskit/media-client';
+import { isErrorFileState } from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
-import { svgFileIds } from '@atlaskit/media-client/test-helpers';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers/example-media-items';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';

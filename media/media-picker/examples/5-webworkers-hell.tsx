@@ -4,10 +4,8 @@ import { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import {
-	defaultMediaPickerCollectionName,
-	mediaPickerAuthProvider,
-} from '@atlaskit/media-test-helpers';
+import { defaultMediaPickerCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 
 import { MainWrapper } from '../example-helpers/mainWrapper';
 import { PopupContainer } from '../example-helpers/PopupContainer';

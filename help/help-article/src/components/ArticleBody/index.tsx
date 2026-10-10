@@ -8,7 +8,7 @@ import { createRoot, type Root } from 'react-dom/client';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { ReactRenderer } from '@atlaskit/renderer';
+import ReactRenderer from '@atlaskit/renderer/renderer';
 
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
 import type { AdfDoc } from '../../model/HelpArticle';

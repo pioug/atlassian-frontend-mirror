@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { ClipboardLoader as Clipboard } from '@atlaskit/media-picker/clipboard';
 import type { ClipboardConfig } from '@atlaskit/media-picker/types';
 

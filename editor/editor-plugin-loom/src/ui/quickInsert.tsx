@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { type EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { QuickInsertHandlerFn } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { QuickInsertHandlerFn } from '@atlaskit/editor-common/types/quick-insert';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';

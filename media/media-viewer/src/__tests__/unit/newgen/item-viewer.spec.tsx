@@ -8,11 +8,11 @@ import Loadable from 'react-loadable';
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import {
-	createMockedMediaApi,
 	createRateLimitedError,
 	createServerUnauthorizedError,
 } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
@@ -26,16 +26,13 @@ const traceContext = { traceId: 'some-trace-id' };
 
 // TODO: https://product-fabric.atlassian.net/browse/CXP-3191
 // Mock media-client for CodeViewer since it uses `request` from media-client
-jest.mock('@atlaskit/media-client', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-client');
-	return {
-		...actualModule,
-		request: jest.fn().mockResolvedValue({
-			text: jest.fn().mockResolvedValue('some-src'),
-			arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
-		}),
-	};
-});
+jest.mock('@atlaskit/media-client/request', () => ({
+	...jest.requireActual('@atlaskit/media-client/request'),
+	request: jest.fn().mockResolvedValue({
+		text: jest.fn().mockResolvedValue('some-src'),
+		arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
+	}),
+}));
 
 /* Jest Spies */
 

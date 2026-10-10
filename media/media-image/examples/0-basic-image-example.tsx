@@ -8,7 +8,8 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { genericFileId, createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { genericFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { MediaImage } from '../src';

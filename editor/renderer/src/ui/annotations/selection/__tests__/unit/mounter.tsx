@@ -2,17 +2,19 @@ import React, { act } from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { doc, p, status } from '@atlaskit/adf-utils/builders';
+import { doc } from '@atlaskit/adf-utils/doc';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { status } from '@atlaskit/adf-utils/status';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/annotation';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';

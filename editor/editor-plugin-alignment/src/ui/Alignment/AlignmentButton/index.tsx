@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import { getAriaKeyshortcuts, tooltip, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 
 import type { AlignmentState } from '../../../pm-plugins/types';
 

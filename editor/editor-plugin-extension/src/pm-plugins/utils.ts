@@ -1,16 +1,13 @@
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	type ExtensionType,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtensionType } from '@atlaskit/editor-common/analytics/types/extension-events';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { closestElement, findNodePosByLocalIds } from '@atlaskit/editor-common/utils';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
+import { findNodePosByLocalIds } from '@atlaskit/editor-common/utils/nodes-by-localIds';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions/mentions-plugin-type';
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos, DomAtPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';

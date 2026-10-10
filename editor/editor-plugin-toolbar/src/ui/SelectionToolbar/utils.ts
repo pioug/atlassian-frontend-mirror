@@ -1,14 +1,12 @@
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	CONTENT_COMPONENT,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type {
-	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

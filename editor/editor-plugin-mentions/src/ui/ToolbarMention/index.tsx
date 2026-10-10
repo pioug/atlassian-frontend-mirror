@@ -3,8 +3,9 @@ import React, { PureComponent } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
-import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
+import { mentionMessages as messages } from '@atlaskit/editor-common/messages/mentions';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import MentionIcon from '@atlaskit/icon/core/mention';
 

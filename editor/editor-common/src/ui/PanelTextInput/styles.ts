@@ -3,7 +3,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className

@@ -2,15 +2,15 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 
 import type { CodeBlockPlugin } from '../../codeBlockPluginType';

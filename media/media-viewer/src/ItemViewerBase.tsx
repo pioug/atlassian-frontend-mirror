@@ -4,16 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import Loadable from 'react-loadable';
 
 import {
-	type FileState,
 	isExternalImageIdentifier,
 	isFileIdentifier,
-	type ExternalImageIdentifier,
-	type NonErrorFileState,
-	type ProcessedFileState,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import type { NonErrorFileState } from '@atlaskit/media-client/file-state';
+import type { ExternalImageIdentifier } from '@atlaskit/media-client/identifier';
+import type { FileState, ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { isCodeViewerItem } from '@atlaskit/media-ui/isCodeViewerItem';
 import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

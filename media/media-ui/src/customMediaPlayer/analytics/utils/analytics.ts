@@ -1,4 +1,4 @@
-import { type UIAttributes, type UIEventPayload } from '@atlaskit/media-common';
+import type { UIAttributes, UIEventPayload } from '@atlaskit/media-common/analytics/types';
 
 import { type CustomMediaPlayerType } from '../../types';
 import {

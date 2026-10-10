@@ -70,23 +70,24 @@ import { IntlProvider } from 'react-intl';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import {
-	type MediaClientConfig,
-	globalMediaEventEmitter,
-	type ImageResizeMode,
-} from '@atlaskit/media-client';
-import { getFileStreamsCache } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
+import { getFileStreamsCache } from '@atlaskit/media-client/file-streams-cache';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
 import {
 	createServerUnauthorizedError,
 	createRateLimitedError,
 	createPollingMaxAttemptsError,
 } from '@atlaskit/media-client/test-helpers';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { failDataURIConversionOnce } from '@atlaskit/media-svg/mock-file-reader';
-import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
-import { tallImage, asMockFunction, sleep } from '@atlaskit/media-test-helpers';
+import { sampleBinaries } from '@atlaskit/media-test-data/sample-binaries';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
+import { sleep } from '@atlaskit/media-test-helpers/nextTick';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 

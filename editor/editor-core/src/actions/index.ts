@@ -1,5 +1,5 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import { createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -10,11 +10,11 @@ import {
 import type {
 	ContextUpdateHandler,
 	EditorActionsOptions,
-	FeatureFlags,
 	ReplaceRawValue,
 	GetResolvedEditorStateReason,
-	Transformer,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/editor-actions';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 // eslint-disable-next-line import/order
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';

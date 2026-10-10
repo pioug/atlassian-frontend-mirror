@@ -18,7 +18,7 @@ import { css } from '@compiled/react';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { jsx } from '@atlaskit/css';
-import { useStaticCallback } from '@atlaskit/media-common';
+import { useStaticCallback } from '@atlaskit/media-common/useStaticCallback';
 import { token } from '@atlaskit/tokens';
 
 import { Page } from './page';

@@ -1,20 +1,17 @@
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type {
-	Command,
-	CommandDispatch,
-	EditorCommand,
-	TOOLBAR_MENU_TYPE,
-} from '@atlaskit/editor-common/types';
-import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils/annotation';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 // oxlint-disable-next-line import/no-duplicates
 import { Fragment, type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';

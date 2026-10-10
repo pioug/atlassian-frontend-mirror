@@ -1,4 +1,4 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 
 import type { ListsIndentationInputMethod } from '../../types';
 import { ToolbarType } from '../../types';

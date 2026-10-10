@@ -2,8 +2,9 @@ import React from 'react';
 
 import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
 
-import { type FileIdentifier, type ResponseFileItem } from '@atlaskit/media-client';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { ResponseFileItem } from '@atlaskit/media-client/media-store/types';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';
 import { mediaFilePreviewCache } from './getPreview/cache';

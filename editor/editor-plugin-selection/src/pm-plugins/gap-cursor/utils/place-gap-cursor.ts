@@ -1,5 +1,5 @@
-import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
+import type { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

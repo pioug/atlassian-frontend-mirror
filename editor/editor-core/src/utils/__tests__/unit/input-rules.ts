@@ -1,6 +1,6 @@
-import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
-import { annotationPlugin } from '@atlaskit/editor-plugin-annotation';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
+import { createWrappingJoinRule } from '@atlaskit/editor-common/utils/input-rules';
+import { annotationPlugin } from '@atlaskit/editor-plugin-annotation/annotationPlugin';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';

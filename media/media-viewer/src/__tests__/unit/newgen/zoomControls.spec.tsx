@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createIntl } from 'react-intl';
 
-import { fakeIntl } from '@atlaskit/media-test-helpers';
+import { fakeIntl } from '@atlaskit/media-test-helpers/fakeI18n';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { ZoomLevel } from '../../../domain/zoomLevel';

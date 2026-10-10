@@ -12,26 +12,24 @@ import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl
 import { injectIntl } from 'react-intl';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import Announcer from '@atlaskit/editor-common/announcer';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import type { Item } from '@atlaskit/editor-common/floating-toolbar';
-import { areSameItems, messages } from '@atlaskit/editor-common/floating-toolbar';
+import { areSameItems } from '@atlaskit/editor-common/floating-toolbar';
+import messages from '@atlaskit/editor-common/floating-toolbar/messages';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import commonMessages from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI, SelectOption } from '@atlaskit/editor-common/types';
-import {
-	Announcer,
-	FloatingToolbarButton as Button,
-	FloatingToolbarSeparator as Separator,
-} from '@atlaskit/editor-common/ui';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
-import {
-	ColorPickerButton,
-	ToolbarArrowKeyNavigationProvider,
-} from '@atlaskit/editor-common/ui-menu';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import type { SelectOption } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
+import ColorPickerButton from '@atlaskit/editor-common/ui-menu/ColorPickerButton';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ToolbarArrowKeyNavigationProvider';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';

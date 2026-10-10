@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
-import type { DatasourceModalType } from '@atlaskit/editor-common/types';
+import type { DatasourceModalType } from '@atlaskit/editor-common/types/datasource';
 import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource/analytics/render-failed';
 import type { APIError } from '@atlaskit/linking-common/api-error';
 

@@ -1,8 +1,9 @@
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import { calcTableColumnWidths, getFragmentBackingArray } from '@atlaskit/editor-common/utils';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import { getFragmentBackingArray } from '@atlaskit/editor-common/utils';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils/table';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import {

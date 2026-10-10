@@ -1,15 +1,15 @@
-import type {
-	MediaEventPayload,
-	MediaInputResizeTrackAction,
-	MediaResizeTrackAction,
-	MediaSwitchType,
-} from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	MediaEventPayload,
+	MediaInputResizeTrackAction,
+	MediaResizeTrackAction,
+	MediaSwitchType,
+} from '@atlaskit/editor-common/analytics/types/media-events';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 

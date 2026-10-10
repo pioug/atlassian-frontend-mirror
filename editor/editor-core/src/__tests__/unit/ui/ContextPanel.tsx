@@ -3,8 +3,11 @@ import React from 'react';
 // eslint-disable-next-line
 import { screen, waitFor } from '@testing-library/react';
 
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
-import { ContextPanelConsumer, ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
+import {
+	ContextPanelConsumer,
+	ContextPanelWidthProvider,
+} from '@atlaskit/editor-common/context-panel';
+import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
 import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

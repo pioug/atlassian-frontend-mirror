@@ -2,42 +2,40 @@ import React from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import {
+} from '@atlaskit/editor-common/analytics/types/enums';
+import buildLayoutButtons, {
 	alignmentIcons,
-	buildLayoutButtons,
 	buildLayoutDropdown,
 	layoutToMessages,
 	wrappingIcons,
-} from '@atlaskit/editor-common/card';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
-import commonMessages, {
-	cardMessages,
-	mediaAndEmbedToolbarMessages,
-} from '@atlaskit/editor-common/messages';
+} from '@atlaskit/editor-common/card/MediaAndEmbedsToolbar';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline/utils';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { messages as cardMessages } from '@atlaskit/editor-common/messages/card';
+import { toolbarMessages as mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages/media-and-embed-toolbar';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	DropdownOptions,
 	DropdownOptionT,
-	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
 	FloatingToolbarOverflowDropdownOptions,
-} from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar/floatingToolbarPluginType';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -47,7 +45,7 @@ import {
 	hasParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
 import ImageCropIcon from '@atlaskit/icon-lab/core/image-crop';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
@@ -58,7 +56,7 @@ import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import UploadIcon from '@atlaskit/icon/core/upload';
-import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
+import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip/dom';
 import { messages } from '@atlaskit/media-ui/messages';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

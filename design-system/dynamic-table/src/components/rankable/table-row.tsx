@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Allowing existing usage of non Pragmatic drag and drop solution
-import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
+import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/draggable';
 
 import withDimensions, { type State, type WithDimensionsProps } from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/inline-styles-if-ranking';

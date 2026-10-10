@@ -5,7 +5,7 @@ import { isSchemaWithLists } from '@atlaskit/adf-schema/is-schema-with-lists';
 import { isSchemaWithMedia } from '@atlaskit/adf-schema/is-schema-with-media';
 import { isSchemaWithMentions } from '@atlaskit/adf-schema/is-schema-with-mentions';
 import { isSchemaWithTables } from '@atlaskit/adf-schema/is-schema-with-tables';
-import type { Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 

@@ -12,7 +12,7 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorFullPageMaxWidth,
 	akEditorTableNumberColumnWidth,
-} from '@atlaskit/editor-shared-styles/consts';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import {
 	blockquoteContentWrapper,

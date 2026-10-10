@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactory } from '@atlaskit/editor-common/types';
+import type { PMPluginFactory } from '@atlaskit/editor-common/types/plugin-factory';
 
 import { pluginKey } from './plugin-key';
 

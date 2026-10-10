@@ -2,18 +2,14 @@ import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
-import {
-	type Identifier,
-	type MediaClientConfig,
-	getFileStreamsCache,
-} from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import {
-	createMockedMediaApi,
-	createServerUnauthorizedError,
-} from '@atlaskit/media-client/test-helpers';
+import { getFileStreamsCache } from '@atlaskit/media-client/file-streams-cache';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import * as downloadUrlModule from '@atlaskit/media-common/downloadUrl';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

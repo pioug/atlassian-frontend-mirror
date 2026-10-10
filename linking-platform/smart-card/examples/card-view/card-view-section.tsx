@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { type Card } from '@atlaskit/smart-card';
+import type { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import type { MultiCardViewProps } from '../utils/card-view-props';

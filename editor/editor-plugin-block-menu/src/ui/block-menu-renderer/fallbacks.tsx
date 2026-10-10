@@ -2,12 +2,10 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import {
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 
 import { useBlockMenuTargetVisibility } from '../block-menu-target-visibility-context';

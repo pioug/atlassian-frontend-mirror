@@ -1,4 +1,4 @@
-import { mapFragment } from '@atlaskit/editor-common/utils';
+import { mapFragment } from '@atlaskit/editor-common/utils/slice';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

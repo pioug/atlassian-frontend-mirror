@@ -1,15 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { type MediaClientConfig, type MediaApi, type FileIdentifier } from '@atlaskit/media-client';
-import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
+import type { GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 // TODO: these types should be exported from here (the public package), and imported in test-data
-import {
-	type Binaries,
-	type ItemWithBinaries,
-	type GeneratedItemWithBinaries,
-} from '@atlaskit/media-test-data';
+import type {
+	Binaries,
+	ItemWithBinaries,
+	GeneratedItemWithBinaries,
+} from '@atlaskit/media-test-data/items-with-binaries/types';
 
 import { dataURItoBlob, normaliseInput } from './_helpers';
 import {

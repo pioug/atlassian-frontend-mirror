@@ -11,8 +11,8 @@ import React, { useContext, useState } from 'react';
 import { jsx, css } from '@emotion/react';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

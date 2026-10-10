@@ -11,17 +11,17 @@ import { css, jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
-import { getNodeRenderer } from '@atlaskit/editor-common/extensions';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
-	ExtensionProvider,
 	MultiBodiedExtensionActions,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import { getNodeRenderer } from '@atlaskit/editor-common/extensions/extension-handlers';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import { getExtensionRenderer } from '@atlaskit/editor-common/utils/extension-handler';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 

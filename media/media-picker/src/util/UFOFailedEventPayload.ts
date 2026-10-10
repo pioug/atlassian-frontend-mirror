@@ -1,5 +1,5 @@
-import type { RequestMetadata } from '@atlaskit/media-client';
-import type { WithFileAttributes } from '@atlaskit/media-common';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
+import type { WithFileAttributes } from '@atlaskit/media-common/analytics/types';
 
 export type UFOFailedEventPayload = {
 	failReason: string;

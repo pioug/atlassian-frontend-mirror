@@ -1,11 +1,8 @@
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type {
-	ExtractInjectionAPI,
-	TypeAheadHandler,
-	TypeAheadItem,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closeTypeAhead } from '../../pm-plugins/commands/close-type-ahead';

@@ -1,6 +1,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
+import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset/plugin-injection-api';
+import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 
 import type { DefaultPresetPluginOptions } from '../../src/presets/default';

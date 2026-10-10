@@ -1,4 +1,5 @@
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import { ACTIONS } from '../actions';

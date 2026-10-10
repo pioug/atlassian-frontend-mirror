@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	addColumnAfter,
 	addColumnBefore,
@@ -21,16 +21,14 @@ import {
 	moveRowUp,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import type {
-	Command,
-	CommandDispatch,
-	DropdownOptionT,
-	GetEditorContainerWidth,
-} from '@atlaskit/editor-common/types';
-import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { DropdownOptionT } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
+import type { TableMap } from '@atlaskit/editor-tables/table-map';
 import SortAscendingIcon from '@atlaskit/icon/core/sort-ascending';
 import SortDescendingIcon from '@atlaskit/icon/core/sort-descending';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';

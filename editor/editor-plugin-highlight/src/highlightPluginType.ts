@@ -1,15 +1,15 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
-import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
+import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar/selection-toolbar-plugin-type';
+import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting/text-formatting-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 
 import type { HighlightPluginState } from './pm-plugins/main';
 

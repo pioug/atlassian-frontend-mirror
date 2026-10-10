@@ -2,15 +2,15 @@ import fetchMock from 'fetch-mock/cjs/client';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
+import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/isMimeTypeSupportedByServer';
 import {
 	expectFunctionToHaveBeenCalledWith,
 	asMock,
 	asMockFunction,
 	asMockFunctionResolvedValue,
-	sleep,
-	timeoutPromise,
-} from '@atlaskit/media-common/test-helpers';
+} from '@atlaskit/media-common/jestHelpers';
+import { sleep } from '@atlaskit/media-common/nextTick';
+import { timeoutPromise } from '@atlaskit/media-common/timeoutPromise';
 import type { AuthProvider } from '@atlaskit/media-core/auth';
 import { authToOwner } from '@atlaskit/media-core/auth-to-owner';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';

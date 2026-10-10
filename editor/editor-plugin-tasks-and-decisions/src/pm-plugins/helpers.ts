@@ -1,4 +1,4 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { findFarthestParentNode, isListNode } from '@atlaskit/editor-common/utils';
 import { NodeRange } from '@atlaskit/editor-prosemirror/model';
 import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';

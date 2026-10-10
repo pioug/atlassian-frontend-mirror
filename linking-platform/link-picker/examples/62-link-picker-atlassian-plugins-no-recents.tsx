@@ -4,7 +4,7 @@ import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics/use-sma
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { token } from '@atlaskit/tokens';
-import { useAtlassianPlugins } from '@atlassian/link-picker-atlassian-plugin';
+import { useAtlassianPlugins } from '@atlassian/link-picker-atlassian-plugin/use-atlassian-plugins';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';

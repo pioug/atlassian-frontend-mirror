@@ -1,5 +1,5 @@
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
 
 import type { SyncBlockNodeViewProperties } from './syncedBlock';
 

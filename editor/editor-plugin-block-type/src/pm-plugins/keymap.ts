@@ -1,5 +1,6 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { keymap } from '@atlaskit/editor-common/keymap';
 import {
 	backspace,
 	bindKeymapWithCommand,
@@ -9,7 +10,6 @@ import {
 	findShortcutByKeymap,
 	forwardDelete,
 	insertNewLine,
-	keymap,
 	moveDown,
 	moveUp,
 	redo as redoKeymap,
@@ -17,13 +17,13 @@ import {
 	undo as undoKeymap,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import {
 	createNewParagraphAbove,
 	createNewParagraphBelow,
 	deleteEmptyParagraphAndMoveBlockUp,
 	insertNewLineWithAnalytics,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/commands';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { redo } from '@atlaskit/prosemirror-history/redo';

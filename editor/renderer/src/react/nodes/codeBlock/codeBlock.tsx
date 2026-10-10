@@ -11,7 +11,7 @@ import { injectIntl } from 'react-intl';
 
 import AkCodeBlock from '@atlaskit/code/code-block';
 import type { SupportedLanguages } from '@atlaskit/code/constants';
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import CodeBlockContainer from './components/codeBlockContainer';

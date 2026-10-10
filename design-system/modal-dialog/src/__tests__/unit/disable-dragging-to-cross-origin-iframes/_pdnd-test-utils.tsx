@@ -3,14 +3,14 @@
 
 import invariant from 'tiny-invariant';
 
-import { type NativeMediaType } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
-import {
-	type CleanupFn,
-	type DragLocation,
-	type DragLocationHistory,
-	type DropTargetRecord,
-	type Input,
-} from '@atlaskit/pragmatic-drag-and-drop/types';
+import type {
+	CleanupFn,
+	DragLocation,
+	DragLocationHistory,
+	DropTargetRecord,
+	Input,
+	NativeMediaType,
+} from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import { fireEvent } from '@atlassian/testing-library';
 
 export function getDefaultInput(overrides: Partial<Input> = {}): Input {

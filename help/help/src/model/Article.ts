@@ -1,5 +1,5 @@
-import { type BODY_FORMAT_TYPES } from '@atlaskit/help-article';
-import type { AdfDoc } from '@atlaskit/help-article';
+import type { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
+import type { AdfDoc } from '@atlaskit/help-article/model/HelpArticle';
 export interface Article extends ArticleItem {
 	body: string | AdfDoc;
 	bodyFormat?: BODY_FORMAT_TYPES;

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import isEqual from 'lodash/isEqual';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { FindReplacePlugin } from '../../findReplacePluginType';
 import type { FindReplacePluginState } from '../../types';

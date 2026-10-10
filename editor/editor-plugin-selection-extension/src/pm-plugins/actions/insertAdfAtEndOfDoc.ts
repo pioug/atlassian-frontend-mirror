@@ -1,5 +1,5 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 

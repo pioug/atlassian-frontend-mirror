@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { imageFileId } from '@atlaskit/media-test-helpers';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import { WidthProvider } from '@atlaskit/editor-common/WidthProvider';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import { imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 
 import Caption from '../../../../react/nodes/caption';
 import type { MediaProps } from '../../../../react/nodes/media';
@@ -24,14 +25,15 @@ jest.mock('../../../../react/nodes/media', () => {
 });
 
 const mockUIMediaSingle = jest.fn();
-jest.mock('@atlaskit/editor-common/ui', () => {
-	const actual = jest.requireActual('@atlaskit/editor-common/ui');
+jest.mock('@atlaskit/editor-common/MediaSingle', () => {
+	const actual = jest.requireActual('@atlaskit/editor-common/MediaSingle');
 	const react = jest.requireActual('react');
 	return {
 		...actual,
-		MediaSingle: (props: Record<string, unknown>) => {
+		__esModule: true,
+		default: (props: Record<string, unknown>) => {
 			mockUIMediaSingle(props);
-			return react.createElement(actual.MediaSingle, props);
+			return react.createElement(actual.default, props);
 		},
 	};
 });

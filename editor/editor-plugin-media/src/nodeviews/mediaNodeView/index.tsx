@@ -4,31 +4,32 @@ import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import {
+	DEFAULT_IMAGE_HEIGHT,
+	DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-single/constants';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/SelectionBasedNodeView';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-	ProviderFactory,
-	Providers,
-} from '@atlaskit/editor-common/provider-factory';
-import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import type { SharedInteractionState } from '@atlaskit/editor-plugin-interaction';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { SharedInteractionState } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';

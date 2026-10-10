@@ -7,7 +7,7 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { render, screen } from '@atlassian/testing-library';
 

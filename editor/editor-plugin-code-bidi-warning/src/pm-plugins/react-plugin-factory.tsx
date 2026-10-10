@@ -5,10 +5,11 @@ import { v4 as uuid } from 'uuid';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning-ui';
 import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning/bidi-warning-decorator';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { Command } from '@atlaskit/editor-common/types';
-import { pluginFactory, stepHasSlice } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { stepHasSlice } from '@atlaskit/editor-common/utils';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';

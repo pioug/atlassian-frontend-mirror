@@ -1,6 +1,7 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
-import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models/editor-main-toolbar-model';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, em, h1, p, strong, underline } from '@atlaskit/editor-test-helpers/doc-builder';
 

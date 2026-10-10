@@ -1,6 +1,6 @@
 import React from 'react';
 import { md } from '@atlaskit/docs';
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 import clipBoardExamples from './content/clipboard/example';
 import clipBoardProps from './content/clipboard/props';
 const _default_1: any = md`

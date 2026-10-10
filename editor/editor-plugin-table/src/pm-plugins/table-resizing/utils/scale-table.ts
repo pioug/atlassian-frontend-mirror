@@ -1,10 +1,10 @@
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import type { PluginInjectionAPI } from '../../../types';
 import { updateColumnWidths } from '../../transforms/column-width';

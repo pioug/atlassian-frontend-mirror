@@ -6,7 +6,7 @@ import {
 	EVENT_TYPE,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { render } from '@atlassian/testing-library';
 
 import type { ComponentCrashErrorAEP } from '../../../../analytics/events';

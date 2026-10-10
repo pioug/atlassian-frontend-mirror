@@ -9,8 +9,8 @@ import { jsx, css, type SerializedStyles } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages/help-dialog';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';

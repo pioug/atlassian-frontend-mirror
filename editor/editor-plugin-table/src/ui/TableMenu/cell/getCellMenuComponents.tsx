@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import AlignPositionBottomIcon from '@atlaskit/icon-lab/core/align-position-bottom';
 import AlignPositionCenterVerticalIcon from '@atlaskit/icon-lab/core/align-position-center-vertical';
 import AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';

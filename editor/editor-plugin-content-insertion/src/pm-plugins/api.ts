@@ -1,4 +1,4 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 
 import type { InsertNodeAPI } from '../types';
 import { handleInsertContent } from './insert-content-handlers';

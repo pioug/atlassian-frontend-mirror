@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { STRUCTURE_SECTION, TABLE_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { STRUCTURE_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { TablePlugin, TablePluginOptions } from '../../tablePluginType';

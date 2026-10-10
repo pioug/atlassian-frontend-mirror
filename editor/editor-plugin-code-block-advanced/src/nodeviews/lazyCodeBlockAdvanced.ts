@@ -2,8 +2,8 @@ import type { Extension } from '@codemirror/state';
 import type { IntlShape } from 'react-intl';
 
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, DecorationSource, Decoration } from '@atlaskit/editor-prosemirror/view';
 

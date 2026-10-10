@@ -1,6 +1,6 @@
-import { tableMarginTop } from '@atlaskit/editor-common/styles';
+import { tableMarginTop } from '@atlaskit/editor-common/styles/table';
 import { getStickyHeaderHeight } from '@atlaskit/editor-common/table/get-sticky-header-height';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

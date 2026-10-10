@@ -5,7 +5,7 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import {

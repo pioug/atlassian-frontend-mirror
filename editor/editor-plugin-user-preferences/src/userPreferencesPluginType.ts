@@ -1,14 +1,14 @@
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences-provider';
 import type {
 	ResolvedUserPreferences,
-	UserPreferencesProvider,
 	UserPreferences,
-} from '@atlaskit/editor-common/user-preferences';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+} from '@atlaskit/editor-common/user-preferences/user-preferences';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 
 export type UserPreferencesPluginOptions = {
 	/**

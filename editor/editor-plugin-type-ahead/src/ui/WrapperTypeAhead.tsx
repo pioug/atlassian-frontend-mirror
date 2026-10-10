@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 
 import { useIntl } from 'react-intl';
 
-import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

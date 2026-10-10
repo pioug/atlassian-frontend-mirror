@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 
 import adf from '../example-helpers/templates/media-with-caption.adf.json';
 import { default as FullPageExample } from './5-full-page';

@@ -5,12 +5,9 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import {
-	GoogleDoc,
-	GoogleDocUrl,
-	iconGoogleDrive,
-	SlackMessage,
-} from '@atlaskit/link-test-helpers';
+import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
+import { GoogleDoc, GoogleDocUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
+import { SlackMessage } from '@atlaskit/link-test-helpers/smart-card/mocks/slack';
 
 import { CardSSR } from '../src/ssr';
 import useAISummaryAction from '../src/state/hooks/use-ai-summary-action';

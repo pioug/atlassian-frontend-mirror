@@ -5,9 +5,9 @@ import { IntlProvider } from 'react-intl';
 import Loadable from 'react-loadable';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import combineExtensionProviders from '@atlaskit/editor-common/extensions/combine-extension-providers';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 

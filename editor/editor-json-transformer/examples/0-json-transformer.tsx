@@ -8,8 +8,8 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 /* eslint-enable @typescript-eslint/consistent-type-imports */
 
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { Editor } from '@atlaskit/editor-core';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import Editor from '@atlaskit/editor-core/editor';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { token } from '@atlaskit/tokens';

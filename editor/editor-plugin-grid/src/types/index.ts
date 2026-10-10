@@ -1,4 +1,4 @@
-import type { GridType } from '@atlaskit/editor-common/types';
+import type { GridType } from '@atlaskit/editor-common/types/grid';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type Highlights = Array<'wide' | 'full-width' | number>;

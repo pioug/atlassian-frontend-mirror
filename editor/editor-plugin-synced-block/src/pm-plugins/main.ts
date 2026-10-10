@@ -3,34 +3,36 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import {
 	BodiedSyncBlockSharedCssClassName,
 	SyncBlockStateCssClassName,
-} from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { mapSlice, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/styles/sync-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
-import { convertPMNodesToSyncBlockNodes } from '@atlaskit/editor-synced-block-provider';
-import type {
-	SyncBlockProduct,
-	SyncBlockStoreManager,
-} from '@atlaskit/editor-synced-block-provider';
 import type {
 	DeletionReason,
 	DeletionMechanism,
+	SyncBlockProduct,
 } from '@atlaskit/editor-synced-block-provider/common/types';
-import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
+import {
+	getSourceProductFromResourceIdSafe,
+	convertPMNodesToSyncBlockNodes,
+} from '@atlaskit/editor-synced-block-provider/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { bodiedSyncBlockNodeView } from '../nodeviews/bodiedSyncedBlock';

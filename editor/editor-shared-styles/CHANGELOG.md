@@ -1,5 +1,17 @@
 # @atlaskit/editor-shared-styles
 
+## 4.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.1
 
 ### Patch Changes

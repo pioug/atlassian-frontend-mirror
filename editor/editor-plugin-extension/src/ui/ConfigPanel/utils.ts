@@ -1,4 +1,5 @@
-import type { FieldDefinition, Option, Parameters } from '@atlaskit/editor-common/extensions';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { FieldDefinition, Option } from '@atlaskit/editor-common/extensions/field-definitions';
 import type { GroupBase } from '@atlaskit/react-select/types';
 import { isOptionsGrouped } from '@atlaskit/select/grouped-options-announcement';
 

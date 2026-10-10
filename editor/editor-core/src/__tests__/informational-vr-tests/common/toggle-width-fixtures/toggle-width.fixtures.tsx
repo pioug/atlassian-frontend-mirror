@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // eslint-disable-next-line
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 
 import { Editor } from '../../../../index';
 import adf from './tall-image-local.json';

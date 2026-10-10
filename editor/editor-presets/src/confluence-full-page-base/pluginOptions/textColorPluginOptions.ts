@@ -1,4 +1,4 @@
-import type { TextColorPluginOptions } from '@atlaskit/editor-plugin-text-color';
+import type { TextColorPluginOptions } from '@atlaskit/editor-plugin-text-color/text-color-plugin-type';
 
 interface Props {
 	options: never;

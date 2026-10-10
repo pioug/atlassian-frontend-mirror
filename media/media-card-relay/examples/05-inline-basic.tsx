@@ -15,15 +15,15 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import type { FileIdentifier } from '@atlaskit/media-client';
 import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	audioFileId,
 	imageFileId,
 	largePdfFileId,
 	videoFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

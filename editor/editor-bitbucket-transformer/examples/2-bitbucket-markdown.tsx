@@ -4,7 +4,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
+import { CollapsedEditor } from '@atlaskit/editor-core/CollapsedEditor';
+import Editor from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
 import { token } from '@atlaskit/tokens';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 

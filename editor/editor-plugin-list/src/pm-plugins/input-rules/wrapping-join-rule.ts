@@ -1,5 +1,5 @@
-import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
-import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
+import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics/types/list-events';
+import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
 import { createRule } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

@@ -1,4 +1,5 @@
-import Fetcher, { type FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher';
+import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
+import type { FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher/types';
 import {
 	type BaseClientOptions,
 	type CustomAttributes,
@@ -17,8 +18,8 @@ import Refresh from '../Refresh';
 import { type FeatureGateState } from '../types';
 import { createHash, getFrontendExperimentsResult } from '../utils';
 
-jest.mock('@atlaskit/feature-gate-fetcher', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-fetcher'),
+jest.mock('@atlaskit/feature-gate-fetcher/Fetcher', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-fetcher/Fetcher'),
 	fetchExperimentValues: jest.fn(),
 	fetchClientSdkKey: jest.fn(),
 }));

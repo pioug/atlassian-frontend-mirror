@@ -3,8 +3,8 @@ import React, { useCallback, useMemo } from 'react';
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import type AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 
 export default function ({

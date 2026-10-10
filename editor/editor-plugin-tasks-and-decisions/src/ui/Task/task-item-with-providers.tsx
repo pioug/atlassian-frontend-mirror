@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 import React, { Component } from 'react';
 
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
 import { ResourcedTaskItem } from '@atlaskit/task-decision';
 

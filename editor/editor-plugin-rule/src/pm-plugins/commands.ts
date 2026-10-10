@@ -1,11 +1,12 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { findSelectedNodeOfType, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import { token } from '@atlaskit/tokens';
 

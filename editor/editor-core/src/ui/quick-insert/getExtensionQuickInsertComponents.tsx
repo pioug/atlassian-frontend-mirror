@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { getQuickInsertMenuItemParents } from '@atlaskit/editor-common/quick-insert/get-menu-item-parents';
 import {
@@ -18,8 +18,8 @@ import {
 	EXTENSION_ITEM_RANK,
 	MEDIA_SECTION_RANK,
 } from '@atlaskit/editor-common/quick-insert/rank';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 import type {
 	CommonComponentProps,
 	RegisterMenuItem,

@@ -1,16 +1,16 @@
 import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { unsupportedContentMessages } from '@atlaskit/editor-common/messages';
-import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils';
+import { unsupportedContentMessages } from '@atlaskit/editor-common/messages/unsupportedContent';
 import { trackUnsupportedContentTooltipDisplayedFor } from '@atlaskit/editor-common/utils/track-unsupported-content';
+import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils/unsupportedContent/types';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
 	VanillaTooltip,
 } from '@atlaskit/editor-common/vanilla-tooltip';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';

@@ -11,11 +11,13 @@ import { useIntl } from 'react-intl';
 
 import type AnalyticsEvent from '@atlaskit/analytics-next/AnalyticsEvent';
 import AvatarGroup from '@atlaskit/avatar-group/avatar-group';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
-import type { ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit/types';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

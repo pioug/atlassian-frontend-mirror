@@ -7,7 +7,7 @@ import type { CSSProperties, HTMLAttributes } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { akEditorContextPanelWidth as AkEditorContextPanelWidthType } from '@atlaskit/editor-shared-styles/consts';
+import type { akEditorContextPanelWidth as AkEditorContextPanelWidthType } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 const akEditorContextPanelWidthStatic = 320 satisfies typeof AkEditorContextPanelWidthType;

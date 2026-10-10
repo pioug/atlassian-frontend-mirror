@@ -1,13 +1,13 @@
-import { type RequestMetadata } from '@atlaskit/media-client';
-import {
-	type UIAttributes,
-	type UIEventPayload,
-	type OperationalAttributes,
-	type SuccessAttributes,
-	type FailureAttributes,
-	type OperationalEventPayload,
-	type MediaTraceContext,
-} from '@atlaskit/media-common';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
+import type {
+	UIAttributes,
+	UIEventPayload,
+	OperationalAttributes,
+	SuccessAttributes,
+	FailureAttributes,
+	OperationalEventPayload,
+	MediaTraceContext,
+} from '@atlaskit/media-common/analytics/types';
 
 import { type LocalUploadConfig } from './components/types';
 import { type PluginItemPayload } from './domain/plugin';

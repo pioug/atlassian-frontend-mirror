@@ -1,7 +1,8 @@
-import type { EditorAnalyticsAPI, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { VIEW_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
 import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 

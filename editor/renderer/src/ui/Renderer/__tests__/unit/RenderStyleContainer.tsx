@@ -3,8 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
-import { BaseTheme } from '@atlaskit/editor-common/ui';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import { BaseTheme } from '@atlaskit/editor-common/BaseTheme';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles/constants';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 

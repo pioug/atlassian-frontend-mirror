@@ -2,8 +2,8 @@ import { bind } from 'bind-event-listener';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles/drag-handle';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
 	EditorState,
 	ReadonlyTransaction,

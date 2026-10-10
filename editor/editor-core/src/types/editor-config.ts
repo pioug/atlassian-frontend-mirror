@@ -1,11 +1,10 @@
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
+import type { MarkConfig, NodeConfig } from '@atlaskit/editor-common/types/prosemirror-config';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type {
-	MarkConfig,
-	NodeConfig,
-	PMPlugin,
 	ReactHookFactory,
-	ToolbarUIComponentFactory,
 	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/ui-components';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type EditorViewStateUpdatedCallbackProps = {

@@ -11,26 +11,20 @@ import { css as cssUnbounded } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	MODE,
-	PLATFORMS,
-} from '@atlaskit/editor-common/analytics';
 // oxlint-disable-next-line import/no-duplicates
-import type { EditorAnalyticsAPI, RequestToEditAEP } from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners as withOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { MODE, PLATFORMS } from '@atlaskit/editor-common/analytics/types/general-events';
+import type { RequestToEditAEP } from '@atlaskit/editor-common/analytics/types/general-events';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import Heading from '@atlaskit/heading/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import { Box, Pressable, Stack } from '@atlaskit/primitives/compiled';

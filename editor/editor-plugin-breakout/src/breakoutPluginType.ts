@@ -1,16 +1,16 @@
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type {
-	EditorAppearance,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline/guidelinePluginType';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import type { ActiveGuidelineKey } from './pm-plugins/resizing-plugin';

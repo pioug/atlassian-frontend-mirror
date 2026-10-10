@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, type Dispatch, type SetStateAction } from 
 
 import algoliasearch from 'algoliasearch';
 
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
 
 import type { Article, ArticleItem, articleId as articleIdType } from '../../../src/index';
 import { ARTICLE_ITEM_TYPES, createArticleObject } from '../../../src/index';

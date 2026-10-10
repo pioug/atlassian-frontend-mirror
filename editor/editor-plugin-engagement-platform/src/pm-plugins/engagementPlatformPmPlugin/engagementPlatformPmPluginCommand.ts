@@ -1,4 +1,4 @@
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 
 import { engagementPlatformPmPluginKey } from './engagementPlatformPmPluginKey';
 import type { EngagementPlatformPmPluginCommand, EngagementPlatformPmPluginTrMeta } from './types';

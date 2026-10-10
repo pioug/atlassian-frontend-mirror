@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

@@ -1,5 +1,5 @@
 import { expandedState } from '@atlaskit/editor-common/expand';
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
 import type { Node as PMNode, Fragment, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { contains } from '@atlaskit/editor-prosemirror/utils';

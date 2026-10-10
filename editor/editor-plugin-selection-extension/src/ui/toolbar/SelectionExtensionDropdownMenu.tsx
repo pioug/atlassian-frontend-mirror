@@ -3,17 +3,15 @@ import React, { useState } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import {
-	DropdownMenuWithKeyboardNavigation as DropdownMenu,
-	type MenuItem,
-} from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 
 import type { MenuItemsType } from '../../types';
 import { SelectionExtensionDropdownMenuButton } from './SelectionExtensionDropdownMenuButton';

@@ -5,8 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { headingsSharedStyles, blockquoteSharedStyles } from '@atlaskit/editor-common/styles';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { blockquoteSharedStyles } from '@atlaskit/editor-common/styles/blockquote';
+import { headingsSharedStyles } from '@atlaskit/editor-common/styles/headings';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import { token } from '@atlaskit/tokens';
 import type { ThemeState } from '@atlaskit/tokens/theme-config';
 

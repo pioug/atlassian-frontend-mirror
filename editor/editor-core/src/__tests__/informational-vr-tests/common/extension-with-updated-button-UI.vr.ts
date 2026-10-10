@@ -1,8 +1,6 @@
-import {
-	EditorExtensionFloatingToolbarModel,
-	EditorNodeContainerModel,
-	EditorPageModel,
-} from '@af/editor-libra/page-models';
+import { EditorExtensionFloatingToolbarModel } from '@af/editor-libra/page-models/editor-extension-model';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
+import { EditorPageModel } from '@af/editor-libra/page-models/editor-page-model';
 import { snapshotInformational } from '@af/visual-regression';
 
 import {

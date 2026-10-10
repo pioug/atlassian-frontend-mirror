@@ -1,20 +1,22 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { createRule } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import type { EmojiDescription } from '@atlaskit/emoji/types';
-import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules/constants';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
 
 import type { EmojiPlugin } from '../emojiPluginType';
 

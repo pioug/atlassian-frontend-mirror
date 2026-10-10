@@ -5,26 +5,25 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnalyticsEventPayload,
 	AnalyticsEventPayloadCallback,
-	AnnotationDraftAEPAttributes,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/events';
+import type { AnnotationDraftAEPAttributes } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import {
 	AnnotationSharedClassNames,
 	BlockAnnotationSharedClassNames,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/styles/annotation';
 import {
 	canApplyAnnotationOnRange,
 	getAnnotationIdsFromRange,
 	getRangeInlineNodeNames,
 	hasAnnotationMark,
 	isEmptyTextSelection,
-	isParagraph,
-	isText,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/annotation';
+import { isParagraph, isText } from '@atlaskit/editor-common/utils/nodes';
 import type { Mark, Node, ResolvedPos, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import {

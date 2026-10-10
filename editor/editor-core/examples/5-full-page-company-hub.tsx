@@ -1,11 +1,9 @@
 import React from 'react';
 
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
-import {
-	getExampleExtensionProviders,
-	getXProductExtensionProvider,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers/get-example-extension-providers';
+import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/fakeXProductExtensions';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 import { exampleHubDoc } from '../example-helpers/hub-document';

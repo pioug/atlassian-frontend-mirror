@@ -1,5 +1,5 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 

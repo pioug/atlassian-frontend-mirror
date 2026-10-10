@@ -3,8 +3,8 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { messages } from '@atlaskit/editor-common/floating-toolbar';
-import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
+import messages from '@atlaskit/editor-common/floating-toolbar/messages';
+import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types/floating-toolbar';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';

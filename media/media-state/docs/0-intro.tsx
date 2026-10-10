@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
-import { createMediaUseOnlyNotice, createSingletonNotice } from '@atlaskit/media-common/docs';
+import { createMediaUseOnlyNotice } from '@atlaskit/media-common/media-use-only';
+import { createSingletonNotice } from '@atlaskit/media-common/singleton-notice';
 
 const packageName = 'Media State';
 

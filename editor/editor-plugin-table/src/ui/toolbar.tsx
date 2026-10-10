@@ -7,56 +7,50 @@ import { jsx } from '@emotion/react';
 import isEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 
-import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { DropdownMenuExtensionItems } from '@atlaskit/editor-common/floating-toolbar';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/analytics/types/table-events';
+import { DropdownMenuExtensionItems } from '@atlaskit/editor-common/DropdownMenuExtensionItems';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
-import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/table';
 import {
 	isNestedTablesSupported,
 	isSelectionTableNestedInTable,
 } from '@atlaskit/editor-common/nesting';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
 import type {
-	Command,
-	CommandDispatch,
 	ConfirmDialogOptions,
 	DropdownOptionT,
 	DropdownOptions,
 	FloatingToolbarDropdown,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
-	GetEditorContainerWidth,
 	Icon,
 	typeOption,
-} from '@atlaskit/editor-common/types';
-import {
-	DEFAULT_BORDER_COLOR,
-	cellBackgroundColorPalette,
-	cellBackgroundColorPaletteNew,
-} from '@atlaskit/editor-common/ui-color';
-import {
-	closestElement,
-	getChildrenInfo,
-	getNodeName,
-	isReferencedSource,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import { cellBackgroundColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import cellBackgroundColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette/cellBackgroundColorPalette';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color/ColorPalette/Palettes/common';
+import { getNodeName } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
+import { getChildrenInfo, isReferencedSource } from '@atlaskit/editor-common/utils/referentiality';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentDomRefOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-	findCellRectClosestToPos,
-	findTable,
-	getSelectionRect,
-	isSelectionType,
-	splitCell,
-} from '@atlaskit/editor-tables/utils';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
+import { Rect } from '@atlaskit/editor-tables/rect';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findCellRectClosestToPos, findTable } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
+import { splitCell } from '@atlaskit/editor-tables/utils/split-cell';
 import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
 import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import CopyIcon from '@atlaskit/icon/core/copy';

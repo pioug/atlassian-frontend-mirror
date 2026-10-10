@@ -10,32 +10,33 @@ import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TOOLBAR_ACTION_SUBJECT_ID as TOOLBAR_BUTTON } from '@atlaskit/editor-common/analytics/types/toolbar-button';
+import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons/DynamicStrokeIconDecoration';
 import {
 	toggleHighlightPalette,
 	tooltip,
 	getAriaKeyshortcuts,
 } from '@atlaskit/editor-common/keymaps';
-import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
+import { highlightMessages as messages } from '@atlaskit/editor-common/messages/highlight';
+import { expandIconContainerStyle } from '@atlaskit/editor-common/styles/expand';
 import {
 	disableBlueBorderStyles,
-	expandIconContainerStyle,
 	triggerWrapperStylesWithPadding,
-} from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
-import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
+} from '@atlaskit/editor-common/styles/plugins';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';

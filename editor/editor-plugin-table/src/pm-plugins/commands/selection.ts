@@ -1,16 +1,17 @@
 import type { IntlShape } from 'react-intl/src/types';
 
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import { messages } from '@atlaskit/editor-common/messages/table';
 import {
-	GapCursorSelection,
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
-	RelativeSelectionPos,
 	Side,
 } from '@atlaskit/editor-common/selection';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection/types';
+import { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -21,8 +22,8 @@ import {
 	isColumnSelected,
 	isRowSelected,
 	isTableSelected,
-	selectedRect,
 } from '@atlaskit/editor-tables/utils';
+import { selectedRect } from '@atlaskit/editor-tables/utils/selection-rect';
 
 import type tablePlugin from '../../tablePlugin';
 import { getClosestSelectionRect } from '../../ui/toolbar';

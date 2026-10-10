@@ -1,7 +1,7 @@
-import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
-import type { ExtensionPluginOptions } from '@atlaskit/editor-plugin-extension';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility/types';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtensionPluginOptions } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 
 interface Props {
 	options: {

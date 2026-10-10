@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { SortingIcon } from '@atlaskit/editor-common/table';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import SortingIcon from '@atlaskit/editor-common/table/SortingIcon';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 
 import type { TablePlugin } from '../../tablePluginType';
 

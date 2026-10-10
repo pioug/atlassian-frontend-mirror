@@ -7,17 +7,12 @@ import { Fragment, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form/label/default';
-import {
-	type MediaClientConfig,
-	type FileIdentifier,
-	type ImageResizeMode,
-} from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
-import {
-	createStorybookMediaClientConfig,
-	genericFileId,
-	largeImageFileId,
-} from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { genericFileId, largeImageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Select from '@atlaskit/select/default';
 
 import { ControlsBox } from '../example-helpers/svg-helpers/controls';

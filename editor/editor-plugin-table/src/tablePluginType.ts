@@ -1,27 +1,28 @@
-import type { AnalyticsEventPayload, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { _MarkdownModePluginStub } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type {
-	Command,
-	EditorCommand,
-	GetEditorFeatureFlags,
 	NextEditorPlugin,
 	OptionalPlugin,
-	_MarkdownModePluginStub,
-} from '@atlaskit/editor-common/types';
-import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BatchAttributeUpdatesPlugin } from '@atlaskit/editor-plugin-batch-attribute-updates';
-import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
-import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BatchAttributeUpdatesPlugin } from '@atlaskit/editor-plugin-batch-attribute-updates/batchAttributeUpdatesPluginType';
+import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion/contentInsertionPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline/guidelinePluginType';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 
 import type { PluginConfig, TableSharedState } from './types';
 

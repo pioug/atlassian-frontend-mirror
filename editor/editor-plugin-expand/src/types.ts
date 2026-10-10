@@ -1,23 +1,23 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorAppearance,
-	EditorCommand,
-	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
-import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types/selection';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
 import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
-import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id';
-import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
-import type { SelectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
-import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry';
+import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id/local-id-plugin-type';
+import type { SelectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker/selection-marker-plugin-type';
+import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { insertExpand, insertExpandWithInputMethod } from './legacyExpand/commands';

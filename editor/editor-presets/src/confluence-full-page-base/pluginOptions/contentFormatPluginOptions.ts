@@ -1,5 +1,5 @@
-import type { EditorContentMode } from '@atlaskit/editor-common/types';
-import type { ContentFormatPluginOptions } from '@atlaskit/editor-plugin-content-format';
+import type { EditorContentMode } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ContentFormatPluginOptions } from '@atlaskit/editor-plugin-content-format/contentFormatPluginType';
 
 interface Props {
 	options:

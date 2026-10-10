@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.1.1
+
+### Patch Changes
+
+- [`84d2763a3775d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84d2763a3775d) -
+  Fix unmounted segments remaining in the global cache and appearing in later interactions and their
+  segment payloads. Segments recorded during an active interaction remain in that interaction's
+  history.
+
 ## 8.1.0
 
 ### Minor Changes

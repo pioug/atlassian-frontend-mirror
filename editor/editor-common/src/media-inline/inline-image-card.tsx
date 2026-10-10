@@ -7,9 +7,9 @@ import { Fragment, useCallback, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import type { FileIdentifier } from '@atlaskit/media-client';
-import type { SSR } from '@atlaskit/media-common';
-import { getRandomHex } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { getRandomHex } from '@atlaskit/media-common/helpers';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import { useFilePreview } from '@atlaskit/media-file-preview/use-file-preview';
 import { MediaImage } from '@atlaskit/media-ui/mediaImage';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

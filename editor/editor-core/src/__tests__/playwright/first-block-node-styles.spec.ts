@@ -1,5 +1,6 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
-import { EditorNodeContainerModel } from '@af/editor-libra/page-models';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
 import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 
 import {

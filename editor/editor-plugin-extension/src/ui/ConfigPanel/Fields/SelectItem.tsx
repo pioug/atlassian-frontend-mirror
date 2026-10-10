@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import type { Option } from '@atlaskit/editor-common/extensions';
+import type { Option } from '@atlaskit/editor-common/extensions/field-definitions';
 import type { FormatOptionLabelMeta } from '@atlaskit/select/types';
 import { token } from '@atlaskit/tokens';
 

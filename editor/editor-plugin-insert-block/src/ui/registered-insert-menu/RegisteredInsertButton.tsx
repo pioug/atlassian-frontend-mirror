@@ -2,18 +2,19 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import {
 	getAriaKeyshortcuts,
 	insertElements,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import Popup from '@atlaskit/editor-common/Popup';
 import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
-import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { AddIcon } from '@atlaskit/editor-toolbar/add-icon';
 import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';

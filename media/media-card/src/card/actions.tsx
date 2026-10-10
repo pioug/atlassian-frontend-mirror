@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { type FileItem } from '@atlaskit/media-client';
+import type { FileItem } from '@atlaskit/media-client/item';
 
 export interface CardAction {
 	label?: string;

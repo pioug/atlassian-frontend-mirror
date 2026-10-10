@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { mocks, ResolvingClient } from '@atlaskit/link-test-helpers';
+import { mocks, ResolvingClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import {
 	type CardProps,

@@ -1,5 +1,5 @@
 import { removeMark } from '@atlaskit/editor-common/mark';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
 

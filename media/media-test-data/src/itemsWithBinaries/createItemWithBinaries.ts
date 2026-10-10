@@ -1,4 +1,4 @@
-import { type ResponseFileItem } from '@atlaskit/media-client';
+import type { ResponseFileItem } from '@atlaskit/media-client/media-store/types';
 import type {
 	MediaFileArtifact,
 	MediaFileArtifacts,

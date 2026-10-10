@@ -5,22 +5,26 @@ import type { IntlShape } from 'react-intl';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { OnClickCallback } from '@atlaskit/editor-common/card';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { OnClickCallback } from '@atlaskit/editor-common/card/cardOptions';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
-import type { ReactComponentProps, getPosHandler } from '@atlaskit/editor-common/react-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import type {
+	ReactComponentProps,
+	getPosHandler,
+} from '@atlaskit/editor-common/react-node-view/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import Link from '@atlaskit/link/link';
 import type { APIError } from '@atlaskit/linking-common/api-error';
-import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
+import type { CardProps as BaseCardProps } from '@atlaskit/smart-card/card/types';
 
 import type { CardPlugin } from '../cardPluginType';
 import type { cardPlugin } from '../index';

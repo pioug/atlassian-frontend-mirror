@@ -1,5 +1,5 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type { EditorProps } from '@atlaskit/editor-core';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
 
 export interface TestSuiteOptions {
 	adfs: {

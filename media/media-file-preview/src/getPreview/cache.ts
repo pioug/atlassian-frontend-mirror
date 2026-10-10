@@ -1,4 +1,4 @@
-import { type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
 
 import { type MediaFilePreview } from '../types';
 import { CardPreviewCacheImpl } from './CardPreviewCacheImpl';

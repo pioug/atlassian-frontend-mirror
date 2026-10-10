@@ -1,5 +1,6 @@
-import { type MediaClient, type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import { RemotePreviewError } from '../RemotePreviewError';
 import { type MediaFilePreview } from '../types';

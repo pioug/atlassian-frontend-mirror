@@ -1,6 +1,6 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { pluginKey } from './plugin-key';

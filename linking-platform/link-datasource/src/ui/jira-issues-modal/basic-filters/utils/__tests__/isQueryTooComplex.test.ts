@@ -1,4 +1,4 @@
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isQueryTooComplex } from '../isQueryTooComplex';

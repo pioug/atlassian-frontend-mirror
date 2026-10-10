@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
-import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarCustom,
 	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
-import {
-	FloatingToolbarButton as Button,
-	FloatingToolbarSeparator as Separator,
-} from '@atlaskit/editor-common/ui';
-import {
-	ArrowKeyNavigationType,
-	DropdownContainer as UiDropdown,
-} from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Flex } from '@atlaskit/primitives/compiled';
 

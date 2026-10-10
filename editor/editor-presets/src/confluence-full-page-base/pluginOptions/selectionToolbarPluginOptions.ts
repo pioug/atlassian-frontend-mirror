@@ -1,5 +1,5 @@
-import type { UserPreferencesProvider } from '@atlaskit/editor-common/types';
-import type { SelectionToolbarPluginOptions } from '@atlaskit/editor-plugin-selection-toolbar';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/types/user-preferences';
+import type { SelectionToolbarPluginOptions } from '@atlaskit/editor-plugin-selection-toolbar/selection-toolbar-plugin-type';
 
 interface Props {
 	options: {

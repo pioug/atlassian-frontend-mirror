@@ -1,8 +1,5 @@
-import {
-	type FileIdentifier,
-	type ExternalImageIdentifier,
-	isDifferentIdentifier,
-} from '@atlaskit/media-client';
+import { isDifferentIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client/identifier';
 
 describe('isDifferentIdentifier()', () => {
 	describe('file identifier', () => {

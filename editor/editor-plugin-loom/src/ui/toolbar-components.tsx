@@ -3,14 +3,16 @@ import React from 'react';
 import {
 	LOOM_MENU_SECTION,
 	LOOM_MENU_ITEM,
-	LOOM_MENU_SECTION_RANK,
-	OVERFLOW_MENU_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	LOOM_MENU_SECTION_RANK,
+	OVERFLOW_MENU_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_EXTENSIONS_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { EnumField } from '@atlaskit/editor-common/extensions';
+import type { EnumField } from '@atlaskit/editor-common/extensions/field-definitions';
 
 import type { OnFieldChange } from '../types';
 import CheckboxGroup from './CheckboxGroup';

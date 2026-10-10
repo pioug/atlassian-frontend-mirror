@@ -1,5 +1,5 @@
-import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
 import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

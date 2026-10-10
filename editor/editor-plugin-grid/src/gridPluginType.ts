@@ -1,5 +1,5 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState } from './types';
 

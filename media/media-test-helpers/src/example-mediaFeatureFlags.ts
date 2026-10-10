@@ -1,4 +1,5 @@
-import { defaultMediaFeatureFlags, type MediaFeatureFlags } from '@atlaskit/media-common';
+import { defaultMediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 export const exampleMediaFeatureFlags: MediaFeatureFlags = {
 	...defaultMediaFeatureFlags,

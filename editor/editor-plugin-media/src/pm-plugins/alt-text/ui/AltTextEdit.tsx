@@ -12,28 +12,24 @@ import { injectIntl } from 'react-intl';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import type {
-	FireAnalyticsCallback,
-	MediaAltTextActionType,
-} from '@atlaskit/editor-common/analytics';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	fireAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics/types/events';
+import type { MediaAltTextActionType } from '@atlaskit/editor-common/analytics/types/media-events';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
 import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { altTextMessages as messages } from '@atlaskit/editor-common/media';
+import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/link-search-constants';
+import { altTextMessages as messages } from '@atlaskit/editor-common/media/altText';
+import PanelTextInput from '@atlaskit/editor-common/PanelTextInput';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import {
-	RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX,
-	FloatingToolbarButton as Button,
-	ErrorMessage,
-	PanelTextInput,
-} from '@atlaskit/editor-common/ui';
+import { ErrorMessage } from '@atlaskit/editor-common/ui-messages';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';

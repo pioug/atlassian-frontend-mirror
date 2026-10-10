@@ -3,13 +3,13 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { tableMarginTop } from '@atlaskit/editor-common/styles';
+import { tableMarginTop } from '@atlaskit/editor-common/styles/table';
 import {
 	akEditorSelectedNodeClassName,
 	akEditorSmallZIndex,
 	akEditorTableNumberColumnWidth,
 	akEditorUnitZIndex,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

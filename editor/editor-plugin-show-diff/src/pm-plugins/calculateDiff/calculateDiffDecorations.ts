@@ -3,7 +3,7 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type Change, ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { areDocsEqualByBlockStructureAndText } from '@atlaskit/editor-common/utils/areDocsEqualByBlockStructureAndText';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

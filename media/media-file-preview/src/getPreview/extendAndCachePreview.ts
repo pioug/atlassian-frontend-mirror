@@ -1,8 +1,6 @@
-import {
-	addFileAttrsToUrl,
-	type MediaBlobUrlAttrs,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
+import { addFileAttrsToUrl } from '@atlaskit/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
 
 import { type MediaFilePreview } from '../types';
 import { mediaFilePreviewCache } from './cache';

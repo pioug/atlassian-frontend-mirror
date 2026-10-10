@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions/manifest-helpers';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

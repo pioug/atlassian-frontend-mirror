@@ -12,7 +12,7 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	ApplyDraftResult,
 	ClearDraftResult,
@@ -21,7 +21,7 @@ import type {
 import type {
 	AnnotationByMatches,
 	InlineCommentSelectionComponentProps,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/annotation';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

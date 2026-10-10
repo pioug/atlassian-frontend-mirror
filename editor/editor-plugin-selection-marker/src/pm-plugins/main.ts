@@ -2,7 +2,7 @@ import debounce from 'lodash/debounce';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

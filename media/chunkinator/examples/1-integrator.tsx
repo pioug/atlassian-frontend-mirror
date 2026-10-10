@@ -3,7 +3,7 @@ import React, { type ChangeEvent, useState } from 'react';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Subject } from 'rxjs/Subject';
 
-import { smallImage } from '@atlaskit/media-common/test-helpers';
+import { smallImage } from '@atlaskit/media-common/smallImageURI';
 
 import {
 	transformAuthHeaders,

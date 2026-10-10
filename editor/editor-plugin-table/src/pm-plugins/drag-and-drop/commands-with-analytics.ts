@@ -1,19 +1,19 @@
 import type { IntlShape } from 'react-intl/src/types';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TABLE_ACTION,
-	TABLE_STATUS,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import type { Command } from '@atlaskit/editor-common/types';
-import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION, TABLE_STATUS } from '@atlaskit/editor-common/analytics/types/table-events';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils/accessibilityUtilsPluginType';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { findCellRectClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 import type { DraggableData, DraggableType, TableDirection } from '../../types';
 import { getSelectedTableInfo, withEditorAnalyticsAPI } from '../utils/analytics';

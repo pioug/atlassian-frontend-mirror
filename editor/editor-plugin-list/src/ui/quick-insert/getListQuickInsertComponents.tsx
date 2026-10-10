@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
-import { listMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/list';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import {
 	ORDERED_LIST_MENU_ITEM,
@@ -9,7 +9,7 @@ import {
 	UNORDERED_LIST_MENU_ITEM,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { TEXT_FORMATTING_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { ListPlugin } from '../../listPluginType';

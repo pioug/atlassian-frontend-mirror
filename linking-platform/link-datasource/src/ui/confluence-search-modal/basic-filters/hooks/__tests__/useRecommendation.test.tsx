@@ -8,7 +8,7 @@ import {
 	successfulRecommendationAPIResponse,
 	transformedRecommendationMockFilterOptions,
 } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import getUserRecommendations from '@atlaskit/smart-user-picker/recommendation-client';
 
 import useRecommendation from '../useRecommendation';

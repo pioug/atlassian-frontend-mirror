@@ -1,4 +1,5 @@
-import { type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { isErrorFileState } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 export const getObjectUrlFromFileState = async (state: FileState): Promise<string | undefined> => {
 	if (!isErrorFileState(state)) {

@@ -12,7 +12,7 @@ import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
 import { cssMap, jsx } from '@atlaskit/css';
-import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';

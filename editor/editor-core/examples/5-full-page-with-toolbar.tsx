@@ -8,8 +8,11 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
-import { contentStyles, wrapperStyles } from '@af/editor-examples-helpers/example-presets';
-import { DevTools } from '@af/editor-examples-helpers/utils';
+import {
+	contentStyles,
+	wrapperStyles,
+} from '@af/editor-examples-helpers/example-presets/FullPageBase';
+import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';

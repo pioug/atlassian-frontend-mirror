@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 
-import { EditorPageModel } from '@af/editor-libra/page-models';
+import { EditorPageModel } from '@af/editor-libra/page-models/editor-page-model';
 import { snapshotInformational } from '@af/visual-regression';
 
 import { Editor } from './editor-disabled.fixtures.vr.ap';

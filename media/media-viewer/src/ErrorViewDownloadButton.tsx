@@ -2,8 +2,9 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
-import { type FileState, type MediaClient } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { messages } from '@atlaskit/media-ui/messages';
 
 import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';

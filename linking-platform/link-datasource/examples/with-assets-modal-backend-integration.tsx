@@ -9,10 +9,12 @@ import { css, jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import SmartCardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
-import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import {
+	forceCmdbBaseUrl,
+	mockAssetsClientFetchRequests,
+} from '@atlaskit/link-test-helpers/assets';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
 import { AssetsConfigModalWithWrappers as JSMAssetsConfigModal } from '../src/ui/assets-modal/AssetsConfigModalWithWrappers';

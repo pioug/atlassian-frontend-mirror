@@ -1,5 +1,6 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { Command, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 

@@ -3,7 +3,7 @@ import {
 	akEditorBreakoutPadding,
 	akEditorFullWidthLayoutWidth,
 	akEditorWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 export const calcTableWidth = (
 	layout: TableLayout,

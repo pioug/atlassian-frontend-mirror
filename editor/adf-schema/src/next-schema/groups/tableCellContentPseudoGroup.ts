@@ -1,5 +1,7 @@
-import type { ADFNode, ADFNodeContentOneOrMoreSpec } from '@atlaskit/adf-schema-generator';
-import { $onePlus, $or } from '@atlaskit/adf-schema-generator';
+import { $onePlus } from '@atlaskit/adf-schema-generator/$onePlus';
+import { $or } from '@atlaskit/adf-schema-generator/$or';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import type { ADFNodeContentOneOrMoreSpec } from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 import { blockCard } from '../nodes/blockCard';
 import { blockquote } from '../nodes/blockquote';

@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/order
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 // eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type {
 	EditorState,
 	ReadonlyTransaction,

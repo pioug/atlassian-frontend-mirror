@@ -1,7 +1,7 @@
 import {
 	akEditorFullWidthLayoutWidth,
 	akEditorWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 const MIN_MEDIA_DISPLAY_WIDTH = 24;
 /**

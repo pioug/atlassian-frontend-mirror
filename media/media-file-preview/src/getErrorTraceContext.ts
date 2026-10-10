@@ -1,5 +1,5 @@
 import { isCommonMediaClientError } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import type { MediaFilePreviewError } from './MediaFilePreviewError';
 

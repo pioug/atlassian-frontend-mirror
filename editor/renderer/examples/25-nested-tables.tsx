@@ -4,7 +4,7 @@ import type { ChangeEvent } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import type { ADFStage } from '@atlaskit/editor-common/validator';
+import type { ADFStage } from '@atlaskit/editor-common/utils/validator';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 

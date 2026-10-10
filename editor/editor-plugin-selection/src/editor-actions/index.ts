@@ -2,7 +2,7 @@ import {
 	getFragmentsFromSelection,
 	getLocalIdsFromSelection,
 } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 

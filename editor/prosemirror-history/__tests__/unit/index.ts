@@ -1,5 +1,5 @@
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Plugin, TextSelection } from '@atlaskit/editor-prosemirror/state';

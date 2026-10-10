@@ -1,15 +1,15 @@
 import type { WeekDay } from '@atlaskit/calendar/types';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-	TOOLBAR_MENU_TYPE,
-} from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPlugin';
+import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation/annotationPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 export type DateSegment = 'day' | 'month' | 'year';

@@ -11,12 +11,12 @@ import type {
 	HoverAnnotationResult,
 	SelectAnnotationResult,
 } from '@atlaskit/editor-common/annotation';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import type {
 	AnnotationUpdateEventPayloads,
 	AnnotationUpdateEmitter,
 	OnAnnotationClickPayload,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/emitter';
 
 import { RendererContext } from '../../../ui/RendererActionsContext';
 

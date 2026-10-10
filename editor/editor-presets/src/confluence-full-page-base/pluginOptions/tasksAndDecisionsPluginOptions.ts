@@ -1,4 +1,4 @@
-import type { TasksAndDecisionsPluginOptions } from '@atlaskit/editor-plugin-tasks-and-decisions';
+import type { TasksAndDecisionsPluginOptions } from '@atlaskit/editor-plugin-tasks-and-decisions/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 interface Props {

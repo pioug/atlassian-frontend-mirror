@@ -8,9 +8,9 @@ import {
 	tab,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
-import { createNewParagraphBelow } from '@atlaskit/editor-common/utils';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { createNewParagraphBelow } from '@atlaskit/editor-common/utils/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

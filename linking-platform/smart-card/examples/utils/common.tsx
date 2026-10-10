@@ -6,13 +6,10 @@ import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import {
-	forbiddenJira,
-	iconGoogleDrive,
-	image1,
-	image2,
-	imageForbiddenJiraEmbed,
-} from '@atlaskit/link-test-helpers';
+import { iconGoogleDrive, image2 } from '@atlaskit/link-test-helpers/smart-card/images';
+import { forbiddenJira } from '@atlaskit/link-test-helpers/smart-card/images/forbidden-jira';
+import { imageForbiddenJiraEmbed } from '@atlaskit/link-test-helpers/smart-card/images/forbidden-jira-embed';
+import { image1 } from '@atlaskit/link-test-helpers/smart-card/images/rectangle';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';

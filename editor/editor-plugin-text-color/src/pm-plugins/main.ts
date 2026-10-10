@@ -1,8 +1,9 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { textColorPalette, textColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar/types';
+import { textColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import { textColorPalette } from '@atlaskit/editor-common/ui-color/ColorPalette/textColorPalette';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';

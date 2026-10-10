@@ -1,9 +1,9 @@
 import { doc } from '@atlaskit/adf-schema/doc';
 import { paragraph } from '@atlaskit/adf-schema/paragraph';
 import { text } from '@atlaskit/adf-schema/text';
-import { keymap } from '@atlaskit/editor-common/keymaps';
+import { keymap } from '@atlaskit/editor-common/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactory } from '@atlaskit/editor-common/types';
+import type { PMPluginFactory } from '@atlaskit/editor-common/types/plugin-factory';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

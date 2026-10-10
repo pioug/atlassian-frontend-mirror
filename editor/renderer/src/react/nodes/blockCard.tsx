@@ -7,9 +7,12 @@ import { jsx, css } from '@emotion/react';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { UnsupportedBlock, UnsupportedInline, WidthConsumer } from '@atlaskit/editor-common/ui';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils/breakout';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
+import { WidthConsumer } from '@atlaskit/editor-common/WidthProvider';
 import {
 	SmartLinkDraggable,
 	SMART_LINK_DRAG_TYPES,
@@ -18,7 +21,7 @@ import {
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { token } from '@atlaskit/tokens';
 

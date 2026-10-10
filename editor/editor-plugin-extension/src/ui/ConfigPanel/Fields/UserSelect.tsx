@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
+import { getUserFieldContextProvider } from '@atlaskit/editor-common/extensions/extension-fields-helpers';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
 import type {
-	ExtensionManifest,
 	UserField,
 	UserFieldContext,
-} from '@atlaskit/editor-common/extensions';
-import { getUserFieldContextProvider } from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/field-definitions';
 import type { FieldProps } from '@atlaskit/form/field';
 import Field from '@atlaskit/form/field';
 import SmartUserPicker from '@atlaskit/smart-user-picker/components';

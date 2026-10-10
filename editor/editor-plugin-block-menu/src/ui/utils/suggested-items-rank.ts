@@ -15,6 +15,7 @@
  */
 
 import {
+	TRANSFORM_STRUCTURE_STATUS_MENU_ITEM,
 	TRANSFORM_STRUCTURE_PANEL_MENU_ITEM,
 	TRANSFORM_STRUCTURE_EXPAND_MENU_ITEM,
 	TRANSFORM_STRUCTURE_LAYOUT_MENU_ITEM,
@@ -26,8 +27,7 @@ import {
 	TRANSFORM_HEADINGS_H1_MENU_ITEM,
 	TRANSFORM_HEADINGS_H2_MENU_ITEM,
 	TRANSFORM_STRUCTURE_PARAGRAPH_MENU_ITEM,
-} from '@atlaskit/editor-common/block-menu';
-import { TRANSFORM_STRUCTURE_STATUS_MENU_ITEM } from '@atlaskit/editor-common/block-menu/key';
+} from '@atlaskit/editor-common/block-menu/key';
 
 import type { NodeTypeName } from '../../editor-commands/transform-node-utils/types';
 

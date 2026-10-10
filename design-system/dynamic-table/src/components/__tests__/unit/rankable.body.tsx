@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/extract-closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
-import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 import { RankableBody } from '../../rankable/rankable-body';
 import { rowsWithKeys } from './_data';

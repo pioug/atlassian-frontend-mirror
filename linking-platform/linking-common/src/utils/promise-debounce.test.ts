@@ -1,4 +1,5 @@
-import { flushPromises, ManualPromise } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
+import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
 
 import { promiseDebounce } from './promise-debounce';
 

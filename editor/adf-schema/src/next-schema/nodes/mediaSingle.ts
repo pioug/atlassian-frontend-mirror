@@ -1,5 +1,8 @@
-import type { ADFNode, ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator';
-import { $or, $range, adfNode } from '@atlaskit/adf-schema-generator';
+import { $or } from '@atlaskit/adf-schema-generator/$or';
+import { $range } from '@atlaskit/adf-schema-generator/$range';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
+import type { ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 import { link } from '../marks/link';
 import { unsupportedMark } from '../marks/unsupportedMark';

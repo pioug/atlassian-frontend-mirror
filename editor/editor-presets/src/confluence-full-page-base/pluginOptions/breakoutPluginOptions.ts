@@ -1,4 +1,4 @@
-import type { BreakoutPluginOptions } from '@atlaskit/editor-plugin-breakout';
+import type { BreakoutPluginOptions } from '@atlaskit/editor-plugin-breakout/breakoutPluginType';
 
 import type { FullPageEditorAppearance } from '../types';
 

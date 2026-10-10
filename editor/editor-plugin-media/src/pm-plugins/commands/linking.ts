@@ -1,20 +1,18 @@
 import type { LinkAttributes } from '@atlaskit/adf-schema/link';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type {
-	EditorAnalyticsAPI,
-	INPUT_METHOD,
-	MediaLinkAEP,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { MediaLinkAEP } from '@atlaskit/editor-common/analytics/types/media-events';
 import {
 	createToggleBlockMarkOnRange,
 	createToggleInlineMarkOnRange,
 } from '@atlaskit/editor-common/commands';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, NodeSelection, Transaction } from '@atlaskit/editor-prosemirror/state';

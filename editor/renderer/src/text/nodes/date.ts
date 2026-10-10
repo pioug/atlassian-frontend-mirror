@@ -1,4 +1,4 @@
-import { timestampToIsoFormat } from '@atlaskit/editor-common/utils';
+import { timestampToIsoFormat } from '@atlaskit/editor-common/utils/date';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { getText } from '../../utils';

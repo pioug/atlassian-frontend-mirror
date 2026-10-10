@@ -1,8 +1,8 @@
 /** Extracted into its own file so the mock variables can be instantiated before other imports in the test file that would otherwise be hoisted before it */
-import type { MediaClient } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 export const mockMediaClient: MediaClient = fakeMediaClient();
 

@@ -1,4 +1,7 @@
-import { type OperationalEventPayload, type OperationalAttributes } from '@atlaskit/media-common';
+import type {
+	OperationalEventPayload,
+	OperationalAttributes,
+} from '@atlaskit/media-common/analytics/types';
 
 /** common definition used by other mediaFile events */
 export type MediaFileEventPayload<

@@ -15,7 +15,8 @@ import {
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { useAssetsClient, type UseAssetsClientState } from '../../../../hooks/useAssetsClient';

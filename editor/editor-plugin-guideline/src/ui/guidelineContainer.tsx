@@ -7,8 +7,11 @@ import { useLayoutEffect, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import type { GuidelineConfig, GuidelineContainerRect } from '@atlaskit/editor-common/guideline';
-import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
+import type {
+	GuidelineConfig,
+	GuidelineContainerRect,
+} from '@atlaskit/editor-common/guideline/types';
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import { VAR_POSITION_OFFSET_X, VAR_POSITION_OFFSET_Y } from './constants';
 import { Guideline } from './guideline';

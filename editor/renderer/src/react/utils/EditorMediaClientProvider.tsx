@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from
 import {
 	useProviderFactory,
 	useProviderLayout,
-	type MediaProvider as EditorMediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/provider-factory/context';
+import type { MediaProvider as EditorMediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';

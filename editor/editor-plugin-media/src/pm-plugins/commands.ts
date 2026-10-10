@@ -1,10 +1,10 @@
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import type {
-	EditorAnalyticsAPI,
 	InputMethodInsertMedia,
 	InsertMediaVia,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/insert-events';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 
 import { ACTIONS } from '../pm-plugins/actions';
 import {

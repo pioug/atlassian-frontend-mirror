@@ -1,16 +1,12 @@
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
-import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	mapSlice,
-	removeNestedEmptyEls,
-	unwrap,
-	walkUpTreeUntil,
-} from '@atlaskit/editor-common/utils';
+import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single/constants';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { removeNestedEmptyEls, unwrap, walkUpTreeUntil } from '@atlaskit/editor-common/utils';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
 import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { getRandomHex } from '@atlaskit/media-common';
+import { getRandomHex } from '@atlaskit/media-common/helpers';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { PastePlugin } from '../pastePluginType';

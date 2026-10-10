@@ -17,7 +17,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { smallImage } from '@atlaskit/media-test-helpers';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
 
 import { type Avatar } from '../../avatar-list';
 import { AvatarPickerDialog, fixedCrop } from '../../avatar-picker-dialog';

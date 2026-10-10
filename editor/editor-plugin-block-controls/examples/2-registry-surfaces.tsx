@@ -3,17 +3,18 @@ import React, { useMemo } from 'react';
 import applyDevTools from 'prosemirror-dev-tools';
 import { IntlProvider } from 'react-intl';
 
-import {
-	getExamplesProviders,
-	useConfluenceFullPagePreset,
-} from '@af/editor-examples-helpers/example-presets';
+import { getExamplesProviders } from '@af/editor-examples-helpers/example-presets/getExamplesProviders';
+import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets/useConfluenceFullPagePreset';
 import IconButton from '@atlaskit/button/icon/button';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import {
 	BLOCK_CONTROLS_LEFT_GROUP,
 	BLOCK_CONTROLS_RIGHT_GROUP,
 } from '@atlaskit/editor-common/block-controls/surface-keys';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { RegisterButton } from '@atlaskit/editor-ui-control-model/types';

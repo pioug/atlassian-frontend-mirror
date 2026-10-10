@@ -1,8 +1,6 @@
 import { SortOrder } from '@atlaskit/editor-common/types';
-import {
-	convertProsemirrorTableNodeToArrayOfRows,
-	createCompareNodes,
-} from '@atlaskit/editor-common/utils';
+import { convertProsemirrorTableNodeToArrayOfRows } from '@atlaskit/editor-common/utils';
+import { createCompareNodes } from '@atlaskit/editor-common/utils/compareNodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

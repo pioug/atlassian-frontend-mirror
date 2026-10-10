@@ -8,7 +8,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { APIError } from '@atlaskit/linking-common/api-error';
 import { Box } from '@atlaskit/primitives/compiled';
 import { render, screen, waitFor } from '@atlassian/testing-library';

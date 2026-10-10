@@ -8,12 +8,10 @@ import { jsx, cssMap } from '@compiled/react';
 import applyDevTools from 'prosemirror-dev-tools';
 import { IntlProvider } from 'react-intl';
 
-import {
-	useConfluenceFullPagePreset,
-	getExamplesProviders,
-} from '@af/editor-examples-helpers/example-presets';
+import { getExamplesProviders } from '@af/editor-examples-helpers/example-presets/getExamplesProviders';
+import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets/useConfluenceFullPagePreset';
 import Button from '@atlaskit/button/default/button';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Inline } from '@atlaskit/primitives/compiled';

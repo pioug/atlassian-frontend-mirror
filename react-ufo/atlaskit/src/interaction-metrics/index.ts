@@ -4,6 +4,8 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import coinflip from '../coinflip';
 import type {
 	AbortReasonType,
@@ -1856,7 +1858,11 @@ export function removeSegment(labelStack: LabelStack): void {
 	const segmentInfo = segmentCache.get(key);
 
 	if (segmentInfo) {
-		segmentCache.delete(JSON.stringify(labelStack));
+		if (fg('platform_ufo_fix_stale_segment_cache')) {
+			segmentCache.delete(key);
+		} else {
+			segmentCache.delete(JSON.stringify(labelStack));
+		}
 
 		const cacheKey = stringifyLabelStackFully(labelStack);
 		segmentUnmountCache.set(cacheKey, (segmentUnmountCache.get(cacheKey) || 0) + 1);

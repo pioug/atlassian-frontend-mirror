@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+import { ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 
 import CardViewExample from '../../../examples/card-view';
 import EmbedCardExample from '../../../examples/content/embed-card';

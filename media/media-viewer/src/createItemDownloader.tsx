@@ -1,6 +1,8 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { type FileState, isErrorFileState, type MediaClient } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { isErrorFileState } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { createDownloadFailedEventPayload } from './analytics/events/operational/createDownloadFailedEventPayload';
 import { createDownloadSucceededEventPayload } from './analytics/events/operational/createDownloadSucceededEventPayload';

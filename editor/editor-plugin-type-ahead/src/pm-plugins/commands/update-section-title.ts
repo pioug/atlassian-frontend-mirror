@@ -1,4 +1,5 @@
-import type { Command, TypeAheadSectionTitleUpdate } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { TypeAheadSectionTitleUpdate } from '@atlaskit/editor-common/types/type-ahead';
 
 import type { TypeAheadSectionTitleUpdateState } from '../../types';
 import { ACTIONS } from '../actions';

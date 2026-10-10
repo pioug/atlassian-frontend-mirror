@@ -2,7 +2,7 @@
 
 import { css, type SerializedStyles } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
-import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
+import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection/utils';
 import { borderRadius } from '@atlaskit/media-ui/mixins';
 import { token } from '@atlaskit/tokens';
 

@@ -3,7 +3,8 @@ import React from 'react';
 import { renderHook, type RenderHookOptions } from '@testing-library/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { captureException } from '@atlaskit/linking-common/sentry';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DevTools } from '@af/editor-examples-helpers/utils';
+import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';

@@ -12,7 +12,7 @@ import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import ArrowLeftCircleIcon from '@atlaskit/icon/core/chevron-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/core/chevron-right';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { type Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
 import { Shortcut } from '@atlaskit/media-ui/shortcut';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

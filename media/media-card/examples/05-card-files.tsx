@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StoryList } from '@atlaskit/media-test-helpers';
+import { StoryList } from '@atlaskit/media-test-helpers/story-list';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

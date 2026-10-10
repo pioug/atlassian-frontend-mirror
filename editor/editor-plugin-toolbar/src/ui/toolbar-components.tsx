@@ -1,36 +1,42 @@
 import React from 'react';
 
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	INSERT_BLOCK_SECTION,
 	LINKING_SECTION,
 	OVERFLOW_GROUP,
 	OVERFLOW_GROUP_PRIMARY_TOOLBAR,
-	OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK,
-	OVERFLOW_GROUP_RANK,
 	OVERFLOW_MENU,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 	OVERFLOW_SECTION,
 	OVERFLOW_SECTION_PRIMARY_TOOLBAR,
-	OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK,
-	OVERFLOW_SECTION_RANK,
 	PIN_SECTION,
 	TEXT_COLLAPSED_GROUP,
 	TEXT_SECTION,
 	TEXT_SECTION_PRIMARY_TOOLBAR,
 	TEXT_SECTION_COLLAPSED,
 	TEXT_COLLAPSED_MENU,
-	TOOLBAR_RANK,
 	TOOLBARS,
 	TRACK_CHANGES_SECTION,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	OVERFLOW_GROUP_PRIMARY_TOOLBAR_RANK,
+	OVERFLOW_GROUP_RANK,
+	OVERFLOW_SECTION_PRIMARY_TOOLBAR_RANK,
+	OVERFLOW_SECTION_RANK,
+	TOOLBAR_RANK,
 	OVERFLOW_MENU_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, Toolbar } from '@atlaskit/editor-toolbar';
-import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
+	RegisterComponent,
+	ToolbarComponentTypes,
+} from '@atlaskit/editor-toolbar-model/types';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar/responsive-container';
+import { Show } from '@atlaskit/editor-toolbar/show';
+import { Toolbar } from '@atlaskit/editor-toolbar/toolbar';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from './consts';

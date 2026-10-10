@@ -1,7 +1,7 @@
 import type {
 	EditorViewModePluginOptions,
 	ViewMode,
-} from '@atlaskit/editor-plugin-editor-viewmode';
+} from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 
 interface Props {
 	options: {

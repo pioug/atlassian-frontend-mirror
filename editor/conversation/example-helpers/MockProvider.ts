@@ -1,4 +1,4 @@
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { MemoryReactionsStore } from '@atlaskit/reactions';
 import { MockReactionsClient } from '@atlaskit/reactions/MockReactionsClient';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';

@@ -1,5 +1,5 @@
-import { type MediaClientErrorReason } from '@atlaskit/media-client';
-import { type MediaTraceContext, type SuccessAttributes } from '@atlaskit/media-common';
+import type { MediaClientErrorReason } from '@atlaskit/media-client/errors/types';
+import type { MediaTraceContext, SuccessAttributes } from '@atlaskit/media-common/analytics/types';
 
 import type { MediaFilePreviewErrorPrimaryReason } from './MediaFilePreviewError';
 

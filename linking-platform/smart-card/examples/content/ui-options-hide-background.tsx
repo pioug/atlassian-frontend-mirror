@@ -3,7 +3,7 @@ import React from 'react';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { response1 } from '@atlaskit/link-test-helpers';
+import { response1 } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
 
 import { Card, TitleBlock } from '../../src';
 

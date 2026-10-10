@@ -6,11 +6,11 @@ import {
 	areCodeBlockLineNumbersVisible,
 	isCodeBlockWordWrapEnabled,
 } from '@atlaskit/editor-common/code-block';
-import commonMessages, { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarCustom,
 	FloatingToolbarHandler,
@@ -19,7 +19,8 @@ import type {
 	FloatingToolbarOverflowDropdownOptions,
 	FloatingToolbarSeparator,
 	SelectOption,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 import CopyIcon from '@atlaskit/icon/core/copy';

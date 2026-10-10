@@ -1,9 +1,12 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { HistoryPlugin } from '@atlaskit/editor-plugin-history';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { HistoryPlugin } from '@atlaskit/editor-plugin-history/historyPluginType';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
 
 import type { InputSource } from './pm-plugins/enums';
 

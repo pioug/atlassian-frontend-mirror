@@ -1,10 +1,6 @@
-import {
-	type FileIdentifier,
-	type MediaItemType,
-	type FileDetails,
-	type ExternalImageIdentifier,
-	type MediaType,
-} from '@atlaskit/media-client';
+import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaItemType, FileDetails } from '@atlaskit/media-client/item';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 import {
 	defaultCollectionName as collectionName,

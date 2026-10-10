@@ -7,7 +7,7 @@ import type { ChangeEvent } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { getExamplesProviders } from '@af/editor-examples-helpers/utils';
+import { getExamplesProviders } from '@af/editor-examples-helpers/example-presets/getExamplesProviders';
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
@@ -17,28 +17,34 @@ import type {
 	AnnotationDraftStartedData,
 	AnnotationSelectedChangeData,
 } from '@atlaskit/editor-common/annotation';
-import type { EditorProps } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorContext } from '@atlaskit/editor-core/editor-context';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
-import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
-import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
+import type { AnnotationProviders } from '@atlaskit/editor-plugin-annotation/types';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced/codeBlockAdvancedPlugin';
+import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker/selection-marker-plugin';
 import {
 	AnnotationsProvider,
-	CommentsContentProvider,
-	useEditorAnnotationProviders,
-	ModalWrapper,
 	useAnnotationManager,
 	useAnnotations,
 	useAnnotationsDispatch,
+} from '@atlaskit/editor-test-helpers/annotation-example/AnnotationsContext';
+import {
+	CommentsContentProvider,
 	useCommentsContentState,
 	useCommentsContentActions,
-	useModalWrapperState,
+} from '@atlaskit/editor-test-helpers/annotation-example/CommentsContentContext';
+import {
 	EditorCreateInlineComment,
 	EditorViewInlineComment,
-} from '@atlaskit/editor-test-helpers/annotation-example';
+} from '@atlaskit/editor-test-helpers/annotation-example/components-editor';
+import {
+	ModalWrapper,
+	useModalWrapperState,
+} from '@atlaskit/editor-test-helpers/annotation-example/modal';
+import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example/use-annotation-providers-editor';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import DeleteIcon from '@atlaskit/icon/core/delete';

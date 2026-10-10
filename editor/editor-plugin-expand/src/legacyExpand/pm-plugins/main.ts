@@ -1,16 +1,17 @@
 import type { IntlShape } from 'react-intl';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
+import { expandClassNames } from '@atlaskit/editor-common/styles/expand';
 import {
 	findExpand,
 	transformSliceExpandToNestedExpand,
 	transformSliceNestedExpandToExpand,
 } from '@atlaskit/editor-common/transforms';
-import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

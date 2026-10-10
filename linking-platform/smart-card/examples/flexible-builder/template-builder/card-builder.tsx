@@ -4,7 +4,7 @@ import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
 import Field from '@atlaskit/form/field';
 import Select from '@atlaskit/select/default';
-import { type CardProps } from '@atlaskit/smart-card';
+import type { CardProps } from '@atlaskit/smart-card/card/types';
 
 import { type CardActionOptions } from '../../../src/view/Card/types';
 import { EmbedModalSize } from '../../../src/view/EmbedModal/types';

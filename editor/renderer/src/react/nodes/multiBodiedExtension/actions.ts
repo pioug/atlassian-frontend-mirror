@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { MultiBodiedExtensionActions } from '@atlaskit/editor-common/extensions';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { MultiBodiedExtensionActions } from '@atlaskit/editor-common/extensions/extension-handler';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MBEChangeActiveAnalyticsEvent } from '../../../analytics/events';

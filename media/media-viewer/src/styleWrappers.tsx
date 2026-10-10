@@ -19,7 +19,7 @@ import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
 
 import Heading from '@atlaskit/heading/heading';
-import { type MediaType } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

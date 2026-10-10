@@ -17,7 +17,7 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import { ALIGN_START } from './utils/alignment';
 

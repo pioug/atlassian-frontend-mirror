@@ -2,7 +2,7 @@ import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore, type StoreApi } from 'zustand/vanilla';
 
-import type { MediaType } from '@atlaskit/media-common';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 import {
 	type FilePreview,

@@ -8,18 +8,21 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { EnabledHandles, ResizerProps } from '@atlaskit/editor-common/ui';
+import { calcMediaPxWidth } from '@atlaskit/editor-common/MediaSingle/grid';
+import Resizer from '@atlaskit/editor-common/ResizerLegacy';
+import { wrapperStyle } from '@atlaskit/editor-common/ResizerLegacy/styled';
+import type {
+	EnabledHandles,
+	Props as ResizerProps,
+} from '@atlaskit/editor-common/ResizerLegacy/types';
 import {
 	calcColumnsFromPx,
-	calcMediaPxWidth,
 	calcPctFromPx,
 	calcPxFromColumns,
 	handleSides,
 	imageAlignmentMap,
-	Resizer,
 	snapTo,
 	wrappedLayouts,
-	wrapperStyle,
 } from '@atlaskit/editor-common/ui';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -34,9 +37,9 @@ import {
 	breakoutWideScaleRatio,
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { embedHeaderHeight } from '@atlaskit/smart-card';
+import { embedHeaderHeight } from '@atlaskit/smart-card/embed-resize-message-listener';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

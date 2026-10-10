@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';

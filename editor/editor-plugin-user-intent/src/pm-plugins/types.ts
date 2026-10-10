@@ -1,4 +1,4 @@
-import type { PopupUserIntent } from '@atlaskit/editor-common/user-intent';
+import type { PopupUserIntent } from '@atlaskit/editor-common/user-intent/types';
 /**
  * default: no special intent, allow inline text toolbar to be visible
  *

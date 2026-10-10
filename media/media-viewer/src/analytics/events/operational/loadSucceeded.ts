@@ -1,10 +1,10 @@
-import {
-	type SuccessAttributes,
-	type WithFileAttributes,
-	type FileAttributes,
-	type MediaTraceContext,
-	type WithTraceContext,
-} from '@atlaskit/media-common';
+import type {
+	SuccessAttributes,
+	WithFileAttributes,
+	FileAttributes,
+	MediaTraceContext,
+	WithTraceContext,
+} from '@atlaskit/media-common/analytics/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type MediaFileEventPayload } from './_mediaFile';

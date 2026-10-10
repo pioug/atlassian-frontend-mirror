@@ -1,9 +1,10 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { safeInsert } from '@atlaskit/editor-common/insert';
-import type { DocBuilder, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { annotationPlugin } from '@atlaskit/editor-plugin-annotation';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { annotationPlugin } from '@atlaskit/editor-plugin-annotation/annotationPlugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { captionPlugin } from '@atlaskit/editor-plugins/caption';
 import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';

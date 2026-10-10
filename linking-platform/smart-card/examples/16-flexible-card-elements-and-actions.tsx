@@ -13,8 +13,8 @@ import {
 	NotFoundWithSiteAccessExistsClient,
 	UnAuthClient,
 	UnicornResolvedClient,
-	unicornResponse,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import { unicornResponse } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid } from '@atlaskit/primitives';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';

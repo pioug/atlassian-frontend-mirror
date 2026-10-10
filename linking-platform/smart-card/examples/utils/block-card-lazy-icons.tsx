@@ -2,8 +2,11 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
-import { generateContext, type GenerateContextProp } from '@atlaskit/link-test-helpers';
-import type { Card } from '@atlaskit/smart-card';
+import {
+	generateContext,
+	type GenerateContextProp,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/dynamic-icons';
+import type { Card } from '@atlaskit/smart-card/card/lazy';
 import type { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import CardViewSection from '../card-view/card-view-section';

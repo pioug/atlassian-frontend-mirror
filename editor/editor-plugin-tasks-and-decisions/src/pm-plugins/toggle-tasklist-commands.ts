@@ -1,23 +1,25 @@
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists/analytics';
 import {
-	transformBetweenListTypes,
-	transformToTaskList,
 	transformTaskListToBlockNodes,
 	isBulletOrOrderedList,
 	isTaskList,
 	getFormattedNode,
 } from '@atlaskit/editor-common/transforms';
-import type { TransformContext } from '@atlaskit/editor-common/transforms';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import {
+	transformBetweenListTypes,
+	transformToTaskList,
+} from '@atlaskit/editor-common/transforms/list-transforms';
+import type { TransformContext } from '@atlaskit/editor-common/transforms/list-types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 

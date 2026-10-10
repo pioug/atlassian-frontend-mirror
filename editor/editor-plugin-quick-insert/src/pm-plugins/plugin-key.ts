@@ -1,4 +1,4 @@
-import type { QuickInsertPluginState as CommonQuickInsertPluginState } from '@atlaskit/editor-common/types';
+import type { QuickInsertPluginState as CommonQuickInsertPluginState } from '@atlaskit/editor-common/types/quick-insert';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export type QuickInsertPluginState = CommonQuickInsertPluginState & {

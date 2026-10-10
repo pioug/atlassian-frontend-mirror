@@ -6,10 +6,10 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { openHelp, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
 import type { HelpDialogPlugin, HelpDialogPluginOptions } from './helpDialogPluginType';

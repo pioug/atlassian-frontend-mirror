@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -19,14 +19,9 @@ import { FileCard } from '../../fileCard';
 // file-scoped and hoisted, so this stub applies to every test in this file;
 // that is harmless because none of the other tests here render MediaViewer
 // (they assert on `title-box-header`, and `shouldOpenMediaViewer` is never set).
-jest.mock('@atlaskit/media-viewer', () => ({
-	MediaViewer: ({
-		selectedItem,
-		onClose,
-	}: {
-		selectedItem: { id?: string };
-		onClose?: () => void;
-	}) => (
+jest.mock('@atlaskit/media-viewer/media-viewer-loader', () => ({
+	__esModule: true,
+	default: ({ selectedItem, onClose }: { selectedItem: { id?: string }; onClose?: () => void }) => (
 		<div data-testid="mocked-media-viewer">
 			{selectedItem.id ?? 'no-id'}
 			<button type="button" onClick={onClose}>

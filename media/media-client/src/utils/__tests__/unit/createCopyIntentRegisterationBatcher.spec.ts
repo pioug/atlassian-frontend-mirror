@@ -1,6 +1,6 @@
 import Dataloader from 'dataloader';
 
-import { asMock } from '@atlaskit/media-common/test-helpers';
+import { asMock } from '@atlaskit/media-common/jestHelpers';
 
 import { MediaStore } from '../../..';
 import { createCopyIntentRegisterationBatcher } from '../../createCopyIntentRegisterationBatcher';

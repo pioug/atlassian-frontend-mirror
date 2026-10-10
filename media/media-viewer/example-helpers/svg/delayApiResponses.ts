@@ -1,5 +1,5 @@
-import { type MediaApi } from '@atlaskit/media-client';
-import { sleep } from '@atlaskit/media-test-helpers';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
+import { sleep } from '@atlaskit/media-test-helpers/nextTick';
 
 type Endpoints = Partial<Record<keyof MediaApi, number>>;
 

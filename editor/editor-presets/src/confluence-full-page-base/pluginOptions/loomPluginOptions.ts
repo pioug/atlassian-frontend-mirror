@@ -1,4 +1,4 @@
-import type { LoomPluginOptions, RenderButton } from '@atlaskit/editor-plugin-loom';
+import type { LoomPluginOptions, RenderButton } from '@atlaskit/editor-plugin-loom/types';
 
 interface Props {
 	options: {

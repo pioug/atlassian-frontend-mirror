@@ -1,6 +1,7 @@
 import { INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META } from '@atlaskit/editor-common/block-type';
-import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isMultiBlockRange } from '@atlaskit/editor-common/selection';
+import { expandToBlockRange } from '@atlaskit/editor-common/selection/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -9,8 +10,8 @@ import type {
 	Selection,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { CellSelection } from '@atlaskit/editor-tables';
-import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';
+import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/get-table-selection-closes-to-pos';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { getBlockControlsMeta, key } from '../main';

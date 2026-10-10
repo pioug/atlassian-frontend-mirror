@@ -2,9 +2,10 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { TableCellSplitIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { TableCellSplitIcon } from '@atlaskit/editor-toolbar/cell-split-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { splitCellWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';

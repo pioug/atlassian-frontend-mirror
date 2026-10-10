@@ -9,15 +9,17 @@ import {
 	TEXT_FORMATTING_GROUP_COLLAPSED,
 	TEXT_FORMATTING_GROUP_INLINE,
 	TEXT_FORMATTING_HERO_BUTTON,
+	TEXT_COLLAPSED_MENU,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
 	TEXT_FORMAT_GROUP_RANK,
 	TEXT_FORMAT_MENU_RANK,
 	CLEAR_FORMARTTING_MENU_SECTION_RANK,
 	TEXT_COLLAPSED_MENU_RANK,
-	TEXT_COLLAPSED_MENU,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import type { FormatOptions } from '../types';

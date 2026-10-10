@@ -2,17 +2,15 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { INPUT_METHOD, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { VIEW_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { commentMessages as messages } from '@atlaskit/editor-common/media';
-import { annotationMessages } from '@atlaskit/editor-common/messages';
-import type {
-	Command,
-	CommandDispatch,
-	ExtractInjectionAPI,
-	FloatingToolbarButton,
-} from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { commentMessages as messages } from '@atlaskit/editor-common/media/comments';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarButton } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

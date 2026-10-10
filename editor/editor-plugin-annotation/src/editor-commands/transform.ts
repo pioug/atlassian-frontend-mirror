@@ -1,21 +1,21 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import type {
-	AnalyticsEventPayload,
 	AnnotationAEP,
 	AnnotationErrorAEP,
-	EditorAnalyticsAPI,
 	RESOLVE_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { applyMarkOnRange } from '@atlaskit/editor-common/mark';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { applyMarkOnRange } from '@atlaskit/editor-common/mark/commands';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils/annotation';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';

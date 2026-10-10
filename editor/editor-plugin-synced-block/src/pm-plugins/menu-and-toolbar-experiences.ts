@@ -1,17 +1,17 @@
 import { bind } from 'bind-event-listener';
 
-import { ACTION, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import {
-	Experience,
-	EXPERIENCE_ID,
-	ExperienceCheckDomMutation,
-	ExperienceCheckTimeout,
 	getNodeQuery,
 	getPopupContainerFromEditorView,
 	popupWithNestedElement,
 	getSelectionAncestorDOM,
 } from '@atlaskit/editor-common/experiences';
+import { EXPERIENCE_ID } from '@atlaskit/editor-common/experiences/consts';
+import { Experience } from '@atlaskit/editor-common/experiences/Experience';
+import { ExperienceCheckDomMutation } from '@atlaskit/editor-common/experiences/ExperienceCheckDomMutation';
+import { ExperienceCheckTimeout } from '@atlaskit/editor-common/experiences/ExperienceCheckTimeout';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

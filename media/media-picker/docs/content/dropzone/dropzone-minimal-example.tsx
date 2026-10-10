@@ -6,8 +6,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
-import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { type DropzoneConfig, type UploadEndEventPayload } from '../../../src/types';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 import { DropzoneLoader as Dropzone } from '../../../src/components/dropzone';

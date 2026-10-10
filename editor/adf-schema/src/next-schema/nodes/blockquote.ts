@@ -1,9 +1,11 @@
+import { $onePlus } from '@atlaskit/adf-schema-generator/$onePlus';
+import { $or } from '@atlaskit/adf-schema-generator/$or';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
 import type {
 	ADFCommonNodeSpec,
-	ADFNode,
 	ADFNodeContentOneOrMoreSpec,
-} from '@atlaskit/adf-schema-generator';
-import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
+} from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 import { unsupportedMark } from '../marks/unsupportedMark';
 import { unsupportedNodeAttribute } from '../marks/unsupportedNodeAttribute';

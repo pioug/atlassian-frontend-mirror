@@ -1,4 +1,4 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';

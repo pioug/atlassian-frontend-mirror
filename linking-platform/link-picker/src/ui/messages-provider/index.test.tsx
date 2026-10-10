@@ -3,7 +3,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { defineMessages, IntlProvider, useIntl } from 'react-intl';
 
-import { ManualPromise } from '@atlaskit/link-test-helpers';
+import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
 
 import { fetchMessagesForLocale } from './lazy-messages-provider/utils/fetch-messages-for-locale';
 

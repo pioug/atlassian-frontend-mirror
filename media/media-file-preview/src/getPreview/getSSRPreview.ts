@@ -1,10 +1,8 @@
-import {
-	addFileAttrsToUrl,
-	type MediaBlobUrlAttrs,
-	type MediaClient,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
-import { type SSR } from '@atlaskit/media-common';
+import { addFileAttrsToUrl } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SsrPreviewError } from '../SsrPreviewError';

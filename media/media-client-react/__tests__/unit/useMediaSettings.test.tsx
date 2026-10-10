@@ -2,10 +2,10 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { type MediaClient } from '@atlaskit/media-client';
 import type { MediaParsedSettings } from '@atlaskit/media-client-react/media-parsed-settings';
 import { MediaContext } from '@atlaskit/media-client-react/media-provider';
 import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 describe('useMediaSettings', () => {
 	it('should return empty object when MediaContext is not provided', async () => {

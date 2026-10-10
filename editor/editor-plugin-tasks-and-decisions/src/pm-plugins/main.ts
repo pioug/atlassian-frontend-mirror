@@ -2,12 +2,13 @@ import type { IntlShape } from 'react-intl';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { uuid } from '@atlaskit/adf-schema/uuid';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { createSelectionClickHandler, GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { getStepRange } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type {

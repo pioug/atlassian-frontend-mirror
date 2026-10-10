@@ -1,8 +1,8 @@
 import classnames from 'classnames';
 import type { IntlShape } from 'react-intl';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { timestampToString } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { timestampToString } from '@atlaskit/editor-common/utils/date';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

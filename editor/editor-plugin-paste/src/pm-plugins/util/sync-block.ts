@@ -1,15 +1,16 @@
 import type { MessageDescriptor } from 'react-intl';
 
 import { uuid } from '@atlaskit/adf-schema/uuid';
-import type { PasteSource } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI, PasteWarningOptions } from '@atlaskit/editor-common/types';
-import { mapSlice } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { PasteSource } from '@atlaskit/editor-common/analytics/types/paste-events';
+import type { PasteWarningOptions } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
 import type { Fragment, Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 
 import { PastePluginActionTypes } from '../../editor-actions/actions';

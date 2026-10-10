@@ -2,10 +2,11 @@ import React from 'react';
 
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
-import { ArrowKeyNavigationType, Dropdown } from '@atlaskit/editor-common/ui-menu';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import DropdownWithOuterListeners from '@atlaskit/editor-common/ui-menu/Dropdown';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -47,7 +48,7 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 	}
 
 	return (
-		<Dropdown
+		<DropdownWithOuterListeners
 			target={popupsMountPoint}
 			mountTo={popupsMountPoint}
 			forcePlacement={true}
@@ -81,7 +82,7 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 					{...props}
 				/>
 			</Box>
-		</Dropdown>
+		</DropdownWithOuterListeners>
 	);
 };
 

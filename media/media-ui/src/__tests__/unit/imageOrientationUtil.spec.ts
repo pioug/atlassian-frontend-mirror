@@ -1,4 +1,4 @@
-import { expectToEqual } from '@atlaskit/media-common/test-helpers';
+import { expectToEqual } from '@atlaskit/media-common/jestHelpers';
 
 import { isRotated } from '../../imageMetaData/isRotated';
 

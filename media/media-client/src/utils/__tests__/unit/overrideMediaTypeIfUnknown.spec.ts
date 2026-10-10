@@ -1,4 +1,4 @@
-import { expectToEqual } from '@atlaskit/media-common/test-helpers';
+import { expectToEqual } from '@atlaskit/media-common/jestHelpers';
 
 import { type ErrorFileState, type FileState, type MediaType } from '../../..';
 import { overrideMediaTypeIfUnknown } from '../../overrideMediaTypeIfUnknown';

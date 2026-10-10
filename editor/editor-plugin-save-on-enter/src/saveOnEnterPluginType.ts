@@ -1,4 +1,4 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type Config = (editorView: EditorView) => void;

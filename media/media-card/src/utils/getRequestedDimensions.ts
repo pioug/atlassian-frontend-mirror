@@ -1,4 +1,4 @@
-import { type NumericalCardDimensions } from '@atlaskit/media-common';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 
 import { getDataURIDimension, type getDataURIDimensionOptions } from './getDataURIDimension';
 

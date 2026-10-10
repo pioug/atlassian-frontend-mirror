@@ -7,6 +7,7 @@ import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 import { FormattedMessage } from 'react-intl';
 
+import { alignmentMessages } from '@atlaskit/editor-common/alignment';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	addInlineComment,
@@ -56,17 +57,14 @@ import {
 	toggleUnderline,
 	undo,
 } from '@atlaskit/editor-common/keymaps';
-import {
-	alignmentMessages,
-	annotationMessages,
-	blockTypeMessages,
-	listMessages,
-	helpDialogMessages as messages,
-	tableMessages,
-	toolbarInsertBlockMessages,
-	toolbarMessages,
-	undoRedoMessages,
-} from '@atlaskit/editor-common/messages';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages/help-dialog';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
+import { messages as listMessages } from '@atlaskit/editor-common/messages/list';
+import { messages as tableMessages } from '@atlaskit/editor-common/messages/table';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { messages as undoRedoMessages } from '@atlaskit/editor-common/messages/undo-redo';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

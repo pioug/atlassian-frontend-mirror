@@ -8,25 +8,27 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	getAriaKeyshortcuts,
 	insertElements,
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { TOOLBAR_BUTTON_TEST_ID, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type {
-	ExtractInjectionAPI,
-	Command,
-	TOOLBAR_MENU_TYPE,
-} from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import type { Breakpoint } from '@atlaskit/editor-toolbar';
-import { ToolbarButton, ToolbarTooltip, AddIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import Popup from '@atlaskit/editor-common/Popup';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { AddIcon } from '@atlaskit/editor-toolbar/add-icon';
+import type { Breakpoint } from '@atlaskit/editor-toolbar/show';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
+import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import type { ToolbarInsertBlockButtonsConfig } from '../../types';

@@ -1,9 +1,7 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import {
-	getUnsupportedContentLevelData,
-	getAnalyticsAppearance,
-} from '@atlaskit/editor-common/utils';
-import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+import { getUnsupportedContentLevelData } from '@atlaskit/editor-common/utils/get-unsupported-content-level-data';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils/get-unsupported-content-level-data';
 
 import type { AnalyticsEventPayload } from './events';
 import { PLATFORM } from './events';

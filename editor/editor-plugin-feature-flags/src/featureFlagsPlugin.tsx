@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { FeatureFlagsPlugin } from './featureFlagsPluginType';

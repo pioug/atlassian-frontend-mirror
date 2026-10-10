@@ -4,9 +4,10 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 // re-creates table node with merged cells
 export function mergeCells(tr: Transaction): Transaction {

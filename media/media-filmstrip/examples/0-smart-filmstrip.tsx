@@ -12,22 +12,20 @@ import Button from '@atlaskit/button/default/button';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
 import type { CardAction } from '@atlaskit/media-card/actions';
 import type { CardEvent } from '@atlaskit/media-card/types';
+import type { FileState } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { FileItem } from '@atlaskit/media-client/item';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { UploadableFile } from '@atlaskit/media-client/uploader';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
-	type FileItem,
-	type FileState,
-	type UploadableFile,
-	type MediaClient,
-	type FileIdentifier,
-} from '@atlaskit/media-client';
-import {
-	createUploadMediaClient,
 	genericFileId,
 	audioFileId,
 	errorFileId,
 	gifFileId,
 	externalImageIdentifier,
-	defaultCollectionName,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createUploadMediaClient } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { filmstripWrapperStyles } from '../example-helpers/styles';
 import { Filmstrip, type FilmstripItem } from '../src';

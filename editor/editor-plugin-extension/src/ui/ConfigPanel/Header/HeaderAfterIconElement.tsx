@@ -3,9 +3,9 @@ import React from 'react';
 import type {
 	ExtensionKey,
 	ExtensionManifest,
-	ExtensionProvider,
 	ExtensionType,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 

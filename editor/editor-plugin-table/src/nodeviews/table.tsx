@@ -2,18 +2,15 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
-import type {
-	GetEditorContainerWidth,
-	GetEditorFeatureFlags,
-	getPosHandler,
-	getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import {
 	applyContentVisibility,
 	estimateTableIntrinsicHeight,
@@ -28,7 +25,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

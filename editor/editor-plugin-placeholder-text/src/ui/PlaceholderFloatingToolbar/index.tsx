@@ -3,8 +3,8 @@ import React from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
+import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages/placeholder-text';
+import PanelTextInput from '@atlaskit/editor-common/PanelTextInput';
 
 import type { Coordinates } from '../FloatingToolbar';
 import FloatingToolbar from '../FloatingToolbar';

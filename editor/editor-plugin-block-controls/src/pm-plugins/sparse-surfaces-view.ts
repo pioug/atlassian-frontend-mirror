@@ -2,8 +2,8 @@ import {
 	BLOCK_CONTROLS_LEFT_SURFACE,
 	BLOCK_CONTROLS_RIGHT_SURFACE,
 } from '@atlaskit/editor-common/block-controls/surface-keys';
-import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { resolveSurface } from '@atlaskit/editor-ui-control-model/surface-renderer';

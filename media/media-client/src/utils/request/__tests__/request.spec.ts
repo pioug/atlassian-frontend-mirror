@@ -1,4 +1,4 @@
-import { nextTick } from '@atlaskit/media-common/test-helpers';
+import { nextTick } from '@atlaskit/media-common/nextTick';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { request } from '..';

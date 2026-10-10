@@ -8,16 +8,16 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import AnnotateIcon from '@atlaskit/icon/core/edit';
-import { type FileItem, type Identifier, type MediaClientConfig } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { FileItem } from '@atlaskit/media-client/item';
 import {
 	createPollingMaxAttemptsError,
 	createRateLimitedError,
 } from '@atlaskit/media-client/test-helpers';
-import {
-	createStorybookMediaClientConfig,
-	enableMediaUfoLogger,
-	FeatureFlagsWrapper,
-} from '@atlaskit/media-test-helpers';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import FeatureFlagsWrapper from '@atlaskit/media-test-helpers/featureFlagsWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers/ufoLogger';
 import { payloadPublisher } from '@atlassian/ufo/publisher';
 
 import { type CardAction } from '../src/card/actions';

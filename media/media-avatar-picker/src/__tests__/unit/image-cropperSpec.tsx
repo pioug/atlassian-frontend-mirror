@@ -2,7 +2,8 @@ import React from 'react';
 
 import { fireEvent } from '@testing-library/react';
 
-import { smallImage, renderWithIntl } from '@atlaskit/media-test-helpers';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
 
 import { ERROR } from '../../avatar-picker-dialog';
 import ImageCropper, { type ImageCropperProp } from '../../image-cropper';

@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { trackChangesMessages } from '@atlaskit/editor-common/messages';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import { trackChangesMessages } from '@atlaskit/editor-common/messages/track-changes';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

@@ -1,4 +1,4 @@
-import { type ImageResizeMode } from '@atlaskit/media-client';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { DEFAULT_CROP_DIMENSIONS } from './default-crop-dimensions';

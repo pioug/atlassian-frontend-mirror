@@ -4,10 +4,10 @@ import { IntlProvider } from 'react-intl';
 
 import type {
 	ExtensionKey,
-	ExtensionProvider,
 	ExtensionType,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 
 import ConfigPanel from '../../src/ui/ConfigPanel/ConfigPanelLoader';
 

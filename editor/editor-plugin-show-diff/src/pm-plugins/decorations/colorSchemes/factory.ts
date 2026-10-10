@@ -3,7 +3,7 @@ import type {
 	AgentBrandColorScheme,
 	AgentPresenceColor,
 } from '@atlaskit/agent-color/agent-presence-color-types';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 

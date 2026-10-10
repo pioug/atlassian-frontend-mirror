@@ -1,5 +1,6 @@
 jest.mock('../../util');
-import { asMock, mockCanvas } from '@atlaskit/media-test-helpers';
+import { asMock } from '@atlaskit/media-test-helpers/jestHelpers';
+import { mockCanvas } from '@atlaskit/media-test-helpers/mockCanvas';
 
 import { cropToDataURI, type Rect } from '../../image-cropper/crop-to-data-uri';
 import { getCanvas } from '../../util';

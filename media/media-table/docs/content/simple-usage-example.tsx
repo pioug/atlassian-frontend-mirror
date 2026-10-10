@@ -1,5 +1,5 @@
 import React from 'react';
-import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { type HeadType } from '@atlaskit/dynamic-table/types';
 import { MediaTable } from '../../src';
 import { items } from '../../example-helpers/helpers';

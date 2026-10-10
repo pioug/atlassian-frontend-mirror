@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners as withOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import Popup from '@atlaskit/editor-common/Popup';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId, EmojiProvider } from '@atlaskit/emoji/types';
 

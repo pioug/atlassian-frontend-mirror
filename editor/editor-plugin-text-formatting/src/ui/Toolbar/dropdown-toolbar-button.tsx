@@ -7,12 +7,12 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
+import { expandIconContainerStyle } from '@atlaskit/editor-common/styles/expand';
 import {
-	expandIconContainerStyle,
 	triggerWrapperStylesWithPadding,
 	disableBlueBorderStyles,
-} from '@atlaskit/editor-common/styles';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/styles/plugins';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
 

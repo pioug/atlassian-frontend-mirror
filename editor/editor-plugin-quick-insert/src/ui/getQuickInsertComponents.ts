@@ -26,7 +26,7 @@ import {
 } from '@atlaskit/editor-common/quick-insert/rank';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
 	CommonComponentProps,
 	IsHiddenOptions,

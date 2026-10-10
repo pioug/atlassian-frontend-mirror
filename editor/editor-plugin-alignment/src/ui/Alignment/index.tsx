@@ -9,9 +9,9 @@ import { injectIntl } from 'react-intl';
 import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
+import { alignmentMessages } from '@atlaskit/editor-common/alignment';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import { alignCenter, alignLeft, alignRight } from '@atlaskit/editor-common/keymaps';
-import { alignmentMessages } from '@atlaskit/editor-common/messages';
 import { token } from '@atlaskit/tokens';
 
 import type { AlignmentState } from '../../pm-plugins/types';

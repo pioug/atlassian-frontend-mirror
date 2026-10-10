@@ -16,7 +16,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 import { nonWrappedLayouts } from '../../utils';

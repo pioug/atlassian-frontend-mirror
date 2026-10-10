@@ -1,5 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type { CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 

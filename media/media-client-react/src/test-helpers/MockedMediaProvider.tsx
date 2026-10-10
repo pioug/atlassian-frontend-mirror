@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
 
-import {
-	type MediaStore as MediaApi,
-	MediaClient,
-	type MediaClientConfig,
-} from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStore as MediaApi } from '@atlaskit/media-client/media-store';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 

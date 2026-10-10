@@ -1,6 +1,6 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

@@ -7,9 +7,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
-import { UnsupportedInline } from '@atlaskit/editor-common/ui';
-import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/getInlineNodeViewProducer';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
+import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils/unsupportedContent/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export type Props = InlineNodeViewComponentProps & {

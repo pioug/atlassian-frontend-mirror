@@ -2,18 +2,20 @@ import React from 'react';
 
 import {
 	OVERFLOW_MENU,
-	OVERFLOW_MENU_RANK,
 	PIN_BUTTON,
 	PIN_GROUP,
 	PIN_MENU_ITEM,
 	PIN_MENU_SECTION,
+	PIN_SECTION,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	OVERFLOW_MENU_RANK,
 	PIN_MENU_SECTION_RANK,
 	PIN_GROUP_RANK,
-	PIN_SECTION,
 	PIN_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 import { MenuSection } from './MenuSection';

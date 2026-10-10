@@ -10,12 +10,13 @@ import type { IntlShape } from 'react-intl';
 import { useIntl } from 'react-intl';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
+import { AssistiveText } from '@atlaskit/editor-common/AssistiveText';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import type { TypeAheadItem } from '@atlaskit/editor-common/types';
-import { AssistiveText } from '@atlaskit/editor-common/ui';
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
+import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';

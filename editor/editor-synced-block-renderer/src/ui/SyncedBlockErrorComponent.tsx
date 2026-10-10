@@ -1,16 +1,18 @@
 import React, { useMemo, useEffect } from 'react';
 
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
+import { SyncBlockError } from '@atlaskit/editor-synced-block-provider/common/types';
 import {
+	buildFetchErrorAttribution,
 	fetchErrorPayload,
+} from '@atlaskit/editor-synced-block-provider/errorHandling';
+import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider/providers/types';
+import {
+	getSourceProductFromResourceIdSafe,
 	getContentIdAndProductFromResourceId,
-	SyncBlockError,
-} from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
-import { buildFetchErrorAttribution } from '@atlaskit/editor-synced-block-provider/errorHandling';
-import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
+} from '@atlaskit/editor-synced-block-provider/utils';
 
 import { SyncedBlockEntityNotFoundError } from './SyncedBlockEntityNotFoundError';
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';

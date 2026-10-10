@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 
-import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
+import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles/constants';
 
 import { roundToNearest } from '../media-single';
 import { getContainerWidthOrFullEditorWidth } from './getContainerWidthOrFullEditorWidth';

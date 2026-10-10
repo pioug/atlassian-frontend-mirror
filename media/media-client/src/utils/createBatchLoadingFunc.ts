@@ -1,4 +1,5 @@
-import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 
 import type { MediaStore } from '../client/media-store/MediaStore';
 import type { ResponseFileItem, EmptyResponseFileItem } from '../client/media-store/types';

@@ -7,7 +7,7 @@ import AKInlineEdit from '@atlaskit/inline-edit/inline-edit';
 import { type DatasourceDataResponseItem, type Link } from '@atlaskit/linking-types/datasource';
 import type { AtomicActionExecuteResponse } from '@atlaskit/linking-types/datasource-actions';
 import { Box } from '@atlaskit/primitives/compiled';
-import { useSmartLinkReload } from '@atlaskit/smart-card/hooks';
+import { useSmartLinkReload } from '@atlaskit/smart-card/hook/use-smart-link-reload';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

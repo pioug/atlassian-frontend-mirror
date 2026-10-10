@@ -1,39 +1,37 @@
 import type { ReactElement } from 'react';
 
-import type { ActivityProvider } from '@atlaskit/activity-provider';
-import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { ActivityProvider } from '@atlaskit/activity-provider/types';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
-import type { ExtensionHandlers, ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import type {
 	AllEditorPresetPluginTypes,
 	AllPluginNames,
 	EditorPresetBuilder,
-} from '@atlaskit/editor-common/preset';
-import type {
-	ContextIdentifierProvider,
-	Providers,
-	SearchProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import type {
-	EditorAppearance,
-	EmptyStateHandler,
-	FeedbackInfo,
-	LinkingOptions,
-	PerformanceTracking,
-	QuickInsertOptions,
-	PasteWarningOptions,
-	Transformer,
-} from '@atlaskit/editor-common/types';
-import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/preset/builder';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { SearchProvider } from '@atlaskit/editor-common/provider-factory/search-provider';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import type { PasteWarningOptions } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
+import type { FeedbackInfo } from '@atlaskit/editor-common/types/feedback-dialog';
+import type { LinkingOptions } from '@atlaskit/editor-common/types/hyperlink';
+import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PerformanceTracking } from '@atlaskit/editor-common/types/performance-tracking';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types/quick-insert';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui-toolbar';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 import type { CodeBlockPluginOptions } from '@atlaskit/editor-plugins/code-block';
 import type { DatePluginOptions } from '@atlaskit/editor-plugins/date';
 import type { FindReplaceOptions } from '@atlaskit/editor-plugins/find-replace';
 import type { LayoutPluginOptions } from '@atlaskit/editor-plugins/layout';
-import type { MediaPluginOptions, MediaState } from '@atlaskit/editor-plugins/media/types';
+import type { MediaPluginOptions } from '@atlaskit/editor-plugins/media';
+import type { MediaState } from '@atlaskit/editor-plugins/media/types';
 import type { MentionPluginConfig, MentionsPluginOptions } from '@atlaskit/editor-plugins/mentions';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import type { PlaceholderTextPluginOptions } from '@atlaskit/editor-plugins/placeholder-text';
@@ -43,7 +41,7 @@ import type { TextColorPluginConfig } from '@atlaskit/editor-plugins/text-color'
 import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
+import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider/syncBlockProvider';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 

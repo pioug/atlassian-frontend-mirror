@@ -3,8 +3,9 @@ import { bindAll } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';

@@ -8,7 +8,7 @@ import type {
 	DatasourceAdfTableView,
 } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import type { CallbackPayload } from '@atlaskit/node-data-provider';
+import type { CallbackPayload } from '@atlaskit/node-data-provider/node-data-provider';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 

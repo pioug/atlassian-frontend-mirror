@@ -7,9 +7,9 @@ import { Fragment, useCallback } from 'react';
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
 
-import type { TableColumnOrdering } from '@atlaskit/custom-steps';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps/types';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

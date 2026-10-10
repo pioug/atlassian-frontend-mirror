@@ -3,8 +3,8 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
-import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { selectionExtensionMessages } from '@atlaskit/editor-common/messages/selection-extension';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import AppsIcon from '@atlaskit/icon/core/apps';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 

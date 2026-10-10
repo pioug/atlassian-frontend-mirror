@@ -1,4 +1,4 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 
 import type { CoordinationClient } from '../engagementPlatformPluginType';
 import { engagementPlatformPmPluginCommand } from '../pm-plugins/engagementPlatformPmPlugin/engagementPlatformPmPluginCommand';

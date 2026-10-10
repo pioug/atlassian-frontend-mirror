@@ -1,4 +1,4 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { MoveAnalyticPluginTypes } from './actions';

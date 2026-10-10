@@ -9,10 +9,11 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/table';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { findTable, TableMap } from '@atlaskit/editor-tables';
+import { findTable } from '@atlaskit/editor-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

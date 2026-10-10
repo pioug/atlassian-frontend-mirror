@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import usePreviousState from '@atlaskit/editor-common/usePreviousState';
 
 import { formatFullWidthAppearance } from './formatFullWidthAppearance';
 

@@ -1,22 +1,24 @@
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import { validator } from '@atlaskit/adf-utils/validator';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import type {
 	ExtensionAPI,
 	TransformAfter,
 	TransformBefore,
-} from '@atlaskit/editor-common/extensions';
-import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import { autoJoinTr, nodeToJSON } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory/macro-provider';
+import { autoJoinTr } from '@atlaskit/editor-common/utils/autojoin';
+import { nodeToJSON } from '@atlaskit/editor-common/utils/nodes';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
 import type {
 	NodeType,
 	Node as PMNode,

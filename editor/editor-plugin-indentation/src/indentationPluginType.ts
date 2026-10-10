@@ -1,5 +1,9 @@
-import type { Command, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 import type { IndentationInputMethod } from './editor-commands/utils';

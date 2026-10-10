@@ -3,7 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled';
 import { render, screen } from '@atlassian/testing-library';
 

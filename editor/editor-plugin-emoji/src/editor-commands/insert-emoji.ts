@@ -1,12 +1,13 @@
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
-import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils/annotation';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';

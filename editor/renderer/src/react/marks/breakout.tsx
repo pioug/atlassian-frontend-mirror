@@ -6,12 +6,12 @@
 import { jsx, css } from '@emotion/react';
 
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema/breakout';
-import type { BreakoutMode } from '@atlaskit/editor-common/types';
+import type { BreakoutMode } from '@atlaskit/editor-common/types/breakout';
 import {
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxLayoutWidth,
 	blockNodesVerticalMargin,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { RendererCssClassName } from '../../consts';

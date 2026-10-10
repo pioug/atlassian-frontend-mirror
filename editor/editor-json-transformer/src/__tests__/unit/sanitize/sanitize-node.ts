@@ -1,4 +1,8 @@
-import { br, doc, emoji, p, strong } from '@atlaskit/adf-utils/builders';
+import { doc } from '@atlaskit/adf-utils/doc';
+import { emoji } from '@atlaskit/adf-utils/emoji';
+import { hardBreak as br } from '@atlaskit/adf-utils/hard-break';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { strong } from '@atlaskit/adf-utils/strong';
 
 import { sanitizeNode } from '../../../sanitize/sanitize-node';
 import type { JSONDocNode } from '../../../types';

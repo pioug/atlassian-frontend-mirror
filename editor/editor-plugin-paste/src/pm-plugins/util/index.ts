@@ -1,14 +1,16 @@
-import type { EditorAnalyticsAPI, PasteSource } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { PasteSource } from '@atlaskit/editor-common/analytics/types/paste-events';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
 import { sortByOrderWithTypeName } from '@atlaskit/editor-common/legacy-rank-plugins';
-import { isSupportedInParent, mapChildren } from '@atlaskit/editor-common/utils';
+import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
+import { mapChildren } from '@atlaskit/editor-common/utils/slice';
 import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Mark, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';

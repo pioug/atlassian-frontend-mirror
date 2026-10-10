@@ -9,14 +9,14 @@ import {
 	tableHeaderSelector,
 	tablePrefixSelector,
 } from '@atlaskit/adf-schema/tableNodes';
-import type { TableColumnOrdering } from '@atlaskit/custom-steps';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { TableColumnOrdering } from '@atlaskit/custom-steps/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 
 import type { RowStickyState } from '../pm-plugins/sticky-headers/types';

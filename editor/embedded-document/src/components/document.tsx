@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
-import type { EditorProps } from '@atlaskit/editor-core';
-import { ReactRenderer } from '@atlaskit/renderer';
-import type { RendererProps } from '@atlaskit/renderer';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import Editor from '@atlaskit/editor-core/editor';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';
+import ReactRenderer from '@atlaskit/renderer/renderer';
+import type { RendererProps } from '@atlaskit/renderer/renderer-props';
 
 import type { Mode } from '../context/context';
 import type { Props as BaseProps } from '../context/embedded-document';

@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { validateAql } from '../../services/validateAql';
 import { SEARCH_DEBOUNCE, useValidateAqlText } from '../useValidateAqlText';

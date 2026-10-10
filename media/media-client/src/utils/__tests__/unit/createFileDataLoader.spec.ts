@@ -1,6 +1,6 @@
 import Dataloader from 'dataloader';
 
-import { asMock, asMockFunctionReturnValue } from '@atlaskit/media-common/test-helpers';
+import { asMock, asMockFunctionReturnValue } from '@atlaskit/media-common/jestHelpers';
 
 import {
 	type ItemsPayload,

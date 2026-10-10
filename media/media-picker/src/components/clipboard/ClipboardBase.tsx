@@ -1,7 +1,8 @@
 import React from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { ANALYTICS_MEDIA_CHANNEL, type MediaFeatureFlags } from '@atlaskit/media-common';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 
 import { LocalFileSource, type LocalFileWithSource, type UploadService } from '../../service/types';
 import { type ClipboardPastePayload, type ClipboardConfig } from '../../types';

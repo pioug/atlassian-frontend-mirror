@@ -7,17 +7,18 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import {
-	DATASOURCE_INNER_CONTAINER_CLASSNAME,
-	SmartCardSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
+import type {
+	getPosHandler,
+	ReactComponentProps,
+} from '@atlaskit/editor-common/react-node-view/types';
+import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles/smart-card';
+import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles/smartCard';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils/breakout';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';

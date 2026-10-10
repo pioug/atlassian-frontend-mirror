@@ -6,7 +6,7 @@ import {
 	akEditorSwoopCubicBezier,
 	akEditorWideLayoutWidth,
 	breakoutWideScaleRatio,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';

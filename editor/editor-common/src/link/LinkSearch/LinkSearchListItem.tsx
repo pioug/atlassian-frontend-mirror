@@ -14,7 +14,7 @@ import type { SerializedStyles } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

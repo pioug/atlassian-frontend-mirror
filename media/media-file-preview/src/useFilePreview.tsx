@@ -9,23 +9,18 @@ import {
 	type ScriptHTMLAttributes,
 } from 'react';
 
-import {
-	type FileIdentifier,
-	type FileState,
-	isImageRepresentationReady,
-	type MediaBlobUrlAttrs,
-	type MediaStoreGetFileImageParams,
-	toCommonMediaClientError,
-} from '@atlaskit/media-client';
+import { isImageRepresentationReady, toCommonMediaClientError } from '@atlaskit/media-client';
 import { useCopyIntent } from '@atlaskit/media-client-react/use-copy-intent';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { isCDNEnabled } from '@atlaskit/media-client/media-cdn';
-import {
-	isMimeTypeSupportedByBrowser,
-	type MediaTraceContext,
-	type SSR,
-} from '@atlaskit/media-common';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { isMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { SSR } from '@atlaskit/media-common/main-types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
 

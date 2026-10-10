@@ -3,7 +3,7 @@ import type {
 	FlattenedItem,
 	FlattenListOptions,
 	FlattenListResult,
-} from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/lists/flatten-list';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 /**

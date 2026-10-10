@@ -1,6 +1,6 @@
 import { PanelType } from '@atlaskit/adf-schema/panel';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	processRawFragmentValue,
 	processRawValue,

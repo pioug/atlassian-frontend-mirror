@@ -7,14 +7,12 @@ import { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import type { ColorField } from '@atlaskit/editor-common/extensions';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import {
-	chartsColorPaletteTooltipMessages,
-	DEFAULT_BORDER_COLOR,
-} from '@atlaskit/editor-common/ui-color';
-import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
+import type { ColorField } from '@atlaskit/editor-common/extensions/field-definitions';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import { chartsColorPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color/ColorPalette/Palettes/common';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
+import ColorPickerButton from '@atlaskit/editor-common/ui-menu/ColorPickerButton';
 import Field from '@atlaskit/form/field';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

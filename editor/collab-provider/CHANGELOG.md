@@ -1,5 +1,25 @@
 # @atlaskit/collab-provider
 
+## 35.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.3
+
+### Patch Changes
+
+- [`09933f847863e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09933f847863e) -
+  Clean up experiment `collab_check_sleep_detection_experiment`. Sleep-based out-of-sync detection
+  on reconnect is now permanently enabled.
+
 ## 35.0.2
 
 ### Patch Changes

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box } from '@atlaskit/primitives/compiled';
 

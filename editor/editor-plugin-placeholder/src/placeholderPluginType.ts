@@ -1,14 +1,14 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit/collabEditPluginType';
-import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
-import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
-import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition/compositionPluginType';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus/focusPluginType';
+import type { ShowDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
 
 import type { PlaceholderPromptAnimationOptions } from './pm-plugins/types';
 

@@ -1,9 +1,10 @@
-import { maphElem } from '@atlaskit/editor-common/utils';
+import { maphElem } from '@atlaskit/editor-common/utils/dom';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 import { tableDeleteButtonSize } from '../../ui/consts';
 

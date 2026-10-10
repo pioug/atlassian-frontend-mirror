@@ -7,15 +7,15 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
-import { listMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/list';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 

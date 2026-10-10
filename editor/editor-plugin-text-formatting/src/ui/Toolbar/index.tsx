@@ -10,16 +10,18 @@ import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { buttonGroupStyle, separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
-import type {
-	ExtractInjectionAPI,
-	TextFormattingState,
-	ToolbarSize,
-} from '@atlaskit/editor-common/types';
-import { Announcer } from '@atlaskit/editor-common/ui';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import Announcer from '@atlaskit/editor-common/announcer';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import {
+	buttonGroupStyle,
+	separatorStyles,
+	wrapperStyle,
+} from '@atlaskit/editor-common/styles/plugins';
+import type { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TextFormattingState } from '@atlaskit/editor-common/types/text-formatting';
+import usePreviousState from '@atlaskit/editor-common/usePreviousState';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

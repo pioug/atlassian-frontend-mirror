@@ -1,8 +1,9 @@
 import { createContext } from 'react';
 import type { Context } from 'react';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 

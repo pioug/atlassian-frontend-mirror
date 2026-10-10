@@ -1,4 +1,4 @@
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';

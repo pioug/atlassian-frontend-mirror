@@ -1,4 +1,5 @@
-import type { ExtensionParams, Parameters } from '@atlaskit/editor-common/extensions';
+import type { ExtensionParams } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

@@ -7,7 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { image1 as preview } from '@atlaskit/link-test-helpers';
+import { image1 as preview } from '@atlaskit/link-test-helpers/smart-card/images/rectangle';
 import { token } from '@atlaskit/tokens';
 
 import { MediaPlacement, PreviewBlock, SmartLinkSize, SnippetBlock, TitleBlock } from '../../src';

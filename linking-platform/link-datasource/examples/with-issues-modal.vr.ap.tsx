@@ -4,12 +4,12 @@ import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { withWaitForItem } from '@atlaskit/link-test-helpers';
 import {
 	defaultInitialVisibleJiraColumnKeys,
 	mockBasicFilterAGGFetchRequests,
 	mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 import {
 	type DatasourceAdf,
 	type DatasourceAdfTableViewColumn,

@@ -4,12 +4,14 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { DevTools, getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
+import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
+import { getTranslations } from '@af/editor-examples-helpers/utils/get-translations';
+import { LanguagePicker } from '@af/editor-examples-helpers/utils/LanguagePicker';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import { syncBlockMessages } from '@atlaskit/editor-common/messages';
-import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { syncBlockMessages } from '@atlaskit/editor-common/messages/syncBlock';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block/constants';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import LockCircleIcon from '@atlaskit/icon/core/lock-locked';

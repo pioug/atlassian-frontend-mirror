@@ -3,9 +3,9 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { todayTimestampInUTC } from '@atlaskit/editor-common/utils/date';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/block-type';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import {
 	BLOCKQUOTE_MENU_ITEM,
@@ -13,7 +13,8 @@ import {
 	TEXT_FORMATTING_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { TEXT_FORMATTING_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI, HeadingLevels } from '@atlaskit/editor-common/types';
+import type { HeadingLevels } from '@atlaskit/editor-common/types/block-type';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';

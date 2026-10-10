@@ -2,7 +2,7 @@ import React from 'react';
 
 import { injectIntl } from 'react-intl';
 
-import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common/withMediaAnalyticsContext';
 
 import type { CardBaseProps } from './CardBase';
 import { CardWithPerformanceObserver } from './CardWithPerformanceObserver';

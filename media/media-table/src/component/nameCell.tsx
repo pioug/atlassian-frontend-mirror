@@ -8,7 +8,7 @@ import { type FC } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type MediaType } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/media-client/media';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { Truncate } from '@atlaskit/media-ui/truncateText/truncate';
 import type { TruncateProps } from '@atlaskit/media-ui/truncateText/types';

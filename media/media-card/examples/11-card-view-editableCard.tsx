@@ -9,20 +9,20 @@ import { Component } from 'react';
 import { jsx } from '@emotion/react';
 import * as exenv from 'exenv';
 
-import { type ImageResizeMode } from '@atlaskit/media-client';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
 import {
 	videoFileDetails,
 	imageFileDetails,
 	audioFileDetails,
 	docFileDetails,
 	unknownFileDetails,
-	smallImage,
-	smallTransparentImage,
-	tallImage,
-	wideImage,
-	wideTransparentImage,
-	I18NWrapper,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
+import { smallTransparentImage } from '@atlaskit/media-test-helpers/smallTransparentImageURI';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
+import { wideImage } from '@atlaskit/media-test-helpers/wideImageURI';
+import { wideTransparentImage } from '@atlaskit/media-test-helpers/wideTransparentImageURI';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Range from '@atlaskit/range/range';
 import Toggle from '@atlaskit/toggle';

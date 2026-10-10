@@ -12,7 +12,7 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Step } from '@atlaskit/editor-prosemirror/transform-override';

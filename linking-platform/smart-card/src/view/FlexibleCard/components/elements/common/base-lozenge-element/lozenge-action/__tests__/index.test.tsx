@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { Text } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';

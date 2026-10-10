@@ -1,4 +1,4 @@
-import type { AgentManagedExtensionPluginOptions } from '@atlassian/editor-plugin-agent-managed-extension';
+import type { AgentManagedExtensionPluginOptions } from '@atlassian/editor-plugin-agent-managed-extension/agentManagedExtensionPluginType';
 
 interface Props {
 	options?: {

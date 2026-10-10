@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { fireEvent, screen } from '@atlassian/testing-library';
 
 import ImageIcon from './index';

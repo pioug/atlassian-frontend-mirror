@@ -9,7 +9,7 @@ import {
 	moveUp,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { createParagraphNear } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 

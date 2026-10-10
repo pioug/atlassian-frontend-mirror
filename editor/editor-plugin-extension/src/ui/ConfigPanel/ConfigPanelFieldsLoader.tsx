@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import type {
 	ExtensionKey,
 	ExtensionManifest,
-	ExtensionProvider,
 	ExtensionType,
-	FieldDefinition,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 import ConfigPanel from './ConfigPanel';

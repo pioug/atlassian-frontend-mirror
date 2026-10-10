@@ -3,26 +3,25 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import {
 	ToolTipContent,
 	clearFormatting,
 	getAriaKeyshortcuts,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { getInputMethodFromParentKeys, TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar';
-import {
-	ToolbarButton,
-	ToolbarDropdownItem,
-	ClearFormattingIcon,
-	ToolbarKeyboardShortcutHint,
-	ToolbarDropdownMenu,
-	MoreItemsIcon,
-	ToolbarTooltip,
-	ToolbarDropdownItemSection,
-} from '@atlaskit/editor-toolbar';
-import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
+import { TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar/keys';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model/types';
+import { ClearFormattingIcon } from '@atlaskit/editor-toolbar/clear-formatting-icon';
+import { MoreItemsIcon } from '@atlaskit/editor-toolbar/more-items-icon';
+import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 import { clearFormattingWithAnalyticsNext } from '../../../editor-commands/clear-formatting';
 import type { FormatComponentProps } from './utils';

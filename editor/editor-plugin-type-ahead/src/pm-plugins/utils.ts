@@ -1,8 +1,10 @@
 import type { IntlShape } from 'react-intl';
 
-import { mentionMessages } from '@atlaskit/editor-common/messages';
-import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
+import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { AGENT_MENTION_LOAD_ERROR_ID } from '@atlaskit/mention/types';

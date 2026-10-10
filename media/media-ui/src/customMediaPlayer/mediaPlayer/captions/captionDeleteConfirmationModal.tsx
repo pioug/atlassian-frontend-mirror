@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { type MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
-import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';

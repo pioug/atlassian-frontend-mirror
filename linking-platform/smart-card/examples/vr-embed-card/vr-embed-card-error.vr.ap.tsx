@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErroredClient } from '@atlaskit/link-test-helpers';
+import { ErroredClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import VRCardView from '../utils/vr-card-view';
 

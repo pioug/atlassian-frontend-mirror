@@ -1,16 +1,12 @@
 import React from 'react';
 
-import {
-	Toolbar,
-	ToolbarButtonGroup,
-	ToolbarSection,
-	ToolbarDropdownItemSection,
-} from '@atlaskit/editor-toolbar';
-import {
-	ToolbarModelRenderer,
-	createComponentRegistry,
-	type RegisterToolbar,
-} from '@atlaskit/editor-toolbar-model';
+import { createComponentRegistry } from '@atlaskit/editor-toolbar-model/create-registry';
+import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model/toolbar-model-renderer';
+import type { RegisterToolbar } from '@atlaskit/editor-toolbar-model/types';
+import { Toolbar } from '@atlaskit/editor-toolbar/toolbar';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
 
 import {
 	registerAIToolbarComponents,

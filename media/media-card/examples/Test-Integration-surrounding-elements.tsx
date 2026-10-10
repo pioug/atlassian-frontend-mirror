@@ -8,11 +8,8 @@ import { jsx } from '@compiled/react';
 import { css } from '@compiled/react';
 
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
-import {
-	createFileDetails,
-	createIdentifier,
-	FileStateFactory,
-} from '@atlaskit/media-test-helpers';
+import { FileStateFactory } from '@atlaskit/media-test-helpers/factory';
+import { createFileDetails, createIdentifier } from '@atlaskit/media-test-helpers/helpers';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

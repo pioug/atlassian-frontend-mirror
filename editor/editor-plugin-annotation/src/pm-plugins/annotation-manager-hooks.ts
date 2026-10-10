@@ -11,7 +11,7 @@ import type {
 import {
 	getAnnotationInlineNodeTypes,
 	getRangeInlineNodeNames,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/annotation';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

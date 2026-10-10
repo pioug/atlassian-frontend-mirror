@@ -1,19 +1,21 @@
 import { useEffect, useRef } from 'react';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	AnalyticsEventPayload,
 	AnalyticsEventPayloadCallback,
-	EditorAnalyticsAPI,
-	TableEventPayload,
-} from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
-import type { HigherOrderCommand } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/events';
+import type { TableEventPayload } from '@atlaskit/editor-common/analytics/types/table-events';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
+import type { HigherOrderCommand } from '@atlaskit/editor-common/types/command';
 import { getBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 import { hasTableBeenResized } from '../table-resizing/utils/colgroup';
 import { getTableWidth } from './nodes';

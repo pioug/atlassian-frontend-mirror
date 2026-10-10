@@ -5,7 +5,8 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
-import { createStorybookMediaClientConfig, imageFileId } from '@atlaskit/media-test-helpers';
+import { imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

@@ -1,8 +1,8 @@
-import {
-	type UIEventPayload,
-	type UIAttributes,
-	type WithFileAttributes,
-} from '@atlaskit/media-common';
+import type {
+	UIEventPayload,
+	UIAttributes,
+	WithFileAttributes,
+} from '@atlaskit/media-common/analytics/types';
 
 export type NavigatedAttributes = UIAttributes &
 	WithFileAttributes & {

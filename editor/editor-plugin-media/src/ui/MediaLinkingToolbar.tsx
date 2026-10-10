@@ -8,28 +8,25 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
+import RecentSearch from '@atlaskit/editor-common/link/LinkSearch';
 import type {
 	ChildProps,
 	RecentSearchInputTypes,
 	RecentSearchSubmitOptions,
-} from '@atlaskit/editor-common/link';
+} from '@atlaskit/editor-common/link/LinkSearch/types';
 import {
 	container,
 	containerWithProvider,
 	inputWrapper,
-	RecentSearch,
-} from '@atlaskit/editor-common/link';
-import { mediaLinkToolbarMessages } from '@atlaskit/editor-common/media';
-import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-	FloatingToolbarButton as Button,
-	ErrorMessage,
-	FloatingToolbarSeparator as Separator,
-	// Common Translations will live here
-	PanelTextInput,
-} from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/link/ToolbarComponents';
+import { mediaLinkToolbarMessages } from '@atlaskit/editor-common/media/mediaLinkingToolbar';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import PanelTextInput from '@atlaskit/editor-common/PanelTextInput';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { ErrorMessage } from '@atlaskit/editor-common/ui-messages';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
 import EditorUnlinkIcon from '@atlaskit/icon/core/link-broken';

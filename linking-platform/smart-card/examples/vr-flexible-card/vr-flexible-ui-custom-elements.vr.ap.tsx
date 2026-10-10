@@ -25,16 +25,14 @@ import {
 	UnAuthClientWithNoIcon,
 	UnAuthClientWithProviderImage,
 	UnicornResolvedClient,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid } from '@atlaskit/primitives';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
-import {
-	Card,
-	CustomByAccessTypeElement,
-	CustomByStatusElement,
-	TitleElement,
-} from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import { CustomByStatusElement } from '@atlaskit/smart-card/custom-by-status-element';
+import { CustomElementByAccessType as CustomByAccessTypeElement } from '@atlaskit/smart-card/custom-element-by-access-type';
+import { TitleElement } from '@atlaskit/smart-card/flexible/title-element';
 
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

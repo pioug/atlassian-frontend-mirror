@@ -2,8 +2,10 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { ToolbarDropdownMenu, ToolbarTooltip, TextIcon } from '@atlaskit/editor-toolbar';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { TextIcon } from '@atlaskit/editor-toolbar/text-icon';
+import { ToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 
 type TextStylesMenuButtonProps = {
 	children: React.ReactNode;

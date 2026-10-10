@@ -2,51 +2,46 @@ import React, { useRef } from 'react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import type { LinkAttributes } from '@atlaskit/adf-schema/link';
-import type {
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-	LinkType,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { LinkType } from '@atlaskit/editor-common/analytics/linking-utils';
+import { buildVisitedLinkPayload } from '@atlaskit/editor-common/analytics/linking-utils';
 import {
 	ACTION,
 	ACTION_SUBJECT_ID,
 	INPUT_METHOD,
-	buildVisitedLinkPayload,
-} from '@atlaskit/editor-common/analytics';
-import { commandWithMetadata } from '@atlaskit/editor-common/card';
-import {
-	type NamedPluginStatesFromInjectionAPI,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type {
-	EditInsertedState,
-	HyperlinkAddToolbarProps,
-	HyperlinkState,
-	InsertState,
-} from '@atlaskit/editor-common/link';
-import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
-import {
-	linkMessages,
-	linkToolbarMessages as linkToolbarCommonMessages,
-} from '@atlaskit/editor-common/messages';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type {
-	AlignType,
-	Command,
-	CommandDispatch,
-	ExtractInjectionAPI,
-	FloatingToolbarHandler,
-	FloatingToolbarItem,
-	HyperlinkPluginOptions,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import {
 	LINKPICKER_HEIGHT_IN_PX,
 	RECENT_SEARCH_HEIGHT_IN_PX,
 	RECENT_SEARCH_WIDTH_IN_PX,
-} from '@atlaskit/editor-common/ui';
-import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
+} from '@atlaskit/editor-common/link-search-constants';
+import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link/HyperlinkAddToolbar';
+import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link/HyperlinkAddToolbar';
+import type {
+	EditInsertedState,
+	HyperlinkState,
+	InsertState,
+} from '@atlaskit/editor-common/link/types';
+import { linkMessages } from '@atlaskit/editor-common/messages/link';
+import { linkToolbarMessages as linkToolbarCommonMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type {
+	AlignType,
+	FloatingToolbarHandler,
+	FloatingToolbarItem,
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types/hyperlink';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/UserIntentPopupWrapper';
+import {
+	type NamedPluginStatesFromInjectionAPI,
+	useSharedPluginStateWithSelector,
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';

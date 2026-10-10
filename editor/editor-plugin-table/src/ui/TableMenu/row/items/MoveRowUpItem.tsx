@@ -2,11 +2,11 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { moveRowUp, tooltip } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circle-icon';
 import { TableRowMoveUpIcon } from '@atlaskit/editor-toolbar/row-move-up-icon';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';

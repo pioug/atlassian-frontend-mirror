@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TableSelectorPopup } from '@atlaskit/editor-common/ui';
+import { TableSelectorPopup } from '@atlaskit/editor-common/TableSelector';
 
 interface TableSelectorPopupWrapperProps {
 	isOpen: boolean;

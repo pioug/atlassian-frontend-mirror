@@ -2,19 +2,21 @@ import React from 'react';
 
 import {
 	TEXT_STYLES_GROUP,
-	TEXT_SECTION_RANK,
 	TEXT_SECTION,
 	TEXT_STYLES_MENU,
-	TEXT_STYLES_GROUP_RANK,
 	TEXT_STYLES_MENU_SECTION,
+	TEXT_COLLAPSED_MENU,
+	TEXT_SECTION_PRIMARY_TOOLBAR,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	TEXT_SECTION_RANK,
+	TEXT_STYLES_GROUP_RANK,
 	TEXT_STYLES_MENU_RANK,
 	TEXT_COLLAPSED_MENU_RANK,
-	TEXT_COLLAPSED_MENU,
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
-	TEXT_SECTION_PRIMARY_TOOLBAR,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import { toolbarBlockTypesWithRank } from '../block-types';

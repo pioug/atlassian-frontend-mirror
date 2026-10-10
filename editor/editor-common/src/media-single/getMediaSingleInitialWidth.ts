@@ -1,4 +1,4 @@
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import { DEFAULT_IMAGE_WIDTH, MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH } from './constants';
 

@@ -1,7 +1,7 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

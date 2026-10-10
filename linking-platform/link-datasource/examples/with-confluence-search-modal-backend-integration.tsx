@@ -15,7 +15,7 @@ import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Radio from '@atlaskit/radio/radio';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 

@@ -1,4 +1,4 @@
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

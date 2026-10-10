@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
 import { startColumnResizing, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/table';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { TableCssClassName } from '../../types';

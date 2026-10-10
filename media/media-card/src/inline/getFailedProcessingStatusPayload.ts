@@ -1,5 +1,4 @@
-import { type FileState } from '@atlaskit/media-client';
-import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
+import type { ProcessingFailReason, FileState } from '@atlaskit/media-state/file-state';
 
 import { type RenderInlineCardFailedEventPayload } from '../utils/analytics';
 

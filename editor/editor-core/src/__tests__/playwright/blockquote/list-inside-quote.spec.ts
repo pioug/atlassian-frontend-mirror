@@ -1,9 +1,10 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models/editor-main-toolbar-model';
 import {
-	EditorMainToolbarModel,
 	EditorUploadMediaModel,
 	FileResourcesAvailable,
-} from '@af/editor-libra/page-models';
+} from '@af/editor-libra/page-models/editor-media-model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	blockquote,

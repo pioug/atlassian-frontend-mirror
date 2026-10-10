@@ -1,8 +1,8 @@
-import {
-	type FileAttributes,
-	type PerformanceAttributes,
-	type MediaTraceContext,
-} from '@atlaskit/media-common/analytics';
+import type {
+	FileAttributes,
+	PerformanceAttributes,
+	MediaTraceContext,
+} from '@atlaskit/media-common/analytics/types';
 
 import type { RenderSucceededEventPayload, SSRStatus } from './analytics';
 

@@ -1,5 +1,5 @@
-import type { AutoformatHandler } from '@atlaskit/editor-common/provider-factory';
-import { processRawValue } from '@atlaskit/editor-common/utils';
+import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import type { AutoformatHandler } from '@atlaskit/editor-common/provider-factory/autoformatting-provider';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 

@@ -1,17 +1,17 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { UserPreferencesProvider } from '@atlaskit/editor-common/user-preferences-provider';
 import type {
 	ResolvedUserPreferences,
 	UserPreferences,
-	UserPreferencesProvider,
-} from '@atlaskit/editor-common/user-preferences';
+} from '@atlaskit/editor-common/user-preferences/user-preferences';
 
 import { userPreferencesPluginKey } from './main';
 

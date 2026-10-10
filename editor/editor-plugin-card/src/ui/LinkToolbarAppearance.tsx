@@ -3,17 +3,16 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { OptionConfig } from '@atlaskit/editor-common/card';
-import {
-	commandWithMetadata,
-	getButtonGroupOption,
-	LinkToolbarButtonGroup,
-} from '@atlaskit/editor-common/card';
-import nodeNames, { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { getButtonGroupOption } from '@atlaskit/editor-common/card/link-toolbar-button-group-options';
+import { LinkToolbarButtonGroup } from '@atlaskit/editor-common/card/LinkToolbarButtonGroup';
+import type { OptionConfig } from '@atlaskit/editor-common/card/types';
+import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
+import nodeNames from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

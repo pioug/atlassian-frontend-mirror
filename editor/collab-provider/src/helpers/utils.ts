@@ -1,4 +1,4 @@
-import { scrubAdf } from '@atlaskit/adf-utils/scrub';
+import scrubAdf from '@atlaskit/adf-utils/scrub-adf';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type {
 	BatchAttrsStepPM,

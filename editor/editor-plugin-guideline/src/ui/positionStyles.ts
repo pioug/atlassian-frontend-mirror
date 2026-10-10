@@ -2,7 +2,8 @@
 
 import type { CSSProperties } from 'react';
 
-import { isVerticalPosition, type Position } from '@atlaskit/editor-common/guideline';
+import type { Position } from '@atlaskit/editor-common/guideline/types';
+import { isVerticalPosition } from '@atlaskit/editor-common/guideline/utils';
 
 import { VAR_POSITION_OFFSET_X, VAR_POSITION_OFFSET_Y } from './constants';
 

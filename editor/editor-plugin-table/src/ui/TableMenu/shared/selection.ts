@@ -1,10 +1,8 @@
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
-import {
-	findCellRectClosestToPos,
-	getSelectionRect,
-	isSelectionType,
-} from '@atlaskit/editor-tables/utils';
+import type { Rect } from '@atlaskit/editor-tables/rect';
+import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**

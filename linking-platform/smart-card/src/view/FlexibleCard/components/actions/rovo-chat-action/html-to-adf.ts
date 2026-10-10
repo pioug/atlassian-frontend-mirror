@@ -6,7 +6,14 @@
  * Support: p, ul, li, text, b, strong, code, inlineCard (replace a hyperlink)
  */
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { code, doc, inlineCard, p, b, ul, li, text } from '@atlaskit/adf-utils/builders';
+import { bulletList as ul } from '@atlaskit/adf-utils/bullet-list';
+import { code } from '@atlaskit/adf-utils/code';
+import { doc } from '@atlaskit/adf-utils/doc';
+import { inlineCard } from '@atlaskit/adf-utils/inline-card';
+import { listItem as li } from '@atlaskit/adf-utils/list-item';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { strong as b } from '@atlaskit/adf-utils/strong';
+import { text } from '@atlaskit/adf-utils/text';
 
 type HTMLToken =
 	| { content?: string[]; tagName?: string; type: 'close' | 'open' | 'selfClosing' }

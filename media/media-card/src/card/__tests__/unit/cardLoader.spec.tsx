@@ -9,8 +9,9 @@ import { act } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
-import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { nextTick } from '@atlaskit/media-test-helpers/nextTick';
 import { render, screen } from '@atlassian/testing-library';
 
 import CardLoader from '../../cardLoader';

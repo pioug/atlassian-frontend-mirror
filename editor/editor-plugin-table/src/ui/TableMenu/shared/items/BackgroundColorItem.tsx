@@ -7,20 +7,16 @@ import React, { useCallback, useMemo } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-	backgroundPaletteTooltipMessages,
-	cellBackgroundColorPalette,
-	cellBackgroundColorPaletteNew,
-	ColorPalette,
-} from '@atlaskit/editor-common/ui-color';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import {
-	NestedDropdownRightIcon,
-	PaintBucketIcon,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { cellBackgroundColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import ColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette';
+import cellBackgroundColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette/cellBackgroundColorPalette';
+import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
+import { NestedDropdownRightIcon } from '@atlaskit/editor-toolbar/nested-dropdown-right-icon';
+import { PaintBucketIcon } from '@atlaskit/editor-toolbar/paint-bucket-icon';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

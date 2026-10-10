@@ -1,6 +1,6 @@
-import type { OnClickCallback } from '@atlaskit/editor-common/card';
-import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
-import type { HyperlinkPluginOptions } from '@atlaskit/editor-plugin-hyperlink';
+import type { OnClickCallback } from '@atlaskit/editor-common/card/cardOptions';
+import type { LinkPickerOptions } from '@atlaskit/editor-common/types/hyperlink';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-plugin-hyperlink/hyperlinkPluginType';
 
 import type { FullPageEditorAppearance } from '../types';
 

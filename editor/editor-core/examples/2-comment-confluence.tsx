@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { DevTools } from '@af/editor-examples-helpers/utils';
+import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';

@@ -3,8 +3,10 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
-import { mediaPickerAuthProvider, defaultCollectionName } from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 
 import { MainWrapper } from '../example-helpers';
 import Card from '../src/card/cardLoader';

@@ -1,15 +1,15 @@
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	PasteContents,
-	PasteTypes,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type { Command } from '@atlaskit/editor-common/types';
-import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { PasteContents, PasteTypes } from '@atlaskit/editor-common/analytics/types/paste-events';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
+import type { LastContentPasted } from '@atlaskit/editor-plugin-paste/paste-plugin-type';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

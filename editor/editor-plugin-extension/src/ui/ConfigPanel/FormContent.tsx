@@ -1,7 +1,11 @@
 import React from 'react';
 
-import type { FieldDefinition, TabField, TabGroupField } from '@atlaskit/editor-common/extensions';
-import { isFieldset } from '@atlaskit/editor-common/extensions';
+import type {
+	FieldDefinition,
+	TabField,
+	TabGroupField,
+} from '@atlaskit/editor-common/extensions/field-definitions';
+import { isFieldset } from '@atlaskit/editor-common/extensions/field-definitions';
 
 import Boolean from './Fields/Boolean';
 import ColorPicker from './Fields/ColorPicker';

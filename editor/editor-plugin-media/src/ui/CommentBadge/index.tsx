@@ -1,13 +1,13 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema/annotation';
-import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
+import { VIEW_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { CommentBadgeNext } from '@atlaskit/editor-common/media-single/CommentBadgeNext';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { CommentBadgeNext } from '@atlaskit/editor-common/media-single';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

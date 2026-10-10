@@ -1,14 +1,12 @@
 import React from 'react';
 
-import {
-	getArtifactUrl,
-	type MediaClient,
-	type FileState,
-	globalMediaEventEmitter,
-	type Identifier,
-	isFileIdentifier,
-} from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import { getArtifactUrl } from '@atlaskit/media-client/artifacts';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { Camera } from '@atlaskit/media-ui/camera/camera';
 import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
 import { InsetViewerProvider } from '@atlaskit/media-ui/insetViewerProvider';

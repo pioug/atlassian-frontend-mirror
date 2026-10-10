@@ -3,21 +3,20 @@
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { MediaInlineAttributes } from '@atlaskit/adf-schema/media-inline';
-import type {
-	MediaProvider,
-	ProviderFactory,
-	Providers,
-} from '@atlaskit/editor-common/provider-factory';
-import type { HandlePositioning } from '@atlaskit/editor-common/resizer';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import type { EditorAppearance, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
+import type { HandlePositioning } from '@atlaskit/editor-common/resizer/types';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { FileIdentifier } from '@atlaskit/media-client';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { MediaFile, UploadParams } from '@atlaskit/media-picker/types';
-import type { MediaViewerExtensions } from '@atlaskit/media-viewer';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 // TODO: ED-26962 - Once we extract the placeholder-text we should import this type again
 //import type { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 

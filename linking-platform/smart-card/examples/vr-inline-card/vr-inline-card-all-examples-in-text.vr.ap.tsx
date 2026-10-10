@@ -10,10 +10,11 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import ImageLoader from 'react-render-image';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { AtlasProject, ResolvingClient } from '@atlaskit/link-test-helpers';
+import { AtlasProject } from '@atlaskit/link-test-helpers/smart-card/mocks/atlas';
+import { ResolvingClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { token } from '@atlaskit/tokens';
 
 import ImageIconWithColor from '../../src/common/ui/icons/image-icon';

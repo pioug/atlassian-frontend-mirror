@@ -1,5 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import { getMediaSinglePixelWidth, roundToNearest } from '../media-single';
 

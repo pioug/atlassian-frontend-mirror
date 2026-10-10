@@ -7,11 +7,11 @@ import { useCallback, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { clearFormatting as clearFormattingKeymap, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import type { Command } from '@atlaskit/editor-common/types';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

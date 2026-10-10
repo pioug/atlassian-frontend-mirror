@@ -1,5 +1,6 @@
-import type { ADFCommonNodeSpec, ADFNode } from '@atlaskit/adf-schema-generator';
-import { adfNode } from '@atlaskit/adf-schema-generator';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
+import type { ADFCommonNodeSpec } from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 // A bare `table` node stub, declared in an import-cycle-free leaf module so that other node
 // modules (e.g. `panel`) can reference `table` in their content WITHOUT importing the heavy

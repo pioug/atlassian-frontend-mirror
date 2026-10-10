@@ -1,5 +1,5 @@
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles/constants';
 
 import { EVEN_SHARE_RATIO } from './constants';
 

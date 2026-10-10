@@ -3,7 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import { render } from '@atlassian/testing-library/render';
 
 import { MarkElement } from '../../';

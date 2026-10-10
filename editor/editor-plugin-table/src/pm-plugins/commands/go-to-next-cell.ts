@@ -1,21 +1,21 @@
 import type { IntlShape } from 'react-intl/src/types';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { isSelectionTableNestedInTable } from '@atlaskit/editor-common/nesting';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import type { Direction } from '@atlaskit/editor-tables/types';
 import {
-	goToNextCell as baseGotoNextCell,
 	findCellClosestToPos,
 	findTable,
 	findTableClosestToPos,
 	isTableSelected,
 } from '@atlaskit/editor-tables/utils';
+import { goToNextCell as baseGotoNextCell } from '@atlaskit/editor-tables/utils/go-to-next-cell';
 
 import { getPluginState } from '../plugin-factory';
 import { stopKeyboardColumnResizing } from './column-resize';

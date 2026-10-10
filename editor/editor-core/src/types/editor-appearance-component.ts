@@ -1,26 +1,30 @@
 import type { ReactElement, RefObject } from 'react';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
-} from '@atlaskit/editor-common/preset';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/preset/builder';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type {
 	EditorAppearance,
 	EditorContentMode,
-	FeatureFlags,
+} from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type {
 	NextEditorPlugin,
 	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
+import type {
 	ReactHookFactory,
-	ToolbarUIComponentFactory,
 	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
-import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/types/ui-components';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui-toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type EditorActions from '../actions';

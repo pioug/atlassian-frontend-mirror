@@ -1,5 +1,6 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
-import { EditorAppearanceModel } from '@af/editor-libra/page-models';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorAppearanceModel } from '@af/editor-libra/page-models/editor-appearance-model';
 
 import { mediumSizeDoc } from './changing-mode.spec.ts-fixtures';
 

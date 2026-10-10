@@ -1,10 +1,8 @@
-import type {
-	ExtensionManifest,
-	FieldDefinition,
-	Parameters,
-} from '@atlaskit/editor-common/extensions';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 
 export enum ValidationError {
 	Required = 'required',

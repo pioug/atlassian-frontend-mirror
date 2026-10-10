@@ -1,4 +1,4 @@
-import type { TablePluginOptions } from '@atlaskit/editor-plugin-table';
+import type { TablePluginOptions } from '@atlaskit/editor-plugin-table/table-plugin-type';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FullPageEditorAppearance } from '../types';

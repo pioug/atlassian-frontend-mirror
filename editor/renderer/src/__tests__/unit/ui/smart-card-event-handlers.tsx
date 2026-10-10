@@ -11,7 +11,7 @@ import { render, waitFor, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { cardClient } from '@atlaskit/media-integration-test-helpers';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 
 import { Renderer } from '../../../entry-points/renderer-default';
 import type { RendererProps } from '../../../ui/renderer-props';

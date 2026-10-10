@@ -10,7 +10,7 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
+import { mentionMessages as messages } from '@atlaskit/editor-common/messages/mentions';
 import EmailIcon from '@atlaskit/icon/core/email';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import type { UserRole, MentionDescription } from '@atlaskit/mention/types';

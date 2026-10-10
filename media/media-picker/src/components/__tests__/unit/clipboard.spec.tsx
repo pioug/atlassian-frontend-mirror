@@ -5,7 +5,8 @@ jest.mock('../../../service/uploadServiceImpl');
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { ClipboardMockFile, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { ClipboardMockFile } from '@atlaskit/media-test-helpers/clipboardEventMocks';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { render } from '@atlassian/testing-library';
 
 import { LocalFileSource } from '../../../service/types';

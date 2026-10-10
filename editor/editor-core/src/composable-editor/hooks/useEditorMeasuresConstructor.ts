@@ -3,8 +3,8 @@
  * @jsx jsx
  */
 
-import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { startMeasure } from '@atlaskit/editor-common/performance-measures';
+import useConstructor from '@atlaskit/editor-common/useConstructor';
 
 import measurements from '../../utils/performance/measure-enum';
 

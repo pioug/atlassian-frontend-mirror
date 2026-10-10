@@ -5,7 +5,7 @@ import applyDevTools from 'prosemirror-dev-tools';
 import Button from '@atlaskit/button/default/button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff';
+import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';

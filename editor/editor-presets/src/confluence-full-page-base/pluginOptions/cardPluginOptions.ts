@@ -1,8 +1,8 @@
-import type { OnClickCallback } from '@atlaskit/editor-common/card';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
-import type { CardPluginOptions } from '@atlaskit/editor-plugin-card';
+import type { OnClickCallback } from '@atlaskit/editor-common/card/cardOptions';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { LinkPickerOptions } from '@atlaskit/editor-common/types/hyperlink';
+import type { CardPluginOptions } from '@atlaskit/editor-plugin-card/types';
 import type { CardContext } from '@atlaskit/link-provider/types';
 
 import type { FullPageEditorAppearance } from '../types';

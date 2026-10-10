@@ -1,11 +1,13 @@
 import type {
-	BrowserFreezetracking,
-	InputTracking,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
+	BrowserFreezetracking,
+	InputTracking,
+} from '@atlaskit/editor-common/types/performance-tracking';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier/contextIdentifierPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

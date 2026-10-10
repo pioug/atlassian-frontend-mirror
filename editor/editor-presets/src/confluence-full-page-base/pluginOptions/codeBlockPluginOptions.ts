@@ -1,5 +1,7 @@
-import type { CodeBlockPluginOptions } from '@atlaskit/editor-plugin-code-block';
-import type { CodeBlockFormatProvider } from '@atlaskit/editor-plugin-code-block/types';
+import type {
+	CodeBlockFormatProvider,
+	CodeBlockPluginOptions,
+} from '@atlaskit/editor-plugin-code-block/types';
 
 interface Props {
 	providers: {

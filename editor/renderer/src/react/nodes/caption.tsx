@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Caption } from '@atlaskit/editor-common/ui';
+import Caption from '@atlaskit/editor-common/Caption';
 
 import type { NodeProps } from '../types';
 

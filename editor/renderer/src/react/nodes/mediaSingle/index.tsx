@@ -12,17 +12,19 @@ import { injectIntl } from 'react-intl';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
-import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
-import type { EventHandlers, MediaSingleWidthType } from '@atlaskit/editor-common/ui';
-import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import UIMediaSingle from '@atlaskit/editor-common/MediaSingle';
+import type { MediaSingleWidthType } from '@atlaskit/editor-common/MediaSingle/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ImageLoaderProps } from '@atlaskit/editor-common/utils/imageLoader';
+import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import {
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorWideLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+} from '@atlaskit/editor-shared-styles/constants';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';

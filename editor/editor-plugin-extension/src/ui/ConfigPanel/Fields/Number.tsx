@@ -2,7 +2,7 @@ import React from 'react';
 
 import isNumber from 'is-number';
 
-import type { NumberField } from '@atlaskit/editor-common/extensions';
+import type { NumberField } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
 import TextField from '@atlaskit/textfield/text-field';
 

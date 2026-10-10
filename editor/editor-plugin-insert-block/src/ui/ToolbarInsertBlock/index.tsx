@@ -18,18 +18,22 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { buttonGroupStyle, separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
-import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
-import { Popup, TableSelectorPopup } from '@atlaskit/editor-common/ui';
-import type { MenuItem, ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import Popup from '@atlaskit/editor-common/Popup';
 import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners as withOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+	buttonGroupStyle,
+	separatorStyles,
+	wrapperStyle,
+} from '@atlaskit/editor-common/styles/plugins';
+import { TableSelectorPopup } from '@atlaskit/editor-common/TableSelector';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

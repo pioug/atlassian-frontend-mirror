@@ -1,4 +1,4 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 import type { TargetNodeMarks } from './transform-node-utils/types';

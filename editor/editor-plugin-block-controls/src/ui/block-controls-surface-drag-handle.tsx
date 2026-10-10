@@ -23,14 +23,14 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { surfaceDragHandleElementStore } from '@atlaskit/editor-common/block-controls/surface-drag-handle-element';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { TooltipContentWithMultipleShortcuts } from '@atlaskit/editor-common/keymaps';
-import { blockControlsMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { messages as blockControlsMessages } from '@atlaskit/editor-common/messages/block-controls';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';

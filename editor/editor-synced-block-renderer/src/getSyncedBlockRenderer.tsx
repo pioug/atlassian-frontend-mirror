@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { SyncedBlockRendererProps } from '@atlaskit/editor-plugin-synced-block';
+import type { SyncedBlockRendererProps } from '@atlaskit/editor-plugin-synced-block/synced-block-plugin-type';
 
 import type { SyncedBlockRendererOptions } from './types';
 import { SyncedBlockRenderer } from './ui/SyncedBlockRenderer';

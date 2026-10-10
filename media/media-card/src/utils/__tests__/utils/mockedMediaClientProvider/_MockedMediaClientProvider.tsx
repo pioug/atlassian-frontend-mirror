@@ -1,25 +1,26 @@
 import React from 'react';
 
-import type { MediaApi, MediaClientConfig } from '@atlaskit/media-client';
-import {
-	isUploadingFileState,
-	type MediaStore as MediaApiImpl,
-	MediaClient,
-	type ResponseFileItem,
-	type UploadingFileState,
-} from '@atlaskit/media-client';
+import { isUploadingFileState } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStore as MediaApiImpl } from '@atlaskit/media-client/media-store';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
+import type { ResponseFileItem } from '@atlaskit/media-client/media-store/types';
 import {
 	createEmptyFileItem,
 	createErrorFileState,
 	createFileState,
-	type CreateMockedMediaApiResult,
 	createProcessingFileItem,
 	createUploadingFileState,
+} from '@atlaskit/media-client/test-helpers';
+import {
+	type CreateMockedMediaApiResult,
 	type SetItems,
 	createMockedMediaApi,
-} from '@atlaskit/media-client/test-helpers';
+} from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import type { UploadingFileState } from '@atlaskit/media-state/file-state';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 
 import { dataURItoBlob } from './_helpers';

@@ -3,7 +3,7 @@ import type {
 	MenuSectionType,
 	MenuType,
 	NestedMenuType,
-} from '@atlaskit/editor-ui-control-model';
+} from '@atlaskit/editor-ui-control-model/types';
 
 // --- Menu surface ---
 

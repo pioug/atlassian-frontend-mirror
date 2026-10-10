@@ -1,19 +1,17 @@
 import React, { useMemo } from 'react';
 
-import type { WithOutsideClickProps } from '@atlaskit/editor-common/ui';
+import { highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import ColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette';
 import {
-	ColorPalette,
 	REMOVE_HIGHLIGHT_COLOR,
-	getSelectedRowAndColumnFromPalette,
 	highlightColorPalette,
-	highlightColorPaletteNew,
-} from '@atlaskit/editor-common/ui-color';
-import {
-	ArrowKeyNavigationType,
-	DropdownContainer as Dropdown,
-} from '@atlaskit/editor-common/ui-menu';
-import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-common/ui-color/ColorPalette/highlightColorPalette';
+import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color/ColorPalette/utils';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
+import type { WithOutsideClickProps } from '@atlaskit/editor-common/with-outer-listeners';
+import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {

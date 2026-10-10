@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
+import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types/floating-toolbar';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';

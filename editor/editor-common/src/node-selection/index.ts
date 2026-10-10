@@ -1,7 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { selectTableClosestToPos } from '@atlaskit/editor-tables/select-table-closest-to-pos';
 
 /**
  * Returns a NodeSelection for the node at `start`.

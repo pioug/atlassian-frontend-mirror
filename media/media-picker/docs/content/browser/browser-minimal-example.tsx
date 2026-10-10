@@ -5,7 +5,7 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 import Button from '@atlaskit/button/standard-button';
 import {
 	type BrowserConfig,
@@ -13,7 +13,8 @@ import {
 	type UploadEndEventPayload,
 } from '../../../src/types';
 import { BrowserLoader as Browser } from '../../../src/components/browser';
-import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { useState } from 'react';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 

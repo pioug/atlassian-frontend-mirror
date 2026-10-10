@@ -1,4 +1,5 @@
-import { type MediaClientErrorReason, isCommonMediaClientError } from '@atlaskit/media-client';
+import { isCommonMediaClientError } from '@atlaskit/media-client';
+import type { MediaClientErrorReason } from '@atlaskit/media-client/errors/types';
 
 import type { MediaCardError } from '../../MediaCardError';
 

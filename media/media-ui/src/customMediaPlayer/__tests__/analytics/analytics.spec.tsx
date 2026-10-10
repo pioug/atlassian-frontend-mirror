@@ -3,7 +3,7 @@ import { act } from 'react';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { asMock } from '@atlaskit/media-common/test-helpers';
+import { asMock } from '@atlaskit/media-common/jestHelpers';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { CustomMediaPlayer } from '../..';

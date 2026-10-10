@@ -1,5 +1,5 @@
-import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { PastePluginOptions } from '@atlaskit/editor-plugin-paste';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
+import type { PastePluginOptions } from '@atlaskit/editor-plugin-paste/paste-plugin-type';
 
 // SECTION: From confluence/next/packages/editor-features/src/utils/smartCardOptions.ts
 /**

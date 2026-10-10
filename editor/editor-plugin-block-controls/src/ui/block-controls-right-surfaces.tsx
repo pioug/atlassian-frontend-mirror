@@ -11,9 +11,9 @@ import { getDocument } from '@atlaskit/browser-apis';
 import { jsx } from '@atlaskit/css';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { BLOCK_CONTROLS_RIGHT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { isCSSAnchorSupported } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isCSSAnchorSupported } from '@atlaskit/editor-common/styles/native-anchor';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 

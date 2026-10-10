@@ -6,27 +6,26 @@ import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl';
 
 import { type HeadType } from '@atlaskit/dynamic-table/types';
+import { createMediaSubscribable, type FileState } from '@atlaskit/media-client';
+import { createMediaSubject } from '@atlaskit/media-client/create-media-subject';
+import { FileFetcherImpl } from '@atlaskit/media-client/file-fetcher';
+import { fromObservable } from '@atlaskit/media-client/from-observable';
+import type { MediaType } from '@atlaskit/media-client/media';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaSubscribable } from '@atlaskit/media-client/media-subscribable/types';
 import {
-	type MediaClient,
-	type MediaType,
-	type MediaSubscribable,
-	createMediaSubscribable,
-	createMediaSubject,
-	type FileState,
-	fromObservable,
-	FileFetcherImpl,
-} from '@atlaskit/media-client';
-import {
-	fakeMediaClient,
 	imageFileId,
 	audioFileId,
 	docFileId,
-	nextTick,
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import {
 	asMockFunction,
 	expectFunctionToHaveBeenCalledWith,
-	renderWithIntl,
 	asMock,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/jestHelpers';
+import { nextTick } from '@atlaskit/media-test-helpers/nextTick';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui/humanReadableSize';
 
 import { MediaTable } from '../component/mediaTable';

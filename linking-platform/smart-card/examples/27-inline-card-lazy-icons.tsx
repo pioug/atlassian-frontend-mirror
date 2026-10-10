@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Stack } from '@atlaskit/primitives/compiled';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 
 import ExampleContainer from './utils/example-container';
 import { InlineCardIcons } from './utils/inline-card-icons';

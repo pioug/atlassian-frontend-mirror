@@ -9,7 +9,8 @@ import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-exte
 import { mockDatasourceDetailsResponse } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDetailsResponse';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../../analytics/constants';

@@ -1,27 +1,28 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	MODE,
-	PLATFORMS,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { MODE, PLATFORMS } from '@atlaskit/editor-common/analytics/types/general-events';
 import { copyToClipboard, getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import {
 	codeBlockWrappedStates,
 	getDefaultCodeBlockAttrs,
 	isCodeBlockWordWrapEnabled,
 } from '@atlaskit/editor-common/code-block';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import {
 	contentAllowedInCodeBlock,
 	shouldSplitSelectedNodeOnNodeInsertion,
 } from '@atlaskit/editor-common/insert';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
-import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

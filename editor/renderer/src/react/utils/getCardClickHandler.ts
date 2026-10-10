@@ -1,5 +1,5 @@
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import type { CardProps } from '@atlaskit/smart-card';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import type { CardProps } from '@atlaskit/smart-card/card/types';
 
 import { getEventHandler } from '../../utils';
 

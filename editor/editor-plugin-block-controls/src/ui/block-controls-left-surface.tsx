@@ -10,7 +10,7 @@ import { cssMap } from '@compiled/react';
 import { css, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { BLOCK_CONTROLS_LEFT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 
 import { isProviderNotReadyError, SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';

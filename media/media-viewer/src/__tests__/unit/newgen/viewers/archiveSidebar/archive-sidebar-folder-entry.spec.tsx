@@ -5,8 +5,11 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import { type ZipEntry } from 'unzipit';
 
-import * as MediaCommon from '@atlaskit/media-common';
-import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import * as MediaCommon from '@atlaskit/media-common/downloadUrl';
+import {
+	fakeMediaClient,
+	getDefaultMediaClientConfig,
+} from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import {
 	ArchiveSidebarFolderEntry,

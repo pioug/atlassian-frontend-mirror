@@ -1,21 +1,20 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	Command,
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-	TypeAheadHandler,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type {
-	InlineCommentInputMethod,
-	InlineCommentMap,
-} from '@atlaskit/editor-plugin-annotation';
-import type { BasePlugin } from '@atlaskit/editor-plugin-base';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { InlineCommentMap } from '@atlaskit/editor-plugin-annotation/pm-plugins/types';
+import type { InlineCommentInputMethod } from '@atlaskit/editor-plugin-annotation/types';
+import type { BasePlugin } from '@atlaskit/editor-plugin-base/basePluginType';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
-import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
-import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
-import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics/metrics-plugin-type';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type {

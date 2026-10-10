@@ -1,11 +1,10 @@
 import React, { useCallback, useContext, useRef } from 'react';
 
-import { Popup, type PopupPosition } from '@atlaskit/editor-common/ui';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { Position as PopupPosition } from '@atlaskit/editor-common/Popup/utils';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/UserIntentPopupWrapper';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closeActiveTableMenu, setFocusToCellMenu } from '../../pm-plugins/commands';

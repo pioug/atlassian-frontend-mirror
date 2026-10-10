@@ -2,11 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type {
-	ExtractInjectionAPI,
-	TypeAheadHandler,
-	TypeAheadItem,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clearListError } from '../../pm-plugins/commands/clear-list-error';

@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl';
 
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { DropdownToolbarButton } from './dropdown-toolbar-button';

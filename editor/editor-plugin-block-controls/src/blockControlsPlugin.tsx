@@ -10,7 +10,9 @@ import {
 } from '@atlaskit/editor-common/block-controls/surface-keys';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { DIRECTION, ExtractInjectionAPI, PMPlugin } from '@atlaskit/editor-common/types';
+import type { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';

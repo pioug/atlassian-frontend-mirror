@@ -10,17 +10,18 @@ import type { ComponentClass, ComponentProps } from 'react';
 import { jsx } from '@emotion/react';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import type { EditorCardProvider } from '@atlaskit/editor-card-provider';
+import type { EditorCardProvider } from '@atlaskit/editor-card-provider/provider';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { useProvider } from '@atlaskit/editor-common/provider-factory';
-import { HoverLinkOverlay, UnsupportedInline } from '@atlaskit/editor-common/ui';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import type { Diff } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import HoverLinkOverlay from '@atlaskit/editor-common/HoverLinkOverlay';
+import { useProvider } from '@atlaskit/editor-common/provider-factory/context';
+import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
+import type { Diff } from '@atlaskit/editor-common/utils/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import {
 	SmartLinkDraggable,
@@ -31,8 +32,9 @@ import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-l
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Card, getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
-import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
+import { getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import { useSmartLinkActions } from '@atlaskit/smart-card/hook/use-smart-link-actions';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

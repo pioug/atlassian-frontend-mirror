@@ -1,5 +1,6 @@
-import { type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { isErrorFileState } from '@atlaskit/media-client';
 import { isVideoMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 /**
  * Human-readable names for the four standard `MediaError.code` values, so the

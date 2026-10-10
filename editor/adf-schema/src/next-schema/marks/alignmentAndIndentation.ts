@@ -1,5 +1,7 @@
-import type { ADFMark, ADFMarkSpec } from '@atlaskit/adf-schema-generator';
-import { adfMark, adfMarkGroup } from '@atlaskit/adf-schema-generator';
+import type { ADFMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMark } from '@atlaskit/adf-schema-generator/adfMark';
+import { adfMarkGroup } from '@atlaskit/adf-schema-generator/adfMarkGroup';
+import type { ADFMarkSpec } from '@atlaskit/adf-schema-generator/types/ADFMarkSpec';
 
 // These marks defined together because they form a cycle within the excludes.
 export const alignment: ADFMark<ADFMarkSpec> = adfMark('alignment');

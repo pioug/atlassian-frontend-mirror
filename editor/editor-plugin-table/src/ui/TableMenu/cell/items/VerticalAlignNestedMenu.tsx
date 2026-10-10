@@ -3,8 +3,9 @@ import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import type { Valign } from '@atlaskit/adf-schema/valign';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { NestedDropdownRightIcon, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { NestedDropdownRightIcon } from '@atlaskit/editor-toolbar/nested-dropdown-right-icon';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import AlignPositionBottomIcon from '@atlaskit/icon-lab/core/align-position-bottom';
 import AlignPositionCenterVerticalIcon from '@atlaskit/icon-lab/core/align-position-center-vertical';
 import AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';

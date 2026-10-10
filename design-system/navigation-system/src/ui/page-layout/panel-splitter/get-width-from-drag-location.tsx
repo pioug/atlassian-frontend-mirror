@@ -1,4 +1,4 @@
-import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 export const getWidthFromDragLocation = ({
 	initialWidth,

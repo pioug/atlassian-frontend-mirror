@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
 
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 import example from './content/example';
 import props from './content/props';
 

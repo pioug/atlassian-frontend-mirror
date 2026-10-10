@@ -10,17 +10,18 @@ import type { SerializedStyles } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { IconFallback } from '@atlaskit/editor-common/quick-insert';
-import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import IconFallback from '@atlaskit/editor-common/fallback';
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
-	ExtractInjectionAPI,
 	TypeAheadItem,
 	TypeAheadItemRenderProps,
-} from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+} from '@atlaskit/editor-common/types/type-ahead';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';

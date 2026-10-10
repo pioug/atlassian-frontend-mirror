@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import {
 	ACTION_MENU_ITEM,
@@ -8,7 +8,7 @@ import {
 	STRUCTURE_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { STRUCTURE_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';

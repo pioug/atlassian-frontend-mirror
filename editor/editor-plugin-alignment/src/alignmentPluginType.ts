@@ -1,11 +1,14 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
-import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction/interaction-plugin-type';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
+import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-toolbar/selection-toolbar-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 
 import type { AlignmentPluginState } from './pm-plugins/types';
 

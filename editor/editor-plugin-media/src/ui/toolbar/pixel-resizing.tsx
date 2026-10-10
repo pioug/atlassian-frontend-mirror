@@ -2,12 +2,12 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
+import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media/pixelEntry';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarConfig,
 	FloatingToolbarOverflowDropdownOptions,
-	Command,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

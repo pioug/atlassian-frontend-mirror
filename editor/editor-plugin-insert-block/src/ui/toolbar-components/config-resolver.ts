@@ -1,4 +1,4 @@
-import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
+import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar/types';
 
 import type { InsertBlockPluginOptions, ToolbarInsertBlockButtonsConfig } from '../../types';
 

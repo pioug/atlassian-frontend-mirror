@@ -10,32 +10,29 @@ import { v4 as uuid } from 'uuid';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	InputMethodInsertMedia,
+	InsertMediaVia,
+} from '@atlaskit/editor-common/analytics/types/insert-events';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
-import {
-	CAPTION_PLACEHOLDER_ID,
-	getMaxWidthForNestedNodeNext,
-} from '@atlaskit/editor-common/media-single';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline/utils';
+import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single/constants';
+import { getMaxWidthForNestedNodeNext } from '@atlaskit/editor-common/media-single/utils';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	EditorContainerWidth as WidthPluginState,
-	ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
-import { ErrorReporter } from '@atlaskit/editor-common/utils';
+import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -54,7 +51,8 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { UploadParams } from '@atlaskit/media-picker/types';

@@ -2,45 +2,49 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	INPUT_METHOD,
-	type EditorAnalyticsAPI,
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	type ExtensionType,
 	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtensionType } from '@atlaskit/editor-common/analytics/types/extension-events';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { ExtensionParams } from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import {
-	messages,
 	AGENT_MANAGED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_TYPE,
-	type ExtensionParams,
-	type ExtensionProvider,
-	type Parameters,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/manifest-helpers';
+import { messages } from '@atlaskit/editor-common/extensions/messages';
 import commonMessages from '@atlaskit/editor-common/messages';
-import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles';
+import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles/extension';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	ConfirmDialogOptions,
 	DropdownOptionT,
-	ExtractInjectionAPI,
 	FloatingToolbarConfig,
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type {
+	ExtractInjectionAPI,
 	PublicPluginAPI,
-} from '@atlaskit/editor-common/types';
-import { getChildrenInfo, getNodeName, isReferencedSource } from '@atlaskit/editor-common/utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getNodeName } from '@atlaskit/editor-common/utils';
+import { getChildrenInfo, isReferencedSource } from '@atlaskit/editor-common/utils/referentiality';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel/contextPanelPluginType';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
+import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button/copyButtonPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions/mentions-plugin-type';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

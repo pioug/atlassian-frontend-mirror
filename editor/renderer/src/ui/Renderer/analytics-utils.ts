@@ -1,4 +1,6 @@
-import { TABLE_ACTION, ACTION_SUBJECT, EVENT_TYPE, MODE } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { MODE } from '@atlaskit/editor-common/analytics/types/general-events';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import { getBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
 
 import type { AnalyticsEventPayload } from '../../analytics/events';

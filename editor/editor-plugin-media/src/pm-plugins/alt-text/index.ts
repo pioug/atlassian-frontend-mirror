@@ -1,7 +1,9 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { pluginFactory, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
 	EditorState,

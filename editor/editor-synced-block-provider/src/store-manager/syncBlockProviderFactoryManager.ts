@@ -1,8 +1,8 @@
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 
 import type { ResourceId } from '../common/types';
 import type {

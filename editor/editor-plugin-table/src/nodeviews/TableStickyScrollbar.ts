@@ -1,4 +1,4 @@
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { TableCssClassName as ClassName } from '../types';

@@ -7,16 +7,14 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import type { MediaViewedEventPayload } from '@atlaskit/media-client/events';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import {
-	globalMediaEventEmitter,
-	type MediaViewedEventPayload,
-	type ProcessedFileState,
-} from '@atlaskit/media-client';
-import {
-	fakeMediaClient,
 	asMock,
 	expectFunctionToHaveBeenCalledWith,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/jestHelpers';
 
 import { MediaViewerError } from '../../../../../MediaViewerError';
 import { ImageViewer } from '../../../../../viewers/image';

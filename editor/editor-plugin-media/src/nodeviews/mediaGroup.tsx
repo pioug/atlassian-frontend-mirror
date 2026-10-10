@@ -2,16 +2,17 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { MediaProvider, ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 

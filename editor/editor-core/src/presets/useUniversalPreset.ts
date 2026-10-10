@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 
-import { usePreviousState } from '@atlaskit/editor-common/hooks';
+import usePreviousState from '@atlaskit/editor-common/usePreviousState';
 
 import { createUniversalPreset } from '../create-editor/create-universal-preset';
 import { shouldRecreatePreset } from '../create-editor/preset-utils';

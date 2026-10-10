@@ -1,17 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { SSRRenderMeasure } from '@atlaskit/editor-common/performance/ssr-measures';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { ContextPanelWidthProvider } from '@atlaskit/editor-common/context-panel';
+import { SSRRenderMeasure } from '@atlaskit/editor-common/SSRRenderMeasure';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
-import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
+import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

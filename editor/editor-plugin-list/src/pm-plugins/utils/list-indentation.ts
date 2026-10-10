@@ -1,10 +1,12 @@
 import {
 	buildReplacementFragment as buildReplacementFragmentBase,
 	type BuildResult,
-	type FlattenListOptions,
-	type FlattenListResult,
-	type FlattenedItem,
-} from '@atlaskit/editor-common/lists';
+} from '@atlaskit/editor-common/lists/build-replacement-fragment';
+import type {
+	FlattenListOptions,
+	FlattenListResult,
+	FlattenedItem,
+} from '@atlaskit/editor-common/lists/flatten-list';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 

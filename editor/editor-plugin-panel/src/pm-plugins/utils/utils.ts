@@ -1,7 +1,7 @@
 import type { PanelAttributes } from '@atlaskit/adf-schema/panel';
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
 import type { DOMOutputSpec, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

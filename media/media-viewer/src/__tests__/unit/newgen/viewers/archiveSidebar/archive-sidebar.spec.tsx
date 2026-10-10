@@ -13,7 +13,7 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { type ZipEntry } from 'unzipit';
 
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import {
 	ArchiveSidebar,

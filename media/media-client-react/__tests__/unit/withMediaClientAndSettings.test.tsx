@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import type {
 	MediaParsedSettings,
@@ -12,6 +12,7 @@ import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
 import { withMediaClientAndSettings } from '@atlaskit/media-client-react/with-media-client-and-settings';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 
 const TestComponentBase = ({
 	mediaClient,

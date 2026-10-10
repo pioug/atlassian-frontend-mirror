@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-	createUploadMediaClient,
-	genericFileId,
-	audioFileId,
-	gifFileId,
-	docFileId,
-} from '@atlaskit/media-test-helpers';
+import { createUploadMediaClient } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { genericFileId, audioFileId, gifFileId, docFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { Filmstrip, type FilmstripItem } from '../../src';
 
 const defaultMediaClient = createUploadMediaClient();

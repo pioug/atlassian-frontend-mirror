@@ -12,8 +12,8 @@ import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl';
 
-import { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
+import { messages } from '@atlaskit/editor-common/messages/card';
+import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace/whitespace';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { token } from '@atlaskit/tokens';

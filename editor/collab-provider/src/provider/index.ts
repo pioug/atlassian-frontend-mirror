@@ -15,10 +15,9 @@ import type {
 	PresenceActivity,
 	ProviderParticipant,
 } from '@atlaskit/editor-common/collab';
-import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types/editor-actions';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import AnalyticsHelper from '../analytics/analytics-helper';
@@ -625,10 +624,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 		}
 
 		const sleepDuration = getMaxGapSince(this.sleepWatermark);
-		if (
-			sleepDuration >= OUT_OF_SYNC_PERIOD &&
-			isExperimentEnabled('collab_check_sleep_detection_experiment')
-		) {
+		if (sleepDuration >= OUT_OF_SYNC_PERIOD) {
 			return sleepDuration;
 		}
 

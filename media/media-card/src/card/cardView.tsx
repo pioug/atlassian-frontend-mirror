@@ -14,13 +14,10 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import {
-	type MediaItemType,
-	type FileDetails,
-	type ImageResizeMode,
-	type Identifier,
-	isFileIdentifier,
-} from '@atlaskit/media-client';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
+import type { MediaItemType, FileDetails } from '@atlaskit/media-client/item';
 import type { MediaFilePreview } from '@atlaskit/media-file-preview/types';
 import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';

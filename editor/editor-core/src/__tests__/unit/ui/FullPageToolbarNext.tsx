@@ -3,8 +3,9 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { TOOLBARS, VIEW_MODE_TOGGLE_SECTION } from '@atlaskit/editor-common/toolbar';
-import type { PublicPluginAPI, DocBuilder } from '@atlaskit/editor-common/types';
+import { TOOLBARS, VIEW_MODE_TOGGLE_SECTION } from '@atlaskit/editor-common/toolbar/keys';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { Link } from '@atlaskit/linking-types/datasource';
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import LinkUrl from '@atlaskit/smart-card/link';
 
 import { useDatasourceCrossProductAttribution } from '../../../analytics/xpc/useDatasourceCrossProductAttribution';
 

@@ -1,4 +1,5 @@
-import type { NextEditorPlugin, EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { DecorationState, HoverDecorationHandler, removeDecoration } from './pm-plugins/main';

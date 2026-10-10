@@ -1,5 +1,5 @@
-import { type FileState } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { getErrorDetail } from '../../../getErrorDetail';
 import { getPrimaryErrorReason } from '../../../getPrimaryErrorReason';

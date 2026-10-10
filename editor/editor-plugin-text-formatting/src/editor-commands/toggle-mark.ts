@@ -3,9 +3,10 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { toggleMark } from '@atlaskit/editor-common/mark';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { toggleMark } from '@atlaskit/editor-common/mark/commands';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 import type { ToggleMarkWithAnalyticsEditorCommand } from './types';

@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import { createRoot, type Root } from 'react-dom/client';
 import { createIntl, defineMessage, type IntlShape } from 'react-intl';
 
-import { inlineCard } from '@atlaskit/adf-utils/builders';
-import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import { inlineCard } from '@atlaskit/adf-utils/inline-card';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { POPUP_MOUNTPOINT, DROPBOX_IFRAME_NAME } from './constants';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { md } from '@atlaskit/docs';
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 import example from './content/browser/example';
 import props from './content/browser/props';
 const _default_1: any = md`

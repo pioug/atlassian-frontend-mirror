@@ -1,7 +1,7 @@
 import { type ZipEntry } from 'unzipit';
 
-import { type FileState } from '@atlaskit/media-client';
-import { type SuccessAttributes, type WithFileAttributes } from '@atlaskit/media-common/analytics';
+import type { SuccessAttributes, WithFileAttributes } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { getMimeTypeFromFilename } from '../../../utils/getMimeTypeFromFilename';
 import { getFileAttributes } from '../../getFileAttributes';

@@ -2,30 +2,28 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	MODE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { MODE } from '@atlaskit/editor-common/analytics/types/general-events';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { ToolTipContent, addInlineComment } from '@atlaskit/editor-common/keymaps';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
-import { annotationMessages } from '@atlaskit/editor-common/messages';
-import type {
-	Command,
-	ExtractInjectionAPI,
-	FloatingToolbarButton,
-} from '@atlaskit/editor-common/types';
-import type { PopupPosition } from '@atlaskit/editor-common/ui';
+import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
+import type { Position as PopupPosition } from '@atlaskit/editor-common/Popup/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarButton } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils/annotation';
 import {
 	calculateToolbarPositionAboveSelection,
 	calculateToolbarPositionTrackHead,
-	getRangeInlineNodeNames,
-} from '@atlaskit/editor-common/utils';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { SelectionBookmark, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

@@ -9,7 +9,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
-import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import '@atlaskit/link-test-helpers/jest';
 import { render, screen, userEvent } from '@atlassian/testing-library';

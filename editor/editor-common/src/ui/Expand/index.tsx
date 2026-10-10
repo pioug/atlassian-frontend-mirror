@@ -12,7 +12,7 @@ import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 import { defineMessages } from 'react-intl';
 
-import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
 import { token } from '@atlaskit/tokens';
 
 export const messages: {

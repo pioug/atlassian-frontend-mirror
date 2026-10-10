@@ -2,7 +2,7 @@ import type { CellAttributes } from '@atlaskit/adf-schema/tableNodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 

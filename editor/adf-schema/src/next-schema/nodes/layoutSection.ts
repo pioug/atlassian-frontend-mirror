@@ -1,10 +1,13 @@
+import { $or } from '@atlaskit/adf-schema-generator/$or';
+import { $range } from '@atlaskit/adf-schema-generator/$range';
+import { $zeroPlus } from '@atlaskit/adf-schema-generator/$zeroPlus';
+import type { ADFNode } from '@atlaskit/adf-schema-generator/adfNode';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
 import type {
-	ADFNode,
 	ADFCommonNodeSpec,
 	ADFNodeContentZeroOrMoreSpec,
 	ADFNodeContentRangeSpec,
-} from '@atlaskit/adf-schema-generator';
-import { $or, $range, $zeroPlus, adfNode } from '@atlaskit/adf-schema-generator';
+} from '@atlaskit/adf-schema-generator/types/ADFNodeSpec';
 
 import { breakout } from '../marks/breakout';
 import { unsupportedMark } from '../marks/unsupportedMark';

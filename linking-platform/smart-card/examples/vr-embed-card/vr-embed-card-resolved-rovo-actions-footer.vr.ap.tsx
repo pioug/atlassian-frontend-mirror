@@ -11,7 +11,8 @@ import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { GoogleDoc, GoogleDocUrl, iconGoogleDrive } from '@atlaskit/link-test-helpers';
+import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
+import { GoogleDoc, GoogleDocUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import {
 	setupEditorExperiments,

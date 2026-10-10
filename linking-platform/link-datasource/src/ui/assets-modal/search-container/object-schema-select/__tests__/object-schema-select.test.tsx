@@ -11,7 +11,7 @@ import {
 import { IntlProvider } from 'react-intl';
 
 import Form from '@atlaskit/form/form';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import {
 	type FetchObjectSchemasDetails,

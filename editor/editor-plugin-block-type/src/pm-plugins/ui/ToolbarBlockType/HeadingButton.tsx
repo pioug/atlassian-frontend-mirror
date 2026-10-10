@@ -10,7 +10,8 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import editorUGCToken from '@atlaskit/editor-common/get-editor-ugc-token';
 import {
 	formatShortcut,
 	setNormalText,
@@ -23,12 +24,12 @@ import {
 	toggleSmallText,
 } from '@atlaskit/editor-common/keymaps';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';

@@ -1,4 +1,4 @@
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 
 import type { EditorProps } from '../../types/editor-props';
 

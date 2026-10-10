@@ -4,15 +4,15 @@ import LinkIconButton from '@atlaskit/button/icon/link';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { alignmentPlugin } from '@atlaskit/editor-plugin-alignment';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { highlightPlugin } from '@atlaskit/editor-plugin-highlight';
-import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
-import { layoutPlugin } from '@atlaskit/editor-plugin-layout';
-import { listPlugin } from '@atlaskit/editor-plugin-list';
-import { tablePlugin } from '@atlaskit/editor-plugin-table';
-import { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
-import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-lists-indentation';
+import { alignmentPlugin } from '@atlaskit/editor-plugin-alignment/alignmentPlugin';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion/contentInsertionPlugin';
+import { highlightPlugin } from '@atlaskit/editor-plugin-highlight/highlightPlugin';
+import { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block/insert-block-plugin';
+import { layoutPlugin } from '@atlaskit/editor-plugin-layout/layout-plugin';
+import { listPlugin } from '@atlaskit/editor-plugin-list/list-plugin';
+import { tablePlugin } from '@atlaskit/editor-plugin-table/table-plugin';
+import { textColorPlugin } from '@atlaskit/editor-plugin-text-color/text-color-plugin';
+import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-lists-indentation/toolbar-lists-indentation-plugin';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 
 export const EditorToolbarWithIconBefore = (): React.JSX.Element => {

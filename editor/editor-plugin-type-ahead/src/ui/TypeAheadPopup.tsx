@@ -13,19 +13,17 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import Popup from '@atlaskit/editor-common/Popup';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type {
-	ExtractInjectionAPI,
-	TypeAheadItem,
-	TypeAheadHandler,
-} from '@atlaskit/editor-common/types';
-import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadItem, TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

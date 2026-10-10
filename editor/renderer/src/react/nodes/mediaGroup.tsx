@@ -5,13 +5,13 @@ import type {
 	EventHandlers,
 	CardSurroundings,
 	CardEventClickHandler,
-} from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/EventHandlers';
 import { defaultImageCardDimensions } from '@atlaskit/media-card/cardDimensions';
 import type { CardEvent } from '@atlaskit/media-card/types';
-import type { Identifier } from '@atlaskit/media-client';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip';
-import { FilmstripView } from '@atlaskit/media-filmstrip';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip/filmstrip-view';
+import { FilmstripView } from '@atlaskit/media-filmstrip/filmstrip-view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 

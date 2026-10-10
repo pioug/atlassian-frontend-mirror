@@ -1,6 +1,9 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert/quick-insert-plugin-type';
 
 export interface HelpDialogSharedState {
 	aiEnabled: boolean;

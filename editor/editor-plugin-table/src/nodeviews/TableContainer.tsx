@@ -3,17 +3,19 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } 
 
 import classNames from 'classnames';
 
-import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/analytics/types/table-events';
+import type { TableEventPayload } from '@atlaskit/editor-common/analytics/types/table-events';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import {
 	resizerHoverZoneClassName,
 	resizerItemClassName,
 } from '@atlaskit/editor-common/styles/resizer';
-import type { EditorContainerWidth, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -22,7 +24,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 	akEditorMobileBreakoutPoint,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';

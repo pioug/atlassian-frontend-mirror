@@ -2,11 +2,11 @@ import React from 'react';
 
 import {
 	LISTS_INDENTATION_MENU_SECTION,
-	LISTS_INDENTATION_MENU_SECTION_RANK,
 	TASK_LIST_MENU_ITEM,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { LISTS_INDENTATION_MENU_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import { TaskListMenuItem } from './TaskListMenuItem/TaskListMenuItem';

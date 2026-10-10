@@ -1,8 +1,9 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { BatchAttrsStep } from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import {
 	TELEPOINTER_DATA_SESSION_ID_ATTR,
 	TELEPOINTER_PULSE_DURING_TR_CLASS,
@@ -10,7 +11,7 @@ import {
 } from '@atlaskit/editor-common/collab';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
 import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
-import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
+import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace/whitespace';
 import { Transaction, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { AttrStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';

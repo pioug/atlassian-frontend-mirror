@@ -1,5 +1,6 @@
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
-import type { DisableSpellcheckByBrowser, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { DisableSpellcheckByBrowser } from '@atlaskit/editor-common/types/supported-browsers';
 
 import type { EditorNextProps } from '../types/editor-props';
 

@@ -7,18 +7,19 @@ import { decisionList } from '@atlaskit/adf-schema/decision-list';
 import { blockTaskItem, taskItem } from '@atlaskit/adf-schema/task-item';
 import { taskList } from '@atlaskit/adf-schema/task-list';
 import { css, jsx } from '@atlaskit/css';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { IconAction, IconDecision } from '@atlaskit/editor-common/assets';
 import {
 	TRANSFORM_STRUCTURE_MENU_SECTION,
 	TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM,
-	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
 	TRANSFORM_STRUCTURE_DECISION_MENU_ITEM,
-} from '@atlaskit/editor-common/block-menu';
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
-import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
-import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
-import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

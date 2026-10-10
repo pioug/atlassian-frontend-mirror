@@ -2,11 +2,11 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { mediaInsertMessages } from '@atlaskit/editor-common/messages/media-insert';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import Card from '@atlaskit/media-card/cardLoader';
 import { CardLoading } from '@atlaskit/media-card/cardLoading';
-import type { Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 
 import type { OnInsertAttrs } from './types';
 const maxDimensions = {

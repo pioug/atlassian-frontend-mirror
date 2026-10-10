@@ -8,22 +8,22 @@ import { useCallback } from 'react';
 import { jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
-import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
+import { calcMinWidth } from '@atlaskit/editor-common/media-single';
 import {
-	calcMinWidth,
 	DEFAULT_IMAGE_HEIGHT,
 	DEFAULT_IMAGE_WIDTH,
-} from '@atlaskit/editor-common/media-single';
+} from '@atlaskit/editor-common/media-single/constants';
+import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media/pixelEntry';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { type ContentNodeWithPos, hasParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import type { MediaNextEditorPluginType } from '../../../mediaPluginType';

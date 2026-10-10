@@ -3,21 +3,19 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { bind } from 'bind-event-listener';
 
 import { surfaceDragHandleElementStore } from '@atlaskit/editor-common/block-controls/surface-drag-handle-element';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import {
-	ArrowKeyNavigationProvider,
-	ArrowKeyNavigationType,
-} from '@atlaskit/editor-common/ui-menu';
-import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
-import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
+import Popup from '@atlaskit/editor-common/Popup';
+import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles/drag-handle';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { UserIntentPopupWrapper } from '@atlaskit/editor-common/UserIntentPopupWrapper';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
-import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
+import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
+import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LayoutPlugin } from '../../layoutPluginType';

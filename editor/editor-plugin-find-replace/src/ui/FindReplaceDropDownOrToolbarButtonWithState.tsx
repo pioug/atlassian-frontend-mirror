@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useState } from 'react';
 
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react/conditional-hooks-factory/conditional-hooks-factory';
 

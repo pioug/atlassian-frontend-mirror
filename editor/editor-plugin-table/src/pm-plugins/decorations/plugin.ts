@@ -1,4 +1,4 @@
-import { insideTable } from '@atlaskit/editor-common/core-utils';
+import { insideTable } from '@atlaskit/editor-common/inside';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorState,

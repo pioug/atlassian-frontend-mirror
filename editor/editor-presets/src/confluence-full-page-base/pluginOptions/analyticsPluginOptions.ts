@@ -1,4 +1,4 @@
-import type { AnalyticsPluginOptions } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPluginOptions } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 
 interface Props {
 	options: never;

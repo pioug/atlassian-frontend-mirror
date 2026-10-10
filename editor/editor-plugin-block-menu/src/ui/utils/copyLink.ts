@@ -1,10 +1,10 @@
 import {
 	createBlockLinkHashValue,
 	DEFAULT_BLOCK_LINK_HASH_PREFIX,
-} from '@atlaskit/editor-common/block-menu';
+} from '@atlaskit/editor-common/block-menu/block-link';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 
 type CopyLinkOptions = {

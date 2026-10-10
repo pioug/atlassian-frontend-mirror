@@ -1,4 +1,5 @@
-import type { INPUT_METHOD, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { getNodeCopiedAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import {
 	copyDomNode,

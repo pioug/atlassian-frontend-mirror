@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // oxlint-disable-next-line import/no-duplicates

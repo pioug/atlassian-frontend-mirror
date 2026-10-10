@@ -9,12 +9,12 @@ import { Component } from 'react';
 import { jsx } from '@emotion/react';
 
 import {
-	createStorybookMediaClientConfig,
 	imageFileId,
 	gifFileId,
 	videoFileId,
 	largeImageFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 import { MainWrapper } from '../example-helpers';
 import {

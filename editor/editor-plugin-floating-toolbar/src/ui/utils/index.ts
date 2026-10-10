@@ -1,9 +1,9 @@
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarOverflowDropdown,
 	FloatingToolbarOverflowDropdownOptions,
 	OverflowDropdownOption,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
 
 // if there are more than 1 item with type `overflow-dropdown`, we should only show one and combine the options
 export const consolidateOverflowDropdownItems = (

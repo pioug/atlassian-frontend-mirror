@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { useSuggestedItems } from './hooks/useSuggestedItems';

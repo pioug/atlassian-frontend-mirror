@@ -3,21 +3,20 @@ import type {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	OperationalAEP,
-	ExperienceEventPayload,
-	TABLE_ACTION,
-	SyncedBlockSSRErrorAEP,
-	ExtensionType,
-	MediaRenderedAEP,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExperienceEventPayload } from '@atlaskit/editor-common/analytics/types/experience-events';
+import type { ExtensionType } from '@atlaskit/editor-common/analytics/types/extension-events';
+import type { MediaRenderedAEP } from '@atlaskit/editor-common/analytics/types/media-events';
+import type { SyncedBlockSSRErrorAEP } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import type { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
+import type { OperationalAEP } from '@atlaskit/editor-common/analytics/types/utils';
 import type { SortOrder } from '@atlaskit/editor-common/types';
+import type { SEVERITY, UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from '@atlaskit/editor-common/utils';
+import type { EditorBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
 import type {
-	SEVERITY,
-	UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 	UnsupportedContentPayload,
 	UnsupportedContentTooltipPayload,
-} from '@atlaskit/editor-common/utils';
-import type { EditorBreakpointKey } from '@atlaskit/editor-common/utils/analytics';
+} from '@atlaskit/editor-common/utils/unsupportedContent/types';
 
 import type { NestedRendererType } from '../ui/Renderer/types';
 import type { AEP } from './enums';

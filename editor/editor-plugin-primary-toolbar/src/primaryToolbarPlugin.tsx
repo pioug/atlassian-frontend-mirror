@@ -1,4 +1,4 @@
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 
 import { registerComponent } from './editor-actions/actions';
 import { createPlugin, primaryToolbarPluginKey } from './pm-plugins/pm-plugin';

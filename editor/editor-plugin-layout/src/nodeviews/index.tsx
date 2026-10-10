@@ -2,12 +2,13 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import ReactNodeView, { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';
-import { ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
-import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
+import { ignoreResizerMutations } from '@atlaskit/editor-common/resizer/BreakoutResizer';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

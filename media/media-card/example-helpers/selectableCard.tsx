@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-import { type Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 import Card from '../src/card/cardLoader';

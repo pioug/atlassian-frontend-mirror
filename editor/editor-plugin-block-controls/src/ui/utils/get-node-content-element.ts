@@ -1,4 +1,4 @@
-import { resizerItemClassName } from '@atlaskit/editor-common/styles';
+import { resizerItemClassName } from '@atlaskit/editor-common/styles/resizer';
 
 const INNER_CONTAINER_SELECTORS: Partial<Record<string, string>> = {
 	blockCard: '.datasourceView-content-inner-wrap',

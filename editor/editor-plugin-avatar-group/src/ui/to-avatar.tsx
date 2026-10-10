@@ -5,8 +5,8 @@ import type { IntlShape } from 'react-intl';
 
 import type { AvatarProps } from '@atlaskit/avatar-group/types';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
-import { avatarGroupMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { avatarGroupMessages } from '@atlaskit/editor-common/messages/avatar-group';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';

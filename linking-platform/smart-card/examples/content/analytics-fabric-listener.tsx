@@ -5,7 +5,10 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 

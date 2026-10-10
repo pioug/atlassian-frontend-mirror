@@ -7,19 +7,16 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconLink } from '@atlaskit/editor-common/assets';
 import { addLink, tooltip } from '@atlaskit/editor-common/keymaps';
-import type { LinkToolbarState } from '@atlaskit/editor-common/link';
 import { LinkAction } from '@atlaskit/editor-common/link';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import { IconLink } from '@atlaskit/editor-common/quick-insert';
-import type {
-	Command,
-	CommandDispatch,
-	FloatingToolbarButton,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type { LinkToolbarState } from '@atlaskit/editor-common/link/types';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarButton } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';

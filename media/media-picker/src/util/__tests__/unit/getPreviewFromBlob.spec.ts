@@ -1,16 +1,15 @@
-import { type Dimensions, getDimensionsFromBlob } from '@atlaskit/media-client';
-import { asMockFunction } from '@atlaskit/media-test-helpers';
+import {
+	type Dimensions,
+	getDimensionsFromBlob,
+} from '@atlaskit/media-client/get-dimensions-from-blob';
+import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 
 import { getPreviewFromBlob } from '../../getPreviewFromBlob';
 
-jest.mock('@atlaskit/media-client', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-client');
-
-	return {
-		...actualModule,
-		getDimensionsFromBlob: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/media-client/get-dimensions-from-blob', () => ({
+	...jest.requireActual('@atlaskit/media-client/get-dimensions-from-blob'),
+	getDimensionsFromBlob: jest.fn(),
+}));
 
 // FIXME: causes builds to hang
 describe.skip('getPreviewFromBlob()', () => {

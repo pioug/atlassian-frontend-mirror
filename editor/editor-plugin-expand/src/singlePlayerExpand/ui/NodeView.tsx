@@ -1,8 +1,8 @@
 import type { IntlShape } from 'react-intl';
 
 import { expandedState } from '@atlaskit/editor-common/expand';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
-import { expandMessages } from '@atlaskit/editor-common/ui';
+import { expandClassNames } from '@atlaskit/editor-common/styles/expand';
+import { messages as expandMessages } from '@atlaskit/editor-common/ui-expand';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

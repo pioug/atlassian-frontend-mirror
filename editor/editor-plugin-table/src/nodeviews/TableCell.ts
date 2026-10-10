@@ -1,7 +1,8 @@
 import type { CellDomAttrs } from '@atlaskit/adf-schema/tableNodes';
 import { getCellAttrs, getCellDomAttrs } from '@atlaskit/adf-schema/tableNodes';
-import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';

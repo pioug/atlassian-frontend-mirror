@@ -18,7 +18,7 @@ jest.mock('uuid', () => ({
 	v4: jest.fn(() => mockUuid),
 }));
 
-jest.mock('@atlaskit/editor-common/provider-factory');
+jest.mock('@atlaskit/editor-common/provider-factory/provider-factory');
 
 jest.mock('@compiled/react/runtime', () => ({
 	...jest.requireActual('@compiled/react/runtime'),
@@ -45,12 +45,13 @@ import type { GasPurePayload, GasPureScreenEventPayload } from '@atlaskit/analyt
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import * as measure from '@atlaskit/editor-common/performance-measures';
-import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { EditorAppearance, QuickInsertOptions } from '@atlaskit/editor-common/types';
-import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { QuickInsertOptions } from '@atlaskit/editor-common/types/quick-insert';
+import type { MediaOptions } from '@atlaskit/editor-plugin-media/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies

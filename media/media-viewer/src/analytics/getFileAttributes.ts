@@ -1,5 +1,5 @@
-import { type FileState } from '@atlaskit/media-client';
-import { type FileAttributes } from '@atlaskit/media-common/analytics';
+import type { FileAttributes } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 export function getFileAttributes(fileState?: FileState): FileAttributes {
 	if (!fileState) {

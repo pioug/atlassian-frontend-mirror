@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import classnames from 'classnames';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

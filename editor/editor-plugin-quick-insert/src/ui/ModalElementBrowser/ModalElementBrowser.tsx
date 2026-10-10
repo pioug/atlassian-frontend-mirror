@@ -10,10 +10,10 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/button';
-import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { messages } from '@atlaskit/editor-common/quick-insert';
-import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
+import ElementBrowser from '@atlaskit/editor-common/element-browser/ElementBrowserLoader';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import { messages } from '@atlaskit/editor-common/quick-insert/messages';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
 import { useModal } from '@atlaskit/modal-dialog/hooks';

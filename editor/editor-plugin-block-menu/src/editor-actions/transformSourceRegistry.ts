@@ -2,7 +2,7 @@ import type {
 	BlockTransformContext,
 	BlockTransformExtension,
 } from '@atlaskit/editor-common/block-menu/block-transform-extension';
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 
 type BlockMenuTransformResolution =
 	| { status: 'supported'; transform: BlockTransformExtension }

@@ -1,4 +1,4 @@
-import type { SelectionMarkerPluginOptions } from '@atlaskit/editor-plugin-selection-marker';
+import type { SelectionMarkerPluginOptions } from '@atlaskit/editor-plugin-selection-marker/selection-marker-plugin-type';
 
 interface Props {
 	options: {

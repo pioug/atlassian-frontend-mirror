@@ -5,19 +5,21 @@ import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
 import CrossIcon from '@atlaskit/icon/core/cross';
 import {
-	type FileState,
-	type ProcessingFileState,
-	type Identifier,
 	isExternalImageIdentifier,
 	isErrorFileState,
-	type ErrorFileState,
-	type FileIdentifier,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
-import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
+import type { Identifier, FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { isZipMimeType } from '@atlaskit/media-common/isZipMimeType';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import type {
+	FileState,
+	ProcessingFileState,
+	ErrorFileState,
+} from '@atlaskit/media-state/file-state';
 import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
 import { getExtension } from '@atlaskit/media-ui/getExtension';
 import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';

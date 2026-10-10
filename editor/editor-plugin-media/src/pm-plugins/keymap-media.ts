@@ -1,7 +1,7 @@
 import { backspace, bindKeymapWithCommand } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { atTheEndOfDoc } from '@atlaskit/editor-common/selection';
-import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import { isEmptyNode, isSelectionInsideLastNodeInDocument } from '@atlaskit/editor-common/utils';
 import { selectNodeBackward } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';

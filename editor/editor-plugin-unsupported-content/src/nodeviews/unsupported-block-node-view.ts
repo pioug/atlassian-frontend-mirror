@@ -1,11 +1,11 @@
 import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import { unsupportedContentMessages } from '@atlaskit/editor-common/messages';
-import { UnsupportedSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
+import { unsupportedContentMessages } from '@atlaskit/editor-common/messages/unsupportedContent';
+import { UnsupportedSharedCssClassName } from '@atlaskit/editor-common/styles/unsupported-content';
 import { trackUnsupportedContentTooltipDisplayedFor } from '@atlaskit/editor-common/utils/track-unsupported-content';
+import type { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils/unsupportedContent/types';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
 	VanillaTooltip,

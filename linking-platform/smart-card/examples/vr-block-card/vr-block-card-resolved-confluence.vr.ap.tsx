@@ -2,7 +2,10 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import Client from '@atlaskit/link-provider/client';
-import { ConfluenceBlogPost, ConfluencePage } from '@atlaskit/link-test-helpers';
+import {
+	ConfluenceBlogPost,
+	ConfluencePage,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/confluence';
 
 import VRCardView from '../utils/vr-card-view';
 import '../utils/vr-preload-metadata-icons';

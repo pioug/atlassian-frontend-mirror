@@ -6,7 +6,7 @@ import { type MutableState, type Tools } from 'final-form';
 import { Form } from 'react-final-form';
 import { IntlProvider } from 'react-intl';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { useFormContext } from '../../../controllers/form-context/main';
 import { CreateFormFooter } from './main';

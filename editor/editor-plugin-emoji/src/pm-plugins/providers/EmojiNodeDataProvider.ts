@@ -1,5 +1,5 @@
 import type { EmojiDefinition } from '@atlaskit/adf-schema/emoji';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { defaultEmojiHeight } from '@atlaskit/emoji';
@@ -10,7 +10,7 @@ import type {
 	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji';
 import { emojiIdToEmoji } from '@atlaskit/emoji/emoji-id-to-emoji';
-import { NodeDataProvider } from '@atlaskit/node-data-provider';
+import { NodeDataProvider } from '@atlaskit/node-data-provider/node-data-provider';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export class EmojiNodeDataProvider extends NodeDataProvider<

@@ -1,7 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { MediaPluginOptions } from '@atlaskit/editor-plugin-media';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type { MediaPluginOptions } from '@atlaskit/editor-plugin-media/types';
 
 import type { FullPageEditorAppearance } from '../../types';
 import { i18n } from './i18n';

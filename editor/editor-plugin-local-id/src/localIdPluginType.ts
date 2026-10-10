@@ -1,11 +1,11 @@
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
-import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
-import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit/collabEditPluginType';
+import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition/compositionPluginType';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 

@@ -8,19 +8,17 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/create';
+import { ExampleViewInlineCommentComponent } from '@atlaskit/editor-test-helpers/annotation-example/view';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import {
-	ExampleCreateInlineCommentComponent,
-	ExampleViewInlineCommentComponent,
-	getConfluenceMacrosExtensionProvider,
-	getXProductExtensionProvider,
-	MockActivityResource,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+import { getConfluenceMacrosExtensionProvider } from '@atlaskit/editor-test-helpers/example-helpers/confluence-macros';
+import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers/MockActivityResource';
+import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/fakeXProductExtensions';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
@@ -30,7 +28,7 @@ import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoj
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { Scope } from '@atlassian/search-client/rest/types';
-import { createSearchProvider } from '@atlassian/search-provider';
+import { createSearchProvider } from '@atlassian/search-provider/create-search-provider';
 
 import type { EditorNextProps, EditorProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';

@@ -1,13 +1,10 @@
 import React, { type ComponentType } from 'react';
 
-import {
-	type MediaClient,
-	type FileState,
-	isErrorFileState,
-	request,
-	type ErrorFileState,
-} from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { isErrorFileState } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import { request } from '@atlaskit/media-client/request';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState, ErrorFileState } from '@atlaskit/media-state/file-state';
 import { getExtension } from '@atlaskit/media-ui/getExtension';
 import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

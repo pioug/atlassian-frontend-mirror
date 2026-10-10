@@ -1,4 +1,4 @@
-import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 

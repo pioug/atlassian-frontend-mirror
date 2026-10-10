@@ -1,6 +1,9 @@
 import React, { useContext, useMemo, useState } from 'react';
 
-import type { NextEditorPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type {
+	NextEditorPlugin,
+	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;

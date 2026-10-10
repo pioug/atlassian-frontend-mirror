@@ -15,8 +15,8 @@ import {
 	toggleTable,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';

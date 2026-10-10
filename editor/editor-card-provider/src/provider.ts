@@ -23,8 +23,8 @@ import type {
 } from '@atlaskit/linking-common/types';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import type { CallbackPayload } from '@atlaskit/node-data-provider';
-import { NodeDataProvider } from '@atlaskit/node-data-provider';
+import type { CallbackPayload } from '@atlaskit/node-data-provider/node-data-provider';
+import { NodeDataProvider } from '@atlaskit/node-data-provider/node-data-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { request } from './api';

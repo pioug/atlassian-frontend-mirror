@@ -1,8 +1,8 @@
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type {
 	BreakoutEventPayload,
 	BreakoutSupportedNodes,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/breakout-events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export const generateResizeFrameRatePayloads = (props: {

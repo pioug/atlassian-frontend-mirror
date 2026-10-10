@@ -1,4 +1,4 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { isListItemNode, isListNode, isParagraphNode } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';

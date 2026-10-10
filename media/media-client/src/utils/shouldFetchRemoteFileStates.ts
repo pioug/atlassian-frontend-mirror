@@ -1,7 +1,5 @@
-import {
-	isMimeTypeSupportedByBrowser,
-	isMimeTypeSupportedByServer,
-} from '@atlaskit/media-common/mediaTypeUtils';
+import { isMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/isMimeTypeSupportedByServer';
 import type { FilePreview } from '@atlaskit/media-state/file-state';
 
 import { type MediaType } from '../models/media';

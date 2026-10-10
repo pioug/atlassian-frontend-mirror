@@ -14,7 +14,8 @@ import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 import mockedPluginData from '../../../__tests__/__helpers/mock-plugin-data';

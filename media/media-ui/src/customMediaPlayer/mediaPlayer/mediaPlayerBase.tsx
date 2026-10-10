@@ -18,7 +18,7 @@ import PlayIcon from '@atlaskit/icon/core/video-play';
 import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
 import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
 import SoundIcon from '@atlaskit/icon/core/volume-high';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner/spinner';

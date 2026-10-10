@@ -1,4 +1,6 @@
-import { $onePlus, $or, adfNode } from '@atlaskit/adf-schema-generator';
+import { $onePlus } from '@atlaskit/adf-schema-generator/$onePlus';
+import { $or } from '@atlaskit/adf-schema-generator/$or';
+import { adfNode } from '@atlaskit/adf-schema-generator/adfNode';
 
 import {
 	tableCellContentPseudoGroup,

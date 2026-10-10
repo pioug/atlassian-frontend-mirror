@@ -1,8 +1,8 @@
 import type { FontSizeMarkAttrs } from '@atlaskit/adf-schema/font-size';
 import { findCutBefore } from '@atlaskit/editor-common/commands';
-import { getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists';
+import { getFirstParagraphBlockMarkAttrs } from '@atlaskit/editor-common/lists/block-mark';
 import { isTaskList } from '@atlaskit/editor-common/transforms';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
 

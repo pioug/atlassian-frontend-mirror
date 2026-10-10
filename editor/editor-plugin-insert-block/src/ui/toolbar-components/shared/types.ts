@@ -1,4 +1,4 @@
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
 

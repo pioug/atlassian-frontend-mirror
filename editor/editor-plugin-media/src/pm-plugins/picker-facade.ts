@@ -1,5 +1,5 @@
-import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { isImagePreview } from '@atlaskit/media-picker/preview';
 import type {

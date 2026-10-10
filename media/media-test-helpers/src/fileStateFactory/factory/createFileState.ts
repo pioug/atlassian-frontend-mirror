@@ -1,4 +1,5 @@
-import { type FileState, type FileDetails } from '@atlaskit/media-client';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { tallImage } from '../..';
 

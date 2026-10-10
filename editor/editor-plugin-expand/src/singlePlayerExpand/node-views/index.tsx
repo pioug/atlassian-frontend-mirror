@@ -6,24 +6,24 @@ import { v4 as uuid } from 'uuid';
 import { keyName } from 'w3c-keyname';
 
 import { BLOCK_CONTROLS_DRAG_HANDLE } from '@atlaskit/editor-common/block-controls/surface-keys';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { expandedState, isExpandCollapsed } from '@atlaskit/editor-common/expand';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
 import type {
 	SelectionSharedState,
 	SetSelectionRelativeToNode,
-} from '@atlaskit/editor-common/selection';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
-import type {
-	ExtractInjectionAPI,
-	getPosHandler,
-	getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
-import { closestElement, isEmptyNode } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/selection/types';
+import { expandClassNames } from '@atlaskit/editor-common/styles/expand';
+import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { isEmptyNode } from '@atlaskit/editor-common/utils';
 import {
 	applyContentVisibility,
 	estimateExpandIntrinsicHeight,
 } from '@atlaskit/editor-common/utils/content-visibility';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';

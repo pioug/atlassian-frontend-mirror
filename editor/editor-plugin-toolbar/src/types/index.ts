@@ -1,6 +1,6 @@
-import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
-import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar/types';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar/responsive-container';
 
 // export type ContextualFormattingEnabledOptions =
 // 	/**

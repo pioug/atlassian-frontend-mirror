@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 
 type OverflowMenuSectionProps = {
 	children: React.ReactNode;

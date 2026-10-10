@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
-import { ResolvedClient } from '@atlaskit/link-test-helpers';
+import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

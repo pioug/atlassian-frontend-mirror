@@ -1,8 +1,8 @@
 import type { RefObject } from 'react';
 import { useState, useCallback } from 'react';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
 
 import { isDetachedElement } from '../utils/utils';
 

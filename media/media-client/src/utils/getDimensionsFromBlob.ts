@@ -1,4 +1,4 @@
-import { type MediaType } from '@atlaskit/media-common';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 import { getImageDimensionsFromBlob } from './getImageDimensionsFromBlob';
 import { getVideoDimensionsFromBlob } from './getVideoDimensionsFromBlob';

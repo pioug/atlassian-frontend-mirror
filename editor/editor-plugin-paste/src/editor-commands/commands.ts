@@ -1,5 +1,6 @@
-import type { Command } from '@atlaskit/editor-common/types';
-import { isListNode, mapChildren, mapSlice } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { isListNode } from '@atlaskit/editor-common/utils';
+import { mapChildren, mapSlice } from '@atlaskit/editor-common/utils/slice';
 import { autoJoin } from '@atlaskit/editor-prosemirror/commands';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';

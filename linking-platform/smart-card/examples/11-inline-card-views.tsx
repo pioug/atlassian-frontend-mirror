@@ -3,11 +3,11 @@ import React from 'react';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { cssMap } from '@atlaskit/css';
 import { HelperMessage } from '@atlaskit/form/helper-message';
-import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card';
+import { iconTestUrls } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range/range';
 import Select from '@atlaskit/select/default';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { token } from '@atlaskit/tokens';
 
 import CardViewExample from './card-view';

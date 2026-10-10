@@ -8,23 +8,21 @@ import { useCallback, useId, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
+import { highlightMessages as messages } from '@atlaskit/editor-common/messages/highlight';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { highlightColorPaletteNew, useSelectedTextColor } from '@atlaskit/editor-common/ui-color';
 import {
 	REMOVE_HIGHLIGHT_COLOR,
 	highlightColorPalette,
-	highlightColorPaletteNew,
-	type PaletteColor,
-	useSelectedTextColor,
-} from '@atlaskit/editor-common/ui-color';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import {
-	hexToEditorTextBackgroundPaletteColor,
-	hexToEditorTextPaletteColor,
-} from '@atlaskit/editor-palette';
-import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/ui-color/ColorPalette/highlightColorPalette';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
+import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { ColorPalette } from '@atlaskit/editor-toolbar/color-palette';
+import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
 import Heading from '@atlaskit/heading/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';

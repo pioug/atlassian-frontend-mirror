@@ -9,7 +9,7 @@ import type { ChangeEvent } from 'react';
  *
  *
  */
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import CardClient from '@atlaskit/link-provider/client';
 import {

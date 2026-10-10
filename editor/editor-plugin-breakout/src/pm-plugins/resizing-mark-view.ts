@@ -1,8 +1,8 @@
 import type { IntlShape } from 'react-intl';
 
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { BreakoutCssClassName } from '@atlaskit/editor-common/styles/breakout';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

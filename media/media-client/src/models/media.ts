@@ -1,6 +1,7 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
-import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 import type { MediaFileArtifacts, ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 // Warning! You can't add new media file processing status!

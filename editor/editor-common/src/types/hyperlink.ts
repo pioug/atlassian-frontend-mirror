@@ -1,4 +1,4 @@
-import type { LinkPickerProps } from '@atlaskit/link-picker';
+import type { LinkPickerProps } from '@atlaskit/link-picker/types';
 
 import type { INPUT_METHOD } from '../analytics';
 import type { CardOptions } from '../card';

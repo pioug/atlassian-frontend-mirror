@@ -1,7 +1,8 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
 
 import type { OpenElementBrowserOptions } from '../../quickInsertPluginType';

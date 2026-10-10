@@ -1,12 +1,13 @@
 import React from 'react';
 
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { DropzoneLoader as Dropzone } from '@atlaskit/media-picker/dropzone';
 import type { DropzoneConfig } from '@atlaskit/media-picker/types';

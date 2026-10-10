@@ -1,23 +1,27 @@
-import type {
-	ExpandField,
-	ExtensionManifest,
-	FieldDefinition,
-	Fieldset,
-	Option,
-	Parameters,
-	ParametersWithDuplicateFields,
-	TabField,
-	TabGroupField,
-} from '@atlaskit/editor-common/extensions';
 import {
 	getFieldDeserializer,
 	getFieldSerializer,
+} from '@atlaskit/editor-common/extensions/extension-fields-helpers';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type {
+	Parameters,
+	ParametersWithDuplicateFields,
+} from '@atlaskit/editor-common/extensions/extension-parameters';
+import type {
+	ExpandField,
+	FieldDefinition,
+	Fieldset,
+	Option,
+	TabField,
+	TabGroupField,
+} from '@atlaskit/editor-common/extensions/field-definitions';
+import {
 	isDateRange,
 	isExpand,
 	isFieldset,
 	isTabField,
 	isTabGroup,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/field-definitions';
 
 import { getNameFromDuplicateField, isDuplicateField } from './utils';
 

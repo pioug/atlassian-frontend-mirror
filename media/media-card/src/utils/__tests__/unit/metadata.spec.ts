@@ -1,10 +1,9 @@
-import {
-	type FileIdentifier,
-	type ExternalImageIdentifier,
-	type FileState,
-	type ErrorFileState,
-} from '@atlaskit/media-client';
-import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
+import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-client/identifier';
+import type {
+	ProcessingFailedState,
+	FileState,
+	ErrorFileState,
+} from '@atlaskit/media-state/file-state';
 
 import { getFileDetails } from '../../metadata';
 

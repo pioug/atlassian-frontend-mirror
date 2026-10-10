@@ -6,12 +6,12 @@ import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
+import { highlightMessages as messages } from '@atlaskit/editor-common/messages/highlight';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
-import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color/ColorPalette/highlightColorPalette';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
 import ColourNoneIcon from '@atlaskit/icon-lab/core/colour-none';
 import { Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

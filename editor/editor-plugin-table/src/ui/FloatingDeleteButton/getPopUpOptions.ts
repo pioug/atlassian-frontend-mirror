@@ -1,4 +1,4 @@
-import type { PopupProps } from '@atlaskit/editor-common/ui';
+import type { Props as PopupProps } from '@atlaskit/editor-common/Popup';
 
 import { tableDeleteButtonOffset, tableDeleteButtonSize, tableToolbarSize } from '../consts';
 import type { CellSelectionType } from './types';

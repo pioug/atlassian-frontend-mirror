@@ -9,10 +9,12 @@ import {
 	tab,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
-import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection/types';
 import { findExpand } from '@atlaskit/editor-common/transforms';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { isEmptyNode, isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

@@ -1,4 +1,5 @@
-import type { Command, TypeAheadItem } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 
 import type { TypeAheadResolvedSection } from '../../types';
 import { ACTIONS } from '../actions';

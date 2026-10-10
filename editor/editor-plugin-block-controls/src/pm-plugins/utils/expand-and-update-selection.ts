@@ -1,13 +1,14 @@
 import { selectNodeAtPos } from '@atlaskit/editor-common/node-selection';
-import { expandToBlockRange, isMultiBlockRange } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isMultiBlockRange } from '@atlaskit/editor-common/selection';
+import { expandToBlockRange } from '@atlaskit/editor-common/selection/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { NodeRange, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	TextSelection,
 	type Selection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { selectTableClosestToPos } from '@atlaskit/editor-tables/select-table-closest-to-pos';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';

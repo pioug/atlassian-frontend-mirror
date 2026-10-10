@@ -1,13 +1,12 @@
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 /**
  * A plugin is created for collecting payload data for tableOverflowChanged analytics event
  */
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import {
-	ACTION_SUBJECT,
-	EVENT_TYPE,
 	TABLE_ACTION,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
-} from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/table-events';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

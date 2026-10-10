@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { type IntlShape, injectIntl } from 'react-intl';
 import type { LoadingComponentProps } from 'react-loadable';
 
-import { messages } from '@atlaskit/editor-common/extensions';
+import { messages } from '@atlaskit/editor-common/extensions/messages';
 import SectionMessage from '@atlaskit/section-message/message';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';

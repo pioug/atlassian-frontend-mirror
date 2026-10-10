@@ -3,8 +3,11 @@ import React from 'react';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { type FileState, type Identifier, isFileIdentifier } from '@atlaskit/media-client';
-import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-common';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 
 import type { Outcome } from './domain/outcome';

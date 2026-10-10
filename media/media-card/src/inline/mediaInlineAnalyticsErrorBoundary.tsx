@@ -4,7 +4,7 @@ import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { token } from '@atlaskit/tokens';
 
 import type { AnalyticsErrorBoundaryInlinePayload } from '../utils/analytics/analytics';

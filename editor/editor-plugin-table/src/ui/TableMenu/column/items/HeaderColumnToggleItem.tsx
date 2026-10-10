@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import Toggle from '@atlaskit/toggle';
 
 import { toggleHeaderColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';

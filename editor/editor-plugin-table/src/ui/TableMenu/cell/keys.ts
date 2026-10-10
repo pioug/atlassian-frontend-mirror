@@ -3,7 +3,7 @@ import type {
 	MenuSectionType,
 	MenuType,
 	NestedMenuType,
-} from '@atlaskit/editor-ui-control-model';
+} from '@atlaskit/editor-ui-control-model/types';
 
 import { ADD_COLUMN_RIGHT_ITEM, DELETE_COLUMN_ITEM, DISTRIBUTE_COLUMNS_ITEM } from '../column/keys';
 import { ADD_ROW_BELOW_ITEM, DELETE_ROW_ITEM } from '../row/keys';

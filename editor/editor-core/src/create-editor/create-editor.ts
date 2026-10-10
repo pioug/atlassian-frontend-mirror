@@ -1,8 +1,5 @@
-import type {
-	EditorPlugin,
-	NamedReactHookFactory,
-	PluginsOptions,
-} from '@atlaskit/editor-common/types';
+import type { EditorPlugin, PluginsOptions } from '@atlaskit/editor-common/types/editor-plugin';
+import type { NamedReactHookFactory } from '@atlaskit/editor-common/types/ui-components';
 
 import type { EditorConfig } from '../types/editor-config';
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import type { PopupPosition } from '@atlaskit/editor-common/ui';
+import type { Position as PopupPosition } from '@atlaskit/editor-common/Popup/utils';
 
 /**
  * Autofocuses the first interactive element in the first tab panel

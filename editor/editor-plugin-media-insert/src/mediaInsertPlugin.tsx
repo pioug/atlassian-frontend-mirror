@@ -8,13 +8,13 @@ import {
 	INPUT_METHOD,
 	INSERT_MEDIA_VIA,
 	MEDIA_INSERT_TAB,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { IconImages } from '@atlaskit/editor-common/assets';
 import {
 	DEFAULT_MEDIA_INSERT_TAB_RANK,
 	MEDIA_INSERT_TAB_RANK,
 } from '@atlaskit/editor-common/media-insert/rank';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { IconImages } from '@atlaskit/editor-common/quick-insert';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaInsertPlugin, RegisterInsertTab } from './mediaInsertPluginType';

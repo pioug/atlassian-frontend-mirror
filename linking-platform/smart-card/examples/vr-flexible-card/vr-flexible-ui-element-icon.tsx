@@ -6,7 +6,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { smallImage } from '@atlaskit/media-test-helpers';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
 import { token } from '@atlaskit/tokens';
 
 import { IconType, SmartLinkSize } from '../../src/constants';

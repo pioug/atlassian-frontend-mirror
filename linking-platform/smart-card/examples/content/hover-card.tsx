@@ -3,7 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientEmbedUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';

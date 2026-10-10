@@ -1,17 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
-	createSelectionClickHandler,
-	GapCursorSelection,
-	Side,
-} from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
+import { createSelectionClickHandler, Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node } from '@atlaskit/editor-prosemirror/model';

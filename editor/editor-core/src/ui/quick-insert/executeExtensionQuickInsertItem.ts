@@ -3,25 +3,26 @@ import type React from 'react';
 import type { EditorState, Selection, Transaction } from 'prosemirror-state';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	fireAnalyticsEvent,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { ExtensionAPI, MenuItem } from '@atlaskit/editor-common/extensions';
-import { resolveImport } from '@atlaskit/editor-common/extensions';
-import { logException } from '@atlaskit/editor-common/monitoring';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtensionAPI } from '@atlaskit/editor-common/extensions/extension-handler';
+import { resolveImport } from '@atlaskit/editor-common/extensions/manifest-helpers';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import {
 	processRawFragmentValue,
 	processRawValue,
 } from '@atlaskit/editor-common/process-raw-value';
-import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 import { safeInsert, type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import type EditorActions from '../../actions';

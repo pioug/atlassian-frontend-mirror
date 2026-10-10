@@ -5,7 +5,7 @@ import {
 	toggleViewChanges,
 } from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

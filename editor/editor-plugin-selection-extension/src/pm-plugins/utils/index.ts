@@ -1,6 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
@@ -11,8 +11,10 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles';
-import { CellSelection, TableMap, type Rect } from '@atlaskit/editor-tables';
+import { akEditorFullPageToolbarHeight } from '@atlaskit/editor-shared-styles/constants';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { Rect } from '@atlaskit/editor-tables/rect';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 // oxlint-disable-next-line import/no-duplicates

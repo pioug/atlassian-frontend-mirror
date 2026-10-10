@@ -2,11 +2,9 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import { screen } from '@testing-library/react';
 
-import {
-	ProviderFactory,
-	ProviderFactoryProvider,
-	type MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory/context';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';

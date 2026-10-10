@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { ElementSelection } from './element-selection';

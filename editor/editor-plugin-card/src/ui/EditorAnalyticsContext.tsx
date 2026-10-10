@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
+import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { getPluginState } from '../pm-plugins/util/state';

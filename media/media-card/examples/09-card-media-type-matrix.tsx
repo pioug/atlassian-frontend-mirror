@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Matrix } from '@atlaskit/media-test-helpers';
+import { Matrix } from '@atlaskit/media-test-helpers/story-styles';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

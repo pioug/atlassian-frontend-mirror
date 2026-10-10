@@ -1,4 +1,4 @@
-import type { TrackChangesPluginOptions } from '@atlaskit/editor-plugin-track-changes';
+import type { TrackChangesPluginOptions } from '@atlaskit/editor-plugin-track-changes/track-changes-plugin-type';
 
 type Props = {
 	options: TrackChangesPluginOptions | undefined;

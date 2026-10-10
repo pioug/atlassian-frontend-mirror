@@ -1,4 +1,4 @@
-import type { StatusPluginOptions } from '@atlaskit/editor-plugin-status';
+import type { StatusPluginOptions } from '@atlaskit/editor-plugin-status/types';
 
 interface Props {
 	options: never;

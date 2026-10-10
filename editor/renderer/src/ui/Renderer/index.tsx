@@ -21,26 +21,23 @@ import { v4 as uuid } from 'uuid';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { BaseTheme } from '@atlaskit/editor-common/BaseTheme';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import { IntlErrorBoundary } from '@atlaskit/editor-common/intl-error-boundary';
 import { isPanelNestingTableSupported } from '@atlaskit/editor-common/nesting';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
-import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
-import {
-	BaseTheme,
-	IntlErrorBoundary,
-	UnsupportedBlock,
-	WidthProvider,
-	WithCreateAnalyticsEvent,
-} from '@atlaskit/editor-common/ui';
-import {
-	getAnalyticsAppearance,
-	getAnalyticsEventSeverity,
-	shouldForceTracking,
-} from '@atlaskit/editor-common/utils';
+import { ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory/context';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+import { getAnalyticsEventSeverity } from '@atlaskit/editor-common/utils/analytics';
+import { shouldForceTracking } from '@atlaskit/editor-common/utils/should-force-tracking';
+import { WidthProvider } from '@atlaskit/editor-common/WidthProvider';
+import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/WithCreateAnalyticsEvent';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

@@ -1,4 +1,5 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { keymap } from '@atlaskit/editor-common/keymap';
 import {
 	addColumnAfter,
 	addColumnAfterVO,
@@ -6,10 +7,9 @@ import {
 	addColumnBeforeVO,
 	bindKeymapWithEditorCommand,
 	deleteColumn,
-	keymap,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { LayoutPlugin } from '../layoutPluginType';
 import { deleteLayoutColumn, insertLayoutColumn } from './actions';

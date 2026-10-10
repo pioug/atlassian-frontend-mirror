@@ -7,8 +7,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';

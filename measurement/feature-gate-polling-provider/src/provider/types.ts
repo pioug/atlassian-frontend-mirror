@@ -1,4 +1,4 @@
-import { type FetcherOptions } from '@atlaskit/feature-gate-fetcher';
+import type { FetcherOptions } from '@atlaskit/feature-gate-fetcher/types';
 
 import { type ExperimentValuesEntry } from '../database/types';
 

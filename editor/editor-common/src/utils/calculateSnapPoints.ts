@@ -1,4 +1,4 @@
-import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
+import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles/constants';
 
 import type { SnapPointsProps } from '../types';
 import { calcPxFromColumns } from '../ui/MediaSingle/calcPxFromColumns';

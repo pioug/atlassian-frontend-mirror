@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
-import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar';
-import { ToolbarUIProvider } from '@atlaskit/editor-toolbar';
+import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar/ui-context';
+import { ToolbarUIProvider } from '@atlaskit/editor-toolbar/ui-context';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mediaEmoji, mediaEmojiId } from '@atlaskit/util-data-test/media-emoji';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

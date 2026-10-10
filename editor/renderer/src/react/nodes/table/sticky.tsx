@@ -8,10 +8,10 @@ import React from 'react';
 import { jsx, type SerializedStyles, css } from '@emotion/react';
 
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
+import type { OverflowShadowProps } from '@atlaskit/editor-common/OverflowShadow';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

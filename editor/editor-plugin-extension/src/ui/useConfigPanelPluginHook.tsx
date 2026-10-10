@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 
-import {
-	type ExtensionProvider,
-	getExtensionKeyAndNodeKey,
-} from '@atlaskit/editor-common/extensions';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions/manifest-helpers';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	useSharedPluginStateWithSelector,
 	type NamedPluginStatesFromInjectionAPI,
-} from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Box } from '@atlaskit/primitives/compiled';

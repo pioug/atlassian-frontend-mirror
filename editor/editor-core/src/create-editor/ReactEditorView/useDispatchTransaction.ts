@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import type { AnalyticsEventPayload, SimplifiedNode } from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	getAnalyticsEventsFromTransaction,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	AnalyticsEventPayload,
+	SimplifiedNode,
+} from '@atlaskit/editor-common/analytics/types/events';
+import { getAnalyticsEventsFromTransaction } from '@atlaskit/editor-common/analytics/utils';
 import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
-import { getDocStructure } from '@atlaskit/editor-common/core-utils';
+import { getDocStructure } from '@atlaskit/editor-common/document-logger';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
-import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library';

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import { panelTextInput } from '@atlaskit/editor-common/ui';
+import { panelTextInput } from '@atlaskit/editor-common/PanelTextInput/styles';
 
 export interface Props {
 	boundariesElement?: HTMLElement;

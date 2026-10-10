@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import type { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
+import type { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types/emitter';
 
 import { ProvidersContext } from '../context';
 

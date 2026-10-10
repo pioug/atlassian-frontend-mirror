@@ -5,11 +5,11 @@ import {
 	EVENT_TYPE,
 	ACTION,
 	ACTION_SUBJECT,
-} from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { HoverLinkOverlay } from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import HoverLinkOverlay from '@atlaskit/editor-common/HoverLinkOverlay';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';

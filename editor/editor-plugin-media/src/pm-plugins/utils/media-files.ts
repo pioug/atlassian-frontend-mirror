@@ -1,25 +1,26 @@
 import type { MediaInlineAttributes } from '@atlaskit/adf-schema/media-inline';
-import type {
-	EditorAnalyticsAPI,
-	InputMethodInsertMedia,
-	InsertEventPayload,
-	// oxlint-disable-next-line import/no-duplicates
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	type InsertMediaVia,
-} from '@atlaskit/editor-common/analytics';
-import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-inline';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type {
+	InputMethodInsertMedia,
+	InsertEventPayload,
+	InsertMediaVia,
+} from '@atlaskit/editor-common/analytics/types/insert-events';
 import {
-	atTheBeginningOfBlock,
-	atTheEndOfBlock,
+	DEFAULT_IMAGE_HEIGHT,
+	DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-inline/constants';
+import {
 	atTheEndOfDoc,
 	endPositionOfParent,
 	startPositionOfParent,
 } from '@atlaskit/editor-common/selection';
+import { atTheBeginningOfBlock, atTheEndOfBlock } from '@atlaskit/editor-common/selection/utils';
 import {
 	findFarthestParentNode,
 	insideTableCell,

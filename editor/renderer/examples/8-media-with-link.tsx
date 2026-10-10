@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 import { default as Renderer } from '../src/ui/Renderer';

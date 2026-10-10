@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { ResolvedClient } from '@atlaskit/link-test-helpers';
+import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled';
 
 import VRCardView from '../utils/vr-card-view';

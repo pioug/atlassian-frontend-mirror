@@ -5,8 +5,8 @@ import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { Popup as EditorPopup } from '@atlaskit/editor-common/ui';
-import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+import EditorPopup from '@atlaskit/editor-common/Popup';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';

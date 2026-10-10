@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { token } from '@atlaskit/tokens';
 

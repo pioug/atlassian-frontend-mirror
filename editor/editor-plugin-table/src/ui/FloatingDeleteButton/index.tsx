@@ -2,16 +2,17 @@ import type { SyntheticEvent } from 'react';
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { Popup } from '@atlaskit/editor-common/ui';
-import { closestElement } from '@atlaskit/editor-common/utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages } from '@atlaskit/editor-common/messages/table';
+import Popup from '@atlaskit/editor-common/Popup';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { getSelectionRect, isTableSelected } from '@atlaskit/editor-tables/utils';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
 import {

@@ -6,10 +6,11 @@ import { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
 const mockStorageClientGetItem = jest.fn();
 const mockStorageClientSetItemWithExpiry = jest.fn();
 
-jest.mock('@atlaskit/frontend-utilities/storage-client', () => ({
+jest.mock('@atlaskit/frontend-utilities/StorageClient', () => ({
+	...jest.requireActual('@atlaskit/frontend-utilities/StorageClient'),
 	StorageClient: function () {
 		return {
-			...jest.requireActual('@atlaskit/frontend-utilities/storage-client').StorageClient,
+			...jest.requireActual('@atlaskit/frontend-utilities/StorageClient').StorageClient,
 			getItem: mockStorageClientGetItem,
 			setItemWithExpiry: mockStorageClientSetItemWithExpiry,
 		};

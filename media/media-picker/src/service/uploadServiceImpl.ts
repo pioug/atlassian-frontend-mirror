@@ -2,25 +2,19 @@ import { EventEmitter2 } from 'eventemitter2';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
 
-import {
-	UploadController,
-	type TouchFileDescriptor,
-	type UploadableFileUpfrontIds,
-	type UploadableFile,
-	type MediaType,
-	type MediaClient,
-	globalMediaEventEmitter,
-	RequestError,
-	type TouchedFiles,
-} from '@atlaskit/media-client';
+import { RequestError } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
 import { toFileReaderError } from '@atlaskit/media-client/hashing/file-reader-error';
-import {
-	type MediaTraceContext,
-	isMimeTypeSupportedByBrowser,
-	getMediaTypeFromMimeType,
-	getRandomTelemetryId,
-} from '@atlaskit/media-common';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { TouchFileDescriptor, TouchedFiles } from '@atlaskit/media-client/media-store/types';
+import { UploadController } from '@atlaskit/media-client/upload-controller';
+import type { UploadableFileUpfrontIds, UploadableFile } from '@atlaskit/media-client/uploader';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
+import { isMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { MediaType } from '@atlaskit/media-common/main-types';
+import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { LocalFileSource, type LocalFileWithSource } from '../service/types';

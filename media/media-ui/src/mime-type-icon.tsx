@@ -4,7 +4,7 @@
  */
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import { type MediaType } from '@atlaskit/media-common';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 import { token } from '@atlaskit/tokens';
 
 import { getMimeIcon } from './getMimeIcon';

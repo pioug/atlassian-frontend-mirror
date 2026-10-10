@@ -12,32 +12,38 @@ import throttle from 'lodash/throttle';
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import {
 	findClosestSnap,
-	generateDefaultGuidelines,
-	generateDynamicGuidelines,
 	getGuidelineSnaps,
-	getGuidelinesWithHighlights,
 	getGuidelineTypeFromKey,
-	getRelativeGuidelines,
 	getRelativeGuideSnaps,
 } from '@atlaskit/editor-common/guideline';
+import { generateDefaultGuidelines } from '@atlaskit/editor-common/guideline/defaultGuideline';
+import { generateDynamicGuidelines } from '@atlaskit/editor-common/guideline/dynamicGuideline';
+import { getRelativeGuidelines } from '@atlaskit/editor-common/guideline/relativeGuideline';
 import type {
 	GuidelineConfig,
 	GuidelineSnapsReference,
 	RelativeGuides,
-} from '@atlaskit/editor-common/guideline';
+} from '@atlaskit/editor-common/guideline/types';
+import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline/updateGuideline';
+import { calcMediaSingleMaxWidth } from '@atlaskit/editor-common/media-single';
 import {
-	calcMediaSingleMaxWidth,
 	DEFAULT_IMAGE_WIDTH,
 	MEDIA_SINGLE_ADJACENT_HANDLE_MARGIN,
 	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
 	MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
 	MEDIA_SINGLE_SNAP_GAP,
 	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
-} from '@atlaskit/editor-common/media-single';
-import type { Dimensions, HandleResize, Position, Snap } from '@atlaskit/editor-common/resizer';
-import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { resizerItemClassName, richMediaClassName } from '@atlaskit/editor-common/styles';
-import type { Command } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/media-single/constants';
+import ResizerNext from '@atlaskit/editor-common/resizer/Resizer';
+import type {
+	Dimensions,
+	HandleResize,
+	Position,
+	Snap,
+} from '@atlaskit/editor-common/resizer/types';
+import { richMediaClassName } from '@atlaskit/editor-common/styles/media-single';
+import { resizerItemClassName } from '@atlaskit/editor-common/styles/resizer';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import {
 	calcPctFromPx,
 	handleSides,
@@ -54,7 +60,7 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

@@ -7,11 +7,11 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
 import { createMediaStoreError, createRateLimitedError } from '@atlaskit/media-client/test-helpers';
-import {
-	type FileAttributes,
-	type MediaTraceContext,
-	type PerformanceAttributes,
-} from '@atlaskit/media-common';
+import type {
+	FileAttributes,
+	MediaTraceContext,
+	PerformanceAttributes,
+} from '@atlaskit/media-common/analytics/types';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { MediaCardError } from '../../MediaCardError';

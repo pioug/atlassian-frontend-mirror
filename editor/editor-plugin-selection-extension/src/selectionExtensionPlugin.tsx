@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { selectionExtensionMessages } from '@atlaskit/editor-common/messages';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { selectionExtensionMessages } from '@atlaskit/editor-common/messages/selection-extension';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
 	FloatingToolbarOverflowDropdown,
 	OverflowDropdownHeading,
 	OverflowDropdownOption,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/floating-toolbar';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

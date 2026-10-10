@@ -1,6 +1,6 @@
 import { EventEmitter2 } from 'eventemitter2';
 
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 import { mediaStore, type MediaStore } from '@atlaskit/media-state/media-store';

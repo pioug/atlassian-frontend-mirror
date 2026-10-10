@@ -1,13 +1,11 @@
 import memoizeOne from 'memoize-one';
 import type { MemoizedFn } from 'memoize-one';
 
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
-	EXPAND_CONTAINER_PADDING,
-	LAYOUT_COLUMN_PADDING,
-	resizerHandleThumbWidth,
-} from '@atlaskit/editor-common/styles';
-import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
+import { LAYOUT_COLUMN_PADDING } from '@atlaskit/editor-common/styles/layout';
+import { resizerHandleThumbWidth } from '@atlaskit/editor-common/styles/resizer';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import { EXPAND_CONTAINER_PADDING } from '@atlaskit/editor-common/ui-expand/sharedStyles';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorGutterPaddingDynamic,
@@ -18,7 +16,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorMaxLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 const WIDTHS = {

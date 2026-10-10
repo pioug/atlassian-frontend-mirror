@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap } from '@atlaskit/css';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import {
 	buildQuickInsertMenuModel,

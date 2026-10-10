@@ -1,6 +1,6 @@
 import { useEffect, useRef, type MutableRefObject } from 'react';
 
-import { useStaticCallback } from '@atlaskit/media-common';
+import { useStaticCallback } from '@atlaskit/media-common/useStaticCallback';
 
 export const useIntersectionObserver = (
 	options: IntersectionObserverInit,

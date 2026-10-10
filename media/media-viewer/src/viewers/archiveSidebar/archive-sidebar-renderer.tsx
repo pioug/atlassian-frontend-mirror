@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import { type ZipEntry } from 'unzipit';
 
-import { type MediaClient, type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { isErrorFileState } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { ArchiveViewerError } from '../../ArchiveViewerError';
 import { Spinner } from '../../loading';

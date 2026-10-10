@@ -2,53 +2,49 @@ import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION, INPUT_METHOD, PasteTypes } from '@atlaskit/editor-common/analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { PasteTypes } from '@atlaskit/editor-common/analytics/types/paste-events';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
-import { insideTable } from '@atlaskit/editor-common/core-utils';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import type {
-	ExtensionAutoConvertHandler,
-	ExtensionProvider,
-} from '@atlaskit/editor-common/extensions';
-import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
+import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions/module-helpers';
+import { insideTable } from '@atlaskit/editor-common/inside';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
-import { isPastedFile as isPastedFileFromEvent, md } from '@atlaskit/editor-common/paste';
+import { isPastedFile as isPastedFileFromEvent } from '@atlaskit/editor-common/paste/clipboard';
+import { md } from '@atlaskit/editor-common/paste/md';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/sync-block';
+import { SyncBlockRendererDataAttributeName } from '@atlaskit/editor-common/styles/sync-block';
 import {
-	removeBreakoutFromRendererSyncBlockHTML,
 	transformSingleColumnLayout,
 	transformSingleLineCodeBlockToCodeMark,
 	transformSliceNestedExpandToExpand,
-	transformSliceToDecisionList,
-	transformSliceToJoinAdjacentCodeBlocks,
-	transformSliceToRemoveLegacyContentMacro,
 	transformSliceToRemoveMacroId,
 } from '@atlaskit/editor-common/transforms';
-import type {
-	ExtractInjectionAPI,
-	FeatureFlags,
-	PasteWarningOptions,
-} from '@atlaskit/editor-common/types';
-import {
-	containsAnyAnnotations,
-	extractSliceFromStep,
-	linkifyContent,
-	mapChildren,
-} from '@atlaskit/editor-common/utils';
+import { transformSliceToJoinAdjacentCodeBlocks } from '@atlaskit/editor-common/transforms/code-block';
+import { transformSliceToDecisionList } from '@atlaskit/editor-common/transforms/decision-list';
+import { transformSliceToRemoveLegacyContentMacro } from '@atlaskit/editor-common/transforms/extension';
+import { removeBreakoutFromRendererSyncBlockHTML } from '@atlaskit/editor-common/transforms/sync-block';
+import type { PasteWarningOptions } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { extractSliceFromStep } from '@atlaskit/editor-common/utils';
+import { containsAnyAnnotations } from '@atlaskit/editor-common/utils/annotation';
+import { linkifyContent } from '@atlaskit/editor-common/utils/hyperlink';
+import { mapChildren } from '@atlaskit/editor-common/utils/slice';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
-import { insm } from '@atlaskit/insm';
-import { extractClientIdsFromHtml } from '@atlaskit/media-common';
+import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils/handle-paste';
+import { insm } from '@atlaskit/insm/api';
+import { extractClientIdsFromHtml } from '@atlaskit/media-common/clientIdCache';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

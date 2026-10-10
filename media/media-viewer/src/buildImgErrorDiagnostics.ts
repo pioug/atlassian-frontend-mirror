@@ -1,7 +1,8 @@
 import { type SyntheticEvent } from 'react';
 
-import { type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { isErrorFileState } from '@atlaskit/media-client';
 import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { classifyFailedSrc } from './classifyFailedSrc';
 

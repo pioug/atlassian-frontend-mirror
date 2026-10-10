@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+import { messages } from '@atlaskit/editor-common/messages/block-type';
 import {
 	BLOCK_QUOTE_MENU_ITEM,
 	HEADING_1_MENU_ITEM,
@@ -11,19 +11,17 @@ import {
 	HEADING_6_MENU_ITEM,
 	NORMAL_TEXT_MENU_ITEM,
 	SMALL_TEXT_MENU_ITEM,
-	TEXT_STYLES_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import {
-	TextNormalIcon,
-	QuoteIcon,
-	HeadingOneIcon,
-	HeadingTwoIcon,
-	HeadingThreeIcon,
-	HeadingFourIcon,
-	HeadingFiveIcon,
-	HeadingSixIcon,
-	TextSmallIcon,
-} from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TEXT_STYLES_MENU_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import { HeadingFiveIcon } from '@atlaskit/editor-toolbar/heading-five-icon';
+import { HeadingFourIcon } from '@atlaskit/editor-toolbar/heading-four-icon';
+import { HeadingOneIcon } from '@atlaskit/editor-toolbar/heading-one-icon';
+import { HeadingSixIcon } from '@atlaskit/editor-toolbar/heading-six-icon';
+import { HeadingThreeIcon } from '@atlaskit/editor-toolbar/heading-three-icon';
+import { HeadingTwoIcon } from '@atlaskit/editor-toolbar/heading-two-icon';
+import { QuoteIcon } from '@atlaskit/editor-toolbar/quote-icon';
+import { TextNormalIcon } from '@atlaskit/editor-toolbar/text-normal-icon';
+import { TextSmallIcon } from '@atlaskit/editor-toolbar/text-small-icon';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
 import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';

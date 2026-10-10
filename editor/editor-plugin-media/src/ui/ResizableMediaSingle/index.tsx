@@ -9,25 +9,26 @@ import { jsx } from '@emotion/react';
 
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
-import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
+import { calcMediaPxWidth } from '@atlaskit/editor-common/MediaSingle/grid';
+import Resizer from '@atlaskit/editor-common/ResizerLegacy';
+import type { GridType } from '@atlaskit/editor-common/types/grid';
+import type { SnapPointsProps } from '@atlaskit/editor-common/types/resizable-media-single';
 import {
 	calcColumnsFromPx,
-	calcMediaPxWidth,
 	calcPctFromPx,
 	handleSides,
 	imageAlignmentMap,
-	Resizer,
 	snapTo,
 	wrappedLayouts,
 } from '@atlaskit/editor-common/ui';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
-import type { Highlights } from '@atlaskit/editor-plugin-grid';
+import type { Highlights } from '@atlaskit/editor-plugin-grid/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

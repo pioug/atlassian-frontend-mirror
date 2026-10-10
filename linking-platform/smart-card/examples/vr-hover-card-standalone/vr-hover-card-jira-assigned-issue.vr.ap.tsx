@@ -3,7 +3,7 @@ import React from 'react';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { JiraIssueAssigned } from '@atlaskit/link-test-helpers';
+import { JiraIssueAssigned } from '@atlaskit/link-test-helpers/smart-card/mocks/jira';
 
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';

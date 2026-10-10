@@ -1,4 +1,4 @@
-import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
+import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';

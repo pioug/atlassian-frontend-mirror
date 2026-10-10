@@ -1,5 +1,6 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
-import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models/editor-main-toolbar-model';
 
 test.describe('Sticky Toolbar', () => {
 	test.use({

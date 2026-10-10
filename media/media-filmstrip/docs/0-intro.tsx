@@ -1,6 +1,6 @@
 import React from 'react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
-import { DocsContentTabs } from '@atlaskit/media-test-helpers';
+import { DocsContentTabs } from '@atlaskit/media-test-helpers/docs-content-tabs';
 import filmStripExamples from './content/example';
 import filmStripProps from './content/props';
 const _default_1: any = md`

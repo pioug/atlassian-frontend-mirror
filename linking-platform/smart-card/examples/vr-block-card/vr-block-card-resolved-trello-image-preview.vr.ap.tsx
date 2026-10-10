@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import Client from '@atlaskit/link-provider/client';
-import { TrelloCard } from '@atlaskit/link-test-helpers';
+import { TrelloCard } from '@atlaskit/link-test-helpers/smart-card/mocks/trello';
 
 import VRCardView from '../utils/vr-card-view';
 import '../utils/vr-preload-metadata-icons';

@@ -2,8 +2,10 @@
 
 import { unzip, type ZipInfo, HTTPRangeReader, type Reader } from 'unzipit';
 
-import { type MediaClient, type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { isErrorFileState } from '@atlaskit/media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import { isZipMimeType } from '@atlaskit/media-common/isZipMimeType';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ArchiveViewerError } from '../../ArchiveViewerError';

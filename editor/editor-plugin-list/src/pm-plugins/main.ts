@@ -1,13 +1,17 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { setGapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import { Side } from '@atlaskit/editor-common/selection';
+import { setGapCursorSelection } from '@atlaskit/editor-common/selection/setGapCursorSelection';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
 import {
-	CodeBlockSharedCssClassName,
 	getOrderedListInlineStyles,
 	listItemCounterPadding,
-} from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
-import { getItemCounterDigitsSize, isListNode, pluginFactory } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/styles/lists';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { isListNode } from '@atlaskit/editor-common/utils';
+import { getItemCounterDigitsSize } from '@atlaskit/editor-common/utils/list';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,

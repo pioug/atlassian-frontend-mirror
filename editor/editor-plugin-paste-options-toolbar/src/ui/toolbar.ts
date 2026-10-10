@@ -1,19 +1,18 @@
 import type { IntlShape } from 'react-intl';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { pasteOptionsToolbarMessages as messages } from '@atlaskit/editor-common/messages/paste-options-toolbar';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type {
-	Command,
-	CommandDispatch,
 	FloatingToolbarConfig,
 	FloatingToolbarDropdown,
 	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
-import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
+} from '@atlaskit/editor-common/types/floating-toolbar';
+import type { LastContentPasted } from '@atlaskit/editor-plugin-paste/paste-plugin-type';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 import ClipboardIcon from '@atlaskit/icon/core/clipboard';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

@@ -3,11 +3,12 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 // oxlint-disable-next-line import/no-duplicates
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { HighlightPlugin } from '../highlightPluginType';
 import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';

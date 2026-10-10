@@ -13,10 +13,12 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { Editor, EditorContext, WithEditorActions } from '@atlaskit/editor-core';
+import Editor from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
+import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers/imageUpload';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { token } from '@atlaskit/tokens';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

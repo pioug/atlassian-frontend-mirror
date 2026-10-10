@@ -1,25 +1,24 @@
 import React from 'react';
 
-import {
-	isUploadingFileState,
-	type MediaApi,
-	type MediaStore as MediaApiImpl,
-	MediaClient,
-	type ResponseFileItem,
-	type UploadingFileState,
-} from '@atlaskit/media-client';
+import { isUploadingFileState } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaStore as MediaApiImpl } from '@atlaskit/media-client/media-store';
+import type { MediaApi, ResponseFileItem } from '@atlaskit/media-client/media-store/types';
 import {
 	createEmptyFileItem,
 	createErrorFileState,
 	createFileState,
-	createMockedMediaApi,
-	type CreateMockedMediaApiResult,
 	createProcessingFileItem,
 	createUploadingFileState,
-	type SetItems,
 } from '@atlaskit/media-client/test-helpers';
+import {
+	createMockedMediaApi,
+	type CreateMockedMediaApiResult,
+	type SetItems,
+} from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import type { UploadingFileState } from '@atlaskit/media-state/file-state';
 import type { MediaStore } from '@atlaskit/media-state/media-store';
 import type { Store } from '@atlaskit/media-state/store';
 

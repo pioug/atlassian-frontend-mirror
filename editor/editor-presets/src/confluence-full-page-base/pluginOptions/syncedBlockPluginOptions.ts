@@ -1,8 +1,8 @@
 import type {
 	SyncedBlockPluginOptions,
 	SyncedBlockRendererProps,
-} from '@atlaskit/editor-plugin-synced-block';
-import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
+} from '@atlaskit/editor-plugin-synced-block/synced-block-plugin-type';
+import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider/syncBlockProvider';
 
 /**
  * Options for configuring the synced block plugin.

@@ -1,4 +1,5 @@
-import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 

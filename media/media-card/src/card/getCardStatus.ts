@@ -1,4 +1,4 @@
-import { type FileStatus } from '@atlaskit/media-client';
+import type { FileStatus } from '@atlaskit/media-client/file-state';
 
 import { type CardStatus, type FilePreviewStatus } from '../types';
 

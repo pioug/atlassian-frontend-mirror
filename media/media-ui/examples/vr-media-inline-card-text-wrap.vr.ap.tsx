@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { smallImage } from '@atlaskit/media-common/test-helpers';
+import { smallImage } from '@atlaskit/media-common/smallImageURI';
 
 import { MediaInlineCardLoadedView } from '../src/MediaInlineCard/LoadedView';
 import { VRTestCase } from './utils/common';

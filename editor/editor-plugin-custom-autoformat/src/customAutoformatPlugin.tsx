@@ -1,6 +1,8 @@
-import type { AutoformattingProvider, Providers } from '@atlaskit/editor-common/provider-factory';
+import type { AutoformattingProvider } from '@atlaskit/editor-common/provider-factory/autoformatting-provider';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type {
 	EditorState,

@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 
-import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers';
+import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers/ufoLogger';
 import { payloadPublisher } from '@atlassian/ufo/publisher';
 
 type Props = {

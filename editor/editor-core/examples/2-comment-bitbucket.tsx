@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { token } from '@atlaskit/tokens';
 

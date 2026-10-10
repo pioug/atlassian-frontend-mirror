@@ -8,8 +8,8 @@ import {
 	dragToMoveUp,
 	showElementDragHandle,
 } from '@atlaskit/editor-common/keymaps';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { DIRECTION } from '@atlaskit/editor-common/types';
+import { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

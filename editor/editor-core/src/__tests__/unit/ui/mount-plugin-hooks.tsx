@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 
-import type { NamedReactHookFactory, ReactHookFactory } from '@atlaskit/editor-common/types';
+import type {
+	NamedReactHookFactory,
+	ReactHookFactory,
+} from '@atlaskit/editor-common/types/ui-components';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { render } from '@atlassian/testing-library';
 

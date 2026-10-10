@@ -1,7 +1,7 @@
 import { getLinkMatch } from '@atlaskit/adf-schema/get-link-match';
 import type { Match } from '@atlaskit/adf-schema/url';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import {
 	addLink,
@@ -11,15 +11,15 @@ import {
 	escape,
 	insertNewLine,
 } from '@atlaskit/editor-common/keymaps';
-import type { HyperlinkState } from '@atlaskit/editor-common/link';
+import type { HyperlinkState } from '@atlaskit/editor-common/link/types';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import {
 	findFilepaths,
 	getLinkCreationAnalyticsEvent,
 	isLinkInMatches,
-	shouldAutoLinkifyMatch,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils/hyperlink';
+import { shouldAutoLinkifyMatch } from '@atlaskit/editor-common/utils/should-auto-linkify-tld';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 

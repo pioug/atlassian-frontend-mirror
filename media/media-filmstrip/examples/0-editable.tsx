@@ -12,7 +12,6 @@ import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/default/button';
 import Card from '@atlaskit/media-card/cardLoader';
 import {
-	createStorybookMediaClientConfig,
 	genericFileId,
 	audioFileId,
 	videoFileId,
@@ -22,7 +21,8 @@ import {
 	codeFileId,
 	emailFileId,
 	archiveFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Range from '@atlaskit/range/range';
 

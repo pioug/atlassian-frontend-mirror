@@ -23,40 +23,38 @@ const mockToolbarOverride: { value: 'always-pinned' | undefined } = { value: und
 
 // Selector mock dispatched by the subscribed plugin set so we don't break
 // other consumers (e.g. ContextPanel, Toolbar) that share the same hook.
-jest.mock('@atlaskit/editor-common/hooks', () => {
-	const actual = jest.requireActual('@atlaskit/editor-common/hooks');
-	return {
-		...actual,
-		useSharedPluginStateWithSelector: jest
-			.fn()
-			.mockImplementation((_api: unknown, plugins: string[]) => {
-				if (plugins.includes('primaryToolbar')) {
-					// FullPage selector — shape includes the new override field.
-					return {
-						primaryToolbarComponents: undefined,
-						interactionState: 'hasNotHadInteraction',
-						editorViewMode: 'edit',
-						contextualFormattingModeOverride: mockToolbarOverride.value,
-					};
-				}
-				if (plugins.includes('connectivity')) {
-					// Toolbar.tsx selector inside the rendered toolbar surface.
-					return {
-						connectivityStateMode: 'online',
-						editorViewMode: 'edit',
-						editorToolbarDockingPreference: 'none',
-					};
-				}
-				if (plugins.includes('toolbar')) {
-					// FullPageToolbarNext / Section pull the override field directly.
-					return mockToolbarOverride.value;
-				}
-				return undefined;
-			}),
-	};
-});
+jest.mock('@atlaskit/editor-common/useSharedPluginStateWithSelector', () => ({
+	...jest.requireActual('@atlaskit/editor-common/useSharedPluginStateWithSelector'),
+	useSharedPluginStateWithSelector: jest
+		.fn()
+		.mockImplementation((_api: unknown, plugins: string[]) => {
+			if (plugins.includes('primaryToolbar')) {
+				// FullPage selector — shape includes the new override field.
+				return {
+					primaryToolbarComponents: undefined,
+					interactionState: 'hasNotHadInteraction',
+					editorViewMode: 'edit',
+					contextualFormattingModeOverride: mockToolbarOverride.value,
+				};
+			}
+			if (plugins.includes('connectivity')) {
+				// Toolbar.tsx selector inside the rendered toolbar surface.
+				return {
+					connectivityStateMode: 'online',
+					editorViewMode: 'edit',
+					editorToolbarDockingPreference: 'none',
+				};
+			}
+			if (plugins.includes('toolbar')) {
+				// FullPageToolbarNext / Section pull the override field directly.
+				return mockToolbarOverride.value;
+			}
+			return undefined;
+		}),
+}));
 
-jest.mock('@atlaskit/editor-common/use-shared-plugin-state-selector', () => ({
+jest.mock('@atlaskit/editor-common/useSharedPluginStateSelector', () => ({
+	...jest.requireActual('@atlaskit/editor-common/useSharedPluginStateSelector'),
 	useSharedPluginStateSelector: jest.fn().mockImplementation((_api: unknown, selector: string) => {
 		if (selector === 'userPreferences.preferences') {
 			return { toolbarDockingPosition: 'none' };

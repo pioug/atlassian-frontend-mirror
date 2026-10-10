@@ -4,7 +4,7 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { CellSelection } from '@atlaskit/editor-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { NodeTypeName } from './types';

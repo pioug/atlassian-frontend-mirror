@@ -11,7 +11,7 @@
 import { uuid } from '@atlaskit/adf-schema/uuid';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { getChangedNodes } from '@atlaskit/editor-common/utils';
+import { getChangedNodes } from '@atlaskit/editor-common/utils/document';
 import type { NodeType, Node as ProsemirrorNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 

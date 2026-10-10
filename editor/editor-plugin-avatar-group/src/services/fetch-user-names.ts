@@ -1,4 +1,4 @@
-import { logException } from '@atlaskit/editor-common/monitoring';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 
 const AGG_PATH = '/gateway/api/graphql';
 const USERS_OPERATION_NAME = 'AvatarGroupUsersQuery';

@@ -2,13 +2,14 @@ import React from 'react';
 
 import classnames from 'classnames';
 
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { GridType } from '@atlaskit/editor-common/types/grid';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI, GridType } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -16,7 +17,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullPageMaxWidth,
 	breakoutWideScaleRatio,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import type { GridPlugin } from './gridPluginType';
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';

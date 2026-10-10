@@ -1,22 +1,25 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
-	Command,
-	QuickInsertPluginOptions as CommonQuickInsertPluginOptions,
-	QuickInsertSharedState as CommonQuickInsertSharedState,
-	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
+	QuickInsertPluginOptions as CommonQuickInsertPluginOptions,
+	QuickInsertSharedState as CommonQuickInsertSharedState,
 	QuickInsertHandler,
 	QuickInsertSearchOptions,
-	TypeAheadHandler,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/types/quick-insert';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
-import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
-import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics/metrics-plugin-type';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
+import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 export type QuickInsertSharedState = CommonQuickInsertSharedState & {

@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import kebabCase from 'lodash/kebabCase';
 
 import { table, tableWithNestedTable } from '@atlaskit/adf-schema/tableNodes';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { isTableInContentMode } from '@atlaskit/editor-common/table';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

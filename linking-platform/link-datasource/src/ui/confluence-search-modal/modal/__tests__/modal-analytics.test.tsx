@@ -1,6 +1,7 @@
 import { act, waitFor } from '@testing-library/react';
 
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import type { DatasourceTableStatusType } from '@atlaskit/linking-types/datasource';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';

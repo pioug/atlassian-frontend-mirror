@@ -1,15 +1,16 @@
 import React from 'react';
 
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import {
 	BULLETED_LIST_BUTTON,
 	BULLETED_LIST_BUTTON_GROUP,
 	TEXT_SECTION_PRIMARY_TOOLBAR,
-	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
-	useEditorToolbar,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { TEXT_SECTION_PRIMARY_TOOLBAR_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { Show } from '@atlaskit/editor-toolbar/show';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { BulletedListButton } from './BulletedListButton';

@@ -3,24 +3,19 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import { nodeViewsMessages as messages } from '@atlaskit/editor-common/media';
-import type {
-	ContextIdentifierProvider,
-	MediaProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import {
-	isNodeSelectedOrInRange,
-	SelectedState,
-	setNodeSelection,
-} from '@atlaskit/editor-common/utils';
+import { nodeViewsMessages as messages } from '@atlaskit/editor-common/media/nodeviews';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import usePreviousState from '@atlaskit/editor-common/usePreviousState';
+import { SelectedState, setNodeSelection } from '@atlaskit/editor-common/utils';
+import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils/nodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorCloseIcon from '@atlaskit/icon/core/cross';
-import type { Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { Filmstrip } from '@atlaskit/media-filmstrip';
+import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 

@@ -4,17 +4,14 @@ import { useState, useEffect } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
-import {
-	type ExternalImageIdentifier,
-	type Identifier,
-	type FileState,
-} from '@atlaskit/media-client';
+import type { ExternalImageIdentifier, Identifier } from '@atlaskit/media-client/identifier';
+import type { FileState } from '@atlaskit/media-state/file-state';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
 	externalImageIdentifier,
 	externalSmallImageIdentifier,
-	createStorybookMediaClient,
-	defaultCollectionName,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClient } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import AkSpinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 

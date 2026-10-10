@@ -8,8 +8,8 @@ import { useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
-import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets';
-import { createMockCollabEditProvider } from '@af/editor-examples-helpers/utils';
+import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets/useConfluenceFullPagePreset';
+import { createMockCollabEditProvider } from '@af/editor-examples-helpers/utils/mockWebSocketsCollabProvider';
 import Button from '@atlaskit/button/default/button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';

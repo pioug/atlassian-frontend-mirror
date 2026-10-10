@@ -1,6 +1,6 @@
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { addParagraphAtEnd } from '@atlaskit/editor-common/commands';
-import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
+import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection/actions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export const outsideProsemirrorEditorClickHandler = (

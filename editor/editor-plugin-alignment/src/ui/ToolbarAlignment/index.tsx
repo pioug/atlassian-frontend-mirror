@@ -8,24 +8,20 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
+import { alignmentMessages as messages } from '@atlaskit/editor-common/alignment';
+import type { OpenChangedEvent } from '@atlaskit/editor-common/DropList';
 import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';
-import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
-import {
-	Shortcut,
-	ToolbarDropdownTriggerWrapper,
-	ToolbarDropdownWrapper,
-	ToolbarExpandIcon,
-	ToolbarSeparator,
-} from '@atlaskit/editor-common/ui';
-import {
-	ArrowKeyNavigationType,
-	DropdownContainer as Dropdown,
-	DropdownMenuWithKeyboardNavigation as DropdownMenu,
-	ToolbarButton,
-} from '@atlaskit/editor-common/ui-menu';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import { Shortcut } from '@atlaskit/editor-common/Shortcut';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { ToolbarDropdownTriggerWrapper } from '@atlaskit/editor-common/ui-toolbar/DropdownTriggerWrapper';
+import { ToolbarDropdownWrapper } from '@atlaskit/editor-common/ui-toolbar/DropdownWrapper';
+import { ToolbarExpandIcon } from '@atlaskit/editor-common/ui-toolbar/ExpandIcon';
+import { ToolbarSeparator } from '@atlaskit/editor-common/ui-toolbar/Separator';
 import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';

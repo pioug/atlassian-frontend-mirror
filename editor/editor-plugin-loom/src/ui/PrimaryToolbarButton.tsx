@@ -7,16 +7,14 @@ import React, { useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type {
-	EditorAppearance,
-	ExtractInjectionAPI,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';

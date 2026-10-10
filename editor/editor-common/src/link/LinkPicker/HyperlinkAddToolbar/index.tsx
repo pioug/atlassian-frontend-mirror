@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { LinkPickerProps } from '@atlaskit/link-picker';
+import type { LinkPickerProps } from '@atlaskit/link-picker/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { INPUT_METHOD } from '../../../analytics';

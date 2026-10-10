@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 
-import { reduce } from '@atlaskit/adf-utils/traverse';
+import { reduce } from '@atlaskit/adf-utils/reduce';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

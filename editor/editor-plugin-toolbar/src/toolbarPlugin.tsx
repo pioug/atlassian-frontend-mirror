@@ -6,8 +6,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
-import { createComponentRegistry } from '@atlaskit/editor-toolbar-model';
+import { createComponentRegistry } from '@atlaskit/editor-toolbar-model/create-registry';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';

@@ -1,5 +1,5 @@
 import type { SupportedLanguages } from '@atlaskit/code/constants';
-import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
+import type { ErrorFileState, FileState } from '@atlaskit/media-state/file-state';
 
 import type { Outcome } from '../../domain/outcome';
 import type { MediaViewerError } from '../../MediaViewerError';

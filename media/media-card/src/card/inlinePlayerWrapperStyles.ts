@@ -1,11 +1,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
+import { SelectionStyle } from '@atlaskit/editor-shared-styles/selection/types';
 import {
 	getSelectionStyles,
-	SelectionStyle,
 	hideNativeBrowserTextSelectionStyles,
-} from '@atlaskit/editor-shared-styles/selection';
+} from '@atlaskit/editor-shared-styles/selection/utils';
 import { token } from '@atlaskit/tokens';
 
 import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/example-helpers';
+import combineExtensionProviders from '@atlaskit/editor-common/extensions/combine-extension-providers';
+import { getXProductExtensionProvider } from '@atlaskit/editor-test-helpers/fakeXProductExtensions';
 
 import ConfigPanelWithExtensionPicker from '../example-utils/config-panel/ConfigPanelWithExtensionPicker';
 

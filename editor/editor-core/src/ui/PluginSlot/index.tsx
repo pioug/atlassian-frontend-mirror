@@ -2,15 +2,15 @@ import React from 'react';
 
 import isEqual from 'lodash/isEqual';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type {
-	EditorAppearance,
 	ReactHookFactory,
 	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/ui-components';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

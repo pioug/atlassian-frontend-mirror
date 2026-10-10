@@ -1,10 +1,10 @@
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { tableCellMinWidth, tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
+import { tableCellMinWidth, tableNewColumnMinWidth } from '@atlaskit/editor-common/styles/table';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 
 import { getSelectedTableInfo } from '../../utils/analytics';
 import { getColWidthFix, hasTableBeenResized, insertColgroupFromNode } from './colgroup';

@@ -1,4 +1,4 @@
-import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';

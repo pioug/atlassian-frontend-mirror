@@ -9,19 +9,19 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 	MEDIA_INSERT_TAB,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	DEFAULT_MEDIA_INSERT_TAB_RANK,
 	MEDIA_INSERT_TAB_RANK,
 } from '@atlaskit/editor-common/media-insert/rank';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import ImageIcon from '@atlaskit/icon/core/image';
 
 import type {

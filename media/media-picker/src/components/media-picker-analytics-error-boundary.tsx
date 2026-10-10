@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 
 import AnalyticsErrorBoundary from '@atlaskit/analytics-next/AnalyticsErrorBoundary';
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 
 export type MediaPickerAnalyticsErrorBoundaryProps = PropsWithChildren<{
 	data?: { [k: string]: any };

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import AkFlag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';

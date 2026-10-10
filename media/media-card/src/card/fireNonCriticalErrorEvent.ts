@@ -1,5 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { type FileAttributes, type MediaTraceContext } from '@atlaskit/media-common';
+import type { FileAttributes, MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import { MediaCardError } from '../MediaCardError';
 import { type CardStatus } from '../types';

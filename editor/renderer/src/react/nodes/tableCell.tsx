@@ -9,10 +9,10 @@ import {
 	tableBackgroundColorNameByHex,
 	type CellAttributes,
 } from '@atlaskit/adf-schema/tableNodes';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { SortingIcon } from '@atlaskit/editor-common/table';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import SortingIcon from '@atlaskit/editor-common/table/SortingIcon';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
+import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette/background';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';

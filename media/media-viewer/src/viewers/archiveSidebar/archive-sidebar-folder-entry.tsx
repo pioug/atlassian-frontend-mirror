@@ -4,8 +4,9 @@ import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'reac
 import { type ZipEntry } from 'unzipit';
 
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
-import { type MediaClient, globalMediaEventEmitter } from '@atlaskit/media-client';
-import { downloadUrl } from '@atlaskit/media-common';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

@@ -8,13 +8,13 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
-	I18NWrapper,
 	externaBrokenlIdentifier,
 	errorFileId,
 	largePdfFileId,
 	imageFileId,
-	createStorybookMediaClientConfig,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

@@ -1,11 +1,11 @@
-import {
-	type ProcessedFileState,
-	type ProcessingFileState,
-	type UploadingFileState,
-	type ErrorFileState,
-	type ProcessingFailedState,
-	RequestError,
-} from '@atlaskit/media-client';
+import { RequestError } from '@atlaskit/media-client';
+import type {
+	ProcessedFileState,
+	ProcessingFileState,
+	UploadingFileState,
+	ErrorFileState,
+	ProcessingFailedState,
+} from '@atlaskit/media-state/file-state';
 
 import { createDownloadFailedEventPayload } from '../../../../analytics/events/operational/createDownloadFailedEventPayload';
 import { createLoadFailedEvent } from '../../../../analytics/events/operational/loadFailed';

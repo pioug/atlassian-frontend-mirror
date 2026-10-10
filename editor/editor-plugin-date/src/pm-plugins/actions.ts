@@ -3,9 +3,11 @@ import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getAnnotationMarksForPos, todayTimestampInUTC } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils/annotation';
+import { todayTimestampInUTC } from '@atlaskit/editor-common/utils/date';
 import { Fragment, type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';

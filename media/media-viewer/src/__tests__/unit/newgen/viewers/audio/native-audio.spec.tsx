@@ -7,9 +7,9 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { type ProcessedFileState } from '@atlaskit/media-client';
 import type { Auth } from '@atlaskit/media-core/auth';
-import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 
 import { AudioViewer } from '../../../../../viewers/audio';
 

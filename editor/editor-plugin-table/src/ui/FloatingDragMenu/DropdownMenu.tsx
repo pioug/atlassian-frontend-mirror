@@ -2,19 +2,16 @@
 
 import React, { useCallback, useState } from 'react';
 
-import { DropList, Popup } from '@atlaskit/editor-common/ui';
-import type { DropListProps } from '@atlaskit/editor-common/ui';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import {
-	ArrowKeyNavigationProvider,
-	ArrowKeyNavigationType,
-	DropdownMenuItem,
-} from '@atlaskit/editor-common/ui-menu';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import DropList from '@atlaskit/editor-common/DropList';
+import type { Props as DropListProps } from '@atlaskit/editor-common/DropList';
+import Popup from '@atlaskit/editor-common/Popup';
+import { ArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownMenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 

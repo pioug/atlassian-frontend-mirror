@@ -1,4 +1,4 @@
-import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
+import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline/utils';
 import { isInEmptyLine } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

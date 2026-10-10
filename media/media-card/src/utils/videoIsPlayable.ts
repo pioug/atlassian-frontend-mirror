@@ -1,5 +1,6 @@
-import { type FileState, isProcessedFileState } from '@atlaskit/media-client';
-import { isVideoMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
+import { isProcessedFileState } from '@atlaskit/media-client';
+import { isVideoMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 export const videoIsPlayable = (
 	isBannedLocalPreview: boolean,

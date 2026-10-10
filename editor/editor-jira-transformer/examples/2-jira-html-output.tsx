@@ -2,7 +2,9 @@
 
 import React from 'react';
 
-import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
+import { CollapsedEditor } from '@atlaskit/editor-core/CollapsedEditor';
+import Editor from '@atlaskit/editor-core/editor';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
 import { token } from '@atlaskit/tokens';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 

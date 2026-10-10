@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Notifications } from '@atlaskit/atlassian-navigation';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
+import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 import { Popup } from '@atlaskit/popup/popup';
 import SectionMessage from '@atlaskit/section-message/message';
 

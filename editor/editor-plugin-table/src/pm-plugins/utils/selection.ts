@@ -1,8 +1,9 @@
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Rect } from '@atlaskit/editor-tables/rect';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTableClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { findTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 
 export const getSelectedColumnIndexes = (selectionRect: Rect): number[] => {
 	const columnIndexes: number[] = [];

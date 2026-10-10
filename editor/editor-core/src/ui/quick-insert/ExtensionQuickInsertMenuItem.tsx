@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 
 import type EditorActions from '../../actions';
 import { executeExtensionQuickInsertItem } from './executeExtensionQuickInsertItem';

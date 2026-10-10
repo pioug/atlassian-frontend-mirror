@@ -1,6 +1,7 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
-import { createRxjsNotice, createMediaUseOnlyNotice } from '@atlaskit/media-common/docs';
+import { createRxjsNotice } from '@atlaskit/media-common/rxjs-notice';
+import { createMediaUseOnlyNotice } from '@atlaskit/media-common/media-use-only';
 
 const _default_1: any = md`
 ${createMediaUseOnlyNotice('Chunkinator', [

@@ -5,7 +5,7 @@ import type {
 	TypeAheadHandler,
 	TypeAheadInsert,
 	TypeAheadItem,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/type-ahead';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

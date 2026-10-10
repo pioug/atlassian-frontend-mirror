@@ -4,8 +4,8 @@ import { type ReactNode } from 'react';
 import { FormattedMessage, type MessageDescriptor, type WrappedComponentProps } from 'react-intl';
 
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { type FileState } from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

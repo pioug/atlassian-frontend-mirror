@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 

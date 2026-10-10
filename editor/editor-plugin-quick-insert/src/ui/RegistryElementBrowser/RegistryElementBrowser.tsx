@@ -14,7 +14,7 @@ import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-
 import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
-import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import Heading from '@atlaskit/heading/heading';

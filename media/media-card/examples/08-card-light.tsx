@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StoryList } from '@atlaskit/media-test-helpers';
+import { StoryList } from '@atlaskit/media-test-helpers/story-list';
 
 import { MainWrapper } from '../example-helpers';
 import { lightDefaultCards, lightResizedCards } from '../example-helpers/cards';

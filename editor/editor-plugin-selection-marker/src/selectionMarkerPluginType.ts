@@ -1,10 +1,13 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
-import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
-import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus/focusPluginType';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin-type';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 

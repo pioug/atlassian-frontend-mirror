@@ -1,7 +1,7 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { pluginFactory } from '@atlaskit/editor-common/utils';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
+import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 
 import { DateNodeView } from '../nodeviews/DateNodeView';

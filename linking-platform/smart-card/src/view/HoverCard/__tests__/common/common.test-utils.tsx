@@ -1,5 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { mocks } from '@atlaskit/link-test-helpers';
+import { mocks } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import type { CardType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';

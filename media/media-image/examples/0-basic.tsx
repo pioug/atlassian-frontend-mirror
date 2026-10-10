@@ -15,8 +15,8 @@ import {
 	imageFileId,
 	docFileId,
 	errorFileId,
-	createStorybookMediaClientConfig,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Select from '@atlaskit/select/default';
 import Spinner from '@atlaskit/spinner/spinner';
 import Textfield from '@atlaskit/textfield/text-field';

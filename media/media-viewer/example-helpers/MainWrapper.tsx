@@ -8,7 +8,7 @@ import { type ReactNode, type FC } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers';
+import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers/ufoLogger';
 import { payloadPublisher } from '@atlassian/ufo/publisher';
 
 import {

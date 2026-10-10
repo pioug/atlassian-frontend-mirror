@@ -8,12 +8,10 @@ import { Fragment, useRef } from 'react';
 import { jsx } from '@emotion/react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import {
-	AnnotationsProvider,
-	CommentsContentProvider,
-	RendererAnnotationComponents,
-	useRendererAnnotationProviders,
-} from '@atlaskit/editor-test-helpers/annotation-example';
+import { AnnotationsProvider } from '@atlaskit/editor-test-helpers/annotation-example/AnnotationsContext';
+import { CommentsContentProvider } from '@atlaskit/editor-test-helpers/annotation-example/CommentsContentContext';
+import { RendererAnnotationComponents } from '@atlaskit/editor-test-helpers/annotation-example/components-renderer';
+import { useRendererAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example/use-annotation-providers-renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { token } from '@atlaskit/tokens';
 

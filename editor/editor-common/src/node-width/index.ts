@@ -8,7 +8,7 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorWideLayoutWidth,
 	gridMediumMaxWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles/shared/layout';

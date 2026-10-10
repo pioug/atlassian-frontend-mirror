@@ -1,19 +1,22 @@
 import React from 'react';
 
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import {
 	TEXT_FORMATTING_GROUP,
 	TEXT_FORMATTING_HERO_BUTTON,
 	TEXT_FORMATTING_GROUP_COLLAPSED,
 	TEXT_FORMATTING_HERO_BUTTON_COLLAPSED,
 	TEXT_SECTION_PRIMARY_TOOLBAR,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
 	TEXT_FORMAT_GROUP_RANK,
 	TEXT_FORMAT_GROUP_COLLAPSED_RANK,
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
-	useEditorToolbar,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Show, ToolbarButtonGroup } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { Show } from '@atlaskit/editor-toolbar/show';
+import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 
 import type { TextFormattingPlugin } from '../../../textFormattingPluginType';
 import { FormatOptions } from '../types';

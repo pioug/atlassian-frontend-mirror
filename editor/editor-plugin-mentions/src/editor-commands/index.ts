@@ -1,8 +1,9 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import type { ExtractInjectionAPI, EditorCommand } from '@atlaskit/editor-common/types';
-import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils/annotation';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

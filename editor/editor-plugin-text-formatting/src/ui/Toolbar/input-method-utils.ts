@@ -1,5 +1,5 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { InputMethodToolbar } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { InputMethodToolbar } from '@atlaskit/editor-common/types/text-formatting';
 
 import { ToolbarType } from './types';
 

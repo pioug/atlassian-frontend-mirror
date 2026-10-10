@@ -2,12 +2,14 @@ import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { blockMenuMessages, syncBlockMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
-import { SyncBlocksIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import { syncBlockMessages } from '@atlaskit/editor-common/messages/syncBlock';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { SyncBlocksIcon } from '@atlaskit/editor-toolbar/sync-blocks-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

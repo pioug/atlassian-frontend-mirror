@@ -1,4 +1,4 @@
-import { type FileDetails } from '@atlaskit/media-client';
+import type { FileDetails } from '@atlaskit/media-client/item';
 
 import type { CardAction } from './actions';
 

@@ -1,4 +1,4 @@
-import type { PanelPluginOptions } from '@atlaskit/editor-plugin-panel';
+import type { PanelPluginOptions } from '@atlaskit/editor-plugin-panel/panel-plugin-type';
 
 interface Props {
 	options: never;

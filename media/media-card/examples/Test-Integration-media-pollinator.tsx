@@ -10,10 +10,12 @@ import { useState, useRef, useCallback, useMemo } from 'react';
 import { jsx, css } from '@emotion/react';
 
 import Button from '@atlaskit/button/default/button';
-import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
 import { BrowserLoader as Browser } from '@atlaskit/media-picker/browser';
 import type { BrowserConfig, UploadsStartEventPayload } from '@atlaskit/media-picker/types';
-import { defaultCollectionName, createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { token } from '@atlaskit/tokens';
 
 import { MainWrapper } from '../example-helpers';

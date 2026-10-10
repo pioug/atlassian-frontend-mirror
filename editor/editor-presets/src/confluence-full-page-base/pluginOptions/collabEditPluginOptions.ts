@@ -1,6 +1,6 @@
 import type { CollabEditOptions, CollabEditProvider } from '@atlaskit/editor-common/collab';
-import { shouldForceTracking } from '@atlaskit/editor-common/utils';
-import type { CollabEditPluginOptions } from '@atlaskit/editor-plugin-collab-edit';
+import { shouldForceTracking } from '@atlaskit/editor-common/utils/should-force-tracking';
+import type { CollabEditPluginOptions } from '@atlaskit/editor-plugin-collab-edit/collabEditPluginType';
 
 interface Props {
 	options: {

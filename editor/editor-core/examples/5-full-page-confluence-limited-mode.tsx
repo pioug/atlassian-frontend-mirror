@@ -12,7 +12,7 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/default/button';
 import { getLimitedModeThresholds } from '@atlaskit/editor-common/limited-mode-document-thresholds';
 import { shouldEnableLimitedModeForDocument } from '@atlaskit/editor-common/should-enable-limited-mode';
-import type { EditorActions } from '@atlaskit/editor-core';
+import type { EditorActions } from '@atlaskit/editor-core/actions';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

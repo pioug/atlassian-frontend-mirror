@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { EditorCardProvider } from '@atlaskit/editor-card-provider';
+import { EditorCardProvider } from '@atlaskit/editor-card-provider/provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';

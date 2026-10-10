@@ -1,4 +1,5 @@
-import { videoURI, videoPreviewURI } from '@atlaskit/media-common/test-helpers';
+import { videoPreviewURI } from '@atlaskit/media-common/videoPreviewURI';
+import { videoURI } from '@atlaskit/media-common/videoURI';
 
 import {
 	type FileIdentifier,

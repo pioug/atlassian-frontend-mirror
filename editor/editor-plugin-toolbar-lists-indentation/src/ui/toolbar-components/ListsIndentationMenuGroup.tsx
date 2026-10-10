@@ -5,20 +5,22 @@ import {
 	INDENT_MENU_ITEM,
 	LISTS_INDENTATION_GROUP,
 	LISTS_INDENTATION_GROUP_COLLAPSED,
-	LISTS_INDENTATION_GROUP_COLLAPSED_RANK,
 	LISTS_INDENTATION_GROUP_INLINE,
-	LISTS_INDENTATION_GROUP_RANK,
 	LISTS_INDENTATION_MENU,
-	LISTS_INDENTATION_MENU_RANK,
 	LISTS_INDENTATION_MENU_SECTION,
-	LISTS_INDENTATION_MENU_SECTION_RANK,
 	NUMBERED_LIST_MENU_ITEM,
 	OUTDENT_MENU_ITEM,
 	TEXT_COLLAPSED_MENU,
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	LISTS_INDENTATION_GROUP_COLLAPSED_RANK,
+	LISTS_INDENTATION_GROUP_RANK,
+	LISTS_INDENTATION_MENU_RANK,
+	LISTS_INDENTATION_MENU_SECTION_RANK,
 	TEXT_COLLAPSED_MENU_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import { BulletedListMenuItem } from './BulletedListMenuItem';

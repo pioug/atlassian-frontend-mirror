@@ -2,16 +2,14 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { formatShortcut, toggleTaskList } from '@atlaskit/editor-common/keymaps';
-import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	ToolbarDropdownItem,
-	ToolbarKeyboardShortcutHint,
-	TaskIcon,
-} from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
+import { TaskIcon } from '@atlaskit/editor-toolbar/task-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 

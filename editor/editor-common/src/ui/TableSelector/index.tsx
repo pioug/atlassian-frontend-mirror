@@ -10,7 +10,7 @@ import type { SyntheticEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';

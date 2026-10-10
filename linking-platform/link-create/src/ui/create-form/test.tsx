@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { axe } from '@af/accessibility-testing';
-import { flushPromises } from '@atlaskit/link-test-helpers';
+import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { type Validator } from '../../common/types';

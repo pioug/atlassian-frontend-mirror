@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { TOOLBARS, useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI, UserPreferences } from '@atlaskit/editor-common/types';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
-import { ToolbarSection, SeparatorPosition } from '@atlaskit/editor-toolbar';
-import type { ToolbarComponentType, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import { TOOLBARS } from '@atlaskit/editor-common/toolbar/keys';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { UserPreferences } from '@atlaskit/editor-common/types/user-preferences';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type {
+	ToolbarComponentType,
+	ToolbarComponentTypes,
+} from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarSection, SeparatorPosition } from '@atlaskit/editor-toolbar/toolbar-section';
 
 import type { ToolbarPlugin } from '../toolbarPluginType';
 

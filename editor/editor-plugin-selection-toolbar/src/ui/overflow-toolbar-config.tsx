@@ -6,9 +6,9 @@
 import type { IntlShape } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
-import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import { selectionToolbarMessages } from '@atlaskit/editor-common/messages/selection-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import MinusIcon from '@atlaskit/icon/core/minus';

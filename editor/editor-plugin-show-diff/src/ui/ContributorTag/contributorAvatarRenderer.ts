@@ -2,7 +2,7 @@ import { bind } from 'bind-event-listener';
 
 import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 import { BORDER_WIDTH } from '@atlaskit/avatar/constants/default';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { token } from '@atlaskit/tokens';
 
 import type { DiffAgentBrand, TagContributor } from '../../showDiffPluginType';

@@ -1,2 +1,2 @@
-import { SidebarContainer } from '@atlaskit/editor-test-helpers/example-helpers';
+import { SidebarContainer } from '@atlaskit/editor-test-helpers/example-helpers/SidebarContainer';
 export default SidebarContainer;

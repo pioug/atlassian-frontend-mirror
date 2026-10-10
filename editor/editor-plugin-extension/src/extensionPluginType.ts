@@ -1,36 +1,39 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
-import type { ExtensionAnnotationPlugin } from '@atlaskit/editor-common/extensibility/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type {
+	ExtensionAnnotationPlugin,
+	GetPMNodeHeight,
+} from '@atlaskit/editor-common/extensibility/types';
 import type {
 	ExtensionAPI,
 	ExtensionHandlers,
 	ExtensionParams,
-	ExtensionProvider,
-	Parameters,
 	TransformAfter,
 	TransformBefore,
 	UpdateExtension,
-} from '@atlaskit/editor-common/extensions';
-import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory/macro-provider';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type {
-	EditorAppearance,
-	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types/selection';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
-import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
-import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
-import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
-import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
-import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier/contextIdentifierPluginType';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel/contextPanelPluginType';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
+import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button/copyButtonPluginType';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations/decorationsPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions/mentions-plugin-type';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 import type { Fragment, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

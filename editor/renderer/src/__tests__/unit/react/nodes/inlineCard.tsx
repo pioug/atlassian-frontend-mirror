@@ -5,24 +5,25 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
-import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers/intersection-observer';
+import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers/intersection-observer';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import InlineCard from '../../../../react/nodes/inlineCard';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
 
-jest.mock('@atlaskit/smart-card', () => {
-	const originalModule = jest.requireActual('@atlaskit/smart-card');
+jest.mock('@atlaskit/smart-card/card/lazy', () => {
+	const originalModule = jest.requireActual('@atlaskit/smart-card/card/lazy');
 	return {
-		...originalModule,
+		...jest.requireActual('@atlaskit/smart-card/card/lazy'),
 		Card: jest.fn((props) => <originalModule.Card {...props} />),
 	};
 });
@@ -34,8 +35,8 @@ jest.mock('../../../../react/nodes/fallback', () => {
 	};
 });
 
-jest.mock('@atlaskit/editor-common/provider-factory', () => ({
-	...jest.requireActual('@atlaskit/editor-common/provider-factory'),
+jest.mock('@atlaskit/editor-common/provider-factory/context', () => ({
+	...jest.requireActual('@atlaskit/editor-common/provider-factory/context'),
 	useProvider: jest.fn(),
 }));
 
@@ -333,7 +334,7 @@ describe('Renderer - React/Nodes/InlineCard - CompetitorPrompt', () => {
 
 describe('Renderer - React/Nodes/InlineCard - local cache useEffect', () => {
 	const mockRefreshCache = jest.fn();
-	const { useProvider } = require('@atlaskit/editor-common/provider-factory');
+	const { useProvider } = require('@atlaskit/editor-common/provider-factory/context');
 
 	beforeEach(() => {
 		jest.clearAllMocks();

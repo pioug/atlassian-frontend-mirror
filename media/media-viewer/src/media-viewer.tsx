@@ -8,8 +8,9 @@ import ScrollLock from 'react-scrolllock';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import { isFileIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { Shortcut } from '@atlaskit/media-ui/shortcut';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

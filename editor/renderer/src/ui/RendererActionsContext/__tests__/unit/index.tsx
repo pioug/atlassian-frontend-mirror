@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
 import { render } from '@atlassian/testing-library/render';
 
 import { initialDoc } from '../../../../__tests__/__fixtures__/initial-doc';

@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { table } from '@atlaskit/adf-utils/table';
+import { tableCell as td } from '@atlaskit/adf-utils/table-cell';
+import { tableHeader as th } from '@atlaskit/adf-utils/table-header';
+import { tableRow as tr } from '@atlaskit/adf-utils/table-row';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';

@@ -1,4 +1,5 @@
-import type { EmojiNodeDataProvider, EmojiPluginOptions } from '@atlaskit/editor-plugin-emoji';
+import type { EmojiNodeDataProvider } from '@atlaskit/editor-plugin-emoji/EmojiNodeDataProvider';
+import type { EmojiPluginOptions } from '@atlaskit/editor-plugin-emoji/emojiPluginType';
 import type { EmojiProvider } from '@atlaskit/emoji';
 
 interface Props {

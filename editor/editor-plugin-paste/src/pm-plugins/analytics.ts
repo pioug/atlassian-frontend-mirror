@@ -1,24 +1,25 @@
-import type {
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-	PASTE_ACTION_SUBJECT_ID,
-	PasteContent,
-	PasteSource,
-	PasteType,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-	PasteContents,
-	PasteTypes,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import type {
+	PASTE_ACTION_SUBJECT_ID,
+	PasteContent,
+	PasteSource,
+	PasteType,
+} from '@atlaskit/editor-common/analytics/types/paste-events';
+import { PasteContents, PasteTypes } from '@atlaskit/editor-common/analytics/types/paste-events';
 import { getHadMarkAttributes } from '@atlaskit/editor-common/mark';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getLinkDomain, mapSlice } from '@atlaskit/editor-common/utils';
-import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { getLinkDomain } from '@atlaskit/editor-common/utils';
+import { mapSlice } from '@atlaskit/editor-common/utils/slice';
+import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list/types';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
 import type { Fragment, Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';

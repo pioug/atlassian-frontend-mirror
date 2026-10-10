@@ -1,4 +1,5 @@
-import type { NextEditorPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export interface PrimaryToolbarPluginOptions {

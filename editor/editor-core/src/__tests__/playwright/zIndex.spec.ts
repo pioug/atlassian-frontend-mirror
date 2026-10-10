@@ -1,14 +1,13 @@
-import type { EditorPageInterface } from '@af/editor-libra';
-import { expect, editorTestCase as test } from '@af/editor-libra';
-import {
-	EditorEmojiPickerModel,
-	EditorFloatingToolbarModel,
-	EditorMainToolbarModel,
-	EditorMentionModel,
-	EditorNodeContainerModel,
-	EditorPopupModel,
-	EditorTableModel,
-} from '@af/editor-libra/page-models';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
+import { EditorEmojiPickerModel } from '@af/editor-libra/page-models/editor-emoji-model';
+import { EditorFloatingToolbarModel } from '@af/editor-libra/page-models/editor-floating-toolbar-model';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models/editor-main-toolbar-model';
+import { EditorMentionModel } from '@af/editor-libra/page-models/editor-mention-model';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
+import { EditorPopupModel } from '@af/editor-libra/page-models/editor-popup-model';
+import { EditorTableModel } from '@af/editor-libra/page-models/editor-table-model';
+import type { EditorPageInterface } from '@af/editor-libra/types';
 
 import { emptyAdf } from '../__fixtures__/base-adfs';
 

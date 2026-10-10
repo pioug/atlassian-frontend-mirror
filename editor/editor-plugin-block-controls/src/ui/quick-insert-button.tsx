@@ -11,15 +11,15 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
-import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { messages } from '@atlaskit/editor-common/messages/block-controls';
+import { tableControlsSpacing } from '@atlaskit/editor-common/styles/table';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { relativeSizeToBaseFontSize } from '@atlaskit/editor-shared-styles';
+import { relativeSizeToBaseFontSize } from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

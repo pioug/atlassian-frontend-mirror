@@ -1,16 +1,17 @@
 import rafSchedule from 'raf-schd';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-events';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
-	closestElement,
 	isElementInTableCell,
 	isLastItemMediaGroup,
 	setNodeSelection,
 } from '@atlaskit/editor-common/utils';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -18,13 +19,9 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-	cellAround,
-	findCellRectClosestToPos,
-	findTable,
-	getSelectionRect,
-	removeTable,
-} from '@atlaskit/editor-tables/utils';
+import { cellAround, findCellRectClosestToPos, findTable } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { removeTable } from '@atlaskit/editor-tables/utils/remove-table';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {

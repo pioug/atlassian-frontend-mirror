@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types/insert-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
 import { usePopupManager } from './usePopupManager';

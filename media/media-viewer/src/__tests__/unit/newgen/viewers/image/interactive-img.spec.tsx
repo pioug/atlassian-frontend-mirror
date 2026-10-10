@@ -3,8 +3,8 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { MAX_RESOLUTION } from '@atlaskit/media-client';
-import { createMouseEvent } from '@atlaskit/media-test-helpers';
+import { MAX_RESOLUTION } from '@atlaskit/media-client/constants';
+import { createMouseEvent } from '@atlaskit/media-test-helpers/createMouseEvent';
 
 import { InsetViewerProvider } from '../../../../../insetViewerContext';
 import { InteractiveImg, type Props } from '../../../../../viewers/image/interactive-img';

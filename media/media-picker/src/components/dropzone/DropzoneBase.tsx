@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 
 import { type DropzoneEventAction, type DropzoneEventPayload } from '../../types';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';

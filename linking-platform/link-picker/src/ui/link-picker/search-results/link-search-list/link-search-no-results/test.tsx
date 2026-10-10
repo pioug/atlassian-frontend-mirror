@@ -3,7 +3,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 
 import HeadingContextProvider from '@atlaskit/heading/heading-context/default';
-import { renderWithIntl } from '@atlaskit/link-test-helpers';
+import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 
 import { NoResults } from './index';
 

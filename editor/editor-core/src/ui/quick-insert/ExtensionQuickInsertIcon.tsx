@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import CarouselIcon from '@atlaskit/icon-lab/core/carousel';
 import TableOfContentIcon from '@atlaskit/icon-lab/core/table-of-content';
 import TemplateIcon from '@atlaskit/icon-lab/core/template';

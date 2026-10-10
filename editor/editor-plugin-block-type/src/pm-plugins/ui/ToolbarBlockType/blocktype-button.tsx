@@ -10,9 +10,10 @@ import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl';
 import { FormattedMessage } from 'react-intl';
 
-import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { expandIconContainerStyle, wrapperStyle } from '@atlaskit/editor-common/styles';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { expandIconContainerStyle } from '@atlaskit/editor-common/styles/expand';
+import { wrapperStyle } from '@atlaskit/editor-common/styles/plugins';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextIcon from '@atlaskit/icon/core/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

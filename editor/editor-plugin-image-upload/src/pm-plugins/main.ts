@@ -1,10 +1,8 @@
-import { isPastedFile } from '@atlaskit/editor-common/paste';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import { isPastedFile } from '@atlaskit/editor-common/paste/clipboard';
+import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	PMPluginFactoryParams,
-	ImageUploadPluginReferenceEvent,
-} from '@atlaskit/editor-common/types';
+import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types/image-upload-reference-event';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

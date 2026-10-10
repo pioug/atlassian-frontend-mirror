@@ -6,8 +6,8 @@ import type {
 	AnnotationDataAttributes,
 	AnnotationTypes,
 } from '@atlaskit/adf-schema/annotation';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
+import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types/emitter';
 
 import { InlineCommentsStateContext } from '../context';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';

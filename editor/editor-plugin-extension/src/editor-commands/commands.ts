@@ -1,20 +1,21 @@
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	TARGET_SELECTION_SOURCE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { TARGET_SELECTION_SOURCE } from '@atlaskit/editor-common/analytics/types/extension-events';
 import type {
-	Parameters,
 	TransformAfter,
 	TransformBefore,
-} from '@atlaskit/editor-common/extensions';
-import type { Command } from '@atlaskit/editor-common/types';
-import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { removeConnectedNodes } from '@atlaskit/editor-common/utils/referentiality';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,

@@ -4,10 +4,14 @@ import { unsupportedBlock } from '@atlaskit/adf-schema/unsupported-block';
 import { unsupportedInline } from '@atlaskit/adf-schema/unsupported-inline';
 import { unsupportedMark } from '@atlaskit/adf-schema/unsupported-mark';
 import { unsupportedNodeAttribute } from '@atlaskit/adf-schema/unsupported-node-attributes';
-import ReactNodeView, { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/getInlineNodeViewProducer';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactory, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
+import type {
+	PMPluginFactory,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types/plugin-factory';
+import UnsupportedBlock from '@atlaskit/editor-common/UnsupportedBlock';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';

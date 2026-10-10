@@ -1,13 +1,13 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { keymap } from '@atlaskit/editor-common/keymap';
 import {
 	alignCenter,
 	alignLeft,
 	alignRight,
 	bindKeymapWithCommand,
-	keymap,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';

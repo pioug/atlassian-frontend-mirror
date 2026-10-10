@@ -10,16 +10,16 @@ import type {
 	GuidelineContainerRect,
 	GuidelinePluginOptions,
 	GuidelinePluginState,
-} from '@atlaskit/editor-common/guideline';
+} from '@atlaskit/editor-common/guideline/types';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles/constants';
 
 import type { GuidelinePlugin } from './guidelinePluginType';
 import { GuidelineContainer } from './ui/guidelineContainer';

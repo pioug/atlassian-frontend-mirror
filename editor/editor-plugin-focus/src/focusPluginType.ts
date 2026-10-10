@@ -1,4 +1,4 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { FocusState } from './types';
 

@@ -6,11 +6,10 @@
 import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import type { Command, FloatingToolbarItem } from '@atlaskit/editor-common/types';
-import {
-	FloatingToolbarButton as Button,
-	FloatingToolbarSeparator,
-} from '@atlaskit/editor-common/ui';
+import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
+import FloatingToolbarSeparator from '@atlaskit/editor-common/FloatingToolbar/Separator';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 

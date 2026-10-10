@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
 import { openHelp } from '@atlaskit/editor-common/keymaps';
-import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
+import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages/help-dialog';
 
 import { footer } from './styles';
 import { getComponentFromKeymap } from './utils';

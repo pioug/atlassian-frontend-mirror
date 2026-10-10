@@ -1,4 +1,4 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterOptions } from '@atlaskit/editor-ui-control-model/create-registry';
 import type { SurfaceIdentifier } from '@atlaskit/editor-ui-control-model/surface-renderer/types';
 import type {

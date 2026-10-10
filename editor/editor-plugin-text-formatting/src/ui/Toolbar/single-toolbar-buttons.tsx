@@ -7,9 +7,9 @@ import React, { useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
-import { buttonGroupStyle } from '@atlaskit/editor-common/styles';
-import type { Command } from '@atlaskit/editor-common/types';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { buttonGroupStyle } from '@atlaskit/editor-common/styles/plugins';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MenuIconItem } from './types';

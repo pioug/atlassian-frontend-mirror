@@ -1,9 +1,12 @@
 // eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { cloneColumn, cloneRow, moveColumn, moveRow } from '@atlaskit/editor-tables/utils';
+import { cloneColumn } from '@atlaskit/editor-tables/utils/clone-column';
+import { cloneRow } from '@atlaskit/editor-tables/utils/clone-row';
+import { moveColumn } from '@atlaskit/editor-tables/utils/move-column';
+import { moveRow } from '@atlaskit/editor-tables/utils/move-row';
 
 import type { DraggableType, TableDirection } from '../../types';
 import { TableDecorations } from '../../types';

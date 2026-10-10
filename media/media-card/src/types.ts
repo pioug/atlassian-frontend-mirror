@@ -5,22 +5,18 @@
 import { type FocusEvent, type MouseEvent } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import {
-	type FileDetails,
-	type MediaClient,
-	type Identifier,
-	type ImageResizeMode,
-	type FileState,
-} from '@atlaskit/media-client';
 import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { SsrMediaItem } from '@atlaskit/media-client/ssr-media-item';
-import {
-	type MediaFeatureFlags,
-	type NumericalCardDimensions,
-	type SSR,
-} from '@atlaskit/media-common';
+import type { NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview/media-file-preview-error';
-import { type ViewerOptionsProps, type MediaViewerExtensions } from '@atlaskit/media-viewer';
+import type { FileState } from '@atlaskit/media-state/file-state';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
+import type { ViewerOptionsProps } from '@atlaskit/media-viewer/viewer-options';
 
 import { type CardAction } from './card/actions';
 import type { MediaCardError, MediaCardErrorPrimaryReason } from './MediaCardError';

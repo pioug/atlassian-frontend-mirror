@@ -7,15 +7,12 @@
 import { css, type SerializedStyles } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import {
-	ANCHOR_VARIABLE_NAME,
-	DRAG_HANDLE_WIDTH,
-	tableMarginTop,
-	tableSharedStyle,
-	TableSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
-import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
+import { ANCHOR_VARIABLE_NAME } from '@atlaskit/editor-common/styles/native-anchor';
+import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common/styles/table';
+import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table/consts';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import {
 	akEditorSelectedNodeClassName,
 	akEditorSmallZIndex,
@@ -23,15 +20,17 @@ import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableToolbarSize,
 	akEditorUnitZIndex,
-	getSelectionStyles,
 	MAX_BROWSER_SCROLLBAR_HEIGHT,
-	SelectionStyle,
 	relativeSizeToBaseFontSize,
 	akEditorSelectedBorderColor,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
-import { hideNativeBrowserTextSelectionStyles } from '@atlaskit/editor-shared-styles/selection';
+import { SelectionStyle } from '@atlaskit/editor-shared-styles/selection/types';
+import {
+	getSelectionStyles,
+	hideNativeBrowserTextSelectionStyles,
+} from '@atlaskit/editor-shared-styles/selection/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

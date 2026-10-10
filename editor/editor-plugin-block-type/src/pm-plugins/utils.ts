@@ -1,7 +1,8 @@
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
 import { createBlockTaskItem } from '@atlaskit/editor-common/transforms';
-import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
-import { createRule, createWrappingJoinRule } from '@atlaskit/editor-common/utils';
+import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
+import { createRule } from '@atlaskit/editor-common/utils';
+import { createWrappingJoinRule } from '@atlaskit/editor-common/utils/input-rules';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

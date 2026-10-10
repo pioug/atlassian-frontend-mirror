@@ -1,8 +1,8 @@
 import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { HandlePositioning } from '@atlaskit/editor-common/resizer';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import type { Props as MediaSingleProps } from '@atlaskit/editor-common/MediaSingle';
+import type { HandlePositioning } from '@atlaskit/editor-common/resizer/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 

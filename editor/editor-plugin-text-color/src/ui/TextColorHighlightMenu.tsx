@@ -3,22 +3,18 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 
 import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { textColorMessages as messages } from '@atlaskit/editor-common/messages/text-color';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { SelectedTextColorProvider } from '@atlaskit/editor-common/ui-color';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import {
-	hexToEditorTextPaletteColor,
-	hexToEditorTextBackgroundPaletteColor,
-} from '@atlaskit/editor-palette';
-import {
-	TextColorIcon,
-	ToolbarColorSwatch,
-	ToolbarDropdownMenu,
-	ToolbarDropdownMenuProvider,
-	ToolbarTooltip,
-	useToolbarUI,
-} from '@atlaskit/editor-toolbar';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
+import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
+import { TextColorIcon } from '@atlaskit/editor-toolbar/text-color-icon';
+import { ToolbarColorSwatch } from '@atlaskit/editor-toolbar/toolbar-color-swatch';
+import { ToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu';
+import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
+import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
+import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';

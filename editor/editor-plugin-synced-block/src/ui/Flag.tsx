@@ -8,11 +8,11 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block/constants';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
 import AkFlag from '@atlaskit/flag/flag';

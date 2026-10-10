@@ -13,17 +13,15 @@ import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import { css, jsx } from '@atlaskit/css';
 import type { AnnotationSelectedChangeData } from '@atlaskit/editor-common/annotation';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import type { AnnotationProviders } from '@atlaskit/editor-common/types';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotation';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import {
-	AnnotationsProvider,
-	CommentsContentProvider,
-	RendererAnnotationComponents,
-	useRendererAnnotationProviders,
-} from '@atlaskit/editor-test-helpers/annotation-example';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import { AnnotationsProvider } from '@atlaskit/editor-test-helpers/annotation-example/AnnotationsContext';
+import { CommentsContentProvider } from '@atlaskit/editor-test-helpers/annotation-example/CommentsContentContext';
+import { RendererAnnotationComponents } from '@atlaskit/editor-test-helpers/annotation-example/components-renderer';
+import { useRendererAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example/use-annotation-providers-renderer';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers/get-example-extension-providers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import {
 	useUpdateDocument,
@@ -35,8 +33,9 @@ import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { Inline } from '@atlaskit/primitives/compiled';
-import { AnnotationsWrapper, RendererWithAnalytics } from '@atlaskit/renderer';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
+import { AnnotationsWrapper } from '@atlaskit/renderer/annotations';
+import { RendererWithAnalytics } from '@atlaskit/renderer/renderer';
 import SectionMessage from '@atlaskit/section-message/message';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

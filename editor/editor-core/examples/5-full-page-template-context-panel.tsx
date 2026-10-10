@@ -7,9 +7,9 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel/contextPanelPluginType';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers/get-example-extension-providers';
 import { token } from '@atlaskit/tokens';
 
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';

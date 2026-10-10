@@ -1,5 +1,6 @@
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import { findTable, TableMap } from '@atlaskit/editor-tables';
+import { findTable } from '@atlaskit/editor-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 type MergeType = 'row' | 'column';
 

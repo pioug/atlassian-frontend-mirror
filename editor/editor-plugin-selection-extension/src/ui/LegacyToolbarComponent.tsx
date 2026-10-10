@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 
-import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import {
-	ArrowKeyNavigationType,
-	DropdownMenuWithKeyboardNavigation as DropdownMenu,
-	ToolbarButton,
-} from '@atlaskit/editor-common/ui-menu';
+import type { OpenChangedEvent } from '@atlaskit/editor-common/DropList';
+import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 
 import type { ExtensionToolbarItemConfiguration, GetMenuItemsFn, GetToolbarItemFn } from '../types';
 

@@ -1,4 +1,4 @@
-import { type ScreenEventPayload, type ScreenAttributes } from '@atlaskit/media-common';
+import type { ScreenEventPayload, ScreenAttributes } from '@atlaskit/media-common/analytics/types';
 
 export type ModalEventPayload = Omit<
 	ScreenEventPayload<ScreenAttributes, 'mediaViewerModal'>,

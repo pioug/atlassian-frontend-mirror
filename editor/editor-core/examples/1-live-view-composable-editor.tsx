@@ -2,40 +2,38 @@ import React, { useRef, useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { getExamplesProviders } from '@af/editor-examples-helpers/example-presets/getExamplesProviders';
+import { EditorExampleControls } from '@af/editor-examples-helpers/utils/editor-example-controls';
 import {
-	EditorExampleControls,
-	getExamplesProviders,
 	localStorageFetchProvider,
 	localStorageWriteProvider,
-} from '@af/editor-examples-helpers/utils';
-import { BLOCK_ACTIONS_MENU_SECTION } from '@atlaskit/editor-common/block-menu';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+} from '@af/editor-examples-helpers/utils/sync-block-local-storage-provider';
+import { BLOCK_ACTIONS_MENU_SECTION } from '@atlaskit/editor-common/block-menu/key';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorContext } from '@atlaskit/editor-core/editor-context';
-import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { EditorContext } from '@atlaskit/editor-core/EditorContext';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
-import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
-import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced/codeBlockAdvancedPlugin';
+import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePlugin';
+import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension/selection-extension-plugin';
 import type {
 	ExtensionConfiguration,
 	ExtensionMenuItemConfiguration,
 	SelectionExtensionCallbackOptions,
 	SelectionExtensionComponentProps,
-} from '@atlaskit/editor-plugin-selection-extension';
-import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
-import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block';
-import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider';
-import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer';
-import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
+} from '@atlaskit/editor-plugin-selection-extension/types';
+import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker/selection-marker-plugin';
+import type { SyncedBlockPluginOptions } from '@atlaskit/editor-plugin-synced-block/synced-block-plugin-type';
+import { useMemoizedSyncedBlockProvider } from '@atlaskit/editor-synced-block-provider/syncBlockProvider';
+import { getSyncedBlockRenderer } from '@atlaskit/editor-synced-block-renderer/get-synced-block-renderer';
+import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example/use-annotation-providers-editor';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import {
-	AddIcon,
-	ToolbarDropdownItem,
-	ToolbarDropdownItemSection,
-	ToolbarNestedDropdownMenu,
-} from '@atlaskit/editor-toolbar';
+import { AddIcon } from '@atlaskit/editor-toolbar/add-icon';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import AppIcon from '@atlaskit/icon/core/app';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';

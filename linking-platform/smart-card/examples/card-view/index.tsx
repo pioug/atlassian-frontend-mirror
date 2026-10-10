@@ -22,9 +22,11 @@ import {
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 	UnAuthClientWithNoIcon,
-} from '@atlaskit/link-test-helpers';
-import { type Card, ElementName, SmartLinkSize, TitleBlock } from '@atlaskit/smart-card';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import type { Card } from '@atlaskit/smart-card/card/lazy';
+import { ElementName, SmartLinkSize } from '@atlaskit/smart-card/enums';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { TitleBlock } from '@atlaskit/smart-card/title-block';
 
 import { getCachedProviderPctMapAndRefresh } from '../../src/state/services/personalization/getCachedProviderPctMapAndRefresh';
 import type { MultiCardViewProps } from '../utils/card-view-props';

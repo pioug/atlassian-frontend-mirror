@@ -18,7 +18,7 @@ import {
 	ResolvingClient,
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import RadioGroup from '@atlaskit/radio/radio-group';

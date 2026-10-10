@@ -15,6 +15,7 @@ import React, {
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import Popup from '@atlaskit/editor-common/Popup';
 import {
 	buildQuickInsertMenuModel,
 	getMatchingQuickInsertComponents,
@@ -28,8 +29,8 @@ import {
 	TYPE_AHEAD_SURFACE_CONTEXT,
 	type TypeAheadSurfaceContext,
 } from '@atlaskit/editor-common/type-ahead-surface-context';
-import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';

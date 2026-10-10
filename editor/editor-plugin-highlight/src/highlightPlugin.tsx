@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { backgroundColor } from '@atlaskit/adf-schema/background-color';
-import type {
-	Command,
-	FloatingToolbarCustom,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

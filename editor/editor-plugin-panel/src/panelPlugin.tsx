@@ -5,22 +5,22 @@ import { extendedPanelC1 } from '@atlaskit/adf-schema/extended-panel-c1';
 import { extendedPanelC1WithLocalId } from '@atlaskit/adf-schema/extended-panel-c1-with-local-id';
 import { extendedPanelWithLocalId } from '@atlaskit/adf-schema/extended-panel-with-local-id';
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
-	TRANSFORM_STRUCTURE_PANEL_MENU_ITEM,
-	TRANSFORM_STRUCTURE_MENU_SECTION,
-	TRANSFORM_STRUCTURE_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/block-menu';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import {
-	IconCustomPanel,
 	IconPanel,
 	IconPanelError,
 	IconPanelNote,
 	IconPanelSuccess,
 	IconPanelWarning,
-} from '@atlaskit/editor-common/quick-insert';
+} from '@atlaskit/editor-common/assets';
+import {
+	TRANSFORM_STRUCTURE_PANEL_MENU_ITEM,
+	TRANSFORM_STRUCTURE_MENU_SECTION,
+} from '@atlaskit/editor-common/block-menu/key';
+import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
+import IconCustomPanel from '@atlaskit/editor-common/custom-panel';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

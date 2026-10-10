@@ -9,12 +9,11 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
+import ToolbarButton from '@atlaskit/editor-common/FloatingToolbar/Button';
+import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import { addLink, ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { linkMessages, linkToolbarMessages } from '@atlaskit/editor-common/messages';
-import {
-	FloatingToolbarSeparator as Separator,
-	FloatingToolbarButton as ToolbarButton,
-} from '@atlaskit/editor-common/ui';
+import { linkMessages } from '@atlaskit/editor-common/messages/link';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';

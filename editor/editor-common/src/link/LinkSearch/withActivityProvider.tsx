@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityProvider } from '@atlaskit/activity-provider/types';
 
 import { WithProviders } from '../../provider-factory';
 // oxlint-disable-next-line import/no-duplicates

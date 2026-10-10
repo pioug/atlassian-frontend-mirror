@@ -10,11 +10,11 @@ import { css, jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import Popup from '@atlaskit/editor-common/Popup';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';

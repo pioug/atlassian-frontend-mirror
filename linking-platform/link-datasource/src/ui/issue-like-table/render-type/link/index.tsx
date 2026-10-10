@@ -4,10 +4,10 @@ import { useIntl } from 'react-intl';
 
 import type { Link } from '@atlaskit/linking-types/datasource';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
-import { HoverCard } from '@atlaskit/smart-card/hover-card';
-import LinkUrl from '@atlaskit/smart-card/link-url';
+import { HoverCard } from '@atlaskit/smart-card/hover';
+import LinkUrl from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
+import type { SelectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension/selection-extension-plugin-type';
 import type {
 	ExtensionConfiguration,
 	ToolbarExtensionConfiguration,
-	SelectionExtensionPlugin,
-} from '@atlaskit/editor-plugin-selection-extension';
-import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar';
+} from '@atlaskit/editor-plugin-selection-extension/types';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
 import AddIcon from '@atlaskit/icon/core/add';
 import NoteIcon from '@atlaskit/icon/core/note';
 

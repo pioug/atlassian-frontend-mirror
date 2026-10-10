@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock/media-client-mock-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
 import { Renderer } from '../../entry-points/renderer-default';

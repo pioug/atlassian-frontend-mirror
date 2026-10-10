@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';

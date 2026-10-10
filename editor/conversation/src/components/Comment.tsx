@@ -8,11 +8,11 @@ import styled from 'styled-components';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import AkAvatar from '@atlaskit/avatar/avatar';
 import AkComment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type { EditorProps } from '@atlaskit/editor-core';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import type { EditorProps } from '@atlaskit/editor-core/editor';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
-import { ReactRenderer } from '@atlaskit/renderer';
+import ReactRenderer from '@atlaskit/renderer/renderer';
 
 import type { HttpError } from '../api/HttpError';
 import CommentContainer from '../containers/Comment';

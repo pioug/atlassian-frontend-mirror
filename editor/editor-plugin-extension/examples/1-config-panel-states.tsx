@@ -6,8 +6,9 @@
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
-import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
-import type { ExtensionManifest, ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import DefaultExtensionProvider from '@atlaskit/editor-common/extensions/default-extension-provider';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import Link from '@atlaskit/link/link';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';

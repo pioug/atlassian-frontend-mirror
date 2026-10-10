@@ -1,26 +1,27 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	DELETE_DIRECTION,
 	EVENT_TYPE,
 	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import {
+	DELETE_DIRECTION,
 	LIST_TEXT_SCENARIOS,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/list-events';
 import {
 	getBlockMarkAttrs,
 	reconcileBlockMarkForParagraphAtPos,
-} from '@atlaskit/editor-common/lists';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
-import type { WalkNode } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/lists/block-mark';
+import type { CommandDispatch } from '@atlaskit/editor-common/types/command';
 import {
 	insertContentDeleteRange,
-	isEmptySelectionAtStart,
 	isListNode,
 	isParagraphNode,
-	walkPrevNode,
 } from '@atlaskit/editor-common/utils';
+import type { WalkNode } from '@atlaskit/editor-common/utils/commands';
+import { isEmptySelectionAtStart, walkPrevNode } from '@atlaskit/editor-common/utils/commands';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

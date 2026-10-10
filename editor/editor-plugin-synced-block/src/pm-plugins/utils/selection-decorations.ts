@@ -1,4 +1,4 @@
-import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { BodiedSyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

@@ -10,11 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/hooks';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	IconCode,
 	IconDate,
@@ -24,14 +20,17 @@ import {
 	IconPanel,
 	IconQuote,
 	IconStatus,
-} from '@atlaskit/editor-common/quick-insert';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-import {
-	OutsideClickTargetRefContext,
-	withReactEditorViewOuterListeners as withOuterListeners,
-} from '@atlaskit/editor-common/ui-react';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+} from '@atlaskit/editor-common/assets';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { ELEMENT_ITEM_HEIGHT } from '@atlaskit/editor-common/element-browser/constants';
+import ElementBrowser from '@atlaskit/editor-common/element-browser/ElementBrowserLoader';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
+import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import withOuterListeners from '@atlaskit/editor-common/ui-react/with-react-editor-view-outer-listeners';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';

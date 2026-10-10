@@ -1,6 +1,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { ACTION } from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
+import type { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
+import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 
 import type { EditorProps } from '../../types/editor-props';
 

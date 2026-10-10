@@ -5,7 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { EVENT_CHANNEL } from '../../../../../analytics/constants';
 import { UserInteractionsProvider } from '../../../../../contexts/user-interactions/user-interactions-provider';

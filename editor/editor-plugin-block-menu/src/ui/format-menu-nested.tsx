@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics';
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
+import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics/types/block-menu-events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

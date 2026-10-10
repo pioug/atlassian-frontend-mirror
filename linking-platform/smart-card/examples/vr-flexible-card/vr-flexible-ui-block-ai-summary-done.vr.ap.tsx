@@ -4,7 +4,7 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { JiraIssue } from '@atlaskit/link-test-helpers';
+import { JiraIssue } from '@atlaskit/link-test-helpers/smart-card/mocks/jira';
 
 import { Card, SnippetBlock, TitleBlock } from '../../src';
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';

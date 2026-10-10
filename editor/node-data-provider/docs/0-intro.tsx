@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, md } from '@atlaskit/docs';
-import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
+import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils/editor-use-only';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

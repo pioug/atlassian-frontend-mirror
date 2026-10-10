@@ -11,7 +11,7 @@ import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
-import { mediaEditingMessages } from '@atlaskit/editor-common/messages';
+import { mediaEditingMessages } from '@atlaskit/editor-common/messages/media-editing';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';

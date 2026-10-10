@@ -16,17 +16,14 @@ import withAnalyticsEvents, {
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type RowType, type RowCellType } from '@atlaskit/dynamic-table/types';
-import {
-	isFileIdentifier,
-	isProcessedFileState,
-	type FileIdentifier,
-	type MediaSubscription,
-} from '@atlaskit/media-client';
+import { isFileIdentifier, isProcessedFileState } from '@atlaskit/media-client';
 import {
 	withMediaClient,
 	type WithMediaClientConfigProps,
 } from '@atlaskit/media-client-react/with-media-client';
-import { MediaViewer } from '@atlaskit/media-viewer';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaSubscription } from '@atlaskit/media-client/media-subscribable/types';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 
 import {
 	type RowData,

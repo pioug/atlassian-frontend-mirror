@@ -1,8 +1,13 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 // oxlint-disable-next-line import/no-duplicates
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD, RESOLVE_METHOD, type VIEW_METHOD } from '@atlaskit/editor-common/analytics';
-import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import {
+	RESOLVE_METHOD,
+	type VIEW_METHOD,
+} from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,

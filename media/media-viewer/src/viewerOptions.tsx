@@ -1,4 +1,4 @@
-import { type NonErrorFileState } from '@atlaskit/media-client';
+import type { NonErrorFileState } from '@atlaskit/media-client/file-state';
 
 export interface ViewerOptionsProps {
 	customRenderers?: CustomRendererConfig[];

@@ -1,7 +1,8 @@
 import type { CardAttributes, DataType, UrlType } from '@atlaskit/adf-schema/block-card';
-import { TableSortOrder as SortOrder, TableSortStep } from '@atlaskit/custom-steps';
-import type { Command } from '@atlaskit/editor-common/types';
-import { createCompareNodes } from '@atlaskit/editor-common/utils';
+import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps/constants';
+import { TableSortStep } from '@atlaskit/custom-steps/sort-column';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { createCompareNodes } from '@atlaskit/editor-common/utils/compareNodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -11,9 +12,9 @@ import {
 	convertTableNodeToArrayOfRows,
 	findCellRectClosestToPos,
 	findTable,
-	getSelectionRect,
-	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 
 import type { TablePluginState } from '../../types';
 import { createCommand, getPluginState } from '../plugin-factory';

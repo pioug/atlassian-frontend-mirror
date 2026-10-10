@@ -1,6 +1,6 @@
 import type { Node } from 'prosemirror-model';
 
-import type { MediaPluginState } from '@atlaskit/editor-plugins/media/types';
+import type { MediaPluginState } from '@atlaskit/editor-plugin-media/types';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

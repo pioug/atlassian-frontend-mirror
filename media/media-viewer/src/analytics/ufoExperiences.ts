@@ -1,6 +1,7 @@
-import { getMediaEnvironment, getMediaRegion, type RequestMetadata } from '@atlaskit/media-client';
-import { type FileAttributes } from '@atlaskit/media-common';
+import { getMediaEnvironment, getMediaRegion } from '@atlaskit/media-client';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
 import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
+import type { FileAttributes } from '@atlaskit/media-common/analytics/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { UFOExperience } from '@atlaskit/ufo/experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';

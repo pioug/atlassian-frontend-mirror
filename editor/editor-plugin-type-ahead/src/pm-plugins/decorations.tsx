@@ -6,8 +6,8 @@ import { IntlProvider } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

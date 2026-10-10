@@ -1,13 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { useCountDown } from '@af/editor-examples-helpers/utils';
+import { useCountDown } from '@af/editor-examples-helpers/utils/useCountDown';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { TableMap } from '@atlaskit/editor-tables';
-import {
-	findTable,
-	// moveColumn,
-	moveRow,
-} from '@atlaskit/editor-tables/utils';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { moveRow } from '@atlaskit/editor-tables/utils/move-row';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 // import Button, { ButtonGroup } from '@atlaskit/button';
 import Toggle from '@atlaskit/toggle';

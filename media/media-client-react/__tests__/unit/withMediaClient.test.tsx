@@ -2,12 +2,13 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import {
 	withMediaClient,
 	type WithMediaClient,
 } from '@atlaskit/media-client-react/with-media-client';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({

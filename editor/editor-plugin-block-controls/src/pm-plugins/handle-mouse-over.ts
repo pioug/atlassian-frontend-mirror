@@ -1,8 +1,8 @@
 import memoizeOne from 'memoize-one';
 
-import { isMultiBlockSelection } from '@atlaskit/editor-common/selection';
+import { isMultiBlockSelection } from '@atlaskit/editor-common/selection/utils';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

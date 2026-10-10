@@ -4,7 +4,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import {
 	ResolvedClient,
 	ResolvedClientWithTextHighlightInTitleUrl,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';

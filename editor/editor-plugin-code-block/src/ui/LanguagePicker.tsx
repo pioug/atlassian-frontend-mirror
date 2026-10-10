@@ -8,9 +8,9 @@ import { css, cssMap, jsx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import type { SelectOption } from '@atlaskit/editor-common/types';
-import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
+import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
+import type { SelectOption } from '@atlaskit/editor-common/types/floating-toolbar';
+import { akEditorLineHeight } from '@atlaskit/editor-shared-styles/constants';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Box } from '@atlaskit/primitives/compiled';
 import { components } from '@atlaskit/react-select/components';

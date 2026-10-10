@@ -1,12 +1,8 @@
+import type { BaseEventPayload } from '@atlaskit/editor-common/analytics/api';
+import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
 // oxlint-disable-next-line import/no-duplicates
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	SELECTION_POSITION,
-	SELECTION_TYPE,
-	type BaseEventPayload,
-} from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { SELECTION_POSITION, SELECTION_TYPE } from '@atlaskit/editor-common/analytics/types/utils';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

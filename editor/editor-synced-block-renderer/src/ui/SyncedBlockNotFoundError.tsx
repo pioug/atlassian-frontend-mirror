@@ -6,8 +6,9 @@ import { useIntl } from 'react-intl';
 import type { MessageDescriptor } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
-import commonMessages, { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { useSyncBlockActions } from '@atlaskit/editor-common/sync-block';
+import commonMessages from '@atlaskit/editor-common/messages';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import { useSyncBlockActions } from '@atlaskit/editor-common/sync-block/SyncBlockActionsContext';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';

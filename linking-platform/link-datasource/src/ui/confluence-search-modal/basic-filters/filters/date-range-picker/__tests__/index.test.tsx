@@ -6,7 +6,8 @@ import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import DatePicker from '@atlaskit/datetime-picker/date-picker';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 
 import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
 import { type DateRangeOption } from '../../../../../common/modal/popup-select/types';

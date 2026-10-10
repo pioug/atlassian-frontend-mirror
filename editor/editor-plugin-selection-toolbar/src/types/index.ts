@@ -1,4 +1,4 @@
-import type { UserPreferences } from '@atlaskit/editor-common/types';
+import type { UserPreferences } from '@atlaskit/editor-common/types/user-preferences';
 
 export type SelectionToolbarPluginOptions = {
 	/**

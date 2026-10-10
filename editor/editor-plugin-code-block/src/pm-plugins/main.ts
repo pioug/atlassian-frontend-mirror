@@ -2,12 +2,12 @@ import type { IntlShape } from 'react-intl';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { updateCodeBlockWrappedStateNodeKeys } from '@atlaskit/editor-common/code-block';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
-import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
+import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';

@@ -5,7 +5,10 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+import {
+	ResolvedClient,
+	ResolvedClientEmbedUrl,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { Card } from '../../src';
 

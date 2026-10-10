@@ -11,7 +11,8 @@ import { mockDatasourceDataResponse } from '@atlaskit/link-client-extension/use-
 import { mockDatasourceDataResponseWithSchema } from '@atlaskit/link-client-extension/use-data-source-client-extension/mockDatasourceDataResponseWithSchema';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
+import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
+import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { captureException } from '@atlaskit/linking-common/sentry';
 
 import { EVENT_CHANNEL } from '../../analytics/constants';

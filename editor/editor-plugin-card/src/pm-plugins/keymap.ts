@@ -1,7 +1,8 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { bindKeymapWithCommand, moveDown, moveUp } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

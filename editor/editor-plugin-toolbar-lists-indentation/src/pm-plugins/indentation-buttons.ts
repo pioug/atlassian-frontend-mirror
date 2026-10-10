@@ -1,5 +1,5 @@
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
-import { getListItemAttributes } from '@atlaskit/editor-common/lists';
+import { getListItemAttributes } from '@atlaskit/editor-common/lists/selection';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 

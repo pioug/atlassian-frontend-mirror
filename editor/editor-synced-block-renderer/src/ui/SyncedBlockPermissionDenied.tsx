@@ -5,8 +5,8 @@ import { useMutation, graphql } from 'react-relay';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import type { SyncBlockProduct } from '@atlaskit/editor-synced-block-provider/common/types';
 import { requestJiraSpaceAccess } from '@atlaskit/editor-synced-block-provider/requestJiraIssueAccess';
 import Heading from '@atlaskit/heading/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';

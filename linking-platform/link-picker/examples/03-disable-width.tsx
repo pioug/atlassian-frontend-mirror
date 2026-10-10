@@ -1,7 +1,8 @@
 import React, { Fragment, useMemo, useState } from 'react';
 
 import Range from '@atlaskit/range/range';
-import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin/atlassian-link-picker-plugin';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageWrapper } from '../example-helpers/common';

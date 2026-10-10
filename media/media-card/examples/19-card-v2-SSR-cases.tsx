@@ -2,13 +2,15 @@ import React, { useEffect, useState, useMemo } from 'react';
 
 import Loadable from 'react-loadable';
 
-import { type FileIdentifier, type MediaApi, type MediaClientConfig } from '@atlaskit/media-client';
-import { type SSR } from '@atlaskit/media-common';
-import {
-	generateItemWithBinaries,
-	type GeneratedItemWithBinaries,
-	type ItemWithBinaries,
-} from '@atlaskit/media-test-data';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaApi } from '@atlaskit/media-client/media-store/types';
+import type { SSR } from '@atlaskit/media-common/main-types';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import type {
+	GeneratedItemWithBinaries,
+	ItemWithBinaries,
+} from '@atlaskit/media-test-data/items-with-binaries/types';
 
 import { MainWrapper } from '../example-helpers';
 import { SimulateSsr } from '../example-helpers/ssrHelpers';

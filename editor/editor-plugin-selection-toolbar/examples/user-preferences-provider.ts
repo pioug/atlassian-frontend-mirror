@@ -1,4 +1,7 @@
-import type { UserPreferences, UserPreferencesProvider } from '@atlaskit/editor-common/types';
+import type {
+	UserPreferences,
+	UserPreferencesProvider,
+} from '@atlaskit/editor-common/types/user-preferences';
 const DEFAULT_USER_PREFERENCES = {
 	toolbarDockingInitialPosition: 'top',
 } as UserPreferences;

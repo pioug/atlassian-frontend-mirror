@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
-import { PrimaryToolbar as PrimaryToolbarBase } from '@atlaskit/editor-toolbar';
-import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
+import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { BreakpointPreset } from '@atlaskit/editor-toolbar/responsive-container';
+import { PrimaryToolbar as PrimaryToolbarBase } from '@atlaskit/editor-toolbar/toolbar';
 
 type PrimaryToolbarProps = {
 	breakpointPreset?: BreakpointPreset;

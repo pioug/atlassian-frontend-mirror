@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
-import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model';
+import { TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar/keys';
+import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model/types';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

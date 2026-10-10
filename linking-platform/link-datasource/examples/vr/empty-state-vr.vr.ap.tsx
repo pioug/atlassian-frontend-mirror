@@ -2,7 +2,7 @@ import React from 'react';
 
 import { styled } from '@compiled/react';
 
-import { withWaitForItem } from '@atlaskit/link-test-helpers';
+import { withWaitForItem } from '@atlaskit/link-test-helpers/with-wait-for-item';
 import { token } from '@atlaskit/tokens';
 
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';

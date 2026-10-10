@@ -1,5 +1,5 @@
+import { reduce } from '@atlaskit/adf-utils/reduce';
 import { isNestedTableExtension } from '@atlaskit/adf-utils/transforms';
-import { reduce } from '@atlaskit/adf-utils/traverse';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer/types';
 
 export type PageElementCounts = {

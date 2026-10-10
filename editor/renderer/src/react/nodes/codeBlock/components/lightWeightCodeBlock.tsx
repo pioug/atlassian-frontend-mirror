@@ -11,12 +11,12 @@ import React, { forwardRef, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
 import {
 	akEditorTableCellMinWidth,
 	blockNodesVerticalMargin,
-	overflowShadow,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
+import { overflowShadow } from '@atlaskit/editor-shared-styles/overflow-shadow';
 import { token } from '@atlaskit/tokens';
 
 import { RendererCssClassName } from '../../../../consts';

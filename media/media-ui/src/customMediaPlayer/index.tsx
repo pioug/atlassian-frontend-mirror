@@ -5,7 +5,7 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common/withMediaAnalyticsContext';
 
 import {
 	CustomMediaPlayerBase as CompiledCustomMediaPlayerBase,

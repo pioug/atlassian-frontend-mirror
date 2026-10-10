@@ -1,30 +1,28 @@
 import type { IntlShape } from 'react-intl';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { ExtensionNodeView } from '@atlaskit/editor-common/extensibility';
-import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility/types';
+import ExtensionNodeView from '@atlaskit/editor-common/extensionNodeView';
 import type {
 	Extension,
 	ExtensionHandler,
 	ExtensionHandlers,
-	ExtensionProvider,
 	UpdateExtension,
-} from '@atlaskit/editor-common/extensions';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+} from '@atlaskit/editor-common/extensions/extension-handler';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-	GapCursorSelection,
 	createSelectionClickHandler,
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
-import type {
-	EditorAppearance,
-	ExtractInjectionAPI,
-	FeatureFlags,
-} from '@atlaskit/editor-common/types';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {

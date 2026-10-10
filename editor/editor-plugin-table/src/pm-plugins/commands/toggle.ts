@@ -1,10 +1,11 @@
 //#region Imports
 
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
-import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
-import type { Command } from '@atlaskit/editor-common/types';
+import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics/types/table-events';
+import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { findTable, toggleHeader } from '@atlaskit/editor-tables/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { toggleHeader } from '@atlaskit/editor-tables/utils/toggle-header';
 
 import { createCommand } from '../plugin-factory';
 import { META_KEYS } from '../table-analytics';

@@ -1,11 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Locator, Page } from '@playwright/test';
 
-import {
-	EditorNodeContainerModel,
-	EditorPageModel,
-	EditorTableModel,
-} from '@af/editor-libra/page-models';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
+import { EditorPageModel } from '@af/editor-libra/page-models/editor-page-model';
+import { EditorTableModel } from '@af/editor-libra/page-models/editor-table-model';
 import { snapshotInformational } from '@af/visual-regression';
 
 import { CONTENT_AREA_TEST_ID } from '../../../ui/Appearance/FullPage/FullPageContentArea';

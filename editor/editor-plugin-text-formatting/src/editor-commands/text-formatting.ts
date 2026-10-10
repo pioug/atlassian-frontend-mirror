@@ -1,14 +1,14 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { applyMarkOnRange } from '@atlaskit/editor-common/mark';
-import type { Command } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { applyMarkOnRange } from '@atlaskit/editor-common/mark/commands';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 

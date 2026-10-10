@@ -6,9 +6,9 @@ import { v4 as uuid } from 'uuid';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByAttr } from '@atlaskit/editor-prosemirror/utils';

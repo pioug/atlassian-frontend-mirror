@@ -1,10 +1,11 @@
 import isEqual from 'lodash/isEqual';
 
-import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
-import type { Experience } from '@atlaskit/editor-common/experiences';
-import { logException } from '@atlaskit/editor-common/monitoring';
-import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics/types/sync-block-events';
+import type { Experience } from '@atlaskit/editor-common/experiences/Experience';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

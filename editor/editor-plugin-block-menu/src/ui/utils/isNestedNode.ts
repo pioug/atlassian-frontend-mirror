@@ -1,6 +1,6 @@
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
-import { CellSelection } from '@atlaskit/editor-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 /**
  * Determines if a node is nested (not at top-level) based on its depth and context.

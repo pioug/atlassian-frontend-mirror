@@ -1,5 +1,5 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

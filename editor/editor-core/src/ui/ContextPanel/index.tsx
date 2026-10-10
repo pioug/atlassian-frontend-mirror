@@ -8,12 +8,15 @@ import Transition from 'react-transition-group/Transition';
 
 import { getDocument } from '@atlaskit/browser-apis';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/context-panel';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { contextPanelMessages } from '@atlaskit/editor-common/messages';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { contextPanelMessages } from '@atlaskit/editor-common/messages/context-panel';
+import type {
+	OptionalPlugin,
+	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { ContextPanelContentCompiled, ContextPanelWrapperCompiled } from './index-compiled';

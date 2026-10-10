@@ -20,23 +20,19 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-	VIEW_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import {
-	CommentBadgeNext,
-	ExternalImageBadge,
-	MediaBadges,
-} from '@atlaskit/editor-common/media-single';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import type {
-	ContextIdentifierProvider,
-	ProviderFactory,
-} from '@atlaskit/editor-common/provider-factory';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
-import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
-import type { MediaFeatureFlags } from '@atlaskit/media-common';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { VIEW_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
+import { CommentBadgeNext } from '@atlaskit/editor-common/media-single/CommentBadgeNext';
+import { ExternalImageBadge } from '@atlaskit/editor-common/media-single/ExternalImageBadge';
+import { MediaBadges } from '@atlaskit/editor-common/media-single/MediaBadges';
+import { MediaBorderGapFiller } from '@atlaskit/editor-common/MediaSingle/styled';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
+import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette/border';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { token } from '@atlaskit/tokens';
 

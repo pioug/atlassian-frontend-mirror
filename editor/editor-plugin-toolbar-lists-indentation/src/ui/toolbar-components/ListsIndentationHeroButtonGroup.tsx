@@ -3,14 +3,16 @@ import React from 'react';
 import {
 	LISTS_INDENTATION_GROUP,
 	LISTS_INDENTATION_GROUP_COLLAPSED,
-	LISTS_INDENTATION_GROUP_COLLAPSED_RANK,
 	LISTS_INDENTATION_GROUP_INLINE,
-	LISTS_INDENTATION_GROUP_RANK,
 	LISTS_INDENTATION_HERO_BUTTON,
 	LISTS_INDENTATION_HERO_BUTTON_COLLAPSED,
-} from '@atlaskit/editor-common/toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { RegisterComponent } from '@atlaskit/editor-toolbar-model';
+} from '@atlaskit/editor-common/toolbar/keys';
+import {
+	LISTS_INDENTATION_GROUP_COLLAPSED_RANK,
+	LISTS_INDENTATION_GROUP_RANK,
+} from '@atlaskit/editor-common/toolbar/rank';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 
 import type { ToolbarListsIndentationPlugin } from '../../toolbarListsIndentationPluginType';
 import {

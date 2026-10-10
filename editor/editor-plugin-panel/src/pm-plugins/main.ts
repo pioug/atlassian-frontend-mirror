@@ -1,10 +1,10 @@
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPanelNodeView } from '../nodeviews/panel';

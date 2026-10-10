@@ -7,7 +7,7 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { Card } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { token } from '@atlaskit/tokens';
 
 import type { MultiCardViewProps } from './card-view-props';

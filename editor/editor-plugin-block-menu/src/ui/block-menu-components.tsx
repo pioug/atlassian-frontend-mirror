@@ -1,32 +1,34 @@
 import React from 'react';
 
 import {
+	TRANSFORM_TEXTFORMATTING_MENU_SECTION,
 	BLOCK_ACTIONS_COPY_MENU_SECTION,
-	BLOCK_ACTIONS_COPY_MENU_SECTION_RANK,
 	BLOCK_ACTIONS_COPY_LINK_TO_BLOCK_MENU_ITEM,
 	BLOCK_ACTIONS_MENU_SECTION,
 	DELETE_MENU_SECTION,
-	DELETE_MENU_SECTION_RANK,
 	DELETE_MENU_ITEM,
 	POSITION_MENU_SECTION,
-	POSITION_MENU_SECTION_RANK,
 	POSITION_MOVE_DOWN_MENU_ITEM,
 	POSITION_MOVE_UP_MENU_ITEM,
 	TRANSFORM_MENU_ITEM,
-	TRANSFORM_MENU_ITEM_RANK,
 	TRANSFORM_MENU_SECTION,
-	TRANSFORM_MENU_SECTION_RANK,
 	TRANSFORM_CREATE_MENU_SECTION,
 	TRANSFORM_SUGGESTED_MENU_SECTION,
 	TRANSFORM_STRUCTURE_MENU_SECTION,
+	TRANSFORM_SUGGESTED_MENU_ITEM,
+} from '@atlaskit/editor-common/block-menu/key';
+import {
+	BLOCK_ACTIONS_COPY_MENU_SECTION_RANK,
+	DELETE_MENU_SECTION_RANK,
+	POSITION_MENU_SECTION_RANK,
+	TRANSFORM_MENU_ITEM_RANK,
+	TRANSFORM_MENU_SECTION_RANK,
 	MAIN_BLOCK_MENU_SECTION_RANK,
 	TRANSFORM_SUGGESTED_MENU_SECTION_RANK,
-	TRANSFORM_SUGGESTED_MENU_ITEM,
-} from '@atlaskit/editor-common/block-menu';
-import { TRANSFORM_TEXTFORMATTING_MENU_SECTION } from '@atlaskit/editor-common/block-menu/key';
-import { blockMenuMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/block-menu/rank';
+import { messages as blockMenuMessages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type {

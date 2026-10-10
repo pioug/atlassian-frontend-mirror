@@ -2,13 +2,13 @@ import type { CSSProperties } from 'react';
 import React, { useContext } from 'react';
 
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import { WidthContext } from '@atlaskit/editor-common/ui';
+import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import {
 	akEditorTableNumberColumnWidth,
 	akEditorTableLegacyCellMinWidth,
 	akEditorTableCellMinWidth,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 import { useRendererContext } from '../../../renderer-context';
 import type { SharedTableProps } from './types';

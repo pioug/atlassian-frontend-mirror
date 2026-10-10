@@ -6,9 +6,10 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import { ToolbarDropdownItemSection, ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/analytics/types/enums';
+import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
+import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
+import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Lozenge from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

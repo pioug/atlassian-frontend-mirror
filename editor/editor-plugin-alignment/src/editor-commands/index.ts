@@ -1,23 +1,20 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	changeImageAlignment,
 	changeImageAlignmentNext,
 	toggleBlockMark,
 	toggleBlockMarkNext,
 } from '@atlaskit/editor-common/commands';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type {
-	Command,
-	CommandDispatch,
-	EditorCommand,
-	ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
+import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 

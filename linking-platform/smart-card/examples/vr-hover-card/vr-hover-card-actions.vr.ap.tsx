@@ -2,7 +2,7 @@ import React from 'react';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { JiraIssue } from '@atlaskit/link-test-helpers';
+import { JiraIssue } from '@atlaskit/link-test-helpers/smart-card/mocks/jira';
 
 import { Card } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';

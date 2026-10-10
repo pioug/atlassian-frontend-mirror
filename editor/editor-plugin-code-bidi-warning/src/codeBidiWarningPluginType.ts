@@ -1,9 +1,9 @@
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type {
-	EditorAppearance,
 	NextEditorPlugin,
 	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { LimitedModePlugin } from '@atlaskit/editor-plugin-limited-mode/limited-mode-plugin-type';
 
 export type CodeBidiWarningPluginOptions = {
 	appearance?: EditorAppearance;

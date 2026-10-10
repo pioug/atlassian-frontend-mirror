@@ -3,14 +3,11 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
-import { mentionMessages } from '@atlaskit/editor-common/messages';
-import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
+import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type {
-	ExtractInjectionAPI,
-	TypeAheadHandler,
-	TypeAheadItem,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

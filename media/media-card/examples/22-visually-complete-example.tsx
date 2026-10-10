@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { type FileIdentifier } from '@atlaskit/media-client';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
 import { getVCObserver } from '@atlaskit/react-ufo/get-vc-observer';
 
 import { MainWrapper } from '../example-helpers';

@@ -1,5 +1,5 @@
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ContextIdentifierPluginOptions } from '@atlaskit/editor-plugin-context-identifier';
+import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
+import type { ContextIdentifierPluginOptions } from '@atlaskit/editor-plugin-context-identifier/contextIdentifierPluginType';
 
 interface Props {
 	options: never;

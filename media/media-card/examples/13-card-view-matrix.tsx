@@ -14,8 +14,11 @@ import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import TrashIcon from '@atlaskit/icon/core/delete';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import EditIcon from '@atlaskit/icon/core/edit';
-import { type FileDetails, type MediaType } from '@atlaskit/media-client';
-import { atlassianLogoUrl, tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { MediaType } from '@atlaskit/media-common/main-types';
+import { atlassianLogoUrl } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
+import { wideTransparentImage } from '@atlaskit/media-test-helpers/wideTransparentImageURI';
 import Select from '@atlaskit/select/default';
 import { token } from '@atlaskit/tokens';
 

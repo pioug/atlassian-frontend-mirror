@@ -1,9 +1,10 @@
-import { expect, editorTestCase as test } from '@af/editor-libra';
+import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
+import { expect } from '@af/editor-libra/matchers';
 import {
 	EditorInsertMenuModel,
 	EditorMainToolbarModel,
-	EditorModalElementBrowserModel,
-} from '@af/editor-libra/page-models';
+} from '@af/editor-libra/page-models/editor-main-toolbar-model';
+import { EditorModalElementBrowserModel } from '@af/editor-libra/page-models/editor-modal-element-browser-model';
 
 test.use({
 	exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),

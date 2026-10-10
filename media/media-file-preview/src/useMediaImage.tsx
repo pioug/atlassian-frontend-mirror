@@ -1,11 +1,10 @@
 import { useCallback, type ScriptHTMLAttributes } from 'react';
 
-import {
-	type FileIdentifier,
-	type MediaBlobUrlAttrs,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
-import { type MediaTraceContext, type SSR } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { MediaStoreGetFileImageParams } from '@atlaskit/media-client/media-store/types';
+import type { MediaBlobUrlAttrs } from '@atlaskit/media-client/url';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { SSR } from '@atlaskit/media-common/main-types';
 
 import type { MediaFilePreviewError } from './MediaFilePreviewError';
 import {

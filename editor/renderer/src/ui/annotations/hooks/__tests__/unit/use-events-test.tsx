@@ -4,8 +4,11 @@ import { createRoot, type Root } from 'react-dom/client';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { AnnotationState } from '@atlaskit/editor-common/types';
-import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { AnnotationState } from '@atlaskit/editor-common/types/emitter';
+import {
+	AnnotationUpdateEmitter,
+	AnnotationUpdateEvent,
+} from '@atlaskit/editor-common/types/emitter';
 
 import {
 	useAnnotationClickEvent,

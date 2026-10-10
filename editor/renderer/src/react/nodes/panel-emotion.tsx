@@ -14,7 +14,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';

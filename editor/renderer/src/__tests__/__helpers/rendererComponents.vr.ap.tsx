@@ -6,11 +6,11 @@ import { RelayEnvironmentProvider } from 'react-relay';
 import { createMockEnvironment } from 'relay-test-utils';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock/media-client-mock-provider';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';

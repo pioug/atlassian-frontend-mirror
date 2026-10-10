@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/button';
-import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
-import { svgFileIds } from '@atlaskit/media-client/test-helpers';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers/example-media-items';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Select from '@atlaskit/select/default';
 
 import { CenteredForm } from '../example-helpers/centeredForm';

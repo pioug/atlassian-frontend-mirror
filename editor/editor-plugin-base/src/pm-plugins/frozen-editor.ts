@@ -1,24 +1,18 @@
-import type {
-	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	BROWSER_FREEZE_INTERACTION_TYPE,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { BROWSER_FREEZE_INTERACTION_TYPE } from '@atlaskit/editor-common/analytics/types/general-events';
 import { countNodes } from '@atlaskit/editor-common/count-nodes';
 import {
 	isPerformanceAPIAvailable,
 	isPerformanceObserverAvailable,
 } from '@atlaskit/editor-common/is-performance-api-available';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
 	BrowserFreezetracking,
-	ExtractInjectionAPI,
 	InputTracking,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/performance-tracking';
 import { getAnalyticsEventSeverity } from '@atlaskit/editor-common/utils/analytics';
 import type { SEVERITY } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

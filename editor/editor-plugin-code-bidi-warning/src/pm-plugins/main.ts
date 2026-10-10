@@ -1,10 +1,8 @@
-import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
+import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages/codeBidiWarning';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-	EditorAppearance,
-	ExtractInjectionAPI,
-	PMPluginFactoryParams,
-} from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBidiWarningPlugin } from '../codeBidiWarningPluginType';

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 
 import { changeColor } from '../../editor-commands/change-color';
 import type { HighlightPlugin } from '../../highlightPluginType';

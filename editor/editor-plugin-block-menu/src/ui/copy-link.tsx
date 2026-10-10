@@ -3,14 +3,15 @@ import React, { useCallback } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl, useIntl } from 'react-intl';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics';
-import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import type { BlockMenuEventPayload } from '@atlaskit/editor-common/analytics/types/block-menu-events';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import { BLOCK_MENU_ACTION_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
 import { copyLinkToBlock, formatShortcut } from '@atlaskit/editor-common/keymaps';
-import { blockMenuMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarDropdownItem, ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar';
+import { messages } from '@atlaskit/editor-common/messages/block-menu';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 import LinkIcon from '@atlaskit/icon/core/link';
 
 import type { BlockMenuPlugin, BlockMenuPluginOptions } from '../blockMenuPluginType';

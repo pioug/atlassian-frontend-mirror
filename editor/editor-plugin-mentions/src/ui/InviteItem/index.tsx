@@ -9,7 +9,7 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
-import { mentionMessages as messages } from '@atlaskit/editor-common/messages';
+import { mentionMessages as messages } from '@atlaskit/editor-common/messages/mentions';
 import AddIcon from '@atlaskit/icon/core/add';
 import type { UserRole, MentionDescription } from '@atlaskit/mention/types';
 import { token } from '@atlaskit/tokens';

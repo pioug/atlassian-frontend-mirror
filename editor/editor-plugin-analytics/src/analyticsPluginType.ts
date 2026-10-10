@@ -1,11 +1,11 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,
-	PerformanceTracking,
-} from '@atlaskit/editor-common/types';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PerformanceTracking } from '@atlaskit/editor-common/types/performance-tracking';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
 
 import type { CreateAttachPayloadIntoTransaction } from './pm-plugins/analytics-api/attach-payload-into-transaction';
 

@@ -16,7 +16,7 @@ import FocusLock from 'react-focus-lock';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider/types';
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,

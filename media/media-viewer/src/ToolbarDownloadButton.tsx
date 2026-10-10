@@ -1,12 +1,10 @@
 import React from 'react';
 
-import {
-	type FileState,
-	type Identifier,
-	isExternalImageIdentifier,
-	type MediaClient,
-} from '@atlaskit/media-client';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { isExternalImageIdentifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
 import { downloadIcon } from './downloadIcon';

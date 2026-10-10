@@ -1,4 +1,4 @@
-import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
 
 import { LightWeightCodeBlockCssClassName } from '../../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 

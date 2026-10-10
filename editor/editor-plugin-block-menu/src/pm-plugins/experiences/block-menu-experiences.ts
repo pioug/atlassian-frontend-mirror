@@ -1,21 +1,21 @@
 import { bind } from 'bind-event-listener';
 
-import { ACTION, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { ACTION, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	BLOCK_MENU_ACTION_TEST_ID,
 	BLOCK_MENU_TEST_ID,
 	EXTENSION_MENU_ITEM_TEST_ID,
-} from '@atlaskit/editor-common/block-menu';
+} from '@atlaskit/editor-common/block-menu/key';
 import {
-	Experience,
-	EXPERIENCE_ID,
-	ExperienceCheckDomMutation,
-	ExperienceCheckPopupMutation,
-	ExperienceCheckTimeout,
 	getPopupContainerFromEditorView,
 	getSelectionAncestorDOM,
 } from '@atlaskit/editor-common/experiences';
+import { EXPERIENCE_ID } from '@atlaskit/editor-common/experiences/consts';
+import { Experience } from '@atlaskit/editor-common/experiences/Experience';
+import { ExperienceCheckDomMutation } from '@atlaskit/editor-common/experiences/ExperienceCheckDomMutation';
+import { ExperienceCheckPopupMutation } from '@atlaskit/editor-common/experiences/ExperienceCheckPopupMutation';
+import { ExperienceCheckTimeout } from '@atlaskit/editor-common/experiences/ExperienceCheckTimeout';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

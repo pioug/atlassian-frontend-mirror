@@ -1,5 +1,5 @@
-import { type Identifier } from '@atlaskit/media-client';
-import { nextTick } from '@atlaskit/media-test-helpers';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { nextTick } from '@atlaskit/media-test-helpers/nextTick';
 
 import { extractArchiveFolderName } from '../../../../utils/extractArchiveFolderName';
 import { getFolderParent } from '../../../../utils/getFolderParent';

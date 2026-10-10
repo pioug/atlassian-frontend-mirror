@@ -1,9 +1,12 @@
 import type { CollabEditOptions, CollabInviteToEditProps } from '@atlaskit/editor-common/collab';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
-import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit/collabEditPluginType';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
 
 export type AvatarGroupPluginOptions = {
 	collabEdit?: CollabEditOptions;

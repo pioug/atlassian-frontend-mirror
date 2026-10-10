@@ -1,4 +1,4 @@
-import type { SSR } from '@atlaskit/media-common';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 
 export type MediaInlineAttrs = {

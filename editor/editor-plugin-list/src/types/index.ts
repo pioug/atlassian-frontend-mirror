@@ -1,5 +1,5 @@
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';

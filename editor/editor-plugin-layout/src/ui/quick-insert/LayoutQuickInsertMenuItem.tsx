@@ -8,7 +8,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import {
 	QuickInsertMenuItem,
@@ -16,7 +16,7 @@ import {
 	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import LayoutFiveColumnsIcon from '@atlaskit/icon-lab/core/layout-five-columns';
 import LayoutFourColumnsIcon from '@atlaskit/icon-lab/core/layout-four-columns';
 import LayoutThreeColumnsIcon from '@atlaskit/icon/core/layout-three-columns';

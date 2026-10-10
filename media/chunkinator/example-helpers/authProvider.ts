@@ -1,4 +1,4 @@
-import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
 export type AuthSessionHelper = {
 	token: string;

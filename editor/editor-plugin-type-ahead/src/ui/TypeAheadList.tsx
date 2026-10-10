@@ -13,11 +13,13 @@ import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs
 import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common/types';
-import { AssistiveText } from '@atlaskit/editor-common/ui';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { AssistiveText } from '@atlaskit/editor-common/AssistiveText';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

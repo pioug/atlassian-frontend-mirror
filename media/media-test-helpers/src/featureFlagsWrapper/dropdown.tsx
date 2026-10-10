@@ -7,8 +7,8 @@ import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import HipchatChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import SelectClearIcon from '@atlaskit/icon/core/cross-circle';
-import { debounce } from '@atlaskit/media-common';
-import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import { debounce } from '@atlaskit/media-common/helpers';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { Popup } from '@atlaskit/popup/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Stack, xcss } from '@atlaskit/primitives';

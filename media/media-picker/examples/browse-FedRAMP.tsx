@@ -9,8 +9,8 @@ import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	defaultCollectionName,
 	defaultMediaPickerCollectionName,
-	mediaPickerAuthProvider,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/collectionNames';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 
 import { MainWrapper } from '../example-helpers/mainWrapper';
 import { PopupContainer } from '../example-helpers/PopupContainer';

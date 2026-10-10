@@ -1,10 +1,10 @@
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline/types';
 import {
 	akEditorBreakoutPadding,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	breakoutWideScaleRatio,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 
 const defaultGrids = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6];
 

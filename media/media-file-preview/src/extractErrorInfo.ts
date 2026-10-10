@@ -1,4 +1,4 @@
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 
 import type { MediaFilePreviewErrorInfo } from './analytics';
 import { getErrorTraceContext } from './getErrorTraceContext';

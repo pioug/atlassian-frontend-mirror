@@ -1,4 +1,4 @@
-import { type MediaType } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 /**
  * This method tells the support for the media

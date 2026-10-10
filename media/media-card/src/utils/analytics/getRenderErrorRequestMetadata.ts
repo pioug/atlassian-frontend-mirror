@@ -1,4 +1,5 @@
-import { type RequestErrorMetadata, isCommonMediaClientError } from '@atlaskit/media-client';
+import { isCommonMediaClientError } from '@atlaskit/media-client';
+import type { RequestErrorMetadata } from '@atlaskit/media-client/request/types';
 
 import type { MediaCardError } from '../../MediaCardError';
 

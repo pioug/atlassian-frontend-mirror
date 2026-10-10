@@ -3,7 +3,8 @@ import React, { type ErrorInfo, type PropsWithChildren } from 'react';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { type MediaFeatureFlags, withMediaAnalyticsContext } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common/withMediaAnalyticsContext';
 
 import { type CardDimensions, type CardOnClickCallback } from '../types';
 import type { AnalyticsErrorBoundaryCardPayload } from '../utils/analytics/analytics';

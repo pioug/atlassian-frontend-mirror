@@ -1,32 +1,36 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { insideTable } from '@atlaskit/editor-common/core-utils';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { insideTable } from '@atlaskit/editor-common/inside';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-	transformSliceToRemoveOpenBodiedExtension,
 	transformSliceToRemoveOpenExpand,
-	transformSliceToRemoveOpenLayoutNodes,
-	transformSliceToRemoveOpenMultiBodiedExtension,
 	transformSliceToRemoveOpenNestedExpand,
 } from '@atlaskit/editor-common/transforms';
-import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { closestElement } from '@atlaskit/editor-common/utils';
+import {
+	transformSliceToRemoveOpenBodiedExtension,
+	transformSliceToRemoveOpenMultiBodiedExtension,
+} from '@atlaskit/editor-common/transforms/extension';
+import { transformSliceToRemoveOpenLayoutNodes } from '@atlaskit/editor-common/transforms/layout';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { EditorState, TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { TableMap } from '@atlaskit/editor-tables';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {

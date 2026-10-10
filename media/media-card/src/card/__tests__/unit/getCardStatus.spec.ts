@@ -7,7 +7,7 @@ jest.mock('@atlaskit/media-client', () => {
 		isPreviewableFileState: jest.fn(() => 'isPreviewableFileState-return'),
 	};
 });
-import { type FileStatus } from '@atlaskit/media-client';
+import type { FileStatus } from '@atlaskit/media-client/file-state';
 
 import { type FilePreviewStatus, type CardStatus } from '../../../types';
 import { getCardStatus } from '../../getCardStatus';

@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { SelectionToolbarGroup } from '@atlaskit/editor-common/types/selection-toolbar';
 import {
 	type NamedPluginStatesFromInjectionAPI,
 	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
-import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

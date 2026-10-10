@@ -2,7 +2,7 @@ import { createClient } from 'graphql-ws';
 import type { Client } from 'graphql-ws';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 
 import type { SyncBlockProduct } from '../../common/types';
 import { convertContentUpdatedAt } from '../../utils/utils';

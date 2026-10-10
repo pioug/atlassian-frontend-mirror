@@ -5,7 +5,9 @@ import { disableFetchMocks } from 'jest-fetch-mock';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-import { getFileStreamsCache, MediaClient, type ResponseFileItem } from '@atlaskit/media-client';
+import { getFileStreamsCache } from '@atlaskit/media-client/file-streams-cache';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { ResponseFileItem } from '@atlaskit/media-client/media-store/types';
 import { mediaStore } from '@atlaskit/media-state/media-store';
 
 import { MediaClientContext, MediaClientProvider } from '../../src/MediaClientProvider';

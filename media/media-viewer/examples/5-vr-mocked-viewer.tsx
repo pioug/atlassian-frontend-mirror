@@ -5,17 +5,18 @@ import { canUseDOM } from 'exenv';
 import Button from '@atlaskit/button/standard-button';
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
-import { MediaClient, type Identifier } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
+import type { Identifier } from '@atlaskit/media-client/identifier';
+import { MediaClient } from '@atlaskit/media-client/media-client';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import {
 	MediaMock,
-	defaultCollectionName,
-	smallImage,
-	tallImage,
-	defaultBaseUrl,
 	generateFilesFromTestData,
 	type MockFile,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/media-mock';
+import { defaultBaseUrl } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
+import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
 import { token } from '@atlaskit/tokens';
 
 import { wideImage } from '../example-helpers/assets/wide-image';

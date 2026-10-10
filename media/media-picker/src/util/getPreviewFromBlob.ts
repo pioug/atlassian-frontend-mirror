@@ -1,4 +1,5 @@
-import { type MediaType, getDimensionsFromBlob } from '@atlaskit/media-client';
+import { getDimensionsFromBlob } from '@atlaskit/media-client/get-dimensions-from-blob';
+import type { MediaType } from '@atlaskit/media-common/main-types';
 
 import { type Preview } from '../types';
 import { isUnknownDimensions } from './isUnknownDimensions';

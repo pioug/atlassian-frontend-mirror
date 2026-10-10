@@ -1,19 +1,20 @@
 import React from 'react';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import { AsanaTaskJson } from '@atlaskit/link-test-helpers/smart-card/mocks/asana';
+import { AtlasGoal, AtlasProject } from '@atlaskit/link-test-helpers/smart-card/mocks/atlas';
 import {
-	AsanaTaskJson,
-	AtlasGoal,
-	AtlasProject,
 	BitbucketProject,
 	BitbucketPullRequest1,
 	BitbucketPullRequest2,
+} from '@atlaskit/link-test-helpers/smart-card/mocks/bitbucket';
+import {
 	ConfluenceBlogPost,
 	ConfluencePage,
-	GithubPullRequestJson,
-	JiraIssue,
-	SlackMessage,
-} from '@atlaskit/link-test-helpers';
+} from '@atlaskit/link-test-helpers/smart-card/mocks/confluence';
+import { GithubPullRequestJson } from '@atlaskit/link-test-helpers/smart-card/mocks/github';
+import { JiraIssue } from '@atlaskit/link-test-helpers/smart-card/mocks/jira';
+import { SlackMessage } from '@atlaskit/link-test-helpers/smart-card/mocks/slack';
 import type { CardState } from '@atlaskit/linking-common/store';
 
 import RelatedLinksBaseModal from '../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal';

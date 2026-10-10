@@ -1,7 +1,7 @@
 import type { EditorView as CodeMirror } from '@codemirror/view';
 
-import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
-import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
+import { RelativeSelectionPos } from '@atlaskit/editor-common/selection/types';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types/editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

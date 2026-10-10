@@ -4,26 +4,23 @@ import ReactDOM from 'react-dom';
 import { createIntl, injectIntl, IntlProvider, type WrappedComponentProps } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import {
-	FileFetcherError,
-	toCommonMediaClientError,
-	type FileIdentifier,
-	type FileState,
-	type Identifier,
-	type MediaClient,
-} from '@atlaskit/media-client';
+import { FileFetcherError, toCommonMediaClientError } from '@atlaskit/media-client';
 import { useCopyIntent } from '@atlaskit/media-client-react/use-copy-intent';
+import type { FileIdentifier, Identifier } from '@atlaskit/media-client/identifier';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
 import {
 	mapSsrMediaItemToFileState,
 	type SsrMediaItem,
 } from '@atlaskit/media-client/ssr-media-item';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { MediaInlineCardErroredView } from '@atlaskit/media-ui/ErroredView';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { MediaInlineCardLoadedView } from '@atlaskit/media-ui/LoadedView';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
 import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import type { ViewerOptionsProps } from '@atlaskit/media-viewer/viewer-options';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

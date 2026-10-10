@@ -5,13 +5,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React from 'react';
-import {
-	defaultCollectionName,
-	genericFileId,
-	videoFileId,
-	createUploadMediaClientConfig,
-} from '@atlaskit/media-test-helpers';
-import { type FileIdentifier } from '@atlaskit/media-client';
+import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
+import { genericFileId, videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import Card from '../../src/card/cardLoader';
 import { cardWrapperStyles } from '../../example-helpers/styles';
 import { MainWrapper } from '../../example-helpers';

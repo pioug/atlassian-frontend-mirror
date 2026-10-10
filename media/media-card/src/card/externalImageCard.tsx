@@ -3,19 +3,13 @@ import ReactDOM from 'react-dom';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import {
-	type ExternalImageIdentifier,
-	type FileDetails,
-	type Identifier,
-	type MediaClient,
-	globalMediaEventEmitter,
-} from '@atlaskit/media-client';
-import {
-	type FileAttributes,
-	type MediaTraceContext,
-	getRandomTelemetryId,
-} from '@atlaskit/media-common';
-import { MediaViewer } from '@atlaskit/media-viewer';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { ExternalImageIdentifier, Identifier } from '@atlaskit/media-client/identifier';
+import type { FileDetails } from '@atlaskit/media-client/item';
+import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileAttributes, MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 
 import { ImageLoadError } from '../ImageLoadError';
 import type { MediaCardError } from '../MediaCardError';

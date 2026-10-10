@@ -1,6 +1,6 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
-import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type {
 	EditorState,
 	Transaction,

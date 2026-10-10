@@ -9,11 +9,11 @@ import { jsx } from '@emotion/react';
 
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import {
-	createStorybookMediaClientConfig,
 	errorFileId,
 	genericFileId,
 	imageFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-test-helpers/exampleMediaItems';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { TerminalTextDisplay } from '../example-helpers/TerminalTextDisplay';

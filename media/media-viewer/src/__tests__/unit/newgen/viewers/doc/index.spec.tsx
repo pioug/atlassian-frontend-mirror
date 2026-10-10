@@ -2,20 +2,18 @@ import React from 'react';
 
 import { screen } from '@testing-library/react';
 
-import {
-	globalMediaEventEmitter,
-	type MediaViewedEventPayload,
-	type FileState,
-	type ProcessedFileState,
-	type ProcessingFileState,
-	type PreviewableFileState,
-} from '@atlaskit/media-client';
-import {
-	renderWithIntl,
-	fakeMediaClient,
-	expectFunctionToHaveBeenCalledWith,
-	nextTick,
-} from '@atlaskit/media-test-helpers';
+import type { MediaViewedEventPayload } from '@atlaskit/media-client/events';
+import type { PreviewableFileState } from '@atlaskit/media-client/file-state';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type {
+	FileState,
+	ProcessedFileState,
+	ProcessingFileState,
+} from '@atlaskit/media-state/file-state';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers/jestHelpers';
+import { nextTick } from '@atlaskit/media-test-helpers/nextTick';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
 import { MediaViewerError } from '../../../../../MediaViewerError';
 import { getObjectUrlFromFileState } from '../../../../../utils/getObjectUrlFromFileState';

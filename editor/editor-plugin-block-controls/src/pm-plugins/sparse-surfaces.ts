@@ -3,7 +3,7 @@ import {
 	type BlockControlsSurfaceInvalidation,
 } from '@atlaskit/editor-common/block-controls/surface-candidate-invalidation';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';

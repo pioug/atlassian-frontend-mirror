@@ -1,22 +1,22 @@
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { createToggleBlockMarkOnRangeNext } from '@atlaskit/editor-common/commands';
-import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import type {
-	Command,
-	EditorCommand,
-	HeadingLevelsAndNormalText,
-} from '@atlaskit/editor-common/types';
-import { filterChildrenBetween, wrapSelectionIn } from '@atlaskit/editor-common/utils';
+import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types/block-type';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import { filterChildrenBetween } from '@atlaskit/editor-common/utils';
+import { wrapSelectionIn } from '@atlaskit/editor-common/utils/wrap-selection-in';
+import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
-import { CellSelection } from '@atlaskit/editor-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';

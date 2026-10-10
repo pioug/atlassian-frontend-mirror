@@ -3,8 +3,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
+import { SyncBlockLabelSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

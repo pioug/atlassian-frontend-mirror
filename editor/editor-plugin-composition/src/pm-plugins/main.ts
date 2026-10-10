@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { CompositionPluginState } from './plugin-key';

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/order
-import type { Command } from '@atlaskit/editor-common/types';
-import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import { removeConnectedNodes } from '@atlaskit/editor-common/utils/referentiality';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 // eslint-disable-next-line import/order

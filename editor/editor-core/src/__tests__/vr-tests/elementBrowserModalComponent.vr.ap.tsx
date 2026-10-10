@@ -7,8 +7,8 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import ElementBrowser from '@atlaskit/editor-common/element-browser/ElementBrowserLoader';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 
 import { getCategories } from '../../../example-helpers/quick-insert-categories';
 import { default as EditorContext } from '../../ui/EditorContext';

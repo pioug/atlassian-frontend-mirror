@@ -1,5 +1,5 @@
-import type { ImageUploadProvider } from '@atlaskit/editor-common/provider-factory';
-import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+import type { ImageUploadProvider } from '@atlaskit/editor-common/provider-factory/image-upload-provider';
+import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types/image-upload-reference-event';
 
 export type ImageUploadPluginAction = {
 	event?: ImageUploadPluginReferenceEvent;

@@ -1,5 +1,6 @@
-import { Side as GapCursorSide, setGapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
+import { setGapCursorSelection } from '@atlaskit/editor-common/selection/setGapCursorSelection';
+import type { DocBuilder } from '@atlaskit/editor-common/types/doc-builder';
 import { setCellSelection } from '@atlaskit/editor-common/utils';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';

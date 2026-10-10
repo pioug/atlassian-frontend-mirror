@@ -1,7 +1,7 @@
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { akEditorMaxLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { akEditorMaxLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import { updateCellsMarkup } from './table-transform-utils';
 

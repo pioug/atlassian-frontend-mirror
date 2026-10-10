@@ -1,5 +1,5 @@
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
 	getBreakoutResizableNodeTypes,
 	getBreakoutResizableNodeTypesNew,

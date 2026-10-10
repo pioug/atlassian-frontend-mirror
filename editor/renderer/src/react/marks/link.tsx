@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import type { LinkAttributes } from '@atlaskit/adf-schema/link';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
 

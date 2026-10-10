@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent } from '@testing-library/react';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { getDefaultItems } from '../../../__tests__/__helpers';

@@ -1,17 +1,18 @@
 import { type ErrorInfo } from 'react';
 
-import { type MediaClientErrorReason, type RequestMetadata } from '@atlaskit/media-client';
-import { type SSR } from '@atlaskit/media-common';
-import {
-	type OperationalEventPayload,
-	type UIEventPayload,
-	type WithFileAttributes,
-	type WithPerformanceAttributes,
-	type SuccessAttributes,
-	type FailureAttributes,
-	type MediaTraceContext,
-	type WithTraceContext,
-} from '@atlaskit/media-common/analytics';
+import type { MediaClientErrorReason } from '@atlaskit/media-client/errors/types';
+import type { RequestMetadata } from '@atlaskit/media-client/request/types';
+import type {
+	OperationalEventPayload,
+	UIEventPayload,
+	WithFileAttributes,
+	WithPerformanceAttributes,
+	SuccessAttributes,
+	FailureAttributes,
+	MediaTraceContext,
+	WithTraceContext,
+} from '@atlaskit/media-common/analytics/types';
+import type { SSR } from '@atlaskit/media-common/main-types';
 import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 import type { MediaCardErrorPrimaryReason } from '../../MediaCardError';

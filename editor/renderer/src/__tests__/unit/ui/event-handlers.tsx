@@ -3,8 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
-import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock/media-client-mock-provider';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 
 import { Renderer } from '../../../entry-points/renderer-default';
 import type { RendererProps } from '../../../ui/renderer-props';

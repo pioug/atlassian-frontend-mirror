@@ -5,11 +5,11 @@
 import { useIntl } from 'react-intl';
 
 import { css, jsx } from '@atlaskit/css';
-import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
+import { selectionToolbarMessages } from '@atlaskit/editor-common/messages/selection-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 import { token } from '@atlaskit/tokens';

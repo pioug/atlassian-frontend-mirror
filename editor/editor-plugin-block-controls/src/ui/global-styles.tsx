@@ -5,15 +5,15 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, Global, jsx } from '@emotion/react';
 
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
 import {
 	ANCHOR_VARIABLE_NAME,
-	DRAG_HANDLE_WIDTH,
 	isCSSAnchorSupported,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/styles/native-anchor';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
 import {
 	akEditorBreakoutPadding,
 	akEditorCalculatedWideLayoutWidth,
@@ -21,7 +21,7 @@ import {
 	akEditorFullPageNarrowBreakout,
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

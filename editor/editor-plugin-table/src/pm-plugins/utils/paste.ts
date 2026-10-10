@@ -1,5 +1,5 @@
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
-import { flatmap, mapChildren, mapSlice } from '@atlaskit/editor-common/utils';
+import { flatmap, mapChildren, mapSlice } from '@atlaskit/editor-common/utils/slice';
 import {
 	type Schema,
 	Slice,
@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { CellSelection } from '@atlaskit/editor-tables';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getPluginState } from '../plugin-factory';

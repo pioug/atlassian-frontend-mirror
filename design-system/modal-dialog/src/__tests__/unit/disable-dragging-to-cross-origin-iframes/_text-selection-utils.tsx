@@ -1,4 +1,4 @@
-import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 
 import { addItemsToEvent, getFirstTextNode } from './_pdnd-test-utils';
 

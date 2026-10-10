@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { ReactRenderer as Renderer } from '@atlaskit/renderer';
+import Renderer from '@atlaskit/renderer/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { dumpRef } from '../example-helpers/story-utils';

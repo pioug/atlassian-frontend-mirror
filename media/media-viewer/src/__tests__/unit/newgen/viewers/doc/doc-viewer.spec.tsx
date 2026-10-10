@@ -4,14 +4,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import type { FileState } from '@atlaskit/media-client';
 import { RequestError } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
-import {
-	createMockedMediaApi,
-	createServerUnauthorizedError,
-} from '@atlaskit/media-client/test-helpers';
-import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
+import type { FileState } from '@atlaskit/media-state/file-state';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { DocViewer } from '../../../../../viewers/doc/DocViewer';

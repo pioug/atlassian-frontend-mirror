@@ -10,8 +10,8 @@ import React, { useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
-import { captionMessages as messages } from '@atlaskit/editor-common/media';
-import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
+import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single/constants';
+import { captionMessages as messages } from '@atlaskit/editor-common/media/caption';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';

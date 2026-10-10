@@ -14,7 +14,8 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { hasArtifacts } from '@atlaskit/media-client';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import { useMediaSettings } from '@atlaskit/media-client-react/use-media-settings';
-import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 import type {
 	FileState,
 	MediaUserArtifact,

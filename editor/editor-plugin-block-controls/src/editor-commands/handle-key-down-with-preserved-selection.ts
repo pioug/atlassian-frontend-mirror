@@ -1,5 +1,6 @@
-import { deleteSelectedRange } from '@atlaskit/editor-common/selection';
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { deleteSelectedRange } from '@atlaskit/editor-common/selection/utils';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { stopPreservingSelection } from '../pm-plugins/selection-preservation/editor-commands';

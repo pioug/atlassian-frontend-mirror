@@ -1,16 +1,14 @@
+import { alignmentMessages as messages } from '@atlaskit/editor-common/alignment';
 import { alignCenter, alignLeft, alignRight } from '@atlaskit/editor-common/keymaps';
-import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	ALIGN_LEFT_MENU_ITEM,
 	ALIGN_CENTER_MENU_ITEM,
 	ALIGN_RIGHT_MENU_ITEM,
-	ALIGNMENT_MENU_SECTION_RANK,
-} from '@atlaskit/editor-common/toolbar';
-import {
-	AlignTextLeftIcon,
-	AlignTextCenterIcon,
-	AlignTextRightIcon,
-} from '@atlaskit/editor-toolbar';
+} from '@atlaskit/editor-common/toolbar/keys';
+import { ALIGNMENT_MENU_SECTION_RANK } from '@atlaskit/editor-common/toolbar/rank';
+import { AlignTextCenterIcon } from '@atlaskit/editor-toolbar/align-text-center-icon';
+import { AlignTextLeftIcon } from '@atlaskit/editor-toolbar/align-text-left-icon';
+import { AlignTextRightIcon } from '@atlaskit/editor-toolbar/align-text-right-icon';
 
 import type { AlignmentState } from '../../pm-plugins/types';
 import type { OptionInfo } from './types';

@@ -2,8 +2,8 @@ import React from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { type FileIdentifier } from '@atlaskit/media-client';
-import { type NumericalCardDimensions } from '@atlaskit/media-common';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
+import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 
 import { type CardDimensions } from '../types';
 import type { CardPreview } from '../types';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Form } from 'react-final-form';
 
-import { TextField } from '@atlaskit/link-create';
+import { TextField } from '@atlaskit/link-create/text-field';
 
 import { FormContextProvider } from '../../src/controllers/form-context/main';
 import { type TextFieldProps } from '../../src/ui/create-form/textfield/types';

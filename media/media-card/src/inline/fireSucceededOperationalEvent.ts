@@ -1,5 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { type FileState } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
 import { getSucceededStatusPayload } from './getSucceededStatusPayload';

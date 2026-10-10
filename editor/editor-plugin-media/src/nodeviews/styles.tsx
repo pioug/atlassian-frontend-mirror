@@ -7,7 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
-import { MediaBorderGapFiller } from '@atlaskit/editor-common/ui';
+import { MediaBorderGapFiller } from '@atlaskit/editor-common/MediaSingle/styled';
 import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 
 export const MediaSingleNodeSelector = 'media-single-node';

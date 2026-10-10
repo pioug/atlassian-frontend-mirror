@@ -4,20 +4,17 @@ import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps/analytics'
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import type {
-	AnalyticsEventPayload,
 	FireAnalyticsEventOptions,
 	BaseEventPayload,
-} from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	EVENT_TYPE,
-	fireAnalyticsEvent,
-	getAnalyticsEventsFromTransaction,
-} from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/analytics/api';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
+import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
+import { getAnalyticsEventsFromTransaction } from '@atlaskit/editor-common/analytics/utils';
 import { isPerformanceAPIAvailable } from '@atlaskit/editor-common/is-performance-api-available';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsPlugin, AnalyticsPluginOptions } from './analyticsPluginType';

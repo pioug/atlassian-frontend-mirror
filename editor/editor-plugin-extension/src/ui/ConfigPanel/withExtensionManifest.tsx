@@ -3,9 +3,9 @@ import React from 'react';
 import type {
 	ExtensionKey,
 	ExtensionManifest,
-	ExtensionProvider,
 	ExtensionType,
-} from '@atlaskit/editor-common/extensions';
+} from '@atlaskit/editor-common/extensions/extension-manifest';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 
 import { useStateFromPromise } from './use-state-from-promise';
 

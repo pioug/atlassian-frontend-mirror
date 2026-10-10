@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 
-import { type FileState, globalMediaEventEmitter } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
+import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
 import { InactivityDetector } from '@atlaskit/media-ui/inactivityDetector';
 import { MediaPlayer } from '@atlaskit/media-ui/mediaPlayer';

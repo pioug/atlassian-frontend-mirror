@@ -1,5 +1,5 @@
-import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar';
-import type { ToolbarPluginOptions } from '@atlaskit/editor-plugin-toolbar';
+import type { ContextualFormattingEnabledOptions } from '@atlaskit/editor-common/toolbar/types';
+import type { ToolbarPluginOptions } from '@atlaskit/editor-plugin-toolbar/types';
 
 interface Props {
 	options: {

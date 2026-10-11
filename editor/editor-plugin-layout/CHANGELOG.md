@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-layout
 
+## 27.0.5
+
+### Patch Changes
+
+- [`1469d7073322c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1469d7073322c) -
+  Clean up feature gate `platform_editor_vanilla_node_views_patch_1`
+
 ## 27.0.4
 
 ### Patch Changes

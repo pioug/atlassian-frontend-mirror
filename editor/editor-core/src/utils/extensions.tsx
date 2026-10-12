@@ -185,6 +185,7 @@ export async function extensionProviderToQuickInsertProvider(
 						...(item.category ? { category: item.category } : {}),
 						categories: item.categories,
 						...(item.lozenge != null && { lozenge: item.lozenge }),
+						...(item.isHidden ? { isHidden: item.isHidden } : {}),
 						isDisabledOffline: true,
 						// This legacy action intentionally mirrors executeExtensionQuickInsertItem,
 						// which serves the registered representation of the same item.

@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-provider
 
+## 22.0.6
+
+### Patch Changes
+
+- [`ed9aabfa3a701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed9aabfa3a701) -
+  Fix synced-block reference rendering with fetch-only providers by skipping local same-document
+  detection when reference IDs cannot be generated.
+
+## 22.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.4
 
 ### Patch Changes

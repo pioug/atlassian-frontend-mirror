@@ -301,6 +301,10 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 		return { localId, resourceId };
 	}
 
+	canGenerateResourceIdForReference(): boolean {
+		return this.writeProvider !== undefined;
+	}
+
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
 		if (!this.writeProvider) {
 			throw new Error('Write provider not set');

@@ -13,14 +13,14 @@ import RendererWithAnnotationSelectionLegacy, {
 
 /**
  * @deprecated Use `ReactSerializerInit` from `@atlaskit/renderer/serializer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export type { ReactSerializerInit } from './react';
 
 /**
  * @deprecated Use `ReactSerializer` from `@atlaskit/renderer/serializer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export class ReactSerializer extends ReactSerializerLegacy {
@@ -38,14 +38,14 @@ export class ReactSerializer extends ReactSerializerLegacy {
 /**
  * @private
  * @deprecated Use `TextSerializer` from `@atlaskit/renderer/serializer/text` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export { default as TextSerializer } from './text';
 
 /**
  * @deprecated Use `Renderer` from `@atlaskit/renderer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export const ReactRenderer: typeof RendererWithAnnotationSelectionLegacy = withLazyNodes(
@@ -54,7 +54,7 @@ export const ReactRenderer: typeof RendererWithAnnotationSelectionLegacy = withL
 
 /**
  * @deprecated Use `Renderer` from `@atlaskit/renderer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export const RendererWithAnalytics: (
@@ -63,7 +63,7 @@ export const RendererWithAnalytics: (
 
 /**
  * @deprecated Use `nodes` from `@atlaskit/renderer/nodes/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export { nodeToReact as defaultNodeComponents } from './react/nodes';
@@ -74,7 +74,7 @@ export { ValidationContextProvider } from './ui/Renderer/ValidationContext';
 
 /**
  * @deprecated Use `Serializer` from `@atlaskit/renderer/serializer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export type { Serializer } from './serializer';

@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 36.7.12
+
+### Patch Changes
+
+- [`f28df45e6c910`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f28df45e6c910) -
+  Fix the reaction tooltip footer change so that it is fully contained behind the
+  `platform_reactions_tooltip_hide_empty_footer` feature gate. The overflow check was previously
+  evaluated before the existing guard on the reacting user list, so it ran on every render
+  regardless of the gate. With the gate off the rendered markup is now identical to the behaviour
+  prior to the gate being introduced.
+- Updated dependencies
+
 ## 36.7.11
 
 ### Patch Changes

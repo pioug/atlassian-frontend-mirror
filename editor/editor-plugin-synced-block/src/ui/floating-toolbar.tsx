@@ -128,6 +128,7 @@ export const getToolbarConfig = (
 						<SyncedLocationDropdownWithCount
 							key={`${resourceId}:${localId}:${isBodiedSyncBlock}`}
 							syncBlockStore={syncBlockStore}
+							doc={state.doc}
 							resourceId={resourceId}
 							localId={localId}
 							intl={intl}

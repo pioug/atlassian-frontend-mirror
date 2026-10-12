@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 149.0.6
+
+### Patch Changes
+
+- [`5f335f67f55d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f335f67f55d9) -
+  [ux] Separate existing extension comment viewing from creation in the renderer behind
+  `cc_maui_annotations_on_extensions`. Add an optional `canCreateCommentOnBlockNode` provider
+  predicate that controls whether a supported extension can be targeted for new comments, so
+  Confluence can keep existing chart threads accessible while `cc_maui_comments_on_charts_exp`
+  disables new-thread creation.
+
+  Avoid subscribing extension nodes to annotation contexts when `cc_maui_annotations_on_extensions`
+  is disabled, preventing annotation hover updates from rerendering unrelated extensions.
+
+- Updated dependencies
+
+## 149.0.5
+
+### Patch Changes
+
+- [`9a74dd09e9032`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a74dd09e9032) -
+  Gate removal of the default renderer node registry behind
+  platform_editor_remove_default_renderer_nodes.
+- [`44c4a6b4ef4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44c4a6b4ef4d3) -
+  Clean up experiment `platform_editor_hide_extension_renderer_support`
+- Updated dependencies
+
 ## 149.0.4
 
 ### Patch Changes
@@ -972,7 +999,7 @@
   Add `@atlaskit/renderer/default`, which includes the default synchronous node components, and
   `@atlaskit/renderer/nodes/default`, which exports those components as a node map. Editor is moving
   to synchronously load nodes in view mode and these entry points allow consumers to incrementally
-  migrate. The legacy renderer and node entry points will be removed in January 2027.
+  migrate. The legacy renderer and node entry points will be removed in December 2026.
 
   Before:
 

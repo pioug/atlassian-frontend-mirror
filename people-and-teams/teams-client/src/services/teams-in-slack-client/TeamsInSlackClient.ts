@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SLOIgnoreError } from '../../common/utils/error/SLOIgnoreError';
+import { type TeamSlackRequestOptions } from '../../types/slack';
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
 import { redirectCount } from '../rest-client/utils/redirect-count';
@@ -40,10 +41,11 @@ export class TeamsInSlackClient extends RestClient {
 	/**
 	 * Pre-flight auth probe for Staffy Global Edge calls (COMMIT-27483).
 	 * Fetches /api/authping with credentials:'include'. On failure (302→Okta),
-	 * navigates to /staffy/login?return_to=<current URL> for top-level Okta SSO.
+	 * navigates to /staffy/login?return_to=<current URL> for top-level Okta SSO,
+	 * or rejects without navigating when `skipAuthRedirect` is set.
 	 * No-op when the gate is OFF (Stargate path).
 	 */
-	private async ensureStaffyAuth(): Promise<void> {
+	private async ensureStaffyAuth(options?: TeamSlackRequestOptions): Promise<void> {
 		if (!fg('ptc-onboard-teams-slack-app-to-global-edge-url')) {
 			return;
 		}
@@ -62,6 +64,10 @@ export class TeamsInSlackClient extends RestClient {
 			return;
 		}
 
+		if (options?.skipAuthRedirect) {
+			throw new SLOIgnoreError({ message: 'Staffy session missing, skipping login redirect' });
+		}
+
 		if (staffyAuthAttempted) {
 			// Already redirected once — let the call proceed and surface the error.
 			return;
@@ -74,15 +80,22 @@ export class TeamsInSlackClient extends RestClient {
 		throw new SLOIgnoreError({ message: 'Redirecting to Staffy login' });
 	}
 
-	async getTeamInSlack(teamId: string, teamName: string): Promise<TeamInSlackResult> {
-		await this.ensureStaffyAuth();
+	async getTeamInSlack(
+		teamId: string,
+		teamName: string,
+		options?: TeamSlackRequestOptions,
+	): Promise<TeamInSlackResult> {
+		await this.ensureStaffyAuth(options);
 		return this.getResource<TeamInSlackResponse>(
 			`/${teamId}?teamName=${encodeURIComponent(teamName)}`,
 		).then((response) => ({ id: teamId, ...response }));
 	}
 
-	async disconnectTeamInSlack(teamId: string): Promise<TeamInSlackResult> {
-		await this.ensureStaffyAuth();
+	async disconnectTeamInSlack(
+		teamId: string,
+		options?: TeamSlackRequestOptions,
+	): Promise<TeamInSlackResult> {
+		await this.ensureStaffyAuth(options);
 		return this.deleteResource<TeamInSlackResponse>(`/${teamId}`).then((response) => ({
 			id: teamId,
 			...response,
@@ -93,8 +106,9 @@ export class TeamsInSlackClient extends RestClient {
 		teamId: string,
 		channelId: string,
 		usergroupHandle: string,
+		options?: TeamSlackRequestOptions,
 	): Promise<TeamInSlackResult> {
-		await this.ensureStaffyAuth();
+		await this.ensureStaffyAuth(options);
 		return this.postResource<TeamInSlackResponse>(
 			`/${teamId}?channel=${channelId}&groupName=${usergroupHandle}`,
 		).then((response) => ({ id: teamId, ...response }));

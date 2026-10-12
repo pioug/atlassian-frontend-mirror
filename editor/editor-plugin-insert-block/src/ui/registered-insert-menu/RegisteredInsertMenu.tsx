@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
+import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/type-ahead/item-rank';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
@@ -48,6 +49,7 @@ type Props = {
 	components: RegisterComponent[];
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
+	getItemRank?: RegisteredItemRankResolver;
 	isOffline: boolean;
 	maxHeight?: number;
 	onClose: () => void;
@@ -57,6 +59,7 @@ type Props = {
 export const RegisteredInsertMenu = ({
 	components,
 	emptyStateHandler,
+	getItemRank,
 	editorView,
 	isOffline,
 	maxHeight = DEFAULT_MENU_MAX_HEIGHT,
@@ -91,6 +94,7 @@ export const RegisteredInsertMenu = ({
 						MENU,
 						hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
 						surfaceContext,
+						getItemRank,
 					)
 				: getMatchingQuickInsertComponents({
 						components,
@@ -98,8 +102,9 @@ export const RegisteredInsertMenu = ({
 						query,
 						rootComponent: MENU,
 						surfaceContext,
+						getItemRank,
 					}),
-		[components, formatMessage, hasSectionOverflowItems, query, surfaceContext],
+		[components, formatMessage, getItemRank, hasSectionOverflowItems, query, surfaceContext],
 	);
 	const selectableItems = useMemo(
 		() =>

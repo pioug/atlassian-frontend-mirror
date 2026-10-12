@@ -431,3 +431,70 @@ it('cancels a pending hover preview when a spotlight claims the page', async () 
 	await user.hover(screen.getByTestId('action'));
 	await screen.findByTestId('preview-content');
 });
+
+// Keep the real Popup and Popover in these tests: native top-layer auto popovers can disappear
+// on an outside click even when a consumer ignores onClose.
+describe.each([false, true])('explicit dismissal with top layer %s', (topLayer) => {
+	it.each(['See takeaways', 'Dismiss spotlight', 'Escape', 'inline action'] as const)(
+		'ignores outside clicks, then handles %s exactly once',
+		async (interaction) => {
+			passGate(gate);
+			(topLayer ? passGate : failGate)('platform-dst-top-layer');
+			mockExp(experiment, { isEnabled: true });
+			const storage = new StorageClient(`spotlight-outside-${topLayer}-${interaction}`);
+			const store = suppression.createSuppressionStore(storage);
+			jest.mocked(suppression.getSuppressionStore).mockReturnValue(store);
+			const outsideClick = jest.fn();
+			const outside = render(<button onClick={outsideClick}>Outside action</button>);
+			const view = renderAction('google-object-provider', 'CONFLUENCE', undefined, true);
+			try {
+				const spotlight = await screen.findByTestId('one-click-chat-spotlight-v2');
+				await waitFor(() =>
+					expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed']),
+				);
+				const history = store.read();
+				expect(history?.impressions).toHaveLength(1);
+				if (topLayer) {
+					expect(screen.getByRole('dialog')).toHaveAttribute('popover', 'manual');
+				}
+				const user = userEvent.setup();
+				await user.click(screen.getByRole('button', { name: 'Outside action' }));
+				await user.click(document.body);
+				expect(outsideClick).toHaveBeenCalledTimes(1);
+				expect(spotlight).toBeVisible();
+				expect(store.read()).toEqual(history);
+				expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed']);
+				expect(mockInvoke).not.toHaveBeenCalled();
+
+				if (interaction === 'Escape') {
+					await user.click(screen.getByText('Get key decisions and next steps from this link'));
+					screen.getByRole('button', { name: 'Dismiss spotlight' }).focus();
+					await user.keyboard('{Escape}');
+				} else {
+					await user.click(
+						interaction === 'inline action'
+							? screen.getByTestId('action')
+							: screen.getByRole('button', { name: interaction }),
+					);
+				}
+				await waitFor(() =>
+					expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument(),
+				);
+				const isDismiss = interaction === 'Dismiss spotlight' || interaction === 'Escape';
+				expect(spotlightEvents().map((event) => event.action)).toEqual([
+					'viewed',
+					isDismiss ? 'dismissed' : 'clicked',
+				]);
+				expect(mockInvoke).toHaveBeenCalledTimes(isDismiss ? 0 : 1);
+				expect(store.read()?.impressions).toEqual(history?.impressions);
+				if (isDismiss) expect(store.read()?.dismissedAt).toEqual(expect.any(Number));
+				else expect(store.read()?.dismissedAt).toBeUndefined();
+				expect(mockNavigate).not.toHaveBeenCalled();
+			} finally {
+				view.unmount();
+				outside.unmount();
+				storage.removeItem('history');
+			}
+		},
+	);
+});

@@ -107,9 +107,7 @@ const pickerContainerStylesTeam26 = css({
 	},
 });
 
-// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`: merge
-// `paddingBottom: 0` into `pickerContainerStyles`/`pickerContainerStylesTeam26`. The
-// scrollable suggestions area already supplies its own trailing padding once actually
+// The scrollable suggestions area already supplies its own trailing padding once actually
 // scrolled to the end, so the outer wrapper's own bottom padding is only ever extra
 // whitespace below the (fixed-height) scroll box, most visible right under the half-cut
 // row when unscrolled.
@@ -117,22 +115,16 @@ const pickerContainerNoBottomPaddingStyles = css({
 	paddingBottom: 0,
 });
 
-// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`: merge into
-// `suggestedStatusesContainerStyles`. Matches the list's own top padding (`space.100`) so the
-// gap above the first suggestion and the gap below the last (once scrolled to the true end)
-// are the same size.
-const suggestedStatusesContainerAlignedBottomPaddingStyles = css({
-	paddingBottom: token('space.100', '8px'),
-});
-
 const suggestedStatusesContainerStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	gap: token('space.050', '4px'),
 	margin: 0,
+	// Bottom padding matches the list's own top padding (`space.100`) so the gap above the first
+	// suggestion and the gap below the last (once scrolled to the true end) are the same size.
 	padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token(
-		'space.050',
-		'4px',
+		'space.100',
+		'8px',
 	)}`,
 	paddingLeft: token('space.100', '8px'),
 });
@@ -140,8 +132,6 @@ const suggestedStatusesContainerStyles = css({
 // Fixed input plus capped scrolling color controls and suggestions. The ten-color picker is
 // taller because it carries a second swatch row.
 const STATUS_PICKER_FIT_HEIGHT = 236;
-// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`.
-const STATUS_PICKER_FIT_HEIGHT_OLD = 288;
 const STATUS_PICKER_TEN_COLOR_FIT_HEIGHT = 268;
 // ColorPalette: swatches per row * 32px slot + 16px inline margin.
 const STATUS_PICKER_CONTENT_WIDTH = 208; // 6 * 32 + 16
@@ -415,15 +405,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 			isExperimentEnabled('platform_editor_update_status_colors_jira');
 		const suggestedStatusList =
 			suggestedStatuses?.length && isSuggestionsEnabled ? (
-				<div
-					css={[
-						suggestedStatusesContainerStyles,
-						isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3')
-							? suggestedStatusesContainerAlignedBottomPaddingStyles
-							: undefined,
-					]}
-					data-suggested-status-list
-				>
+				<div css={suggestedStatusesContainerStyles} data-suggested-status-list>
 					{suggestedStatuses.map((suggestedStatus, index) => (
 						<div
 							css={suggestedStatusButtonWrapperStyles}
@@ -473,9 +455,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 						isSuggestionsEnabled && !isUpdateStatusColorsEnabled
 							? statusPickerWidthStylesOld
 							: undefined,
-						isSuggestionsEnabled &&
-						!!suggestedStatusList &&
-						(isUpdateStatusColorsEnabled || fg('platform_editor_status_popup_suggestions_patch_3'))
+						isSuggestionsEnabled && !!suggestedStatusList
 							? pickerContainerNoBottomPaddingStyles
 							: undefined,
 					]}
@@ -501,9 +481,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 			isExperimentEnabled('platform_editor_update_status_colors') ||
 			isExperimentEnabled('platform_editor_update_status_colors_jira')
 				? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
-				: fg('platform_editor_status_popup_suggestions_patch_3')
-					? STATUS_PICKER_FIT_HEIGHT
-					: STATUS_PICKER_FIT_HEIGHT_OLD;
+				: STATUS_PICKER_FIT_HEIGHT;
 
 		return (
 			target && (

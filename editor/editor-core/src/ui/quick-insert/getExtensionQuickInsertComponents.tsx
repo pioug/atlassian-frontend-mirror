@@ -161,6 +161,7 @@ export const getExtensionQuickInsertComponents = ({
 		return {
 			type: 'menu-item',
 			key: item.key,
+			isHidden: item.isHidden,
 			parents: parents.map((parent) => ({
 				key: parent.key,
 				type: parent.type,

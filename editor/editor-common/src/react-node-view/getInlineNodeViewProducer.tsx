@@ -3,7 +3,6 @@ import React from 'react';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -489,10 +488,6 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
 
 		if (!isNodeTypeAllowedToBeVirtualized || isSSR()) {
 			return createNodeView(parameters);
-		}
-
-		if (fg('platform_editor_inline_node_virt_threshold_override')) {
-			return createNodeViewVirtualized(parameters);
 		}
 
 		let inlineNodeViewsVirtualizationCounter = counterPerEditorViewMap.get(view) || 0;

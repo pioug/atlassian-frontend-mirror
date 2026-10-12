@@ -22,6 +22,7 @@ import type { FloatingToolbarCustomRenderContext } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
 import { DropdownContainer } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getPageIdAndTypeFromConfluencePageAri } from '@atlaskit/editor-synced-block-provider/clients/confluence/ari';
 import type {
 	ReferencesSourceInfo,
@@ -60,6 +61,7 @@ import { SyncedLocationsEmptyStateIllustration } from './assets/SyncedLocationsE
 
 interface Props {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
+	doc?: PMNode;
 	floatingToolbarRenderContext?: FloatingToolbarCustomRenderContext;
 	intl: IntlShape;
 	isSource: boolean;
@@ -733,6 +735,7 @@ const EditorPositionedSyncedLocationDropdown = ({
 
 export const SyncedLocationDropdownWithCount = ({
 	syncBlockStore,
+	doc,
 	resourceId,
 	intl,
 	isSource,
@@ -747,6 +750,7 @@ export const SyncedLocationDropdownWithCount = ({
 		localId,
 		resourceId,
 		syncBlockStore,
+		doc,
 	});
 	const referenceCount = useMemo(() => {
 		switch (locations.kind) {
@@ -874,14 +878,17 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 
 const useReferenceData = ({
 	syncBlockStore,
+	doc,
 	resourceId,
 	intl,
 	isSource,
 	localId,
 }: Pick<
 	Props,
-	'syncBlockStore' | 'resourceId' | 'intl' | 'isSource' | 'localId'
+	'syncBlockStore' | 'resourceId' | 'intl' | 'isSource' | 'localId' | 'doc'
 >): ReferenceDataState => {
+	// Refresh locations when the toolbar opens, rather than on every document edit.
+	const [docAtMount] = useState(doc);
 	const [isNewSourceBlock] = useState(
 		() => isSource && syncBlockStore.sourceManager.isNewSourceBlock(resourceId),
 	);
@@ -905,6 +912,7 @@ const useReferenceData = ({
 				resourceId,
 				localId,
 				isSource,
+				docAtMount,
 			);
 
 			if (!isCurrentRequest) {
@@ -929,7 +937,7 @@ const useReferenceData = ({
 		return () => {
 			isCurrentRequest = false;
 		};
-	}, [syncBlockStore, resourceId, intl, isSource, localId, isNewSourceBlock]);
+	}, [syncBlockStore, resourceId, intl, isSource, localId, isNewSourceBlock, docAtMount]);
 
 	return {
 		fetchStatus: state.fetchStatus,

@@ -2,6 +2,7 @@ import type Fuse from 'fuse.js';
 import type { IntlShape } from 'react-intl';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
+import type { RegisteredItemRankResolver } from '../type-ahead/item-rank';
 import type { EmptyStateHandler } from './empty-state-handler';
 
 export type QuickInsertOptions =
@@ -65,6 +66,7 @@ export interface QuickInsertPluginOptions {
 	elementBrowserHelpUrl?: string;
 	emptyStateHandler?: EmptyStateHandler;
 	enableElementBrowser?: boolean;
+	getItemRank?: RegisteredItemRankResolver;
 	headless?: boolean;
 	/**
 	 * EDITOR-6558: Optional predicate for filtering quick-insert items

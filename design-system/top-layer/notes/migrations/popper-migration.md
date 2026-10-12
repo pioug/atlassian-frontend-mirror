@@ -1159,7 +1159,7 @@ When `platform-dst-top-layer` is permanently on:
 ### Phase 3 — Remove popper from internal consumers
 
 - Drop `@atlaskit/popper` from each DS package's `package.json` once its legacy branch is gone.
-- Run `afm install --mode update-lockfile` to refresh the lockfile.
+- Run `afm install --lockfile-only` to refresh the lockfile.
 - Confirm no internal consumers remain via:
 
   ```bash

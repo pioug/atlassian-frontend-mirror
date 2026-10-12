@@ -109,6 +109,32 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 				expect(component?.match?.({ formatMessage, query })).not.toBeNull();
 			},
 		);
+
+		it('forwards module visibility to both extension representations', async () => {
+			mockExpEnabled('platform_editor_slash_command');
+			const isHidden = jest.fn(() => true);
+			const extensionProvider = new DefaultExtensionProvider([
+				replaceCustomQuickInsertModules(
+					createFakeExtensionManifest({
+						title: 'Hidden item',
+						type: 'com.atlassian.test',
+						extensionKey: 'hidden-extension',
+					}),
+					{ action: jest.fn(), isHidden, key: 'hidden-item', title: 'Hidden item' },
+				),
+			]);
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				extensionProvider,
+				{} as EditorActions,
+				{ current: undefined },
+			);
+
+			const [item] = await quickInsertProvider.getItems();
+			const [component] = (await quickInsertProvider.getComponents?.()) ?? [];
+
+			expect(item?.isHidden).toBe(isHidden);
+			expect(component?.isHidden?.()).toBe(true);
+		});
 	});
 
 	it('forwards app identity', async () => {

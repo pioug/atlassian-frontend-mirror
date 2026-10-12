@@ -16,12 +16,11 @@ import {
 	calculateToolbarPositionOnCellSelection,
 	calculateToolbarPositionTrackHead,
 } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
-import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { toggleToolbar, updateToolbarDocking } from './pm-plugins/commands';
+import { getSelectionNodeTypes } from './pm-plugins/get-selection-node-types';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
@@ -427,16 +426,6 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				: undefined,
 	};
 };
-
-function getSelectionNodeTypes(state: EditorState) {
-	const selectionNodeTypes: NodeType[] = [];
-	state.doc.nodesBetween(state.selection.from, state.selection.to, (node) => {
-		if (selectionNodeTypes.indexOf(node.type) !== 0) {
-			selectionNodeTypes.push(node.type);
-		}
-	});
-	return selectionNodeTypes;
-}
 
 const hasNestedSpanWithText = (element: Element, text: string): boolean => {
 	if (element.tagName === 'SPAN' && element.innerHTML === text) {

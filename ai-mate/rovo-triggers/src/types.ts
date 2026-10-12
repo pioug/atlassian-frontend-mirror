@@ -315,6 +315,10 @@ export type SlidesContextPayloadData =
 			url: string;
 			selectedSlideIndex: number;
 			selectedElementIds: string[];
+			selectedTargets?: {
+				targetId: string;
+				owningElementId: string;
+			}[];
 			isViewMode?: boolean;
 	  }
 	| undefined;

@@ -69,6 +69,7 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
 	description?: string;
 	featured?: boolean;
 	icon?: () => ExtensionIconModule;
+	isHidden?: () => boolean;
 	key: string;
 	keywords?: string[];
 	lozenge?: ReactNode;

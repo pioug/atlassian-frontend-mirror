@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 27.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.4
 
 ### Patch Changes

@@ -55,13 +55,8 @@ export function expValEqualsInternal<ExperimentName extends keyof EditorExperime
 		{ fireExperimentExposure: experimentExposure },
 	);
 
-	if (
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue('cc_editor_experiments_ufo_gate_reporting', 'isEnabled', false)
-	) {
-		// Duplicated from /confluence/next/packages/feature-experiments/src/index.ts
-		addFeatureFlagAccessed(`${experimentKeyName}:${experimentParam}`, experimentValue as never);
-	}
+	// Duplicated from /confluence/next/packages/feature-experiments/src/index.ts
+	addFeatureFlagAccessed(`${experimentKeyName}:${experimentParam}`, experimentValue as never);
 
 	return experimentValue === experimentExpectedValue;
 }

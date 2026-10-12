@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 44.0.6
+
+### Patch Changes
+
+- [`a6e997a7a24f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6e997a7a24f7) -
+  Clean up experiment `platform_editor_fix_focus_mediainsertpicker`
+
+## 44.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.0.4
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 14.1.1
+
+### Patch Changes
+
+- [`56bcceceab19b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56bcceceab19b) -
+  Fix UserPicker error boundary recovery for React 19.
+
 ## 14.1.0
 
 ### Minor Changes

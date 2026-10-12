@@ -201,6 +201,10 @@ export class ReferenceSyncBlockStoreManager {
 		return this._subscriptionManager.getSubscribedResourceIds();
 	}
 
+	public getSubscribedLocalIds(resourceId: ResourceId): BlockInstanceId[] {
+		return Object.keys(this._subscriptionManager.getSubscriptions().get(resourceId) ?? {});
+	}
+
 	/**
 	 * Registers a listener that will be called when subscriptions change.
 	 * @param listener - Callback function to invoke when subscriptions change
@@ -277,6 +281,8 @@ export class ReferenceSyncBlockStoreManager {
 		if (
 			!parsed ||
 			!this.dataProvider ||
+			(isExperimentEnabled('platform_editor_blocks_patch_12') &&
+				this.dataProvider.canGenerateResourceIdForReference?.() === false) ||
 			this.dataProvider.generateResourceIdForReference(parsed.uuid) !== resourceId
 		) {
 			return undefined;

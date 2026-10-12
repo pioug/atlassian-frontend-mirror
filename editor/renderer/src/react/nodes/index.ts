@@ -15,6 +15,7 @@ import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
 import type { Diff } from '@atlaskit/editor-common/utils/types';
 import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaSSR } from '../../types/mediaOptions';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
@@ -395,9 +396,9 @@ export const toReact = (
 		return DocWithSelectAllTrap;
 	}
 
-	// Allowing custom components to override those provided in nodeToReact
+	// Custom components provide the node implementations used by the renderer.
 	const nodes = {
-		...nodeToReact,
+		...(isExperimentEnabled('platform_editor_remove_default_renderer_nodes') ? {} : nodeToReact),
 		...nodeComponents,
 	};
 

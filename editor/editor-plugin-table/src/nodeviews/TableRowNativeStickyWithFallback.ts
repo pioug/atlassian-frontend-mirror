@@ -302,7 +302,9 @@ export default class TableRowNativeStickyWithFallback
 			this.overflowObserverEntries = undefined;
 			this.stickyStateObserver && this.stickyStateObserver.disconnect();
 			this.nodeVisibilityObserver?.disconnect();
-			this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
+			if (!isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+				this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
+			}
 
 			const tree = getTree(this.dom);
 			if (tree) {
@@ -310,6 +312,13 @@ export default class TableRowNativeStickyWithFallback
 			}
 
 			this.emitOff(true);
+		}
+
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			this.nodeVisibilityObserverCleanupFn?.();
+			this.nodeVisibilityObserverCleanupFn = undefined;
+			this.onEditorContentAreaHeightChange?.();
+			this.onEditorContentAreaHeightChange = undefined;
 		}
 
 		if (isExperimentEnabled('platform_editor_dynamic_limited_mode')) {
@@ -372,6 +381,12 @@ export default class TableRowNativeStickyWithFallback
 		}
 	}, HEADER_ROW_SCROLL_THROTTLE_TIMEOUT);
 
+	private onWidthPluginEvent = () => this.updateStickyHeaderWidth();
+
+	private onTablePluginEvent = (state: TablePluginState) => this.onTablePluginState(state);
+
+	private onScrollEnd = () => this.refireIntersectionObservers();
+
 	private subscribe() {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -426,22 +441,32 @@ export default class TableRowNativeStickyWithFallback
 			});
 		}
 
-		this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth.bind(this));
-
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginState.bind(this));
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			this.eventDispatcher.on('widthPlugin', this.onWidthPluginEvent);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginEvent);
+		} else {
+			this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth.bind(this));
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginState.bind(this));
+		}
 
 		this.listening = true;
 
+		const scrollHandler = isExperimentEnabled('platform_editor_reduce_memory_leaks')
+			? this.headerRowMouseScroll
+			: this.headerRowMouseScroll.bind(this);
+
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-		this.dom.addEventListener('wheel', this.headerRowMouseScroll.bind(this), {
+		this.dom.addEventListener('wheel', scrollHandler, {
 			passive: true,
 		});
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-		this.dom.addEventListener('touchmove', this.headerRowMouseScroll.bind(this), { passive: true });
+		this.dom.addEventListener('touchmove', scrollHandler, { passive: true });
 	}
 
 	private unsubscribe() {
@@ -469,10 +494,19 @@ export default class TableRowNativeStickyWithFallback
 			this.scrollListener = undefined;
 		}
 
-		this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginState);
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			this.eventDispatcher.off('widthPlugin', this.onWidthPluginEvent);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginEvent);
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			this.editorScrollableElement?.removeEventListener('scrollend', this.onScrollEnd);
+		} else {
+			this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginState);
+		}
 
 		this.listening = false;
 
@@ -1107,7 +1141,9 @@ export default class TableRowNativeStickyWithFallback
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.editorScrollableElement?.addEventListener(
 				'scrollend',
-				this.refireIntersectionObservers,
+				isExperimentEnabled('platform_editor_reduce_memory_leaks')
+					? this.onScrollEnd
+					: this.refireIntersectionObservers,
 				{ passive: true, once: true },
 			);
 

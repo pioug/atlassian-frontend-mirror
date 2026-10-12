@@ -46,6 +46,16 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	contentUnavailableDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	contentUnavailableHeading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	copySyncBlockLabel: {
 		defaultMessage: string;
 		description: string;
@@ -634,6 +644,17 @@ export const syncBlockMessages: {
 		defaultMessage: "You don't have access to view the source content of this synced block.",
 		description:
 			'Description for error state where the user does not have permission to view the synced block',
+	},
+	contentUnavailableHeading: {
+		id: 'editor-common.messages.syncBlock.contentUnavailableHeading',
+		defaultMessage: 'This synced content is unavailable.',
+		description: 'Heading shown when synced content is unavailable due to deletion or permissions',
+	},
+	contentUnavailableDescription: {
+		id: 'editor-common.messages.syncBlock.contentUnavailableDescription',
+		defaultMessage: 'The source might be deleted, or you may not have permission to view it.',
+		description:
+			'Explains that synced source content may be deleted or inaccessible to the current user',
 	},
 	permissionDeniedAltText: {
 		id: 'fabric.editor.syncedBlockPermissionDeniedIconAltText',

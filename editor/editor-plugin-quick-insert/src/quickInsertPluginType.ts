@@ -1,6 +1,7 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
+import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/type-ahead/item-rank';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
@@ -23,6 +24,7 @@ import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/ty
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 
 export type QuickInsertSharedState = CommonQuickInsertSharedState & {
+	getItemRank?: RegisteredItemRankResolver;
 	typeAheadHandler: TypeAheadHandler;
 };
 
@@ -34,6 +36,8 @@ export type QuickInsertPluginOptions = CommonQuickInsertPluginOptions & {
 	 * and is only available when `platform_editor_block_control_migration` experiment is enabled.
 	 */
 	blockControlButtonEnabled?: boolean;
+	/** Resolves per-editor category and item ranks for registered Quick Insert menus. */
+	getItemRank?: RegisteredItemRankResolver;
 	/**
 	 * Selects and ranks the items shown in the Recommended section of the `/` menu.
 	 * Items that are not registered or are hidden are skipped, so lower-ranked items act as fallbacks.

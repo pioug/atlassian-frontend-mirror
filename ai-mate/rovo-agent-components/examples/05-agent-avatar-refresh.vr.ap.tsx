@@ -33,10 +33,12 @@ const AVATARS = [
 
 const OOTB_AVATARS = [
 	{ name: 'Jira Coding Agent', agentNamedId: 'jira_coding_agent' },
+	{ name: 'Jira Delivery Agent', agentNamedId: 'jira_delivery_agent' },
 	{ name: 'Jira Triage Agent', agentNamedId: 'jira_intelligent_triage_agent' },
 	{ name: 'Jira Admin Agent', agentNamedId: 'jira_admin_agent' },
 	{ name: 'Request Resolver', agentNamedId: 'jsm_rovo_service_agent' },
 	{ name: 'Ops Expert', agentNamedId: 'ops_guide_agent' },
+	{ name: 'Content Reviewer', agentNamedId: 'content_reviewer_agent' },
 ];
 
 const styles = cssMap({ name: { width: '220px' }, avatar: { width: '64px', height: '64px' } });

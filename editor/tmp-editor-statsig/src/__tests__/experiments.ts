@@ -96,8 +96,7 @@ describe('editor experiments', () => {
 			expect(editorExperiment('test-multivariate', 'default value')).toBe(true);
 			// @ts-ignore
 			expect(editorExperiment('test-multivariate', 'not default value')).toBe(false);
-			// Temporarily has 8 calls while there is an experiment check inside the experiment api
-			expect(mockGetExperimentValue).toHaveBeenCalledTimes(8);
+			expect(mockGetExperimentValue).toHaveBeenCalledTimes(4);
 		});
 		test("calling where the experiments don't have the product key set", () => {
 			setupEditorExperiments('jira');

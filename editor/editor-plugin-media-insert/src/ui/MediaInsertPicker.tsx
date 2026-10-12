@@ -23,7 +23,6 @@ import { PlainOutsideClickTargetRefContext } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import withOuterListeners from '@atlaskit/editor-common/with-outer-listeners';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box, Focusable, Text } from '@atlaskit/primitives/compiled';
 import TabList from '@atlaskit/tabs/tab-list';
 import Tabs from '@atlaskit/tabs/tabs';
@@ -233,6 +232,10 @@ export const MediaInsertPicker = ({
 		returnFocusRef.current = focusButton;
 		closeMediaInsertPicker();
 	}, [closeMediaInsertPicker, focusButton]);
+	// Return focus on unmount to whichever element `returnFocusRef` currently points at.
+	const returnFocusOnUnmount = React.useCallback(() => {
+		returnFocusRef.current();
+	}, []);
 
 	const intl = useIntl();
 	const { autofocusRef, onPositionCalculated } = useUnholyAutofocus();
@@ -390,21 +393,8 @@ export const MediaInsertPicker = ({
 				};
 				dispatchAnalyticsEvent(payload);
 			}
-			if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
-				closeAndReturnFocusToButton();
-			} else {
-				closeMediaInsertPicker(); // Focuses editor on unmount
-				focusEditor();
-			}
+			closeAndReturnFocusToButton();
 		};
-	const closePickerAndFocusEditor = () => {
-		if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
-			closeAndFocusEditor();
-		} else {
-			closeMediaInsertPicker();
-			focusEditor();
-		}
-	};
 
 	const fileTabTitle = expValEqualsNoExposure(
 		'cc_page_experiences_editor_image_generation',
@@ -424,11 +414,7 @@ export const MediaInsertPicker = ({
 			fitHeight={390}
 			fitWidth={340}
 			mountTo={mountPoint}
-			onUnmount={
-				isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')
-					? () => returnFocusRef.current()
-					: undefined
-			}
+			onUnmount={returnFocusOnUnmount}
 			boundariesElement={popupsBoundariesElement}
 			handleClickOutside={handleClose(INPUT_METHOD.MOUSE)}
 			handleEscapeKeydown={handleClose(INPUT_METHOD.KEYBOARD)}
@@ -469,7 +455,7 @@ export const MediaInsertPicker = ({
 									return (
 										<CustomTabPanel key={tab.key} disablePaddingBlockEnd>
 											<TabComponent
-												closeMediaInsertPicker={closePickerAndFocusEditor}
+												closeMediaInsertPicker={closeAndFocusEditor}
 												dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 												insertMediaSingle={insertMediaSingle}
 												mediaProvider={mediaProvider}
@@ -484,7 +470,7 @@ export const MediaInsertPicker = ({
 											<LocalMedia
 												ref={autofocusRef}
 												mediaProvider={mediaProvider}
-												closeMediaInsertPicker={closePickerAndFocusEditor}
+												closeMediaInsertPicker={closeAndFocusEditor}
 												dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 												insertFile={insertFile}
 											/>
@@ -497,7 +483,7 @@ export const MediaInsertPicker = ({
 										<MediaFromURL
 											mediaProvider={mediaProvider}
 											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-											closeMediaInsertPicker={closePickerAndFocusEditor}
+											closeMediaInsertPicker={closeAndFocusEditor}
 											cancelMediaInsertPicker={closeAndReturnFocusToButton}
 											insertMediaSingle={insertMediaSingle}
 											insertExternalMediaSingle={insertExternalMediaSingle}

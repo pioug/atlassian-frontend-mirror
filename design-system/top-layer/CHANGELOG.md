@@ -1,5 +1,14 @@
 # @atlaskit/top-layer
 
+## 6.2.5
+
+### Patch Changes
+
+- [`b82a5dc33d636`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b82a5dc33d636) -
+  The testing polyfill now fires a cancelable cancel event when Escape targets a dialog. Unless
+  keydown or cancel is prevented, the dialog closes and emits its existing closing beforetoggle,
+  toggle and close events. Escape respects closedby and dialog/popover opening order.
+
 ## 6.2.4
 
 ### Patch Changes

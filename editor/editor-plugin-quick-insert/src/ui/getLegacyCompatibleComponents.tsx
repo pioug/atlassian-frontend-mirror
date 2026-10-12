@@ -15,6 +15,7 @@ import { getSnippetPreviewImageUrls } from '@atlaskit/editor-common/quick-insert
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type {
 	CommonComponentProps,
+	IsHiddenOptions,
 	RegisterMenuItem,
 } from '@atlaskit/editor-ui-control-model/types';
 import AppsIcon from '@atlaskit/icon/core/apps';
@@ -102,6 +103,7 @@ const getComponentsFromLegacyItems = (
 				legacyCategories: item.categories,
 				rank: item.priority ?? index,
 			}),
+			isHidden: item.isHidden,
 			component: () => <LegacyQuickInsertProviderMenuItem item={item} onInsert={onInsert} />,
 			match: createQuickInsertMatcher(() => ({
 				description: item.description,
@@ -135,6 +137,10 @@ export const getLegacyCompatibleComponents = ({
 			);
 			return {
 				...component,
+				isHidden: item?.isHidden
+					? (options?: IsHiddenOptions) =>
+							component.isHidden?.(options) === true || item.isHidden?.() === true
+					: component.isHidden,
 				key: getQuickInsertProviderMenuItemKey(component.key, item?.app),
 				component: item
 					? (props: CommonComponentProps) =>

@@ -5,3 +5,7 @@ export interface TeamInSlack {
 	slackChannelName: string;
 	usergroupHandle: string;
 }
+
+export interface TeamSlackRequestOptions {
+	skipAuthRedirect?: boolean;
+}

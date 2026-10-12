@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 46.6.3
+
+### Patch Changes
+
+- [`a611c962045d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a611c962045d6) -
+  Keep the One Click Chat V2 spotlight open on outside clicks behind
+  platform_sl_one_click_chat_spotlight_v2_fg, using the existing manual top-layer popover when
+  enabled. Retain explicit CTA, close-button, and Escape interactions.
+- Updated dependencies
+
 ## 46.6.2
 
 ### Patch Changes

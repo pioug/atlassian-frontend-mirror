@@ -1,3 +1,5 @@
+// Node supports findLast, but the package defaults to older array type declarations.
+/// <reference lib="es2023.array" />
 /* eslint-disable compat/compat */
 /**
  * Popover API & HTMLDialogElement polyfills for jsdom.
@@ -445,35 +447,117 @@ function handleDocumentPointerup(event: PointerEvent) {
 	hidePopoversInStackNotInChainTo({ stack: openAutoStack, target });
 }
 
-// Topmost still-connected popover in `stack`, pruning disconnected entries
-// (test pollution where a popover was removed from the DOM without hidePopover).
-// Polyfill-only defensive cleanup; not in the spec.
-function topmostConnected({ stack }: { stack: HTMLElement[] }): HTMLElement | null {
-	while (stack.length > 0) {
-		const candidate = stack[stack.length - 1];
-		if (candidate.isConnected) {
-			return candidate;
-		}
-		stack.pop();
+/**
+ * Represents one dialog or popover opening so queued Escape requests cannot close a later opening.
+ */
+type TEscapeLayer =
+	| { type: 'popover'; element: HTMLElement }
+	| { type: 'dialog'; element: HTMLDialogElement & { _isModal?: boolean } };
+/**
+ * Tracks dialog and popover Escape targets in opening order.
+ */
+const escapeLayers: TEscapeLayer[] = [];
+
+/**
+ * Removes an opening from Escape tracking so it cannot receive a later dismissal request.
+ */
+function unregisterEscapeLayer({ element }: { element: HTMLElement }) {
+	const index = escapeLayers.findIndex((layer) => layer.element === element);
+	if (index !== -1) {
+		escapeLayers.splice(index, 1);
 	}
-	return null;
 }
 
-// Escape closes the topmost open popover. Hints are dismissed before autos.
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#close-watcher
+/**
+ * Records a new opening, replacing any stale registration for the same element.
+ */
+function registerEscapeLayer({ layer }: { layer: TEscapeLayer }) {
+	unregisterEscapeLayer({ element: layer.element });
+	escapeLayers.push(layer);
+}
+
+/**
+ * Checks whether a tracked element is still connected and open, including direct DOM changes.
+ */
+function isEscapeLayerOpen({ layer }: { layer: TEscapeLayer }): boolean {
+	return (
+		layer.element.isConnected &&
+		(layer.type === 'dialog' ? layer.element.open : isPopoverOpen({ element: layer.element }))
+	);
+}
+
+/**
+ * Removes registrations for closed or disconnected elements before choosing an Escape target.
+ */
+function pruneClosedEscapeLayers() {
+	escapeLayers
+		.filter((layer) => !isEscapeLayerOpen({ layer }))
+		.forEach((layer) => unregisterEscapeLayer({ element: layer.element }));
+}
+
+/**
+ * Checks whether a layer accepts Escape, using closedby and modality for dialogs.
+ * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#computed-closed-by-state
+ */
+function acceptsEscape({ layer }: { layer: TEscapeLayer }): boolean {
+	if (layer.type === 'popover') {
+		return true;
+	}
+	const closedBy = layer.element.getAttribute('closedby')?.toLowerCase();
+	if (closedBy === 'none') {
+		return false;
+	}
+	if (closedBy === 'any' || closedBy === 'closerequest') {
+		return true;
+	}
+	// Missing or invalid closedby enables Escape for modal dialogs only.
+	return Boolean(layer.element._isModal);
+}
+
+/**
+ * Dismisses the latest eligible Escape target, allowing application handlers to prevent dialog cancellation.
+ * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#set-up-the-dialog-close-watcher
+ */
 function handleDocumentKeydown(event: KeyboardEvent) {
-	if (event.key !== 'Escape') {
+	// A prevented key event must not invoke its default dismissal action.
+	if (event.key !== 'Escape' || event.defaultPrevented) {
 		return;
 	}
-	const topHint = topmostConnected({ stack: openHintStack });
-	if (topHint) {
-		topHint.hidePopover();
+
+	pruneClosedEscapeLayers();
+
+	// Capture this opening so handlers cannot redirect the same Escape to another layer.
+	const layer = escapeLayers.findLast((candidate) => acceptsEscape({ layer: candidate }));
+	if (!layer) {
 		return;
 	}
-	const topAuto = topmostConnected({ stack: openAutoStack });
-	if (topAuto) {
-		topAuto.hidePopover();
+
+	if (layer.type === 'popover') {
+		// Popover dismissal is synchronous.
+		layer.element.hidePopover();
+		return;
 	}
+
+	// Defer the dialog default action until application keydown listeners have run.
+	setTimeout(() => {
+		// Handlers may prevent Escape, change eligibility, or close and reopen the target.
+		if (
+			event.defaultPrevented ||
+			!escapeLayers.includes(layer) ||
+			!isEscapeLayerOpen({ layer }) ||
+			!acceptsEscape({ layer })
+		) {
+			return;
+		}
+		const allowed = layer.element.dispatchEvent(
+			new Event('cancel', { cancelable: true, bubbles: false }),
+		);
+		// The cancel handler can close or reopen the dialog; only close the original opening.
+		if (allowed && escapeLayers.includes(layer) && isEscapeLayerOpen({ layer })) {
+			// close() dispatches beforetoggle and queues toggle and close notifications.
+			layer.element.close();
+		}
+	}, 0);
 }
 
 if (typeof HTMLElement !== 'undefined') {
@@ -544,6 +628,7 @@ if (typeof HTMLElement !== 'undefined') {
 			const stack = stackForMode({ mode });
 			if (stack && !stack.includes(this)) {
 				stack.push(this);
+				registerEscapeLayer({ layer: { type: 'popover', element: this } });
 			}
 			clearOpacityOnOpenToggle({ element: this });
 			schedulePopoverToggle({ element: this, newState: 'open' });
@@ -573,6 +658,7 @@ if (typeof HTMLElement !== 'undefined') {
 				cancelable: false,
 			});
 			this.removeAttribute('data-popover-open');
+			unregisterEscapeLayer({ element: this });
 			const stack = stackForMode({ mode: getPopoverMode({ element: this }) });
 			if (stack) {
 				const stackIndex = stack.indexOf(this);
@@ -693,6 +779,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 
 			this.setAttribute('open', '');
 			this._isModal = true;
+			registerEscapeLayer({ layer: { type: 'dialog', element: this } });
 			scheduleDialogToggle({ dialog: this, newState: 'open', shouldFireCloseEvent: false });
 		};
 	}
@@ -714,6 +801,8 @@ if (typeof HTMLDialogElement !== 'undefined') {
 
 			this.setAttribute('open', '');
 			this._isModal = false;
+			// Non-modal dialogs can opt into Escape through closedby.
+			registerEscapeLayer({ layer: { type: 'dialog', element: this } });
 			scheduleDialogToggle({ dialog: this, newState: 'open', shouldFireCloseEvent: false });
 		};
 	}
@@ -738,6 +827,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 			});
 
 			this.removeAttribute('open');
+			unregisterEscapeLayer({ element: this });
 			this._isModal = false;
 			if (returnValue !== undefined) {
 				this.returnValue = returnValue;

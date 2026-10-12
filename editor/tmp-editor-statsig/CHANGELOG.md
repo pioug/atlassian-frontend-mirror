@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 232.0.0
+
+### Major Changes
+
+- [`44c4a6b4ef4d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44c4a6b4ef4d3) -
+  Clean up experiment `platform_editor_hide_extension_renderer_support`
+
+### Patch Changes
+
+- [`64584cfe21afc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64584cfe21afc) -
+  Clean up the shipped `cc_editor_experiments_ufo_gate_reporting` experiment. Editor experiment
+  values read through `editorExperiment` and `expValEquals` are now always reported to UFO via
+  `addFeatureFlagAccessed`, matching what `expVal` already did.
+
 ## 231.0.0
 
 ### Major Changes

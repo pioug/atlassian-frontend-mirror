@@ -60,6 +60,9 @@
 			"path": "../../design-system/codegen/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../ptc-test-utils/tsconfig.app.json"
 		}
 	]

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "130.3.2",
+	"version": "130.4.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -138,6 +138,7 @@
 		"./quick-insert/use-menu-list-height": "./src/quick-insert/use-menu-list-height.ts",
 		"./quick-insert/use-menu-popup-sizing": "./src/quick-insert/use-menu-popup-sizing.ts",
 		"./quick-insert/registered-menu-model": "./src/quick-insert/registered-menu-model.ts",
+		"./quick-insert/quick-insert-rank": "./src/quick-insert/quick-insert-rank.ts",
 		"./quick-insert/menu-root": "./src/quick-insert/QuickInsertMenuRoot.tsx",
 		"./quick-insert/menu-section": "./src/quick-insert/QuickInsertMenuSection.tsx",
 		"./react-node-view": "./src/react-node-view/index.tsx",
@@ -637,6 +638,7 @@
 		"./link/transformTimeStamp": "./src/link/LinkSearch/transformTimeStamp.ts",
 		"./utils/traversor": "./src/utils/traversor.ts",
 		"./ui-color/ColorPalette/type": "./src/ui-color/ColorPalette/Palettes/type.ts",
+		"./type-ahead/item-rank": "./src/type-ahead/item-rank.ts",
 		"./type-ahead/messages": "./src/type-ahead/messages.ts",
 		"./types/block-controls": "./src/types/block-controls.ts",
 		"./types/block-type": "./src/types/block-type.ts",

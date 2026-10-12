@@ -154,6 +154,7 @@ export const RegisteredTypeAheadMenu = ({
 							? selectQuickInsertCategoryItems
 							: undefined,
 						surfaceContext,
+						triggerHandler.getRegisteredItemRank,
 					)
 				: getMatchingQuickInsertComponents({
 						components,
@@ -161,6 +162,7 @@ export const RegisteredTypeAheadMenu = ({
 						query,
 						formatMessage,
 						surfaceContext,
+						getItemRank: triggerHandler.getRegisteredItemRank,
 					}),
 		[
 			components,
@@ -170,6 +172,7 @@ export const RegisteredTypeAheadMenu = ({
 			query,
 			surfaceContext,
 			surface.root,
+			triggerHandler.getRegisteredItemRank,
 		],
 	);
 	const rows = useMemo(() => getQuickInsertMenuRows(menuModel), [menuModel]);

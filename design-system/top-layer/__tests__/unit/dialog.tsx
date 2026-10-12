@@ -59,12 +59,6 @@ function CloseLayersButton() {
 	);
 }
 
-function fireDialogCancel(dialog: HTMLElement) {
-	const event = new Event('cancel', { cancelable: true });
-	fireEvent(dialog, event);
-	return event;
-}
-
 function waitForDialogCloseToggle({ dialog }: { dialog: HTMLElement }): Promise<void> {
 	return new Promise((resolve) => {
 		bind(dialog, {
@@ -185,6 +179,7 @@ describe('Dialog primitive', () => {
 	});
 
 	it('reports Escape after native dismissal when dismissedBy is "escape"', async () => {
+		const user = userEvent.setup();
 		const dialogRef = React.createRef<HTMLDialogElement>();
 		const onClose = jest.fn(() => expect(dialogRef.current?.open).toBe(false));
 
@@ -196,36 +191,9 @@ describe('Dialog primitive', () => {
 				label="Test dialog"
 				dismissedBy="escape"
 			>
-				<p>Content</p>
-			</Dialog>,
-		);
-
-		const dialogEl = screen.getByRole('dialog', { hidden: true }) as HTMLDialogElement;
-		expect(dialogEl).not.toHaveAttribute('closedby');
-
-		fireEvent.click(dialogEl);
-		expect(onClose).not.toHaveBeenCalled();
-
-		const cancelEvent = fireDialogCancel(dialogEl);
-		expect(cancelEvent.defaultPrevented).toBe(false);
-		expect(onClose).not.toHaveBeenCalled();
-
-		// jsdom does not perform the cancel event's native default action.
-		const closeToggle = waitForDialogCloseToggle({ dialog: dialogEl });
-		await act(async () => {
-			dialogEl.close();
-			await closeToggle;
-		});
-
-		expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
-	});
-
-	it('does not request close from user actions when dismissedBy is "none"', () => {
-		const onClose = jest.fn();
-
-		render(
-			<Dialog onClose={onClose} isOpen={true} label="Test dialog" dismissedBy="none">
-				<p>Content</p>
+				<button type="button" autoFocus>
+					Content
+				</button>
 			</Dialog>,
 		);
 
@@ -233,10 +201,45 @@ describe('Dialog primitive', () => {
 		expect(dialogEl).not.toHaveAttribute('closedby');
 
 		fireEvent.click(dialogEl);
-		const cancelEvent = fireDialogCancel(dialogEl);
-
-		expect(cancelEvent.defaultPrevented).toBe(true);
 		expect(onClose).not.toHaveBeenCalled();
+
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(dialogEl).toContainElement(document.activeElement as HTMLElement);
+		await user.keyboard('{Escape}');
+
+		await waitFor(() => expect(onClose).toHaveBeenCalledWith({ reason: 'escape' }));
+		expect(onClose).toHaveBeenCalledTimes(1);
+		expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument();
+	});
+
+	it('does not request close from user actions when dismissedBy is "none"', async () => {
+		const user = userEvent.setup();
+		const onClose = jest.fn();
+
+		render(
+			<Dialog onClose={onClose} isOpen={true} label="Test dialog" dismissedBy="none">
+				<button type="button" autoFocus>
+					Content
+				</button>
+			</Dialog>,
+		);
+
+		const dialogEl = screen.getByRole('dialog', { hidden: true });
+		expect(dialogEl).not.toHaveAttribute('closedby');
+
+		// Observe cancellation so the open-state assertion runs after Escape is handled.
+		const onCancel = jest.fn();
+		const unbind = bind(dialogEl, { type: 'cancel', listener: onCancel });
+		fireEvent.click(dialogEl);
+
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(dialogEl).toContainElement(document.activeElement as HTMLElement);
+		await user.keyboard('{Escape}');
+
+		await waitFor(() => expect(onCancel).toHaveBeenCalledTimes(1));
+		expect(dialogEl).toHaveAttribute('open');
+		expect(onClose).not.toHaveBeenCalled();
+		unbind();
 	});
 
 	it('does not report a close reason when the dialog closes programmatically', async () => {

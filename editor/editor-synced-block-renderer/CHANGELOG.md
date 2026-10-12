@@ -1,5 +1,14 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 24.0.2
+
+### Patch Changes
+
+- [`8299aa1f959e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8299aa1f959e0) -
+  Update the synced content access denied heading and description behind the
+  `platform_editor_blocks_patch_12` experiment.
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 26.1.0
+
+### Minor Changes
+
+- [`1c4db454a74a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c4db454a74a2) -
+  Registered menu hosts can override section and item ranks through getItemRank in the shared
+  ordering used by Quick Insert, type-ahead, and insert menus. Rovo editor presets group these
+  settings under quickInsertOptions. Typeahead handlers expose getRegisteredItemRank with a
+  RegisteredItemRankResolver that receives the registered component and its ranked parent. Skill
+  manifests and adapters accept visibility predicates that follow current chat state without
+  rebuilding registrations.
+
+  Under platform_editor_slash_command, main and inline Rovo chat show Rovo commands first and use
+  specialist placeholders. The chat skills layer receives selectedAgentId and respects the existing
+  enableSkillsInSpecialistPromptInput setting. Treatment keeps registrations and evaluates
+  visibility per item. Control keeps the legacy full-or-empty manifest and the same host opt-in.
+  Search mode and an existing prompt skill still prevent insertion.
+
+  Affected Jira, JSM, and Confluence skills require the signed-in user's product access at the site,
+  in addition to backend filtering of declared site entitlements. Skill Builder needs Studio and the
+  signed-in user's Rovo AI entitlement for that site. Eligibility requests follow site changes; user
+  identity remains stable during the signed-in session. Visibility reads committed React state and
+  supports server rendering.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.4
 
 ### Patch Changes

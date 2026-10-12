@@ -13,6 +13,7 @@ import type {
 
 import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
 import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
+import { applyRegisteredItemRanks, type RegisteredItemRankResolver } from '../type-ahead/item-rank';
 import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsertCategoryItems';
 
 export type QuickInsertMenuSection = [RegisterMenuSection, ...RegisterMenuItem[]];
@@ -30,8 +31,10 @@ export const buildQuickInsertMenuModel = (
 	rootComponent: SurfaceIdentifier,
 	selectCategoryItems?: QuickInsertCategoryItemSelectionPolicy,
 	surfaceContext?: SurfaceContext,
+	getItemRank?: RegisteredItemRankResolver,
 ): QuickInsertMenuModel => {
-	const { root, childrenMap, topLevelChildren } = resolveSurface(components, rootComponent);
+	const rankedComponents = applyRegisteredItemRanks(components, getItemRank);
+	const { root, childrenMap, topLevelChildren } = resolveSurface(rankedComponents, rootComponent);
 	if (!root || !willComponentRender(root, childrenMap, surfaceContext)) {
 		return { footer: undefined, root: undefined, sections: [] };
 	}

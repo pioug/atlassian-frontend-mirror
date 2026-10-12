@@ -11,6 +11,7 @@ import type {
 	QuickInsertItem,
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import { createQuickInsertRankResolver } from '@atlaskit/editor-common/quick-insert/quick-insert-rank';
 import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
@@ -62,8 +63,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		options?.prioritySortingFn,
 	);
 
+	const getItemRank = createQuickInsertRankResolver(options?.getItemRank);
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
+		getRegisteredItemRank: getItemRank,
 		trigger: '/',
 		// Support fullwidth slash (U+FF0F) used by Japanese/CJK keyboards (e.g. typing / on a Japanese keyboard layout)
 		customRegex: '[/／]',
@@ -232,6 +235,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			}
 			return {
 				typeAheadHandler: typeAhead,
+				getItemRank,
 				lazyDefaultItems: quickInsertState.lazyDefaultItems,
 				emptyStateHandler: quickInsertState.emptyStateHandler,
 				providedItems: quickInsertState.providedItems,

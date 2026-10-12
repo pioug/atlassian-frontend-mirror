@@ -289,6 +289,7 @@ export abstract class SyncBlockDataProviderInterface extends NodeDataProvider<
 	 * @returns The generated resource ID
 	 */
 	abstract generateResourceIdForReference(sourceId: ResourceId): ResourceId;
+	canGenerateResourceIdForReference?(): boolean;
 	abstract updateReferenceData(
 		blocks: SyncBlockAttrs[],
 		noContent?: boolean,

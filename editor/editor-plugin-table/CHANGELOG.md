@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 38.0.7
+
+### Patch Changes
+
+- [`52195baa604db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52195baa604db) -
+  Fix table row node views leaking event listeners on destroy, behind the
+  `platform_editor_reduce_memory_leaks` experiment.
+- Updated dependencies
+
+## 38.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.0.5
 
 ### Patch Changes

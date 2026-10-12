@@ -138,11 +138,6 @@ export const ReactionTooltip = ({
 		}
 	};
 
-	const hasOverflow = users.length > maxReactions;
-	// Only render the footer <li> when there is overflow text to show; an empty <li> adds
-	// unwanted vertical space at the bottom of the tooltip.
-	const shouldRenderFooter = hasOverflow || !fg('platform_reactions_tooltip_hide_empty_footer');
-
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
@@ -165,9 +160,11 @@ export const ReactionTooltip = ({
 						</li>
 					))}
 					{/* If count of reactions higher than given threshold then render custom message */}
-					{shouldRenderFooter ? (
+					{/* Only render the footer <li> when there is overflow text to show; an empty <li>
+					    adds unwanted vertical space at the bottom of the tooltip. */}
+					{!fg('platform_reactions_tooltip_hide_empty_footer') || users.length > maxReactions ? (
 						<li css={footerStyle}>
-							{hasOverflow &&
+							{users.length > maxReactions &&
 								(allowUserDialog && handleOpenReactionsDialog ? (
 									<button
 										type="button"

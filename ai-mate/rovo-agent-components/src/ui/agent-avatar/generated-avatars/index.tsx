@@ -49,6 +49,7 @@ const RefreshedJiraDeliveryAgentAvatar = lazy(
 const RefreshedJiraAdminAgentAvatar = lazy(() => import('./refreshed-assets/jira-admin-agent'));
 const RefreshedRequestResolverAvatar = lazy(() => import('./refreshed-assets/request-resolver'));
 const RefreshedOpsExpertAvatar = lazy(() => import('./refreshed-assets/ops-expert'));
+const RefreshedContentReviewerAvatar = lazy(() => import('./refreshed-assets/content-reviewer'));
 
 const styles = cssMap({
 	image: {
@@ -609,10 +610,17 @@ const outOfTheBoxAgentAvatar: Record<
 		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
 	},
 	content_reviewer_agent: {
-		getRender: (size: SizeType) => (
-			<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-		),
-		getColor: () => blueColor.v1,
+		getRender: (size: SizeType) =>
+			fg('platform-dst-avatar-updated-geometry') ? (
+				<RefreshedContentReviewerAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={blueColor.v2.primary}
+					iconColor={blueColor.v2.iconColor}
+				/>
+			) : (
+				<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			),
+		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
 	},
 	user_manual_writer_agent: {
 		getRender: (size: SizeType) =>

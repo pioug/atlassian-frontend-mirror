@@ -1,5 +1,18 @@
 # @atlaskit/rovo-agent-components
 
+## 9.9.11
+
+### Patch Changes
+
+- [`9bcbd6db215c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bcbd6db215c8) -
+  Show the updated Content Reviewer avatar when `platform-dst-avatar-updated-geometry` is enabled.
+
+## 9.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.9.9
 
 ### Patch Changes

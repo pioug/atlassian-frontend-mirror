@@ -1,5 +1,15 @@
 # @atlaskit/teams-client
 
+## 6.2.0
+
+### Minor Changes
+
+- [`dacb66ef5c8a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dacb66ef5c8a6) -
+  Add an optional `TeamSlackRequestOptions` argument to the Teams in Slack requests. Setting
+  `skipAuthRedirect` makes a missing Staffy session reject the request instead of navigating the
+  top-level window to Staffy login. Only reachable while the
+  `ptc-onboard-teams-slack-app-to-global-edge-url` gate is on.
+
 ## 6.1.0
 
 ### Minor Changes

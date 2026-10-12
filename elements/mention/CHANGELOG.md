@@ -1,5 +1,19 @@
 # @atlaskit/mention
 
+## 30.2.0
+
+### Minor Changes
+
+- [`ecf3db440cfba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecf3db440cfba) -
+  Add React 19 to the supported React and React DOM peer ranges while retaining React 18 support.
+  Enable React 19 testing through the package development dependencies.
+
+## 30.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.11
 
 ### Patch Changes

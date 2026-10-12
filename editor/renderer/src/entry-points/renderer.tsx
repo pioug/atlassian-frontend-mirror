@@ -11,14 +11,14 @@ import RendererWithAnnotationSelectionLegacy, {
 } from '../ui/Renderer/index';
 
 /**
- * @deprecated This export will be removed in January 2027.
+ * @deprecated This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  * Ping #cc-editor-lego if you are using this export.
  */
 export { DEGRADED_SEVERITY_THRESHOLD } from '../ui/Renderer/index';
 
 /**
- * @deprecated This export will be removed in January 2027.
+ * @deprecated This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  * Ping #cc-editor-lego if you are using this export.
  */
@@ -26,14 +26,14 @@ export { NORMAL_SEVERITY_THRESHOLD } from '../ui/Renderer/index';
 
 /**
  * @deprecated Use `Renderer` from `@atlaskit/renderer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export const Renderer: typeof RendererLegacy = withLazyNodes(RendererLegacy);
 
 /**
  * @deprecated Use `Renderer` from `@atlaskit/renderer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export const RendererFunctionalComponent: typeof RendererFunctionalComponentLegacy = withLazyNodes(
@@ -42,7 +42,7 @@ export const RendererFunctionalComponent: typeof RendererFunctionalComponentLega
 
 /**
  * @deprecated Use `Renderer` from `@atlaskit/renderer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export const RendererWithAnalytics: (
@@ -50,7 +50,7 @@ export const RendererWithAnalytics: (
 ) => JSX.Element = withLazyNodes(RendererWithAnalyticsLegacy);
 
 /**
- * @deprecated This export will be removed in January 2027.
+ * @deprecated This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  * Ping #cc-editor-lego if you are using this export.
  */
@@ -62,7 +62,7 @@ const RendererWithAnnotationSelection: typeof RendererWithAnnotationSelectionLeg
 
 /**
  * @deprecated Use `Renderer` from `@atlaskit/renderer/default` instead.
- * This export will be removed in January 2027.
+ * This export will be removed in December 2026.
  * @see https://hello.atlassian.net/wiki/spaces/EDITOR/pages/7650942996/Moving+to+Synchronous+Rendering+in+Editor+Renderer for more.
  */
 export default RendererWithAnnotationSelection;

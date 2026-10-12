@@ -102,67 +102,81 @@ describe('Renderer extension comment badge', () => {
 		expect(screen.getByRole('button', { name: 'View comments' })).toBeInTheDocument();
 	});
 
-	it('serializes extension annotations as non-interactive sibling anchors', async () => {
-		passGate(gate);
-		const doc = defaultSchema.nodeFromJSON({
-			type: 'doc',
-			content: [
-				{
-					type: 'extension',
-					attrs: { extensionType: 'test', extensionKey: 'chart' },
-					marks: [{ type: 'annotation', attrs: { id: 'first', annotationType: 'inlineComment' } }],
-				},
-			],
-		});
-		const serializer = new ReactSerializer({
-			allowAnnotations: true,
-			objectContext: { adDoc: doc.toJSON() },
-			extensionHandlers: { test: () => <button>Chart interaction</button> },
-		});
-		const subscriber = new AnnotationUpdateEmitter();
-		const onComment = jest.fn();
-		const isBlockNodeSupported = jest.fn(() => true);
-		subscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, onComment);
-		const { container } = render(
-			<IntlProvider locale="en">
-				<ProvidersContext.Provider
-					value={{
-						inlineComment: {
-							isBlockNodeSupported,
-							getState: async () => [],
-							updateSubscriber: subscriber,
-						},
-					}}
-				>
-					<InlineCommentsStateContext.Provider value={{ first: AnnotationMarkStates.ACTIVE }}>
-						{serializer.serializeFragment(doc.content)}
-					</InlineCommentsStateContext.Provider>
-				</ProvidersContext.Provider>
-			</IntlProvider>,
-		);
-		const marker = container.querySelector('#first');
-		expect(isBlockNodeSupported).toHaveBeenCalledWith(doc.firstChild);
-		expect(screen.getByTestId('extension--wrapper')).toHaveAttribute(
-			'data-inline-comments-target',
-			'true',
-		);
-		expect(marker?.tagName).toBe('DIV');
-		expect(marker).toHaveAttribute('data-block-mark', 'true');
-		expect(marker).not.toHaveAttribute('role', 'button');
-		expect(marker).not.toHaveAttribute('tabindex');
-		expect(marker).not.toContainElement(screen.getByRole('button', { name: 'Chart interaction' }));
-		expect(marker).toHaveStyle({ position: 'absolute', pointerEvents: 'none' });
-		await userEvent.setup().click(await screen.findByRole('button', { name: 'View comments' }));
-		expect(onComment).toHaveBeenCalledWith(
-			expect.objectContaining({
-				eventTarget: screen
-					.getByRole('button', { name: 'Chart interaction' })
-					.closest('.ak-renderer-extension'),
-				annotationIds: ['first'],
-			}),
-		);
-		await expect(container).toBeAccessible();
-	});
+	it.each([false, true, undefined])(
+		'keeps existing badges and anchors when creation is %s',
+		async (canCreate) => {
+			passGate(gate);
+			const doc = defaultSchema.nodeFromJSON({
+				type: 'doc',
+				content: [
+					{
+						type: 'extension',
+						attrs: { extensionType: 'test', extensionKey: 'chart' },
+						marks: [
+							{ type: 'annotation', attrs: { id: 'first', annotationType: 'inlineComment' } },
+						],
+					},
+				],
+			});
+			const serializer = new ReactSerializer({
+				allowAnnotations: true,
+				objectContext: { adDoc: doc.toJSON() },
+				extensionHandlers: { test: () => <button>Chart interaction</button> },
+			});
+			const subscriber = new AnnotationUpdateEmitter();
+			const onComment = jest.fn();
+			const isBlockNodeSupported = jest.fn(() => true);
+			subscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, onComment);
+			const { container } = render(
+				<IntlProvider locale="en">
+					<ProvidersContext.Provider
+						value={{
+							inlineComment: {
+								isBlockNodeSupported,
+								canCreateCommentOnBlockNode: canCreate === undefined ? undefined : () => canCreate,
+								getState: async () => [],
+								updateSubscriber: subscriber,
+							},
+						}}
+					>
+						<InlineCommentsStateContext.Provider value={{ first: AnnotationMarkStates.ACTIVE }}>
+							{serializer.serializeFragment(doc.content)}
+						</InlineCommentsStateContext.Provider>
+					</ProvidersContext.Provider>
+				</IntlProvider>,
+			);
+			const marker = container.querySelector('#first');
+			expect(isBlockNodeSupported).toHaveBeenCalledWith(doc.firstChild);
+			if (canCreate === false) {
+				expect(screen.getByTestId('extension--wrapper')).not.toHaveAttribute(
+					'data-inline-comments-target',
+				);
+			} else {
+				expect(screen.getByTestId('extension--wrapper')).toHaveAttribute(
+					'data-inline-comments-target',
+					'true',
+				);
+			}
+			expect(marker?.tagName).toBe('DIV');
+			expect(marker).toHaveAttribute('data-block-mark', 'true');
+			expect(marker).not.toHaveAttribute('role', 'button');
+			expect(marker).not.toHaveAttribute('tabindex');
+			expect(marker).not.toContainElement(
+				screen.getByRole('button', { name: 'Chart interaction' }),
+			);
+			expect(marker).toHaveStyle({ position: 'absolute', pointerEvents: 'none' });
+			await userEvent.setup().click(await screen.findByRole('button', { name: 'View comments' }));
+			expect(onComment).toHaveBeenCalledWith(
+				expect.objectContaining({
+					eventTarget: screen
+						.getByRole('button', { name: 'Chart interaction' })
+						.closest('.ak-renderer-extension'),
+					annotationIds: ['first'],
+				}),
+			);
+			await expect(container).toBeAccessible();
+		},
+	);
 
 	it('does not expose extension comment UI when the annotations gate is disabled', () => {
 		failGate(gate);

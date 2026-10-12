@@ -6,10 +6,12 @@
 import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
+import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { BLOCK_CONTROLS_RIGHT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -39,6 +41,11 @@ const rightSurfaceStickyStyles = css({
 	top: token('space.100'),
 });
 
+// Keep in sync with STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER in ./consts (must be a static literal here)
+const rightSurfaceStickyTableHeaderStyles = css({
+	top: token('space.300'),
+});
+
 type BlockControlsRightSurfaceProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin>;
 	components: React.ComponentProps<typeof SurfaceRenderer>['components'];
@@ -60,6 +67,7 @@ const BlockControlsRightSurfaceContent = ({
 	source,
 	surfaceContext,
 }: BlockControlsRightSurfaceContentProps): React.JSX.Element => {
+	const blockControlsContext = surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT);
 	const { shouldHide: shouldHideHoverControls, useCssStyles } = useBlockControlsVisibility({
 		api,
 		controlSide: 'right',
@@ -82,7 +90,16 @@ const BlockControlsRightSurfaceContent = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Placement is resolved per target node, from its runtime DOM geometry or from its CSS anchor.
 			style={placement.style}
 		>
-			<div css={[rightSurfaceRowStyles, isSticky && rightSurfaceStickyStyles]}>
+			<div
+				css={[
+					rightSurfaceRowStyles,
+					isSticky && rightSurfaceStickyStyles,
+					isSticky &&
+						blockControlsContext?.targetNode.type.name === 'table' &&
+						isExperimentEnabled('platform_editor_block_controls_sticky_header_fix') &&
+						rightSurfaceStickyTableHeaderStyles,
+				]}
+			>
 				<BlockControlsVisibilityProvider
 					shouldHideHoverControls={shouldHideHoverControls}
 					useCssStyles={useCssStyles}

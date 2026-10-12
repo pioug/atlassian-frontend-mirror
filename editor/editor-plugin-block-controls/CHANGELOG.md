@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 27.0.6
+
+### Patch Changes
+
+- [`df5a172e148f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df5a172e148f7) -
+  EDITOR-8886 Add 24px margin for anchors next to active sticky headers
+
+## 27.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.4
 
 ### Patch Changes

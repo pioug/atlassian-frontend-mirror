@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.6.2",
+	"version": "46.6.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -96,6 +96,7 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -263,6 +264,10 @@
 		"./use-fire3-p-workflows-click-event": "./src/view/SmartLinkEvents/useFire3PWorkflowsClickEvent.tsx"
 	},
 	"platform-feature-flags": {
+		"platform-dst-top-layer": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"billplat_jira_list_dropdown_top_layer": {
 			"type": "boolean",
 			"referenceOnly": true

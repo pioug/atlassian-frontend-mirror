@@ -15,6 +15,7 @@ import type {
 
 import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
 import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
+import { applyRegisteredItemRanks, type RegisteredItemRankResolver } from '../type-ahead/item-rank';
 import type { QuickInsertMenuModel, QuickInsertMenuSection } from './build-quick-insert-menu-model';
 import { ASK_ROVO_MENU_ITEM } from './keys';
 
@@ -30,7 +31,7 @@ type MatchedItem = {
 	sourceIndex: number;
 };
 
-const getRank = (component: RegisterComponent, parentKey: string): number =>
+const getParentRank = (component: RegisterComponent, parentKey: string): number =>
 	component.parents?.find((parent) => parent.key === parentKey)?.rank ?? Number.MAX_SAFE_INTEGER;
 
 const compareMatchedItems = (a: MatchedItem, b: MatchedItem): number =>
@@ -67,20 +68,25 @@ export const getMatchingQuickInsertComponents = ({
 	query,
 	formatMessage,
 	surfaceContext,
+	getItemRank,
 }: {
 	components: RegisterComponent[];
 	formatMessage: IntlShape['formatMessage'];
+	getItemRank?: RegisteredItemRankResolver;
 	query: string;
 	rootComponent: SurfaceIdentifier;
 	surfaceContext?: SurfaceContext;
 }): QuickInsertMenuModel => {
-	const { childrenMap, root, topLevelChildren } = resolveSurface(components, rootComponent);
+	const rankedComponents = applyRegisteredItemRanks(components, getItemRank);
+	const { childrenMap, root, topLevelChildren } = resolveSurface(rankedComponents, rootComponent);
 	if (!root || !willComponentRender(root, childrenMap, surfaceContext) || !topLevelChildren) {
 		return { footer: undefined, root: undefined, sections: [] };
 	}
 
 	const matches = new Map<string, MatchedItem>();
-	const sourceIndexByComponent = new Map(components.map((component, index) => [component, index]));
+	const sourceIndexByComponent = new Map(
+		rankedComponents.map((component, index) => [component, index]),
+	);
 
 	for (const section of topLevelChildren) {
 		if (
@@ -108,11 +114,11 @@ export const getMatchingQuickInsertComponents = ({
 			const candidate: MatchedItem = {
 				identity: `${item.type}:${item.key}`,
 				item,
-				itemRank: getRank(item, section.key),
+				itemRank: getParentRank(item, section.key),
 				score: Math.min(1, Math.max(0, match?.score ?? 0)),
 				sourceIndex: sourceIndexByComponent.get(item) ?? Number.MAX_SAFE_INTEGER,
 				section,
-				sectionRank: getRank(section, root.key),
+				sectionRank: getParentRank(section, root.key),
 			};
 			const existing = matches.get(candidate.identity);
 			if (!existing || compareMatchedItems(candidate, existing) < 0) {

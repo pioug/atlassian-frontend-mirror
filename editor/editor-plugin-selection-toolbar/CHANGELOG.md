@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 27.0.5
+
+### Patch Changes
+
+- [`dbf4584638609`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbf4584638609) -
+  Deduplicate the node types collected for the selection toolbar so large selections no longer build
+  an entry per node, behind the `platform_editor_reduce_memory_leaks` experiment.
+- Updated dependencies
+
 ## 27.0.4
 
 ### Patch Changes

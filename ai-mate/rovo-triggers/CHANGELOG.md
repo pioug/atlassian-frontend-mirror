@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 12.1.0
+
+### Minor Changes
+
+- [`7cb363c54a0f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cb363c54a0f7) -
+  Preserve selected slide targets from content reads through conversation context and outgoing
+  service types.
+
 ## 12.0.0
 
 ### Major Changes

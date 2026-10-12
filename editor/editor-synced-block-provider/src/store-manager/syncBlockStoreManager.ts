@@ -82,10 +82,31 @@ export class SyncBlockStoreManager {
 		);
 	}
 
+	private getDocumentReferenceIds(
+		resourceId: ResourceId,
+		doc?: PMNode,
+	): Set<BlockInstanceId> | undefined {
+		if (!doc) {
+			return undefined;
+		}
+		const localIds = new Set<BlockInstanceId>();
+		doc.descendants((node) => {
+			if (
+				this.referenceManager.isReferenceBlock(node) &&
+				node.attrs.resourceId === resourceId &&
+				node.attrs.localId
+			) {
+				localIds.add(node.attrs.localId);
+			}
+		});
+		return localIds;
+	}
+
 	public async fetchReferencesSourceInfo(
 		resourceId: ResourceId,
 		blockInstanceId: BlockInstanceId,
 		isSourceSyncBlock: boolean,
+		doc?: PMNode,
 	): Promise<ReferencesSourceInfo> {
 		try {
 			if (!this.dataProvider) {
@@ -100,13 +121,38 @@ export class SyncBlockStoreManager {
 				return { error: response.error };
 			}
 
-			if (!response.references || response.references?.length === 0) {
+			const patchEnabled = isExperimentEnabled('platform_editor_blocks_patch_12');
+			const referenceResourceId =
+				patchEnabled && isSourceSyncBlock
+					? this.referenceSyncBlockStoreManager.generateResourceIdForReference(resourceId)
+					: resourceId;
+			const documentIds = patchEnabled
+				? this.getDocumentReferenceIds(referenceResourceId, doc)
+				: undefined;
+			const localIds = patchEnabled
+				? documentIds
+					? [...documentIds]
+					: this.referenceSyncBlockStoreManager.getSubscribedLocalIds(referenceResourceId)
+				: [];
+			// Saved references on this document can already have been removed in the editor.
+			const references = (response.references ?? []).filter(
+				(reference) =>
+					documentIds === undefined ||
+					!reference.onSameDocument ||
+					Boolean(reference.blockInstanceId && documentIds.has(reference.blockInstanceId)),
+			);
+
+			if (references.length === 0 && localIds.length === 0) {
+				if (documentIds !== undefined) {
+					this.fetchReferencesExperience?.success();
+					return { references: [] };
+				}
 				return this.getUnregisteredReferences(resourceId, blockInstanceId, isSourceSyncBlock);
 			}
 
 			this.fetchReferencesExperience?.success();
 
-			const sourceInfoPromises = (response.references ?? []).map(async (reference) => {
+			const sourceInfoPromises = references.map(async (reference) => {
 				if (!reference.hasAccess && isExperimentEnabled('platform_editor_blocks_patch_11')) {
 					return this.fetchRestrictedReferenceInfo(reference.documentAri);
 				}
@@ -134,7 +180,8 @@ export class SyncBlockStoreManager {
 				};
 			});
 
-			const sourceInfos = await Promise.all(sourceInfoPromises);
+			const sourceInfos: Array<SyncBlockSourceInfo | undefined> =
+				await Promise.all(sourceInfoPromises);
 
 			const sourceSyncBlockData = await (isSourceSyncBlock
 				? this.sourceSyncBlockStoreManager.getSyncBlockSourceInfo(blockInstanceId)
@@ -148,6 +195,27 @@ export class SyncBlockStoreManager {
 					productType: sourceSyncBlockData?.productType,
 				});
 			}
+
+			// Only instances in this editor belong to its unsaved document. A matching
+			// local ID on another document must not hide an unsaved copy here.
+			const registeredLocalIds = new Set<BlockInstanceId>();
+			for (const reference of references) {
+				if (reference.onSameDocument && reference.blockInstanceId) {
+					registeredLocalIds.add(reference.blockInstanceId);
+				}
+			}
+			const localSourceInfos = await Promise.all(
+				localIds
+					.filter((localId) => !registeredLocalIds.has(localId))
+					.map(async (localId): Promise<SyncBlockSourceInfo | undefined> => {
+						const sourceInfo =
+							await this.referenceSyncBlockStoreManager.fetchSyncBlockSourceInfoByLocalId(localId);
+						return sourceInfo
+							? { ...sourceInfo, onSameDocument: true, hasAccess: true, isSource: false }
+							: undefined;
+					}),
+			);
+			sourceInfos.push(...localSourceInfos);
 
 			return { references: sourceInfos };
 		} catch (error) {

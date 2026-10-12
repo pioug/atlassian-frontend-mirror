@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 28.0.5
+
+### Patch Changes
+
+- [`ba2fdb7db8b0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba2fdb7db8b0a) -
+  Clean up experiment `platform_editor_list_performance_improv`
+- Updated dependencies
+
 ## 28.0.4
 
 ### Patch Changes

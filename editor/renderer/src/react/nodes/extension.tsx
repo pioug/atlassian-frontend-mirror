@@ -335,31 +335,24 @@ export const renderExtension = (
 	);
 };
 
-const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) => {
-	const {
-		text,
-		layout = 'default',
-		handleRef,
-		shadowClassNames,
-		path = [],
-		extensionViewportSizes,
-		parameters,
-		nodeHeight,
-		localId,
-		isInsideOfInlineExtension,
-	} = props;
+const ExtensionWithAnnotations = (props: React.PropsWithChildren<Props & OverflowShadowProps>) => {
 	const providers = useContext(ProvidersContext);
 	const { setHoverTarget } = useAnnotationRangeDispatch();
 	const { cancelTimeout, initiateTimeout, setIsWithinRange } = useAnnotationHoverDispatch();
 	const isBlockNodeSupported = providers?.inlineComment?.isBlockNodeSupported;
+	const supportsComments = useMemo(
+		() => Boolean(props.extensionNode && isBlockNodeSupported?.(props.extensionNode) === true),
+		[props.extensionNode, isBlockNodeSupported],
+	);
+	const canCreateCommentOnBlockNode = providers?.inlineComment?.canCreateCommentOnBlockNode;
 	const isCommentTarget = useMemo(
 		() =>
 			Boolean(
-				fg('cc_maui_annotations_on_extensions') &&
+				supportsComments &&
 				props.extensionNode &&
-				isBlockNodeSupported?.(props.extensionNode) === true,
+				(!canCreateCommentOnBlockNode || canCreateCommentOnBlockNode(props.extensionNode)),
 			),
-		[props.extensionNode, isBlockNodeSupported],
+		[supportsComments, props.extensionNode, canCreateCommentOnBlockNode],
 	);
 	const isFullPageRenderer =
 		props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width';
@@ -398,12 +391,46 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 			? { isCommentTarget: true, onBlur, onFocus, onMouseEnter, onMouseLeave }
 			: { isCommentTarget };
 	const commentProps = {
-		enabled: isCommentTarget,
-		allowAnnotations: props.allowAnnotations && fg('cc_maui_annotations_on_extensions'),
-		allowAnnotationsDraftMode: props.allowAnnotationsDraftMode,
+		enabled: supportsComments,
+		allowAnnotations: props.allowAnnotations,
+		allowAnnotationsDraftMode: props.allowAnnotationsDraftMode && isCommentTarget,
 		startPos: props.dataAttributes?.['data-renderer-start-pos'],
 		marks: props.marks,
 	};
+
+	return (
+		<ExtensionContent
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			commentProps={commentProps}
+			commentTargetOptions={commentTargetOptions}
+		/>
+	);
+};
+
+const ExtensionContent = ({
+	commentProps = {},
+	commentTargetOptions,
+	...props
+}: React.PropsWithChildren<Props & OverflowShadowProps> & {
+	commentProps?: Omit<React.ComponentProps<typeof ExtensionComments>, 'children'>;
+	commentTargetOptions?: Pick<
+		RenderExtensionOptions,
+		'isCommentTarget' | 'onBlur' | 'onFocus' | 'onMouseEnter' | 'onMouseLeave'
+	>;
+}) => {
+	const {
+		text,
+		layout = 'default',
+		handleRef,
+		shadowClassNames,
+		path = [],
+		extensionViewportSizes,
+		parameters,
+		nodeHeight,
+		localId,
+		isInsideOfInlineExtension,
+	} = props;
 
 	return (
 		<ExtensionRenderer
@@ -492,6 +519,16 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 			}}
 		</ExtensionRenderer>
 	);
+};
+
+const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) => {
+	// Keep annotation context subscriptions out of the gate-off render path.
+	if (fg('cc_maui_annotations_on_extensions')) {
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		return <ExtensionWithAnnotations {...props} />;
+	}
+	// eslint-disable-next-line react/jsx-props-no-spreading
+	return <ExtensionContent {...props} />;
 };
 
 const _default_1: React.ComponentClass<Props & OverflowShadowProps, OverflowShadowState> =

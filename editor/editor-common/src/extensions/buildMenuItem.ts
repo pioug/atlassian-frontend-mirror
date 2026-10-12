@@ -41,6 +41,7 @@ export function buildMenuItem<T extends Parameters>(
 		...(preview != null && { preview }),
 		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),
 		icon: extensionModule.icon || manifest.icons['48'],
+		...(extensionModule.isHidden ? { isHidden: extensionModule.isHidden } : {}),
 		node,
 	};
 }

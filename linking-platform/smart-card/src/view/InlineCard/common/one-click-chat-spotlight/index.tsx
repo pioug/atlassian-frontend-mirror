@@ -18,6 +18,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import type { PopupComponentProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
@@ -26,6 +27,11 @@ import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
+import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { EVENT_CHANNEL } from '../../../../common/analytics/constants';
 import { getExtensionKey } from '../../../../state/getExtensionKey';
@@ -133,7 +139,7 @@ const styles = cssMap({
 
 const TargetContext = createContext<React.RefObject<HTMLSpanElement> | null>(null);
 
-// Keep Popup's inline trigger, dismissal and focus handling. The design-system Spotlight
+// Keep Popup's inline trigger and focus handling. The design-system Spotlight
 // target renders a block element; the Smart Link action must stay inline.
 const SpotlightSurface = forwardRef<HTMLDivElement, PopupComponentProps>(
 	(
@@ -208,6 +214,54 @@ const SpotlightSurface = forwardRef<HTMLDivElement, PopupComponentProps>(
 		);
 	},
 );
+
+// The native auto popover used by Popup can hide independently of React state.
+// Compose the existing manual primitive here so persistence stays local to Smart Card.
+function TopLayerSpotlight({
+	isOpen,
+	label,
+	trigger,
+	children,
+}: {
+	children: React.ReactNode;
+	isOpen: boolean;
+	label: string;
+	trigger: React.ReactNode;
+}): React.JSX.Element {
+	const anchorRef = useRef<HTMLSpanElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const id = usePopoverId();
+	const placement = fromLegacyPlacement({ legacy: 'bottom-start' });
+	useAnchoredPopover({
+		anchorRef,
+		popoverRef,
+		isOpen,
+		placement,
+		inlineSize: 'max-available',
+		blockSize: 'max-available',
+	});
+	return (
+		<React.Fragment>
+			<span ref={anchorRef} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: id })}>
+				{trigger}
+			</span>
+			<Popover
+				ref={popoverRef}
+				id={id}
+				isOpen={isOpen}
+				mode="manual"
+				role="dialog"
+				label={label}
+				shouldAnimate
+				placement={placement}
+			>
+				<SpotlightSurface tabIndex={-1} data-placement="bottom-start" style={{}}>
+					{children}
+				</SpotlightSurface>
+			</Popover>
+		</React.Fragment>
+	);
+}
 
 function VisibleSpotlightCard({
 	onShown,
@@ -308,6 +362,28 @@ export function OneClickChatSpotlight({
 		};
 	}, []);
 
+	const trigger = (
+		<span
+			onClickCapture={() => {
+				if (spotlight.isEligible) spotlight.onClick('inlineAction');
+			}}
+		>
+			{children}
+		</span>
+	);
+	const content = (
+		<VisibleSpotlightCard
+			onShown={spotlight.onShown}
+			body={intl.formatMessage(messages.body)}
+			dismissLabel={intl.formatMessage(messages.dismiss)}
+			actionLabel={intl.formatMessage(messages.action)}
+			onDismiss={spotlight.onDismiss}
+			onAction={() => {
+				if (spotlight.onClick('spotlightCta')) onInvoke();
+			}}
+		/>
+	);
+
 	return (
 		<span
 			ref={target}
@@ -317,45 +393,37 @@ export function OneClickChatSpotlight({
 				event.preventDefault();
 				event.stopPropagation();
 			}}
-			// Match the enclosing Smart Link's keypress handler; leave Escape keydown for Popup.
+			onKeyDown={(event) => {
+				if (event.key === 'Escape' && spotlight.isEligible) {
+					event.preventDefault();
+					event.stopPropagation();
+					spotlight.onDismiss();
+				}
+			}}
+			// Match the enclosing Smart Link's keypress handler.
 			onKeyPress={(event) => event.stopPropagation()}
 		>
 			<TargetContext.Provider value={target}>
-				<Popup
-					popupComponent={SpotlightSurface}
-					shouldFitViewport
-					isOpen={spotlight.isEligible}
-					onClose={spotlight.onDismiss}
-					placement="bottom-start"
-					role="dialog"
-					label={intl.formatMessage(messages.heading)}
-					trigger={({ ref }) => (
-						<span
-							ref={ref}
-							onClickCapture={() => {
-								if (spotlight.isEligible) {
-									spotlight.onClick('inlineAction');
-								}
-							}}
-						>
-							{children}
-						</span>
-					)}
-					content={() => (
-						<VisibleSpotlightCard
-							onShown={spotlight.onShown}
-							body={intl.formatMessage(messages.body)}
-							dismissLabel={intl.formatMessage(messages.dismiss)}
-							actionLabel={intl.formatMessage(messages.action)}
-							onDismiss={spotlight.onDismiss}
-							onAction={() => {
-								if (spotlight.onClick('spotlightCta')) {
-									onInvoke();
-								}
-							}}
-						/>
-					)}
-				/>
+				{fg('platform-dst-top-layer') ? (
+					<TopLayerSpotlight
+						isOpen={spotlight.isEligible}
+						label={intl.formatMessage(messages.heading)}
+						trigger={trigger}
+					>
+						{content}
+					</TopLayerSpotlight>
+				) : (
+					<Popup
+						popupComponent={SpotlightSurface}
+						shouldFitViewport
+						isOpen={spotlight.isEligible}
+						placement="bottom-start"
+						role="dialog"
+						label={intl.formatMessage(messages.heading)}
+						trigger={({ ref }) => <span ref={ref}>{trigger}</span>}
+						content={() => content}
+					/>
+				)}
 			</TargetContext.Provider>
 		</span>
 	);

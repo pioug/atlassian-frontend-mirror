@@ -28,7 +28,7 @@ it.each([false, true])(
 		const draggable = jest.spyOn(elementAdapter, 'draggable');
 		const onResizeEnd = jest.fn();
 		const initialState = {
-			activePanels: [{ instanceId: 'panel', panelContent: <div>Panel content</div>, params: {} }],
+			activePanel: { instanceId: 'panel', panelContent: <div>Panel content</div>, params: {} },
 		};
 		const fixture = (content: string) => (
 			<Root>
@@ -126,7 +126,7 @@ it.each([
 						<Main>
 							<PanelProvider
 								initialState={{
-									activePanels: [entryPointPanel],
+									activePanel: entryPointPanel,
 								}}
 							>
 								<LayoutWithPanel panelWidth={400} onResizeEnd={onResizeEnd} testId="layout">

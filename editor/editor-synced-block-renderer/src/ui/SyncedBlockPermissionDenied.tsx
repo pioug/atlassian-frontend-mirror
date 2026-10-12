@@ -11,6 +11,7 @@ import { requestJiraSpaceAccess } from '@atlaskit/editor-synced-block-provider/r
 import Heading from '@atlaskit/heading/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Text, Flex, Stack, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -98,8 +99,20 @@ const SyncedBlockPermissionDeniedConfluencePage = ({
 				height="48"
 			/>
 			<Stack space="space.100">
-				<Heading size="xsmall">{formatMessage(messages.permissionDeniedHeading)}</Heading>
-				<Text color="color.text.subtle">{formatMessage(messages.permissionDeniedDescription)}</Text>
+				<Heading size="xsmall">
+					{formatMessage(
+						isExperimentEnabled('platform_editor_blocks_patch_12')
+							? messages.contentUnavailableHeading
+							: messages.permissionDeniedHeading,
+					)}
+				</Heading>
+				<Text color="color.text.subtle">
+					{formatMessage(
+						isExperimentEnabled('platform_editor_blocks_patch_12')
+							? messages.contentUnavailableDescription
+							: messages.permissionDeniedDescription,
+					)}
+				</Text>
 				{requestAccessState === RequestAccessState.pending ? (
 					<Flex columnGap="space.050" alignItems="center">
 						<StatusSuccessIcon
@@ -187,8 +200,20 @@ const SyncedBlockPermissionDeniedJiraWorkItem = ({
 				height="48"
 			/>
 			<Stack space="space.100">
-				<Heading size="xsmall">{formatMessage(messages.permissionDeniedHeading)}</Heading>
-				<Text color="color.text.subtle">{formatMessage(messages.permissionDeniedDescription)}</Text>
+				<Heading size="xsmall">
+					{formatMessage(
+						isExperimentEnabled('platform_editor_blocks_patch_12')
+							? messages.contentUnavailableHeading
+							: messages.permissionDeniedHeading,
+					)}
+				</Heading>
+				<Text color="color.text.subtle">
+					{formatMessage(
+						isExperimentEnabled('platform_editor_blocks_patch_12')
+							? messages.contentUnavailableDescription
+							: messages.permissionDeniedDescription,
+					)}
+				</Text>
 				{requestAccessState === RequestAccessState.pending ? (
 					<Flex columnGap="space.050" alignItems="center">
 						<StatusSuccessIcon

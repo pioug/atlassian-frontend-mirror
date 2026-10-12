@@ -110,6 +110,48 @@ describe('Extension comment hover targeting', () => {
 		type: 'extension',
 		attrs: { extensionType: 'test', extensionKey: 'chart' },
 	};
+	it.each(['mouse hover', 'keyboard focus'] as const)(
+		'does not start hover creation on %s when viewing is supported but creation is disabled',
+		(interaction) => {
+			passGate('cc_maui_annotations_on_extensions');
+			getSchemaBasedOnStage.clear();
+			const schema = getSchemaBasedOnStage('stage0');
+			const doc = schema.nodeFromJSON({ type: 'doc', content: [extension] });
+			const serializer = new ReactSerializer({
+				appearance: 'full-page',
+				objectContext: { adDoc: doc.toJSON() },
+				extensionHandlers: { test: () => <button>Chart interaction</button> },
+			});
+			const HoverState = () => {
+				const { range } = useAnnotationRangeState();
+				return <span>{range ? 'creating' : 'idle'}</span>;
+			};
+			render(
+				<ProvidersContext.Provider
+					value={{
+						inlineComment: {
+							getState: async () => [],
+							isBlockNodeSupported: () => true,
+							canCreateCommentOnBlockNode: () => false,
+						},
+					}}
+				>
+					<AnnotationRangeProvider hasBlockNodeSupport>
+						<AnnotationHoverContext>
+							{serializer.serializeFragment(doc.content)}
+							<HoverState />
+						</AnnotationHoverContext>
+					</AnnotationRangeProvider>
+				</ProvidersContext.Provider>,
+			);
+			if (interaction === 'mouse hover') {
+				fireEvent.mouseEnter(screen.getByTestId('extension--wrapper'), { buttons: 0 });
+			} else {
+				fireEvent.focus(screen.getByRole('button', { name: 'Chart interaction' }));
+			}
+			expect(screen.getByText('idle')).toBeInTheDocument();
+		},
+	);
 	describe.each([
 		{ name: 'first chart', content: [extension], position: 0, targetIndex: 0 },
 		{

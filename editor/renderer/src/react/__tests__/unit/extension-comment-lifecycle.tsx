@@ -9,18 +9,71 @@ import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/t
 import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import RendererActions from '../../../actions';
 import { ReactSerializer } from '../../../index';
 import { InlineCommentsStateContext, ProvidersContext } from '../../../ui/annotations/context';
-import { AnnotationHoverContext } from '../../../ui/annotations/contexts/AnnotationHoverContext';
+import {
+	AnnotationHoverContext,
+	useAnnotationHoverContext,
+	useAnnotationHoverDispatch,
+} from '../../../ui/annotations/contexts/AnnotationHoverContext';
 import { AnnotationRangeProvider } from '../../../ui/annotations/contexts/AnnotationRangeContext';
 import { RangeValidator } from '../../../ui/annotations/hover/range-validator';
 import { RendererContext } from '../../../ui/RendererActionsContext';
 
 describe('Extension comment lifecycle', () => {
 	afterEach(() => setupEditorExperiments('test'));
+
+	it('does not rerender extensions when annotation hover changes with the gate off', () => {
+		failGate('cc_maui_annotations_on_extensions');
+		getSchemaBasedOnStage.clear();
+		const schema = getSchemaBasedOnStage('stage0');
+		const doc = schema.nodeFromJSON({
+			type: 'doc',
+			content: [
+				{
+					type: 'extension',
+					attrs: { extensionType: 'test', extensionKey: 'chart' },
+				},
+			],
+		});
+		const extensionHandler = jest.fn(() => <iframe title="Chart" src="about:blank" />);
+		const serializer = new ReactSerializer({
+			appearance: 'full-page',
+			allowAnnotations: true,
+			objectContext: { adDoc: doc.toJSON() },
+			extensionHandlers: { test: extensionHandler },
+		});
+		// Exercise the shared hover state used by image comments, without rerendering the parent.
+		const HoverControl = () => {
+			const { setIsWithinRange } = useAnnotationHoverDispatch();
+			const { isWithinRange } = useAnnotationHoverContext();
+			return (
+				<button type="button" onClick={() => setIsWithinRange(!isWithinRange)}>
+					{isWithinRange ? 'Leave image comment' : 'Enter image comment'}
+				</button>
+			);
+		};
+		render(
+			<AnnotationHoverContext>
+				<HoverControl />
+				{serializer.serializeFragment(doc.content)}
+			</AnnotationHoverContext>,
+		);
+		const frame = screen.getByTitle('Chart');
+		expect(extensionHandler).toHaveBeenCalled();
+		extensionHandler.mockClear();
+
+		fireEvent.click(screen.getByRole('button', { name: 'Enter image comment' }));
+		expect(screen.getByRole('button', { name: 'Leave image comment' })).toBeInTheDocument();
+		fireEvent.click(screen.getByRole('button', { name: 'Leave image comment' }));
+		expect(screen.getByRole('button', { name: 'Enter image comment' })).toBeInTheDocument();
+		expect(extensionHandler).not.toHaveBeenCalled();
+		expect(screen.getByTitle('Chart')).toBe(frame);
+	});
+
 	const setup = () => {
 		passGate('cc_maui_annotations_on_extensions');
 		getSchemaBasedOnStage.clear();

@@ -7,6 +7,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 
 import type { TypeAheadPayload } from '../analytics/types/type-ahead';
 import type { SelectItemMode, TypeAheadAvailableNodes } from '../type-ahead';
+import type { RegisteredItemRankResolver } from '../type-ahead/item-rank';
 import type { EditorCommand } from '../types';
 
 type TypeAheadForceSelectProps = {
@@ -142,7 +143,6 @@ export type TypeAheadHandler = {
 	 * trigger remains as ordinary editor text.
 	 */
 	canOpen?: () => boolean;
-
 	/** Custom regex must have a capture group around trigger so it's possible to
 	 * use it without needing to scan through all triggers again */
 	customRegex?: string;
@@ -164,6 +164,9 @@ export type TypeAheadHandler = {
 	getItems: (props: { editorState: EditorState; query: string }) => Promise<Array<TypeAheadItem>>;
 
 	getMoreOptionsButtonConfig?: (intl: IntlShape) => MoreOptionsButtonConfig;
+
+	/** Overrides parent ranks in registered menus; does not reorder legacy getItems results. */
+	getRegisteredItemRank?: RegisteredItemRankResolver;
 
 	/** Optional section definitions used by type-ahead menu to group items */
 	getSections?: (props: { intl: IntlShape }) => Array<TypeAheadSection>;

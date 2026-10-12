@@ -28,6 +28,7 @@ describe('getExtensionQuickInsertComponents', () => {
 				featured: false,
 				icon: () => Promise.resolve({ default: () => <span /> }),
 				key: 'skill:research',
+				isHidden: () => true,
 				keywords: [],
 				node: { type: 'inlineExtension', attrs: {} },
 				lozenge: 'Beta',
@@ -55,6 +56,7 @@ describe('getExtensionQuickInsertComponents', () => {
 
 		expect(components).toHaveLength(items.length);
 		expect(components.map((component) => component.key)).toEqual(items.map((item) => item.key));
+		expect(components[0]?.isHidden?.()).toBe(true);
 
 		const skillComponent = components[0]?.component?.({});
 		expect(React.isValidElement(skillComponent)).toBe(true);

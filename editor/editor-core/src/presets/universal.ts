@@ -121,7 +121,7 @@ export type InitialPluginConfiguration = {
 	};
 	quickInsertPlugin?: Pick<
 		QuickInsertPluginOptions,
-		'blockControlButtonEnabled' | 'isRecommendedItem' | 'maxRecommendedItems'
+		'blockControlButtonEnabled' | 'getItemRank' | 'isRecommendedItem' | 'maxRecommendedItems'
 	>;
 	tasksAndDecisionsPlugin?: {
 		allowBlockTaskItem?: boolean;

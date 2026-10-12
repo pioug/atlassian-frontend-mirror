@@ -61,6 +61,7 @@ export const RegisteredInsertMenuContent = ({
 				components={components}
 				editorView={editorView}
 				emptyStateHandler={api?.quickInsert?.sharedState.currentState()?.emptyStateHandler}
+				getItemRank={api?.quickInsert?.sharedState.currentState()?.getItemRank}
 				isOffline={isOffline}
 				maxHeight={maxHeight}
 				onClose={onClose}

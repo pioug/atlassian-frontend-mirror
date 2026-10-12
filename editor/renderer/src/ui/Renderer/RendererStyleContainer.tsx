@@ -3555,8 +3555,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				isInsideSyncBlock && expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 					? roundedTableFakeBorderOverlayStyles
 					: null,
-				expValEquals('platform_editor_hide_extension_renderer_support', 'isEnabled', true) &&
-					hideExtensionStyles,
+				hideExtensionStyles,
 			]}
 			data-testid={testId}
 		>

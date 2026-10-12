@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 27.0.5
+
+### Patch Changes
+
+- [`c55f775ee9bc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c55f775ee9bc7) -
+  Clean up the shipped platform_editor_status_popup_suggestions_patch_3 feature gate, keeping its
+  enabled behaviour
+- Updated dependencies
+
 ## 27.0.4
 
 ### Patch Changes

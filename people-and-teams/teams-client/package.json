@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-client",
-	"version": "6.1.0",
+	"version": "6.2.0",
 	"description": "A client to retrieve team related data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -131,6 +131,7 @@
 	"devDependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ptc-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/faker": "root:*",

@@ -21,6 +21,7 @@ export type MenuItem = {
 	extensionType: ExtensionType;
 	featured: boolean;
 	icon: Icon;
+	isHidden?: () => boolean;
 	key: string;
 	keywords: string[];
 	lozenge?: ReactNode;

@@ -9,7 +9,6 @@ import {
 } from '@atlaskit/editor-common/styles/lists';
 import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import { isListNode } from '@atlaskit/editor-common/utils';
 import { getItemCounterDigitsSize } from '@atlaskit/editor-common/utils/list';
 import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factory';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
@@ -22,7 +21,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ListPlugin } from '../listPluginType';
 import type { ListState } from '../types';
@@ -92,70 +90,11 @@ const getDecorationsForRange = (doc: Node, from: number, to: number): Decoration
 };
 
 /**
- * Full-document rebuild on the improved path, used when the decoration set has no previous value
- * to update. The whole document is just one aligned range.
+ * Full-document rebuild, used when the decoration set has no previous value to update. The whole
+ * document is just one aligned range.
  */
 export const getDecorationsForDocument = (doc: Node): DecorationSet =>
 	DecorationSet.empty.add(doc, getDecorationsForRange(doc, 0, doc.content.size));
-
-export const getDecorations = (
-	doc: Node,
-	_state: EditorState,
-	_featureFlags: FeatureFlags,
-): DecorationSet => {
-	const decorations: Decoration[] = [];
-
-	// this stack keeps track of each (nested) list to calculate the indentation level
-	const processedListsStack: { node: Node; startPos: number }[] = [];
-
-	doc.nodesBetween(0, doc.content.size, (node, currentNodeStartPos) => {
-		if (processedListsStack.length > 0) {
-			let isOutsideLastList = true;
-			while (isOutsideLastList && processedListsStack.length > 0) {
-				const lastList = processedListsStack[processedListsStack.length - 1];
-				const lastListEndPos = lastList.startPos + lastList.node.nodeSize;
-				isOutsideLastList = currentNodeStartPos >= lastListEndPos;
-				// once we finish iterating over each innermost list, pop the stack to
-				// decrease the indent level attribute accordingly
-				if (isOutsideLastList) {
-					processedListsStack.pop();
-				}
-			}
-		}
-
-		if (isListNode(node)) {
-			processedListsStack.push({ node, startPos: currentNodeStartPos });
-			const from = currentNodeStartPos;
-			const to = currentNodeStartPos + node.nodeSize;
-			const depth = processedListsStack.length;
-
-			decorations.push(
-				Decoration.node(from, to, {
-					'data-indent-level': `${depth}`,
-				}),
-			);
-
-			if (node.type.name === 'orderedList') {
-				// If a numbered list has item counters numbering >= 100, we'll need to add special
-				// spacing to account for the extra digit chars
-				const digitsSize = getItemCounterDigitsSize({
-					itemsCount: node?.childCount,
-					order: node?.attrs?.order,
-				});
-
-				if (digitsSize && digitsSize > 1) {
-					decorations.push(
-						Decoration.node(from, to, {
-							style: getOrderedListInlineStyles(digitsSize, 'string'),
-						}),
-					);
-				}
-			}
-		}
-	});
-
-	return DecorationSet.empty.add(doc, decorations);
-};
 
 /**
  * The parts of a transaction the decoration update needs, so that both `Transaction` and
@@ -310,27 +249,14 @@ const withListStructureToken = (nextPluginState: ListState, pluginState: ListSta
 	return isInList ? pluginState.listStructureToken + 1 : pluginState.listStructureToken;
 };
 
-const handleDocChangedOld =
-	(featureFlags: FeatureFlags) =>
-	(tr: ReadonlyTransaction, pluginState: ListState, editorState: EditorState): ListState => {
-		const nextPluginState = handleSelectionChanged(tr, pluginState);
-		return {
-			...nextPluginState,
-			decorationSet: getDecorations(tr.doc, editorState, featureFlags),
-			listStructureToken: withListStructureToken(nextPluginState, pluginState),
-		};
+const handleDocChanged = (tr: ReadonlyTransaction, pluginState: ListState): ListState => {
+	const nextPluginState = handleSelectionChanged(tr, pluginState);
+	return {
+		...nextPluginState,
+		decorationSet: updateDecorations(pluginState.decorationSet, tr, tr.doc),
+		listStructureToken: withListStructureToken(nextPluginState, pluginState),
 	};
-
-const handleDocChangedNew =
-	() =>
-	(tr: ReadonlyTransaction, pluginState: ListState, editorState: EditorState): ListState => {
-		const nextPluginState = handleSelectionChanged(tr, pluginState);
-		return {
-			...nextPluginState,
-			decorationSet: updateDecorations(pluginState.decorationSet, tr, tr.doc),
-			listStructureToken: withListStructureToken(nextPluginState, pluginState),
-		};
-	};
+};
 
 const handleSelectionChanged = (tr: ReadonlyTransaction, pluginState: ListState): ListState => {
 	const { bulletListActive, orderedListActive, bulletListDisabled, orderedListDisabled } =
@@ -361,51 +287,29 @@ const reducer =
 		return state;
 	};
 
-const createInitialStateOld =
-	(featureFlags: FeatureFlags, api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
-		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
-		return {
-			// When plugin is initialised, editor state is defined with selection
-			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
-			...(isToolbarAIFCEnabled ? getListState(state.doc, state.selection) : initialState),
-			decorationSet: getDecorations(state.doc, state, featureFlags),
-			listStructureToken: 0,
-		};
+const createInitialState = (api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
+	const isToolbarAIFCEnabled = Boolean(api?.toolbar);
+	return {
+		// When plugin is initialised, editor state is defined with selection
+		// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
+		...(isToolbarAIFCEnabled ? getListState(state.doc, state.selection) : initialState),
+		decorationSet: getDecorationsForDocument(state.doc),
+		listStructureToken: 0,
 	};
-
-const createInitialStateNew =
-	(featureFlags: FeatureFlags, api?: ExtractInjectionAPI<ListPlugin>) => (state: EditorState) => {
-		const isToolbarAIFCEnabled = Boolean(api?.toolbar);
-		return {
-			// When plugin is initialised, editor state is defined with selection
-			// hence returning the list state based on the selection to avoid list button in primary toolbar flickering during initial load
-			...(isToolbarAIFCEnabled ? getListState(state.doc, state.selection) : initialState),
-			decorationSet: getDecorationsForDocument(state.doc),
-			listStructureToken: 0,
-		};
-	};
+};
 
 export const createPlugin = (
 	eventDispatch: Dispatch,
-	featureFlags: FeatureFlags,
+	_featureFlags: FeatureFlags,
 	api?: ExtractInjectionAPI<ListPlugin>,
 ): SafePlugin => {
 	const { getPluginState, createPluginState } = pluginFactory(listPluginKey, reducer(), {
-		// Resolved once per editor instance rather than per transaction, so the exposure event fires
-		// once and the decoration hot path stays free of experiment lookups.
-		onDocChanged: isExperimentEnabled('platform_editor_list_performance_improv')
-			? handleDocChangedNew()
-			: handleDocChangedOld(featureFlags),
+		onDocChanged: handleDocChanged,
 		onSelectionChanged: handleSelectionChanged,
 	});
 
 	return new SafePlugin({
-		state: createPluginState(
-			eventDispatch,
-			isExperimentEnabled('platform_editor_list_performance_improv')
-				? createInitialStateNew(featureFlags, api)
-				: createInitialStateOld(featureFlags, api),
-		),
+		state: createPluginState(eventDispatch, createInitialState(api)),
 		key: listPluginKey,
 
 		appendTransaction(transactions, _oldState, newState) {

@@ -179,7 +179,7 @@ manually handle the following:
 
 1. Add any new packages to your `package.json` dependencies
 2. Regenerate tsconfigs by running `afm ts generate`
-3. Update the lockfile with `afm install --mode update-lockfile`
+3. Update the lockfile with `afm install --lockfile-only`
 4. Create changesets for modified packages
 
 ## Why Use Both Rules?

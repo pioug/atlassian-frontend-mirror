@@ -71,6 +71,11 @@ const leftSurfaceStickyStyles = css({
 	top: token('space.100'),
 });
 
+// Keep in sync with STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER in ./consts (must be a static literal here)
+const leftSurfaceStickyTableHeaderStyles = css({
+	top: token('space.300'),
+});
+
 type BlockControlsLeftSurfaceProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin>;
 	components: React.ComponentProps<typeof SurfaceRenderer>['components'];
@@ -125,6 +130,10 @@ const BlockControlsLeftSurfaceContent = ({
 					leftSurfaceRowStyles,
 					isTopLevel && leftSurfaceGutterStyles.row,
 					isSticky && leftSurfaceStickyStyles,
+					isSticky &&
+						blockControlsContext?.targetNode.type.name === 'table' &&
+						isExperimentEnabled('platform_editor_block_controls_sticky_header_fix') &&
+						leftSurfaceStickyTableHeaderStyles,
 				]}
 			>
 				<BlockControlsVisibilityProvider

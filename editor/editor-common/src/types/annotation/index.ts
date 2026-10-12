@@ -176,6 +176,8 @@ export type InlineCommentAnnotationProvider =
 		hoverComponent?: React.ComponentType<InlineCommentHoverComponentProps>;
 		/** Determines whether a specific block node supports inline comments. */
 		isBlockNodeSupported?: (node: PMNode) => boolean;
+		/** Additional creation policy for supported block nodes; does not control existing threads. */
+		canCreateCommentOnBlockNode?: (node: PMNode) => boolean;
 		selectionComponent?: React.ComponentType<
 			React.PropsWithChildren<InlineCommentSelectionComponentProps>
 		>;

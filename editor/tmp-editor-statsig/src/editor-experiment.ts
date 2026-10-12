@@ -117,16 +117,7 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 	if (experimentName === EDITOR_CONTROLS_EXPERIMENT) {
 		const cohort = getEditorControlsCohort(experimentConfig.defaultValue as 'control' | 'variant1');
 
-		if (
-			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-			FeatureGates.getExperimentValue(
-				'cc_editor_experiments_ufo_gate_reporting',
-				'isEnabled',
-				false,
-			)
-		) {
-			addFeatureFlagAccessed(`${experimentName}:${experimentConfig.param}`, cohort);
-		}
+		addFeatureFlagAccessed(`${experimentName}:${experimentConfig.param}`, cohort);
 
 		return cohort === expectedExperimentValue;
 	}
@@ -154,14 +145,7 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 		{ typeGuard: experimentConfig.typeGuard, fireExperimentExposure: options.exposure },
 	);
 
-	if (
-		// When cleaning this gate up -- `calling where the experiments have the product key set`
-		// in __tests__/experiments should be updated (as it's had the count bumped to include these).
-		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
-		FeatureGates.getExperimentValue('cc_editor_experiments_ufo_gate_reporting', 'isEnabled', false)
-	) {
-		addFeatureFlagAccessed(`${experimentName}:${experimentConfig.param}`, experimentValue);
-	}
+	addFeatureFlagAccessed(`${experimentName}:${experimentConfig.param}`, experimentValue);
 
 	return expectedExperimentValue === experimentValue;
 }

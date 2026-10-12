@@ -24,7 +24,6 @@ import { HelperMessage } from '@atlaskit/form/helper-message';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message/message';
@@ -291,14 +290,10 @@ export function MediaFromURL({
 					};
 					dispatchAnalyticsEvent(payload);
 				}
-				if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
-					cancelMediaInsertPicker();
-				} else {
-					closeMediaInsertPicker();
-				}
+				cancelMediaInsertPicker();
 			}
 		},
-		[dispatchAnalyticsEvent, cancelMediaInsertPicker, closeMediaInsertPicker],
+		[dispatchAnalyticsEvent, cancelMediaInsertPicker],
 	);
 
 	const onCancel = React.useCallback(() => {
@@ -311,12 +306,8 @@ export function MediaFromURL({
 			};
 			dispatchAnalyticsEvent(payload);
 		}
-		if (isExperimentEnabled('platform_editor_fix_focus_mediainsertpicker')) {
-			cancelMediaInsertPicker();
-		} else {
-			closeMediaInsertPicker();
-		}
-	}, [cancelMediaInsertPicker, dispatchAnalyticsEvent, closeMediaInsertPicker]);
+		cancelMediaInsertPicker();
+	}, [cancelMediaInsertPicker, dispatchAnalyticsEvent]);
 
 	return (
 		<Form<{ inputUrl: string }>

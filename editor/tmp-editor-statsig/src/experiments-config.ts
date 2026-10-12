@@ -502,13 +502,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-13
-	platform_editor_hide_extension_renderer_support: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-23
 	platform_editor_fix_new_line_after_heading: {
 		defaultValue: boolean;
@@ -1454,14 +1447,6 @@ export const editorExperimentsConfig: {
 	platform_editor_toolbar_submenu_open_click: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_submenu_open_click',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-13
-	platform_editor_hide_extension_renderer_support: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_hide_extension_renderer_support',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

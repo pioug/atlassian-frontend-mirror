@@ -5,10 +5,9 @@
 
 import React, { type FormEvent, PureComponent, type ReactNode } from 'react';
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -44,13 +43,6 @@ const paletteWrapperStyles = css({
 	marginTop: token('space.100'),
 });
 
-const scrollHeightStylesOld = cssMap({
-	default: { maxHeight: '204px' },
-	extended: { maxHeight: '176px' },
-});
-
-// Remove when cleaning up `platform_editor_status_popup_suggestions_patch_3`: `extended`
-// already always uses this value below, and `default` should too, unconditionally.
 const scrollHeightStyles = css({ maxHeight: '160px' });
 
 export interface Props {
@@ -110,12 +102,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 				<div css={paletteWrapperStyles}>{colorPalette}</div>
 				{scrollableContent ? (
 					<div
-						css={[
-							scrollContainerStyles,
-							palette === 'extended' || fg('platform_editor_status_popup_suggestions_patch_3')
-								? scrollHeightStyles
-								: scrollHeightStylesOld[palette ?? 'default'],
-						]}
+						css={[scrollContainerStyles, scrollHeightStyles]}
 						data-status-picker-scroll-container
 					>
 						{scrollableContent}

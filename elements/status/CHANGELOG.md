@@ -1,5 +1,14 @@
 # @atlaskit/status
 
+## 5.13.12
+
+### Patch Changes
+
+- [`c55f775ee9bc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c55f775ee9bc7) -
+  Clean up the shipped platform_editor_status_popup_suggestions_patch_3 feature gate, keeping its
+  enabled behaviour
+- Updated dependencies
+
 ## 5.13.11
 
 ### Patch Changes

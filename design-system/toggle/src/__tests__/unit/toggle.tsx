@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Toggle from '../../toggle';
 
@@ -13,9 +14,26 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Toggle component', () => {
+	beforeEach(() => {
+		passGate('platform_design_system_toggle_motion');
+	});
 	const label = 'label';
 	beforeEach(() => {
 		skipA11yAudit();
+	});
+
+	it('provides valid motion fallbacks without the motion theme', () => {
+		render(<Toggle label={label} testId="motion-toggle" />);
+		const transition =
+			'var(--ds-input-toggle,background-color .15s cubic-bezier(.4,1,.6,1),color .15s cubic-bezier(.4,1,.6,1),transform .15s cubic-bezier(.4,1,.6,1),opacity .15s cubic-bezier(.4,1,.6,1))';
+		const toggle = screen.getByTestId('motion-toggle');
+
+		expect(toggle).toHaveCompiledCss('transition', transition);
+		expect(toggle).toHaveCompiledCss('transition', transition, { target: ':before' });
+		// Motion is applied to the decorative wrapper, which has no accessible role.
+		// eslint-disable-next-line testing-library/no-node-access
+		const iconContainer = screen.getByTestId('motion-toggle--toggle-check-icon').parentElement;
+		expect(iconContainer).toHaveCompiledCss('transition', transition);
 	});
 
 	it('should be able to switch', async () => {

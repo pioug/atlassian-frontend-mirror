@@ -1,3 +1,5 @@
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
+
 import {
 	type UploadEndEventPayload,
 	type UploadErrorEventPayload,
@@ -26,7 +28,7 @@ export interface UploadService {
 	setUploadParams(uploadParams: UploadParams): void;
 	addFile(file: File, replaceFileId?: string): void;
 	addFiles(files: File[]): void;
-	addFilesWithSource(files: LocalFileWithSource[]): Promise<void>;
+	addFilesWithSource(files: LocalFileWithSource[], traceContext?: MediaTraceContext): Promise<void>;
 	cancel(id?: string): void;
 	on<E extends keyof UploadServiceEventPayloadTypes>(
 		event: E,

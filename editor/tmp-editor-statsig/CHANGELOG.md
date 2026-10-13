@@ -1,5 +1,30 @@
 # @atlaskit/editor-statsig-tmp
 
+## 235.0.0
+
+### Major Changes
+
+- [`d5674f7075129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5674f7075129) -
+  Clean up experiment `platform_editor_fix_lagging_embed_resize_handle`
+
+## 234.0.0
+
+### Major Changes
+
+- [`40a03b85a53bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40a03b85a53bb) -
+  Clean up experiment `platform_editor_remove_important_in_render_ext`
+- [`f2be4b48189f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2be4b48189f2) -
+  Clean up experiment `platform_editor_enable_single_player_step_merging`
+- [`de7a00d09c978`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de7a00d09c978) -
+  Clean up experiment `platform_editor_blocktaskitem_node_tenantid`
+
+## 233.0.0
+
+### Major Changes
+
+- [`2af9684026f37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af9684026f37) -
+  Clean up experiment `platform_editor_render_bodied_extension_as_inline`
+
 ## 232.0.0
 
 ### Major Changes

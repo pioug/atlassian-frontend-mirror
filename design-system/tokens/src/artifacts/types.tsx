@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c1baaec268e407c3b4ad28438a9171ec>>
+ * @codegen <<SignedSource::ade76e0524ae0e3f6bbef2cac3ed66a9>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -30,6 +30,7 @@ export type ActiveTokens =
 	| 'motion.form.message.exit'
 	| 'motion.input'
 	| 'motion.input.selection'
+	| 'motion.input.toggle'
 	| 'motion.keyframe.fade.in'
 	| 'motion.keyframe.fade.out'
 	| 'motion.keyframe.grid.column.in'

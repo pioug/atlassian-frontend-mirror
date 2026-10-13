@@ -17,9 +17,7 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { NotConnectedError } from '../../errors/custom-errors';
 import { EVENT_STATUS } from '../../helpers/const';
@@ -190,9 +188,8 @@ describe('commitStepQueue', () => {
 		);
 	});
 
-	describe('platform_editor_agentic_step_attribution feature gate', () => {
-		it('serializes attribution from each matching step origin when enabled', () => {
-			passGate('platform_editor_agentic_step_attribution');
+	describe('agent attribution', () => {
+		it('serializes attribution from each matching step origin', () => {
 			const { presetCommitStepQueue, broadcastSpy } = createTestHelpers();
 			const firstAgentOrigin = new Transaction({} as any).setMeta(AGENT_ATTRIBUTION_META, {
 				agentId: '712020:agent-account-id',
@@ -227,23 +224,6 @@ describe('commitStepQueue', () => {
 					userId: 'user1',
 				},
 			]);
-		});
-
-		it('omits attribution when disabled', () => {
-			failGate('platform_editor_agentic_step_attribution');
-			const { presetCommitStepQueue, broadcastSpy } = createTestHelpers();
-			const agentOrigin = new Transaction({} as any).setMeta(AGENT_ATTRIBUTION_META, {
-				agentId: '712020:agent-account-id',
-				agentType: 'convo-ai',
-			});
-
-			presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-				stepOrigins: [agentOrigin],
-			});
-
-			expect((broadcastSpy.mock.calls[0][1] as any).steps[0]).not.toEqual(
-				expect.objectContaining({ agentId: expect.anything(), agentType: expect.anything() }),
-			);
 		});
 	});
 
@@ -400,29 +380,16 @@ describe('commitStepQueue', () => {
 			);
 		};
 
-		describe('locks steps from merging when step merging experiment enabled', () => {
-			eeTest('platform_editor_enable_single_player_step_merging', {
-				true: () => {
-					broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
+		it('locks steps from merging', () => {
+			broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
 
-					const lockStepsMock = jest.fn();
-					presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-						lockSteps: lockStepsMock,
-					});
-					// lockSteps is called after a delay after the broadcast callback
-					jest.advanceTimersByTime(680); // default delay when no backpressure delay is sent
-					expect(lockStepsMock).toHaveBeenCalled();
-				},
-				false: () => {
-					broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
-
-					const lockStepsMock = jest.fn();
-					presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-						lockSteps: lockStepsMock,
-					});
-					expect(lockStepsMock).not.toHaveBeenCalled();
-				},
+			const lockStepsMock = jest.fn();
+			presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+				lockSteps: lockStepsMock,
 			});
+			// lockSteps is called after a delay after the broadcast callback
+			jest.advanceTimersByTime(680); // default delay when no backpressure delay is sent
+			expect(lockStepsMock).toHaveBeenCalled();
 		});
 
 		describe('on successful response', () => {

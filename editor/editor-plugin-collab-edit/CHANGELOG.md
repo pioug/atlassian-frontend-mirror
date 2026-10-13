@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- [`f2be4b48189f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2be4b48189f2) -
+  Clean up experiment `platform_editor_enable_single_player_step_merging`
+- Updated dependencies
+
+## 27.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.6
 
 ### Patch Changes

@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
@@ -132,16 +131,9 @@ export class TaskItemNodeView implements NodeView {
 		this.view.dispatch(tr);
 	};
 
-	private isContentEmpty(node: PMNode) {
-		return node.content.childCount === 0;
-	}
-
 	// Update the placeholder visibility based on content
 	private updatePlaceholder(node: PMNode) {
-		let currentIsContentEmpty = this.isContentEmpty(node);
-		if (expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)) {
-			currentIsContentEmpty = isContentEmpty(node);
-		}
+		const currentIsContentEmpty = isContentEmpty(node);
 
 		if (currentIsContentEmpty !== this.emptyContent) {
 			this.emptyContent = currentIsContentEmpty;

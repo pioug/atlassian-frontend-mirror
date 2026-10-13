@@ -27,7 +27,6 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { closeRequestEditPopupAt, getCurrentIndentLevel, isInsideTask } from './pm-plugins/helpers';
 // Ignored via go/ees005
@@ -216,10 +215,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					node: taskList,
 				},
 				{ name: 'taskItem', node: taskItem },
-				...(expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true) &&
-				allowBlockTaskItem
-					? [{ name: 'blockTaskItem', node: blockTaskItem }]
-					: []),
+				...(allowBlockTaskItem ? [{ name: 'blockTaskItem', node: blockTaskItem }] : []),
 			];
 		},
 

@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 
 import Loadable from 'react-loadable';
+// oxlint-disable-next-line @atlassian/no-restricted-imports
+import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import ResourcedMention from '@atlaskit/mention/resourced-mention';
@@ -19,20 +21,38 @@ import type { MentionEventHandler } from '../EventHandlers';
 // Lazy-loaded so the agent profile card chunk (and its `@atlaskit/rovo-agent-components`
 // dependency) stays off the critical path — it is only fetched when an agent mention
 // (`userType === 'APP'`) actually renders, never for person mentions.
-// Uses react-loadable to match editor-common's code-splitting factory (see src/icons/index.ts).
+const loadAgentProfileCardTrigger = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_profilecard/agent-profile-card-trigger" */
+		'@atlaskit/profilecard/agent-profile-card-trigger'
+	).then((mod) => mod.AgentProfileCardTrigger);
+
+const AgentProfileCardTriggerLazy = lazy(() =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_profilecard/agent-profile-card-trigger" */
+		'@atlaskit/profilecard/agent-profile-card-trigger'
+	).then((mod) => mod.AgentProfileCardTrigger),
+);
+AgentProfileCardTriggerLazy.displayName = 'lazy(AgentProfileCardTrigger)';
+const AgentProfileCardTriggerLoadable = Loadable({
+	loader: loadAgentProfileCardTrigger,
+	loading: () => null,
+});
+
 const AgentProfileCardTrigger: React.ComponentType<
 	React.ComponentProps<
 		(typeof import('@atlaskit/profilecard/agent-profile-card-trigger'))['AgentProfileCardTrigger']
 	>
-> &
-	Loadable.LoadableComponent = Loadable({
-	loader: () =>
-		import(
-			/* webpackChunkName: "@atlaskit-internal_profilecard/agent-profile-card-trigger" */
-			'@atlaskit/profilecard/agent-profile-card-trigger'
-		).then((mod) => mod.AgentProfileCardTrigger),
-	loading: () => null,
-});
+> = (props) =>
+	isExperimentEnabled('platform_editor_loosely_lazy_migration') ? (
+		<LazySuspense fallback={null}>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			<AgentProfileCardTriggerLazy {...props} />
+		</LazySuspense>
+	) : (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<AgentProfileCardTriggerLoadable {...props} />
+	);
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

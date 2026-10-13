@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 27.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.26
+
+### Patch Changes
+
+- [`5c892b4112473`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c892b4112473) -
+  Remove redundant cozy spacing props from menu components, preserving their default spacing.
+- Updated dependencies
+
+## 27.1.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.1.24
 
 ### Patch Changes

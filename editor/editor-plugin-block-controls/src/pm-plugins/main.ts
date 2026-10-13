@@ -1,3 +1,4 @@
+import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl';
 
@@ -1296,6 +1297,46 @@ export const createPlugin = (
 	// Limited mode is a one-way latch, so its teardown must only run on the transition.
 	const limitedModeTeardown = { done: false };
 
+	// Edit transition and live-doc load paint the editor under a stationary pointer, which fires
+	// mouseover before VC and never a mousemove. Ignore hover until the pointer moves.
+	const ignoreRestingPointerHover =
+		!isExperimentEnabled('platform_editor_block_control_migration') &&
+		expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+		fg('platform_editor_controls_reliable_anchor_patch_2');
+
+	// When ignoreRestingPointerHover is false, this is always true, so hover is never suppressed.
+	let pointerHasMoved = !ignoreRestingPointerHover;
+
+	const onMouseOver = (view: EditorView, event: Event): boolean | void => {
+		if (ignoreRestingPointerHover && !pointerHasMoved) {
+			return false;
+		}
+
+		// Sparse surfaces handle all hover in bindSparseGutterHover, which also covers the gutters
+		// outside view.dom.
+		if (isExperimentEnabled('platform_editor_block_control_migration')) {
+			return false;
+		}
+
+		if (api?.limitedMode?.sharedState.currentState()?.enabled) {
+			return;
+		}
+
+		// another layer of protection to prevent handling mouseover
+		// when native anchor with dnd is enabled in limited mode
+		// in case there are descripancies between getNodeIdProvider limited mode state
+		if (
+			getNodeIdProvider(view)?.isLimitedMode() &&
+			expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+		) {
+			return;
+		}
+
+		handleMouseOver(view, event, api);
+
+		return false;
+	};
+
 	return new SafePlugin({
 		key,
 		state: {
@@ -1507,31 +1548,7 @@ export const createPlugin = (
 						dispatch(tr);
 					}
 				},
-				mouseover: (view: EditorView, event: Event) => {
-					// Sparse surfaces handle all hover in bindSparseGutterHover, which also covers the gutters
-					// outside view.dom.
-					if (isExperimentEnabled('platform_editor_block_control_migration')) {
-						return false;
-					}
-
-					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
-						return;
-					}
-
-					// another layer of protection to prevent handling mouseover
-					// when native anchor with dnd is enabled in limited mode
-					// in case there are descripancies between getNodeIdProvider limited mode state
-					if (
-						getNodeIdProvider(view)?.isLimitedMode() &&
-						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-					) {
-						return;
-					}
-
-					handleMouseOver(view, event, api);
-
-					return false;
-				},
+				mouseover: onMouseOver,
 				mousedown: (view: EditorView, event: MouseEvent) => {
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
 						return;
@@ -1690,8 +1707,25 @@ export const createPlugin = (
 			// Start pragmatic monitors
 			pragmaticCleanup = destroyFn(api, editorView);
 
+			let unbindMouseMove: (() => void) | undefined;
+
+			// When ignoreRestingPointerHover is false, pointerHasMoved is always true, so we never
+			// bind. Once the pointer has moved there is nothing left to un-latch.
+			if (!pointerHasMoved) {
+				unbindMouseMove = bind(editorView.dom, {
+					type: 'mousemove',
+					listener: (event) => {
+						pointerHasMoved = true;
+						unbindMouseMove?.();
+						onMouseOver(editorView, event);
+					},
+					options: { once: true, passive: true },
+				});
+			}
+
 			return {
 				destroy() {
+					unbindMouseMove?.();
 					if (editorContentArea) {
 						resizeObserverWidth.unobserve(editorContentArea);
 					}

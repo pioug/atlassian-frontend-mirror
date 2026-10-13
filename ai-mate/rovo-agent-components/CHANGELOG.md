@@ -1,5 +1,26 @@
 # @atlaskit/rovo-agent-components
 
+## 9.9.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.9.13
+
+### Patch Changes
+
+- [`a4aec426811e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4aec426811e1) -
+  Use `rovo_agent_avatar_refresh_teu26` for refreshed Rovo agent artwork and colours, independently
+  of the ADS avatar geometry gate.
+- Updated dependencies
+
+## 9.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.9.11
 
 ### Patch Changes

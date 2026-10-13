@@ -56,6 +56,13 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					properties: ['BackgroundColor', 'BorderColor', 'BoxShadow'],
 				},
 			},
+			toggle: {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'Color', 'Transform', 'Opacity'],
+				},
+			},
 			selection: {
 				value: {
 					duration: 'Duration150',

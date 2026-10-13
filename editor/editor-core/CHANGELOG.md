@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 237.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 236.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 236.1.2
+
+### Patch Changes
+
+- [`de7a00d09c978`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de7a00d09c978) -
+  Clean up experiment `platform_editor_blocktaskitem_node_tenantid`
+- Updated dependencies
+
+## 236.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 236.1.0
 
 ### Minor Changes

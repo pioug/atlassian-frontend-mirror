@@ -20,23 +20,30 @@ import type { MediaSVGError } from '@atlaskit/media-svg/media-svg-error';
 import { Camera } from '@atlaskit/media-ui/camera/camera';
 import { messages } from '@atlaskit/media-ui/messages';
 import { Vector2 } from '@atlaskit/media-ui/vector2';
+import { token } from '@atlaskit/tokens';
 
 import { createClosedEvent } from '../../analytics/events/ui/closed';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { useIsInsetViewer } from '../../insetViewerContext';
 import { MediaViewerError } from '../../MediaViewerError';
 import { BaselineExtend } from '../../styleWrappers';
+import {
+	refitViewport,
+	insetFittedViewport,
+	isUserScroll,
+	readWrapperScroll,
+	readWrapperSize,
+	readViewportCenterOnMedia,
+	type MediaViewportCenter,
+	type WrapperScroll,
+	type WrapperSize,
+} from '../../utils/fit-viewport';
 import { ZoomControls } from '../../zoomControls';
 import { clientRectangle } from './clientRectangle';
 import { getErrorReason } from './errors';
 import { ImageWrapper } from './ImageWrapper';
 import { naturalSizeRectangle } from './naturalSizeRectangle';
 import { zoomLevelAfterResize } from './zoomLevelAfterResize';
-
-type WrapperScroll = {
-	scrollLeft: number;
-	scrollTop: number;
-};
 
 export interface SvgViewerProps extends WithAnalyticsEventsProps {
 	identifier: FileIdentifier;
@@ -59,20 +66,49 @@ const SvgViewerBase = ({
 	const [cursorPos, setCursorPos] = useState(new Vector2(0, 0));
 	const [camera, setCamera] = useState<Camera>();
 	const wrapperRef = useRef<HTMLDivElement>(null);
+	const imageRef = useRef<HTMLImageElement>(null);
+	const savedViewportCenterRef = useRef<MediaViewportCenter | undefined>(undefined);
+	// The wrapper scroll position the saved center was read at or restored to.
+	const savedViewportCenterScrollRef = useRef<WrapperScroll | undefined>(undefined);
+	// The wrapper size the last load or resize was handled at.
+	const fittedWrapperSizeRef = useRef<WrapperSize | undefined>(undefined);
 	const [wrapperScroll, setWrapperScroll] = useState<WrapperScroll>();
 	const intl = useIntl();
 	const isInsetViewer = useIsInsetViewer();
+
+	const captureViewportCenterOnMedia = (wrapper: HTMLElement, image: HTMLElement) => {
+		savedViewportCenterRef.current = readViewportCenterOnMedia(wrapper, image);
+		savedViewportCenterScrollRef.current = readWrapperScroll(wrapper);
+	};
 
 	const onResize = useCallback(() => {
 		if (!wrapperRef.current || !camera) {
 			return;
 		}
-		const newViewport = clientRectangle(wrapperRef.current);
-		const newCamera = camera.resizedViewport(newViewport);
-		const newZoomLevel = zoomLevelAfterResize(newCamera, camera, zoomLevel);
-		setCamera(newCamera);
-		setZoomLevel(newZoomLevel);
-	}, [camera, zoomLevel]);
+		if (!isInsetViewer) {
+			const newViewport = clientRectangle(wrapperRef.current);
+			const newCamera = camera.resizedViewport(newViewport);
+			const newZoomLevel = zoomLevelAfterResize(newCamera, camera, zoomLevel);
+			setCamera(newCamera);
+			setZoomLevel(newZoomLevel);
+			return;
+		}
+
+		fittedWrapperSizeRef.current = readWrapperSize(wrapperRef.current);
+		const refit = refitViewport({
+			wrapper: wrapperRef.current,
+			media: imageRef.current,
+			camera,
+			zoomLevel,
+			savedViewportCenter: savedViewportCenterRef.current,
+		});
+		if (!refit) {
+			return;
+		}
+		savedViewportCenterScrollRef.current = readWrapperScroll(wrapperRef.current);
+		setCamera(refit.camera);
+		setZoomLevel(refit.zoomLevel);
+	}, [isInsetViewer, camera, zoomLevel]);
 
 	const panImage = useCallback(
 		(ev: MouseEvent) => {
@@ -82,9 +118,12 @@ const SvgViewerBase = ({
 				setCursorPos(newCursorPos);
 				wrapperRef.current.scrollLeft += delta.x;
 				wrapperRef.current.scrollTop += delta.y;
+				if (isInsetViewer && imageRef.current) {
+					captureViewportCenterOnMedia(wrapperRef.current, imageRef.current);
+				}
 			}
 		},
-		[cursorPos, isDragging],
+		[cursorPos, isDragging, isInsetViewer],
 	);
 
 	const stopDragging = useCallback((ev: MouseEvent) => {
@@ -93,16 +132,58 @@ const SvgViewerBase = ({
 	}, []);
 
 	useEffect(() => {
-		window.addEventListener('resize', onResize);
+		const shouldListenForWindowResize = !isInsetViewer || typeof ResizeObserver === 'undefined';
+		if (shouldListenForWindowResize) {
+			window.addEventListener('resize', onResize);
+		}
 		document.addEventListener('mousemove', panImage);
 		document.addEventListener('mouseup', stopDragging);
 
 		return () => {
-			window.removeEventListener('resize', onResize);
+			if (shouldListenForWindowResize) {
+				window.removeEventListener('resize', onResize);
+			}
 			document.removeEventListener('mousemove', panImage);
 			document.removeEventListener('mouseup', stopDragging);
 		};
-	}, [onResize, panImage, stopDragging]);
+	}, [isInsetViewer, onResize, panImage, stopDragging]);
+
+	// The observer calls the latest `onResize` through a ref, so it isn't recreated every time the
+	// media is zoomed.
+	const onResizeRef = useRef(onResize);
+	useLayoutEffect(() => {
+		onResizeRef.current = onResize;
+	}, [onResize]);
+
+	// Inset only: observes the wrapper's size, and saves the center after the user scrolls it natively
+	// (wheel, trackpad, scrollbar, keyboard or touch), which doesn't go through the zoom or drag handlers.
+	useEffect(() => {
+		const wrapper = wrapperRef.current;
+		if (!wrapper || !isInsetViewer) {
+			return;
+		}
+		const onWrapperScroll = () => {
+			if (
+				!imageRef.current ||
+				!isUserScroll(wrapper, fittedWrapperSizeRef.current, savedViewportCenterScrollRef.current)
+			) {
+				return;
+			}
+			captureViewportCenterOnMedia(wrapper, imageRef.current);
+		};
+		wrapper.addEventListener('scroll', onWrapperScroll);
+
+		const observer =
+			typeof ResizeObserver === 'undefined'
+				? undefined
+				: new ResizeObserver(() => onResizeRef.current());
+		observer?.observe(wrapper);
+
+		return () => {
+			wrapper.removeEventListener('scroll', onWrapperScroll);
+			observer?.disconnect();
+		};
+	}, [isInsetViewer]);
 
 	const onSvgLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
 		onLoad?.();
@@ -111,7 +192,12 @@ const SvgViewerBase = ({
 			return;
 		}
 
-		const viewport = clientRectangle(wrapperRef.current);
+		const viewport = isInsetViewer
+			? insetFittedViewport(wrapperRef.current)
+			: clientRectangle(wrapperRef.current);
+		if (isInsetViewer) {
+			fittedWrapperSizeRef.current = readWrapperSize(wrapperRef.current);
+		}
 		const originalImgRect = naturalSizeRectangle(ev.currentTarget);
 		const newCamera = new Camera(viewport, originalImgRect);
 		const newZoomLevel = new ZoomLevel(newCamera.scaleDownToFit);
@@ -159,6 +245,14 @@ const SvgViewerBase = ({
 		setWrapperScroll({ scrollLeft: x, scrollTop: y });
 	};
 
+	// Fits to the camera's current viewport. A zoom level's initial value is the fit from when it was
+	// created, which is stale once the wrapper has resized while the media was zoomed.
+	const onResetZoom = () => {
+		if (camera) {
+			onZoomChange(new ZoomLevel(camera.scaleDownToFit));
+		}
+	};
+
 	useLayoutEffect(() => {
 		// Must scroll after the new zoom (onZoomChange) and before the repaint
 		const { current: wrapper } = wrapperRef;
@@ -168,7 +262,10 @@ const SvgViewerBase = ({
 		const { scrollLeft, scrollTop } = wrapperScroll;
 		wrapper.scrollLeft = scrollLeft;
 		wrapper.scrollTop = scrollTop;
-	}, [wrapperScroll]);
+		if (isInsetViewer && imageRef.current) {
+			captureViewportCenterOnMedia(wrapper, imageRef.current);
+		}
+	}, [isInsetViewer, wrapperScroll]);
 
 	// We use style attr instead of SC prop for perf reasons
 	// When image loads it does two things at the same time 1) it renders itself in the browser 2) triggers onLoad
@@ -185,12 +282,21 @@ const SvgViewerBase = ({
 		display: 'inline-block',
 		verticalAlign: 'middle',
 		position: 'relative',
+		...(isInsetViewer && { borderRadius: token('radius.large', '8px'), overflow: 'hidden' }),
 	};
 	const imgDimensions = camera?.scaledImg(zoomLevel.value);
 
 	return (
-		<ImageWrapper onClick={onSvgClicked} ref={wrapperRef} isHidden={isHidden}>
+		<ImageWrapper
+			onClick={onSvgClicked}
+			ref={wrapperRef}
+			// Prevents scrollbars while loading or fitted.
+			isHidden={
+				isHidden || !!(isInsetViewer && camera && zoomLevel.value === camera.scaleDownToFit)
+			}
+		>
 			<MediaSvg
+				ref={imageRef}
 				testId={'media-viewer-svg'}
 				alt={intl.formatMessage(messages.svg_base_alt)}
 				identifier={identifier}
@@ -212,7 +318,11 @@ const SvgViewerBase = ({
           Currently 'safe' is not supported by Safari
          */}
 			<BaselineExtend />
-			<ZoomControls zoomLevel={zoomLevel} onChange={onZoomChange} />
+			<ZoomControls
+				zoomLevel={zoomLevel}
+				onChange={onZoomChange}
+				onResetZoom={isInsetViewer ? onResetZoom : undefined}
+			/>
 		</ImageWrapper>
 	);
 };

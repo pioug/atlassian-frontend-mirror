@@ -5,6 +5,7 @@ import MenuPortalClippedAncestorExample from '../../../examples/31-menu-portal-c
 import MenuPortalCustomTargetExample from '../../../examples/32-menu-portal-custom-target.vr.ap';
 import MenuPositionFixedExample from '../../../examples/33-menu-position-fixed.vr.ap';
 import MenuNoPortalConfigExample from '../../../examples/34-menu-no-portal-config.vr.ap';
+import MenuPortalViewportEdgeExample from '../../../examples/35-menu-portal-viewport-edge.vr.ap';
 
 /**
  * Informational VR matrix for the `platform-dst-top-layer` rollout in
@@ -94,4 +95,27 @@ snapshotInformational(MenuPortalTopLayerExample, {
 	featureFlags: { 'platform-dst-top-layer': [true, false] },
 	drawsOutsideBounds: true,
 	prepare: openMenuAndHighlight,
+});
+
+snapshotInformational(MenuPortalViewportEdgeExample, {
+	description: 'react-select menu fits above a control near the viewport bottom',
+	variants: [desktop],
+	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.setViewportSize({ width: 800, height: 600 });
+		await openMenu(page);
+	},
+});
+
+snapshotInformational(MenuPortalViewportEdgeExample, {
+	description: 'react-select menu scrolls within the available space in a short viewport',
+	variants: [desktop],
+	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	drawsOutsideBounds: true,
+	prepare: async (page) => {
+		await page.setViewportSize({ width: 800, height: 260 });
+		await openMenu(page);
+		await page.getByRole('option', { name: 'City 20', exact: true }).scrollIntoViewIfNeeded();
+	},
 });

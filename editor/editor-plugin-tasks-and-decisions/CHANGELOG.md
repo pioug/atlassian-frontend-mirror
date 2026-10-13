@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 30.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.8
+
+### Patch Changes
+
+- [`de7a00d09c978`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de7a00d09c978) -
+  Clean up experiment `platform_editor_blocktaskitem_node_tenantid`
+- Updated dependencies
+
+## 29.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.6
 
 ### Patch Changes

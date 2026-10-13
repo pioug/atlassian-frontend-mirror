@@ -1,5 +1,35 @@
 # @atlaskit/renderer
 
+## 150.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 149.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 149.0.8
+
+### Patch Changes
+
+- [`40a03b85a53bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40a03b85a53bb) -
+  Clean up experiment `platform_editor_remove_important_in_render_ext`
+- [`de7a00d09c978`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de7a00d09c978) -
+  Clean up experiment `platform_editor_blocktaskitem_node_tenantid`
+- Updated dependencies
+
+## 149.0.7
+
+### Patch Changes
+
+- [`2af9684026f37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2af9684026f37) -
+  Clean up experiment `platform_editor_render_bodied_extension_as_inline`
+- Updated dependencies
+
 ## 149.0.6
 
 ### Patch Changes

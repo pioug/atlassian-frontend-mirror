@@ -8,7 +8,6 @@ import {
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types/editor-actions';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/internal-errors';
@@ -29,7 +28,6 @@ export const RESET_READYTOCOMMIT_INTERVAL_MS = 5000;
 export class CommitStepService {
 	private readyToCommit: boolean;
 	private lastBroadcastRequestAcked: boolean;
-	private readonly shouldSerializeAgentAttribution: boolean;
 
 	/**
 	 * @param broadcast - Callback for broadcasting events to other clients
@@ -51,7 +49,6 @@ export class CommitStepService {
 	) {
 		this.readyToCommit = true;
 		this.lastBroadcastRequestAcked = true;
-		this.shouldSerializeAgentAttribution = fg('platform_editor_agentic_step_attribution');
 	}
 
 	commitStepQueue({
@@ -104,11 +101,9 @@ export class CommitStepService {
 		}, RESET_READYTOCOMMIT_INTERVAL_MS);
 
 		let stepsWithClientAndUserId = steps.map((step, index) => {
-			const agentAttribution = this.shouldSerializeAgentAttribution
-				? (stepOrigins?.[index]?.getMeta(AGENT_ATTRIBUTION_META) as
-						| AgentAttributionTransactionMeta
-						| undefined)
-				: undefined;
+			const agentAttribution = stepOrigins?.[index]?.getMeta(AGENT_ATTRIBUTION_META) as
+				| AgentAttributionTransactionMeta
+				| undefined;
 
 			return {
 				...step.toJSON(),

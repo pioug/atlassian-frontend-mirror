@@ -3,7 +3,7 @@ import type {
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
 
-import type { QuickInsertMenuModel } from './build-quick-insert-menu-model';
+import type { QuickInsertMenuModel } from './get-quick-insert-menu-model';
 
 export const getQuickInsertMenuRows = (
 	model: QuickInsertMenuModel,

@@ -1,5 +1,13 @@
 # @atlaskit/top-layer
 
+## 6.2.6
+
+### Patch Changes
+
+- [`3d511c4ee8f8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d511c4ee8f8e) -
+  Set `code` to `Escape` on synthetic dialog and popover Escape close events so legacy consumers
+  checking `event.code` recognize keyboard dismissal.
+
 ## 6.2.5
 
 ### Patch Changes

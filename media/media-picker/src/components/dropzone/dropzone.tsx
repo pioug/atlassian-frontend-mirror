@@ -4,6 +4,7 @@ import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common/withMediaAnalyticsContext';
 
@@ -29,6 +30,13 @@ export type DropzoneProps = LocalUploadComponentBaseProps & {
 	config: DropzoneConfig;
 	//Fired when a file is dropped on the drop zone
 	onDrop?: () => void;
+	/** Rejects invalid drops or retains their context until all file IDs are assigned. */
+	onDropWithContext?: (
+		event: DragEvent,
+		traceContext: MediaTraceContext,
+	) => false | void | (() => void);
+	/** Tracks file positions independently of drag enter and leave notifications. */
+	onDragOver?: (event: DragEvent) => void;
 	//Fired when a file is dragged over the drop zone
 	onDragEnter?: (payload: DropzoneDragEnterEventPayload) => void;
 	//Fired when a file is dragged away from the drop zone after entering
@@ -56,6 +64,13 @@ export const Dropzone: React.ForwardRefExoticComponent<
 				config: DropzoneConfig;
 				//Fired when a file is dropped on the drop zone
 				onDrop?: () => void;
+				/** Rejects invalid drops or retains their context until all file IDs are assigned. */
+				onDropWithContext?: (
+					event: DragEvent,
+					traceContext: MediaTraceContext,
+				) => false | void | (() => void);
+				/** Tracks file positions independently of drag enter and leave notifications. */
+				onDragOver?: (event: DragEvent) => void;
 				//Fired when a file is dragged over the drop zone
 				onDragEnter?: (payload: DropzoneDragEnterEventPayload) => void;
 				//Fired when a file is dragged away from the drop zone after entering

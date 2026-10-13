@@ -36,3 +36,15 @@ An example diff of a migration from Tailwind generated code to ADS generated cod
 +  isDisabled
 +/>
 ```
+
+## Motion
+
+The `platform_design_system_toggle_motion` gate enables the `motion.input.toggle` semantic token.
+The track colour, handle and icons transition for 150ms using practical ease-out in both directions.
+The icons move with the handle: the check enters and exits through the left edge, and the cross
+through the right edge, clipped to the rounded track as they fade. The native input and focus border
+stay stationary. No public props change. With reduced motion, the handle and icon positions update
+instantly while colour and opacity fades remain. Disabled controls do not transition. Existing
+loading feedback is preserved. Gate-off behavior is unchanged.
+
+Preview `examples/12-motion.tsx` with `featureFlag=platform_design_system_toggle_motion`.

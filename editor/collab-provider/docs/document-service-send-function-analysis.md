@@ -650,8 +650,7 @@ The send function and commit queue behavior is controlled by several feature fla
 
 1. **`platform_editor_offline_editing_web`**: Enables offline editing support with step timeout
    handling
-2. **`platform_editor_enable_single_player_step_merging`**: Enables step merging for single users
-3. **`platform_editor_step_validation_on_connect`**: Controls step validation for first N steps
+2. **`platform_editor_step_validation_on_connect`**: Controls step validation for first N steps
    after connection
 
 ### Publish Operation Optimization

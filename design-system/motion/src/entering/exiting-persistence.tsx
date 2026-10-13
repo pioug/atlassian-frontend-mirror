@@ -64,7 +64,7 @@ export interface ExitingChildContext {
 }
 
 // We define empty context here so the object doesn't change.
-const emptyContext: ExitingChildContext = {
+export const defaultExitingContext: ExitingChildContext = {
 	// Motions will always appear if not inside a exiting persistence component.
 	appear: true,
 	isInsideExitingPersistence: false,
@@ -77,7 +77,7 @@ const emptyContext: ExitingChildContext = {
  * An exiting context.
  */
 export const ExitingContext: Context<ExitingChildContext> =
-	createContext<ExitingChildContext>(emptyContext);
+	createContext<ExitingChildContext>(defaultExitingContext);
 
 /**
  * This method will wrap any React element with a context provider. We're using context (instead of
@@ -86,7 +86,7 @@ export const ExitingContext: Context<ExitingChildContext> =
  */
 const wrapChildWithContextProvider = (
 	child: JSX.Element,
-	value: ExitingChildContext = emptyContext,
+	value: ExitingChildContext = defaultExitingContext,
 ) => {
 	return (
 		<ExitingContext.Provider key={`${child.key}-provider`} value={value}>

@@ -1,5 +1,24 @@
 # @atlaskit/media-ui
 
+## 31.3.1
+
+### Patch Changes
+
+- [`5412b7f1fe396`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5412b7f1fe396) -
+  [ux] Refit images and SVGs while the inset Media Viewer's media area changes size, for example as
+  the comments sidebar opens and closes or the window resizes, gated by the
+  `cc_comments_inset_media_viewer` feature gate. In inset mode both viewers observe their wrapper
+  with `ResizeObserver`, fit the media inside a rectangle that reserves 24px on each horizontal
+  side, size the media as soon as the wrapper changes, and suppress scrollbars while the media is
+  fitted. Media that was fitted stays fitted to the new size, and "fit to screen" fits to the
+  current wrapper size. Media the user had zoomed keeps its zoom level, and the point that was at
+  the center of the viewport is restored to the center after the resize. Inset SVGs now have the
+  same rounded corners as images. The inset sidebar's content now slides with the column as it opens
+  and closes, and its hide button is no longer shown as selected. With `useInsetViewer` absent or
+  false, both viewers keep their existing window resize listener and fit behavior unchanged. The
+  compiled custom media player's `TimeRangeWrapper` takes `variant: 'timeline' | 'volume'` instead
+  of the internal `isVolumeRange` prop.
+
 ## 31.3.0
 
 ### Minor Changes

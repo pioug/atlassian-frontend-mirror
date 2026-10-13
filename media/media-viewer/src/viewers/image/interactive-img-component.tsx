@@ -14,6 +14,17 @@ import Spinner from '@atlaskit/spinner/spinner';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { BaselineExtend, HDIconGroupWrapper, ImageWrapper, Img } from '../../styleWrappers';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
+import {
+	refitViewport,
+	insetFittedViewport,
+	isUserScroll,
+	readWrapperScroll,
+	readWrapperSize,
+	readViewportCenterOnMedia,
+	type MediaViewportCenter,
+	type WrapperScroll,
+	type WrapperSize,
+} from '../../utils/fit-viewport';
 import { ZoomControls } from '../../zoomControls';
 import type { Props, State } from './interactive-img';
 import { zoomLevelAfterResize } from './zoom-level-after-resize';
@@ -41,16 +52,37 @@ const initialState: State = {
 export class InteractiveImgComponent extends React.Component<Props, State> {
 	state: State = initialState;
 	private wrapper?: HTMLDivElement;
-	private saveWrapperRef = (ref: HTMLDivElement) => (this.wrapper = ref);
+	private imageRef = React.createRef<HTMLImageElement>();
+	private resizeObserver?: ResizeObserver;
+	private savedViewportCenter?: MediaViewportCenter;
+	// The wrapper scroll position the saved center was read at or restored to.
+	private savedViewportCenterScroll?: WrapperScroll;
+	// The wrapper size the last load or resize was handled at.
+	private fittedWrapperSize?: WrapperSize;
+	private scrollListenerTarget?: HTMLDivElement;
+	private saveWrapperRef = (ref: HTMLDivElement | null) => {
+		this.wrapper = ref ?? undefined;
+	};
 
 	componentDidMount(): void {
 		this.state = initialState;
-		window.addEventListener('resize', this.onResize);
 		document.addEventListener('mousemove', this.panImage);
 		document.addEventListener('mouseup', this.stopDragging);
+		if (this.props.isInsetViewer && this.wrapper) {
+			this.scrollListenerTarget = this.wrapper;
+			this.scrollListenerTarget.addEventListener('scroll', this.onWrapperScroll);
+			if (typeof ResizeObserver !== 'undefined') {
+				this.resizeObserver = new ResizeObserver(this.onResize);
+				this.resizeObserver.observe(this.wrapper);
+				return; // Early return to avoid adding resize listener for inset viewer
+			}
+		}
+		window.addEventListener('resize', this.onResize);
 	}
 
 	componentWillUnmount(): void {
+		this.resizeObserver?.disconnect();
+		this.scrollListenerTarget?.removeEventListener('scroll', this.onWrapperScroll);
 		window.removeEventListener('resize', this.onResize);
 		document.removeEventListener('mousemove', this.panImage);
 		document.removeEventListener('mouseup', this.stopDragging);
@@ -109,6 +141,10 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 		return (
 			<ImageWrapper
 				data-testid="media-viewer-image-content"
+				// Prevents scrollbars while fitted.
+				preventScrollbars={
+					!!(this.props.isInsetViewer && camera && zoomLevel.value === camera.scaleDownToFit)
+				}
 				onClick={this.onImageClicked}
 				ref={this.saveWrapperRef}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -117,6 +153,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 				className="media-viewer-image-content"
 			>
 				<Img
+					ref={this.imageRef}
 					data-testid="media-viewer-image"
 					canDrag={canDrag}
 					isDragging={isDragging}
@@ -139,7 +176,11 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
           vertical-align: middle on the image.
          */}
 				<BaselineExtend />
-				<ZoomControls zoomLevel={zoomLevel} onChange={this.onZoomChange}>
+				<ZoomControls
+					zoomLevel={zoomLevel}
+					onChange={this.onZoomChange}
+					onResetZoom={this.props.isInsetViewer ? this.onResetZoom : undefined}
+				>
 					{this.renderHDIndicator()}
 				</ZoomControls>
 			</ImageWrapper>
@@ -155,7 +196,12 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 			return;
 		}
 
-		const viewport = clientRectangle(this.wrapper);
+		const viewport = this.props.isInsetViewer
+			? insetFittedViewport(this.wrapper)
+			: clientRectangle(this.wrapper);
+		if (this.props.isInsetViewer) {
+			this.fittedWrapperSize = readWrapperSize(this.wrapper);
+		}
 		const originalImgRect = naturalSizeRectangle(ev.currentTarget);
 		const camera = new Camera(viewport, originalImgRect);
 		let newZoomLevel: ZoomLevel;
@@ -200,6 +246,26 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 		});
 	};
 
+	private captureViewportCenterOnMedia = () => {
+		if (!this.wrapper || !this.imageRef.current) {
+			return;
+		}
+		this.savedViewportCenter = readViewportCenterOnMedia(this.wrapper, this.imageRef.current);
+		this.savedViewportCenterScroll = readWrapperScroll(this.wrapper);
+	};
+
+	// Inset only: saves the center after the user scrolls the wrapper natively (wheel, trackpad,
+	// scrollbar, keyboard or touch), which doesn't go through the zoom or drag handlers.
+	private onWrapperScroll = () => {
+		if (
+			!this.wrapper ||
+			!isUserScroll(this.wrapper, this.fittedWrapperSize, this.savedViewportCenterScroll)
+		) {
+			return;
+		}
+		this.captureViewportCenterOnMedia();
+	};
+
 	private onResize = () => {
 		const { camera } = this.state;
 
@@ -208,13 +274,33 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 		}
 		const oldZoomLevel = this.state.zoomLevel;
 
-		const newViewport = clientRectangle(this.wrapper);
-		const newCamera = camera.resizedViewport(newViewport);
-		const newZoomLevel = zoomLevelAfterResize(newCamera, camera, oldZoomLevel);
+		if (!this.props.isInsetViewer) {
+			const newViewport = clientRectangle(this.wrapper);
+			const newCamera = camera.resizedViewport(newViewport);
+			const newZoomLevel = zoomLevelAfterResize(newCamera, camera, oldZoomLevel);
+			this.setState({
+				camera: newCamera,
+				zoomLevel: newZoomLevel,
+			});
+			return;
+		}
 
+		this.fittedWrapperSize = readWrapperSize(this.wrapper);
+		const refit = refitViewport({
+			wrapper: this.wrapper,
+			media: this.imageRef.current,
+			camera,
+			zoomLevel: oldZoomLevel,
+			savedViewportCenter: this.savedViewportCenter,
+		});
+		if (!refit) {
+			return;
+		}
+
+		this.savedViewportCenterScroll = readWrapperScroll(this.wrapper);
 		this.setState({
-			camera: newCamera,
-			zoomLevel: newZoomLevel,
+			camera: refit.camera,
+			zoomLevel: refit.zoomLevel,
 		});
 	};
 
@@ -244,8 +330,20 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 				const { x, y } = camera.scaledOffset(prevOffset, prevZoomLevel.value, nextZoomLevel.value);
 				wrapper.scrollLeft = x;
 				wrapper.scrollTop = y;
+				if (this.props.isInsetViewer) {
+					this.captureViewportCenterOnMedia();
+				}
 			},
 		);
+	};
+
+	// Fits to the camera's current viewport. A zoom level's initial value is the fit from when it was
+	// created, which is stale once the wrapper has resized while the media was zoomed.
+	private onResetZoom = () => {
+		const { camera } = this.state;
+		if (camera) {
+			this.onZoomChange(new ZoomLevel(camera.scaleDownToFit));
+		}
 	};
 
 	private startDragging = (ev: React.MouseEvent<{}>) => {
@@ -271,6 +369,9 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 			this.setState({ cursorPos });
 			this.wrapper.scrollLeft += delta.x;
 			this.wrapper.scrollTop += delta.y;
+			if (this.props.isInsetViewer) {
+				this.captureViewportCenterOnMedia();
+			}
 		}
 	};
 }

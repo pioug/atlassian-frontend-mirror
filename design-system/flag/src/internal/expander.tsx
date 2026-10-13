@@ -5,6 +5,7 @@
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import FadeIn from '@atlaskit/motion/fade-in';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -64,7 +65,9 @@ const Expander = ({ children, isExpanded, testId }: ExpanderProps): JSX.Element 
 					<FadeIn>
 						{(props) => (
 							<Box xcss={cx(!isCollapseAnimationEnabled && styles.container)} {...props}>
-								<Stack space="space.100">{children}</Stack>
+								<Stack space="space.100">
+									<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
+								</Stack>
 							</Box>
 						)}
 					</FadeIn>

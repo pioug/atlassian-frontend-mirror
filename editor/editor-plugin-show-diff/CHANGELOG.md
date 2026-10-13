@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.1.6
+
+### Patch Changes
+
+- [`143a5760293cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/143a5760293cf) -
+  EDITOR-9591 Preserve the agent-coloured emoji diff outline after emoji data loads
+- [`2a0c61ea46c19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a0c61ea46c19) -
+  Apply scroll margins to existing block diff decorations without contributor anchors and use
+  styling-only decorations for otherwise unstyled nodes, preserving diff navigation and
+  contributor-tag grouping. Enabled behind platform_editor_ai_show_diff_patch_2 and
+  platform_editor_ai_show_diff_patch_1.
+- Updated dependencies
+
+## 24.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.1.4
 
 ### Patch Changes

@@ -107,7 +107,6 @@ export const InsetSidebarHeader = ({
 					testId="media-viewer-sidebar-button"
 					onClick={onHideSidebar}
 					buttonRef={hideSidebarButtonRef}
-					isSelected
 					icon={PanelRightIcon}
 					label={label || formatMessage(messages.hide_sidebar)}
 				/>

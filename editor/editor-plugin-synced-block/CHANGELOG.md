@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 25.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.7
+
+### Patch Changes
+
+- [`63c2a47db7f66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63c2a47db7f66) -
+  Pass the current editor document into the lookup for synced locations behind
+  platform_editor_blocks_patch_12, including references added, removed, or unsynced before saving.
+  Reconcile saved references with the current document, preserving locations on other documents.
+- Updated dependencies
+
 ## 24.0.6
 
 ### Patch Changes

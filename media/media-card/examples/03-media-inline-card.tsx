@@ -10,6 +10,7 @@ import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
+import MediaInlineCard from '@atlaskit/media-card/loader';
 import { MediaClient } from '@atlaskit/media-client/media-client';
 import type { UploadableFile, UploadableFileUpfrontIds } from '@atlaskit/media-client/uploader';
 import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
@@ -26,7 +27,6 @@ import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
 
 import { MainWrapper } from '../example-helpers';
 import { mediaInlineTableStyles, mediaInlineWrapperStyles } from '../example-helpers/styles';
-import MediaInlineCard from '../src/inline/loader';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 

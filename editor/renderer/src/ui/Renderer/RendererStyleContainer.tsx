@@ -3418,14 +3418,14 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					rendererFullPageStylesWithReducedPadding,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
 				appearance === 'full-width' &&
-					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+					(isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 						? rendererFullWidthStyles
 						: oldRendererFullWidthStyles),
 				(appearance === 'full-width' || appearance === 'max') &&
 					!isTableResizingEnabled(appearance) &&
 					rendererFullWidthStylesForTableResizing,
 				appearance === 'max' &&
-					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+					(isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 						? rendererMaxWidthStyles
 						: oldRendererMaxWidthStyles),
 
@@ -3481,10 +3481,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					: baseOtherStylesDuplicateAnchor,
 				expandSsrMarginStyles,
 				// this should be placed after baseOtherStyles
-				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
-					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-						? extensionAsInlineStyle
-						: oldExtensionAsInlineStyle),
+				isExperimentEnabled('platform_editor_remove_important_in_render_ext')
+					? extensionAsInlineStyle
+					: oldExtensionAsInlineStyle,
 				fg('platform_forge_inline_bodied_macro') && [
 					migratedInlineBodiedFlowStyle,
 					forgeInlineBodiedSpacingStyle,

@@ -1,5 +1,22 @@
 # @atlaskit/teams-public
 
+## 3.4.0
+
+### Minor Changes
+
+- [`75c819d8e4132`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75c819d8e4132) -
+  Cleanup `feature_gate` `enable_multi_team_containers_state`. The multi-team container and team web
+  link state management is now permanent: `useTeamContainers`, `useConnectedTeams`,
+  `useTeamWebLinks` and `useTeamWebLinksActions` always delegate to the multi-team stores, and
+  `useTeamWebLinksActions` no longer returns a union with the single-team store type.
+
+### Patch Changes
+
+- [`522cef10488d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/522cef10488d3) -
+  [A11Y-34682] Make team link card action buttons always visible when `teams_a11y_20261005` gate is
+  on, so keyboard users can reach the disconnect and more-options controls without having to hover
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

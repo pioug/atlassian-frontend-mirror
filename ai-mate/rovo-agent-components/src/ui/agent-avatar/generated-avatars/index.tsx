@@ -424,7 +424,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	autodev_template_unit_test_creator: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedAutoFixAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -437,11 +437,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_migration_config_changer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedOpsAgentAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -454,11 +454,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_vulnerable_dependency_updater_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedMarketingMessageMaestroAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -471,11 +471,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_standardizer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedMyUserManualAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -488,11 +488,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_observer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedResearchScoutAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -505,11 +505,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_accessibility_checker_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedHireWriterAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -522,11 +522,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_code_documentation_writer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedSocialMediaScribeAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -539,11 +539,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_feature_flag_cleaner_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedFeatureFlagAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -556,11 +556,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	decision_director_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedDecisionDirectorAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -573,11 +573,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	planner_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedOpsAgentAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={purpleColor.v2.primary}
@@ -590,11 +590,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={purpleColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? purpleColor.v2 : purpleColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? purpleColor.v2 : purpleColor.v1),
 	},
 	tech_writer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedSocialMediaScribeAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={blueColor.v2.primary}
@@ -607,11 +607,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={blueColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	content_reviewer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedContentReviewerAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={blueColor.v2.primary}
@@ -620,11 +620,11 @@ const outOfTheBoxAgentAvatar: Record<
 			) : (
 				<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	user_manual_writer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedMyUserManualAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={yellowColor.v2.primary}
@@ -637,11 +637,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	product_requirements_expert_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedProductRequirementAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={yellowColor.v2.primary}
@@ -654,7 +654,7 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	document_writer: {
 		getRender: (size: SizeType) => (
@@ -668,7 +668,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	issue_organizer_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedBacklogBuddyAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -681,11 +681,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	ops_guide_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedOpsExpertAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={yellowColor.v2.primary}
@@ -698,11 +698,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	discovery_and_feedback_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedCommsCrafterAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -715,7 +715,7 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={greenColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : greenColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	jira_workflow_builder_agent: {
 		getRender: (size: SizeType) => (
@@ -729,7 +729,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	itops_rca_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedAutoReviewAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={yellowColor.v2.primary}
@@ -742,7 +742,7 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={yellowColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	jira_trial_guide_agent: {
 		getRender: (size: SizeType) => (
@@ -766,7 +766,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	jira_admin_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedJiraAdminAgentAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={blueColor.v2.primary}
@@ -779,11 +779,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor={blueColor.v1.secondary}
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	jsm_rovo_service_agent: {
 		getRender: (size: SizeType) => {
-			if (fg('platform-dst-avatar-updated-geometry')) {
+			if (fg('rovo_agent_avatar_refresh_teu26')) {
 				return (
 					<RefreshedRequestResolverAvatar
 						size={AVATAR_SIZES[size]}
@@ -807,7 +807,7 @@ const outOfTheBoxAgentAvatar: Record<
 				<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			);
 		},
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? yellowColor.v2 : yellowColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	mcp_amplitude_agent: {
 		getRender: (size: SizeType) =>
@@ -886,7 +886,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	jira_intelligent_triage_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedJiraIntelligentTriageAgentAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={blueColor.v2.primary}
@@ -899,11 +899,11 @@ const outOfTheBoxAgentAvatar: Record<
 					secondaryColor=""
 				/>
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	jira_delivery_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedJiraDeliveryAgentAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={blueColor.v2.primary}
@@ -912,7 +912,7 @@ const outOfTheBoxAgentAvatar: Record<
 			) : (
 				<JiraDeliveryAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	jsm_service_triage_agent: {
 		getRender: (size: SizeType) => (
@@ -922,7 +922,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	jira_coding_agent: {
 		getRender: (size: SizeType) =>
-			fg('platform-dst-avatar-updated-geometry') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<RefreshedJiraCodingAgentAvatar
 					size={AVATAR_SIZES[size]}
 					primaryColor={greenColor.v2.primary}
@@ -931,7 +931,7 @@ const outOfTheBoxAgentAvatar: Record<
 			) : (
 				<JiraCodingAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			),
-		getColor: () => (fg('platform-dst-avatar-updated-geometry') ? greenColor.v2 : blueColor.v1),
+		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : blueColor.v1),
 	},
 };
 
@@ -1012,7 +1012,7 @@ const getAvatarRender = ({
 		const avatar = avatarList[avatarIndex];
 		const color = colorList[colorIndex];
 
-		if (fg('platform-dst-avatar-updated-geometry')) {
+		if (fg('rovo_agent_avatar_refresh_teu26')) {
 			const Avatar = avatar.v2;
 			return {
 				render: (
@@ -1039,7 +1039,7 @@ const getAvatarRender = ({
 		};
 	}
 
-	const fallbackColor = fg('platform-dst-avatar-updated-geometry') ? blueColor.v2 : blueColor.v1;
+	const fallbackColor = fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1;
 	return {
 		render: (
 			<GenericAvatar

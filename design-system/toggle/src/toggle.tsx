@@ -12,6 +12,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -40,9 +41,7 @@ const baseStyles = css({
 	paddingBlockStart: token('space.025'),
 	paddingInlineEnd: token('space.025'),
 	paddingInlineStart: token('space.025'),
-	transitionDuration: token('motion.duration.medium', '0.2s'),
-	transitionProperty: 'transform',
-	transitionTimingFunction: token('motion.easing.out.practical', 'ease'),
+	transition: `transform ${token('motion.duration.medium', '0.2s')} ${token('motion.easing.out.practical', 'ease')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:has(:focus-visible)': {
 		borderColor: token('color.border.focused'),
@@ -55,9 +54,7 @@ const baseStyles = css({
 		content: '""',
 		insetBlockEnd: `4px`,
 		insetInlineStart: `4px`,
-		transitionDuration: token('motion.duration.medium', '0.2s'),
-		transitionProperty: 'transform',
-		transitionTimingFunction: token('motion.easing.out.practical', 'ease'),
+		transition: `transform ${token('motion.duration.medium', '0.2s')} ${token('motion.easing.out.practical', 'ease')}`,
 	},
 	'@media screen and (forced-colors: active)': {
 		'&::before': {
@@ -138,6 +135,42 @@ const disabledStyles = css({
 	backgroundColor: token('color.background.disabled'),
 	color: token('color.icon.disabled'),
 	cursor: 'not-allowed',
+});
+
+// Keep the focus border instant; only the track and its handle participate in motion.
+const motionStyles = css({
+	// Clip entering and exiting icons to the rounded track without clipping the focus border.
+	overflow: 'hidden',
+	transition: token(
+		'motion.input.toggle',
+		'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), transform 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+	),
+	'&::before': {
+		transition: token(
+			'motion.input.toggle',
+			'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), transform 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+		),
+		'@media (prefers-reduced-motion: reduce)': {
+			transition: 'none',
+		},
+	},
+	'@media screen and (forced-colors: active)': {
+		transition: 'none',
+		'&::before': { transition: 'none' },
+	},
+});
+
+const disabledMotionStyles = css({
+	transition: 'none',
+	'&::before': { transition: 'none' },
+});
+
+const checkedPressedStyles = css({
+	'&:active': { backgroundColor: token('color.background.success.bold.pressed') },
+});
+
+const uncheckedPressedStyles = css({
+	'&:active': { backgroundColor: token('color.background.neutral.bold.pressed') },
 });
 
 const inputStyles = css({
@@ -222,6 +255,7 @@ const Toggle: React.MemoExoticComponent<
 		});
 
 		const shouldChecked = isControlled ? checked : isChecked;
+		const hasMotion = fg('platform_design_system_toggle_motion');
 
 		const labelId = useId();
 		return (
@@ -236,6 +270,10 @@ const Toggle: React.MemoExoticComponent<
 					// Hover states: only applied for enabled toggles
 					!isDisabled && shouldChecked && checkedHoveredStyles,
 					!isDisabled && !shouldChecked && uncheckedHoveredStyles,
+					hasMotion && motionStyles,
+					hasMotion && !isDisabled && shouldChecked && checkedPressedStyles,
+					hasMotion && !isDisabled && !shouldChecked && uncheckedPressedStyles,
+					hasMotion && isDisabled && disabledMotionStyles,
 					// Disabled state: overrides all other styles
 					isDisabled && disabledStyles,
 				]}
@@ -263,7 +301,13 @@ const Toggle: React.MemoExoticComponent<
 					aria-describedby={descriptionId}
 					css={inputStyles}
 				/>
-				<IconContainer size={size} isHidden={!shouldChecked} position="left">
+				<IconContainer
+					size={size}
+					isHidden={!shouldChecked}
+					position="left"
+					hasMotion={hasMotion}
+					isDisabled={isDisabled}
+				>
 					{isLoading && shouldChecked ? (
 						<Spinner size="xsmall" appearance="invert" />
 					) : (
@@ -275,7 +319,13 @@ const Toggle: React.MemoExoticComponent<
 						/>
 					)}
 				</IconContainer>
-				<IconContainer size={size} isHidden={shouldChecked} position="right">
+				<IconContainer
+					size={size}
+					isHidden={shouldChecked}
+					position="right"
+					hasMotion={hasMotion}
+					isDisabled={isDisabled}
+				>
 					{isLoading && !shouldChecked ? (
 						<Spinner size="xsmall" appearance="invert" />
 					) : (

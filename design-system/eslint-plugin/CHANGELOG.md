@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.7
+
+### Patch Changes
+
+- [`2349992339af2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2349992339af2) -
+  Add `no-deprecated-imports` entries for the deprecated Nav3 exports and entrypoints in
+  `@atlassian/account-menu` and `@atlassian/account`.
+
 ## 16.13.6
 
 ### Patch Changes

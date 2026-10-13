@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Link from '@atlaskit/link/link';
+import type { FilmstripState } from '@atlaskit/media-filmstrip/filmstrip';
+import { FilmstripView } from '@atlaskit/media-filmstrip/filmstrip-view';
 
 import { PureComponentBox } from '../example-helpers/wrapper';
-import { type FilmstripState } from '../src';
-import { FilmstripView } from '../src/filmstripView';
 
 export interface StoryProps {}
 

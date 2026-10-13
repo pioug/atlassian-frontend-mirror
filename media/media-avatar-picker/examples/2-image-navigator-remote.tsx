@@ -3,10 +3,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import ImageNavigator from '@atlaskit/media-avatar-picker/image-navigator';
 import { remoteImage } from '@atlaskit/media-test-helpers/images';
 import { token } from '@atlaskit/tokens';
-
-import ImageNavigator from '../src/image-navigator';
 
 let onLoadParams: any;
 let imageElement: any;

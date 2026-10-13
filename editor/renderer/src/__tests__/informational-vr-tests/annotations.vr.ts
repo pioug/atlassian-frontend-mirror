@@ -19,7 +19,7 @@ snapshotInformational(RendererWithAnnotationsOverMarksWrapper, {
 		await page.waitForSelector(selectors.annotation);
 		// .click({ force: true }) is not working
 		await page.locator('[data-id="test-annotation-id-1"]').nth(1).dispatchEvent('click');
-		expect(page.locator('[data-has-focus="true"]')).toHaveCount(2);
+		await expect(page.locator('[data-has-focus="true"]')).toHaveCount(2);
 	},
 });
 
@@ -33,7 +33,7 @@ snapshotInformational(RendererWithAnnotations, {
 		await page.waitForSelector(selectors.draftAnnotation);
 
 		// click away to remove browser selection from highlighted text
-		page.mouse.click(1, 1, {
+		await page.mouse.click(1, 1, {
 			//short delay in between mouse down and up
 			delay: 10,
 		});
@@ -49,7 +49,7 @@ snapshotInformational(RendererWithTableAndAnnotations, {
 		await commentButton?.click();
 		await page.waitForSelector(selectors.draftAnnotation);
 		// click away to remove browser selection from highlighted text
-		page.mouse.click(1, 1, {
+		await page.mouse.click(1, 1, {
 			//short delay in between mouse down and up
 			delay: 10,
 		});

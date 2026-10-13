@@ -1,5 +1,18 @@
 # @atlaskit/datetime-picker
 
+## 19.3.2
+
+### Patch Changes
+
+- [`45ba618a887fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45ba618a887fd) -
+  When `platform-dst-top-layer` is enabled, keep select menus within the viewport by sizing the
+  anchored host to the menu and constraining the scrolling list to available space.
+
+  When `platform-dst-top-layer` is enabled, use Select's top-layer menu positioning for TimePicker
+  instead of nesting a second popover.
+
+- Updated dependencies
+
 ## 19.3.1
 
 ### Patch Changes

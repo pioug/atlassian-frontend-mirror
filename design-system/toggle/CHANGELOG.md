@@ -1,5 +1,14 @@
 # @atlaskit/toggle
 
+## 17.3.5
+
+### Patch Changes
+
+- [`82955eb7148a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82955eb7148a9) -
+  Add 150ms slide and colour transitions behind platform_design_system_toggle_motion, with
+  reduced-motion and disabled-state handling.
+- Updated dependencies
+
 ## 17.3.4
 
 ### Patch Changes

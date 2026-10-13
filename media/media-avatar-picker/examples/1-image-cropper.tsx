@@ -4,9 +4,8 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import ImageCropper from '@atlaskit/media-avatar-picker/image-cropper';
 import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
-
-import ImageCropper from '../src/image-cropper';
 
 const naturalWidth = 5360;
 

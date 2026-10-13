@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::56f1b46b239fd8ba0a11933ca693c7ad>>
+ * @codegen <<SignedSource::573b751f39aa74217c5e108917a37bd2>>
  * @codegenCommand yarn build tokens
  */
 
@@ -243,6 +243,15 @@ var tokens = exports.tokens = [{
   path: ['motion', 'input', 'selection'],
   description: 'Use for checkbox and radio surface, border and indicator state cross-fades.',
   exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.input.toggle',
+  path: ['motion', 'input', 'toggle'],
+  description: 'Use for toggle track colour, handle slide and icon transitions.',
+  exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), transform 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
   usageGuidelines: {
     usage: '',
     cssProperties: []

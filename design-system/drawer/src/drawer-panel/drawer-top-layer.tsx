@@ -9,6 +9,7 @@ import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
@@ -286,7 +287,7 @@ export function DrawerTopLayer({
 			<div ref={setContentEl} css={styles.surface}>
 				<EnsureIsInsideDrawerContext.Provider value={true}>
 					<OnCloseContext.Provider value={handleBackButtonClose}>
-						{children}
+						<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
 					</OnCloseContext.Provider>
 				</EnsureIsInsideDrawerContext.Provider>
 			</div>

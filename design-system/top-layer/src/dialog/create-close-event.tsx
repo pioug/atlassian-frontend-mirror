@@ -26,7 +26,7 @@ export function createCloseEvent({
 	reason: TDialogCloseReason;
 }): KeyboardEvent | MouseEvent {
 	if (reason === 'escape') {
-		return new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+		return new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', bubbles: true });
 	}
 
 	return new MouseEvent('click', { bubbles: true, cancelable: true });

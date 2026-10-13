@@ -51,7 +51,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_renderer_fix_analytics_memo_callback: false,
 	'jira-work-sync-desc-comment-summary': false,
 	platform_editor_block_controls_perf_optimization: false,
-	platform_editor_enable_single_player_step_merging: false,
 	platform_editor_paste_actions_menu: false,
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_q4_loveability: false,

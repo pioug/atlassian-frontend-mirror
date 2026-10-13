@@ -1,8 +1,3 @@
-/**
- * Testing structured MCP docs for review — ignore this file.
- * Contact #dst-structured-content in Slack with questions.
- */
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
@@ -11,10 +6,10 @@ const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	config: {
-		componentPages: false,
+		componentPages: true,
 		packageTabs: {
-			examples: false,
-			usage: false,
+			examples: true,
+			usage: true,
 		},
 	},
 	components: [
@@ -31,11 +26,15 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when the user is configuring a Confluence search-based list of links (e.g. in a block or sidebar). On confirm, use the returned parameters to build datasource ADF or pass to DatasourceTableView.',
+				'Use to define a list from Confluence search results. When editing, pass the current site and query in parameters.',
+				'Save the Atlassian Document Format (ADF) configuration received by onInsert in the editor or app.',
+				'Pass cloudId for a site the person can access and use its authenticated data integration to run searches.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Keep the search scope understandable: use a clear search phrase and narrow it with spaces, content types, or dates when the resulting list would otherwise be too broad.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the modal has an accessible title and focus is trapped; form fields (space, query, sort) must have labels and error messages announced.',
+				'Open the modal from a control with a descriptive accessible name and wire `onCancel`. This modal does not currently forward `shouldReturnFocus`, so restore focus to the trigger from the host after cancel or insert completes. The modal owns its title, form labels, and focus lock, so do not add a second focus trap.',
 			],
 			keywords: ['link-datasource', 'confluence', 'search', 'datasource', 'config', 'modal'],
 			categories: ['linking', 'data-display', 'forms'],
@@ -44,7 +43,7 @@ const documentation: StructuredContentSource = {
 					name: 'Confluence search config modal',
 					description:
 						'ConfluenceSearchConfigModal for configuring a Confluence search datasource.',
-					source: `${packagePath}/examples/content/basic-confluence-search-config-modal.tsx`,
+					source: `${packagePath}/examples/docs/confluence-search-config.tsx`,
 				},
 			],
 		},
@@ -61,11 +60,15 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when the user is configuring a Jira issues list (e.g. in a block or table). On confirm, use the returned parameters for datasource ADF or DatasourceTableView.',
+				'Use to choose Jira issues with a saved filter or Jira Query Language (JQL). When editing, pass the site and existing query in parameters.',
+				'Save the Atlassian Document Format (ADF) value returned by onInsert in the editor or app. It contains the list configuration, not loaded issue records.',
+				'Pass cloudId for the Jira site selected by the person.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Prefer a narrow, readable JQL query or named filter that describes the intended issue set; avoid configuring a list that silently includes unrelated projects or sensitive issues.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the modal has an accessible title and focus management; JQL and column pickers must have clear labels and error announcements.',
+				'Open the modal from a clearly named control, wire `onCancel`, and pass its trigger ref to `shouldReturnFocus`; focus return defaults to off. The modal provides its own dialog title and form labeling; avoid nesting another dialog or focus trap around it.',
 			],
 			keywords: ['link-datasource', 'jira', 'issues', 'datasource', 'config', 'modal', 'JQL'],
 			categories: ['linking', 'data-display', 'forms'],
@@ -73,12 +76,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Jira issues config modal',
 					description: 'JiraIssuesConfigModal for configuring a Jira issues datasource.',
-					source: `${packagePath}/examples/content/basic-jira-issues-config-modal.tsx`,
-				},
-				{
-					name: 'Jira issues table',
-					description: 'Basic Jira issues table view using datasource.',
-					source: `${packagePath}/examples/basic-jira-issues-table.tsx`,
+					source: `${packagePath}/examples/docs/jira-issues-config.tsx`,
 				},
 			],
 		},
@@ -95,11 +93,15 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when the user is configuring an Assets-based list of links. On confirm, use the returned parameters for datasource ADF or table view.',
+				'Use to choose Assets objects for a list. When editing, pass the workspace, schema, and Assets Query Language (AQL) query in parameters.',
+				'Save the Atlassian Document Format (ADF) value returned by onInsert in the editor or app.',
+				'Pass workspace and schema IDs the person can access; the modal does not grant access.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Keep AQL aligned with the user’s task and selected schema; do not expose object fields or values that the user is not authorized to see.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the modal has an accessible title and that schema/object pickers have clear labels.',
+				'Open the modal from a descriptive control and wire `onCancel`. This modal does not currently forward `shouldReturnFocus`, so restore focus to the trigger from the host after cancel or insert completes. The modal supplies its own dialog and field labeling, so do not add a second focus trap.',
 			],
 			keywords: ['link-datasource', 'assets', 'datasource', 'config', 'modal'],
 			categories: ['linking', 'data-display', 'forms'],
@@ -107,14 +109,14 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Assets config modal',
 					description: 'AssetsConfigModal for configuring an Assets datasource.',
-					source: `${packagePath}/examples/content/basic-assets-config-modal.tsx`,
+					source: `${packagePath}/examples/docs/assets-config.tsx`,
 				},
 			],
 		},
 		{
 			name: 'DatasourceTableView',
 			description:
-				'Table view component that renders a datasource (list of links) with configurable columns, sorting, and actions. Consumes datasource ADF or parameters and fetches data via the link client.',
+				'Table view component that renders a configured datasource (list of links) with configurable columns, sorting, and actions. Accepts a datasource ID and parameters, then fetches data through the host product’s authenticated services.',
 			status: 'general-availability',
 			import: {
 				name: 'DatasourceTableView',
@@ -124,11 +126,15 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when you need to display a list of links (Jira issues, Confluence search, Assets) in a table. Pass the datasource ADF or parameters; wrap in SmartCardProvider so resolution and actions work.',
+				'Pass the datasource ID and its parameters, such as Jira cloudId and jql, to load the table rows through the app data clients.',
+				'Save the Atlassian Document Format (ADF) configuration returned by the matching configuration modal, then pass its ID and parameters to this view. Use visibleColumnKeys to choose the displayed columns.',
+				'Render within the app SmartCardProvider when link previews or actions need its client.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Choose a query with a predictable scope and column set. Avoid exposing personal, restricted, or unrelated records in a broadly shared list.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the table has a caption or aria-label; column headers and sort controls must be focusable and announced. Loading and error states should be announced.',
+				'Give the surrounding region a heading that identifies the list and keep the semantic table headers and sort controls intact. Do not wrap the view in another interactive grid; it provides its own table structure and loading/error states.',
 			],
 			keywords: ['link-datasource', 'table', 'datasource', 'list of links', 'view'],
 			categories: ['linking', 'data-display'],
@@ -136,32 +142,10 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Jira issues table',
 					description: 'DatasourceTableView showing Jira issues from a configured datasource.',
-					source: `${packagePath}/examples/basic-jira-issues-table.tsx`,
+					source: `${packagePath}/examples/docs/jira-issues-table.tsx`,
 				},
 			],
 		},
-		// Needs examples
-		// {
-		// 	name: 'buildDatasourceAdf',
-		// 	description:
-		// 		'Utility that builds datasource ADF (ADF node for list of links) from datasource parameters. Used to persist or pass datasource config into the editor or table view.',
-		// 	status: 'general-availability',
-		// 	import: {
-		// 		name: 'buildDatasourceAdf',
-		// 		package: '@atlaskit/link-datasource',
-		// 		type: 'named',
-		// 		packagePath,
-		// 		packageJson,
-		// 	},
-		// 	usageGuidelines: [
-		// 		'Use when you have datasource parameters (e.g. from a config modal) and need to produce the corresponding ADF node for the editor or for DatasourceTableView.',
-		// 	],
-		// 	contentGuidelines: [],
-		// 	accessibilityGuidelines: [],
-		// 	keywords: ['link-datasource', 'adf', 'datasource', 'build', 'utility'],
-		// 	categories: ['linking', 'data-display'],
-		// 	examples: [],
-		// },
 	],
 };
 

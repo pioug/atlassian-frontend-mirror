@@ -9,7 +9,6 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Existing renderer extension provider test helper.
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
@@ -136,39 +135,29 @@ describe('Forge viewport heights through the ADF renderer', () => {
 		}
 	});
 
-	[true, false].forEach((isEnabled) => {
-		eeTest
-			.describe('platform_editor_render_bodied_extension_as_inline', 'viewport compatibility')
-			.variant(isEnabled, () => {
-				it('only excludes block reservation when inline rendering is enabled', () => {
-					passGate('confluence_forge_early_render_reserve_height');
-					render(
-						fullRenderer({
-							document: {
-								...document,
-								content: [
-									{
-										type: 'bodiedExtension',
-										attrs: {
-											extensionType: 'com.atlassian.ecosystem',
-											extensionKey: 'test-macro',
-											parameters: { extensionId },
-											localId: 'viewport-macro',
-										},
-										content: [
-											{ type: 'paragraph', content: [{ type: 'text', text: 'Macro body' }] },
-										],
-									},
-								],
+	it('excludes block reservation for inline bodied extensions', () => {
+		passGate('confluence_forge_early_render_reserve_height');
+		render(
+			fullRenderer({
+				document: {
+					...document,
+					content: [
+						{
+							type: 'bodiedExtension',
+							attrs: {
+								extensionType: 'com.atlassian.ecosystem',
+								extensionKey: 'test-macro',
+								parameters: { extensionId },
+								localId: 'viewport-macro',
 							},
-							shouldDisplayExtensionAsInline: () => true,
-						}),
-					);
-					expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe(
-						isEnabled ? '' : '262px',
-					);
-				});
-			});
+							content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Macro body' }] }],
+						},
+					],
+				},
+				shouldDisplayExtensionAsInline: () => true,
+			}),
+		);
+		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('');
 	});
 });
 

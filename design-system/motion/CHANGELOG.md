@@ -1,5 +1,14 @@
 # @atlaskit/motion
 
+## 9.4.0
+
+### Minor Changes
+
+- [`cf31b7db11afe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf31b7db11afe) -
+  Add MotionPresenceBoundary for container content behind platform-dst-motion-isolate-presence,
+  restoring the standalone presence defaults so tags do not inherit container entry or exit.
+  Explicit nested animations and collection boundaries retain their own entry, exit and completion.
+
 ## 9.3.0
 
 ### Minor Changes

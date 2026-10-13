@@ -27,8 +27,8 @@ import type {
 } from '@atlaskit/editor-common/OverflowShadow';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { AnalyticsEventPayload } from '../../analytics/events';
 import { RendererCssClassName } from '../../consts';
@@ -186,11 +186,7 @@ export const renderExtension = (
 	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
 
 	// we should only use custom layout for full-page appearance
-	const canUseCustomLayout = expValEquals(
-		'platform_editor_remove_important_in_render_ext',
-		'isEnabled',
-		true,
-	)
+	const canUseCustomLayout = isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 		? rendererAppearance === 'full-page'
 		: true;
 	const isCustomLayout =
@@ -243,10 +239,7 @@ export const renderExtension = (
 	 */
 	const isNestedForgeInlineBodied =
 		!isTopLevel && (isForgeInlineBodiedEnabled || isInlineBodiedLayoutEnabled);
-	const isInline =
-		shouldDisplayExtensionAsInline?.(node) &&
-		expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
-		!isNestedForgeInlineBodied;
+	const isInline = shouldDisplayExtensionAsInline?.(node) && !isNestedForgeInlineBodied;
 	const inlineClassName = isInline ? RendererCssClassName.EXTENSION_AS_INLINE : '';
 	/**
 	 * A native Forge macro does not have its body rendered by the product — the body ADF is
@@ -282,13 +275,13 @@ export const renderExtension = (
 				width: isInline
 					? undefined
 					: (
-								expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+								isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 									? isCustomLayout
 									: isTopLevel
 						  )
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							calcBreakoutWidthCss(layout as ExtensionLayout)
-						: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						: isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 							? undefined
 							: '100%',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

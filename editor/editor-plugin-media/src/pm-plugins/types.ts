@@ -15,6 +15,7 @@ import type {
 	ProsemirrorGetPosHandler,
 } from '../types';
 import type { MediaPluginOptions } from '../types/media-plugin-options';
+import type { MediaDropTargets } from './media-drop-target';
 import type PickerFacade from './picker-facade';
 
 export interface MediaNodeWithPosHandler {
@@ -33,11 +34,14 @@ export interface MediaPluginState {
 	currentMaxWidth?: number;
 	destroy: () => void;
 	dispatch?: Dispatch;
+	dropTargets: MediaDropTargets | undefined;
 	editingMediaSinglePos?: number;
 	element?: HTMLElement;
 	findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
 	getMediaOptions: () => MediaPluginOptions;
 	handleDrag: (dragState: 'enter' | 'leave') => void;
+	handleDragOver: (event: DragEvent) => void;
+	handleDrop: (event: DragEvent, traceContext: { traceId: string }) => false | (() => void);
 	handleMediaGroupUpdate: (oldNodes: PMNode[], newNodes: PMNode[]) => void;
 	handleMediaNodeMount: (node: PMNode, getPos: ProsemirrorGetPosHandler) => void;
 	handleMediaNodeRemoval: (node: PMNode | undefined, getPos: ProsemirrorGetPosHandler) => void;

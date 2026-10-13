@@ -21,6 +21,7 @@ import {
 import { jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
@@ -281,7 +282,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 						// `overflow: auto` branch off it.
 						shouldFitViewport={shouldFitViewport}
 					>
-						{content(contentProps)}
+						<MotionPresenceBoundary>{content(contentProps)}</MotionPresenceBoundary>
 					</Container>
 				) : (
 					// `PopoverSurface` owns `overflow: auto` and the `box-shadow` on the
@@ -296,7 +297,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 							className={xcss}
 							data-testid={testId}
 						>
-							{content(contentProps)}
+							<MotionPresenceBoundary>{content(contentProps)}</MotionPresenceBoundary>
 						</div>
 					</PopoverSurface>
 				)}

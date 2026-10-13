@@ -9,6 +9,7 @@ import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -81,16 +82,23 @@ export const TeamLinkCardActions = ({
 }: TeamLinkCardActionsProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useAnalyticsEvents();
+	const dropdownTriggerElementRef = React.useRef<HTMLButtonElement | null>(null);
+
+	const returnFocusToDropdownTrigger = () => {
+		dropdownTriggerElementRef.current?.focus();
+	};
 
 	// Show icons when:
 	// 1. Hovering over the card
 	// 2. Dropdown is open
 	// 3. Focused via keyboard navigation (when showKeyboardFocus is true)
-	const shouldShowIcon = hovered || isDropdownOpen || (focused && showKeyboardFocus);
+	const shouldShowIcon =
+		fg('teams_a11y_20261005') || hovered || isDropdownOpen || (focused && showKeyboardFocus);
 
 	const handleDisconnectClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
+		returnFocusToDropdownTrigger();
 		onDisconnectButtonClick();
 		fireEvent('ui.button.clicked.containerUnlinkButton', {
 			containerSelected: { container: containerType, containerId },
@@ -100,6 +108,7 @@ export const TeamLinkCardActions = ({
 	const handleEditLinkClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
+		returnFocusToDropdownTrigger();
 		onEditLinkClick?.();
 		fireEvent('ui.button.clicked.containerEditLinkButton', {
 			containerSelected: { container: containerType, containerId },
@@ -119,6 +128,10 @@ export const TeamLinkCardActions = ({
 						<IconButton
 							ref={triggerRef}
 							{...triggerProps}
+							onClick={(e) => {
+								dropdownTriggerElementRef.current = e.currentTarget;
+								triggerProps.onClick?.(e);
+							}}
 							label={`more options for ${title}`}
 							appearance="subtle"
 							icon={(iconProps) => <ShowMoreHorizontalIcon {...iconProps} size="small" />}

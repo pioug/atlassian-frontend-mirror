@@ -7451,37 +7451,6 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 	},
-	taskItemStyles: {
-		'[data-prosemirror-node-name="taskItem"]': {
-			listStyle: 'none',
-		},
-		'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"]': {
-			display: 'flex',
-			flexDirection: 'row',
-			position: 'relative',
-		},
-		'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"]': {
-			position: 'absolute',
-			color: token('color.text.subtlest'),
-			margin: `0 0 0 calc(${token('space.100')} * 3)`,
-			pointerEvents: 'none',
-			textOverflow: 'ellipsis',
-			overflow: 'hidden',
-			whiteSpace: 'nowrap',
-			maxWidth: 'calc(100% - 50px)',
-			display: 'none',
-		},
-		"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
-			{
-				display: 'block',
-			},
-		'[data-prosemirror-node-name="taskItem"] [data-component="content"]': {
-			margin: 0,
-			wordWrap: 'break-word',
-			minWidth: 0,
-			flex: '1 1 auto',
-		},
-	},
 	taskItemStylesWithBlockTaskItem: {
 		'[data-prosemirror-node-name="taskItem"], [data-prosemirror-node-name="blockTaskItem"]': {
 			listStyle: 'none',
@@ -8624,9 +8593,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.findReplaceStylesWithRefSyncBlock,
 				editorContentStyles.textHighlightStyle,
 				editorContentStyles.decisionStyles,
-				expValEqualsNoExposure('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)
-					? editorContentStyles.taskItemStylesWithBlockTaskItem
-					: editorContentStyles.taskItemStyles,
+				editorContentStyles.taskItemStylesWithBlockTaskItem,
 				editorContentStyles.taskItemCheckboxStyles,
 				editorContentStyles.decisionIconWithVisualRefresh,
 				editorContentStyles.statusStyles,

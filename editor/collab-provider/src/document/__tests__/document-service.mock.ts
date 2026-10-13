@@ -71,6 +71,14 @@ export const createMockService = (
 	// @ts-expect-error - get private member
 	const commitStepServiceMock = service.commitStepService;
 
+	// `CommitStepService` starts out ready to commit (see its constructor). When the class is
+	// automocked by a consuming test file, `getReadyToCommitStatus` returns `undefined` instead,
+	// which makes `DocumentService.send` bail out early. Restore the real default here so tests
+	// only have to opt in to the "not ready" case explicitly.
+	if (jest.isMockFunction(commitStepServiceMock?.getReadyToCommitStatus)) {
+		(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(true);
+	}
+
 	return {
 		service,
 		analyticsHelperMock,

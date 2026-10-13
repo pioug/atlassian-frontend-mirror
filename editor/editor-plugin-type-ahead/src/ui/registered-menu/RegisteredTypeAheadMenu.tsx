@@ -17,8 +17,7 @@ import { useIntl } from 'react-intl';
 import { cssMap, jsx } from '@atlaskit/css';
 import Popup from '@atlaskit/editor-common/Popup';
 import {
-	buildQuickInsertMenuModel,
-	getMatchingQuickInsertComponents,
+	getQuickInsertMenuModel,
 	getQuickInsertMenuRows,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
@@ -146,24 +145,18 @@ export const RegisteredTypeAheadMenu = ({
 	);
 	const menuModel = useMemo(
 		() =>
-			query === ''
-				? buildQuickInsertMenuModel(
-						components,
-						surface.root,
-						hasSectionOverflowItems && isSlashCommandEnabled
-							? selectQuickInsertCategoryItems
-							: undefined,
-						surfaceContext,
-						triggerHandler.getRegisteredItemRank,
-					)
-				: getMatchingQuickInsertComponents({
-						components,
-						rootComponent: surface.root,
-						query,
-						formatMessage,
-						surfaceContext,
-						getItemRank: triggerHandler.getRegisteredItemRank,
-					}),
+			getQuickInsertMenuModel({
+				components,
+				formatMessage,
+				getItemRank: triggerHandler.getRegisteredItemRank,
+				query,
+				rootComponent: surface.root,
+				selectCategoryItems:
+					hasSectionOverflowItems && isSlashCommandEnabled
+						? selectQuickInsertCategoryItems
+						: undefined,
+				surfaceContext,
+			}),
 		[
 			components,
 			formatMessage,

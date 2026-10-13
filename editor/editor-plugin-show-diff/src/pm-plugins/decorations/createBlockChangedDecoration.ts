@@ -304,7 +304,7 @@ export const createBlockChangedDecoration = ({
 		isInserted,
 		isActive,
 	});
-	const style = tagAnchorName
+	const styleOld = tagAnchorName
 		? [
 				nodeStyle,
 				convertToInlineCss({ anchorName: `--${tagAnchorName}` }),
@@ -313,6 +313,17 @@ export const createBlockChangedDecoration = ({
 				.filter(Boolean)
 				.join(' ')
 		: nodeStyle;
+
+	const style = fg('platform_editor_ai_show_diff_patch_2')
+		? [
+				nodeStyle,
+				tagAnchorName ? convertToInlineCss({ anchorName: `--${tagAnchorName}` }) : undefined,
+				// only add margin top if the node actually should be styled to avoid incorrect diff decoration specs being built
+				nodeStyle ? scrollMarginTopStyle : undefined,
+			]
+				.filter(Boolean)
+				.join(' ')
+		: styleOld;
 
 	const className = getNodeClass(change.name);
 	if (style || className) {

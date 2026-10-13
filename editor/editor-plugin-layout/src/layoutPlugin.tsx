@@ -210,7 +210,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			quickInsert: isRegisteredSlashCommandEnabled
 				? undefined
 				: ({ formatMessage }) => {
-						const withInsertLayoutAnalytics = (tr: Transaction, columnCount?: number) => {
+						const withInsertLayoutAnalytics = (tr: Transaction, columnCount: number) => {
 							api?.analytics?.actions?.attachAnalyticsEvent({
 								action: ACTION.INSERTED,
 								actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -251,11 +251,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: Icon,
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, columnCount));
-									if (fg('platform_editor_column_count_analytics')) {
-										withInsertLayoutAnalytics(tr, columnCount);
-									} else {
-										withInsertLayoutAnalytics(tr);
-									}
+									withInsertLayoutAnalytics(tr, columnCount);
 									selectIntoLayoutSection(tr);
 									return tr;
 								},
@@ -272,11 +268,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 											icon: () => <IconOneColumnLayout />,
 											action(insert, state) {
 												const tr = insert(createMultiColumnLayoutSection(state, 1));
-												if (fg('platform_editor_column_count_analytics')) {
-													withInsertLayoutAnalytics(tr, 1);
-												} else {
-													withInsertLayoutAnalytics(tr);
-												}
+												withInsertLayoutAnalytics(tr, 1);
 
 												selectIntoLayoutSection(tr);
 												return tr;

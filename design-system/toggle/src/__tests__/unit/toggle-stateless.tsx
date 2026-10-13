@@ -3,10 +3,15 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import Toggle from '../../toggle';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Toggle component', () => {
+	beforeEach(() => {
+		passGate('platform_design_system_toggle_motion');
+	});
 	const label = 'Label';
 
 	describe('defaultChecked is absent', () => {

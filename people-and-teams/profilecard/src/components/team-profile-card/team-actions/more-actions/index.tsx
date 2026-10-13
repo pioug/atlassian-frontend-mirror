@@ -34,7 +34,7 @@ export const MoreActions = ({ actions, loading }: MoreActionsProps): React.JSX.E
 			isOpen={isOpen}
 			onClose={() => setOpen(false)}
 			content={() => (
-				<MenuGroup spacing="cozy">
+				<MenuGroup>
 					<Section>
 						{actions.map((action) => (
 							<Box key={action.id}>{action.item}</Box>

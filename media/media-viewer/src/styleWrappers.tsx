@@ -20,8 +20,8 @@ import { useMergeRefs } from 'use-callback-ref';
 
 import Heading from '@atlaskit/heading/heading';
 import type { MediaType } from '@atlaskit/media-common/main-types';
-import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import SlideIn from '@atlaskit/motion/slide-in';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -33,9 +33,12 @@ import {
 } from './insetViewerContext';
 
 const INSET_HEADER_HEIGHT = token('space.800');
+// The horizontal gutter of the inset header, footer and fitted media, shared so they can't drift.
+// It is `space.300` at the default root font size, hard-coded because the fit maths needs a number
+// and resolving the token would mean reading the DOM on every resize.
+export const INSET_VIEWER_GUTTER_PX = 24;
 const INSET_SIDEBAR_WIDTH = '400px';
 
-// Uses the same timing as the content's `motion.panel.enter`/`exit` slide, so they move together.
 const insetSidebarWidthTransitionStyles = css({
 	transitionProperty: 'width',
 	transitionTimingFunction: token('motion.easing.out.bold'),
@@ -46,8 +49,7 @@ const insetSidebarWidthTransitionStyles = css({
 
 const insetSidebarSlotStyles = css({
 	display: 'flex',
-	// Pins the content to the right edge, so the width change clips it instead of moving it; only
-	// the slide moves it.
+	// Pins the content to the right edge, so the width change clips it instead of moving it.
 	justifyContent: 'flex-end',
 	width: token('space.0'),
 	minWidth: 0,
@@ -184,9 +186,9 @@ const insetViewerHeaderWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	paddingTop: token('space.200'),
-	paddingRight: token('space.300'),
+	paddingRight: `${INSET_VIEWER_GUTTER_PX}px`,
 	paddingBottom: token('space.200'),
-	paddingLeft: token('space.300'),
+	paddingLeft: `${INSET_VIEWER_GUTTER_PX}px`,
 	boxSizing: 'border-box',
 });
 
@@ -249,9 +251,9 @@ const insetViewerMediaFooterBarStyles = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	paddingTop: token('space.200'),
-	paddingRight: token('space.300'),
+	paddingRight: `${INSET_VIEWER_GUTTER_PX}px`,
 	paddingBottom: token('space.200'),
-	paddingLeft: token('space.300'),
+	paddingLeft: `${INSET_VIEWER_GUTTER_PX}px`,
 	position: 'relative',
 	overflow: 'visible',
 	pointerEvents: 'all',
@@ -571,6 +573,17 @@ const imageWrapperStyles = css({
 	whiteSpace: 'nowrap',
 });
 
+const insetViewerImageWrapperStyles = css({
+	width: '100%',
+	height: '100%',
+	maxWidth: '100%',
+	maxHeight: '100%',
+});
+
+const preventScrollbarsStyles = css({
+	overflow: 'hidden',
+});
+
 const baselineExtendStyles = css({
 	height: '100%',
 	display: 'inline-block',
@@ -581,6 +594,11 @@ const imgStyles = css({
 	display: 'inline-block',
 	verticalAlign: 'middle',
 	position: 'relative',
+});
+
+const insetViewerImgStyles = css({
+	borderRadius: token('radius.large', '8px'),
+	overflow: 'hidden',
 });
 
 const pixelatedImgStyles = css({
@@ -849,7 +867,7 @@ type SidebarColumnProps = Children & {
 };
 
 // The sidebar's header row and body open and close as one element, so they share one width
-// animation and one enter/exit motion.
+// animation and one slide.
 export const SidebarColumn = ({ children, isOpen }: SidebarColumnProps): JSX.Element => (
 	<div
 		css={[
@@ -865,12 +883,13 @@ export const SidebarColumn = ({ children, isOpen }: SidebarColumnProps): JSX.Ele
 		{/* No `appear`: a sidebar that's already open when the viewer mounts shouldn't animate in. */}
 		<ExitingPersistence>
 			{isOpen ? (
-				<Motion
-					enteringAnimation={token('motion.panel.enter')}
-					exitingAnimation={token('motion.panel.exit')}
-				>
-					<div css={insetSidebarSlotContentStyles}>{children}</div>
-				</Motion>
+				<SlideIn enterFrom="right">
+					{(slideInProps) => (
+						<div {...slideInProps} css={insetSidebarSlotContentStyles}>
+							{children}
+						</div>
+					)}
+				</SlideIn>
 			) : null}
 		</ExitingPersistence>
 	</div>
@@ -1202,37 +1221,38 @@ export const LeftHeader = ({ children }: Children): JSX.Element => (
 );
 
 export type ImageWrapperProps = {
+	preventScrollbars?: boolean;
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
 	style: CSSProperties;
 } & Children &
 	DataTestID;
 
 export const ImageWrapper: ForwardRefExoticComponent<
-	{
-		onClick: (event: MouseEvent<HTMLDivElement>) => void;
-		style: CSSProperties;
-	} & Children &
-		DataTestID &
-		ClassName &
-		RefAttributes<unknown>
+	ImageWrapperProps & ClassName & RefAttributes<unknown>
 > = forwardRef(
 	(
 		{
 			children,
 			'data-testid': datatestId,
+			preventScrollbars,
 			onClick,
 			style,
 			className,
 		}: ImageWrapperProps & ClassName,
 		ref,
 	) => {
+		const isInsetViewer = useIsInsetViewer();
 		return (
 			<div
 				role="none"
 				data-testid={datatestId}
 				onClick={onClick}
 				ref={ref as React.RefObject<HTMLDivElement>}
-				css={imageWrapperStyles}
+				css={[
+					imageWrapperStyles,
+					isInsetViewer && insetViewerImageWrapperStyles,
+					preventScrollbars && preventScrollbarsStyles,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -1259,44 +1279,56 @@ export type ImgProps = {
 } & DataTestID &
 	ClassName;
 
-export const Img = ({
-	canDrag,
-	isDragging,
-	shouldPixelate,
-	'data-testid': datatestId,
-	src,
-	style,
-	onLoad,
-	onError,
-	alt,
-	className,
-	...rest
-}: ImgProps): JSX.Element => {
-	const cursor = useMemo(() => {
-		if (canDrag && isDragging) {
-			return 'grabbing';
-		} else if (canDrag) {
-			return 'grab';
-		} else {
-			return 'auto';
-		}
-	}, [canDrag, isDragging]);
-	return (
-		<img
-			{...rest}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
-			css={[imgStyles, shouldPixelate && pixelatedImgStyles]}
-			alt={alt}
-			data-testid={datatestId}
-			src={src}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={{ cursor, ...style }}
-			onLoad={onLoad}
-			onError={onError}
-		/>
+export const Img: ForwardRefExoticComponent<ImgProps & RefAttributes<HTMLImageElement>> =
+	forwardRef<HTMLImageElement, ImgProps>(
+		(
+			{
+				canDrag,
+				isDragging,
+				shouldPixelate,
+				'data-testid': datatestId,
+				src,
+				style,
+				onLoad,
+				onError,
+				alt,
+				className,
+				...rest
+			}: ImgProps,
+			ref,
+		) => {
+			const isInsetViewer = useIsInsetViewer();
+			const cursor = useMemo(() => {
+				if (canDrag && isDragging) {
+					return 'grabbing';
+				} else if (canDrag) {
+					return 'grab';
+				} else {
+					return 'auto';
+				}
+			}, [canDrag, isDragging]);
+			return (
+				<img
+					{...rest}
+					ref={ref}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+					css={[
+						imgStyles,
+						shouldPixelate && pixelatedImgStyles,
+						isInsetViewer && insetViewerImgStyles,
+					]}
+					alt={alt}
+					data-testid={datatestId}
+					src={src}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ cursor, ...style }}
+					onLoad={onLoad}
+					onError={onError}
+				/>
+			);
+		},
 	);
-};
 
 export const MedatadataTextWrapper = ({ children }: Children): JSX.Element => (
 	<div css={medatadataTextWrapperStyles}>{children}</div>

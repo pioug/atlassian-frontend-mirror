@@ -21,6 +21,7 @@ import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-l
 import Motion from '@atlaskit/motion/entering/motion';
 import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence/use-exiting-persistence';
 import FadeIn from '@atlaskit/motion/fade-in';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Portal from '@atlaskit/portal/portal';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
@@ -494,7 +495,9 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 				}
 			>
 				<ModalContext.Provider value={modalDialogContext}>
-					<ScrollContext.Provider value={shouldScrollInViewport}>{children}</ScrollContext.Provider>
+					<ScrollContext.Provider value={shouldScrollInViewport}>
+						<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
+					</ScrollContext.Provider>
 				</ModalContext.Provider>
 			</div>
 		</Dialog>
@@ -592,7 +595,7 @@ const ModalWrapperLegacy = forwardRef(
 					UNSAFE_shouldDisableMotionUplift={UNSAFE_shouldDisableMotionUplift}
 					ref={ref}
 				>
-					{children}
+					<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
 				</ModalDialog>
 			</Blanket>
 		);

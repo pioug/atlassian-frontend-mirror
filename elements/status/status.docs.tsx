@@ -18,14 +18,16 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use Status to indicate the current state of an item (e.g., "In Progress", "Done").',
-				'Supports various colors to convey different meanings.',
+				'Use Status for a concise state label such as “In progress” or “Done”.',
+				'Choose a color that reinforces the state, but do not make color the only way users can distinguish statuses.',
+				'Use StatusPicker to edit the label and color, and save changes in app state.',
 			],
 			examples: [
 				{
-					name: 'Basic',
-					description: 'Standard status label display.',
-					source: `${packagePath}/examples/00-simple-status.vr.ap.tsx`,
+					name: 'Status with controlled editor',
+					description:
+						'Show a status and update its text and color with a controlled StatusPicker.',
+					source: `${packagePath}/examples/ai/status-and-picker.tsx`,
 				},
 			],
 			keywords: ['status', 'label', 'badge', 'state', 'lozenge'],
@@ -34,7 +36,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'StatusPicker',
 			description:
-				'A picker component that allows users to select a status from a predefined list.',
+				'A picker that lets users edit a free-text status label and choose its color from a palette.',
 			status: 'general-availability',
 			import: {
 				name: 'StatusPicker',
@@ -44,14 +46,15 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use StatusPicker to allow users to change the status of an item.',
-				'Provides a list of available statuses with their associated colors.',
+				'Use StatusPicker to let users edit a concise status label and its color.',
+				'Keep selected text and color in app state: `onTextChanged` and `onColorClick` update the draft, and `onEnter` signals that the user pressed Enter.',
+				'Ensure the text communicates status independently of color.',
 			],
 			examples: [
 				{
-					name: 'Status Picker',
-					description: 'Standard status picker example.',
-					source: `${packagePath}/examples/01-status-picker.vr.ap.tsx`,
+					name: 'Controlled status editor',
+					description: 'Update controlled status text and color and reflect the saved state.',
+					source: `${packagePath}/examples/ai/status-and-picker.tsx`,
 				},
 			],
 			keywords: ['status', 'picker', 'select', 'state', 'choice'],

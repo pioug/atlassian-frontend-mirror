@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1e9531e0638e6567913fff0efed33e0a>>
+ * @codegen <<SignedSource::8d4b67768a800319c87bbf7aa363967f>>
  * @codegenCommand yarn build tokens
  */
 
@@ -732,6 +732,36 @@ var tokens = [{
   "name": "motion.input.selection",
   "path": ["motion", "input", "selection"],
   "cleanName": "motion.input.selection"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "20.5.0",
+    "description": "Use for toggle track colour, handle slide and icon transitions."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "properties": ["background-color", "color", "transform", "opacity"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.5.0",
+      "description": "Use for toggle track colour, handle slide and icon transitions."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "properties": ["BackgroundColor", "Color", "Transform", "Opacity"]
+    }
+  },
+  "name": "motion.input.toggle",
+  "path": ["motion", "input", "toggle"],
+  "cleanName": "motion.input.toggle"
 }, {
   "attributes": {
     "group": "motionKeyframe",

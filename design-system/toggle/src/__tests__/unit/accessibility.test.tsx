@@ -3,10 +3,15 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing/jest-axe';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import DefaultToggle from '../../../examples/constellation/toggle-default';
 import DisabledToggle from '../../../examples/constellation/toggle-disabled';
 import Toggle from '../../toggle';
+
+beforeEach(() => {
+	passGate('platform_design_system_toggle_motion');
+});
 
 it('should not have violations when have label', async () => {
 	const { container } = render(<Toggle label="Toggle" />);

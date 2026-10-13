@@ -2,9 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 
 import { teamsClient } from '@atlaskit/teams-client/client';
 
-import { MOCK_CONNECTED_TEAMS_RESULT, MOCK_TEAM_CONTAINERS, MOCK_TEAM_CONTAINERSV2 } from './mocks';
-import { useConnectedTeams } from './use-connected-teams';
-import { useTeamContainers } from './use-team-containers';
+import { MOCK_CONNECTED_TEAMS_RESULT, MOCK_TEAM_CONTAINERSV2 } from './mocks';
 import { useTeamContainersHook } from './use-team-containers-hook';
 
 const fireEvent = jest.fn();
@@ -26,11 +24,6 @@ jest.mock('@atlaskit/teams-app-internal-analytics/use-analytics-events', () => (
 	})),
 }));
 
-jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
-	fg: jest.fn().mockReturnValue(false),
-}));
-
 jest.mock('@atlaskit/analytics-next/useAnalyticsEvents', () => ({
 	...jest.requireActual('@atlaskit/analytics-next/useAnalyticsEvents'),
 	useAnalyticsEvents: jest.fn().mockImplementation(() => ({
@@ -43,18 +36,6 @@ const fetchTeamContainersSuccessEvent = {
 	actionSubject: 'fetchTeamContainers',
 	attributes: {
 		teamId: 'team-id-124',
-	},
-};
-
-const fetchTeamContainersFailedEvent = {
-	action: 'failed',
-	actionSubject: 'fetchTeamContainers',
-	attributes: {
-		teamId: 'team-id-125',
-		error: {
-			message: 'Failed to fetch',
-			stack: expect.stringContaining('Failed to fetch'),
-		},
 	},
 };
 
@@ -77,141 +58,6 @@ const fetchConnectedTeamsSuccessEvent = (containerId: string) => ({
 	},
 });
 
-const fetchNumberOfConnectedTeamsSuccessEvent = (containerId: string) => ({
-	action: 'succeeded',
-	actionSubject: 'fetchNumberOfConnectedTeams',
-	attributes: {
-		containerId,
-		numberOfTeams: 2,
-	},
-});
-
-const fetchConnectedTeamsFailedEvent = (containerId: string) => ({
-	action: 'failed',
-	actionSubject: 'fetchConnectedTeams',
-	attributes: {
-		containerId,
-		numberOfTeams: 2,
-		error: {
-			message: 'Failed to fetch',
-			stack: expect.stringContaining('Failed to fetch'),
-		},
-	},
-});
-
-describe('useTeamContainers', () => {
-	beforeEach(() => {
-		jest.clearAllMocks();
-	});
-
-	it('should initialize with loading true and empty containers', () => {
-		const { result } = renderHook(() => useTeamContainers('team-id-123'));
-
-		expect(result.current.loading).toBe(true);
-		expect(result.current.teamContainers).toEqual([]);
-		expect(result.current.error).toBeNull();
-	});
-
-	it('should fetch and set team containers successfully', async () => {
-		(teamsClient.getTeamContainers as jest.Mock).mockResolvedValueOnce(MOCK_TEAM_CONTAINERS);
-
-		const { result } = renderHook(() => useTeamContainers('team-id-124'));
-
-		await waitFor(() => {
-			expect(result.current.loading).toBe(false);
-			expect(result.current.teamContainers).toEqual(MOCK_TEAM_CONTAINERS);
-			expect(result.current.error).toBeNull();
-			expect(fireEvent).toHaveBeenCalledWith(
-				`operational.${fetchTeamContainersSuccessEvent.actionSubject}.${fetchTeamContainersSuccessEvent.action}`,
-				fetchTeamContainersSuccessEvent.attributes,
-			);
-		});
-	});
-
-	it('should handle errors during fetch', async () => {
-		const mockError = new Error('Failed to fetch');
-		(teamsClient.getTeamContainers as jest.Mock).mockRejectedValueOnce(mockError);
-
-		const { result } = renderHook(() => useTeamContainers('team-id-125'));
-
-		await waitFor(() => {
-			expect(result.current.loading).toBe(false);
-			expect(result.current.teamContainers).toEqual([]);
-			expect(result.current.error).toEqual(mockError);
-			expect(fireEvent).toHaveBeenCalledWith(
-				`operational.${fetchTeamContainersFailedEvent.actionSubject}.${fetchTeamContainersFailedEvent.action}`,
-				fetchTeamContainersFailedEvent.attributes,
-			);
-		});
-	});
-});
-
-describe('useConnectedTeams', () => {
-	beforeEach(() => {
-		jest.clearAllMocks();
-	});
-
-	it('should return initial connectedTeamsState', () => {
-		const { result } = renderHook(() => useConnectedTeams());
-
-		expect(result.current.isLoading).toBe(false);
-		expect(result.current.teams).toEqual(undefined);
-		expect(result.current.numberOfTeams).toEqual(undefined);
-		expect(result.current.error).toBeNull();
-	});
-
-	it('should fetch and set number of connected teams successfully', async () => {
-		(teamsClient.getNumberOfConnectedTeams as jest.Mock).mockResolvedValueOnce(2);
-
-		const { result } = renderHook(() => useConnectedTeams());
-
-		result.current.fetchNumberOfConnectedTeams('mock-container-id');
-		await waitFor(() => expect(result.current.numberOfTeams).toEqual(2));
-		expect(result.current.isLoading).toBe(false);
-
-		expect(result.current.error).toBeNull();
-		const event = fetchNumberOfConnectedTeamsSuccessEvent('mock-container-id');
-		expect(fireEvent).toHaveBeenCalledWith(
-			`operational.${event.actionSubject}.${event.action}`,
-			event.attributes,
-		);
-	});
-
-	it('should fetch and set connected teams successfully', async () => {
-		const mockTeams = [MOCK_CONNECTED_TEAMS_RESULT];
-		(teamsClient.getConnectedTeams as jest.Mock).mockResolvedValueOnce(mockTeams);
-
-		const { result } = renderHook(() => useConnectedTeams());
-
-		result.current.fetchConnectedTeams('mock-container-id');
-		await waitFor(() => expect(result.current.teams).toEqual(mockTeams));
-		expect(result.current.isLoading).toBe(false);
-
-		expect(result.current.error).toBeNull();
-		const event = fetchConnectedTeamsSuccessEvent('mock-container-id');
-		expect(fireEvent).toHaveBeenCalledWith(
-			`operational.${event.actionSubject}.${event.action}`,
-			event.attributes,
-		);
-	});
-
-	it('should handle errors during fetch', async () => {
-		const mockError = new Error('Failed to fetch');
-		(teamsClient.getConnectedTeams as jest.Mock).mockRejectedValueOnce(mockError);
-
-		const { result } = renderHook(() => useConnectedTeams());
-		result.current.fetchConnectedTeams('mock-container-id-fail');
-		await waitFor(() => expect(result.current.error).toEqual(mockError));
-
-		expect(result.current.isLoading).toBe(false);
-		expect(result.current.teams).toEqual([]);
-		const event = fetchConnectedTeamsFailedEvent('mock-container-id-fail');
-		expect(fireEvent).toHaveBeenCalledWith(
-			`operational.${event.actionSubject}.${event.action}`,
-			event.attributes,
-		);
-	});
-});
 describe('useTeamContainersHook', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -220,7 +66,11 @@ describe('useTeamContainersHook', () => {
 	it('should fetch connectedTeams successfully', async () => {
 		const mockTeams = [MOCK_CONNECTED_TEAMS_RESULT];
 		(teamsClient.getConnectedTeams as jest.Mock).mockResolvedValue(mockTeams);
+		(teamsClient.getNumberOfConnectedTeams as jest.Mock).mockResolvedValue(2);
 		const { result } = renderHook(() => useTeamContainersHook());
+
+		result.current[1].fetchNumberOfConnectedTeams('mock-container-id-v2', fireEvent);
+		await waitFor(() => expect(result.current[0].connectedTeams.numberOfTeams).toEqual(2));
 
 		result.current[1].fetchConnectedTeams('mock-container-id-v2', fireEvent);
 		await waitFor(() =>

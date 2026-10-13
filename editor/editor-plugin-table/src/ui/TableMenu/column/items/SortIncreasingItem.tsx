@@ -14,7 +14,6 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-re
 import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circle-icon';
 import { SortAscendingIcon } from '@atlaskit/editor-toolbar/sort-ascending-icon';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -60,7 +59,7 @@ export const SortIncreasingItem = ({ api }: TableMenuComponentsParams): React.JS
 	// When the table has merged cells, the item remains interactive but is rendered
 	// with a disabled-looking label and leading icon, alongside an enabled info icon
 	// that surfaces why sorting is unavailable.
-	if (hasMergedCellsInTable && fg('platform_editor_table_menu_updates_patch_1')) {
+	if (hasMergedCellsInTable) {
 		return (
 			<ToolbarDropdownItem
 				elemBefore={
@@ -86,7 +85,6 @@ export const SortIncreasingItem = ({ api }: TableMenuComponentsParams): React.JS
 	return (
 		<ToolbarDropdownItem
 			onClick={handleClick}
-			isDisabled={Boolean(tableMenuContext?.hasMergedCellsInTable)}
 			elemBefore={<SortAscendingIcon label="" size="small" />}
 		>
 			{formatMessage(messages.sortColumnIncreasing)}

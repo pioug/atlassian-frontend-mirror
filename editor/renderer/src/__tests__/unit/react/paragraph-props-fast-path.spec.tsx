@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
@@ -132,47 +131,38 @@ describe('paragraph props fast path', () => {
 		expect(within(treatment.container).getByText('Hello').tagName).toBe('MARK');
 	});
 
-	eeTest
-		.describe('platform_editor_render_bodied_extension_as_inline', 'inline paragraph metadata')
-		.variant(true, () => {
-			it.each([false, true])(
-				'preserves inline paragraphs with the text fast path %s',
-				(textFastPath) => {
-					const source = schema.nodeFromJSON({
-						type: 'doc',
-						content: [
-							{ type: 'paragraph', content: [{ type: 'text', text: 'Before' }] },
-							{
-								type: 'bodiedExtension',
-								attrs: {
-									extensionType: 'com.atlassian.confluence.macro.core',
-									extensionKey: 'inline',
-								},
-								content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Body' }] }],
-							},
-							{ type: 'paragraph', content: [{ type: 'text', text: 'After' }] },
-						],
-					});
-					const init: ReactSerializerInit = {
-						shouldDisplayExtensionAsInline: () => true,
-						// Isolate extension loading; the serializer still computes inline paragraph positions.
-						nodeComponents: { bodiedExtension: ({ children }) => <>{children}</> },
-					};
-					const control = render(serialize(false, init, textFastPath, source));
-					const treatment = render(serialize(true, init, textFastPath, source));
-					expect(treatment.container.innerHTML).toBe(control.container.innerHTML);
-					for (const text of ['Before', 'After']) {
-						expect(within(treatment.container).getByText(text)).toHaveAttribute(
-							'data-as-inline',
-							'on',
-						);
-					}
-					expect(within(treatment.container).getByText('Body')).not.toHaveAttribute(
-						'data-as-inline',
-					);
-				},
-			);
-		});
+	it.each([false, true])(
+		'preserves inline paragraphs with the text fast path %s',
+		(textFastPath) => {
+			const source = schema.nodeFromJSON({
+				type: 'doc',
+				content: [
+					{ type: 'paragraph', content: [{ type: 'text', text: 'Before' }] },
+					{
+						type: 'bodiedExtension',
+						attrs: {
+							extensionType: 'com.atlassian.confluence.macro.core',
+							extensionKey: 'inline',
+						},
+						content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Body' }] }],
+					},
+					{ type: 'paragraph', content: [{ type: 'text', text: 'After' }] },
+				],
+			});
+			const init: ReactSerializerInit = {
+				shouldDisplayExtensionAsInline: () => true,
+				// Isolate extension loading; the serializer still computes inline paragraph positions.
+				nodeComponents: { bodiedExtension: ({ children }) => <>{children}</> },
+			};
+			const control = render(serialize(false, init, textFastPath, source));
+			const treatment = render(serialize(true, init, textFastPath, source));
+			expect(treatment.container.innerHTML).toBe(control.container.innerHTML);
+			for (const text of ['Before', 'After']) {
+				expect(within(treatment.container).getByText(text)).toHaveAttribute('data-as-inline', 'on');
+			}
+			expect(within(treatment.container).getByText('Body')).not.toHaveAttribute('data-as-inline');
+		},
+	);
 
 	it.each([false, true])(
 		'preserves table and expand paragraphs with the text fast path %s',

@@ -395,6 +395,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingPreparingAgent: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingPreparingSuggestions: {
 		defaultMessage: string;
 		description: string;
@@ -767,6 +772,12 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Rovo is reviewing your page',
 		description:
 			'First loading message on the AI suggestions thinking bar, shown when the name of the reviewing agent is unknown',
+	},
+	thinkingPreparingAgent: {
+		id: 'fabric.editor.ai.suggestions.thinking.preparingAgent.non-final',
+		defaultMessage: 'Preparing agent',
+		description:
+			'First loading message on the AI suggestions thinking bar, shown while the reviewing agent is still being loaded and its name is not yet known. Animated dots are appended by the UI.',
 	},
 	thinkingReviewingContentWithAgent: {
 		id: 'fabric.editor.ai.suggestions.thinking.agentAnalyzing.non-final',

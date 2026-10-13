@@ -1,5 +1,16 @@
 # @atlaskit/user-picker
 
+## 14.2.0
+
+### Minor Changes
+
+- [`a8493ec60fbca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8493ec60fbca) -
+  Expand React peer dependency support to React 19 and enable React 19 CI coverage.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.1
 
 ### Patch Changes

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 28.0.0
+
+### Patch Changes
+
+- [`317175303ec6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/317175303ec6a) -
+  Build the registered quick-insert menu model with `getQuickInsertMenuModel` from
+  `@atlaskit/editor-common`.
+- Updated dependencies
+
+## 27.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.6
 
 ### Patch Changes

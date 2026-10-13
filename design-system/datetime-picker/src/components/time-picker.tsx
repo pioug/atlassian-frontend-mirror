@@ -41,7 +41,6 @@ import { token } from '@atlaskit/tokens';
 import { defaultTimes } from '../internal/default-times';
 import { EmptyComponent } from '../internal/empty-component';
 import { FixedLayerMenu } from '../internal/fixed-layer-menu';
-import { FixedLayerMenuTopLayer } from '../internal/fixed-layer-menu-top-layer';
 import parseTime from '../internal/parse-time';
 import { convertTokens } from '../internal/parse-tokens';
 import { PickerButtonContainer } from '../internal/picker-button-container';
@@ -350,7 +349,8 @@ const TimePicker: React.ForwardRefExoticComponent<
 
 		const selectComponents: SelectComponentsConfig<OptionType> = {
 			DropdownIndicator: EmptyComponent,
-			Menu: fg('platform-dst-top-layer') ? FixedLayerMenuTopLayer : FixedLayerMenu,
+			// Select owns top-layer positioning; only the legacy path needs a separate wrapper.
+			...(!fg('platform-dst-top-layer') && { Menu: FixedLayerMenu }),
 			SingleValue,
 			...(hideIcon && { ClearIndicator: EmptyComponent }),
 		};

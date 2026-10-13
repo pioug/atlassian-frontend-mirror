@@ -46,13 +46,6 @@ export function isEditorViewWithNodeViews(view: EditorView): view is EditorViewW
 /** Expand-family nodes whose expanded state lives in a node-keyed WeakMap. */
 const EXPAND_TYPES = new Set(['expand', 'nestedExpand']);
 
-/** Merges an inline style string onto an element's existing `style` attribute. */
-const appendInlineStyle = (element: HTMLElement, style: string): void => {
-	const currentStyle = element.getAttribute('style') ?? '';
-	const separator = currentStyle && style && !currentStyle.trimEnd().endsWith(';') ? '; ' : '';
-	element.setAttribute('style', `${currentStyle}${separator}${style}`);
-};
-
 /** Tables are the only node views that read and write positions, so only they need a preview. */
 const containsTable = (node: PMNode): boolean => {
 	const { table } = node.type.schema.nodes;
@@ -113,7 +106,7 @@ export class NodeViewSerializer {
 		// views resolve to their real depth instead of every one of them seeing depth 0.
 		let childPos = basePos + 1;
 		children.forEach((child) => {
-			const childNode =
+			let childNode =
 				this.tryCreateNodeViewInner(child, childPos, editorProxy, isInserted, colorScheme) ||
 				this.serializeNode(child);
 			if (childNode) {
@@ -129,14 +122,12 @@ export class NodeViewSerializer {
 						child.type.name,
 						colorScheme,
 					);
-					const existingClassName = childNode.getAttribute('class') ?? '';
-					childNode.setAttribute(
-						'class',
-						existingClassName ? `${existingClassName} ${className}` : className,
-					);
-					if (styleSuffix) {
-						appendInlineStyle(childNode, styleSuffix);
-					}
+					// create wrapper to add the diff styles to to avoid conflicting with any nodeView styles
+					const wrapper = document.createElement('span');
+					wrapper.className = className;
+					wrapper.setAttribute('style', styleSuffix);
+					wrapper.append(childNode);
+					childNode = wrapper;
 				}
 				contentDOM?.append(childNode);
 			}

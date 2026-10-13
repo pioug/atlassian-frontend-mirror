@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import { Anchor, type AnchorProps } from '@atlaskit/primitives/compiled/anchor';
 
@@ -14,7 +14,9 @@ export type TeamsAnchorProps = BaseAnchorProps & NavigationIntentProps;
 /**
  * Drop-in replacement for an ADS Anchor that uses the intent-based navigation system to resolve `target` and `rel` automatically.
  */
-export const TeamsAnchor = (props: TeamsAnchorProps): React.JSX.Element => {
+export const TeamsAnchor: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<TeamsAnchorProps> & React.RefAttributes<HTMLAnchorElement>
+> = forwardRef<HTMLAnchorElement, TeamsAnchorProps>((props, ref) => {
 	const { href, onClick, ...rest } = props;
 	const context = useTeamsNavigationContext();
 	const input = buildNavigationInput({
@@ -25,5 +27,7 @@ export const TeamsAnchor = (props: TeamsAnchorProps): React.JSX.Element => {
 	});
 	const navigationProps = getNavigationProps(input);
 
-	return <Anchor {...rest} {...navigationProps} />;
-};
+	return <Anchor {...rest} {...navigationProps} ref={ref} />;
+});
+
+TeamsAnchor.displayName = 'TeamsAnchor';

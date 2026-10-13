@@ -1,5 +1,14 @@
 # @atlaskit/drawer
 
+## 14.3.7
+
+### Patch Changes
+
+- [`cf31b7db11afe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf31b7db11afe) -
+  Isolate container content from parent entry and exit motion behind
+  platform-dst-motion-isolate-presence, so nested tags animate only for their own changes.
+- Updated dependencies
+
 ## 14.3.6
 
 ### Patch Changes

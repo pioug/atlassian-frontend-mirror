@@ -1,5 +1,12 @@
 # @atlaskit/teams-app-internal-navigation
 
+## 3.1.0
+
+### Minor Changes
+
+- [`08f973ac4b28b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08f973ac4b28b) -
+  Forward refs from `TeamsAnchor` to the underlying anchor element.
+
 ## 3.0.1
 
 ### Patch Changes

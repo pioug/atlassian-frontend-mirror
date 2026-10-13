@@ -4,7 +4,6 @@ import { act, render, screen } from '@testing-library/react';
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { renderExtension } from '../../../../react/nodes/extension';
@@ -86,15 +85,11 @@ describe('Extension viewport height', () => {
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('');
 	});
 
-	eeTest
-		.describe('platform_editor_render_bodied_extension_as_inline', 'inline height exclusion')
-		.variant(true, () => {
-			it('does not reserve block height for an inline extension', () => {
-				passGate('confluence_forge_early_render_reserve_height');
-				render(renderMacro({ viewportSize: 'large', inline: true }));
-				expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('');
-			});
-		});
+	it('does not reserve block height for an inline extension', () => {
+		passGate('confluence_forge_early_render_reserve_height');
+		render(renderMacro({ viewportSize: 'large', inline: true }));
+		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('');
+	});
 
 	it('keeps the reserved height stable from SSR through hydration', async () => {
 		passGate('confluence_forge_early_render_reserve_height');

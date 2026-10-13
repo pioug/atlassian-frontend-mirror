@@ -1,0 +1,17 @@
+import React from 'react';
+
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { UnicornResolvedClient } from '@atlaskit/link-test-helpers';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { HoverCard } from '@atlaskit/smart-card/hover';
+export default function Preview(): React.JSX.Element {
+	return (
+		<div data-testid="component-preview">
+			<SmartCardProvider client={new UnicornResolvedClient()}>
+				<HoverCard url="https://example.atlassian.net/browse/ENG-1" label="Preview ENG-1">
+					<Anchor href="https://example.atlassian.net/browse/ENG-1">View ENG-1</Anchor>
+				</HoverCard>
+			</SmartCardProvider>
+		</div>
+	);
+}

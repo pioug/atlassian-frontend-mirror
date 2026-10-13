@@ -3,7 +3,6 @@ import type { IntlShape } from 'react-intl';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages/tasks-and-decisions';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles/task-decision';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isContentEmpty } from './utils';
 
@@ -50,11 +49,7 @@ export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape
 		...(node.type.name === 'blockTaskItem' ? { 'data-task-is-block': 'true' } : {}),
 	};
 
-	let contentDomDataAttrs = node.content.childCount > 0 ? {} : { 'data-empty': 'true' };
-
-	if (expValEquals('platform_editor_blocktaskitem_node_tenantid', 'isEnabled', true)) {
-		contentDomDataAttrs = isContentEmpty(node) ? { 'data-empty': 'true' } : {};
-	}
+	const contentDomDataAttrs = isContentEmpty(node) ? { 'data-empty': 'true' } : {};
 
 	const checkboxIcons = [
 		'http://www.w3.org/2000/svg svg',

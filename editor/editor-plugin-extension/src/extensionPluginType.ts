@@ -93,17 +93,13 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	 * `true`. Set `false` for content whose structure the product fixes, so the
 	 * toolbar does not offer an action the document will refuse.
 	 *
-	 * Gated on `platform_editor_extension_hide_toolbar_actions`: until that gate
-	 * is on, setting this has no effect.
-	 *
 	 * For hiding copy on a single extension type instead, use the manifest node's
 	 * `hideCopyButton`, which is not gated on the above.
 	 */
 	copyEnabled?: boolean;
 	/**
 	 * Whether the extension floating toolbar offers a delete button. Defaults to
-	 * `true`, and gated on `platform_editor_extension_hide_toolbar_actions` the
-	 * same way `copyEnabled` is.
+	 * `true`. Set `false` to hide the action for content whose structure the product fixes.
 	 */
 	deleteEnabled?: boolean;
 	extensionHandlers?: ExtensionHandlers;

@@ -9,8 +9,8 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'AgentAvatar',
 			description:
-				'A visual representation of a Rovo agent, supporting both custom images and generated avatars.',
-			status: 'general-availability',
+				'A legacy visual representation for a Rovo agent, supporting custom images and generated avatars. Deprecated for new consumers; prefer the identity-backed AvatarRelay where available.',
+			status: 'deprecated',
 			import: {
 				name: 'AgentAvatar',
 				package: '@atlaskit/rovo-agent-components/ui/AgentAvatar',
@@ -50,8 +50,14 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use AgentProfileInfo to show details about a Rovo agent.',
-				'Typically used in agent selection or profile views.',
+				'Use in a profile or details view where the agent name is a section heading. Use a compact row in selectors with many agents.',
+				'Show creator and popularity details when they help people assess the agent. Provide readable text alongside icons.',
+			],
+			contentGuidelines: [
+				'Use a short description that explains what the agent helps people do, not a repeat of its name.',
+			],
+			accessibilityGuidelines: [
+				'The component renders the agent name as an h2; place it only where that heading level fits the surrounding document outline.',
 			],
 			examples: [
 				{

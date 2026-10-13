@@ -1,5 +1,33 @@
 # @atlaskit/collab-provider
 
+## 36.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.8
+
+### Patch Changes
+
+- [`4a03a1ebd7662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a03a1ebd7662) -
+  Remove the platform_editor_agentic_step_attribution feature gate and preserve agent attribution.
+- [`f2be4b48189f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2be4b48189f2) -
+  Clean up experiment `platform_editor_enable_single_player_step_merging`
+- Updated dependencies
+
+## 35.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.6
 
 ### Patch Changes

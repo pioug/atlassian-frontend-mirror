@@ -173,13 +173,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-09
-	platform_editor_render_bodied_extension_as_inline: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-03
 	platform_editor_ai_quick_prompt_iw_cc: {
 		defaultValue: boolean;
@@ -203,13 +196,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-24
 	platform_editor_paste_actions_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-16
-	platform_editor_remove_important_in_render_ext: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -294,13 +280,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-07-30
-	platform_editor_blocktaskitem_node_tenantid: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-02-10
 	platform_editor_controls: {
 		defaultValue: 'control' | 'variant1';
@@ -317,13 +296,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-07-14
 	platform_editor_debounce_portal_provider: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-06-16
-	platform_editor_enable_single_player_step_merging: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -600,13 +572,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-11
 	'cwr-reduce-prompt-suggestion-max-chars': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-07-16
-	platform_editor_fix_lagging_embed_resize_handle: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -992,14 +957,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-16
-	platform_editor_remove_important_in_render_ext: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_remove_important_in_render_ext',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-07-06
 	confluence_comment_nudgebar_improvement: createBooleanExperiment({
 		productKeys: {
@@ -1257,14 +1214,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-06-16
-	platform_editor_enable_single_player_step_merging: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_enable_single_player_step_merging',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
@@ -1288,14 +1237,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_blocks_conf',
 			jira: 'platform_editor_blocks_jira',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-07-30
-	platform_editor_blocktaskitem_node_tenantid: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_blocktaskitem_node_tenantid',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1341,14 +1282,6 @@ export const editorExperimentsConfig: {
 		param: 'variant',
 		values: ['control', 'test'],
 		defaultValue: 'control',
-	}),
-	// Added 2026-01-09
-	platform_editor_render_bodied_extension_as_inline: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_render_bodied_extension_as_inline',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2026-03-03
 	platform_editor_ai_quick_prompt_iw_cc: createBooleanExperiment({
@@ -1464,14 +1397,6 @@ export const editorExperimentsConfig: {
 	platform_editor_copy_link_a11y_inconsistency_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_copy_link_a11y_inconsistency_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-16
-	platform_editor_fix_lagging_embed_resize_handle: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_lagging_embed_resize_handle',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

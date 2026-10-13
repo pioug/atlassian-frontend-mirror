@@ -7,7 +7,7 @@ import Section from '@atlaskit/menu/section';
 
 const Examples = (): React.JSX.Element => (
 	<>
-		<MenuGroup spacing="cozy">
+		<MenuGroup>
 			<Section title="Navigation">
 				<LinkItem href="/dashboard">Dashboard</LinkItem>
 				<LinkItem href="/projects">Projects</LinkItem>

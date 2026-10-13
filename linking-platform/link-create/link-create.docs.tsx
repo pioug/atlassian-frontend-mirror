@@ -1,8 +1,3 @@
-/**
- * Testing structured MCP docs for review — ignore this file.
- * Contact #dst-structured-content in Slack with questions.
- */
-
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 import packageJson from './package.json';
@@ -11,302 +6,448 @@ const packagePath = __dirname;
 
 const documentation: StructuredContentSource = {
 	config: {
-		componentPages: false,
+		componentPages: true,
 		packageTabs: {
-			examples: false,
-			usage: false,
+			examples: true,
+			usage: true,
 		},
 	},
 	components: [
 		{
 			name: 'LinkCreate',
 			description:
-				'The driver component of the link creation (meta create) flow. Renders a modal with plugin tabs (e.g. Jira issue, Confluence page); each plugin provides a form that returns a URL and metadata on success. Use for "create and link" experiences.',
+				'The modal driver for a create-and-link flow. Each plugin supplies its own form and reports the created resource URL and metadata through callbacks.',
 			status: 'general-availability',
 			import: {
-				name: 'LinkCreate',
-				package: '@atlaskit/link-create',
+				name: 'default',
+				package: '@atlaskit/link-create/modal-create',
 				type: 'default',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when the user should create a new resource (issue, page, etc.) and insert its link in one flow. Supply plugins (e.g. from link-create-jira, link-create-confluence); control visibility with active/onCancel.',
+				'Use to create an item and insert its link in one step. Control visibility with active and close the modal from onCancel or onComplete.',
+				'Call the product creation API from onSubmit. After saving succeeds, pass the saved item URL, ID, and type to onCreate so the link opens that item.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Use a specific modal title and keep plugin and field labels consistent with the resource being created.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the modal has an accessible title and focus is trapped; ensure plugin forms have proper labels and error messages announced.',
+				'The modal manages focus containment. Keep the open and close actions connected so focus returns to the control that launched creation.',
+				'Give every plugin field a programmatic label and associate returned validation errors with that field.',
 			],
-			keywords: ['link-create', 'create', 'modal', 'meta create', 'plugins'],
-			categories: ['linking', 'forms', 'interaction'],
-			examples: [],
+			examples: [
+				{
+					name: 'Basic modal create',
+					description:
+						'Runs a local callback simulation with a placeholder resource URL; it does not persist a work item.',
+					source: `${packagePath}/examples/docs/modal-create-basic.tsx`,
+				},
+				{
+					name: 'Inline create',
+					description:
+						'Runs a local callback simulation with a placeholder page URL; it does not persist a page.',
+					source: `${packagePath}/examples/docs/inline-create.tsx`,
+				},
+			],
+			keywords: ['link-create', 'linkcreate'],
+			categories: ['linking', 'forms'],
 		},
+
 		{
 			name: 'InlineCreate',
 			description:
-				'Inline (non-modal) link creation experience. Renders plugin forms inline so users can create a resource and get a link without opening a modal.',
+				'An inline create-and-link flow that renders plugin forms in the surrounding page or panel.',
 			status: 'general-availability',
 			import: {
 				name: 'InlineCreate',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/inline-create',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when you want "create and link" inline (e.g. in a dropdown or panel) instead of a modal. Supply the same plugin structure as LinkCreate.',
+				'Use when the form belongs in the current page or panel context and should not open a modal.',
+				'The plugin and submit callback contract matches LinkCreate, so share plugin form logic when only the presentation differs.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Keep the section heading and plugin label clear about what will be created.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the inline form has an accessible name and that focus moves logically through fields.',
+				'Place the form under a meaningful heading and keep keyboard focus order consistent with the surrounding page.',
+				'Provide visible labels and announced validation errors for every plugin field.',
 			],
-			keywords: ['link-create', 'inline', 'create', 'plugins'],
-			categories: ['linking', 'forms', 'interaction'],
-			examples: [],
+			examples: [
+				{
+					name: 'Inline page creation',
+					description: 'Keeps the create form in the page beside its contextual heading.',
+					source: `${packagePath}/examples/docs/inline-create.tsx`,
+				},
+			],
+			keywords: ['link-create', 'inlinecreate'],
+			categories: ['linking', 'forms'],
 		},
+
 		{
 			name: 'CreateForm',
 			description:
-				'Form container for a single link-create plugin. Renders the plugin form UI and handles submit, validation, and success callback. Used inside plugin form implementations.',
+				'The form container for one LinkCreate plugin. It manages field state, validation, submission, cancel behavior, and its action footer.',
 			status: 'general-availability',
 			import: {
 				name: 'CreateForm',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/create-form',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when building a custom LinkCreatePlugin form; wrap your fields in CreateForm and use onSubmit to return CreatePayload on success.',
+				'Use inside a LinkCreate plugin to connect fields to shared submit, cancel, validation, and footer behavior. Return field-keyed errors from `onSubmit` when the server rejects specific values.',
 			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-create', 'form', 'CreateForm', 'plugin'],
+			contentGuidelines: [
+				'Use concise field labels and helper text for constraints users need before submitting. Return field-specific errors with actionable language.',
+			],
+			accessibilityGuidelines: [
+				'Keep errors associated with the field that failed and preserve entered values after a submission error.',
+			],
+			examples: [
+				{
+					name: 'Basic modal create',
+					description: 'Connects fields, form values, submit, and cancel callbacks.',
+					source: `${packagePath}/examples/docs/modal-create-basic.tsx`,
+				},
+				{
+					name: 'Loading before fields are ready',
+					description: 'Replaces a loading state with a configured form.',
+					source: `${packagePath}/examples/docs/loading-form.tsx`,
+				},
+			],
+			keywords: ['link-create', 'createform'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'CreateFormLoader',
 			description:
-				'Loader wrapper for CreateForm that shows a loading state until form data or context is ready.',
+				'A centered loading indicator for a plugin form whose required configuration or data is not ready.',
 			status: 'general-availability',
 			import: {
 				name: 'CreateFormLoader',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/form-loader',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when the create form depends on async data (e.g. site list, field config); show loading until ready then render CreateForm.',
+				'Render while a plugin is waiting for field configuration or tenant data, then replace it with the ready form. Do not use it for an in-progress submit; CreateForm owns that state.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'If loading takes noticeable time, say which fields or context are being prepared rather than showing an unexplained spinner.',
+			],
 			accessibilityGuidelines: [
-				'Ensure loading state is announced (e.g. aria-busy or live region).',
+				'Pair the visual loader with an announced status when its purpose is unclear, and mark the form region busy.',
 			],
-			keywords: ['link-create', 'form', 'loader', 'CreateFormLoader'],
+			examples: [
+				{
+					name: 'Loading before fields are ready',
+					description: 'Shows the loader while the plugin prepares its form.',
+					source: `${packagePath}/examples/docs/loading-form.tsx`,
+				},
+			],
+			keywords: ['link-create', 'createformloader'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'FormSpy',
-			description:
-				'Component that subscribes to form state (values, errors, submitting) from react-final-form. Used to build custom UI that reacts to form state.',
+			description: 'A lightweight subscription to the current values in a LinkCreate form.',
 			status: 'general-availability',
 			import: {
 				name: 'FormSpy',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/form-spy',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when you need to read or react to create form state (e.g. to enable/disable a submit button or show a summary) without controlling the form.',
+				'Read only the values needed for dependent UI, such as a short summary of a selected work type. Keep validation and submission in CreateForm rather than duplicating form state.',
 			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-create', 'form', 'FormSpy', 'react-final-form'],
+			contentGuidelines: [
+				'Keep summaries short and supplementary; do not repeat every field value as the user types.',
+			],
+			accessibilityGuidelines: [
+				'Avoid announcing transient changes continuously. Use a live region only when the changed summary is needed to understand the next step.',
+			],
+			examples: [
+				{
+					name: 'Dependent form summary',
+					description: 'Reflects the selected work type without owning form state.',
+					source: `${packagePath}/examples/docs/modal-create-basic.tsx`,
+				},
+			],
+			keywords: ['link-create', 'formspy'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'AsyncSelect',
-			description:
-				'Async-capable select component used in link-create forms for fields that load options from an API (e.g. project, type).',
+			description: 'A form select whose options are loaded from an asynchronous source.',
 			status: 'general-availability',
 			import: {
 				name: 'AsyncSelect',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/async-select',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use inside a create form when the dropdown options are loaded asynchronously (e.g. Jira projects, issue types).',
+				'Use when choices depend on a search query or remote product data. Keep `loadOptions` stable between renders and return the option objects expected by the select.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Label the field by the resource being selected and distinguish loading, no-results, and error states.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the select has a label and that options are announced to screen readers.',
+				'Provide a visible label and ensure keyboard users can search and select options; expose loading and no-results feedback.',
 			],
-			keywords: ['link-create', 'select', 'async', 'form'],
+			examples: [
+				{
+					name: 'Searchable async project field',
+					description: 'Filters project options as the user searches.',
+					source: `${packagePath}/examples/docs/async-fields.tsx`,
+				},
+			],
+			keywords: ['link-create', 'asyncselect'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'Select',
-			description: 'Select component for link-create forms. Use for static or sync option lists.',
+			description: 'A form select for static or already-loaded choices.',
 			status: 'general-availability',
 			import: {
 				name: 'Select',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/select',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use inside a create form for dropdowns with static or synchronously available options.',
+				'Use for a short list of choices already available to the form. Prefer AsyncSelect for searchable remote results and SiteSelect for the standard product-site option format.',
 			],
-			contentGuidelines: [],
-			accessibilityGuidelines: ['Ensure the select has an accessible label.'],
-			keywords: ['link-create', 'select', 'form'],
+			contentGuidelines: [
+				'Use visible option names that remain distinct without relying on icons or color.',
+			],
+			accessibilityGuidelines: [
+				'Provide a visible label and ensure option names communicate each choice without color or icon alone.',
+			],
+			examples: [
+				{
+					name: 'Basic modal create',
+					description: 'Offers a short, preloaded list of work types.',
+					source: `${packagePath}/examples/docs/modal-create-basic.tsx`,
+				},
+				{
+					name: 'Site and assignee fields',
+					description: 'Uses the site-specific select for tenant selection.',
+					source: `${packagePath}/examples/docs/site-and-assignee.tsx`,
+				},
+			],
+			keywords: ['link-create', 'select'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'SiteSelect',
 			description:
-				'Site/product picker used in link-create forms when the user must choose a site or product (e.g. Jira site, Confluence space) before other fields.',
+				'A site and product picker with the standard site option presentation for create forms.',
 			status: 'general-availability',
 			import: {
 				name: 'SiteSelect',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/select',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when the create flow requires picking a site or product first; follow with form fields that depend on that selection.',
+				'Use when changing the site changes the available records or creation fields. Pass site options from the app configuration.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Use product and site names users recognize, not raw cloud IDs or host URLs as option labels.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the site picker has an accessible name and that selected site is announced.',
+				'Keep the picker label and selected site name available to assistive technology; do not encode the site only in its avatar.',
 			],
-			keywords: ['link-create', 'site', 'select', 'picker', 'form'],
+			examples: [
+				{
+					name: 'Site and assignee fields',
+					description: 'Combines a host-provided site choice with tenant-scoped people search.',
+					source: `${packagePath}/examples/docs/site-and-assignee.tsx`,
+				},
+			],
+			keywords: ['link-create', 'siteselect'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'TextField',
-			description:
-				'Text input component for link-create forms. Wired for validation and final-form.',
+			description: 'A single-line text control connected to LinkCreate validation and form state.',
 			status: 'general-availability',
 			import: {
 				name: 'TextField',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/text-field',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use inside a create form for single-line text fields (e.g. title, summary).',
+				'Use for short values such as a title or summary. Set an explicit label and a relevant maximum length when the receiving product has a limit.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Use a visible label rather than placeholder text as the only instruction; explain formatting constraints before submission.',
+			],
 			accessibilityGuidelines: [
-				'Ensure each field has a visible or aria-label and that validation errors are announced.',
+				'Associate helper text and errors with the input, and do not use a placeholder as its sole label.',
 			],
-			keywords: ['link-create', 'textfield', 'input', 'form'],
+			examples: [
+				{
+					name: 'Basic modal create',
+					description: 'Collects a required work-item summary.',
+					source: `${packagePath}/examples/docs/modal-create-basic.tsx`,
+				},
+			],
+			keywords: ['link-create', 'textfield'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'UserPicker',
 			description:
-				'User picker component for link-create forms. Used for assignee, reporter, or other user fields.',
+				'A tenant-scoped person picker for create-form fields such as assignee or reporter.',
 			status: 'general-availability',
 			import: {
 				name: 'UserPicker',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/user-picker',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use inside a create form when the user must select a person (e.g. assignee, creator).',
+				'Use when creation needs a person from the selected site. Set siteId from the site selected in the form, and pass its product key so search uses that directory.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Use a familiar field label such as “Assignee” and distinguish people with similar names.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the picker has an accessible name and that the selected user is announced.',
+				'Keep keyboard access to search and results; identify the selected person by name, not avatar alone.',
 			],
-			keywords: ['link-create', 'user', 'picker', 'form'],
+			examples: [
+				{
+					name: 'Site and assignee fields',
+					description:
+						'Derives the search tenant from the selected site; replace the fixture with a real host-provided site and user-search integration.',
+					source: `${packagePath}/examples/docs/site-and-assignee.tsx`,
+				},
+			],
+			keywords: ['link-create', 'userpicker'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'LinkCreateCallbackProvider',
 			description:
-				'Context provider that supplies a callback (e.g. on success) to link-create. Used so plugins or parents can react to create completion.',
+				'A context provider for success, failure, and cancel callbacks consumed by plugin forms.',
 			status: 'general-availability',
 			import: {
 				name: 'LinkCreateCallbackProvider',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/callback-context',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Wrap LinkCreate or InlineCreate when you need to run custom logic (e.g. insert link, close picker) when create succeeds; consume with useLinkCreateCallback.',
+				'LinkCreate and InlineCreate already provide this context to their plugin forms. Use the provider directly for a custom form rendered outside those components.',
 			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-create', 'callback', 'context', 'provider'],
+			contentGuidelines: [
+				'Report create results and failures in the host experience; do not expose internal ARIs as user-facing copy.',
+			],
+			accessibilityGuidelines: [
+				'This provider does not render announcements. Make success and failure feedback available through the host UI.',
+			],
+			examples: [
+				{
+					name: 'Create callback context',
+					description:
+						'Reports a placeholder payload through a local callback simulation; it does not persist a resource.',
+					source: `${packagePath}/examples/docs/callback-provider.tsx`,
+				},
+			],
+			keywords: ['link-create', 'linkcreatecallbackprovider'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
+
 		{
 			name: 'LinkCreateExitWarningProvider',
 			description:
-				'Provider that enables an exit-confirmation when the user tries to leave the create flow with unsaved changes. Uses ExitWarningModalProvider internally.',
+				'Context for tracking dirty create forms; pair it with InlineCreate, which renders the exit confirmation dialog.',
 			status: 'general-availability',
 			import: {
 				name: 'LinkCreateExitWarningProvider',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/exit-warning-modal',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Wrap the create flow when you want to warn users before closing or navigating away with unsaved form data.',
+				'Wrap InlineCreate when leaving the page should warn about unsaved changes. InlineCreate shows the confirmation dialog, and CreateForm reports whether there are unsaved edits.',
+				'LinkCreate already manages this provider for its modal.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Name the unsaved work and give clear choices to keep editing or discard it.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the exit warning modal is focusable and has an accessible title and actions.',
+				'Give the confirmation dialog an accessible title and clear actions; restore focus to the form or its trigger after the choice.',
 			],
-			keywords: ['link-create', 'exit', 'warning', 'provider', 'unsaved'],
-			categories: ['linking', 'forms', 'interaction'],
-			examples: [],
+			examples: [
+				{
+					name: 'Unsaved form with InlineCreate',
+					description:
+						'Wraps InlineCreate in the public provider; edit the summary, then use the guarded leave action to see the confirmation dialog.',
+					source: `${packagePath}/examples/docs/unsaved-form-warning.tsx`,
+				},
+			],
+			keywords: ['link-create', 'linkcreateexitwarningprovider'],
+			categories: ['linking', 'forms'],
 		},
+
 		{
 			name: 'CreateField',
 			description:
-				'Controller component that connects a form field to the create form state (name, validation, value). Use to build custom fields that participate in CreateForm.',
+				'A controller that connects a custom control to LinkCreate form values and validation.',
 			status: 'general-availability',
 			import: {
 				name: 'CreateField',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/create-field',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use when building a custom form field (e.g. custom select, date picker) that must be part of the create form validation and submit payload.',
+				'Use when building a custom control that must participate in CreateForm validation and submission. Forward the field ID, required state, invalid state, and helper/error relationships to the rendered control.',
 			],
-			contentGuidelines: [],
+			contentGuidelines: [
+				'Use the same visible label for the control and validation feedback so an error is easy to connect to its field.',
+			],
 			accessibilityGuidelines: [
-				'Ensure the rendered control has an accessible name and that validation errors are associated (e.g. aria-describedby).',
+				'Forward the generated ID, `aria-invalid`, `aria-describedby`, and `aria-errormessage` values to the rendered control.',
 			],
-			keywords: ['link-create', 'form', 'field', 'CreateField'],
+			examples: [
+				{
+					name: 'Custom validated field',
+					description: 'Connects a custom control to create-form state and validation.',
+					source: `${packagePath}/examples/docs/custom-field.tsx`,
+				},
+			],
+			keywords: ['link-create', 'createfield'],
 			categories: ['linking', 'forms'],
-			examples: [],
 		},
 	],
 	hooks: [
@@ -317,7 +458,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useLinkCreateCallback',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/callback-context',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -337,7 +478,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useWithExitWarning',
-				package: '@atlaskit/link-create',
+				package: '@atlaskit/link-create/exit-warning-modal',
 				type: 'named',
 				packagePath,
 				packageJson,

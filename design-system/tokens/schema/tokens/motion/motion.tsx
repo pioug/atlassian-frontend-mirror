@@ -56,6 +56,14 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					description: 'Use for input hover, focus, and error state transitions.',
 				},
 			},
+			toggle: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '20.5.0',
+					description: 'Use for toggle track colour, handle slide and icon transitions.',
+				},
+			},
 			selection: {
 				attributes: {
 					group: 'motion',

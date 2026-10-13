@@ -9,6 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { Transition } from '@atlaskit/motion/entering/types';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import SlideIn, { type SlideInProps } from '@atlaskit/motion/slide-in';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
@@ -133,7 +134,9 @@ export const DrawerPanel: ({
 								aria-labelledby={titleId}
 							>
 								<EnsureIsInsideDrawerContext.Provider value={true}>
-									<OnCloseContext.Provider value={onClose}>{children}</OnCloseContext.Provider>
+									<OnCloseContext.Provider value={onClose}>
+										<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
+									</OnCloseContext.Provider>
 								</EnsureIsInsideDrawerContext.Provider>
 							</div>
 						</FocusLock>

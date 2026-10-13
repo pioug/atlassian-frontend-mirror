@@ -28,7 +28,7 @@ export function createPopoverCloseEvent({
 	reason: TPopoverCloseReason;
 }): KeyboardEvent | MouseEvent | Event {
 	if (reason === 'escape') {
-		return new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+		return new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', bubbles: true });
 	}
 	if (reason === 'light-dismiss') {
 		return new MouseEvent('click', { bubbles: true, cancelable: true });

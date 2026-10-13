@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 28.0.0
+
+### Patch Changes
+
+- [`317175303ec6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/317175303ec6a) -
+  Build the registered quick-insert menu model with `getQuickInsertMenuModel` from
+  `@atlaskit/editor-common`.
+- Updated dependencies
+
+## 27.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- [`b9d888e2cb530`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9d888e2cb530) -
+  Remove aria-current from selected typeahead options, behind the
+  `platform_editor_a11y_quick_insert_aria_current` feature gate
+- Updated dependencies
+
+## 27.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.6
 
 ### Patch Changes

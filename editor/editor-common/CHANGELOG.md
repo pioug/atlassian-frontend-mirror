@@ -1,5 +1,70 @@
 # @atlaskit/editor-common
 
+## 131.0.0
+
+### Major Changes
+
+- [`317175303ec6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/317175303ec6a) -
+  Replace `buildQuickInsertMenuModel` and `getMatchingQuickInsertComponents` in
+  `@atlaskit/editor-common/quick-insert/registered-menu-model` with a single
+  `getQuickInsertMenuModel`. It resolves the surface, root and footer once, then builds browse
+  sections for an empty query or ranked search results otherwise.
+
+  Breaking: `buildQuickInsertMenuModel` and `getMatchingQuickInsertComponents` are no longer
+  exported.
+
+  Migration:
+  - `buildQuickInsertMenuModel(components, rootComponent, selectCategoryItems, surfaceContext)` →
+    `getQuickInsertMenuModel({ components, formatMessage, query: '', rootComponent, selectCategoryItems, surfaceContext })`
+  - `getMatchingQuickInsertComponents({ components, formatMessage, query, rootComponent, surfaceContext })`
+    → `getQuickInsertMenuModel({ components, formatMessage, query, rootComponent, surfaceContext })`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 130.5.0
+
+### Minor Changes
+
+- [`f0874308522ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0874308522ea) -
+  Add an optional loading state to floating toolbar buttons. Reuse these controls to prevent Smart
+  Link metadata loading from shifting the AI toolbar behind
+  `platform_editor_fix_link_toolbar_shift`.
+- [`becf35a6d5400`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/becf35a6d5400) -
+  Migrate Editor Common's lazy-loaded components to react-loosely-lazy behind the
+  `platform_editor_loosely_lazy_migration` experiment.
+
+### Patch Changes
+
+- [`5471011deb6d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5471011deb6d9) -
+  isUxChange: true
+
+  While the Content Reviewer agent is still loading (behind `content_reviewer_agent`), the AI
+  suggestions thinking bar now holds on "Preparing agent…" with a placeholder agent avatar instead
+  of "Rovo is reviewing your page", until the agent's name and avatar are known. The message
+  rotation then starts from when the agent became ready, so "{agent} is analyzing" still gets its
+  full interval. Adds `thinkingAgentReadyAt` to the AI suggestions shared state so products' own
+  loading states can anchor their rotation the same way, a `thinkingPreparingAgent` message to
+  `aiSuggestionsMessages`, and an optional `rotationStartedAt` prop to `RovoThinkingBar` to anchor
+  its rotating title separately from the progress bar.
+
+- [`977937673d96e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/977937673d96e) -
+  Clean up experiment `platform_editor_non_production_build_analytics`
+- Updated dependencies
+
+## 130.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 130.4.1
 
 ### Patch Changes

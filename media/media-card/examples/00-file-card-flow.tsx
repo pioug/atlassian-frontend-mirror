@@ -10,6 +10,7 @@ import { Component, type SyntheticEvent } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/default/button';
+import Card from '@atlaskit/media-card/cardLoader';
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaSubscribable } from '@atlaskit/media-client/media-subscribable/types';
@@ -34,7 +35,6 @@ import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers/medi
 
 import { MainWrapper } from '../example-helpers';
 import { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';
-import Card from '../src/card/cardLoader';
 
 const mediaClientConfig = createUploadMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);

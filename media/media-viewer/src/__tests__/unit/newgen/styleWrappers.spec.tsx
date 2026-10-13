@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -14,9 +13,7 @@ import { InsetSidebarHeaderRow, MediaFooterBar, SidebarColumn } from '../../../s
 
 describe('styleWrappers', () => {
 	describe('SidebarColumn', () => {
-		it('should render its children and stay interactive when open', () => {
-			// `Motion` reads this @atlaskit/motion gate when the open column mounts it.
-			failGate('platform-dst-use-motion');
+		it('should render its children and not be aria-hidden when open', () => {
 			render(
 				<SidebarColumn isOpen>
 					<div>Sidebar header</div>
@@ -30,40 +27,7 @@ describe('styleWrappers', () => {
 			expect(column).toHaveAttribute('aria-hidden', 'false');
 		});
 
-		it.each([
-			{ motion: 'the current Motion', setGate: passGate },
-			{ motion: 'the legacy Motion', setGate: failGate },
-		])(
-			'should animate the content in when opened, but not when it mounts open, with $motion',
-			({ setGate }) => {
-				setGate('platform-dst-use-motion');
-				// The content sits in a wrapper inside Motion's own element, which carries the animation.
-				const getMotionElement = () =>
-					screen.getByText('Sidebar body').parentElement?.parentElement;
-
-				const { unmount } = render(
-					<SidebarColumn isOpen>
-						<div>Sidebar body</div>
-					</SidebarColumn>,
-				);
-				expect(getMotionElement()?.style.animation).toBeFalsy();
-				unmount();
-
-				const view = render(
-					<SidebarColumn isOpen={false}>
-						<div>Sidebar body</div>
-					</SidebarColumn>,
-				);
-				view.rerender(
-					<SidebarColumn isOpen>
-						<div>Sidebar body</div>
-					</SidebarColumn>,
-				);
-				expect(getMotionElement()?.style.animation).toBeTruthy();
-			},
-		);
-
-		it('should stay mounted but be aria-hidden when closed', () => {
+		it('should stay mounted but be aria-hidden when it mounts closed', () => {
 			render(
 				<SidebarColumn isOpen={false}>
 					<div>Sidebar body</div>

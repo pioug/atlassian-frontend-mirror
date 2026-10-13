@@ -52,7 +52,8 @@
 							  {
 								"type": "annotation",
 								"attrs": {
-								  "id": "annotation-id-1"
+								  "id": "annotation-id-1",
+								  "annotationType": "inlineComment"
 								}
 							  }
 							]

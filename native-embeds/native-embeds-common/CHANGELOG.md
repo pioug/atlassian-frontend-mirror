@@ -1,5 +1,11 @@
 # @atlaskit/native-embeds-common
 
+## 2.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

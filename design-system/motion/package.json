@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "9.3.0",
+	"version": "9.4.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,7 @@
 		"./exiting-persistence/use-exiting-persistence": "./src/entering/use-exiting-persistence.tsx",
 		"./exiting-persistence/use-staggered-entrance": "./src/entering/use-staggered-entrance.tsx",
 		"./exiting-persistence": "./src/entering/exiting-persistence.tsx",
+		"./motion-presence-boundary": "./src/entering/motion-presence-boundary.tsx",
 		"./fade-in": "./src/entering/fade-in.tsx",
 		"./is-reduced-motion": "./src/utils/is-reduced-motion.tsx",
 		"./reanimate": "./src/entering/reanimate.tsx",
@@ -170,6 +171,9 @@
 	],
 	"homepage": "https://atlassian.design/components/motion/",
 	"platform-feature-flags": {
+		"platform-dst-motion-isolate-presence": {
+			"type": "boolean"
+		},
 		"platform-dst-motion-uplift-labels": {
 			"type": "boolean",
 			"referenceOnly": true

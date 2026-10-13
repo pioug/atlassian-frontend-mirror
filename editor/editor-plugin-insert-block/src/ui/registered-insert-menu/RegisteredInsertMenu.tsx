@@ -7,8 +7,7 @@ import { cssMap } from '@atlaskit/css';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import {
-	buildQuickInsertMenuModel,
-	getMatchingQuickInsertComponents,
+	getQuickInsertMenuModel,
 	getQuickInsertMenuRows,
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
@@ -88,22 +87,15 @@ export const RegisteredInsertMenu = ({
 	);
 	const model = useMemo(
 		() =>
-			query === ''
-				? buildQuickInsertMenuModel(
-						components,
-						MENU,
-						hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
-						surfaceContext,
-						getItemRank,
-					)
-				: getMatchingQuickInsertComponents({
-						components,
-						formatMessage,
-						query,
-						rootComponent: MENU,
-						surfaceContext,
-						getItemRank,
-					}),
+			getQuickInsertMenuModel({
+				components,
+				formatMessage,
+				getItemRank,
+				query,
+				rootComponent: MENU,
+				selectCategoryItems: hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
+				surfaceContext,
+			}),
 		[components, formatMessage, getItemRank, hasSectionOverflowItems, query, surfaceContext],
 	);
 	const selectableItems = useMemo(

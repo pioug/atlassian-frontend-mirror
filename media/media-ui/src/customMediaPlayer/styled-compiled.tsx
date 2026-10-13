@@ -194,7 +194,7 @@ const insetViewerVolumeRangeWrapperStyles = css({
 export const TimeRangeWrapper: React.ForwardRefExoticComponent<
 	Omit<
 		React.ClassAttributes<HTMLDivElement> &
-			React.HTMLAttributes<HTMLDivElement> & { isVolumeRange?: boolean },
+			React.HTMLAttributes<HTMLDivElement> & { variant?: 'timeline' | 'volume' },
 		'ref'
 	> &
 		React.RefAttributes<unknown>
@@ -202,10 +202,10 @@ export const TimeRangeWrapper: React.ForwardRefExoticComponent<
 	(
 		{
 			children,
-			isVolumeRange,
+			variant = 'timeline',
 			...props
 		}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
-			React.ClassAttributes<HTMLDivElement> & { isVolumeRange?: boolean },
+			React.ClassAttributes<HTMLDivElement> & { variant?: 'timeline' | 'volume' },
 		ref,
 	) => {
 		const isInsetViewer = useIsInsetViewer();
@@ -214,7 +214,7 @@ export const TimeRangeWrapper: React.ForwardRefExoticComponent<
 				css={[
 					!isInsetViewer && timeRangeWrapperStyles,
 					isInsetViewer && insetViewerTimeRangeWrapperStyles,
-					isInsetViewer && isVolumeRange && insetViewerVolumeRangeWrapperStyles,
+					isInsetViewer && variant === 'volume' && insetViewerVolumeRangeWrapperStyles,
 				]}
 				ref={ref as React.RefObject<HTMLDivElement>}
 				{...props}

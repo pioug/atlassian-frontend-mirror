@@ -1409,6 +1409,7 @@ export interface MotionTokenSchema<BaseToken> {
 		input: {
 			'[default]': MotionToken<BaseToken>;
 			selection: MotionToken<BaseToken>;
+			toggle: MotionToken<BaseToken>;
 		};
 		form: {
 			message: {

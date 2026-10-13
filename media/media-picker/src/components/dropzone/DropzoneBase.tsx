@@ -1,13 +1,18 @@
 import React from 'react';
 
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
+import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 
+import { LocalFileSource } from '../../service/types';
 import { type DropzoneEventAction, type DropzoneEventPayload } from '../../types';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
 import { LocalUploadComponentReact } from '../localUploadReact';
 import { type DropzoneDragEnterEventPayload, type DropzoneDragLeaveEventPayload } from '../types';
 import { COMPONENT_NAME } from './componentName';
 import type { DropzoneProps } from './dropzone';
+
+type OnDropWithContext = NonNullable<DropzoneProps['onDropWithContext']>;
 
 function dragContainsFiles(event: DragEvent): boolean {
 	if (!event.dataTransfer) {
@@ -92,6 +97,7 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 			const length = this.getDraggedItemsLength(dataTransfer);
 			// [EDM-1636]: needed in order to make multiple dropzones in the page to work
 			event.stopPropagation();
+			this.props.onDragOver?.(event);
 			this.emitDragOver({ length });
 		}
 	};
@@ -117,11 +123,43 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 		dragEvent.stopPropagation();
 		// refreshes uploadParams as only set once in parent constructor
 		this.setUploadParams(this.props.config.uploadParams);
+
+		const { onDropWithContext } = this.props;
+		if (onDropWithContext) {
+			await this.uploadDropWithContext(dragEvent, dragEvent.dataTransfer, onDropWithContext);
+			return;
+		}
+
 		this.onDrop(dragEvent);
 
 		const files = Array.from(dragEvent.dataTransfer.files);
 
 		this.uploadService.addFiles(files);
+	};
+
+	/** Upload path used only when the consumer provides `onDropWithContext`. */
+	private uploadDropWithContext = async (
+		dragEvent: DragEvent,
+		dataTransfer: DataTransfer,
+		onDropWithContext: OnDropWithContext,
+	): Promise<void> => {
+		const traceContext = { traceId: getRandomTelemetryId() };
+		const onFilesPrepared = this.prepareDropWithContext(dragEvent, traceContext, onDropWithContext);
+		if (onFilesPrepared === false) {
+			return;
+		}
+		const files = Array.from(dataTransfer.files);
+
+		try {
+			await this.uploadService.addFilesWithSource(
+				files.map((file) => ({ file, source: LocalFileSource.LocalUpload })),
+				traceContext,
+			);
+		} finally {
+			if (typeof onFilesPrepared === 'function') {
+				onFilesPrepared();
+			}
+		}
 	};
 	// Cross-browser way of getting dragged items length, we prioritize "items" if present
 	// https://www.w3.org/TR/html51/editing.html#the-datatransfer-interface
@@ -153,6 +191,26 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 			this.props.onDrop();
 		}
 		this.emitDragLeave({ length: fileCount });
+	};
+
+	/** Like `onDrop`, but `droppedInto` is only sent when the consumer accepts the upload. */
+	private prepareDropWithContext = (
+		event: DragEvent,
+		traceContext: MediaTraceContext,
+		onDropWithContext: OnDropWithContext,
+	): ReturnType<OnDropWithContext> => {
+		if (!event.dataTransfer || !dragContainsFiles(event)) {
+			return;
+		}
+
+		const fileCount = this.getDraggedItemsLength(event.dataTransfer);
+		this.props.onDrop?.();
+		const onFilesPrepared = onDropWithContext(event, traceContext);
+		if (onFilesPrepared !== false) {
+			this.fireAnalyticsEvent('droppedInto', fileCount);
+		}
+		this.emitDragLeave({ length: fileCount });
+		return onFilesPrepared;
 	};
 
 	private emitDragOver(payload: DropzoneDragEnterEventPayload): void {

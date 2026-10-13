@@ -2,8 +2,10 @@
 
 import React from 'react';
 
+import type { Avatar } from '@atlaskit/media-avatar-picker/avatar-list';
+import AvatarPickerDialog from '@atlaskit/media-avatar-picker/avatar-picker-dialog-loader';
+
 import { generateAvatars } from '../example-helpers';
-import { type Avatar, AvatarPickerDialog } from '../src';
 
 const avatars: Array<Avatar> = generateAvatars(30);
 

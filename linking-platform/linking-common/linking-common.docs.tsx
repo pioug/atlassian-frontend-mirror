@@ -36,32 +36,39 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Pulse',
 			description:
-				'Wrapper that applies a single brief box-shadow pulse animation (3 iterations, ~1.45s each, using the bold discovery design token) to its child. Used to draw attention to a freshly-inserted Smart Link or discovery affordance. Once `showPulse` flips true, the animation persists across rerenders even if `showPulse` flips back — the wrapper latches a ref so the animation runs to completion.',
+				'Wrapper that applies a brief discovery pulse to new Smart Link content. The animation starts when `showPulse` becomes true and completes across rerenders.',
 			status: 'general-availability',
 			import: {
 				name: 'Pulse',
-				package: '@atlaskit/linking-common/pulse',
-				type: 'default',
+				package: '@atlaskit/linking-common/pulse/pulse',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use sparingly — overusing the pulse defeats its purpose as an attention-grabber. Trigger only on genuinely new content, not on every render.',
-				'Pass `isInline` for inline contexts (uses `<span>`); the default wraps in `<div>`.',
-				'Hook into `onAnimationStart` / `onAnimationIteration` if you need to fire analytics on first paint vs. each pulse iteration.',
+				'Trigger only when content is newly inserted; `showPulse` latches once true, so a later false value does not restart or cancel the animation.',
+				'Use `isInline` within text flows; the default wrapper is a block `<div>`. Avoid changing the parent-child structure of content that depends on a specific semantic container.',
+			],
+			contentGuidelines: [
+				'Keep the link or action understandable without the pulse; animation only draws attention to an existing affordance.',
 			],
 			accessibilityGuidelines: [
-				'Pulse is decorative — do not rely on it alone to convey state. Ensure the wrapped element still has an accessible name and role.',
-				'Respect `prefers-reduced-motion` at the call site (the component itself does not).',
+				'Pulse is decorative and does not respect reduced-motion preferences itself. Do not use motion alone to convey state; account for `prefers-reduced-motion` at the call site.',
+			],
+			examples: [
+				{
+					name: 'Pulse a newly created link',
+					description: 'Highlights a meaningful inline link once after creation.',
+					source: `${packagePath}/examples/docs/pulse.tsx`,
+				},
 			],
 			keywords: ['linking-common', 'pulse', 'animation', 'discovery'],
 			categories: ['linking', 'animation'],
-			examples: [],
 		},
 		{
 			name: 'Skeleton',
 			description:
-				'Generic block-level loading skeleton used by Smart Card and Datasource UIs while a resolver response is pending. Supports three appearances (`gray`, `blue`, `darkGray`), explicit `width` / `height` / `borderRadius` props, and an optional shimmer animation toggled by `isShimmering`.',
+				'Block-level placeholder for Smart Card and Datasource content while a resolver response is pending. Supports the `gray`, `blue`, and `darkGray` appearances, explicit dimensions, and optional shimmer.',
 			status: 'general-availability',
 			import: {
 				name: 'Skeleton',
@@ -71,37 +78,55 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				"Use for Smart Card / Datasource loading states — not as a general-purpose `<Skeleton>` primitive (the design system's `@atlaskit/skeleton` package owns that).",
-				'Match the skeleton dimensions to the eventual content to avoid layout shift on resolve.',
+				'Use for Smart Card or Datasource loading placeholders, not as a general-purpose substitute for `@atlaskit/skeleton`.',
+				'Match the placeholder dimensions to the resolved card content to prevent layout shift.',
+			],
+			contentGuidelines: [
+				'Expose a short status such as “Loading project details” when the loading state needs explanation; the gray shape alone is not meaningful content.',
 			],
 			accessibilityGuidelines: [
-				'Skeletons must not announce themselves to assistive tech as content. Pair with `aria-busy="true"` on the container that owns the loading state.',
+				'Hide decorative skeleton blocks from assistive technology and place `aria-busy="true"` on the container being updated. Expose loading status as text when useful.',
+			],
+			examples: [
+				{
+					name: 'Block loading state',
+					description: 'Reserves the title and summary footprint while project details load.',
+					source: `${packagePath}/examples/docs/block-skeleton.tsx`,
+				},
 			],
 			keywords: ['linking-common', 'skeleton', 'loading', 'placeholder'],
 			categories: ['linking', 'loading'],
-			examples: [],
 		},
 		{
 			name: 'SpanSkeleton',
 			description:
-				'Inline variant of `Skeleton` (renders a `<span>`) for use inside text flows — e.g. while a Smart Link title resolves inside a paragraph. Same prop shape as `Skeleton`.',
+				'Inline variant of `Skeleton` for a missing value inside a sentence, such as a Smart Link title that is still resolving.',
 			status: 'general-availability',
 			import: {
 				name: 'SpanSkeleton',
-				package: '@atlaskit/linking-common',
+				package: '@atlaskit/linking-common/span-skeleton',
 				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use only when the placeholder needs to flow with surrounding text. For block-level cards reach for `Skeleton`.',
+				'Use for inline values within text flows; use `Skeleton` for block-level cards.',
+			],
+			contentGuidelines: [
+				'Keep surrounding copy intact so the placeholder occupies only the missing value, not the whole sentence.',
 			],
 			accessibilityGuidelines: [
-				'Same as `Skeleton` — pair with `aria-busy` on the parent that owns the resolving state. Never put the skeleton itself in the accessible name.',
+				'Hide the placeholder from assistive technology, set `aria-busy="true"` on the text region being updated, and expose a concise loading status when needed.',
+			],
+			examples: [
+				{
+					name: 'Inline loading value',
+					description: 'Keeps the sentence structure while an owner name resolves.',
+					source: `${packagePath}/examples/docs/inline-skeleton.tsx`,
+				},
 			],
 			keywords: ['linking-common', 'skeleton', 'inline', 'loading'],
 			categories: ['linking', 'loading'],
-			examples: [],
 		},
 	],
 	utilities: [

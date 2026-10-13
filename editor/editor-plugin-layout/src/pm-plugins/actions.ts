@@ -21,7 +21,6 @@ import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prose
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPlugin } from '../layoutPluginType';
@@ -234,7 +233,7 @@ export const insertLayoutColumnsWithAnalytics =
 			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
 			attributes: {
 				inputMethod,
-				columnCount: fg('platform_editor_column_count_analytics') ? 2 : undefined,
+				columnCount: 2,
 			},
 			eventType: EVENT_TYPE.TRACK,
 		})((state, dispatch) => {

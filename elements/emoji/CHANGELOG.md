@@ -1,5 +1,23 @@
 # @atlaskit/emoji
 
+## 72.5.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.5.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 72.5.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 72.5.11
 
 ### Patch Changes

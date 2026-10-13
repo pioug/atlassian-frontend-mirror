@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 20.5.0
+
+### Minor Changes
+
+- [`82955eb7148a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82955eb7148a9) -
+  Add motion.input.toggle for Toggle track colour, handle and icon transitions.
+
 ## 20.4.1
 
 ### Patch Changes

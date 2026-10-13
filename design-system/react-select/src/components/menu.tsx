@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX, type ReactNode, type Ref } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -48,6 +49,18 @@ const menuStyles = cssMap({
 	top: {
 		insetBlockEnd: '100%',
 	},
+	topLayer: {
+		// Keep the menu in flow so the anchored host measures its height when deciding whether to flip.
+		position: 'relative',
+		// Let the list shrink vertically to the height available in the popover.
+		display: 'flex',
+		flexDirection: 'column',
+		// Allow the menu to shrink to the popover's available-height limit instead of overflowing the viewport.
+		minBlockSize: 0,
+		// Spacing comes from the anchored host's gap, not extra margins inside it.
+		marginBlockEnd: 0,
+		marginBlockStart: 0,
+	},
 });
 
 const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -60,7 +73,11 @@ const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 
 	return (
 		<div
-			css={[menuStyles.root, menuStyles[placement]]}
+			css={[
+				menuStyles.root,
+				// Only the legacy path needs placement insets; the top-layer host is already anchored.
+				fg('platform-dst-top-layer') ? menuStyles.topLayer : menuStyles[placement],
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(xcss, className as any, '-menu')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

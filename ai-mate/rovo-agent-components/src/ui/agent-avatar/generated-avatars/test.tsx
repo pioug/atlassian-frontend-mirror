@@ -4,7 +4,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
-import { GeneratedAvatar, getNumberIdForAvatar } from './index';
+import { blueColor, GeneratedAvatar, getAgentAvatarColor, getNumberIdForAvatar } from './index';
 
 jest.mock('./assets/social-media-scribe', () => ({
 	__esModule: true,
@@ -75,6 +75,26 @@ describe('getNumberIdForAvatar', () => {
 	});
 });
 
+describe('getAgentAvatarColor', () => {
+	it.each([false, true])(
+		'uses the image gate for custom, fallback and Content Reviewer colours when enabled=%s',
+		(enabled) => {
+			if (enabled) {
+				passGate('rovo_agent_avatar_refresh_teu26');
+			} else {
+				failGate('rovo_agent_avatar_refresh_teu26');
+			}
+
+			const expectedColor = enabled ? blueColor.v2 : blueColor.v1;
+			expect(getAgentAvatarColor({ agentIdentityAccountId: '3' })).toEqual(expectedColor);
+			expect(getAgentAvatarColor({})).toEqual(expectedColor);
+			expect(getAgentAvatarColor({ agentNamedId: 'content_reviewer_agent' })).toEqual(
+				expectedColor,
+			);
+		},
+	);
+});
+
 describe('GeneratedAvatar', () => {
 	it.each([
 		['jira_coding_agent', '18 344 52 52'],
@@ -83,15 +103,16 @@ describe('GeneratedAvatar', () => {
 		['jira_admin_agent', '18 19 52 52'],
 		['jsm_rovo_service_agent', '18 604 52 52'],
 		['ops_guide_agent', '18 539 52 52'],
+		['content_reviewer_agent', '18 19 52 52'],
 	])('renders the Team 26 EU avatar for %s', async (agentNamedId, viewBox) => {
-		passGate('platform-dst-avatar-updated-geometry');
+		passGate('rovo_agent_avatar_refresh_teu26');
 		render(<GeneratedAvatar agentNamedId={agentNamedId} size="medium" />);
 
 		expect(await screen.findByTestId('refreshed-agent-avatar')).toHaveAttribute('viewBox', viewBox);
 	});
 
 	it('retains the Request Resolver rename path when the Team 26 EU gate is off', async () => {
-		failGate('platform-dst-avatar-updated-geometry');
+		failGate('rovo_agent_avatar_refresh_teu26');
 		passGate('rename-rovo-service-to-request-resolver');
 		render(<GeneratedAvatar agentNamedId="jsm_rovo_service_agent" size="medium" />);
 
@@ -114,10 +135,12 @@ describe('GeneratedAvatar', () => {
 		expect(screen.queryByTestId('amplitude-agent-avatar')).not.toBeInTheDocument();
 	});
 
-	it('renders the Content reviewer avatar for the content_reviewer_agent', async () => {
+	it('renders the original Content Reviewer avatar when the Team 26 EU gate is off', async () => {
+		failGate('rovo_agent_avatar_refresh_teu26');
 		render(<GeneratedAvatar agentNamedId="content_reviewer_agent" size="medium" />);
 
 		expect(await screen.findByTestId('content-reviewer-avatar')).toBeInTheDocument();
+		expect(screen.queryByTestId('refreshed-agent-avatar')).not.toBeInTheDocument();
 	});
 
 	it('renders the Social Media Scribe avatar for the Tech Writer agent', async () => {

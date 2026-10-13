@@ -85,7 +85,16 @@ import type {
 import type { MediaPluginOptions } from '../types/media-plugin-options';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
+import { MediaDropIndicator } from '../ui/Media/MediaDropIndicator';
 import { ACTIONS } from './actions';
+import { isMediaDropPositionEnabled } from './media-drop-position-experiment';
+import type { MediaDropReplacement } from './media-drop-target';
+import {
+	findMediaDropPosition,
+	findMediaDropReplacement,
+	MediaDropTargets,
+	mediaDropSelection,
+} from './media-drop-target';
 import { MediaTaskManager } from './mediaTaskManager';
 import type { PickerFacadeConfig } from './picker-facade';
 import PickerFacade from './picker-facade';
@@ -101,10 +110,23 @@ const createDropPlaceholder = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dropPlaceholderKey: string,
 	allowDropLine?: boolean,
+	inline?: boolean,
 ) => {
+	const usePointerIndicator = isMediaDropPositionEnabled();
 	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-	const dropPlaceholder = document.createElement('div');
+	const dropPlaceholder = document.createElement(usePointerIndicator ? 'span' : 'div');
 	const createElement = React.createElement;
+
+	if (usePointerIndicator) {
+		dropPlaceholder.dataset.mediaDropPlaceholder = 'true';
+		dropPlaceholder.style.display = 'contents';
+		nodeViewPortalProviderAPI.render(
+			() => createElement(MediaDropIndicator, { inline: inline ?? false }),
+			dropPlaceholder,
+			dropPlaceholderKey,
+		);
+		return dropPlaceholder;
+	}
 
 	if (allowDropLine) {
 		nodeViewPortalProviderAPI.render(
@@ -141,6 +163,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	allUploadsFinished: boolean = true;
 	previewRenderedMediaIds: Set<string> = new Set();
 	showDropzone: boolean = false;
+	private mediaDropTargets?: MediaDropTargets;
 	isFullscreen: boolean = false;
 	element?: HTMLElement;
 	layout: MediaSingleLayout = 'center';
@@ -194,6 +217,18 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	dispatch?: Dispatch;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	singletonCreatedAt: number;
+
+	/**
+	 * Pending and hovered drop targets, allocated on first use and only for the test cohort, so
+	 * the control cohort runs none of this code and retains none of its state.
+	 */
+	get dropTargets(): MediaDropTargets | undefined {
+		if (!isMediaDropPositionEnabled()) {
+			return undefined;
+		}
+		this.mediaDropTargets ??= new MediaDropTargets();
+		return this.mediaDropTargets;
+	}
 
 	constructor(
 		state: EditorState,
@@ -491,6 +526,23 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		pickerType?: string,
 		insertMediaVia?: InsertMediaVia,
 	): void => {
+		const dropTargets = this.dropTargets;
+		if (dropTargets && this.destroyed) {
+			return;
+		}
+		const dropPos = dropTargets?.positionFor(mediaState.id);
+		const replacement =
+			dropPos !== undefined && mediaState.fileMimeType?.startsWith('image/')
+				? dropTargets?.replacementFor(mediaState.id, this.view.state.doc)
+				: undefined;
+		if (dropPos !== undefined) {
+			this.replaceMediaFileId = null;
+			this.replaceMediaTargetDisplayHeight = null;
+			const selection = replacement
+				? NodeSelection.create(this.view.state.doc, replacement.pos)
+				: mediaDropSelection(this.view.state.doc, dropPos);
+			this.view.dispatch(this.view.state.tr.setSelection(selection));
+		}
 		const { state } = this.view;
 		const editorAnalyticsAPI = this.pluginInjectionApi?.analytics?.actions;
 
@@ -503,6 +555,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 		const collection = mediaState.collection ?? this.collectionFromProvider();
 		if (collection === undefined) {
+			this.dropTargets?.inserted(mediaState.id);
 			return;
 		}
 
@@ -538,7 +591,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 		// Replace mode: if a media node is being replaced, update its attrs in-place
 		// rather than inserting a new node. This preserves layout, width, and caption.
-		if (this.replaceMediaFileId !== null) {
+		if (this.replaceMediaFileId !== null || replacement !== undefined) {
 			// Clear replace mode immediately so subsequent insertions behave normally
 			this.replaceMediaFileId = null;
 
@@ -649,6 +702,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				triggerDimensionFetch();
 			}
 
+			if (dropPos !== undefined) {
+				this.dropTargets?.inserted(mediaState.id);
+			}
 			const { view } = this;
 			if (!view.hasFocus()) {
 				view.focus();
@@ -694,9 +750,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					collection,
 					this.getInputMethod(pickerType),
 					insertMediaVia,
+					dropPos,
 				);
 				break;
 		}
+
+		this.dropTargets?.inserted(mediaState.id);
 
 		// do events when media state changes
 		onMediaStateChanged(this.handleMediaState);
@@ -988,6 +1047,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		}
 
 		this.destroyed = true;
+		this.mediaDropTargets?.clear();
 
 		const { mediaNodes } = this;
 		mediaNodes.splice(0, mediaNodes.length);
@@ -1121,32 +1181,105 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		return;
 	};
 
+	private getDropTarget = (
+		event: DragEvent,
+	): { pos: number; replacement?: MediaDropReplacement } | undefined => {
+		if (!event.dataTransfer || !this.allowsUploads || this.destroyed) {
+			return;
+		}
+		const hover = this.dropTargets?.hover;
+		if (
+			event.target instanceof Element &&
+			event.target.closest('[data-media-drop-placeholder]') &&
+			hover !== undefined
+		) {
+			return { pos: hover };
+		}
+		const files = Array.from(event.dataTransfer.files);
+		const fileTypes = files.length
+			? files.map((file) => file.type)
+			: Array.from(event.dataTransfer.items || [])
+					.filter((item) => item.kind === 'file')
+					.map((item) => item.type);
+		const replacement = findMediaDropReplacement(this.view, event, fileTypes);
+		if (replacement) {
+			const node = this.view.state.doc.nodeAt(replacement.pos);
+			return { pos: replacement.pos + (node?.nodeSize ?? 0), replacement };
+		}
+		const pos = findMediaDropPosition(
+			this.view,
+			{ left: event.clientX, top: event.clientY },
+			fileTypes.length ? fileTypes : [''],
+			this.mediaOptions,
+		);
+		return pos === undefined ? undefined : { pos };
+	};
+
+	handleDragOver = (event: DragEvent): void => {
+		const dropTargets = this.dropTargets;
+		if (!dropTargets) {
+			return;
+		}
+		const target = this.getDropTarget(event);
+		const isActive = target !== undefined;
+		if (
+			dropTargets.hover === target?.pos &&
+			this.showDropzone === isActive &&
+			dropTargets.hoverReplacement?.pos === target?.replacement?.pos &&
+			dropTargets.hoverReplacement?.media === target?.replacement?.media
+		) {
+			return;
+		}
+		dropTargets.hover = target?.pos;
+		dropTargets.hoverReplacement = target?.replacement;
+		this.showDropzone = isActive;
+		this.view.dispatch(this.view.state.tr);
+	};
+
+	handleDrop = (event: DragEvent, traceContext: { traceId: string }): false | (() => void) => {
+		const dropTargets = this.dropTargets;
+		if (!dropTargets) {
+			return false;
+		}
+		const target = this.getDropTarget(event);
+		this.handleDrag('leave');
+		if (!target) {
+			return false;
+		}
+		return dropTargets.start(traceContext.traceId, target.pos, target.replacement);
+	};
+
 	handleDrag = (dragState: 'enter' | 'leave'): void => {
+		const dropTargets = this.dropTargets;
+		if (dropTargets) {
+			if (dragState === 'enter' || this.destroyed) {
+				return;
+			}
+			if (!this.showDropzone && dropTargets.hover === undefined) {
+				return;
+			}
+			this.showDropzone = false;
+			dropTargets.clearHover();
+			this.view.dispatch(this.view.state.tr);
+			return;
+		}
+
 		const isActive = dragState === 'enter';
 		if (this.showDropzone === isActive) {
 			return;
 		}
 		this.showDropzone = isActive;
-
 		const { dispatch, state } = this.view;
 		const { tr, selection, doc } = state;
 		const { media, mediaGroup } = state.schema.nodes;
-
-		// Workaround for wrong upload position
-		// @see https://product-fabric.atlassian.net/browse/MEX-2457
-		// If the media node is the last selectable item in the current cursor position and it is located within a mediaGroup,
-		// we relocate the cursor to the first child of the mediaGroup.
 		const pos = Math.max(0, selection.$from.pos - 1);
 		const sel = Selection.findFrom(doc.resolve(pos), -1);
-
 		if (sel && findSelectedNodeOfType(media)(sel)) {
 			const parent = findParentNodeOfType(mediaGroup)(sel);
 			if (parent) {
 				tr.setSelection(NodeSelection.create(tr.doc, parent.start));
 			}
 		}
-
-		// Trigger state change to be able to pick it up in the decorations handler
 		dispatch(tr);
 	};
 
@@ -1194,6 +1327,7 @@ export const createPlugin = (
 				);
 			},
 			apply(tr, pluginState: MediaPluginState) {
+				pluginState.dropTargets?.map(tr.mapping);
 				const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
 				const resizingWidth = tr.getMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY);
 				const mediaProvider = tr.getMeta(stateKey)?.mediaProvider;
@@ -1308,11 +1442,7 @@ export const createPlugin = (
 			decorations: (state) => {
 				// Use this to indicate that the media node is selected
 				const mediaNodes: Decoration[] = [];
-				const {
-					schema,
-					selection: { $anchor },
-					doc,
-				} = state;
+				const { schema, doc } = state;
 
 				// Find any media nodes in the current selection
 				if (
@@ -1355,29 +1485,42 @@ export const createPlugin = (
 					return DecorationSet.create(state.doc, mediaNodes);
 				}
 
-				// When a media is already selected
-				if (state.selection instanceof NodeSelection) {
-					const node = state.selection.node;
-
-					if (node.type === schema.nodes.mediaSingle) {
-						const deco = Decoration.node(state.selection.from, state.selection.to, {
-							class: 'richMedia-selected',
-						});
-
-						return DecorationSet.create(state.doc, [deco, ...mediaNodes]);
+				const dropTargets = pluginState.dropTargets;
+				let pos: number | null | undefined;
+				if (dropTargets) {
+					const replacement = dropTargets.hoverReplacementFor(state.doc);
+					if (replacement) {
+						const node = state.doc.nodeAt(replacement.pos);
+						if (node) {
+							return DecorationSet.create(state.doc, [
+								Decoration.node(replacement.pos, replacement.pos + node.nodeSize, {
+									class: 'richMedia-selected',
+								}),
+								...mediaNodes,
+							]);
+						}
 					}
-
-					return DecorationSet.create(state.doc, mediaNodes);
+					pos = dropTargets.hover;
+				} else {
+					if (state.selection instanceof NodeSelection) {
+						const node = state.selection.node;
+						if (node.type === schema.nodes.mediaSingle) {
+							const deco = Decoration.node(state.selection.from, state.selection.to, {
+								class: 'richMedia-selected',
+							});
+							return DecorationSet.create(state.doc, [deco, ...mediaNodes]);
+						}
+						return DecorationSet.create(state.doc, mediaNodes);
+					}
+					const { $anchor } = state.selection;
+					pos = $anchor.pos;
+					if (
+						$anchor.parent.type !== schema.nodes.paragraph &&
+						$anchor.parent.type !== schema.nodes.codeBlock
+					) {
+						pos = insertPoint(state.doc, pos, schema.nodes.mediaGroup);
+					}
 				}
-
-				let pos: number | null | void = $anchor.pos;
-				if (
-					$anchor.parent.type !== schema.nodes.paragraph &&
-					$anchor.parent.type !== schema.nodes.codeBlock
-				) {
-					pos = insertPoint(state.doc, pos, schema.nodes.mediaGroup);
-				}
-
 				if (pos === null || pos === undefined) {
 					return DecorationSet.create(state.doc, mediaNodes);
 				}
@@ -1392,6 +1535,7 @@ export const createPlugin = (
 								nodeViewPortalProviderAPI,
 								dropPlaceholderKey,
 								mediaOptions && mediaOptions.allowDropzoneDropLine,
+								dropTargets !== undefined && state.doc.resolve(pos).parent.inlineContent,
 							);
 						},
 						{

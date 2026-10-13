@@ -355,6 +355,42 @@
 		},
 		"@atlassian/preview-panels-api/use-preview-panel-actions": {
 			"message": "Global Preview Panel is deprecated. Please use `@atlassian/panel-system` instead. See https://atlassian.design/components/panel-system/examples"
+		},
+		"@atlassian/account-menu": {
+			"importSpecifiers": [
+				{
+					"importName": "default",
+					"message": "The Nav3 AccountMenu default export is deprecated. Please import the default export from `@atlassian/account-menu/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+				},
+				{
+					"importName": "AccountMenuTrigger",
+					"message": "The Nav3 AccountMenuTrigger is deprecated. Please import AccountMenuTrigger from `@atlassian/account-menu/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+				},
+				{
+					"importName": "AccountMenuLoggedOutState",
+					"message": "The Nav3 AccountMenuLoggedOutState is deprecated. Please import AccountMenuLoggedOutState from `@atlassian/account-menu/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+				}
+			]
+		},
+		"@atlassian/account-menu/nav3/account-menu-nav3": {
+			"message": "The Nav3 AccountMenu entrypoint is deprecated. Please import the default export from `@atlassian/account-menu/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+		},
+		"@atlassian/account-menu/nav3/account-menu-trigger": {
+			"message": "The Nav3 AccountMenuTrigger entrypoint is deprecated. Please import AccountMenuTrigger from `@atlassian/account-menu/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+		},
+		"@atlassian/account-menu/nav3/account-menu-logged-out-state": {
+			"message": "The Nav3 AccountMenuLoggedOutState entrypoint is deprecated. Please import AccountMenuLoggedOutState from `@atlassian/account-menu/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+		},
+		"@atlassian/account": {
+			"importSpecifiers": [
+				{
+					"importName": "default",
+					"message": "The Nav3 Account default export is deprecated. Please import the default export from `@atlassian/account/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
+				}
+			]
+		},
+		"@atlassian/account/account/nav3": {
+			"message": "The Nav3 Account entrypoint is deprecated. Please import the default export from `@atlassian/account/nav4` instead. See https://hello.atlassian.net/browse/ENGHEALTH-68029"
 		}
 	}
 }

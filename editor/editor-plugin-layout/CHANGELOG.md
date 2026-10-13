@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-layout
 
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.9
+
+### Patch Changes
+
+- [`d79264682f5bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d79264682f5bb) -
+  Clean up feature gate `platform_editor_column_count_analytics`. The `columnCount` attribute is now
+  always included in layout insertion analytics events.
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.6
 
 ### Patch Changes

@@ -118,7 +118,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.3.0",
+	"version": "3.4.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -131,9 +131,6 @@
 	},
 	"platform-feature-flags": {
 		"migrate-product-permissions": {
-			"type": "boolean"
-		},
-		"enable_multi_team_containers_state": {
 			"type": "boolean"
 		},
 		"space-team_linking_invites_fg": {

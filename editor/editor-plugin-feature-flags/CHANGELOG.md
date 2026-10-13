@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-feature-flags
 
+## 26.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.0
 
 ### Patch Changes

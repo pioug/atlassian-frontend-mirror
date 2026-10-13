@@ -595,17 +595,12 @@ export const getToolbarConfig =
 		// (`copyEnabled`), when the extension's manifest node opts out via
 		// `hideCopyButton` (e.g. redactions), or for the legacy content macro.
 		//
-		// The host check is deliberately evaluated before the gate, so the gate is
-		// only read — and so only exposed — for hosts that opted in. Reading it
-		// unconditionally would report an exposure on every extension toolbar in
-		// every product, drowning the rollout metric in traffic it cannot affect.
 		const shouldHideCopyButton =
-			(!copyEnabled && fg('platform_editor_extension_hide_toolbar_actions')) ||
+			!copyEnabled ||
 			(!extensionState.showCopyButton && fg('platform_editor_extension_hide_copy_button')) ||
 			(extensionObj?.node.attrs.extensionType === 'com.atlassian.confluence.migration' &&
 				extensionObj?.node.attrs.extensionKey === 'legacy-content');
-		const shouldHideDeleteButton =
-			!deleteEnabled && fg('platform_editor_extension_hide_toolbar_actions');
+		const shouldHideDeleteButton = !deleteEnabled;
 		// With both trailing actions gone the toolbar ends after the breakout
 		// options, so the divider that used to introduce them would be an orphan.
 		const hasTrailingActions = !shouldHideCopyButton || !shouldHideDeleteButton;

@@ -1,14 +1,10 @@
-import { createHook, type BoundActions, type HookReturnValue } from 'react-sweet-state';
+import { type BoundActions, type HookReturnValue } from 'react-sweet-state';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TeamLink } from '@atlaskit/teams-client/links';
 
 import { type NewTeamWebLink } from '../../../common/types';
 import { useTeamWebLinks as useTeamWebLinksMulti } from './multi-team';
-import { TeamWebLinksStore } from './store';
 import { type StoreApi, type TeamWebLinksState } from './types';
-
-const useTeamWebLinksOriginal = createHook(TeamWebLinksStore);
 
 export const useTeamWebLinks = (
 	teamId?: string,
@@ -39,12 +35,5 @@ export const useTeamWebLinks = (
 		}
 	>
 > => {
-	const originalResult = useTeamWebLinksOriginal();
-	const multiResult = useTeamWebLinksMulti(teamId || '');
-
-	if (fg('enable_multi_team_containers_state')) {
-		return multiResult;
-	}
-
-	return originalResult;
+	return useTeamWebLinksMulti(teamId || '');
 };

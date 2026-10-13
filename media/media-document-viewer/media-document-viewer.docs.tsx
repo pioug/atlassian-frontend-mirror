@@ -9,7 +9,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'DocumentViewer',
 			description:
-				'A specialized viewer for document types like PDF, Word, and Excel, providing paginated navigation and zooming.',
+				'A document preview that renders paginated pages from host-provided structured content and page images at a host-controlled zoom level. The host owns any page-navigation or zoom controls.',
 			status: 'general-availability',
 			import: {
 				name: 'DocumentViewer',
@@ -19,15 +19,25 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use DocumentViewer for high-fidelity previews of documents.',
-				'Supports multi-page navigation and zoom controls.',
-				'Ideal for embedding document previews within a page or modal.',
+				'Provide structured content and a rendered image for each document page requested by the viewer.',
+				'Show loading and errors in the app. The viewer reports first-page success but has no error-state prop.',
+				'Add page navigation and zoom controls when needed and pass the selected zoom value to the viewer.',
+				'For large documents, enable lazy rendering to add pages as people scroll.',
+			],
+			contentGuidelines: [
+				'Identify the document with its name outside the page canvas and keep the host loading or error message specific to that document.',
+				'When document processing fails, offer a clear next step such as retrying or opening the original file.',
+			],
+			accessibilityGuidelines: [
+				'Keep the document name and host loading/error feedback available as text; page raster images are rendered with empty alternative text.',
+				'Provide access to the original document or an equivalent text representation when users need content beyond the selectable text layer.',
 			],
 			examples: [
 				{
-					name: 'Basic',
-					description: 'Standard document viewer example.',
-					source: `${packagePath}/examples/basic.vr.ap.tsx`,
+					name: 'Preview a host document',
+					description:
+						'Connects a host-provided MediaClient and file identifier to the viewer, with text feedback for loading and a host-owned failure state.',
+					source: `${packagePath}/examples/ai/document-viewer.tsx`,
 				},
 			],
 			keywords: ['media', 'document', 'viewer', 'pdf', 'word', 'excel', 'preview'],

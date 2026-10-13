@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-media
 
+## 29.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.1.0
+
+### Minor Changes
+
+- [`04659a71e96bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04659a71e96bd) -
+  Reduce duplicate media drop candidate checks and skip empty position mappings behind
+  platform_editor_media_drop_position.
+- [`04659a71e96bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04659a71e96bd) -
+  Preserve direct image-drop replacement behind platform_editor_media_drop_position while retaining
+  nearby insertion behavior.
+- [`04659a71e96bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04659a71e96bd) -
+  Position media uploads near the pointer using a non-displacing drop indicator, and retain drop
+  targets through asynchronous uploads and document changes, behind the
+  `platform_editor_media_drop_position` experiment. Record exposure only for accepted external-file
+  drags and drops.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.6
 
 ### Patch Changes

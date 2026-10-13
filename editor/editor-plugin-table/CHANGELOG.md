@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-table
 
+## 39.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.0.10
+
+### Patch Changes
+
+- [`027fc864d2aaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/027fc864d2aaa) -
+  Clean up feature gate `platform_editor_table_menu_updates_patch_1`
+- Updated dependencies
+
+## 38.0.9
+
+### Patch Changes
+
+- [`752e644c309ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/752e644c309ef) -
+  Avoid re-rendering every table when the selection changes by selecting only selection state that
+  is relevant to each table, behind the `platform_editor_reduce_memory_leaks` experiment.
+- Updated dependencies
+
+## 38.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.0.7
 
 ### Patch Changes

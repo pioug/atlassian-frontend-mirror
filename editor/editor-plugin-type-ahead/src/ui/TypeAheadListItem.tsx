@@ -24,6 +24,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constan
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -372,6 +373,12 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 					onClick={insertSelectedItem}
 					iconBefore={elementIcon}
 					isSelected={isSelected}
+					// `aria-selected` already conveys which option is selected, so `aria-current` is
+					// inappropriate here (A11Y-32552). When the gate is off we fall back to the
+					// `aria-current="true"` that ButtonItem applies for selected items.
+					aria-current={
+						!fg('platform_editor_a11y_quick_insert_aria_current') && isSelected ? 'true' : undefined
+					}
 					aria-selected={isSelected}
 					aria-label={skillTag?.name ?? title}
 					aria-describedby={descriptionText || shortcutText ? descriptionId : undefined}

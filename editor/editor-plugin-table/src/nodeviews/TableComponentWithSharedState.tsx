@@ -8,8 +8,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
@@ -35,6 +37,14 @@ type TableComponentWithSharedStateProps = {
 	getPos: getPosHandlerNode;
 	options?: TableOptions;
 	view: EditorView;
+};
+
+const getSelectionWithinTable = (
+	selection: Selection | undefined,
+	tableNode: PmNode,
+): Selection | undefined => {
+	const found = selection && findTable(selection);
+	return found && found.node === tableNode ? selection : undefined;
 };
 
 /**
@@ -101,7 +111,9 @@ export const TableComponentWithSharedState = ({
 			// mediaState
 			isFullscreen: states.mediaState?.isFullscreen,
 			// selectionState
-			selection: states.selectionState?.selection,
+			selection: isExperimentEnabled('platform_editor_reduce_memory_leaks')
+				? getSelectionWithinTable(states.selectionState?.selection, getNode())
+				: states.selectionState?.selection,
 			// editorViewModeState
 			mode: states.editorViewModeState?.mode,
 			// widthState

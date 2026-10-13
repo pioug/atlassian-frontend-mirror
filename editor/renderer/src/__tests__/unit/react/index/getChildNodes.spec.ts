@@ -10,7 +10,6 @@ import {
 	layoutColumn,
 	layoutSection,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import ReactSerializer from '../../../../react';
@@ -27,217 +26,172 @@ function getDocChildNodes(document: PMNode): PMNode[] {
 }
 
 describe('ReactSerializer - getChildNodes integration with inline bodied extension marking', () => {
-	eeTest
-		.describe('platform_editor_render_bodied_extension_as_inline', 'experiment disabled')
-		.variant(false, () => {
-			it('should NOT mark positions and should not call callback when experiment is disabled even if shouldDisplayExtensionAsInline is provided', () => {
-				const mockCallback = jest.fn(() => true);
+	it('joins top-level Custom UI neighbours without marking nested neighbours', () => {
+		passGate('platform_forge_inline_bodied_layout_switch');
+		passGate('platform_forge_inline_bodied_macro');
+		const macro = () =>
+			bodiedExtension({
+				extensionType: 'com.atlassian.ecosystem',
+				extensionKey: 'custom-ui',
+				parameters: { layout: 'inline-bodied' },
+			})(p('Inline'));
+		const document = doc(
+			p('Before'),
+			macro(),
+			p('After'),
+			layoutSection(
+				layoutColumn({ width: 50 })(p('Nested before'), macro(), p('Nested after')),
+				layoutColumn({ width: 50 })(p('Other column')),
+			),
+		)(schema);
+		const serializer = new ReactSerializer({ shouldDisplayExtensionAsInline: () => true });
+		const onMark = jest.spyOn((serializer as any).inlinePositions as Set<number>, 'add');
+		serializer.serializeFragment(document.content);
+		expect(onMark).toHaveBeenCalledTimes(2);
+		expect(onMark).toHaveBeenCalledWith(1);
+		expect(onMark).toHaveBeenCalledWith(
+			1 + document.child(0).nodeSize + document.child(1).nodeSize,
+		);
+		onMark.mockRestore();
+	});
+	it('should not mark positions when shouldDisplayExtensionAsInline is not provided', () => {
+		const document = doc(
+			p('Hello'),
+			bodiedExtension({
+				extensionType: 'com.atlassian.test',
+				extensionKey: 'test-extension',
+				layout: 'default',
+			})(p('Extension content')),
+			p('World'),
+		)(schema);
 
-				const document = doc(
-					p('Hello'),
-					bodiedExtension({
-						extensionType: 'com.atlassian.test',
-						extensionKey: 'test-extension',
-						layout: 'default',
-					})(p('Extension content')),
-					p('World'),
-				)(schema);
+		const expectedNodes = getDocChildNodes(document);
 
-				const expectedNodes = getDocChildNodes(document);
+		const serializer = new ReactSerializer({});
 
-				const serializer = new ReactSerializer({
-					shouldDisplayExtensionAsInline: mockCallback,
-				});
+		const inlinePositionsSpy = jest.spyOn(
+			(serializer as any).inlinePositions as Set<number>,
+			'add',
+		);
+		const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
 
-				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
+		serializer.serializeFragment(document.content);
 
-				serializer.serializeFragment(document.content);
+		expect(getChildNodesSpy).toHaveBeenCalled();
+		const result = getChildNodesSpy.mock.results[0].value;
 
-				expect(getChildNodesSpy).toHaveBeenCalled();
-				const result = getChildNodesSpy.mock.results[0].value;
+		// Nodes should remain unchanged
+		expect(result).toEqual(expectedNodes);
 
-				// Nodes should remain unchanged
-				expect(result).toEqual(expectedNodes);
+		// Should not mark any positions
+		expect(inlinePositionsSpy).not.toHaveBeenCalled();
 
-				// Callback should NOT be called when experiment is disabled
-				expect(mockCallback).not.toHaveBeenCalled();
+		getChildNodesSpy.mockRestore();
+		inlinePositionsSpy.mockRestore();
+	});
 
-				getChildNodesSpy.mockRestore();
-			});
+	it('should mark inline positions when shouldDisplayExtensionAsInline returns true', () => {
+		const document = doc(
+			p('Hello'),
+			bodiedExtension({
+				extensionType: 'com.atlassian.test',
+				extensionKey: 'test-extension',
+				layout: 'default',
+			})(p('Extension content')),
+			p('World'),
+		)(schema);
+
+		const expectedNodes = getDocChildNodes(document);
+
+		const serializer = new ReactSerializer({
+			shouldDisplayExtensionAsInline: () => true,
 		});
 
-	eeTest
-		.describe('platform_editor_render_bodied_extension_as_inline', 'experiment enabled')
-		.variant(true, () => {
-			it('joins top-level Custom UI neighbours without marking nested neighbours', () => {
-				passGate('platform_forge_inline_bodied_layout_switch');
-				passGate('platform_forge_inline_bodied_macro');
-				const macro = () =>
-					bodiedExtension({
-						extensionType: 'com.atlassian.ecosystem',
-						extensionKey: 'custom-ui',
-						parameters: { layout: 'inline-bodied' },
-					})(p('Inline'));
-				const document = doc(
-					p('Before'),
-					macro(),
-					p('After'),
-					layoutSection(
-						layoutColumn({ width: 50 })(p('Nested before'), macro(), p('Nested after')),
-						layoutColumn({ width: 50 })(p('Other column')),
-					),
-				)(schema);
-				const serializer = new ReactSerializer({ shouldDisplayExtensionAsInline: () => true });
-				const onMark = jest.spyOn((serializer as any).inlinePositions as Set<number>, 'add');
-				serializer.serializeFragment(document.content);
-				expect(onMark).toHaveBeenCalledTimes(2);
-				expect(onMark).toHaveBeenCalledWith(1);
-				expect(onMark).toHaveBeenCalledWith(
-					1 + document.child(0).nodeSize + document.child(1).nodeSize,
-				);
-				onMark.mockRestore();
-			});
-			it('should not mark positions when shouldDisplayExtensionAsInline is not provided', () => {
-				const document = doc(
-					p('Hello'),
-					bodiedExtension({
-						extensionType: 'com.atlassian.test',
-						extensionKey: 'test-extension',
-						layout: 'default',
-					})(p('Extension content')),
-					p('World'),
-				)(schema);
+		const inlinePositionsSpy = jest.spyOn(
+			(serializer as any).inlinePositions as Set<number>,
+			'add',
+		);
+		const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
 
-				const expectedNodes = getDocChildNodes(document);
+		serializer.serializeFragment(document.content);
 
-				const serializer = new ReactSerializer({});
+		expect(getChildNodesSpy).toHaveBeenCalled();
+		const result = getChildNodesSpy.mock.results[0].value;
 
-				const inlinePositionsSpy = jest.spyOn(
-					(serializer as any).inlinePositions as Set<number>,
-					'add',
-				);
-				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
+		// Nodes should remain unchanged
+		expect(result).toEqual(expectedNodes);
 
-				serializer.serializeFragment(document.content);
+		// Should mark positions for inline display
+		expect(inlinePositionsSpy).toHaveBeenCalled();
 
-				expect(getChildNodesSpy).toHaveBeenCalled();
-				const result = getChildNodesSpy.mock.results[0].value;
+		getChildNodesSpy.mockRestore();
+		inlinePositionsSpy.mockRestore();
+	});
 
-				// Nodes should remain unchanged
-				expect(result).toEqual(expectedNodes);
+	it('should not mark positions when shouldDisplayExtensionAsInline returns false', () => {
+		const document = doc(
+			p('Hello'),
+			bodiedExtension({
+				extensionType: 'com.atlassian.test',
+				extensionKey: 'test-extension',
+				layout: 'default',
+			})(p('Extension content')),
+			p('World'),
+		)(schema);
 
-				// Should not mark any positions
-				expect(inlinePositionsSpy).not.toHaveBeenCalled();
+		const expectedNodes = getDocChildNodes(document);
 
-				getChildNodesSpy.mockRestore();
-				inlinePositionsSpy.mockRestore();
-			});
-
-			it('should mark inline positions when experiment is enabled and shouldDisplayExtensionAsInline returns true', () => {
-				const document = doc(
-					p('Hello'),
-					bodiedExtension({
-						extensionType: 'com.atlassian.test',
-						extensionKey: 'test-extension',
-						layout: 'default',
-					})(p('Extension content')),
-					p('World'),
-				)(schema);
-
-				const expectedNodes = getDocChildNodes(document);
-
-				const serializer = new ReactSerializer({
-					shouldDisplayExtensionAsInline: () => true,
-				});
-
-				const inlinePositionsSpy = jest.spyOn(
-					(serializer as any).inlinePositions as Set<number>,
-					'add',
-				);
-				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
-
-				serializer.serializeFragment(document.content);
-
-				expect(getChildNodesSpy).toHaveBeenCalled();
-				const result = getChildNodesSpy.mock.results[0].value;
-
-				// Nodes should remain unchanged
-				expect(result).toEqual(expectedNodes);
-
-				// Should mark positions for inline display
-				expect(inlinePositionsSpy).toHaveBeenCalled();
-
-				getChildNodesSpy.mockRestore();
-				inlinePositionsSpy.mockRestore();
-			});
-
-			it('should not mark positions when shouldDisplayExtensionAsInline returns false', () => {
-				const document = doc(
-					p('Hello'),
-					bodiedExtension({
-						extensionType: 'com.atlassian.test',
-						extensionKey: 'test-extension',
-						layout: 'default',
-					})(p('Extension content')),
-					p('World'),
-				)(schema);
-
-				const expectedNodes = getDocChildNodes(document);
-
-				const serializer = new ReactSerializer({
-					shouldDisplayExtensionAsInline: () => false,
-				});
-
-				const inlinePositionsSpy = jest.spyOn(
-					(serializer as any).inlinePositions as Set<number>,
-					'add',
-				);
-				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
-
-				serializer.serializeFragment(document.content);
-
-				expect(getChildNodesSpy).toHaveBeenCalled();
-				const result = getChildNodesSpy.mock.results[0].value;
-
-				// Nodes should remain unchanged
-				expect(result).toEqual(expectedNodes);
-
-				// Should not mark any positions when callback returns false
-				expect(inlinePositionsSpy).not.toHaveBeenCalled();
-
-				getChildNodesSpy.mockRestore();
-				inlinePositionsSpy.mockRestore();
-			});
+		const serializer = new ReactSerializer({
+			shouldDisplayExtensionAsInline: () => false,
 		});
 
-	eeTest.describe('platform_editor_render_bodied_extension_as_inline', '').each(() => {
-		describe('backward compatibility', () => {
-			it('should not affect serialization of other node types when callback is provided', () => {
-				const document = doc(
-					// other node types
-					p('Hello'),
-					p('World'),
-					panel({ panelType: 'info' })(p('Panel content')),
-				)(schema);
+		const inlinePositionsSpy = jest.spyOn(
+			(serializer as any).inlinePositions as Set<number>,
+			'add',
+		);
+		const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
 
-				const expectedNodes = getDocChildNodes(document);
+		serializer.serializeFragment(document.content);
 
-				const serializer = new ReactSerializer({
-					shouldDisplayExtensionAsInline: () => true,
-				});
+		expect(getChildNodesSpy).toHaveBeenCalled();
+		const result = getChildNodesSpy.mock.results[0].value;
 
-				const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
+		// Nodes should remain unchanged
+		expect(result).toEqual(expectedNodes);
 
-				serializer.serializeFragment(document.content);
+		// Should not mark any positions when callback returns false
+		expect(inlinePositionsSpy).not.toHaveBeenCalled();
 
-				expect(getChildNodesSpy).toHaveBeenCalled();
-				const result = getChildNodesSpy.mock.results[0].value;
+		getChildNodesSpy.mockRestore();
+		inlinePositionsSpy.mockRestore();
+	});
 
-				// Nodes should remain unchanged
-				expect(result).toEqual(expectedNodes);
+	describe('backward compatibility', () => {
+		it('should not affect serialization of other node types when callback is provided', () => {
+			const document = doc(
+				// other node types
+				p('Hello'),
+				p('World'),
+				panel({ panelType: 'info' })(p('Panel content')),
+			)(schema);
 
-				getChildNodesSpy.mockRestore();
+			const expectedNodes = getDocChildNodes(document);
+
+			const serializer = new ReactSerializer({
+				shouldDisplayExtensionAsInline: () => true,
 			});
+
+			const getChildNodesSpy = jest.spyOn(serializer as any, 'getChildNodes');
+
+			serializer.serializeFragment(document.content);
+
+			expect(getChildNodesSpy).toHaveBeenCalled();
+			const result = getChildNodesSpy.mock.results[0].value;
+
+			// Nodes should remain unchanged
+			expect(result).toEqual(expectedNodes);
+
+			getChildNodesSpy.mockRestore();
 		});
 	});
 });

@@ -7,6 +7,7 @@ import { type ReactNode, useCallback, useContext, useMemo, useRef } from 'react'
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
+import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
@@ -24,7 +25,11 @@ function reactSelectEdgeToTopLayerEdge(menuPlacement: MenuPlacement): 'start' | 
 
 const menuPortalStyles = cssMap({
 	root: {
-		maxBlockSize: '100dvh',
+		// Let the list shrink vertically with the popover when viewport space is limited.
+		display: 'flex',
+		flexDirection: 'column',
+		// Allow the wrapper to shrink below its content height, so the list can scroll.
+		minBlockSize: 0,
 	},
 });
 
@@ -75,12 +80,6 @@ export function MenuPortalTopLayer<
 		[additionalInsideElementRefsProp, anchorRef],
 	);
 
-	// `'match-anchor'` is what react-select has always done. The block axis is left
-	// on `'content'`; `menuPortalStyles.root` caps it at the viewport.
-	//
-	// `gap: 0` matches the legacy MenuPortal, whose menu root already declares its
-	// own `marginBlockStart`.
-	//
 	// Inline rather than memoised: `useAnchoredPopover` re-derives a stable
 	// placement from the primitive fields.
 	useAnchoredPopover({
@@ -89,10 +88,13 @@ export function MenuPortalTopLayer<
 		placement: {
 			axis: 'block',
 			edge: reactSelectEdgeToTopLayerEdge(menuPlacement),
-			offset: { gap: 0 },
+			// Keep the popover separated from the control, even when it flips to the opposite side.
+			offset: { gap: token('space.100') },
 		},
 		isOpen: isAnchored,
 		inlineSize: 'match-anchor',
+		// Fit long menus into available space, rather than only capping at the full viewport height.
+		blockSize: 'max-available',
 	});
 
 	const handlePopoverClose = useCallback(
@@ -136,9 +138,6 @@ export function MenuPortalTopLayer<
 	//
 	// The Popover host is intentionally roleless: the inner `MenuList`
 	// keeps `role="listbox"` and the id referenced by `aria-controls`.
-	// Putting the role on the outer host caused Playwright `toBeVisible`
-	// and some SR hit-testing to treat it as hidden (zero bounding rect
-	// while `styles.root` opts out of UA `[popover]` positioning).
 	//
 	// TODO: add open / close animation. Select unmounts MenuPortalTopLayer
 	// the moment `menuIsOpen` flips false, so Popover's `animate` exit

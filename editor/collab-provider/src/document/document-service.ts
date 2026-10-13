@@ -1173,22 +1173,14 @@ export class DocumentService implements DocumentServiceInterface {
 		sendAnalyticsEvent?: boolean,
 		reason?: GetResolvedEditorStateReason, // only used for publish and draft-sync events - when called through getFinalAcknowledgedState
 	): void {
-		const onlineStepMergingEnabled = expValEquals(
-			'platform_editor_enable_single_player_step_merging',
-			'isEnabled',
-			true,
-		);
 		// We don't trust `_newState` not to be stale
 		// ED-29051 - the `onEditorViewStateUpdated` can have a stale state in edge cases. We need
 		// to always ensure we're sending the latest state and unconfirmed steps so we use the state
 		// from editorView directly (via getState).
-		const newState = onlineStepMergingEnabled ? (this.getState?.() ?? _newState) : _newState;
+		const newState = this.getState?.() ?? _newState;
 
 		// Don't send any steps before we're ready.
-		const enableOnlineStepMerging =
-			onlineStepMergingEnabled && !this.commitStepService.getReadyToCommitStatus();
-
-		if (!this.getConnected() || enableOnlineStepMerging) {
+		if (!this.getConnected() || !this.commitStepService.getReadyToCommitStatus()) {
 			return;
 		}
 

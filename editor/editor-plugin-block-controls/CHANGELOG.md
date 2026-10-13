@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.9
+
+### Patch Changes
+
+- [`d79264682f5bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d79264682f5bb) -
+  Clean up feature gate `platform_editor_column_count_analytics`. The `columnCount` attribute is now
+  always included in layout insertion analytics events.
+- [`d98414f1f1017`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d98414f1f1017) -
+  Behind platform_editor_controls_reliable_anchor and
+  platform_editor_controls_reliable_anchor_patch_2, ignore the mouseover fired when the editor
+  mounts under a stationary pointer so anchor-name is not applied during edit-page and live-doc
+  load. This legacy event handling is skipped when platform_editor_block_control_migration is
+  enabled.
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.6
 
 ### Patch Changes

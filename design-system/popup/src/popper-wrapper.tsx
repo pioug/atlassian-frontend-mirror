@@ -9,6 +9,7 @@ import { ax } from '@compiled/react/runtime';
 
 import { useLayering } from '@atlaskit/layering/use-layering';
 import Motion, { type MotionProps } from '@atlaskit/motion/entering/motion';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type Placement, Popper } from '@atlaskit/popper/main';
 import { token } from '@atlaskit/tokens';
@@ -307,12 +308,14 @@ function PopperWrapper({
 						isReferenceHidden={isReferenceHidden}
 					>
 						<RepositionOnUpdate update={update}>
-							{content({
-								update,
-								isOpen,
-								onClose,
-								setInitialFocusRef,
-							})}
+							<MotionPresenceBoundary>
+								{content({
+									update,
+									isOpen,
+									onClose,
+									setInitialFocusRef,
+								})}
+							</MotionPresenceBoundary>
 						</RepositionOnUpdate>
 					</PopupContainer>
 				);

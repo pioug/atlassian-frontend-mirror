@@ -25,6 +25,8 @@ export interface Props {
 	children?: React.ReactNode;
 	className?: string;
 	disabled?: boolean;
+	/** Keep the tooltip open when the button is pressed. Set it when a press changes the tooltip content. */
+	hasNewContentOnTriggerClick?: boolean;
 	hideTooltipOnClick?: boolean;
 	href?: string;
 	// Ignored via go/ees005
@@ -34,6 +36,7 @@ export interface Props {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconAfter?: React.ReactElement<any>;
 	interactionName?: string;
+	isLoading?: boolean;
 	isRadioButton?: boolean;
 	onBlur?: <T>(event: React.FocusEvent<T>) => void;
 	onClick?: React.MouseEventHandler;
@@ -46,8 +49,6 @@ export interface Props {
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	selected?: boolean;
-	/** Keep the tooltip open when the button is pressed. Set it when a press changes the tooltip content. */
-	hasNewContentOnTriggerClick?: boolean;
 	tabIndex?: number | null | undefined;
 	target?: string;
 	testId?: string;
@@ -89,6 +90,7 @@ const FloatingToolbarButton = (
 		areaControls,
 		ariaLabel,
 		isRadioButton,
+		isLoading,
 		pulse,
 		areAnyNewToolbarFlagsEnabled,
 	}: Props,
@@ -195,6 +197,7 @@ const FloatingToolbarButton = (
 						onKeyDown={onKeyDown}
 						isSelected={selected}
 						isDisabled={disabled}
+						isLoading={isLoading}
 						testId={testId}
 						interactionName={interactionName}
 						onMouseEnter={

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de6ef34f23a4cbd2a036384f0ad58249>>
+ * @codegen <<SignedSource::f65fc99ed5bc5a5f80b0adba655cabbd>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -31,6 +31,7 @@ const tokens = {
 	'motion.form.message.exit': '--ds-form-message-exit',
 	'motion.input': '--ds-input',
 	'motion.input.selection': '--ds-input-selection',
+	'motion.input.toggle': '--ds-input-toggle',
 	'motion.keyframe.fade.in': '--ds-keyframe-fade-in',
 	'motion.keyframe.fade.out': '--ds-keyframe-fade-out',
 	'motion.keyframe.grid.column.in': '--ds-keyframe-grid-column-in',
@@ -647,6 +648,7 @@ export type CSSTokenMap = {
 	'motion.form.message.exit': 'var(--ds-form-message-exit)';
 	'motion.input': 'var(--ds-input)';
 	'motion.input.selection': 'var(--ds-input-selection)';
+	'motion.input.toggle': 'var(--ds-input-toggle)';
 	'motion.keyframe.fade.in': 'var(--ds-keyframe-fade-in)';
 	'motion.keyframe.fade.out': 'var(--ds-keyframe-fade-out)';
 	'motion.keyframe.grid.column.in': 'var(--ds-keyframe-grid-column-in)';

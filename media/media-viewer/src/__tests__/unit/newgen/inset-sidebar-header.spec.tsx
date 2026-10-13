@@ -66,14 +66,13 @@ describe('InsetSidebarHeader', () => {
 		]);
 	});
 
-	it('should show the sidebar toggle as selected, with the viewer ref and the consumer label', () => {
+	it('should show the sidebar toggle with the viewer ref and the consumer label', () => {
 		const hideSidebarButtonRef = React.createRef<HTMLButtonElement>();
 		renderSidebarHeader({ hideSidebarButtonRef, label: 'Hide comments' });
 
 		expect(ViewerIconButton).toHaveBeenCalledWith(
 			expect.objectContaining({
 				testId: 'media-viewer-sidebar-button',
-				isSelected: true,
 				icon: PanelRightIcon,
 				label: 'Hide comments',
 				buttonRef: hideSidebarButtonRef,

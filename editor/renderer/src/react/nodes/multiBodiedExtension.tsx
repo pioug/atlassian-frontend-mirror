@@ -14,7 +14,7 @@ import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions'
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { RendererCssClassName } from '../../consts';
@@ -104,11 +104,7 @@ const MultiBodiedExtensionWrapperNext = ({
 }>) => {
 	const isTopLevel = path.length < 1;
 	// we should only use custom layout for full-page appearance
-	const canUseCustomLayout = expValEquals(
-		'platform_editor_remove_important_in_render_ext',
-		'isEnabled',
-		true,
-	)
+	const canUseCustomLayout = isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 		? rendererAppearance === 'full-page'
 		: true;
 	const isCustomLayout =
@@ -122,13 +118,13 @@ const MultiBodiedExtensionWrapperNext = ({
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
 				width: (
-					expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+					isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 						? isCustomLayout
 						: isTopLevel
 				)
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						calcBreakoutWidthCss(layout)
-					: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+					: isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 						? undefined
 						: '100%',
 			}}

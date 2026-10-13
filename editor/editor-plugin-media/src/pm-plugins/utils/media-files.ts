@@ -43,6 +43,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MediaState } from '../../types';
+import { isMediaDropPositionEnabled } from '../media-drop-position-experiment';
 import { isImage } from './is-type';
 import {
 	copyOptionalAttrsFromMediaState,
@@ -299,6 +300,7 @@ export const insertMediaGroupNode =
 		collection: string,
 		inputMethod?: InputMethodInsertMedia,
 		insertMediaVia?: InsertMediaVia,
+		dropPosition?: number,
 	): void => {
 		const { state, dispatch } = view;
 		const { tr, schema } = state;
@@ -309,7 +311,9 @@ export const insertMediaGroupNode =
 			return;
 		}
 		const mediaNodes = createMediaFileNodes(mediaStates, collection, media);
-		const mediaInsertPos = findMediaInsertPos(state);
+		const mediaInsertPos = isMediaDropPositionEnabled()
+			? (dropPosition ?? findMediaInsertPos(state))
+			: findMediaInsertPos(state);
 		const resolvedInsertPos = tr.doc.resolve(mediaInsertPos);
 		const parent = resolvedInsertPos.parent;
 		const nodeAtInsertionPoint = tr.doc.nodeAt(mediaInsertPos);

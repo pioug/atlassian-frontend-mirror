@@ -1,5 +1,18 @@
 # @atlaskit/media-picker
 
+## 73.1.0
+
+### Minor Changes
+
+- [`04659a71e96bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04659a71e96bd) -
+  Add optional `onDragOver` and `onDropWithContext` callbacks to `Dropzone`, letting a consumer
+  track pointer position during an external file drag and associate the resulting upload batch with
+  that drop. Existing behavior is unchanged when the callbacks are not supplied.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.0.0
 
 ### Patch Changes

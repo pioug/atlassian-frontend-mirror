@@ -11,6 +11,7 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import Heading from '@atlaskit/heading/heading';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
@@ -196,8 +197,10 @@ const Flag: FC<FlagProps> = (props) => {
 	// when delayAnnouncement is available we will use a hidden content for announcement
 	const delayedAnnouncement = delayAnnouncement ? (
 		<VisuallyHidden>
-			{title}
-			{description}
+			<MotionPresenceBoundary>
+				{title}
+				{description}
+			</MotionPresenceBoundary>
 		</VisuallyHidden>
 	) : undefined;
 
@@ -235,7 +238,7 @@ const Flag: FC<FlagProps> = (props) => {
 											/* if isDelayToAnnounce is true, we will hide the content form screen reader to avoid duplicate announcement */
 											aria-hidden={isDelayToAnnounce}
 										>
-											{title}
+											<MotionPresenceBoundary>{title}</MotionPresenceBoundary>
 										</span>
 									</Heading>
 								</Box>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "36.0.0",
+	"version": "36.0.5",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,6 +57,9 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {
+		"platform_editor_collab_empty_catchup_steps": {
+			"type": "boolean"
+		},
 		"confluence_ncs_step_diffing_version_history": {
 			"type": "boolean",
 			"referenceOnly": true

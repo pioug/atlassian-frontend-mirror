@@ -8,6 +8,6 @@ import type { QuickInsertMenuModel } from './get-quick-insert-menu-model';
 export const getQuickInsertMenuRows = (
 	model: QuickInsertMenuModel,
 ): Array<RegisterMenuItem | RegisterMenuSection> => [
-	...(model.searchResults ?? model.sections.flat()),
+	...model.sections.flat(),
 	...(model.fallbackItems ?? []),
 ];

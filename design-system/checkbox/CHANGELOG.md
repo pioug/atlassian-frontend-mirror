@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 19.3.1
+
+### Patch Changes
+
+- [`53e71f8bb80d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53e71f8bb80d8) -
+  Preserve color and opacity transitions with reduced motion under
+  platform_design_system_selection_radial_fade, following the reduced-motion LDR.
+
 ## 19.3.0
 
 ### Minor Changes

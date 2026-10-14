@@ -14,17 +14,12 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
 import { GoogleDoc, GoogleDocUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
-import {
-	setupEditorExperiments,
-	type EditorExperimentOverrides,
-} from '@atlaskit/tmp-editor-statsig/setup';
 
 import { Card } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 // Statically import the lazy footer so the snapshot captures the loaded state.
 import '../../src/view/EmbedCard/components/rovo-actions-footer';
 
-const EMBED_ROVO_ACTIONS_FOOTER_EXPERIMENT_KEY = 'platform_sl_3p_auth_rovo_embed_footer_exp';
 const EMBED_ROVO_ACTIONS_FOOTER_KILL_SWITCH = 'platform_sl_3p_auth_rovo_embed_footer_kill_switch';
 
 const googleDocWithRovoActions = {
@@ -50,12 +45,10 @@ const embedWrapperStyles = css({
 });
 
 type RovoActionsFooterGateConfig = {
-	isExperimentEnabled: boolean;
 	isKillSwitchEnabled: boolean;
 };
 
 const useRovoActionsFooterGateConfig = ({
-	isExperimentEnabled,
 	isKillSwitchEnabled,
 }: RovoActionsFooterGateConfig): number => {
 	const [revision, setRevision] = useState(0);
@@ -74,18 +67,7 @@ const useRovoActionsFooterGateConfig = ({
 			);
 
 			FeatureGates.clearAllOverrides();
-			FeatureGates.overrideConfig(EMBED_ROVO_ACTIONS_FOOTER_EXPERIMENT_KEY, {
-				isEnabled: isExperimentEnabled,
-			});
 			FeatureGates.overrideGate(EMBED_ROVO_ACTIONS_FOOTER_KILL_SWITCH, isKillSwitchEnabled);
-			setupEditorExperiments(
-				'test',
-				{
-					[EMBED_ROVO_ACTIONS_FOOTER_EXPERIMENT_KEY]: isExperimentEnabled,
-				} as EditorExperimentOverrides,
-				undefined,
-				{ disableTestOverrides: true },
-			);
 
 			setBooleanFeatureFlagResolver((flagKey) => {
 				if (flagKey === EMBED_ROVO_ACTIONS_FOOTER_KILL_SWITCH) {
@@ -107,7 +89,7 @@ const useRovoActionsFooterGateConfig = ({
 		return () => {
 			cancelled = true;
 		};
-	}, [isExperimentEnabled, isKillSwitchEnabled]);
+	}, [isKillSwitchEnabled]);
 
 	return revision;
 };
@@ -156,25 +138,11 @@ const createVREmbedCardResolvedRovoActionsFooter = (
 
 export const VREmbedCardResolvedRovoActionsFooterEnabled: RovoActionsFooterComponent =
 	createVREmbedCardResolvedRovoActionsFooter('VREmbedCardResolvedRovoActionsFooterEnabled', {
-		isExperimentEnabled: true,
-		isKillSwitchEnabled: true,
-	});
-
-export const VREmbedCardResolvedRovoActionsFooterExperimentOff: RovoActionsFooterComponent =
-	createVREmbedCardResolvedRovoActionsFooter('VREmbedCardResolvedRovoActionsFooterExperimentOff', {
-		isExperimentEnabled: false,
 		isKillSwitchEnabled: true,
 	});
 
 export const VREmbedCardResolvedRovoActionsFooterKillSwitchOff: RovoActionsFooterComponent =
 	createVREmbedCardResolvedRovoActionsFooter('VREmbedCardResolvedRovoActionsFooterKillSwitchOff', {
-		isExperimentEnabled: true,
-		isKillSwitchEnabled: false,
-	});
-
-export const VREmbedCardResolvedRovoActionsFooterDisabled: RovoActionsFooterComponent =
-	createVREmbedCardResolvedRovoActionsFooter('VREmbedCardResolvedRovoActionsFooterDisabled', {
-		isExperimentEnabled: false,
 		isKillSwitchEnabled: false,
 	});
 

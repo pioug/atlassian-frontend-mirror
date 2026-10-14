@@ -73,6 +73,7 @@ export type ExtensionModule<T extends Parameters = Parameters> = {
 	key: string;
 	keywords?: string[];
 	lozenge?: ReactNode;
+	/** Parameters of the node this module inserts. */
 	parameters?: T;
 	/** Module-specific preview, which takes precedence over the manifest preview. */
 	preview?: QuickInsertPreview;

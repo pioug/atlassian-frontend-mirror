@@ -7,7 +7,12 @@ import { normaliseValue } from './normalise-value';
 import { radiusValueToToken } from './radius-value-to-token';
 
 const spacingValueToToken = Object.fromEntries(
-	spacingScale.map((token) => [token.value, token.cleanName]),
+	spacingScale
+		.filter(
+			(token) =>
+				token.attributes.state === 'active' && /^space\.(?:negative\.)?\d+$/.test(token.cleanName),
+		)
+		.map((token) => [token.value, token.cleanName]),
 );
 
 export function findTokenNameByPropertyValue(

@@ -1,5 +1,15 @@
 # @atlaskit/native-embeds-common
 
+## 2.8.0
+
+### Minor Changes
+
+- [`7e86e3d8d5fd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e86e3d8d5fd9) -
+  Publish native embed comment capability from the experience registry into a shared runtime lookup.
+  Editor and renderer annotation providers subscribe to the same lookup without plugin-state wiring
+  or ADF changes. Existing cc_maui_annotations_on_extensions and cc_maui_comments_on_charts_exp
+  controls remain unchanged; no new gates or flag configuration are introduced.
+
 ## 2.7.1
 
 ### Patch Changes

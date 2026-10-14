@@ -10,6 +10,7 @@ import type {
 	ExtensionType,
 	Icon,
 } from './extension-manifest';
+import type { Parameters } from './extension-parameters';
 
 export type MenuItem = {
 	app?: ExtensionApp;
@@ -27,6 +28,8 @@ export type MenuItem = {
 	lozenge?: ReactNode;
 	moduleKey?: string;
 	node: ADFEntity | ExtensionModuleActionHandler;
+	/** Parameters of the node this item inserts, copied from the quick insert module. */
+	parameters?: Parameters;
 	preview?: QuickInsertPreview;
 	priority?: number;
 	summary?: string;

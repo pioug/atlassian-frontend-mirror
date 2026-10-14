@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-extension
 
+## 30.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- [`cf556f7194a5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf556f7194a5f) -
+  Always honor extension copy and delete toolbar options after the flag rollout.
+
 ## 30.0.0
 
 ### Patch Changes

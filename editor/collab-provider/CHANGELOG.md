@@ -1,5 +1,38 @@
 # @atlaskit/collab-provider
 
+## 36.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.2
+
+### Patch Changes
+
+- [`521a3cdd14e47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/521a3cdd14e47) -
+  Normalize missing catch-up steps before reconnection callbacks under
+  platform_editor_collab_empty_catchup_steps.
+- Updated dependencies
+
+## 36.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.0
 
 ### Patch Changes

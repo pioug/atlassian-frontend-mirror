@@ -80,8 +80,8 @@ const itemStyles = xcss({
 	color: 'color.text',
 	display: 'flex',
 	gap: 'space.150',
-	minHeight: '40px',
-	paddingBlock: 'space.100',
+	minHeight: '44px',
+	paddingBlock: 'space.075',
 	paddingInline: 'space.200',
 	textAlign: 'start',
 	width: '100%',
@@ -96,8 +96,8 @@ const selectedItemStyles = xcss({
 	color: 'color.text',
 	display: 'flex',
 	gap: 'space.150',
-	minHeight: '40px',
-	paddingBlock: 'space.100',
+	minHeight: '44px',
+	paddingBlock: 'space.075',
 	paddingInline: 'space.200',
 	position: 'relative',
 	textAlign: 'start',
@@ -123,8 +123,8 @@ const disabledItemStyles = xcss({
 	color: 'color.text.disabled',
 	display: 'flex',
 	gap: 'space.150',
-	minHeight: '40px',
-	paddingBlock: 'space.100',
+	minHeight: '44px',
+	paddingBlock: 'space.075',
 	paddingInline: 'space.200',
 	textAlign: 'start',
 	width: '100%',
@@ -135,6 +135,7 @@ export const CompactQuickInsertMenuItem = ({
 	description,
 	iconBefore,
 	isDisabled,
+	lozenge,
 	onSelect,
 	preview,
 	previewIcon,
@@ -168,6 +169,10 @@ export const CompactQuickInsertMenuItem = ({
 			? previewAttributionName
 			: previewAttributionName?.id;
 
+	const rowTitle = titleContent ?? (
+		<Text color={isDisabled ? 'color.text.disabled' : 'color.text'}>{title}</Text>
+	);
+
 	const wrappedIcon =
 		iconBefore && shouldWrapIcon ? <Box xcss={styles.iconLarge}>{iconBefore}</Box> : iconBefore;
 
@@ -192,8 +197,13 @@ export const CompactQuickInsertMenuItem = ({
 					</Box>
 				)}
 				<Inline alignBlock="center" spread="space-between" xcss={styles.content}>
-					{titleContent ?? (
-						<Text color={isDisabled ? 'color.text.disabled' : 'color.text'}>{title}</Text>
+					{lozenge ? (
+						<Inline alignBlock="center" space="space.100">
+							{rowTitle}
+							{lozenge}
+						</Inline>
+					) : (
+						rowTitle
 					)}
 					{shortcut && (
 						<Box as="span" xcss={styles.shortcut}>
@@ -211,6 +221,7 @@ export const CompactQuickInsertMenuItem = ({
 					popupsMountPoint={popupsMountPoint}
 					referenceElement={referenceElement}
 					title={title}
+					titleContent={titleContent}
 					icon={previewIcon}
 					shouldClampText={shouldClampPreview}
 				/>

@@ -1,5 +1,42 @@
 # @atlaskit/smart-card
 
+## 46.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.6.10
+
+### Patch Changes
+
+- [`0dfffe2926e88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dfffe2926e88) -
+  Cleanup `experiment` `platform_sl_3p_auth_rovo_embed_footer_exp`. Rovo action buttons in the
+  footer of resolved 3P Smart Link embed cards in Confluence are now permanently on for eligible
+  providers, still guarded by the `platform_sl_3p_auth_rovo_embed_footer_kill_switch` feature gate.
+- Updated dependencies
+
+## 46.6.9
+
+### Patch Changes
+
+- [`c8e3e3c3e096b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8e3e3c3e096b) -
+  Add the missing period to the One Click Chat spotlight body copy, behind
+  platform_sl_one_click_chat_spotlight_v2_fg.
+- Updated dependencies
+
+## 46.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.6.6
 
 ### Patch Changes

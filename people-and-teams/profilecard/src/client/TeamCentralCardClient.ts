@@ -192,6 +192,9 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	}
 
 	private async getWorkspaceExistsWithType(cloudId: string) {
+		if (fg('atlas_profilecard_skip_workspace_type_fetch')) {
+			return 'GLOBAL_EXPERIENCE';
+		}
 		try {
 			const response = await fetch(
 				`${this.getShardedApiPath(cloudId)}/workspace/existsWithWorkspaceType?cloudId=${cloudId}`,

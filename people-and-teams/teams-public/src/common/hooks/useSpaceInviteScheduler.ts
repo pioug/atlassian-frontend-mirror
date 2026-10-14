@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { spaceInviteScheduler } from '../utils/spaceInviteScheduler';
 
 /**
@@ -15,10 +13,6 @@ import { spaceInviteScheduler } from '../utils/spaceInviteScheduler';
  */
 export const useSpaceInviteScheduler = (): void => {
 	useEffect(() => {
-		if (!fg('space-team_linking_invites_fg')) {
-			return;
-		}
-
 		const onVisibilityChange = () => {
 			if (document.visibilityState === 'hidden') {
 				spaceInviteScheduler.flushAll();

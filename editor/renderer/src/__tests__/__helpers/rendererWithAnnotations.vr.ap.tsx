@@ -1,20 +1,21 @@
 import EventEmitter from 'events';
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 
 import type { AnnotationId } from '@atlaskit/adf-schema/annotation';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { InlineCommentAnnotationProvider } from '@atlaskit/editor-common/types/annotation';
-import type { AnnotationUpdateEventPayloads } from '@atlaskit/editor-common/types/emitter';
-import {
-	AnnotationUpdateEmitter,
+import type {
 	AnnotationUpdateEvent,
+	AnnotationUpdateEventPayloads,
 } from '@atlaskit/editor-common/types/emitter';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types/emitter';
+import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 
-import { AnnotationRangeProvider } from '../../ui/annotations/contexts/AnnotationRangeContext';
-import Renderer from '../../ui/Renderer';
+import { Renderer } from '../../entry-points/renderer-default';
+import { AnnotationsWrapper } from '../../ui/annotations';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
 import * as docWithTable from '../__fixtures__/doc-with-table-adf.json';
 import { SelectionInlineComponentMock } from './annotationSelectionComponentMock';
@@ -69,53 +70,33 @@ export const annotationInlineCommentProvider: InlineCommentAnnotationProvider = 
 	updateSubscriber: new AnnotationUpdateEmitterMock(),
 };
 
-// The default `ui/Renderer` export is the nested variant, which expects an outer range context
-// (as in Confluence) and provides none, so selections never reach the selection component.
-// It also reads `rendererRef.current` during render, which is still null on the first pass, so a
-// second render is needed before the selectionchange listener is attached.
-function collectAnnotationIds(node: any, ids: Set<string> = new Set()): Set<string> {
-	node?.marks?.forEach((mark: any) => {
-		if (mark.type === 'annotation') {
-			ids.add(mark.attrs.id);
-		}
-	});
-	node?.content?.forEach((child: any) => collectAnnotationIds(child, ids));
-	return ids;
-}
-
+// The default `ui/Renderer` export is the nested variant: it renders every block as its own
+// `.ak-renderer-document` without `data-renderer-start-pos`, so a selection never resolves to a
+// document position and the Comment button stays disabled. Compose the top-level renderer instead.
 function AnnotatedRenderer({ doc }: { doc: DocNode }): React.JSX.Element {
-	const [mounted, setMounted] = useState(false);
-	useEffect(() => {
-		setMounted(true);
-		// Nested renderers don't load annotation state themselves; the host hydrates it.
-		const payload: Record<string, any> = {};
-		collectAnnotationIds(doc).forEach((id) => {
-			payload[id] = {
-				id,
-				annotationType: AnnotationTypes.INLINE_COMMENT,
-				state: AnnotationMarkStates.ACTIVE,
-			};
-		});
-		annotationInlineCommentProvider.updateSubscriber?.emit(
-			AnnotationUpdateEvent.SET_ANNOTATION_STATE,
-			payload,
-		);
-	}, [doc]);
+	const rendererRef = useRef<HTMLDivElement>(null);
+	const annotationProvider = { inlineComment: annotationInlineCommentProvider };
 
 	return (
-		<AnnotationRangeProvider>
-			<Renderer
-				adfStage={'stage0'}
-				document={doc}
-				appearance={'full-page'}
-				allowAnnotations={true}
-				truncated={mounted ? false : undefined}
-				annotationProvider={{
-					inlineComment: annotationInlineCommentProvider,
-				}}
-				schema={getSchemaBasedOnStage('stage0')}
-			/>
-		</AnnotationRangeProvider>
+		<RendererActionsContext>
+			<AnnotationsWrapper
+				rendererRef={rendererRef}
+				adfDocument={doc}
+				annotationProvider={annotationProvider}
+				isNestedRender={false}
+			>
+				<Renderer
+					innerRef={rendererRef}
+					adfStage={'stage0'}
+					document={doc}
+					appearance={'full-page'}
+					allowAnnotations={true}
+					// Renderer reads `allowDraftMode` from its own prop to render draft marks.
+					annotationProvider={annotationProvider}
+					schema={getSchemaBasedOnStage('stage0')}
+				/>
+			</AnnotationsWrapper>
+		</RendererActionsContext>
 	);
 }
 

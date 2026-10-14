@@ -39,21 +39,20 @@ const svgStyles = cssMap({
 
 // Cross-fade colors and glyphs without moving the input or focus outline.
 // Semantic tokens keep SVG colors, borders and indicators aligned with input motion.
+// Preserve non-spatial transitions for reduced motion, per the LDR:
+// https://hello.atlassian.net/wiki/spaces/DST/pages/7402790985
 const motionStyles = cssMap({
 	root: {
 		transition: token('motion.input.selection'),
-		'@media (prefers-reduced-motion: reduce)': { transition: 'none' },
 	},
 	selected: { opacity: 1 },
 	glyph: {
 		opacity: 0,
 		transition: token('motion.input.selection'),
-		'@media (prefers-reduced-motion: reduce)': { transition: 'none' },
 		'@media (forced-colors: active)': { transition: 'none' },
 	},
 	border: {
 		transition: token('motion.input.selection'),
-		'@media (prefers-reduced-motion: reduce)': { transition: 'none' },
 	},
 });
 

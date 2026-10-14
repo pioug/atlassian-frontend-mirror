@@ -1,6 +1,26 @@
+import type { DesignTokenStyles } from '../../entry-points/css-type-schema.codegen';
 import type { AttributeSchema, ValueSchema } from '../../types';
 
 describe('schema types', () => {
+	it('limits gap tokens to gap, rowGap, and columnGap', () => {
+		const gap = 'var(--ds-space-gap-medium)' as const;
+		const styles: Partial<DesignTokenStyles> = {
+			gap,
+			rowGap: gap,
+			columnGap: gap,
+			// @ts-expect-error Gap tokens must not be used for padding.
+			padding: gap,
+			// @ts-expect-error Gap tokens must not be used for margin.
+			margin: gap,
+			// @ts-expect-error Gap tokens must not be used for insets.
+			inset: gap,
+			// @ts-expect-error Gap tokens must not be used for dimensions.
+			width: gap,
+		};
+
+		expect(styles.gap).toEqual(gap);
+	});
+
 	it('should error when using the removed attributes property', () => {
 		const obj: ValueSchema<{ value: true; attributes: true }> = {
 			// @ts-expect-error

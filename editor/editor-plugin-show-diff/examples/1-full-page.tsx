@@ -356,7 +356,6 @@ function FullPageDiffEditor(): React.JSX.Element {
 					contentFormat: false,
 					uiControlRegistry: true,
 					aiSuggestions: true,
-					aiSpeechToText: false,
 					collabEdit: false,
 				},
 			}),

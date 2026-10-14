@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 27.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.2
+
+### Patch Changes
+
+- [`96522a3034d5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96522a3034d5f) -
+  Fix the slash command Element Browser opening on All instead of the requested section the first
+  time a section's View more is used in a fresh editor (platform_editor_slash_command). The registry
+  snapshot is now taken during the open render, so the requested section is resolved against that
+  open's components.
+- Updated dependencies
+
+## 27.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.0
 
 ### Patch Changes

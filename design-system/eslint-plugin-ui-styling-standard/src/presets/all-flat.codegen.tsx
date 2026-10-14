@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4d0de15d2213df65666693ea490b4cce>>
+ * @codegen <<SignedSource::856ecaae15d6d75373055852fa8db5f0>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Linter } from 'eslint';
@@ -12,7 +12,6 @@ const config: Linter.FlatConfig = {
 		'@atlaskit/design-system': atlaskitDesignSystemPlugin,
 	},
 	rules: {
-		'@atlaskit/ui-styling-standard/atlaskit-theme': 'error',
 		'@atlaskit/ui-styling-standard/convert-props-syntax': 'error',
 		'@atlaskit/ui-styling-standard/enforce-style-prop': 'error',
 		'@atlaskit/ui-styling-standard/local-cx-xcss': 'error',

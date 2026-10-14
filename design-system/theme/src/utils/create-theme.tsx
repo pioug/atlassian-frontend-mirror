@@ -12,6 +12,10 @@ type ThemeConsumerFn<ThemeTokens> = {
 	children: (tokens: ThemeTokens) => ReactNode;
 };
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2652 Internal documentation for deprecation (no external access)}
+ * Use design tokens and the supported customization APIs of Atlassian Design System components.
+ */
 export type ThemeProp<ThemeTokens, ThemeProps> = (
 	getTokens: GetThemeTokensFn<ThemeTokens, ThemeProps>,
 	themeProps: ThemeProps,
@@ -25,6 +29,9 @@ export type ThemeProp<ThemeTokens, ThemeProps> = (
  * - Returns three things - a Provider that allow for additional themes to be applied, a Consumer
  *  that can get the current theme and fetch it, and a custom hook - useTheme which provides an alternate (although functionally the same) API
  *  to the Consumer.
+ *
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2652 Internal documentation for deprecation (no external access)}
+ * Use design tokens and the supported customization APIs of Atlassian Design System components.
  */
 export function createTheme<ThemeTokens, ThemeProps>(
 	defaultGetTokens: GetThemeTokensFn<ThemeTokens, ThemeProps>,

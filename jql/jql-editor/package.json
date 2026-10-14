@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "8.1.0",
+	"version": "8.2.0",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,31 +41,113 @@
 		"./async": "./src/async.tsx",
 		"./components/types": "./src/plugins/autocomplete/components/types.ts",
 		"./i18n": "./src/i18n/index.ts",
-		"./i18n/*": {
-			"publish": null,
-			"default": "./src/i18n/*.ts"
-		},
+		"./i18n/cs": "./src/i18n/cs.ts",
+		"./i18n/da": "./src/i18n/da.ts",
+		"./i18n/de": "./src/i18n/de.ts",
+		"./i18n/en": "./src/i18n/en.ts",
+		"./i18n/en_GB": "./src/i18n/en_GB.ts",
+		"./i18n/en_ZZ": "./src/i18n/en_ZZ.ts",
+		"./i18n/es": "./src/i18n/es.ts",
+		"./i18n/et": "./src/i18n/et.ts",
+		"./i18n/fi": "./src/i18n/fi.ts",
+		"./i18n/fr": "./src/i18n/fr.ts",
+		"./i18n/hr": "./src/i18n/hr.ts",
+		"./i18n/hu": "./src/i18n/hu.ts",
+		"./i18n/it": "./src/i18n/it.ts",
+		"./i18n/ja": "./src/i18n/ja.ts",
+		"./i18n/ko": "./src/i18n/ko.ts",
+		"./i18n/nb": "./src/i18n/nb.ts",
+		"./i18n/nl": "./src/i18n/nl.ts",
+		"./i18n/pl": "./src/i18n/pl.ts",
+		"./i18n/pt_BR": "./src/i18n/pt_BR.ts",
+		"./i18n/pt_PT": "./src/i18n/pt_PT.ts",
+		"./i18n/ru": "./src/i18n/ru.ts",
+		"./i18n/sk": "./src/i18n/sk.ts",
+		"./i18n/sl": "./src/i18n/sl.ts",
+		"./i18n/sr_RS": "./src/i18n/sr_RS.ts",
+		"./i18n/sr_YR": "./src/i18n/sr_YR.ts",
+		"./i18n/sv": "./src/i18n/sv.ts",
+		"./i18n/th": "./src/i18n/th.ts",
+		"./i18n/tr": "./src/i18n/tr.ts",
+		"./i18n/uk": "./src/i18n/uk.ts",
+		"./i18n/vi": "./src/i18n/vi.ts",
+		"./i18n/zh": "./src/i18n/zh.ts",
+		"./i18n/zh_TW": "./src/i18n/zh_TW.ts",
 		"./jql-editor-analytics-listener": "./src/analytics/listener/jql-editor-analytics-listener.tsx",
 		"./jql-editor-layout": "./src/ui/jql-editor-layout/index.tsx",
 		"./jql-editor-read-only": "./src/ui/jql-editor-layout/JQLEditorReadOnly.tsx",
-		"./src/i18n/cs": "./src/i18n/cs.ts",
-		"./src/i18n/da": "./src/i18n/da.ts",
-		"./src/i18n/de": "./src/i18n/de.ts",
-		"./src/i18n/en_ZZ": "./src/i18n/en_ZZ.ts",
-		"./src/i18n/es": "./src/i18n/es.ts",
-		"./src/i18n/fi": "./src/i18n/fi.ts",
-		"./src/i18n/fr": "./src/i18n/fr.ts",
-		"./src/i18n/hu": "./src/i18n/hu.ts",
-		"./src/i18n/it": "./src/i18n/it.ts",
-		"./src/i18n/ja": "./src/i18n/ja.ts",
-		"./src/i18n/ko": "./src/i18n/ko.ts",
-		"./src/i18n/nb": "./src/i18n/nb.ts",
-		"./src/i18n/nl": "./src/i18n/nl.ts",
-		"./src/i18n/pl": "./src/i18n/pl.ts",
-		"./src/i18n/pt_BR": "./src/i18n/pt_BR.ts",
-		"./src/i18n/ru": "./src/i18n/ru.ts",
-		"./src/i18n/sv": "./src/i18n/sv.ts",
-		"./src/i18n/zh": "./src/i18n/zh.ts",
+		"./src/i18n/cs": {
+			"publish": null,
+			"default": "./src/i18n/cs.ts"
+		},
+		"./src/i18n/da": {
+			"publish": null,
+			"default": "./src/i18n/da.ts"
+		},
+		"./src/i18n/de": {
+			"publish": null,
+			"default": "./src/i18n/de.ts"
+		},
+		"./src/i18n/en_ZZ": {
+			"publish": null,
+			"default": "./src/i18n/en_ZZ.ts"
+		},
+		"./src/i18n/es": {
+			"publish": null,
+			"default": "./src/i18n/es.ts"
+		},
+		"./src/i18n/fi": {
+			"publish": null,
+			"default": "./src/i18n/fi.ts"
+		},
+		"./src/i18n/fr": {
+			"publish": null,
+			"default": "./src/i18n/fr.ts"
+		},
+		"./src/i18n/hu": {
+			"publish": null,
+			"default": "./src/i18n/hu.ts"
+		},
+		"./src/i18n/it": {
+			"publish": null,
+			"default": "./src/i18n/it.ts"
+		},
+		"./src/i18n/ja": {
+			"publish": null,
+			"default": "./src/i18n/ja.ts"
+		},
+		"./src/i18n/ko": {
+			"publish": null,
+			"default": "./src/i18n/ko.ts"
+		},
+		"./src/i18n/nb": {
+			"publish": null,
+			"default": "./src/i18n/nb.ts"
+		},
+		"./src/i18n/nl": {
+			"publish": null,
+			"default": "./src/i18n/nl.ts"
+		},
+		"./src/i18n/pl": {
+			"publish": null,
+			"default": "./src/i18n/pl.ts"
+		},
+		"./src/i18n/pt_BR": {
+			"publish": null,
+			"default": "./src/i18n/pt_BR.ts"
+		},
+		"./src/i18n/ru": {
+			"publish": null,
+			"default": "./src/i18n/ru.ts"
+		},
+		"./src/i18n/sv": {
+			"publish": null,
+			"default": "./src/i18n/sv.ts"
+		},
+		"./src/i18n/zh": {
+			"publish": null,
+			"default": "./src/i18n/zh.ts"
+		},
 		"./src/types": "./src/types.ts",
 		"./state/types": "./src/state/types.ts",
 		"./types": "./src/ui/jql-editor/types.ts",

@@ -18,9 +18,9 @@ import { token } from '@atlaskit/tokens';
 
 import { RegisteredInsertMenuItem } from './RegisteredInsertMenuItem';
 
-const ESTIMATED_ROW_HEIGHT = 56;
-// 40px item + 8px block padding + 1px separator.
-const MENU_FOOTER_HEIGHT = 49;
+const ESTIMATED_ROW_HEIGHT = 44;
+// 44px item + 1px separator.
+const MENU_FOOTER_HEIGHT = 45;
 const MENU_SEARCH_HEIGHT = 64;
 const LIST_WIDTH = 350;
 const listAriaProps: Pick<ListProps, 'aria-readonly'> = {
@@ -44,7 +44,6 @@ const styles = cssMap({
 		borderTopStyle: 'solid',
 		borderTopWidth: token('border.width'),
 		flexShrink: 0,
-		paddingBlock: token('space.050'),
 	},
 });
 

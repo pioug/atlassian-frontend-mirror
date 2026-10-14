@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "131.0.0",
+	"version": "131.2.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -130,9 +130,15 @@
 		"./quick-insert/menu-item": "./src/quick-insert/QuickInsertMenuItem.tsx",
 		"./quick-insert/skill-tag": "./src/quick-insert/SkillTag.tsx",
 		"./quick-insert/preview": "./src/quick-insert/preview.ts",
-		"./quick-insert/confluence-attribution-icon": "./src/quick-insert/confluence-attribution-icon.tsx",
-		"./quick-insert/jira-attribution-icon": "./src/quick-insert/jira-attribution-icon.tsx",
-		"./quick-insert/jira-service-management-attribution-icon": "./src/quick-insert/jira-service-management-attribution-icon.tsx",
+		"./quick-insert/confluence-attribution-icon": "./src/quick-insert/attribution-icons/confluence.tsx",
+		"./quick-insert/jira-attribution-icon": "./src/quick-insert/attribution-icons/jira.tsx",
+		"./quick-insert/jira-service-management-attribution-icon": "./src/quick-insert/attribution-icons/jira-service-management.tsx",
+		"./quick-insert/talent-attribution-icon": "./src/quick-insert/attribution-icons/talent.tsx",
+		"./quick-insert/studio-attribution-icon": "./src/quick-insert/attribution-icons/studio.tsx",
+		"./quick-insert/assets-attribution-icon": "./src/quick-insert/attribution-icons/assets.tsx",
+		"./quick-insert/focus-attribution-icon": "./src/quick-insert/attribution-icons/focus.tsx",
+		"./quick-insert/trello-attribution-icon": "./src/quick-insert/attribution-icons/trello.tsx",
+		"./quick-insert/feedback-attribution-icon": "./src/quick-insert/attribution-icons/feedback.tsx",
 		"./quick-insert/snippet-preview-image-urls": "./src/quick-insert/snippetPreviewImageUrls.ts",
 		"./quick-insert/snippet-menu-rank": "./src/quick-insert/snippetMenuRank.ts",
 		"./quick-insert/use-menu-list-height": "./src/quick-insert/use-menu-list-height.ts",
@@ -913,9 +919,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_panel_c1_fallback_transform": {
-			"type": "boolean"
-		},
-		"platform_editor_fix_scroll_to_pos": {
 			"type": "boolean"
 		},
 		"platform_editor_custom_emoji_unicode_fallback": {

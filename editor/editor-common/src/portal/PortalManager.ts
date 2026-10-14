@@ -1,5 +1,6 @@
 import throttle from 'lodash/throttle';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PortalsBucketUpdater = React.Dispatch<
@@ -195,9 +196,14 @@ export class PortalManager {
 	}
 
 	registerPortal(key: string | number, portal: React.ReactPortal, immediate = false) {
-		this.createBucket();
-		// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
-		this.buckets[this.getCurrentBucket()].capacity -= 1;
+		if (
+			!isExperimentEnabled('platform_editor_reduce_memory_leaks') ||
+			!this.portalToBucketMap.has(key)
+		) {
+			this.createBucket();
+			// @ts-ignore - TS2538 TypeScript 5.9.2 upgrade
+			this.buckets[this.getCurrentBucket()].capacity -= 1;
+		}
 
 		const id = this.portalToBucketMap.get(key) ?? this.getCurrentBucket();
 		// @ts-ignore - TS2345 TypeScript 5.9.2 upgrade

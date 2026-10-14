@@ -38,7 +38,7 @@ describe('ads_get_guidelines tool', () => {
 
 	it('returns matching guidelines when search term matches content', async () => {
 		const result = await getGuidelinesTool({
-			terms: ['saturated'],
+			terms: ['communicate intent'],
 		});
 		expect(result.content).toHaveLength(1);
 		expect(result.content[0].type).toEqual('text');
@@ -52,7 +52,9 @@ describe('ads_get_guidelines tool', () => {
 		expect(result.content).toHaveLength(1);
 		expect(result.content[0].type).toEqual('text');
 		expect(result.content[0].text).toBe(guidelineWithKeyword('selected state colors'));
-		expect(result.content[0].text).toContain('Keep selected and focused states distinct');
+		expect(result.content[0].text).toContain(
+			'keep the selected treatment and add the focus indicator',
+		);
 	});
 
 	it('returns empty text when there are no matches', async () => {

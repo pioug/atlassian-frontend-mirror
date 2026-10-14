@@ -1,5 +1,4 @@
 import type { InsertBlockPluginOptions } from '@atlaskit/editor-plugin-insert-block/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FullPageEditorAppearance } from '../types';
 
@@ -15,7 +14,7 @@ export function insertBlockPluginOptions({ options }: Props): InsertBlockPluginO
 		allowTables: true,
 		allowExpand: true,
 		horizontalRuleEnabled: true,
-		tableSelectorSupported: editorExperiment('platform_editor_tables_table_selector', true),
+		tableSelectorSupported: true,
 		nativeStatusSupported: true,
 		showElementBrowserLink: true,
 		appearance: options.editorAppearance,

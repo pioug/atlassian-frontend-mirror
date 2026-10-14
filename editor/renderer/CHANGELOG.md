@@ -1,5 +1,46 @@
 # @atlaskit/renderer
 
+## 150.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 150.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 150.0.4
+
+### Patch Changes
+
+- [`6df50c65425ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6df50c65425ef) -
+  Clean up experiment `platform_editor_media_error_analytics`
+- Updated dependencies
+
+## 150.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 150.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 150.0.1
+
+### Patch Changes
+
+- [`d7ab3eac474b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7ab3eac474b5) -
+  Revert cleanup of experiment `platform_editor_remove_important_in_render_ext` to restore previous
+  extension width and centering behaviour for non full-page appearances. The experiment is now
+  evaluated via `@atlaskit/platform-feature-experiments`.
+
 ## 150.0.0
 
 ### Patch Changes

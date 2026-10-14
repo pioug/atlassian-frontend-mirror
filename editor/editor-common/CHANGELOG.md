@@ -1,5 +1,66 @@
 # @atlaskit/editor-common
 
+## 131.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.2.0
+
+### Minor Changes
+
+- [`60b0351aac27d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60b0351aac27d) -
+  Standardise Rovo Skill tags in the slash command menu behind platform_editor_slash_command:
+  rebuild SkillTag to the Skill Tag design with a skill-coloured slash, add a SkillTag color prop,
+  copy quick insert module parameters onto menu items, add a lozenge prop for Quick Insert menu
+  items, and add Talent, Studio, Assets, Focus, Trello and Feedback attribution icons.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.1.0
+
+### Minor Changes
+
+- [`2e5bca15bacb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e5bca15bacb0) -
+  [ux] Replace the JavaScript driven extension overflow shadows with a CSS scroll driven
+  implementation when the `platform_editor_reduce_forced_layout_2` experiment is enabled. Extensions
+  now paint their inline start and end shadows from the overflow wrapper's scroll timeline instead
+  of scroll listeners that read `scrollLeft`, `offsetWidth` and `scrollWidth`, removing the forced
+  synchronous layout those reads caused. The `overflowShadow` higher order component gains an
+  `isDisabled` option so consumers can opt out of the JavaScript shadows without affecting other
+  call sites.
+- [`62ee40fadb62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62ee40fadb62f) -
+  Add a Search results heading to the registered Quick Insert search model (new
+  SEARCH_RESULTS_SECTION key and searchResults message). A search with matches now returns a single
+  Search results section of ranked matches in `sections`, and the `searchResults` field is removed
+  from QuickInsertMenuModel. Compact Quick Insert menu items are 44px tall to match the slash
+  command design. Affects the registered slash command menu and toolbar Insert menu behind
+  platform_editor_slash_command.
+
+### Patch Changes
+
+- [`9fa655f27db03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fa655f27db03) -
+  Stop PortalBucket retaining removed portals in stale React fibers and fix PortalManager capacity
+  drift on portal re-register, behind the `platform_editor_reduce_memory_leaks` experiment.
+- [`b5bdee7e6b998`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5bdee7e6b998) -
+  Clean up feature gate `platform_editor_fix_scroll_to_pos`
+- Updated dependencies
+
+## 131.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 131.0.0
 
 ### Major Changes

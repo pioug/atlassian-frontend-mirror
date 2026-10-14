@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2fe6e09ea53e7fa3fa7d8ba2613e2fb7>>
+ * @codegen <<SignedSource::6109a3622f8d021c35d8147de52a0e4e>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -19,6 +19,13 @@ html[data-theme~="spacing:spacing"], [data-subtree-theme][data-theme~="spacing:s
   --ds-space-600: 3rem;
   --ds-space-800: 4rem;
   --ds-space-1000: 5rem;
+  --ds-space-gap-large: 0.75rem;
+  --ds-space-gap-medium: 0.5rem;
+  --ds-space-gap-small: 0.375rem;
+  --ds-space-gap-xlarge: 1rem;
+  --ds-space-gap-xsmall: 0.25rem;
+  --ds-space-gap-xxlarge: 1.5rem;
+  --ds-space-gap-xxsmall: 0.125rem;
   --ds-space-negative-025: -0.125rem;
   --ds-space-negative-050: -0.25rem;
   --ds-space-negative-075: -0.375rem;

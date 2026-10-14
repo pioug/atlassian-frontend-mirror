@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::1581fb5ef4650aaa894a144a7c751abd>>
+ * @codegen <<SignedSource::141c71d12ffeea7fe84070cd285cd8d3>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -392,6 +392,15 @@ export type Space =
 	| 'var(--ds-space-negative-400)'
 	| 0
 	| '0';
+export type SpaceGap =
+	| Space
+	| 'var(--ds-space-gap-large)'
+	| 'var(--ds-space-gap-medium)'
+	| 'var(--ds-space-gap-small)'
+	| 'var(--ds-space-gap-xlarge)'
+	| 'var(--ds-space-gap-xsmall)'
+	| 'var(--ds-space-gap-xxlarge)'
+	| 'var(--ds-space-gap-xxsmall)';
 export type SpaceMargin = Space | 'auto' | '0 auto';
 export type SpaceInset = Space | '50%';
 export type Shadow =
@@ -626,7 +635,7 @@ export interface DesignTokenStyles {
 	clear: never;
 	clip: never;
 	color: TextColor;
-	columnGap: Space;
+	columnGap: SpaceGap;
 	container: never;
 	containerName: never;
 	containerType: never;
@@ -637,7 +646,7 @@ export interface DesignTokenStyles {
 	fontSizeAdjust: never;
 	fontStyle: 'normal' | 'italic';
 	fontWeight: FontWeight;
-	gap: Space;
+	gap: SpaceGap;
 	height: SizeIntrinsic;
 	inlineSize: SizeIntrinsic;
 	inset: SpaceInset;
@@ -688,7 +697,7 @@ export interface DesignTokenStyles {
 	paddingRight: Space;
 	paddingTop: Space;
 	right: SpaceInset;
-	rowGap: Space;
+	rowGap: SpaceGap;
 	textDecorationLine: 'line-through' | 'underline';
 	top: SpaceInset;
 	userModify: never;

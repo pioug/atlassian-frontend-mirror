@@ -216,11 +216,13 @@ export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null =>
 		}
 
 		if ('type' in item && item.type === 'dropdown') {
+			const IconBefore = item.iconBefore;
 			children.push(
 				<Dropdown
 					key={item.id}
 					title={item.title}
 					icon={item.icon}
+					iconBefore={IconBefore ? <IconBefore /> : undefined}
 					dispatchCommand={dispatchCommand || (() => {})}
 					options={item.options}
 					disabled={item.disabled}

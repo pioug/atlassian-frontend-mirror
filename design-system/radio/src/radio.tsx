@@ -148,19 +148,17 @@ const radioInvalidStyles = css({
 });
 
 // Preserve the input's zoom correction and focus outline while cross-fading states.
+// Preserve non-spatial transitions for reduced motion, per the LDR:
+// https://hello.atlassian.net/wiki/spaces/DST/pages/7402790985
 const crossFadeStyles = css({
 	transition: token('motion.input.selection'),
 	'&::after': {
 		pointerEvents: 'none',
 		transition: token('motion.input.selection'),
-		'@media (prefers-reduced-motion: reduce)': {
-			transition: 'none',
-		},
 		'@media (forced-colors: active)': {
 			transition: 'none',
 		},
 	},
-	'@media (prefers-reduced-motion: reduce)': { transition: 'none' },
 	'@media (forced-colors: active)': { transition: 'none' },
 });
 

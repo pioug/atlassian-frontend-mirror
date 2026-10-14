@@ -1,5 +1,35 @@
 # @atlaskit/editor-tables
 
+## 3.2.57
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.56
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.55
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.54
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.53
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.52
 
 ### Patch Changes

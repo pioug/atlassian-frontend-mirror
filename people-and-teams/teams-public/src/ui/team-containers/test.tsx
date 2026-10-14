@@ -433,7 +433,6 @@ describe('TeamContainers', () => {
 	});
 
 	it('should fire cancelled analytics event when cancelInvite returns true', async () => {
-		mockFg.mockImplementation((flag: string) => flag === 'space-team_linking_invites_fg');
 		(spaceInviteScheduler.cancelInvite as jest.Mock).mockReturnValue(true);
 		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
 			teamLinks: [JiraProject],
@@ -467,7 +466,6 @@ describe('TeamContainers', () => {
 	});
 
 	it('should not fire cancelled analytics event when cancelInvite returns false', async () => {
-		mockFg.mockImplementation((flag: string) => flag === 'space-team_linking_invites_fg');
 		(spaceInviteScheduler.cancelInvite as jest.Mock).mockReturnValue(false);
 		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
 			teamLinks: [JiraProject],
@@ -496,30 +494,6 @@ describe('TeamContainers', () => {
 				actionSubject: 'sendSpaceTeamInvites',
 			}),
 		);
-	});
-
-	it('should not call cancelInvite on disconnect when feature gate is disabled', async () => {
-		mockFg.mockImplementation(() => false);
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [JiraProject],
-			removeTeamLink: jest.fn(),
-		});
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			unlinkError: null,
-		});
-
-		renderTeamContainers(teamId);
-
-		await userEvent.hover(screen.getByText(JiraProject.name));
-		const crossIconButton = screen.getByRole('button', {
-			name: 'disconnect the container Jira Project Name',
-		});
-		await userEvent.click(crossIconButton);
-
-		const disconnectButton = screen.getByRole('button', { name: 'Remove' });
-		await userEvent.click(disconnectButton);
-
-		expect(spaceInviteScheduler.cancelInvite).not.toHaveBeenCalled();
 	});
 
 	it('should have no accessibility violations', async () => {

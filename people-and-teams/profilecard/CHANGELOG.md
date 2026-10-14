@@ -1,5 +1,38 @@
 # @atlaskit/profilecard
 
+## 27.1.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.1.29
+
+### Patch Changes
+
+- [`29fd97ad7e93c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29fd97ad7e93c) -
+  Skip the redundant existsWithWorkspaceType request behind
+  atlas_profilecard_skip_workspace_type_fetch.
+- Updated dependencies
+
+## 27.1.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.1.27
 
 ### Patch Changes

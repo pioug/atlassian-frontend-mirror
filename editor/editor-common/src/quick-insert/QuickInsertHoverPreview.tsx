@@ -169,15 +169,18 @@ export const QuickInsertHoverPreview = ({
 	referenceElement,
 	shouldClampText = true,
 	title,
+	titleContent,
 }: {
 	description?: string;
 	icon?: ReactNode;
 	id: string;
-	preview: QuickInsertPreview;
 	popupsMountPoint?: HTMLElement;
+	preview: QuickInsertPreview;
 	referenceElement: HTMLElement;
 	shouldClampText?: boolean;
 	title: string;
+	/** Rich content rendered in place of the title. */
+	titleContent?: ReactNode;
 }): React.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	const imageUrl = preview.image
@@ -207,6 +210,7 @@ export const QuickInsertHoverPreview = ({
 						referenceElement={referenceElement}
 						shouldClampText={shouldClampText}
 						title={title}
+						titleContent={titleContent}
 						update={update}
 					/>
 				</div>
@@ -226,17 +230,19 @@ const QuickInsertPreviewPanel = ({
 	referenceElement,
 	shouldClampText,
 	title,
+	titleContent,
 	update,
 }: {
 	description?: string;
 	icon?: ReactNode;
 	id?: string;
 	imageUrl?: string;
-	preview: QuickInsertPreview;
 	popupsMountPoint?: HTMLElement;
+	preview: QuickInsertPreview;
 	referenceElement: HTMLElement;
 	shouldClampText: boolean;
 	title: string;
+	titleContent?: ReactNode;
 	update: PopperChildrenProps['update'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
@@ -302,7 +308,7 @@ const QuickInsertPreviewPanel = ({
 						<span
 							css={[shouldClampText && styles.title, !shouldClampText && styles.unclampedTitle]}
 						>
-							{title}
+							{titleContent ?? title}
 						</span>
 					</Inline>
 					{description && (

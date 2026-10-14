@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cf28017e4c52dc92f3b9d8ffa77c0af4>>
+ * @codegen <<SignedSource::ba1d8bc10c558170bad6de69314fc708>>
  * @codegenCommand yarn build tokens
  */
 
@@ -336,6 +336,174 @@ var tokens = [{
   "name": "space.1000",
   "path": ["space", "1000"],
   "cleanName": "space.1000"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.150",
+    "introduced": "20.5.0",
+    "description": "Use for large gaps between elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+  },
+  "value": "12px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.150",
+      "introduced": "20.5.0",
+      "description": "Use for large gaps between elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+    },
+    "value": "Space150"
+  },
+  "name": "space.gap.large",
+  "path": ["space", "gap", "large"],
+  "cleanName": "space.gap.large"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.100",
+    "introduced": "20.5.0",
+    "description": "Use for medium gaps between related elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+  },
+  "value": "8px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.100",
+      "introduced": "20.5.0",
+      "description": "Use for medium gaps between related elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+    },
+    "value": "Space100"
+  },
+  "name": "space.gap.medium",
+  "path": ["space", "gap", "medium"],
+  "cleanName": "space.gap.medium"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.075",
+    "introduced": "20.5.0",
+    "description": "Use for small gaps between related elements, such as icons and text. Do not use for component insets or dimensions."
+  },
+  "value": "6px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.075",
+      "introduced": "20.5.0",
+      "description": "Use for small gaps between related elements, such as icons and text. Do not use for component insets or dimensions."
+    },
+    "value": "Space075"
+  },
+  "name": "space.gap.small",
+  "path": ["space", "gap", "small"],
+  "cleanName": "space.gap.small"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.200",
+    "introduced": "20.5.0",
+    "description": "Use for extra-large gaps between elements or groups of related content. Do not use for component insets or dimensions."
+  },
+  "value": "16px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.200",
+      "introduced": "20.5.0",
+      "description": "Use for extra-large gaps between elements or groups of related content. Do not use for component insets or dimensions."
+    },
+    "value": "Space200"
+  },
+  "name": "space.gap.xlarge",
+  "path": ["space", "gap", "xlarge"],
+  "cleanName": "space.gap.xlarge"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.050",
+    "introduced": "20.5.0",
+    "description": "Use for extra-small gaps between closely related elements. Do not use for component insets or dimensions."
+  },
+  "value": "4px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.050",
+      "introduced": "20.5.0",
+      "description": "Use for extra-small gaps between closely related elements. Do not use for component insets or dimensions."
+    },
+    "value": "Space050"
+  },
+  "name": "space.gap.xsmall",
+  "path": ["space", "gap", "xsmall"],
+  "cleanName": "space.gap.xsmall"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.300",
+    "introduced": "20.5.0",
+    "description": "Use for the largest gaps between groups of related content. Do not use for component insets or dimensions."
+  },
+  "value": "24px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.300",
+      "introduced": "20.5.0",
+      "description": "Use for the largest gaps between groups of related content. Do not use for component insets or dimensions."
+    },
+    "value": "Space300"
+  },
+  "name": "space.gap.xxlarge",
+  "path": ["space", "gap", "xxlarge"],
+  "cleanName": "space.gap.xxlarge"
+}, {
+  "attributes": {
+    "group": "spacing",
+    "state": "experimental",
+    "replacement": "space.025",
+    "introduced": "20.5.0",
+    "description": "Use for the smallest gaps between closely related elements. Do not use for component insets or dimensions."
+  },
+  "value": "2px",
+  "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.025",
+      "introduced": "20.5.0",
+      "description": "Use for the smallest gaps between closely related elements. Do not use for component insets or dimensions."
+    },
+    "value": "Space025"
+  },
+  "name": "space.gap.xxsmall",
+  "path": ["space", "gap", "xxsmall"],
+  "cleanName": "space.gap.xxsmall"
 }, {
   "attributes": {
     "group": "spacing",

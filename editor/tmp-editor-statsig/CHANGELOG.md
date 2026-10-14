@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 240.0.0
+
+### Major Changes
+
+- [`c679136fac177`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c679136fac177) -
+  Remove the shipped `platform_editor_toolbar_update_jira_config` experiment. The Jira issue toolbar
+  now always uses breakpoints of 280, 507, 679, and 1024px, and the JSM comment toolbar uses 365,
+  391, 630, and 1024px. Consumers should remove overrides for the retired experiment.
+
+## 239.0.0
+
+### Major Changes
+
+- [`0dfffe2926e88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dfffe2926e88) -
+  Cleanup `experiment` `platform_sl_3p_auth_rovo_embed_footer_exp`. Rovo action buttons in the
+  footer of resolved 3P Smart Link embed cards in Confluence are now permanently on for eligible
+  providers, still guarded by the `platform_sl_3p_auth_rovo_embed_footer_kill_switch` feature gate.
+
+## 238.0.0
+
+### Major Changes
+
+- [`6df50c65425ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6df50c65425ef) -
+  Clean up experiment `platform_editor_media_error_analytics`
+
+## 237.0.0
+
+### Major Changes
+
+- [`e76c99ef7a0e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e76c99ef7a0e8) -
+  Clean up experiment `platform_editor_tables_table_selector`
+
+## 236.0.0
+
+### Major Changes
+
+- [`41a5e42de37fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41a5e42de37fb) -
+  Clean up experiment `cc_fd_wb_jira_quick_insert_experiment`
+
 ## 235.0.0
 
 ### Major Changes

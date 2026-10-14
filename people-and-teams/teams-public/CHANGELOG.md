@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 3.4.1
+
+### Patch Changes
+
+- [`2550eb7966341`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2550eb7966341) -
+  Remove the space-team_linking_invites_fg gate and make team-to-space invitations and scheduled
+  invite cancellation permanent.
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

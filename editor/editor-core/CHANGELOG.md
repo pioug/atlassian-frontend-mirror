@@ -1,5 +1,48 @@
 # @atlaskit/editor-core
 
+## 237.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 237.0.4
+
+### Patch Changes
+
+- [`60b0351aac27d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60b0351aac27d) -
+  Show the coloured Skill tag as the Skill row and hover preview title in the slash command menu
+  behind platform_editor_slash_command.
+- Updated dependencies
+
+## 237.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 237.0.2
+
+### Patch Changes
+
+- [`2e5bca15bacb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e5bca15bacb0) -
+  [ux] Replace the JavaScript driven extension overflow shadows with a CSS scroll driven
+  implementation when the `platform_editor_reduce_forced_layout_2` experiment is enabled. Extensions
+  now paint their inline start and end shadows from the overflow wrapper's scroll timeline instead
+  of scroll listeners that read `scrollLeft`, `offsetWidth` and `scrollWidth`, removing the forced
+  synchronous layout those reads caused. The `overflowShadow` higher order component gains an
+  `isDisabled` option so consumers can opt out of the JavaScript shadows without affecting other
+  call sites.
+- [`e76c99ef7a0e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e76c99ef7a0e8) -
+  Clean up experiment `platform_editor_tables_table_selector`
+- Updated dependencies
+
+## 237.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 237.0.0
 
 ### Patch Changes

@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 29.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.1
+
+### Patch Changes
+
+- [`be1dd1cd5c9e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be1dd1cd5c9e2) -
+  Forward leading icons for extension contextual toolbar dropdowns.
+- Updated dependencies
+
 ## 29.0.0
 
 ### Patch Changes

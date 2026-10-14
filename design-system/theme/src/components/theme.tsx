@@ -18,6 +18,10 @@ const Consumer: ComponentType<{
 }> = dest.Consumer;
 const useTheme: (props: void) => GlobalThemeTokens = dest.useTheme;
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2652 Internal documentation for deprecation (no external access)}
+ * Use design tokens and the supported customization APIs of Atlassian Design System components.
+ */
 export { useTheme as useGlobalTheme };
 
 const Theme: {
@@ -29,5 +33,9 @@ const Theme: {
 		children: (tokens: GlobalThemeTokens) => ReactNode;
 	}>;
 } = { Provider, Consumer };
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
+
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2652 Internal documentation for deprecation (no external access)}
+ * Use design tokens and the supported customization APIs of Atlassian Design System components.
+ */
 export default Theme;

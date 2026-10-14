@@ -124,8 +124,7 @@ const rule: Rule.RuleModule = createLintRule({
 		docs: {
 			description:
 				'Ban certain usages of `@atlaskit/theme` that `@compiled/react` does not understand',
-			recommended: true,
-			severity: 'error',
+			removeFromPresets: true,
 		},
 		messages: {
 			usingTypography:

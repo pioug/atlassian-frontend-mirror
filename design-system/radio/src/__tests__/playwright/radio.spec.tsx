@@ -29,14 +29,9 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
 		const geometry = await red.boundingBox();
 		await expect(red).toHaveCSS(
 			'transition-property',
-			reducedMotion === 'reduce'
-				? 'none'
-				: 'background-color, border-color, color, fill, stroke, opacity',
+			'background-color, border-color, color, fill, stroke, opacity',
 		);
-		await expect(red).toHaveCSS(
-			'transition-duration',
-			reducedMotion === 'reduce' ? '0s' : '0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s',
-		);
+		await expect(red).toHaveCSS('transition-duration', '0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s');
 		await page.mouse.move(500, 500);
 		await red.evaluate(async (el) => {
 			await Promise.all(el.getAnimations().map((animation) => animation.finished));
@@ -45,10 +40,7 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
 		await red.hover();
 		await expect(red).not.toHaveCSS('background-color', restColor);
 		await page.mouse.down();
-		await expect(red).toHaveCSS(
-			'transition-duration',
-			reducedMotion === 'reduce' ? '0s' : '0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s',
-		);
+		await expect(red).toHaveCSS('transition-duration', '0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s');
 		await page.mouse.move(500, 500);
 		await page.mouse.up();
 		await expect(red).toHaveCSS('background-color', restColor);
@@ -59,11 +51,7 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
 				.poll(() =>
 					red.evaluate((el, selector) => getComputedStyle(el, selector).transitionProperty, pseudo),
 				)
-				.toBe(
-					reducedMotion === 'reduce'
-						? 'none'
-						: 'background-color, border-color, color, fill, stroke, opacity',
-				);
+				.toBe('background-color, border-color, color, fill, stroke, opacity');
 			await expect
 				.poll(() => red.evaluate((el, selector) => getComputedStyle(el, selector).opacity, pseudo))
 				.toBe('1');
@@ -76,7 +64,7 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
 				.poll(() =>
 					red.evaluate((el, selector) => getComputedStyle(el, selector).transitionDuration, pseudo),
 				)
-				.toBe(reducedMotion === 'reduce' ? '0s' : '0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s');
+				.toBe('0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s');
 		}
 		expect(await red.boundingBox()).toEqual(geometry);
 		await red.press('ArrowDown');

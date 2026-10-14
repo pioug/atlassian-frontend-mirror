@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
 	ACTION,
@@ -14,7 +14,6 @@ import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-stat
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import { closeElementBrowser } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
@@ -43,8 +42,15 @@ export const RegistryElementBrowserContainer = ({
 			mode: state.connectivityState?.mode,
 		}),
 	);
-	const [snapshot, setSnapshot] = useState<RegisterComponent[]>([]);
-	const [hasInitialized, setHasInitialized] = useState(false);
+	// Snapshot once per open, during render, so the browser's open-time section reset sees the
+	// registry for this open rather than the previous (or empty) snapshot.
+	const components = useMemo(
+		() =>
+			isElementBrowserOpen
+				? (pluginInjectionAPI?.uiControlRegistry?.actions.getComponents(MENU.key) ?? [])
+				: [],
+		[isElementBrowserOpen, pluginInjectionAPI],
+	);
 	const [emptyStateHandler, setEmptyStateHandler] = useState<EmptyStateHandler>();
 	const wasOpen = useRef(false);
 	const selectionHandler = useRef<QuickInsertSelectionHandler | undefined>(undefined);
@@ -65,8 +71,6 @@ export const RegistryElementBrowserContainer = ({
 
 	useEffect(() => {
 		if (isElementBrowserOpen && !wasOpen.current) {
-			setSnapshot(pluginInjectionAPI?.uiControlRegistry?.actions.getComponents(MENU.key) ?? []);
-			setHasInitialized(true);
 			selectionHandler.current = undefined;
 			setEmptyStateHandler(() => currentEmptyStateHandler);
 			isInsertConfirmed.current = false;
@@ -77,7 +81,7 @@ export const RegistryElementBrowserContainer = ({
 			fireLifecycleEvent(ACTION.CLOSED);
 		}
 		wasOpen.current = isElementBrowserOpen;
-	}, [currentEmptyStateHandler, fireLifecycleEvent, isElementBrowserOpen, pluginInjectionAPI]);
+	}, [currentEmptyStateHandler, fireLifecycleEvent, isElementBrowserOpen]);
 
 	useEffect(
 		() => () => {
@@ -138,13 +142,12 @@ export const RegistryElementBrowserContainer = ({
 
 	return (
 		<RegistryElementBrowser
-			components={snapshot}
+			components={components}
 			emptyStateHandler={emptyStateHandler}
 			helpUrl={helpUrl}
 			defaultSection={pluginKey.getState(editorView.state)?.elementBrowserInitialCategory}
 			editorView={editorView}
 			isOffline={isOfflineMode(mode)}
-			isLoading={!hasInitialized}
 			isOpen={isElementBrowserOpen}
 			onClearSelection={onClearSelection}
 			onClose={onClose}

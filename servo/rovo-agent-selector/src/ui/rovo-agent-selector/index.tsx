@@ -15,14 +15,15 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
-import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 import Select from '@atlaskit/select/default';
 
 import { useSuspenselessRefetch } from '../../common/utils/use-suspenseless-refetch';
+import type { agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar$key } from './__generated__/agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar.graphql';
 import type { rovoAgentSelector_AtlaskitRovoAgentSelector$key } from './__generated__/rovoAgentSelector_AtlaskitRovoAgentSelector.graphql';
 import rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQueryNode, {
 	type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery,
 } from './__generated__/rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery.graphql';
+import { AgentOptionAvatar } from './agent-option-avatar';
 import messages from './messages';
 import type { AgentOption, RovoAgentSelectorProps } from './types';
 
@@ -90,6 +91,7 @@ export function RovoAgentSelector({
 							externalConfigReference
 							identityAccountId
 							creatorType
+							...agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar
 						}
 					}
 				}
@@ -116,6 +118,21 @@ export function RovoAgentSelector({
 				}))
 				.filter((option: AgentOption) => option.label) ?? []
 		);
+	}, [data?.agentStudio_getAgents?.edges]);
+
+	// Keyed by agent id so consumer-built `selectedAgent` values also resolve their Identity avatar
+	const agentFragmentsById = useMemo(() => {
+		const agentFragments = new Map<
+			string,
+			agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar$key
+		>();
+		data?.agentStudio_getAgents?.edges?.forEach((edge) => {
+			const agent = edge?.node;
+			if (agent?.id) {
+				agentFragments.set(agent.id, agent);
+			}
+		});
+		return agentFragments;
 	}, [data?.agentStudio_getAgents?.edges]);
 
 	const [suspenselessRefetch, isRefetching] = useSuspenselessRefetch<
@@ -187,24 +204,14 @@ export function RovoAgentSelector({
 					isLoading={isLoading}
 					isDisabled={isDisabled}
 					onMenuScrollToBottom={handleMenuScrollToBottom}
-					formatOptionLabel={({
-						label,
-						value,
-						externalConfigReference,
-						identityAccountId,
-						isForgeAgent,
-					}: AgentOption) => (
+					formatOptionLabel={(option: AgentOption) => (
 						<Inline alignBlock="center" space="space.075">
-							<AgentAvatar
-								agentId={value}
-								agentNamedId={externalConfigReference}
-								agentIdentityAccountId={identityAccountId}
-								size="small"
-								showBorder={false}
-								isForgeAgent={isForgeAgent}
+							<AgentOptionAvatar
+								option={option}
+								agentFragment={agentFragmentsById.get(option.value) ?? null}
 							/>
 							<Text size="small" color="color.text.subtle">
-								{label}
+								{option.label}
 							</Text>
 						</Inline>
 					)}

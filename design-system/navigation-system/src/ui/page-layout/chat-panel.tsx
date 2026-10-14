@@ -15,7 +15,7 @@ import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-inte
 import {
 	chatPanelLiveWidthVar,
 	chatPanelVar,
-	localSlotLayers,
+	type localSlotLayers,
 	mainMinimumWidthVar,
 } from './constants';
 import { convertResizeBoundToPixels } from './panel-splitter/convert-resize-bound-to-pixels';
@@ -57,7 +57,7 @@ const styles = cssMap({
 		// Root can constrain the initial inline track before the sizing effects run.
 		maxWidth: '100%',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		zIndex: localSlotLayers.chatPanelOverlay,
+		zIndex: 5 satisfies typeof localSlotLayers.chatPanelOverlay,
 		height: 'calc(100vh - var(--n_bnrM, 0px))',
 		position: 'sticky',
 		insetBlockStart: 'var(--n_bnrM, 0px)',
@@ -68,7 +68,7 @@ const styles = cssMap({
 			zIndex: 'auto',
 			backgroundColor: token('elevation.surface'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			width: `var(${panelSplitterResizingVar}, var(${chatPanelVar}))`,
+			width: `var(${panelSplitterResizingVar}, var(${'--n_cPnlW' satisfies typeof chatPanelVar}))`,
 		},
 	},
 	managedInline: {
@@ -79,7 +79,7 @@ const styles = cssMap({
 			zIndex: 'auto',
 			backgroundColor: token('elevation.surface'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			width: `var(${panelSplitterResizingVar}, var(${chatPanelVar}))`,
+			width: `var(${panelSplitterResizingVar}, var(${'--n_cPnlW' satisfies typeof chatPanelVar}))`,
 		},
 	},
 	managedOverlay: {
@@ -87,7 +87,7 @@ const styles = cssMap({
 		'&&': {
 			gridArea: '2 / 1 / -1 / -1',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			zIndex: localSlotLayers.chatPanelOverlay,
+			zIndex: 5 satisfies typeof localSlotLayers.chatPanelOverlay,
 			backgroundColor: token('elevation.surface.overlay'),
 			width: `var(${panelSplitterResizingVar}, var(${chatPanelOverlayWidthVar}))`,
 		},

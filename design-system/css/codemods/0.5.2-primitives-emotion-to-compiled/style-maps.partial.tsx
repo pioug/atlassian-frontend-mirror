@@ -31,10 +31,10 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::251c98773249733b143a6771298be0e9>>
+ * @codegen <<SignedSource::af2a4cc43ee1bab551f9dea7ca95a782>>
  * @codegenId spacing
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::d315a72fd47775e37868465c88b3ebfb>>
  */
 export const positiveSpaceMap: {
 	'space.0': 'var(--ds-space-0)';

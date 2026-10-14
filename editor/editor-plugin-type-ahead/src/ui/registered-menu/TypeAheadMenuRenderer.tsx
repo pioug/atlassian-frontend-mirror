@@ -18,9 +18,9 @@ import { TypeAheadMenuFooter } from './TypeAheadMenuFooter';
 import type { TypeAheadItemComponent } from './typeAheadMenuTypes';
 
 const LIST_WIDTH = 320;
-const ESTIMATED_ROW_HEIGHT = 56;
-// 40px item + 8px block padding + 1px separator.
-const MENU_FOOTER_HEIGHT = 49;
+const ESTIMATED_ROW_HEIGHT = 44;
+// 44px item + 1px separator.
+const MENU_FOOTER_HEIGHT = 45;
 
 type Props = {
 	Item: TypeAheadItemComponent;

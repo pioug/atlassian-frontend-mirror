@@ -10,17 +10,6 @@ import { useSmartCardState } from '../../store';
 import { isEligibleEmbedRovoActionsFooterExtensionKey } from './isEligibleEmbedRovoActionsFooterExtensionKey';
 import { isEmbedRovoActionsFooterExperimentEnabled } from './isEmbedRovoActionsFooterExperimentEnabled';
 
-export const EMBED_ROVO_ACTIONS_FOOTER_EXPERIMENT_KEY = 'platform_sl_3p_auth_rovo_embed_footer_exp';
-
-type EmbedRovoActionsFooterExperimentMetadata = {
-	isEligible: boolean;
-	isTreatment?: boolean;
-};
-
-export type EmbedRovoActionsFooterExperimentMeta = {
-	[EMBED_ROVO_ACTIONS_FOOTER_EXPERIMENT_KEY]: EmbedRovoActionsFooterExperimentMetadata;
-};
-
 export interface EmbedRovoActionsFooterExperiment {
 	isEnabled: boolean;
 }

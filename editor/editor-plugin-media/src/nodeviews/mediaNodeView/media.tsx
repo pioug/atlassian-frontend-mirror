@@ -27,8 +27,6 @@ import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
@@ -421,32 +419,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 		this.emitMediaRenderEvent({ reason, type: 'error' });
 
-		// `getMediaRenderErrorHandler` also wires this for surfaces the analytics
-		// experiment does not cover, so re-read without exposure — the render-time read
-		// owns that — to keep the dispatch inside the experiment's own cohort.
-		if (!expValEqualsNoExposure('platform_editor_media_error_analytics', 'isEnabled', true)) {
-			return;
-		}
-
 		const nestedUnder = this.getNestedUnder();
 		this.props.api?.media.actions.handleMediaNodeRenderError(this.props.node, reason, nestedUnder);
-	};
-
-	private onRemixRenderError = (reason: string) => {
-		this.emitMediaRenderEvent({ reason, type: 'error' });
-	};
-
-	private getMediaRenderErrorHandler = () => {
-		if (expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)) {
-			return this.onError;
-		}
-		// The reveal needs terminal errors too, so it can open onto the card's error treatment
-		// rather than waiting out its timeout. `onError` keeps the analytics dispatch itself
-		// inside the experiment's cohort.
-		if (this.hasGeneratedMediaMotion) {
-			return this.onError;
-		}
-		return this.props.mediaOptions?.onMediaRenderEvent ? this.onRemixRenderError : undefined;
 	};
 
 	/**
@@ -611,7 +585,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 							hasLoadingMotion={hasGeneratedMediaMotion}
 							onPreviewRender={this.onPreviewRender}
 							fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}
-							onError={this.getMediaRenderErrorHandler()}
+							onError={this.onError}
 						/>
 					</AnalyticsContext>
 				</MediaCardWrapper>

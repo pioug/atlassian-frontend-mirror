@@ -111,13 +111,14 @@ describe('QuickInsertSkillMenuItem', () => {
 
 		const option = screen.getByRole('option', { name: item.title });
 		expect(option).toHaveAttribute('aria-describedby');
-		expect(option).toHaveTextContent('/research');
+		expect(option).toHaveTextContent('research');
 		expect(option).toHaveTextContent('Beta');
 		expect(option).not.toHaveTextContent('Research customer feedback');
 		const preview = screen.getByTestId('quick-insert-preview-panel');
 		expect(preview).toHaveTextContent('Research');
 		expect(preview).toHaveTextContent('Research customer feedback');
 		expect(preview).toHaveTextContent('Jira');
+		expect(preview).not.toHaveTextContent('Beta');
 		expect(await screen.findAllByTestId('skill-icon')).toHaveLength(2);
 		await expect(container).toBeAccessible();
 	});
@@ -210,7 +211,7 @@ describe('QuickInsertSkillMenuItem', () => {
 		);
 
 		const option = screen.getByRole('option', { name: item.title });
-		expect(option).toHaveTextContent('/research');
+		expect(option).toHaveTextContent('research');
 		expect(option).toHaveTextContent('Beta');
 		expect(screen.queryByTestId('quick-insert-preview-panel')).not.toBeInTheDocument();
 		fireEvent.click(option);

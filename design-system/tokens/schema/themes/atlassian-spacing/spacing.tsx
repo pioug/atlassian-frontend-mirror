@@ -24,6 +24,15 @@ const spacing: ValueSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 		'600': { value: 'Space600' },
 		'800': { value: 'Space800' },
 		'1000': { value: 'Space1000' },
+		gap: {
+			xxsmall: { value: 'Space025' },
+			xsmall: { value: 'Space050' },
+			small: { value: 'Space075' },
+			medium: { value: 'Space100' },
+			large: { value: 'Space150' },
+			xlarge: { value: 'Space200' },
+			xxlarge: { value: 'Space300' },
+		},
 		negative: {
 			'025': { value: 'SpaceNegative025' },
 			'050': { value: 'SpaceNegative050' },

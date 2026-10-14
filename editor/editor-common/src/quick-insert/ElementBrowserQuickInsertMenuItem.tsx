@@ -140,6 +140,7 @@ export const ElementBrowserQuickInsertMenuItem = ({
 	description,
 	iconBefore,
 	isDisabled,
+	lozenge,
 	onSelect,
 	shortcut,
 	titleContent,
@@ -163,6 +164,17 @@ export const ElementBrowserQuickInsertMenuItem = ({
 				hoveredItemStyles,
 		],
 		[isDisabled, isSelected],
+	);
+
+	const itemTitle = titleContent ?? (
+		<Text
+			color={isDisabled ? 'color.text.disabled' : 'color.text'}
+			maxLines={1}
+			size="medium"
+			weight="medium"
+		>
+			{title}
+		</Text>
 	);
 
 	// Disabled items keep the dimmed colour inherited from the item.
@@ -195,15 +207,13 @@ export const ElementBrowserQuickInsertMenuItem = ({
 			)}
 			<Stack space="space.050" grow="fill">
 				<Inline alignBlock="center" spread="space-between" space="space.100">
-					{titleContent ?? (
-						<Text
-							color={isDisabled ? 'color.text.disabled' : 'color.text'}
-							maxLines={1}
-							size="medium"
-							weight="medium"
-						>
-							{title}
-						</Text>
+					{lozenge ? (
+						<Inline alignBlock="center" space="space.100">
+							{itemTitle}
+							{lozenge}
+						</Inline>
+					) : (
+						itemTitle
 					)}
 					{shortcut && (
 						<Box as="span" xcss={shortcutStyles}>

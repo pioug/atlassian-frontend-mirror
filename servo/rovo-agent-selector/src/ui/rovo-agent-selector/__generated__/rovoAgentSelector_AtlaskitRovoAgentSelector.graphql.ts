@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<becce5c8bc170a4ef6a8ab6fc2bc6eff>>
+ * @generated SignedSource<<06939316e133874938bc494331e46a6a>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -20,6 +20,7 @@ export type rovoAgentSelector_AtlaskitRovoAgentSelector$data = {
         readonly id: string;
         readonly identityAccountId: string | null;
         readonly name: string | null;
+        readonly " $fragmentSpreads": FragmentRefs<"agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar">;
       } | null;
     }>;
     readonly pageInfo: {
@@ -158,6 +159,10 @@ return {
                   "name": "creatorType"
                 },
                 {
+                  "kind": "FragmentSpread",
+                  "name": "agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar"
+                },
+                {
                   "kind": "ScalarField",
                   "name": "__typename"
                 }
@@ -176,6 +181,6 @@ return {
 };
 })();
 
-(node as any).hash = "a4b2382014625df84010cab1cb3005ca";
+(node as any).hash = "fdde85142cfb9d4acca9413a6e844dc2";
 
 export default node;

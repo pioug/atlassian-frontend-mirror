@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { IntlProvider } from 'react-intl';
-import { injectable } from 'react-magnetic-di';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
+import { __internal } from 'relay-runtime';
 import {
 	createMockEnvironment,
 	type MockEnvironment,
 	MockPayloadGenerator,
 } from 'relay-test-utils';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { renderWithDi } from '@atlassian/testing-library/render-with-di';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -23,8 +23,23 @@ import type { RovoAgentSelectorProps } from './types';
 
 const testId = 'rovo-agent-selector';
 
-const mockFg = jest.fn().mockReturnValue(true);
+const SELECTOR_GATE = 'jsm_help_center_one-click_rovo_agent';
+const MIGRATE_AGENT_AVATAR_GATE = 'migrate-agent-avatar-component-to-ads';
+
 const mockOnChange = jest.fn();
+
+const getIdentityPicture = (agentId: string) => `https://example.com/identity-${agentId}.png`;
+
+const generateMockAgentEdgesWithIdentity = (count: number) =>
+	generateMockAgentEdges(count).map((edge) => ({
+		...edge,
+		node: {
+			...edge.node,
+			identityAccount: {
+				picture: getIdentityPicture(edge.node.id),
+			},
+		},
+	}));
 
 const TestRenderer = (propOverrides: Partial<RovoAgentSelectorProps>) => {
 	const data = useLazyLoadQuery<any>(
@@ -44,6 +59,7 @@ const TestRenderer = (propOverrides: Partial<RovoAgentSelectorProps>) => {
 			fragmentReference={data}
 			cloudId="mock-cloud-id"
 			isFeatureEnabled={propOverrides.isFeatureEnabled}
+			selectedAgent={propOverrides.selectedAgent}
 			onChange={mockOnChange}
 		/>
 	);
@@ -54,15 +70,22 @@ describe('RovoAgentSelector', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		mockFg.mockReturnValue(true);
+		__internal.withProvidedVariables.tests_only_resetDebugCache?.();
 		environment = createMockEnvironment();
 	});
 
 	type TestArgs = {
 		agentCount?: number;
 		isFeatureEnabled?: boolean;
+		selectedAgent?: RovoAgentSelectorProps['selectedAgent'];
+		edges?: ReadonlyArray<object>;
 	};
-	const renderComponent = ({ agentCount = 10, isFeatureEnabled }: TestArgs = {}) => {
+	const renderComponent = ({
+		agentCount = 10,
+		isFeatureEnabled,
+		selectedAgent,
+		edges = generateMockAgentEdgesWithIdentity(agentCount),
+	}: TestArgs = {}) => {
 		environment.mock.queueOperationResolver((operation) =>
 			MockPayloadGenerator.generate(operation, {
 				AgentStudioAgentsConnection: () => ({
@@ -70,22 +93,22 @@ describe('RovoAgentSelector', () => {
 						hasNextPage: true,
 						endCursor: null,
 					},
-					edges: generateMockAgentEdges(agentCount),
+					edges,
 				}),
 			}),
 		);
 
-		return renderWithDi(
+		return render(
 			<RelayEnvironmentProvider environment={environment}>
 				<IntlProvider locale="en">
-					<TestRenderer isFeatureEnabled={isFeatureEnabled} />
+					<TestRenderer isFeatureEnabled={isFeatureEnabled} selectedAgent={selectedAgent} />
 				</IntlProvider>
 			</RelayEnvironmentProvider>,
-			[injectable(fg, mockFg)],
 		);
 	};
 
 	it('should capture and report a11y violations', async () => {
+		passGate(SELECTOR_GATE);
 		const { container } = renderComponent();
 
 		await waitFor(() => {
@@ -96,6 +119,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should find RovoAgentSelector by its testid', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent();
 
 		await waitFor(() => {
@@ -104,6 +128,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should render the selector label correctly', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent();
 
 		await waitFor(() => {
@@ -112,6 +137,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should render label with correct htmlFor attribute for accessibility', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent();
 
 		await waitFor(() => {
@@ -128,6 +154,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should use feature gate when isFeatureEnabled prop is not provided', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent({ isFeatureEnabled: undefined });
 
 		await waitFor(() => {
@@ -135,13 +162,10 @@ describe('RovoAgentSelector', () => {
 		});
 
 		expect(screen.getByText(messages.selectorLabel.defaultMessage)).toBeVisible();
-
-		// Check that feature gate was called with the correct name
-		expect(mockFg).toHaveBeenCalledWith('jsm_help_center_one-click_rovo_agent');
 	});
 
 	it('should not render when feature gate returns false', () => {
-		mockFg.mockReturnValue(false);
+		failGate(SELECTOR_GATE);
 		renderComponent();
 
 		expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
@@ -149,6 +173,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should render agent options in the dropdown', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent();
 
 		const combobox = screen.getByRole('combobox');
@@ -168,6 +193,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should refetch correctly when search input changes', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent({ agentCount: 30 });
 
 		const combobox = screen.getByRole('combobox');
@@ -209,6 +235,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should call onChange when agent is selected', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent();
 
 		// Wait for component to render
@@ -238,6 +265,7 @@ describe('RovoAgentSelector', () => {
 	});
 
 	it('should handle pagination when scrolling to bottom', async () => {
+		passGate(SELECTOR_GATE);
 		renderComponent({ agentCount: 30 });
 
 		// Wait for component to render
@@ -270,5 +298,87 @@ describe('RovoAgentSelector', () => {
 		// For now, we verify that the component is set up correctly for pagination
 		const options = within(screen.getByRole('listbox')).getAllByRole('option');
 		expect(options.length).toBeGreaterThan(0);
+	});
+
+	describe('agent avatar migration', () => {
+		const openMenu = async () => {
+			await userEvent.click(screen.getByRole('combobox'));
+			await waitFor(() => {
+				expect(screen.getByRole('listbox')).toBeVisible();
+			});
+		};
+
+		const getImageSources = () =>
+			screen
+				.queryAllByRole('img')
+				.flatMap((avatar) => [avatar, ...Array.from(avatar.querySelectorAll('img'))])
+				.map((image) => image.getAttribute('src'));
+
+		it('renders the Identity avatar for each option when migration is enabled', async () => {
+			passGate(SELECTOR_GATE);
+			passGate(MIGRATE_AGENT_AVATAR_GATE);
+			renderComponent({ agentCount: 2 });
+
+			await openMenu();
+
+			expect(getImageSources()).toEqual(
+				expect.arrayContaining([getIdentityPicture('agent-0'), getIdentityPicture('agent-1')]),
+			);
+		});
+
+		it('skips the Identity avatar when migration is disabled', async () => {
+			passGate(SELECTOR_GATE);
+			failGate(MIGRATE_AGENT_AVATAR_GATE);
+			renderComponent({ agentCount: 2 });
+
+			await openMenu();
+
+			expect(getImageSources()).not.toContain(getIdentityPicture('agent-0'));
+		});
+
+		it('renders a generic hexagon avatar for agents without an Identity account', async () => {
+			passGate(SELECTOR_GATE);
+			passGate(MIGRATE_AGENT_AVATAR_GATE);
+			const edges = generateMockAgentEdgesWithIdentity(1).map((edge) => ({
+				...edge,
+				node: { ...edge.node, identityAccount: null },
+			}));
+			renderComponent({ edges });
+
+			await openMenu();
+
+			expect(
+				within(screen.getByRole('listbox'))
+					.getByRole('img', { name: 'Agent 0' })
+					.querySelector('svg'),
+			).toBeInTheDocument();
+			expect(getImageSources()).not.toContain(getIdentityPicture('agent-0'));
+		});
+
+		it('renders the Identity avatar for a selected agent provided by the consumer', async () => {
+			passGate(SELECTOR_GATE);
+			passGate(MIGRATE_AGENT_AVATAR_GATE);
+			renderComponent({
+				agentCount: 2,
+				selectedAgent: { label: 'Agent 1', value: 'agent-1', isForgeAgent: false },
+			});
+
+			await waitFor(() => {
+				expect(getImageSources()).toContain(getIdentityPicture('agent-1'));
+			});
+		});
+
+		it('is accessible when migration is enabled', async () => {
+			passGate(SELECTOR_GATE);
+			passGate(MIGRATE_AGENT_AVATAR_GATE);
+			const { container } = renderComponent({
+				agentCount: 2,
+				selectedAgent: { label: 'Agent 1', value: 'agent-1', isForgeAgent: false },
+			});
+
+			await openMenu();
+
+			await expect(container).toBeAccessible();
+		});
 	});
 });

@@ -50,6 +50,15 @@ describe('@atlaskit/primitives', () => {
 		);
 	});
 
+	test.each(['positive', 'all'] as const)(
+		'%s spacing styles keep gap tokens out of numeric spacing maps',
+		(property) => {
+			const styles = createSpacingStylesFromTemplate(property);
+			expect(styles).toContain("'space.100':");
+			expect(styles).not.toContain('space.gap.');
+		},
+	);
+
 	test('incorrect config throws', () => {
 		expect(() => createColorStylesFromTemplate('fizzbuzz' as any)).toThrow();
 		expect(() => createElevationStylesFromTemplate('fizzbuzz' as any)).toThrow();

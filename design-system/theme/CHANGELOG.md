@@ -1,5 +1,13 @@
 # @atlaskit/theme
 
+## 28.2.5
+
+### Patch Changes
+
+- [`d3c4877ce5380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3c4877ce5380) -
+  Deprecates `@atlaskit/theme`. Use `@atlaskit/tokens`, Atlassian Design System components, or
+  `@atlaskit/top-layer` as appropriate.
+
 ## 28.2.4
 
 ### Patch Changes

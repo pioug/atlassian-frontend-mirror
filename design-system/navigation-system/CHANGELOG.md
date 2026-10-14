@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 11.2.3
+
+### Patch Changes
+
+- [`21c13edb525f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21c13edb525f8) -
+  Inline the ChatPanel width custom-property name and overlay z-index as checked literals so its
+  styles can be statically extracted by Atlaspack. No runtime change.
+
 ## 11.2.2
 
 ### Patch Changes

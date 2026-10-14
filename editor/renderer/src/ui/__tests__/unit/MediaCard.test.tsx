@@ -39,20 +39,6 @@ describe('MediaCard onError analytics', () => {
 	});
 
 	describe('when synced block context is provided', () => {
-		it('forwards a consumer error without firing generic renderer analytics', () => {
-			mockExpDisabled('platform_editor_media_error_analytics');
-			const onError = jest.fn();
-			const component = new MediaCardView({
-				...createMediaCardProps({ onError }),
-				fireAnalyticsEvent: mockFireAnalyticsEvent,
-			});
-
-			(component as any).getMediaErrorHandler()('test-error-reason');
-
-			expect(onError).toHaveBeenCalledWith('test-error-reason');
-			expect(mockFireAnalyticsEvent).not.toHaveBeenCalled();
-		});
-
 		it('should include nestedUnder in analytics attributes when nestedUnder prop is provided', () => {
 			const onError = jest.fn();
 			const props = createMediaCardProps({ nestedUnder: 'bodiedSyncBlock', onError });

@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/avatar/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{

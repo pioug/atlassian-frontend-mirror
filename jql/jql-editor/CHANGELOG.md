@@ -1,5 +1,17 @@
 # @atlaskit/jql-editor
 
+## 8.2.0
+
+### Minor Changes
+
+- [`af6e1c3629000`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af6e1c3629000) -
+  Publish JQL editor locale entrypoints under `i18n/<locale>` and the `src/types` entrypoint, while
+  keeping legacy `src/i18n/<locale>` aliases internal and preserving the `i18n` barrel.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

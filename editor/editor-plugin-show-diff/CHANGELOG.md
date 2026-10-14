@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 25.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.3
+
+### Patch Changes
+
+- [`08a73c7e5200e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08a73c7e5200e) -
+  Clean up feature gate `platform_editor_diff_inline_mark_changes`. The gated behaviour was already
+  made permanent, so this only removes the leftover gate declaration and example override.
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.0
 
 ### Patch Changes

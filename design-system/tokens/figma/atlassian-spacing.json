@@ -177,6 +177,76 @@
       },
       "value": 80
     },
+    "Spacing/space.gap.large": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.150",
+        "introduced": "20.5.0",
+        "description": "Use for large gaps between elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+      },
+      "value": 12
+    },
+    "Spacing/space.gap.medium": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.100",
+        "introduced": "20.5.0",
+        "description": "Use for medium gaps between related elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+      },
+      "value": 8
+    },
+    "Spacing/space.gap.small": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.075",
+        "introduced": "20.5.0",
+        "description": "Use for small gaps between related elements, such as icons and text. Do not use for component insets or dimensions."
+      },
+      "value": 6
+    },
+    "Spacing/space.gap.xlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.200",
+        "introduced": "20.5.0",
+        "description": "Use for extra-large gaps between elements or groups of related content. Do not use for component insets or dimensions."
+      },
+      "value": 16
+    },
+    "Spacing/space.gap.xsmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.050",
+        "introduced": "20.5.0",
+        "description": "Use for extra-small gaps between closely related elements. Do not use for component insets or dimensions."
+      },
+      "value": 4
+    },
+    "Spacing/space.gap.xxlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.300",
+        "introduced": "20.5.0",
+        "description": "Use for the largest gaps between groups of related content. Do not use for component insets or dimensions."
+      },
+      "value": 24
+    },
+    "Spacing/space.gap.xxsmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.025",
+        "introduced": "20.5.0",
+        "description": "Use for the smallest gaps between closely related elements. Do not use for component insets or dimensions."
+      },
+      "value": 2
+    },
     "Spacing/space.negative.025": {
       "attributes": {
         "group": "spacing",
@@ -309,5 +379,13 @@
       "value": -32
     }
   },
-  "renameMap": {}
+  "renameMap": {
+    "Spacing/space.gap.xxsmall": "Spacing/space.025",
+    "Spacing/space.gap.xsmall": "Spacing/space.050",
+    "Spacing/space.gap.small": "Spacing/space.075",
+    "Spacing/space.gap.medium": "Spacing/space.100",
+    "Spacing/space.gap.large": "Spacing/space.150",
+    "Spacing/space.gap.xlarge": "Spacing/space.200",
+    "Spacing/space.gap.xxlarge": "Spacing/space.300"
+  }
 }

@@ -27,6 +27,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const borderWidth: TransformedToken[] = [];
 	const borderRadius: TransformedToken[] = [];
 	const space: TransformedToken[] = [];
+	const gapSpace: TransformedToken[] = [];
 	const shadow: TransformedToken[] = [];
 	const textColor: TransformedToken[] = [];
 	const textColorPressed: TransformedToken[] = [];
@@ -91,7 +92,11 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 		}
 
 		if (token.path.includes('space')) {
-			space.push(token);
+			if (token.path[1] === 'gap') {
+				gapSpace.push(token);
+			} else {
+				space.push(token);
+			}
 		}
 
 		if (token.path.includes('shadow')) {
@@ -150,6 +155,7 @@ export type BorderShorthand = 'none' | \`\${BorderWidth} solid \${BorderColor}\`
 type NumericSize = \`\${number}px\` | \`\${number}rem\` | \`\${number}vh\` | \`\${number}vw\` | \`\${number}%\`;
 export type SizeIntrinsic = 'min-content' | 'max-content' | 'fit-content' | 'auto' | NumericSize | \`min(\${NumericSize}, \${NumericSize})\` | \`max(\${NumericSize}, \${NumericSize})\` | 0 | '0';
 export type Space = ${mapToCssVar(space)} | 0 | '0';
+export type SpaceGap = Space | ${mapToCssVar(gapSpace)};
 export type SpaceMargin = Space | 'auto' | '0 auto';
 export type SpaceInset = Space | '50%';
 export type Shadow = ${mapToCssVar(shadow)} | 'initial';
@@ -227,7 +233,7 @@ export interface DesignTokenStyles {
 	clear: never;
 	clip: never;
 	color: TextColor;
-	columnGap: Space;
+	columnGap: SpaceGap;
 	container: never;
 	containerName: never;
 	containerType: never;
@@ -238,7 +244,7 @@ export interface DesignTokenStyles {
 	fontSizeAdjust: never;
 	fontStyle: 'normal' | 'italic';
 	fontWeight: FontWeight;
-	gap: Space;
+	gap: SpaceGap;
 	height: SizeIntrinsic;
 	inlineSize: SizeIntrinsic;
 	inset: SpaceInset;
@@ -289,7 +295,7 @@ export interface DesignTokenStyles {
 	paddingRight: Space;
 	paddingTop: Space;
 	right: SpaceInset;
-	rowGap: Space;
+	rowGap: SpaceGap;
 	textDecorationLine: 'line-through' | 'underline';
 	top: SpaceInset;
 	userModify: never;

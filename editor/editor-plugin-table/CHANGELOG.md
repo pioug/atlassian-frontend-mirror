@@ -1,5 +1,50 @@
 # @atlaskit/editor-plugin-table
 
+## 39.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.0.4
+
+### Patch Changes
+
+- [`e76c99ef7a0e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e76c99ef7a0e8) -
+  Clean up experiment `platform_editor_tables_table_selector`
+- Updated dependencies
+
+## 39.0.3
+
+### Patch Changes
+
+- [`3f374dbb9f63d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f374dbb9f63d) -
+  Clean up feature gate `platform_editor_table_cell_menu_update`
+
+## 39.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.0.0
 
 ### Patch Changes

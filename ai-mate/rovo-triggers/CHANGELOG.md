@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 12.2.0
+
+### Minor Changes
+
+- [`66f26dbd2efbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66f26dbd2efbe) -
+  Add a `custom-skill-create` payload, published by the Rovo chat custom skill card after a skill is
+  created, behind the `studio_sync_custom_skill_update_from_chat` gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

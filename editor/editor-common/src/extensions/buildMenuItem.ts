@@ -40,6 +40,7 @@ export function buildMenuItem<T extends Parameters>(
 		priority: extensionModule.priority,
 		...(preview != null && { preview }),
 		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),
+		...(extensionModule.parameters && { parameters: extensionModule.parameters }),
 		icon: extensionModule.icon || manifest.icons['48'],
 		...(extensionModule.isHidden ? { isHidden: extensionModule.isHidden } : {}),
 		node,

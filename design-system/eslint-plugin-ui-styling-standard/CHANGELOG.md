@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 3.0.2
+
+### Patch Changes
+
+- [`8769f20fe2ebd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8769f20fe2ebd) -
+  Disable the legacy `atlaskit-theme` rule in generated presets.
+
 ## 3.0.1
 
 ### Patch Changes

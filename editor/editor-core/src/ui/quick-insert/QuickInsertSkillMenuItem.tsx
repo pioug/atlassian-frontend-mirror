@@ -10,8 +10,6 @@ import { SkillTag } from '@atlaskit/editor-common/quick-insert/skill-tag';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
-import { Inline } from '@atlaskit/primitives/compiled/inline';
-import { Text } from '@atlaskit/primitives/compiled/text';
 
 import type EditorActions from '../../actions';
 import { executeExtensionQuickInsertItem } from './executeExtensionQuickInsertItem';
@@ -56,6 +54,7 @@ export const QuickInsertSkillMenuItem = ({
 			description={item.description}
 			iconBefore={<ExtensionQuickInsertIcon getIcon={item.icon} itemKey={item.key} label="" />}
 			isDisabled={isOffline}
+			lozenge={item.lozenge}
 			onSelect={onSelect}
 			preview={item.preview}
 			previewIcon={
@@ -64,14 +63,9 @@ export const QuickInsertSkillMenuItem = ({
 			shouldClampPreview={false}
 			title={item.title}
 			titleContent={
-				<Inline alignBlock="center" space="space.100">
-					{item.moduleKey ? (
-						<SkillTag isDisabled={isOffline} slug={item.moduleKey} />
-					) : (
-						<Text color={isOffline ? 'color.text.disabled' : 'color.text'}>{item.title}</Text>
-					)}
-					{item.lozenge}
-				</Inline>
+				item.moduleKey ? (
+					<SkillTag color={item.parameters?.color} isDisabled={isOffline} slug={item.moduleKey} />
+				) : undefined
 			}
 		/>
 	);

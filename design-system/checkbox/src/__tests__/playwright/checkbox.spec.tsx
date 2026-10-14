@@ -45,20 +45,13 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
 		for (const element of [icon, border, tick]) {
 			await expect(element).toHaveCSS(
 				'transition-property',
-				reducedMotion === 'reduce'
-					? 'none'
-					: 'background-color, border-color, color, fill, stroke, opacity',
+				'background-color, border-color, color, fill, stroke, opacity',
 			);
-			await expect(element).toHaveCSS(
-				'transition-duration',
-				reducedMotion === 'reduce' ? '0s' : Array(6).fill('0.15s').join(', '),
-			);
+			await expect(element).toHaveCSS('transition-duration', Array(6).fill('0.15s').join(', '));
 			await expect(element).toHaveCSS('transform', 'none');
 			await expect(element).toHaveCSS(
 				'transition-timing-function',
-				reducedMotion === 'reduce'
-					? 'ease'
-					: Array(6).fill('cubic-bezier(0.4, 1, 0.6, 1)').join(', '),
+				Array(6).fill('cubic-bezier(0.4, 1, 0.6, 1)').join(', '),
 			);
 		}
 		await page.mouse.move(500, 500);
@@ -71,7 +64,7 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
 		await page.mouse.down();
 		await expect(border).toHaveCSS(
 			'transition-duration',
-			reducedMotion === 'reduce' ? '0s' : '0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s',
+			'0.15s, 0.15s, 0.15s, 0.15s, 0.15s, 0.15s',
 		);
 		await page.mouse.move(500, 500);
 		await page.mouse.up();

@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<cb82c8ec83521ccdd0bb96c3ec9e1d8c>>
- * @relayHash 75f9794645e61b015cf0ca64f1e1e8ad
+ * @generated SignedSource<<97ce2c5b0ca2a66ea4ee4bb3569679cc>>
+ * @relayHash 94fac35d8822e0d3d2063577105906ca
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 64351f7f629b50e2e352f0b7f4ec22128f3474031a65a663da08ef70ff0966a8
+// @relayRequestID e16663eb06637a2a2b7f4e6a94e8449fbf239bd13114cc0891f4406beb9d9bf6
 
 import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -24,15 +24,22 @@ export type selectedRovoAgentSelectorQuery = {
   response: selectedRovoAgentSelectorQuery$data;
   variables: selectedRovoAgentSelectorQuery$variables;
 };
+({
+  "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
+} as {
+  readonly __relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx: {
+    readonly get: () => boolean;
+  };
+});
+
+import migrateAgentAvatar_provider from '../../src/ui/rovo-agent-selector/migrate-agent-avatar-component-to-ads.relayprovider';
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "cloudIdString"
-  }
-],
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "cloudIdString"
+},
 v1 = [
   {
     "kind": "Variable",
@@ -51,10 +58,20 @@ v1 = [
       "onlyEditableAgents": true
     }
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "name": "id"
+},
+v3 = {
+  "kind": "ScalarField",
+  "name": "__typename"
+};
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/)
+    ],
     "kind": "Fragment",
     "name": "selectedRovoAgentSelectorQuery",
     "selections": [
@@ -74,7 +91,14 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      {
+        "defaultValue": null,
+        "kind": "LocalArgument",
+        "name": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx"
+      }
+    ],
     "kind": "Operation",
     "name": "selectedRovoAgentSelectorQuery",
     "selections": [
@@ -113,10 +137,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "name": "id"
-                  },
+                  (v2/*: any*/),
                   {
                     "kind": "ScalarField",
                     "name": "name"
@@ -134,9 +155,26 @@ return {
                     "name": "creatorType"
                   },
                   {
-                    "kind": "ScalarField",
-                    "name": "__typename"
-                  }
+                    "condition": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx",
+                    "kind": "Condition",
+                    "passingValue": true,
+                    "selections": [
+                      {
+                        "kind": "LinkedField",
+                        "name": "identityAccount",
+                        "plural": false,
+                        "selections": [
+                          (v3/*: any*/),
+                          {
+                            "kind": "ScalarField",
+                            "name": "picture"
+                          },
+                          (v2/*: any*/)
+                        ]
+                      }
+                    ]
+                  },
+                  (v3/*: any*/)
                 ]
               },
               {
@@ -161,11 +199,14 @@ return {
     ]
   },
   "params": {
-    "id": "64351f7f629b50e2e352f0b7f4ec22128f3474031a65a663da08ef70ff0966a8",
+    "id": "e16663eb06637a2a2b7f4e6a94e8449fbf239bd13114cc0891f4406beb9d9bf6",
     "metadata": {},
     "name": "selectedRovoAgentSelectorQuery",
     "operationKind": "query",
-    "text": null
+    "text": null,
+    "providedVariables": {
+      "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
+    }
   }
 };
 })();

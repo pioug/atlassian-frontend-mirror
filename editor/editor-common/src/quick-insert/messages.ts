@@ -20,13 +20,19 @@ export const messages: Messages<
 	| 'categoryRovo'
 	| 'categoryStructure'
 	| 'categoryTextFormatting'
+	| 'searchResults'
 	| 'previewAttributionBy'
 	| 'previewAttributionAtlassian'
 	| 'previewAttributionAssets'
 	| 'previewAttributionConfluence'
+	| 'previewAttributionFeedback'
+	| 'previewAttributionFocus'
 	| 'previewAttributionJira'
 	| 'previewAttributionJiraServiceManagement'
 	| 'previewAttributionMicrosoft'
+	| 'previewAttributionStudio'
+	| 'previewAttributionTalent'
+	| 'previewAttributionTrello'
 	| 'close'
 	| 'communication'
 	| 'confluence-content'
@@ -193,6 +199,11 @@ export const messages: Messages<
 		defaultMessage: 'Other elements',
 		description: 'Other items in the Quick Insert menu.',
 	},
+	searchResults: {
+		id: 'editor-common.quick-insert.searchResults',
+		defaultMessage: 'Search results',
+		description: 'Heading shown above the matching items when searching in the Quick Insert menu.',
+	},
 	previewAttributionBy: {
 		id: 'editor-common.quick-insert.previewAttributionBy',
 		defaultMessage: 'By {name}',
@@ -225,6 +236,32 @@ export const messages: Messages<
 		defaultMessage: 'Jira Service Management',
 		description:
 			'Jira Service Management product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionTalent: {
+		id: 'editor-common.quick-insert.previewAttributionTalent.ai-non-final',
+		defaultMessage: 'Talent',
+		description: 'Talent product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionStudio: {
+		id: 'editor-common.quick-insert.previewAttributionStudio.ai-non-final',
+		defaultMessage: 'Studio',
+		description: 'Studio product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionFocus: {
+		id: 'editor-common.quick-insert.previewAttributionFocus.ai-non-final',
+		defaultMessage: 'Focus',
+		description: 'Focus product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionTrello: {
+		id: 'editor-common.quick-insert.previewAttributionTrello.ai-non-final',
+		defaultMessage: 'Trello',
+		description: 'Trello product name shown as the creator in a slash-command preview attribution.',
+	},
+	previewAttributionFeedback: {
+		id: 'editor-common.quick-insert.previewAttributionFeedback.ai-non-final',
+		defaultMessage: 'Feedback',
+		description:
+			'Feedback product name shown as the creator in a slash-command preview attribution.',
 	},
 	previewAttributionMicrosoft: {
 		id: 'editor-common.quick-insert.previewAttributionMicrosoft.ai-non-final',

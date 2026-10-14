@@ -336,13 +336,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-10-13
-	platform_editor_media_error_analytics: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-05
 	platform_editor_native_anchor_with_dnd: {
 		defaultValue: boolean;
@@ -380,13 +373,6 @@ export const editorExperimentsConfig: {
 			value: unknown,
 		) => value is 'control' | 'test_with_overflow' | 'test_without_overflow';
 		values: ('control' | 'test_with_overflow' | 'test_without_overflow')[];
-	};
-	// Added 2025-04-17
-	platform_editor_tables_table_selector: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-12
 	platform_editor_toolbar_submenu_open_click: {
@@ -433,13 +419,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open (boolean: isEnabled)
 	platform_sl_3p_post_auth_chat_open_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-15 — Embed card footer rovo action experiment for resolved 3P smart links in confluence (boolean: isEnabled)
-	platform_sl_3p_auth_rovo_embed_footer_exp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -502,13 +481,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-30
 	cc_fix_editor_context_on_cwr_followups: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-08
-	cc_fd_wb_jira_quick_insert_experiment: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -622,13 +594,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-16
 	platform_use_unicode_emojis: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-26
-	platform_editor_toolbar_update_jira_config: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1157,14 +1122,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-04-17
-	platform_editor_tables_table_selector: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_tables_table_selector',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-04-23
 	platform_editor_usesharedpluginstateselector: createBooleanExperiment({
 		productKeys: {
@@ -1299,15 +1256,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-10-01
-	// Added 2025-10-13
-	platform_editor_media_error_analytics: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_media_error_analytics',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-10-27
 	platform_editor_table_sticky_header_improvements: createMultivariateExperiment({
 		productKeys: {
@@ -1365,14 +1313,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_sl_3p_post_auth_chat_open_exp',
 			jira: 'platform_sl_3p_post_auth_chat_open_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-15 — Embed card footer rovo action for resolved 3P smart links in confluence
-	platform_sl_3p_auth_rovo_embed_footer_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_sl_3p_auth_rovo_embed_footer_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1552,14 +1492,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-26
-	platform_editor_toolbar_update_jira_config: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_toolbar_update_jira_config',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	platform_editor_ai_blockmenu_integration: createBooleanExperiment({
 		productKeys: {
@@ -1683,14 +1615,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_no_stream_skip_pacer: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_no_stream_skip_pacer',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-08
-	cc_fd_wb_jira_quick_insert_experiment: createBooleanExperiment({
-		productKeys: {
-			jira: 'cc_fd_wb_jira_quick_insert_experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

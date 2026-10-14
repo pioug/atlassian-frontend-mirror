@@ -1,5 +1,18 @@
 # @atlaskit/rovo-agent-selector
 
+## 3.2.0
+
+### Minor Changes
+
+- [`dcc61c8b1cd10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc61c8b1cd10) -
+  [ux] Render agent option avatars with the ADS hexagon `Avatar` and the agent's Identity picture
+  instead of the deprecated `AgentAvatar`, behind the `migrate-agent-avatar-component-to-ads`
+  feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

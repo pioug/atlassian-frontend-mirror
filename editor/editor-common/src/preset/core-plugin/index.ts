@@ -1,7 +1,6 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
 import type {
@@ -100,30 +99,11 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					return false;
 				}
 
-				if (fg('platform_editor_fix_scroll_to_pos')) {
-					// nodeDOM can return a Text node for inline positions
-					const nodeDom = editorView.nodeDOM(pos);
-					const dom =
-						(nodeDom instanceof Element ? nodeDom : null) ?? editorView.domAtPos(pos)?.node;
-
-					if (!(dom instanceof Element)) {
-						return false;
-					}
-
-					dom.scrollIntoView(scrollOptions);
-					return true;
-				}
-
-				// Legacy path — domAtPos interprets block boundaries as the parent container
-				const dom = editorView.domAtPos(pos).node;
+				// nodeDOM can return a Text node for inline positions
+				const nodeDom = editorView.nodeDOM(pos);
+				const dom = (nodeDom instanceof Element ? nodeDom : null) ?? editorView.domAtPos(pos)?.node;
 
 				if (!(dom instanceof Element)) {
-					// If it's not an element (e.g. #text node), we'll try the parent.
-					// This is expected to cover most of the scenarios, if not, window.scrollTo is an alternative
-					if (dom.parentNode instanceof Element) {
-						dom.parentNode.scrollIntoView(scrollOptions);
-						return true;
-					}
 					return false;
 				}
 

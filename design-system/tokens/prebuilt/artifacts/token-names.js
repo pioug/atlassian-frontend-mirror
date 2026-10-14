@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f65fc99ed5bc5a5f80b0adba655cabbd>>
+ * @codegen <<SignedSource::d072e16631e9fcbd519ab65335430217>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -571,6 +571,13 @@ var tokens = {
   'space.600': '--ds-space-600',
   'space.800': '--ds-space-800',
   'space.1000': '--ds-space-1000',
+  'space.gap.large': '--ds-space-gap-large',
+  'space.gap.medium': '--ds-space-gap-medium',
+  'space.gap.small': '--ds-space-gap-small',
+  'space.gap.xlarge': '--ds-space-gap-xlarge',
+  'space.gap.xsmall': '--ds-space-gap-xsmall',
+  'space.gap.xxlarge': '--ds-space-gap-xxlarge',
+  'space.gap.xxsmall': '--ds-space-gap-xxsmall',
   'space.negative.025': '--ds-space-negative-025',
   'space.negative.050': '--ds-space-negative-050',
   'space.negative.075': '--ds-space-negative-075',

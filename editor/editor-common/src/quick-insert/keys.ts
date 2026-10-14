@@ -55,6 +55,15 @@ export const OTHER_SECTION = {
 	type: 'menu-section',
 } as const;
 
+/**
+ * Heading shown above the matching items when the menu has a search query. It is not registered,
+ * so it never appears in browse mode.
+ */
+export const SEARCH_RESULTS_SECTION = {
+	key: 'quick-insert-search-results-section',
+	type: 'menu-section',
+} as const;
+
 export const VIEW_ALL_ELEMENTS_MENU_ITEM = {
 	key: 'quick-insert-view-all-elements-menu-item',
 	type: 'menu-item',

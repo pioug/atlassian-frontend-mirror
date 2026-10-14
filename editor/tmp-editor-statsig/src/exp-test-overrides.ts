@@ -47,7 +47,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	single_column_layouts: false,
 	platform_editor_ai_unsplash_page_header: false,
 	platform_editor_ai_edit_response_in_preview: false,
-	platform_editor_tables_table_selector: false,
 	platform_renderer_fix_analytics_memo_callback: false,
 	'jira-work-sync-desc-comment-summary': false,
 	platform_editor_block_controls_perf_optimization: false,

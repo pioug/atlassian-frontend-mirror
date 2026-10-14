@@ -25,6 +25,8 @@ export type QuickInsertMenuItemProps = {
 	description?: string;
 	iconBefore?: React.ReactNode;
 	isDisabled?: boolean;
+	/** Shown after the title in the menu row only, not in the preview. */
+	lozenge?: React.ReactNode;
 	onSelect: (context: OnSelectContext) => Transaction | false | void;
 	/** Structured preview content for the selected item. */
 	preview?: QuickInsertPreview;
@@ -39,7 +41,7 @@ export type QuickInsertMenuItemProps = {
 	shouldShowPreview?: boolean;
 	shouldWrapIcon?: boolean;
 	title: string;
-	/** Rich title content rendered in place of the menu item title. */
+	/** Rich content rendered in place of the title in the menu row and preview. `title` is still used for accessibility. */
 	titleContent?: React.ReactNode;
 };
 
@@ -48,6 +50,7 @@ export const QuickInsertMenuItem = ({
 	description,
 	iconBefore,
 	isDisabled,
+	lozenge,
 	onSelect,
 	preview,
 	previewIcon,
@@ -67,6 +70,7 @@ export const QuickInsertMenuItem = ({
 			description={description}
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
+			lozenge={lozenge}
 			onSelect={onSelect}
 			shortcut={shortcut}
 			titleContent={titleContent}
@@ -79,6 +83,7 @@ export const QuickInsertMenuItem = ({
 			description={description}
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
+			lozenge={lozenge}
 			onSelect={onSelect}
 			preview={preview}
 			previewIcon={previewIcon}

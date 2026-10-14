@@ -52,7 +52,7 @@ const messages = defineMessages({
 	},
 	body: {
 		id: 'smart-card.one-click-chat-spotlight-v2.takeaways-body.ai-non-final',
-		defaultMessage: 'Get key decisions and next steps from this link',
+		defaultMessage: 'Get key decisions and next steps from this link.',
 		description:
 			'Spotlight body inviting users to get key decisions and next steps from a linked document or code using Rovo.',
 	},

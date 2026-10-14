@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 1.11.1
+
+### Patch Changes
+
+- [`d4b518cf3921b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b518cf3921b) -
+  Deliver authored color and color-accent guidance through ADS tools, including input backgrounds
+  and decorative border token usage.
+
 ## 1.11.0
 
 ### Minor Changes

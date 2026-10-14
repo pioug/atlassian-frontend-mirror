@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.8
+
+### Patch Changes
+
+- [`598f1108ce8a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/598f1108ce8a3) -
+  Keep `ensure-design-token-usage` spacing autofixes on active numeric spacing tokens, excluding
+  experimental `space.gap.*` aliases. Exclude these aliases from generated spacing maps as well.
+- Updated dependencies
+
 ## 16.13.7
 
 ### Patch Changes

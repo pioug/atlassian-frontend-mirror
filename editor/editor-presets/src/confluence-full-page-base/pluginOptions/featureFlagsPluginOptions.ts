@@ -1,5 +1,4 @@
 import type { FeatureFlagsPluginOptions } from '@atlaskit/editor-plugin-feature-flags/featureFlagsPluginType';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 interface Props {
 	options: never;
@@ -24,7 +23,7 @@ export function featureFlagsPluginOptions({}: Props): FeatureFlagsPluginOptions 
 		// END SECTION
 
 		// SECTION: From confluence/next/packages/full-page-editor/src/hooks/useEditorFullPageExperiments.ts
-		tableSelector: editorExperiment('platform_editor_tables_table_selector', true),
+		tableSelector: true,
 		macroInteractionUpdates: true,
 		moreElementsInQuickInsertView: true,
 		// END SECTION

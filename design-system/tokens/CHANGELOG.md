@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 20.6.0
+
+### Minor Changes
+
+- [`598f1108ce8a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/598f1108ce8a3) -
+  Add semantic gap space tokens as experimental tokens. Limit these tokens to `gap`, `rowGap`, and
+  `columnGap` in the CSS token schema. Include replacement metadata pointing to the matching active
+  numeric spacing tokens.
+
 ## 20.5.0
 
 ### Minor Changes

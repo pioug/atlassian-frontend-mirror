@@ -125,7 +125,9 @@ it.each([
 		expect(screen.getByRole('dialog', { name: 'Explore this link with Rovo' })).toBeInTheDocument();
 		expect(screen.queryByRole('heading')).not.toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Dismiss spotlight' })).toBeInTheDocument();
-		expect(screen.getByText('Get key decisions and next steps from this link')).toBeInTheDocument();
+		expect(
+			screen.getByText('Get key decisions and next steps from this link.'),
+		).toBeInTheDocument();
 		await waitFor(() =>
 			expect(mockCreateEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'viewed' })),
 		);
@@ -331,14 +333,14 @@ it.each([false, true])(
 		mockExp(experiment, { isEnabled: true });
 		renderAction('google-object-provider', 'CONFLUENCE', undefined, true);
 		await screen.findByTestId('one-click-chat-spotlight-v2');
-		const heading = screen.getByText('Get key decisions and next steps from this link');
+		const heading = screen.getByText('Get key decisions and next steps from this link.');
 		if (topLayer) {
 			expect(heading.closest('a')).toHaveAttribute('href', url);
 		}
 		// A cancelled native click cannot activate the enclosing hyperlink.
 		expect(fireEvent.click(heading)).toBe(false);
 		expect(
-			fireEvent.click(screen.getByText('Get key decisions and next steps from this link')),
+			fireEvent.click(screen.getByText('Get key decisions and next steps from this link.')),
 		).toBe(false);
 		expect(mockNavigate).not.toHaveBeenCalled();
 		expect(mockInvoke).not.toHaveBeenCalled();
@@ -467,7 +469,7 @@ describe.each([false, true])('explicit dismissal with top layer %s', (topLayer) 
 				expect(mockInvoke).not.toHaveBeenCalled();
 
 				if (interaction === 'Escape') {
-					await user.click(screen.getByText('Get key decisions and next steps from this link'));
+					await user.click(screen.getByText('Get key decisions and next steps from this link.'));
 					screen.getByRole('button', { name: 'Dismiss spotlight' }).focus();
 					await user.keyboard('{Escape}');
 				} else {

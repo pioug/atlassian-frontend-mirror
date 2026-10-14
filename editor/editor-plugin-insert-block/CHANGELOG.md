@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 28.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.2
+
+### Patch Changes
+
+- [`62ee40fadb62f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62ee40fadb62f) -
+  Update registered slash command and toolbar Insert menu spacing to match design: View more footer
+  has no extra padding, and row and footer height constants match the 44px items (behind
+  platform_editor_slash_command).
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.0
 
 ### Patch Changes

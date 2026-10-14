@@ -25,6 +25,7 @@
 		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -45,16 +46,16 @@
 		"@af/suppress-react-warnings": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
-		"react-magnetic-di": "root:*",
 		"relay-test-utils": "root:*"
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "3.1.1",
+	"version": "3.2.0",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -66,6 +67,9 @@
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {
+			"type": "boolean"
+		},
+		"migrate-agent-avatar-component-to-ads": {
 			"type": "boolean"
 		}
 	}

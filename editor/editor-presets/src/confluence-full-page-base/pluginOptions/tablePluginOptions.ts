@@ -1,5 +1,4 @@
 import type { TablePluginOptions } from '@atlaskit/editor-plugin-table/table-plugin-type';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FullPageEditorAppearance } from '../types';
 
@@ -39,7 +38,7 @@ export function tablePluginOptions({ options }: Props): TablePluginOptions {
 			options.prevEditorAppearance && options.prevEditorAppearance === 'full-width',
 		getEditorFeatureFlags: () => ({
 			// SECTION: From confluence/next/packages/full-page-editor/src/hooks/useEditorFullPageExperiments.ts
-			tableSelector: editorExperiment('platform_editor_tables_table_selector', true),
+			tableSelector: true,
 			// END SECTION
 		}),
 		isCommentEditor: false,

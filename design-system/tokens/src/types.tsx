@@ -1272,6 +1272,15 @@ export interface SpacingTokenSchema<BaseToken> {
 		'600': SpacingToken<BaseToken>;
 		'800': SpacingToken<BaseToken>;
 		'1000': SpacingToken<BaseToken>;
+		gap: {
+			xxsmall: SpacingToken<BaseToken>;
+			xsmall: SpacingToken<BaseToken>;
+			small: SpacingToken<BaseToken>;
+			medium: SpacingToken<BaseToken>;
+			large: SpacingToken<BaseToken>;
+			xlarge: SpacingToken<BaseToken>;
+			xxlarge: SpacingToken<BaseToken>;
+		};
 		negative: {
 			'025': SpacingToken<BaseToken>;
 			'050': SpacingToken<BaseToken>;

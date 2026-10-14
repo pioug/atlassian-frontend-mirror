@@ -36,7 +36,6 @@ import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { FileState } from '@atlaskit/media-state/file-state';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import AnalyticsContext from '../analytics/analyticsContext';
 import type { AnalyticsEventPayload } from '../analytics/events';
@@ -269,17 +268,6 @@ export class MediaCardView extends Component<
 		});
 	};
 
-	private onConsumerError: NonNullable<AtlaskitMediaCardProps['onError']> = (reason) => {
-		this.props.onError?.(reason);
-	};
-
-	private getMediaErrorHandler = () => {
-		if (expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)) {
-			return this.onError;
-		}
-		return this.props.onError ? this.onConsumerError : undefined;
-	};
-
 	private renderLoadingCard = () => {
 		const { cardDimensions } = this.props;
 
@@ -341,7 +329,7 @@ export class MediaCardView extends Component<
 					featureFlags={featureFlags}
 					ssr={ssr?.mode}
 					shouldHideTooltip={false}
-					onError={this.getMediaErrorHandler()}
+					onError={this.onError}
 					onPreviewRender={this.props.onPreviewRender}
 				/>
 			</div>
@@ -483,7 +471,7 @@ export class MediaCardView extends Component<
 					shouldHideTooltip={isMobile}
 					mediaViewerExtensions={mediaViewerExtensions}
 					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
-					onError={this.getMediaErrorHandler()}
+					onError={this.onError}
 					onPreviewRender={this.props.onPreviewRender}
 				/>
 			</div>

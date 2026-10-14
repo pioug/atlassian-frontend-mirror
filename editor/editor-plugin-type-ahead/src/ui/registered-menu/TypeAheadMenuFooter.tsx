@@ -12,7 +12,6 @@ const styles = cssMap({
 		borderTopColor: token('color.border'),
 		borderTopStyle: 'solid',
 		borderTopWidth: token('border.width'),
-		paddingBlock: token('space.050'),
 	},
 });
 

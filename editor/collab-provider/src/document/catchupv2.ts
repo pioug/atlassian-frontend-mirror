@@ -1,4 +1,5 @@
 import type { StepJson } from '@atlaskit/editor-common/collab';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InternalError } from '../errors/internal-errors';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
@@ -31,7 +32,9 @@ export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
 	}
 
 	try {
-		opt.onCatchupComplete?.(steps);
+		opt.onCatchupComplete?.(
+			fg('platform_editor_collab_empty_catchup_steps') ? (steps ?? []) : steps,
+		);
 		// skip onStepsAdded if steps are undefined or empty
 		if (!steps || steps.length === 0) {
 			opt.updateMetadata(metadata);

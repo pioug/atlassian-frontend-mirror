@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "27.1.27",
+	"version": "27.1.32",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -163,6 +163,9 @@
 			"type": "boolean"
 		},
 		"enable_ptc_townsquare_reporting_lines_unsharded": {
+			"type": "boolean"
+		},
+		"atlas_profilecard_skip_workspace_type_fetch": {
 			"type": "boolean"
 		},
 		"platform_agg_user_query_doc_change": {

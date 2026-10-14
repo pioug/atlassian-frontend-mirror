@@ -214,6 +214,83 @@ export const spacingTests: Tests = {
 		},
 	],
 	invalid: [
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 2, margin: 2, gap: 2 })',
+			output:
+				"const styles = css({ padding: token('space.025', '2px'), margin: token('space.025', '2px'), gap: token('space.025', '2px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 4, margin: 4, gap: 4 })',
+			output:
+				"const styles = css({ padding: token('space.050', '4px'), margin: token('space.050', '4px'), gap: token('space.050', '4px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 6, margin: 6, gap: 6 })',
+			output:
+				"const styles = css({ padding: token('space.075', '6px'), margin: token('space.075', '6px'), gap: token('space.075', '6px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 8, margin: 8, gap: 8 })',
+			output:
+				"const styles = css({ padding: token('space.100', '8px'), margin: token('space.100', '8px'), gap: token('space.100', '8px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 12, margin: 12, gap: 12 })',
+			output:
+				"const styles = css({ padding: token('space.150', '12px'), margin: token('space.150', '12px'), gap: token('space.150', '12px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 16, margin: 16, gap: 16 })',
+			output:
+				"const styles = css({ padding: token('space.200', '16px'), margin: token('space.200', '16px'), gap: token('space.200', '16px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
+		{
+			options: [{ domains: ['spacing'], applyImport: false }],
+			code: 'const styles = css({ padding: 24, margin: 24, gap: 24 })',
+			output:
+				"const styles = css({ padding: token('space.300', '24px'), margin: token('space.300', '24px'), gap: token('space.300', '24px') })",
+			errors: [
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+				{ messageId: 'noRawSpacingValues' },
+			],
+		},
 		// just literals
 		{
 			options: [{ domains: ['spacing'], applyImport: false }],

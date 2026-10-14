@@ -11,7 +11,6 @@ import { cssMap, cx } from '@atlaskit/css';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { Box } from '@atlaskit/primitives/compiled';
 import type { MediaQuery } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 const styles = cssMap({
@@ -224,68 +223,9 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Preset: jira-issue (280, 420, 650, 1024)
+	// Preset: jira-issue (280, 507, 679, 1024)
 	// Used for Jira issue view and similar contexts
 	jiraIssue: {
-		// @ts-expect-error - container queries are not typed in cssMap
-		'&&': {
-			'@container toolbar-container (max-width: 279px)': {
-				'.show-above-sm': {
-					display: 'none',
-				},
-				'.show-below-sm': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 280px) and (max-width: 419px)': {
-				'.show-only-sm': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 419px)': {
-				'.show-above-md': {
-					display: 'none',
-				},
-				'.show-below-md': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 420px) and (max-width: 649px)': {
-				'.show-only-md': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 649px)': {
-				'.show-above-lg': {
-					display: 'none',
-				},
-				'.show-below-lg': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 650px) and (max-width: 1023px)': {
-				'.show-only-lg': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 1023px)': {
-				'.show-above-xl': {
-					display: 'none',
-				},
-				'.show-below-xl': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 1024px)': {
-				'.show-only-xl': {
-					display: 'block',
-				},
-			},
-		},
-	},
-	// Preset: jira-issue updated (280, 507, 679, 1024)
-	// Gated behind platform_editor_toolbar_update_jira_config experiment
-	jiraIssueUpdated: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
 			'@container toolbar-container (max-width: 279px)': {
@@ -342,68 +282,9 @@ const styles = cssMap({
 			},
 		},
 	},
-	// Preset: jsm-comment (365, 500, 630, 1024)
+	// Preset: jsm-comment (365, 391, 630, 1024)
 	// Used for JSM comment editor with canned responses button
 	jsmComment: {
-		// @ts-expect-error - container queries are not typed in cssMap
-		'&&': {
-			'@container toolbar-container (max-width: 364px)': {
-				'.show-above-sm': {
-					display: 'none',
-				},
-				'.show-below-sm': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 365px) and (max-width: 499px)': {
-				'.show-only-sm': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 499px)': {
-				'.show-above-md': {
-					display: 'none',
-				},
-				'.show-below-md': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 500px) and (max-width: 629px)': {
-				'.show-only-md': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 629px)': {
-				'.show-above-lg': {
-					display: 'none',
-				},
-				'.show-below-lg': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 630px) and (max-width: 1023px)': {
-				'.show-only-lg': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (max-width: 1023px)': {
-				'.show-above-xl': {
-					display: 'none',
-				},
-				'.show-below-xl': {
-					display: 'block',
-				},
-			},
-			'@container toolbar-container (min-width: 1024px)': {
-				'.show-only-xl': {
-					display: 'block',
-				},
-			},
-		},
-	},
-	// Preset: jsm-comment updated (365, 391, 630, 1024)
-	// Gated behind platform_editor_toolbar_update_jira_config experiment
-	jsmCommentUpdated: {
 		// @ts-expect-error - container queries are not typed in cssMap
 		'&&': {
 			'@container toolbar-container (max-width: 364px)': {
@@ -606,8 +487,6 @@ const presetStyleMap: Record<BreakpointPreset, PresetStyle> = {
 
 const updatedPresetStyleMap: Partial<Record<BreakpointPreset, PresetStyle>> = {
 	fullpage: styles.fullpageUpdated,
-	'jira-issue': styles.jiraIssueUpdated,
-	'jsm-comment': styles.jsmCommentUpdated,
 };
 
 export type ResponsiveContainerProps = {
@@ -617,8 +496,8 @@ export type ResponsiveContainerProps = {
 	 * Available presets:
 	 * - 'fullpage': (410, 476, 768, 1024) - Editor full-page experiences (updated to 422, 876, 1035, 1130 when platform_editor_ai_content_suggested_edits is enabled)
 	 * - 'reduced': (210, 408, 575, 1024) - Default compact toolbars, constrained layouts
-	 * - 'jira-issue': (280, 420, 650, 1024) - Jira issue view and similar contexts
-	 * - 'jsm-comment': (365, 500, 630, 1024) - JSM comment editor with canned responses button
+	 * - 'jira-issue': (280, 507, 679, 1024) - Jira issue view and similar contexts
+	 * - 'jsm-comment': (365, 391, 630, 1024) - JSM comment editor with canned responses button
 	 * - 'confluence-comment': (210, 408, 648, 1024) - Confluence comment editor and inline contexts
 	 *
 	 * @default 'fullpage'
@@ -674,19 +553,9 @@ export const ResponsiveContainer = ({
 	children,
 	breakpointPreset,
 }: ResponsiveContainerProps): React.JSX.Element => {
-	const isUpdatedConfig = (() => {
-		if (breakpointPreset === 'fullpage') {
-			return UNSAFE_expValNoExposure(
-				'platform_editor_ai_content_suggested_edits',
-				'isEnabled',
-				false,
-			);
-		}
-		return (
-			expValEquals('platform_editor_toolbar_update_jira_config', 'isEnabled', true) &&
-			breakpointPreset in updatedPresetStyleMap
-		);
-	})();
+	const isUpdatedConfig =
+		breakpointPreset === 'fullpage' &&
+		UNSAFE_expValNoExposure('platform_editor_ai_content_suggested_edits', 'isEnabled', false);
 
 	return (
 		<Box

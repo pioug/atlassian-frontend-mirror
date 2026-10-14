@@ -1,26 +1,15 @@
 import { renderHook } from '@testing-library/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { spaceInviteScheduler } from '../utils/spaceInviteScheduler';
 import { useSpaceInviteScheduler } from './useSpaceInviteScheduler';
-
-jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
-	fg: jest.fn(),
-}));
-
-const mockFg = fg as jest.Mock;
 
 describe('useSpaceInviteScheduler', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
-		mockFg.mockReturnValue(true);
 	});
 
 	afterEach(() => {
 		jest.useRealTimers();
-		mockFg.mockReset();
 	});
 
 	it('should flush pending invites on visibilitychange to hidden', () => {
@@ -111,39 +100,6 @@ describe('useSpaceInviteScheduler', () => {
 			writable: true,
 			configurable: true,
 		});
-
-		// clean up pending timer
-		spaceInviteScheduler.cancelInvite('team-1', 'container-1');
-	});
-
-	it('should not register listeners when feature gate is disabled', () => {
-		mockFg.mockReturnValue(false);
-		const { unmount } = renderHook(() => useSpaceInviteScheduler());
-
-		const callback = jest.fn();
-		spaceInviteScheduler.scheduleInvite('team-1', 'container-1', callback);
-
-		Object.defineProperty(document, 'visibilityState', {
-			value: 'hidden',
-			writable: true,
-			configurable: true,
-		});
-		document.dispatchEvent(new Event('visibilitychange'));
-		window.dispatchEvent(new Event('beforeunload'));
-
-		expect(callback).not.toHaveBeenCalled();
-
-		// restore
-		Object.defineProperty(document, 'visibilityState', {
-			value: 'visible',
-			writable: true,
-			configurable: true,
-		});
-
-		unmount();
-
-		// callback should still not have been called after unmount
-		expect(callback).not.toHaveBeenCalled();
 
 		// clean up pending timer
 		spaceInviteScheduler.cancelInvite('team-1', 'container-1');

@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-media
 
+## 29.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.3
+
+### Patch Changes
+
+- [`6df50c65425ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6df50c65425ef) -
+  Clean up experiment `platform_editor_media_error_analytics`
+- Updated dependencies
+
+## 29.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.0
 
 ### Patch Changes

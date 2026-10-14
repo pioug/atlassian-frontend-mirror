@@ -885,6 +885,13 @@ export type CustomSkillUpdatePayload = PayloadCore<
 >;
 
 /**
+ * Published by the Rovo chat custom-skill create action once a newly created skill has been
+ * finished successfully. The skill is not in any cached list yet, so subscribers such as the Studio
+ * custom skills page refetch their list.
+ */
+export type CustomSkillCreatePayload = PayloadCore<'custom-skill-create'>;
+
+/**
  * Published once a Rovo agent draft has been created (e.g. by Smart Create or the inline
  * create-agent card). Lets hosts such as the Studio Agents landing page add the draft to
  * their cached lists without refetching.
@@ -989,6 +996,7 @@ export type Payload =
 	| RecommendedSpacesSelectedPayload
 	| RecommendedSpacesFirstTimeSelectedPayload
 	| CustomSkillUpdatePayload
+	| CustomSkillCreatePayload
 	| RovoAgentDraftCreatedPayload
 	| RovoAgentPublishedPayload
 	| CustomSkillDeletedPayload

@@ -316,7 +316,6 @@ function Component({
 		[actions, appearance],
 	);
 	const experimentMetaEventAttributes = useExperimentMetaEventAttributes({
-		actionOptions,
 		appearance,
 		state,
 	});

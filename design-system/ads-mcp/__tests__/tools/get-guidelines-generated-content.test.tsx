@@ -7,8 +7,9 @@ describe('ads_get_guidelines generated color content', () => {
 			const result = await getGuidelinesTool({ terms: [term] });
 			const guidance = result.content[0].text;
 
-			expect(guidance).toContain('Keep selected and focused states distinct');
-			expect(guidance).toContain('Layer hovered and pressed states onto the current state');
+			expect(guidance).toContain('keep the selected treatment and add the focus indicator');
+			expect(guidance).toContain('Apply `hovered` and `pressed` variants');
+			expect(guidance).toMatch(/Keep a selected item\s+recognizable during those temporary states/);
 			expect(guidance).toContain('`color.border.selected`');
 			expect(guidance).toContain('`color.border.focused`');
 		},

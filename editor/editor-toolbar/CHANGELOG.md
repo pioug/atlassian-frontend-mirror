@@ -1,5 +1,39 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.35
+
+### Patch Changes
+
+- [`c679136fac177`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c679136fac177) -
+  Remove the shipped `platform_editor_toolbar_update_jira_config` experiment. The Jira issue toolbar
+  now always uses breakpoints of 280, 507, 679, and 1024px, and the JSM comment toolbar uses 365,
+  391, 630, and 1024px. Consumers should remove overrides for the retired experiment.
+- Updated dependencies
+
+## 2.8.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.31
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.30
 
 ### Patch Changes

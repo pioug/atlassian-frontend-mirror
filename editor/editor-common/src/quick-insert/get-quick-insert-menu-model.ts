@@ -19,7 +19,8 @@ import type {
 import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
 import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
 import { applyRegisteredItemRanks, type RegisteredItemRankResolver } from '../type-ahead/item-rank';
-import { ASK_ROVO_MENU_ITEM } from './keys';
+import { ASK_ROVO_MENU_ITEM, MENU, SEARCH_RESULTS_SECTION } from './keys';
+import { QuickInsertSearchResultsSection } from './QuickInsertSearchResultsSection';
 import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsertCategoryItems';
 
 export type QuickInsertMenuSection = [RegisterMenuSection, ...RegisterMenuItem[]];
@@ -28,23 +29,29 @@ export type QuickInsertMenuModel = {
 	fallbackItems?: RegisterMenuItem[];
 	footer: RegisterMenuItem | undefined;
 	root: RegisterComponent | undefined;
-	searchResults?: RegisterMenuItem[];
+	/**
+	 * Groups to render, in order. Browse returns one group per category. A search with matches
+	 * returns a single Search results group of ranked matches.
+	 */
 	sections: QuickInsertMenuSection[];
 };
 
-type QuickInsertMenuContent = Pick<
-	QuickInsertMenuModel,
-	'fallbackItems' | 'searchResults' | 'sections'
->;
+type QuickInsertMenuContent = Pick<QuickInsertMenuModel, 'fallbackItems' | 'sections'>;
 
 const SEARCH_TOP_MATCH_LIMIT = 5;
+
+const SEARCH_RESULTS_HEADING: RegisterMenuSection = {
+	key: SEARCH_RESULTS_SECTION.key,
+	type: SEARCH_RESULTS_SECTION.type,
+	component: QuickInsertSearchResultsSection,
+	parents: [{ key: MENU.key, type: MENU.type, rank: 0 }],
+};
 
 type MatchedItem = {
 	identity: string;
 	item: RegisterMenuItem;
 	itemRank: number;
 	score: number;
-	section: RegisterMenuSection;
 	sectionRank: number;
 	sourceIndex: number;
 };
@@ -160,7 +167,6 @@ const buildSearchSections = ({
 				itemRank: getParentRank(item, section.key),
 				score: Math.min(1, Math.max(0, match?.score ?? 0)),
 				sourceIndex: sourceIndexByComponent.get(item) ?? Number.MAX_SAFE_INTEGER,
-				section,
 				sectionRank: getParentRank(section, root.key),
 			};
 			const existing = matches.get(candidate.identity);
@@ -172,19 +178,8 @@ const buildSearchSections = ({
 
 	const uniqueMatches = Array.from(matches.values()).sort(compareMatchedItems);
 	const searchResults = getSearchResults(uniqueMatches);
-	const sectionsByKey = new Map<string, QuickInsertMenuSection>();
-	for (const match of uniqueMatches) {
-		const existing = sectionsByKey.get(match.section.key);
-		if (existing) {
-			existing.push(match.item);
-		} else {
-			sectionsByKey.set(match.section.key, [match.section, match.item]);
-		}
-	}
-
-	const sections = Array.from(sectionsByKey.values());
-	if (sections.length > 0) {
-		return { searchResults, sections };
+	if (searchResults.length > 0) {
+		return { sections: [[SEARCH_RESULTS_HEADING, ...searchResults]] };
 	}
 
 	const fallbackItem = contentSections
@@ -198,8 +193,7 @@ const buildSearchSections = ({
 
 	return {
 		fallbackItems: fallbackItem ? [fallbackItem] : [],
-		searchResults,
-		sections,
+		sections: [],
 	};
 };
 

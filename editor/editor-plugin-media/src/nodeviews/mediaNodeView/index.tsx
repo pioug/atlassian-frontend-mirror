@@ -33,10 +33,7 @@ import {
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
-import {
-	getAIGeneratingDecorationSource,
-	type AIGeneratingSource,
-} from '../../pm-plugins/ai-generating-decoration';
+import { hasAIGeneratingDecoration } from '../../pm-plugins/ai-generating-decoration';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
 import { isMediaBlobUrlFromAttrs } from '../../pm-plugins/utils/media-common';
 import type {
@@ -98,7 +95,6 @@ function isMediaDecorationSpec(decoration: Decoration): decoration is Decoration
 class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	private isSelected = false;
 	private isAIGenerating = false;
-	private aiGeneratingSource: AIGeneratingSource | undefined;
 	private hasBeenResized = false;
 	private resizeListenerBinding?: () => void;
 
@@ -186,11 +182,9 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			return true;
 		}
 
-		const aiGeneratingSource = getAIGeneratingDecorationSource(decorations);
-		const aiGenerating = aiGeneratingSource !== undefined;
-		if (this.isAIGenerating !== aiGenerating || this.aiGeneratingSource !== aiGeneratingSource) {
+		const aiGenerating = hasAIGeneratingDecoration(decorations);
+		if (this.isAIGenerating !== aiGenerating) {
 			this.isAIGenerating = aiGenerating;
-			this.aiGeneratingSource = aiGeneratingSource;
 			return true;
 		}
 
@@ -340,7 +334,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 					}
 					pluginInjectionApi={this.reactComponentProps.pluginInjectionApi}
 					isAIGenerating={this.isAIGenerating}
-					isCwrAIGenerating={this.aiGeneratingSource === 'cwr'}
 				/>
 			);
 		};

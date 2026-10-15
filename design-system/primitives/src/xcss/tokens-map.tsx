@@ -7,6 +7,7 @@ import { dimensionMap } from './dimension';
 import { fontMap } from './font';
 import { fontFamilyMap } from './font-family';
 import { fontWeightMap } from './font-weight';
+import { gapSpaceMap } from './gap-space';
 import { layerMap } from './layer';
 import { opacityMap } from './opacity';
 import { positiveSpaceMap } from './positive-space';
@@ -24,6 +25,7 @@ type StrictTokensMap = {
 		| typeof layerMap
 		| typeof opacityMap
 		| typeof positiveSpaceMap
+		| typeof gapSpaceMap
 		| typeof allSpaceMap
 		| typeof shadowMap
 		| typeof textColorMap
@@ -69,11 +71,11 @@ export const tokensMap: {
 	readonly bottom: typeof allSpaceMap;
 	readonly boxShadow: typeof shadowMap;
 	readonly color: typeof textColorMap;
-	readonly columnGap: typeof positiveSpaceMap;
+	readonly columnGap: typeof gapSpaceMap;
 	readonly font: typeof fontMap;
 	readonly fontFamily: typeof fontFamilyMap;
 	readonly fontWeight: typeof fontWeightMap;
-	readonly gap: typeof positiveSpaceMap;
+	readonly gap: typeof gapSpaceMap;
 	readonly height: typeof dimensionMap;
 	readonly inlineSize: typeof dimensionMap;
 	readonly inset: typeof allSpaceMap;
@@ -119,7 +121,7 @@ export const tokensMap: {
 	readonly paddingRight: typeof positiveSpaceMap;
 	readonly paddingTop: typeof positiveSpaceMap;
 	readonly right: typeof allSpaceMap;
-	readonly rowGap: typeof positiveSpaceMap;
+	readonly rowGap: typeof gapSpaceMap;
 	readonly top: typeof allSpaceMap;
 	readonly width: typeof dimensionMap;
 	readonly zIndex: typeof layerMap;
@@ -160,11 +162,11 @@ export const tokensMap: {
 	bottom: allSpaceMap,
 	boxShadow: shadowMap,
 	color: textColorMap,
-	columnGap: positiveSpaceMap,
+	columnGap: gapSpaceMap,
 	font: fontMap,
 	fontFamily: fontFamilyMap,
 	fontWeight: fontWeightMap,
-	gap: positiveSpaceMap,
+	gap: gapSpaceMap,
 	height: dimensionMap,
 	inlineSize: dimensionMap,
 	inset: allSpaceMap,
@@ -210,7 +212,7 @@ export const tokensMap: {
 	paddingRight: positiveSpaceMap,
 	paddingTop: positiveSpaceMap,
 	right: allSpaceMap,
-	rowGap: positiveSpaceMap,
+	rowGap: gapSpaceMap,
 	top: allSpaceMap,
 	width: dimensionMap,
 	zIndex: layerMap,

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 39.0.8
+
+### Patch Changes
+
+- [`b2a0069bb5563`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2a0069bb5563) -
+  Preserve floating table insert controls' original ordering and gaps above sticky headers when
+  platform_editor_sticky_headers_zindex is enabled, preventing row insert dots from covering the
+  popup. Keep media resize handles below deletion highlights and preserve the original gaps between
+  content overlays, resize handles, and sticky masks within the same experiment.
+
 ## 39.0.7
 
 ### Patch Changes

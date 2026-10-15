@@ -11,7 +11,6 @@ import {
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
@@ -49,7 +48,7 @@ const runAllTimers = () => {
 	});
 };
 
-ffTest.both('navx-full-height-sidebar', 'side nav flyout', () => {
+describe('side nav flyout', () => {
 	beforeEach(() => {
 		resetMatchMedia();
 		jest.useFakeTimers();

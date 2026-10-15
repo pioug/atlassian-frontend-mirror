@@ -40,6 +40,11 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
 			state: 'experimental',
 			replacement: '8px',
 		},
+		{
+			path: 'removed.color',
+			state: 'deleted',
+			replacement: 'color.text',
+		},
 	],
 }));
 
@@ -246,6 +251,21 @@ tester.run('no-unsafe-design-token-usage', rule, {
 		},
 	],
 	invalid: [
+		{
+			code: "import { xcss } from '@atlaskit/primitives'; xcss({ color: 'removed.color' });",
+			output: "import { xcss } from '@atlaskit/primitives'; xcss({ color: 'color.text' });",
+			errors: [{ messageId: 'tokenRemoved' }],
+		},
+		{
+			code: `import { xcss } from '@atlaskit/primitives'; xcss({ padding: '${experimentalTokenName2}' });`,
+			output: null,
+			errors: [{ messageId: 'tokenIsExperimental' }],
+		},
+		{
+			code: `import { xcss } from '@atlaskit/primitives'; xcss({ color: '${oldTokenName}' });`,
+			output: null,
+			errors: [{ messageId: 'tokenRemoved' }],
+		},
 		{
 			code: `css({ color: 'var(--ds-background-accent-blue-subtler)' });`,
 			output: `css({ color: token('color.background.accent.blue.subtler') });`,

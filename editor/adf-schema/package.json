@@ -56,6 +56,7 @@
 		}
 	},
 	"devDependencies": {
+		"@af/adf-test-helpers": "workspace:^",
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/atlassian-frontend-prettier-config-1.0.1": "root:*",

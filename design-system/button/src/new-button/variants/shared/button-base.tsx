@@ -9,6 +9,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -555,6 +556,41 @@ const selectedStyles = cssMap({
 	},
 });
 
+const brandSelectedSplitButtonStyles = cssMap({
+	root: {
+		backgroundColor: token('color.background.brand.subtlest'),
+		color: token('color.text.brand'),
+		'&::after': {
+			content: '""',
+			borderColor: token('color.border.brand'),
+		},
+		'&:visited': {
+			color: token('color.text.brand'),
+		},
+		'&:hover': {
+			color: token('color.text.brand'),
+		},
+		'&:active': {
+			// @ts-expect-error
+			color: token('color.text.brand'),
+		},
+		'&:focus': {
+			color: token('color.text.brand'),
+		},
+	},
+	interactive: {
+		'&:hover': {
+			backgroundColor: token('color.background.brand.subtlest.hovered'),
+			color: token('color.text.brand'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.brand.subtlest.pressed'),
+			// @ts-expect-error
+			color: token('color.text.brand'),
+		},
+	},
+});
+
 /**
  * __button base__
  *
@@ -636,6 +672,12 @@ const ButtonBase: React.ForwardRefExoticComponent<
 		// Also treat loading buttons as disabled
 		const isEffectivelyDisabled = isDisabled || isLoading;
 		const isSelected = propIsSelected && !isDisabled;
+		// The open dropdown is part of a primary action, not a standalone selection.
+		const isBrandSelectedSplitButton =
+			isSelected &&
+			appearance === 'primary' &&
+			splitButtonContext?.appearance === 'primary' &&
+			fg('platform-dst-tokens-finesse');
 
 		useAutoFocus(localRef, autoFocus);
 
@@ -670,6 +712,8 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isSelected && selectedStyles.root,
 					isSelected && isSplitButton && selectedStyles.insideSplitButton,
 					isSelected && isInteractive && selectedStyles.interactive,
+					isBrandSelectedSplitButton && brandSelectedSplitButtonStyles.root,
+					isBrandSelectedSplitButton && isInteractive && brandSelectedSplitButtonStyles.interactive,
 					// TODO: remove me once we kill color fallbacks
 					isSelected && appearance === 'danger' && selectedStyles.danger,
 					// TODO: remove me once we kill color fallbacks

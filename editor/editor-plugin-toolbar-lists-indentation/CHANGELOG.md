@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 28.1.0
+
+### Minor Changes
+
+- [`30fad725f6ab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30fad725f6ab1) -
+  Include the TaskListMenuItem entrypoint manifest and built targets in the published package
+
 ## 28.0.5
 
 ### Patch Changes

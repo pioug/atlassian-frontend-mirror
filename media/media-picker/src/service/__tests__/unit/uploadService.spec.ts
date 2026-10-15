@@ -148,6 +148,56 @@ describe('UploadService', () => {
 		});
 	});
 
+	describe('onBeforeUpload', () => {
+		describe('synchronous callback', () => {
+			it('allows uploads when the callback returns true', async () => {
+				const { uploadService, mediaClient } = setup(undefined, {
+					onBeforeUpload: () => true,
+				});
+
+				await uploadService.addFilesWithSource([localFileWithSource]);
+
+				expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(1);
+				expect(mediaClient.file.upload).toHaveBeenCalledTimes(1);
+			});
+
+			it('blocks uploads when the callback returns false', async () => {
+				const { uploadService, mediaClient } = setup(undefined, {
+					onBeforeUpload: () => false,
+				});
+
+				await uploadService.addFilesWithSource([localFileWithSource]);
+
+				expect(mediaClient.file.touchFiles).not.toHaveBeenCalled();
+				expect(mediaClient.file.upload).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('asynchronous callback', () => {
+			it('allows uploads when the callback resolves to true', async () => {
+				const { uploadService, mediaClient } = setup(undefined, {
+					onBeforeUpload: async () => true,
+				});
+
+				await uploadService.addFilesWithSource([localFileWithSource]);
+
+				expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(1);
+				expect(mediaClient.file.upload).toHaveBeenCalledTimes(1);
+			});
+
+			it('blocks uploads when the callback resolves to false', async () => {
+				const { uploadService, mediaClient } = setup(undefined, {
+					onBeforeUpload: async () => false,
+				});
+
+				await uploadService.addFilesWithSource([localFileWithSource]);
+
+				expect(mediaClient.file.touchFiles).not.toHaveBeenCalled();
+				expect(mediaClient.file.upload).not.toHaveBeenCalled();
+			});
+		});
+	});
+
 	describe('addFiles', () => {
 		it('should emit file-preview-update for video files', async () => {
 			const { uploadService } = setup();

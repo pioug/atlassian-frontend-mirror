@@ -24,7 +24,6 @@ import type { CardDimensions, CardEvent, CardOnClickCallback } from '@atlaskit/m
 import type { Identifier } from '@atlaskit/media-client/identifier';
 import type { NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -50,7 +49,6 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	getPos: ProsemirrorGetPosHandler;
 	isAIGenerating?: boolean;
-	isCwrAIGenerating?: boolean;
 	isLoading?: boolean;
 	isMediaSingle?: boolean;
 	isViewOnly?: boolean;
@@ -116,7 +114,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.node.attrs.width !== nextProps.node.attrs.width ||
 			this.props.node.attrs.height !== nextProps.node.attrs.height ||
 			this.props.isAIGenerating !== nextProps.isAIGenerating ||
-			this.props.isCwrAIGenerating !== nextProps.isCwrAIGenerating ||
 			this.props.maxDimensions.height !== nextProps.maxDimensions.height ||
 			this.props.maxDimensions.width !== nextProps.maxDimensions.width ||
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
@@ -404,12 +401,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.setState({ previewRenderedFileId: fileId });
 			this.fetchMissingDimensions();
 		}
-
-		if (isExperimentEnabled('aifc_page_create_with_rovo_include_infographics')) {
-			this.props.pluginInjectionApi?.core?.actions.execute(({ tr }) =>
-				tr.setMeta(mediaStateKey, { type: 'PREVIEW_RENDERED', fileId }),
-			);
-		}
 	};
 
 	private onError = (reason: string) => {
@@ -528,13 +519,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 		const ssr: SSR = process.env.REACT_SSR ? 'server' : 'client';
 
-		// CWR (create-with-Rovo) infographics get a distinct loading treatment so the
-		// generic media type icon isn't shown while the image streams in. Gated on the
-		// existing infographics experiment.
-		const isCWR =
-			!!this.props.isCwrAIGenerating &&
-			isExperimentEnabled('aifc_page_create_with_rovo_include_infographics');
-
 		return (
 			<GeneratedMediaReveal
 				isEnabled={hasGeneratedMediaMotion}
@@ -581,7 +565,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 								this.props.isViewOnly,
 							)}
 							isAIGenerating={!!this.props.isAIGenerating}
-							isCWR={isCWR}
 							hasLoadingMotion={hasGeneratedMediaMotion}
 							onPreviewRender={this.onPreviewRender}
 							fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}

@@ -1,5 +1,47 @@
 # @atlaskit/editor-common
 
+## 131.4.0
+
+### Minor Changes
+
+- [`f93da47c0d069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f93da47c0d069) -
+  Add shared illustrated empty states and search outcome analytics for registered slash, Plus and
+  Element Browser searches under platform_editor_slash_command. Refresh resolved registrations on
+  search edits and retain eligible Ask Rovo and host Marketplace recovery. Remove duplicate top
+  spacing in the Plus menu and show its previews only for directly hovered or keyboard-selected
+  items. Subscribe all three registered entry points to live registry updates and rebuild their
+  models on search changes, keeping selection and category state valid as items arrive or disappear.
+  Omit the Plus footer divider when only the generic empty state is shown.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.3.0
+
+### Minor Changes
+
+- [`50bd552f7a17f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50bd552f7a17f) -
+  [ux] Use CSS scroll-driven overflow shadows for extensions when the
+  `platform_editor_reduce_forced_layout_2` experiment is enabled, reducing forced layout while
+  preserving the JavaScript fallback in unsupported browsers. Add an optional `isDisabled` setting
+  to `overflowShadow` so consumers can disable its JavaScript behavior.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.2.2
+
+### Patch Changes
+
+- [`bf97ae26b480d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf97ae26b480d) -
+  Add a `sourceLocation` analytics attribute (`description` | `custom-field`) to synced block create
+  and get-source-info events for Jira sources, behind the `platform_editor_blocks_patch_13` feature
+  gate and the `editor_synced_blocks_jira_custom_rich_text` experiment. With the gate off, events
+  are unchanged. Add an optional `getParentAri()` method to the synced block data provider.
+- Updated dependencies
+
 ## 131.2.1
 
 ### Patch Changes

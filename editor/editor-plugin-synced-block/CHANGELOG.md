@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 25.0.8
+
+### Patch Changes
+
+- [`72b41803e7b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72b41803e7b84) -
+  Quick insert menu: render lozenges for extension items, restore the New lozenge on Synced block,
+  and add a New lozenge, preview image and By Atlassian attribution to Block Template Gallery
+
+## 25.0.7
+
+### Patch Changes
+
+- [`3268110f0c1c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3268110f0c1c7) -
+  Measure the synced locations dropdown once per opening so it can flip above the toolbar, behind
+  platform_editor_blocks_patch_12.
+- Updated dependencies
+
+## 25.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.5
 
 ### Patch Changes

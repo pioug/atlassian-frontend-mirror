@@ -2,10 +2,16 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message/message';
 import RadioDefault from '../../examples/constellation/radio-default';
 import RadioInTable from '../../examples/constellation/radio-in-table';
 import RadioRequired from '../../examples/constellation/radio-required';
 import RadioInvalid from '../../examples/constellation/radio-invalid';
+
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Radio and is in Early Access. The motion updates are currently behind
+	the feature flag: platform_design_system_selection_radial_fade.
+</SectionMessage>
 
 ## Default
 
@@ -14,7 +20,11 @@ The default way to present a single option from a list.
 In most situations where you want to present a list of mutually exclusive options, you will want to
 use a [radio group](/components/radio/radio-group/examples).
 
-<Example Component={RadioDefault} packageName="@atlaskit/radio" />
+<Example
+	Component={RadioDefault}
+	packageName="@atlaskit/radio"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Complex radio usage
 
@@ -22,17 +32,29 @@ There may be some situations where you are unable to directly stack the radio in
 example, within a table). In those situations, you can use individual `Radio` components rather than
 a `RadioGroup`.
 
-<Example Component={RadioInTable} packageName="@atlaskit/radio" />
+<Example
+	Component={RadioInTable}
+	packageName="@atlaskit/radio"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Invalid radio
 
 Use `isInvalid` for situations where the selected field is invalid or incorrect. Remember to provide
 useful validation messages to help people understand how to proceed.
 
-<Example Component={RadioInvalid} packageName="@atlaskit/radio" />
+<Example
+	Component={RadioInvalid}
+	packageName="@atlaskit/radio"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Required radio
 
 Use `isRequired` to require users to fill out the input field before submitting the form.
 
-<Example Component={RadioRequired} packageName="@atlaskit/radio" />
+<Example
+	Component={RadioRequired}
+	packageName="@atlaskit/radio"
+	featureFlagSwitchers={['motionSelection']}
+/>

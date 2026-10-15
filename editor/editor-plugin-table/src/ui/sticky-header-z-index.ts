@@ -1,15 +1,19 @@
 import {
 	akEditorTableCellOnStickyHeaderZIndex,
 	akEditorUnitZIndex,
+	akRichMediaResizeZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	aboveNativeStickyHeaderZIndex,
 	belowNativeStickyHeaderZIndex,
+	loweredNativeStickyHeaderZIndex,
 	nativeStickyHeaderZIndex,
 	resizeHandlerZIndex,
 	stickyRowZIndex,
+	tableContentZIndexOffset,
+	tableDangerOverlayZIndex,
 } from './consts';
 
 type TableZIndexes = {
@@ -19,6 +23,7 @@ type TableZIndexes = {
 	header: number;
 	headerButton: number;
 	mask: number;
+	mediaResizeHandle: number;
 	resizeHandle: number;
 };
 
@@ -26,17 +31,17 @@ type TableZIndexes = {
 // below block controls (100) and Object Sidebar controls (300).
 export const getTableZIndexes = (): TableZIndexes => {
 	if (isExperimentEnabled('platform_editor_sticky_headers_zindex')) {
-		const headerZIndex = 90;
-		const tableLayerGap = 10;
-
 		return {
-			header: headerZIndex,
-			aboveHeader: headerZIndex + akEditorUnitZIndex,
-			belowHeader: headerZIndex - akEditorUnitZIndex,
-			headerButton: headerZIndex + akEditorUnitZIndex * 2,
-			mask: headerZIndex - akEditorUnitZIndex * 2,
-			resizeHandle: headerZIndex - tableLayerGap,
-			dangerOverlay: headerZIndex - tableLayerGap * 2,
+			header: loweredNativeStickyHeaderZIndex,
+			aboveHeader: loweredNativeStickyHeaderZIndex + akEditorUnitZIndex,
+			belowHeader: loweredNativeStickyHeaderZIndex - akEditorUnitZIndex,
+			headerButton:
+				loweredNativeStickyHeaderZIndex +
+				(akEditorTableCellOnStickyHeaderZIndex - nativeStickyHeaderZIndex),
+			mask: stickyRowZIndex - tableContentZIndexOffset,
+			resizeHandle: resizeHandlerZIndex - tableContentZIndexOffset,
+			dangerOverlay: tableDangerOverlayZIndex - tableContentZIndexOffset,
+			mediaResizeHandle: akRichMediaResizeZIndex - tableContentZIndexOffset,
 		};
 	}
 
@@ -47,6 +52,7 @@ export const getTableZIndexes = (): TableZIndexes => {
 		headerButton: akEditorTableCellOnStickyHeaderZIndex,
 		mask: stickyRowZIndex,
 		resizeHandle: resizeHandlerZIndex,
-		dangerOverlay: 100,
+		dangerOverlay: tableDangerOverlayZIndex,
+		mediaResizeHandle: akRichMediaResizeZIndex,
 	};
 };

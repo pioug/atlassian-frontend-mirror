@@ -18,15 +18,16 @@ const spacingProperties = [
 
 export type SpacingProperty = (typeof spacingProperties)[number];
 
-export const createSpacingStylesMap = <Token extends string>(
+export const createSpacingStylesMap = <Token extends string, Property extends SpacingProperty>(
 	tokenMap: Record<Token, string>,
-): Record<SpacingProperty, Record<Token, SerializedStyles>> => {
-	return spacingProperties.reduce(
+	properties: readonly Property[],
+): Record<Property, Record<Token, SerializedStyles>> => {
+	return properties.reduce(
 		(styleMap, spacingProperty) => {
 			styleMap[spacingProperty] = getSerializedStylesMap(spacingProperty, tokenMap);
 
 			return styleMap;
 		},
-		{} as Record<SpacingProperty, Record<Token, SerializedStyles>>,
+		{} as Record<Property, Record<Token, SerializedStyles>>,
 	);
 };

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 29.0.6
+
+### Patch Changes
+
+- [`190c5847617e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/190c5847617e8) -
+  Align agent mention avatar hexagon geometry with agent avatars behind the
+  `platform_editor_agent_hexagon_ui_fix` experiment.
+- Updated dependencies
+
 ## 29.0.5
 
 ### Patch Changes

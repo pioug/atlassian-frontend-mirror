@@ -8,6 +8,7 @@ import type {
 	RegisterMenuItem,
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { ListRow } from '../ListRow';
 import { TypeAheadItemRow } from './TypeAheadItemRow';
@@ -19,6 +20,7 @@ const noOp = () => {};
 export const createTypeAheadRowRenderer =
 	({
 		cache,
+		hasScrollPadding = false,
 		onMeasured,
 		itemIndexByRowIndex,
 		Item,
@@ -30,6 +32,7 @@ export const createTypeAheadRowRenderer =
 		selectedItemIndex,
 	}: {
 		cache: CellMeasurerCache;
+		hasScrollPadding?: boolean;
 		Item: TypeAheadItemComponent;
 		itemIndexByRowIndex: Map<number, number>;
 		listId: string;
@@ -48,6 +51,23 @@ export const createTypeAheadRowRenderer =
 		}
 
 		const itemIndex = itemIndexByRowIndex.get(index);
+		const rowContent =
+			registration.type === 'menu-section' ? (
+				<TypeAheadSectionRow registration={registration} />
+			) : (
+				<TypeAheadItemRow
+					Item={Item}
+					isSelected={itemIndex === selectedItemIndex}
+					itemIndex={itemIndex ?? 0}
+					listId={listId}
+					onItemHover={onItemHover}
+					onItemLeave={onItemLeave}
+					onItemVisibilityChange={onItemVisibilityChange}
+					isVisible={isVisible}
+					registration={registration}
+					rowIndex={index}
+				/>
+			);
 
 		return (
 			<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
@@ -61,21 +81,15 @@ export const createTypeAheadRowRenderer =
 						onMouseMove={noOp}
 						style={style}
 					>
-						{registration.type === 'menu-section' ? (
-							<TypeAheadSectionRow registration={registration} />
+						{hasScrollPadding ? (
+							<Box
+								paddingBlockStart={index === 0 ? 'space.100' : undefined}
+								paddingBlockEnd={index === rows.length - 1 ? 'space.100' : undefined}
+							>
+								{rowContent}
+							</Box>
 						) : (
-							<TypeAheadItemRow
-								Item={Item}
-								isSelected={itemIndex === selectedItemIndex}
-								itemIndex={itemIndex ?? 0}
-								listId={listId}
-								onItemHover={onItemHover}
-								onItemLeave={onItemLeave}
-								onItemVisibilityChange={onItemVisibilityChange}
-								isVisible={isVisible}
-								registration={registration}
-								rowIndex={index}
-							/>
+							rowContent
 						)}
 					</ListRow>
 				)}

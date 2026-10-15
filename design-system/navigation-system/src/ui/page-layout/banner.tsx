@@ -10,7 +10,6 @@ import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
-import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
 import type { localSlotLayers } from './constants';
 import { bannerMountedVar, UNSAFE_bannerVar } from './constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
@@ -29,10 +28,6 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		zIndex: 4 satisfies typeof localSlotLayers.banner,
 		overflow: 'hidden',
-	},
-	fullHeightSidebar: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		zIndex: 3 satisfies typeof localSlotLayers.bannerFHS,
 	},
 });
 
@@ -68,7 +63,6 @@ export function Banner({
 }): JSX.Element {
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
-	const isFhsEnabled = useIsFhsEnabled();
 
 	/**
 	 * Don't show the skip link if the slot has 0 height.
@@ -86,13 +80,7 @@ export function Banner({
 		 * Intentionally not using `role="banner"` because each page should only have one `banner` landmark,
 		 * and the top bar is more suitable as the `banner` landmark.
 		 */
-		<div
-			id={id}
-			data-layout-slot
-			css={[styles.root, isFhsEnabled && styles.fullHeightSidebar]}
-			className={xcss}
-			data-testid={testId}
-		>
+		<div id={id} data-layout-slot css={styles.root} className={xcss} data-testid={testId}>
 			<HoistCssVarToLocalGrid variableName={bannerMountedVar} value={height} />
 			{dangerouslyHoistSlotSizes && (
 				// ------ START UNSAFE STYLES ------

@@ -59,35 +59,20 @@ export const UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY: 'calc(var(--rightSide
 export const localSlotLayers: {
 	chatPanelOverlay: number;
 	ribbon: number;
-	sideNavPanelSplitterFHS: number;
 	topBar: number;
 	banner: number;
-	bannerFHS: number;
-	topNavFHS: number;
 	sideNav: number;
 	panelSmallViewports: number;
 } = {
 	// Chat overlays the app, including TopNav and SideNav, below the banner.
 	chatPanelOverlay: 5,
 	ribbon: 4,
-	// The side nav panel splitter is layered above the top nav when FHS is enabled.
-	// It has the same z-index value, but is rendered after the top nav in the DOM so is stacked above.
-	sideNavPanelSplitterFHS: 4,
 	topBar: 4,
 	banner: 4,
-	// When FHS is enabled, the side nav is layered below the top nav,
-	// but above the panel
-	bannerFHS: 3,
-	topNavFHS: 3,
 	sideNav: 2,
 	panelSmallViewports: 1,
 };
 
 export const openLayerObserverSideNavNamespace = 'side-nav';
-// We have separate OpenLayerObserver namespaces for each top nav layout area, instead of a single namespace for the entire top nav,
-// as we need to know if there are open layers in TopNavStart specifically to prevent the side nav from peeking.
-// The OpenLayerObserver doesn't support nested namespaces. We could update it, but for now it's simple enough to just have separate
-// namespaces.
-export const openLayerObserverTopNavStartNamespace = 'top-nav-start';
 export const openLayerObserverTopNavMiddleNamespace = 'top-nav-middle';
 export const openLayerObserverTopNavEndNamespace = 'top-nav-end';

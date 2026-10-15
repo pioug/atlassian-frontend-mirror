@@ -47,6 +47,7 @@
 		"@af/accessibility-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

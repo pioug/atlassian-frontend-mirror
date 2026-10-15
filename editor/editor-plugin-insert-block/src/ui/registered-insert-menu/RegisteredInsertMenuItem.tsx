@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
@@ -6,6 +6,11 @@ import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SurfaceContext, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
+
+// Preview updates must remain live while react-virtualized caches row elements during scrolling.
+export const RegisteredInsertMenuPreviewContext: React.Context<string | undefined> = createContext<
+	string | undefined
+>(undefined);
 
 type Props = {
 	editorView: EditorView;
@@ -29,6 +34,8 @@ export const RegisteredInsertMenuItem = ({
 	surfaceContext,
 }: Props): React.JSX.Element => {
 	const Component = registration.component ?? React.Fragment;
+	const activePreviewItemKey = useContext(RegisteredInsertMenuPreviewContext);
+	const isPreviewActive = activePreviewItemKey === registration.key;
 	const select = useCallback(
 		(selectionHandler: QuickInsertSelectionHandler) => {
 			// Close first so a registered item may safely focus the editor or open its picker.
@@ -49,13 +56,13 @@ export const RegisteredInsertMenuItem = ({
 		() => ({
 			editorView,
 			isOffline,
-			item: { id, isSelected },
+			item: { id, isPreviewActive, isSelected },
 			menuOpenId,
 			select,
 			surface: 'toolbar' as const,
 			surfaceContext,
 		}),
-		[editorView, id, isOffline, isSelected, menuOpenId, select, surfaceContext],
+		[editorView, id, isOffline, isPreviewActive, isSelected, menuOpenId, select, surfaceContext],
 	);
 
 	return (

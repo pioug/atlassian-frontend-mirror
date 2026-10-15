@@ -124,6 +124,7 @@ export enum ACTION {
 	REPLACED_ALL = 'replacedAll',
 	REPLACED_ONE = 'replacedOne',
 	RESOLVED = 'resolved',
+	SEARCHED = 'searched',
 	REQUEST_TO_EDIT = 'requestToEdit',
 	SELECTED = 'selected',
 	SHOWN = 'shown',

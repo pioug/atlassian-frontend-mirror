@@ -17,7 +17,6 @@ import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promis
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
@@ -1184,11 +1183,25 @@ describe('<LinkPicker />', () => {
 		});
 
 		it('should submit when insert button is clicked', async () => {
+			// The default generic plugin only queues 2 results, which are used up on mount. Typing
+			// 'example.com' (no scheme) triggers further resolves, the mock runs out of results and
+			// the picker ends up in an error state, where Insert stays disabled. Use a plugin that
+			// never runs out of results.
+			const resultPromise = Promise.resolve({
+				value: { data: mockedPluginData.slice(0, 3) },
+				done: true,
+			});
 			const { testIds, onSubmitMock } = setupWithGenericPlugin({
 				url: '',
+				plugins: [new MockLinkPickerGeneratorPlugin(Array(20).fill(resultPromise))],
 			});
 
 			await user.type(screen.getByTestId(testIds.urlInputField), 'example.com');
+
+			// Insert is disabled while results are loading, so wait for it to settle
+			await waitFor(() => {
+				expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
+			});
 
 			await user.click(screen.getByTestId(testIds.insertButton));
 
@@ -2003,112 +2016,61 @@ describe('<LinkPicker />', () => {
 			}
 		}
 
-		ffTest.off('add-disable-manual-url-capability-technical', 'when gate is OFF', () => {
-			it('should enable the insert button for a manually typed valid URL even when disableManualUrlInsert=true is passed', async () => {
-				render(
-					<LinkPicker
-						url=""
-						onSubmit={jest.fn()}
-						onCancel={jest.fn()}
-						onContentResize={jest.fn()}
-						plugins={[]}
-						disableManualUrlInsert={true}
-					/>,
-				);
+		it('should disable the insert button for a manually typed URL when disableManualUrlInsert=true and plugin returns no results', async () => {
+			render(
+				<LinkPicker
+					url=""
+					onSubmit={jest.fn()}
+					onCancel={jest.fn()}
+					onContentResize={jest.fn()}
+					plugins={[new EmptyResultsMockPlugin() as any]}
+					disableManualUrlInsert={true}
+				/>,
+			);
 
-				await user.type(
-					await screen.findByTestId(testIds.urlInputField),
-					'http://www.atlassian.com',
-				);
+			await user.type(await screen.findByTestId(testIds.urlInputField), 'atlassian');
 
-				await waitFor(() => {
-					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
-				});
-			});
-
-			it('should enable the insert button for a manually typed valid URL when disableManualUrlInsert=false (default)', async () => {
-				render(
-					<LinkPicker
-						url=""
-						onSubmit={jest.fn()}
-						onCancel={jest.fn()}
-						onContentResize={jest.fn()}
-						plugins={[]}
-						disableManualUrlInsert={false}
-					/>,
-				);
-
-				await user.type(
-					await screen.findByTestId(testIds.urlInputField),
-					'http://www.atlassian.com',
-				);
-
-				await waitFor(() => {
-					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
-				});
+			await waitFor(() => {
+				expect(screen.getByTestId(testIds.insertButton)).toBeDisabled();
 			});
 		});
 
-		ffTest.on('add-disable-manual-url-capability-technical', 'when gate is ON', () => {
-			it('should disable the insert button for a manually typed URL when disableManualUrlInsert=true and plugin returns no results', async () => {
-				render(
-					<LinkPicker
-						url=""
-						onSubmit={jest.fn()}
-						onCancel={jest.fn()}
-						onContentResize={jest.fn()}
-						plugins={[new EmptyResultsMockPlugin() as any]}
-						disableManualUrlInsert={true}
-					/>,
-				);
+		it('should still enable the insert button for a manually typed URL when disableManualUrlInsert=false (default)', async () => {
+			render(
+				<LinkPicker
+					url=""
+					onSubmit={jest.fn()}
+					onCancel={jest.fn()}
+					onContentResize={jest.fn()}
+					plugins={[]}
+					disableManualUrlInsert={false}
+				/>,
+			);
 
-				await user.type(await screen.findByTestId(testIds.urlInputField), 'atlassian');
+			await user.type(await screen.findByTestId(testIds.urlInputField), 'http://www.atlassian.com');
 
-				await waitFor(() => {
-					expect(screen.getByTestId(testIds.insertButton)).toBeDisabled();
-				});
+			await waitFor(() => {
+				expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
 			});
+		});
 
-			it('should still enable the insert button for a manually typed URL when disableManualUrlInsert=false (default)', async () => {
-				render(
-					<LinkPicker
-						url=""
-						onSubmit={jest.fn()}
-						onCancel={jest.fn()}
-						onContentResize={jest.fn()}
-						plugins={[]}
-						disableManualUrlInsert={false}
-					/>,
-				);
+		it('should enable insert when a result is selected even when disableManualUrlInsert=true', async () => {
+			render(
+				<LinkPicker
+					url=""
+					onSubmit={jest.fn()}
+					onCancel={jest.fn()}
+					onContentResize={jest.fn()}
+					plugins={[new MockLinkPickerPlugin()]}
+					disableManualUrlInsert={true}
+				/>,
+			);
 
-				await user.type(
-					await screen.findByTestId(testIds.urlInputField),
-					'http://www.atlassian.com',
-				);
+			// Results load on mount; click the first result to populate the URL field
+			await user.click((await screen.findAllByTestId(testIds.searchResultItem))[0]);
 
-				await waitFor(() => {
-					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
-				});
-			});
-
-			it('should enable insert when a result is selected even when disableManualUrlInsert=true', async () => {
-				render(
-					<LinkPicker
-						url=""
-						onSubmit={jest.fn()}
-						onCancel={jest.fn()}
-						onContentResize={jest.fn()}
-						plugins={[new MockLinkPickerPlugin()]}
-						disableManualUrlInsert={true}
-					/>,
-				);
-
-				// Results load on mount; click the first result to populate the URL field
-				await user.click((await screen.findAllByTestId(testIds.searchResultItem))[0]);
-
-				await waitFor(() => {
-					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
-				});
+			await waitFor(() => {
+				expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
 			});
 		});
 	});

@@ -1,45 +1,35 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
+import { IsFhsEnabledContext } from '../../is-fhs-enabled-context';
 import { IsFhsEnabledProvider } from '../../is-fhs-enabled-provider';
 import { useIsFhsEnabled } from '../../use-is-fhs-enabled';
 
-// Mock the platform-feature-flags module
-jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
-	fg: jest.fn(),
-}));
-
-const fgMock = fg as jest.MockedFunction<typeof fg>;
-
 describe('useIsFhsEnabled', () => {
-	beforeEach(() => {
-		jest.clearAllMocks();
+	it('should return false when no provider is set', () => {
+		const utils = renderHook(useIsFhsEnabled);
+
+		expect(utils.current).toBe(false);
 	});
 
-	it('should use the default value when no provider is set', () => {
-		renderHook(useIsFhsEnabled);
+	it.each([[false], [true]])('should return false when provider is set with %s', (value) => {
+		const utils = renderHook(useIsFhsEnabled, {
+			wrapper: ({ children }) => (
+				<IsFhsEnabledProvider value={value}>{children}</IsFhsEnabledProvider>
+			),
+		});
 
-		// Should call the default function
-		expect(fgMock).toHaveBeenCalledTimes(1);
-		expect(fgMock).toHaveBeenCalledWith('navx-full-height-sidebar');
+		expect(utils.current).toBe(false);
 	});
 
-	it.each([[false], [true]])(
-		'should use the provided value when provider is set with %s',
-		(value) => {
-			const utils = renderHook(useIsFhsEnabled, {
-				wrapper: ({ children }) => (
-					<IsFhsEnabledProvider value={value}>{children}</IsFhsEnabledProvider>
-				),
-			});
+	it('should return false when the context is provided directly', () => {
+		const utils = renderHook(useIsFhsEnabled, {
+			wrapper: ({ children }) => (
+				<IsFhsEnabledContext.Provider value={() => true}>{children}</IsFhsEnabledContext.Provider>
+			),
+		});
 
-			// Should not call the default function
-			expect(fgMock).not.toHaveBeenCalled();
-			// Should return the provided value
-			expect(utils.current).toBe(value);
-		},
-	);
+		expect(utils.current).toBe(false);
+	});
 });

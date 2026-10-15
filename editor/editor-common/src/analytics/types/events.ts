@@ -71,7 +71,10 @@ import type { NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { OfflineEditingEventPayload } from './offline-editing-event';
 import type { PasteActionsMenuEventPayload, PasteEventPayload } from './paste-events';
-import type { QuickInsertInformationEventPayload } from './quick-insert-events';
+import type {
+	QuickInsertInformationEventPayload,
+	QuickInsertSearchOutcomeEventPayload,
+} from './quick-insert-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
 import type { SelectionExtensionEventPayload } from './selection-extension-events';
@@ -110,6 +113,7 @@ export type AnalyticsEventPayload<T = void> =
 	| PasteEventPayload
 	| PasteActionsMenuEventPayload
 	| QuickInsertInformationEventPayload
+	| QuickInsertSearchOutcomeEventPayload
 	| CutCopyEventPayload
 	| ErrorEventPayload
 	| TextColorEventPayload

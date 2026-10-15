@@ -41,9 +41,18 @@ export type SyncedBlockErrorReasonAttribute =
 	| 'network'
 	| 'data_provider_not_ready';
 
+/**
+ * Mirrors the provider's `SyncBlockSourceLocation` union: which Jira work item field holds
+ * the source block. Only emitted for Jira sources when
+ * `editor_synced_blocks_jira_custom_rich_text` is enabled, so Confluence sources and the
+ * control cohort leave it unset.
+ */
+export type SyncedBlockSourceLocationAttribute = 'description' | 'custom-field';
+
 type SyncedBlockErrorAttributes = {
 	error: string;
 	resourceId?: string;
+	sourceLocation?: SyncedBlockSourceLocationAttribute;
 	/**
 	 * The product the source block lives in, derived from `resourceId` when present.
 	 * Always optional because batch / subscription init paths fire without a `resourceId`.
@@ -130,6 +139,7 @@ type SyncedBlockCreateSuccessAttributes = SyncedBlockSuccessAttributes & {
 	createdEmpty?: boolean;
 	inputMethod?: INPUT_METHOD;
 	nodeTypes?: string[];
+	sourceLocation?: SyncedBlockSourceLocationAttribute;
 };
 
 /** First-content-added attrs: join keys only (no user content, PII-safe). */

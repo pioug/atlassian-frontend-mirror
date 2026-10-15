@@ -174,7 +174,7 @@ const fadeIn = keyframes({
 	},
 });
 
-const tableInlineStartShadow = keyframes({
+const inlineStartShadow = keyframes({
 	'0%': {
 		opacity: 0,
 	},
@@ -183,7 +183,7 @@ const tableInlineStartShadow = keyframes({
 	},
 });
 
-const tableInlineEndShadow = keyframes({
+const inlineEndShadow = keyframes({
 	'0%, 99.9999%': {
 		opacity: 1,
 	},
@@ -4512,6 +4512,10 @@ const editorContentStyles = cssMapScoped({
 			clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%)',
 		},
 
+		'.editor-mention-avatar-agent-hexagon-ui-fix': {
+			clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+		},
+
 		'.editor-mention-avatar-image': {
 			display: 'block',
 			width: '100%',
@@ -5805,6 +5809,64 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 	},
+	// CSS scroll-driven extension overflow shadows.
+	// Keep this condition in sync with isCssScrollTimelineSupported in editor-common.
+	extensionScrollInlineShadowStyles: {
+		'@supports (animation-timeline: --test-timeline) and (scroll-timeline-name: --test-timeline) and (timeline-scope: --test-timeline) and (animation-range: 0% 101%)':
+			{
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)': {
+					timelineScope: '--editor-extension-inline-scroll',
+				},
+				'.ProseMirror .extension-scroll-inline-shadow': {
+					scrollTimelineName: '--editor-extension-inline-scroll',
+					scrollTimelineAxis: 'inline',
+				},
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::before, .ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::after':
+					{
+						content: "''",
+						position: 'absolute',
+						zIndex: 2 satisfies typeof akEditorShadowZIndex,
+						top: 0,
+						bottom: 0,
+						width: 8,
+						opacity: 0,
+						pointerEvents: 'none',
+						animationDuration: '1ms',
+						animationTimingFunction: 'linear',
+						animationTimeline: '--editor-extension-inline-scroll',
+					},
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::before': {
+					left: 0,
+					backgroundImage: `linear-gradient(
+						to left,
+						transparent 0,
+						${token('elevation.shadow.overflow.spread')} 140%
+					),
+					linear-gradient(
+						to right,
+						${token('elevation.shadow.overflow.perimeter')} 0,
+						transparent 1px
+					)`,
+					animationName: inlineStartShadow,
+					// Keep the start shadow visible at the endpoint without retaining a stale fill state.
+					animationRange: '0% 101%',
+				},
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::after': {
+					right: 0,
+					backgroundImage: `linear-gradient(
+						to right,
+						transparent 0,
+						${token('elevation.shadow.overflow.spread')} 140%
+					),
+					linear-gradient(
+						to left,
+						${token('elevation.shadow.overflow.perimeter')} 0,
+						transparent 1px
+					)`,
+					animationName: inlineEndShadow,
+				},
+			},
+	},
 	// Two rule sets, one per cohort of `platform_editor_show_diff_color_scheme_refactor`. Their base
 	// classes are disjoint — `wrapBlockNodeView` emits `-node`/`-node-traditional` when the gate is
 	// off and `-node-vars` when it is on — so only one set can ever match an element.
@@ -6934,7 +6996,7 @@ const editorContentStyles = cssMapScoped({
 				${token('elevation.shadow.overflow.perimeter')} 0,
 				transparent 1px
 			)`,
-			animationName: tableInlineStartShadow,
+			animationName: inlineStartShadow,
 		},
 		".ProseMirror .pm-table-container[data-number-column='true'] > [data-table-overflow-shadow='start']":
 			{
@@ -6952,7 +7014,7 @@ const editorContentStyles = cssMapScoped({
 				${token('elevation.shadow.overflow.perimeter')} 0,
 				transparent 1px
 			)`,
-			animationName: tableInlineEndShadow,
+			animationName: inlineEndShadow,
 		},
 	},
 	tableContentModeStyles: {
@@ -7726,10 +7788,13 @@ const editorContentStyles = cssMapScoped({
 			color: token('color.text.success'),
 		},
 	},
-	// Show diff: strike a deleted status. `line-through` from an ancestor paints behind the lozenge's
-	// `display: inline-flex` background, so redraw it here (EDITOR-9123). The class sits on the *same*
+	// Show diff: strike a deleted status or emoji. `line-through` from an ancestor is not drawn into an
+	// atomic inline-level box — it paints behind the lozenge's `display: inline-flex` background and
+	// skips an emoji's image or sprite — so redraw it here (EDITOR-9123). The class sits on the *same*
 	// element as the attribute — ProseMirror puts an atomic node's inline decoration on the node's own
-	// DOM. Applied only under `platform_editor_ai_show_diff_patch_2`, so the gate-off stylesheet is
+	// DOM. An emoji node view clears its inline styles once its data loads, dropping the decoration's
+	// colour and strike variable, but keeps the class, so this line still draws, from its fallback.
+	// Applied only under `platform_editor_ai_show_diff_patch_2`, so the gate-off stylesheet is
 	// unchanged.
 	deletedStatusStrikeStyles: {
 		'.show-diff-deleted-inline-node[data-prosemirror-node-name="status"]': {
@@ -7747,6 +7812,41 @@ const editorContentStyles = cssMapScoped({
 				pointerEvents: 'none',
 			},
 		},
+		'.show-diff-deleted-inline-node[data-prosemirror-node-name="emoji"]': {
+			// The deleted decoration sets this inline too; repeated for the pre-refactor cohort.
+			position: 'relative',
+			'&::after': {
+				content: '""',
+				position: 'absolute',
+				top: '50%',
+				insetInlineStart: 0,
+				insetInlineEnd: 0,
+				// The whole shorthand comes from the plugin, so this line stays identical to the one the
+				// deleted-content widget draws — including its 2px active weight — without restating it.
+				borderTop: `var(--show-diff-deleted-inline-node-strike, ${token('border.width')} solid ${token('color.text.subtlest')})`,
+				pointerEvents: 'none',
+			},
+		},
+	},
+	// Show diff: under `platform_editor_ai_show_diff_patch_2`, date and emoji atomic inline changes get
+	// the same 2px `box-shadow` ring as mention and status instead of an outline. A date's outline sat
+	// on its inline wrapper, whose zero-width spacers and font-metric line box kept it off the pill, so
+	// the ring moves to the pill. Composed after the date and emoji rules it overrides.
+	atomicInlineChangedBoxShadowStyles: {
+		'.show-diff-atomic-inline-changed-date': {
+			outline: 'none',
+		},
+		'.show-diff-atomic-inline-changed-date .date-lozenger-container > span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+			{
+				outline: 'none',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+			},
 	},
 	statusStylesTeam26: {
 		'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
@@ -8510,6 +8610,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.indentationStyles,
 				editorContentStyles.fontSizeStyles,
 				editorContentStyles.shadowStyles,
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+					editorContentStyles.extensionScrollInlineShadowStyles,
 				editorContentStyles.InlineNodeViewSharedStyles,
 				editorContentStyles.hideSelectionStyles,
 				editorContentStyles.hideCursorWhenHideSelectionStyles,
@@ -8785,6 +8887,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.mentionDangerStyles,
 				editorContentStyles.decisionDangerStyles,
 				editorContentStyles.statusDangerStyles,
+				fg('platform_editor_ai_show_diff_patch_2') &&
+					editorContentStyles.atomicInlineChangedBoxShadowStyles,
 				editorContentStyles.dangerRuleStyles,
 				editorContentStyles.mediaDangerStyles,
 				editorContentStyles.nestedPanelDangerStyles,

@@ -2,7 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+	Fragment,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+	useLayoutEffect,
+	useRef,
+} from 'react';
 
 import { css, jsx, cssMap, keyframes, cx } from '@compiled/react';
 import type { IntlShape } from 'react-intl';
@@ -119,6 +128,8 @@ const issueTypeAvatarStyles = css({
 });
 
 const SYNCED_LOCATIONS_DROPDOWN_TEST_ID = 'synced-block-synced-locations-dropdown';
+// Match the existing vertical gap in editor-common's DropList.
+const SYNCED_LOCATIONS_DROPDOWN_VERTICAL_GAP = 8;
 
 const styles = cssMap({
 	title: {
@@ -630,29 +641,28 @@ const toSyncedLocations = (
 		? { kind: 'field-aware', items: buildFieldAwareItems(references, intl.formatMessage) }
 		: { kind: 'control', references: processReferenceData(references, intl) };
 
-export const SyncedLocationDropdown = ({
-	syncBlockStore,
-	resourceId,
-	intl,
-	isSource,
-	localId,
-	api,
-	floatingToolbarRenderContext,
-}: Props): JSX.Element => {
-	return (
-		<EditorPositionedSyncedLocationDropdown
-			syncBlockStore={syncBlockStore}
-			resourceId={resourceId}
-			intl={intl}
-			isSource={isSource}
-			localId={localId}
-			api={api}
-			floatingToolbarRenderContext={floatingToolbarRenderContext}
-		/>
-	);
+const MeasuredDropdownContent = ({
+	children,
+	onHeightChange,
+}: {
+	children: ReactNode;
+	onHeightChange: (height: number) => void;
+}) => {
+	const contentRef = useRef<HTMLDivElement>(null);
+	const measured = useRef(false);
+	useLayoutEffect(() => {
+		// This wrapper is rendered directly inside the DropList menu.
+		const menu = contentRef.current?.parentElement;
+		if (menu && !measured.current) {
+			measured.current = true;
+			// Include the DropList padding and its existing gap from the toolbar.
+			onHeightChange(menu.getBoundingClientRect().height + SYNCED_LOCATIONS_DROPDOWN_VERTICAL_GAP);
+		}
+	}, [onHeightChange]);
+	return <div ref={contentRef}>{children}</div>;
 };
 
-const EditorPositionedSyncedLocationDropdown = ({
+export const SyncedLocationDropdown = ({
 	syncBlockStore,
 	resourceId,
 	intl,
@@ -663,6 +673,7 @@ const EditorPositionedSyncedLocationDropdown = ({
 }: Props): JSX.Element => {
 	const triggerTitle = intl.formatMessage(messages.syncedLocationDropdownTitle);
 	const [isOpen, setIsOpen] = useState(false);
+	const [fitHeight, setFitHeight] = useState<number>();
 
 	const content = isOpen ? (
 		<DropdownContent
@@ -676,10 +687,12 @@ const EditorPositionedSyncedLocationDropdown = ({
 	) : null;
 
 	const toggleOpen = useCallback(() => {
+		setFitHeight(undefined);
 		setIsOpen((currentIsOpen) => !currentIsOpen);
 	}, []);
 
 	const closeDropdown = useCallback(() => {
+		setFitHeight(undefined);
 		setIsOpen(false);
 	}, []);
 
@@ -719,6 +732,7 @@ const EditorPositionedSyncedLocationDropdown = ({
 		<DropdownContainer
 			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
 			isOpen={isOpen}
+			fitHeight={fitHeight}
 			trigger={trigger}
 			handleClickOutside={closeDropdown}
 			handleEscapeKeydown={closeDropdown}
@@ -728,7 +742,11 @@ const EditorPositionedSyncedLocationDropdown = ({
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{ type: ArrowKeyNavigationType.MENU }}
 		>
-			{content}
+			{isExperimentEnabled('platform_editor_blocks_patch_12') ? (
+				<MeasuredDropdownContent onHeightChange={setFitHeight}>{content}</MeasuredDropdownContent>
+			) : (
+				content
+			)}
 		</DropdownContainer>
 	);
 };
@@ -744,6 +762,7 @@ export const SyncedLocationDropdownWithCount = ({
 	floatingToolbarRenderContext,
 }: Props): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [fitHeight, setFitHeight] = useState<number>();
 	const { fetchStatus, locations } = useReferenceData({
 		intl,
 		isSource,
@@ -775,10 +794,12 @@ export const SyncedLocationDropdownWithCount = ({
 	) : null;
 
 	const toggleOpen = useCallback(() => {
+		setFitHeight(undefined);
 		setIsOpen((currentIsOpen) => !currentIsOpen);
 	}, []);
 
 	const closeDropdown = useCallback(() => {
+		setFitHeight(undefined);
 		setIsOpen(false);
 	}, []);
 
@@ -825,6 +846,7 @@ export const SyncedLocationDropdownWithCount = ({
 			alignX="left"
 			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
 			isOpen={isOpen}
+			fitHeight={fitHeight}
 			trigger={trigger}
 			handleClickOutside={closeDropdown}
 			handleEscapeKeydown={closeDropdown}
@@ -834,7 +856,11 @@ export const SyncedLocationDropdownWithCount = ({
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{ type: ArrowKeyNavigationType.MENU }}
 		>
-			{content}
+			{isExperimentEnabled('platform_editor_blocks_patch_12') ? (
+				<MeasuredDropdownContent onHeightChange={setFitHeight}>{content}</MeasuredDropdownContent>
+			) : (
+				content
+			)}
 		</DropdownContainer>
 	);
 };
@@ -842,7 +868,9 @@ export const SyncedLocationDropdownWithCount = ({
 type SourceInfoMap = Map<string, SyncBlockSourceInfo[]>;
 
 const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, api }: Props) => {
-	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('none');
+	const [fetchStatus, setFetchStatus] = useState<FetchStatus>(() =>
+		isExperimentEnabled('platform_editor_blocks_patch_12') ? 'loading' : 'none',
+	);
 	const [locations, setLocations] = useState<SyncedLocations>(EMPTY_LOCATIONS);
 
 	useEffect(() => {

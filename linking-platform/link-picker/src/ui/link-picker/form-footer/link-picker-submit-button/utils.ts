@@ -1,5 +1,4 @@
 import { normalizeUrl } from '@atlaskit/linking-common/url';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type LinkPickerState, type LinkSearchListItemData } from '../../../../common/types';
 
@@ -22,24 +21,22 @@ export const checkSubmitDisabled = (
 	if (isSubmitting) {
 		return true;
 	}
-	if (fg('add-disable-manual-url-capability-technical')) {
-		/*
-		 * Check isLoading/error before disableManualUrlInsert so that stale items
-		 * from a previous search do not accidentally enable the button during an
-		 * in-flight request or an error state.
-		 */
-		if (isLoading || error) {
-			return true;
-		}
+	/*
+	 * Check isLoading/error before disableManualUrlInsert so that stale items
+	 * from a previous search do not accidentally enable the button during an
+	 * in-flight request or an error state.
+	 */
+	if (isLoading || error) {
+		return true;
+	}
 
-		/*
-		 * When disableManualUrlInsert is true, disable insert unless a result has been
-		 * selected from the list (i.e. items are present and queryState is set).
-		 * This prevents the user from manually typing a URL to bypass the restriction.
-		 */
-		if (disableManualUrlInsert) {
-			return !(queryState && items && items.length > 0);
-		}
+	/*
+	 * When disableManualUrlInsert is true, disable insert unless a result has been
+	 * selected from the list (i.e. items are present and queryState is set).
+	 * This prevents the user from manually typing a URL to bypass the restriction.
+	 */
+	if (disableManualUrlInsert) {
+		return !(queryState && items && items.length > 0);
 	}
 
 	/*
@@ -58,14 +55,6 @@ export const checkSubmitDisabled = (
 	 * but not if it is a valid url
 	 */
 	if (queryState && items?.length === 0) {
-		return true;
-	}
-
-	/*
-	 * Disable insert button when plugin is loading or for any search error.
-	 * When the gate is on, this is already handled earlier in the function.
-	 */
-	if (!fg('add-disable-manual-url-capability-technical') && (isLoading || error)) {
 		return true;
 	}
 

@@ -4,9 +4,10 @@ import { getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { DOMSerializer, Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { clipboardPluginKey } from './plugin-key';
 
@@ -110,6 +111,27 @@ export const createClipboardSerializer = (
 			return originalSerializeFragment(newContent, options, target);
 		}
 
+		// Remove annotations from extension nodes (e.g. MAUI charts) when copying to clipboard, matching media below.
+		// The annotation mark lives on the extension node itself, so strip it from the fragment's children.
+		if (
+			lastEventType === ClipboardEventType.COPY &&
+			fg('cc_maui_annotations_on_extensions') &&
+			hasAnnotatedExtension(content)
+		) {
+			const contentArray: PMNode[] = [];
+			content.forEach((node) => {
+				contentArray.push(
+					node.type.name === 'extension'
+						? node.mark(node.marks.filter((mark) => mark.type.name !== 'annotation'))
+						: node,
+				);
+			});
+			const newContent = Fragment.fromArray(contentArray);
+			// Currently incorrectly typed, see comment above
+			// @ts-ignore
+			return originalSerializeFragment(newContent, options, target);
+		}
+
 		// Remove annotations from media nodes when copying to clipboard, only do this for copy operations
 		// and keep existing content nodes from the parent.
 
@@ -141,6 +163,19 @@ export const createClipboardSerializer = (
 		return originalSerializeFragment(content, options, target);
 	};
 	return newSerializer;
+};
+
+const hasAnnotatedExtension = (content: Fragment): boolean => {
+	let found = false;
+	content.forEach((node) => {
+		if (
+			node.type.name === 'extension' &&
+			node.marks.some((mark) => mark.type.name === 'annotation')
+		) {
+			found = true;
+		}
+	});
+	return found;
 };
 
 export const sendClipboardAnalytics = (

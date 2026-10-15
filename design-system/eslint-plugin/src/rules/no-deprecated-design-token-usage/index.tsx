@@ -1,9 +1,11 @@
 import type { Rule } from 'eslint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
+import tokens from '@atlaskit/tokens/token-names';
 import { getTokenId } from '@atlaskit/tokens/utils/get-token-id';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { getPrimitiveTokenUsage } from '../utils/get-primitive-token-usage';
 
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
@@ -22,64 +24,63 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 	},
 	create(context) {
+		const deprecatedTokens = new Map(
+			renameMapping.filter((t) => t.state === 'deprecated').map((t) => [getTokenId(t.path), t]),
+		);
+		const reportDeprecation = (
+			tokenKey: string,
+			node: Rule.Node,
+			argument: Rule.Node,
+			getReplacementValue?: (name: string) => string | undefined,
+		) => {
+			const migrationMeta = deprecatedTokens.get(tokenKey);
+			if (!migrationMeta) {
+				return;
+			}
+
+			if (migrationMeta.replacement) {
+				const replacement = getTokenId(migrationMeta.replacement);
+				const value = getReplacementValue
+					? replacement in tokens
+						? getReplacementValue(replacement)
+						: undefined
+					: replacement;
+				context.report({
+					messageId: 'tokenRenamed',
+					node,
+					data: { name: tokenKey, replacement },
+					suggest: value
+						? [
+								{
+									desc: `Replace with '${value}'`,
+									fix: (fixer) => fixer.replaceText(argument, `'${value}'`),
+								},
+							]
+						: undefined,
+				});
+			} else {
+				context.report({
+					messageId: 'tokenDeprecated',
+					node,
+					data: { name: tokenKey },
+				});
+			}
+		};
+
 		return {
+			JSXAttribute: (node: Rule.Node) => {
+				const usage = getPrimitiveTokenUsage(node, context);
+				if (usage) {
+					reportDeprecation(usage.tokenName, usage.node, usage.node, usage.getReplacementValue);
+				}
+			},
 			'CallExpression[callee.name="token"]': (node: Rule.Node) => {
-				if (node.type !== 'CallExpression') {
+				if (node.type !== 'CallExpression' || node.arguments[0]?.type !== 'Literal') {
 					return;
 				}
-
-				if (node.arguments[0].type !== 'Literal') {
-					return;
-				}
-
 				const tokenKey = node.arguments[0].value;
-
-				if (!tokenKey) {
-					return;
-				}
-
-				if (typeof tokenKey !== 'string') {
-					return;
-				}
-
-				const migrationMeta = renameMapping
-					.filter((t) => t.state === 'deprecated')
-					.find((t) => getTokenId(t.path) === tokenKey);
-
-				if (!migrationMeta) {
-					return;
-				}
-
-				if (migrationMeta.replacement) {
-					// Replacement specified, apply fixer
-					const replacement = getTokenId(migrationMeta.replacement);
-
-					context.report({
-						messageId: 'tokenRenamed',
-						node,
-						data: {
-							name: tokenKey,
-							replacement,
-						},
-						suggest: [
-							{
-								desc: `Replace with '${replacement}'`,
-								fix: (fixer) => fixer.replaceText(node.arguments[0], `'${replacement}'`),
-							},
-						],
-					});
-					return;
-				}
-
-				// No replacement specified
-				if (migrationMeta.state === 'deprecated' && !migrationMeta.replacement) {
-					context.report({
-						messageId: 'tokenDeprecated',
-						node,
-						data: { name: tokenKey },
-					});
-
-					return;
+				if (typeof tokenKey === 'string') {
+					reportDeprecation(tokenKey, node, node.arguments[0] as Rule.Node);
 				}
 			},
 		};

@@ -8,8 +8,7 @@ import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import type { CustomPopperProps, PopperChildrenProps } from '@atlaskit/popper/main';
 import * as popperModule from '@atlaskit/popper/main';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import {
 	act,
 	createEvent,
@@ -1043,7 +1042,7 @@ describe('PanelSplitter', () => {
 		).toBeInTheDocument();
 	});
 
-	ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+	describe('tooltip', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
 		});
@@ -1106,29 +1105,36 @@ describe('PanelSplitter', () => {
 
 		describe('transform value handling', () => {
 			const originalPopper = popperModule.Popper;
-			const popperSpy = jest.spyOn(popperModule, 'Popper');
-
 			let transform = 'translate3d(0px, 0px, 0px)';
-			popperSpy.mockImplementation((props: CustomPopperProps<unknown>) => {
-				const children = props.children;
-				if (!children) {
-					return originalPopper(props);
-				}
-				return originalPopper({
-					...props,
-					children: (childProps: PopperChildrenProps) =>
-						children({
-							...childProps,
-							style: {
-								...childProps.style,
+			let popperSpy: jest.SpyInstance;
 
-								transform,
-							},
-						}),
-				});
+			// The spy must be set up per test, as mocks are restored between tests.
+			beforeEach(() => {
+				// The transform adjustment only applies to Popper-positioned tooltips, which are not used by top layer tooltips.
+				failGate('platform-dst-top-layer-tooltip');
+				popperSpy = jest
+					.spyOn(popperModule, 'Popper')
+					.mockImplementation((props: CustomPopperProps<unknown>) => {
+						const children = props.children;
+						if (!children) {
+							return originalPopper(props);
+						}
+						return originalPopper({
+							...props,
+							children: (childProps: PopperChildrenProps) =>
+								children({
+									...childProps,
+									style: {
+										...childProps.style,
+
+										transform,
+									},
+								}),
+						});
+					});
 			});
 
-			afterAll(() => {
+			afterEach(() => {
 				popperSpy.mockRestore();
 			});
 

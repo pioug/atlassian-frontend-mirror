@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -21,18 +20,16 @@ export const aiGeneratingDecorationPluginKey: PluginKey = new PluginKey('aiGener
 
 // ── Types ───────────────────────────────────────────────────────────────────
 
-export type AIGeneratingSource = 'cwr' | 'maui';
-
 export type AIGeneratingAction =
-	| { mediaId: string; source?: AIGeneratingSource; type: 'SET_GENERATING' }
+	| { mediaId: string; type: 'SET_GENERATING' }
 	| { mediaId: string; type: 'CLEAR_GENERATING' }
 	| { type: 'CLEAR_ALL' };
 
 interface AIGeneratingDecorationState {
 	/** The decoration set applied to the editor view */
 	decorationSet: DecorationSet;
-	/** Map of media node IDs currently in AI-generating state to their source */
-	generatingMediaIds: Map<string, AIGeneratingSource>;
+	/** Set of media node IDs currently in AI-generating state */
+	generatingMediaIds: Set<string>;
 }
 
 const AI_GENERATING_DECORATION_TYPE = 'ai-generating';
@@ -46,13 +43,9 @@ const AI_GENERATING_DECORATION_TYPE = 'ai-generating';
  * Targets are matched by `localId` first (the mediaSingle wrapper's or the media
  * node's own) so that duplicate copies of the same image — which share a media
  * file `id` — don't all get decorated; only the node the user acted on lights
- * up. Falls back to the media file `id` for the CWR flow and for any node that
- * has no localId yet.
+ * up. Falls back to the media file `id` for nodes that have no localId yet.
  */
-function buildDecorationSet(
-	doc: EditorState['doc'],
-	targetIds: Map<string, AIGeneratingSource>,
-): DecorationSet {
+function buildDecorationSet(doc: EditorState['doc'], targetIds: Set<string>): DecorationSet {
 	if (targetIds.size === 0) {
 		return DecorationSet.empty;
 	}
@@ -65,18 +58,18 @@ function buildDecorationSet(
 		}
 
 		const wrapperLocalId = parent?.attrs?.localId;
-		const source =
-			(wrapperLocalId && targetIds.get(wrapperLocalId)) ||
-			(node.attrs.localId && targetIds.get(node.attrs.localId)) ||
-			targetIds.get(node.attrs.id);
+		const isTarget =
+			(wrapperLocalId && targetIds.has(wrapperLocalId)) ||
+			(node.attrs.localId && targetIds.has(node.attrs.localId)) ||
+			targetIds.has(node.attrs.id);
 
-		if (source) {
+		if (isTarget) {
 			decorations.push(
 				Decoration.node(
 					pos,
 					pos + node.nodeSize,
 					{}, // no DOM attrs needed — the NodeView reads the decoration spec
-					{ type: AI_GENERATING_DECORATION_TYPE, mediaId: node.attrs.id, source },
+					{ type: AI_GENERATING_DECORATION_TYPE, mediaId: node.attrs.id },
 				),
 			);
 		}
@@ -97,17 +90,6 @@ export function hasAIGeneratingDecoration(decorations: readonly Decoration[]): b
 }
 
 /**
- * Returns the `source` of the AI-generating decoration present on the given
- * decorations array, or `undefined` if there is none. Lets a NodeView vary its
- * rendering by which flow (e.g. `'cwr'`) triggered the generating state.
- */
-export function getAIGeneratingDecorationSource(
-	decorations: readonly Decoration[],
-): AIGeneratingSource | undefined {
-	return decorations.find((d) => d.spec.type === AI_GENERATING_DECORATION_TYPE)?.spec.source;
-}
-
-/**
  * Dispatch a transaction that sets the AI-generating decoration on a media
  * node identified by `mediaId`.
  *
@@ -118,16 +100,11 @@ export function getAIGeneratingDecorationSource(
  * );
  * ```
  */
-export function setAIGeneratingMeta(
-	tr: Transaction,
-	mediaId: string,
-	source?: AIGeneratingSource,
-): Transaction {
+export function setAIGeneratingMeta(tr: Transaction, mediaId: string): Transaction {
 	return tr
 		.setMeta(aiGeneratingDecorationPluginKey, {
 			type: 'SET_GENERATING',
 			mediaId,
-			source,
 		} satisfies AIGeneratingAction)
 		.setMeta('addToHistory', false);
 }
@@ -155,7 +132,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 		state: {
 			init(): AIGeneratingDecorationState {
 				return {
-					generatingMediaIds: new Map(),
+					generatingMediaIds: new Set(),
 					decorationSet: DecorationSet.empty,
 				};
 			},
@@ -165,7 +142,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 				if (!fg('cc-maui-phase-2') || !expValEquals('cc-maui-experiment', 'isEnabled', true)) {
 					if (pluginState.generatingMediaIds.size > 0) {
 						return {
-							generatingMediaIds: new Map(),
+							generatingMediaIds: new Set(),
 							decorationSet: DecorationSet.empty,
 						};
 					}
@@ -177,68 +154,31 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 				if (meta) {
 					switch (meta.type) {
 						case 'SET_GENERATING': {
-							const ids = new Map(pluginState.generatingMediaIds);
-							ids.set(meta.mediaId, meta.source ?? 'maui');
-							const hasCwrIds =
-								isExperimentEnabled('aifc_page_create_with_rovo_include_infographics') &&
-								[...ids.values()].some((s) => s === 'cwr');
-							const newDecoSet = buildDecorationSet(newState.doc, ids);
-
-							if (hasCwrIds && newDecoSet.find().length === 0 && ids.size > 0) {
-								// CWR fallback — keep existing decorations during transient doc absence
-								return { generatingMediaIds: ids, decorationSet: pluginState.decorationSet };
-							}
-							return { generatingMediaIds: ids, decorationSet: newDecoSet };
+							const ids = new Set(pluginState.generatingMediaIds);
+							ids.add(meta.mediaId);
+							return {
+								generatingMediaIds: ids,
+								decorationSet: buildDecorationSet(newState.doc, ids),
+							};
 						}
 
 						case 'CLEAR_GENERATING': {
-							const ids = new Map(pluginState.generatingMediaIds);
+							const ids = new Set(pluginState.generatingMediaIds);
 							ids.delete(meta.mediaId);
-
-							const hasCwrIds =
-								isExperimentEnabled('aifc_page_create_with_rovo_include_infographics') &&
-								[...ids.values()].some((s) => s === 'cwr');
-							const newDecoSet = buildDecorationSet(newState.doc, ids);
-
-							if (hasCwrIds && newDecoSet.find().length === 0) {
-								// CWR fallback — keep existing decorations during transient doc absence
-								return { generatingMediaIds: ids, decorationSet: pluginState.decorationSet };
-							}
-							return { generatingMediaIds: ids, decorationSet: newDecoSet };
+							return {
+								generatingMediaIds: ids,
+								decorationSet: buildDecorationSet(newState.doc, ids),
+							};
 						}
 
 						case 'CLEAR_ALL':
 							return {
-								generatingMediaIds: new Map(),
+								generatingMediaIds: new Set(),
 								decorationSet: DecorationSet.empty,
 							};
 					}
 				}
 
-				// CWR path
-				// Rebuild decorations from scratch because CWR streaming replaces the
-				// entire document on every chunk and map() drops decorations whose
-				// positions can't be mapped.
-				const hasCwrIds =
-					isExperimentEnabled('aifc_page_create_with_rovo_include_infographics') &&
-					[...pluginState.generatingMediaIds.values()].some((s) => s === 'cwr');
-				if (tr.docChanged && hasCwrIds) {
-					const rebuilt = buildDecorationSet(newState.doc, pluginState.generatingMediaIds);
-					const prevCount = pluginState.decorationSet.find().length;
-					const newCount = rebuilt.find().length;
-
-					// Prevents flickering that results from updating during transient
-					// doc replacements (when nodes are briefly absent)
-					if (newCount !== prevCount && newCount >= pluginState.generatingMediaIds.size) {
-						return {
-							...pluginState,
-							decorationSet: rebuilt,
-						};
-					}
-					return pluginState;
-				}
-
-				// Remix path
 				// Map decorations through document changes so positions stay in sync
 				if (tr.docChanged && pluginState.decorationSet !== DecorationSet.empty) {
 					try {
@@ -248,7 +188,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 						};
 					} catch {
 						return {
-							generatingMediaIds: new Map(),
+							generatingMediaIds: new Set(),
 							decorationSet: DecorationSet.empty,
 						};
 					}

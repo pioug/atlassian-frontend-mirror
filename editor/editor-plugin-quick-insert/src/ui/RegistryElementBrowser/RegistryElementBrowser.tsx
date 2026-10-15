@@ -9,14 +9,16 @@ import { useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
+import { useQuickInsertSearchAnalytics } from '@atlaskit/editor-common/quick-insert/use-search-analytics';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import type { RegisterComponent, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
@@ -33,6 +35,7 @@ import {
 	createRegistryElementBrowserModel,
 	getInitialRegistryElementBrowserSection,
 	getRegistryElementBrowserItems,
+	type RegistryElementBrowserItem,
 } from './model';
 import { RegistryElementBrowserCategories } from './RegistryElementBrowserCategories';
 import { RegistryElementBrowserFooter } from './RegistryElementBrowserFooter';
@@ -43,6 +46,7 @@ type Props = {
 	defaultSection?: string;
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
+	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
 	helpUrl?: string;
 	isLoading?: boolean;
 	isOffline: boolean;
@@ -52,6 +56,14 @@ type Props = {
 	onCloseComplete: () => void;
 	onConfirmInsert: () => void;
 	onSelect: (handler: QuickInsertSelectionHandler) => void;
+};
+
+type BrowserState = {
+	invalidation?: { section?: string; selection: boolean };
+	query: string;
+	section?: string;
+	selectedRegistration?: RegisterMenuItem;
+	selectionIsOffline?: boolean;
 };
 
 const browserGridTemplateColumns = '182px minmax(0, 1fr)';
@@ -86,6 +98,8 @@ const headerSearchStyles = css({
 	width: '100%',
 });
 
+const EMPTY_ITEMS: RegistryElementBrowserItem[] = [];
+
 const resultsId = 'registry-element-browser-results';
 const modalTestId = 'registry-element-browser-modal';
 
@@ -100,6 +114,7 @@ const getRenderedColumnCount = (options: HTMLElement[]): number => {
 export const RegistryElementBrowser = ({
 	components,
 	emptyStateHandler,
+	fireAnalyticsEvent,
 	defaultSection,
 	helpUrl,
 	editorView,
@@ -113,85 +128,180 @@ export const RegistryElementBrowser = ({
 	onSelect,
 }: Props): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
-	const model = useMemo(
-		() =>
-			createRegistryElementBrowserModel(components, {
-				footerKey: getMenuFooterSectionKey(MENU.key),
-				overflowKeys: new Set(
-					components
-						.filter((component) => component.type === 'menu-section')
-						.map((component) => getSectionOverflowItemKey(component.key)),
-				),
-				recommendedSectionKey: RECOMMENDED_SECTION.key,
-				rootKey: MENU.key,
+	const [browserState, setBrowserState] = useState<BrowserState>({
+		query: '',
+		section: defaultSection,
+	});
+	const { query, section, selectedRegistration } = browserState;
+	const selectedRegistrationRef = useRef<RegisterMenuItem | undefined>(undefined);
+	const browserModel = useMemo(() => {
+		const model = createRegistryElementBrowserModel(components, {
+			footerKey: getMenuFooterSectionKey(MENU.key),
+			overflowKeys: new Set(
+				components
+					.filter((component) => component.type === 'menu-section')
+					.map((component) => getSectionOverflowItemKey(component.key)),
+			),
+			recommendedSectionKey: RECOMMENDED_SECTION.key,
+			rootKey: MENU.key,
+		});
+		const effectiveSection =
+			section && model.sections.some(({ key }) => key === section) ? section : undefined;
+		return {
+			model,
+			effectiveSection,
+			items: getRegistryElementBrowserItems({
+				formatMessage,
+				model,
+				query,
+				section: effectiveSection,
 			}),
-		[components],
+		};
+	}, [components, formatMessage, query, section]);
+	const { model, effectiveSection, items } = browserModel;
+	const visibleItems =
+		items.length === 0 && !isLoading && query.trim().length > 0
+			? (model.fallbackItems ?? EMPTY_ITEMS)
+			: items;
+	const isSelectedRegistrationCurrent = Boolean(
+		selectedRegistration &&
+		browserState.selectionIsOffline === isOffline &&
+		visibleItems.some(({ registration }) => registration === selectedRegistration),
 	);
-	const [query, setQuery] = useState('');
-	const [section, setSection] = useState<string | undefined>(() =>
-		getInitialRegistryElementBrowserSection(model, defaultSection),
-	);
-	const [selectedKey, setSelectedKey] = useState<string>();
+	const selectedKey = isSelectedRegistrationCurrent ? selectedRegistration?.key : undefined;
+	const invalidSection = Boolean(section && section !== effectiveSection);
+	const invalidSelection = Boolean(selectedRegistration && !isSelectedRegistrationCurrent);
+	if (isOpen && (invalidSection || invalidSelection)) {
+		setBrowserState({
+			...browserState,
+			section: effectiveSection,
+			selectedRegistration: undefined,
+			selectionIsOffline: undefined,
+			invalidation: { section: invalidSection ? section : undefined, selection: invalidSelection },
+		});
+	}
 	const searchInputRef = useRef<HTMLInputElement>(null);
 	const selectedCategoryRef = useRef<HTMLButtonElement>(null);
+	const focusedCategoryRef = useRef<string | undefined>();
+	const handledInvalidationRef = useRef(browserState.invalidation);
 	const wasOpen = useRef(false);
-	const previousIsOffline = useRef(isOffline);
 
 	useEffect(() => {
 		if (isOpen && !wasOpen.current) {
-			setQuery('');
-			setSection(getInitialRegistryElementBrowserSection(model, defaultSection));
-			// This clears local visual state and the parent-held insertion handler together.
-			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates
-			setSelectedKey(undefined);
+			selectedRegistrationRef.current = undefined;
+			setBrowserState({
+				query: '',
+				section: getInitialRegistryElementBrowserSection(model, defaultSection),
+				selectedRegistration: undefined,
+			});
 			onClearSelection();
 		}
 		wasOpen.current = isOpen;
 	}, [defaultSection, isOpen, model, onClearSelection]);
-	const items = useMemo(
-		() =>
-			getRegistryElementBrowserItems({
-				formatMessage,
-				model,
-				query,
-				section,
-			}),
-		[formatMessage, model, query, section],
-	);
+	useEffect(() => {
+		const invalidation = browserState.invalidation;
+		if (!isOpen || !invalidation || handledInvalidationRef.current === invalidation) {
+			return;
+		}
+		handledInvalidationRef.current = invalidation;
+		selectedRegistrationRef.current = undefined;
+		onClearSelection();
+		const ownerDocument = searchInputRef.current?.ownerDocument;
+		const activeElement = ownerDocument?.activeElement;
+		if (
+			invalidation.section &&
+			focusedCategoryRef.current === invalidation.section &&
+			activeElement === ownerDocument?.body
+		) {
+			selectedCategoryRef.current?.focus();
+		} else if (
+			invalidation.selection &&
+			(activeElement === ownerDocument?.body || activeElement?.closest('[role="option"]'))
+		) {
+			searchInputRef.current?.focus();
+		}
+	}, [browserState.invalidation, isOpen, onClearSelection]);
+
 	const resultCount =
 		items.length || (!isLoading && query.trim() ? (model.fallbackItems?.length ?? 0) : 0);
-	useEffect(() => {
-		if (previousIsOffline.current !== isOffline) {
-			setSelectedKey(undefined);
-			onClearSelection();
-		}
-		previousIsOffline.current = isOffline;
-	}, [isOffline, onClearSelection]);
+	const flushSearchAnalytics = useQuickInsertSearchAnalytics({
+		query,
+		resultCount: items.length,
+		surface: 'element-browser',
+		category: effectiveSection ?? 'all',
+		isOpen: isOpen && !isLoading,
+		fireAnalyticsEvent,
+	});
+	const closeBrowser = useCallback(() => {
+		flushSearchAnalytics();
+		onClose();
+	}, [flushSearchAnalytics, onClose]);
+
+	const onSearchFocus = useCallback(() => {
+		focusedCategoryRef.current = undefined;
+	}, []);
+	const onBrowserFocusCapture = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
+		const categories = event.currentTarget.querySelector(
+			'[data-testid="registry-element-browser-categories"]',
+		);
+		const category =
+			event.target instanceof HTMLElement && categories?.contains(event.target)
+				? event.target.closest<HTMLElement>('[data-section]')
+				: null;
+		focusedCategoryRef.current = category ? (category.dataset.section ?? '') : undefined;
+	}, []);
 
 	const onSearchChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
-			setQuery(event.currentTarget.value);
-			setSelectedKey(undefined);
+			const nextQuery = event.currentTarget.value;
+			selectedRegistrationRef.current = undefined;
+			setBrowserState((current) => ({
+				...current,
+				query: nextQuery,
+				selectedRegistration: undefined,
+			}));
 			onClearSelection();
 		},
 		[onClearSelection],
 	);
 	const onSectionClick = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>) => {
-			setQuery('');
-			setSection(event.currentTarget.dataset.section || undefined);
-			setSelectedKey(undefined);
+			const nextSection = event.currentTarget.dataset.section || undefined;
+			selectedRegistrationRef.current = undefined;
+			setBrowserState({
+				query: '',
+				section: nextSection,
+				selectedRegistration: undefined,
+			});
 			onClearSelection();
 		},
 		[onClearSelection],
 	);
 	const onRegistrySelect = useCallback(
 		(key: string, handler: QuickInsertSelectionHandler) => {
-			setSelectedKey(key);
+			const registration = model.items.find(
+				({ registration }) => registration.key === key,
+			)?.registration;
+			selectedRegistrationRef.current = registration;
+			setBrowserState((current) => ({
+				...current,
+				selectedRegistration: registration,
+				selectionIsOffline: isOffline,
+			}));
 			onSelect(handler);
 		},
-		[onSelect],
+		[isOffline, model.items, onSelect],
 	);
+	const confirmInsert = useCallback(() => {
+		const selectedRegistration = selectedRegistrationRef.current;
+		if (
+			!selectedRegistration ||
+			!visibleItems.some(({ registration }) => registration === selectedRegistration)
+		) {
+			return;
+		}
+		onConfirmInsert();
+	}, [onConfirmInsert, visibleItems]);
 	const onModalOpenComplete = useCallback((node: HTMLElement) => {
 		node.style.borderRadius = token('radius.large', '8px');
 		const footer = node.querySelector<HTMLElement>(`[data-testid="${modalTestId}--footer"]`);
@@ -268,7 +378,7 @@ export const RegistryElementBrowser = ({
 
 			if (event.key === 'Escape') {
 				event.preventDefault();
-				onClose();
+				closeBrowser();
 				return;
 			}
 
@@ -283,16 +393,16 @@ export const RegistryElementBrowser = ({
 						'[role="option"]:not([aria-disabled="true"]):not([disabled])',
 					);
 				const optionToActivate = focusedOption ?? firstOption;
-				if (selectedKey || optionToActivate) {
+				if (isSelectedRegistrationCurrent || optionToActivate) {
 					event.preventDefault();
-					if (!selectedKey) {
+					if (!isSelectedRegistrationCurrent) {
 						optionToActivate?.click();
 					}
-					onConfirmInsert();
+					confirmInsert();
 				}
 			}
 		},
-		[onClose, onConfirmInsert, selectedKey],
+		[closeBrowser, confirmInsert, isSelectedRegistrationCurrent],
 	);
 
 	return (
@@ -304,7 +414,7 @@ export const RegistryElementBrowser = ({
 						id: 'editor.quick-insert.title',
 					})}
 					height="664px"
-					onClose={onClose}
+					onClose={closeBrowser}
 					onCloseComplete={onCloseComplete}
 					onOpenComplete={onModalOpenComplete}
 					testId={modalTestId}
@@ -337,6 +447,7 @@ export const RegistryElementBrowser = ({
 									})}
 									isCompact
 									name="registry-element-browser-search"
+									onFocus={onSearchFocus}
 									onChange={onSearchChange}
 									onKeyDown={onKeyDown}
 									ref={searchInputRef}
@@ -346,16 +457,16 @@ export const RegistryElementBrowser = ({
 									appearance="subtle"
 									icon={CrossIcon}
 									label={formatMessage(messages.close)}
-									onClick={onClose}
+									onClick={closeBrowser}
 									spacing="compact"
 								/>
 							</div>
 						</div>
 					</ModalHeader>
 					<ModalBody>
-						<div css={browserLayoutStyles}>
+						<div css={browserLayoutStyles} onFocusCapture={onBrowserFocusCapture}>
 							<RegistryElementBrowserCategories
-								section={section}
+								section={effectiveSection}
 								sections={model.sections}
 								onSectionClick={onSectionClick}
 								selectedButtonRef={selectedCategoryRef}
@@ -369,7 +480,7 @@ export const RegistryElementBrowser = ({
 								fallbackItems={model.fallbackItems}
 								query={query}
 								resultsId={resultsId}
-								section={section}
+								section={effectiveSection}
 								selectedKey={selectedKey}
 								onKeyDown={onKeyDown}
 								onSelect={onRegistrySelect}
@@ -379,9 +490,9 @@ export const RegistryElementBrowser = ({
 					<ModalFooter>
 						<RegistryElementBrowserFooter
 							helpUrl={helpUrl}
-							isInsertEnabled={Boolean(selectedKey)}
-							onClose={onClose}
-							onConfirmInsert={onConfirmInsert}
+							isInsertEnabled={isSelectedRegistrationCurrent}
+							onClose={closeBrowser}
+							onConfirmInsert={confirmInsert}
 							resultCount={resultCount}
 						/>
 					</ModalFooter>

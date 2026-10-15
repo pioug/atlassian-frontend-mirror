@@ -5,6 +5,14 @@ import { createSpacingStylesMap, type SpacingProperty } from './create-spacing-s
 import { positiveSpaceMap, type Space } from './positive-space';
 
 export const paddingStylesMap: Record<
-	SpacingProperty,
+	Exclude<SpacingProperty, 'gap' | 'rowGap' | 'columnGap'>,
 	Record<Space, SerializedStyles>
-> = createSpacingStylesMap(positiveSpaceMap);
+> = createSpacingStylesMap(positiveSpaceMap, [
+	'padding',
+	'paddingBlock',
+	'paddingBlockStart',
+	'paddingBlockEnd',
+	'paddingInline',
+	'paddingInlineStart',
+	'paddingInlineEnd',
+]);

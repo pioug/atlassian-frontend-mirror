@@ -1,5 +1,19 @@
 # @atlaskit/editor-synced-block-provider
 
+## 23.1.0
+
+### Minor Changes
+
+- [`bf97ae26b480d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf97ae26b480d) -
+  Add a `sourceLocation` analytics attribute (`description` | `custom-field`) to synced block create
+  and get-source-info events for Jira sources, behind the `platform_editor_blocks_patch_13` feature
+  gate and the `editor_synced_blocks_jira_custom_rich_text` experiment. With the gate off, events
+  are unchanged. Add an optional `getParentAri()` method to the synced block data provider.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.5
 
 ### Patch Changes

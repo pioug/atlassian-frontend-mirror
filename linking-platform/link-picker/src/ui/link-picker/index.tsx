@@ -26,7 +26,6 @@ import { cssMap } from '@atlaskit/css';
 import CardClient from '@atlaskit/link-provider/client';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled';
 import LinkUrl from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
@@ -179,11 +178,8 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 			recentSearchListSize,
 			shouldRenderNoResultsImage,
 			alwaysShowTabs,
-			disableManualUrlInsert: disableManualUrlInsertProp = false,
+			disableManualUrlInsert = false,
 		}: LinkPickerProps) => {
-			const disableManualUrlInsert =
-				fg('add-disable-manual-url-capability-technical') && disableManualUrlInsertProp;
-
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
 			const linkInputRef = React.useRef<HTMLInputElement>(null);

@@ -16,8 +16,8 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { type GapSpace } from '../xcss/gap-space';
 import { parseXcss } from '../xcss/parse-xcss';
-import { type Space } from '../xcss/positive-space';
 import { spaceStylesMap } from '../xcss/space-styles-map';
 import type { BasePrimitiveProps } from './types';
 
@@ -40,17 +40,17 @@ export type FlexProps<T extends ElementType = 'div'> = {
 	/**
 	 * Represents the space between each child.
 	 */
-	columnGap?: Space;
+	columnGap?: GapSpace;
 
 	/**
 	 * Represents the space between each child.
 	 */
-	gap?: Space;
+	gap?: GapSpace;
 
 	/**
 	 * Represents the space between each child.
 	 */
-	rowGap?: Space;
+	rowGap?: GapSpace;
 
 	/**
 	 * Represents the flex direction property of CSS flexbox.

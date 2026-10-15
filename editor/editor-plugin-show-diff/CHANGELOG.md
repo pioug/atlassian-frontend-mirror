@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 25.0.6
+
+### Patch Changes
+
+- [`8843fc489d5a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8843fc489d5a6) -
+  EDITOR-9591 Behind platform_editor_ai_show_diff_patch_2, highlight inserted inline nodes as a
+  whole instead of the text inside them, and only outline an inserted atomic inline node (date,
+  emoji, mention, status) when its attributes are the only change
+  (platform_editor_show_diff_deleted_nodeview_content)
+- Updated dependencies
+
 ## 25.0.5
 
 ### Patch Changes

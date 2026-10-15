@@ -46,7 +46,7 @@ import type { IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import type { DatasourceTableSortState } from '../issue-like-table/types';
 import { TableFooter } from '../table-footer';
 import { getDatasourceColumnSortGetter } from './datasource-column-sort';
-import { type DatasourceTableViewProps } from './types';
+import { type DatasourceTableRequestSettledResult, type DatasourceTableViewProps } from './types';
 
 const containerStyles = css({
 	borderRadius: 'inherit',
@@ -66,6 +66,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	onWrappedColumnChange,
 	onWrappedColumnsChange,
 	scrollableContainerHeight = DefaultScrollableContainerHeight,
+	onRequestSettled,
 }: DatasourceTableViewProps) => {
 	// Local copy lets us apply in-session sort mutations without mutating external parameters.
 	const [sessionParameters, setSessionParameters] = useState(parameters);
@@ -164,6 +165,39 @@ const DatasourceTableViewWithoutAnalytics = ({
 			});
 		}
 	}, [totalCount, fireEvent, status, extensionKey, destinationObjectTypes, isDataReady]);
+
+	// Last outcome reported to `onRequestSettled`, cleared while a request is in flight so every
+	// settled request is reported exactly once.
+	const lastSettledResultRef = useRef<DatasourceTableRequestSettledResult | null>(null);
+
+	useEffect(() => {
+		if (!fg('platform_lp_sllv_on_request_settled')) {
+			return;
+		}
+
+		if (
+			status !== 'resolved' &&
+			status !== 'rejected' &&
+			status !== 'unauthorized' &&
+			status !== 'forbidden'
+		) {
+			lastSettledResultRef.current = null;
+			return;
+		}
+
+		const result: DatasourceTableRequestSettledResult = {
+			itemCount: responseItems.length,
+			status,
+			totalCount,
+		};
+
+		if (isEqual(lastSettledResultRef.current, result)) {
+			return;
+		}
+
+		lastSettledResultRef.current = result;
+		onRequestSettled?.(result);
+	}, [status, responseItems.length, totalCount, onRequestSettled]);
 
 	useEffect(() => {
 		const shouldStartUfoExperience =
@@ -329,6 +363,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 export const DatasourceTableView: ForwardRefExoticComponent<
 	{
 		datasourceId: string;
+		onRequestSettled?: (result: DatasourceTableRequestSettledResult) => void;
 		parameters: DatasourceParameters;
 		url?: string;
 	} & Partial<
@@ -359,6 +394,7 @@ export const DatasourceTableView: ForwardRefExoticComponent<
 export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<
 	{
 		datasourceId: string;
+		onRequestSettled?: (result: DatasourceTableRequestSettledResult) => void;
 		parameters: DatasourceParameters;
 		url?: string;
 	} & Partial<

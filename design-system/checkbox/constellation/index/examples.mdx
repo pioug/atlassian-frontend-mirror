@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message/message';
 import CheckboxDefault from '../../examples/constellation/checkbox-default';
 import CheckboxControlled from '../../examples/constellation/checkbox-controlled';
 import CheckboxUncontrolled from '../../examples/constellation/checkbox-uncontrolled';
@@ -10,38 +11,63 @@ import CheckboxInvalid from '../../examples/constellation/checkbox-invalid';
 import CheckboxIndeterminate from '../../examples/constellation/checkbox-indeterminate';
 import CheckboxRequired from '../../examples/constellation/checkbox-required';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in Checkbox and is in Early Access. The motion updates are currently
+	behind the feature flag: platform_design_system_selection_radial_fade.
+</SectionMessage>
+
 ## Default
 
 The default checkbox input includes a selected and unselected state.
 
-<Example Component={CheckboxDefault} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxDefault}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Controlled
 
 In a controlled checkbox, the checked state is managed by the React component. Set `isChecked` to
 select the checkbox and use the `onChange` handler to change the value.
 
-<Example Component={CheckboxControlled} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxControlled}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Uncontrolled
 
 In an uncontrolled checkbox, the checked state is managed by the DOM. Use `defaultChecked` to set
 the initial selected state.
 
-<Example Component={CheckboxUncontrolled} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxUncontrolled}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Disabled
 
 Use `isDisabled` to disable a checkbox when another action has to be completed before the checkbox
 is usable.
 
-<Example Component={CheckboxDisabled} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxDisabled}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Invalid
 
 Use `isInvalid` when a user chooses an incorrect value.
 
-<Example Component={CheckboxInvalid} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxInvalid}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Indeterminate
 
@@ -49,10 +75,18 @@ Use `isIndeterminate` to show partially checked states. The parent checkbox will
 some, but not all child sub-options are checked. Note that the parent checkbox does not have its own
 state, but simply reflects the state of its children.
 
-<Example Component={CheckboxIndeterminate} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxIndeterminate}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>
 
 ## Required
 
 Use `isRequired` to make the checkbox required and change the label style.
 
-<Example Component={CheckboxRequired} packageName="@atlaskit/checkbox" />
+<Example
+	Component={CheckboxRequired}
+	packageName="@atlaskit/checkbox"
+	featureFlagSwitchers={['motionSelection']}
+/>

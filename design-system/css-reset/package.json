@@ -36,6 +36,7 @@
 		"@af/root-path": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",

@@ -22,6 +22,7 @@ import {
 	selectQuickInsertCategoryItems,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
+import { useQuickInsertSearchAnalytics } from '@atlaskit/editor-common/quick-insert/use-search-analytics';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import {
@@ -34,7 +35,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { CloseSelectionOptions } from '../../pm-plugins/constants';
@@ -55,14 +55,12 @@ const styles = cssMap({
 		boxSizing: 'border-box',
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'hidden',
-		// Update MENU_VERTICAL_PADDING when changing these vertical paddings.
-		paddingBlockStart: token('space.100'),
-		paddingBlockEnd: token('space.075'),
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
 		width: '320px',
 	},
 });
 const DEFAULT_MENU_MAX_HEIGHT = 480;
-const MENU_VERTICAL_PADDING = 14;
 const MENU_WIDTH = 320;
 const POPUP_OFFSET = [0, 8];
 const EMPTY_COMPONENTS: RegisterComponent[] = [];
@@ -138,7 +136,6 @@ export const RegisteredTypeAheadMenu = ({
 		getComponents,
 		getComponents,
 	);
-	const isSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	const hasSectionOverflowItems = useMemo(
 		() => components.some(({ key }) => isSectionOverflowItemKey(key)),
 		[components],
@@ -151,17 +148,13 @@ export const RegisteredTypeAheadMenu = ({
 				getItemRank: triggerHandler.getRegisteredItemRank,
 				query,
 				rootComponent: surface.root,
-				selectCategoryItems:
-					hasSectionOverflowItems && isSlashCommandEnabled
-						? selectQuickInsertCategoryItems
-						: undefined,
+				selectCategoryItems: hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
 				surfaceContext,
 			}),
 		[
 			components,
 			formatMessage,
 			hasSectionOverflowItems,
-			isSlashCommandEnabled,
 			query,
 			surfaceContext,
 			surface.root,
@@ -169,6 +162,27 @@ export const RegisteredTypeAheadMenu = ({
 		],
 	);
 	const rows = useMemo(() => getQuickInsertMenuRows(menuModel), [menuModel]);
+	const searchResultCount = useMemo(
+		() =>
+			menuModel.sections.reduce(
+				(count, section) =>
+					count +
+					section.filter(({ key, type }) => type === 'menu-item' && !isSectionOverflowItemKey(key))
+						.length,
+				0,
+			),
+		[menuModel.sections],
+	);
+	const flushSearchAnalytics = useQuickInsertSearchAnalytics({
+		fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+		query,
+		resultCount: searchResultCount,
+		surface: 'typeahead',
+	});
+	const closeMenu = useCallback(() => {
+		flushSearchAnalytics();
+		onClose();
+	}, [flushSearchAnalytics, onClose]);
 	const [previewActivation, setPreviewActivation] = useState<
 		| {
 				itemKey: string;
@@ -287,7 +301,7 @@ export const RegisteredTypeAheadMenu = ({
 			editorView,
 			inputMethod: surface.inputMethod,
 			menuOpenId: typeAheadSurfaceContext.menuOpenId,
-			onClose,
+			onClose: closeMenu,
 			popupsMountPoint,
 			query,
 			surfaceContext,
@@ -297,7 +311,7 @@ export const RegisteredTypeAheadMenu = ({
 			activePreviewItemKey,
 			api,
 			editorView,
-			onClose,
+			closeMenu,
 			popupsMountPoint,
 			query,
 			surface.inputMethod,
@@ -360,8 +374,10 @@ export const RegisteredTypeAheadMenu = ({
 								Item={surface.Item}
 								listLabel={surface.listLabel}
 								listId={listId}
-								maxHeight={Math.max(0, menuHeight - MENU_VERTICAL_PADDING)}
+								maxHeight={Math.max(0, menuHeight)}
 								model={menuModel}
+								query={query}
+								hasScrollPadding={true}
 								onItemHover={onItemHover}
 								onItemLeave={onItemLeave}
 								onItemVisibilityChange={onItemVisibilityChange}

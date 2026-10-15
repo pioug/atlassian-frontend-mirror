@@ -76,7 +76,15 @@ export type PositiveSpaceToken =
 	| 'space.1000';
 export type Space = PositiveSpaceToken;
 export type PaddingToken = PositiveSpaceToken;
-export type GapToken = PositiveSpaceToken;
+export type GapToken =
+	| PositiveSpaceToken
+	| 'space.gap.xxsmall'
+	| 'space.gap.xsmall'
+	| 'space.gap.small'
+	| 'space.gap.medium'
+	| 'space.gap.large'
+	| 'space.gap.xlarge'
+	| 'space.gap.xxlarge';
 
 export type SurfaceColorToken =
 	| 'utility.elevation.surface.current'

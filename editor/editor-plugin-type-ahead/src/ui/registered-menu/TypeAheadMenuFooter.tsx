@@ -21,14 +21,20 @@ export const TypeAheadMenuFooter = ({
 	Item,
 	onMouseMove,
 	registration,
+	hasScrollPadding = false,
 }: {
+	hasScrollPadding?: boolean;
 	id: string;
 	isSelected: boolean;
 	Item: TypeAheadItemComponent;
 	onMouseMove: () => void;
 	registration: RegisterMenuItem;
 }): React.JSX.Element => (
-	<Box onMouseMove={onMouseMove} xcss={styles.footer}>
+	<Box
+		onMouseMove={onMouseMove}
+		paddingBlockEnd={hasScrollPadding ? 'space.075' : undefined}
+		xcss={styles.footer}
+	>
 		<Item id={id} isSelected={isSelected} registration={registration} />
 	</Box>
 );

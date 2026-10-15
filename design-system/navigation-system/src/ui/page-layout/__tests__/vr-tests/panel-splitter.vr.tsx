@@ -74,9 +74,6 @@ snapshot(PanelSplitterPositionEnd, {
 
 snapshot(PanelSplitterWithTooltip, {
 	description: 'Panel splitter with tooltip content - hovered',
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
 	states: [
 		{
 			state: 'hovered',
@@ -91,9 +88,6 @@ snapshot(PanelSplitterWithTooltip, {
 
 snapshot(PanelSplitterWithTooltipAndShortcut, {
 	description: 'Panel splitter with both tooltip content and shortcut - hovered',
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
 	states: [
 		{
 			state: 'hovered',

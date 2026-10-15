@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 27.0.1
+
+### Patch Changes
+
+- [`d838eae9d807b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d838eae9d807b) -
+  Strip comments from MAUI charts and other extensions when copying with the keyboard, matching
+  media, so a pasted copy doesn't share the original's comment thread. Cut is unchanged. Behind
+  `cc_maui_annotations_on_extensions`.
+
 ## 27.0.0
 
 ### Patch Changes

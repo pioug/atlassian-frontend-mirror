@@ -10,7 +10,7 @@ type SpacingToken = {
 	fallback: string;
 };
 
-type SpacingProperty = 'positive' | 'negative' | 'all';
+type SpacingProperty = 'positive' | 'negative' | 'all' | 'gap';
 
 type SpacingPropertyConfig = {
 	objectName: string;
@@ -38,6 +38,11 @@ const negativeSpaceTokens: SpacingToken[] = tokens
 		fallback: t.value,
 	}));
 
+const gapSpaceTokens: SpacingToken[] = tokens
+	.filter((token) => token.name.startsWith(spacingTokenPrefix))
+	.filter((token) => token.name.includes(gapSuffix))
+	.map((t) => ({ name: t.cleanName, fallback: t.value }));
+
 const spacingProperties: Record<SpacingProperty, SpacingPropertyConfig> = {
 	positive: {
 		objectName: 'positiveSpace',
@@ -53,6 +58,11 @@ const spacingProperties: Record<SpacingProperty, SpacingPropertyConfig> = {
 		objectName: 'allSpace',
 		typeName: 'AllSpace',
 		tokens: [...positiveSpaceTokens, ...negativeSpaceTokens],
+	},
+	gap: {
+		objectName: 'gapSpace',
+		typeName: 'GapSpace',
+		tokens: [...positiveSpaceTokens, ...gapSpaceTokens],
 	},
 };
 

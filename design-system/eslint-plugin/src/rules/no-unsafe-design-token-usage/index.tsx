@@ -7,9 +7,11 @@ import tokens from '@atlaskit/tokens/token-names';
 import { getTokenId } from '@atlaskit/tokens/utils/get-token-id';
 
 import { createLintRule } from '../utils/create-lint-rule';
+import { getPrimitiveTokenUsage } from '../utils/get-primitive-token-usage';
 import { isDecendantOfStyleBlock } from '../utils/is-decendant-of-style-block';
 import { isDecendantOfStyleJsxAttribute } from '../utils/is-decendant-of-style-jsx-attribute';
 import { isToken } from '../utils/is-token';
+import { isXcssValue } from './is-xcss-value';
 
 type PluginConfig = {
 	shouldEnforceFallbacks: boolean;
@@ -95,8 +97,59 @@ token('color.background.blanket');
 		}
 
 		const UNSAFE_ignoreTokens = new Set(config.UNSAFE_ignoreTokens);
+		const tokenMigrations = new Map(
+			renameMapping
+				.filter((t) => (t.state === 'deleted' || t.state === 'experimental') && t.replacement)
+				.map((t) => [getTokenId(t.path), t]),
+		);
+
+		const reportTokenMigration = (
+			tokenKey: unknown,
+			node: Rule.Node,
+			tokenArgument?: Rule.Node,
+			getReplacementValue: (name: string) => string | undefined = (name) => name,
+		): boolean => {
+			if (typeof tokenKey !== 'string') {
+				return false;
+			}
+
+			const migrationMeta = tokenMigrations.get(tokenKey);
+
+			if (!migrationMeta?.replacement) {
+				return false;
+			}
+
+			const replacement = getTokenId(migrationMeta.replacement);
+			const isReplacementAToken = replacement in tokens;
+
+			context.report({
+				messageId: migrationMeta.state === 'deleted' ? 'tokenRemoved' : 'tokenIsExperimental',
+				node,
+				data: { name: tokenKey, replacement },
+				fix: (fixer) => {
+					if (tokenArgument) {
+						return fixer.replaceText(
+							migrationMeta.state === 'deleted' || isReplacementAToken ? tokenArgument : node,
+							`'${replacement}'`,
+						);
+					}
+
+					// Token-valued props cannot necessarily accept raw CSS or a different token family.
+					const value = isReplacementAToken ? getReplacementValue(replacement) : undefined;
+					return value ? fixer.replaceText(node, `'${value}'`) : null;
+				},
+			});
+			return true;
+		};
 
 		return {
+			JSXAttribute: (node: Rule.Node) => {
+				const usage = getPrimitiveTokenUsage(node, context);
+				if (usage) {
+					reportTokenMigration(usage.tokenName, usage.node, undefined, usage.getReplacementValue);
+				}
+			},
+
 			'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
 				(node: Rule.Node) => {
 					if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
@@ -122,6 +175,11 @@ token('color.background.blanket');
 				}
 
 				if (typeof node.value !== 'string') {
+					return;
+				}
+
+				if (tokenMigrations.has(node.value) && isXcssValue(node, context)) {
+					reportTokenMigration(node.value, node);
 					return;
 				}
 
@@ -222,51 +280,7 @@ token('color.background.blanket');
 					return;
 				}
 
-				const deletedMigrationMeta = renameMapping
-					.filter((t) => t.state === 'deleted')
-					.find((t) => getTokenId(t.path) === tokenKey);
-
-				if (
-					typeof tokenKey === 'string' &&
-					deletedMigrationMeta &&
-					deletedMigrationMeta.replacement
-				) {
-					const cleanTokenKey = getTokenId(deletedMigrationMeta.replacement);
-
-					context.report({
-						messageId: 'tokenRemoved',
-						node,
-						data: {
-							name: tokenKey,
-							replacement: cleanTokenKey,
-						},
-						fix: (fixer) => fixer.replaceText(node.arguments[0], `'${cleanTokenKey}'`),
-					});
-					return;
-				}
-
-				const tokenMeta = renameMapping
-					.filter((t) => t.state === 'experimental')
-					.find((t) => getTokenId(t.path) === tokenKey);
-
-				const tokenNames = Object.keys(tokens);
-
-				if (typeof tokenKey === 'string' && tokenMeta && tokenMeta.replacement) {
-					const replacementValue = tokenMeta.replacement;
-					const isReplacementAToken = tokenNames.includes(replacementValue);
-
-					context.report({
-						messageId: 'tokenIsExperimental',
-						node,
-						data: {
-							name: tokenKey,
-							replacement: replacementValue,
-						},
-						fix: (fixer) =>
-							isReplacementAToken
-								? fixer.replaceText(node.arguments[0], `'${replacementValue}'`)
-								: fixer.replaceText(node, `'${replacementValue}'`),
-					});
+				if (reportTokenMigration(tokenKey, node, node.arguments[0] as Rule.Node)) {
 					return;
 				}
 

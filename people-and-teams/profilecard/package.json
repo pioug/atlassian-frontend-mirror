@@ -177,9 +177,6 @@
 		"jfp_a11y_team_profile_card_actions_label": {
 			"type": "boolean"
 		},
-		"cover-header-image-team-profilecard": {
-			"type": "boolean"
-		},
 		"rovo_agent_versioning_enabled": {
 			"type": "boolean"
 		},

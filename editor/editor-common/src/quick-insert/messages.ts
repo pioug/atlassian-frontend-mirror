@@ -21,6 +21,7 @@ export const messages: Messages<
 	| 'categoryStructure'
 	| 'categoryTextFormatting'
 	| 'searchResults'
+	| 'noSearchResults'
 	| 'previewAttributionBy'
 	| 'previewAttributionAtlassian'
 	| 'previewAttributionAssets'
@@ -203,6 +204,11 @@ export const messages: Messages<
 		id: 'editor-common.quick-insert.searchResults',
 		defaultMessage: 'Search results',
 		description: 'Heading shown above the matching items when searching in the Quick Insert menu.',
+	},
+	noSearchResults: {
+		id: 'editor-common.quick-insert.noSearchResults',
+		defaultMessage: "We couldn't find any results.",
+		description: 'Message shown when a Quick Insert search has no matching results.',
 	},
 	previewAttributionBy: {
 		id: 'editor-common.quick-insert.previewAttributionBy',

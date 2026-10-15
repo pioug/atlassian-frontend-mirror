@@ -8,7 +8,7 @@ test.describe('side nav focus on expand', () => {
 				'navigation-system',
 				'side-nav-flyout',
 				{
-					featureFlag: 'navx-full-height-sidebar&featureFlag=platform_dst_nav4_skip_link_a11y_1',
+					featureFlag: 'platform_dst_nav4_skip_link_a11y_1',
 				},
 			);
 		});
@@ -55,9 +55,6 @@ test.describe('side nav focus on expand', () => {
 				'design-system',
 				'navigation-system',
 				'side-nav-flyout',
-				{
-					featureFlag: 'navx-full-height-sidebar',
-				},
 			);
 		});
 

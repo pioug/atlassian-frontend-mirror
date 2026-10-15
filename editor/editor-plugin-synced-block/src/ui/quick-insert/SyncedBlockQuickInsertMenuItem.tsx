@@ -14,6 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 import { createSyncedBlock } from '../../editor-commands';
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
@@ -64,6 +65,7 @@ export const SyncedBlockQuickInsertMenuItem = ({
 			description={formatMessage(blockTypeMessages.syncedBlockDescription)}
 			iconBefore={<BlockSyncedIcon label="" />}
 			isDisabled={editorDisabled}
+			lozenge={<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>}
 			onSelect={onSelect}
 			preview={preview}
 			title={formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)}

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 29.1.0
+
+### Minor Changes
+
+- [`c62e1d4fde59b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c62e1d4fde59b) -
+  Remove the obsolete CWR image placeholder loading path formerly gated by
+  `aifc_page_create_with_rovo_include_infographics`, including its media decoration source and Rovo
+  bridge tracking callback. MAUI/Remix inline-edit loading remains unchanged.
+
 ## 29.0.5
 
 ### Patch Changes

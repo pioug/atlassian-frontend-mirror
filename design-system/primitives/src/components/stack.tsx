@@ -16,7 +16,7 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type Space } from '../xcss/positive-space';
+import { type GapSpace } from '../xcss/gap-space';
 import { type XCSS, xcss } from '../xcss/xcss';
 import { Flex } from './flex';
 import type { AlignBlock, AlignInline, BasePrimitiveProps, Grow, Spread } from './types';
@@ -49,7 +49,7 @@ export type StackProps<T extends ElementType = 'div'> = {
 	/**
 	 * Represents the space between each child.
 	 */
-	space?: Space;
+	space?: GapSpace;
 
 	/**
 	 * Elements to be rendered inside the Stack.

@@ -158,5 +158,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.2.8"
+	"version": "30.2.9"
 }

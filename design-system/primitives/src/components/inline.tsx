@@ -18,7 +18,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type Space } from '../xcss/positive-space';
+import { type GapSpace } from '../xcss/gap-space';
 import { type XCSS, xcss } from '../xcss/xcss';
 import { Flex } from './flex';
 import type { AlignBlock, AlignInline, BasePrimitiveProps, Grow, Spread } from './types';
@@ -56,13 +56,13 @@ export type InlineProps<T extends ElementType = 'div'> = {
 	/**
 	 * Represents the space between each child.
 	 */
-	space?: Space;
+	space?: GapSpace;
 
 	/**
 	 * Represents the space between rows when content wraps.
 	 * Used to override the `space` value in between rows.
 	 */
-	rowSpace?: Space;
+	rowSpace?: GapSpace;
 
 	/**
 	 * Renders a separator string between each child. Avoid using `separator="•"` when `as="ul" | "ol" | "dl"` to preserve proper list semantics.

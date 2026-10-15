@@ -921,6 +921,146 @@ describe('DatasourceTableView', () => {
 		});
 	});
 
+	describe('onRequestSettled', () => {
+		beforeEach(() => {
+			passGate('platform_lp_sllv_on_request_settled');
+		});
+
+		const rerenderWithState = (
+			rerender: (ui: React.ReactElement) => void,
+			stateOverride: Partial<DatasourceTableState>,
+			onRequestSettled: DatasourceTableViewProps['onRequestSettled'],
+		) => {
+			asMock(useDatasourceTableState).mockReturnValue({
+				...asMock(useDatasourceTableState).mock.results[0].value,
+				...stateOverride,
+			});
+			rerender(
+				<DatasourceTableView
+					datasourceId={'some-datasource-id'}
+					parameters={{
+						cloudId: 'some-cloud-id',
+						jql: 'some-jql-query',
+					}}
+					visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+					onRequestSettled={onRequestSettled}
+				/>,
+			);
+		};
+
+		it('should report a resolved request with its item count', () => {
+			const onRequestSettled = jest.fn();
+			setup({}, { onRequestSettled });
+
+			expect(onRequestSettled).toHaveBeenCalledTimes(1);
+			expect(onRequestSettled).toHaveBeenCalledWith({
+				status: 'resolved',
+				itemCount: 1,
+				totalCount: 1,
+			});
+		});
+
+		it('should report zero items when the request resolves with no results and the table keeps its columns', () => {
+			const onRequestSettled = jest.fn();
+			setup({ responseItems: [], totalCount: 0 }, { onRequestSettled });
+
+			expect(onRequestSettled).toHaveBeenCalledTimes(1);
+			expect(onRequestSettled).toHaveBeenCalledWith({
+				status: 'resolved',
+				itemCount: 0,
+				totalCount: 0,
+			});
+		});
+
+		it('should report zero items when the request resolves with no results and no columns', () => {
+			const onRequestSettled = jest.fn();
+			setup({ responseItems: [], totalCount: 0, columns: [] }, { onRequestSettled });
+
+			expect(onRequestSettled).toHaveBeenCalledTimes(1);
+			expect(onRequestSettled).toHaveBeenCalledWith({
+				status: 'resolved',
+				itemCount: 0,
+				totalCount: 0,
+			});
+		});
+
+		it.each(['rejected', 'unauthorized', 'forbidden'] as const)(
+			'should report a %s request',
+			(status) => {
+				const onRequestSettled = jest.fn();
+				setup({ status, responseItems: [], totalCount: undefined }, { onRequestSettled });
+
+				expect(onRequestSettled).toHaveBeenCalledTimes(1);
+				expect(onRequestSettled).toHaveBeenCalledWith({
+					status,
+					itemCount: 0,
+					totalCount: undefined,
+				});
+			},
+		);
+
+		it.each(['empty', 'loading'] as const)(
+			'should not report while the request is %s',
+			(status) => {
+				const onRequestSettled = jest.fn();
+				setup({ status }, { onRequestSettled });
+
+				expect(onRequestSettled).not.toHaveBeenCalled();
+			},
+		);
+
+		it('should report once the in-flight request resolves', () => {
+			const onRequestSettled = jest.fn();
+			const { rerender } = setup({ status: 'loading' }, { onRequestSettled });
+
+			rerenderWithState(rerender, { status: 'resolved' }, onRequestSettled);
+
+			expect(onRequestSettled).toHaveBeenCalledTimes(1);
+			expect(onRequestSettled).toHaveBeenCalledWith({
+				status: 'resolved',
+				itemCount: 1,
+				totalCount: 1,
+			});
+		});
+
+		it('should not report the same outcome again when the host re-renders with a new callback', () => {
+			const onRequestSettled = jest.fn();
+			const { rerender } = setup({}, { onRequestSettled });
+
+			const nextOnRequestSettled = jest.fn();
+			rerenderWithState(rerender, {}, nextOnRequestSettled);
+
+			expect(onRequestSettled).toHaveBeenCalledTimes(1);
+			expect(nextOnRequestSettled).not.toHaveBeenCalled();
+		});
+
+		it('should report again when a later request settles, even with the same outcome', () => {
+			const onRequestSettled = jest.fn();
+			const { rerender } = setup({}, { onRequestSettled });
+
+			rerenderWithState(rerender, { status: 'loading' }, onRequestSettled);
+			rerenderWithState(rerender, { status: 'resolved' }, onRequestSettled);
+
+			expect(onRequestSettled).toHaveBeenCalledTimes(2);
+		});
+
+		it('should not require the callback', () => {
+			const { getByTestId } = setup({ responseItems: [], totalCount: 0 });
+
+			expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
+		});
+	});
+
+	describe('onRequestSettled when platform_lp_sllv_on_request_settled is disabled', () => {
+		it('should not report a settled request', () => {
+			failGate('platform_lp_sllv_on_request_settled');
+			const onRequestSettled = jest.fn();
+			setup({ responseItems: [], totalCount: 0 }, { onRequestSettled });
+
+			expect(onRequestSettled).not.toHaveBeenCalled();
+		});
+	});
+
 	describe('when the request status is unauthorized', () => {
 		it('should display the access error ui', () => {
 			const { getByTestId } = setup({ status: 'unauthorized' });

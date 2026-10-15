@@ -3,7 +3,8 @@ docs/
 examples-helpers/
 examples/
 src/
-test-helpers/
+test-helpers/*
+!test-helpers/package.json
 tsconfig.json
 tsconfig.app.json
 tsconfig.dev.json

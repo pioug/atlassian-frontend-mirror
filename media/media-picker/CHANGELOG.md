@@ -1,5 +1,13 @@
 # @atlaskit/media-picker
 
+## 73.2.0
+
+### Minor Changes
+
+- [`03cf2e3bd628b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03cf2e3bd628b) -
+  Added optional `onBeforeUpload` prop for callers to optionally reject an upload AFTER files were
+  selected but BEFORE they are uploaded
+
 ## 73.1.0
 
 ### Minor Changes

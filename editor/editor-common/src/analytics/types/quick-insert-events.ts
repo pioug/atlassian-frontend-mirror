@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
-import type { OperationalAEP } from './utils';
+import type { OperationalAEP, TrackAEP } from './utils';
 
 export type CategoryInformation = {
 	allAppCount: number;
@@ -59,3 +59,23 @@ export type QuickInsertInformationAEP = OperationalAEP<
 >;
 
 export type QuickInsertInformationEventPayload = QuickInsertInformationAEP;
+
+export type QuickInsertSearchSurface = 'typeahead' | 'toolbar' | 'element-browser';
+
+export type QuickInsertSearchOutcomeAttributes = {
+	category?: string;
+	isEmpty: boolean;
+	queryLength: number;
+	resultCount: number;
+	surface: QuickInsertSearchSurface;
+};
+
+export type QuickInsertSearchOutcomeAEP = TrackAEP<
+	ACTION.SEARCHED,
+	ACTION_SUBJECT.QUICK_INSERT,
+	undefined,
+	QuickInsertSearchOutcomeAttributes,
+	undefined
+>;
+
+export type QuickInsertSearchOutcomeEventPayload = QuickInsertSearchOutcomeAEP;

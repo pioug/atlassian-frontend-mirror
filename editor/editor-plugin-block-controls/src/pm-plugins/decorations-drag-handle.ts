@@ -9,6 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -16,7 +17,7 @@ import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginT
 import { ACTIVE_DRAG_HANDLE_ATTR } from '../ui/consts';
 import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
-import { renderToMountPoint } from './react-root-registry';
+import { renderToMountPoint, unmountFromMountPoint } from './react-root-registry';
 import type { AnchorRectCache } from './utils/anchor-utils';
 import { getMatchingBlockMarks } from './utils/marks';
 
@@ -77,6 +78,14 @@ type DragHandleDecorationParams = {
 	pos: number;
 };
 
+// Unmounting a focused handle runs its effect cleanup (view.focus()), which steals focus from the
+// open block menu. The root is left mounted in that case.
+const unmountUnlessMenuOpen = (api: ExtractInjectionAPI<BlockControlsPlugin>, element: Element) => {
+	if (!api?.blockControls?.sharedState.currentState()?.isMenuOpen) {
+		unmountFromMountPoint(element);
+	}
+};
+
 export const dragHandleDecoration = ({
 	api,
 	formatMessage,
@@ -110,6 +119,12 @@ export const dragHandleDecoration = ({
 			editorState.schema.marks.alignment,
 			editorState.schema.marks.fontSize,
 		]),
+		...(isExperimentEnabled('platform_editor_reduce_memory_leaks') && {
+			destroy: (node: Node) => {
+				// Deferred: unmounting a root during a React render warns
+				queueMicrotask(() => unmountUnlessMenuOpen(api, node as Element));
+			},
+		}),
 	};
 
 	return Decoration.widget(

@@ -107,6 +107,13 @@ const rowGapMap = cssMap({
 	'space.600': { rowGap: token('space.600', '48px') },
 	'space.800': { rowGap: token('space.800', '64px') },
 	'space.1000': { rowGap: token('space.1000', '80px') },
+	'space.gap.xxsmall': { rowGap: token('space.gap.xxsmall', '2px') },
+	'space.gap.xsmall': { rowGap: token('space.gap.xsmall', '4px') },
+	'space.gap.small': { rowGap: token('space.gap.small', '6px') },
+	'space.gap.medium': { rowGap: token('space.gap.medium', '8px') },
+	'space.gap.large': { rowGap: token('space.gap.large', '12px') },
+	'space.gap.xlarge': { rowGap: token('space.gap.xlarge', '16px') },
+	'space.gap.xxlarge': { rowGap: token('space.gap.xxlarge', '24px') },
 });
 
 const columnGapMap = cssMap({
@@ -124,6 +131,13 @@ const columnGapMap = cssMap({
 	'space.600': { columnGap: token('space.600', '48px') },
 	'space.800': { columnGap: token('space.800', '64px') },
 	'space.1000': { columnGap: token('space.1000', '80px') },
+	'space.gap.xxsmall': { columnGap: token('space.gap.xxsmall', '2px') },
+	'space.gap.xsmall': { columnGap: token('space.gap.xsmall', '4px') },
+	'space.gap.small': { columnGap: token('space.gap.small', '6px') },
+	'space.gap.medium': { columnGap: token('space.gap.medium', '8px') },
+	'space.gap.large': { columnGap: token('space.gap.large', '12px') },
+	'space.gap.xlarge': { columnGap: token('space.gap.xlarge', '16px') },
+	'space.gap.xxlarge': { columnGap: token('space.gap.xxlarge', '24px') },
 });
 
 const justifyContentMap = cssMap({

@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 7.5.0
+
+### Minor Changes
+
+- [`4b09602a4596a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b09602a4596a) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.4.0
+
+### Minor Changes
+
+- [`fe866ef62df9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe866ef62df9b) -
+  Add optional `onRequestSettled` callback to `DatasourceTableView` that reports each settled data
+  request's status, loaded item count and total count, so hosts can react to outcomes such as empty
+  results without relying on analytics events. Gated by `platform_lp_sllv_on_request_settled`.
+
 ## 7.3.5
 
 ### Patch Changes

@@ -194,6 +194,5 @@ snapshot(TopNavigationThemingWithPickerExampleRed, {
 	variants: lightModeVariant,
 	featureFlags: {
 		platform_dst_nav4_custom_theming_fhs_1: [true, false],
-		'navx-full-height-sidebar': true,
 	},
 });

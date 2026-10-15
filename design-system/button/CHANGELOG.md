@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 25.4.8
+
+### Patch Changes
+
+- [`0f91806cf20e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f91806cf20e9) -
+  [ux] Keep the selected dropdown trigger in a primary SplitButton brand-coloured, including hovered
+  and pressed states, behind `platform-dst-tokens-finesse`. Other button appearances and the
+  gate-off treatment are unchanged.
+- Updated dependencies
+
 ## 25.4.7
 
 ### Patch Changes

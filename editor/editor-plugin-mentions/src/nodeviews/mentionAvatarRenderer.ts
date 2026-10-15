@@ -1,9 +1,11 @@
 import { bind } from 'bind-event-listener';
 
 import type { MentionNodeData } from '@atlaskit/mention/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 const avatarImageClassName = 'editor-mention-avatar-image';
 const agentAvatarClassName = 'editor-mention-avatar-agent';
+const fixedAgentAvatarClassName = 'editor-mention-avatar-agent-hexagon-ui-fix';
 const fallbackAvatarClassName = 'editor-mention-avatar-fallback';
 const avatarSize = 16;
 
@@ -62,10 +64,11 @@ export const mentionAvatarRenderer = ({
 	return {
 		destroy,
 		render: ({ appType, avatarUrl, isAvatarImagePreShaped }) => {
-			container.classList.toggle(
-				agentAvatarClassName,
-				!isAvatarImagePreShaped && appType === 'agent',
-			);
+			const shouldApplyAgentClip = !isAvatarImagePreShaped && appType === 'agent';
+			const shouldApplyFixedAgentClip =
+				shouldApplyAgentClip && isExperimentEnabled('platform_editor_agent_hexagon_ui_fix');
+			container.classList.toggle(agentAvatarClassName, shouldApplyAgentClip);
+			container.classList.toggle(fixedAgentAvatarClassName, shouldApplyFixedAgentClip);
 			removeFallback();
 
 			if (!avatarUrl) {

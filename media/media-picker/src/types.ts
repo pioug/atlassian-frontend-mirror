@@ -16,6 +16,8 @@ export interface UploadParams {
 	collection?: string;
 	expireAfter?: number;
 	onUploadRejection?: (data: UploadRejectionData) => boolean;
+	/** Return false to cancel the files before any upload starts. */
+	onBeforeUpload?: (files: File[]) => boolean | Promise<boolean>;
 }
 
 export type MediaFile = {

@@ -110,6 +110,32 @@ describe('Editor Content styles', () => {
 		});
 	});
 
+	describe('platform_editor_reduce_forced_layout_2: enabled', () => {
+		it('does not apply extension scroll timeline styles when CSS support is unavailable', () => {
+			mockExpEnabled('platform_editor_reduce_forced_layout_2');
+
+			render(
+				<BaseTheme baseFontSize={akEditorFullPageDefaultFontSize}>
+					<EditorContentContainer appearance="full-page" viewMode="edit">
+						<div className="ProseMirror">
+							<div className="extension-container">
+								<div
+									className="extension-overflow-wrapper extension-scroll-inline-shadow"
+									data-testid="extension-overflow-wrapper"
+								/>
+							</div>
+						</div>
+					</EditorContentContainer>
+				</BaseTheme>,
+			);
+
+			expect(screen.getByTestId('extension-overflow-wrapper')).not.toHaveStyle({
+				'scroll-timeline-axis': 'inline',
+				'scroll-timeline-name': '--editor-extension-inline-scroll',
+			});
+		});
+	});
+
 	describe('content-mode table extension containment', () => {
 		const renderExtensionInContentModeTable = () =>
 			render(

@@ -14,7 +14,6 @@ import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 import { LogoRenderer } from './logo-renderer';
 
@@ -58,20 +57,11 @@ const anchorStyles = cssMap({
 			backgroundColor: 'var(--ds-top-bar-button-background-pressed)!important',
 		},
 	},
-	// With FHS enabled, we are allowing app logos to get truncated
-	fullHeightSidebar: {
-		flexShrink: 1,
-		overflow: 'hidden',
-	},
 });
 
 const logoWrapperStyles = cssMap({
 	root: {
 		paddingInline: token('space.050'),
-	},
-	// Required for the text to truncate
-	fullHeightSidebar: {
-		maxWidth: '100%',
 	},
 });
 
@@ -82,10 +72,6 @@ const iconContainerStyles = cssMap({
 		display: 'flex',
 		maxWidth: 24,
 		maxHeight: 24,
-	},
-	// Prevents the icon from getting squished
-	fullHeightSidebar: {
-		flexShrink: 0,
 	},
 });
 
@@ -165,7 +151,6 @@ export const AppLogo = ({
 	icon,
 	onClick,
 }: AppLogoProps): JSX.Element => {
-	const isFhsEnabled = useIsFhsEnabled();
 	const ref = useRef<HTMLAnchorElement>(null);
 	const nameRef = useRef<HTMLSpanElement | null>(null);
 
@@ -193,18 +178,11 @@ export const AppLogo = ({
 				hasCustomTheme
 					? anchorStyles.interactionStatesCustomTheming
 					: anchorStyles.interactionStates,
-				isFhsEnabled && anchorStyles.fullHeightSidebar,
 			)}
 			onClick={onClick}
 		>
-			<Inline
-				space="space.075"
-				alignBlock="center"
-				xcss={cx(logoWrapperStyles.root, isFhsEnabled && logoWrapperStyles.fullHeightSidebar)}
-			>
-				<div
-					css={[iconContainerStyles.root, isFhsEnabled && iconContainerStyles.fullHeightSidebar]}
-				>
+			<Inline space="space.075" alignBlock="center" xcss={logoWrapperStyles.root}>
+				<div css={iconContainerStyles.root}>
 					<LogoRenderer logoOrIcon={icon} />
 				</div>
 				<span css={logoTextStyles.root}>

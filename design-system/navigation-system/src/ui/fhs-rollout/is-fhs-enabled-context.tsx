@@ -1,15 +1,16 @@
 import { createContext } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import type { Get } from './types';
 
 /**
  * __Is fhs enabled context__
  *
- * Tracks is FHS enabled.
- * Defaults to feature gate 'navx-full-height-sidebar'.
+ * @deprecated Full height sidebar (FHS) has been rolled back and this context is no longer read by
+ * any platform component. Its value is ignored. Remove usages of it; it will be deleted in a future
+ * major release.
+ *
+ * See https://hello.atlassian.net/wiki/spaces/navx/pages/7189669176/Full+Height+Sidebar+FHS+Rollback+Plan
  */
 export const IsFhsEnabledContext: import('react').Context<boolean | Get<boolean>> = createContext<
 	boolean | Get<boolean>
->(() => fg('navx-full-height-sidebar'));
+>(false);

@@ -1201,10 +1201,14 @@ export function buildDeletedWrappedBlockOutline(
  * decoration span and read by the `.show-diff-atomic-inline-changed-*` selectors in
  * EditorContentContainer, on the decorated element or a descendant, so it must inherit. Being
  * inline it beats the stylesheet's fallback, making the plugin the only source of the colour.
+ *
+ * Under patch_2 it also reserves the 2px ring either side, since the ring takes up no space and
+ * otherwise paints over an adjacent inline diff.
  */
 export function buildAtomicInlineChangedCSSVariables(colors: DiffColorScheme): string {
 	return convertToInlineCss({
 		'--show-diff-atomic-inline-changed-border-color': borderAccent(colors.insertColor),
+		...(fg('platform_editor_ai_show_diff_patch_2') && { marginInline: token('space.025') }),
 	});
 }
 

@@ -44,6 +44,23 @@ describe('xcss()', () => {
 		});
 	});
 
+	it.each([
+		['space.gap.xxsmall', '--ds-space-gap-xxsmall', '2px'],
+		['space.gap.xsmall', '--ds-space-gap-xsmall', '4px'],
+		['space.gap.small', '--ds-space-gap-small', '6px'],
+		['space.gap.medium', '--ds-space-gap-medium', '8px'],
+		['space.gap.large', '--ds-space-gap-large', '12px'],
+		['space.gap.xlarge', '--ds-space-gap-xlarge', '16px'],
+		['space.gap.xxlarge', '--ds-space-gap-xxlarge', '24px'],
+	] as const)('resolves %s for gap properties', (gap, cssVariable, fallback) => {
+		const styles = xcss({ gap, rowGap: gap, columnGap: gap });
+		expect(parseXcss(styles).emotion?.[0]).toEqual({
+			gap: `var(${cssVariable}, ${fallback})`,
+			rowGap: `var(${cssVariable}, ${fallback})`,
+			columnGap: `var(${cssVariable}, ${fallback})`,
+		});
+	});
+
 	it('handles CSSObjects with both token styles and non-token styles', () => {
 		const styles = xcss({
 			borderColor: 'color.border',

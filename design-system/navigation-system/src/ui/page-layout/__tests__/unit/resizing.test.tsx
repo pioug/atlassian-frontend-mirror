@@ -12,7 +12,6 @@ import {
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
@@ -448,7 +447,7 @@ describe('Resizing layout slots', () => {
 			});
 		});
 
-		ffTest.both('navx-full-height-sidebar', 'full height sidebar', () => {
+		describe('side nav', () => {
 			it('should update width when resized', () => {
 				render(
 					<Root>

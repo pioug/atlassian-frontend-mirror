@@ -338,7 +338,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 	${isExperimentEnabled('platform_editor_sticky_headers_zindex')
 		? `.${ClassName.TABLE_CONTAINER} {
-			--ak-editor-table-resize-handle-z-index: ${getTableZIndexes().resizeHandle};
+			--ak-editor-table-resize-handle-z-index: ${getTableZIndexes().mediaResizeHandle};
 		}`
 		: ''}
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 28.0.6
+
+### Patch Changes
+
+- [`de7c546c5c8f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de7c546c5c8f6) -
+  Unmount drag handle React roots when ProseMirror removes the widget, fixing a leak of roots and
+  event listeners. Behind the `platform_editor_reduce_memory_leaks` experiment.
+
 ## 28.0.5
 
 ### Patch Changes

@@ -112,8 +112,10 @@ export class NodeViewSerializer {
 			if (childNode) {
 				// Give inserted atomic children the same box-shadow
 				// highlight an in-place attribute change already gets (`getAtomicInlineChangedAttrs`).
+				// Disabled under patch_2: the outline also landed on atomic children inserted alongside text.
 				if (
 					isInserted &&
+					!fg('platform_editor_ai_show_diff_patch_2') &&
 					isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
 					isInlineAttrChangeNodeName(child.type.name) &&
 					childNode instanceof HTMLElement

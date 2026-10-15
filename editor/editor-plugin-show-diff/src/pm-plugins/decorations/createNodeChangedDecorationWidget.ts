@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl';
 
 import type { Node as PMNode, ResolvedPos, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
@@ -11,6 +12,8 @@ import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { resolveBaseNodeName } from '../utils/baseNodeName';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
+import { buildAtomicInlineChangedCSSVariables } from './colorSchemes/factory';
+import { colorSchemeRegistry } from './colorSchemes/schemes';
 import type { ColorScheme } from './colorSchemes/types';
 import {
 	clampAnchorPosIntoCell,
@@ -25,6 +28,7 @@ import {
 	resolveHoistedCodeBlockAnchor,
 	unmountContributorTag,
 } from './createContributorTagWidget';
+import { getAtomicInlineChangedAttrs } from './createInlineChangedDecoration';
 import {
 	AnchorTypeKey,
 	buildContributorTagDecorationSpec,
@@ -37,6 +41,10 @@ import { createDeletedLineBreakDecoration } from './utils/createDeletedLineBreak
 import { createMarginAbsorber } from './utils/createMarginAbsorber';
 import { createNodeShapedMarginSpacer } from './utils/createNodeShapedMarginSpacer';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
+import {
+	type InlineAttrChangeNodeName,
+	isInlineAttrChangeNodeName,
+} from './utils/getAttrChangeRanges';
 import { safeResolve } from './utils/safeResolve';
 import { getTableDiffMode } from './utils/tableDiffMode';
 import {
@@ -169,6 +177,49 @@ const createTableCellContentWidgets = ({
 	});
 
 	return decorations;
+};
+
+/**
+ * The node name when `change` only swapped one atomic inline node (date, emoji, mention, status)
+ * for another of the same type, i.e. an attribute change rather than content added or removed
+ * around it.
+ */
+const getAtomicInlineAttrOnlyNodeName = (
+	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'toB'>,
+	doc: PMNode,
+	newDoc: PMNode,
+): InlineAttrChangeNodeName | undefined => {
+	const nodeA = doc.nodeAt(change.fromA);
+	const nodeB = newDoc.nodeAt(change.fromB);
+	if (
+		!nodeA ||
+		!nodeB ||
+		nodeA.type !== nodeB.type ||
+		nodeA.nodeSize !== change.toA - change.fromA ||
+		nodeB.nodeSize !== change.toB - change.fromB
+	) {
+		return undefined;
+	}
+	const nodeName = nodeA.type.name;
+	return isInlineAttrChangeNodeName(nodeName) ? nodeName : undefined;
+};
+
+/** Wraps an inserted atomic inline node view in the outline an in-place attribute change gets. */
+const createAtomicInlineOutline = (
+	nodeName: InlineAttrChangeNodeName,
+	nodeView: Node,
+	colorScheme: ColorScheme | undefined,
+): HTMLElement => {
+	const outlineWrapper = document.createElement('span');
+	outlineWrapper.className = getAtomicInlineChangedAttrs(nodeName, colorScheme).className;
+	// Set in both cohorts of `platform_editor_show_diff_color_scheme_refactor`: being inline it beats
+	// the stylesheet's purple/green table, so editor-core's rings follow the change's scheme too.
+	outlineWrapper.setAttribute(
+		'style',
+		buildAtomicInlineChangedCSSVariables(colorSchemeRegistry[colorScheme ?? 'standard']),
+	);
+	outlineWrapper.append(nodeView);
+	return outlineWrapper;
 };
 
 /**
@@ -520,9 +571,22 @@ export const createNodeChangedDecorationWidget = ({
 			}
 
 			if (node.isInline) {
-				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
-				wrapper.append(nodeView);
-				dom.append(wrapper);
+				const attrOnlyNodeName =
+					isInserted &&
+					fg('platform_editor_ai_show_diff_patch_2') &&
+					isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content')
+						? getAtomicInlineAttrOnlyNodeName(change, doc, newDoc)
+						: undefined;
+				if (attrOnlyNodeName) {
+					// Only the node's attributes changed, so outline it as an in-place attribute change
+					// does, in place of the highlight. Its own wrapper keeps the outline clear of the node
+					// view's styles.
+					dom.append(createAtomicInlineOutline(attrOnlyNodeName, nodeView, colorScheme));
+				} else {
+					const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
+					wrapper.append(nodeView);
+					dom.append(wrapper);
+				}
 			} else {
 				// Handle all block nodes with unified function
 				wrapBlockNodeView({

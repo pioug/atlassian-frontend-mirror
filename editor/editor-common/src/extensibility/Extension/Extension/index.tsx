@@ -8,6 +8,7 @@ import React, { Fragment, useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
+import memoizeOne from 'memoize-one';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -70,6 +71,21 @@ const hoverStyles = css({
 
 const containerStyle = css({
 	containerType: 'inline-size',
+});
+
+// Keep these checks in sync with the extensionScrollInlineShadowStyles @supports condition in
+// editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx.
+const isCssScrollTimelineSupported = memoizeOne((browserCSS: typeof CSS | undefined): boolean => {
+	if (!browserCSS || typeof browserCSS.supports !== 'function') {
+		return false;
+	}
+
+	return (
+		browserCSS.supports('animation-timeline', '--test-timeline') &&
+		browserCSS.supports('scroll-timeline-name', '--test-timeline') &&
+		browserCSS.supports('timeline-scope', '--test-timeline') &&
+		browserCSS.supports('animation-range', '0% 101%')
+	);
 });
 
 type WidthStateProps = { widthState: EditorContainerWidth };
@@ -161,6 +177,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	});
 
 	const overflowClassNames = classnames('extension-overflow-wrapper', {
+		'extension-scroll-inline-shadow':
+			isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+			!hasBody &&
+			node.attrs.extensionType !== 'com.atlassian.ai-blocks',
 		'with-body': hasBody,
 		'with-margin-styles':
 			showMacroInteractionDesignUpdates && !isNodeNested && !showBodiedExtensionRendererView,
@@ -362,5 +382,8 @@ const Extension = (props: Props & OverflowShadowProps) => {
 const _default_1: React.ComponentClass<Props & OverflowShadowProps, OverflowShadowState> =
 	overflowShadow(Extension, {
 		overflowSelector: '.extension-overflow-wrapper',
+		isDisabled: () =>
+			isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+			isCssScrollTimelineSupported(globalThis.CSS),
 	});
 export default _default_1;

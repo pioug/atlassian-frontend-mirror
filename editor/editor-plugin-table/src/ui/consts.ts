@@ -88,6 +88,12 @@ export const tableColumnControlsHeight = 24;
 export const nativeStickyHeaderZIndex: number = akEditorTableCellOnStickyHeaderZIndex - 5;
 export const aboveNativeStickyHeaderZIndex: number = nativeStickyHeaderZIndex + 1;
 export const belowNativeStickyHeaderZIndex: number = nativeStickyHeaderZIndex - 1;
+// Keep the lowered table layers below block controls (100) and Object Sidebar controls (300).
+export const loweredNativeStickyHeaderZIndex = 90;
+export const tableDangerOverlayZIndex: number = akEditorUnitZIndex * 100;
+// Shift the content layers together, keeping the mask below the lowered header controls.
+export const tableContentZIndexOffset: number =
+	stickyRowZIndex - (loweredNativeStickyHeaderZIndex - akEditorUnitZIndex * 2);
 
 export const dropTargetsZIndex = 14;
 

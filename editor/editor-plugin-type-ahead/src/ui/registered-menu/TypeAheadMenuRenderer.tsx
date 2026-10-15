@@ -5,6 +5,7 @@ import type { MessageDescriptor } from 'react-intl';
 import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
+import { QuickInsertEmptyState } from '@atlaskit/editor-common/quick-insert/empty-state';
 import { getQuickInsertMenuRows } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
@@ -21,8 +22,10 @@ const LIST_WIDTH = 320;
 const ESTIMATED_ROW_HEIGHT = 44;
 // 44px item + 1px separator.
 const MENU_FOOTER_HEIGHT = 45;
+const MENU_FOOTER_HEIGHT_WITH_SCROLL_PADDING = 51;
 
 type Props = {
+	hasScrollPadding?: boolean;
 	Item: TypeAheadItemComponent;
 	listId: string;
 	listLabel: MessageDescriptor;
@@ -31,6 +34,7 @@ type Props = {
 	onItemHover: (itemIndex: number, itemKey?: string) => void;
 	onItemLeave: (itemKey: string) => void;
 	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
+	query?: string;
 	selectedItemIndex: number;
 };
 
@@ -40,6 +44,8 @@ export const TypeAheadMenuRenderer = ({
 	listId,
 	maxHeight,
 	model,
+	query = '',
+	hasScrollPadding = false,
 	onItemHover,
 	onItemLeave,
 	onItemVisibilityChange,
@@ -106,6 +112,7 @@ export const TypeAheadMenuRenderer = ({
 		onItemLeave,
 		onItemVisibilityChange,
 		rows,
+		hasScrollPadding,
 		selectedItemIndex,
 	});
 	const footerItemIndex = itemIndexByRowIndex.size;
@@ -119,7 +126,15 @@ export const TypeAheadMenuRenderer = ({
 	}
 
 	const RootComponent = model.root.component ?? PassThrough;
-	const listMaxHeight = Math.max(0, maxHeight - (model.footer ? MENU_FOOTER_HEIGHT : 0));
+	const listMaxHeight = Math.max(
+		0,
+		maxHeight -
+			(model.footer
+				? hasScrollPadding
+					? MENU_FOOTER_HEIGHT_WITH_SCROLL_PADDING
+					: MENU_FOOTER_HEIGHT
+				: 0),
+	);
 	const hasListboxContent = rows.length > 0 || model.footer !== undefined;
 
 	return (
@@ -143,6 +158,8 @@ export const TypeAheadMenuRenderer = ({
 						scrollToAlignment="auto"
 						width={LIST_WIDTH}
 					/>
+				) : query !== '' && model.fallbackItems?.length === 0 ? (
+					<QuickInsertEmptyState mode="inline" spacing="spacious" />
 				) : model.fallbackItems === undefined ? (
 					<Box paddingBlock="space.150" paddingInline="space.250" role="group">
 						<Text align="center" as="p">
@@ -157,6 +174,7 @@ export const TypeAheadMenuRenderer = ({
 						Item={Item}
 						onMouseMove={onFooterItemHover}
 						registration={model.footer}
+						hasScrollPadding={hasScrollPadding}
 					/>
 				)}
 			</Box>

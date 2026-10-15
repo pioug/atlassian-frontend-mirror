@@ -15,9 +15,6 @@ test.describe('side nav panel splitter', () => {
 			'design-system',
 			'navigation-system',
 			'resizable-slots',
-			{
-				featureFlag: 'navx-full-height-sidebar',
-			},
 		);
 	});
 
@@ -172,9 +169,16 @@ test.describe('side nav panel splitter', () => {
 	});
 
 	test.describe('tooltip', () => {
-		test('should be positioned within the main content area even when hovering above the main content area', async ({
+		// The tooltip is centred vertically around the cursor, but is never positioned closer than 8px to the top nav.
+		const tooltipCursorOffset = 25;
+		const tooltipTopNavGap = 8;
+
+		test('should be clamped to below the top nav when hovering the top of the panel splitter', async ({
 			page,
 		}) => {
+			const topNavBox = await page.getByRole('banner').boundingBox();
+			invariant(topNavBox);
+
 			await page.getByTestId('side-nav-slot-panel-splitter').hover({ position: { x: 0, y: 0 } });
 
 			const tooltip = page.getByRole('tooltip');
@@ -185,13 +189,19 @@ test.describe('side nav panel splitter', () => {
 			invariant(boundingBox);
 
 			expect(boundingBox.x).toBe(330); // Constant distance from resizer
-			expect(boundingBox.y).toBe(64); // Top-most allowed position -> 8px below top nav
+			// Top-most allowed position -> 8px below top nav
+			expect(boundingBox.y).toBe(topNavBox.y + topNavBox.height + tooltipTopNavGap);
 		});
 
 		test('should be positioned alongside cursor when hovering within main content area', async ({
 			page,
 		}) => {
-			await page.getByTestId('side-nav-slot-panel-splitter').hover({ position: { x: 0, y: 400 } });
+			const panelSplitter = page.getByTestId('side-nav-slot-panel-splitter');
+			const panelSplitterBox = await panelSplitter.boundingBox();
+			invariant(panelSplitterBox);
+
+			const cursorOffsetY = 400;
+			await panelSplitter.hover({ position: { x: 0, y: cursorOffsetY } });
 
 			const tooltip = page.getByRole('tooltip');
 
@@ -201,7 +211,8 @@ test.describe('side nav panel splitter', () => {
 			invariant(boundingBox);
 
 			expect(boundingBox.x).toBe(330); // Constant distance from resizer
-			expect(boundingBox.y).toBe(375); // Centered around cursor Y, so top edge is slightly above the cursor position
+			// Centered around cursor Y, so top edge is slightly above the cursor position
+			expect(boundingBox.y).toBe(panelSplitterBox.y + cursorOffsetY - tooltipCursorOffset);
 		});
 	});
 });

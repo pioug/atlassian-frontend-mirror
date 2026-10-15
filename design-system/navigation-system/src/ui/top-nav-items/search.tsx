@@ -4,7 +4,7 @@
  */
 import React, { Fragment } from 'react';
 
-import { cssMap, cx, jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import SearchIcon from '@atlaskit/icon/core/search';
 import type { NewIconProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -13,7 +13,6 @@ import { Show } from '@atlaskit/primitives/compiled/show';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
-import { useIsFhsEnabled } from '../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from './themed/icon-button';
 
 const styles = cssMap({
@@ -30,11 +29,13 @@ const styles = cssMap({
 		paddingBlock: token('space.0'),
 		paddingInline: token('space.075'),
 		width: '100%',
+		transition: token('motion.button.hovered'),
 		'&:hover': {
 			backgroundColor: token('color.background.input.hovered'),
 		},
 		'&:active': {
 			backgroundColor: token('color.background.input.pressed'),
+			transition: token('motion.button.pressed'),
 		},
 		'@media (min-width: 30rem)': {
 			display: 'grid',
@@ -53,10 +54,6 @@ const styles = cssMap({
 		display: 'flex',
 		gridColumn: 3,
 		gridRow: 1,
-	},
-	// Aligning max width with real search component and our docs / Figma
-	fullHeightSidebar: {
-		maxWidth: '780px',
 	},
 });
 
@@ -97,8 +94,6 @@ export const Search: (props: SearchProps) => JSX.Element = ({
 	interactionName,
 	'aria-haspopup': ariaHaspopup,
 }: SearchProps) => {
-	const isFhsEnabled = useIsFhsEnabled();
-
 	return (
 		<Fragment>
 			<Pressable
@@ -114,7 +109,7 @@ export const Search: (props: SearchProps) => JSX.Element = ({
 					}`,
 				}}
 				onClick={onClick}
-				xcss={cx(styles.root, isFhsEnabled && styles.fullHeightSidebar)}
+				xcss={styles.root}
 				interactionName={interactionName}
 				aria-haspopup={ariaHaspopup}
 			>

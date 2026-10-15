@@ -93,6 +93,7 @@ type PlaceholderParam = {
 export type RovoChatSourceMode = 'GENERAL' | 'STRICT';
 
 type ChatModeParam = {
+	autoActionApprovalMode?: 'ALWAYS_HUMAN' | 'SHADOW' | 'AUTO_APPROVE';
 	deepResearchEnabled?: boolean;
 	thinkDeeperEnabled?: boolean;
 	fastModeEnabled?: boolean;
@@ -623,6 +624,9 @@ export type InsertSkillPayload = PayloadCore<
 	}
 >;
 
+/** Opens the chat upload dialog so SKILL.md can be reviewed by Skill Builder. */
+export type OpenSkillUploadPayload = PayloadCore<'open-skill-upload', void>;
+
 /** Selects a conversation action by ID
  * - Used to programmatically open a specific action in the conversation actions list
  * - The action screen must be already open, and the actions list populated
@@ -974,6 +978,7 @@ export type Payload =
 	| SetChatContextPayload
 	| InsertUrlsPayload
 	| InsertSkillPayload
+	| OpenSkillUploadPayload
 	| SelectActionPayload
 	| AddChartToDashboardPayload
 	| GenericExternalActionErrorPayload

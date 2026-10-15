@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 39.2.0
+
+### Minor Changes
+
+- [`749df3301523e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/749df3301523e) -
+  Include intended generated entrypoints in published packages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.1.20
 
 ### Patch Changes

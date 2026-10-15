@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "131.2.1",
+	"version": "131.4.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,6 +147,8 @@
 		"./quick-insert/quick-insert-rank": "./src/quick-insert/quick-insert-rank.ts",
 		"./quick-insert/menu-root": "./src/quick-insert/QuickInsertMenuRoot.tsx",
 		"./quick-insert/menu-section": "./src/quick-insert/QuickInsertMenuSection.tsx",
+		"./quick-insert/empty-state": "./src/quick-insert/QuickInsertEmptyState.tsx",
+		"./quick-insert/use-search-analytics": "./src/quick-insert/useQuickInsertSearchAnalytics.ts",
 		"./react-node-view": "./src/react-node-view/index.tsx",
 		"./resizer": "./src/resizer/index.ts",
 		"./safe-plugin": "./src/safe-plugin/index.ts",

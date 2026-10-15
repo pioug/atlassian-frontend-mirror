@@ -35,6 +35,38 @@ describe('Flex component', () => {
 		expect(element).toBeInTheDocument();
 	});
 
+	it.each([
+		['space.gap.xxsmall', '--ds-space-gap-xxsmall', '2px'],
+		['space.gap.xsmall', '--ds-space-gap-xsmall', '4px'],
+		['space.gap.small', '--ds-space-gap-small', '6px'],
+		['space.gap.medium', '--ds-space-gap-medium', '8px'],
+		['space.gap.large', '--ds-space-gap-large', '9pt'],
+		['space.gap.xlarge', '--ds-space-gap-xlarge', '1pc'],
+		['space.gap.xxlarge', '--ds-space-gap-xxlarge', '24px'],
+	] as const)('renders %s as a gap', (gap, cssVariable, fallback) => {
+		render(
+			<Flex testId={testId} gap={gap}>
+				child
+			</Flex>,
+		);
+		expect(screen.getByTestId(testId)).toHaveCompiledCss({
+			rowGap: `var(${cssVariable},${fallback})`,
+			columnGap: `var(${cssVariable},${fallback})`,
+		});
+	});
+
+	it('allows semantic row and column gaps to override the gap prop', () => {
+		render(
+			<Flex testId={testId} gap="space.100" rowGap="space.gap.small" columnGap="space.gap.large">
+				child
+			</Flex>,
+		);
+		expect(screen.getByTestId(testId)).toHaveCompiledCss({
+			rowGap: 'var(--ds-space-gap-small,6px)',
+			columnGap: 'var(--ds-space-gap-large,9pt)',
+		});
+	});
+
 	it('should render div by default', () => {
 		render(<Flex testId={testId}>Flex as div default</Flex>);
 		const element = screen.getByTestId(testId);

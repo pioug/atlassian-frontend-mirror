@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.13.9
+
+### Patch Changes
+
+- [`855fe0d392a96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/855fe0d392a96) -
+  Fix no-unsafe-design-token-usage to report experimental and deleted token names used directly in
+  xcss object literals and primitive component props. Extend no-deprecated-design-token-usage to
+  warn about deprecated tokens selected by primitive props, including typography and negative
+  spacing aliases. Only offer prop replacements that preserve the component's supported values.
+
 ## 16.13.8
 
 ### Patch Changes

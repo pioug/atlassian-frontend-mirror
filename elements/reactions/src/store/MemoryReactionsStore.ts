@@ -1,6 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { WithSamplingUFOExperience } from '@atlaskit/emoji/sampling-ufo';
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 
 import {
@@ -361,7 +360,7 @@ export class MemoryReactionsStore implements Store {
 						},
 					});
 				}
-				if (onFailure && expVal('exp-comment-reaction-fail-fix', 'isEnabled', false)) {
+				if (onFailure) {
 					// revert the optimistic update since the request failed
 					this.optmisticUpdate(containerAri, ari, emojiId)(removeOne);
 					onFailure(ReactionUpdateType.added, ari, emojiId, error);
@@ -405,7 +404,7 @@ export class MemoryReactionsStore implements Store {
 						reason: 'deleteReaction fetch failed',
 					},
 				});
-				if (onFailure && expVal('exp-comment-reaction-fail-fix', 'isEnabled', false)) {
+				if (onFailure) {
 					// revert the optimistic update since the request failed
 					this.optmisticUpdate(containerAri, ari, emojiId)(addOne);
 					onFailure(ReactionUpdateType.removed, ari, emojiId, error);

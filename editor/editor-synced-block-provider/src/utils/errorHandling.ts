@@ -12,7 +12,7 @@ import type {
 import type { OperationalAEP } from '@atlaskit/editor-common/analytics/types/utils';
 
 import { SyncBlockError } from '../common/types';
-import type { DeletionMechanism, DeletionReason } from '../common/types';
+import type { DeletionMechanism, DeletionReason, SyncBlockSourceLocation } from '../common/types';
 
 export const stringifyError = (error: unknown): string | undefined => {
 	try {
@@ -297,6 +297,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 	resourceId: string | undefined,
 	sourceProduct: string | undefined,
 	attribution: FetchErrorAttributionAttributes,
+	sourceLocation?: SyncBlockSourceLocation,
 ): OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
@@ -305,6 +306,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 		error: string;
 		resourceId?: string;
 		sourceProduct?: string;
+		sourceLocation?: SyncBlockSourceLocation;
 		reason?: SyncBlockFetchErrorReason;
 		statusCode?: number;
 		benign?: boolean;
@@ -317,6 +319,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 	resourceId?: string,
 	sourceProduct?: string,
 	attribution?: ErrorAttributionAttributes,
+	sourceLocation?: SyncBlockSourceLocation,
 ): OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
@@ -325,6 +328,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 		error: string;
 		resourceId?: string;
 		sourceProduct?: string;
+		sourceLocation?: SyncBlockSourceLocation;
 		reason?: SyncBlockErrorReason;
 		statusCode?: number;
 	}
@@ -335,6 +339,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 	resourceId?: string,
 	sourceProduct?: string,
 	attribution?: ErrorAttributionAttributes | FetchErrorAttributionAttributes,
+	sourceLocation?: SyncBlockSourceLocation,
 ): OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
@@ -343,6 +348,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 		error: string;
 		resourceId?: string;
 		sourceProduct?: string;
+		sourceLocation?: SyncBlockSourceLocation;
 		reason?: SyncBlockFetchErrorReason;
 		statusCode?: number;
 		benign?: boolean;
@@ -358,6 +364,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 			error,
 			...(resourceId && { resourceId }),
 			...(sourceProduct && { sourceProduct }),
+			...(sourceLocation && { sourceLocation }),
 			...(attribution?.reason && { reason: attribution.reason }),
 			...(attribution?.statusCode !== undefined && { statusCode: attribution.statusCode }),
 			// `benign` is only present on fetch/subscribe attribution (EDITOR-7862). It is a
@@ -396,8 +403,16 @@ export const getSourceInfoErrorPayload = (
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	sourceLocation?: SyncBlockSourceLocation,
 ): RendererSyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO, error, resourceId, sourceProduct);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
+		error,
+		resourceId,
+		sourceProduct,
+		undefined,
+		sourceLocation,
+	);
 export const updateErrorPayload = (
 	error: string,
 	resourceId?: string,
@@ -429,6 +444,7 @@ export const createErrorPayload = (
 	resourceId?: string,
 	sourceProduct?: string,
 	attribution?: ErrorAttributionAttributes,
+	sourceLocation?: SyncBlockSourceLocation,
 ): SyncBlockEventPayload =>
 	getErrorPayload(
 		ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
@@ -436,6 +452,7 @@ export const createErrorPayload = (
 		resourceId,
 		sourceProduct,
 		attribution,
+		sourceLocation,
 	);
 export const deleteErrorPayload = (
 	error: string,
@@ -528,13 +545,18 @@ export const fetchSuccessPayload = (
 export const createSuccessPayload = (
 	resourceId: string,
 	sourceProduct?: string,
+	sourceLocation?: SyncBlockSourceLocation,
 ): SyncBlockEventPayload => {
 	return {
 		action: ACTION.INSERTED,
 		actionSubject: ACTION_SUBJECT.DOCUMENT,
 		actionSubjectId: ACTION_SUBJECT_ID.BODIED_SYNCED_BLOCK,
 		eventType: EVENT_TYPE.TRACK,
-		attributes: { resourceId, ...(sourceProduct && { sourceProduct }) },
+		attributes: {
+			resourceId,
+			...(sourceProduct && { sourceProduct }),
+			...(sourceLocation && { sourceLocation }),
+		},
 	};
 };
 
@@ -560,6 +582,7 @@ export const createSuccessOperationalPayload = (
 	blockInstanceId?: string,
 	sourceProduct?: string,
 	enrichment?: CreateSuccessEnrichment,
+	sourceLocation?: SyncBlockSourceLocation,
 ): SyncBlockEventPayload => ({
 	action: ACTION.INSERTED,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
@@ -572,6 +595,7 @@ export const createSuccessOperationalPayload = (
 		...(enrichment?.inputMethod && { inputMethod: enrichment.inputMethod }),
 		...(enrichment?.createdEmpty !== undefined && { createdEmpty: enrichment.createdEmpty }),
 		...(enrichment?.nodeTypes?.length && { nodeTypes: enrichment.nodeTypes }),
+		...(sourceLocation && { sourceLocation }),
 	},
 });
 

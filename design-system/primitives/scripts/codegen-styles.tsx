@@ -83,6 +83,12 @@ const primitiveArtifactDefinitions: PrimitiveArtifactDefinition[] = [
 		needsTokenImport: true,
 	},
 	{
+		fileName: 'gap-space.tsx',
+		template: () => createSpacingStylesFromTemplate('gap'),
+		dependencies: [spacingTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
 		fileName: 'all-space.tsx',
 		template: () => createSpacingStylesFromTemplate('all'),
 		dependencies: [spacingTokensDependencyPath],
@@ -206,7 +212,9 @@ const legacyCssCodemodArtifactDefinitions = [
 	{
 		id: 'spacing',
 		template: () =>
-			(['positive', 'negative', 'all'] as const).map(createSpacingStylesFromTemplate).join('\n'),
+			(['positive', 'negative', 'all', 'gap'] as const)
+				.map(createSpacingStylesFromTemplate)
+				.join('\n'),
 		dependencies: [spacingTokensDependencyPath],
 	},
 	{

@@ -82,6 +82,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/app-provider": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/navigation-system": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",

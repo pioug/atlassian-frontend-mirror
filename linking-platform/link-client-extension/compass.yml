@@ -23,10 +23,10 @@ links:
 customFields:
   - name: Department
     type: text
-    value: Eng - Navigation Experiences
+    value: Eng - Rovo Search Growth
   - name: Technical Owner
     type: user
-    value: ari:cloud:identity::user/712020:3eb290b3-ff87-40f2-a7ef-4ee9d0ae10bd # Darko Zoroja
+    value: ari:cloud:identity::user/712020:297a7015-e760-4d56-aca3-30a62302ef0e # Rahul Lal
   - name: Required Reviewers Opt In
     type: boolean
     value: true

@@ -407,7 +407,36 @@ const applyTextLikeBlockNodeStyles = ({
 		hideAddedDiffsUnderline,
 	);
 
-	const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+	// Under patch_2, an inserted inline node view (a date, a status lozenge) is highlighted as a whole
+	// rather than the text inside it, so the highlight sits behind the node. Rejecting it skips its
+	// subtree, so this stays a single walk.
+	const highlightInlineNodesWhole = isInserted && fg('platform_editor_ai_show_diff_patch_2');
+	// `applyInlineLeafNodeStyles` styles the block's direct inline children itself.
+	const handlesDirectInlineChildren = highlightInlineLeafNodes && targetNode.type.inlineContent;
+	const inlineNodesToWrap: HTMLElement[] = [];
+
+	const walker = document.createTreeWalker(
+		element,
+		NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+		{
+			acceptNode: (node) => {
+				if (node instanceof Text) {
+					return NodeFilter.FILTER_ACCEPT;
+				}
+				if (
+					highlightInlineNodesWhole &&
+					node instanceof HTMLElement &&
+					node.dataset.prosemirrorNodeInline === 'true'
+				) {
+					if (!(handlesDirectInlineChildren && node.parentElement === element)) {
+						inlineNodesToWrap.push(node);
+					}
+					return NodeFilter.FILTER_REJECT;
+				}
+				return NodeFilter.FILTER_SKIP;
+			},
+		},
+	);
 	const textNodesToWrap: Text[] = [];
 	let currentNode = walker.nextNode();
 
@@ -422,14 +451,14 @@ const applyTextLikeBlockNodeStyles = ({
 		currentNode = walker.nextNode();
 	}
 
-	textNodesToWrap.forEach((textNode) => {
+	[...textNodesToWrap, ...inlineNodesToWrap].forEach((node) => {
 		const contentWrapper = document.createElement('span');
 		contentWrapper.setAttribute('style', contentStyle);
-		textNode.replaceWith(contentWrapper);
-		contentWrapper.append(textNode);
+		node.replaceWith(contentWrapper);
+		contentWrapper.append(node);
 	});
 
-	if (highlightInlineLeafNodes && targetNode.type.inlineContent) {
+	if (handlesDirectInlineChildren) {
 		applyInlineLeafNodeStyles({ element, targetNode, contentStyle, colorScheme });
 	}
 };

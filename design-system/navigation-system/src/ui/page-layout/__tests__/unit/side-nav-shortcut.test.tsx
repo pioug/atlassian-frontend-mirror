@@ -7,7 +7,6 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { screen } from '@atlassian/testing-library/screen';
@@ -49,7 +48,7 @@ describe('Side nav keyboard shortcut', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.on('navx-full-height-sidebar', 'keyboard shortcut', () => {
+	describe('keyboard shortcut enabled', () => {
 		it('should toggle when the keyboard shortcut is pressed and Root isSideNavShortcutEnabled is true and canToggleWithShortcut is not provided', async () => {
 			const user = userEvent.setup();
 			setMediaQuery('(min-width: 64rem)', { initial: true });
@@ -507,8 +506,7 @@ describe('Side nav keyboard shortcut', () => {
 		});
 	});
 
-	it('should toggle with the built-in shortcut when desired FHS features are enabled', async () => {
-		failGate('navx-full-height-sidebar');
+	it('should toggle with the built-in shortcut when the shortcut is enabled on Root', async () => {
 		const user = userEvent.setup();
 		setMediaQuery('(min-width: 64rem)', { initial: true });
 
@@ -523,8 +521,8 @@ describe('Side nav keyboard shortcut', () => {
 		expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false');
 	});
 
-	ffTest.off('navx-full-height-sidebar', 'keyboard shortcut', () => {
-		it('should not have keyboard shortcut listener when the feature flag is disabled', async () => {
+	describe('keyboard shortcut disabled', () => {
+		it('should not have keyboard shortcut listener when isSideNavShortcutEnabled is not set on Root', async () => {
 			const user = userEvent.setup();
 			setMediaQuery('(min-width: 64rem)', { initial: true });
 

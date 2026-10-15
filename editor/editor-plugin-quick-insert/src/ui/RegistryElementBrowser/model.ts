@@ -64,7 +64,7 @@ const getDescendantItems = (
 	});
 
 /**
- * Builds the Element Browser's immutable open-time view of the Quick Insert registry.
+ * Builds the Element Browser's view of the resolved Quick Insert registry.
  * The caller provides only components rooted at the Quick Insert menu surface.
  */
 export const createRegistryElementBrowserModel = (

@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 237.0.8
+
+### Patch Changes
+
+- [`72b41803e7b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72b41803e7b84) -
+  Quick insert menu: render lozenges for extension items, restore the New lozenge on Synced block,
+  and add a New lozenge, preview image and By Atlassian attribution to Block Template Gallery
+- Updated dependencies
+
+## 237.0.7
+
+### Patch Changes
+
+- [`50bd552f7a17f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50bd552f7a17f) -
+  [ux] Use CSS scroll-driven overflow shadows for extensions when the
+  `platform_editor_reduce_forced_layout_2` experiment is enabled, reducing forced layout while
+  preserving the JavaScript fallback in unsupported browsers. Add an optional `isDisabled` setting
+  to `overflowShadow` so consumers can disable its JavaScript behavior.
+- [`190c5847617e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/190c5847617e8) -
+  Align agent mention avatar hexagon geometry with agent avatars behind the
+  `platform_editor_agent_hexagon_ui_fix` experiment.
+- Updated dependencies
+
+## 237.0.6
+
+### Patch Changes
+
+- [`8843fc489d5a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8843fc489d5a6) -
+  EDITOR-9591 Behind platform_editor_ai_show_diff_patch_2, draw the show-diff date and emoji atomic
+  inline change ring as a box-shadow, on the date pill, instead of an outline, and redraw the strike
+  on a deleted emoji as is done for a deleted status
+- Updated dependencies
+
 ## 237.0.5
 
 ### Patch Changes

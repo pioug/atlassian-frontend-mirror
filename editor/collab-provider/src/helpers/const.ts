@@ -339,7 +339,8 @@ type StepsRebasedAnalyticsEvent = {
 type PollingFallbackAnalyticsEvent = {
 	attributes: {
 		eventStatus: EVENT_STATUS.INFO;
-		url: 'string';
+		reason: string;
+		url: string;
 	} & BaseActionAnalyticsEventAttributes;
 	eventAction: EVENT_ACTION.POLLING_FALLBACK;
 };

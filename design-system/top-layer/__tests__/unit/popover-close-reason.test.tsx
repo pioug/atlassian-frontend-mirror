@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Popover } from '../../src/popover/popover';
 
@@ -256,16 +257,8 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 		);
 		const popover = screen.getByRole('dialog', { name: 'escape-test' });
 
-		// The polyfill hides during document capture, before our keydown listener.
-		// Defer that hide to reproduce native ordering: keydown first, dismissal second.
-		const hidePopover = jest.spyOn(popover, 'hidePopover').mockImplementationOnce(() => {});
 		act(() => {
 			fireEscapeKeydown(popover);
-		});
-		hidePopover.mockRestore();
-
-		act(() => {
-			popover.hidePopover();
 		});
 		await waitFor(() => {
 			expect(popover).not.toBeInTheDocument();
@@ -290,5 +283,40 @@ describe('Popover closeReasonRef - race condition between Escape keydown and pro
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+});
+
+describe('polyfilled Escape focus restoration', () => {
+	it('reports Escape and restores the trigger without mocking native dismissal', async () => {
+		const onClose = jest.fn();
+		function Example() {
+			const [isOpen, setIsOpen] = useState(false);
+			return (
+				<>
+					<button onClick={() => setIsOpen(true)}>Open popup</button>
+					<Popover
+						isOpen={isOpen}
+						role="dialog"
+						label="escape-focus"
+						onClose={(event) => {
+							onClose(event);
+							setIsOpen(false);
+						}}
+					>
+						<button>Popup action</button>
+					</Popover>
+				</>
+			);
+		}
+		render(<Example />);
+		const trigger = screen.getByRole('button', { name: 'Open popup' });
+		await userEvent.click(trigger);
+		const popover = screen.getByRole('dialog', { name: 'escape-focus' });
+		await waitFor(() => expect(screen.getByRole('button', { name: 'Popup action' })).toHaveFocus());
+		await userEvent.keyboard('{Escape}');
+		await waitFor(() => expect(popover).not.toBeInTheDocument());
+		expect(onClose).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+		expect(trigger).toHaveFocus();
 	});
 });

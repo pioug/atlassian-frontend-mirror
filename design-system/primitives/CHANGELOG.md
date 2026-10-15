@@ -1,5 +1,18 @@
 # @atlaskit/primitives
 
+## 22.6.0
+
+### Minor Changes
+
+- [`7d9167cd9d04b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d9167cd9d04b) -
+  Add support for experimental `space.gap.*` tokens in `gap`, `rowGap`, `columnGap`, and spacing
+  props on compiled and legacy layout primitives. Keep padding and margin restricted to numeric
+  spacing tokens.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.5.4
 
 ### Patch Changes

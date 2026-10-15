@@ -16,7 +16,6 @@ import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/comp
 import { token } from '@atlaskit/tokens';
 
 import { List } from '../../../components/list';
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
 import { IconButton } from '../../top-nav-items/themed/icon-button';
 import { openLayerObserverTopNavEndNamespace } from '../constants';
@@ -64,9 +63,6 @@ const containerStyles = cssMap({
 	withPersistentItems: {
 		alignItems: 'center',
 		gap: token('space.050'),
-	},
-	fullHeightSidebar: {
-		paddingInlineEnd: token('space.150'),
 	},
 });
 
@@ -131,7 +127,6 @@ export function TopNavEnd({
 	showMoreButtonLabel?: string;
 }): JSX.Element {
 	const hasPersistentItems = fg('platform-dst-chat-panel-layout') && persistentItems != null;
-	const isFhsEnabled = useIsFhsEnabled();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	// Always setting to `false` for the initial render (will flip in an effect for mobile)
 	const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -162,11 +157,7 @@ export function TopNavEnd({
 	const content = (
 		<nav
 			aria-label={label}
-			css={[
-				containerStyles.root,
-				hasPersistentItems && containerStyles.withPersistentItems,
-				isFhsEnabled && containerStyles.fullHeightSidebar,
-			]}
+			css={[containerStyles.root, hasPersistentItems && containerStyles.withPersistentItems]}
 		>
 			{isMobile ? (
 				<Popup

@@ -72,7 +72,7 @@ export const getJiraIssueAriFromSourceAri = ({ ari }: { ari: string }): string =
 	return ari;
 };
 
-const JIRA_DESCRIPTION_FIELD_ID = 'description';
+export const JIRA_DESCRIPTION_FIELD_ID = 'description';
 
 /**
  * One synced block location on a Jira work item, parsed once from its document ARI.

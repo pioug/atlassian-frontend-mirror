@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 36.0.6
+
+### Patch Changes
+
+- [`283c2b7c4aed3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/283c2b7c4aed3) -
+  Presence connects with WebSocket first and falls back to long polling only when WebSocket fails,
+  behind `platform_editor_presence_ws_first_with_fallback`
+- Updated dependencies
+
 ## 36.0.5
 
 ### Patch Changes

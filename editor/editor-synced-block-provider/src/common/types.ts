@@ -19,6 +19,9 @@ export type SyncBlockStatus = 'active' | 'deleted' | 'unpublished';
  */
 export type SyncBlockLocationScope = 'same-document' | 'same-parent-document' | 'elsewhere';
 
+/** Which Jira work item field holds a source block. */
+export type SyncBlockSourceLocation = 'description' | 'custom-field';
+
 export type SyncBlockAttrs = {
 	localId: BlockInstanceId;
 	resourceId: ResourceId;

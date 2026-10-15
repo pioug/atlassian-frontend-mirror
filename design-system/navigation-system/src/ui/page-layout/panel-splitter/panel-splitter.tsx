@@ -33,7 +33,6 @@ import TooltipContainer, { type TooltipContainerProps } from '@atlaskit/tooltip/
 import type { TooltipProps } from '@atlaskit/tooltip/types';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { contentInsetBlockStart } from '../constants';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
@@ -118,11 +117,6 @@ const grabAreaStyles = cssMap({
 		},
 		'&:active': {
 			color: token('color.border.selected'),
-		},
-	},
-	fullHeightSidebar: {
-		'&:hover': {
-			cursor: 'col-resize',
 		},
 	},
 });
@@ -273,7 +267,6 @@ const PortaledPanelSplitter = ({
 		| 'position'
 		| 'shortcut'
 	>): ReactNode => {
-	const isFhsEnabled = useIsFhsEnabled();
 	const splitterRef = useRef<HTMLDivElement | null>(null);
 	const labelId = useId();
 	// Separate state used for the input range width to remove the UI's dependency on the "persisted" layout state value being updated
@@ -591,7 +584,6 @@ const PortaledPanelSplitter = ({
 					css={[
 						grabAreaStyles.root,
 						fg('platform-dst-tokens-finesse') && grabAreaStyles.rootFinesse,
-						isFhsEnabled && grabAreaStyles.fullHeightSidebar,
 					]}
 					data-testid={testId}
 					onDoubleClick={onDoubleClick}
@@ -646,8 +638,6 @@ export type PanelSplitterProps = {
 	 *
 	 * The `tooltipContent` will not be announced by screen readers because it pertains to the draggable element, which lacks keyboard functionality.
 	 * Use the `label` prop to provide accessible information about the panel splitter.
-	 *
-	 * Only used if `useIsFhsEnabled` is true.
 	 */
 	tooltipContent?: TooltipProps['content'];
 };

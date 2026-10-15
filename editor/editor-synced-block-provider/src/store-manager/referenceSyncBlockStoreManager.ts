@@ -40,6 +40,7 @@ import {
 	getFetchSourceInfoExperience,
 	getSaveReferenceExperience,
 } from '../utils/experienceTracking';
+import { getSourceLocation } from '../utils/fieldAwareLocations';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { parseResourceId } from '../utils/resourceId';
 import {
@@ -472,6 +473,13 @@ export class ReferenceSyncBlockStoreManager {
 				return Promise.resolve(undefined);
 			}
 
+			const sourceLocation = getSourceLocation(sourceAri);
+			// Undefined with `platform_editor_blocks_patch_13` off, so experience calls below keep
+			// exactly their previous arguments (no `metadata` key, `success()` without arguments).
+			const experienceMetadata = sourceLocation && { sourceLocation };
+			const withExperienceMetadata = (options: { reason: string }) =>
+				experienceMetadata ? { ...options, metadata: experienceMetadata } : options;
+
 			this.fetchSourceInfoExperience?.start({});
 			const sourceInfoPromise = this.dataProvider
 				.fetchSyncBlockSourceInfo(
@@ -482,9 +490,16 @@ export class ReferenceSyncBlockStoreManager {
 				)
 				.then((sourceInfo) => {
 					if (!sourceInfo) {
-						this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned' });
+						this.fetchSourceInfoExperience?.failure(
+							withExperienceMetadata({ reason: 'No source info returned' }),
+						);
 						this.fireAnalyticsEvent?.(
-							getSourceInfoErrorPayload('No source info returned', resourceId, sourceProduct),
+							getSourceInfoErrorPayload(
+								'No source info returned',
+								resourceId,
+								sourceProduct,
+								sourceLocation,
+							),
 						);
 						return undefined;
 					}
@@ -495,20 +510,33 @@ export class ReferenceSyncBlockStoreManager {
 					}
 
 					if (sourceInfo.title && sourceInfo.url) {
-						this.fetchSourceInfoExperience?.success();
+						if (experienceMetadata) {
+							this.fetchSourceInfoExperience?.success({ metadata: experienceMetadata });
+						} else {
+							this.fetchSourceInfoExperience?.success();
+						}
 					} else {
-						this.fetchSourceInfoExperience?.failure({ reason: 'Missing title or url' });
+						this.fetchSourceInfoExperience?.failure(
+							withExperienceMetadata({ reason: 'Missing title or url' }),
+						);
 						this.fireAnalyticsEvent?.(
-							getSourceInfoErrorPayload('Missing title or url', resourceId, sourceProduct),
+							getSourceInfoErrorPayload(
+								'Missing title or url',
+								resourceId,
+								sourceProduct,
+								sourceLocation,
+							),
 						);
 					}
 
 					return sourceInfo;
 				})
 				.catch((error) => {
-					this.fetchSourceInfoExperience?.failure({ reason: error.message });
+					this.fetchSourceInfoExperience?.failure(
+						withExperienceMetadata({ reason: error.message }),
+					);
 					this.fireAnalyticsEvent?.(
-						getSourceInfoErrorPayload(error.message, resourceId, sourceProduct),
+						getSourceInfoErrorPayload(error.message, resourceId, sourceProduct, sourceLocation),
 					);
 
 					return undefined;

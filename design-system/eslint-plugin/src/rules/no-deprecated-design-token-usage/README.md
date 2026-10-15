@@ -25,4 +25,18 @@ Once the deprecation period is over for a design token it will be moved into `de
 which point the counterpart of this rule `no-unsafe-design-token-usage` will mark violations as
 errors.
 
-Running `eslint --fix` will automatically apply replacement tokens if present.
+Replacement tokens are offered as editor suggestions when present.
+
+## Primitive component props
+
+The rule also checks explicit string props on imported `@atlaskit/primitives` components, including
+aliases, namespaces, component subpaths, and `/compiled` imports. It covers the token-valued spacing
+and color props, as well as `Text.size`, `Text.weight`, `MetricText.size`, and Bleed's
+positive-to-negative spacing mapping. See
+[`no-unsafe-design-token-usage`](../no-unsafe-design-token-usage/README.md#primitive-component-props)
+for the full prop list and static-analysis limits.
+
+Deprecated tokens produce warnings according to this rule's configured severity. Suggestions
+preserve semantic prop values (such as `size="small"`) and are only offered when the replacement is
+supported by the prop. Tokens without a replacement, raw CSS replacements, and incompatible token
+families are reported without a suggestion.

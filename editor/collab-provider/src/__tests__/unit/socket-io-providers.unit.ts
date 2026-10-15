@@ -1,7 +1,7 @@
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
-import { createSocketIOSocket } from '../../socket-io-provider';
+import { createSocketIOSocket, WEBSOCKET_CONNECT_TIMEOUT_MS } from '../../socket-io-provider';
 import type { InitAndAuthData } from '../../types';
 
 describe('Socket io provider', () => {
@@ -25,18 +25,24 @@ describe('Socket io provider', () => {
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 
-			it('use only websocket transport for presence and FG on', () => {
-				passGate('platform-editor-presence-websocket-only');
-				const socket = createSocketIOSocket(url, undefined, undefined, true);
+			it('use websocket first with polling fallback for presence and FG on', () => {
+				passGate('platform_editor_presence_ws_first_with_fallback');
+				const socket = createSocketIOSocket(url, undefined, { product: 'confluence' }, true);
 
-				expect((socket as any).io.opts.transports).toEqual(['websocket']);
+				expect((socket as any).io.opts.transports).toEqual(['websocket', 'polling']);
+				expect((socket as any).io.opts.tryAllTransports).toBe(true);
+				expect((socket as any).io.opts.query).toMatchObject({
+					'x-product': 'confluence',
+					'x-client-platform': 'web',
+				});
 			});
 
 			it('use polling and websocket transports for presence and FG off', () => {
-				failGate('platform-editor-presence-websocket-only');
+				failGate('platform_editor_presence_ws_first_with_fallback');
 				const socket = createSocketIOSocket(url, undefined, undefined, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
+				expect((socket as any).io.opts.tryAllTransports).toBe(false);
 			});
 
 			it('use only websocket transport for collab editing on GCP and FG on', () => {
@@ -53,18 +59,92 @@ describe('Socket io provider', () => {
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 
-			it('use only websocket transport for presence on GCP and FG on', () => {
-				passGate('platform-editor-presence-websocket-only');
+			it('use websocket first for presence on GCP and FG on', () => {
+				passGate('platform_editor_presence_ws_first_with_fallback');
 				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
-				expect((socket as any).io.opts.transports).toEqual(['websocket']);
+				expect((socket as any).io.opts.transports).toEqual(['websocket', 'polling']);
 			});
 
 			it('use polling and websocket transports for presence on GCP and FG off', () => {
-				failGate('platform-editor-presence-websocket-only');
+				failGate('platform_editor_presence_ws_first_with_fallback');
 				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
+			});
+		});
+
+		describe('Presence polling fallback', () => {
+			const analyticsHelper = { sendActionEvent: jest.fn() };
+			const createPresenceSocket = () => {
+				passGate('platform_editor_presence_ws_first_with_fallback');
+				const socket = createSocketIOSocket(
+					url,
+					undefined,
+					undefined,
+					true,
+					analyticsHelper as any,
+				);
+				// Stop the real connection attempt, so only the events emitted below drive the fallback
+				jest.spyOn(socket, 'disconnect').mockReturnValue(socket);
+				jest.spyOn(socket, 'connect').mockReturnValue(socket);
+				return socket as any;
+			};
+			const transportError = () =>
+				Object.assign(new Error('websocket error'), { type: 'TransportError' });
+
+			beforeEach(() => {
+				jest.useFakeTimers();
+				analyticsHelper.sendActionEvent.mockClear();
+			});
+			afterEach(() => {
+				jest.useRealTimers();
+			});
+
+			it('switch to polling first on a websocket transport error', () => {
+				const socket = createPresenceSocket();
+				socket.emitReserved('connect_error', transportError());
+
+				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+				expect(socket.disconnect).toHaveBeenCalled();
+				expect(socket.connect).toHaveBeenCalled();
+				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith('pollingFallback', 'INFO', {
+					url,
+					reason: 'websocket error',
+				});
+			});
+
+			it('switch to polling first when websocket does not connect in time', () => {
+				const socket = createPresenceSocket();
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith('pollingFallback', 'INFO', {
+					url,
+					reason: 'timeout',
+				});
+			});
+
+			it('keep websocket first when the server rejects the connection', () => {
+				const socket = createPresenceSocket();
+				socket.emitReserved(
+					'connect_error',
+					Object.assign(new Error('No permission'), { data: { status: 401 } }),
+				);
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+				socket.emitReserved('connect_error', transportError());
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
+			});
+
+			it('fall back only once', () => {
+				const socket = createPresenceSocket();
+				socket.emitReserved('connect_error', transportError());
+				socket.emitReserved('connect_error', transportError());
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
 			});
 		});
 

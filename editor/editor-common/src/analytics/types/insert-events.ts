@@ -10,6 +10,7 @@ import type {
 } from './enums';
 import type { InsertNativeEmbedAEP } from './native-embed-events';
 import type { InsertSmartLinkAEP } from './smart-links';
+import type { SyncedBlockSourceLocationAttribute } from './sync-block-events';
 import type { InsertAEP, TrackAEP, OperationalAEP } from './utils';
 
 export enum USER_CONTEXT {
@@ -403,6 +404,7 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 	ACTION_SUBJECT_ID.BODIED_SYNCED_BLOCK,
 	{
 		resourceId: string;
+		sourceLocation?: SyncedBlockSourceLocationAttribute;
 	},
 	undefined
 >;

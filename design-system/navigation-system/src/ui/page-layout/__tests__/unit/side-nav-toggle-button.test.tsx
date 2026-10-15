@@ -2,8 +2,6 @@ import React from 'react';
 
 import { renderToString } from 'react-dom/server';
 
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
@@ -89,7 +87,7 @@ describe('SideNavToggleButton', () => {
 			expect(await screen.findByRole('tooltip', { name: 'Collapse sidebar' })).toBeInTheDocument();
 		});
 
-		ffTest.on('navx-full-height-sidebar', 'with useIsFhsEnabled true', () => {
+		describe('tooltip', () => {
 			it('should include the built-in keyboard shortcut in the tooltip when side nav is collapsed and the shortcut is enabled on Root', async () => {
 				render(
 					<Root isSideNavShortcutEnabled defaultSideNavCollapsed>
@@ -223,7 +221,6 @@ describe('SideNavToggleButton', () => {
 	});
 
 	it('should use the built-in shortcut in the tooltip and close it when clicked', async () => {
-		failGate('navx-full-height-sidebar');
 		const user = createUser();
 
 		render(

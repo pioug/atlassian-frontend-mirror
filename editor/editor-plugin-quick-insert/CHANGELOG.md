@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 27.1.0
+
+### Minor Changes
+
+- [`f93da47c0d069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f93da47c0d069) -
+  Add shared illustrated empty states and search outcome analytics for registered slash, Plus and
+  Element Browser searches under platform_editor_slash_command. Refresh resolved registrations on
+  search edits and retain eligible Ask Rovo and host Marketplace recovery. Remove duplicate top
+  spacing in the Plus menu and show its previews only for directly hovered or keyboard-selected
+  items. Subscribe all three registered entry points to live registry updates and rebuild their
+  models on search changes, keeping selection and category state valid as items arrive or disappear.
+  Omit the Plus footer divider when only the generic empty state is shown.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.5
 
 ### Patch Changes

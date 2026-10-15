@@ -16,6 +16,7 @@ import type {
 	DeletionReason,
 	DeletionMechanism,
 	ReferenceSyncBlockData,
+	SyncBlockSourceLocation,
 	SyncBlockStatus,
 } from '../common/types';
 import type { SyncBlockDataProviderInterface, SyncBlockSourceInfo } from '../providers/types';
@@ -40,6 +41,7 @@ import {
 	getSaveSourceExperience,
 	getFetchSourceInfoExperience,
 } from '../utils/experienceTracking';
+import { getSourceLocation } from '../utils/fieldAwareLocations';
 import {
 	convertSyncBlockPMNodeToSyncBlockData,
 	getSourceProductFromResourceIdSafe,
@@ -553,16 +555,19 @@ export class SourceSyncBlockStoreManager {
 					'creation complete callback missing',
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
+					undefined,
+					this.getSourceLocation(),
 				),
 			);
 		}
 
 		if (success) {
 			const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
+			const sourceLocation = this.getSourceLocation();
 			const documentInsertedResourceId =
 				this.dataProvider?.generateResourceIdForReference(resourceId) ?? resourceId;
 			this.fireAnalyticsEvent?.(
-				createSuccessPayload(documentInsertedResourceId || '', sourceProduct),
+				createSuccessPayload(documentInsertedResourceId || '', sourceProduct, sourceLocation),
 			);
 			// Operational create-success event with the join key + creation-type
 			// signals (inputMethod / createdEmpty / nodeTypes) captured at the command layer.
@@ -572,6 +577,7 @@ export class SourceSyncBlockStoreManager {
 					this.syncBlockCache.get(resourceId)?.blockInstanceId,
 					sourceProduct,
 					this.creationEnrichment.get(resourceId),
+					sourceLocation,
 				),
 			);
 		} else {
@@ -587,6 +593,8 @@ export class SourceSyncBlockStoreManager {
 					'Fail to create bodied sync block',
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
+					undefined,
+					this.getSourceLocation(),
 				),
 			);
 		}
@@ -718,6 +726,7 @@ export class SourceSyncBlockStoreManager {
 								resourceId,
 								getSourceProductFromResourceIdSafe(resourceId),
 								buildErrorAttribution(result.error, result.statusCode),
+								this.getSourceLocation(),
 							),
 						);
 					}
@@ -733,6 +742,8 @@ export class SourceSyncBlockStoreManager {
 							(error as Error).message,
 							resourceId,
 							getSourceProductFromResourceIdSafe(resourceId),
+							undefined,
+							this.getSourceLocation(),
 						),
 					);
 				})
@@ -753,9 +764,15 @@ export class SourceSyncBlockStoreManager {
 					(error as Error).message,
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
+					undefined,
+					this.getSourceLocation(),
 				),
 			);
 		}
+	}
+
+	private getSourceLocation(): SyncBlockSourceLocation | undefined {
+		return getSourceLocation(this.dataProvider?.getParentAri?.());
 	}
 
 	private setPendingDeletion = (Ids: SyncBlockAttrs, value: boolean) => {

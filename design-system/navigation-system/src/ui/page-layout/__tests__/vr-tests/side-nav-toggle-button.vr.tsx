@@ -26,9 +26,6 @@ snapshot(SideNavToggleButtonVR, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
 	variants: lightModeVariant,
 });
 
@@ -46,8 +43,5 @@ snapshot(SideNavToggleButtonWithShortcutVR, {
 		},
 	],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'navx-full-height-sidebar': true,
-	},
 	variants: lightModeVariant,
 });

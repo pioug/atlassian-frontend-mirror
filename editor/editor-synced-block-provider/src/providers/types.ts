@@ -274,6 +274,10 @@ export abstract class SyncBlockDataProviderInterface extends NodeDataProvider<
 	): Promise<SyncBlockSourceInfo | undefined>;
 	abstract setProviderOptions(providerOptions: SyncedBlockRendererProviderOptions): void;
 	abstract getSyncedBlockRendererProviderOptions(): SyncedBlockRendererProviderOptions;
+	/**
+	 * ARI of the document that new source blocks are created in, when a write provider is set.
+	 */
+	getParentAri?(): string | undefined;
 	abstract retrieveSyncBlockParentInfo(
 		sourceAri: string,
 		sourceProduct: SyncBlockProduct,

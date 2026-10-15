@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 
 import {
 	ACTION,
@@ -14,11 +14,15 @@ import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-stat
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import { closeElementBrowser } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
 import { RegistryElementBrowser } from './RegistryElementBrowser';
+
+const EMPTY_COMPONENTS: RegisterComponent[] = [];
+const subscribeToNothing = () => () => {};
 
 export const RegistryElementBrowserContainer = ({
 	editorView,
@@ -42,14 +46,20 @@ export const RegistryElementBrowserContainer = ({
 			mode: state.connectivityState?.mode,
 		}),
 	);
-	// Snapshot once per open, during render, so the browser's open-time section reset sees the
-	// registry for this open rather than the previous (or empty) snapshot.
-	const components = useMemo(
-		() =>
-			isElementBrowserOpen
-				? (pluginInjectionAPI?.uiControlRegistry?.actions.getComponents(MENU.key) ?? [])
-				: [],
-		[isElementBrowserOpen, pluginInjectionAPI],
+	const getRegistrySnapshot = useCallback(() => {
+		if (!isElementBrowserOpen) {
+			return EMPTY_COMPONENTS;
+		}
+
+		const components = pluginInjectionAPI?.uiControlRegistry?.actions.getComponents(MENU.key);
+		return components?.length ? components : EMPTY_COMPONENTS;
+	}, [isElementBrowserOpen, pluginInjectionAPI]);
+	const components = useSyncExternalStore(
+		isElementBrowserOpen
+			? (pluginInjectionAPI?.uiControlRegistry?.actions.subscribe ?? subscribeToNothing)
+			: subscribeToNothing,
+		getRegistrySnapshot,
+		getRegistrySnapshot,
 	);
 	const [emptyStateHandler, setEmptyStateHandler] = useState<EmptyStateHandler>();
 	const wasOpen = useRef(false);
@@ -143,6 +153,7 @@ export const RegistryElementBrowserContainer = ({
 	return (
 		<RegistryElementBrowser
 			components={components}
+			fireAnalyticsEvent={pluginInjectionAPI?.analytics?.actions.fireAnalyticsEvent}
 			emptyStateHandler={emptyStateHandler}
 			helpUrl={helpUrl}
 			defaultSection={pluginKey.getState(editorView.state)?.elementBrowserInitialCategory}

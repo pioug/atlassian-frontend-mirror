@@ -21,6 +21,11 @@ export interface OverflowShadowState {
 }
 
 export interface OverflowShadowOptions {
+	/**
+	 * Opts the wrapped component out of the JavaScript driven shadows entirely: no scroll listeners
+	 * or intersection observers are registered
+	 */
+	isDisabled?: () => boolean;
 	overflowSelector: string;
 	// this is optimisation that can be enabled for most common cases where scroll contents top element takes up the scroll width
 	useShadowObserver?: boolean;
@@ -46,6 +51,15 @@ export default function overflowShadow<P>(
 			showLeftShadow: false,
 			showRightShadow: false,
 		};
+
+		private disabled?: boolean;
+
+		get isDisabled(): boolean {
+			if (this.disabled === undefined) {
+				this.disabled = options.isDisabled?.() ?? false;
+			}
+			return this.disabled;
+		}
 
 		componentWillUnmount() {
 			if (options.useShadowObserver) {
@@ -78,7 +92,7 @@ export default function overflowShadow<P>(
 		};
 
 		updateShadows = () => {
-			if (options.useShadowObserver) {
+			if (this.isDisabled || options.useShadowObserver) {
 				return;
 			}
 
@@ -150,6 +164,10 @@ export default function overflowShadow<P>(
 				this.overflowContainer = container;
 			}
 
+			if (this.isDisabled) {
+				return;
+			}
+
 			if (options.useShadowObserver) {
 				this.initShadowObserver();
 				return;
@@ -189,13 +207,19 @@ export default function overflowShadow<P>(
 		render() {
 			const { showLeftShadow, showRightShadow } = this.state;
 
-			const classNames = [
-				!this.props?.disableTableOverflowShadow && showRightShadow && shadowClassNames.RIGHT_SHADOW,
-				!this.props?.disableTableOverflowShadow && showLeftShadow && shadowClassNames.LEFT_SHADOW,
-				options.useShadowObserver && shadowObserverClassNames.SHADOW_CONTAINER,
-			]
-				.filter(Boolean)
-				.join(' ');
+			const classNames = this.isDisabled
+				? ''
+				: [
+						!this.props?.disableTableOverflowShadow &&
+							showRightShadow &&
+							shadowClassNames.RIGHT_SHADOW,
+						!this.props?.disableTableOverflowShadow &&
+							showLeftShadow &&
+							shadowClassNames.LEFT_SHADOW,
+						options.useShadowObserver && shadowObserverClassNames.SHADOW_CONTAINER,
+					]
+						.filter(Boolean)
+						.join(' ');
 
 			/**
 			 * The widths have already been calculated to determine

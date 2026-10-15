@@ -1,14 +1,9 @@
-import { useContext } from 'react';
-
-import { IsFhsEnabledContext } from './is-fhs-enabled-context';
-
 /**
  * __Use is fhs enabled__
  *
- * Retrieves is FHS enabled.
+ * @deprecated Full height sidebar (FHS) has been rolled back. This hook always returns `false`.
+ * Remove usages of it (treat it as `false`); it will be deleted in a future major release.
+ *
+ * See https://hello.atlassian.net/wiki/spaces/navx/pages/7189669176/Full+Height+Sidebar+FHS+Rollback+Plan
  */
-export const useIsFhsEnabled = (): boolean => {
-	const isFhsEnabled = useContext(IsFhsEnabledContext);
-
-	return typeof isFhsEnabled === 'boolean' ? isFhsEnabled : isFhsEnabled();
-};
+export const useIsFhsEnabled = (): boolean => false;

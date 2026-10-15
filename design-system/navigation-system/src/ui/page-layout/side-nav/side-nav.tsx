@@ -31,16 +31,13 @@ import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
 import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-element';
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {
 	UNSAFE_sideNavLayoutVar,
-	type bannerMountedVar,
 	type contentHeightWhenFixed,
 	type contentInsetBlockStart,
 	type localSlotLayers,
 	mainMinimumWidthVar,
 	openLayerObserverSideNavNamespace,
-	openLayerObserverTopNavStartNamespace,
 	sideNavLiveWidthVar,
 	sideNavPanelSplitterId,
 	sideNavVar,
@@ -73,9 +70,6 @@ import {
 import { useToggleSideNav } from './use-toggle-side-nav';
 
 const panelSplitterResizingVar = '--n_snvRsz';
-// Used to share the side nav width with the panel splitter, which is rendered outside the side nav element
-// but positioned to stay at its right edge.
-const sideNavClampedWidthVar = '--n_snvW';
 
 const fallbackMinWidth: ResizeBound = '240px';
 
@@ -105,30 +99,6 @@ type FlyoutState =
 	| { type: 'waiting-for-close'; abort: () => void }
 	| { type: 'ready-to-close' }
 	| { type: 'not-active' };
-
-const panelSplitterPortalTargetStyles = cssMap({
-	root: {
-		position: 'fixed',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		zIndex: 4 satisfies typeof localSlotLayers.sideNavPanelSplitterFHS,
-		insetBlockEnd: 0,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px))))`,
-		// On small viewports, the panel splitter has the same height as the side nav (all of the available viewport space minus top bar + banner)
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		height:
-			'calc(100vh - var(--n_bnrM, 0px) - var(--n_tNvM, 0px))' satisfies typeof contentHeightWhenFixed,
-		'@media (min-width: 64rem)': {
-			// On large viewports, the panel splitter overlays the top nav (takes all available viewport space, minus the banner)
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			height: `calc(100vh - var(${'--n_bnrM' satisfies typeof bannerMountedVar}, 0px))`,
-			// On large viewports, we need to factor in the side nav's border, and shift the panel splitter so it is centered over the border.
-			transform: `translateX(calc(var(${panelSplitterResizingVar}, var(${sideNavClampedWidthVar}, 0px)) - ${token(
-				'border.width',
-			)}))`,
-		},
-	},
-});
 
 const styles = cssMap({
 	root: {
@@ -206,7 +176,7 @@ const styles = cssMap({
 			// Hide the border for the flyout, because it has a shadow
 			borderInlineEnd: 'none',
 		},
-		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `shouldShowSidebarToggleAnimation` for more details.
 		'@supports not (-moz-appearance: none)': {
 			// Disabling animations if user has opted for reduced motion
 			'@media (prefers-reduced-motion: no-preference)': {
@@ -231,7 +201,7 @@ const styles = cssMap({
 			// These styles are in a media query to override the `styles.root` media query styles
 			gridArea: 'main',
 		},
-		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `shouldShowSidebarToggleAnimation` for more details.
 		'@supports not (-moz-appearance: none)': {
 			// Disabling animations if user has opted for reduced motion
 			'@media (prefers-reduced-motion: no-preference)': {
@@ -240,58 +210,6 @@ const styles = cssMap({
 				transitionBehavior: 'allow-discrete',
 				transform: 'translateX(-100%)',
 			},
-		},
-	},
-	animationRTLSupport: {
-		// Used to support animations for right-to-left (RTL) languages/text direction. We need to flip the animation direction for RTL.
-		// There are currently no logical properties for translate transforms: https://github.com/w3c/csswg-drafts/issues/1544
-		// Instead, we are using a CSS variable to flip the translate value.
-		'--animation-direction': '1',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		"[dir='rtl'] &": {
-			'--animation-direction': '-1',
-		},
-	},
-	flyoutBaseStylesFullHeightSidebar: {
-		// These styles are shared between the open and close animations for flyout
-		'@media (min-width: 64rem)': {
-			// These styles are in a media query to override the `styles.root` media query styles
-			backgroundColor: token('elevation.surface.overlay'),
-			boxShadow: token('elevation.shadow.overlay'),
-			gridArea: 'main',
-			// Hide the border for the flyout, because it has a shadow
-			borderInlineEnd: 'none',
-		},
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			transitionProperty: 'transform, display',
-			transitionBehavior: 'allow-discrete',
-		},
-	},
-	flyoutOpenFullHeightSidebar: {
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			transitionDuration: '0.2s',
-			transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
-
-			/**
-			 * Because we're transitioning from display: none, we need to define the
-			 * starting values for when the element is first displayed, so the
-			 * transition animation knows where to start from.
-			 */
-			'@starting-style': {
-				transform: 'translateX(calc(-100% * var(--animation-direction)))',
-			},
-		},
-	},
-	flyoutAnimateClosedFullHeightSidebar: {
-		'@media (min-width: 64rem)': {
-			display: 'none',
-		},
-		// Desktop media query is used here to prevent overriding mobile sidebar styles, if the flyout
-		// was just closed, and then the user resized to mobile viewport with the mobile sidebar expanded.
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			transitionDuration: '0.2s',
-			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
-			transform: 'translateX(calc(-100% * var(--animation-direction)))',
 		},
 	},
 	flexContainer: {
@@ -313,75 +231,6 @@ const styles = cssMap({
 	hiddenDesktopOnly: {
 		'@media (min-width: 64rem)': {
 			display: 'none',
-		},
-	},
-	animationBaseStyles: {
-		/**
-		 * Disabling animations if user has opted for reduced motion
-		 *
-		 * ⚠️ Note: the `@media` query needs to be a top-level style to make sure Compiled orders the media queries correctly.
-		 * Compiled currently only sorts top-level CSS rules:
-		 * https://github.com/atlassian-labs/compiled/blob/master/packages/css/src/plugins/sort-atomic-style-sheet.ts#L39
-		 */
-		'@media (prefers-reduced-motion: no-preference)': {
-			transitionProperty: 'transform, display',
-			transitionBehavior: 'allow-discrete',
-			transitionDuration: '0.2s',
-		},
-	},
-	expandAnimationMobile: {
-		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
-		// Desktop styles will need to override these if required.
-		'@media (prefers-reduced-motion: no-preference)': {
-			transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
-
-			/**
-			 * Because we're transitioning from display: none, we need to define the
-			 * starting values for when the element is first displayed, so the
-			 * transition animation knows where to start from.
-			 */
-			'@starting-style': {
-				transform: 'translateX(calc(-100% * var(--animation-direction)))',
-			},
-		},
-	},
-	collapseAnimationMobile: {
-		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
-		// Desktop styles will need to override these if required.
-		'@media (prefers-reduced-motion: no-preference)': {
-			gridArea: 'main',
-			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
-		},
-
-		// We need to explicitly limit setting the `transform` property to small viewports.
-		// Unsetting the `transform` property with `transform: initial` on large viewports causes the whole
-		// animation to be disabled.
-		// Using `not` will flip the `min-width` condition. This is better than using `max-width` as it prevents an overlap
-		'@media (prefers-reduced-motion: no-preference) and (not (min-width: 64rem))': {
-			transform: 'translateX(calc(-100% * var(--animation-direction)))',
-		},
-	},
-	expandAnimationDesktop: {
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			// We need to override the mobile styles for desktop
-			gridArea: 'side-nav',
-			transitionTimingFunction: 'cubic-bezier(0.6, 0, 0, 1)',
-
-			/**
-			 * Because we're transitioning from display: none, we need to define the
-			 * starting values for when the element is first displayed, so the
-			 * transition animation knows where to start from.
-			 */
-			'@starting-style': {
-				transform: 'translateX(calc(-100% * var(--animation-direction)))',
-			},
-		},
-	},
-	collapseAnimationDesktop: {
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			gridArea: 'main',
-			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
-			transform: 'translateX(calc(-100% * var(--animation-direction)))',
 		},
 	},
 });
@@ -450,7 +299,7 @@ const motionUpliftStyles = cssMap({
 			// Hide the border for the flyout, because it has a shadow
 			borderInlineEnd: 'none',
 		},
-		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `shouldShowSidebarToggleAnimation` for more details.
 		'@supports not (-moz-appearance: none)': {
 			// Disabling animations if user has opted for reduced motion
 			'@media (prefers-reduced-motion: no-preference)': {
@@ -466,7 +315,7 @@ const motionUpliftStyles = cssMap({
 			// These styles are in a media query to override the `styles.root` media query styles
 			gridArea: 'main',
 		},
-		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `styles.animationBaseStyles` for more details.
+		// Disabling animations for Firefox, as it doesn't support the close animation. See comment block in `shouldShowSidebarToggleAnimation` for more details.
 		'@supports not (-moz-appearance: none)': {
 			// Disabling animations if user has opted for reduced motion
 			'@media (prefers-reduced-motion: no-preference)': {
@@ -474,23 +323,6 @@ const motionUpliftStyles = cssMap({
 				transitionBehavior: 'allow-discrete',
 				animation: 'var(--exit-animation)',
 			},
-		},
-	},
-	flyoutOpenFullHeightSidebar: {
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			transitionDuration: token('motion.duration.long'),
-			animation: 'var(--enter-animation)',
-		},
-	},
-	flyoutAnimateClosedFullHeightSidebar: {
-		'@media (min-width: 64rem)': {
-			display: 'none',
-		},
-		// Desktop media query is used here to prevent overriding mobile sidebar styles, if the flyout
-		// was just closed, and then the user resized to mobile viewport with the mobile sidebar expanded.
-		'@media (prefers-reduced-motion: no-preference) and (min-width: 64rem)': {
-			transitionDuration: token('motion.duration.medium'),
-			animation: 'var(--exit-animation)',
 		},
 	},
 	expandAnimationDesktop: {
@@ -594,7 +426,6 @@ type SideNavProps = CommonSlotProps & {
 	 *
 	 * The shortcut key is `Ctrl` + `[`.
 	 *
-	 * Note: The built-in keyboard shortcut is behind `useIsFhsEnabled`.
 	 */
 	canToggleWithShortcut?: () => boolean;
 };
@@ -624,7 +455,6 @@ function SideNavInternal({
 	canToggleWithShortcut,
 }: SideNavProps) {
 	const isChatPanelLayoutEnabled = fg('platform-dst-chat-panel-layout');
-	const isFhsEnabled = useIsFhsEnabled();
 	const id = useLayoutId({ providedId });
 	const expandAndFocusSideNav = useExpandSideNav({ trigger: 'skip-link' });
 	/**
@@ -755,7 +585,6 @@ function SideNavInternal({
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 
 	const navRef = useRef<HTMLDivElement | null>(null);
-	const panelSplitterPortalTargetRef = useRef<HTMLDivElement | null>(null);
 	const getResizeBounds = useCallback((): ResizeBounds => {
 		if (!isChatPanelLayoutEnabled) {
 			return { min: '240px', max: '50vw' };
@@ -868,17 +697,6 @@ function SideNavInternal({
 		}
 
 		function open() {
-			// Prevent the flyout from being opened if there are any open layers in the top nav start
-			if (
-				openLayerObserver &&
-				openLayerObserver.getCount({
-					namespace: openLayerObserverTopNavStartNamespace,
-					type: 'popup',
-				}) > 0
-			) {
-				return;
-			}
-
 			const prevFlyoutState = flyoutStateRef.current;
 
 			tryAbortPendingClose();
@@ -1430,7 +1248,7 @@ function SideNavInternal({
 
 	// This is only used for the regular expand and collapse animations, not the flyout animations.
 	const shouldShowSidebarToggleAnimation =
-		(isMotionUpliftEnabled || isFhsEnabled) &&
+		isMotionUpliftEnabled &&
 		// We do not apply the animation styles on the initial render, as the `@starting-style` rule will cause the sidebar to
 		// slide in initially.
 		hasExpandedStateChanged &&
@@ -1486,89 +1304,38 @@ function SideNavInternal({
 						styles.hiddenMobileAndDesktop,
 
 					isMotionUpliftEnabled && motionUpliftStyles.animationRTLSupport,
-					!isMotionUpliftEnabled && isFhsEnabled && styles.animationRTLSupport,
 					// Expand/collapse animation styles
 					shouldShowSidebarToggleAnimation &&
 						isMotionUpliftEnabled &&
 						motionUpliftStyles.animationBaseStyles,
-					shouldShowSidebarToggleAnimation && !isMotionUpliftEnabled && styles.animationBaseStyles,
 					// We need to separately apply the styles for the expand or collapse animations for both mobile and desktop
 					// based on their relevant expansion state.
 					isExpandedOnMobile &&
 						shouldShowSidebarToggleAnimation &&
 						isMotionUpliftEnabled &&
 						motionUpliftStyles.expandAnimationMobile,
-					isExpandedOnMobile &&
-						shouldShowSidebarToggleAnimation &&
-						!isMotionUpliftEnabled &&
-						styles.expandAnimationMobile,
 					!isExpandedOnMobile &&
 						shouldShowSidebarToggleAnimation &&
 						isMotionUpliftEnabled &&
 						motionUpliftStyles.collapseAnimationMobile,
-					!isExpandedOnMobile &&
-						shouldShowSidebarToggleAnimation &&
-						!isMotionUpliftEnabled &&
-						styles.collapseAnimationMobile,
 					isExpandedOnDesktop &&
 						shouldShowSidebarToggleAnimation &&
 						isMotionUpliftEnabled &&
 						motionUpliftStyles.expandAnimationDesktop,
-					isExpandedOnDesktop &&
-						shouldShowSidebarToggleAnimation &&
-						!isMotionUpliftEnabled &&
-						styles.expandAnimationDesktop,
 					!isExpandedOnDesktop &&
 						shouldShowSidebarToggleAnimation &&
 						isMotionUpliftEnabled &&
 						motionUpliftStyles.collapseAnimationDesktop,
-					!isExpandedOnDesktop &&
-						shouldShowSidebarToggleAnimation &&
-						!isMotionUpliftEnabled &&
-						styles.collapseAnimationDesktop,
 
 					// Flyout styles
-					sideNavState?.flyout === 'open' &&
-						!isFhsEnabled &&
-						isMotionUpliftEnabled &&
-						motionUpliftStyles.flyoutOpen,
-					sideNavState?.flyout === 'open' &&
-						!isFhsEnabled &&
-						!isMotionUpliftEnabled &&
-						styles.flyoutOpen,
+					sideNavState?.flyout === 'open' && isMotionUpliftEnabled && motionUpliftStyles.flyoutOpen,
+					sideNavState?.flyout === 'open' && !isMotionUpliftEnabled && styles.flyoutOpen,
 					sideNavState?.flyout === 'triggered-animate-close' &&
-						!isFhsEnabled &&
 						isMotionUpliftEnabled &&
 						motionUpliftStyles.flyoutAnimateClosed,
 					sideNavState?.flyout === 'triggered-animate-close' &&
-						!isFhsEnabled &&
 						!isMotionUpliftEnabled &&
 						styles.flyoutAnimateClosed,
-
-					(sideNavState?.flyout === 'open' || sideNavState?.flyout === 'triggered-animate-close') &&
-						!isFirefox &&
-						isFhsEnabled &&
-						styles.flyoutBaseStylesFullHeightSidebar,
-					sideNavState?.flyout === 'open' &&
-						!isFirefox &&
-						isFhsEnabled &&
-						isMotionUpliftEnabled &&
-						motionUpliftStyles.flyoutOpenFullHeightSidebar,
-					sideNavState?.flyout === 'open' &&
-						!isFirefox &&
-						isFhsEnabled &&
-						!isMotionUpliftEnabled &&
-						styles.flyoutOpenFullHeightSidebar,
-					sideNavState?.flyout === 'triggered-animate-close' &&
-						!isFirefox &&
-						isFhsEnabled &&
-						isMotionUpliftEnabled &&
-						motionUpliftStyles.flyoutAnimateClosedFullHeightSidebar,
-					sideNavState?.flyout === 'triggered-animate-close' &&
-						!isFirefox &&
-						isFhsEnabled &&
-						!isMotionUpliftEnabled &&
-						styles.flyoutAnimateClosedFullHeightSidebar,
 				]}
 				data-testid={testId}
 			>
@@ -1597,7 +1364,6 @@ function SideNavInternal({
 				<PanelSplitterProvider
 					panelId={sideNavPanelSplitterId}
 					panelRef={navRef}
-					portalRef={isFhsEnabled ? panelSplitterPortalTargetRef : undefined}
 					panelWidth={renderedWidth}
 					onCompleteResize={onCompleteResize}
 					onResizeStartInternal={
@@ -1615,39 +1381,6 @@ function SideNavInternal({
 					<div css={styles.flexContainer}>{children}</div>
 				</PanelSplitterProvider>
 			</nav>
-			{isFhsEnabled && (
-				// The side nav panel splitter is rendered outside of the side nav, so it can be layered above the top nav,
-				// while the actual side nav is layered below the top nav.
-				<div
-					ref={panelSplitterPortalTargetRef}
-					data-layout-slot
-					css={[
-						panelSplitterPortalTargetStyles.root,
-						// We need to apply the same styles to hide the panel splitter when the side nav is hidden, as it is rendered outside of the side nav.
-						isExpandedOnDesktop &&
-							!isExpandedOnMobile &&
-							!isFlyoutVisible &&
-							styles.hiddenMobileOnly,
-						!isExpandedOnDesktop &&
-							isExpandedOnMobile &&
-							!isFlyoutVisible &&
-							styles.hiddenDesktopOnly,
-						!isExpandedOnDesktop &&
-							!isExpandedOnMobile &&
-							!isFlyoutVisible &&
-							styles.hiddenMobileAndDesktop,
-					]}
-					style={
-						{
-							// We need to use an inline style here to share the side nav width to position the panel splitter.
-							// We can't use the existing --n_sNvlw variable (sideNavLiveWidthVar) because it is set to 0 when the side nav is collapsed on desktop,
-							// however the panel splitter is still visible and usable on small viewports until 48rem.
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							[sideNavClampedWidthVar]: clampedWidth,
-						} as CSSProperties
-					}
-				/>
-			)}
 		</React.Fragment>
 	);
 }

@@ -18,8 +18,8 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { type GapSpace } from '../xcss/gap-space';
 import { parseXcss } from '../xcss/parse-xcss';
-import { type Space } from '../xcss/positive-space';
 import { spaceStylesMap } from '../xcss/space-styles-map';
 import type { BasePrimitiveProps } from './types';
 
@@ -52,17 +52,17 @@ export type GridProps<T extends ElementType = 'div'> = {
 	/**
 	 * Represents the space between each column.
 	 */
-	columnGap?: Space;
+	columnGap?: GapSpace;
 
 	/**
 	 * Represents the space between each child across both axes.
 	 */
-	gap?: Space;
+	gap?: GapSpace;
 
 	/**
 	 * Represents the space between each row.
 	 */
-	rowGap?: Space;
+	rowGap?: GapSpace;
 
 	/**
 	 * Specifies how auto-placed items get flowed into the grid. CSS `grid-auto-flow`.

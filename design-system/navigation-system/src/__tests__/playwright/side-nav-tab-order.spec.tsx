@@ -24,9 +24,6 @@ test.describe('side nav tab order', () => {
 			'design-system',
 			'navigation-system',
 			'side-nav-layering',
-			{
-				featureFlag: 'navx-full-height-sidebar',
-			},
 		);
 
 		// Focus on the last menu item

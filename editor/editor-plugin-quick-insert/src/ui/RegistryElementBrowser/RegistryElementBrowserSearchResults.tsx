@@ -7,18 +7,16 @@ import React, { useMemo } from 'react';
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import LinkButton from '@atlaskit/button/link';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
+import { QuickInsertEmptyState } from '@atlaskit/editor-common/quick-insert/empty-state';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 // oxlint-disable-next-line eslint/no-redeclare
 import type { RegistryElementBrowserItem } from './model';
-import NotFoundIllustration from './NotFoundIllustration';
 
 type Props = {
 	editorView: EditorView;
@@ -63,30 +61,6 @@ const styles = cssMap({
 		marginTop: token('space.200'),
 		paddingTop: token('space.200'),
 	},
-});
-
-const emptyStateWrapperStyles = css({
-	alignItems: 'center',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'center',
-	width: '100%',
-});
-
-const emptyStateHeadingStyles = css({
-	color: token('color.text'),
-	font: token('font.heading.medium'),
-	marginTop: token('space.300'),
-});
-
-const emptyStateSubheadingStyles = css({
-	marginTop: token('space.200'),
-	maxWidth: '400px',
-	textAlign: 'center',
-});
-
-const emptyStateLinkStyles = css({
-	marginTop: token('space.150'),
 });
 
 const RegistryElementBrowserItem = ({
@@ -154,43 +128,12 @@ export const RegistryElementBrowserSearchResults = ({
 	const displayedItems = hasFallbackItems && fallbackItems ? fallbackItems : items;
 	const shouldRenderEmptyState = items.length === 0 && !isLoading;
 	const emptyState = shouldRenderEmptyState
-		? (emptyStateHandler?.({
+		? emptyStateHandler?.({
 				mode: 'full',
 				searchTerm: query,
 				selectedCategory: section,
-				...(hasFallbackItems ? { showNoResultsMessage: false } : {}),
-			}) ?? (
-				<div css={emptyStateWrapperStyles}>
-					<NotFoundIllustration />
-					<div css={emptyStateHeadingStyles}>
-						{formatMessage({
-							defaultMessage: 'Nothing matches your search',
-							id: 'editor.quick-insert.empty',
-						})}
-					</div>
-					<div css={emptyStateSubheadingStyles}>
-						<Text>
-							{formatMessage({
-								defaultMessage:
-									'Try searching with a different term or discover new apps for Atlassian products.',
-								id: 'editor.quick-insert.empty-description',
-							})}
-						</Text>
-						<div css={emptyStateLinkStyles}>
-							<LinkButton
-								appearance="primary"
-								href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
-								target="_blank"
-							>
-								{formatMessage({
-									defaultMessage: 'Explore Atlassian Marketplace',
-									id: 'editor.quick-insert.explore-marketplace',
-								})}
-							</LinkButton>
-						</div>
-					</div>
-				</div>
-			))
+				showNoResultsMessage: false,
+			})
 		: null;
 
 	return (
@@ -224,10 +167,11 @@ export const RegistryElementBrowserSearchResults = ({
 					))}
 				</div>
 			)}
+			{shouldRenderEmptyState && !hasFallbackItems && query.trim().length > 0 && (
+				<QuickInsertEmptyState mode="full" />
+			)}
 			{emptyState && (
-				<div css={[emptyStateGridItemStyles, hasFallbackItems && styles.fallbackMarketplace]}>
-					{emptyState}
-				</div>
+				<div css={[emptyStateGridItemStyles, styles.fallbackMarketplace]}>{emptyState}</div>
 			)}
 		</div>
 	);

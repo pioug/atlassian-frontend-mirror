@@ -1,5 +1,6 @@
 build/
-docs/
+docs/*
+!docs/package.json
 examples-helpers/
 src/
 tsconfig.json

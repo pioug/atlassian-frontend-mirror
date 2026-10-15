@@ -59,6 +59,19 @@ describe('@atlaskit/primitives', () => {
 		},
 	);
 
+	test('semantic gap tokens are restricted to the gap map', () => {
+		const gapStyles = createSpacingStylesFromTemplate('gap');
+		expect(gapStyles).toContain('export type GapSpace = keyof typeof gapSpaceMap;');
+		expect(gapStyles).toContain("'space.100'");
+		expect(gapStyles).not.toContain('space.negative.');
+		for (const size of ['xxsmall', 'xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge']) {
+			expect(gapStyles).toContain(`'space.gap.${size}'`);
+		}
+		for (const property of ['positive', 'negative', 'all'] as const) {
+			expect(createSpacingStylesFromTemplate(property)).not.toContain('space.gap.');
+		}
+	});
+
 	test('incorrect config throws', () => {
 		expect(() => createColorStylesFromTemplate('fizzbuzz' as any)).toThrow();
 		expect(() => createElevationStylesFromTemplate('fizzbuzz' as any)).toThrow();

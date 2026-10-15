@@ -1,5 +1,26 @@
 # @atlaskit/link-picker
 
+## 6.13.0
+
+### Minor Changes
+
+- [`4b09602a4596a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b09602a4596a) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.12.2
+
+### Patch Changes
+
+- [`d56aad2b7c876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d56aad2b7c876) -
+  Cleanup `feature_gate` `add-disable-manual-url-capability-technical`. The `disableManualUrlInsert`
+  prop is now always honoured: when it is `true`, the Insert button stays disabled unless a result
+  has been selected from the list, and the loading/error guards are always evaluated before that
+  check.
+
 ## 6.12.1
 
 ### Patch Changes

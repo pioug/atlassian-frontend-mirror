@@ -160,7 +160,7 @@ describe('polyfilled dialog Escape cancellation', () => {
 	);
 
 	it.each(['close', 'remove', 'reopen'] as const)(
-		'does not cancel a target changed during keydown: %s',
+		'selects the current opening after a dialog changes during keydown: %s',
 		async (action) => {
 			const dialog = createDialog();
 			const cancel = jest.fn();
@@ -180,9 +180,11 @@ describe('polyfilled dialog Escape cancellation', () => {
 			});
 			expect(dialog).toHaveFocus();
 			await user.keyboard('{Escape}');
-			expect(cancel).not.toHaveBeenCalled();
-			if (action === 'reopen') {
-				expect(dialog.open).toBe(true);
+			expect(cancel).toHaveBeenCalledTimes(action === 'reopen' ? 1 : 0);
+			if (action === 'remove') {
+				expect(dialog.isConnected).toBe(false);
+			} else {
+				expect(dialog.open).toBe(false);
 			}
 			unbindCancel();
 			unbindKeydown();

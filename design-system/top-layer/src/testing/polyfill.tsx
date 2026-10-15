@@ -501,7 +501,8 @@ function pruneClosedEscapeLayers() {
  */
 function acceptsEscape({ layer }: { layer: TEscapeLayer }): boolean {
 	if (layer.type === 'popover') {
-		return true;
+		const mode = getPopoverMode({ element: layer.element });
+		return mode === 'auto' || mode === 'hint';
 	}
 	const closedBy = layer.element.getAttribute('closedby')?.toLowerCase();
 	if (closedBy === 'none') {
@@ -515,7 +516,7 @@ function acceptsEscape({ layer }: { layer: TEscapeLayer }): boolean {
 }
 
 /**
- * Dismisses the latest eligible Escape target, allowing application handlers to prevent dialog cancellation.
+ * Dismisses the latest eligible Escape target, allowing application handlers to prevent dismissal.
  * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#set-up-the-dialog-close-watcher
  */
 function handleDocumentKeydown(event: KeyboardEvent) {
@@ -524,29 +525,19 @@ function handleDocumentKeydown(event: KeyboardEvent) {
 		return;
 	}
 
-	pruneClosedEscapeLayers();
-
-	// Capture this opening so handlers cannot redirect the same Escape to another layer.
-	const layer = escapeLayers.findLast((candidate) => acceptsEscape({ layer: candidate }));
-	if (!layer) {
-		return;
-	}
-
-	if (layer.type === 'popover') {
-		// Popover dismissal is synchronous.
-		layer.element.hidePopover();
-		return;
-	}
-
-	// Defer the dialog default action until application keydown listeners have run.
+	// Defer the default action until application keydown listeners have run.
 	setTimeout(() => {
-		// Handlers may prevent Escape, change eligibility, or close and reopen the target.
-		if (
-			event.defaultPrevented ||
-			!escapeLayers.includes(layer) ||
-			!isEscapeLayerOpen({ layer }) ||
-			!acceptsEscape({ layer })
-		) {
+		if (event.defaultPrevented) {
+			return;
+		}
+		// Native close requests select from the layers remaining after keydown.
+		pruneClosedEscapeLayers();
+		const layer = escapeLayers.findLast((candidate) => acceptsEscape({ layer: candidate }));
+		if (!layer) {
+			return;
+		}
+		if (layer.type === 'popover') {
+			layer.element.hidePopover();
 			return;
 		}
 		const allowed = layer.element.dispatchEvent(
@@ -560,9 +551,37 @@ function handleDocumentKeydown(event: KeyboardEvent) {
 	}, 0);
 }
 
-if (typeof HTMLElement !== 'undefined') {
-	const schedulePopoverToggle = createToggleScheduler();
+const schedulePopoverToggle = createToggleScheduler();
 
+function hidePopoverElement({
+	element,
+	mode,
+}: {
+	element: HTMLElement;
+	mode: TPopoverMode | null;
+}) {
+	// Browser does not throw for disconnected elements on hide.
+	if (!element.isConnected || !isPopoverOpen({ element })) {
+		return;
+	}
+	fireToggleEvent({
+		element,
+		type: 'beforetoggle',
+		oldState: 'open',
+		newState: 'closed',
+		cancelable: false,
+	});
+	element.removeAttribute('data-popover-open');
+	unregisterEscapeLayer({ element });
+	const stack = stackForMode({ mode });
+	const stackIndex = stack?.indexOf(element) ?? -1;
+	if (stackIndex !== -1) {
+		stack?.splice(stackIndex, 1);
+	}
+	schedulePopoverToggle({ element, newState: 'closed' });
+}
+
+if (typeof HTMLElement !== 'undefined') {
 	// jsdom throws `SyntaxError` on the `:popover-open` pseudo-class. Answer
 	// it from the polyfill's `data-popover-open` source of truth and
 	// delegate every other selector to the original implementation.
@@ -580,6 +599,25 @@ if (typeof HTMLElement !== 'undefined') {
 
 	// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
 	if (!HTMLElement.prototype.showPopover) {
+		// Attribute changes hide an open popover synchronously, even when the new state has no popover.
+		// Spec: https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute
+		const originalSetAttribute = HTMLElement.prototype.setAttribute;
+		HTMLElement.prototype.setAttribute = function setAttribute(name: string, value: string) {
+			const mode = getPopoverMode({ element: this });
+			originalSetAttribute.call(this, name, value);
+			if (name.toLowerCase() === 'popover' && mode !== getPopoverMode({ element: this })) {
+				hidePopoverElement({ element: this, mode });
+			}
+		};
+		const originalRemoveAttribute = HTMLElement.prototype.removeAttribute;
+		HTMLElement.prototype.removeAttribute = function removeAttribute(name: string) {
+			const mode = getPopoverMode({ element: this });
+			originalRemoveAttribute.call(this, name);
+			if (name.toLowerCase() === 'popover' && mode !== null) {
+				hidePopoverElement({ element: this, mode });
+			}
+		};
+
 		HTMLElement.prototype.showPopover = function showPopover(this: HTMLElement) {
 			if (!this.hasAttribute('popover')) {
 				throw new DOMException(
@@ -644,29 +682,7 @@ if (typeof HTMLElement !== 'undefined') {
 					'NotSupportedError',
 				);
 			}
-			// Browser does not throw for disconnected elements on hide. No-op.
-			if (!this.isConnected || !isPopoverOpen({ element: this })) {
-				return;
-			}
-
-			// not cancelable on hide
-			fireToggleEvent({
-				element: this,
-				type: 'beforetoggle',
-				oldState: 'open',
-				newState: 'closed',
-				cancelable: false,
-			});
-			this.removeAttribute('data-popover-open');
-			unregisterEscapeLayer({ element: this });
-			const stack = stackForMode({ mode: getPopoverMode({ element: this }) });
-			if (stack) {
-				const stackIndex = stack.indexOf(this);
-				if (stackIndex !== -1) {
-					stack.splice(stackIndex, 1);
-				}
-			}
-			schedulePopoverToggle({ element: this, newState: 'closed' });
+			hidePopoverElement({ element: this, mode: getPopoverMode({ element: this }) });
 		};
 	}
 

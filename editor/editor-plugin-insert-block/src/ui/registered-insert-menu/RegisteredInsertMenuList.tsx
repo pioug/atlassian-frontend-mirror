@@ -5,6 +5,7 @@ import { List } from 'react-virtualized/dist/commonjs/List';
 import type { ListRowRenderer, ListProps } from 'react-virtualized/dist/commonjs/List';
 
 import { cssMap } from '@atlaskit/css';
+import { QuickInsertEmptyState } from '@atlaskit/editor-common/quick-insert/empty-state';
 import {
 	getQuickInsertMenuRows,
 	type QuickInsertMenuModel,
@@ -12,11 +13,14 @@ import {
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
+import type { RegisterMenuItem, SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { RegisteredInsertMenuItem } from './RegisteredInsertMenuItem';
+import {
+	RegisteredInsertMenuItem,
+	RegisteredInsertMenuPreviewContext,
+} from './RegisteredInsertMenuItem';
 
 const ESTIMATED_ROW_HEIGHT = 44;
 // 44px item + 1px separator.
@@ -40,14 +44,25 @@ const styles = cssMap({
 		overflowY: 'auto',
 	},
 	footer: {
+		flexShrink: 0,
+	},
+	footerWithDivider: {
 		borderTopColor: token('color.border'),
 		borderTopStyle: 'solid',
 		borderTopWidth: token('border.width'),
 		flexShrink: 0,
 	},
+	externalControls: {
+		borderTopColor: token('color.border'),
+		borderTopStyle: 'solid',
+		borderTopWidth: token('border.width'),
+		paddingBlockStart: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+	},
 });
 
 type Props = {
+	activePreviewItemKey?: string;
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
 	isOffline: boolean;
@@ -57,11 +72,78 @@ type Props = {
 	menuOpenId: symbol;
 	model: QuickInsertMenuModel;
 	onClose: () => void;
-	onItemHover: (index: number) => void;
+	onItemBlur: (itemKey: string) => void;
+	onItemFocus: (index: number, itemKey?: string) => void;
+	onItemHover: (index: number, itemKey?: string) => void;
+	onItemLeave: (itemKey: string) => void;
+	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
 	onRenderedItemsChange: (range: { startIndex: number; stopIndex: number }) => void;
 	query: string;
 	selectedItemIndex: number;
 	surfaceContext: SurfaceContext;
+};
+
+type RegisteredInsertMenuItemRowProps = {
+	editorView: EditorView;
+	id: string;
+	isOffline: boolean;
+	isSelected: boolean;
+	itemIndex: number;
+	menuOpenId: symbol;
+	onClose: () => void;
+	onItemBlur: (itemKey: string) => void;
+	onItemFocus: (index: number, itemKey?: string) => void;
+	onItemHover: (index: number, itemKey?: string) => void;
+	onItemLeave: (itemKey: string) => void;
+	registration: RegisterMenuItem;
+	surfaceContext: SurfaceContext;
+};
+
+const RegisteredInsertMenuItemRow = ({
+	editorView,
+	id,
+	isOffline,
+	isSelected,
+	itemIndex,
+	menuOpenId,
+	onClose,
+	onItemFocus,
+	onItemBlur,
+	onItemHover,
+	onItemLeave,
+	registration,
+	surfaceContext,
+}: RegisteredInsertMenuItemRowProps): React.JSX.Element => {
+	useLayoutEffect(() => () => onItemLeave(registration.key), [onItemLeave, registration.key]);
+
+	const onBlur = useCallback(
+		(event: React.FocusEvent<HTMLDivElement>) => {
+			if (!event.currentTarget.contains(event.relatedTarget)) {
+				onItemBlur(registration.key);
+			}
+		},
+		[onItemBlur, registration.key],
+	);
+
+	return (
+		<div
+			onBlur={onBlur}
+			onFocus={() => onItemFocus(itemIndex, registration.key)}
+			onMouseLeave={() => onItemLeave(registration.key)}
+			onMouseMove={() => onItemHover(itemIndex, registration.key)}
+		>
+			<RegisteredInsertMenuItem
+				editorView={editorView}
+				id={id}
+				isOffline={isOffline}
+				isSelected={isSelected}
+				menuOpenId={menuOpenId}
+				onClose={onClose}
+				registration={registration}
+				surfaceContext={surfaceContext}
+			/>
+		</div>
+	);
 };
 
 export const RegisteredInsertMenuList = ({
@@ -74,11 +156,16 @@ export const RegisteredInsertMenuList = ({
 	menuOpenId,
 	model,
 	onClose,
+	onItemFocus,
+	onItemBlur,
 	query,
 	onItemHover,
+	onItemLeave,
+	onItemVisibilityChange,
 	onRenderedItemsChange,
 	selectedItemIndex,
 	surfaceContext,
+	activePreviewItemKey,
 }: Props): React.JSX.Element | null => {
 	const Root = model.root?.component ?? React.Fragment;
 	const listRef = useRef<List | null>(null);
@@ -129,7 +216,13 @@ export const RegisteredInsertMenuList = ({
 	}, [cache, rowKeySignature]);
 
 	const onRowsRendered = useCallback<NonNullable<ListProps['onRowsRendered']>>(
-		({ overscanStartIndex, overscanStopIndex }) => {
+		({ overscanStartIndex, overscanStopIndex, startIndex, stopIndex }) => {
+			if (activePreviewItemKey) {
+				const previewRowIndex = rows.findIndex(({ key }) => key === activePreviewItemKey);
+				if (previewRowIndex < startIndex || previewRowIndex > stopIndex) {
+					onItemVisibilityChange(activePreviewItemKey, false);
+				}
+			}
 			updateHeight();
 			const indexes = [...itemIndexByRowIndex]
 				.filter(([rowIndex]) => rowIndex >= overscanStartIndex && rowIndex <= overscanStopIndex)
@@ -139,7 +232,22 @@ export const RegisteredInsertMenuList = ({
 				stopIndex: indexes[indexes.length - 1] ?? -1,
 			});
 		},
-		[itemIndexByRowIndex, onRenderedItemsChange, updateHeight],
+		[
+			activePreviewItemKey,
+			itemIndexByRowIndex,
+			onItemVisibilityChange,
+			onRenderedItemsChange,
+			rows,
+			updateHeight,
+		],
+	);
+	const onScrollableContentScroll = useCallback(
+		(event: React.UIEvent<HTMLDivElement>) => {
+			if (event.target === event.currentTarget && activePreviewItemKey) {
+				onItemVisibilityChange(activePreviewItemKey, false);
+			}
+		},
+		[activePreviewItemKey, onItemVisibilityChange],
 	);
 
 	const renderRow: ListRowRenderer = useCallback(
@@ -154,21 +262,21 @@ export const RegisteredInsertMenuList = ({
 				registration.type === 'menu-section' ? (
 					React.createElement(registration.component ?? React.Fragment, null, null)
 				) : (
-					<div
-						onFocus={() => onItemHover(itemIndex ?? 0)}
-						onMouseMove={() => onItemHover(itemIndex ?? 0)}
-					>
-						<RegisteredInsertMenuItem
-							editorView={editorView}
-							id={`${listId}-${itemIndex}`}
-							isOffline={isOffline}
-							isSelected={itemIndex === selectedItemIndex}
-							menuOpenId={menuOpenId}
-							onClose={onClose}
-							registration={registration}
-							surfaceContext={surfaceContext}
-						/>
-					</div>
+					<RegisteredInsertMenuItemRow
+						editorView={editorView}
+						id={`${listId}-${itemIndex}`}
+						isOffline={isOffline}
+						isSelected={itemIndex === selectedItemIndex}
+						itemIndex={itemIndex ?? 0}
+						menuOpenId={menuOpenId}
+						onClose={onClose}
+						onItemFocus={onItemFocus}
+						onItemBlur={onItemBlur}
+						onItemHover={onItemHover}
+						onItemLeave={onItemLeave}
+						registration={registration}
+						surfaceContext={surfaceContext}
+					/>
 				);
 
 			return (
@@ -179,7 +287,9 @@ export const RegisteredInsertMenuList = ({
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							style={style}
 						>
-							{rowContent}
+							<Box paddingBlockEnd={index === rows.length - 1 ? 'space.100' : undefined}>
+								{rowContent}
+							</Box>
 						</div>
 					)}
 				</CellMeasurer>
@@ -193,7 +303,10 @@ export const RegisteredInsertMenuList = ({
 			listId,
 			menuOpenId,
 			onClose,
+			onItemFocus,
+			onItemBlur,
 			onItemHover,
+			onItemLeave,
 			rows,
 			selectedItemIndex,
 			surfaceContext,
@@ -202,6 +315,16 @@ export const RegisteredInsertMenuList = ({
 	const footerItemIndex = itemIndexByRowIndex.size;
 	const footerItemId = `${listId}-${footerItemIndex}`;
 	const hasExternalControls = model.fallbackItems !== undefined && emptyStateHandler !== undefined;
+	const hasNoSearchResults = query !== '' && rows.length === 0;
+	const externalControls =
+		hasExternalControls && emptyStateHandler
+			? emptyStateHandler({
+					mode: 'inline',
+					searchTerm: query,
+					showNoResultsMessage: false,
+				})
+			: null;
+	const showFooterDivider = !hasNoSearchResults || Boolean(externalControls);
 	const listMaxHeight = Math.max(
 		0,
 		maxHeight - MENU_SEARCH_HEIGHT - (model.footer ? MENU_FOOTER_HEIGHT : 0),
@@ -211,8 +334,17 @@ export const RegisteredInsertMenuList = ({
 		() => onItemHover(footerItemIndex),
 		[footerItemIndex, onItemHover],
 	);
+	const onFooterItemFocus = useCallback(
+		() => onItemFocus(footerItemIndex),
+		[footerItemIndex, onItemFocus],
+	);
 	const footer = model.footer ? (
-		<Box xcss={styles.footer} onFocus={onFooterItemHover} onMouseMove={onFooterItemHover}>
+		<Box
+			testId="registered-insert-menu-footer"
+			xcss={showFooterDivider ? styles.footerWithDivider : styles.footer}
+			onFocus={onFooterItemFocus}
+			onMouseMove={onFooterItemHover}
+		>
 			<RegisteredInsertMenuItem
 				editorView={editorView}
 				id={footerItemId}
@@ -232,46 +364,45 @@ export const RegisteredInsertMenuList = ({
 
 	return (
 		<Root>
-			<Box xcss={styles.content} style={contentStyle}>
-				<Box xcss={styles.scrollable}>
-					<Box
-						aria-label={listLabel}
-						aria-owns={model.footer ? footerItemId : undefined}
-						id={listId}
-						role="listbox"
-					>
-						{rows.length > 0 && (
-							<List
-								// eslint-disable-next-line react/jsx-props-no-spreading -- Omits the library's grid-only ARIA default without declaring it on the group role.
-								{...listAriaProps}
-								tabIndex={null}
-								containerRole="presentation"
-								height={Math.min(measuredHeight, listMaxHeight)}
-								overscanRowCount={3}
-								onRowsRendered={onRowsRendered}
-								ref={setListRef}
-								role="group"
-								rowCount={rows.length}
-								rowHeight={cache.rowHeight}
-								rowRenderer={renderRow}
-								scrollToAlignment="auto"
-								scrollToIndex={selectedRowIndex}
-								width={LIST_WIDTH}
-							/>
+			<RegisteredInsertMenuPreviewContext.Provider value={activePreviewItemKey}>
+				<Box xcss={styles.content} style={contentStyle}>
+					<Box xcss={styles.scrollable} onScroll={onScrollableContentScroll}>
+						<Box
+							aria-label={listLabel}
+							aria-owns={model.footer ? footerItemId : undefined}
+							id={listId}
+							role="listbox"
+						>
+							{rows.length > 0 && (
+								<List
+									// eslint-disable-next-line react/jsx-props-no-spreading -- Omits the library's grid-only ARIA default without declaring it on the group role.
+									{...listAriaProps}
+									tabIndex={null}
+									containerRole="presentation"
+									height={Math.min(measuredHeight, listMaxHeight)}
+									overscanRowCount={3}
+									onRowsRendered={onRowsRendered}
+									ref={setListRef}
+									role="group"
+									rowCount={rows.length}
+									rowHeight={cache.rowHeight}
+									rowRenderer={renderRow}
+									scrollToAlignment="auto"
+									scrollToIndex={selectedRowIndex}
+									width={LIST_WIDTH}
+								/>
+							)}
+						</Box>
+						{hasNoSearchResults && <QuickInsertEmptyState mode="inline" spacing="compact" />}
+						{externalControls && (
+							<Box testId="registered-insert-menu-external-controls" xcss={styles.externalControls}>
+								{externalControls}
+							</Box>
 						)}
 					</Box>
-					{hasExternalControls && (
-						<Box>
-							{emptyStateHandler({
-								mode: 'inline',
-								searchTerm: query,
-								showNoResultsMessage: false,
-							})}
-						</Box>
-					)}
+					{footer}
 				</Box>
-				{footer}
-			</Box>
+			</RegisteredInsertMenuPreviewContext.Provider>
 		</Root>
 	);
 };

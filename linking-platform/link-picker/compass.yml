@@ -59,13 +59,13 @@ customFields:
     value: 1e93a963-fa64-4c3a-aebb-cc835e418a0a
   - name: Technical Owner
     type: user
-    value: ari:cloud:identity::user/712020:3eb290b3-ff87-40f2-a7ef-4ee9d0ae10bd # Darko Zoroja
+    value: ari:cloud:identity::user/712020:297a7015-e760-4d56-aca3-30a62302ef0e # Rahul Lal
   - name: anomaly-detection
     type: boolean
     value: false
   - name: Department
     type: text
-    value: Eng - Navigation Experiences
+    value: Eng - Rovo Search Growth
   - name: Required Reviewers Opt In
     type: boolean
     value: true

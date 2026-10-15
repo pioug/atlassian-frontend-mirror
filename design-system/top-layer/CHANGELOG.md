@@ -1,5 +1,13 @@
 # @atlaskit/top-layer
 
+## 6.2.7
+
+### Patch Changes
+
+- [`84ee5cdcaa178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84ee5cdcaa178) -
+  Defer testing polyfill Escape dismissal until keydown handlers have run, then select the current
+  layer. Hide open popovers synchronously when their popover attribute changes state.
+
 ## 6.2.6
 
 ### Patch Changes

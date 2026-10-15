@@ -1,5 +1,22 @@
 # @atlaskit/rovo-triggers
 
+## 12.3.1
+
+### Patch Changes
+
+- [`a63eccbebdfe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a63eccbebdfe9) -
+  Allow chat-new mode payloads to carry an explicitly selected action approval mode.
+
+## 12.3.0
+
+### Minor Changes
+
+- [`f4c21293ec3ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4c21293ec3ef) -
+  Add an Upload skill action to the shared skills-modal create menu and open the existing Skill
+  Builder upload dialog from Chat See all and Studio Browse skills. The action is gated by
+  `rovo_chat_skills_modal_create_menu`, `rovo_chat_build_skill_release`, and
+  `rovo_chat_upload_skill`.
+
 ## 12.2.0
 
 ### Minor Changes

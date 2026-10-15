@@ -1,5 +1,33 @@
 # @atlassian/navigation-system
 
+## 11.3.0
+
+### Minor Changes
+
+- [`682d5c04a6f3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/682d5c04a6f3b) -
+  Disable Full Height Sidebar (FHS) as part of the FHS rollback.
+
+  `@atlaskit/navigation-system`:
+  - `useIsFhsEnabled` now always returns `false`, and `IsFhsEnabledProvider` is a passthrough that
+    ignores its `value` prop. Both are deprecated (along with `IsCustomIsFhsEnabledContext`) and
+    will be removed in a future release once all consumers have removed them.
+  - Removed the internal FHS-only code paths: full height side nav layering, side nav panel splitter
+    portalling into the top nav, hiding the panel splitter when popups are open, FHS top nav /
+    banner / logo / search styles, and the FHS-only side nav expand/collapse animations.
+  - Removed the `navx-full-height-sidebar` feature gate.
+  - `Search` (top nav) now uses the `motion.button.*` tokens for its hover and pressed transitions,
+    matching the other top nav buttons.
+
+  `@atlassian/global-side-navigation`: removed the `navx-full-height-sidebar` feature gate
+  registration.
+
+  `@atlassian/search-page`: removed the FHS-only open layer observer integration from Quick Find,
+  and the now-unused `@atlaskit/layering` dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.3
 
 ### Patch Changes

@@ -44,6 +44,7 @@
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
+		"@atlaskit/icon": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"prop-types": "root:*",

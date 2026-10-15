@@ -12,7 +12,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { type CustomTheme } from '../../top-nav-items/themed/get-custom-theme-styles';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
 import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has-default-background-color-context';
@@ -22,13 +21,11 @@ import {
 	UNSAFE_topNavVar,
 	type bannerMountedVar,
 	type localSlotLayers,
-	type sideNavLiveWidthVar,
 	topNavMountedVar,
 } from '../constants';
 import { DangerouslyHoistCssVarToDocumentRoot } from '../dangerously-hoist-css-var-to-document-root';
 import { HoistCssVarToLocalGrid } from '../hoist-css-var-to-local-grid';
 import { DangerouslyHoistSlotSizes } from '../hoist-slot-sizes-context';
-import { useSideNavVisibility } from '../side-nav/use-side-nav-visibility';
 import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
 
@@ -76,60 +73,6 @@ const styles = cssMap({
 			gridTemplateColumns: '1fr minmax(min-content, max-content) 1fr',
 		},
 	},
-	fullHeightSidebar: {
-		// We don't want start padding, because `TopNavStart` has exactly the same width as the side nav. If we had padding it would be misaligned.
-		// We can't have end padding if there is no start padding, otherwise the top nav middle items become lopsided. We need to apply the end padding inside of `TopNavEnd` instead.
-		// Avoiding use of `paddingInlineStart` and `paddingInlineEnd` separately to workaround Compiled selector ordering bugs.
-		// We can safely use them though once we clean up the non-FHS `paddingInline` style (or don't apply it when FHS is enabled)
-		paddingInline: token('space.0'),
-		pointerEvents: 'auto',
-		backgroundColor: token('elevation.surface'),
-		'@media (min-width: 64rem)': {
-			gap: token('space.150'),
-		},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		zIndex: 3 satisfies typeof localSlotLayers.topNavFHS,
-
-		// The border is now on a pseudo element for layering reasons, so we reset the border style from styles.root
-		borderBlockEnd: 'none',
-		// This pseudo element is used to apply the top nav's bottom border. It is positioned so it does not cover the side nav,
-		// to make the sidebar appear full height.
-		'&::after': {
-			content: '""',
-			position: 'absolute',
-			// Pin to the bottom of the top nav
-			insetBlockEnd: 0,
-			// Pin to the right side of the top nav
-			insetInlineEnd: 0,
-			// Push the element to the right based on the side nav width
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			insetInlineStart: `var(${'--n_sNvlw' satisfies typeof sideNavLiveWidthVar}, 0px)`,
-			borderBlockEndWidth: token('border.width'),
-			borderBlockEndStyle: 'solid',
-			borderBlockEndColor: token('color.border'),
-		},
-	},
-	fullHeightSidebarExpanded: {
-		'@media (min-width: 64rem)': {
-			// When the side bar is expanded, the width of the first column is entirely determined by the width of
-			// TopNavStart instead of a grid constraint.
-			// This simplifies where the width is set, and gives us the ability to animate the grid column width in the future.
-			gridTemplateColumns: '0fr minmax(min-content, max-content) 1fr',
-		},
-		'@media (min-width: 110.5rem)': {
-			// On very large screens we instead center the search bar to avoid lopsidedness
-			gridTemplateColumns: '1fr minmax(min-content, max-content) 1fr',
-		},
-	},
-	fullHeightSidebarCustomTheming: {
-		'@media (min-width: 64rem)': {
-			'&::after': {
-				// Hide the top nav bottom borderwhen a custom background color is used
-				display: 'none',
-			},
-		},
-	},
 });
 
 type TopNavProps = CommonSlotProps & {
@@ -166,7 +109,6 @@ function TopNavOld({
 	id: providedId,
 	customTheme: customThemeConfig,
 }: TopNavProps): JSX.Element {
-	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 	useSkipLinkInternal({
@@ -175,23 +117,16 @@ function TopNavOld({
 		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
-	const height =
-		heightProp ?? (isFhsEnabled || fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
+	const height = heightProp ?? (fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
 
 	const customTheme = useCustomTheme(customThemeConfig);
-
-	const { isExpandedOnDesktop } = useSideNavVisibility();
 
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
 			<header
 				id={id}
 				data-layout-slot
-				css={[
-					styles.root,
-					isFhsEnabled && styles.fullHeightSidebar,
-					isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
-				]}
+				css={styles.root}
 				className={xcss}
 				data-testid={testId}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -223,7 +158,6 @@ function TopNavNew({
 	id: providedId,
 	customTheme: customThemeConfig,
 }: TopNavProps): JSX.Element {
-	const isFhsEnabled = useIsFhsEnabled();
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 	useSkipLinkInternal({
@@ -232,13 +166,10 @@ function TopNavNew({
 		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
-	const height =
-		heightProp ?? (isFhsEnabled || fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
+	const height = heightProp ?? (fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
 
 	const customTheme = useCustomThemeNew(customThemeConfig);
 	const hasDefaultBackground = customTheme.isEnabled ? customTheme.hasDefaultBackground : true;
-
-	const { isExpandedOnDesktop } = useSideNavVisibility();
 
 	return (
 		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
@@ -246,15 +177,7 @@ function TopNavNew({
 				<header
 					id={id}
 					data-layout-slot
-					css={[
-						styles.root,
-						isFhsEnabled && styles.fullHeightSidebar,
-						isExpandedOnDesktop && isFhsEnabled && styles.fullHeightSidebarExpanded,
-						customTheme.isEnabled &&
-							!hasDefaultBackground &&
-							fg('platform_dst_nav4_custom_theming_fhs_1') &&
-							styles.fullHeightSidebarCustomTheming,
-					]}
+					css={styles.root}
 					className={xcss}
 					data-testid={testId}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

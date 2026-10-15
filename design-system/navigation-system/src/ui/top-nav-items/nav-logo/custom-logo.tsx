@@ -10,7 +10,6 @@ import type { LogoProps } from '@atlaskit/logo/types';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
-import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { useHasCustomTheme } from '../themed/has-custom-theme-context';
 import { LogoRenderer } from './logo-renderer';
 
@@ -76,10 +75,6 @@ const sharedIconOrLogoContainerStyles = cssMap({
 			// So if the replaced content is too wide, it can display at a smaller height than the element's fixed height.
 			objectFit: 'contain',
 		},
-	},
-	withFullHeightSidebar: {
-		maxWidth: '100%',
-		minWidth: 24,
 	},
 });
 
@@ -229,8 +224,6 @@ export const CustomLogo: ({
 
 	const hasCustomTheme = useHasCustomTheme();
 
-	const isFhsEnabled = useIsFhsEnabled();
-
 	return (
 		<Anchor
 			ref={ref}
@@ -248,22 +241,10 @@ export const CustomLogo: ({
 			)}
 			onClick={onClick}
 		>
-			<div
-				css={[
-					sharedIconOrLogoContainerStyles.root,
-					iconContainerStyles.root,
-					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
-				]}
-			>
+			<div css={[sharedIconOrLogoContainerStyles.root, iconContainerStyles.root]}>
 				<LogoRenderer logoOrIcon={icon} />
 			</div>
-			<div
-				css={[
-					sharedIconOrLogoContainerStyles.root,
-					logoContainerStyles.root,
-					isFhsEnabled && sharedIconOrLogoContainerStyles.withFullHeightSidebar,
-				]}
-			>
+			<div css={[sharedIconOrLogoContainerStyles.root, logoContainerStyles.root]}>
 				<LogoRenderer logoOrIcon={logo} />
 			</div>
 		</Anchor>

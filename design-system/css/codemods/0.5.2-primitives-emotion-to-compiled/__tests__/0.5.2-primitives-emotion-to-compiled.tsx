@@ -1,6 +1,7 @@
 import transform from '../index';
 
 const apply = require('jscodeshift/dist/testUtils').applyTransform;
+const legacyPrimitivesImport = 'import { Box, xcss } from "@atlaskit/primitives";';
 
 async function applyTransform(transform: any, input: string) {
 	const output = await apply({ default: transform, parser: 'tsx' }, {}, { source: input });
@@ -10,7 +11,7 @@ async function applyTransform(transform: any, input: string) {
 describe('0.5.2-primitives-emotion-to-compiled', () => {
 	describe('basic xcss transformations', () => {
 		it('should replace xcss Box with simple cssMap', async () => {
-			const input = `import { Box, xcss } from "@atlaskit/primitives";
+			const input = `${legacyPrimitivesImport}
 
 const styles = xcss({
 color: "color.text",
@@ -214,6 +215,16 @@ const MyComponent = () => <Box xcss={styles.root} />`);
 	});
 
 	describe('style transformations', () => {
+		it('preserves semantic gap tokens when converting xcss to cssMap', async () => {
+			const input = `${legacyPrimitivesImport}
+const styles = xcss({ gap: "space.gap.medium", rowGap: "space.gap.small", columnGap: "space.gap.large" });
+const MyComponent = () => <Box xcss={styles} />`;
+			const result = await applyTransform(transform, input);
+			expect(result).toContain('token("space.gap.medium")');
+			expect(result).toContain('token("space.gap.small")');
+			expect(result).toContain('token("space.gap.large")');
+		});
+
 		it('should replace xcss with cssMap with styles not in style-maps', async () => {
 			const input = `import { Box, xcss } from "@atlaskit/primitives";
 

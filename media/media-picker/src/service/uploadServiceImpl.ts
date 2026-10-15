@@ -98,6 +98,12 @@ export class UploadServiceImpl implements UploadService {
 		files: LocalFileWithSource[],
 		traceContext: MediaTraceContext = generateTraceContext(),
 	): Promise<void> {
+		const { onBeforeUpload } = this.tenantUploadParams;
+		const rawFiles = files.map(({ file }) => file);
+		if (rawFiles.length > 0 && (await onBeforeUpload?.(rawFiles)) === false) {
+			return;
+		}
+
 		const shouldBatchSequentially =
 			this.uploadBatchSize &&
 			this.uploadBatchSize > 0 &&

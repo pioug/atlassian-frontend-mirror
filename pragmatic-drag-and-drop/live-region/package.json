@@ -29,6 +29,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

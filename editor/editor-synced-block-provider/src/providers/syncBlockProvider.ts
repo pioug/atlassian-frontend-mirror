@@ -295,6 +295,10 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 		}
 	}
 
+	getParentAri(): string | undefined {
+		return this.writeProvider?.parentAri;
+	}
+
 	generateResourceId(): { localId: BlockInstanceId; resourceId: ResourceId } {
 		const localId = crypto.randomUUID();
 		const resourceId = crypto.randomUUID();

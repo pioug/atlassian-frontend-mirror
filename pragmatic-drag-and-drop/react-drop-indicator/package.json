@@ -14,6 +14,7 @@
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",

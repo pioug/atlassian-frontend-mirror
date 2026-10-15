@@ -198,12 +198,11 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				targetCellRef.getBoundingClientRect().top - tableRef.getBoundingClientRect().top,
 			);
 		}
-		// Column inserts sit above the header; row inserts scroll behind it.
+		// Preserve the original popup placement: overflow row inserts and column inserts
+		// sit above the header; other row inserts sit below it.
 		// Set the layer on the Popup because its children share its stacking context.
 		let zIndex: number | undefined;
-		if (type === 'row' && isExperimentEnabled('platform_editor_sticky_headers_zindex')) {
-			zIndex = getTableZIndexes().belowHeader;
-		} else if (
+		if (
 			expValEquals(
 				'platform_editor_table_sticky_header_improvements',
 				'cohort',
@@ -212,6 +211,8 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			type === 'column'
 		) {
 			zIndex = getTableZIndexes().headerButton;
+		} else if (type === 'row' && isExperimentEnabled('platform_editor_sticky_headers_zindex')) {
+			zIndex = getTableZIndexes().belowHeader;
 		}
 
 		return (

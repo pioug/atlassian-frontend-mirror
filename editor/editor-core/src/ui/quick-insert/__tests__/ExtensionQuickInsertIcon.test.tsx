@@ -7,7 +7,9 @@ import { ExtensionQuickInsertIcon } from '../ExtensionQuickInsertIcon';
 
 describe('ExtensionQuickInsertIcon', () => {
 	it('renders the icon supplied by the extension', async () => {
-		const ExtensionIcon = ({ label }: { label: string }) => <span aria-label={label} role="img" />;
+		const ExtensionIcon = ({ label }: { label: string }) => (
+			<span aria-label={label} data-testid="extension-icon" role="img" />
+		);
 
 		const { container } = render(
 			<ExtensionQuickInsertIcon
@@ -17,7 +19,9 @@ describe('ExtensionQuickInsertIcon', () => {
 			/>,
 		);
 
-		expect(await screen.findByRole('img', { name: 'Extension' })).toBeInTheDocument();
+		// Wait for the extension's own icon: the Suspense fallback icon has the same role and label,
+		// and React 18 renders it before the lazy icon resolves.
+		expect(await screen.findByTestId('extension-icon')).toHaveAccessibleName('Extension');
 		await expect(container).toBeAccessible();
 	});
 

@@ -32,6 +32,63 @@ css`
 `;
 ```
 
+## Token names in xcss
+
+The rule also checks experimental and deleted token names used directly in object literals passed to
+`xcss()` from `@atlaskit/primitives`, including nested pseudo selectors and media queries. Aliased
+imports and namespace imports are supported.
+
+```js
+import { xcss } from '@atlaskit/primitives/xcss';
+
+// Incorrect: experimental token
+xcss({ gap: 'space.gap.medium' });
+
+// Correct: active token; no token() wrapper is needed
+xcss({ gap: 'space.100' });
+```
+
+Fixes replace the string with its replacement token name. Raw CSS replacements are reported without
+a fix because token-valued xcss properties may not accept them. This check covers literal property
+values in the xcss object, rather than values supplied through variables or object spreads.
+
+## Primitive component props
+
+The rule also reports experimental and deleted tokens selected by explicit string props on
+`@atlaskit/primitives` components. This includes:
+
+- `Box`: `backgroundColor` and all padding props.
+- `Inline`: `space` and `rowSpace`; `Stack`: `space`.
+- `Flex` and `Grid`: `gap`, `rowGap`, and `columnGap`.
+- `Text`: `color`, `size`, and `weight`; `MetricText`: `size`.
+- `Bleed`: `all`, `inline`, and `block`, resolved to negative spacing tokens.
+- Standard `Anchor` and `Pressable`: `backgroundColor` and all padding props. Their compiled
+  versions do not expose these props.
+
+Named, aliased, namespace, and supported default imports are recognized, including component
+subpaths and `/compiled` imports. Local bindings that shadow imports are ignored.
+
+```jsx
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+
+// Incorrect: experimental token
+<Stack space="space.gap.medium" />;
+
+// Correct
+<Stack space="space.100" />;
+```
+
+Both `space="..."` and `space={'...'}` are checked. Semantic values are resolved to their actual
+tokens: for example, `Text size="small"` selects `font.body.small`, and `Bleed all="space.100"`
+selects `space.negative.100`. Fixes preserve the prop's value format and are only offered when the
+replacement is a token the prop supports. Raw CSS replacements and incompatible token families are
+reported without a fix.
+
+This check does not resolve variables, expressions, prop spreads, omitted defaults, or implicit
+surface-derived text colors. It does not require `token()` wrappers or fallbacks for primitive
+props. Deprecated tokens are checked by `no-deprecated-design-token-usage`, allowing its warning
+severity to remain independently configurable.
+
 ## Options
 
 This rule comes with options to aid in migrating to design tokens.

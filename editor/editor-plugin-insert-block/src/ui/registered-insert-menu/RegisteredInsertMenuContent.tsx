@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useSyncExternalStore } from 'react';
 
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
@@ -9,6 +9,9 @@ import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types'
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import { RegisteredInsertMenu } from './RegisteredInsertMenu';
+
+const EMPTY_COMPONENTS: RegisterComponent[] = [];
+const subscribeToNothing = () => () => {};
 
 type Props = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
@@ -41,9 +44,14 @@ export const RegisteredInsertMenuContent = ({
 	onSelect,
 	target,
 }: Props): React.JSX.Element => {
-	// Keep registrations stable while the open menu is searched or navigated.
-	const [components] = useState<RegisterComponent[]>(
-		() => api?.uiControlRegistry?.actions.getComponents(MENU.key) ?? [],
+	const getComponents = useCallback(() => {
+		const components = api?.uiControlRegistry?.actions.getComponents(MENU.key);
+		return components?.length ? components : EMPTY_COMPONENTS;
+	}, [api]);
+	const components = useSyncExternalStore(
+		api?.uiControlRegistry?.actions.subscribe ?? subscribeToNothing,
+		getComponents,
+		getComponents,
 	);
 	const onClickOutside = useCallback(
 		(event: MouseEvent) => {
@@ -61,6 +69,7 @@ export const RegisteredInsertMenuContent = ({
 				components={components}
 				editorView={editorView}
 				emptyStateHandler={api?.quickInsert?.sharedState.currentState()?.emptyStateHandler}
+				fireAnalyticsEvent={api?.analytics?.actions.fireAnalyticsEvent}
 				getItemRank={api?.quickInsert?.sharedState.currentState()?.getItemRank}
 				isOffline={isOffline}
 				maxHeight={maxHeight}

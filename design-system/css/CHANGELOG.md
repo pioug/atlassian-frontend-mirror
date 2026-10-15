@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 1.1.7
+
+### Patch Changes
+
+- [`7d9167cd9d04b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d9167cd9d04b) -
+  Preserve experimental `space.gap.*` tokens when the primitives migration codemod converts legacy
+  XCSS to compiled CSS. Keep padding and margin migration maps limited to numeric spacing tokens.
+
 ## 1.1.6
 
 ### Patch Changes

@@ -3,7 +3,6 @@ import React from 'react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { LinkPickerState, LinkSearchListItemData } from '../../../../common/types';
 import { checkSubmitDisabled } from './utils';
@@ -70,7 +69,7 @@ export const LinkPickerSubmitButton = ({
 		url,
 		queryState,
 		items,
-		fg('add-disable-manual-url-capability-technical') ? disableManualUrlInsert : undefined,
+		disableManualUrlInsert,
 	);
 
 	return (

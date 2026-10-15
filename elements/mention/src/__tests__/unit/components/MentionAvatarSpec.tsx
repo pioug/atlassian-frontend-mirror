@@ -24,8 +24,8 @@ const mockMentionAgentsExperiment = (enabled: boolean) => {
 jest.mock('@atlaskit/avatar/avatar', () => ({
 	...jest.requireActual('@atlaskit/avatar/avatar'),
 	__esModule: true,
-	default: jest.fn(({ appearance, ...props }: any) => (
-		<div data-testid="base-avatar" data-appearance={appearance} {...props}>
+	default: jest.fn(({ appearance }: any) => (
+		<div data-testid="base-avatar" data-appearance={appearance}>
 			Base avatar
 		</div>
 	)),

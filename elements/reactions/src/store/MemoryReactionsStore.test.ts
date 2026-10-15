@@ -1,9 +1,6 @@
 import { waitFor } from '@testing-library/react';
 import waitForExpect from 'wait-for-expect';
 
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-
 import {
 	mockReactDomWarningGlobal,
 	mockResetUFOInstance,
@@ -481,7 +478,6 @@ describe('MemoryReactionsStore', () => {
 		});
 
 		it('should revert the optimistic update and call onFailure when adding a reaction fails and onFailure is passed', async () => {
-			mockExpEnabled('exp-comment-reaction-fail-fix');
 			const error = new Error('add error');
 			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
 				createSafeRejectedPromise(error),
@@ -511,7 +507,6 @@ describe('MemoryReactionsStore', () => {
 		});
 
 		it('should revert the optimistic update and call onFailure when removing a reaction fails and onFailure is passed', async () => {
-			mockExpEnabled('exp-comment-reaction-fail-fix');
 			const error = new Error('delete error');
 			(fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(error);
 
@@ -531,62 +526,6 @@ describe('MemoryReactionsStore', () => {
 							reactions: [
 								getReactionSummary(':thumbsup:', 3, false),
 								getReactionSummary(':clap:', 3, true),
-							],
-						},
-					},
-				});
-			});
-		});
-
-		it('should not revert the optimistic update or call onFailure when adding a reaction fails and the gate is off', async () => {
-			mockExpDisabled('exp-comment-reaction-fail-fix');
-			const error = new Error('add error');
-			(fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
-				createSafeRejectedPromise(error),
-			);
-
-			store.addReaction(containerAri, ari, '1f44d', undefined, failureCallBackFn);
-
-			await waitForExpect(() => {
-				expect(fakeClient.addReaction).toHaveBeenCalledTimes(1);
-				expect(failureCallBackFn).not.toHaveBeenCalled();
-				expect(store.getState()).toMatchObject({
-					reactions: {
-						[`${containerAri}|${ari}`]: {
-							status: ReactionStatus.ready,
-							reactions: [
-								{
-									...getReactionSummary(':thumbsup:', 4, true),
-									optimisticallyUpdated: true,
-								},
-								getReactionSummary(':clap:', 3, true),
-							],
-						},
-					},
-				});
-			});
-		});
-
-		it('should not revert the optimistic update or call onFailure when removing a reaction fails and the gate is off', async () => {
-			mockExpDisabled('exp-comment-reaction-fail-fix');
-			const error = new Error('delete error');
-			(fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(error);
-
-			store.toggleReaction(containerAri, ari, '1f44f', undefined, failureCallBackFn);
-
-			await waitForExpect(() => {
-				expect(fakeClient.deleteReaction).toHaveBeenCalledTimes(1);
-				expect(failureCallBackFn).not.toHaveBeenCalled();
-				expect(store.getState()).toMatchObject({
-					reactions: {
-						[`${containerAri}|${ari}`]: {
-							status: ReactionStatus.ready,
-							reactions: [
-								getReactionSummary(':thumbsup:', 3, false),
-								{
-									...getReactionSummary(':clap:', 2, false),
-									optimisticallyUpdated: true,
-								},
 							],
 						},
 					},

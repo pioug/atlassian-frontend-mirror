@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 16.14.0
+
+### Minor Changes
+
+- [`b979dce3f53a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b979dce3f53a4) -
+  Update i18n NPM package versions for discovery,navigation,web-platform,bitbucket,policy-platform
+  (Group 14)
+
 ## 16.13.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 46.7.1
+
+### Patch Changes
+
+- [`51aff6da58a78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51aff6da58a78) -
+  Prevent inline Smart Link social proof from changing server-rendered markup during hydration
+  behind `platform_sl_inline_social_proof_hydration_fix`.
+- [`453452aa2765d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/453452aa2765d) -
+  Update unauthorised inline Smart Link connect copy behind platform_sl_3p_preauth_update_cta_fg and
+  platform_sl_3p_preauth_update_cta_exp.
+- Updated dependencies
+
 ## 46.7.0
 
 ### Minor Changes

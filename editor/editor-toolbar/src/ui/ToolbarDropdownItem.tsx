@@ -4,7 +4,6 @@ import type { ReactNode, Ref } from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -141,7 +140,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			data-toolbar-component="menu-item"
 			ref={ref}
 			title={title}
-			data-extension-item-key={fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined}
+			data-extension-item-key={dataExtensionItemKey}
 		>
 			{children}
 		</Pressable>

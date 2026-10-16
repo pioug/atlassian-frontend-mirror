@@ -17,10 +17,6 @@ export { isImageRepresentation } from './is-image-representation';
  */
 export { isMediaRepresentation } from './is-media-representation';
 /**
- * @deprecated Use `import { isUnicodeRepresentation } from '@atlaskit/emoji/type-helpers'` instead.
- */
-export { isUnicodeRepresentation } from './is-unicode-representation';
-/**
  * @deprecated Use `import { isPromise } from '@atlaskit/emoji/type-helpers'` instead.
  */
 export { isPromise } from './is-promise';

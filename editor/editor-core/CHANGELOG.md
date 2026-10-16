@@ -1,5 +1,65 @@
 # @atlaskit/editor-core
 
+## 238.0.1
+
+### Patch Changes
+
+- [`56bd2d041039c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56bd2d041039c) -
+  Remove the disabled extension block spacing experiment and its unused editor styles.
+- Updated dependencies
+
+## 238.0.0
+
+### Patch Changes
+
+- [`e7ba86ebafd0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7ba86ebafd0b) -
+  Cleanup experiment `cc_editor_insm_doc_size_stats`. Document size statistics (`totalNodes` and
+  `nodeSizeBucket`) are now always computed and reported on the ProseMirror rendered analytics
+  event.
+- [`4119d93011e41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4119d93011e41) -
+  Remove `platform_use_unicode_emojis` experiment checks and retain Twemoji images and sprites.
+  Remove the experiment-only `denormaliseStandardRepresentation` export. Call
+  `denormaliseServiceRepresentation` with the service representation instead. Remove the
+  `emoji-id-to-emoji` entrypoint and its `emojiIdToEmoji` utility. Use the existing provider image
+  or sprite representation for Twemoji rendering. Remove the Unicode representation type, renderer,
+  canvas utility, and public `unicode-emoji-image` entrypoint. Remove `renderUnicodeEmojiAsImage`
+  props and the Unicode type guard. Remove the editor Unicode node rendering and the `EMOJI_UNICODE`
+  shared CSS class. Use provider image and sprite representations instead of Unicode
+  representations. Remove the obsolete Unicode rendering props from consumers. Remove the
+  feature-only `getCachedEmojiType` provider API. Use the existing provider lookup methods for cache
+  or catalogue access.
+- Updated dependencies
+
+## 237.0.9
+
+### Patch Changes
+
+- [`d9228c8792b80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9228c8792b80) -
+  Add numbered headings (POC), behind `platform_editor_numbered_headings`.
+
+  Skip heading-structure scans for text replacements contained within a single textblock; continue
+  mapping existing heading decorations as their positions change.
+  - `@atlaskit/editor-plugin-numbered-headings`: numbers every heading as a decimal outline (1, 1.1,
+    1.1.1) with node decorations, only recomputing on structural changes. Keeps shared state
+    internal, adds a toggle to the pinned and inline Text styles menus, and keeps the on/off setting
+    in the plugin for the current editor instance. Only the toggle indicates the enabled state; the
+    menu row stays neutral.
+  - `@atlaskit/editor-common`: add the `@atlaskit/editor-common/numbered-headings` entry point
+    (`getHeadingNumbers`, `HEADING_NUMBER_ATTRIBUTE`), plus numbered headings toolbar keys, ranks,
+    messages and analytics event.
+  - `@atlaskit/editor-core`: render `data-heading-number` as a heading prefix with a trailing full
+    stop (for example, `1.` and `1.1.`) in editor content styles.
+
+- [`4704b3ac83f88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4704b3ac83f88) -
+  Treat Antigravity and Copilot as third-party agent brands in show-diff contributor tags, sharing
+  the fixed third-party participant colour slot, and render their profile avatar when one is
+  available (falling back to the generic agent icon). Shorten the contributor tag fade in and out
+  from 600ms to 500ms.
+- [`ef028efae290d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef028efae290d) -
+  Prevent nested deleted list content from accumulating opacity while preserving its 0.8 treatment
+  behind the `platform_editor_ai_show_diff_patch_2` feature gate.
+- Updated dependencies
+
 ## 237.0.8
 
 ### Patch Changes

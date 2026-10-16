@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 12.3.2
+
+### Patch Changes
+
+- [`ae8c8196a7669`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae8c8196a7669) -
+  Repair structured documentation examples and consolidate duplicate session row guidance for
+  generated catalogs.
+
 ## 12.3.1
 
 ### Patch Changes

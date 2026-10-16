@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiDescription } from '../../types';
@@ -93,14 +92,10 @@ type Props = {
 };
 
 export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
-	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
-		? 32
-		: undefined;
-
 	return (
 		<div css={preview}>
 			<span css={previewImg}>
-				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} fitToHeight={fitToHeight} />
+				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} />
 			</span>
 			<div css={previewText}>
 				{emoji.name && <div css={emojiName}>{emoji.name}</div>}

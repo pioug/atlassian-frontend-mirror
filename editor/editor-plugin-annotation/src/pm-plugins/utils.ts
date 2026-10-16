@@ -174,11 +174,12 @@ export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
 	return `view-annotation-wrapper_${keys}`;
 };
 
+const isRemixExtension = (node: Node): boolean =>
+	node.type.name === 'extension' && node.attrs.extensionKey === 'native-embed:maui';
+
 // During rollback, hide chart highlights and automatic comment opening, not saved marks.
 export const shouldHideRemixAnnotation = (node: Node): boolean =>
-	node.type.name === 'extension' &&
-	node.attrs.extensionKey === 'native-embed:maui' &&
-	!fg('cc_maui_annotations_on_extensions');
+	isRemixExtension(node) && !fg('cc_maui_annotations_on_extensions');
 
 export const findAnnotationsInSelection = (selection: Selection, doc: Node): AnnotationInfo[] => {
 	const { empty, $anchor, anchor } = selection;
@@ -212,17 +213,15 @@ export const findAnnotationsInSelection = (selection: Selection, doc: Node): Ann
 	}
 
 	const annotationMark = doc.type.schema.marks.annotation;
-	const anchorAnnotationMarks = node && !shouldHideRemixAnnotation(node) ? node.marks : [];
+	// Opening Remix Edit moves the selection beside the chart. Only explicit comment
+	// actions should open its threads; a nearby caret must not select its annotations.
+	const anchorAnnotationMarks = node && !isRemixExtension(node) ? node.marks : [];
 
 	let marks: readonly Mark[] = [];
 	if (annotationMark.isInSet(anchorAnnotationMarks)) {
 		marks = anchorAnnotationMarks;
 	}
-	if (
-		nodeBefore &&
-		!shouldHideRemixAnnotation(nodeBefore) &&
-		annotationMark.isInSet(nodeBefore.marks)
-	) {
+	if (nodeBefore && !isRemixExtension(nodeBefore) && annotationMark.isInSet(nodeBefore.marks)) {
 		const existingMarkIds = marks.map((m) => m.attrs.id);
 		marks = marks.concat(...nodeBefore.marks.filter((m) => !existingMarkIds.includes(m.attrs.id)));
 	}

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-breakout
 
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.6
+
+### Patch Changes
+
+- [`b49a53d3c425a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b49a53d3c425a) -
+  EDITOR-8579 Remove extension layout controls and size extensions with the breakout mark. Legacy
+  wide and full-width layouts are translated to breakout widths, and the layout attr is kept for
+  rollback (behind experiment platform_editor_lovability_resize_extensions)
+- Updated dependencies
+
 ## 27.0.5
 
 ### Patch Changes

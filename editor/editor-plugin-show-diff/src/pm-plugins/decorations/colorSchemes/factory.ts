@@ -669,6 +669,14 @@ export function buildDeletedDecorationMarkerVariableSimple(colors: DiffColorSche
 	});
 }
 
+/** Marker and direct-content variables for deleted list items. */
+export function buildDeletedListItemMarkerVariable(colors: DiffColorScheme): string {
+	return convertToInlineCss({
+		'--diff-decoration-content-opacity': '0.8',
+		'--diff-decoration-marker-color': borderAccent(colors.deleteColor),
+	});
+}
+
 /** Whether the emphasised state is stated in the bottom border rather than a deeper highlight. */
 function usesUnderlineEmphasis(colors: DiffColorScheme): boolean {
 	return colors.deletedInlineActiveEmphasis === 'underline';
@@ -1141,7 +1149,9 @@ export function buildDeletedBlockNodeStyle(
 		case 'listItem':
 			return colors.deletedNodeEmphasis === 'stateful'
 				? statefulMarker()
-				: buildDeletedDecorationMarkerVariableSimple(colors);
+				: fg('platform_editor_ai_show_diff_patch_2')
+					? buildDeletedListItemMarkerVariable(colors)
+					: buildDeletedDecorationMarkerVariableSimple(colors);
 		case 'marker':
 			return colors.deletedNodeEmphasis === 'stateful'
 				? statefulMarker()

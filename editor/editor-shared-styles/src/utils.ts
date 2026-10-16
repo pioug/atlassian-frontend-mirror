@@ -23,6 +23,8 @@ const BRAND_PARTICIPANT_COLOR_INDEX: Readonly<Partial<Record<AgentBrandColorSche
 	'agent-brand-gemini': 9,
 	'agent-brand-manus': 9,
 	'agent-brand-slack': 9,
+	'agent-brand-antigravity': 9,
+	'agent-brand-copilot': 9,
 };
 
 /** Brands whose registered `bold`/`boldText` values take precedence over their palette slot. */
@@ -38,6 +40,8 @@ const BRAND_EXACT_COLOR_SCHEMES: ReadonlySet<AgentBrandColorScheme> = new Set([
 	'agent-brand-gemini',
 	'agent-brand-manus',
 	'agent-brand-slack',
+	'agent-brand-antigravity',
+	'agent-brand-copilot',
 ]);
 
 /** Maps Agent Studio's semantic palette to the established telepointer palette slots. */

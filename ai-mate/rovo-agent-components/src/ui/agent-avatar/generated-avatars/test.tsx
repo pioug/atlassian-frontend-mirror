@@ -119,16 +119,16 @@ describe('GeneratedAvatar', () => {
 		expect(await screen.findByTestId('jsm-request-resolver-agent-avatar')).toBeInTheDocument();
 	});
 
-	it('renders the original Amplitude avatar when the frontend gate is off', async () => {
-		failGate('rovo_agent_amplitude_avatar_v2');
+	it('renders the original Amplitude avatar when the Team 26 EU gate is off', async () => {
+		failGate('rovo_agent_avatar_refresh_teu26');
 		render(<GeneratedAvatar agentNamedId="mcp_amplitude_agent" size="medium" />);
 
 		expect(await screen.findByTestId('amplitude-agent-avatar')).toBeInTheDocument();
 		expect(screen.queryByTestId('amplitude-agent-avatar-v2')).not.toBeInTheDocument();
 	});
 
-	it('renders the Amplitude v2 avatar when the frontend gate is on', async () => {
-		passGate('rovo_agent_amplitude_avatar_v2');
+	it('renders the Amplitude v2 avatar when the Team 26 EU gate is on', async () => {
+		passGate('rovo_agent_avatar_refresh_teu26');
 		render(<GeneratedAvatar agentNamedId="mcp_amplitude_agent" size="medium" />);
 
 		expect(await screen.findByTestId('amplitude-agent-avatar-v2')).toBeInTheDocument();

@@ -25,7 +25,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from './mediaPluginType';
 import { lazyMediaGroupView } from './nodeviews/lazy-media-group';
@@ -244,13 +243,10 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				allowMediaSingle = false,
 				allowPixelResizing = false,
 				allowCaptions,
-				allowMediaInlineImages,
 				featureFlags: mediaFeatureFlags,
 			} = options || {};
 
-			const allowMediaInline = fg('platform_editor_remove_media_inline_feature_flag')
-				? allowMediaInlineImages
-				: getMediaFeatureFlag('mediaInline', mediaFeatureFlags);
+			const allowMediaInline = getMediaFeatureFlag('mediaInline', mediaFeatureFlags);
 
 			const mediaSingleOption = {
 				withCaption: allowCaptions,

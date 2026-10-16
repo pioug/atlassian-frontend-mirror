@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
 
 import { EmojiTypeAheadItem } from '@atlaskit/emoji/emoji-type-ahead-item';
-import type { EmojiDescription } from '@atlaskit/emoji/types';
+import { getStandardEmojis } from '@atlaskit/util-data-test/get-standard-emojis';
 
-const wave: EmojiDescription = {
-	id: 'wave',
-	shortName: ':wave:',
-	name: 'waving hand',
-	category: 'people',
-	representation: { unicodeEmoji: '👋' },
-	searchable: true,
-	type: 'standard',
-};
+const wave = getStandardEmojis().find((emoji) => emoji.shortName === ':wave:')!;
 
 export default function SuggestionItemExample(): React.JSX.Element {
 	const [selected, setSelected] = useState(false);

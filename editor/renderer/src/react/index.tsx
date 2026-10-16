@@ -9,6 +9,7 @@ import type {
 } from '@atlaskit/editor-common/extensions/extension-handler';
 import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
+import { getHeadingNumbers } from '@atlaskit/editor-common/numbered-headings';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { getColumnWidths } from '@atlaskit/editor-common/utils/table';
 import { getMarksByOrder } from '@atlaskit/editor-common/utils/validator';
@@ -18,6 +19,7 @@ import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EmojiProviderLookupOrder, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -108,6 +110,7 @@ export interface ReactSerializerInit {
 	providers?: ProviderFactory;
 	shouldDisplayExtensionAsInline?: (extensionParams: ExtensionParams<Parameters>) => boolean;
 	shouldOpenMediaViewer?: boolean;
+	showHeadingNumbers?: boolean;
 	smartLinks?: SmartLinksOptions;
 	/**
 	 * Used for to set positions on nodes for annotations.
@@ -187,6 +190,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private headingIdPrefix?: string;
 	private disableActions?: boolean;
 	private headingIds: string[] = [];
+	private showHeadingNumbers: boolean;
+	private headingNumbers: string[] = [];
+	private headingNumberIndex = 0;
 	/**
 	 * The reason we have this extra array here is because we need to generate the same unique
 	 * heading id for 2 different nodes: headers and expands (check the implementation of
@@ -254,6 +260,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.headingIdPrefix = init.headingIdPrefix;
 		this.disableActions = init.disableActions;
 		this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
+		this.showHeadingNumbers =
+			init.showHeadingNumbers === true && isExperimentEnabled('platform_editor_numbered_headings');
 		this.allowCopyToClipboard = init.allowCopyToClipboard;
 		this.allowDownloadCodeBlock = init.allowDownloadCodeBlock;
 		this.allowWrapCodeBlock = init.allowWrapCodeBlock;
@@ -297,6 +305,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 	private resetState() {
 		this.headingIds = [];
+		this.headingNumbers = [];
+		this.headingNumberIndex = 0;
 		this.expandHeadingIds = [];
 		this.startPos = this.initStartPos;
 	}
@@ -382,6 +392,17 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		// This makes sure that we reset internal state on re-render.
 		if (key === 'root-0') {
 			this.resetState();
+			if (this.showHeadingNumbers) {
+				const levels: number[] = [];
+				fragment.descendants((node) => {
+					if (node.type.name === 'heading') {
+						levels.push(Number(node.attrs.level));
+						return false;
+					}
+					return !node.isTextblock && !node.isLeaf;
+				});
+				this.headingNumbers = getHeadingNumbers(levels);
+			}
 		}
 
 		return this.renderNode(
@@ -899,6 +920,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node, path),
 			headingId: this.getHeadingId(node, this.headingIds),
+			headingNumber: this.showHeadingNumbers
+				? this.headingNumbers[this.headingNumberIndex++]
+				: undefined,
 			showAnchorLink:
 				this.appearance !== 'comment' &&
 				this.allowHeadingAnchorLinks &&

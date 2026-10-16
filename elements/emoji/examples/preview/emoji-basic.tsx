@@ -1,17 +1,9 @@
 import React from 'react';
 
 import { Emoji } from '@atlaskit/emoji/emoji';
-import type { EmojiDescription } from '@atlaskit/emoji/types';
+import { getStandardEmojis } from '@atlaskit/util-data-test/get-standard-emojis';
 
-const wavingHand: EmojiDescription = {
-	id: 'wave',
-	shortName: ':wave:',
-	name: 'waving hand',
-	category: 'people',
-	representation: { unicodeEmoji: '👋' },
-	searchable: true,
-	type: 'standard',
-};
+const wavingHand = getStandardEmojis().find((emoji) => emoji.shortName === ':wave:')!;
 
 export default function EmojiBasicPreview(): React.JSX.Element {
 	return (

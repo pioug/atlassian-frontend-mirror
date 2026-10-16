@@ -155,6 +155,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		layout,
 		isTopLevelNode,
 		editorAppearance,
+		hasBreakoutMark: node.marks?.some((mark) => mark.type.name === 'breakout'),
 	});
 
 	// We don't want to show border for non-empty 1p bodied extensions in live pages

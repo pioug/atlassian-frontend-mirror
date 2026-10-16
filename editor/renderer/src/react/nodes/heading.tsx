@@ -49,6 +49,15 @@ function hasRightAlignmentMark(marks?: PMNode['marks']) {
 	return marks.some((mark) => mark.type.name === 'alignment' && mark.attrs.align === 'end');
 }
 
+// Matches the editor's decoration-based number prefix without changing heading text or IDs.
+const numberedHeadingStyles = css({
+	'&::before': {
+		content: 'attr(data-heading-number) "."',
+		marginInlineEnd: token('space.100'),
+		userSelect: 'none',
+	},
+});
+
 const wrapperStyles = css({
 	// Important: do NOT use flex here.
 	// With flex + baseline alignment, the anchor aligns to the *first line* of a multi-line heading,
@@ -161,6 +170,7 @@ function WrappedHeadingAnchor({
 type HeadingProps = NodeProps<{
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	headingId?: string;
+	headingNumber?: string;
 	invisible?: boolean;
 	level: HeadingLevels;
 	localId?: string;
@@ -318,6 +328,8 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 	return (
 		<React.Fragment>
 			<HX
+				data-heading-number={props.headingNumber}
+				css={props.headingNumber && numberedHeadingStyles}
 				id={headingIdToUse}
 				data-local-id={localId}
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
@@ -439,6 +451,8 @@ function HeadingWithWrapper(
 				/>
 			)}
 			<HX
+				data-heading-number={props.headingNumber}
+				css={props.headingNumber && numberedHeadingStyles}
 				id={headingIdToUse}
 				data-local-id={localId}
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
@@ -473,6 +487,7 @@ function Heading({
 	children,
 	dataAttributes,
 	headingId,
+	headingNumber,
 	invisible,
 	level,
 	localId,
@@ -493,6 +508,7 @@ function Heading({
 				allowHeadingAnchorLinks={allowHeadingAnchorLinks}
 				dataAttributes={dataAttributes}
 				headingId={headingId}
+				headingNumber={headingNumber}
 				invisible={invisible}
 				level={level}
 				localId={localId}
@@ -513,6 +529,7 @@ function Heading({
 			allowHeadingAnchorLinks={allowHeadingAnchorLinks}
 			dataAttributes={dataAttributes}
 			headingId={headingId}
+			headingNumber={headingNumber}
 			invisible={invisible}
 			level={level}
 			localId={localId}

@@ -20,12 +20,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import {
-	type EmojiDescription,
-	type OnEmojiEvent,
-	ProviderTypes,
-	UfoEmojiTimings,
-} from '../../types';
+import { type EmojiDescription, type OnEmojiEvent, UfoEmojiTimings } from '../../types';
 import { hasUfoMarked } from '../../util/analytics/hasUfoMarked';
 import { sampledUfoRenderedEmoji } from '../../util/analytics/sampledUfoRenderedEmoji';
 import { ufoExperiences } from '../../util/analytics/ufoExperiences';
@@ -37,14 +32,12 @@ import {
 	SAMPLING_RATE_EMOJI_RENDERED_EXP,
 } from '../../util/constants';
 import { isSpriteRepresentation } from '../../util/is-sprite-representation';
-import { isUnicodeRepresentation } from '../../util/is-unicode-representation';
 import { leftClick } from '../../util/left-click';
 import { toEmojiId } from '../../util/to-emoji-id';
 import { messages } from '../i18n';
 import { handleDelete } from './handleDelete';
 import { ImageEmoji } from './ImageEmoji';
 import { SpriteEmoji } from './SpriteEmoji';
-import { UnicodeEmoji } from './UnicodeEmoji';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -86,46 +79,6 @@ const emojiImageContainer = css({
 	img: {
 		display: 'block',
 	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered'),
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover .emoji-common-deleteButton': {
-		// show delete button on hover
-		visibility: 'visible',
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.emoji-common-deletable': {
-		position: 'relative',
-	},
-
-	// show delete button on focus
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.emoji-common-deletable:focus-within .emoji-common-deleteButton': {
-		visibility: 'visible',
-	},
-
-	'&:focus': {
-		boxShadow: `0 0 0 2px ${token('color.border.focused')}`,
-		transitionDuration: '0s, 0.2s',
-		outline: 'none',
-	},
-});
-
-// Unicode emojis render as text inside a <span>, not an <img>, so they do not need
-// borderRadius (which would clip a background on hover) or the img { display: block } rule.
-const emojiUnicodeContainer = css({
-	backgroundColor: 'transparent',
-	display: 'inline-block',
-	verticalAlign: 'middle',
-	// Ensure along with vertical align middle, we don't increase the line height for p and some
-	// headings. Smaller headings get a slight increase in height, cannot add more negative margin
-	// as a "selected" emoji (e.g. in the editor) will not look good.
-	margin: '-1px 0',
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.emoji-common-selected,&.emoji-common-select-on-hover:hover': {
@@ -239,12 +192,6 @@ export interface Props extends Omit<
 	preventFocusOnMouseDown?: boolean;
 
 	/**
-	 * Renders unicode emoji through an image representation when a fixed height is supplied.
-	 * Defaults to `true`.
-	 */
-	renderUnicodeEmojiAsImage?: boolean;
-
-	/**
 	 * Show the emoji as selected
 	 */
 	selected?: boolean;
@@ -272,8 +219,6 @@ export interface Props extends Omit<
 	 */
 	showTooltip?: boolean;
 }
-
-export const unicodeEmojiCanvasSize: any = 128;
 
 const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
 	// Clicked emoji delete button
@@ -322,7 +267,7 @@ const handleFocus = (props: Props, event: FocusEvent<any>) => {
 };
 
 interface EmojiNodeWrapperProps extends Props {
-	type: 'sprite' | 'image' | 'unicode';
+	type: 'sprite' | 'image';
 }
 
 export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
@@ -351,7 +296,6 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 		children,
 		type,
 		editorEmoji,
-		renderUnicodeEmojiAsImage,
 		isDecorative,
 		...other
 	} = props;
@@ -391,13 +335,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}
 			tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
-			css={[
-				type === 'sprite'
-					? emojiSpriteContainer
-					: type === 'unicode'
-						? emojiUnicodeContainer
-						: emojiImageContainer,
-			]}
+			css={[type === 'sprite' ? emojiSpriteContainer : emojiImageContainer]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			onKeyDown={(event) => handleKeyDown(props, event)}
@@ -457,15 +395,9 @@ export const Emoji = (props: Props): JSX.Element => {
 		if (!hasUfoMarked(ufoExp, UfoEmojiTimings.MOUNTED_END)) {
 			ufoExp.mark(UfoEmojiTimings.MOUNTED_END);
 		}
-		if (emoji.type === ProviderTypes.STANDARD || isUnicodeRepresentation(emoji.representation)) {
-			expValEquals('platform_use_unicode_emojis', 'isEnabled', true);
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (isUnicodeRepresentation(emoji.representation)) {
-		return <UnicodeEmoji {...props} />;
-	}
 	// TODO: We always prefer render as image as having accessibility issues with sprite representation
 	if (isSpriteRepresentation(emoji.representation)) {
 		return <SpriteEmoji {...props} />;

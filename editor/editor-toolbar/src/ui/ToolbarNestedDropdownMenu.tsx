@@ -16,7 +16,6 @@ import { jsx, cssMap, cx } from '@compiled/react';
 import { mergeRefs } from 'use-callback-ref';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
@@ -108,7 +107,7 @@ export const ToolbarNestedDropdownMenu = ({
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			shouldFitContainer={shouldFitContainer}
-			shouldIgnoreCloseEvent={fg('cc_blocks_changeboarding') ? shouldIgnoreCloseEvent : undefined}
+			shouldIgnoreCloseEvent={shouldIgnoreCloseEvent}
 			placement="right-start"
 			testId={dropdownTestId}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -136,9 +135,7 @@ export const ToolbarNestedDropdownMenu = ({
 						hasNestedDropdownMenu={true}
 						isDisabled={isDisabled}
 						shouldTitleWrap={shouldTitleWrap}
-						data-extension-item-key={
-							fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined
-						}
+						data-extension-item-key={dataExtensionItemKey}
 					>
 						{text}
 						{elemAfterText}

@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 21.0.1
+
+### Patch Changes
+
+- [`6b6a50a1339b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b6a50a1339b2) -
+  Make modal trigger dialog semantics and submenu distinction permanent after feature gate cleanup.
+
 ## 21.0.0
 
 ### Major Changes

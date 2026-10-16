@@ -123,7 +123,24 @@ function groupTouchingDecorations(
 		clusterTo = Math.max(clusterTo, decoration.to);
 	});
 
-	return groups.map(({ decorations: group, from, to }) => {
+	// A deleted-content widget is left unattributed so it carries no tag of its own, and spans no
+	// range, so it is never a change in its own right. On its own it becomes a stop that reveals
+	// nothing, ahead of the stop for the change it belongs to — so it joins the attributed group
+	// that contains it. Only the stop list changes: the widget keeps its own decoration and, having
+	// no tag, stays no hover target.
+	const attributedGroups = groups.filter((group) => group.contributor !== '');
+	const stops = groups.filter((group) => {
+		if (group.contributor !== '' || group.decorations.some((dec) => dec.from !== dec.to)) {
+			return true;
+		}
+		const host = attributedGroups.find(
+			(attributed) => attributed.from <= group.from && group.to <= attributed.to,
+		);
+		host?.decorations.push(...group.decorations);
+		return host === undefined;
+	});
+
+	return stops.map(({ decorations: group, from, to }) => {
 		const representative =
 			group.find(isInlineDecoration) ??
 			group.find((decoration) => decoration.from !== decoration.to) ??

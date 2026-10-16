@@ -93,7 +93,7 @@ export const generateMediaInlineFloatingToolbar = (
 
 	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 	const mauiToolbarSeparatorsUpdateEnabled =
-		fg('cc-maui-toolbar-separators-update') && areAnyNewToolbarFlagsEnabled;
+		fg('cc-maui-toolbar-separators-update-jira') && areAnyNewToolbarFlagsEnabled;
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
@@ -247,7 +247,7 @@ const getMediaInlineImageToolbar = (
 	const { isViewOnly, allowAltTextOnImages, allowLinking, allowImagePreview } = options;
 
 	const mauiToolbarSeparatorsUpdateEnabled =
-		fg('cc-maui-toolbar-separators-update') && isEditorControlsEnabled;
+		fg('cc-maui-toolbar-separators-update-jira') && isEditorControlsEnabled;
 
 	if (shouldShowImageBorder(state)) {
 		inlineImageItems.push({

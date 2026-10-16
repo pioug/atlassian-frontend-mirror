@@ -87,13 +87,6 @@ const GRID_GUTTER = 12;
 const blockNodesVerticalMargin = '0.75rem';
 const fontSize14px = `${14 / 16}rem`;
 const scaledBlockNodesVerticalMargin = '0.75em';
-// Block spacing hook (gated by isExperimentEnabled('platform_editor_extension_block_spacing')).
-// When the experiment is on, these variants re-declare the block margins to read from the
-// `--ak-editor-extension-block-spacing` CSS custom property, falling back to the original values.
-// When the experiment is off, none of these are applied and behaviour is identical to before.
-const blockNodesVerticalMarginVar = 'var(--ak-editor-extension-block-spacing, 0.75rem)';
-const scaledBlockNodesVerticalMarginVar = 'var(--ak-editor-extension-block-spacing, 0.75em)';
-
 // emoji constants — values inlined from packages/elements/emoji/src/util/constants.ts
 // If you need to update these values, please also update packages/elements/emoji/src/util/constants.ts
 const defaultEmojiHeight = 20;
@@ -773,108 +766,12 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 	},
-	// Gated by isExperimentEnabled('platform_editor_extension_block_spacing').
-	// Re-declares the block-element vertical margins to read from the
-	// `--ak-editor-extension-block-spacing` CSS custom property (falling back to the original
-	// values). Applied LAST in the css array so it overrides the base margins by source order.
-	// Mirrors every base rule that uses blockNodesVerticalMargin / 0.75rem / 0.75em margins.
-	blockSpacingVarStyles: {
-		'.ProseMirror': {
-			// paragraphs
-			p: {
-				marginTop: blockNodesVerticalMarginVar,
-			},
-			// SSR reset rule (mirrors listsStyles `& > style:first-child + p`) so the first
-			// paragraph after an SSR style tag also honours the spacing var.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'& > style:first-child + p': {
-				marginTop: blockNodesVerticalMarginVar,
-			},
-			// blockquotes — base also zeroes the first blockquote's top margin.
-			'& blockquote': {
-				marginTop: blockNodesVerticalMarginVar,
-				'&:first-child': {
-					marginTop: 0,
-				},
-			},
-			// code blocks
-			[`.${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
-				marginTop: blockNodesVerticalMarginVar,
-			},
-			li: {
-				'> .code-block': {
-					marginTop: blockNodesVerticalMarginVar,
-				},
-				'> .code-block:first-child, > .ProseMirror-gapcursor:first-child + .code-block': {
-					marginTop: 0,
-				},
-				'> div:last-of-type.code-block, > pre:last-of-type.code-block': {
-					marginBottom: blockNodesVerticalMarginVar,
-				},
-			},
-			// smart cards (block card)
-			'.blockCardView-content-wrap': {
-				marginTop: blockNodesVerticalMarginVar,
-			},
-			// extension wrappers — mirrors the base `extensionStyles` margin rules exactly so that
-			// experiment-on reproduces all of the base first/last margin resets.
-			'.extensionView-content-wrap, .multiBodiedExtensionView-content-wrap, .bodiedExtensionView-content-wrap':
-				{
-					marginTop: blockNodesVerticalMarginVar,
-					marginBottom: blockNodesVerticalMarginVar,
-					'&:first-of-type': {
-						marginTop: 0,
-					},
-					'&:last-of-type': {
-						marginBottom: 0,
-					},
-				},
-			"[data-mark-type='fragment']": {
-				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
-					marginTop: blockNodesVerticalMarginVar,
-					marginBottom: blockNodesVerticalMarginVar,
-				},
-				"& > [data-mark-type='dataConsumer']": {
-					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
-						marginTop: blockNodesVerticalMarginVar,
-						marginBottom: blockNodesVerticalMarginVar,
-					},
-				},
-				'&:first-child': {
-					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
-						marginTop: 0,
-					},
-					"& > [data-mark-type='dataConsumer']": {
-						'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
-							marginTop: 0,
-						},
-					},
-				},
-				'&:nth-last-of-type(-n + 2):not(:first-of-type)': {
-					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
-						marginBottom: 0,
-					},
-					"& > [data-mark-type='dataConsumer']": {
-						'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
-							marginBottom: 0,
-						},
-					},
-				},
-			},
-		},
-	},
 	extensionWithBreakoutStyles: {
 		'.fabric-editor-breakout-mark': {
 			'&:has([data-prosemirror-node-name="extension"]), &:has([data-prosemirror-node-name="bodiedExtension"]), &:has([data-prosemirror-node-name="multiBodiedExtension"])':
 				{
 					margin: `${blockNodesVerticalMargin} 0`,
 				},
-		},
-	},
-	// Scaled (em-based) variant of blockSpacingVarStyles for dense/scaled paragraph contexts.
-	blockSpacingVarScaledStyles: {
-		'.ProseMirror p': {
-			marginTop: scaledBlockNodesVerticalMarginVar,
 		},
 	},
 	blockquoteDangerStyles: {
@@ -1371,6 +1268,13 @@ const editorContentStyles = cssMapScoped({
 			backgroundColor: token('color.border.danger'),
 		},
 	},
+	numberedHeadingsStyles: {
+		'.ProseMirror [data-heading-number]::before': {
+			content: 'attr(data-heading-number) "."',
+			marginInlineEnd: token('space.100'),
+			userSelect: 'none',
+		},
+	},
 	ruleWithAttrsStyles: {
 		'.ProseMirror hr[data-color]': {
 			backgroundColor: 'var(--custom-palette-color)',
@@ -1624,6 +1528,12 @@ const editorContentStyles = cssMapScoped({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			color: 'var(--diff-decoration-marker-color)',
 		},
+		// Apply opacity to this item's content without dimming its nested lists.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'li[data-testid="show-diff-changed-decoration-node"] > :not(ul, ol)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			opacity: 'var(--diff-decoration-content-opacity)',
+		},
 	},
 	// Move this into `smartCardStyles` below when cleaning up editor_controls_patch_15
 	editorControlsSmartCardStyles: {
@@ -1694,7 +1604,7 @@ const editorContentStyles = cssMapScoped({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .ak-editor-selected-node.danger': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			'.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
 				...dangerBorderStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1704,8 +1614,8 @@ const editorContentStyles = cssMapScoped({
 	},
 	// Emoji node view styles
 	emojiStyles: {
-		// Show diff: emoji attr change highlight. Keep this with emoji node styles so the highlight
-		// targets sprite/image/unicode emoji renderers.
+		// Keep the emoji attribute change highlight with emoji node styles.
+		// Apply the highlight to sprite and image emoji renderers.
 		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
 		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
 		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
@@ -1716,7 +1626,7 @@ const editorContentStyles = cssMapScoped({
 			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 				outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
@@ -1725,24 +1635,6 @@ const editorContentStyles = cssMapScoped({
 				borderRadius: token('radius.xsmall'),
 			},
 
-		'.ProseMirror [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
-		},
-		'.ProseMirror h1 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH1}px`,
-		},
-		'.ProseMirror h2 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH2}px`,
-		},
-		'.ProseMirror h3 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH3}px`,
-		},
-		'.ProseMirror h4 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH4}px`,
-		},
-		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
-		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .emojiView-content-wrap': {
 			display: 'inline-block',
@@ -1759,15 +1651,12 @@ const editorContentStyles = cssMapScoped({
 			verticalAlign: 'middle',
 			userSelect: 'all',
 		},
-		'.ProseMirror .emoji-common-emoji-unicode': {
-			cursor: 'pointer',
-		},
 	},
 	emojiSelectionStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .ak-editor-selected-node': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			'.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...emojiSelectionStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1783,7 +1672,7 @@ const editorContentStyles = cssMapScoped({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .ak-editor-selected-node[data-emoji-id]': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			'.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...emojiSelectionStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1796,24 +1685,6 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	emojiDenseStyles: {
-		'.ProseMirror [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
-		},
-		'.ProseMirror h1 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH1}px`,
-		},
-		'.ProseMirror h2 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH2}px`,
-		},
-		'.ProseMirror h3 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH3}px`,
-		},
-		'.ProseMirror h4 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH4}px`,
-		},
-		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
-		},
 		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
 			width: `${defaultDenseEmojiHeight}px`,
 			height: `${defaultDenseEmojiHeight}px`,
@@ -5577,7 +5448,7 @@ const editorContentStyles = cssMapScoped({
 			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 				outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
@@ -5586,24 +5457,6 @@ const editorContentStyles = cssMapScoped({
 				borderRadius: token('radius.xsmall'),
 			},
 
-		'.ProseMirror [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
-		},
-		'.ProseMirror h1 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH1}px`,
-		},
-		'.ProseMirror h2 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH2}px`,
-		},
-		'.ProseMirror h3 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH3}px`,
-		},
-		'.ProseMirror h4 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${scaledEmojiHeightH4}px`,
-		},
-		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
-		},
 		'.ProseMirror .emojiView-content-wrap': {
 			display: 'inline-block',
 		},
@@ -5618,9 +5471,6 @@ const editorContentStyles = cssMapScoped({
 			cursor: 'pointer',
 			verticalAlign: 'middle',
 			userSelect: 'all',
-		},
-		'.ProseMirror .emoji-common-emoji-unicode': {
-			cursor: 'pointer',
 		},
 		'.ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
 			{
@@ -5648,24 +5498,6 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	scaledEmojiDenseStyles: {
-		'.ProseMirror [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
-		},
-		'.ProseMirror h1 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH1}px`,
-		},
-		'.ProseMirror h2 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH2}px`,
-		},
-		'.ProseMirror h3 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH3}px`,
-		},
-		'.ProseMirror h4 [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${denseEmojiHeightH4}px`,
-		},
-		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
-			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
-		},
 		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
 			width: defaultDenseEmojiHeight,
 			height: defaultDenseEmojiHeight,
@@ -8403,7 +8235,7 @@ const editorContentStyles = cssMapScoped({
 				// the change while the rest rises out of it. A transform, so nothing around it reflows.
 				transform: 'translateY(4px)',
 				transitionProperty: 'opacity, transform',
-				transitionDuration: token('motion.duration.xxlong', '600ms'),
+				transitionDuration: '500ms',
 				// The exit curve; the revealed state below swaps in the entrance curve. The fallback is
 				// required — motion custom properties only exist under
 				// `html[data-theme~="motion:motion"]`, and one unresolved `var()` drops the whole
@@ -8585,8 +8417,6 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 
 	const browser = getBrowserInfo();
 
-	// Evaluate the block-spacing experiment once per render.
-	const isBlockSpacingEnabled = isExperimentEnabled('platform_editor_extension_block_spacing');
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
 	const isUpdateStatusColorsEnabled =
 		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
@@ -8649,6 +8479,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.ruleStyles,
 				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
 					editorContentStyles.ruleWithAttrsStyles,
+				isExperimentEnabled('platform_editor_numbered_headings') &&
+					editorContentStyles.numberedHeadingsStyles,
 				editorContentStyles.smartCardDiffStyles,
 				editorContentStyles.showDiffDeletedNodeStyles,
 				editorContentStyles.mediaStyles,
@@ -8892,11 +8724,6 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.dangerRuleStyles,
 				editorContentStyles.mediaDangerStyles,
 				editorContentStyles.nestedPanelDangerStyles,
-				// Block spacing hook — opt-in via --ak-editor-extension-block-spacing.
-				// Applied last so the var-based margins override the base block margins by source
-				// order. Gated by an experiment so it can be disabled and SSR/layout perf tracked.
-				isBlockSpacingEnabled && editorContentStyles.blockSpacingVarStyles,
-				isBlockSpacingEnabled && isDense && editorContentStyles.blockSpacingVarScaledStyles,
 			]}
 			data-editor-scroll-container={isScrollable ? 'true' : undefined}
 			data-testid="editor-content-container"

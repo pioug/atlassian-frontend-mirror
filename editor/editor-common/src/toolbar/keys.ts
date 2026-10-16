@@ -243,6 +243,16 @@ export const TEXT_STYLES_MENU_SECTION = {
 	type: 'menu-section',
 } as const;
 
+export const NUMBERED_HEADINGS_MENU_SECTION = {
+	key: 'numbered-headings-menu-section',
+	type: 'menu-section',
+} as const;
+
+export const NUMBERED_HEADINGS_MENU_ITEM = {
+	key: 'numbered-headings-menu-item',
+	type: 'menu-item',
+} as const;
+
 export const NORMAL_TEXT_MENU_ITEM = {
 	key: 'normal-text-menu-item',
 	type: 'menu-item',

@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 4.12.6
+
+### Patch Changes
+
+- [`11945c84f474d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11945c84f474d) -
+  Fix duplicated option names in multi-select remove button labels without changing Tag label
+  behavior.
+- Updated dependencies
+
 ## 4.12.5
 
 ### Patch Changes

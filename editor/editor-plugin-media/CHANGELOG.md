@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 30.0.0
+
+### Patch Changes
+
+- [`4210c1146290b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4210c1146290b) -
+  Move shared media and native embed toolbar separators to cc-maui-toolbar-separators-update-jira so
+  Confluence keeps the launched experience and Jira owns its rollout independently of the retired
+  gate.
+- [`d8fb14630d56a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8fb14630d56a) -
+  Remove platform_editor_remove_media_inline_feature_flag while preserving configured inline
+  attachment support and inline media in AI previews.
+- Updated dependencies
+
 ## 29.1.0
 
 ### Minor Changes

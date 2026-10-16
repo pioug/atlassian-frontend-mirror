@@ -39,10 +39,10 @@ export const CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE = 'data-revealed';
 
 /**
  * Backstop for removing a fading-out tag: a cancelled transition fires no `transitionend`. Must stay
- * above the fade's 600ms, which lives in another package's stylesheet and cannot be read back as a
+ * above the fade's 500ms, which lives in another package's stylesheet and cannot be read back as a
  * number — hence the wide margin. Raise in step with that duration.
  */
-export const TAG_EXIT_FALLBACK_MS = 1200;
+export const TAG_EXIT_FALLBACK_MS = 800;
 
 /**
  * The tooltip's look, inline rather than through `VANILLA_TOOLTIP_DEFAULT_CLASS`: this tooltip is

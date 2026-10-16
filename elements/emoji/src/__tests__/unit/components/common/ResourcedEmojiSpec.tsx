@@ -4,7 +4,6 @@ import { waitFor, cleanup, screen, fireEvent } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import Loadable from 'react-loadable';
 
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
@@ -289,12 +288,6 @@ describe('<ResourcedEmoji />', () => {
 	});
 
 	describe('has a resolved instance of emoji provider', () => {
-		afterEach(() => {
-			setupEditorExperiments('test', {
-				platform_use_unicode_emojis: false,
-			});
-		});
-
 		it('should render an emoji', async () => {
 			const resolvedEmojiProvider = await getEmojiResourcePromise();
 			renderWithIntl(
@@ -319,106 +312,46 @@ describe('<ResourcedEmoji />', () => {
 			expect(emoji).not.toHaveAttribute('aria-label');
 		});
 
-		it('should not render unicode emoji as an image by default when the unicode image gate is disabled', async () => {
-			const resolvedEmojiProvider = await getEmojiResourcePromise();
-
-			renderWithIntl(
-				<ResourcedEmoji
-					emojiProvider={resolvedEmojiProvider}
-					emojiId={{
-						id: grinEmoji.id,
-						shortName: grinEmoji.shortName,
-						fallback: grinEmoji.fallback,
-					}}
-				/>,
-			);
-
-			expect(await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
-			expect(screen.queryByTestId(`image-emoji-${grinEmoji.shortName}`)).not.toBeInTheDocument();
-		});
-
-		it('should render unicode emoji as text for editor emoji when renderUnicodeEmojiAsImage is false', async () => {
-			setupEditorExperiments('test', {
-				platform_use_unicode_emojis: true,
-			});
-			const resolvedEmojiProvider = await getEmojiResourcePromise();
-
-			renderWithIntl(
-				<ResourcedEmoji
-					editorEmoji
-					renderUnicodeEmojiAsImage={false}
-					emojiProvider={resolvedEmojiProvider}
-					emojiId={{
-						id: grinEmoji.id,
-						shortName: grinEmoji.shortName,
-						fallback: grinEmoji.fallback,
-					}}
-				/>,
-			);
-
-			expect(await screen.findByTestId(`unicode-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
-			expect(screen.queryByTestId(`image-emoji-${grinEmoji.shortName}`)).not.toBeInTheDocument();
-		});
-
-		it.each([
-			{
-				description: 'wait for the catalogue when the unicode experiment is enabled',
-				experimentEnabled: true,
-				expectedEmojiId: undefined,
-				expectedOptimisticFetch: false,
-			},
-			{
-				description: 'preserve optimistic fetching when the unicode experiment is disabled',
-				experimentEnabled: false,
-				expectedEmojiId: '',
-				expectedOptimisticFetch: true,
-			},
-		])(
-			'should use the tokenized image URL and $description',
-			async ({ experimentEnabled, expectedEmojiId, expectedOptimisticFetch }) => {
-				setupEditorExperiments('test', {
-					platform_use_unicode_emojis: experimentEnabled,
-				});
-				const shortName = ':custom_emoji:';
-				const resolvedImageURL = 'https://example.com/resolved.png';
-				const provider: Partial<EmojiProvider> = {
-					fetchByEmojiId: jest.fn().mockResolvedValue({
-						id: 'resolved-id',
-						name: 'Custom emoji',
-						shortName,
-						fallback: shortName,
-						type: 'SITE',
-						category: 'CUSTOM',
-						searchable: true,
-						representation: {
-							imagePath: resolvedImageURL,
-							width: 32,
-							height: 32,
-						},
-					}),
-				};
-
-				renderWithIntl(
-					<ResourcedEmoji
-						optimistic
-						emojiProvider={Promise.resolve(provider as EmojiProvider)}
-						emojiId={{ id: '', shortName, fallback: shortName }}
-					/>,
-				);
-
-				const image = await screen.findByAltText('Custom emoji');
-				expect(image).toHaveAttribute('src', resolvedImageURL);
-				expect(provider.fetchByEmojiId).toHaveBeenCalledWith(
-					{
-						id: expectedEmojiId,
-						shortName,
-						fallback: shortName,
+		it('preserves optimistic fetching and uses the tokenized custom emoji URL', async () => {
+			const shortName = ':custom_emoji:';
+			const resolvedImageURL = 'https://example.com/resolved.png';
+			const provider: Partial<EmojiProvider> = {
+				fetchByEmojiId: jest.fn().mockResolvedValue({
+					id: 'resolved-id',
+					name: 'Custom emoji',
+					shortName,
+					fallback: shortName,
+					type: 'SITE',
+					category: 'CUSTOM',
+					searchable: true,
+					representation: {
+						imagePath: resolvedImageURL,
+						width: 32,
+						height: 32,
 					},
-					expectedOptimisticFetch,
-					undefined,
-				);
-			},
-		);
+				}),
+			};
+
+			renderWithIntl(
+				<ResourcedEmoji
+					optimistic
+					emojiProvider={Promise.resolve(provider as EmojiProvider)}
+					emojiId={{ id: '', shortName, fallback: shortName }}
+				/>,
+			);
+
+			const image = await screen.findByAltText('Custom emoji');
+			expect(image).toHaveAttribute('src', resolvedImageURL);
+			expect(provider.fetchByEmojiId).toHaveBeenCalledWith(
+				{
+					id: '',
+					shortName,
+					fallback: shortName,
+				},
+				true,
+				undefined,
+			);
+		});
 	});
 
 	it('should render a fallback element if emoji cannot be found', async () => {

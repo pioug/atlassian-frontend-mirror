@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 26.0.0
+
+### Patch Changes
+
+- [`b5f8a82f07fc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5f8a82f07fc6) -
+  Preserve spacing between panel replacement diffs at the start of a table cell or other container
+  behind platform_editor_ai_show_diff_patch_2.
+- [`0f0ca74ca517a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f0ca74ca517a) -
+  Add the `@atlaskit/editor-common/ai-xstate-migration` (`isAiXstateMigrationEnabled`) and
+  `@atlaskit/editor-common/ai-xstate-migration-no-exposure` (`isAiXstateMigrationEnabledNoExposure`)
+  entrypoints, which enable the AI xstate migration when either the Confluence
+  (`platform_editor_ai_xstate_migration`) or Jira (`platform_editor_ai_xstate_migration_jira`, a
+  platform feature experiment) experiment is on. Use the helper wherever the xstate migration is
+  checked.
+- Updated dependencies
+
+## 25.1.0
+
+### Minor Changes
+
+- [`4704b3ac83f88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4704b3ac83f88) -
+  Treat Antigravity and Copilot as third-party agent brands in show-diff contributor tags, sharing
+  the fixed third-party participant colour slot, and render their profile avatar when one is
+  available (falling back to the generic agent icon). Shorten the contributor tag fade in and out
+  from 600ms to 500ms.
+
+### Patch Changes
+
+- [`ef028efae290d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef028efae290d) -
+  Prevent nested deleted list content from accumulating opacity while preserving its 0.8 treatment
+  behind the `platform_editor_ai_show_diff_patch_2` feature gate.
+- Updated dependencies
+
 ## 25.0.6
 
 ### Patch Changes

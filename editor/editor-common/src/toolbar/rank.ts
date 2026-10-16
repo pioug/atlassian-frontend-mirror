@@ -39,6 +39,8 @@ import {
 	TEXT_STYLES_GROUP,
 	TEXT_STYLES_MENU,
 	TEXT_STYLES_MENU_SECTION,
+	NUMBERED_HEADINGS_MENU_SECTION,
+	NUMBERED_HEADINGS_MENU_ITEM,
 	NORMAL_TEXT_MENU_ITEM,
 	SMALL_TEXT_MENU_ITEM,
 	HEADING_1_MENU_ITEM,
@@ -360,11 +362,13 @@ export const TEXT_COLLAPSED_MENU_RANK: {
 	'alignment-menu-section': number;
 	'clear-formatting-menu-section': number;
 	'lists-indendation-menu-section': number;
+	'numbered-headings-menu-section': number;
 	'text-color-highlight-menu-section': number;
 	'text-formatting-menu-section': number;
 	'text-styles-menu-section': number;
 } = {
 	[TEXT_STYLES_MENU_SECTION.key]: 100,
+	[NUMBERED_HEADINGS_MENU_SECTION.key]: 150,
 	[TEXT_FORMATTING_MENU_SECTION.key]: 200,
 	[CLEAR_FORMARTTING_MENU_SECTION.key]: 300,
 	[LISTS_INDENTATION_MENU_SECTION.key]: 400,
@@ -382,9 +386,17 @@ export const TEXT_STYLES_GROUP_RANK: {
 };
 
 export const TEXT_STYLES_MENU_RANK: {
+	'numbered-headings-menu-section': number;
 	'text-styles-menu-section': number;
 } = {
 	[TEXT_STYLES_MENU_SECTION.key]: 100,
+	[NUMBERED_HEADINGS_MENU_SECTION.key]: 200,
+};
+
+export const NUMBERED_HEADINGS_MENU_SECTION_RANK: {
+	'numbered-headings-menu-item': number;
+} = {
+	[NUMBERED_HEADINGS_MENU_ITEM.key]: 100,
 };
 
 export const TEXT_STYLES_MENU_SECTION_RANK: Record<string, number> = {

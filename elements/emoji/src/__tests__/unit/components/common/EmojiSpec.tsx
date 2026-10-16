@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, createEvent, fireEvent, waitFor } from '@testing-library/react';
+import { cleanup, createEvent, fireEvent } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
@@ -10,7 +10,6 @@ import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import Emoji from '../../../../components/common/Emoji';
 import { commonSelectedStyles } from '../../../../components/common/styles';
-import type { EmojiDescription } from '../../../../types';
 import browserSupport from '../../../../util/browser-support';
 import * as isSSRModule from '../../../../util/is-ssr';
 
@@ -22,67 +21,7 @@ import { renderWithIntl } from '../../_testing-library';
 // Add matcher provided by 'jest-axe'
 expect.extend(toHaveNoViolations);
 
-const unicodeEmoji: EmojiDescription = {
-	id: '1f600',
-	shortName: ':grinning:',
-	name: 'grinning face',
-	fallback: '😀',
-	type: 'STANDARD',
-	category: 'PEOPLE',
-	order: 1,
-	representation: {
-		unicodeEmoji: '😀',
-	},
-	searchable: true,
-};
-
-const unicodeEmojiImagePath = 'blob:unicode-emoji';
-
-const mockOffscreenCanvas = () => {
-	const context = {
-		clearRect: jest.fn(),
-		fillText: jest.fn(),
-		font: '',
-		textAlign: 'center' as CanvasTextAlign,
-		textBaseline: 'middle' as CanvasTextBaseline,
-	};
-	const convertToBlob = jest.fn().mockResolvedValue(new Blob(['emoji'], { type: 'image/png' }));
-	const OffscreenCanvasMock = jest.fn().mockImplementation(function (
-		this: OffscreenCanvas,
-		width: number,
-		height: number,
-	) {
-		this.width = width;
-		this.height = height;
-		this.getContext = jest.fn().mockReturnValue(context);
-		this.convertToBlob = convertToBlob;
-	});
-
-	Object.defineProperty(globalThis, 'OffscreenCanvas', {
-		configurable: true,
-		writable: true,
-		value: OffscreenCanvasMock,
-	});
-	Object.defineProperty(URL, 'createObjectURL', {
-		configurable: true,
-		writable: true,
-		value: jest.fn().mockReturnValue(unicodeEmojiImagePath),
-	});
-	Object.defineProperty(URL, 'revokeObjectURL', {
-		configurable: true,
-		writable: true,
-		value: jest.fn(),
-	});
-
-	return { context, convertToBlob, OffscreenCanvasMock };
-};
-
 describe('<Emoji />', () => {
-	const originalOffscreenCanvas = (globalThis as Record<string, unknown>)['OffscreenCanvas'];
-	const originalCreateObjectURL = URL.createObjectURL;
-	const originalRevokeObjectURL = URL.revokeObjectURL;
-	const originalDevicePixelRatio = window.devicePixelRatio;
-
 	beforeAll(() => {
 		browserSupport.supportsIntersectionObserver = true;
 	});
@@ -90,25 +29,6 @@ describe('<Emoji />', () => {
 	afterEach(() => {
 		cleanup();
 		jest.restoreAllMocks();
-		Object.defineProperty(globalThis, 'OffscreenCanvas', {
-			configurable: true,
-			writable: true,
-			value: originalOffscreenCanvas,
-		});
-		Object.defineProperty(URL, 'createObjectURL', {
-			configurable: true,
-			writable: true,
-			value: originalCreateObjectURL,
-		});
-		Object.defineProperty(URL, 'revokeObjectURL', {
-			configurable: true,
-			writable: true,
-			value: originalRevokeObjectURL,
-		});
-		Object.defineProperty(window, 'devicePixelRatio', {
-			configurable: true,
-			value: originalDevicePixelRatio,
-		});
 	});
 
 	describe('as sprite', () => {
@@ -306,88 +226,6 @@ describe('<Emoji />', () => {
 
 			expect(event.defaultPrevented).toBe(true);
 			expect(onSelected).toHaveBeenCalled();
-		});
-	});
-
-	describe('as unicode', () => {
-		it('should render unicode emoji as an image by default', async () => {
-			const { context, OffscreenCanvasMock } = mockOffscreenCanvas();
-
-			const result = await renderWithIntl(<Emoji emoji={unicodeEmoji} fitToHeight={24} />);
-			const imageWrapper = await result.findByTestId(`image-emoji-${unicodeEmoji.shortName}`);
-			mockAllIsIntersecting(true);
-			const image = result.getByAltText(unicodeEmoji.name!);
-
-			expect(imageWrapper).toBeInTheDocument();
-			expect(image).toHaveAttribute('src', unicodeEmojiImagePath);
-			expect(OffscreenCanvasMock).toHaveBeenCalledWith(128, 128);
-			expect(context.fillText).toHaveBeenCalledWith('😀', 64, 72);
-		});
-
-		it('should not use alt representation for unicode emoji rendered as an image', async () => {
-			mockOffscreenCanvas();
-			Object.defineProperty(window, 'devicePixelRatio', {
-				configurable: true,
-				value: 2,
-			});
-			const unicodeEmojiWithAltRepresentation: EmojiDescription = {
-				...unicodeEmoji,
-				altRepresentation: {
-					imagePath: 'https://alt-path-to-image.png',
-					width: 64,
-					height: 64,
-				},
-			};
-
-			const result = await renderWithIntl(
-				<Emoji emoji={unicodeEmojiWithAltRepresentation} fitToHeight={80} />,
-			);
-			const image = await result.findByAltText(unicodeEmoji.name!);
-
-			expect(image).toHaveAttribute('src', unicodeEmojiImagePath);
-		});
-
-		it('should render unicode emoji as text when renderUnicodeEmojiAsImage is false', async () => {
-			const { OffscreenCanvasMock } = mockOffscreenCanvas();
-
-			const result = await renderWithIntl(
-				<Emoji emoji={unicodeEmoji} fitToHeight={24} renderUnicodeEmojiAsImage={false} />,
-			);
-
-			expect(result.getByTestId(`unicode-emoji-${unicodeEmoji.shortName}`)).toBeInTheDocument();
-			expect(OffscreenCanvasMock).not.toHaveBeenCalled();
-		});
-
-		it('should render unicode emoji as text using fitToHeight when renderUnicodeEmojiAsImage is false', async () => {
-			const result = await renderWithIntl(
-				<Emoji emoji={unicodeEmoji} fitToHeight={24} renderUnicodeEmojiAsImage={false} />,
-			);
-
-			const emojiText = result.getByText('😀');
-
-			expect(emojiText).toHaveAttribute(
-				'style',
-				expect.stringContaining('font-size: var(--emoji-common-unicode-size, 24px);'),
-			);
-		});
-
-		it('should render a fallback placeholder when unicode image rendering fails', async () => {
-			Object.defineProperty(globalThis, 'OffscreenCanvas', {
-				configurable: true,
-				writable: true,
-				value: undefined,
-			});
-
-			const result = await renderWithIntl(
-				<Emoji emoji={unicodeEmoji} fitToHeight={24} renderUnicodeEmojiAsImage />,
-			);
-
-			await waitFor(() =>
-				expect(result.getByTestId(`emoji-placeholder-${unicodeEmoji.shortName}`)).toHaveAttribute(
-					'aria-busy',
-					'false',
-				),
-			);
 		});
 	});
 

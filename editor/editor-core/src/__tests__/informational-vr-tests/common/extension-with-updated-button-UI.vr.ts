@@ -78,6 +78,10 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 
 snapshotInformational(BlockExtensionWithSmartLink, {
 	description: 'Block extension label showing on top of smart link after width change',
+	// width is changed with the layout buttons, which the breakout resizer replaces
+	featureFlags: {
+		platform_editor_lovability_resize_extensions: false,
+	},
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
@@ -249,6 +253,10 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 
 snapshotInformational(BodiedExtensionWithSmartLink, {
 	description: 'Bodied extension label showing on top of smart link after width change',
+	// width is changed with the layout buttons, which the breakout resizer replaces
+	featureFlags: {
+		platform_editor_lovability_resize_extensions: false,
+	},
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},

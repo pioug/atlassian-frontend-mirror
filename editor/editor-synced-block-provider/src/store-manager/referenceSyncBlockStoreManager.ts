@@ -282,8 +282,6 @@ export class ReferenceSyncBlockStoreManager {
 		if (
 			!parsed ||
 			!this.dataProvider ||
-			(isExperimentEnabled('platform_editor_blocks_patch_12') &&
-				this.dataProvider.canGenerateResourceIdForReference?.() === false) ||
 			this.dataProvider.generateResourceIdForReference(parsed.uuid) !== resourceId
 		) {
 			return undefined;

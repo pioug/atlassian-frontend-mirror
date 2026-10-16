@@ -326,6 +326,7 @@ export const RendererFunctionalComponent = (
 				headingIdPrefix: props.headingIdPrefix,
 				disableActions: props.disableActions,
 				allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,
+				showHeadingNumbers: props.showHeadingNumbers,
 				allowColumnSorting: props.allowColumnSorting,
 				fireAnalyticsEvent: fireAnalyticsEvent,
 				shouldOpenMediaViewer: props.shouldOpenMediaViewer,

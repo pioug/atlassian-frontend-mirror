@@ -164,6 +164,11 @@ export const deletedDecorationMarkerVariable: string = convertToInlineCss({
 	opacity: 0.8,
 });
 
+export const deletedListItemMarkerVariable: string = convertToInlineCss({
+	'--diff-decoration-content-opacity': '0.8',
+	'--diff-decoration-marker-color': token('color.border.accent.gray'),
+});
+
 export const addedCellOverlayStyle: string = convertToInlineCss({
 	position: 'absolute',
 	top: 0,

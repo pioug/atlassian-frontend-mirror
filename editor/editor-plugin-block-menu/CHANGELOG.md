@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 27.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.6
+
+### Patch Changes
+
+- [`64cc7dc77d6b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64cc7dc77d6b4) -
+  Clean up feature gate `cc_blocks_changeboarding`. The gated behaviour — honouring
+  `shouldIgnoreCloseEvent`, emitting `data-extension-item-key`, and the block menu format item test
+  id — is now permanent.
+- Updated dependencies
+
 ## 26.0.5
 
 ### Patch Changes

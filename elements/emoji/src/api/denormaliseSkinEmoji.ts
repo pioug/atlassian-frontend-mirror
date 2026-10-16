@@ -6,7 +6,7 @@ import {
 	type EmojiServiceDescriptionWithVariations,
 } from '../types';
 import { denormaliseServiceAltRepresentation } from './denormaliseServiceAltRepresentation';
-import { denormaliseStandardRepresentation } from './denormaliseStandardRepresentation';
+import { denormaliseServiceRepresentation } from './denormaliseServiceRepresentation';
 
 export const denormaliseSkinEmoji = (
 	emoji: EmojiServiceDescriptionWithVariations,
@@ -23,7 +23,7 @@ export const denormaliseSkinEmoji = (
 		const { representation: _representation, altRepresentations, ...other } = skin;
 		return {
 			baseId: baseId,
-			representation: denormaliseStandardRepresentation(skin, meta),
+			representation: denormaliseServiceRepresentation(skin.representation, meta),
 			altRepresentation: denormaliseServiceAltRepresentation(altRepresentations, meta),
 			...other,
 		};

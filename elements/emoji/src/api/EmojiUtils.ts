@@ -64,7 +64,3 @@ export { shouldUseAltRepresentation } from './shouldUseAltRepresentation';
  * @deprecated Use `import { calculateScale } from '@atlaskit/emoji/emoji-utils'` instead.
  */
 export { calculateScale } from './calculateScale';
-/**
- * @deprecated Use `import { denormaliseStandardRepresentation } from '@atlaskit/emoji/emoji-utils'` instead.
- */
-export { denormaliseStandardRepresentation } from './denormaliseStandardRepresentation';

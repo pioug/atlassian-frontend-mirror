@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
 import ChangesIcon from '@atlaskit/icon/core/changes';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { useBlockMenuTargetVisibility } from './block-menu-target-visibility-context';
@@ -60,13 +59,9 @@ export const FormatMenuComponent = ({
 			enableMaxHeight={true}
 			onClick={handleClick}
 			dropdownTestId="editor-turn-into-menu"
-			testId={fg('cc_blocks_changeboarding') ? 'turn-into-block-menu-btn' : undefined}
+			testId="turn-into-block-menu-btn"
 			shouldFitContainer
-			shouldIgnoreCloseEvent={
-				fg('cc_blocks_changeboarding')
-					? shouldIgnoreBlockMenuTransformSpotlightCloseEvent
-					: undefined
-			}
+			shouldIgnoreCloseEvent={shouldIgnoreBlockMenuTransformSpotlightCloseEvent}
 		>
 			{children}
 		</ToolbarNestedDropdownMenu>

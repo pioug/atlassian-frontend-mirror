@@ -10,7 +10,6 @@ import { css, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { EmojiLoadSuccessCallback, EmojiLoadFailCallback } from '../../api/EmojiUtils';
@@ -24,7 +23,6 @@ import {
 import { hasUfoMarked } from '../../util/analytics/hasUfoMarked';
 import { sampledUfoRenderedEmoji } from '../../util/analytics/sampledUfoRenderedEmoji';
 import { defaultEmojiHeight } from '../../util/constants';
-import { emojiIdToEmoji } from '../../util/emojiIdToEmoji';
 import { isImageRepresentation } from '../../util/is-image-representation';
 import { isMediaRepresentation } from '../../util/is-media-representation';
 import { isPromise } from '../../util/is-promise';
@@ -91,12 +89,6 @@ export interface BaseResourcedEmojiProps {
 	placeholderXcss?: StrictXCSSProp<'backgroundColor', never>;
 
 	/**
-	 * Renders unicode emoji through an image representation when a fixed height is supplied.
-	 * Defaults to `true`.
-	 */
-	renderUnicodeEmojiAsImage?: boolean;
-
-	/**
 	 * Allows to show the tooltip.
 	 * Defaults to `false`.
 	 */
@@ -141,7 +133,6 @@ export const ResourcedEmojiComponent = ({
 	optimistic = false,
 	optimisticImageURL = undefined,
 	editorEmoji,
-	renderUnicodeEmojiAsImage = true,
 	pageTitleEmoji = false,
 	placeholderXcss,
 	onEmojiLoadSuccess,
@@ -167,26 +158,9 @@ export const ResourcedEmojiComponent = ({
 				});
 			}
 
-			const useUnicodeEmojis = expValEqualsNoExposure(
-				'platform_use_unicode_emojis',
-				'isEnabled',
-				true,
-			);
-			const normalizedEmojiId = useUnicodeEmojis
-				? {
-						...emojiId,
-						id: emojiId.id || undefined,
-					}
-				: emojiId;
-			// A shortName-only optimistic request can resolve without an emoji before the catalogue loads.
-			// Use the non-optimistic path so it waits for the catalogue and tokenizes custom emoji media.
-			const shouldFetchOptimistically = useUnicodeEmojis
-				? optimisticFetch && Boolean(emojiId.id)
-				: optimisticFetch;
-
 			const foundEmoji = _emojiProvider.fetchByEmojiId(
-				normalizedEmojiId,
-				shouldFetchOptimistically,
+				emojiId,
+				optimisticFetch,
 				fg('platform_bitbucket_fix_shortname_and_ordering') ? emojiProviderLookupOrder : undefined,
 			);
 
@@ -268,42 +242,16 @@ export const ResourcedEmojiComponent = ({
 	}, [emojiProvider]);
 
 	const emojiRenderState = useMemo<ResourcedEmojiComponentRenderStatesEnum>(() => {
-		if (
-			(!emoji && !loaded && !optimisticImageURL) ||
-			(optimisticImageURL &&
-				!emoji &&
-				!id &&
-				expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true))
-		) {
+		if (!emoji && !loaded && !optimisticImageURL) {
 			return ResourcedEmojiComponentRenderStatesEnum.INITIAL;
 		} else if ((!emoji && loaded) || imageLoadError) {
 			return ResourcedEmojiComponentRenderStatesEnum.FALLBACK;
 		}
 
 		return ResourcedEmojiComponentRenderStatesEnum.EMOJI;
-	}, [emoji, loaded, optimisticImageURL, imageLoadError, id]);
+	}, [emoji, loaded, optimisticImageURL, imageLoadError]);
 
 	const optimisticEmojiDescription = useMemo(() => {
-		// For STANDARD emojis, use native unicode character instead of optimistic image.
-		if (expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)) {
-			const resolvedId = id || emoji?.id;
-			if (!resolvedId) return undefined;
-			const unicodeEmoji = emojiIdToEmoji(resolvedId);
-			if (unicodeEmoji) {
-				return {
-					...(emoji ?? {
-						id,
-						shortName,
-						fallback,
-						type: 'STANDARD',
-						category: '',
-						searchable: true,
-					}),
-					representation: { unicodeEmoji },
-				};
-			}
-		}
-
 		// reduce blast radius by targeting page title
 		if (pageTitleEmoji && optimisticImageURL && fg('platform_emoji_prevent_img_src_changing')) {
 			return {
@@ -429,7 +377,6 @@ export const ResourcedEmojiComponent = ({
 							fitToHeight={fitToHeight}
 							autoWidth={autoWidth}
 							editorEmoji={editorEmoji}
-							renderUnicodeEmojiAsImage={renderUnicodeEmojiAsImage}
 						/>
 					)}
 			</span>

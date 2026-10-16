@@ -4,6 +4,7 @@ import * as allAdfSchemaSteps from '@atlaskit/adf-schema/steps';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as allAtlaskitCustomSteps from '@atlaskit/custom-steps';
+import { isAiXstateMigrationEnabled } from '@atlaskit/editor-common/ai-xstate-migration';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import type {
 	CollabEventConnectionData,
@@ -253,7 +254,7 @@ export const applyRemoteSteps = (
 		// experiment. `getAgentEditSegments` self-gates (returns null for non-agent
 		// edits, never throws), so this is a no-op for ordinary collaborator edits.
 		if (
-			expValEquals('platform_editor_ai_xstate_migration', 'isEnabled', true) &&
+			isAiXstateMigrationEnabled() &&
 			isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1')
 		) {
 			const reviewData = getAgentEditSegments(json, steps, tr, view);

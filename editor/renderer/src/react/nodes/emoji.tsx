@@ -10,11 +10,11 @@ import type { FC, NamedExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
 
 import type { EmojiAttributes } from '@atlaskit/adf-schema/emoji';
+import { getEmojiCustomFallback } from '@atlaskit/editor-common/emoji/fallback';
 import { messages } from '@atlaskit/editor-common/emoji/messages';
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
-import { isSingleEmoji } from '@atlaskit/editor-common/utils/isSingleEmoji';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import type { EmojiId, EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
@@ -71,9 +71,9 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 			// Character (U+FFFD) instead of the shortName text. Standard emojis
 			// continue to fall back to their Unicode text representation.
 			const fallbackText = fallback || shortName;
-			const useReplacementChar =
-				fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallbackText);
-			const renderedFallbackText = useReplacementChar ? '\uFFFD' : fallbackText;
+			const customFallback = getEmojiCustomFallback(fallbackText);
+			const useReplacementChar = customFallback !== undefined;
+			const renderedFallbackText = customFallback ?? fallbackText;
 			const accessibleLabel = `${messages.emojiNodeLabel.defaultMessage} ${shortName}`;
 
 			return (
@@ -94,10 +94,7 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 			return null;
 		}
 
-		const customFallback =
-			fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallback || shortName)
-				? '\uFFFD'
-				: undefined;
+		const customFallback = getEmojiCustomFallback(fallback || shortName);
 
 		return (
 			<ResourcedEmoji
@@ -115,7 +112,6 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 					shortName,
 				})}
 				editorEmoji={true}
-				renderUnicodeEmojiAsImage={false}
 				onEmojiLoadSuccess={resourceConfig?.onEmojiLoadSuccess}
 				onEmojiLoadFail={resourceConfig?.onEmojiLoadFail}
 			/>

@@ -29,6 +29,7 @@ import {
 	unmountContributorTag,
 } from './createContributorTagWidget';
 import { getAtomicInlineChangedAttrs } from './createInlineChangedDecoration';
+import { createReplacedCellWidgets } from './createReplacedCellDecorations';
 import {
 	AnchorTypeKey,
 	buildContributorTagDecorationSpec,
@@ -323,6 +324,19 @@ export const createNodeChangedDecorationWidget = ({
 	const tableDiffMode = getTableDiffMode({ slice, isInserted });
 
 	if (tableDiffMode.kind === 'cells') {
+		if (fg('platform_editor_ai_show_diff_patch_2')) {
+			return createReplacedCellWidgets({
+				slice,
+				newDoc,
+				change,
+				nodeViewSerializer,
+				colorScheme,
+				intl,
+				isActive,
+				isInserted,
+				leftAnchorId,
+			});
+		}
 		return createTableCellContentWidgets({
 			slice,
 			newDoc,

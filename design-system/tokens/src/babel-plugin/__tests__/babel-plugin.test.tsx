@@ -213,10 +213,156 @@ describe('Tokens Babel Plugin', () => {
 		expect(actual).toEqual(`"var(--test-token)";`);
 	});
 
+	it('transforms aliased token subpath imports and removes unused specifiers', () => {
+		const actual = transform({})`
+			import { token, token as getToken } from '@atlaskit/tokens/token';
+			const first = token('test-token', getToken('test-token', 'blue'));
+			const second = getToken('test-token');
+		`;
+
+		expect(actual).toEqual(`const first = \`var(--test-token, \${"var(--test-token, blue)"})\`;
+const second = "var(--test-token)";`);
+	});
+
+	it('preserves subpath references and leaves shadowed functions untouched', () => {
+		const actual = transform({})`
+			import { token } from '@atlaskit/tokens/token';
+			export { token };
+			const first = token('test-token');
+			function nested(token) { return token('test-token'); }
+		`;
+
+		expect(actual).toEqual(`import { token } from '@atlaskit/tokens/token';
+export { token };
+const first = "var(--test-token)";
+function nested(token) {
+  return token('test-token');
+}`);
+	});
+
+	it('transforms both entrypoints while preserving unrelated subpath imports', () => {
+		const actual = transform({})`
+			import { token, setGlobalTheme } from '@atlaskit/tokens';
+			import { token as getToken } from '@atlaskit/tokens/token';
+			import '@atlaskit/tokens/custom-themes';
+			const first = token('test-token', getToken('test-token', 'blue'));
+		`;
+
+		expect(actual).toEqual(`import { setGlobalTheme } from '@atlaskit/tokens';
+import '@atlaskit/tokens/custom-themes';
+const first = \`var(--test-token, \${"var(--test-token, blue)"})\`;`);
+	});
+
+	it.each(['@atlaskit/tokens/other', '@atlaskit/tokens-extra', '@atlaskit/token/tokens'])(
+		'preserves named token imports from unsupported sources: %s',
+		(source) => {
+			const actual = transform({})(`import { token } from '${source}'; token('missing-token');`);
+
+			expect(actual).toEqual(`import { token } from '${source}';
+token('missing-token');`);
+		},
+	);
+
+	it('refreshes references after replacing multiple aliases and nested fallback calls', () => {
+		const actual = transform({})`
+			import { token, token as getToken } from '@atlaskit/tokens';
+			const first = token('test-token', getToken('test-token', 'blue'));
+			const second = getToken('test-token');
+		`;
+		expect(actual).toEqual(`const first = \`var(--test-token, \${"var(--test-token, blue)"})\`;
+const second = "var(--test-token)";`);
+	});
+
+	it('keeps escaped references and ignores shadowed token bindings when batching updates', () => {
+		const actual = transform({})`
+			import { token } from '@atlaskit/tokens';
+			const saved = token;
+			const first = token('test-token');
+			function nested(token) { return token('test-token'); }
+			const second = token('test-token', 'blue');
+		`;
+		expect(actual).toEqual(`import { token } from '@atlaskit/tokens';
+const saved = token;
+const first = "var(--test-token)";
+function nested(token) {
+  return token('test-token');
+}
+const second = "var(--test-token, blue)";`);
+	});
+
+	it('removes references in overridden fallbacks without validating discarded calls', () => {
+		const actual = transform({ shouldForceAutoFallback: true })`
+			import { token, token as getToken } from '@atlaskit/tokens';
+			const first = token('test-token', getToken('missing-token'));
+			const second = token('test-token', () => getToken());
+		`;
+
+		expect(actual).toEqual(`const first = "var(--test-token, #ffffff)";
+const second = "var(--test-token, #ffffff)";`);
+	});
+
+	it('removes unused aliases across imports while preserving exported references and other exports', () => {
+		const actual = transform({})`
+			import { token, setGlobalTheme } from '@atlaskit/tokens';
+			import { token as getToken } from '@atlaskit/tokens';
+			export { getToken };
+			const first = token('test-token', getToken('test-token', 'blue'));
+		`;
+
+		expect(actual).toEqual(`import { setGlobalTheme } from '@atlaskit/tokens';
+import { token as getToken } from '@atlaskit/tokens';
+export { getToken };
+const first = \`var(--test-token, \${"var(--test-token, blue)"})\`;`);
+	});
+
 	it("does nothing if there's no import of @atlaskit/tokens", () => {
 		const actual = transform({})("token('test-token', color.blue);");
 
 		expect(actual).toEqual("token('test-token', color.blue);");
+	});
+
+	it.each([
+		"import '@atlaskit/tokens';",
+		"import {} from '@atlaskit/tokens';",
+		"import '@atlaskit/tokens/token';",
+		"import {} from '@atlaskit/tokens/token';",
+	])('removes imports without specifiers when there is no named token import: %s', (input) => {
+		const actual = transform({})(`${input}\nconst untouched = true;`);
+		expect(actual).toEqual('const untouched = true;');
+	});
+
+	it('removes bare and empty token imports while preserving other imports and calls', () => {
+		const actual = transform({})`
+			import '@atlaskit/tokens';
+			import {} from '@atlaskit/tokens';
+			import { setGlobalTheme } from '@atlaskit/tokens';
+			import 'other-package';
+			setGlobalTheme({ colorMode: 'light' });
+		`;
+
+		expect(actual).toEqual(`import { setGlobalTheme } from '@atlaskit/tokens';
+import 'other-package';
+setGlobalTheme({
+  colorMode: 'light'
+});`);
+	});
+
+	it('preserves imports and calls when only other token exports are imported', () => {
+		const actual = transform({})`
+			import { setGlobalTheme } from '@atlaskit/tokens';
+			setGlobalTheme({ colorMode: 'light' });
+			function token(value) { return value; }
+			token('test-token');
+		`;
+
+		expect(actual).toEqual(`import { setGlobalTheme } from '@atlaskit/tokens';
+setGlobalTheme({
+  colorMode: 'light'
+});
+function token(value) {
+  return value;
+}
+token('test-token');`);
 	});
 
 	it("doesn't remove tokens import if there are still usages left", () => {

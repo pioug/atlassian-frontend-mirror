@@ -1,4 +1,5 @@
 import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	ApplyDraftResult,
 	ClearAnnotationResult,
@@ -12,6 +13,7 @@ import {
 	getAnnotationInlineNodeTypes,
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils/annotation';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -24,6 +26,7 @@ import {
 	removeInlineCommentFromDoc,
 } from '../editor-commands';
 import { AnnotationSelectionType } from '../types';
+import { resolveAnnotatableTargetFromLocalId } from './resolve-annotatable-target';
 import type { InlineCommentPluginOptions } from './types';
 import { inlineCommentPluginKey, isSelectionValid } from './utils';
 
@@ -32,6 +35,7 @@ const ERROR_REASON_DRAFT_IN_PROGRESS = 'draft-in-progress';
 const ERROR_REASON_RANGE_MISSING = 'range-no-longer-exists';
 const ERROR_REASON_RANGE_INVALID = 'invalid-range';
 const ERROR_REASON_ID_INVALID = 'id-not-valid';
+const ERROR_REASON_INVALID_LOCAL_ID = 'invalid-localId';
 
 const domRefFromPos = (view: EditorView, position: number) => {
 	let dom: HTMLElement | undefined;
@@ -73,7 +77,8 @@ export const allowAnnotation =
 	};
 
 export const startDraft =
-	(editorView: EditorView, options: InlineCommentPluginOptions) => (): StartDraftResult => {
+	(editorView: EditorView, options: InlineCommentPluginOptions) =>
+	(localId?: string): StartDraftResult => {
 		const { isDrafting, selectedAnnotations } =
 			inlineCommentPluginKey.getState(editorView.state) || {};
 
@@ -100,6 +105,86 @@ export const startDraft =
 					},
 				});
 			});
+		}
+
+		if (localId !== undefined) {
+			const target = resolveAnnotatableTargetFromLocalId(editorView.state, localId, {
+				supportedBlockNodes: options.provider.supportedBlockNodes,
+			});
+
+			if (!target) {
+				return {
+					success: false,
+					reason: ERROR_REASON_INVALID_LOCAL_ID,
+				};
+			}
+
+			// The resolver returns the node accepting the annotation (the inner `media`), but
+			// `isSelectionValid` requires the selection to be on the selectable `mediaSingle`.
+			const { doc } = editorView.state;
+			let selectionPos = target.pos;
+			const $target = doc.resolve(target.pos);
+			if (target.node.type.name === 'media' && $target.parent?.type.name === 'mediaSingle') {
+				selectionPos = $target.before();
+			}
+
+			// A NodeSelection makes resolveDraftBookmark record isBlockNode: true.
+			editorView.dispatch(
+				editorView.state.tr.setSelection(NodeSelection.create(doc, selectionPos)),
+			);
+
+			const targetNodeId = target.node.attrs.id ?? target.node.attrs.localId;
+
+			setInlineCommentDraftState(
+				options.editorAnalyticsAPI,
+				options.provider.supportedBlockNodes,
+				options.api,
+				options.provider.isBlockNodeSupported,
+			)(
+				true,
+				INPUT_METHOD.FLOATING_TB,
+				'block',
+				targetNodeId,
+				true,
+			)(editorView.state, editorView.dispatch);
+
+			const { draftDecorationSet } = inlineCommentPluginKey.getState(editorView.state) || {};
+			const decorations = draftDecorationSet?.find();
+
+			if (!decorations?.length) {
+				return {
+					success: false,
+					reason: ERROR_REASON_RANGE_INVALID,
+				};
+			}
+
+			const from = decorations[0].from;
+			const targetElement = domRefFromPos(editorView, from);
+			const inlineNodeTypes =
+				getRangeInlineNodeNames({
+					doc: editorView.state.doc,
+					pos: { from, to: decorations[decorations.length - 1].to },
+				}) ?? [];
+			const targetNodeType = target.node.type.name;
+
+			options.annotationManager?.emit({
+				name: 'draftAnnotationStarted',
+				data: {
+					targetElement,
+					actionResult: undefined,
+					inlineNodeTypes,
+					targetNodeType,
+				},
+			});
+
+			return {
+				success: true,
+				targetElement,
+				// In Editor the action result is undefined, because the editor will perform the transaction on the document.
+				actionResult: undefined,
+				inlineNodeTypes,
+				targetNodeType,
+			};
 		}
 
 		setInlineCommentDraftState(
@@ -174,6 +259,8 @@ export const clearDraft =
 		);
 
 		!editorView.hasFocus() && editorView.focus();
+
+		options.annotationManager?.emit({ name: 'draftAnnotationCleared' });
 
 		return {
 			success: true,

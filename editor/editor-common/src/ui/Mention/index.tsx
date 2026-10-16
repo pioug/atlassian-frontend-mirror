@@ -2,10 +2,10 @@
 
 import React, { PureComponent } from 'react';
 
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { isMentionAvatarEnabled } from '../../mention-avatar';
 import { ProviderFactory, WithProviders } from '../../provider-factory';
 import type { Providers } from '../../provider-factory';
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
@@ -23,9 +23,6 @@ import {
 type ProviderName = 'mentionProvider' | 'profilecardProvider';
 
 const MENTION_PROVIDERS: ProviderName[] = ['mentionProvider', 'profilecardProvider'];
-const GENERIC_MENTION_IDS = ['HipChat', 'all', 'here'];
-const isAgentMentionUserType = (userType: MentionNodeDataUserType | undefined): boolean =>
-	userType === 'APP' || userType === 'AGENT';
 
 export interface MentionProps {
 	accessLevel?: string;
@@ -76,21 +73,12 @@ export default class Mention extends PureComponent<MentionProps, object> {
 		const hasProvider = Boolean(mentionNodeDataProvider);
 		const canReportMissingProvider =
 			!hasProvider && fg('platform_editor_mention_avatar_observability');
-		const cohort = expVal<string>(
-			'convo_ai_entity_hover_cards_non_hello_exp',
-			'hover_card_cohort',
-			'control',
-		);
-		const isAvatarEnabled =
-			(hasProvider || canReportMissingProvider) &&
-			userType !== 'SPECIAL' &&
-			!GENERIC_MENTION_IDS.includes(id) &&
-			(cohort === 'person' ||
-				cohort === 'all' ||
-				isExperimentEnabled('platform_editor_mention_node_avatar') ||
-				isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
-				(isAgentMentionUserType(userType) &&
-					isExperimentEnabled('platform_editor_drop3_hexagon_agent_avatar')));
+		const isAvatarEnabled = isMentionAvatarEnabled({
+			id,
+			userType,
+			hasProvider,
+			canReportMissingProvider,
+		});
 
 		if (isAvatarEnabled && mentionNodeDataProvider) {
 			return (

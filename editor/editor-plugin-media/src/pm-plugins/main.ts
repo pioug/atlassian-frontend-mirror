@@ -57,7 +57,6 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { UploadParams } from '@atlaskit/media-picker/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { createMediaNodeUpdater } from '../nodeviews/mediaNodeUpdater';
@@ -264,19 +263,13 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			this.setMediaProvider(mediaOptions?.provider);
 		}
 
-		if (fg('platform_editor_remove_media_inline_feature_flag')) {
-			if (this.mediaOptions?.allowMediaInlineImages) {
-				this.allowInlineImages = true;
-			}
-		} else {
-			if (
-				mediaInlineImagesEnabled(
-					getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags),
-					this.mediaOptions?.allowMediaInlineImages,
-				)
-			) {
-				this.allowInlineImages = true;
-			}
+		if (
+			mediaInlineImagesEnabled(
+				getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags),
+				this.mediaOptions?.allowMediaInlineImages,
+			)
+		) {
+			this.allowInlineImages = true;
 		}
 
 		this.errorReporter = options.errorReporter || new ErrorReporter();

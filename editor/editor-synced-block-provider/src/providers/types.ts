@@ -187,6 +187,8 @@ export interface ADFFetchProvider {
 	) => Promise<SyncBlockInstance[]>;
 	fetchData: (resourceId: ResourceId) => Promise<SyncBlockInstance>;
 	fetchReferences: (referenceResourceId: string) => Promise<ReferenceSyncBlockData>;
+	/** Returns an unscoped sourceId when the host document identity is unavailable. */
+	generateResourceIdForReference?: (sourceId: ResourceId) => ResourceId;
 	/**
 	 * Subscribes to real-time updates for a specific block.
 	 */
@@ -293,7 +295,6 @@ export abstract class SyncBlockDataProviderInterface extends NodeDataProvider<
 	 * @returns The generated resource ID
 	 */
 	abstract generateResourceIdForReference(sourceId: ResourceId): ResourceId;
-	canGenerateResourceIdForReference?(): boolean;
 	abstract updateReferenceData(
 		blocks: SyncBlockAttrs[],
 		noContent?: boolean,

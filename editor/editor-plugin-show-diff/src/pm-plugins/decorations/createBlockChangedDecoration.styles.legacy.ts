@@ -9,11 +9,13 @@
  * cleanup, together with `colorSchemes/standard.ts`, `colorSchemes/traditional.ts` (EDITOR-8281).
  */
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ColorScheme } from '../../showDiffPluginType';
 import {
 	standardDecorationMarkerVariable,
 	deletedDecorationMarkerVariable,
+	deletedListItemMarkerVariable,
 	editingStyleQuoteNode,
 	editingStyleRuleNode,
 	editingStyleCardBlockNode,
@@ -141,7 +143,9 @@ export const getBlockNodeStyleLegacy = ({
 				? traditionalDeletedDecorationMarkerVariableActive
 				: isTraditional
 					? traditionalDeletedDecorationMarkerVariableNew
-					: deletedDecorationMarkerVariable;
+					: fg('platform_editor_ai_show_diff_patch_2')
+						? deletedListItemMarkerVariable
+						: deletedDecorationMarkerVariable;
 		}
 		return isTraditional && isActive
 			? traditionalDeletedDecorationMarkerVariableActive

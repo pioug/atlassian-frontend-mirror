@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-emoji
 
+## 29.0.0
+
+### Patch Changes
+
+- [`4119d93011e41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4119d93011e41) -
+  Remove `platform_use_unicode_emojis` experiment checks and retain Twemoji images and sprites.
+  Remove the experiment-only `denormaliseStandardRepresentation` export. Call
+  `denormaliseServiceRepresentation` with the service representation instead. Remove the
+  `emoji-id-to-emoji` entrypoint and its `emojiIdToEmoji` utility. Use the existing provider image
+  or sprite representation for Twemoji rendering. Remove the Unicode representation type, renderer,
+  canvas utility, and public `unicode-emoji-image` entrypoint. Remove `renderUnicodeEmojiAsImage`
+  props and the Unicode type guard. Remove the editor Unicode node rendering and the `EMOJI_UNICODE`
+  shared CSS class. Use provider image and sprite representations instead of Unicode
+  representations. Remove the obsolete Unicode rendering props from consumers. Remove the
+  feature-only `getCachedEmojiType` provider API. Use the existing provider lookup methods for cache
+  or catalogue access.
+- Updated dependencies
+
 ## 28.0.5
 
 ### Patch Changes

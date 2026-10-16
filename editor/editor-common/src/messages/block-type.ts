@@ -131,6 +131,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	numberedHeadings: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	other: {
 		defaultMessage: string;
 		description: string;
@@ -389,5 +394,11 @@ export const messages: {
 		defaultMessage: 'Others...',
 		description:
 			'Label shown as a menu item in the block type dropdown to access additional text formatting options in the editor.',
+	},
+	numberedHeadings: {
+		id: 'editor-common.messages.block-type.numberedHeadings',
+		defaultMessage: 'Numbered headings',
+		description:
+			'Label for a toggle in the text styles menu that turns automatic numbering (1, 1.1, 1.1.1) on or off for every heading on the page.',
 	},
 });

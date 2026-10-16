@@ -811,7 +811,7 @@ const outOfTheBoxAgentAvatar: Record<
 	},
 	mcp_amplitude_agent: {
 		getRender: (size: SizeType) =>
-			fg('rovo_agent_amplitude_avatar_v2') ? (
+			fg('rovo_agent_avatar_refresh_teu26') ? (
 				<AmplitudeAgentAvatarV2 size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 			) : (
 				<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />

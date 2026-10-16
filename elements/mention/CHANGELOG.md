@@ -1,5 +1,17 @@
 # @atlaskit/mention
 
+## 30.3.0
+
+### Minor Changes
+
+- [`d80c581b58fba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d80c581b58fba) -
+  Add optional email to mention results and show it as small subtext when no byline is already
+  shown, behind the platform_editor_mentions_email_search experiment's isEnabled parameter.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.2.9
 
 ### Patch Changes

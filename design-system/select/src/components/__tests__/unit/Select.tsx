@@ -8,12 +8,14 @@ import selectEvent from 'react-select-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { components } from '@atlaskit/react-select/components';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
+import AsyncCreatableSelect from '../../../async-creatable-select';
 import AsyncSelect from '../../../async-select';
 import { CheckboxSelect } from '../../../checkbox-select';
 import CreatableSelect from '../../../creatable-select';
@@ -134,14 +136,14 @@ describe('Select', () => {
 		);
 
 		type MenuPortalComponent = ({ children }: { children: ReactNode }) => ReactNode;
-		type SelectRenderer = (MenuPortal: MenuPortalComponent) => ReactNode;
+		type SelectRenderer = (MenuPortal: MenuPortalComponent, menuIsOpen?: boolean) => ReactNode;
 		const selectRenderers: Array<[string, SelectRenderer]> = [
 			[
 				'Select',
-				(MenuPortal) => (
+				(MenuPortal, menuIsOpen) => (
 					<AtlaskitSelect
 						menuRenderMode="inline"
-						menuIsOpen={false}
+						menuIsOpen={menuIsOpen}
 						components={{ MenuPortal }}
 						options={OPTIONS}
 						label="Assignee"
@@ -150,10 +152,10 @@ describe('Select', () => {
 			],
 			[
 				'AsyncSelect',
-				(MenuPortal) => (
+				(MenuPortal, menuIsOpen) => (
 					<AsyncSelect
 						menuRenderMode="inline"
-						menuIsOpen={false}
+						menuIsOpen={menuIsOpen}
 						components={{ MenuPortal }}
 						options={OPTIONS}
 						label="Assignee"
@@ -162,10 +164,10 @@ describe('Select', () => {
 			],
 			[
 				'CreatableSelect',
-				(MenuPortal) => (
+				(MenuPortal, menuIsOpen) => (
 					<CreatableSelect
 						menuRenderMode="inline"
-						menuIsOpen={false}
+						menuIsOpen={menuIsOpen}
 						components={{ MenuPortal }}
 						options={OPTIONS}
 						label="Assignee"
@@ -173,11 +175,24 @@ describe('Select', () => {
 				),
 			],
 			[
+				'AsyncCreatableSelect',
+				(MenuPortal, menuIsOpen) => (
+					<AsyncCreatableSelect
+						menuRenderMode="inline"
+						menuIsOpen={menuIsOpen}
+						components={{ MenuPortal }}
+						defaultOptions={OPTIONS}
+						loadOptions={() => Promise.resolve(OPTIONS)}
+						label="Assignee"
+					/>
+				),
+			],
+			[
 				'CheckboxSelect',
-				(MenuPortal) => (
+				(MenuPortal, menuIsOpen) => (
 					<CheckboxSelect
 						menuRenderMode="inline"
-						menuIsOpen={false}
+						menuIsOpen={menuIsOpen}
 						components={{ MenuPortal }}
 						options={OPTIONS}
 						label="Assignee"
@@ -187,6 +202,7 @@ describe('Select', () => {
 		];
 
 		it.each(selectRenderers)('applies persistent inline rendering to %s', (_name, renderSelect) => {
+			passGate('platform_dst_inline_select_menu_control');
 			const MenuPortal = jest.fn(({ children }: { children: ReactNode }) => children);
 
 			render(renderSelect(MenuPortal));
@@ -194,6 +210,58 @@ describe('Select', () => {
 			expect(screen.getByRole('listbox')).toBeInTheDocument();
 			expect(MenuPortal).not.toHaveBeenCalled();
 		});
+
+		it('keeps the inline menu open when menu control is disabled', () => {
+			failGate('platform_dst_inline_select_menu_control');
+			render(
+				<AtlaskitSelect
+					menuRenderMode="inline"
+					menuIsOpen={false}
+					options={OPTIONS}
+					label="Assignee"
+				/>,
+			);
+
+			expect(screen.getByRole('listbox')).toBeInTheDocument();
+			expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
+		});
+
+		it.each(selectRenderers)(
+			'controls the inline menu without replacing the search input in %s',
+			async (_name, renderSelect) => {
+				passGate('platform_dst_inline_select_menu_control');
+				const MenuPortal = jest.fn(({ children }: { children: ReactNode }) => children);
+				const { rerender } = render(renderSelect(MenuPortal, false));
+				const input = screen.getByRole('combobox', { name: 'Assignee' });
+
+				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+				expect(input).toHaveAttribute('aria-expanded', 'false');
+				expect(input).not.toHaveAttribute('aria-controls');
+				await user.click(input);
+				await user.type(input, '0');
+				expect(input).toHaveValue('0');
+				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+
+				rerender(renderSelect(MenuPortal, true));
+				expect(screen.getByRole('combobox')).toBe(input);
+				expect(input).toHaveFocus();
+				expect(input).toHaveValue('0');
+				expect(input).toHaveAttribute('aria-expanded', 'true');
+				expect(input).toHaveAttribute('aria-controls', screen.getByRole('listbox').id);
+				expect(await screen.findByRole('option', { name: '0' })).toBeVisible();
+
+				rerender(renderSelect(MenuPortal, false));
+				expect(screen.getByRole('combobox')).toBe(input);
+				expect(input).toHaveFocus();
+				expect(input).toHaveValue('0');
+				expect(input).toHaveAttribute('aria-expanded', 'false');
+				expect(input).not.toHaveAttribute('aria-controls');
+				expect(input).not.toHaveAttribute('aria-activedescendant');
+				await user.keyboard('{ArrowDown}{Enter}');
+				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+				expect(MenuPortal).not.toHaveBeenCalled();
+			},
+		);
 	});
 
 	describe('single value select', () => {
@@ -325,8 +393,8 @@ describe('Select', () => {
 				/>,
 			);
 
-			expect(screen.getByRole('button', { name: '3, remove 3' })).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: '4, remove 4' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Remove 3' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Remove 4' })).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'clear' })).toBeInTheDocument();
 		});
 
@@ -342,8 +410,8 @@ describe('Select', () => {
 				/>,
 			);
 
-			expect(screen.queryByRole('button', { name: '3, remove 3' })).not.toBeInTheDocument();
-			expect(screen.queryByRole('button', { name: '4, remove 4' })).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: 'Remove 3' })).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: 'Remove 4' })).not.toBeInTheDocument();
 			expect(screen.queryByRole('button', { name: 'clear' })).not.toBeInTheDocument();
 		});
 	});

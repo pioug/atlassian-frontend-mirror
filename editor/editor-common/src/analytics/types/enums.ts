@@ -344,6 +344,7 @@ export enum ACTION_SUBJECT {
 	MENTION = 'mention',
 	MENTION_TYPEAHEAD = 'mentionTypeahead',
 	NESTED_EXPAND = 'nestedExpand',
+	NUMBERED_HEADINGS = 'numberedHeadings',
 	PANEL = 'panel',
 	PICKER = 'picker',
 	PLUS_MENU = 'plusMenu',

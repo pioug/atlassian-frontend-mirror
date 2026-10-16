@@ -110,6 +110,12 @@ function plugin() {
           if (sourceFile && sourceFile.includes('node_modules')) {
             return;
           }
+
+          // Only traverse calls when this module imports the token function (including aliases).
+          if (!hasTokenImport(path.node)) {
+            return;
+          }
+          var changedScopes = new Set();
           path.traverse({
             CallExpression: function CallExpression(path) {
               var tokenImportScope = getTokenImportScope(path);
@@ -164,18 +170,36 @@ function plugin() {
                   cooked: ')'
                 }, true)], [fallback]);
               }
-
-              // Replace path and call scope.crawl() to refresh the scope bindings + references
-              replacementNode && path.replaceWith(replacementNode);
-              tokenImportScope.crawl();
+              if (replacementNode) {
+                path.replaceWith(replacementNode);
+                changedScopes.add(tokenImportScope);
+              }
             }
           });
+          // Refresh references once per affected import scope before removing unused imports.
+          var _iterator2 = _createForOfIteratorHelper(changedScopes),
+            _step2;
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var scope = _step2.value;
+              scope.crawl();
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
         },
         exit: function exit(path) {
+          if (!path.node.body.some(function (node) {
+            return t.isImportDeclaration(node) && isTokensImport(node.source.value);
+          })) {
+            return;
+          }
           path.traverse({
             ImportDeclaration: function ImportDeclaration(path) {
               // remove import of 'token'
-              if (path.node.source.value !== '@atlaskit/tokens') {
+              if (!isTokensImport(path.node.source.value)) {
                 return;
               }
               path.get('specifiers').forEach(function (specifier) {
@@ -193,7 +217,7 @@ function plugin() {
                 }
               });
 
-              // remove '@atlaskit/tokens' import if it is no longer needed
+              // remove the token import if it is no longer needed
               if (path.get('specifiers').length === 0) {
                 path.remove();
               }
@@ -224,6 +248,16 @@ function getDefaultFallback(tokenName) {
   }
   return lightValues[tokenName];
 }
+function isTokensImport(source) {
+  return source === '@atlaskit/tokens' || source === '@atlaskit/tokens/token';
+}
+function hasTokenImport(program) {
+  return program.body.some(function (node) {
+    return t.isImportDeclaration(node) && isTokensImport(node.source.value) && node.specifiers.some(function (specifier) {
+      return t.isImportSpecifier(specifier) && getNonAliasedImportName(specifier) === 'token';
+    });
+  });
+}
 function getNonAliasedImportName(node) {
   if (t.isIdentifier(node.imported)) {
     return node.imported.name;
@@ -248,7 +282,7 @@ function getTokenImportScope(path) {
     return undefined;
   }
   if (binding.path.parent && t.isImportDeclaration(binding.path.parent)) {
-    if (binding.path.parent.source.value !== '@atlaskit/tokens') {
+    if (!isTokensImport(binding.path.parent.source.value)) {
       return undefined;
     }
   }

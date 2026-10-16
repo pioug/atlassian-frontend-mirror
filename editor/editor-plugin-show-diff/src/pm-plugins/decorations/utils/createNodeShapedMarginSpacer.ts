@@ -1,3 +1,5 @@
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { NodeViewSerializer } from '../../NodeViewSerializer';
@@ -6,12 +8,14 @@ import type { NodeViewSerializer } from '../../NodeViewSerializer';
  * Node types that can safely be reduced to an empty shell.
  *
  * A shell only replicates a margin if it collapses to nothing itself, which needs zero height and
- * no vertical border or padding. Textblocks and lists qualify; nodes with intrinsic sizing (tables
- * are `display: table`, media has a measured height) or a painted box (a zero-height panel is a
- * visible stripe of background) do not, and are left alone.
+ * no vertical border or padding. Textblocks and lists qualify; panels need their painted box
+ * hidden and their flex layout removed. Nodes with intrinsic sizing (tables are `display: table`,
+ * media has a measured height) are left alone.
  */
 const isShapeableNode = (node: PMNode): boolean =>
-	node.isTextblock || ['bulletList', 'orderedList'].includes(node.type.name);
+	node.isTextblock ||
+	['bulletList', 'orderedList'].includes(node.type.name) ||
+	getBaseNodeTypeName(node.type) === 'panel';
 
 /**
  * An invisible element shaped like `node`, used to supply the top margin `node` no longer gets.
@@ -59,6 +63,14 @@ export const createNodeShapedMarginSpacer = ({
 	serialized.dataset.testid = testId;
 	serialized.setAttribute('aria-hidden', 'true');
 	serialized.contentEditable = 'false';
+
+	if (getBaseNodeTypeName(node.type) === 'panel') {
+		// Schema serialization lacks the node view's class, which carries the panel's margin.
+		// Hide the painted shell and allow its margins to collapse through a zero-height block.
+		serialized.classList.add(PanelSharedCssClassName.prefix);
+		serialized.style.display = 'block';
+		serialized.style.visibility = 'hidden';
+	}
 
 	// Zero height with no vertical border or padding keeps the spacer self-collapsing: its margins
 	// stay adjoining, so they collapse with the neighbours into a single margin equal to the largest

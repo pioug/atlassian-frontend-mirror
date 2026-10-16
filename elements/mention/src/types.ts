@@ -272,6 +272,7 @@ export interface RealMentionDescription {
 	// Team mention can use context to store members data
 	context?: MentionDescContext;
 	description?: string;
+	email?: string;
 	highlight?: Highlight;
 	id: string;
 	inContext?: boolean;

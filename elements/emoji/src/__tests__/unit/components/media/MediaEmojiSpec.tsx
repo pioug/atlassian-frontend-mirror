@@ -3,8 +3,6 @@ import React from 'react';
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
@@ -95,24 +93,14 @@ describe('Media Emoji Handling across components', () => {
 	});
 
 	describe('<EmojiTypeAhead/>', () => {
-		it.each([
-			[false, mediaEmoji.representation.mediaPath],
-			[true, mediaEmoji.altRepresentation!.mediaPath],
-		])(
-			'Media emoji rendered in type ahead when unicode gate is %s',
-			async (gateEnabled, expectedSrc) => {
-				setupEditorExperiments('test', {
-					platform_use_unicode_emojis: gateEnabled,
-				});
+		it('Media emoji rendered in type ahead', async () => {
+			renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
+			const emoji = await screen.findByAltText(mediaEmoji.name);
 
-				renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
-				const emoji = await screen.findByAltText(mediaEmoji.name);
-
-				expect(emoji).toBeInTheDocument();
-				expect(emoji).toHaveAttribute('src', expectedSrc);
-				expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
-				expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
-			},
-		);
+			expect(emoji).toBeInTheDocument();
+			expect(emoji).toHaveAttribute('src', mediaEmoji.representation.mediaPath);
+			expect(emoji).toHaveAttribute('data-emoji-id', mediaEmojiId.id);
+			expect(emoji).toHaveAttribute('data-emoji-short-name', mediaEmojiId.shortName);
+		});
 	});
 });

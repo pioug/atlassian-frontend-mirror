@@ -19,6 +19,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 type InlineCardUnauthorisedSocialProofExampleProps = {
 	containerWidth?: React.CSSProperties['width'];
 	includeContext?: boolean;
+	isCacheLoaded?: boolean;
 	providerPercentage?: number;
 	url?: string;
 };
@@ -29,11 +30,16 @@ export const InlineCardUnauthorisedSocialProofExample = ({
 	containerWidth,
 	providerPercentage,
 	includeContext = true,
+	isCacheLoaded = true,
 	url = 'https://www.figma.com/file/aK9mJ2pLqrX5vW',
 }: InlineCardUnauthorisedSocialProofExampleProps): React.JSX.Element => {
-	const mockGetProviderPctMapSync = injectable(getCachedProviderPctMapAndRefresh, () =>
-		providerPercentage === undefined ? {} : { 'figma-object-provider': providerPercentage },
-	);
+	const mockGetProviderPctMapSync = injectable(getCachedProviderPctMapAndRefresh, () => {
+		if (!isCacheLoaded) {
+			return null;
+		}
+
+		return providerPercentage === undefined ? {} : { 'figma-object-provider': providerPercentage };
+	});
 
 	const socialProofDi = [mockGetProviderPctMapSync];
 

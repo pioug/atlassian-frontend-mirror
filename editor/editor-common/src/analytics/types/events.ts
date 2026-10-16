@@ -69,6 +69,7 @@ import type { MoveContentEventPayload } from './move-content-events';
 import type { NativeEmbedResizeErroredAEP } from './native-embed-events';
 import type { NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
+import type { NumberedHeadingsEventPayload } from './numbered-headings-events';
 import type { OfflineEditingEventPayload } from './offline-editing-event';
 import type { PasteActionsMenuEventPayload, PasteEventPayload } from './paste-events';
 import type {
@@ -174,6 +175,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AgentEditShimmerNotShownAEP
 	| FloatingToolbarOverflowEventPayload
 	| SyncBlockEventPayload
+	| NumberedHeadingsEventPayload
 	| FloatingToolbarEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

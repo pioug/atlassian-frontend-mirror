@@ -385,6 +385,7 @@ const MultiBodiedExtensionWithWidth = ({
 		layout,
 		editorAppearance,
 		isTopLevelNode: true,
+		hasBreakoutMark: node.marks?.some((mark) => mark.type.name === 'breakout'),
 	});
 
 	let mbeWrapperStyles = {};

@@ -2,6 +2,7 @@ import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransform
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
 import type { FireAnalyticsCallback } from '../../analytics';
@@ -84,6 +85,11 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 ): undefined {
 	const { doc, schema } = editorView?.state ?? {};
 	if (!doc || !schema) {
+		if (fg('platform_editor_resolve_missing_document_request')) {
+			// Notify callers that no document is available.
+			// Async requests rely on this callback to settle their promise.
+			callback(undefined);
+		}
 		return undefined;
 	}
 

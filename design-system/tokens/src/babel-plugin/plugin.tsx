@@ -180,6 +180,12 @@ export default function plugin():
 						return;
 					}
 
+					// Only traverse calls when this module imports the token function (including aliases).
+					if (!hasTokenImport(path.node)) {
+						return;
+					}
+
+					const changedScopes = new Set<Scope>();
 					path.traverse({
 						CallExpression(path: NodePath<t.CallExpression>) {
 							const tokenImportScope = getTokenImportScope(path);
@@ -256,17 +262,30 @@ export default function plugin():
 								);
 							}
 
-							// Replace path and call scope.crawl() to refresh the scope bindings + references
-							replacementNode && path.replaceWith(replacementNode);
-							tokenImportScope.crawl();
+							if (replacementNode) {
+								path.replaceWith(replacementNode);
+								changedScopes.add(tokenImportScope);
+							}
 						},
 					});
+					// Refresh references once per affected import scope before removing unused imports.
+					for (const scope of changedScopes) {
+						scope.crawl();
+					}
 				},
 				exit(path: NodePath<t.Program>) {
+					if (
+						!path.node.body.some(
+							(node) => t.isImportDeclaration(node) && isTokensImport(node.source.value),
+						)
+					) {
+						return;
+					}
+
 					path.traverse({
 						ImportDeclaration(path) {
 							// remove import of 'token'
-							if (path.node.source.value !== '@atlaskit/tokens') {
+							if (!isTokensImport(path.node.source.value)) {
 								return;
 							}
 
@@ -285,7 +304,7 @@ export default function plugin():
 								}
 							});
 
-							// remove '@atlaskit/tokens' import if it is no longer needed
+							// remove the token import if it is no longer needed
 							if (path.get('specifiers').length === 0) {
 								path.remove();
 							}
@@ -323,6 +342,22 @@ function getDefaultFallback(tokenName: keyof typeof lightValues): string {
 	return lightValues[tokenName];
 }
 
+function isTokensImport(source: string): boolean {
+	return source === '@atlaskit/tokens' || source === '@atlaskit/tokens/token';
+}
+
+function hasTokenImport(program: t.Program): boolean {
+	return program.body.some(
+		(node) =>
+			t.isImportDeclaration(node) &&
+			isTokensImport(node.source.value) &&
+			node.specifiers.some(
+				(specifier) =>
+					t.isImportSpecifier(specifier) && getNonAliasedImportName(specifier) === 'token',
+			),
+	);
+}
+
 function getNonAliasedImportName(node: t.ImportSpecifier): string {
 	if (t.isIdentifier(node.imported)) {
 		return node.imported.name;
@@ -350,7 +385,7 @@ function getTokenImportScope(path: NodePath<t.CallExpression>): Scope | undefine
 	}
 
 	if (binding.path.parent && t.isImportDeclaration(binding.path.parent)) {
-		if (binding.path.parent.source.value !== '@atlaskit/tokens') {
+		if (!isTokensImport(binding.path.parent.source.value)) {
 			return undefined;
 		}
 	}

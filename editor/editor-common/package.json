@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "131.4.0",
+	"version": "132.0.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,6 +29,8 @@
 	},
 	"exports": {
 		"./ai-messages": "./src/ai-messages/index.ts",
+		"./ai-xstate-migration": "./src/utils/ai-xstate-migration.ts",
+		"./ai-xstate-migration-no-exposure": "./src/utils/ai-xstate-migration-no-exposure.ts",
 		"./analytics": "./src/analytics/index.ts",
 		"./analytics/ai-suggestions-regeneration": "./src/analytics/types/ai-suggestions-events.ts",
 		"./analytics/ai-suggestions-entry-points": "./src/analytics/types/ai-suggestions-events.ts",
@@ -99,6 +101,7 @@
 		"./media-single": "./src/media-single/index.ts",
 		"./median": "./src/utils/median.ts",
 		"./mention": "./src/mention.ts",
+		"./mention-avatar": "./src/mention-avatar.ts",
 		"./messages": "./src/messages/index.ts",
 		"./monitoring": "./src/monitoring/index.ts",
 		"./nesting": "./src/nesting/utilities.ts",
@@ -107,6 +110,7 @@
 		"./node-selection": "./src/node-selection/index.ts",
 		"./node-visibility": "./src/node-visibility/node-visibility-manager.ts",
 		"./node-width": "./src/node-width/index.ts",
+		"./numbered-headings": "./src/numbered-headings/index.ts",
 		"./normalize-feature-flags": "./src/normalize-feature-flags.ts",
 		"./panel": "./src/panel.ts",
 		"./paste": "./src/paste/index.ts",
@@ -326,6 +330,7 @@
 		"./types/emitter": "./src/types/annotation/emitter.ts",
 		"./ui-emoji": "./src/ui/Emoji/index.tsx",
 		"./emoji/messages": "./src/emoji/messages.ts",
+		"./emoji/fallback": "./src/emoji/fallback.ts",
 		"./types/empty-state-handler": "./src/types/empty-state-handler.ts",
 		"./analytics/types/enums": "./src/analytics/types/enums.ts",
 		"./monitoring/error": "./src/monitoring/error.ts",
@@ -841,6 +846,10 @@
 		"sinon": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_editor_resolve_missing_document_request": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"cc_maui_annotations_on_extensions": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -906,9 +915,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_legacy_content_macro_visual_update": {
-			"type": "boolean"
-		},
-		"p2m-drop-down-motion": {
 			"type": "boolean"
 		},
 		"platform_editor_content_mode_button_mvp": {

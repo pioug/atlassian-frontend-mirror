@@ -437,7 +437,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 				return { users, loading };
 			});
 		} catch (e) {
-			if (this.state.query !== query && fg('smart-user-picker-fetch-error-fix')) {
+			if (this.state.query !== query) {
 				// The query has moved on since this request was sent, so its results are not the ones
 				// on screen. Applying the failure here would clear the options and fail the UFO
 				// experience that belong to the newer query.

@@ -130,7 +130,10 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			const pluginState = getPluginState(editorState) || undefined;
 			const clonedPluginState = Object.assign({}, pluginState);
 			delete clonedPluginState?.featureFlagsPluginState;
-			return clonedPluginState;
+			return {
+				...clonedPluginState,
+				annotationManager: annotationProviders?.annotationManager,
+			};
 		},
 
 		pmPlugins: () => [

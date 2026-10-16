@@ -1,3 +1,4 @@
+import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	ExtractInjectionAPI,
@@ -40,6 +41,11 @@ export type AnnotationPluginDependencies = [
 ];
 
 export type AnnotationPluginOptions = AnnotationProviders;
+
+/** Inline comment plugin state, plus the manager so other plugins (e.g. media) can use it. */
+export type AnnotationSharedState = InlineCommentPluginState & {
+	annotationManager?: AnnotationManager;
+};
 
 export type AnnotationPlugin = NextEditorPlugin<
 	'annotation',
@@ -90,7 +96,7 @@ export type AnnotationPlugin = NextEditorPlugin<
 		};
 		dependencies: AnnotationPluginDependencies;
 		pluginConfiguration: AnnotationPluginOptions | undefined;
-		sharedState: InlineCommentPluginState | undefined;
+		sharedState: AnnotationSharedState | undefined;
 	}
 >;
 

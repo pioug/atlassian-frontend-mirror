@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.8.35",
+	"version": "2.8.36",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -170,9 +170,6 @@
 		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
-		"cc_blocks_changeboarding": {
-			"type": "boolean"
-		},
 		"platform_editor_a11y_color_palette_radiogroup": {
 			"type": "boolean"
 		},

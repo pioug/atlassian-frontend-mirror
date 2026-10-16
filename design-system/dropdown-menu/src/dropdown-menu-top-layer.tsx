@@ -14,7 +14,6 @@ import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import MenuGroup from '@atlaskit/menu/menu-group';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
@@ -203,10 +202,7 @@ function DropdownMenuTopLayer({
 	}, [isFocused, isLocalOpen, handleTriggerClicked]);
 
 	const handleNestedOpen = useCallback(({ trigger }: { trigger: HTMLElement }) => {
-		if (
-			fg('platform_dst-a11y_modal-trigger-haspopup') &&
-			!trigger.matches('[aria-haspopup="menu"], [aria-haspopup="true"]')
-		) {
+		if (!trigger.matches('[aria-haspopup="menu"], [aria-haspopup="true"]')) {
 			return;
 		}
 		trigger.click();
@@ -249,11 +245,9 @@ function DropdownMenuTopLayer({
 			const isCheckboxOrRadio =
 				menuItem.getAttribute('role') === 'menuitemcheckbox' ||
 				menuItem.getAttribute('role') === 'menuitemradio';
-			// With dialog semantics enabled, only menu/true popup values identify submenus.
+			// Only menu/true popup values identify submenus.
 			// The nested dropdown will handle its own open/close.
-			const isNestedTrigger = fg('platform_dst-a11y_modal-trigger-haspopup')
-				? menuItem.matches('[aria-haspopup="menu"], [aria-haspopup="true"]')
-				: menuItem.hasAttribute('aria-haspopup');
+			const isNestedTrigger = menuItem.matches('[aria-haspopup="menu"], [aria-haspopup="true"]');
 			if (!isCheckboxOrRadio && !isNestedTrigger) {
 				setLocalIsOpen(false);
 				onOpenChange({ isOpen: false, event: e.nativeEvent });

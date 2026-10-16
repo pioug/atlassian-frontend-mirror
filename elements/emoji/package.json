@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "72.5.19",
+	"version": "73.0.0",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,7 +124,6 @@
 		"./emoji": "./src/components/common/Emoji.tsx",
 		"./emoji-common-provider": "./src/context/EmojiCommonProvider.tsx",
 		"./emoji-context-provider": "./src/context/EmojiContextProvider.tsx",
-		"./emoji-id-to-emoji": "./src/util/emojiIdToEmoji.ts",
 		"./emoji-loader": "./src/api/EmojiLoader.ts",
 		"./emoji-picker": "./src/components/picker/EmojiPicker.tsx",
 		"./emoji-placeholder": "./src/components/common/EmojiPlaceholder.tsx",
@@ -148,7 +147,6 @@
 		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts",
 		"./ufo-experiences": "./src/util/analytics/ufoExperiences.ts",
-		"./unicode-emoji-image": "./src/util/renderUnicodeEmojiToImagePath.ts",
 		"./usage-frequency-tracker": "./src/api/internal/UsageFrequencyTracker.ts",
 		"./use-emoji": "./src/hooks/useEmoji.ts",
 		"./use-emoji-context": "./src/hooks/useEmojiContext.ts",

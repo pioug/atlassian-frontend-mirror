@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 12.5.1
+
+### Patch Changes
+
+- [`544997ca17b4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/544997ca17b4a) -
+  Keep current user-picker results when an earlier request fails.
+
 ## 12.5.0
 
 ### Minor Changes

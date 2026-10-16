@@ -2,17 +2,9 @@ import React, { useState } from 'react';
 
 import { Emoji } from '@atlaskit/emoji/emoji';
 import EmojiPlaceholder from '@atlaskit/emoji/emoji-placeholder';
-import type { EmojiDescription } from '@atlaskit/emoji/types';
+import { getStandardEmojis } from '@atlaskit/util-data-test/get-standard-emojis';
 
-const badge: EmojiDescription = {
-	id: 'badge',
-	shortName: ':team-badge:',
-	name: 'team badge',
-	category: 'custom',
-	representation: { unicodeEmoji: '🏅' },
-	searchable: true,
-	type: 'standard',
-};
+const badge = getStandardEmojis().find((emoji) => emoji.shortName === ':medal:')!;
 
 export default function EmojiLoadingExample(): React.JSX.Element {
 	const [loaded, setLoaded] = useState(false);

@@ -277,6 +277,12 @@ export const aiMessages: {
 		description: string;
 		id: string;
 	};
+
+	smartlinkResolutionErrorDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	smartlinkSummarizeChanges: {
 		defaultMessage: string;
 		description: string;
@@ -695,5 +701,11 @@ export const aiMessages: {
 		id: 'fabric.editor.ai.smartlink.action.listTodos',
 		defaultMessage: 'List to-dos',
 		description: 'Action to list to-dos from the linked content',
+	},
+
+	smartlinkResolutionErrorDescription: {
+		id: 'fabric.editor.ai.smartlink.resolution-error.description',
+		defaultMessage: 'This link failed to resolve.',
+		description: 'Shown when a Smart Link AI action cannot load link metadata.',
 	},
 });

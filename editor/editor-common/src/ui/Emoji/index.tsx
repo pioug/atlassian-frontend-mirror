@@ -3,10 +3,9 @@ import React, { useMemo } from 'react';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
 import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
 import type { EmojiId, EmojiProvider } from '@atlaskit/emoji/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { getEmojiCustomFallback } from '../../emoji/fallback';
 import type { ProviderFactory } from '../../provider-factory';
-import { isSingleEmoji } from '../../utils/isSingleEmoji';
 
 export interface EmojiProps extends EmojiId {
 	allowTextFallback?: boolean;
@@ -34,10 +33,7 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 	const emojiId = useMemo(() => ({ shortName, id, fallback }), [shortName, id, fallback]);
 	const emojiProviderResolver = useMemo(() => Promise.resolve(emojiProvider), [emojiProvider]);
 
-	const customFallback =
-		fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallback || shortName)
-			? '\uFFFD'
-			: undefined;
+	const customFallback = getEmojiCustomFallback(fallback || shortName);
 
 	if (allowTextFallback && !emojiProvider) {
 		return (
@@ -69,7 +65,6 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 				shortName,
 			})}
 			editorEmoji={true}
-			renderUnicodeEmojiAsImage={false}
 		/>
 	);
 };

@@ -375,7 +375,7 @@ const generateMediaSingleFloatingToolbar = (
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(pluginState);
 
 	const mauiToolbarSeparatorsUpdateEnabled =
-		fg('cc-maui-toolbar-separators-update') && areAnyNewToolbarFlagsEnabled;
+		fg('cc-maui-toolbar-separators-update-jira') && areAnyNewToolbarFlagsEnabled;
 
 	if (shouldShowImageBorder(state)) {
 		toolbarButtons.push({
@@ -497,25 +497,13 @@ const generateMediaSingleFloatingToolbar = (
 			}
 		};
 
-		if (fg('platform_editor_remove_media_inline_feature_flag')) {
-			if (allowMediaInlineImages && selectedNode) {
-				addLayoutDropdownToToolbar();
-			} else {
-				toolbarButtons = [...toolbarButtons, ...layoutButtons];
-
-				if (layoutButtons.length && !mauiToolbarSeparatorsUpdateEnabled) {
-					toolbarButtons.push({ type: 'separator' });
-				}
-			}
+		if (mediaInlineImagesEnabled(allowMediaInline, allowMediaInlineImages) && selectedNode) {
+			addLayoutDropdownToToolbar();
 		} else {
-			if (mediaInlineImagesEnabled(allowMediaInline, allowMediaInlineImages) && selectedNode) {
-				addLayoutDropdownToToolbar();
-			} else {
-				toolbarButtons = [...toolbarButtons, ...layoutButtons];
+			toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
-				if (layoutButtons.length && !areAnyNewToolbarFlagsEnabled) {
-					toolbarButtons.push({ type: 'separator' });
-				}
+			if (layoutButtons.length && !areAnyNewToolbarFlagsEnabled) {
+				toolbarButtons.push({ type: 'separator' });
 			}
 		}
 
@@ -996,7 +984,6 @@ export const floatingToolbar = (
 		allowLinking,
 		allowAltTextOnImages,
 		providerFactory,
-		allowMediaInlineImages,
 		allowResizing,
 		isViewOnly,
 		allowResizingInTables,
@@ -1004,11 +991,7 @@ export const floatingToolbar = (
 		allowPixelResizing,
 	} = options;
 
-	let { allowMediaInline } = options;
-
-	allowMediaInline = fg('platform_editor_remove_media_inline_feature_flag')
-		? allowMediaInlineImages
-		: allowMediaInline;
+	const { allowMediaInline } = options;
 
 	const mediaPluginState: MediaPluginState | undefined = stateKey.getState(state);
 
@@ -1154,7 +1137,7 @@ export const floatingToolbar = (
 		!mediaPluginState.isResizing &&
 		areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
 	) {
-		if (!fg('cc-maui-toolbar-separators-update')) {
+		if (!fg('cc-maui-toolbar-separators-update-jira')) {
 			updateToFullHeightSeparator(items);
 		}
 

@@ -61,7 +61,9 @@ export type DiffAgentBrand =
 	| 'databricks'
 	| 'gemini'
 	| 'manus'
-	| 'slack';
+	| 'slack'
+	| 'antigravity'
+	| 'copilot';
 export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
 	'rovo',
 	'claude',
@@ -75,6 +77,8 @@ export const DIFF_AGENT_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
 	'gemini',
 	'manus',
 	'slack',
+	'antigravity',
+	'copilot',
 ]);
 
 /** The brand id `@atlaskit/agent-color` registers each `AgentBrandColorScheme` under. */

@@ -1,5 +1,6 @@
 import type { AgentInteractionsEventPayload } from '../actions/groups/agent-interactions';
 import type { AgentProfileEventPayload } from '../actions/groups/agent-profile';
+import type { AuthEventPayload } from '../actions/groups/auth';
 import type { BrowseAgentsEventPayload } from '../actions/groups/browse-agents';
 import type { CreateFlowEventPayload } from '../actions/groups/create-flow';
 import type { DebugEventPayload } from '../actions/groups/debug';
@@ -80,6 +81,7 @@ export type ErrorEventPayload = {
  * Use with `trackAgentEvent()` for typed event tracking.
  */
 export type EventPayload =
+	| AuthEventPayload
 	| EditingEventPayload
 	| AgentInteractionsEventPayload
 	| AgentProfileEventPayload

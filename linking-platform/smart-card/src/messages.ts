@@ -85,7 +85,9 @@ export type MessageKey =
 	| 'connect_link_account_success_flag_title_default'
 	| 'connect_unauthorised_account_action'
 	| 'connect_3p_account'
+	| 'connect_inline_provider_to_update'
 	| 'connect_inline_social_proof'
+	| 'connect_inline_to_update'
 	| 'social_proof_inline_cta_tag_high_with_context'
 	| 'social_proof_inline_cta_tag_high_no_context'
 	| 'social_proof_inline_cta_tag_low_with_context'
@@ -521,11 +523,23 @@ export const messages: Messages = defineMessages({
 		description:
 			'Shown on a button to connect user external 3P account to their Atlassian account, e.g. Connect Figma',
 	},
+	connect_inline_provider_to_update: {
+		id: 'fabric.linking.connect_inline_provider_to_update.ai-non-final',
+		defaultMessage: 'Connect {context} to update',
+		description:
+			'Text shown on the connect button of an unauthorised inline Smart Link. {context} is replaced with the provider name, and update means updating the Smart Link preview after the account is connected.',
+	},
 	connect_inline_social_proof: {
 		id: 'fabric.linking.connect_inline_social_proof',
 		defaultMessage: 'Connect',
 		description:
 			'Shown on a button for unauthorised inline smart links when the social proof inline CTA experiment is active. Replaces the longer "Connect your {context} account" label.',
+	},
+	connect_inline_to_update: {
+		id: 'fabric.linking.connect_inline_to_update.ai-non-final',
+		defaultMessage: 'Connect to update',
+		description:
+			'Text shown on the connect button of an unauthorised inline Smart Link. It prompts the user to connect an account, and update means updating the Smart Link preview.',
 	},
 	social_proof_inline_cta_tag_high_with_context: {
 		id: 'fabric.linking.social_proof_inline_cta_tag_high_with_context',

@@ -94,7 +94,6 @@ export interface RendererProps {
 	- `chromeless` - is essentially the `comment` editor but without the editor chrome, like toolbar & save/cancel buttons
 	*/
 	appearance?: RendererAppearance;
-
 	// Note: this comment is replicated in packages/editor/editor-core/src/types/editor-props.ts
 	// any changes should be made in both locations
 	/**
@@ -109,6 +108,7 @@ export interface RendererProps {
 	 * @deprecated this attribute is not supported outside of Confluence Full Page editors
 	 */
 	contentMode?: RendererContentMode;
+
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
 	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.
@@ -245,6 +245,11 @@ export interface RendererProps {
 	shouldOpenMediaViewer?: boolean;
 	// Removes the empty space, lines, hard breaks above and below the comment content
 	shouldRemoveEmptySpaceAroundContent?: boolean;
+	/**
+	 * Displays decimal outline numbers on headings when platform_editor_numbered_headings is enabled.
+	 * Defaults to false. Numbering is local to this renderer and does not change the document.
+	 */
+	showHeadingNumbers?: boolean;
 	smartLinks?: SmartLinksOptions;
 	stickyHeaders?: StickyHeaderProps;
 	textHighlighter?: TextHighlighter;

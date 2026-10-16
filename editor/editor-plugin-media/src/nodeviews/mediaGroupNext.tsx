@@ -16,7 +16,6 @@ import type { Identifier } from '@atlaskit/media-client/identifier';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
@@ -59,7 +58,6 @@ const isNodeSelected =
 const prepareFilmstripItem =
 	({
 		allowLazyLoading,
-		allowMediaInlineImages,
 		enableDownloadButton,
 		handleMediaNodeRemoval,
 		getPos,
@@ -69,7 +67,6 @@ const prepareFilmstripItem =
 		featureFlags,
 	}: {
 		allowLazyLoading: boolean | undefined;
-		allowMediaInlineImages: boolean | undefined;
 		enableDownloadButton: boolean | undefined;
 		featureFlags: MediaOptions['featureFlags'] | undefined;
 		getPos: () => number | undefined;
@@ -121,11 +118,7 @@ const prepareFilmstripItem =
 			onClick: () => {
 				setMediaGroupNodeSelection(getNodePos());
 			},
-			...mediaInlineOptions(
-				fg('platform_editor_remove_media_inline_feature_flag')
-					? allowMediaInlineImages
-					: getMediaFeatureFlag('mediaInline', featureFlags),
-			),
+			...mediaInlineOptions(getMediaFeatureFlag('mediaInline', featureFlags)),
 		};
 	};
 
@@ -250,7 +243,6 @@ export const MediaGroupNext: React.FC<
 		const {
 			mediaOptions: {
 				allowLazyLoading,
-				allowMediaInlineImages,
 				enableDownloadButton,
 				featureFlags,
 				fallbackMediaNameFetcher,
@@ -311,7 +303,6 @@ export const MediaGroupNext: React.FC<
 		const filmstripItem = useMemo(() => {
 			return prepareFilmstripItem({
 				allowLazyLoading,
-				allowMediaInlineImages,
 				enableDownloadButton,
 				handleMediaNodeRemoval,
 				getPos,
@@ -322,7 +313,6 @@ export const MediaGroupNext: React.FC<
 			});
 		}, [
 			allowLazyLoading,
-			allowMediaInlineImages,
 			enableDownloadButton,
 			handleMediaNodeRemoval,
 			getPos,

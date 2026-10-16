@@ -114,12 +114,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	cc_editor_insm_doc_size_stats: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-18
 	editor_a11y_7152_profile_card_tab_order: {
 		defaultValue: boolean;
@@ -426,13 +420,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards (boolean: isEnabled)
 	social_proof_3p_unauth_block_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-10-10
-	platform_use_llm_space_recommendations: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -945,13 +932,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	cc_editor_insm_doc_size_stats: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_insm_doc_size_stats',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
@@ -1244,14 +1224,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_quick_prompt_iw_cc: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_quick_prompt_iw_cc',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-10-10
-	platform_use_llm_space_recommendations: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_use_llm_space_recommendations',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

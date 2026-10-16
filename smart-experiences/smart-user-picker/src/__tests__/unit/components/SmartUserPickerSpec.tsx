@@ -10,7 +10,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 import type { DefaultValue, OptionData, Team, User } from '@atlaskit/user-picker/types';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartUserPicker from '../../../components';
 import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
@@ -2413,7 +2413,7 @@ describe('SmartUserPicker', () => {
 		});
 	});
 
-	describe('smart-user-picker-fetch-error-fix gate', () => {
+	describe('request failure handling', () => {
 		// Holds the request for the first keystroke open while every later query resolves, so the
 		// earlier request can be failed once the newer results are already on screen.
 		const holdRequestOpenFor = (staleQuery: string) => {
@@ -2434,7 +2434,6 @@ describe('SmartUserPicker', () => {
 		};
 
 		it('should keep the results of the current query when an earlier request fails', async () => {
-			passGate('smart-user-picker-fetch-error-fix');
 			const failStaleRequest = holdRequestOpenFor('u');
 
 			renderSmartUserPicker();
@@ -2448,23 +2447,7 @@ describe('SmartUserPicker', () => {
 			expect(screen.getByText('user1')).toBeInTheDocument();
 		});
 
-		it('should clear the results of the current query when an earlier request fails and the gate is off', async () => {
-			failGate('smart-user-picker-fetch-error-fix');
-			const failStaleRequest = holdRequestOpenFor('u');
-
-			renderSmartUserPicker();
-
-			const input = screen.getByRole('combobox');
-			await userEvent.type(input, 'user');
-			expect(await screen.findByText('user1')).toBeInTheDocument();
-
-			await failStaleRequest();
-
-			expect(screen.queryByText('user1')).not.toBeInTheDocument();
-		});
-
-		// The staleness check short-circuits before the gate is evaluated, so a failure for the
-		// current query keeps the existing behaviour whether the gate is on or off.
+		// A failure for the current query still clears its results.
 		it('should still apply the failure when it belongs to the current query', async () => {
 			const failCurrentRequest = holdRequestOpenFor('user');
 

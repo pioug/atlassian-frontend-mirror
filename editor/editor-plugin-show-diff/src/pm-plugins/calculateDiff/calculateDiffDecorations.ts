@@ -3,6 +3,7 @@ import memoizeOne, { type MemoizedFn } from 'memoize-one';
 import { type Change, ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
+import { isAiXstateMigrationEnabledNoExposure } from '@atlaskit/editor-common/ai-xstate-migration-no-exposure';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { areDocsEqualByBlockStructureAndText } from '@atlaskit/editor-common/utils/areDocsEqualByBlockStructureAndText';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
@@ -14,7 +15,6 @@ import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type {
 	ColorScheme,
@@ -42,6 +42,10 @@ import { createBlockChangedDecoration } from '../decorations/createBlockChangedD
 import type { ContributorTagMountContext } from '../decorations/createContributorTagWidget';
 import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
 import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
+import {
+	createReplacedCellDecorations,
+	getReplacedCells,
+} from '../decorations/createReplacedCellDecorations';
 import { extractDiffDescriptors } from '../decorations/decorationKeys';
 import { extractContributorTags } from '../decorations/extractContributorTags';
 import { createDeletedLineBreakDecoration } from '../decorations/utils/createDeletedLineBreakWidget';
@@ -756,9 +760,14 @@ const calculateDiffDecorationsInner = ({
 		// suppressed in the clean view. `hideDeletedDiffs` is load-bearing: when false the reviewer
 		// asked to compare against the original, and the deleted side is the only place the
 		// previous formatting is visible.
+		//
+		// Not on an inverted diff: there the widget's side is the suggested content, which the clean
+		// view keeps. Suppressing it hides the suggestion along with the displayed side it replaces,
+		// e.g. a cell whose only change is its background, as the signature ignores attrs.
 		const isMarkOnly =
 			shouldHideMarkOnlyDeletions &&
 			hideDeletedDiffs &&
+			!(isInverted && fg('platform_editor_ai_show_diff_patch_2')) &&
 			change.deleted.length > 0 &&
 			isMarkOnlyChange({ change, originalDoc, newDoc: tr.doc });
 
@@ -830,7 +839,7 @@ const calculateDiffDecorationsInner = ({
 			// eligible (xstate + M1).
 			const useCoarseTableDecoration =
 				isSmartNodeLevel &&
-				expValEqualsNoExposure('platform_editor_ai_xstate_migration', 'isEnabled', true) &&
+				isAiXstateMigrationEnabledNoExposure() &&
 				UNSAFE_expValNoExposure(
 					'platform_editor_ai_streaming_ux_experience_m1',
 					'isEnabled',
@@ -846,7 +855,39 @@ const calculateDiffDecorationsInner = ({
 				!isMarkOnly &&
 				!shouldHideDeletedSide({ change, hideDeletedDiffs, isInverted });
 
-			if (isSmartNodeLevel) {
+			// A whole-cell replacement keeps its cells in place, so it takes its own decorations
+			// instead of the generic inline and block ones.
+			const replacedCells = fg('platform_editor_ai_show_diff_patch_2')
+				? getReplacedCells({
+						slice: originalDoc.slice(change.fromA, change.toA),
+						doc: tr.doc,
+						fromB: change.fromB,
+						toB: change.toB,
+					})
+				: [];
+
+			if (replacedCells.length > 0) {
+				decorations.push(
+					...createReplacedCellDecorations({
+						replacedCells,
+						change,
+						doc: tr.doc,
+						attributionKey,
+						colorScheme: changeColorScheme,
+						hasDeletedWidget: willRenderDeletedWidget,
+						hideAddedDiffsUnderline,
+						isActive,
+						isDeletedWidgetBelow,
+						isInserted,
+						leftAnchorId,
+						reveal,
+						shouldHideDeleted,
+						showContributorTags,
+						showIndicators,
+						tagMountContext,
+					}),
+				);
+			} else if (isSmartNodeLevel) {
 				// For a large inserted table, skip the O(cells) inline decorations inside the
 				// table (the cell overlays added below provide the highlight without the
 				// expensive content re-render); leaf blocks outside the table still get theirs.
@@ -900,27 +941,29 @@ const calculateDiffDecorationsInner = ({
 			}
 
 			decorations.push(
-				...calculateNodesForBlockDecoration({
-					// A deleted widget placed below anchors at the change's end, inside the very block
-					// this would let the decoration claim.
-					allowTrailingCloseTokens: !isDeletedWidgetBelow,
-					attributionKey,
-					doc: tr.doc,
-					from: change.fromB,
-					to: change.toB,
-					// A split piece's own range no longer covers the container it opened (EDITOR-8932).
-					nodeRanges: change.blockNodeRangesB,
-					colorScheme: changeColorScheme,
-					isInserted,
-					shouldHideDeleted,
-					showContributorTags,
-					showIndicators,
-					tagMountContext,
-					activeIndexPos,
-					intl,
-					coarseTableCellsOnly: useCoarseTableDecoration,
-					leftAnchorId,
-				}),
+				...(replacedCells.length > 0
+					? []
+					: calculateNodesForBlockDecoration({
+							// A deleted widget placed below anchors at the change's end, inside the very block
+							// this would let the decoration claim.
+							allowTrailingCloseTokens: !isDeletedWidgetBelow,
+							attributionKey,
+							doc: tr.doc,
+							from: change.fromB,
+							to: change.toB,
+							// A split piece's own range no longer covers the container it opened (EDITOR-8932).
+							nodeRanges: change.blockNodeRangesB,
+							colorScheme: changeColorScheme,
+							isInserted,
+							shouldHideDeleted,
+							showContributorTags,
+							showIndicators,
+							tagMountContext,
+							activeIndexPos,
+							intl,
+							coarseTableCellsOnly: useCoarseTableDecoration,
+							leftAnchorId,
+						})),
 			);
 		}
 		if (change.deleted.length > 0 && !isMarkOnly && !hasNoDeletedContent) {
@@ -1098,7 +1141,7 @@ const calculateDiffDecorationsInner = ({
 				const isSmartNodeLevelAttrChange =
 					diffType === 'smart' &&
 					fg('platform_editor_ai_smart_diff') &&
-					expValEqualsNoExposure('platform_editor_ai_xstate_migration', 'isEnabled', true) &&
+					isAiXstateMigrationEnabledNoExposure() &&
 					UNSAFE_expValNoExposure(
 						'platform_editor_ai_streaming_ux_experience_m1',
 						'isEnabled',

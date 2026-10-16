@@ -1,5 +1,19 @@
 # @atlaskit/editor-shared-styles
 
+## 4.5.0
+
+### Minor Changes
+
+- [`4704b3ac83f88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4704b3ac83f88) -
+  Treat Antigravity and Copilot as third-party agent brands in show-diff contributor tags, sharing
+  the fixed third-party participant colour slot, and render their profile avatar when one is
+  available (falling back to the generic agent icon). Shorten the contributor tag fade in and out
+  from 600ms to 500ms.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.12
 
 ### Patch Changes

@@ -330,6 +330,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 					userPreferencesProvider: undefined,
 				},
 				enabledOptionalPlugins: {
+					numberedHeadings: false,
 					agentManagedExtension: false,
 					blockCollapse: false,
 					limitedMode: false,

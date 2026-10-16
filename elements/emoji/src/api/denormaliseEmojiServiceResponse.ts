@@ -7,8 +7,8 @@ import {
 } from '../types';
 import { buildEmojiDescriptionWithAltRepresentation } from '../util/build-emoji-description-with-alt-representation';
 import { denormaliseServiceAltRepresentation } from './denormaliseServiceAltRepresentation';
+import { denormaliseServiceRepresentation } from './denormaliseServiceRepresentation';
 import { denormaliseSkinEmoji } from './denormaliseSkinEmoji';
-import { denormaliseStandardRepresentation } from './denormaliseStandardRepresentation';
 
 /**
  * Denormalised an emoji response (emojis + sprite references) into an array of
@@ -17,7 +17,10 @@ import { denormaliseStandardRepresentation } from './denormaliseStandardRepresen
 export const denormaliseEmojiServiceResponse = (emojiData: EmojiServiceResponse): EmojiResponse => {
 	const emojis: EmojiDescription[] = emojiData.emojis.map(
 		(emoji: EmojiServiceDescriptionWithVariations): EmojiDescriptionWithVariations => {
-			const newRepresentation = denormaliseStandardRepresentation(emoji, emojiData.meta);
+			const newRepresentation = denormaliseServiceRepresentation(
+				emoji.representation,
+				emojiData.meta,
+			);
 			const altRepresentation = denormaliseServiceAltRepresentation(
 				emoji.altRepresentations,
 				emojiData.meta,

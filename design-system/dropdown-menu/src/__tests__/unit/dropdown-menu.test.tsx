@@ -448,9 +448,8 @@ describe.each([false, true])('popup trigger semantics, top layer: %s', (topLayer
 	});
 
 	it.each(['dialog', 'menu', 'true'] as const)(
-		'closes only for dialog popup items when enabled: %s',
+		'closes only for dialog popup items: %s',
 		(hasPopup) => {
-			passGate('platform_dst-a11y_modal-trigger-haspopup');
 			const onOpenChange = jest.fn();
 			render(
 				<DropdownMenu trigger="Actions" defaultOpen onOpenChange={onOpenChange}>
@@ -475,26 +474,9 @@ describe.each([false, true])('popup trigger semantics, top layer: %s', (topLayer
 		},
 	);
 
-	it('preserves dialog item behavior when disabled', () => {
-		failGate('platform_dst-a11y_modal-trigger-haspopup');
-		const onOpenChange = jest.fn();
-		render(
-			<DropdownMenu trigger="Actions" defaultOpen onOpenChange={onOpenChange}>
-				<DropdownItemGroup>
-					<DropdownItem aria-haspopup="dialog">Open dialog</DropdownItem>
-				</DropdownItemGroup>
-			</DropdownMenu>,
-		);
-		fireEvent.click(screen.getByRole('menuitem', { name: 'Open dialog' }));
-		expect(onOpenChange).not.toHaveBeenCalled();
-	});
-
 	it.each(['dialog', 'menu', 'true'] as const)(
-		'ArrowRight activates only submenu triggers when enabled: %s',
+		'ArrowRight activates only submenu triggers: %s',
 		(hasPopup) => {
-			if (topLayer || hasPopup !== 'dialog') {
-				passGate('platform_dst-a11y_modal-trigger-haspopup');
-			}
 			const onClick = jest.fn();
 			render(
 				<DropdownMenu trigger="Actions" defaultOpen>
@@ -516,12 +498,11 @@ describe.each([false, true])('popup trigger semantics, top layer: %s', (topLayer
 	);
 });
 
-describe.each([false, true])('legacy popup selector, gate: %s', (enabled) => {
+describe('legacy popup selector', () => {
 	it.each(['menu', 'true', 'dialog', 'false', undefined])(
 		'closes according to popup type: %s',
 		(hasPopup) => {
 			failGate('platform-dst-top-layer');
-			(enabled ? passGate : failGate)('platform_dst-a11y_modal-trigger-haspopup');
 			const onOpenChange = jest.fn();
 			render(
 				<DropdownMenu trigger="Actions" defaultOpen onOpenChange={onOpenChange}>
@@ -535,9 +516,7 @@ describe.each([false, true])('legacy popup selector, gate: %s', (enabled) => {
 				item.setAttribute('aria-haspopup', hasPopup);
 			}
 			fireEvent.click(item);
-			const shouldClose = enabled
-				? hasPopup !== 'menu' && hasPopup !== 'true'
-				: hasPopup === undefined;
+			const shouldClose = hasPopup !== 'menu' && hasPopup !== 'true';
 			if (shouldClose) {
 				expect(onOpenChange).toHaveBeenCalledWith(expect.objectContaining({ isOpen: false }));
 			} else {

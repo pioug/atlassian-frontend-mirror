@@ -1,5 +1,41 @@
 # @atlaskit/renderer
 
+## 151.0.0
+
+### Minor Changes
+
+- [`4bec56feedf8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bec56feedf8a) -
+  Add showHeadingNumbers to display heading outline numbers using shared editor numbering under
+  platform_editor_numbered_headings.
+
+### Patch Changes
+
+- [`4119d93011e41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4119d93011e41) -
+  Remove `platform_use_unicode_emojis` experiment checks and retain Twemoji images and sprites.
+  Remove the experiment-only `denormaliseStandardRepresentation` export. Call
+  `denormaliseServiceRepresentation` with the service representation instead. Remove the
+  `emoji-id-to-emoji` entrypoint and its `emojiIdToEmoji` utility. Use the existing provider image
+  or sprite representation for Twemoji rendering. Remove the Unicode representation type, renderer,
+  canvas utility, and public `unicode-emoji-image` entrypoint. Remove `renderUnicodeEmojiAsImage`
+  props and the Unicode type guard. Remove the editor Unicode node rendering and the `EMOJI_UNICODE`
+  shared CSS class. Use provider image and sprite representations instead of Unicode
+  representations. Remove the obsolete Unicode rendering props from consumers. Remove the
+  feature-only `getCachedEmojiType` provider API. Use the existing provider lookup methods for cache
+  or catalogue access.
+- Updated dependencies
+
+## 150.0.7
+
+### Patch Changes
+
+- [`ae36fe5fd60ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae36fe5fd60ff) -
+  Expose a lightweight emoji fallback helper and reuse it in editor and renderer emoji components.
+  Preserve the behavior of platform_editor_custom_emoji_unicode_fallback without importing provider
+  or rendering code into consumers of the helper. Also expose lightweight mention-avatar eligibility
+  so consumers can preserve the existing hover-card and avatar experiment cohorts without importing
+  mention components.
+- Updated dependencies
+
 ## 150.0.6
 
 ### Patch Changes

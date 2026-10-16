@@ -1,5 +1,27 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.6.1
+
+### Patch Changes
+
+- [`03648a613ffe6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03648a613ffe6) -
+  Track browseAgentsOpenNewChatOption from the shared Browse Agents chat callback and reuse
+  view-agent analytics when a card opens the profile modal. Preserve agent and modal-entrypoint
+  attribution behind rovo_agents_studio_browse_kit_uplift. Include the first loaded result count in
+  successful search analytics without duplicating events on pagination.
+
+  Track shared Browse Agents views within the interaction started by their trigger or page
+  navigation. Capture results with UFO segments, loading holds, and error reporting behind
+  rovo_agents_studio_browse_kit_uplift.
+
+## 6.6.0
+
+### Minor Changes
+
+- [`cd470059e9620`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd470059e9620) -
+  Add shared third-party connection auth and readiness refresh analytics. Deprecate the legacy
+  Access page auth events.
+
 ## 6.5.0
 
 ### Minor Changes

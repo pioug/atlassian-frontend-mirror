@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "12.5.0",
+	"version": "12.5.1",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -79,9 +79,6 @@
 		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
-		"smart-user-picker-fetch-error-fix": {
-			"type": "boolean"
-		},
 		"smart-user-picker-load-options-gate": {
 			"type": "boolean"
 		},

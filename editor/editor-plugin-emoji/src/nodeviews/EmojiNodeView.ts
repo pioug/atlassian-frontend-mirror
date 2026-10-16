@@ -19,7 +19,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import { defaultEmojiHeight } from '@atlaskit/emoji/constants';
-import { emojiIdToEmoji } from '@atlaskit/emoji/emoji-id-to-emoji';
 import type {
 	EmojiDescription,
 	ImageRepresentation,
@@ -32,7 +31,6 @@ import type {
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiPlugin } from '../emojiPluginType';
@@ -231,15 +229,7 @@ export class EmojiNodeView implements NodeView {
 				return;
 			}
 
-			const unicodeEmoji =
-				id && expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
-					? emojiIdToEmoji(id)
-					: undefined;
-			const emojiRepresentation = unicodeEmoji
-				? {
-						unicodeEmoji,
-					}
-				: emojiDescription?.representation;
+			const emojiRepresentation = emojiDescription?.representation;
 			if (!EmojiNodeView.isEmojiRepresentationSupported(emojiRepresentation)) {
 				EmojiNodeView.logError(new Error('Emoji representation is not supported'));
 
@@ -263,18 +253,8 @@ export class EmojiNodeView implements NodeView {
 	): representation is Exclude<EmojiRepresentation, undefined> {
 		return (
 			!!representation &&
-			('sprite' in representation ||
-				'imagePath' in representation ||
-				'mediaPath' in representation ||
-				'unicodeEmoji' in representation)
+			('sprite' in representation || 'imagePath' in representation || 'mediaPath' in representation)
 		);
-	}
-
-	private static shouldRecordUnicodeEmojiExposure(
-		description: EmojiDescription,
-		representation: Exclude<EmojiRepresentation, undefined>,
-	): boolean {
-		return description.type === 'STANDARD' || 'unicodeEmoji' in representation;
 	}
 
 	// Pay attention, this method should be called only when the emoji provider returns
@@ -421,12 +401,7 @@ export class EmojiNodeView implements NodeView {
 		this.renderingFallback = false;
 		this.cleanUpAndRenderCommonAttributes();
 
-		const emojiType =
-			'unicodeEmoji' in representation
-				? 'unicode'
-				: 'sprite' in representation
-					? 'sprite'
-					: 'image';
+		const emojiType = 'sprite' in representation ? 'sprite' : 'image';
 
 		let doc = getDocument();
 		if (!doc) {
@@ -447,42 +422,15 @@ export class EmojiNodeView implements NodeView {
 		);
 
 		const emojiElement =
-			'unicodeEmoji' in representation
-				? this.createUnicodeEmojiElement(representation.unicodeEmoji)
-				: 'sprite' in representation
-					? this.createSpriteEmojiElement(representation)
-					: this.createImageEmojiElement(description, representation);
+			'sprite' in representation
+				? this.createSpriteEmojiElement(representation)
+				: this.createImageEmojiElement(description, representation);
 
 		containerElement.appendChild(emojiElement);
 
 		this.dom.appendChild(containerElement);
 
-		if (EmojiNodeView.shouldRecordUnicodeEmojiExposure(description, representation)) {
-			expValEquals('platform_use_unicode_emojis', 'isEnabled', true);
-		}
-
 		this.createTooltip(containerElement, description.shortName);
-	}
-
-	private createUnicodeEmojiElement(emoji: string): HTMLSpanElement {
-		let doc = getDocument();
-		if (!doc) {
-			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-			doc = document;
-		}
-		const spanElement = doc.createElement('span');
-
-		spanElement.classList.add(EmojiSharedCssClassName.EMOJI_UNICODE);
-		spanElement.textContent = emoji;
-		spanElement.style.display = 'inline-flex';
-		spanElement.style.fontSize = `var(--emoji-common-unicode-size, ${defaultEmojiHeight}px)`;
-		spanElement.style.alignItems = 'center';
-		spanElement.style.aspectRatio = '1/1';
-		spanElement.style.lineHeight = '1em';
-		spanElement.style.margin = '-1px 0';
-		spanElement.style.verticalAlign = 'middle'; // to keep vertical alignment consistent with images
-
-		return spanElement;
 	}
 
 	private createSpriteEmojiElement(representation: SpriteRepresentation): HTMLSpanElement {

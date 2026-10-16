@@ -77,7 +77,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Use ExtensionContextBridgeClient',
 					description: 'Render the documented export in a focused, package-owned example.',
-					source: `${packagePath}/examples/preview/extension-context-bridge-client.tsx`,
+					source: `${packagePath}/examples/ai/extension-context-bridge-client.tsx`,
 				},
 			],
 			keywords: ['rovo', 'extension', 'context', 'bridge'],
@@ -102,7 +102,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Use ExtensionContextBridgeHost',
 					description: 'Render the documented export in a focused, package-owned example.',
-					source: `${packagePath}/examples/preview/extension-context-bridge-host.tsx`,
+					source: `${packagePath}/examples/ai/extension-context-bridge-host.tsx`,
 				},
 			],
 			keywords: ['rovo', 'extension', 'context', 'host'],

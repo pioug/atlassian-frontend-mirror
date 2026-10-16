@@ -489,6 +489,8 @@ export const writeDataBatch = async (
 interface BlockServiceADFFetchProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentId?: string;
+	product?: SyncBlockProduct;
 }
 
 /**
@@ -497,10 +499,21 @@ interface BlockServiceADFFetchProviderProps {
 class BlockServiceADFFetchProvider implements ADFFetchProvider {
 	private cloudId: string;
 	private parentAri: string | undefined;
+	private parentId?: string;
+	private product?: SyncBlockProduct;
 
-	constructor({ cloudId, parentAri }: BlockServiceADFFetchProviderProps) {
+	constructor({ cloudId, parentAri, parentId, product }: BlockServiceADFFetchProviderProps) {
 		this.cloudId = cloudId;
 		this.parentAri = parentAri;
+		this.parentId = parentId;
+		this.product = product;
+	}
+
+	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
+		if (!this.product || !this.parentId) {
+			return sourceId;
+		}
+		return createResourceIdForReference(this.product, this.parentId, sourceId);
 	}
 
 	// resourceId of the reference synced block.
@@ -1047,6 +1060,8 @@ const createBlockServiceAPIProviders = ({
 		fetchProvider: new BlockServiceADFFetchProvider({
 			cloudId,
 			parentAri,
+			parentId,
+			product,
 		}),
 		writeProvider: new BlockServiceADFWriteProvider({
 			cloudId,
@@ -1082,17 +1097,21 @@ export const useMemoizedBlockServiceAPIProviders = ({
 interface BlockServiceFetchOnlyAPIProviderProps {
 	cloudId: string; // the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
 	parentAri: string | undefined; // the ARI of the parent of the block. E.G the ARI of the confluence page, or the ARI of the Jira work item
+	parentId?: string;
+	product?: SyncBlockProduct;
 }
 
 const createBlockServiceFetchOnlyAPIProvider = ({
 	cloudId,
 	parentAri,
+	parentId,
+	product,
 }: BlockServiceFetchOnlyAPIProviderProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: undefined;
 } => {
 	return {
-		fetchProvider: new BlockServiceADFFetchProvider({ cloudId, parentAri }),
+		fetchProvider: new BlockServiceADFFetchProvider({ cloudId, parentAri, parentId, product }),
 		writeProvider: undefined,
 	};
 };
@@ -1103,11 +1122,13 @@ const createBlockServiceFetchOnlyAPIProvider = ({
 export const useMemoizedBlockServiceFetchOnlyAPIProvider = ({
 	cloudId,
 	parentAri,
+	parentId,
+	product,
 }: BlockServiceFetchOnlyAPIProviderProps): {
 	fetchProvider: BlockServiceADFFetchProvider;
 	writeProvider: undefined;
 } =>
 	useMemo(
-		() => createBlockServiceFetchOnlyAPIProvider({ cloudId, parentAri }),
-		[cloudId, parentAri],
+		() => createBlockServiceFetchOnlyAPIProvider({ cloudId, parentAri, parentId, product }),
+		[cloudId, parentAri, parentId, product],
 	);

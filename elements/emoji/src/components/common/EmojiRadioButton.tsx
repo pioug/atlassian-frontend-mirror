@@ -6,7 +6,6 @@ import React, { memo, forwardRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -110,9 +109,6 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 	Props & React.RefAttributes<HTMLInputElement>
 > = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
-	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
-		? 24
-		: undefined;
 
 	return (
 		<label css={emojiButton}>
@@ -136,7 +132,6 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				selectOnHover={selectOnHover}
 				shouldBeInteractive={false}
 				aria-hidden={true}
-				fitToHeight={fitToHeight}
 			/>
 		</label>
 	);

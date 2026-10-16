@@ -29,6 +29,7 @@ import InlineCardSelected from '../../../examples/vr-inline-card/vr-inline-card-
 import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap.vr.ap';
 import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon.vr.ap';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth.vr.ap';
+import InlineCardUnauthorisedSocialProofColdCache from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-cold-cache.vr.ap';
 import InlineCardUnauthorisedSocialProofLoaded from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-loaded.vr.ap';
 import InlineCardUnauthorisedSocialProofLowExplore from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-explore.vr.ap';
 import InlineCardUnauthorisedSocialProofLowNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-no-context.vr.ap';
@@ -246,8 +247,27 @@ snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 	mockRequests: mockPersonalizationRequests,
 });
 
+snapshot(InlineCardUnauthorisedSocialProofColdCache, {
+	description: 'inline card unauthorised update CTA treatment without social proof',
+	featureFlags: {
+		platform_sl_3p_preauth_update_cta_fg: true,
+		platform_sl_3p_preauth_update_cta_exp: true,
+	},
+	mockRequests: mockPersonalizationRequests,
+});
+
 snapshot(InlineCardUnauthorisedSocialProofNarrow, {
 	description: 'inline card unauthorised with social proof in narrow container',
+	mockRequests: mockPersonalizationRequests,
+});
+
+snapshot(InlineCardUnauthorisedSocialProofNarrow, {
+	description:
+		'inline card unauthorised update CTA treatment with social proof in narrow container',
+	featureFlags: {
+		platform_sl_3p_preauth_update_cta_fg: true,
+		platform_sl_3p_preauth_update_cta_exp: true,
+	},
 	mockRequests: mockPersonalizationRequests,
 });
 

@@ -82,17 +82,24 @@ describe('AvatarTag component', () => {
 		});
 
 		it('should render with remove button by default', () => {
+			render(<AvatarTag type="user" text="Alice Williams" avatar={Avatar} testId={testId} />);
+			expect(screen.getByTestId(testId)).toBeInTheDocument();
+			expect(screen.getByTestId(`close-button-${testId}`)).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Remove Alice Williams' })).toBeInTheDocument();
+		});
+
+		it('should append the name to the custom remove button label', () => {
 			render(
 				<AvatarTag
 					type="user"
 					text="Alice Williams"
 					avatar={Avatar}
-					removeButtonLabel="Remove"
-					testId={testId}
+					removeButtonLabel="Remove person"
 				/>,
 			);
-			expect(screen.getByTestId(testId)).toBeInTheDocument();
-			expect(screen.getByTestId(`close-button-${testId}`)).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', { name: 'Remove person Alice Williams' }),
+			).toBeInTheDocument();
 		});
 
 		it('should not render remove button when isRemovable is false', () => {

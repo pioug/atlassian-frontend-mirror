@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 36.7.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.7.21
+
+### Patch Changes
+
+- [`f9f707e99929b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9f707e99929b) -
+  Cleanup `experiment` `exp-comment-reaction-fail-fix`. A failed add/remove reaction now always
+  reverts the optimistic update and invokes the supplied `onFailure` callback.
+
 ## 36.7.20
 
 ### Patch Changes

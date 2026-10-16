@@ -9,6 +9,13 @@ export type BrowseAgentsEventPayload =
 	| {
 			eventType: 'ui';
 			actionSubject: 'button';
+			actionSubjectId: 'browseAgentsOpenNewChatOption';
+			action: 'clicked';
+			attributes: { agentId: string } & BrowseCardAnalyticsContext;
+	  }
+	| {
+			eventType: 'ui';
+			actionSubject: 'button';
 			actionSubjectId: 'agentActionsMenu';
 			action: 'clicked';
 			attributes: {
@@ -32,6 +39,8 @@ export type BrowseAgentsEventPayload =
 			action: 'searched';
 			attributes: {
 				searchValueLength: number;
+				/** Number of results in the first loaded search page. Omitted for clear and legacy events. */
+				resultCount?: number;
 				viewContext: 'agents-modal' | 'agents-fullscreen';
 				category: string;
 				interactionSource: string;

@@ -170,9 +170,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 				!isTabLeftOrEscapeKey &&
 				event.target instanceof HTMLElement &&
 				event.target.closest?.(
-					fg('platform_dst-a11y_modal-trigger-haspopup')
-						? `[id^=${PREFIX}] [aria-haspopup="menu"], [id^=${PREFIX}] [aria-haspopup="true"]`
-						: `[id^=${PREFIX}] [aria-haspopup]`,
+					`[id^=${PREFIX}] [aria-haspopup="menu"], [id^=${PREFIX}] [aria-haspopup="true"]`,
 				)
 			) {
 				// Check if it is within dropdown and it is a trigger button
@@ -247,9 +245,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 				let isNestedTriggerButton;
 				if (e.target instanceof HTMLElement) {
 					isNestedTriggerButton = e.target.closest(
-						fg('platform_dst-a11y_modal-trigger-haspopup')
-							? `[id^=${PREFIX}] [aria-haspopup="menu"], [id^=${PREFIX}] [aria-haspopup="true"]`
-							: `[id^=${PREFIX}] [aria-haspopup]`,
+						`[id^=${PREFIX}] [aria-haspopup="menu"], [id^=${PREFIX}] [aria-haspopup="true"]`,
 					);
 				}
 

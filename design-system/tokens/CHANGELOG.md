@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 20.6.1
+
+### Patch Changes
+
+- [`39bac6d5c92bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39bac6d5c92bd) -
+  Batch token Babel-plugin scope refreshes once per affected scope rather than once per token call,
+  and skip traversal of modules that do not import the token function. Recognise named token imports
+  from both `@atlaskit/tokens` and `@atlaskit/tokens/token`.
+
 ## 20.6.0
 
 ### Minor Changes

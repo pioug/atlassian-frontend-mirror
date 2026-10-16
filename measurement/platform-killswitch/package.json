@@ -1,0 +1,28 @@
+{
+	"name": "@atlaskit/platform-killswitch",
+	"version": "0.1.0",
+	"description": "Case-insensitive named killswitches backed by the Statsig killswitch dynamic config.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "UIP Application Framework - Jupiter"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"main": "dist/cjs/killswitch.js",
+	"module": "dist/esm/killswitch.js",
+	"module:es2019": "dist/es2019/killswitch.js",
+	"types": "dist/types/killswitch.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/killswitch.ts",
+	"exports": {
+		".": "./src/killswitch.ts",
+		"./killswitch": "./src/killswitch.ts"
+	},
+	"dependencies": {
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@babel/runtime": "root:*"
+	}
+}

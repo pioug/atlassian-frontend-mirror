@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 240.0.2
+
+### Patch Changes
+
+- [`e7ba86ebafd0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7ba86ebafd0b) -
+  Cleanup experiment `cc_editor_insm_doc_size_stats`. Document size statistics (`totalNodes` and
+  `nodeSizeBucket`) are now always computed and reported on the ProseMirror rendered analytics
+  event.
+
+## 240.0.1
+
+### Patch Changes
+
+- [`d793917a58441`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d793917a58441) -
+  Cleanup `experiment` `platform_use_llm_space_recommendations`. The experiment shipped the control
+  cohort (`isEnabled: false`), so LLM-based Confluence space recommendations are no longer fetched
+  for the smart-create finalize flow and the regular recommended spaces are always used.
+
 ## 240.0.0
 
 ### Major Changes

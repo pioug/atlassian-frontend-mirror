@@ -1,5 +1,15 @@
 # @atlaskit/editor-toolbar
 
+## 2.8.36
+
+### Patch Changes
+
+- [`64cc7dc77d6b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64cc7dc77d6b4) -
+  Clean up feature gate `cc_blocks_changeboarding`. The gated behaviour — honouring
+  `shouldIgnoreCloseEvent`, emitting `data-extension-item-key`, and the block menu format item test
+  id — is now permanent.
+- Updated dependencies
+
 ## 2.8.35
 
 ### Patch Changes

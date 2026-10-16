@@ -3,9 +3,11 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
-import Emoji from '@atlaskit/emoji/emoji';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
+import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 const styles = cssMap({
 	subject: {
 		width: 'fit-content',
@@ -20,41 +22,20 @@ export default function Preview(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<Box testId="component-preview" xcss={styles.subject}>
-				<Emoji
-					renderUnicodeEmojiAsImage={false}
+				<ResourcedEmoji
 					fitToHeight={56}
-					emoji={{
-						id: 'smile',
-						shortName: ':smile:',
-						type: 'STANDARD',
-						category: 'PEOPLE',
-						searchable: true,
-						representation: { unicodeEmoji: '😄' },
-					}}
+					emojiId={{ id: '1f604', shortName: ':smile:' }}
+					emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
 				/>
-				<Emoji
-					renderUnicodeEmojiAsImage={false}
+				<ResourcedEmoji
 					fitToHeight={56}
-					emoji={{
-						id: 'celebrate',
-						shortName: ':tada:',
-						type: 'STANDARD',
-						category: 'ACTIVITY',
-						searchable: true,
-						representation: { unicodeEmoji: '🎉' },
-					}}
+					emojiId={{ id: '1f389', shortName: ':tada:' }}
+					emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
 				/>
-				<Emoji
-					renderUnicodeEmojiAsImage={false}
+				<ResourcedEmoji
 					fitToHeight={56}
-					emoji={{
-						id: 'heart',
-						shortName: ':heart:',
-						type: 'STANDARD',
-						category: 'SYMBOLS',
-						searchable: true,
-						representation: { unicodeEmoji: '❤️' },
-					}}
+					emojiId={{ id: '2764', shortName: ':heart:' }}
+					emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
 				/>
 			</Box>
 		</IntlProvider>

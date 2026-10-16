@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 23.1.3
+
+### Patch Changes
+
+- [`52013f86800e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52013f86800e0) -
+  Allow inline Select menus to respect an explicit menuIsOpen value while remaining open by default,
+  behind platform_dst_inline_select_menu_control.
+- Updated dependencies
+
 ## 23.1.2
 
 ### Patch Changes

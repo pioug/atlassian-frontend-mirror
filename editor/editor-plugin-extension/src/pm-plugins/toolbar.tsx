@@ -55,6 +55,7 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -553,14 +554,17 @@ export const getToolbarConfig =
 			isOfflineMode(extensionApi?.connectivity?.sharedState?.currentState()?.mode),
 			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
-		const breakoutItems = breakoutOptions(
-			state,
-			formatMessage,
-			extensionState,
-			breakoutEnabled,
-			editorAnalyticsAPI,
-			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
-		);
+		// extensions are sized with the breakout resizer instead
+		const breakoutItems = isExperimentEnabled('platform_editor_lovability_resize_extensions')
+			? []
+			: breakoutOptions(
+					state,
+					formatMessage,
+					extensionState,
+					breakoutEnabled,
+					editorAnalyticsAPI,
+					extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
+				);
 		const extensionObj = getSelectedExtension(state, true);
 
 		// If this is a native-embed extension, skip providing a toolbar config to allow

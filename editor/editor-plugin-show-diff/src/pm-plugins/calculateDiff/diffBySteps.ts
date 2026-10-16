@@ -12,6 +12,7 @@ import {
 	type DiffAttributionSpanData,
 	getAttributionKey,
 } from '../decorations/colorSchemes/attributions';
+import { isCellAttrChanged } from '../decorations/utils/cellAttrs';
 import { buildCharsByOffset } from '../utils/charsByOffset';
 import { attrAwareTokenEncoder } from './attrAwareTokenEncoder';
 import { optimizeChanges } from './optimizeChanges';
@@ -28,6 +29,17 @@ const WHITESPACE_REGEX = /\s/u;
  */
 const isGranularIsolatingNode = (node: PMNode): boolean =>
 	!!node.type.spec.isolating && node.type.spec.tableRole !== 'table';
+
+const CELL_TYPE_NAMES = ['tableCell', 'tableHeader'];
+
+/**
+ * Whether a table cell's replacement changes one of its diffable attributes, such as its background.
+ * Such a cell is diffed whole: it renders as a cell style plus a copy of its row, which already shows
+ * the cell's new content, so inline marks inside it would only repeat that.
+ */
+const isCellAttrChange = (replacedNode: PMNode, replacingNode: PMNode): boolean =>
+	CELL_TYPE_NAMES.includes(replacedNode.type.name) &&
+	isCellAttrChanged(replacedNode, replacingNode);
 
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
 
@@ -228,7 +240,8 @@ const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
  * - The replaced slice has only one child
  * - The replacing slice has only one child
  * - Both children are the same textblock type, or (behind `platform_editor_ai_show_diff_patch_2`)
- *   the same isolating, non-table node type whose text content differs
+ *   the same isolating, non-table node type whose text content differs (for a table cell, only when
+ *   its diffable attributes are unchanged)
  * - The replaced slice and replacing slice have the same text content
  * - The replaced slice and replacing slice have the same child marks (if text content is equal)
  */
@@ -285,7 +298,7 @@ const shouldCheckGranularDiff = (
 	// `hasSameChildMarks` only compares an isolating node's direct (block) children, so it cannot
 	// vouch for one with unchanged text. Keep the existing whole-node fallback for that case.
 	if (isIsolatingNode) {
-		return !isTextContentEqual;
+		return !isTextContentEqual && !(replacingNode && isCellAttrChange(replacedNode, replacingNode));
 	}
 
 	return (

@@ -8,7 +8,6 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -138,39 +137,6 @@ const extensionFrameContent = css({
 	},
 });
 
-// Block spacing hook variant of extensionFrameContent. Identical to extensionFrameContent except
-// the extension content margins read from the `--ak-editor-extension-block-spacing` CSS custom
-// property (falling back to the original token values). Selected only when
-// isExperimentEnabled('platform_editor_extension_block_spacing') is enabled.
-const extensionFrameContentWithBlockSpacing = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-	display: 'block !important',
-	minHeight: '100px',
-	background: 'transparent',
-	borderBottomLeftRadius: token('radius.small', '3px'),
-	borderBottomRightRadius: token('radius.small', '3px'),
-	marginLeft: token('space.100'),
-	marginRight: token('space.100'),
-	cursor: 'initial',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.pm-table-with-controls': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		marginLeft: `${token('space.150')} !important`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		paddingRight: `${token('space.150')} !important`,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.bodiedExtensionView-content-wrap': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		marginTop: `var(--ak-editor-extension-block-spacing, ${token('space.150')}) !important`,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.extensionView-content-wrap': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		marginTop: `var(--ak-editor-extension-block-spacing, ${token('space.100')}) !important`,
-	},
-});
-
 const extensionFrameContentOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	padding: `${token('space.100')} !important`,
@@ -225,11 +191,6 @@ export const sharedMultiBodiedExtensionStyles: {
 		if (!expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)) {
 			return extensionFrameContentOld;
 		}
-		// Block spacing hook — when the experiment is on, use the variant whose extension content
-		// margins read from --ak-editor-extension-block-spacing (falling back to the originals).
-		// isExperimentEnabled always fires an exposure event.
-		return isExperimentEnabled('platform_editor_extension_block_spacing')
-			? extensionFrameContentWithBlockSpacing
-			: extensionFrameContent;
+		return extensionFrameContent;
 	},
 };

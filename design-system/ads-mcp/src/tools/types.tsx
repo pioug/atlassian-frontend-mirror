@@ -5,6 +5,7 @@ export type Status =
 	| 'early-access'
 	| 'open-beta'
 	| 'general-availability'
+	| 'internal'
 	| 'intent-to-deprecate'
 	| 'deprecated'
 	| 'unmaintained';

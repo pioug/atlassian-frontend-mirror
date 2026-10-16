@@ -48,6 +48,32 @@ type AddBreakoutToResizableNodeProps = {
 	pos: number;
 };
 
+const getInitialBreakoutWidth = (
+	node: Node,
+	isFullWidthEnabled: boolean,
+	isMaxWidthEnabled: boolean,
+): number => {
+	if (isMaxWidthEnabled) {
+		return akEditorMaxWidthLayoutWidth;
+	}
+
+	if (isFullWidthEnabled) {
+		return akEditorFullWidthLayoutWidth;
+	}
+
+	// extensions store their legacy size in the `layout` attr, translate it so existing
+	// wide and full-width extensions keep their width. `layout` is left unchanged for rollback.
+	const { layout } = node.attrs;
+	if (
+		(layout === 'wide' || layout === 'full-width') &&
+		isExperimentEnabled('platform_editor_lovability_resize_extensions')
+	) {
+		return layout === 'wide' ? akEditorCalculatedWideLayoutWidth : akEditorFullWidthLayoutWidth;
+	}
+
+	return akEditorDefaultLayoutWidth;
+};
+
 const addBreakoutToResizableNode = ({
 	node,
 	pos,
@@ -70,11 +96,7 @@ const addBreakoutToResizableNode = ({
 		const isExpand = node.type === expand;
 
 		if (!breakoutMark) {
-			const width = isMaxWidthEnabled
-				? akEditorMaxWidthLayoutWidth
-				: isFullWidthEnabled
-					? akEditorFullWidthLayoutWidth
-					: akEditorDefaultLayoutWidth;
+			const width = getInitialBreakoutWidth(node, isFullWidthEnabled, isMaxWidthEnabled);
 
 			if (isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
 				const marks = breakout.create({ width: width }).addToSet(node.marks);

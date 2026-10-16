@@ -1,5 +1,12 @@
 # @atlaskit/json-ld-types
 
+## 2.1.0
+
+### Minor Changes
+
+- [`f53547d945361`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f53547d945361) -
+  Add new 'atlassian:Focus' type and Focus interface to JSON-LD types for focus area entities.
+
 ## 2.0.1
 
 ### Patch Changes

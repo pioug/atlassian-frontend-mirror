@@ -18,7 +18,6 @@ describe('EmojiUtils', () => {
 	beforeEach(() => {
 		setupEditorExperiments('test', {
 			platform_editor_emoji_default_scale: false,
-			platform_use_unicode_emojis: false,
 		});
 	});
 
@@ -112,94 +111,6 @@ describe('EmojiUtils', () => {
 					fail('The skin variation emoji did not contain a baseId');
 				}
 			}
-		});
-
-		it('uses unicode representation for standard emoji when enabled', () => {
-			setupEditorExperiments('test', {
-				platform_use_unicode_emojis: true,
-			});
-
-			const emoji: EmojiServiceDescriptionWithVariations = {
-				id: '1f600',
-				name: 'grinning face',
-				shortName: ':grinning:',
-				type: 'STANDARD',
-				category: 'PEOPLE',
-				order: 1,
-				representation: {
-					spriteRef: 'http://spriteref/test.png',
-					x: 216,
-					y: 2304,
-					height: 72,
-					width: 75,
-					xIndex: 3,
-					yIndex: 32,
-				},
-				searchable: true,
-			};
-
-			const emojiResponse = denormaliseEmojiServiceResponse({
-				emojis: [emoji],
-				meta: {},
-			});
-
-			expect(emojiResponse.emojis[0].representation).toEqual({
-				unicodeEmoji: '😀',
-			});
-		});
-
-		it('uses unicode representation for standard skin tone emoji when enabled', () => {
-			setupEditorExperiments('test', {
-				platform_use_unicode_emojis: true,
-			});
-
-			const emoji: EmojiServiceDescriptionWithVariations = {
-				id: '1f44d',
-				name: 'thumbs up',
-				shortName: ':thumbsup:',
-				type: 'STANDARD',
-				category: 'PEOPLE',
-				order: 1,
-				representation: {
-					spriteRef: 'http://spriteref/test.png',
-					x: 216,
-					y: 2304,
-					height: 72,
-					width: 75,
-					xIndex: 3,
-					yIndex: 32,
-				},
-				skinVariations: [
-					{
-						id: '1f44d-1f3ff',
-						name: 'thumbs up: dark skin tone',
-						shortName: ':thumbsup::skin-tone-6:',
-						type: 'STANDARD',
-						category: 'PEOPLE',
-						order: 1,
-						representation: {
-							spriteRef: 'http://spriteref/test.png',
-							x: 666,
-							y: 777,
-							height: 42,
-							width: 43,
-							xIndex: 6,
-							yIndex: 23,
-						},
-						searchable: true,
-					},
-				],
-				searchable: true,
-			};
-
-			const emojiResponse = denormaliseEmojiServiceResponse({
-				emojis: [emoji],
-				meta: {},
-			});
-
-			expect(emojiResponse.emojis[0].skinVariations?.[0].representation).toEqual({
-				unicodeEmoji: '👍🏿',
-			});
 		});
 
 		it('denormaliseEmojis emoji with image', () => {

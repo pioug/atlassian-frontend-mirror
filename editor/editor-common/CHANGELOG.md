@@ -1,5 +1,113 @@
 # @atlaskit/editor-common
 
+## 132.0.1
+
+### Patch Changes
+
+- [`56bd2d041039c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56bd2d041039c) -
+  Remove the disabled extension block spacing experiment and its unused editor styles.
+- Updated dependencies
+
+## 132.0.0
+
+### Major Changes
+
+- [`4119d93011e41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4119d93011e41) -
+  Remove `platform_use_unicode_emojis` experiment checks and retain Twemoji images and sprites.
+  Remove the experiment-only `denormaliseStandardRepresentation` export. Call
+  `denormaliseServiceRepresentation` with the service representation instead. Remove the
+  `emoji-id-to-emoji` entrypoint and its `emojiIdToEmoji` utility. Use the existing provider image
+  or sprite representation for Twemoji rendering. Remove the Unicode representation type, renderer,
+  canvas utility, and public `unicode-emoji-image` entrypoint. Remove `renderUnicodeEmojiAsImage`
+  props and the Unicode type guard. Remove the editor Unicode node rendering and the `EMOJI_UNICODE`
+  shared CSS class. Use provider image and sprite representations instead of Unicode
+  representations. Remove the obsolete Unicode rendering props from consumers. Remove the
+  feature-only `getCachedEmojiType` provider API. Use the existing provider lookup methods for cache
+  or catalogue access.
+
+### Minor Changes
+
+- [`0f0ca74ca517a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f0ca74ca517a) -
+  Add the `@atlaskit/editor-common/ai-xstate-migration` (`isAiXstateMigrationEnabled`) and
+  `@atlaskit/editor-common/ai-xstate-migration-no-exposure` (`isAiXstateMigrationEnabledNoExposure`)
+  entrypoints, which enable the AI xstate migration when either the Confluence
+  (`platform_editor_ai_xstate_migration`) or Jira (`platform_editor_ai_xstate_migration_jira`, a
+  platform feature experiment) experiment is on. Use the helper wherever the xstate migration is
+  checked.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 131.6.0
+
+### Minor Changes
+
+- [`d9228c8792b80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9228c8792b80) -
+  Add numbered headings (POC), behind `platform_editor_numbered_headings`.
+
+  Skip heading-structure scans for text replacements contained within a single textblock; continue
+  mapping existing heading decorations as their positions change.
+  - `@atlaskit/editor-plugin-numbered-headings`: numbers every heading as a decimal outline (1, 1.1,
+    1.1.1) with node decorations, only recomputing on structural changes. Keeps shared state
+    internal, adds a toggle to the pinned and inline Text styles menus, and keeps the on/off setting
+    in the plugin for the current editor instance. Only the toggle indicates the enabled state; the
+    menu row stays neutral.
+  - `@atlaskit/editor-common`: add the `@atlaskit/editor-common/numbered-headings` entry point
+    (`getHeadingNumbers`, `HEADING_NUMBER_ATTRIBUTE`), plus numbered headings toolbar keys, ranks,
+    messages and analytics event.
+  - `@atlaskit/editor-core`: render `data-heading-number` as a heading prefix with a trailing full
+    stop (for example, `1.` and `1.1.`) in editor content styles.
+
+- [`e5c0cdf2da961`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5c0cdf2da961) -
+  fg clean up p2m-drop-down-motion
+- [`a940c97e1f9f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a940c97e1f9f3) -
+  Improve Smart Link AI action loading and resolution behind platform_editor_fix_link_toolbar_shift.
+
+  Keep explicit Smart Link actions active across toolbar closure and harmless provider updates.
+
+  Add an optional host preparation callback so the Smart Link toolbar can keep its spinner while
+  summary popup code loads, then open the prepared popup.
+
+  Opt Smart Link summary popup streams into transport error handling for the experiment treatment so
+  failed requests and empty responses reach the panel error state.
+
+  Disable Smart Link AI actions for unsupported resolver responses and use link-specific error
+  tooltip copy. Keep transient failures retryable.
+
+  Remember resolution failures for the current resolver session. A reopened toolbar starts its AI
+  actions disabled after transient failures until background resolution succeeds.
+
+  Delay background link preloading for ten seconds, then schedule it on idle. Hide AI actions from
+  initial render for links already known to be inaccessible or unsupported, keeping their visibility
+  stable until the toolbar reopens.
+
+### Patch Changes
+
+- [`b49a53d3c425a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b49a53d3c425a) -
+  EDITOR-8579 Remove extension layout controls and size extensions with the breakout mark. Legacy
+  wide and full-width layouts are translated to breakout widths, and the layout attr is kept for
+  rollback (behind experiment platform_editor_lovability_resize_extensions)
+- [`3903e9737c5a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3903e9737c5a9) -
+  Behind the platform_editor_resolve_missing_document_request gate, notify document-request callers
+  with undefined when the editor view is unavailable, allowing async requests to settle.
+- Updated dependencies
+
+## 131.5.0
+
+### Minor Changes
+
+- [`ae36fe5fd60ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae36fe5fd60ff) -
+  Expose a lightweight emoji fallback helper and reuse it in editor and renderer emoji components.
+  Preserve the behavior of platform_editor_custom_emoji_unicode_fallback without importing provider
+  or rendering code into consumers of the helper. Also expose lightweight mention-avatar eligibility
+  so consumers can preserve the existing hover-card and avatar experiment cohorts without importing
+  mention components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 131.4.0
 
 ### Minor Changes

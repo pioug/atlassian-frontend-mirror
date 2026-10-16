@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 9.9.20
+
+### Patch Changes
+
+- [`a46dc2d6dcf91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a46dc2d6dcf91) -
+  Use `rovo_agent_avatar_refresh_teu26` to control the Amplitude v2 avatar alongside the other
+  refreshed agent avatars.
+- Updated dependencies
+
 ## 9.9.19
 
 ### Patch Changes

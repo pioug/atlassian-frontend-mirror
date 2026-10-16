@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import { useIntl } from 'react-intl';
 
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
@@ -107,9 +106,6 @@ const EmojiPickerEmojiRow = ({
 	const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
 	const rowIndex = virtualItemContext?.index || 0;
 	const { formatMessage } = useIntl();
-	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
-		? 24
-		: undefined;
 	const preventFocusOnMouseDown = isTeamoji26RefreshEmojiPickerEnabledNoExposure();
 	const handleFocus: (index: number) => OnEmojiEvent<HTMLSpanElement> =
 		(index) => (emojiId, emoji, event) => {
@@ -142,7 +138,6 @@ const EmojiPickerEmojiRow = ({
 							tabIndex={focus ? 0 : -1}
 							aria-roledescription={formatMessage(messages.emojiButtonRoleDescription)}
 							shouldBeInteractive
-							fitToHeight={fitToHeight}
 							preventFocusOnMouseDown={preventFocusOnMouseDown}
 						/>
 					</li>

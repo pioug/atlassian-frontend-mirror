@@ -34,7 +34,7 @@ export const useCloseManager = ({
 		}
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
-			if (shouldIgnoreCloseEvent?.(event) && fg('cc_blocks_changeboarding')) {
+			if (shouldIgnoreCloseEvent?.(event)) {
 				return;
 			}
 

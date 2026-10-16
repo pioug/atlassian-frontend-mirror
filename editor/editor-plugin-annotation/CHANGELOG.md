@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-annotation
 
+## 28.0.0
+
+### Minor Changes
+
+- [`ebf585edb7bcc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebf585edb7bcc) -
+  Support starting an annotation draft on a block node, behind
+  `platform_editor_comments_api_manager`.
+  - The `startDraft` manager hook accepts an optional `localId`. It resolves the target through
+    `resolveAnnotatableTargetFromLocalId`, selects the node ProseMirror can select (a `media` node's
+    `mediaSingle` parent), starts a block draft, and reports `targetNodeType` on both the result and
+    the `draftAnnotationStarted` event. An unresolvable `localId` fails with `invalid-localId` and
+    leaves the document untouched.
+  - `clearDraft` now emits `draftAnnotationCleared`.
+  - The annotation plugin's shared state exposes `annotationManager`, so other plugins (media) can
+    drive the manager without the provider being threaded through them.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.6
+
+### Patch Changes
+
+- [`38bcbb3966a67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38bcbb3966a67) -
+  Prevent Remix Edit from opening inline comments when it collapses the chart selection. Explicit
+  comment actions remain supported with cc_maui_annotations_on_extensions enabled; rollback behavior
+  is unchanged.
+
 ## 27.0.5
 
 ### Patch Changes

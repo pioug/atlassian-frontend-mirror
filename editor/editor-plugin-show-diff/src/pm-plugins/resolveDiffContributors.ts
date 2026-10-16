@@ -33,15 +33,18 @@ const SHOW_DIFF_AGENT_BRANDS: Readonly<Partial<Record<AgentBrandColorScheme, Dif
 	'agent-brand-gemini': 'gemini',
 	'agent-brand-manus': 'manus',
 	'agent-brand-slack': 'slack',
+	'agent-brand-antigravity': 'antigravity',
+	'agent-brand-copilot': 'copilot',
 };
 
 /**
  * Brands that prefer the account's real avatar over their fixed glyph when the invoking profile
  * has one. Brands with a fixed glyph (Claude, ChatGPT, Amplitude, Cortex, Databricks, Gemini, Manus,
- * Slack) intentionally keep it always (see `AGENT_KIND_ICONS` in
- * `contributorAvatarRenderer.ts`).
+ * Slack) intentionally keep it always (see `AGENT_KIND_ICONS` in `contributorAvatarRenderer.ts`).
  */
 const AVATAR_ELIGIBLE_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
+	'antigravity',
+	'copilot',
 	'figma',
 	'lovable',
 	'replit',
@@ -56,7 +59,6 @@ const EXTERNAL_AGENT_NAMES: Readonly<Record<string, string>> = {
 	runlayer: 'Runlayer',
 	zed: 'Zed',
 	ampcode: 'Ampcode',
-	antigravity: 'Antigravity',
 	devin_cli: 'Devin CLI',
 	pi_agent: 'Pi Agent',
 };

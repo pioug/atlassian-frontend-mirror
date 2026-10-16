@@ -100,11 +100,7 @@ export const SelectionExtensionNestedDropdownMenu = ({
 			shouldTitleWrap={false}
 			tooltipContent={nestedDropdownMenu.label}
 			data-extension-item-key={nestedDropdownMenu.key}
-			shouldIgnoreCloseEvent={
-				fg('cc_blocks_changeboarding')
-					? shouldIgnoreBlockMenuTemplatesSpotlightCloseEvent
-					: undefined
-			}
+			shouldIgnoreCloseEvent={shouldIgnoreBlockMenuTemplatesSpotlightCloseEvent}
 		>
 			<ChildItems nestedDropdownMenu={nestedDropdownMenu} />
 		</ToolbarNestedDropdownMenu>

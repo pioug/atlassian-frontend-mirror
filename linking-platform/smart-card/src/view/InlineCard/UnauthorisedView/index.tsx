@@ -10,6 +10,8 @@ import { di } from 'react-magnetic-di';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -56,6 +58,9 @@ const fallbackUnauthorizedIcon = () => {
  */
 const SOCIAL_PROOF_TEAM_PREVIEW_THRESHOLD = 30;
 const SOCIAL_PROOF_TRAIT_NAME = 'sl_3p_connected_providers_site_pct';
+
+// useSyncExternalStore provides hydration snapshots without live cache updates.
+const noopSubscribe = () => () => {};
 
 const socialProofPillStyles = cssMap({
 	strong: {
@@ -111,6 +116,30 @@ const socialProofPillStyles = cssMap({
 	},
 });
 
+const ConnectButtonLabel = ({
+	context,
+	isUpdateCtaEnabled,
+	showSocialProofPill,
+}: {
+	context?: string;
+	isUpdateCtaEnabled: boolean;
+	showSocialProofPill: boolean;
+}): JSX.Element => {
+	if (isUpdateCtaEnabled) {
+		return showSocialProofPill || !context?.trim() ? (
+			<FormattedMessage {...messages.connect_inline_to_update} />
+		) : (
+			<FormattedMessage {...messages.connect_inline_provider_to_update} values={{ context }} />
+		);
+	}
+
+	return showSocialProofPill ? (
+		<FormattedMessage {...messages.connect_inline_social_proof} />
+	) : (
+		<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
+	);
+};
+
 /**
  * Renders the social-proof pill and Connect button using persisted percentages only ({@link getCachedProviderPctMapAndRefresh}) — no
  * loading skeleton; either the cached percentage is shown or the legacy long connect label is used.
@@ -119,16 +148,24 @@ const socialProofPillStyles = cssMap({
 const UnauthorisedConnectWithSocialProof = ({
 	context,
 	extensionKey,
+	isUpdateCtaEnabled,
 	testId,
 	onConnectClick,
 }: {
 	context?: string;
 	extensionKey?: string;
+	isUpdateCtaEnabled: boolean;
 	onConnectClick: React.MouseEventHandler<HTMLElement>;
 	testId: string;
 }): JSX.Element => {
 	di(getCachedProviderPctMapAndRefresh);
-	const providerPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
+	const cachedProviderPctMap = getCachedProviderPctMapAndRefresh(SOCIAL_PROOF_TRAIT_NAME);
+	const canUseCachedProviderPctMap = React.useSyncExternalStore(
+		noopSubscribe,
+		() => true,
+		() => !fg('platform_sl_inline_social_proof_hydration_fix'),
+	);
+	const providerPctMap = canUseCachedProviderPctMap ? cachedProviderPctMap : null;
 
 	// Will be false if this is the first render, when we fetch traits and store to local storage,
 	// or if there wasn't our trait for it.
@@ -198,11 +235,11 @@ const UnauthorisedConnectWithSocialProof = ({
 				testId="button-connect-account"
 				isSlimDesign={showSocialProofPill}
 			>
-				{showSocialProofPill ? (
-					<FormattedMessage {...messages.connect_inline_social_proof} />
-				) : (
-					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-				)}
+				<ConnectButtonLabel
+					context={context}
+					isUpdateCtaEnabled={isUpdateCtaEnabled}
+					showSocialProofPill={showSocialProofPill}
+				/>
 			</ActionButton>
 		</React.Fragment>
 	);
@@ -237,6 +274,10 @@ export const InlineCardUnauthorizedView = ({
 }: InlineCardUnauthorizedViewProps): JSX.Element => {
 	const frameRef = React.useRef<HTMLSpanElement & null>(null);
 	const { fireEvent } = useAnalyticsEvents();
+	const isUpdateCtaEnabled =
+		Boolean(onAuthorise) &&
+		fg('platform_sl_3p_preauth_update_cta_fg') &&
+		isExperimentEnabled('platform_sl_3p_preauth_update_cta_exp');
 
 	const handleConnectAccount = React.useCallback(
 		(event: React.MouseEvent<HTMLElement>) => {
@@ -269,6 +310,7 @@ export const InlineCardUnauthorizedView = ({
 				<UnauthorisedConnectWithSocialProof
 					context={context}
 					extensionKey={extensionKey}
+					isUpdateCtaEnabled={isUpdateCtaEnabled}
 					testId={testId}
 					onConnectClick={handleConnectAccount}
 				/>

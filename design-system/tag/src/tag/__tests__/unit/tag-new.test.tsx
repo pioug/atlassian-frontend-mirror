@@ -134,9 +134,25 @@ describe('TagNew component (UI uplift)', () => {
 
 	describe('removable behavior', () => {
 		it('should render with remove button by default', () => {
-			render(<TagNew text="Removable Tag" removeButtonLabel="Remove" testId={testId} />);
+			render(<TagNew text="Removable Tag" testId={testId} />);
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
 			expect(screen.getByTestId(`close-button-${testId}`)).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Remove Removable Tag' })).toBeInTheDocument();
+		});
+
+		it.each(['Remove', 'Remove tag #', 'Supprimer'])(
+			'should append the tag text to the custom remove button label: %s',
+			(removeButtonLabel) => {
+				render(<TagNew text="Apple" removeButtonLabel={removeButtonLabel} />);
+				expect(
+					screen.getByRole('button', { name: `${removeButtonLabel} Apple` }),
+				).toBeInTheDocument();
+			},
+		);
+
+		it('should use the default remove button label when the custom label is empty', () => {
+			render(<TagNew text="Apple" removeButtonLabel="" />);
+			expect(screen.getByRole('button', { name: 'Remove Apple' })).toBeInTheDocument();
 		});
 
 		it('should not render remove button when isRemovable is false', () => {

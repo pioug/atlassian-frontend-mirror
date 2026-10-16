@@ -1787,6 +1787,17 @@ test('should call onChange with an array on hitting backspace when backspaceRemo
 	});
 });
 
+test('multi select > remove buttons identify each selected option without repeating its label', () => {
+	const options = [
+		{ label: 'Apple', value: 'apple' },
+		{ label: 'Orange', value: 'orange' },
+	];
+	render(<Select {...BASIC_PROPS} isMulti options={options} value={options} />);
+
+	expect(screen.getByRole('button', { name: 'Remove Apple' })).toBeInTheDocument();
+	expect(screen.getByRole('button', { name: 'Remove Orange' })).toBeInTheDocument();
+});
+
 test('multi select > clicking on X next to option will call onChange with all options other that the clicked option', async () => {
 	let onChangeSpy = jest.fn();
 	render(
@@ -1799,8 +1810,7 @@ test('multi select > clicking on X next to option will call onChange with all op
 	);
 	const user = userEvent.setup();
 
-	// Click the remove button for the '4' tag (aria-label: removeButtonLabel + text = "4, remove 4")
-	const removeButton = screen.getByRole('button', { name: '4, remove 4' });
+	const removeButton = screen.getByRole('button', { name: 'Remove 4' });
 	const input = screen.getByRole('combobox');
 	input.focus();
 	await user.click(removeButton);

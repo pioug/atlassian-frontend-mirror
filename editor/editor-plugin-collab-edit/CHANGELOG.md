@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 29.0.0
+
+### Patch Changes
+
+- [`0f0ca74ca517a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f0ca74ca517a) -
+  Add the `@atlaskit/editor-common/ai-xstate-migration` (`isAiXstateMigrationEnabled`) and
+  `@atlaskit/editor-common/ai-xstate-migration-no-exposure` (`isAiXstateMigrationEnabledNoExposure`)
+  entrypoints, which enable the AI xstate migration when either the Confluence
+  (`platform_editor_ai_xstate_migration`) or Jira (`platform_editor_ai_xstate_migration_jira`, a
+  platform feature experiment) experiment is on. Use the helper wherever the xstate migration is
+  checked.
+- Updated dependencies
+
 ## 28.0.5
 
 ### Patch Changes

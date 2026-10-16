@@ -236,7 +236,6 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 				<Tag
 					text={labelText}
 					isRemovable={!isDisabled}
-					removeButtonLabel={`${labelText}, remove`}
 					onBeforeRemoveAction={() => {
 						removeProps.onClick?.({} as MouseEvent<HTMLDivElement>);
 						return false;

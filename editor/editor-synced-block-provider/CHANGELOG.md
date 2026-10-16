@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 24.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.1.1
+
+### Patch Changes
+
+- [`b68ccfbea3aeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b68ccfbea3aeb) -
+  Generate synced-block reference IDs through the fetch provider under
+  platform_editor_blocks_patch_12, allowing fetch-only renderers to check same-document references
+  without a write provider.
+- Updated dependencies
+
 ## 23.1.0
 
 ### Minor Changes

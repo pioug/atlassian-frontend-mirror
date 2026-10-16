@@ -96,18 +96,6 @@ export interface EmojiProvider extends Provider<
 	getAsciiMap(): Promise<Map<string, EmojiDescription>>;
 
 	/**
-	 * Synchronously reads the emoji type (e.g. 'STANDARD', 'SITE', 'ATLASSIAN') from the
-	 * local cache for the given emojiId, without making any network requests.
-	 *
-	 * Returns `undefined` when the emoji is not yet in the cache or no repository has been
-	 * initialised. This is an optional method — callers must fall back gracefully when it is
-	 * absent (e.g. in mock or legacy providers).
-	 *
-	 * Optional.
-	 */
-	getCachedEmojiType?(emojiId: EmojiId): string | undefined;
-
-	/**
 	 * Returns the logged user passed by the Product
 	 */
 	getCurrentUser(): OptionalUser;
@@ -277,15 +265,10 @@ export interface MediaApiRepresentation extends EmojiImageRepresentation {
 	mediaPath: string;
 }
 
-export interface UnicodeRepresentation {
-	unicodeEmoji: string;
-}
-
 export type EmojiRepresentation =
 	| SpriteRepresentation
 	| ImageRepresentation
 	| MediaApiRepresentation
-	| UnicodeRepresentation
 	| undefined;
 
 export interface EmojiDescription extends EmojiId {

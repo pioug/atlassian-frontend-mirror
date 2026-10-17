@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 240.0.3
+
+### Patch Changes
+
+- [`c4c24614b8b3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4c24614b8b3b) -
+  Cleanup `experiment` `company_hub_carousel_thumbnails-refactor`. The experiment has been removed
+  from the experiments config.
+
 ## 240.0.2
 
 ### Patch Changes

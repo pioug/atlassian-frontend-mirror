@@ -113,6 +113,20 @@ describe('<ModalHeader />', () => {
 			expect(closeButton).toBeInTheDocument();
 		});
 
+		it('should use the provided close button label', () => {
+			const closeButtonLabel = 'Dismiss dialog';
+
+			render(
+				<ModalDialog testId={testId} onClose={noop}>
+					<ModalHeader hasCloseButton closeButtonLabel={closeButtonLabel}>
+						<ModalTitle appearance="danger">Title</ModalTitle>
+					</ModalHeader>
+				</ModalDialog>,
+			);
+
+			expect(screen.getByRole('button', { name: closeButtonLabel })).toBeInTheDocument();
+		});
+
 		it('should not show a close button if `hasCloseButton` is true and `onClose` is not provided', () => {
 			render(
 				<ModalDialog testId={testId}>

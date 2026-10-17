@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
@@ -338,50 +338,104 @@ const ExtensionWithAnnotations = (props: React.PropsWithChildren<Props & Overflo
 		[props.extensionNode, isBlockNodeSupported],
 	);
 	const canCreateCommentOnBlockNode = providers?.inlineComment?.canCreateCommentOnBlockNode;
-	const isCommentTarget = useMemo(
+	const isFullPageRenderer =
+		props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width';
+	// The creation policy may fire an experiment exposure. In the full-page renderer it is only
+	// checked once the user hovers or focuses the extension, where the comment target appears.
+	// Other renderers have no hover entry point, so they keep checking during render. Saved
+	// threads stay viewable through `supportsComments`.
+	// Only an allowed result is stored. A rejection is not cached because it can be temporary (for
+	// example before Statsig initializes), so the check runs again on the next hover or focus.
+	const [allowedCommentNode, setAllowedCommentNode] = useState<PMNode>();
+	const canCreateDuringRender = useMemo(
 		() =>
+			!isFullPageRenderer &&
 			Boolean(
 				supportsComments &&
 				props.extensionNode &&
-				(!canCreateCommentOnBlockNode || canCreateCommentOnBlockNode(props.extensionNode)),
+				canCreateCommentOnBlockNode?.(props.extensionNode),
 			),
+		[isFullPageRenderer, supportsComments, props.extensionNode, canCreateCommentOnBlockNode],
+	);
+	const isCommentTarget = Boolean(
+		supportsComments &&
+		props.extensionNode &&
+		(!canCreateCommentOnBlockNode ||
+			canCreateDuringRender ||
+			allowedCommentNode === props.extensionNode),
+	);
+	const isCommentTargetRef = useRef(isCommentTarget);
+	isCommentTargetRef.current = isCommentTarget;
+	const resolveCommentTarget = useCallback(
+		(target: HTMLElement): boolean => {
+			if (isCommentTargetRef.current) {
+				return true;
+			}
+			const node = props.extensionNode;
+			if (
+				!supportsComments ||
+				!node ||
+				!canCreateCommentOnBlockNode ||
+				!canCreateCommentOnBlockNode(node)
+			) {
+				return false;
+			}
+			// The hover target is matched against this attribute before React re-renders, so set it
+			// now; the batched render below writes the same value.
+			target.dataset.inlineCommentsTarget = 'true';
+			isCommentTargetRef.current = true;
+			setAllowedCommentNode(node);
+			return true;
+		},
 		[supportsComments, props.extensionNode, canCreateCommentOnBlockNode],
 	);
-	const isFullPageRenderer =
-		props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width';
 	const onMouseEnter = useCallback<React.MouseEventHandler<HTMLDivElement>>(
 		(event) => {
+			if (!resolveCommentTarget(event.currentTarget)) {
+				return;
+			}
 			cancelTimeout();
 			if (event.buttons === 0) {
 				setHoverTarget?.(event.currentTarget);
 				setIsWithinRange(true);
 			}
 		},
-		[cancelTimeout, setHoverTarget, setIsWithinRange],
+		[cancelTimeout, resolveCommentTarget, setHoverTarget, setIsWithinRange],
 	);
-	const onMouseLeave = useCallback(() => initiateTimeout(), [initiateTimeout]);
+	const onMouseLeave = useCallback(() => {
+		if (isCommentTargetRef.current) {
+			initiateTimeout();
+		}
+	}, [initiateTimeout]);
 	const onFocus = useCallback<React.FocusEventHandler<HTMLDivElement>>(
 		(event) => {
 			if (event.currentTarget.contains(event.relatedTarget as Node | null)) {
+				return;
+			}
+			if (!resolveCommentTarget(event.currentTarget)) {
 				return;
 			}
 			cancelTimeout();
 			setHoverTarget?.(event.currentTarget);
 			setIsWithinRange(true);
 		},
-		[cancelTimeout, setHoverTarget, setIsWithinRange],
+		[cancelTimeout, resolveCommentTarget, setHoverTarget, setIsWithinRange],
 	);
 	const onBlur = useCallback<React.FocusEventHandler<HTMLDivElement>>(
 		(event) => {
-			if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+			if (
+				isCommentTargetRef.current &&
+				!event.currentTarget.contains(event.relatedTarget as Node | null)
+			) {
 				initiateTimeout();
 			}
 		},
 		[initiateTimeout],
 	);
+	// Listen whenever comments are supported, so the first hover or focus can check creation.
 	const commentTargetOptions =
-		isCommentTarget && isFullPageRenderer
-			? { isCommentTarget: true, onBlur, onFocus, onMouseEnter, onMouseLeave }
+		supportsComments && isFullPageRenderer
+			? { isCommentTarget, onBlur, onFocus, onMouseEnter, onMouseLeave }
 			: { isCommentTarget };
 	const commentProps = {
 		enabled: supportsComments,

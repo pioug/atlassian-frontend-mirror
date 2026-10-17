@@ -6,6 +6,7 @@ import {
 	RESOLVE_METHOD,
 	type VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { NATIVE_EMBED_EXTENSION_KEY } from '@atlaskit/editor-common/extensions/manifest-helpers';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -14,6 +15,7 @@ import {
 	NodeSelection,
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { createCommand } from '../pm-plugins/plugin-factory';
@@ -31,6 +33,7 @@ import {
 } from '../pm-plugins/utils';
 import { AnnotationSelectionType } from '../types';
 import type {
+	AnnotationProviders,
 	InlineCommentAnnotationProvider,
 	InlineCommentInputMethod,
 	TargetType,
@@ -346,6 +349,7 @@ export const setInlineCommentDraftState =
 		supportedBlockNodes: string[] = [],
 		api?: ExtractInjectionAPI<AnnotationPlugin>,
 		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+		createCommentExperience?: AnnotationProviders['createCommentExperience'],
 	) =>
 	(
 		drafting: boolean,
@@ -362,14 +366,47 @@ export const setInlineCommentDraftState =
 			isBlockNodeSupported,
 			isOpeningMediaCommentFromToolbar,
 		);
+		const draftCommand = !api?.toolbar
+			? createCommand(
+					commandAction,
+					transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod),
+				)
+			: undefined;
 
-		if (Boolean(api?.toolbar)) {
-			return (state, dispatch) => {
+		return (state, dispatch, view) => {
+			// Start tracking only when a valid draft is dispatched, never during dry runs.
+			const dispatchDraft =
+				dispatch &&
+				drafting &&
+				targetType === 'block' &&
+				state.selection instanceof NodeSelection &&
+				state.selection.node.type.name === 'extension' &&
+				state.selection.node.attrs.extensionKey === `${NATIVE_EMBED_EXTENSION_KEY}:maui` &&
+				fg('cc_maui_annotations_on_extensions')
+					? (tr: Transaction) => {
+							createCommentExperience?.start({
+								attributes: {
+									pageClass: 'editor',
+									commentType: 'block',
+									blockType: 'extension',
+									commentTargetType: 'remixEmbed',
+									entryPoint: 'highlightActions',
+								},
+							});
+							createCommentExperience?.initExperience.start();
+							dispatch(tr);
+						}
+					: dispatch;
+
+			if (Boolean(api?.toolbar)) {
+				const newPluginState = commandAction(state);
+				if (!newPluginState) {
+					return false;
+				}
 				const tr = transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod)(
 					state.tr,
 					state,
 				);
-				const newPluginState = commandAction(state);
 
 				if (tr && newPluginState) {
 					tr.setMeta(inlineCommentPluginKey, newPluginState);
@@ -380,20 +417,16 @@ export const setInlineCommentDraftState =
 						resetUserIntent(api, tr);
 					}
 
-					if (dispatch) {
-						dispatch(tr);
+					if (dispatchDraft) {
+						dispatchDraft(tr);
 					}
 				} else {
 					return false;
 				}
 				return true;
-			};
-		} else {
-			return createCommand(
-				commandAction,
-				transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod),
-			);
-		}
+			}
+			return draftCommand ? draftCommand(state, dispatchDraft, view) : false;
+		};
 	};
 
 export const addInlineComment =

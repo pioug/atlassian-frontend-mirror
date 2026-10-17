@@ -152,6 +152,104 @@ describe('Extension comment hover targeting', () => {
 			expect(screen.getByText('idle')).toBeInTheDocument();
 		},
 	);
+	describe('creation policy timing in a full-page renderer', () => {
+		// The policy can fire an experiment exposure, so it must run where the comment target
+		// appears (hover or focus), not for every chart that renders.
+		const renderChart = (canCreateCommentOnBlockNode: jest.Mock) => {
+			passGate('cc_maui_annotations_on_extensions');
+			getSchemaBasedOnStage.clear();
+			const schema = getSchemaBasedOnStage('stage0');
+			const doc = schema.nodeFromJSON({ type: 'doc', content: [extension] });
+			const serializer = new ReactSerializer({
+				appearance: 'full-page',
+				objectContext: { adDoc: doc.toJSON() },
+				extensionHandlers: { test: () => <button>Chart interaction</button> },
+			});
+			const HoverState = () => {
+				const { range } = useAnnotationRangeState();
+				return <span>{range ? 'creating' : 'idle'}</span>;
+			};
+			render(
+				<ProvidersContext.Provider
+					value={{
+						inlineComment: {
+							getState: async () => [],
+							isBlockNodeSupported: () => true,
+							canCreateCommentOnBlockNode,
+						},
+					}}
+				>
+					<AnnotationRangeProvider hasBlockNodeSupport>
+						<AnnotationHoverContext>
+							{serializer.serializeFragment(doc.content)}
+							<HoverState />
+						</AnnotationHoverContext>
+					</AnnotationRangeProvider>
+				</ProvidersContext.Provider>,
+			);
+			return screen.getByTestId('extension--wrapper');
+		};
+
+		it('does not check creation while rendering', () => {
+			const canCreateCommentOnBlockNode = jest.fn(() => true);
+			const wrapper = renderChart(canCreateCommentOnBlockNode);
+
+			expect(canCreateCommentOnBlockNode).not.toHaveBeenCalled();
+			expect(wrapper).not.toHaveAttribute('data-inline-comments-target');
+		});
+
+		it.each(['mouse hover', 'keyboard focus'] as const)(
+			'checks creation once on the first %s and starts hover creation when allowed',
+			(interaction) => {
+				const canCreateCommentOnBlockNode = jest.fn(() => true);
+				const wrapper = renderChart(canCreateCommentOnBlockNode);
+				const interact = () =>
+					interaction === 'mouse hover'
+						? fireEvent.mouseEnter(wrapper, { buttons: 0 })
+						: fireEvent.focus(screen.getByRole('button', { name: 'Chart interaction' }));
+
+				interact();
+
+				expect(canCreateCommentOnBlockNode).toHaveBeenCalledTimes(1);
+				expect(wrapper).toHaveAttribute('data-inline-comments-target', 'true');
+				expect(screen.getByText('creating')).toBeInTheDocument();
+
+				fireEvent.mouseLeave(wrapper);
+				interact();
+				expect(canCreateCommentOnBlockNode).toHaveBeenCalledTimes(1);
+			},
+		);
+
+		it('does not start hover creation on a rejected chart', () => {
+			const canCreateCommentOnBlockNode = jest.fn(() => false);
+			const wrapper = renderChart(canCreateCommentOnBlockNode);
+
+			fireEvent.mouseEnter(wrapper, { buttons: 0 });
+
+			expect(canCreateCommentOnBlockNode).toHaveBeenCalledTimes(1);
+			expect(wrapper).not.toHaveAttribute('data-inline-comments-target');
+			expect(screen.getByText('idle')).toBeInTheDocument();
+		});
+
+		it('re-checks a rejected chart on the next hover, so a temporary rejection does not stick', () => {
+			// For example, the experiment reads as disabled before Statsig initializes.
+			const canCreateCommentOnBlockNode = jest
+				.fn()
+				.mockReturnValueOnce(false)
+				.mockReturnValue(true);
+			const wrapper = renderChart(canCreateCommentOnBlockNode);
+
+			fireEvent.mouseEnter(wrapper, { buttons: 0 });
+			expect(screen.getByText('idle')).toBeInTheDocument();
+			fireEvent.mouseLeave(wrapper);
+			fireEvent.mouseEnter(wrapper, { buttons: 0 });
+
+			expect(canCreateCommentOnBlockNode).toHaveBeenCalledTimes(2);
+			expect(wrapper).toHaveAttribute('data-inline-comments-target', 'true');
+			expect(screen.getByText('creating')).toBeInTheDocument();
+		});
+	});
+
 	describe.each([
 		{ name: 'first chart', content: [extension], position: 0, targetIndex: 0 },
 		{

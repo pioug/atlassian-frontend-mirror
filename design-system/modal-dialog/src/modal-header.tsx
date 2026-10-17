@@ -44,6 +44,11 @@ export interface ModalHeaderProps {
 	hasCloseButton?: boolean;
 
 	/**
+	 * The accessible name for the close button when `hasCloseButton` is true.
+	 */
+	closeButtonLabel?: string;
+
+	/**
 	 * A `testId` prop is provided for specified elements,
 	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
 	 * serving as a hook for automated tests.
@@ -61,7 +66,7 @@ export interface ModalHeaderProps {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalHeader = (props: ModalHeaderProps): JSX.Element => {
-	const { children, testId: userDefinedTestId, hasCloseButton = false } = props;
+	const { children, testId: userDefinedTestId, hasCloseButton = false, closeButtonLabel } = props;
 	const { hasProvidedOnClose, onClose, testId: modalTestId } = useModal();
 
 	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--header`);
@@ -78,7 +83,7 @@ const ModalHeader = (props: ModalHeaderProps): JSX.Element => {
 				// button, since it's the first interactive element.
 				<Flex gap="space.200" justifyContent="space-between" xcss={styles.flex}>
 					<Flex justifyContent="end">
-						<CloseButton onClick={onClose} testId={modalTestId} />
+						<CloseButton label={closeButtonLabel} onClick={onClose} testId={modalTestId} />
 					</Flex>
 					<Flex justifyContent="start" alignItems="center" xcss={styles.titleContainer}>
 						{children}

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 26.0.1
+
+### Patch Changes
+
+- [`00d7be6e38362`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00d7be6e38362) -
+  Render a whole-cell table replacement inside the live cell behind
+  `platform_editor_ai_show_diff_patch_2`, showing the new cell background when it changed, and hide
+  only the cell's content rather than the cell when deleted diffs are hidden, so the table keeps its
+  shape. Neither the diff nor the suggestion hover highlight overrides a cell's own background any
+  more, so removing them leaves it in place.
+
 ## 26.0.0
 
 ### Patch Changes

@@ -93,6 +93,10 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			isBlockNodeSupported: (node) =>
 				fg('cc_maui_annotations_on_extensions') &&
 				annotationProviders?.inlineComment.isBlockNodeSupported?.(node) === true,
+			getAddCommentPermission: () => ({
+				canAddComments: annotationProviders?.inlineComment.getCanAddComments?.() ?? true,
+				contentType: annotationProviders?.inlineComment.contentType,
+			}),
 			hasAnyUnResolvedAnnotationInPage,
 			requestCloseInlineComment,
 			stripNonExistingAnnotations,
@@ -114,6 +118,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 				annotationProviders?.inlineComment.supportedBlockNodes,
 				undefined,
 				annotationProviders?.inlineComment.isBlockNodeSupported,
+				annotationProviders?.createCommentExperience,
 			),
 			showCommentForBlockNode: showInlineCommentForBlockNode(
 				annotationProviders?.inlineComment.supportedBlockNodes,

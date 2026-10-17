@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "30.0.0",
+	"version": "30.0.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"platform_media_video_captions": {
-			"type": "boolean"
-		},
-		"confluence_fe_create_inline_comment_exp_coverage_2": {
 			"type": "boolean"
 		},
 		"aifc_page_create_defer_generated_visuals": {

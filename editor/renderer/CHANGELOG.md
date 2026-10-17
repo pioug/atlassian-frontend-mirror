@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 151.0.1
+
+### Patch Changes
+
+- [`0dacb94545d03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dacb94545d03) -
+  Behind cc_maui_annotations_on_extensions: fire the cc_maui_comments_on_charts_exp exposure only
+  where the chart Comment button can show. Adds an optional viewModeEditorToolbarItems UiConfig
+  hook, used by MAUI charts to show Comment in the view-mode toolbar (live pages), and a
+  getAddCommentPermission annotation plugin action, used to disable the chart Comment button without
+  comment permission. The full-page renderer checks extension comment creation on first hover or
+  focus instead of while rendering.
+
 ## 151.0.0
 
 ### Minor Changes

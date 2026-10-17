@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 30.0.1
+
+### Patch Changes
+
+- [`021563d868a03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/021563d868a03) -
+  Remove the `confluence_fe_create_inline_comment_exp_coverage_2` feature gate and always start
+  inline-comment experience tracking when creating a comment from the media toolbar.
+
 ## 30.0.0
 
 ### Patch Changes

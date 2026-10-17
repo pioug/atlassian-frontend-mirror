@@ -56,17 +56,15 @@ export const commentButton = (
 					isOpeningMediaCommentFromToolbar,
 				)(state, dispatch)
 			) {
-				if (fg('confluence_fe_create_inline_comment_exp_coverage_2')) {
-					createCommentExperience?.start({
-						attributes: {
-							pageClass: 'editor',
-							commentType: 'block',
-							blockType: 'media',
-							entryPoint: 'highlightActionsSimple',
-						},
-					});
-					createCommentExperience?.initExperience.start();
-				}
+				createCommentExperience?.start({
+					attributes: {
+						pageClass: 'editor',
+						commentType: 'block',
+						blockType: 'media',
+						entryPoint: 'highlightActionsSimple',
+					},
+				});
+				createCommentExperience?.initExperience.start();
 
 				setInlineCommentDraftState(
 					true,

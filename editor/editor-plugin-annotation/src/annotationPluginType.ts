@@ -58,6 +58,12 @@ export type AnnotationPlugin = NextEditorPlugin<
 			 * @returns A command that returns true when the draft is applied.
 			 */
 			applyInlineCommentDraft: (annotationId: string) => Command;
+			/**
+			 * Whether the current user can add comments, from the provider's
+			 * `getCanAddComments` (defaults to true), and the provider's content type
+			 * for the no-permission message.
+			 */
+			getAddCommentPermission: () => { canAddComments: boolean; contentType?: string };
 			hasAnyUnResolvedAnnotationInPage: (state: EditorState) => boolean;
 			/** Whether the configured provider supports block comments on this node. */
 			isBlockNodeSupported: (node: Node) => boolean;

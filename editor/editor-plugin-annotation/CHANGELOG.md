@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-annotation
 
+## 28.1.0
+
+### Minor Changes
+
+- [`0dacb94545d03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dacb94545d03) -
+  Behind cc_maui_annotations_on_extensions: fire the cc_maui_comments_on_charts_exp exposure only
+  where the chart Comment button can show. Adds an optional viewModeEditorToolbarItems UiConfig
+  hook, used by MAUI charts to show Comment in the view-mode toolbar (live pages), and a
+  getAddCommentPermission annotation plugin action, used to disable the chart Comment button without
+  comment permission. The full-page renderer checks extension comment creation on first hover or
+  focus instead of while rendering.
+- [`98f39b65e08a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98f39b65e08a9) -
+  Track new Remix inline comment drafts through the configured creation experience under
+  cc_maui_annotations_on_extensions.
+
 ## 28.0.0
 
 ### Minor Changes

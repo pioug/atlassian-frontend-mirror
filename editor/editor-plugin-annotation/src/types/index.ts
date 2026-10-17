@@ -166,7 +166,8 @@ export interface AnnotationProviders {
 				  }
 				| {
 						annotationId?: undefined;
-						blockType: 'media';
+						blockType: 'media' | 'extension';
+						commentTargetType?: 'remixEmbed';
 						commentType: 'block';
 						entryPoint?: 'highlightActions';
 						pageClass: 'editor';

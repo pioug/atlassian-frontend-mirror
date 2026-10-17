@@ -1,5 +1,16 @@
 # @atlaskit/modal-dialog
 
+## 17.1.0
+
+### Minor Changes
+
+- [`62c3c0411e84b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62c3c0411e84b) -
+  Cleanup `feature_gate` `platform_dst-a11y_accessible-error-modal`. The accessible modal error
+  experience is now permanent. `ModalTrigger` and `FullScreenModalTrigger` support localized
+  `title`, `errorText`, and `errorCloseText` strings for the default error fallback. `ModalTrigger`
+  also supports a per-trigger `errorFallback`. `ModalHeader` supports a localized close-button
+  label.
+
 ## 17.0.3
 
 ### Patch Changes

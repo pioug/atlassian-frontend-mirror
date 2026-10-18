@@ -103,7 +103,7 @@ describe('GeneratedAvatar', () => {
 		['jira_admin_agent', '18 19 52 52'],
 		['jsm_rovo_service_agent', '18 604 52 52'],
 		['ops_guide_agent', '18 539 52 52'],
-		['content_reviewer_agent', '18 19 52 52'],
+		['content_reviewer_agent', '18 18.375 52 52'],
 	])('renders the Team 26 EU avatar for %s', async (agentNamedId, viewBox) => {
 		passGate('rovo_agent_avatar_refresh_teu26');
 		render(<GeneratedAvatar agentNamedId={agentNamedId} size="medium" />);

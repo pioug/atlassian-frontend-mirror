@@ -12,7 +12,9 @@ import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import '@atlaskit/link-test-helpers/jest';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory } from '../../../utils/fake-factory';

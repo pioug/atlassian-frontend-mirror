@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
 	ACTION_SUBJECT_ID,
@@ -14,6 +14,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils/is-within-preview-panel-iframe';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -31,6 +32,12 @@ export type InlineCardWithAwarenessProps = {
 	isPulseEnabled?: boolean;
 	isSelected?: boolean;
 };
+
+// Module scope so the stored callback's closure chain cannot reach the
+// component scope (getPos, node, view) via V8 context sharing.
+const createRemoveOverlay =
+	(setIsInsertedRef: React.MutableRefObject<((value: boolean) => void) | undefined>) => () =>
+		setIsInsertedRef.current?.(false);
 
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
@@ -80,16 +87,27 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 	}: SmartCardProps & InlineCardWithAwarenessProps): React.JSX.Element => {
 		const [isHovered, setIsHovered] = useState(false);
 		const [isInserted, setIsInserted] = useState(false);
+		const setIsInsertedRef = useRef<((value: boolean) => void) | undefined>(setIsInserted);
+		useEffect(() => {
+			return () => {
+				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+					setIsInsertedRef.current = undefined;
+				}
+			};
+		}, []);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 		const editorAppearance = pluginInjectionApi?.card.sharedState.currentState()?.editorAppearance;
 		const destinationUrl = useSmartLinkDestinationUrl(node.attrs.url);
 
 		const onResolve = useCallback((tr: Transaction, title?: string): void => {
 			const metadata = tr.getMeta(pluginKey);
+			const removeOverlay = isExperimentEnabled('platform_editor_reduce_memory_leaks')
+				? createRemoveOverlay(setIsInsertedRef)
+				: () => setIsInserted(false);
 			if (metadata && metadata.type === 'REGISTER') {
-				registerRemoveOverlay(() => setIsInserted(false), metadata.info)(tr);
+				registerRemoveOverlay(removeOverlay, metadata.info)(tr);
 			} else {
-				registerRemoveOverlay(() => setIsInserted(false))(tr);
+				registerRemoveOverlay(removeOverlay)(tr);
 			}
 
 			if (title) {

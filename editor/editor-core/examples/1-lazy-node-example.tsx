@@ -30,7 +30,8 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 const smartCardClient = new ConfluenceCardClient('stg');
 const EXAMPLE_NAME = 'lazy-node-example';

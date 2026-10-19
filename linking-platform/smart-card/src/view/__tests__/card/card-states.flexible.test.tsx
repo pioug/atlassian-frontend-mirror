@@ -11,7 +11,8 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/inte
 import { APIError } from '@atlaskit/linking-common/api-error';
 import '@atlaskit/link-test-helpers/jest';
 import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
-import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mockByUrl } from '../../../utils/mock-by-url';

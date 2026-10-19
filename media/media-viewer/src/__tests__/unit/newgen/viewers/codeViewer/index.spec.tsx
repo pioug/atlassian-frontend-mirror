@@ -18,10 +18,13 @@ import {
 	expectFunctionToHaveBeenCalledWith,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers/jestHelpers';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
+import { InsetViewerProvider } from '../../../../../insetViewerContext';
 import { MediaViewerError } from '../../../../../MediaViewerError';
+import { MediaFooterBar } from '../../../../../styleWrappers';
+import { CodeViewerFooter } from '../../../../../viewers/codeViewer/CodeViewerFooter';
 import { CodeViewer, type Props } from '../../../../../viewers/codeViewer/index';
 import { msgToText } from '../../../../../viewers/codeViewer/msgToText';
 
@@ -32,8 +35,13 @@ skipAutoA11yFile();
 
 jest.mock('@codemirror/language-data', () => {
 	return {
-		languages: [],
+		languages: [{ name: 'Python', extensions: ['py'], load: () => Promise.resolve([]) }],
 	};
+});
+
+jest.mock('../../../../../viewers/codeViewer/CodeViewerFooter', () => {
+	const original = jest.requireActual('../../../../../viewers/codeViewer/CodeViewerFooter');
+	return { ...original, CodeViewerFooter: jest.fn(original.CodeViewerFooter) };
 });
 
 jest.mock('../../../../../viewers/codeViewer/msgToText', () => ({
@@ -248,6 +256,91 @@ describe('EmailViewer', () => {
 				expect(screen.getByText('some')).toBeInTheDocument();
 			},
 		);
+	});
+
+	describe('Code Viewer Advanced in the inset viewer', () => {
+		const textItem: ProcessedFileState = { ...codeItem, name: 'notes.txt' };
+
+		const renderInsetViewer = (
+			item: ProcessedFileState,
+			{ isInsetViewer = true, withFooter = true } = {},
+		) => {
+			const mediaClient = fakeMediaClient();
+			jest
+				.spyOn(mediaClient.file, 'getFileBinaryURL')
+				.mockResolvedValue('some-base-url/document?client=some-client-id&token=some-token');
+
+			return render(
+				<IntlProvider locale="en">
+					<InsetViewerProvider isInsetViewer={isInsetViewer}>
+						{withFooter && <MediaFooterBar />}
+						<CodeViewer
+							item={item}
+							mediaClient={mediaClient}
+							onSuccess={jest.fn()}
+							onError={jest.fn()}
+							traceContext={{ traceId: 'some-trace-id' }}
+						/>
+					</InsetViewerProvider>
+				</IntlProvider>,
+			);
+		};
+
+		const lastFooterProps = () => asMockFunction(CodeViewerFooter).mock.lastCall?.[0];
+
+		beforeEach(() => {
+			asMockFunction(CodeViewerFooter).mockClear();
+		});
+
+		// Both renderers render the footer, so each case runs with the advanced viewer on and off. Only the
+		// advanced viewer knows the line count.
+		(
+			[
+				{ advancedViewer: 'on', lineCountProps: { lineCount: 1 } },
+				{ advancedViewer: 'off', lineCountProps: {} },
+			] as const
+		).forEach(({ advancedViewer, lineCountProps }) => {
+			ffTest[advancedViewer](
+				'media_advanced_text_viewer',
+				`when the advanced viewer is ${advancedViewer === 'on' ? 'enabled' : 'disabled'}`,
+				() => {
+					it('should not render the footer when the inset viewer is disabled', async () => {
+						renderInsetViewer(codeItem, { isInsetViewer: false });
+
+						await waitFor(() =>
+							expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+						);
+
+						expect(CodeViewerFooter).not.toHaveBeenCalled();
+					});
+
+					it('should render the footer with the language name and the footer element when the inset viewer is enabled', async () => {
+						renderInsetViewer(codeItem);
+
+						await waitFor(() =>
+							expect(lastFooterProps()).toEqual({
+								...lineCountProps,
+								languageName: 'Python',
+								footerElement: expect.any(HTMLElement),
+							}),
+						);
+					});
+
+					it('should render the footer without a language name when the file has no known language', async () => {
+						renderInsetViewer(textItem);
+
+						await waitFor(() => expect(CodeViewerFooter).toHaveBeenCalled());
+						expect(lastFooterProps()?.languageName).toBeUndefined();
+					});
+
+					it('should pass no footer element when the footer is not mounted', async () => {
+						renderInsetViewer(codeItem, { withFooter: false });
+
+						await waitFor(() => expect(lastFooterProps()?.footerElement).toBeNull());
+					});
+				},
+			);
+		});
 	});
 
 	//TODO, test error handling (i.e when email cannot be parsed)

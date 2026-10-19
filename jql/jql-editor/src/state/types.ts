@@ -11,7 +11,8 @@ import { type Subscription } from 'rxjs/Subscription';
 
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { type Jast, type JQLParseError } from '@atlaskit/jql-ast';
+import type { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
+import type { Jast } from '@atlaskit/jql-ast/query';
 import type { TokenSuggestions } from '@atlaskit/jql-autocomplete/base-autocomplete/types';
 import type {
 	JQLRuleContext,

@@ -13,9 +13,8 @@ import React, {
 import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { EmojiPicker } from '@atlaskit/emoji/picker';
-import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
+import EmojiPicker from '@atlaskit/emoji/emoji-picker';
+import type { OnEmojiEvent, PickerSize, EmojiProvider } from '@atlaskit/emoji/types';
 import Heading from '@atlaskit/heading/heading';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import {
@@ -27,7 +26,7 @@ import {
 import { Manager } from '@atlaskit/popper/manager';
 import { Reference } from '@atlaskit/popper/reference';
 import Portal from '@atlaskit/portal/portal';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

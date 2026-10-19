@@ -1,4 +1,4 @@
-import { findNodePosByLocalIds } from '@atlaskit/editor-common/utils';
+import { findNodePosByLocalIds } from '@atlaskit/editor-common/utils/nodes-by-localIds';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 

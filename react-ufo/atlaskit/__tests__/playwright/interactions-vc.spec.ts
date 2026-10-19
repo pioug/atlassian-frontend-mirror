@@ -11,6 +11,7 @@ test.describe('ReactUFO: Interactions VC', () => {
 		examplePage: 'interactions-simple-button';
 		__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 	});
+
 	test('get interactions vc', async ({ page, waitForReactUFOInteractionPayload }) => {
 		const mainDiv = page.locator('[id="app-main"]');
 		await expect(mainDiv).toBeVisible();

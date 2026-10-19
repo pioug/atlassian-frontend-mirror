@@ -11,6 +11,7 @@ import {
 	TEXT_COLLAPSED_MENU_RANK,
 	TEXT_STYLES_MENU_RANK,
 } from '@atlaskit/editor-common/toolbar/rank';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
 

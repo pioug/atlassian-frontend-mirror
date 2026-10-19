@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { setEditorWidth } from './setEditorWidth';

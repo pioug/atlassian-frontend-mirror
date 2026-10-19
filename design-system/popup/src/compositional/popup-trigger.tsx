@@ -2,6 +2,7 @@ import React, { useCallback, useContext } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Reference } from '@atlaskit/popper/reference';
+import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 
 import type { TriggerProps } from '../types';
 import { useGetMemoizedMergedTriggerRefNew } from '../use-get-memoized-merged-trigger-ref-new';
@@ -48,13 +49,19 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 	// When the top-layer flag is on, bypass Popper's <Reference> entirely.
 	// We only need to set triggerRefObject.current — no Popper ref merging needed.
 	if (fg('platform-dst-top-layer')) {
+		// Only `aria-haspopup` is used, so `popoverId` does not matter here.
+		const { 'aria-haspopup': topLayerAriaHasPopup } = getAriaForTrigger({
+			role,
+			isOpen,
+			popoverId: id ?? '',
+		});
 		return (
 			<>
 				{children({
 					ref: triggerRef,
 					'aria-controls': id,
 					'aria-expanded': isOpen,
-					'aria-haspopup': ariaHasPopup,
+					'aria-haspopup': topLayerAriaHasPopup,
 				})}
 			</>
 		);

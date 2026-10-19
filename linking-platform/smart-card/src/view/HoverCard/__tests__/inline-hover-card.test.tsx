@@ -17,9 +17,11 @@ import React from 'react';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { act, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/fake-factory';

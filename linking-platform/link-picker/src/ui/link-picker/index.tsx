@@ -26,7 +26,7 @@ import { cssMap } from '@atlaskit/css';
 import CardClient from '@atlaskit/link-provider/client';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import LinkUrl from '@atlaskit/smart-card/link';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';

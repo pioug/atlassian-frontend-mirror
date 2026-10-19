@@ -4,7 +4,7 @@ import { act } from '@testing-library/react';
 import MockDate from 'mockdate';
 import { createRoot, type Root } from 'react-dom/client';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { RenderTracking } from '../../components/RenderTracking';

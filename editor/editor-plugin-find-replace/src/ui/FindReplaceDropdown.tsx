@@ -8,7 +8,9 @@ import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKey
 import DropdownWithOuterListeners from '@atlaskit/editor-common/ui-menu/Dropdown';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 import type { FindReplaceProps } from './FindReplace';
 import FindReplace from './FindReplace';

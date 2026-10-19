@@ -19,6 +19,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { useIsInsetViewer } from '../../insetViewerContext';
 import { MediaViewerError } from '../../MediaViewerError';
 import { ZoomControls } from '../../zoomControls';
 import { PasswordInput } from './passwordInput';
@@ -130,6 +131,7 @@ export const DocViewer = ({
 	traceContext,
 }: Props): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const isInsetViewer = useIsInsetViewer();
 
 	// Compute enableLazyPageRendering based on Excel file detection and feature gate
 	// Excel files are found to have 60K pages, because excel can have thousand of empty rows, JST-1296681
@@ -226,7 +228,12 @@ export const DocViewer = ({
 		<React.Fragment>
 			{state.isLoading && (
 				<div css={spinnerStyles}>
-					<Spinner size="large" appearance="invert" />
+					<Spinner
+						size="large"
+						// The overlay viewer is always dark, so it inverts the spinner. The inset viewer follows the
+						// theme, so it uses the spinner's own subtle icon colour.
+						appearance={isInsetViewer ? 'inherit' : 'invert'}
+					/>
 				</div>
 			)}
 			<div

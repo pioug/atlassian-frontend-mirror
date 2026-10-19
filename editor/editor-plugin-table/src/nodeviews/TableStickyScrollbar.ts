@@ -1,5 +1,6 @@
 import { findOverflowScrollParent } from '@atlaskit/editor-common/Popup/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { TableCssClassName as ClassName } from '../types';
 
@@ -11,6 +12,7 @@ export class TableStickyScrollbar {
 	private editorScrollableElement?: HTMLElement | Document;
 	private intersectionObserver?: IntersectionObserver;
 	private stickyScrollbarContainerElement?: HTMLDivElement | null;
+	private mirroredScrollLeft?: number;
 
 	private sentinels: {
 		bottom?: HTMLElement | null;
@@ -42,6 +44,9 @@ export class TableStickyScrollbar {
 	scrollLeft(left: number): void {
 		if (this.stickyScrollbarContainerElement) {
 			this.stickyScrollbarContainerElement.scrollLeft = left;
+			if (fg('platform_editor_ai_suggestion_table_scroll_fix')) {
+				this.mirroredScrollLeft = this.stickyScrollbarContainerElement.scrollLeft;
+			}
 		}
 	}
 
@@ -201,6 +206,14 @@ export class TableStickyScrollbar {
 			return;
 		}
 
-		this.wrapper.scrollLeft = this.stickyScrollbarContainerElement.scrollLeft;
+		const left = this.stickyScrollbarContainerElement.scrollLeft;
+		if (fg('platform_editor_ai_suggestion_table_scroll_fix')) {
+			// Ignore positions copied from the table so their scroll events cannot interrupt it.
+			if (left === this.mirroredScrollLeft) {
+				return;
+			}
+			this.mirroredScrollLeft = undefined;
+		}
+		this.wrapper.scrollLeft = left;
 	};
 }

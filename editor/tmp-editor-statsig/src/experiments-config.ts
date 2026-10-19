@@ -143,13 +143,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-01
-	platform_editor_ai_normalized_telemetry: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-15
 	platform_editor_per_plugin_error_boundary: {
 		defaultValue: boolean;
@@ -290,13 +283,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-07-14
 	platform_editor_debounce_portal_provider: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-23
-	'cc-markdown-mode': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1519,14 +1505,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-01
-	platform_editor_ai_normalized_telemetry: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_normalized_telemetry',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-15
 	platform_editor_sync_block_ssr_config: createBooleanExperiment({
 		productKeys: {
@@ -1555,14 +1533,6 @@ export const editorExperimentsConfig: {
 	platform_editor_improve_preset_builder_logging: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_improve_preset_builder_logging',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-23
-	'cc-markdown-mode': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc-markdown-mode',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

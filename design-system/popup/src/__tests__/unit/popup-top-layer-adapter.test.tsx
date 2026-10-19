@@ -8,7 +8,12 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Popup } from '../../popup';
-import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';
+import {
+	type ContentProps,
+	type DialogContentProps,
+	type PopupComponentProps,
+	type TriggerProps,
+} from '../../types';
 
 afterEach(() => {
 	jest.clearAllMocks();
@@ -291,7 +296,7 @@ describe('Popup top-layer adapter: focus management', () => {
 	});
 
 	it('passes setInitialFocusRef that can be used to set initial focus target', () => {
-		const contentFn = jest.fn(({ setInitialFocusRef }: ContentProps) => (
+		const contentFn = jest.fn(({ setInitialFocusRef }: DialogContentProps) => (
 			<button
 				type="button"
 				ref={setInitialFocusRef as Dispatch<SetStateAction<HTMLElement | null>>}
@@ -301,7 +306,15 @@ describe('Popup top-layer adapter: focus management', () => {
 			</button>
 		));
 
-		renderTopLayerPopup(<Popup isOpen={true} content={contentFn} trigger={defaultTrigger} />);
+		renderTopLayerPopup(
+			<Popup
+				isOpen={true}
+				role="dialog"
+				label="Dialog"
+				content={contentFn}
+				trigger={defaultTrigger}
+			/>,
+		);
 
 		expect(contentFn).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -312,11 +325,11 @@ describe('Popup top-layer adapter: focus management', () => {
 });
 
 describe('Popup top-layer adapter: aria-haspopup values for different roles', () => {
-	it('sets aria-haspopup="dialog" by default (no role specified)', () => {
+	it('does not set aria-haspopup when no role is specified', () => {
 		renderTopLayerPopup(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
-		expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+		expect(trigger).not.toHaveAttribute('aria-haspopup');
 	});
 
 	it('sets aria-haspopup="dialog" when role="dialog"', () => {
@@ -332,6 +345,21 @@ describe('Popup top-layer adapter: aria-haspopup values for different roles', ()
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
 		expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
+	});
+
+	it('sets aria-haspopup="menu" when role="menu"', () => {
+		renderTopLayerPopup(
+			<Popup
+				isOpen={false}
+				content={defaultContent}
+				trigger={defaultTrigger}
+				role="menu"
+				label="Menu popup"
+			/>,
+		);
+
+		const trigger = screen.getByRole('button', { name: 'Trigger' });
+		expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
 	});
 
 	it('sets aria-haspopup="listbox" when role="listbox"', () => {

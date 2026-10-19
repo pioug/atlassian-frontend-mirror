@@ -4,9 +4,9 @@ import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { axe } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing/jest-axe';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { type Validator } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context/main';

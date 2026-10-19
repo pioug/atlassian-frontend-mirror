@@ -26,7 +26,6 @@ import { EditorSmartCardProvider } from '@atlaskit/link-provider/editor-smart-ca
 import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common/constants';
 import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { cardPlugin } from '../index';
 import { DatasourceErrorBoundary } from '../ui/datasourceErrorBoundary';
@@ -215,11 +214,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 								onColumnResize={this.handleColumnResize}
 								columnCustomSizes={columnCustomSizes}
 								onWrappedColumnChange={this.handleWrappedColumnChange}
-								onWrappedColumnsChange={
-									fg('platform_lp_sllv_table_settings_menu')
-										? this.handleWrappedColumnsChange
-										: undefined
-								}
+								onWrappedColumnsChange={this.handleWrappedColumnsChange}
 								wrappedColumnKeys={wrappedColumnKeys}
 							/>
 						</EditorSmartCardProvider>

@@ -5,7 +5,7 @@ import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Spinner from '@atlaskit/spinner/spinner';
 
 import { PlaceholderLoadingSpinner } from './PlaceholderLoadingSpinner';

@@ -56,4 +56,82 @@ test.describe('Popover - combobox-controlled popup initial focus', () => {
 		// behavior: first menu item receives focus on open.
 		await expect(page.getByTestId('plain-menu-item-1')).toBeFocused();
 	});
+
+	test('role="dialog" controlled by a combobox outside it: focus stays on the combobox', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../examples/151-testing-combobox-popup-initial-focus.tsx')
+		>('design-system', 'top-layer', 'testing-combobox-popup-initial-focus');
+
+		const input = page.getByTestId('combobox-dialog-trigger');
+		await input.focus();
+
+		await expect(page.getByTestId('combobox-dialog-first-button')).toBeVisible();
+		await expect(input).toBeFocused();
+	});
+
+	test('role="alertdialog" controlled by a combobox outside it: focus stays on the combobox', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../examples/151-testing-combobox-popup-initial-focus.tsx')
+		>('design-system', 'top-layer', 'testing-combobox-popup-initial-focus');
+
+		const input = page.getByTestId('combobox-alertdialog-trigger');
+		await input.focus();
+
+		await expect(page.getByTestId('combobox-alertdialog-first-button')).toBeVisible();
+		await expect(input).toBeFocused();
+	});
+
+	test('role="dialog" controlled by a plain text input outside it: focus stays on the input', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../examples/151-testing-combobox-popup-initial-focus.tsx')
+		>('design-system', 'top-layer', 'testing-combobox-popup-initial-focus');
+
+		const input = page.getByTestId('text-input-dialog-trigger');
+		await input.focus();
+
+		await expect(page.getByTestId('text-input-dialog-first-button')).toBeVisible();
+		await expect(input).toBeFocused();
+	});
+
+	test('role="dialog" controlled by a checkbox: focus moves into the dialog', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../examples/151-testing-combobox-popup-initial-focus.tsx')
+		>('design-system', 'top-layer', 'testing-combobox-popup-initial-focus');
+
+		await page.getByTestId('checkbox-dialog-trigger').focus();
+
+		// A checkbox is not text-like, so `aria-controls` does not keep focus on it.
+		await expect(page.getByTestId('checkbox-dialog-first-button')).toBeFocused();
+	});
+
+	test('role="dialog" opened by a plain button: focus moves into the dialog', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../examples/151-testing-combobox-popup-initial-focus.tsx')
+		>('design-system', 'top-layer', 'testing-combobox-popup-initial-focus');
+
+		await page.getByTestId('button-dialog-trigger').click();
+
+		await expect(page.getByTestId('button-dialog-first-button')).toBeFocused();
+	});
+
+	test('role="dialog" that contains its own combobox: focus moves into the dialog', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../examples/151-testing-combobox-popup-initial-focus.tsx')
+		>('design-system', 'top-layer', 'testing-combobox-popup-initial-focus');
+
+		await page.getByTestId('dialog-own-combobox-trigger').click();
+
+		// The inner combobox focuses itself on mount, but it controls its own
+		// listbox, not the dialog. The dialog still moves focus to its first
+		// focusable element.
+		await expect(page.getByTestId('dialog-own-combobox-first-button')).toBeFocused();
+	});
 });

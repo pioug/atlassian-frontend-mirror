@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import Example from '../../../../examples/7-dac-viewer';
 

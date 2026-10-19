@@ -15,7 +15,7 @@ import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import IconTile from '@atlaskit/icon/icon-tile';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

@@ -1,7 +1,7 @@
 import { bind } from 'bind-event-listener';
 
-import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorFullPageNarrowBreakout,

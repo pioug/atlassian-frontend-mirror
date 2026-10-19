@@ -6,12 +6,9 @@ import { cssMap } from '@atlaskit/css';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { TopNav, TopNavEnd, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Profile,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 const styles = cssMap({

@@ -7,7 +7,7 @@ import { defaultMediaPickerCollectionName } from '@atlaskit/media-test-helpers/c
 import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers/mediaPickerAuthProvider';
 import { fileToDataURI } from '@atlaskit/media-ui/fileToDataURI';
 import Spinner from '@atlaskit/spinner/spinner';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { ClipboardContainer } from '../example-helpers/ClipboardContainer';
 import { DropzoneContentWrapper } from '../example-helpers/DropzoneContentWrapper';

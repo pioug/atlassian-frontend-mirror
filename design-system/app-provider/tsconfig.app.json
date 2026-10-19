@@ -58,6 +58,9 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
+			"path": "../checkbox/tsconfig.app.json"
+		},
+		{
 			"path": "../code/tsconfig.app.json"
 		},
 		{

@@ -15,6 +15,7 @@ export type DownloadItemProps = {
 	analyticspayload: DownloadButtonProps['analyticspayload'];
 	children?: ReactNode;
 	iconBefore?: DownloadButtonProps['iconBefore'];
+	variant?: DownloadButtonProps['variant'];
 	traceContext: MediaTraceContext;
 	fallbackMediaName?: string;
 };

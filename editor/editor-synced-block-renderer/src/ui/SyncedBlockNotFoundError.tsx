@@ -13,7 +13,8 @@ import CrossIcon from '@atlaskit/icon/core/cross';
 import EyeOpenStrikethroughIcon from '@atlaskit/icon/core/eye-open-strikethrough';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 

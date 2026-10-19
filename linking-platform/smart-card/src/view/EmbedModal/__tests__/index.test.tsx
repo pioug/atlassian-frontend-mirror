@@ -9,15 +9,15 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
 import {
 	render,
-	screen,
-	userEvent,
 	waitFor,
 	waitForElementToBeRemoved,
-	within,
-} from '@atlassian/testing-library';
+} from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../index';

@@ -4,7 +4,8 @@ import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Grid, Inline } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';

@@ -1,5 +1,8 @@
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

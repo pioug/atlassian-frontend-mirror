@@ -10,7 +10,9 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import Range from '@atlaskit/range/range';
 import { token } from '@atlaskit/tokens';
 

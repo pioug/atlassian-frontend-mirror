@@ -1,7 +1,8 @@
 import React from 'react';
 
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { Content } from '../../../content';
 import { InsetViewerProvider } from '../../../insetViewerContext';

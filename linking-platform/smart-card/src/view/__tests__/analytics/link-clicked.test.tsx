@@ -9,7 +9,9 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/inte
 import * as userAgent from '@atlaskit/linking-common/user-agent';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import '@atlaskit/link-test-helpers/jest';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { TitleBlock } from '../../../index';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics/analytics';

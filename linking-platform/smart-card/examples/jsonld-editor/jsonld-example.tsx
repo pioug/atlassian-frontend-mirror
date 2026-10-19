@@ -45,7 +45,7 @@ import { ProfileObject } from '@atlaskit/link-test-helpers/smart-card/mocks/prof
 import { SlackChannel, SlackMessage } from '@atlaskit/link-test-helpers/smart-card/mocks/slack';
 import { TrelloBoard, TrelloCard } from '@atlaskit/link-test-helpers/smart-card/mocks/trello';
 import { YouTubeVideo } from '@atlaskit/link-test-helpers/smart-card/mocks/youtube';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import { getJsonLdResponse } from '../utils/flexible-ui';
 

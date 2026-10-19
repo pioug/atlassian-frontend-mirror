@@ -14,6 +14,7 @@ import type {
 	AutocompleteOptions,
 	AutocompleteValueType,
 } from '@atlaskit/jql-editor-common/autocomplete/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
@@ -25,6 +26,7 @@ import {
 	TEAM_FIELD_TYPE,
 	USER_FIELD_TYPE,
 	GOAL_FIELD_TYPE,
+	FOCUS_AREA_FIELD_TYPE,
 	ASSETS_FIELD_TYPE,
 } from '../constants';
 import {
@@ -40,6 +42,9 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	}
 	if (field.types.includes(TEAM_FIELD_TYPE)) {
 		return 'team';
+	}
+	if (isExperimentEnabled('focus_in_jira_m1') && field.types.includes(FOCUS_AREA_FIELD_TYPE)) {
+		return 'focusArea';
 	}
 	if (
 		field.types.includes(PROJECT_FIELD_TYPE) &&
@@ -143,6 +148,7 @@ const useOnValues = (
 									}
 									if (
 										valueType === 'team' ||
+										(valueType === 'focusArea' && isExperimentEnabled('focus_in_jira_m1')) ||
 										valueType === 'assets' ||
 										(valueType === 'goal' &&
 											// eslint-disable-next-line @atlaskit/platform/use-recommended-utils -- Statsig migration pending for this experiment gate

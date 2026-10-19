@@ -39,7 +39,9 @@ import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 

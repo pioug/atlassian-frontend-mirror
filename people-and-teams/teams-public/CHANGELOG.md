@@ -1,5 +1,18 @@
 # @atlaskit/teams-public
 
+## 3.5.0
+
+### Minor Changes
+
+- [`ae9a4c6484afa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae9a4c6484afa) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- [`9cb91ac8b93c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb91ac8b93c9) -
+  Remove the released `enable_teams_t26_design_drop_core_experiences` gate and make the T26 core
+  experience designs permanent.
+
 ## 3.4.1
 
 ### Patch Changes

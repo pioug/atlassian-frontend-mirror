@@ -73,6 +73,7 @@ test.describe('format.ts', () => {
 	});
 
 	const headingModifierShortcut = process.platform === 'darwin' ? 'Meta+Alt' : 'Control+Alt';
+
 	test('should be able to use keyboard shortcuts to set headings', async ({ editor }) => {
 		for (let headingNumber = 1; headingNumber <= 6; headingNumber++) {
 			await editor.keyboard.press(headingModifierShortcut + `+${headingNumber}`);

@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import getMockProfileClient from '../../../mocks/mock-profile-client';

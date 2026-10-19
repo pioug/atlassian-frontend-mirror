@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import { mockTransformedUserHydrationResponse } from '../../../../services/mocks';

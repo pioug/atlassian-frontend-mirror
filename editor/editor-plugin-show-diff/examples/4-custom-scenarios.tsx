@@ -43,7 +43,7 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

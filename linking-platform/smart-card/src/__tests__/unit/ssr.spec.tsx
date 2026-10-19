@@ -6,7 +6,8 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { CardSSR, type CardSSRProps } from '../../ssr';
 import { CardWithUrl } from '../../view/CardWithUrl/component';

@@ -16,11 +16,11 @@ import { useQuickInsertSearchAnalytics } from '@atlaskit/editor-common/quick-ins
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
 import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
 import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/type-ahead/item-rank';
-import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
+import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

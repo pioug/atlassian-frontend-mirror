@@ -11,7 +11,7 @@ import {
 	createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import Spinner from '@atlaskit/spinner/spinner';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { DropzoneContentWrapper } from '../example-helpers/DropzoneContentWrapper';
 import { DropzoneItemsInfo } from '../example-helpers/DropzoneItemsInfo';

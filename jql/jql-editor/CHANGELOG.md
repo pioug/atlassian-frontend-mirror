@@ -1,5 +1,29 @@
 # @atlaskit/jql-editor
 
+## 8.4.0
+
+### Minor Changes
+
+- [`d09cdea51139c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d09cdea51139c) -
+  [ux] Add Focus Area rich inline nodes and hydration support to the JQL editor behind the
+  focus_in_jira_m1 experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`157dfc56403b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/157dfc56403b0) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

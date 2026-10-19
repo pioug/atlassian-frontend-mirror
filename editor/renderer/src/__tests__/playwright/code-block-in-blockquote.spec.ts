@@ -25,6 +25,7 @@ test.describe('codeblock in blockquote', () => {
 				allowCopyToClipboard: true,
 			},
 		});
+
 		test('should only render copy button on hover', async ({ renderer }) => {
 			const copyLocator = renderer.page.locator('button.copy-to-clipboard');
 			const wrapLocator = renderer.page.locator('button.wrap-code');
@@ -41,6 +42,7 @@ test.describe('codeblock in blockquote', () => {
 				allowWrapCodeBlock: true,
 			},
 		});
+
 		test('should only render wrap button on hover', async ({ renderer }) => {
 			const copyLocator = renderer.page.locator('button.copy-to-clipboard');
 			const wrapLocator = renderer.page.locator('button.wrap-code');
@@ -58,6 +60,7 @@ test.describe('codeblock in blockquote', () => {
 				allowWrapCodeBlock: true,
 			},
 		});
+
 		test('should render copy and wrap button on hover', async ({ renderer }) => {
 			const copyLocator = renderer.page.locator('button.copy-to-clipboard');
 			const wrapLocator = renderer.page.locator('button.wrap-code');

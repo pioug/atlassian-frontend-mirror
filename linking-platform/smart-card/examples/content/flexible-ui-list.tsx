@@ -8,7 +8,7 @@ import {
 	response3,
 	response4,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import {
 	ActionName,

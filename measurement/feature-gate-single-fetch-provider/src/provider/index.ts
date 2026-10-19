@@ -1,8 +1,9 @@
-import Fetcher, {
-	type FetcherOptions,
-	type FrontendClientSdkKeyResponse,
-	type FrontendExperimentsResponse,
-} from '@atlaskit/feature-gate-fetcher';
+import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
+import type {
+	FetcherOptions,
+	FrontendClientSdkKeyResponse,
+	FrontendExperimentsResponse,
+} from '@atlaskit/feature-gate-fetcher/types';
 import type {
 	BaseClientOptions,
 	CustomAttributes,

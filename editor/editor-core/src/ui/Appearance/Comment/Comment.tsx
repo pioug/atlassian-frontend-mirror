@@ -10,20 +10,19 @@ import { useIntl } from 'react-intl';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import {
-	useSharedPluginState,
-	useSharedPluginStateWithSelector,
-} from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
-import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
-import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
-import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
-import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ToolbarArrowKeyNavigationProvider';
+import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/WidthProvider';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { MaxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
-import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 

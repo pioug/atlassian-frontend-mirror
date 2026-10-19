@@ -1,6 +1,6 @@
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { JQLSyntaxError } from '@atlaskit/jql-ast';
+import { JQLSyntaxError } from '@atlaskit/jql-ast/jql-syntax-error';
 
 import getDocumentPosition from '../common/get-document-position';
 import { getJastFromState } from '../jql-ast/getJastFromState';

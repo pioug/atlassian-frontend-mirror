@@ -5,7 +5,8 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
-import { render, renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { mockByUrl } from '../../mock-by-url';
 import { mocks } from '../../mocks';

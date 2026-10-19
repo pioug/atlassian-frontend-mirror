@@ -11,7 +11,7 @@ import { forbiddenJira } from '@atlaskit/link-test-helpers/smart-card/images/for
 import { imageForbiddenJiraEmbed } from '@atlaskit/link-test-helpers/smart-card/images/forbidden-jira-embed';
 import { image1 } from '@atlaskit/link-test-helpers/smart-card/images/rectangle';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import Page from '@atlaskit/page';
+import Page from '@atlaskit/page/page';
 import { token } from '@atlaskit/tokens';
 
 interface VRTestCaseOpts {

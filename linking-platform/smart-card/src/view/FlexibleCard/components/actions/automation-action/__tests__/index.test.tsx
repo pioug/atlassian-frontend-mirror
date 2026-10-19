@@ -4,7 +4,9 @@ import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import '@atlaskit/link-test-helpers/jest';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';

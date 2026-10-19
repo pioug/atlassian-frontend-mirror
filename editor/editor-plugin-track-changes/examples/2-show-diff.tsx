@@ -14,7 +14,7 @@ import Button from '@atlaskit/button/default/button';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { token } from '@atlaskit/tokens';
 

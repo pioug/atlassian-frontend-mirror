@@ -2,10 +2,10 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { type EmojiProvider } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { ari, getReactionSummary } from '@atlaskit/reactions/MockReactionsClient';
+import { ReactionStatus } from '@atlaskit/reactions/reaction';
 import { Reactions } from '@atlaskit/reactions/Reactions';
-import { ReactionStatus } from '@atlaskit/reactions/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 export default function ReactionsPreview(): React.JSX.Element {

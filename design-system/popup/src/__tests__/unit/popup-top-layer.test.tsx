@@ -8,7 +8,12 @@ import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { Popup } from '../../popup';
-import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';
+import {
+	type ContentProps,
+	type DialogContentProps,
+	type PopupComponentProps,
+	type TriggerProps,
+} from '../../types';
 
 afterEach(() => {
 	jest.clearAllMocks();
@@ -71,8 +76,23 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 		expect(trigger).toHaveAttribute('aria-expanded', 'true');
 	});
 
-	it('sets aria-haspopup="dialog" by default', () => {
+	it('does not set aria-haspopup when the popup has no role', () => {
 		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
+
+		const trigger = screen.getByRole('button', { name: 'Trigger' });
+		expect(trigger).not.toHaveAttribute('aria-haspopup');
+	});
+
+	it('sets aria-haspopup="dialog" when role="dialog"', () => {
+		render(
+			<Popup
+				isOpen={false}
+				content={defaultContent}
+				trigger={defaultTrigger}
+				role="dialog"
+				label="Test dialog"
+			/>,
+		);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
 		expect(trigger).toHaveAttribute('aria-haspopup', 'dialog');
@@ -91,6 +111,16 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
 		expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+	});
+});
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+ffTest.off('platform-dst-top-layer', 'Popup legacy: trigger aria-haspopup', () => {
+	it('sets aria-haspopup="true" when the popup has no role', () => {
+		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
+
+		const trigger = screen.getByRole('button', { name: 'Trigger' });
+		expect(trigger).toHaveAttribute('aria-haspopup', 'true');
 	});
 });
 
@@ -122,13 +152,21 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 		expect(contentFn).toHaveBeenCalledWith(expect.objectContaining({ isOpen: true }));
 	});
 
-	it('passes setInitialFocusRef to the content render prop', () => {
-		const contentFn = jest.fn((props: ContentProps) => {
+	it('passes setInitialFocusRef to the content render prop of a dialog', () => {
+		const contentFn = jest.fn((props: DialogContentProps) => {
 			expect(typeof props.setInitialFocusRef).toBe('function');
 			return <div>content</div>;
 		});
 
-		render(<Popup isOpen={true} content={contentFn} trigger={defaultTrigger} />);
+		render(
+			<Popup
+				isOpen={true}
+				role="dialog"
+				label="Dialog"
+				content={contentFn}
+				trigger={defaultTrigger}
+			/>,
+		);
 
 		expect(contentFn).toHaveBeenCalled();
 	});

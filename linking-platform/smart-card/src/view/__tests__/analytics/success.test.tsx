@@ -13,7 +13,9 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CardAction } from '../../../constants';
 import { TitleBlock } from '../../../index';

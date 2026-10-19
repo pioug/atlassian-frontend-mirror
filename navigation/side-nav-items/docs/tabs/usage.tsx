@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { DoDont, DoDontGrid } from '@af/design-system-docs-ui';
+import { DoDont } from '@af/design-system-docs-ui/do-dont';
+import { DoDontGrid } from '@af/design-system-docs-ui/do-dont-grid';
 import { md } from '@atlaskit/docs';
 import Image from '@atlaskit/image/image';
 import Link from '@atlaskit/link/link';

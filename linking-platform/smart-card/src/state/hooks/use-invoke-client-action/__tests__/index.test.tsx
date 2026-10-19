@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import type { FireEventFunction } from '../../../../common/analytics/types';
 import { CardDisplay } from '../../../../constants';

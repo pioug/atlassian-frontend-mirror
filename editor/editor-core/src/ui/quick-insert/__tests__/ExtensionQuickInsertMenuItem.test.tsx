@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import { QuickInsertMenuItem } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { render } from '@atlassian/testing-library/render';
 

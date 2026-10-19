@@ -28,6 +28,36 @@ data is in the following shape:
 This package exposes: `useCrossProductUrlWrapper`, a React hook that can be used to retrieve
 interaction session data and append them as URL parameters onto cross-product navigation URLs
 
+## Stream 3 observation contracts
+
+The package also exposes transport-independent building blocks for observing cross-product
+navigation without adding or changing XPIS:
+
+- `xpcDestinationResolver` provides controlled product, sub-product, route-family and matcher values
+  plus four-outcome destination resolution: `same`, `cross`, `unknown` and `excluded`.
+- `xpcNavigationObservation` inspects XPIS presence and builds fresh, privacy-safe departure
+  and arrival observations.
+- `xpcActivationCoordinator` ensures that native and owned final-sink observers complete a user
+  activation at most once.
+- `xpcNativeDepartureCapture` installs delegated `click` and `auxclick` capture at a product-owned
+  root while yielding to intercepted renderer sinks.
+- `xpcFinalSinkDepartureCapture` records authoritative renderer handoffs with controlled capture
+  and navigation enums. The schema retains bounded imperative and router values for later,
+  independently gated integrations.
+- `xpcArrivalCapture` inspects an arrival URL locally and reports only XPIS-bearing destination
+  evidence; the URL never enters the observation.
+- `xpcNavigationProvider` composes one product-root native observer, initial-arrival capture, shared
+  activation coordination and renderer final-sink hooks from a product's controlled configuration.
+- `xpcAwcNavigationReporter` is the candidate boundary to a product's existing Analytics Web Client.
+  It deliberately omits the interaction-session ID until its production privacy treatment is
+  approved.
+
+Products supply their own controlled registry entries, source identity, rollout gate and reporter.
+The shared package does not register a GASv3 event. Product adapters may use the feature-gated
+candidate Analytics Web Client reporter for validation, but it must remain disabled until the event
+schema, channel, privacy controls and ownership are approved. Candidate code is not evidence that
+the event is registered or production-enabled.
+
 ## Usage within an Atlassian bridge
 
 A bridge is a component that provides a link/navigation to a different Atlassian page, for example:

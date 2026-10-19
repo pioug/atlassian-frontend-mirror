@@ -1,11 +1,13 @@
 /**
  * Assert the semantic CSS variable, independently of Compiled's minified fallback.
+ * Set shouldExist to false to assert that no matching declaration uses the token.
  */
 export function expectTokenStyle(
 	element: HTMLElement,
 	property: string,
 	tokenName: string,
 	target = '',
+	shouldExist = true,
 ): void {
 	const variable = `--ds-${tokenName.replace(/^color\./, '').replace(/\./g, '-')}`;
 	const targets = target.startsWith('::') ? [target, target.slice(1)] : [target];
@@ -20,5 +22,5 @@ export function expectTokenStyle(
 	);
 	expect(
 		values.some((value) => value.startsWith(`var(${variable},`) || value === `var(${variable})`),
-	).toBe(true);
+	).toBe(shouldExist);
 }

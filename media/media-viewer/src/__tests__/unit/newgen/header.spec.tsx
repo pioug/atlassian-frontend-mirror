@@ -682,6 +682,10 @@ describe('<Header />', () => {
 			renderInsetHeader();
 
 			await waitFor(() => expect(screen.getByRole('button', { name: 'Download' })).toBeEnabled());
+			expect(ViewerIconButton).toHaveBeenCalledWith(
+				expect.objectContaining({ testId: 'media-viewer-download-button' }),
+				expect.anything(),
+			);
 			expect(screen.getAllByRole('button')).toEqual([
 				screen.getByRole('button', { name: 'Download' }),
 				screen.getByRole('button', { name: /Show sidebar/ }),

@@ -17,9 +17,11 @@ import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers/
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { fireEvent, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
 import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';

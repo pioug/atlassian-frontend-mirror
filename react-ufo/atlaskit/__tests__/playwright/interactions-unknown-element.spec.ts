@@ -11,6 +11,7 @@ test.describe('ReactUFO: Interactions Unknown Element name', () => {
 		examplePage: 'interactions-simple-button';
 		__exampleDependency?: typeof import('../../examples/23-interactions-simple-button.tsx');
 	});
+
 	test('get interactions unknownElementName', async ({
 		page,
 		waitForReactUFOInteractionPayload,

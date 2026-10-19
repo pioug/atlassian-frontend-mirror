@@ -7,8 +7,9 @@ import {
 	ResolvedClient,
 	ResolvedClientUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Box } from '@atlaskit/primitives/compiled';
-import { render, screen } from '@atlassian/testing-library';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import type { CardProps } from '../../../Card';
 import { CardWithUrlContent } from '../../component';

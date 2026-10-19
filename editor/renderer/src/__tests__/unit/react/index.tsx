@@ -15,7 +15,7 @@ import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { nodes } from '../../../entry-points/nodes-default';

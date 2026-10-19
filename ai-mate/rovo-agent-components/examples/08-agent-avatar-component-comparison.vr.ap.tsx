@@ -6,7 +6,10 @@ import Avatar from '@atlaskit/avatar/avatar';
 import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { AgentAvatar } from '../src/ui/agent-avatar';
 import customerInsightBlueV2 from './assets/customer_insight_blue_v2.png';

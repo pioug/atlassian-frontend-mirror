@@ -4,6 +4,7 @@ import { Fragment, type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
@@ -70,6 +71,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 			this.enableRichInlineNodes &&
 			isRichInlineOperandOption(option.type) &&
 			(option.valueType === 'team' ||
+				(option.valueType === 'focusArea' && isExperimentEnabled('focus_in_jira_m1')) ||
 				(option.valueType === 'goal' &&
 					FeatureGates.getExperimentValue(
 						'anip-1095-goals-in-harmonised-filter',
@@ -150,6 +152,20 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 							fieldName: context?.field,
 						};
 						nodes.push(this.view.state.schema.nodes.project.create(attributes, textContent));
+					} else {
+						nodes.push(textContent);
+					}
+					break;
+				}
+				case 'focusArea': {
+					if (isExperimentEnabled('focus_in_jira_m1')) {
+						const attributes = {
+							type: 'focusArea',
+							id: value,
+							name: nameOnRichInlineNode ?? name,
+							fieldName: context?.field,
+						};
+						nodes.push(this.view.state.schema.nodes.focusArea.create(attributes, textContent));
 					} else {
 						nodes.push(textContent);
 					}

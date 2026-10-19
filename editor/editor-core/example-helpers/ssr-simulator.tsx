@@ -23,7 +23,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading/heading';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import type { InitialPluginConfiguration, UniversalPresetProps } from '../src/presets/universal';

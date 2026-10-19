@@ -34,7 +34,6 @@ import { ActionOperationStatus } from '@atlaskit/linking-types/datasource-action
 import type { Input } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id/datasource-experience-id-provider';
@@ -1087,25 +1086,7 @@ describe('IssueLikeDataTableView', () => {
 			expect(screen.getByTestId('column-picker-trigger-button')).toBeInTheDocument();
 		});
 
-		it('should not show the table settings menu when the gate is off', () => {
-			failGate('platform_lp_sllv_table_settings_menu');
-			jest.useFakeTimers();
-			const items = getSimpleItems();
-			const itemIds = setupItemIds(items);
-			const columns = getSimpleColumns();
-
-			setup({
-				items,
-				itemIds,
-				hasNextPage: true,
-				columns,
-			});
-
-			expect(screen.queryByRole('button', { name: 'More actions' })).not.toBeInTheDocument();
-		});
-
 		it('should not show the table settings menu without an available setting', () => {
-			passGate('platform_lp_sllv_table_settings_menu');
 			jest.useFakeTimers();
 			const items = getSimpleItems();
 			const itemIds = setupItemIds(items);
@@ -1123,8 +1104,7 @@ describe('IssueLikeDataTableView', () => {
 			expect(screen.queryByRole('button', { name: 'More actions' })).not.toBeInTheDocument();
 		});
 
-		it('should show the table settings menu next to the column picker when the gate is on', async () => {
-			passGate('platform_lp_sllv_table_settings_menu');
+		it('should show the table settings menu next to the column picker', async () => {
 			jest.useFakeTimers();
 			const items = getSimpleItems();
 			const itemIds = setupItemIds(items);
@@ -1147,7 +1127,6 @@ describe('IssueLikeDataTableView', () => {
 		});
 
 		it('should show the wrap-all toggle as on when every visible column is wrapped', async () => {
-			passGate('platform_lp_sllv_table_settings_menu');
 			const items = getComplexItems();
 			const itemIds = setupItemIds(items);
 
@@ -1166,7 +1145,6 @@ describe('IssueLikeDataTableView', () => {
 		});
 
 		it('should show the wrap-all toggle as off when any visible column is unwrapped', async () => {
-			passGate('platform_lp_sllv_table_settings_menu');
 			const items = getComplexItems();
 			const itemIds = setupItemIds(items);
 
@@ -1185,7 +1163,6 @@ describe('IssueLikeDataTableView', () => {
 		});
 
 		it('should wrap all visible columns when the wrap-all toggle is off', async () => {
-			passGate('platform_lp_sllv_table_settings_menu');
 			const items = getComplexItems();
 			const itemIds = setupItemIds(items);
 
@@ -1204,7 +1181,6 @@ describe('IssueLikeDataTableView', () => {
 		});
 
 		it('should unwrap all visible columns when the wrap-all toggle is on', async () => {
-			passGate('platform_lp_sllv_table_settings_menu');
 			const items = getComplexItems();
 			const itemIds = setupItemIds(items);
 

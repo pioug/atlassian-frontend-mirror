@@ -38,7 +38,6 @@ export const TaskListMenuItem = ({ api }: TaskListMenuItemProps): React.JSX.Elem
 			elemBefore={<TaskIcon size="small" label="" />}
 			elemAfter={<ToolbarKeyboardShortcutHint shortcut="[]" />}
 			isSelected={taskListActive}
-			isDisabled={false}
 			onClick={handleClick}
 		>
 			{formatMessage(tasksAndDecisionsMessages.taskList)}

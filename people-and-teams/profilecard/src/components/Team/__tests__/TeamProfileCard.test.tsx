@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 
 import type { AnalyticsEventAttributes } from '@atlaskit/teams-app-internal-analytics/analytics/types';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { flexiTime } from '../../../__tests__/unit/helper/_mock-analytics';
 import { profileCardRendered } from '../../../util/profileCardRendered';

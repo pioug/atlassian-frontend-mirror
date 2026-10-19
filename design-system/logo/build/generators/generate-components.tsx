@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import { optimize } from 'svgo';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import packageJson from '../../package.json';
 import { logoDocsSchema } from '../../src/logo-docs-schema';

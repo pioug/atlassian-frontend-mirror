@@ -8,16 +8,16 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
-import { Text } from '@atlaskit/primitives/compiled';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
 import {
 	act,
 	fireEvent,
 	render,
-	screen,
 	waitForElementToBeRemoved,
-	userEvent,
-} from '@atlassian/testing-library';
+} from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import extractLozengeActionItems from '../../../../../../../../extractors/action/extract-lozenge-action-items';
 import { ActionName } from '../../../../../../../../index';

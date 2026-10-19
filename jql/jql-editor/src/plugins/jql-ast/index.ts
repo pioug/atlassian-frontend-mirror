@@ -3,7 +3,8 @@ import { type MutableRefObject } from 'react';
 import { type IntlShape } from 'react-intl';
 
 import { Plugin, PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { type Jast, JastBuilder } from '@atlaskit/jql-ast';
+import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
+import type { Jast } from '@atlaskit/jql-ast/query';
 
 import { getNodeText } from '../../utils/document-text/getNodeText';
 import JQLEditorErrorStrategy from './JQLEditorErrorStrategy';

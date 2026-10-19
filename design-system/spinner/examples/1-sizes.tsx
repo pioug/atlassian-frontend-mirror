@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import Spinner from '@atlaskit/spinner/spinner';
 import type { Size } from '@atlaskit/spinner/types';
 import { token } from '@atlaskit/tokens';

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import Lozenge from '@atlaskit/lozenge/lozenge';
 import LozengeDropdownTrigger from '@atlaskit/lozenge/lozenge-dropdown-trigger';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

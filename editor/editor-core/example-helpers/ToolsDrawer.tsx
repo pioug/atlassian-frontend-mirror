@@ -21,8 +21,8 @@ import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-help
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { EmojiResource } from '@atlaskit/emoji/resource';
-import type { EmojiProvider } from '@atlaskit/emoji/resource';
+import UploadingEmojiResource from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import Link from '@atlaskit/link/link';
 import { MentionResource } from '@atlaskit/mention/mention-resource';
 import TeamMentionResource from '@atlaskit/mention/team-mention-resource';
@@ -69,7 +69,7 @@ const providers: {
 		undefined: undefined;
 	};
 	emojiProvider: {
-		external: Promise<() => EmojiResource>;
+		external: Promise<() => UploadingEmojiResource>;
 		pending: Promise<unknown>;
 		rejected: Promise<never>;
 		resolved: Promise<EmojiProvider>;
@@ -121,8 +121,8 @@ const providers: {
 			currentUser,
 		}),
 		external: Promise.resolve(
-			(): EmojiResource =>
-				new EmojiResource({
+			(): UploadingEmojiResource =>
+				new UploadingEmojiResource({
 					providers: [
 						{
 							url: 'https://api-private.stg.atlassian.com/emoji/standard',

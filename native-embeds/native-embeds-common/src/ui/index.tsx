@@ -9,7 +9,9 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-
 import type { LocalIdPlugin } from '@atlaskit/editor-plugin-local-id/local-id-plugin-type';
 import Heading from '@atlaskit/heading/heading';
 import RefreshIcon from '@atlaskit/icon/core/refresh';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const messages = defineMessages({

@@ -9,8 +9,8 @@ const SetMediaFooterControlsContext = createContext<(element: HTMLElement | null
 );
 
 // Whether a viewer has registered video controls in the footer, which gives the footer extra room.
-const HasMediaFooterVideoControlsContext = createContext(false);
-const SetHasMediaFooterVideoControlsContext = createContext<(hasVideoControls: boolean) => void>(
+const HasMediaFooterPlayerControlsContext = createContext(false);
+const SetHasMediaFooterPlayerControlsContext = createContext<(hasPlayerControls: boolean) => void>(
 	() => {},
 );
 
@@ -22,16 +22,16 @@ export const InsetViewerProvider = ({
 	children: ReactNode;
 }): React.JSX.Element => {
 	const [mediaFooterControls, setMediaFooterControls] = useState<HTMLElement | null>(null);
-	const [hasVideoControls, setHasVideoControls] = useState(false);
+	const [hasPlayerControls, setHasPlayerControls] = useState(false);
 	return (
 		<InsetViewerContext.Provider value={isInsetViewer}>
 			<SetMediaFooterControlsContext.Provider value={setMediaFooterControls}>
 				<MediaFooterControlsContext.Provider value={mediaFooterControls}>
-					<SetHasMediaFooterVideoControlsContext.Provider value={setHasVideoControls}>
-						<HasMediaFooterVideoControlsContext.Provider value={hasVideoControls}>
+					<SetHasMediaFooterPlayerControlsContext.Provider value={setHasPlayerControls}>
+						<HasMediaFooterPlayerControlsContext.Provider value={hasPlayerControls}>
 							{children}
-						</HasMediaFooterVideoControlsContext.Provider>
-					</SetHasMediaFooterVideoControlsContext.Provider>
+						</HasMediaFooterPlayerControlsContext.Provider>
+					</SetHasMediaFooterPlayerControlsContext.Provider>
 				</MediaFooterControlsContext.Provider>
 			</SetMediaFooterControlsContext.Provider>
 		</InsetViewerContext.Provider>
@@ -46,11 +46,11 @@ export const useMediaFooterControls = (): HTMLElement | null =>
 export const useSetMediaFooterControls = (): ((element: HTMLElement | null) => void) =>
 	useContext(SetMediaFooterControlsContext);
 
-export const useHasMediaFooterVideoControls = (): boolean =>
-	useContext(HasMediaFooterVideoControlsContext);
+export const useHasMediaFooterPlayerControls = (): boolean =>
+	useContext(HasMediaFooterPlayerControlsContext);
 
-export const useSetHasMediaFooterVideoControls = (): ((hasVideoControls: boolean) => void) =>
-	useContext(SetHasMediaFooterVideoControlsContext);
+export const useSetHasMediaFooterPlayerControls = (): ((hasPlayerControls: boolean) => void) =>
+	useContext(SetHasMediaFooterPlayerControlsContext);
 
 export type WithInsetViewerProps = {
 	isInsetViewer?: boolean;
@@ -84,7 +84,7 @@ export const withInsetViewer = <Props, Component>(
 
 export type WithInsetViewerFooterProps = WithInsetViewerProps & {
 	mediaFooterControls?: HTMLElement | null;
-	setHasVideoControls?: (hasVideoControls: boolean) => void;
+	setHasPlayerControls?: (hasPlayerControls: boolean) => void;
 };
 
 export const withInsetViewerFooter = <Props, Component>(
@@ -106,14 +106,14 @@ export const withInsetViewerFooter = <Props, Component>(
 	const WithInsetViewerFooter = React.forwardRef<any, WrappedProps>((props, ref) => {
 		const isInsetViewer = useIsInsetViewer();
 		const mediaFooterControls = useMediaFooterControls();
-		const setHasVideoControls = useSetHasMediaFooterVideoControls();
+		const setHasPlayerControls = useSetHasMediaFooterPlayerControls();
 		return (
 			<WrappedComponent
 				{...(props as any)}
 				ref={ref}
 				isInsetViewer={isInsetViewer}
 				mediaFooterControls={mediaFooterControls}
-				setHasVideoControls={setHasVideoControls}
+				setHasPlayerControls={setHasPlayerControls}
 			/>
 		);
 	});

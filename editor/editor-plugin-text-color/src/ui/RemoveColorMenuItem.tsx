@@ -13,7 +13,7 @@ import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color/ColorPa
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types';
 import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
 import ColourNoneIcon from '@atlaskit/icon-lab/core/colour-none';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

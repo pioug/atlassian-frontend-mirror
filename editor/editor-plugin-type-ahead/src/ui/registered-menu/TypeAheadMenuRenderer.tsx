@@ -9,7 +9,8 @@ import { QuickInsertEmptyState } from '@atlaskit/editor-common/quick-insert/empt
 import { getQuickInsertMenuRows } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
 import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import type { TypeAheadMenuModel } from './buildTypeAheadMenuModel';
 import { createTypeAheadRowRenderer } from './createTypeAheadRowRenderer';

@@ -8,7 +8,8 @@ import { css, jsx } from '@compiled/react';
 import { IntlProvider, type MessageFormatElement } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { IconType } from '../../../../../../../constants';
 import { messages } from '../../../../../../../messages';

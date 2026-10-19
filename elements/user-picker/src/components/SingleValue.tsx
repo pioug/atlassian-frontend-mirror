@@ -7,7 +7,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';

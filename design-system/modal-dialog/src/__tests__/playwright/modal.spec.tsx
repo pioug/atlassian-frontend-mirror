@@ -296,6 +296,7 @@ test.describe('Focus', () => {
 		await closeModal.click();
 		await expect(focusOnModalClose).toBeFocused();
 	});
+
 	test('should return to trigger element in nested modals', async ({ page }) => {
 		const sizes = ['large', 'medium', 'small'];
 		const nestedModalLargeTrigger = page.getByTestId(sizes[0]);

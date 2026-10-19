@@ -7,7 +7,7 @@ import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../../utils/mocks';
 import useResponse from '../index';

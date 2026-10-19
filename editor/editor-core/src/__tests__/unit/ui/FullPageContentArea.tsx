@@ -6,7 +6,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client/feature-gates'),
@@ -46,25 +46,12 @@ import { FullPageContentArea } from '../../../ui/Appearance/FullPage/FullPageCon
 
 const mockEditorView = {} as EditorView;
 
-const createMockEditorAPI = (
-	allowScrollGutter: unknown,
-	markdownModeState?: { isMarkdownMode: boolean; view: 'preview' | 'split-view' | 'syntax' },
-) => ({
+const createMockEditorAPI = (allowScrollGutter: unknown) => ({
 	base: {
 		sharedState: {
 			currentState: () => ({ allowScrollGutter }),
 		},
 	},
-	...(markdownModeState
-		? {
-				markdownMode: {
-					sharedState: {
-						currentState: () => markdownModeState,
-						onChange: () => () => {},
-					},
-				},
-			}
-		: {}),
 });
 
 const defaultProps = {
@@ -137,55 +124,6 @@ describe('accessibility', () => {
 });
 
 describe('FullPageContentArea - scroll gutter rendering', () => {
-	it('hides scroll gutters in markdown mode', () => {
-		mockExpValEqualsNoExposure.mockReturnValue(true);
-
-		renderComponent({
-			editorAPI: createMockEditorAPI(
-				{ gutterSize: 120 },
-				{ isMarkdownMode: true, view: 'syntax' },
-			) as any,
-		});
-
-		const contentRegion = document.querySelector('[data-markdown-mode-hide-scroll-gutter="true"]');
-		const scrollGutter = document.querySelector('[data-vc="scroll-gutter"]');
-
-		expect(contentRegion).toBeInstanceOf(HTMLElement);
-		expect(scrollGutter).toBeInstanceOf(HTMLElement);
-		if (!(contentRegion instanceof HTMLElement)) {
-			throw new Error('Expected content region to be rendered.');
-		}
-		if (!(scrollGutter instanceof HTMLElement)) {
-			throw new Error('Expected scroll gutter to be rendered.');
-		}
-		expect(contentRegion).toHaveAttribute('data-markdown-mode-hide-scroll-gutter', 'true');
-		expect(scrollGutter).toHaveCompiledCss({
-			display: 'none',
-		});
-	});
-
-	it('removes prose width constraints in markdown mode when the MVP layout is active', () => {
-		mockExpValEqualsNoExposure.mockReturnValue(true);
-
-		renderComponent({
-			editorAPI: createMockEditorAPI(
-				{ gutterSize: 120 },
-				{ isMarkdownMode: true, view: 'syntax' },
-			) as any,
-		});
-
-		const contentRegion = document.querySelector('.ak-editor-content-area-region');
-
-		expect(contentRegion).toBeInstanceOf(HTMLElement);
-		if (!(contentRegion instanceof HTMLElement)) {
-			throw new Error('Expected content region to be rendered.');
-		}
-		expect(contentRegion).toHaveCompiledCss({
-			maxWidth: 'none',
-		});
-		expect(contentRegion).toHaveCompiledCss({ width: '100%' });
-	});
-
 	eeTest.describe('platform_editor_blocks', 'when experiment is enabled').variant(true, () => {
 		it('renders scroll gutter with data-editor-scroll-gutter attribute', () => {
 			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });

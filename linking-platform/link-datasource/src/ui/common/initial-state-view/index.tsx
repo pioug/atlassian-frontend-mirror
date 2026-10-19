@@ -6,7 +6,7 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 
 import Link from '@atlaskit/link/link';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { token } from '@atlaskit/tokens';
 
 import { initialStateViewMessages } from './messages';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadItemComponent } from './typeAheadMenuTypes';

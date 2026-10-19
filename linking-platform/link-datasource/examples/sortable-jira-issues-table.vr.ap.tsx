@@ -12,7 +12,7 @@ import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaski
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { bug, story, task } from '@atlaskit/link-test-helpers/images';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { FakeModalDialogContainer } from '../examples-helpers/fakeModalDialogContainer';
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';

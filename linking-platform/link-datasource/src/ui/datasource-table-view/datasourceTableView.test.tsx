@@ -309,8 +309,7 @@ describe('DatasourceTableView', () => {
 		expect(issueLikeDataTableViewProps.onWrappedColumnsChange).toBeUndefined();
 	});
 
-	it('should pass onWrappedColumnsChange through when the table settings menu gate is on', () => {
-		passGate('platform_lp_sllv_table_settings_menu');
+	it('should pass onWrappedColumnsChange through', () => {
 		store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
 
 		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
@@ -332,30 +331,6 @@ describe('DatasourceTableView', () => {
 			.calls[0][0] as IssueLikeDataTableViewProps;
 
 		expect(issueLikeDataTableViewProps.onWrappedColumnsChange).toBe(mockOnWrappedColumnsChange);
-	});
-
-	it('should not pass onWrappedColumnsChange through when the table settings menu gate is off', () => {
-		failGate('platform_lp_sllv_table_settings_menu');
-		store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
-
-		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
-			issueLikeModule,
-			'IssueLikeDataTableView',
-		);
-		setup(
-			{
-				visibleColumnKeys: ['myColumn'],
-				responseItems: defaultMockResponseItems,
-			},
-			{
-				onWrappedColumnsChange: jest.fn(),
-			},
-		);
-
-		const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
-			.calls[0][0] as IssueLikeDataTableViewProps;
-
-		expect(issueLikeDataTableViewProps.onWrappedColumnsChange).toBeUndefined();
 	});
 
 	it('should call useDatasourceTableState with the correct arguments', () => {

@@ -8,7 +8,7 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { useFilePreview } from '../useFilePreview';
 import { createMockedMediaClientProvider } from './helpers/_MockedMediaClientProvider';

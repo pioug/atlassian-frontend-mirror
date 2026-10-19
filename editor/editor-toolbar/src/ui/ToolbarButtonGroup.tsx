@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

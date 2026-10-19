@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { Icon } from '../Icon';
 

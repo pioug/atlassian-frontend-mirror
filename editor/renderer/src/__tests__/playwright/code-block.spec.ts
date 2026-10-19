@@ -11,6 +11,7 @@ test.describe('code block', () => {
 			featureFlags: { 'allow-windowed-code-block': true },
 		},
 	});
+
 	test.describe('when not scrolled into viewport yet', () => {
 		test('should initially render only a LightWeightCodeBlock offscreen', async ({ renderer }) => {
 			await expect(renderer.codeBlock.lightWeightCodeBlock).not.toBeInViewport();

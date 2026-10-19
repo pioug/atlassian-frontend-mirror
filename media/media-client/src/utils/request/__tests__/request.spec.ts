@@ -1,5 +1,5 @@
 import { nextTick } from '@atlaskit/media-common/nextTick';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { request } from '..';
 import { fetchRetry } from '../fetchRetry';

@@ -12,7 +12,8 @@ import { Bounds } from '@atlaskit/media-ui/bounds';
 import type { FileInfo } from '@atlaskit/media-ui/imageMetaData/types';
 import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import { Vector2 } from '@atlaskit/media-ui/vector2';
-import { render, screen, act, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, act, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import {
 	ImagePlacer,

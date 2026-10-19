@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import Grid from '@atlaskit/page/grid';
 import { GridColumn } from '@atlaskit/page/grid-column';
 import Page from '@atlaskit/page/page';

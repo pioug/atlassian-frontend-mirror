@@ -11,7 +11,7 @@ import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-che
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import type { CardPlugin } from '../cardPluginType';
 import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';

@@ -12,7 +12,9 @@ import type {
 	MediaTraceContext,
 	PerformanceAttributes,
 } from '@atlaskit/media-common/analytics/types';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { MediaCardError } from '../../MediaCardError';
 import type { MediaCardAnalyticsEventPayload, SSRStatus } from './analytics';

@@ -12,6 +12,7 @@ test.describe('ReactUFO: Finish on transition', () => {
 			'finish-interaction-transition',
 		);
 	});
+
 	test('interaction is successful on transition', async ({
 		page,
 		waitForReactUFOInteractionPayload,

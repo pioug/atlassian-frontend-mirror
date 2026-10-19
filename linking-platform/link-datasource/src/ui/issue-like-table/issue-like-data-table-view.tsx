@@ -19,13 +19,13 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge/extract-closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll/auto-scroller';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -437,8 +437,7 @@ export const IssueLikeDataTableView = ({
 		[orderedColumns, visibleColumnKeys],
 	);
 
-	const isWrapTextSettingAvailable =
-		Boolean(onWrappedColumnsChange) && fg('platform_lp_sllv_table_settings_menu');
+	const isWrapTextSettingAvailable = Boolean(onWrappedColumnsChange);
 
 	let areAllVisibleColumnsWrapped = false;
 	if (isWrapTextSettingAvailable) {

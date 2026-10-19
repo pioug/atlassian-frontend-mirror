@@ -1,5 +1,6 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { TEST_BASE_DATA, TEST_OBJECT, TEST_URL } from '../../__mocks__/jsonld';
 import { withIntl } from '../../__mocks__/withIntl';

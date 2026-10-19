@@ -8,7 +8,7 @@ import { cx, cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { MediaImage } from '@atlaskit/media-ui/mediaImage';
 import { messages } from '@atlaskit/media-ui/messages';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { ERROR } from '../avatar-picker-dialog';

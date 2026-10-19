@@ -9,6 +9,7 @@ test.describe('Sticky Toolbar', () => {
 			appearance: 'comment',
 		},
 	});
+
 	test('Typeahead popup should be above the sticky toolbar', async ({ editor }) => {
 		const toolbar = EditorMainToolbarModel.from(editor);
 		await editor.page.setViewportSize({

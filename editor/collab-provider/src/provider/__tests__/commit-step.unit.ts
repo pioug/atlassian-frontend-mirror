@@ -17,7 +17,7 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { NotConnectedError } from '../../errors/custom-errors';
 import { EVENT_STATUS } from '../../helpers/const';

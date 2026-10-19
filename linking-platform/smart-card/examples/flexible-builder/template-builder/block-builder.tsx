@@ -7,7 +7,7 @@ import type {
 	DropResult,
 	OnDragEndResponder,
 } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { type SmartLinkSize } from '../../../src';
 import { BlockName } from '../constants';

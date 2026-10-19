@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { type EmojiProvider } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { ConnectedReactionsView } from '@atlaskit/reactions/ConnectedReactionsView';
 import { MemoryReactionsStore } from '@atlaskit/reactions/MemoryReactionsStore';
 import { ari, containerAri, MockReactionsClient } from '@atlaskit/reactions/MockReactionsClient';

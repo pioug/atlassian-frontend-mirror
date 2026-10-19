@@ -28,7 +28,7 @@ describe('TeamConnections', () => {
 	it('should display the container icon', () => {
 		renderComponent();
 
-		const containerIcon = screen.getByTestId('linked-container-ConfluenceSpace-icon');
+		const containerIcon = screen.getByRole('img', { name: 'Test Confluence Space' });
 		expect(containerIcon).toBeInTheDocument();
 	});
 
@@ -57,7 +57,7 @@ describe('TeamConnections', () => {
 		renderComponent();
 
 		const downloadCsvLink = screen.getByRole('link', {
-			name: 'Test Confluence Space Confluence Space',
+			name: 'Test Confluence Space Test Confluence Space Confluence Space',
 		});
 		expect(downloadCsvLink).toHaveAttribute('href', 'https://test-dev.com');
 	});

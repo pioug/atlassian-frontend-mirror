@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 4.6.2
+
+### Patch Changes
+
+- [`d09cdea51139c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d09cdea51139c) -
+  Use focus area field metadata to classify JQL autocomplete suggestions for rich inline nodes.
+- Updated dependencies
+
 ## 4.6.1
 
 ### Patch Changes

@@ -3,7 +3,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
-import { fireEvent, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import ImageIcon from './index';
 import type { ImageIconProps } from './types';

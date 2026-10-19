@@ -9,7 +9,7 @@ import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { awaitError } from '@atlaskit/media-test-helpers/await-error';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import * as buildImgErrorDiagnosticsModule from '../../../../../buildImgErrorDiagnostics';
 import { getErrorDetail } from '../../../../../getErrorDetail';

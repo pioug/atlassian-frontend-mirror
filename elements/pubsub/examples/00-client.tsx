@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import Textfield from '@atlaskit/textfield/text-field';
 
 import Client, { type PubSubClientConfig, SpecialEventType } from '../src';

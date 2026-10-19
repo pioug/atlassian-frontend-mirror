@@ -11,7 +11,7 @@ import type {
 	RegisterComponent,
 } from '@atlaskit/editor-ui-control-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { getSingleSmartLinkUrlFromSlice } from '../utils/current-pasted-smart-link';

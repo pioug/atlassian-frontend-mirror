@@ -4,7 +4,8 @@ import { FormattedMessage, type MessageDescriptor } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import { type Prettify } from '@atlaskit/linking-common';
-import { Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { InternalActionName, SmartLinkStatus } from '../../../../../constants';

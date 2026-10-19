@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import {
 	BLOCK_TEMPLATES_SECTION,
 	CREATE_SECTION,

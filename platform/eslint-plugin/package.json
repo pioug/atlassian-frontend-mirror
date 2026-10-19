@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "4.5.1",
+	"version": "5.0.0",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Loop Experiences",
@@ -43,8 +43,6 @@
 		"@manypkg/get-packages": "root:*",
 		"@typescript-eslint/typescript-estree": "root:*",
 		"@typescript-eslint/utils": "root:*",
-		"fuse.js": "root:*",
-		"read-pkg-up": "root:*",
 		"semver": "root:*",
 		"typescript": "root:*"
 	},

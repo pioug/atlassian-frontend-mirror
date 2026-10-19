@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 
-import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
+import {
+	doesHydrateWithSsr,
+	doesSsrRenderOnly as doesRenderWithSsr,
+} from '@atlassian/ssr-tests/ssr-tests';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 

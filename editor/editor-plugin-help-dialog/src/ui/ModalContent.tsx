@@ -13,7 +13,7 @@ import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages/help-dialog';
 import Heading from '@atlaskit/heading/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import type { Format } from './Format';
 import ModalFooter from './ModalFooter';

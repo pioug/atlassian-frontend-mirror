@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { ReactionPicker } from '@atlaskit/reactions/ReactionPicker';
 
 export default function ReactionPickerExample({

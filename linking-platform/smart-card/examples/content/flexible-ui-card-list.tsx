@@ -9,7 +9,7 @@ import {
 	response2,
 	response3,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
-import { Grid } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 
 import { Card, ElementName, MetadataBlock, SmartLinkSize, TitleBlock } from '../../src';
 

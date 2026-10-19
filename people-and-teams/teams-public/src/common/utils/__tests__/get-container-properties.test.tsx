@@ -1,14 +1,7 @@
-jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
-	fg: jest.fn(),
-}));
-
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
-
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getContainerProperties, messages } from '../get-container-properties';
 
@@ -17,10 +10,6 @@ const renderWithIntl = (node: React.ReactNode) => {
 };
 
 describe('getContainerProperties', () => {
-	beforeEach(() => {
-		(fg as jest.Mock).mockReturnValue(true);
-	});
-
 	it('should return correct properties for confluence container type', async () => {
 		const properties = getContainerProperties({
 			containerType: 'ConfluenceSpace',

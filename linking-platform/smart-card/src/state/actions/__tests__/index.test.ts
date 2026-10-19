@@ -11,7 +11,7 @@ import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
 import * as useActionFlags from '../../hooks/use-action-flags';

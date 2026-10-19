@@ -19,8 +19,9 @@ import {
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 import { token } from '@atlaskit/tokens';

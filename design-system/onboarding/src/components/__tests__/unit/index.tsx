@@ -1,7 +1,5 @@
 import React, { forwardRef, useState } from 'react';
 
-import Lorem from 'react-lorem-component';
-
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
@@ -122,7 +120,8 @@ const SpotlightDialogLabel = (props: SpotlightDialogLabelProps) => {
 					]}
 				>
 					{props.children}
-					<Lorem count={2} />
+					<p>Learn about the new feature.</p>
+					<p>Follow the spotlight to get started.</p>
 				</Spotlight>
 			)}
 		</SpotlightManager>

@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 132.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.0.2
+
+### Patch Changes
+
+- [`eef74ddea13f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eef74ddea13f2) -
+  Clean up experiment platform_mention_profilecard_accessible_name_exp
+
 ## 132.0.1
 
 ### Patch Changes

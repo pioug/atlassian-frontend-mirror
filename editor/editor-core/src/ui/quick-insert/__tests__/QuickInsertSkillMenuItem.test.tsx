@@ -3,8 +3,8 @@ import React from 'react';
 import { act } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { MenuItem } from '@atlaskit/editor-common/extensions';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';

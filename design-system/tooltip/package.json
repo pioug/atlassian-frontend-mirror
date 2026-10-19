@@ -94,6 +94,9 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform-dst-top-layer": {
+			"type": "boolean"
+		},
 		"platform-dst-top-layer-tooltip": {
 			"type": "boolean"
 		}

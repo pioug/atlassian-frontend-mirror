@@ -2,8 +2,10 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import Toggle from '@atlaskit/toggle/toggle';

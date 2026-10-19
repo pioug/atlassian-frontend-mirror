@@ -18,7 +18,7 @@ import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import ReactSerializer from '../../../../react';

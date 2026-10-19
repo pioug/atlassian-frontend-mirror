@@ -11,6 +11,7 @@ import {
 	type QuickInsertMenuModel,
 } from '@atlaskit/editor-common/quick-insert/registered-menu-model';
 import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu-list-height';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterMenuItem, SurfaceContext } from '@atlaskit/editor-ui-control-model/types';

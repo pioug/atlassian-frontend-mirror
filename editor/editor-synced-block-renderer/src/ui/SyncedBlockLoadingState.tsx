@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { cssMap } from '@atlaskit/css';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Spinner from '@atlaskit/spinner/spinner';
 
 const styles = cssMap({

@@ -7,7 +7,11 @@ import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Flex } from '@atlaskit/primitives/components/flex';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 import { MainWrapper } from '../example-helpers';
 import { ToggleBox } from '../example-helpers/svg-helpers/toggle';

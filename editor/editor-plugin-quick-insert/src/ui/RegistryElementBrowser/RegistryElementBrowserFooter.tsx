@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import LinkButton from '@atlaskit/button/link';
-import { messages } from '@atlaskit/editor-common/quick-insert';
+import { messages } from '@atlaskit/editor-common/quick-insert/messages';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
 

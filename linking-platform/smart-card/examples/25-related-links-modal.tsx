@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/default/button';
 import { Label } from '@atlaskit/form/label/default';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Textfield from '@atlaskit/textfield/text-field';
 
 import { SmartLinkModalProvider } from '../src/state/modal/SmartLinkModalProvider';

@@ -32,12 +32,12 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { Inline } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { AnnotationsWrapper } from '@atlaskit/renderer/annotations';
 import { RendererWithAnalytics } from '@atlaskit/renderer/renderer';
 import SectionMessage from '@atlaskit/section-message/message';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 

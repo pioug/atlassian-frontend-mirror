@@ -2,6 +2,6 @@
 
 import { type Context, createContext } from 'react';
 
-export const RoleContext: Context<string | undefined> = createContext<string | undefined>(
+export const RoleContext: Context<'dialog' | undefined> = createContext<'dialog' | undefined>(
 	undefined,
 );

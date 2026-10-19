@@ -12,7 +12,8 @@ import { IntlProvider } from 'react-intl';
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { nextTick } from '@atlaskit/media-test-helpers/nextTick';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import CardLoader from '../../cardLoader';
 

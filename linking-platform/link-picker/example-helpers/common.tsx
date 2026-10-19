@@ -8,7 +8,7 @@ import { createIntl, createIntlCache, IntlContext, IntlProvider } from 'react-in
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import { ufologger } from '@atlaskit/ufo/logger';
 

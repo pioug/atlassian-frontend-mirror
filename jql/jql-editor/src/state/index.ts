@@ -22,17 +22,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import {
-	computeJqlInsights,
-	isListOperator,
-	type JQLParseError,
-	normaliseJqlString,
-} from '@atlaskit/jql-ast';
+import { isListOperator } from '@atlaskit/jql-ast/ast/operator';
+import { computeJqlInsights } from '@atlaskit/jql-ast/jql-insights-listener';
+import type { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
+import { normaliseJqlString } from '@atlaskit/jql-ast/normalise-jql-string';
 import { JQLAutocomplete } from '@atlaskit/jql-autocomplete/jql-autocomplete';
 import type { JQLRuleSuggestion } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { EventType } from '@atlaskit/jql-editor-common/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ActionSubject, ActionSubjectId, Action as AnalyticsAction } from '../analytics/constants';
@@ -60,6 +59,7 @@ import {
 	type HydratedDeprecatedField,
 	type HydratedProject,
 	type HydratedGoal,
+	type HydratedFocusArea,
 	type HydratedLozengeWithAvatar,
 	type HydratedTeam,
 	type HydratedUser,
@@ -1244,6 +1244,31 @@ export const useHydratedProject: HookFunction<
 					: state.hydratedValues[normaliseJqlString(fieldName)]?.get(normaliseJqlString(id));
 			return project && project.type === 'project' ? project : undefined;
 		},
+	},
+);
+
+const getHydratedFocusArea = (
+	state: State,
+	{ id, fieldName }: { fieldName: string; id: string },
+): HydratedFocusArea | undefined => {
+	if (!isExperimentEnabled('focus_in_jira_m1')) {
+		return undefined;
+	}
+
+	const focusArea = state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(
+		normaliseJqlString(id),
+	);
+	return focusArea?.type === 'focusArea' ? focusArea : undefined;
+};
+
+export const useHydratedFocusArea: HookFunction<
+	HydratedFocusArea | undefined,
+	BoundActions<State, Actions>,
+	{ fieldName: string; id: string }
+> = createHook<State, Actions, HydratedFocusArea | undefined, { fieldName: string; id: string }>(
+	Store,
+	{
+		selector: getHydratedFocusArea,
 	},
 );
 

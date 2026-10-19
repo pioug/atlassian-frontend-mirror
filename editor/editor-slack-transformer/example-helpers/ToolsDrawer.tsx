@@ -11,7 +11,7 @@ import type { ActivityProvider } from '@atlaskit/activity';
 // eslint-disable-next-line no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { MentionResource } from '@atlaskit/mention/mention-resource';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { token } from '@atlaskit/tokens';

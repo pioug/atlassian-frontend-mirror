@@ -24,6 +24,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -42,6 +43,11 @@ import {
 	isMaxWidthAppearance,
 	isFullPageAppearance,
 } from '../utils/appearance';
+import {
+	cacheTableEdges,
+	getCachedTableEdges,
+	withTableCellEdgeProps,
+} from './table/cached-cell-edges';
 import { isContentModeSupported } from './table/content-mode';
 import type { StickyMode } from './table/sticky';
 import { StickyTable, tableStickyPadding, OverflowParent } from './table/sticky';
@@ -975,6 +981,15 @@ const getCellEdgePropsByCellOffset = (
 	tableNode: PMNode,
 	isNumberColumnEnabled?: boolean,
 ): Map<number, TableCellEdgeProps> => {
+	// The serializer uses the node attribute. Other callers can supply a different render prop.
+	const useCachedEdges =
+		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+		isExperimentEnabled('platform_editor_table_q4_perf_patch') &&
+		Boolean(isNumberColumnEnabled) === Boolean(tableNode.attrs.isNumberColumnEnabled);
+	const cached = useCachedEdges ? getCachedTableEdges(tableNode) : undefined;
+	if (cached) {
+		return cached;
+	}
 	const cellEdgePropsByCellOffset = new Map<number, TableCellEdgeProps>();
 	const cellRightByCellOffset = new Map<number, number>();
 	const occupiedGrid: boolean[][] = [];
@@ -1028,6 +1043,9 @@ const getCellEdgePropsByCellOffset = (
 		}
 	});
 
+	if (useCachedEdges) {
+		cacheTableEdges(tableNode, cellEdgePropsByCellOffset);
+	}
 	return cellEdgePropsByCellOffset;
 };
 
@@ -1054,6 +1072,9 @@ const addTableCellEdgePropsThroughWrappers = (
 	tableNode?: PMNode,
 	isNumberColumnEnabled?: boolean,
 ): React.ReactElement[] => {
+	const useCachedEdges =
+		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+		isExperimentEnabled('platform_editor_table_q4_perf_patch');
 	try {
 		if (!tableNode) {
 			return rows;
@@ -1077,6 +1098,9 @@ const addTableCellEdgePropsThroughWrappers = (
 					cellIndex += 1;
 					cellOffset += cellNode.nodeSize;
 
+					if (useCachedEdges) {
+						return withTableCellEdgeProps(element, edgeProps);
+					}
 					return edgeProps ? React.cloneElement(element, edgeProps) : element;
 				}
 

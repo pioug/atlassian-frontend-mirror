@@ -30,12 +30,8 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
 import { TopNavButton } from '@atlaskit/navigation-system/theming/top-nav-button';
-import {
-	AppLogo,
-	AppSwitcher,
-	CreateButton,
-	Search,
-} from '@atlaskit/navigation-system/top-nav-items';
+import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';

@@ -11,10 +11,10 @@ import type { ResponseFileItem } from '@atlaskit/media-client/media-store/types'
 import {
 	type CreateMockedMediaApiResult,
 	type SetItems,
-	createMockedMediaApi,
 	createEmptyFileItem,
 	createErrorFileState,
 	createFileState,
+	createMockedMediaApi,
 	createProcessingFileItem,
 	createUploadingFileState,
 } from '@atlaskit/media-client/test-helpers';

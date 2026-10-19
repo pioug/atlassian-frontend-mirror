@@ -3,7 +3,7 @@ import type { ReactNode, Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import type { TriggerProps } from '@atlaskit/popup/types';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';

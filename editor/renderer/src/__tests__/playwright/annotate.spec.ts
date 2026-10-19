@@ -41,6 +41,7 @@ test.describe('annotations', () => {
 
 	test.describe('when text selection that falls in the middle of an inline node', () => {
 		test.use({ adf: helloEmojiAdf });
+
 		test(`Can't create an annotation`, async ({ renderer }) => {
 			const paragraphs = renderer.page.locator('p');
 
@@ -61,6 +62,7 @@ test.describe('annotations', () => {
 
 	test.describe('when selecting basic text', () => {
 		test.use({ adf: helloAdf });
+
 		test('Can create an annotation', async ({ renderer }) => {
 			const paragraphs = renderer.page.locator('p');
 
@@ -133,6 +135,7 @@ test.describe('annotations', () => {
 
 	test.describe('when selecting a task item', () => {
 		test.use({ adf: taskListAdf });
+
 		test('Can create an annotation on a text selection over a task item', async ({ renderer }) => {
 			const paragraphs = renderer.page.locator('p');
 
@@ -157,6 +160,7 @@ test.describe('annotations', () => {
 
 const PARAGRAPH_INSIDE_TABLE_CONTAINER = '.pm-table-container p';
 const PARAGRAPAH_INSIDE_LIST_INSIDE_PANEL_INSIDE_TABLE_CONTAINER = '.pm-table-container p';
+
 test.describe('annotations: nested', () => {
 	test.use({ adf: bigNestedAdf });
 	test.use({ rendererMountOptions });

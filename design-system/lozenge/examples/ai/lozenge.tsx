@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 
 const _default_1: React.JSX.Element[] = [
 	<Lozenge appearance="success">Done</Lozenge>,

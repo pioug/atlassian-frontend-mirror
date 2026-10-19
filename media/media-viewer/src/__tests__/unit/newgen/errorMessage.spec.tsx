@@ -20,7 +20,8 @@ import { fakeIntl } from '@atlaskit/media-test-helpers/fakeI18n';
 import { asMock } from '@atlaskit/media-test-helpers/jestHelpers';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
 import { createPreviewTooLargeEvent } from '../../../analytics/events/operational/previewTooLarge';

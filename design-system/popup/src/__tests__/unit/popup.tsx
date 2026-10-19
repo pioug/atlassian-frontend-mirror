@@ -18,7 +18,7 @@ import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-l
 import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Popup } from '../../popup';
-import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';
+import { type DialogContentProps, type PopupComponentProps, type TriggerProps } from '../../types';
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
@@ -572,6 +572,8 @@ describe('Popup', () => {
 		render(
 			<Popup
 				{...defaultProps}
+				role="dialog"
+				label="Dialog"
 				content={({ setInitialFocusRef }) => (
 					<button
 						type="button"
@@ -598,7 +600,7 @@ describe('Popup', () => {
 	});
 
 	it('focuses the specified element inside of the content when the popup is opened', async () => {
-		const content = ({ setInitialFocusRef }: ContentProps) => (
+		const content = ({ setInitialFocusRef }: DialogContentProps) => (
 			<button
 				type="button"
 				ref={setInitialFocusRef as Dispatch<SetStateAction<HTMLElement | null>>}
@@ -607,9 +609,11 @@ describe('Popup', () => {
 			</button>
 		);
 
-		const { rerender } = render(<Popup {...defaultProps} content={content} isOpen={false} />);
+		const { rerender } = render(
+			<Popup {...defaultProps} role="dialog" label="Dialog" content={content} isOpen={false} />,
+		);
 
-		rerender(<Popup {...defaultProps} content={content} isOpen />);
+		rerender(<Popup {...defaultProps} role="dialog" label="Dialog" content={content} isOpen />);
 
 		//@ts-ignore
 		requestAnimationFrame.step();

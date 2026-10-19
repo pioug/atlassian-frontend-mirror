@@ -26,7 +26,9 @@ import { IntlProvider } from 'react-intl';
 
 import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 jest.mock('unzipit', () => ({
 	unzip: () => ({

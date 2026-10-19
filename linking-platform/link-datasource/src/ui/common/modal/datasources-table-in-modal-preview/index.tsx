@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { DatasourceAction } from '../../../../analytics/types';
 import { useUserInteractions } from '../../../../contexts/user-interactions/use-user-interactions';
 import { IssueLikeDataTableView } from '../../../issue-like-table/issue-like-data-table-view';
@@ -61,7 +59,7 @@ const Table = (props: DatasourcesTableProps): React.JSX.Element => {
 			onColumnResize={onColumnResize}
 			wrappedColumnKeys={wrappedColumnKeys}
 			onWrappedColumnChange={onWrappedColumnChange}
-			{...(fg('platform_lp_sllv_table_settings_menu') ? { onWrappedColumnsChange } : {})}
+			onWrappedColumnsChange={onWrappedColumnsChange}
 		/>
 	);
 };

@@ -14,7 +14,7 @@ import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color/ColorPale
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
 import ColorPickerButton from '@atlaskit/editor-common/ui-menu/ColorPickerButton';
 import Field from '@atlaskit/form/field';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import FieldMessages from '../FieldMessages';

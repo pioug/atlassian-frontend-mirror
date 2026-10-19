@@ -72,11 +72,11 @@ describe('styleWrappers', () => {
 
 		it('should use different footer styles once video controls are registered', async () => {
 			class Setter extends React.Component<{
-				setHasVideoControls?: (hasVideoControls: boolean) => void;
+				setHasPlayerControls?: (hasPlayerControls: boolean) => void;
 			}> {
 				render() {
 					return (
-						<button type="button" onClick={() => this.props.setHasVideoControls?.(true)}>
+						<button type="button" onClick={() => this.props.setHasPlayerControls?.(true)}>
 							register video controls
 						</button>
 					);

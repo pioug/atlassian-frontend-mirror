@@ -15,7 +15,7 @@ import type { AuthProvider } from '@atlaskit/media-core/auth';
 import { authToOwner } from '@atlaskit/media-core/auth-to-owner';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

@@ -6,7 +6,7 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 
 import {
 	InsetViewerProvider,
-	useHasMediaFooterVideoControls,
+	useHasMediaFooterPlayerControls,
 	useIsInsetViewer,
 	useSetMediaFooterControls,
 	withInsetViewer,
@@ -192,14 +192,14 @@ describe('insetViewerContext', () => {
 		});
 	});
 	describe('media footer video controls', () => {
-		const VideoControlsProbe = () => (
-			<span data-testid="has-video">{String(useHasMediaFooterVideoControls())}</span>
+		const PlayerControlsProbe = () => (
+			<span data-testid="has-video">{String(useHasMediaFooterPlayerControls())}</span>
 		);
 
 		class Setter extends React.Component<WithInsetViewerFooterProps> {
 			render() {
 				return (
-					<button type="button" onClick={() => this.props.setHasVideoControls?.(true)}>
+					<button type="button" onClick={() => this.props.setHasPlayerControls?.(true)}>
 						register video controls
 					</button>
 				);
@@ -210,7 +210,7 @@ describe('insetViewerContext', () => {
 		it('should default to false', () => {
 			render(
 				<InsetViewerProvider isInsetViewer>
-					<VideoControlsProbe />
+					<PlayerControlsProbe />
 				</InsetViewerProvider>,
 			);
 			expect(screen.getByTestId('has-video')).toHaveTextContent('false');
@@ -220,7 +220,7 @@ describe('insetViewerContext', () => {
 			render(
 				<InsetViewerProvider isInsetViewer>
 					<WrappedSetter />
-					<VideoControlsProbe />
+					<PlayerControlsProbe />
 				</InsetViewerProvider>,
 			);
 

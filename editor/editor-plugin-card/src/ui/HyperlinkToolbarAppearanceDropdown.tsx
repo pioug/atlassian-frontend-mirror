@@ -13,7 +13,7 @@ import type {
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
 import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import type { HyperlinkToolbarAppearanceProps } from './HyperlinkToolbarAppearance';
 import { LinkAppearanceMenu } from './LinkToolbarAppearanceDropdown';

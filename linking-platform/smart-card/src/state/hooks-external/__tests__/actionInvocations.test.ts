@@ -1,6 +1,6 @@
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import {
 	TEST_RESPONSE_WITH_DOWNLOAD,

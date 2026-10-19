@@ -19,7 +19,7 @@ import { buildVideoErrorDiagnostics } from '../buildVideoErrorDiagnostics';
 import { Outcome } from '../domain/outcome';
 import { type WithInsetViewerFooterProps, withInsetViewerFooter } from '../insetViewerContext';
 import { MediaViewerError } from '../MediaViewerError';
-import { Video, CustomVideoPlayerWrapper, FittedVideoFrame } from '../styleWrappers';
+import { Video, CustomMediaPlayerWrapper, FittedVideoFrame } from '../styleWrappers';
 import { insetFittedViewport } from '../utils/fit-viewport';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { isIE } from '../utils/isIE';
@@ -53,13 +53,13 @@ class _VideoViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps
 	componentDidMount(): void {
 		super.componentDidMount();
 		if (this.props.isInsetViewer) {
-			this.props.setHasVideoControls?.(true);
+			this.props.setHasPlayerControls?.(true);
 		}
 	}
 
 	componentWillUnmount(): void {
 		if (this.props.isInsetViewer) {
-			this.props.setHasVideoControls?.(false);
+			this.props.setHasPlayerControls?.(false);
 		}
 		super.componentWillUnmount();
 	}
@@ -170,7 +170,7 @@ class _VideoViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps
 				return <Video autoPlay={isAutoPlay} controls src={content} />;
 			}
 			return (
-				<CustomVideoPlayerWrapper>
+				<CustomMediaPlayerWrapper>
 					<FittedVideoFrame ref={this.setInsetVideoFrame}>
 						<Video
 							autoPlay={isAutoPlay}
@@ -179,7 +179,7 @@ class _VideoViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps
 							onVideoElementChange={this.setInsetVideo}
 						/>
 					</FittedVideoFrame>
-				</CustomVideoPlayerWrapper>
+				</CustomMediaPlayerWrapper>
 			);
 		}
 
@@ -231,13 +231,13 @@ class _VideoViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps
 		);
 
 		return (
-			<CustomVideoPlayerWrapper data-testid="media-viewer-video-content">
+			<CustomMediaPlayerWrapper data-testid="media-viewer-video-content">
 				{isInsetViewer ? (
 					<FittedVideoFrame ref={this.setInsetVideoFrame}>{player}</FittedVideoFrame>
 				) : (
 					player
 				)}
-			</CustomVideoPlayerWrapper>
+			</CustomMediaPlayerWrapper>
 		);
 	}
 

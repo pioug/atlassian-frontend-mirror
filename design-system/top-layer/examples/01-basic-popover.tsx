@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

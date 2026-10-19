@@ -5,9 +5,8 @@
 
 import { css, jsx } from '@compiled/react';
 
-import AtlaskitLozenge, {
-	type LozengeProps as AtlaskitLozengeProps,
-} from '@atlaskit/lozenge/lozenge';
+import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge/lozenge';
+import AtlaskitLozenge from '@atlaskit/lozenge/new/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/tag/simple';
 import { token } from '@atlaskit/tokens';

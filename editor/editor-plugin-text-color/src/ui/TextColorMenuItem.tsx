@@ -15,7 +15,8 @@ import { ColorPalette } from '@atlaskit/editor-toolbar/color-palette';
 import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
 import Heading from '@atlaskit/heading/heading';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Bleed, Stack } from '@atlaskit/primitives/compiled';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

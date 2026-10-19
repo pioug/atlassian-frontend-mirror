@@ -5,7 +5,8 @@
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { code, Disclosure, Example, md, TSProps } from '@atlaskit/docs';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 import { token } from '@atlaskit/tokens';
 

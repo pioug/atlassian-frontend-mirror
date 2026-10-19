@@ -25,7 +25,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import PageObject from '@atlaskit/object/page';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

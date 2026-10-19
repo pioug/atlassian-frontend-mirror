@@ -1,9 +1,10 @@
 import { bind } from 'bind-event-listener';
 
-import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { bindKeymapWithCommand, find as findKeymap } from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types/command';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

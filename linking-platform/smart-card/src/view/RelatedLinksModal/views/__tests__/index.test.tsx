@@ -6,7 +6,9 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import type { CardStore } from '@atlaskit/linking-common/store';
-import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import '@atlaskit/link-test-helpers/jest';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';

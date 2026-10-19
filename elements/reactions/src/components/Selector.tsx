@@ -7,10 +7,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { keyframes } from '@compiled/react';
 
 import { css, jsx, cssMap } from '@atlaskit/css';
-import { type EmojiProvider } from '@atlaskit/emoji/resource';
-import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
+import type { EmojiId, OnEmojiEvent, EmojiProvider } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

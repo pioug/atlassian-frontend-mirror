@@ -15,7 +15,7 @@ import { Label } from '@atlaskit/form/label/default';
 import Heading from '@atlaskit/heading/heading';
 import InlineMessage from '@atlaskit/inline-message/inline-message';
 import Link from '@atlaskit/link/link';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

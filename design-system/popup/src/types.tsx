@@ -24,8 +24,9 @@ export interface TriggerAriaProps {
 	'aria-expanded': boolean;
 	/**
 	 * Informs assistive technology that this element triggers a popup.
+	 * With `platform-dst-top-layer`, it is not set when the popup has no `role`.
 	 */
-	'aria-haspopup': boolean | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+	'aria-haspopup'?: boolean | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
 }
 
 export interface TriggerProps extends TriggerAriaProps {
@@ -39,6 +40,15 @@ export interface TriggerProps extends TriggerAriaProps {
 export type PopupRef = HTMLDivElement | null;
 export type TriggerRef = HTMLElement | HTMLButtonElement | null;
 
+/**
+ * Roles whose pattern lets the author choose the initial focus target.
+ * Only a popup with one of these roles gets `setInitialFocusRef`.
+ */
+export type TInitialFocusRole = 'dialog' | 'alertdialog';
+
+/**
+ * Args for `content` (and the `PopupContent` `children` render prop) for every popup.
+ */
 export interface ContentProps {
 	/**
 	 * This will reposition the popup if any of the content has changed.
@@ -55,9 +65,19 @@ export interface ContentProps {
 	 * Passed through from the parent popup.
 	 */
 	onClose?: BaseProps['onClose'];
+}
 
+/**
+ * Args for `content` (and the `PopupContent` `children` render prop) when `role` is
+ * `'dialog'` or `'alertdialog'`.
+ */
+export interface DialogContentProps extends ContentProps {
 	/**
-	 * Escape hatch to set the initial focus for a specific element, when the popup is opened.
+	 * Choose the element that gets focus when the dialog opens, in place of the first
+	 * focusable element (for example the least destructive action, or a heading with
+	 * `tabIndex={-1}`). Only for `role="dialog"` and `role="alertdialog"`: other roles
+	 * have a fixed focus rule (a menu focuses its first item), and a popup with no role
+	 * must not take focus.
 	 *
 	 * The specified element needs to be available in the DOM as soon as the popup is opened, otherwise it
 	 * will not be focused upon. This means it will not work for content that renders into the popup content
@@ -204,11 +224,6 @@ interface BaseProps {
 	isOpen: boolean;
 
 	/**
-	 * Render props for content that is displayed inside the popup.
-	 */
-	content: (props: ContentProps) => React.ReactNode;
-
-	/**
 	 * ID that is assigned to the popup container element.
 	 */
 	id?: string;
@@ -314,6 +329,13 @@ interface BaseProps {
 	 * This controls whether the popup takes focus when opening.
 	 * This changes the `popupComponent` component tabIndex to `null`.
 	 * The default is `true`.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-TODO Internal documentation for deprecation (no external access)}
+	 * TODO: replace ENGHEALTH-TODO with the real ticket.
+	 * No effect when `platform-dst-top-layer` is enabled — focus follows `role`. `dialog`, `alertdialog`, `menu` and
+	 * `listbox` move focus into the popup on open; no role, or any other role,
+	 * keeps focus where it is. To keep focus where it is, do not use one of
+	 * those four roles. This prop will be removed when the flag is cleaned up.
 	 */
 	autoFocus?: boolean;
 
@@ -374,13 +396,6 @@ interface BaseProps {
 	strategy?: 'absolute' | 'fixed';
 
 	/**
-	 * Use this to set the accessibility role for the popup.
-	 * We strongly recommend using only `menu` or `dialog`.
-	 * Must be used along with `label` or `titleId`.
-	 */
-	role?: string;
-
-	/**
 	 * Refers to an `aria-label` attribute. Sets an accessible name for the popup to announce it to users of assistive technology.
 	 * Usage of either this, or the `titleId` attribute is strongly recommended.
 	 */
@@ -425,21 +440,78 @@ interface InternalPopupProps extends BaseProps {
 	zIndex?: number;
 }
 
-type StandardPopupProps = InternalPopupProps & {
-	shouldFitContainer?: false;
+type TFitContainer =
+	| {
+			shouldFitContainer?: false;
+	  }
+	| {
+			shouldFitContainer: true;
+			shouldRenderToParent?: true;
+			strategy?: 'absolute';
+	  };
+
+type TAnyRoleContent = {
+	/**
+	 * Use this to set the accessibility role for the popup.
+	 * We strongly recommend using only `menu` or `dialog`.
+	 * Must be used along with `label` or `titleId`.
+	 *
+	 * Only `role="dialog"` and `role="alertdialog"` (as literal types) give `content`
+	 * the `setInitialFocusRef` setter.
+	 */
+	role?: string;
+
+	/**
+	 * Render props for content that is displayed inside the popup.
+	 */
+	content: (props: ContentProps) => React.ReactNode;
 };
 
-type ShouldFitContainerPopupProps = InternalPopupProps & {
-	shouldFitContainer: true;
-	shouldRenderToParent?: true;
-	strategy?: 'absolute';
+type TDialogRoleContent = {
+	/**
+	 * Use this to set the accessibility role for the popup.
+	 * Must be used along with `label` or `titleId`.
+	 * Required. `undefined` lets a role gated on `platform-dst-top-layer` keep the setter.
+	 */
+	// TODO: drop `| undefined` at the flag cleanup, in a further major, with a codemod
+	// that turns the gated role into `role="dialog"`.
+	role: TInitialFocusRole | undefined;
+
+	/**
+	 * Render props for content that is displayed inside the popup.
+	 * A dialog popup also gets `setInitialFocusRef`.
+	 */
+	content: (props: DialogContentProps) => React.ReactNode;
 };
 
-export type PopupProps = StandardPopupProps | ShouldFitContainerPopupProps;
+/**
+ * Props for a popup with any role, or no role. `content` does not get `setInitialFocusRef`.
+ */
+export type PopupProps = InternalPopupProps & TFitContainer & TAnyRoleContent;
+
+/**
+ * Props for a popup with `role="dialog"` or `role="alertdialog"`.
+ * `content` gets `setInitialFocusRef`.
+ */
+export type DialogPopupProps = InternalPopupProps & TFitContainer & TDialogRoleContent;
+
+/**
+ * The `Popup` component type. It has two call signatures: TypeScript tries the dialog
+ * signature first, so only a role that is always `'dialog'` or `'alertdialog'` gets
+ * `setInitialFocusRef`. Any other role (a `string`, a conditional role, or none) uses
+ * the second signature. `ComponentProps<typeof Popup>` reads the last signature,
+ * which is `PopupProps`.
+ */
+export interface TPopup {
+	(props: DialogPopupProps): React.ReactNode;
+	(props: PopupProps): React.ReactNode;
+}
 
 export interface PopperWrapperProps extends BaseProps {
 	zIndex?: number;
 	triggerRef: TriggerRef;
+	role?: string;
+	content: (props: DialogContentProps) => React.ReactNode;
 }
 
 export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose' | 'shouldIgnoreCloseEvent'> & {

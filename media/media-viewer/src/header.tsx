@@ -4,14 +4,11 @@ import { type ReactNode, type ReactChild, type Ref } from 'react';
 import { FormattedMessage, type WrappedComponentProps } from 'react-intl';
 
 import CrossIcon from '@atlaskit/icon/core/cross';
-import {
-	isExternalImageIdentifier,
-	isErrorFileState,
-	toCommonMediaClientError,
-} from '@atlaskit/media-client';
+import { isErrorFileState, toCommonMediaClientError } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import type { Identifier, FileIdentifier } from '@atlaskit/media-client/identifier';
+import { isExternalImageIdentifier } from '@atlaskit/media-client/is-external-image-identifier';
 import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { isZipMimeType } from '@atlaskit/media-common/isZipMimeType';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';

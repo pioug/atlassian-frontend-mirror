@@ -15,7 +15,7 @@ import type { EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { MentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 

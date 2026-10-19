@@ -1,5 +1,5 @@
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { type KeyValues } from '@atlaskit/util-service-support';
+import type { KeyValues } from '@atlaskit/util-service-support/types';
 
 export const calculateScale = (getRatio: () => number): KeyValues => {
 	if (expValEquals('platform_editor_emoji_default_scale', 'isEnabled', true)) {

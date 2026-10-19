@@ -5,7 +5,9 @@ import {
 	ResolvingClient,
 	ResolvingClientUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { Card } from '../../src';
 

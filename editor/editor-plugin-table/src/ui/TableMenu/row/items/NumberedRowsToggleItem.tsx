@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/editor-common/messages/table';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { toggleNumberColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import type { TableSharedStateInternal } from '../../../../types';

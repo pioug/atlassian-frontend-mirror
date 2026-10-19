@@ -7,6 +7,8 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { from } from 'rxjs/observable/from';
 
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
@@ -147,6 +149,84 @@ describe('onValues', () => {
 				/>,
 			);
 		});
+	});
+
+	it.each(['cf[10049]', '"Focus Areas"', '"Focus Areas[FocusAreas]"'])(
+		'marks suggestions for the focus area field %s as rich inline options',
+		(fieldName, done) => {
+			mockExpEnabled('focus_in_jira_m1');
+			const value =
+				'"ari:cloud:mercury:TEST--tenant:focus-area/workspace/workspace-id/focus-area-id"';
+			const field = {
+				...componentJqlField,
+				value: fieldName,
+				types: ['com.atlassian.jira.mercury.model.FocusArea'],
+			};
+			render(
+				<OnValuesConsumer
+					jqlSearchableFields={[field]}
+					jqlFieldValues={[
+						{ value, displayName: 'Test focus area 1' },
+						{ value: 'other-value', displayName: 'Other value' },
+					]}
+					field={field.value}
+					onAssert={(values) => {
+						expect(values).toEqual([
+							{ value, name: 'Test focus area 1', valueType: 'focusArea' },
+							{ value: 'other-value', name: 'Other value', valueType: 'focusArea' },
+						]);
+					}}
+					done={done}
+				/>,
+			);
+		},
+	);
+
+	it.each(['cf[10049]', '"Focus Areas"', '"Focus Areas[FocusAreas]"'])(
+		'keeps suggestions for the focus area field %s as plain text in the control cohort',
+		(fieldName, done) => {
+			mockExpDisabled('focus_in_jira_m1');
+			const value =
+				'"ari:cloud:mercury:TEST--tenant:focus-area/workspace/workspace-id/focus-area-id"';
+			const field = {
+				...componentJqlField,
+				value: fieldName,
+				types: ['com.atlassian.jira.mercury.model.FocusArea'],
+			};
+			render(
+				<OnValuesConsumer
+					jqlSearchableFields={[field]}
+					jqlFieldValues={[
+						{ value, displayName: 'Test focus area 1' },
+						{ value: 'other-value', displayName: 'Other value' },
+					]}
+					field={field.value}
+					onAssert={(values) => {
+						expect(values).toEqual([
+							{ value, name: 'Test focus area 1' },
+							{ value: 'other-value', name: 'Other value' },
+						]);
+					}}
+					done={done}
+				/>,
+			);
+		},
+	);
+
+	it('does not turn a focus area ARI into a rich inline option for an unrelated field', (done) => {
+		const value =
+			'"ari:cloud:mercury:TEST--tenant:focus-area/workspace/workspace-id/focus-area-id"';
+		render(
+			<OnValuesConsumer
+				jqlSearchableFields={[componentJqlField]}
+				jqlFieldValues={[{ value, displayName: 'Test focus area 1' }]}
+				field={componentJqlField.value}
+				onAssert={(values) => {
+					expect(values).toEqual([{ value, name: 'Test focus area 1' }]);
+				}}
+				done={done}
+			/>,
+		);
 	});
 
 	it('returns no values when the provided field could not be found', (done) => {

@@ -23,6 +23,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles/constants';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toggleActiveTableMenu, toggleContextualMenu } from '../../pm-plugins/commands';
@@ -34,6 +35,7 @@ import {
 	type PluginInjectionAPI,
 	type TableSharedStateInternal,
 } from '../../types';
+import { getTableZIndexes } from '../sticky-header-z-index';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import FixedButton from './FixedButton';
@@ -215,6 +217,12 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 							right: `calc(${BUTTON_OFFSET}px + anchor(${colAnchorName} right))`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							positionAnchor: colAnchorName,
+							// The native sticky header row paints above the default z-index, hiding the button.
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- z-index depends on runtime experiments
+							...(isExperimentEnabled('platform_editor_table_cell_menu_btn_zindex') && {
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								zIndex: getTableZIndexes().headerButton,
+							}),
 						} as CSSProperties
 					} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
 					data-testid="table-cell-options-anchor-wrapper"

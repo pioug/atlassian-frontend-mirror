@@ -4,7 +4,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
 
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import EmbedRovoActionsFooter from '../components/rovo-actions-footer';

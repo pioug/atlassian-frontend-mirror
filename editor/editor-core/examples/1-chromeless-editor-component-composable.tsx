@@ -24,8 +24,10 @@ import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import Toggle from '@atlaskit/toggle';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 import { ChromelessEditor } from '../src/editor-appearances/ChromelessEditor';

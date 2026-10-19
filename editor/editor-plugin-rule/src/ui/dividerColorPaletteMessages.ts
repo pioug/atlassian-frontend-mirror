@@ -1,6 +1,6 @@
 import { ruleMessages } from '@atlaskit/editor-common/messages/rule';
-import type { PaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
-import { textPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
+import { textPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
+import type { PaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
 import { token } from '@atlaskit/tokens';
 
 // from platform/packages/editor/editor-plugin-text-color/src/pm-plugins/utils/constants.t

@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import type { MediaApi } from '@atlaskit/media-client/media-store/types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { MockedMediaClientProvider } from '../test-helpers/MockedMediaClientProvider';
 import { useCopyIntent } from './useCopyIntent';

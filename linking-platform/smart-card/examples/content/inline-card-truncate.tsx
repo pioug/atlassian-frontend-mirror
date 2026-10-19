@@ -5,7 +5,8 @@ import {
 	ResolvedClient,
 	ResolvedClientWithLongTitleUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import Range from '@atlaskit/range/range';
 
 import { Card } from '../../src';

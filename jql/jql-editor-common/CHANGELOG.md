@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-common
 
+## 4.5.0
+
+### Minor Changes
+
+- [`d09cdea51139c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d09cdea51139c) -
+  [ux] Add Focus Area rich inline nodes and hydration support to the JQL editor behind the
+  focus_in_jira_m1 experiment.
+
 ## 4.4.0
 
 ### Minor Changes

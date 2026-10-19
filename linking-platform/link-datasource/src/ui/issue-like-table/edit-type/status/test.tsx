@@ -5,8 +5,8 @@ import { IntlProvider } from 'react-intl';
 
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
-import { Box } from '@atlaskit/primitives/compiled';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';

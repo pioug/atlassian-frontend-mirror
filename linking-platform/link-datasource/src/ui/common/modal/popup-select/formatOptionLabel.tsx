@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar/avatar';
 import { cssMap, cx } from '@atlaskit/css';
 import PeopleGroupIcon from '@atlaskit/icon/core/people-group';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';

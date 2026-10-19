@@ -3,7 +3,7 @@ import { mockCreateAnalyticsEvent } from '@atlaskit/editor-test-helpers/mock-ana
 import React from 'react';
 
 import { ACTION, EVENT_TYPE, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import type { ComponentCaughtDomErrorAEP } from '../../../../analytics/events';
 import { PLATFORM } from '../../../../analytics/events';

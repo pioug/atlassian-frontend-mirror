@@ -1,5 +1,14 @@
 # @atlaskit/side-nav-items
 
+## 2.5.8
+
+### Patch Changes
+
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  `FlyoutMenuItemContent`'s `autoFocus` is deprecated. It has no effect when
+  `platform-dst-top-layer` is on.
+- Updated dependencies
+
 ## 2.5.7
 
 ### Patch Changes

@@ -17,9 +17,17 @@ import LockIcon from '@atlaskit/icon/core/lock-locked';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { messages } from '@atlaskit/media-ui/messages';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss, Box, Flex, Text } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Flex } from '@atlaskit/primitives/components/flex';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Text } from '@atlaskit/primitives/text';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
+
+import { useIsInsetViewer } from '../../insetViewerContext';
 
 interface PDFPasswordInputProps {
 	onSubmit: OnSubmitHandler<{ password: string }>;
@@ -39,17 +47,32 @@ const headingStyle = css({
 	},
 });
 
+const insetViewerHeadingStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- increased specificity to override Heading component
+	'&& h1': {
+		color: token('color.text.subtle'),
+	},
+});
+
 const errorMessageWrapperStyle = css({
 	marginTop: token('space.050'),
 	font: token('font.body.small'),
 	display: 'flex',
 	alignItems: 'center',
+});
+
+const errorMessageColorStyle = css({
 	color: ERROR_COLOR,
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	p: {
 		color: ERROR_COLOR,
 	},
+});
+
+// The message itself takes its color from the Text color prop, so this is just for the icon.
+const insetViewerErrorMessageColorStyle = css({
+	color: token('color.text.danger'),
 });
 
 const errorMessageStyle = css({
@@ -82,6 +105,7 @@ export const PasswordInput = ({
 	const onRenderRef = useRef(onRender);
 	const [formError, setFormError] = useState(hasPasswordError);
 	const intl = useIntl();
+	const isInsetViewer = useIsInsetViewer();
 
 	useEffect(() => {
 		onRenderRef.current?.();
@@ -99,10 +123,13 @@ export const PasswordInput = ({
 			{({ formProps, submitting }) => (
 				<form {...formProps}>
 					<Flex justifyContent="center">
-						<LockIcon label="" color={COLOR_SHADE as any} />
+						<LockIcon
+							label=""
+							color={isInsetViewer ? (token('color.icon.subtle') as any) : (COLOR_SHADE as any)}
+						/>
 					</Flex>
 					<Box xcss={headerStyles}>
-						<div css={headingStyle}>
+						<div css={[headingStyle, isInsetViewer && insetViewerHeadingStyle]}>
 							<Heading as="h1" size="medium">
 								<FormattedMessage {...messages.password_protected_pdf} />
 							</Heading>
@@ -124,10 +151,16 @@ export const PasswordInput = ({
 									}}
 								/>
 								{formError && (
-									<div css={errorMessageWrapperStyle} id={`${fieldProps.id}-error`}>
+									<div
+										css={[
+											errorMessageWrapperStyle,
+											isInsetViewer ? insetViewerErrorMessageColorStyle : errorMessageColorStyle,
+										]}
+										id={`${fieldProps.id}-error`}
+									>
 										<ErrorIcon color="currentColor" label="" size="small" />
 										<div css={errorMessageStyle} id={`${fieldProps.id}-errorMessage`}>
-											<Text as="p">
+											<Text as="p" color={isInsetViewer ? 'color.text.danger' : undefined}>
 												<FormattedMessage {...messages.incorrect_password} />
 											</Text>
 										</div>

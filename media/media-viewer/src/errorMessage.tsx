@@ -1,13 +1,19 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { type ReactNode } from 'react';
 
 import { FormattedMessage, type MessageDescriptor, type WrappedComponentProps } from 'react-intl';
 
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { cssMap, jsx } from '@atlaskit/css';
 import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { FileState } from '@atlaskit/media-state/file-state';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { token } from '@atlaskit/tokens';
 
 import {
 	createLoadFailedEvent,
@@ -28,6 +34,7 @@ import { errorLoadingFile } from './error-images';
 import type { PrimaryErrorReason, SecondaryErrorReason } from './errors';
 import { getErrorMessageFromError } from './getErrorMessageFromError';
 import { getPrimaryErrorReason } from './getPrimaryErrorReason';
+import type { WithInsetViewerProps } from './insetViewerContext';
 import type { MediaViewerError } from './MediaViewerError';
 import { ErrorMessageWrapper, ErrorImage } from './styleWrappers';
 
@@ -40,6 +47,13 @@ export type Props = Readonly<{
 	fileStateFlags?: FileStateFlags;
 	traceContext?: MediaTraceContext;
 }>;
+
+const styles = cssMap({
+	insetViewerLine: {
+		// A different color from the "Try downloading" Text (color.text), and it follows the theme.
+		color: token('color.text.subtle'),
+	},
+});
 
 export type FormatMessageFn = (messageDescriptor: MessageDescriptor) => string;
 
@@ -67,7 +81,7 @@ export const errorReasonToMessages: Array<
 ];
 
 export class ErrorMessage extends React.Component<
-	Props & WrappedComponentProps & WithAnalyticsEventsProps,
+	Props & WrappedComponentProps & WithAnalyticsEventsProps & WithInsetViewerProps,
 	{}
 > {
 	private getErrorInfo(): ErrorMessageInfo {
@@ -192,7 +206,7 @@ export class ErrorMessage extends React.Component<
 					{errorInfo.icon}
 					{errorInfo.messages.map((formatMessage, i) => (
 						// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
-						<p key={`p${i}`}>
+						<p key={`p${i}`} css={this.props.isInsetViewer && styles.insetViewerLine}>
 							<FormattedMessage {...formatMessage} />
 						</p>
 					))}

@@ -44,6 +44,7 @@ export class BlockCardComponent extends React.PureComponent<
 	unknown
 > {
 	private scrollContainer?: HTMLElement;
+	private pendingRegisterCard?: ReturnType<typeof rafSchedule>;
 
 	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
@@ -65,7 +66,7 @@ export class BlockCardComponent extends React.PureComponent<
 
 		// don't dispatch immediately since we might be in the middle of
 		// rendering a nodeview
-		rafSchedule(() => {
+		const scheduleRegisterCard = rafSchedule(() => {
 			const pos = getPos();
 
 			if (typeof pos !== 'number') {
@@ -80,10 +81,18 @@ export class BlockCardComponent extends React.PureComponent<
 					id: this.props.id,
 				})(view.state.tr),
 			);
-		})();
+		});
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			this.pendingRegisterCard = scheduleRegisterCard;
+		}
+		scheduleRegisterCard();
 	};
 
 	componentWillUnmount(): void {
+		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+			this.pendingRegisterCard?.cancel();
+			this.pendingRegisterCard = undefined;
+		}
 		this.removeCard();
 	}
 

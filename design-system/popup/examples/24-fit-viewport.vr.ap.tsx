@@ -218,9 +218,7 @@ function TallContent({ hasOwnWidth }: { hasOwnWidth: boolean }): ReactNode {
  * labelled 100px bands, so the frame shows which hundred the cap cuts at instead
  * of a blank band. Read the two flag states as a pair: the top-layer path has to
  * match what legacy renders, and both baselines put the popup's box at 200px
- * wide, ending 5px clear of the viewport bottom. Every flag-on baseline in this file also carries a focus ring on the
- * trigger that the flag-off one does not, because `popup-top-layer.tsx` focuses
- * the trigger when `autoFocus` is `false`.
+ * wide, ending 5px clear of the viewport bottom.
  */
 export function FitViewportDefaultSurface(): ReactNode {
 	const [isOpen, setIsOpen] = useState(true);

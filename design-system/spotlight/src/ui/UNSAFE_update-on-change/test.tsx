@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { render } from '@atlassian/testing-library';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
 import { UNSAFE_UpdateOnChange } from './index';

@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';

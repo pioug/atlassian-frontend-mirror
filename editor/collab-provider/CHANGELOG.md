@@ -1,5 +1,25 @@
 # @atlaskit/collab-provider
 
+## 37.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.0.1
+
+### Patch Changes
+
+- [`5895fa49941d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5895fa49941d0) -
+  Remove the platform_editor_blocked_document_ux gate so blocked documents always emit the
+  non-recoverable DOCUMENT_BLOCKED error.
+
 ## 37.0.0
 
 ### Patch Changes

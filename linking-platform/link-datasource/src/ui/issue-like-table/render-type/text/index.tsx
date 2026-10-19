@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { StringType } from '@atlaskit/linking-types/datasource';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 interface TextProps {
 	testId?: string;

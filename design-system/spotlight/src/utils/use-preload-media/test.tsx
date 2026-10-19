@@ -1,5 +1,5 @@
 import * as browserApis from '@atlaskit/browser-apis';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { usePreloadMedia } from './index';
 

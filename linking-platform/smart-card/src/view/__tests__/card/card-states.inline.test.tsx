@@ -9,7 +9,12 @@ import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
-import { act, render, screen, waitFor as waitForElement } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import {
+	act,
+	render,
+	waitFor as waitForElement,
+} from '@atlassian/testing-library/testing-library/react';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';

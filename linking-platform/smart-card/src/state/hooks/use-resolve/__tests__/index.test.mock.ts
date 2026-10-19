@@ -1,5 +1,5 @@
 jest.mock('react', () => ({
-	...jest.requireActual<Object>('react'),
+	...jest.requireActual<object>('react'),
 	useMemo: jest.fn().mockImplementation((fn) => fn()),
 	useCallback: jest.fn().mockImplementation((fn) => fn),
 }));
@@ -31,7 +31,7 @@ export const mockGetContext = (): CardContext => ({
 });
 
 jest.doMock('@atlaskit/link-provider', () => ({
-	...jest.requireActual<Object>('@atlaskit/link-provider'),
+	...jest.requireActual<object>('@atlaskit/link-provider'),
 	useSmartLinkContext: jest.fn(() => mockGetContext()),
 }));
 
@@ -39,6 +39,6 @@ jest.doMock('@atlaskit/link-provider', () => ({
 // subpath entry point, so it must be mocked there too (the barrel mock above no
 // longer intercepts the deep import).
 jest.doMock('@atlaskit/link-provider/use-smart-link-context', () => ({
-	...jest.requireActual<Object>('@atlaskit/link-provider/use-smart-link-context'),
+	...jest.requireActual<object>('@atlaskit/link-provider/use-smart-link-context'),
 	useSmartLinkContext: jest.fn(() => mockGetContext()),
 }));

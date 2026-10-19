@@ -7,6 +7,7 @@ const editInput = 'edit-view';
 
 test.describe('Inline Edit Validation', () => {
 	const readViewContentWrapper = 'button[data-testid="validation--edit-button"] + div';
+
 	test.beforeEach(async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/03-validation.tsx')>(
 			'design-system',
@@ -15,6 +16,7 @@ test.describe('Inline Edit Validation', () => {
 			{ 'react-18-mode': 'modern' },
 		);
 	});
+
 	test('Displays error message', async ({ page }) => {
 		const readView = page.locator(readViewContentWrapper);
 		await readView.click();
@@ -49,6 +51,7 @@ test.describe('Inline Edit Validation', () => {
 
 test.describe('Default Inline Edit', () => {
 	const readViewContentWrapper = 'button[data-testid="inline-edit--edit-button"] + div';
+
 	test.beforeEach(async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/00-basic-usage.tsx')>(
 			'design-system',
@@ -57,6 +60,7 @@ test.describe('Default Inline Edit', () => {
 			{ 'react-18-mode': 'modern' },
 		);
 	});
+
 	test('Should hide edit button after confirmation', async ({ page }) => {
 		const readView = page.locator(readViewContentWrapper);
 		await readView.click();

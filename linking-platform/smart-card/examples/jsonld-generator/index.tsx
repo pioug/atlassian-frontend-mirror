@@ -7,8 +7,10 @@ import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Textfield from '@atlaskit/textfield/text-field';
 

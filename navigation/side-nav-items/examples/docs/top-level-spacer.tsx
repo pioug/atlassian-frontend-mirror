@@ -8,7 +8,7 @@ import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { GoalsIcon } from '@atlaskit/logo/goals/icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { TeamsIcon } from '@atlaskit/logo/teams/icon';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';

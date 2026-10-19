@@ -12,7 +12,7 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import type { EmojiId } from '@atlaskit/emoji';
+import type { EmojiId } from '@atlaskit/emoji/types';
 
 export const createEmojiFragment = (doc: Node, pos: ResolvedPos, emoji: EmojiId): Fragment => {
 	const { id = '', fallback, shortName } = emoji;

@@ -12,7 +12,7 @@ import type { AvatarProps } from '@atlaskit/avatar-group/types';
 import Avatar from '@atlaskit/avatar/avatar';
 import type { SizeType } from '@atlaskit/avatar/types';
 import type { User } from '@atlaskit/linking-types/datasource';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 

@@ -6,7 +6,8 @@ import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { fireEvent, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { ElementName } from '../../../../../../../constants';
 import AvatarGroup from '../index';

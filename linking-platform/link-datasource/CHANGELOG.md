@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 7.5.2
+
+### Patch Changes
+
+- [`9b0d8af629b68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b0d8af629b68) -
+  Clean up feature gate `platform_lp_sllv_table_settings_menu`. The table settings menu and bulk
+  text wrapping remain permanently enabled, including the column-picker icon button and editor
+  wrapping updates. No public API changes.
+- Updated dependencies
+
+## 7.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.5.0
 
 ### Minor Changes

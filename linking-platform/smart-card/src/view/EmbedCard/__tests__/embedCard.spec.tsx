@@ -11,9 +11,11 @@ import {
 } from '@atlaskit/media-test-helpers/jestHelpers';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { screen, within, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,

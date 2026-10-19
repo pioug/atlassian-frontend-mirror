@@ -330,9 +330,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 							{...(shouldEnableColumnSort ? { onColumnSort, sortState } : {})}
 							wrappedColumnKeys={wrappedColumnKeys}
 							onWrappedColumnChange={onWrappedColumnChange}
-							{...(onWrappedColumnsChange && fg('platform_lp_sllv_table_settings_menu')
-								? { onWrappedColumnsChange }
-								: {})}
+							{...(onWrappedColumnsChange ? { onWrappedColumnsChange } : {})}
 							scrollableContainerHeight={
 								isInPDFRender
 									? undefined

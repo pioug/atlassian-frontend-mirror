@@ -1,9 +1,11 @@
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 

@@ -14,7 +14,6 @@ import useMotionTokenValues from './rules/compiled/use-motion-token-values';
 import editorExampleTypeImportRequired from './rules/editor-example-type-import-required';
 import ensureAtlassianTeam from './rules/ensure-atlassian-team';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
-import ensureFeatureFlagRegistration from './rules/ensure-feature-flag-registration';
 import ensureNoPrivateDependencies from './rules/ensure-no-private-dependencies';
 import ensureProductCollectionNamePrefix from './rules/ensure-product-collection-name-prefix';
 import ensurePublishValid from './rules/ensure-publish-valid';
@@ -86,7 +85,6 @@ const packageJson: {
 } = require('@atlaskit/eslint-plugin-platform/package.json');
 
 const rules: {
-	'ensure-feature-flag-registration': Rule.RuleModule;
 	'ensure-test-runner-arguments': Rule.RuleModule;
 	'ensure-test-runner-nested-count': Rule.RuleModule;
 	'ensure-atlassian-team': Rule.RuleModule;
@@ -140,7 +138,6 @@ const rules: {
 	'expand-motion-shorthand': Rule.RuleModule;
 	'no-statsig-version-bump': Rule.RuleModule;
 } = {
-	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
 	'ensure-test-runner-arguments': ensureTestRunnerArguments,
 	'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
 	'ensure-atlassian-team': ensureAtlassianTeam,
@@ -237,7 +234,6 @@ const recommendedRules = {
 	'@atlaskit/platform/valid-gate-name': 'error',
 	'@atlaskit/platform/no-unsafe-no-exposure': 'warn',
 	// end: feature-gating rules
-	'@atlaskit/platform/ensure-feature-flag-registration': 'error',
 } satisfies Linter.RulesRecord;
 
 const jiraRules = commonConfig;
@@ -257,7 +253,6 @@ const plugin: {
 		version: string;
 	};
 	rules: {
-		'ensure-feature-flag-registration': Rule.RuleModule;
 		'ensure-test-runner-arguments': Rule.RuleModule;
 		'ensure-test-runner-nested-count': Rule.RuleModule;
 		'ensure-atlassian-team': Rule.RuleModule;
@@ -322,7 +317,6 @@ const plugin: {
 				'@atlaskit/platform/no-alias': 'error';
 				'@atlaskit/platform/valid-gate-name': 'error';
 				// end: feature-gating rules
-				'@atlaskit/platform/ensure-feature-flag-registration': 'error';
 				'@atlaskit/platform/ensure-test-runner-arguments': 'error';
 				'@atlaskit/platform/ensure-test-runner-nested-count': 'warn';
 				'@atlaskit/platform/ensure-use-sync-external-store-server-snapshot': 'error';
@@ -363,7 +357,6 @@ const plugin: {
 				'@atlaskit/platform/no-alias': 'error';
 				'@atlaskit/platform/valid-gate-name': 'error';
 				// end: feature-gating rules
-				'@atlaskit/platform/ensure-feature-flag-registration': 'error';
 				'@atlaskit/platform/ensure-test-runner-arguments': 'error';
 				'@atlaskit/platform/ensure-test-runner-nested-count': 'warn';
 				'@atlaskit/platform/ensure-use-sync-external-store-server-snapshot': 'error';
@@ -572,7 +565,6 @@ const configs: {
 			'@atlaskit/platform/no-alias': 'error';
 			'@atlaskit/platform/valid-gate-name': 'error';
 			// end: feature-gating rules
-			'@atlaskit/platform/ensure-feature-flag-registration': 'error';
 			'@atlaskit/platform/ensure-test-runner-arguments': 'error';
 			'@atlaskit/platform/ensure-test-runner-nested-count': 'warn';
 			'@atlaskit/platform/ensure-use-sync-external-store-server-snapshot': 'error';
@@ -613,7 +605,6 @@ const configs: {
 			'@atlaskit/platform/no-alias': 'error';
 			'@atlaskit/platform/valid-gate-name': 'error';
 			// end: feature-gating rules
-			'@atlaskit/platform/ensure-feature-flag-registration': 'error';
 			'@atlaskit/platform/ensure-test-runner-arguments': 'error';
 			'@atlaskit/platform/ensure-test-runner-nested-count': 'warn';
 			'@atlaskit/platform/ensure-use-sync-external-store-server-snapshot': 'error';

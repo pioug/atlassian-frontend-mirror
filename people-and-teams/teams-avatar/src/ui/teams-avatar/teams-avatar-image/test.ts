@@ -1,3 +1,4 @@
+import { TEAM_FALLBACK_AVATAR_DATA_URI } from './fallback/constants';
 import { getTeamAvatarSrc } from './utils';
 
 describe('getTeamAvatarSrc', () => {
@@ -9,8 +10,8 @@ describe('getTeamAvatarSrc', () => {
 		expect(getTeamAvatarSrc(undefined, 'team-123')).toBe('/gateway/api/v4/teams/team-123/avatar');
 	});
 
-	it('should return undefined if no params are provided', () => {
-		expect(getTeamAvatarSrc()).toBeUndefined();
+	it('should return the fallback avatar if no params are provided', () => {
+		expect(getTeamAvatarSrc()).toBe(TEAM_FALLBACK_AVATAR_DATA_URI);
 	});
 
 	it('should use src in favour of teamId', () => {

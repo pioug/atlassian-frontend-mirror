@@ -13,8 +13,8 @@ import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginSta
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
-import { EmojiPicker } from '@atlaskit/emoji';
-import type { EmojiId } from '@atlaskit/emoji';
+import { EmojiPicker } from '@atlaskit/emoji/emoji-picker';
+import type { EmojiId } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EmojiPlugin } from '../emojiPluginType';

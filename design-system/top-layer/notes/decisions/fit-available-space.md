@@ -1010,10 +1010,10 @@ consumer that does not ask it to fit, with why it was left.
   divergence the flag pair found; worth knowing before anyone reads the flag-off half as a top-layer
   regression.
   [../follow-ups/legacy-fit-container-cap-never-binds.md](../follow-ups/legacy-fit-container-cap-never-binds.md)
-- **Every flag-on popup baseline carries a focus ring the flag-off one does not.** `popup-top-layer`
-  focuses the trigger when `autoFocus` is `false`, where legacy leaves focus where it was. Visible
-  in all four pairs in `popup-top-layer.vr.tsx`, and unrelated to sizing, but it is a rendering
-  difference between the paths and so belongs on this list beside the two real ones.
+- **Flag-on popup baselines used to carry a focus ring the flag-off ones did not.**
+  `popup-top-layer` focused the trigger when `autoFocus` was `false`, where legacy leaves focus
+  where it was. Fixed: the top-layer path now leaves focus where it was too, so the four pairs in
+  `popup-top-layer.vr.tsx` no longer differ by the ring.
 - **`@atlaskit/datetime-picker`'s calendar is never asked to fit.** Legacy `menu.tsx` sets
   `overflow: hidden` with no cap, so it clips rather than scrolls. The top-layer adapter
   (`fixed-layer-menu-top-layer.tsx`) wraps the calendar in a `PopoverSurface` and calls the hook

@@ -25,6 +25,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

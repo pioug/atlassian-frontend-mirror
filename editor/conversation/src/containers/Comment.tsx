@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import type { Component, ComponentClass, DispatchProp, Omit } from 'react-redux';
 
-import type { CommentActionItemProps } from '@atlaskit/comment';
+import type { CommentActionItemProps } from '@atlaskit/comment/action-item';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 
 import type {

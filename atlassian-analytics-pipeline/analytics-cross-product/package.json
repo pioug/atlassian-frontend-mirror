@@ -17,7 +17,19 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./globalInteractionSessionTracking": "./src/globalInteractionSessionTracking.ts",
-		"./useCrossProductUrlWrapper": "./src/useCrossProductUrlWrapper.tsx"
+		"./useCrossProductUrlWrapper": "./src/useCrossProductUrlWrapper.tsx",
+		"./useXpcRendererHandoff": "./src/useXpcRendererHandoff.ts",
+		"./xpcActivationCoordinator": "./src/xpcActivationCoordinator.ts",
+		"./xpcArrivalCapture": "./src/xpcArrivalCapture.ts",
+		"./xpcAwcNavigationReporter": "./src/xpcAwcNavigationReporter.ts",
+		"./xpcDefaultDestinationRegistry": "./src/xpcDefaultDestinationRegistry.ts",
+		"./xpcDestinationResolver": "./src/xpcDestinationResolver.ts",
+		"./xpcFinalSinkDepartureCapture": "./src/xpcFinalSinkDepartureCapture.ts",
+		"./xpcHandoffSafety": "./src/xpcHandoffSafety.ts",
+		"./xpcNavigationObservation": "./src/xpcNavigationObservation.ts",
+		"./xpcNavigationProvider": "./src/xpcNavigationProvider.tsx",
+		"./xpcNativeDepartureCapture": "./src/xpcNativeDepartureCapture.ts",
+		"./xpcSourceProvider": "./src/xpcSourceProvider.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-experiments": "workspace:^",
@@ -38,16 +50,11 @@
 		"react-dom": "root:*"
 	},
 	"name": "@atlaskit/analytics-cross-product",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"description": "Utilities to enable cross-product interaction session tracking",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
-	},
-	"platform-feature-flags": {
-		"atlaskit-analytics-cross-product": {
-			"type": "boolean"
-		}
 	}
 }

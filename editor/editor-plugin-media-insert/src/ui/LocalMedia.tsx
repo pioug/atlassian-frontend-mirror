@@ -18,7 +18,7 @@ import type {
 	UploadErrorEventPayload,
 	UploadPreviewUpdateEventPayload,
 } from '@atlaskit/media-picker/types';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import SectionMessage from '@atlaskit/section-message/message';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 

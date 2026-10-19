@@ -31,6 +31,7 @@ test.describe('editor: line navigation', () => {
 	test.describe('when user hits CMD+ArrowLeft', () => {
 		const arrowLeftShortcut =
 			process.platform === 'darwin' ? 'Meta+ArrowLeft' : 'Control+ArrowLeft';
+
 		test('should move the cursor at the beginning of the line', async ({ editor }) => {
 			// Put the selection right after the space in "Hello World!"
 			await editor.selection.set({ anchor: 7, head: 7 });
@@ -48,6 +49,7 @@ test.describe('editor: line navigation', () => {
 	test.describe('when user hits CMD+ArrowRight', () => {
 		const arrowRightShortcut =
 			process.platform === 'darwin' ? 'Meta+ArrowRight' : 'Control+ArrowRight';
+
 		test('should move the cursor at the end of the line', async ({ editor }) => {
 			// Put the selection right after the space in "Hello World!"
 			await editor.selection.set({ anchor: 7, head: 7 });
@@ -65,6 +67,7 @@ test.describe('editor: line navigation', () => {
 	test.describe('when user hits CMD+Shift+ArrowLeft', () => {
 		const arrowLeftShiftShortcut =
 			process.platform === 'darwin' ? 'Meta+Shift+ArrowLeft' : 'Control+Shift+ArrowLeft';
+
 		test('should create a text selection starting from the cursor until the beginning of the line', async ({
 			editor,
 		}) => {
@@ -84,6 +87,7 @@ test.describe('editor: line navigation', () => {
 	test.describe('when user hits CMD+Shift+ArrowRight', () => {
 		const arrowRightShiftShortcut =
 			process.platform === 'darwin' ? 'Meta+Shift+ArrowRight' : 'Control+Shift+ArrowRight';
+
 		test('should create a text selection starting from the cursor until the end of the line', async ({
 			editor,
 		}) => {

@@ -13,7 +13,9 @@ import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUn
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { Popper } from '@atlaskit/popper/main';
 import Portal from '@atlaskit/portal/portal';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import type { ProfileCardClientData } from '@atlaskit/profilecard/types';
 import { token } from '@atlaskit/tokens';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';

@@ -7,8 +7,9 @@ import { useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
-import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
+import type { DialogContentProps, TriggerProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -16,7 +17,7 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 export default function InsidePopupExample(): JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const renderContent = ({ setInitialFocusRef }: ContentProps) => (
+	const renderContent = ({ setInitialFocusRef }: DialogContentProps) => (
 		<Box xcss={wrapperStyles.root}>
 			<Tooltip content="Only show on hover or focus-visible">
 				<Button ref={setInitialFocusRef} onClick={() => {}}>
@@ -40,6 +41,8 @@ export default function InsidePopupExample(): JSX.Element {
 			content={renderContent}
 			onClose={() => setIsOpen(false)}
 			shouldRenderToParent
+			role={fg('platform-dst-top-layer') ? 'dialog' : undefined}
+			label={fg('platform-dst-top-layer') ? 'Popup with a tooltip' : undefined}
 		/>
 	);
 }

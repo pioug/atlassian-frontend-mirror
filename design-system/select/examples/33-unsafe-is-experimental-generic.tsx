@@ -6,7 +6,8 @@ import IconButton from '@atlaskit/button/icon/button';
 import { Label } from '@atlaskit/form/label/default';
 import EditIcon from '@atlaskit/icon/core/edit';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-import Lozenge, { type LozengeProps } from '@atlaskit/lozenge/lozenge';
+import type { LozengeProps } from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled

@@ -7,7 +7,9 @@ import type { CardProviderProps as ProviderProps } from '@atlaskit/link-provider
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { ACTION_RESOLVED, cardAction } from '@atlaskit/linking-common/actions';
 import type { CardState, CardStore } from '@atlaskit/linking-common/store';
-import { fireEvent, render, renderHook, screen } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { useSmartCardState } from '../index';
 

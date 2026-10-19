@@ -2,7 +2,7 @@
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 const originWeakMap = window.WeakMap;
 Object.defineProperty(window, 'WeakMap', {

@@ -3,7 +3,7 @@ import React, { Profiler } from 'react';
 import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { SyncInfo } from './index';
 

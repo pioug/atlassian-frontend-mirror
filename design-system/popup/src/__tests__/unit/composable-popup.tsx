@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -182,6 +183,57 @@ describe('Popup with composable API', () => {
 						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
 					</PopupTrigger>
 					<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+				</Popup>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+				'aria-haspopup',
+				'true',
+			);
+		});
+	});
+
+	ffTest.on('platform-dst-top-layer', 'trigger aria-haspopup on the top layer', () => {
+		it('should not set aria-haspopup when the popup has no role', () => {
+			render(
+				<Popup>
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent>{() => <div>content</div>}</PopupContent>
+				</Popup>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Trigger' })).not.toHaveAttribute('aria-haspopup');
+		});
+
+		it('should set aria-haspopup to dialog if role is dialog', () => {
+			render(
+				<Popup role="dialog">
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent role="dialog" label="Content">
+						{() => <div>content</div>}
+					</PopupContent>
+				</Popup>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+				'aria-haspopup',
+				'dialog',
+			);
+		});
+	});
+
+	ffTest.off('platform-dst-top-layer', 'trigger aria-haspopup on the legacy path', () => {
+		it('should set aria-haspopup to true when the popup has no role', () => {
+			render(
+				<Popup>
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent>{() => <div>content</div>}</PopupContent>
 				</Popup>,
 			);
 

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 29.0.2
+
+### Patch Changes
+
+- [`31dd8d40ffba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31dd8d40ffba2) -
+  Cleanup `experiment` `cc-markdown-mode`. Markdown mode is unshipped: the markdown schema rebuild,
+  source-view toolbar bridge, and markdown-mode layout paths are removed.
+- Updated dependencies
+
+## 29.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.0
 
 ### Patch Changes

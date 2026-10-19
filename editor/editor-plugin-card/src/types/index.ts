@@ -116,6 +116,7 @@ export type CardPluginState = {
 	overlayCandidatePosition?: number;
 	provider: CardProvider | null;
 	removeOverlay?: () => void;
+	removeOverlayCardId?: string;
 	requests: Request[];
 	resolvedInlineSmartLinks?: Array<{
 		pos: number;

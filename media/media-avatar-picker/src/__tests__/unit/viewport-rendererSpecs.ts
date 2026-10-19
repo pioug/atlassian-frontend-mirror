@@ -1,7 +1,7 @@
 jest.mock('../../util');
 
 import { mockCanvas } from '@atlaskit/media-test-helpers/mockCanvas';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { getCanvas } from '../../util';
 import { DEFAULT_INNER_WIDTH, DEFAULT_INNER_HEIGHT } from '../../viewport';

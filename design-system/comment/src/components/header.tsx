@@ -7,7 +7,7 @@ import { type FC, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';

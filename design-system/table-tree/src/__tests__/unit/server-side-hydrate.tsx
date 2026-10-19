@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
+import { doesHydrateWithSsr } from '@atlassian/ssr-tests/ssr-tests';
 
 import Example from '../../../examples/controlled-expanded-state.vr.ap';
 

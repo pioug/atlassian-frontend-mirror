@@ -10,8 +10,8 @@ import { css, jsx } from '@emotion/react';
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox/checkbox';
 import type { BooleanField } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
-import { Text } from '@atlaskit/primitives/compiled';
-import AKToggle from '@atlaskit/toggle';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import AKToggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 
 import FieldMessages from '../FieldMessages';

@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-card
 
+## 34.0.3
+
+### Patch Changes
+
+- [`9b0d8af629b68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b0d8af629b68) -
+  Clean up feature gate `platform_lp_sllv_table_settings_menu`. The table settings menu and bulk
+  text wrapping remain permanently enabled, including the column-picker icon button and editor
+  wrapping updates. No public API changes.
+- Updated dependencies
+
+## 34.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.1
+
+### Patch Changes
+
+- [`fc2f6ea92bf86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc2f6ea92bf86) -
+  Behind `platform_editor_reduce_memory_leaks`: stop retaining deleted inline and block cards.
+  Pending `registerCard` animation frames are cancelled on unmount, resolve-request cancel callbacks
+  are dropped once they fire, the `removeOverlay` callback is cleared when its card is removed and
+  no longer closes over the node view scope, and the inline card overlay cancels its resize debounce
+  on cleanup.
+- Updated dependencies
+
 ## 34.0.0
 
 ### Patch Changes

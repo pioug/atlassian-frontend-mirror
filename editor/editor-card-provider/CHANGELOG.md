@@ -1,5 +1,17 @@
 # @atlaskit/editor-card-provider
 
+## 8.1.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.32
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.31
 
 ### Patch Changes

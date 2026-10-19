@@ -12,67 +12,80 @@ import { token } from '@atlaskit/tokens';
 
 const LINE_HEIGHT = '1.5rem';
 
-export const cmTheme: Extension = CodeMirror.theme({
-	'&': {
-		backgroundColor: token('color.background.neutral'),
-		padding: '0',
-		marginTop: token('space.100'),
-		marginBottom: token('space.100'),
-		['fontSize']: '0.875rem',
-		// Custom syntax styling to match existing styling
-		['lineHeight']: LINE_HEIGHT,
-	},
-	'&.cm-focused': {
-		outline: 'none',
-	},
-	'.cm-line': {
-		padding: '0',
-	},
-	'&.cm-editor.code-block.danger': {
-		backgroundColor: token('color.background.danger'),
-	},
-	'.cm-content[aria-readonly="true"]': {
-		caretColor: 'transparent',
-	},
-	'.cm-content': {
-		cursor: 'text',
-		caretColor: token('color.text'),
-		margin: token('space.100'),
-		padding: token('space.0'),
-	},
-	'.cm-scroller': {
-		backgroundColor: token('color.background.neutral'),
-		// Custom syntax styling to match existing styling
-		['lineHeight']: 'unset',
-		fontFamily: token('font.family.code'),
-		borderRadius: token('radius.small'),
-		backgroundImage: overflowShadow({
-			leftCoverWidth: token('space.300'),
-		}),
-		backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
-	},
-	'&.cm-focused .cm-cursor': {
-		borderLeftColor: token('color.text'),
-	},
-	'.cm-gutters': {
-		backgroundColor: token('color.background.neutral'),
-		border: 'none',
-		padding: token('space.100'),
-		color: token('color.text.subtlest'),
-	},
-	'.cm-lineNumbers .cm-gutterElement': {
-		paddingLeft: token('space.0'),
-		paddingRight: token('space.0'),
-		minWidth: 'unset',
-	},
-	// Set the gutter element min height to prevent flicker of styling while
-	// codemirror is calculating (which happens after an animation frame).
-	// Example problem: https://github.com/codemirror/dev/issues/1076
-	// Ignore the first gutter element as it is a special hidden element.
-	'.cm-gutterElement:not(:first-child)': {
-		minHeight: LINE_HEIGHT,
-	},
-});
+const createCmTheme = (isInsetViewer: boolean): Extension =>
+	CodeMirror.theme({
+		'&': {
+			backgroundColor: token('color.background.neutral'),
+			padding: '0',
+			marginTop: isInsetViewer ? token('space.0') : token('space.100'),
+			marginBottom: isInsetViewer ? token('space.0') : token('space.100'),
+			['fontSize']: '0.875rem',
+			// Custom syntax styling to match existing styling
+			['lineHeight']: LINE_HEIGHT,
+			// The editor scrolls and is rounded itself, so its scrollbar sits inside the rounded corners.
+			...(isInsetViewer
+				? { height: '100%', overflow: 'hidden', borderRadius: token('radius.large', '8px') }
+				: {}),
+		},
+		'&.cm-focused': {
+			outline: 'none',
+		},
+		'.cm-line': {
+			padding: '0',
+		},
+		'&.cm-editor.code-block.danger': {
+			backgroundColor: token('color.background.danger'),
+		},
+		'.cm-content[aria-readonly="true"]': {
+			caretColor: 'transparent',
+		},
+		'.cm-content': {
+			cursor: 'text',
+			caretColor: token('color.text'),
+			margin: token('space.100'),
+			padding: token('space.0'),
+		},
+		'.cm-scroller': {
+			backgroundColor: token('color.background.neutral'),
+			// Custom syntax styling to match existing styling
+			['lineHeight']: 'unset',
+			fontFamily: token('font.family.code'),
+			borderRadius: token('radius.small'),
+			backgroundImage: overflowShadow({
+				leftCoverWidth: token('space.300'),
+			}),
+			backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
+		},
+		'&.cm-focused .cm-cursor': {
+			borderLeftColor: token('color.text'),
+		},
+		'.cm-gutters': {
+			backgroundColor: token('color.background.neutral'),
+			border: 'none',
+			padding: token('space.100'),
+			color: token('color.text.subtlest'),
+			// CodeMirror sizes the gutter to the visible height, so once the editor scrolls it
+			// would stop short of the bottom. Let it grow with the content instead.
+			...(isInsetViewer ? { height: 'auto', minHeight: '100%' } : {}),
+		},
+		'.cm-lineNumbers .cm-gutterElement': {
+			paddingLeft: token('space.0'),
+			paddingRight: token('space.0'),
+			minWidth: 'unset',
+		},
+		// Set the gutter element min height to prevent flicker of styling while
+		// codemirror is calculating (which happens after an animation frame).
+		// Example problem: https://github.com/codemirror/dev/issues/1076
+		// Ignore the first gutter element as it is a special hidden element.
+		'.cm-gutterElement:not(:first-child)': {
+			minHeight: LINE_HEIGHT,
+		},
+	});
+
+export const cmTheme: Extension = createCmTheme(false);
+
+// The inset viewer's wrapper already frames the editor, so it has no margin, and the editor does the scrolling.
+export const insetViewerCmTheme: Extension = createCmTheme(true);
 
 function overflowShadow({
 	leftCoverWidth,

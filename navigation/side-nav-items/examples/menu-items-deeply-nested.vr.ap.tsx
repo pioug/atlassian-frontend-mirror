@@ -18,7 +18,7 @@ import InboxIcon from '@atlaskit/icon/core/inbox';
 import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';

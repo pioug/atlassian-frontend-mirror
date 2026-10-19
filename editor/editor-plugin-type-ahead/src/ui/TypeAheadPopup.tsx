@@ -25,7 +25,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
@@ -71,10 +70,6 @@ const typeAheadContentOverride = css({
 const typeAheadWrapperWithViewMoreOverride = css({
 	display: 'flex',
 	flexDirection: 'column',
-});
-
-const typeAheadContentOverrideBorder = css({
-	borderRadius: token('radius.large', '8px'),
 });
 
 type TypeAheadPopupProps = {
@@ -440,7 +435,6 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 					typeAheadContent,
 					moreElementsInQuickInsertViewEnabled && typeAheadContentOverride,
 					showMoreOptionsButton && typeAheadWrapperWithViewMoreOverride,
-					expValEquals('cc-markdown-mode', 'isEnabled', true) && typeAheadContentOverrideBorder,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={TYPE_AHEAD_POPUP_CONTENT_CLASS}

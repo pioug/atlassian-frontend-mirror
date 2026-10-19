@@ -4,7 +4,7 @@ import { expect, test } from '@af/integration-testing';
  * Popup: focus contract on the top-layer code path.
  *
  * `Popup` is a generic positioned overlay whose initial-focus behaviour
- * depends on the `role` prop and the `autoFocus` prop. The tests in this
+ * depends on the `role` prop. The tests in this
  * spec exercise each branch of `top-layer/useInitialFocus` reachable
  * through the public `Popup` API:
  *
@@ -17,7 +17,7 @@ import { expect, test } from '@af/integration-testing';
  * - combobox carve-outs: focus stays on the combobox input when the popup
  *   is its owned listbox, whether the combobox is the trigger or rendered
  *   outside the popup element (react-select pattern).
- * - `autoFocus={false}`: focus stays on the trigger regardless of role.
+ * - `autoFocus={false}`: no effect; a dialog popup still takes focus.
  *
  * Escape-to-restore and Tab cycling are also exercised for the default
  * dialog case as representative top-layer focus-trap behaviour.
@@ -222,14 +222,11 @@ test.describe('Popup: top-layer focus contract', () => {
 		await expect(combobox).toBeFocused();
 	});
 
-	// Consumer escape hatch. `autoFocus={false}` disables Popup's
-	// initial-focus behaviour entirely. Note: pairing `autoFocus={false}`
-	// with `role="dialog"` deviates from the WAI-ARIA APG Dialog
-	// pattern, which expects focus to move into the dialog on open.
-	// The escape hatch is intended for patterns where the popup is
-	// visual-only (e.g. a hover-card / tooltip-like surface) and must
-	// not be combined with a focus-receiving role in production code.
-	test('initial focus: `autoFocus={false}` keeps focus on the trigger', async ({ page }) => {
+	// `autoFocus` has no effect on the top-layer path: the role decides. See
+	// `top-layer/notes/decisions/role-and-focus.md`.
+	test('initial focus: `autoFocus={false}` does not stop a dialog popup taking focus', async ({
+		page,
+	}) => {
 		await page.visitExample<typeof import('../../examples/97-testing-initial-focus-matrix.tsx')>(
 			'design-system',
 			'popup',
@@ -237,16 +234,10 @@ test.describe('Popup: top-layer focus contract', () => {
 			{ featureFlag },
 		);
 
-		const trigger = page.getByTestId('auto-focus-disabled-popup-trigger');
-		// Explicitly focus the trigger before clicking so the assertion
-		// reflects the contract under test (focus is preserved across
-		// open). `button.click()` does not synchronously focus the
-		// element on every browser engine (notably WebKit).
-		await trigger.focus();
-		await trigger.click();
+		await page.getByTestId('auto-focus-disabled-popup-trigger').click();
 		await expect(page.getByTestId('auto-focus-disabled-popup-content')).toBeVisible();
 
-		await expect(trigger).toBeFocused();
+		await expect(page.getByTestId('auto-focus-disabled-popup-first-button')).toBeFocused();
 	});
 
 	// WCAG 2.4.3 Focus Order. `Popup`'s `content` render prop exposes

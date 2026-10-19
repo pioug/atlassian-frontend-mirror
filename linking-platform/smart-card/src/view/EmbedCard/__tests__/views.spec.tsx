@@ -7,7 +7,8 @@ import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-librar
 import { AtlasProject } from '@atlaskit/link-test-helpers/smart-card/mocks/atlas';
 import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { overrideEmbedContent } from '@atlaskit/link-test-helpers/smart-card/mocks/embed-content';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import useResolve from '../../../state/hooks/use-resolve';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';

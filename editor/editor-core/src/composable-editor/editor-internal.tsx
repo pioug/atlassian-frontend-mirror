@@ -2,8 +2,8 @@ import React, { Fragment, memo } from 'react';
 import type { MemoExoticComponent } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics/types/events';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type {
 	AllEditorPresetPluginTypes,

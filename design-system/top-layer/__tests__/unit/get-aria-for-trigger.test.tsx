@@ -40,6 +40,28 @@ describe('getAriaForTrigger', () => {
 				getAriaForTrigger({ role: 'grid', isOpen: false, popoverId: 'x' })['aria-haspopup'],
 			).toBe('grid');
 		});
+
+		it('returns no aria-haspopup when there is no role', () => {
+			const result = getAriaForTrigger({ isOpen: true, popoverId: 'x' });
+			expect(result).toEqual({ 'aria-expanded': true, 'aria-controls': 'x' });
+			expect(result).toHaveProperty('aria-haspopup', undefined);
+		});
+
+		it('returns no aria-haspopup when the role is undefined', () => {
+			expect(
+				getAriaForTrigger({ role: undefined, isOpen: false, popoverId: 'x' })['aria-haspopup'],
+			).toBeUndefined();
+		});
+
+		it('types aria-haspopup from the role', () => {
+			const dialog: 'dialog' = getAriaForTrigger({
+				role: 'alertdialog',
+				isOpen: false,
+				popoverId: 'x',
+			})['aria-haspopup'];
+			const none: undefined = getAriaForTrigger({ isOpen: false, popoverId: 'x' })['aria-haspopup'];
+			expect([dialog, none]).toEqual(['dialog', undefined]);
+		});
 	});
 
 	describe('aria-expanded', () => {

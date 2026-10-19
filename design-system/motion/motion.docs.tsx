@@ -89,6 +89,44 @@ const documentation: StructuredContentSource = {
 			categories: ['animation'],
 		},
 		{
+			name: 'MotionPresenceBoundary',
+			description:
+				"Separates a container's motion presence lifecycle from its descendants. Use it inside an animated overlay or container so motion-aware content does not inherit the container's presence state or contribute to its exit completion, while nested ExitingPersistence boundaries continue to manage their own items.",
+			status: 'early-access',
+			import: {
+				name: 'MotionPresenceBoundary',
+				package: '@atlaskit/motion/motion-presence-boundary',
+				type: 'default',
+				packagePath: __dirname,
+				packageJson: require('./package.json'),
+			},
+			usageGuidelines: [
+				'Place MotionPresenceBoundary inside the component that owns the container animation and wrap the container content',
+				"Use it when motion-aware descendants should not inherit an enclosing popup, modal, drawer, flag, or other container's presence state or exit completion callback",
+				'Do not use it to disable descendant motion — explicit Motion components and nested ExitingPersistence boundaries retain their own lifecycle',
+				'MotionPresenceBoundary does not render a DOM element, so it does not affect layout or semantics',
+			],
+			examples: [
+				{
+					name: 'Compare presence with and without a boundary',
+					description:
+						'A custom dropdown containing a tag, with a toggle to compare inherited and isolated presence. Enable platform-dst-motion-isolate-presence and platform-dst-motion-uplift-labels to run this example.',
+					source: `${__dirname}/examples/constellation/motion-presence-boundary.tsx`,
+				},
+			],
+			keywords: [
+				'motion',
+				'animation',
+				'presence',
+				'boundary',
+				'container',
+				'overlay',
+				'nested',
+				'exit',
+			],
+			categories: ['animation'],
+		},
+		{
 			name: 'StaggeredEntrance',
 			description:
 				'Motion helper that staggers the entering animation of its child motion elements in sequence, creating a cascading effect. Works with both the Motion primitive and legacy entering-motion components.',

@@ -3,13 +3,11 @@ import path from 'path';
 import fs from 'fs-extra';
 import pkgDir from 'pkg-dir';
 
-import {
-	buildNew as buildIconsNew,
-	createDeprecatedIconDocs,
-	createIconDocsNew,
-	createVRTest,
-	type NewIconBuildConfig,
-} from '@af/icon-build-process';
+import { buildNew as buildIconsNew } from '@af/icon-build-process/build';
+import { createDeprecatedIconDocs } from '@af/icon-build-process/create-deprecated-icon-docs';
+import { createIconDocsNew } from '@af/icon-build-process/create-icon-docs';
+import { createVRTest } from '@af/icon-build-process/create-vr-test';
+import type { NewIconBuildConfig } from '@af/icon-build-process/types';
 
 import coreIconMetadata from '../icons_raw/metadata-core';
 import { recommendedSmallIcons } from '../src/recommended-small';

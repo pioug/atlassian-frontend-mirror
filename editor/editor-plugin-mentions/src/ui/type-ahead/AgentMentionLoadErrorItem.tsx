@@ -9,7 +9,8 @@ import { useIntl } from 'react-intl';
 import { cssMap, jsx } from '@atlaskit/css';
 import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
-import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

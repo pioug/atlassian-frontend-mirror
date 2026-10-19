@@ -24,7 +24,7 @@ import * as useMediaSettingsModule from '@atlaskit/media-client-react/use-media-
 import { asMock, asMockFunction } from '@atlaskit/media-common/jestHelpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { keyCodes } from '../../shortcut';
 import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';

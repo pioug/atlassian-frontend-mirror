@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/types/emitter';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { render, waitFor } from '@atlassian/testing-library';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';

@@ -13,7 +13,7 @@ import type {
 	MenuGroupProps,
 	SectionProps,
 } from '@atlaskit/menu/types';
-import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
+import type { ContentProps, DialogContentProps, TriggerProps } from '@atlaskit/popup/types';
 
 export type FocusableElementRef = RefObject<HTMLAnchorElement | HTMLButtonElement>;
 export type Action = 'next' | 'prev' | 'first' | 'last' | 'tab';
@@ -102,7 +102,7 @@ export interface OnOpenChangeArgs {
 }
 
 export interface MenuWrapperProps extends MenuGroupProps {
-	setInitialFocusRef?: ContentProps['setInitialFocusRef'];
+	setInitialFocusRef?: DialogContentProps['setInitialFocusRef'];
 	onClose?: ContentProps['onClose'];
 	onUpdate: ContentProps['update'];
 	isLoading?: InternalDropdownMenuProps['isLoading'];

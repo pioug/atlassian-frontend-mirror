@@ -26,14 +26,14 @@ import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 import {
-	EmojiTypeAheadItem,
 	preloadEmojiPicker,
 	recordSelectionFailedSli,
 	recordSelectionSucceededSli,
-	SearchSort,
 } from '@atlaskit/emoji';
+import { EmojiTypeAheadItem } from '@atlaskit/emoji/emoji-type-ahead-item';
+import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
+import { SearchSort } from '@atlaskit/emoji/types';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';

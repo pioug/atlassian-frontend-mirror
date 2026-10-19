@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "25.4.8",
+	"version": "25.5.0",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,6 +83,7 @@
 		"./custom-theme-button/custom-theme-button": "./src/old-button/custom-theme-button/custom-theme-button.tsx",
 		"./custom-theme-button-types": "./src/old-button/custom-theme-button/custom-theme-button-types.tsx",
 		"./default/button": "./src/new-button/variants/default/button.tsx",
+		"./filter-button": "./src/new-button/variants/filter/button.tsx",
 		"./divider": "./src/new-button/containers/split-button/divider.tsx",
 		"./icon/button": "./src/new-button/variants/icon/button.tsx",
 		"./icon/link": "./src/new-button/variants/icon/link.tsx",

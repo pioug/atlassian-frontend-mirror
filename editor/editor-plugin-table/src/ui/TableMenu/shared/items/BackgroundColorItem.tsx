@@ -17,7 +17,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/back
 import { NestedDropdownRightIcon } from '@atlaskit/editor-toolbar/nested-dropdown-right-icon';
 import { PaintBucketIcon } from '@atlaskit/editor-toolbar/paint-bucket-icon';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

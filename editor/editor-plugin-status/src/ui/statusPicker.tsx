@@ -24,9 +24,9 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/con
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Status } from '@atlaskit/status/element';
-import type { ColorType as Color } from '@atlaskit/status/picker';
-import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
+import { Status } from '@atlaskit/status/status';
+import type { ColorType as Color } from '@atlaskit/status/status-picker';
+import { StatusPicker as AkStatusPicker } from '@atlaskit/status/status-picker';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 

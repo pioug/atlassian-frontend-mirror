@@ -11,7 +11,7 @@ import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circ
 import { TableRowMoveDownIcon } from '@atlaskit/editor-toolbar/row-move-down-icon';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

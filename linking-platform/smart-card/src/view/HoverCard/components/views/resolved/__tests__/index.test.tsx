@@ -10,7 +10,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { GoogleDoc } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { act, fireEvent, render } from '@atlassian/testing-library';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';

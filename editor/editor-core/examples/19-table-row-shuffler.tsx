@@ -7,7 +7,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { moveRow } from '@atlaskit/editor-tables/utils/move-row';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 // import Button, { ButtonGroup } from '@atlaskit/button';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { default as FullPageExample } from './5-full-page';
 

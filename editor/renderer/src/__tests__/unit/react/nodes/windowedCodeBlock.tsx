@@ -7,7 +7,7 @@ import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-int
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick as flushLazyModuleFetching } from '@atlaskit/editor-test-helpers/next-tick';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { render as renderToDOM } from '@atlassian/testing-library';
+import { render as renderToDOM } from '@atlassian/testing-library/testing-library/react';
 
 import WindowedCodeBlock from '../../../../react/nodes/codeBlock/windowedCodeBlock';
 import { selectors } from '../../../__helpers/page-objects/_codeblock';

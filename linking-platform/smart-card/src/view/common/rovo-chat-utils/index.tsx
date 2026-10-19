@@ -7,7 +7,7 @@ import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import AiGenerativeTextSummaryIcon from '@atlaskit/icon/core/ai-generative-text-summary';
 import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { RovoIcon } from '@atlaskit/logo';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
 
 import { CardDisplay } from '../../../constants';
 import { messages } from '../../../messages';

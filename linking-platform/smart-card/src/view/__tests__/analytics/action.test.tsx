@@ -12,7 +12,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
-import { fireEvent, render, waitFor } from '@atlassian/testing-library';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { ActionName, Card, TitleBlock } from '../../../index';
 import * as failUfoExperienceUtils from '../../../state/analytics/failUfoExperience';

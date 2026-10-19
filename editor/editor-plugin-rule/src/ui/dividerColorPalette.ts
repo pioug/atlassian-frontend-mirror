@@ -1,6 +1,6 @@
 import { ruleMessages } from '@atlaskit/editor-common/messages/rule';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { textColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color/ColorPalette/type';
 import { token } from '@atlaskit/tokens';
 
 /**

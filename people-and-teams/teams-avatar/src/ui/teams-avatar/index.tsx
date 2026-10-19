@@ -3,7 +3,6 @@ import React from 'react';
 import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
 import { AvatarContent } from '@atlaskit/avatar/avatar-content';
 import type { SizeType } from '@atlaskit/avatar/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { TeamAvatarImage } from './teams-avatar-image';
@@ -48,19 +47,11 @@ export default function TeamAvatar({
 	// Strip ARI in case the teamId was given in that format
 	teamId = teamId.replace('ari:cloud:identity::team/', '');
 
-	if (fg('enable_teams_t26_design_drop_core_experiences')) {
-		return (
-			<Avatar {...props} appearance="square" size={size} testId={`${testId}-team-avatar`}>
-				<AvatarContent>
-					<TeamAvatarImage key={teamId} src={src} size={size} testId={testId} teamId={teamId} />
-				</AvatarContent>
-			</Avatar>
-		);
-	}
-
 	return (
-		<Avatar appearance="square" {...props} size={size} src={src} testId={`${testId}-team-avatar`}>
-			<TeamAvatarImage src={src} size={size} testId={testId} teamId={teamId} compact={compact} />
+		<Avatar {...props} appearance="square" size={size} testId={`${testId}-team-avatar`}>
+			<AvatarContent>
+				<TeamAvatarImage key={teamId} src={src} testId={testId} teamId={teamId} />
+			</AvatarContent>
 		</Avatar>
 	);
 }

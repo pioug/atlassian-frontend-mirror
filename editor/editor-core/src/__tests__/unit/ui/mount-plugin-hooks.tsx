@@ -5,7 +5,7 @@ import type {
 	ReactHookFactory,
 } from '@atlaskit/editor-common/types/ui-components';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { MountPluginHooks } from '../../../ui/PluginSlot/mount-plugin-hooks';
 

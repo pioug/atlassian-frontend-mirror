@@ -1,18 +1,12 @@
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import {
-	AbstractJastVisitor,
-	type Argument,
-	type CompoundClause,
-	type FunctionOperand,
-	type Jast,
-	type ListOperand,
-	type NotClause,
-	type Query,
-	type TerminalClause,
-	type ValueOperand,
-} from '@atlaskit/jql-ast';
+import { AbstractJastVisitor } from '@atlaskit/jql-ast/abstract-jast-visitor';
+import type { Argument } from '@atlaskit/jql-ast/argument';
+import type { CompoundClause, NotClause, TerminalClause } from '@atlaskit/jql-ast/ast/clause';
+import type { FunctionOperand, ListOperand, ValueOperand } from '@atlaskit/jql-ast/ast/operand';
+import type { Jast, Query } from '@atlaskit/jql-ast/query';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { JQLEditorSchema } from '../../../schema';
@@ -35,7 +29,10 @@ export const replaceRichInlineNodes = (
 
 	Object.entries(hydratedValues).forEach(([fieldName, values]) => {
 		values.forEach((value) => {
-			if (fg('jql-function-arg-hydration')) {
+			if (
+				fg('jql-function-arg-hydration') &&
+				(value.type !== 'focusArea' || isExperimentEnabled('focus_in_jira_m1'))
+			) {
 				// Skip deprecated fields
 				if (value.type === 'deprecated-field') {
 					return;
@@ -50,6 +47,7 @@ export const replaceRichInlineNodes = (
 			} else if (
 				value.type === 'user' ||
 				value.type === 'team' ||
+				(value.type === 'focusArea' && isExperimentEnabled('focus_in_jira_m1')) ||
 				(value.type === 'assets' && fg('orion-8274-cmdb-object-jql-values-resolver')) ||
 				(value.type === 'goal' &&
 					FeatureGates.getExperimentValue(
@@ -83,6 +81,10 @@ const replaceAstNodesWithRichInlineNodes = (
 	fieldName: string,
 	value: HydratedValue,
 ): void => {
+	if (isExperimentEnabled('focus_in_jira_m1') && value.type === 'focusArea' && !value.name) {
+		return;
+	}
+
 	astNodes.forEach((astNode) => {
 		if (astNode.position) {
 			const [from, to] = astNode.position;
@@ -109,6 +111,13 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 		case 'project': {
 			const textContent = JQLEditorSchema.text(text);
 			return JQLEditorSchema.nodes.project.create({ ...value, fieldName }, textContent);
+		}
+		case 'focusArea': {
+			if (!isExperimentEnabled('focus_in_jira_m1')) {
+				throw new Error(`Unsupported hydrated value type ${value.type}`);
+			}
+			const textContent = JQLEditorSchema.text(text);
+			return JQLEditorSchema.nodes.focusArea.create({ ...value, fieldName }, textContent);
 		}
 		case 'goal': {
 			const textContent = JQLEditorSchema.text(text);

@@ -11,7 +11,9 @@ import FloatingToolbarSeparator from '@atlaskit/editor-common/FloatingToolbar/Se
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 const containerStyles = xcss({
 	marginLeft: 'space.100',

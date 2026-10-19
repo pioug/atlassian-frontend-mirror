@@ -3,7 +3,9 @@ import { mocks } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import type { CardType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import { act, fireEvent, screen, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent } from '@atlassian/testing-library/testing-library/react';
+import { within } from '@atlassian/testing-library/within';
 
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
 import { CardAction } from '../../../../constants';

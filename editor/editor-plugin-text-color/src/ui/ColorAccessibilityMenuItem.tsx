@@ -24,7 +24,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import AccessibilityIcon from '@atlaskit/icon/core/accessibility';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
-import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import { getTokenValue } from '@atlaskit/tokens/get-token-value';
 

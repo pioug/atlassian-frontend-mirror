@@ -4,7 +4,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { EMOJI_MENU_ITEM, MEDIA_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
 import { MEDIA_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { TypeAheadInsert } from '@atlaskit/editor-common/types';
+import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 

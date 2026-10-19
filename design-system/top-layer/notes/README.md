@@ -67,6 +67,9 @@ Architectural decisions, design rationale, and decision logs.
   backdrop click, programmatic, consumer gating)
 - **[menu-keyboard.md](./decisions/menu-keyboard.md)** — Decision: menu keyboard behavior (arrow
   keys, type-ahead) is the consumer's responsibility
+- **[role-and-focus.md](./decisions/role-and-focus.md)** — Decision: role and focus are a package
+  deal. The role alone decides initial focus; Popup's `autoFocus` has no effect on the top-layer
+  path. The combobox exception, and the plan to remove `autoFocus`
 - **[aria-controls-trigger-contract.md](./decisions/aria-controls-trigger-contract.md)** — Decision:
   `getAriaForTrigger` always emits stable `aria-controls`
 - **[popover-trigger-hook.md](./decisions/popover-trigger-hook.md)** — Decision: defer

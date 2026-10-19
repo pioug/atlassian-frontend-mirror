@@ -14,9 +14,9 @@ import {
 import { EXTENSION_MENU_ITEM_TEST_ID } from '@atlaskit/editor-common/block-menu/key';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { selectionExtensionPluginKey } from '../../pm-plugins/main';
 import { getSelectionAdfInfoNew, getSelectionTextInfoNew } from '../../pm-plugins/utils';

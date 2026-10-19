@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 
 import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
 import PeopleIcon from '@atlaskit/icon/core/people-group';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

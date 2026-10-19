@@ -13,7 +13,8 @@ import type { DatasourceMeta } from '@atlaskit/linking-types/datasource';
 import { auth as outboundAuth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';

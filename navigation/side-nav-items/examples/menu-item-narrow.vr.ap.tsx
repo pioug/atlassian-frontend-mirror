@@ -11,7 +11,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import AddIcon from '@atlaskit/icon/core/add';
 import BoardIcon from '@atlaskit/icon/core/board';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import {
 	PanelSplitter,
 	PanelSplitterProvider,

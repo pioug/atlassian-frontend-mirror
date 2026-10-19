@@ -8,6 +8,7 @@ test.use({
 });
 
 const TABLE_CONTAINER_BUT_FULL_WIDTH = '.pm-table-container[data-layout="full-width"]';
+
 test('Addapts full-width table after scrolling to resizing', async ({ renderer }) => {
 	const container = renderer.page.locator(TABLE_CONTAINER_BUT_FULL_WIDTH);
 

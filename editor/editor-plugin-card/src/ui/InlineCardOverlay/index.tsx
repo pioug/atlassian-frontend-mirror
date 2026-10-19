@@ -15,6 +15,7 @@ import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/editor-common/messages/card';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace/whitespace';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { token } from '@atlaskit/tokens';
 
@@ -233,6 +234,9 @@ const InlineCardOverlay = ({
 		observer.observe(parent);
 		return () => {
 			observer.disconnect();
+			if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+				updateOverlay.cancel();
+			}
 		};
 	}, [isVisible, setVisibility]);
 

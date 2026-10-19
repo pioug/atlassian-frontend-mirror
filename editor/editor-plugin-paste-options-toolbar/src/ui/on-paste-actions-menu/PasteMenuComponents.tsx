@@ -30,7 +30,7 @@ import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types'
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ClipboardIcon from '@atlaskit/icon/core/clipboard';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import {
 	changeToMarkdownWithAnalytics,

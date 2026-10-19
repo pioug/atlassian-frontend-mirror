@@ -17,12 +17,8 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ah
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
-import type {
-	EmojiDescription,
-	EmojiId,
-	EmojiProvider,
-	EmojiResourceConfig,
-} from '@atlaskit/emoji';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiDescription, EmojiId, EmojiProvider } from '@atlaskit/emoji/types';
 
 import type { EmojiNodeDataProvider } from './pm-plugins/providers/EmojiNodeDataProvider';
 

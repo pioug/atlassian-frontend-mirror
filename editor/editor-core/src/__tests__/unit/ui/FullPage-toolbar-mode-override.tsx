@@ -16,7 +16,7 @@ import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { skipAutoA11y } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11y } from '@atlassian/a11y-jest-testing/skip-decorator';
 
 // Drives the runtime override returned to `FullPage.tsx`'s selector.
 const mockToolbarOverride: { value: 'always-pinned' | undefined } = { value: undefined };

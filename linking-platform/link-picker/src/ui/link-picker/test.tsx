@@ -15,7 +15,7 @@ import { IntlProvider } from 'react-intl';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';

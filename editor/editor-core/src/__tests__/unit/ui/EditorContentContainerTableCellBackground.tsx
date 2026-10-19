@@ -2,7 +2,7 @@ import React from 'react';
 
 import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
 import { tableCellBackgroundColorVariablesForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import EditorContentContainerCompiled from '../../../ui/EditorContentContainer/EditorContentContainer';
 

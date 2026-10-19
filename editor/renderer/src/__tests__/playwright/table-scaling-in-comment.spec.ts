@@ -25,6 +25,7 @@ test.describe('table scaling in comment renderer', () => {
 			viewport: { width: 760, height: 600 },
 			editorExperiments: {},
 		});
+
 		test('table should scale down when scale percent is bigger than 0.4', async ({ renderer }) => {
 			const table = renderer.page.getByRole('table');
 			const beforeWidth = (await table.boundingBox())?.width;

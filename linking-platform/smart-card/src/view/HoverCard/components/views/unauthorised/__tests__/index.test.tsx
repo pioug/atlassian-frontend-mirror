@@ -5,7 +5,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import {

@@ -8,7 +8,9 @@ import { fromObservable } from '@atlaskit/media-client/from-observable';
 import type { TouchFileDescriptor } from '@atlaskit/media-client/media-store/types';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { type LocalUploadConfig } from '../../../../src/components/types';
 import { type BrowserConfig } from '../../../../src/types';

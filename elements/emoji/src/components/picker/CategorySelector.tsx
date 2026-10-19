@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

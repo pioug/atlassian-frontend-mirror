@@ -6,15 +6,11 @@
 import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
-import {
-	defaultEmojiHeight,
-	type EmojiId,
-	type OnEmojiEvent,
-	type EmojiProvider,
-	ResourcedEmoji,
-} from '@atlaskit/emoji';
+import { defaultEmojiHeight } from '@atlaskit/emoji/constants';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiId, OnEmojiEvent, EmojiProvider } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

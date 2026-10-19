@@ -11,7 +11,7 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EmojiProvider } from '@atlaskit/emoji/resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 
 import {
 	action,

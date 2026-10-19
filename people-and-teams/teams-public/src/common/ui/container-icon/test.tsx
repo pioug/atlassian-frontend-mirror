@@ -31,7 +31,7 @@ describe('ContainerIcon', () => {
 		expect(screen.getByTestId('linked-container-WebLink-new-icon')).toBeVisible();
 	});
 
-	it('should render Avatar with correct testId when containerType is WebLink and containerIcon is provided', () => {
+	it('should render the containerIcon image when containerType is WebLink and containerIcon is provided', () => {
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -41,10 +41,13 @@ describe('ContainerIcon', () => {
 			/>,
 		);
 
-		expect(screen.getByTestId('linked-container-WebLink-icon')).toBeVisible();
+		expect(screen.getByRole('img', { name: 'Web Link' })).toHaveAttribute(
+			'src',
+			'https://example.com/icon.png',
+		);
 	});
 
-	it('should render Avatar with correct testId for ConfluenceSpace container type', () => {
+	it('should render the containerIcon image for ConfluenceSpace container type', () => {
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -54,10 +57,14 @@ describe('ContainerIcon', () => {
 			/>,
 		);
 
+		expect(screen.getByRole('img', { name: 'Confluence Space' })).toHaveAttribute(
+			'src',
+			'https://example.com/confluence-icon.png',
+		);
 		expect(screen.getByTestId('linked-container-ConfluenceSpace-icon')).toBeVisible();
 	});
 
-	it('should render Avatar with correct testId for JiraProject container type', () => {
+	it('should render the containerIcon image for JiraProject container type', () => {
 		render(
 			<ContainerIcon
 				{...defaultProps}
@@ -67,6 +74,10 @@ describe('ContainerIcon', () => {
 			/>,
 		);
 
+		expect(screen.getByRole('img', { name: 'Jira Project' })).toHaveAttribute(
+			'src',
+			'https://example.com/jira-icon.png',
+		);
 		expect(screen.getByTestId('linked-container-JiraProject-icon')).toBeVisible();
 	});
 

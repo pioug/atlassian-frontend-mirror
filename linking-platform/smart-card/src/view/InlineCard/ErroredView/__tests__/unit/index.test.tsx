@@ -4,7 +4,8 @@ import { IntlProvider } from 'react-intl';
 
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { InlineCardErroredView } from '../../index';
 

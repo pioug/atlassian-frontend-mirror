@@ -10,6 +10,7 @@ import { useIntl } from 'react-intl';
 import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';

@@ -80,6 +80,8 @@ export type MessageKey =
 	| 'submit'
 	| 'give_feedback'
 	| 'try_downloading_file'
+	| 'line_count'
+	| 'plain_text'
 	| 'archive_format_not_supported'
 	| 'unsupported_file_format'
 	| 'file_too_large_to_preview'
@@ -615,6 +617,17 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.try_downloading_file',
 		defaultMessage: 'Try downloading the file to view it.',
 		description: 'We show this message to allow users to download a file',
+	},
+	line_count: {
+		id: 'fabric.media.line_count',
+		defaultMessage: '{count, plural, one {# line} other {# lines}}',
+		description: 'The number of lines in a text file, shown in the Media Viewer footer',
+	},
+	plain_text: {
+		id: 'fabric.media.plain_text',
+		defaultMessage: 'Plain text',
+		description:
+			'The label for a text file with no programming language, shown in the Media Viewer footer',
 	},
 	archive_format_not_supported: {
 		id: 'fabric.media.archive_format_not_supported',

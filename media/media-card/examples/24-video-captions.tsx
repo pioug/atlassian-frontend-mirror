@@ -14,7 +14,9 @@ import {
 } from '@atlaskit/media-test-helpers/mediaClientProvider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Flex, xcss } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/components/flex';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 import { MainWrapper } from '../example-helpers';
 import { errorApiResponses } from '../example-helpers/svg-helpers/mediaApiTweaks';

@@ -30,6 +30,7 @@ test.describe('Cursor Inline Nodes', () => {
 			},
 			adf: statusADF,
 		});
+
 		test('when the cursor is at the end of the status and backspace is pressed the inline node should be deleted', async ({
 			editor,
 		}) => {
@@ -56,6 +57,7 @@ test.describe('Cursor Inline Nodes', () => {
 			},
 			adf: emojiADF,
 		});
+
 		test('when the cursor is at the end of the emoji and backspace is pressed the inline node should be deleted', async ({
 			editor,
 		}) => {
@@ -64,6 +66,7 @@ test.describe('Cursor Inline Nodes', () => {
 			await expect(editor).toHaveDocument(doc(ul(li(p('')), li(p('LOL')))));
 		});
 	});
+
 	test.describe('Inline Extension', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
@@ -74,6 +77,7 @@ test.describe('Cursor Inline Nodes', () => {
 			},
 			adf: inlineExtensionADF,
 		});
+
 		test('when the cursor is at the end of the inlineExtension and backspace is pressed the inline node should be deleted', async ({
 			editor,
 		}) => {
@@ -92,6 +96,7 @@ test.describe('Cursor Inline Nodes', () => {
 			},
 			adf: mentionADF,
 		});
+
 		test('when the cursor is at the end of the mention and backspace is pressed the inline node should be deleted', async ({
 			editor,
 		}) => {
@@ -100,6 +105,7 @@ test.describe('Cursor Inline Nodes', () => {
 			await expect(editor).toHaveDocument(doc(ul(li(p('')), li(p('LOL')))));
 		});
 	});
+
 	test.describe('Date', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
@@ -110,6 +116,7 @@ test.describe('Cursor Inline Nodes', () => {
 			},
 			adf: dateADF,
 		});
+
 		test('when the cursor is at the end of the date and backspace is pressed the inline node should be deleted', async ({
 			editor,
 		}) => {
@@ -130,6 +137,7 @@ test.describe('Cursor Inline Nodes', () => {
 		});
 
 		const shortcut = process.platform === 'darwin' ? 'Meta+Shift+ArrowLeft' : 'Control+Shift+Home';
+
 		test('when (ctrl or command) + shift + (home or arrow left) is pressed after inline nodes, the whole line should be selected', async ({
 			editor,
 		}) => {

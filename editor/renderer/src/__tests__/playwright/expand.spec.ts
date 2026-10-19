@@ -39,6 +39,7 @@ test.describe('expand', () => {
 			await expect(renderer.page).toBeAccessible({ violationCount: 2 });
 		});
 	});
+
 	test.describe('wide mode', () => {
 		test.use({
 			adf: expandADF('wide'),
@@ -59,6 +60,7 @@ test.describe('expand', () => {
 			await expect(renderer.page.locator('[data-node-type="nestedExpand"] > div')).toBeVisible();
 		});
 	});
+
 	test.describe('full-width mode', () => {
 		test.use({
 			adf: expandADF('full-width'),

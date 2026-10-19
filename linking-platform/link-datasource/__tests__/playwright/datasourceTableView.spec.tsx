@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+
 test.describe('DatasourceTableView', () => {
 	test('persists column picker when new column added', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/basic-jira-issues-table.tsx')>(
@@ -176,6 +177,7 @@ test.describe('DatasourceTableView', () => {
 			{ ignoreCase: true },
 		);
 	});
+
 	test('can update priority column', async ({ page }) => {
 		page.setViewportSize({ width: 1920, height: 1080 });
 		await page.visitExample<typeof import('../../examples/basic-jira-issues-table.tsx')>(

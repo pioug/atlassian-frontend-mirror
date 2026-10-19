@@ -7,7 +7,7 @@ import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { CardAction } from '../../src/constants';
 import { HoverCard } from '../../src/hoverCard';

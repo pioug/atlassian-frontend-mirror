@@ -18,7 +18,7 @@ import { css, jsx } from '@emotion/react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import type { EmojiProvider } from '@atlaskit/emoji/resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import TextArea from '@atlaskit/textarea/text-area';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { Notifications } from '@atlaskit/atlassian-navigation';
+import { Notifications } from '@atlaskit/atlassian-navigation/notifications';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 import { Popup } from '@atlaskit/popup/popup';

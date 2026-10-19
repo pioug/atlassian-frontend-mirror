@@ -8,6 +8,8 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findCellClosestToPos } from '@atlaskit/editor-tables/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
@@ -80,6 +82,27 @@ const buildState = (cellPos: number, state: EditorState): ActiveCellHighlightSta
 	}
 };
 
+/** Keep the highlight on the whole active cell after document edits. */
+const mapOrRebuildActiveCellHighlight = (
+	tr: Transaction | ReadonlyTransaction,
+	prev: ActiveCellHighlightState,
+	newState: EditorState,
+	nextCellPos: number,
+): ActiveCellHighlightState => {
+	const decorationSet = prev.decorationSet.map(tr.mapping, newState.doc);
+	const decorations = decorationSet.find();
+	const cell = nextCellPos === -1 ? null : newState.doc.nodeAt(nextCellPos);
+	if (
+		cell &&
+		decorations.length === 1 &&
+		decorations[0].from === nextCellPos &&
+		decorations[0].to === nextCellPos + cell.nodeSize
+	) {
+		return { cellPos: nextCellPos, decorationSet, hasHadInteraction: true };
+	}
+	return { ...buildState(nextCellPos, newState), hasHadInteraction: true };
+};
+
 const hasHadInteraction = (api: PluginInjectionAPI | undefined): boolean => {
 	// The interaction plugin is optional - when absent, default to treating the editor as
 	// interacted.
@@ -118,6 +141,13 @@ const createStateField = (api: PluginInjectionAPI | undefined): ActiveCellHighli
 		}
 
 		const nextCellPos = getActiveCellPos(newState);
+		if (
+			tr.docChanged &&
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+			isExperimentEnabled('platform_editor_table_q4_perf_patch')
+		) {
+			return mapOrRebuildActiveCellHighlight(tr, prev, newState, nextCellPos);
+		}
 		if (nextCellPos === prev.cellPos && !isFirstInteraction) {
 			return prev;
 		}

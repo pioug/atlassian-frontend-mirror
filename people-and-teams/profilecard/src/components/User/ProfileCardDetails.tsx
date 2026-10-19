@@ -3,8 +3,9 @@ import React, { useRef } from 'react';
 import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

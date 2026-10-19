@@ -14,7 +14,7 @@ import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { DynamicTableStateless } from '@atlaskit/dynamic-table';
+import DynamicTableStateless from '@atlaskit/dynamic-table/stateless';
 import { type RowType, type RowCellType } from '@atlaskit/dynamic-table/types';
 import { isFileIdentifier, isProcessedFileState } from '@atlaskit/media-client';
 import {

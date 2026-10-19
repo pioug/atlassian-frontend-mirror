@@ -5,7 +5,8 @@ import { IntlProvider } from 'react-intl';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
-import { render, userEvent } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';

@@ -13,8 +13,7 @@ import {
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { type InlineCardAdf } from '@atlaskit/linking-common/types';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
@@ -1039,17 +1038,7 @@ describe('JiraIssuesConfigModal', () => {
 	});
 
 	describe('when user provides callback for when wrapped changed', () => {
-		it('should not pass onWrappedColumnsChange when the table settings menu gate is off', async () => {
-			failGate('platform_lp_sllv_table_settings_menu');
-			const { getLatestIssueLikeTableProps } = await setup({
-				visibleColumnKeys: ['myColumn'],
-			});
-
-			expect(getLatestIssueLikeTableProps().onWrappedColumnsChange).toBeUndefined();
-		});
-
-		it('should pass onWrappedColumnsChange when the table settings menu gate is on', async () => {
-			passGate('platform_lp_sllv_table_settings_menu');
+		it('should pass onWrappedColumnsChange', async () => {
 			const { getLatestIssueLikeTableProps } = await setup({
 				visibleColumnKeys: ['myColumn'],
 			});

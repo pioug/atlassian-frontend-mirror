@@ -2,6 +2,7 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Inline Edit textarea-usage should pass basic aXe audit', () => {
 	const readViewContentWrapper = 'button[data-testid="textarea-usage--edit-button"] + div';
+
 	test.beforeEach(async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/01-textarea-usage.tsx')>(
 			'design-system',
@@ -10,6 +11,7 @@ test.describe('Inline Edit textarea-usage should pass basic aXe audit', () => {
 			{ 'react-18-mode': 'modern' },
 		);
 	});
+
 	test('Should hide edit button after confirmation', async ({ page }) => {
 		const readView = page.locator(readViewContentWrapper);
 		await readView.click();

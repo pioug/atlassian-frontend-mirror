@@ -6,12 +6,12 @@ import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
 
 import Editor from '../../editor';
 
 jest.mock('../../ui/Toolbar/hooks', () => ({
-	...jest.requireActual<Object>('../../ui/Toolbar/hooks'),
+	...jest.requireActual<object>('../../ui/Toolbar/hooks'),
 	useElementWidth: () => 1000,
 }));
 

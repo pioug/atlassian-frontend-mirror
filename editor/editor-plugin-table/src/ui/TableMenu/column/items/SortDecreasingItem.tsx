@@ -14,7 +14,8 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-re
 import { InformationCircleIcon } from '@atlaskit/editor-toolbar/information-circle-icon';
 import { SortDescendingIcon } from '@atlaskit/editor-toolbar/sort-descending-icon';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

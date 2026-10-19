@@ -330,7 +330,8 @@ When rolling out `platform-dst-top-layer=true`, expect these breaking changes:
 2. **`fallbackPlacements`** accepted but not wired to CSS `position-try-fallbacks`
 3. **Synthetic `onClose` events** may not match the original DOM event type (e.g., `MouseEvent` vs
    `KeyboardEvent`)
-4. **`aria-haspopup` default changed** from `'true'` to `'dialog'` (affects semantic meaning)
+4. **`aria-haspopup` with no role**: not set (legacy sets `'true'`). With a role, it follows the
+   role.
 
 The fit work (2026-08 to 2026-09) added these rollout checks:
 

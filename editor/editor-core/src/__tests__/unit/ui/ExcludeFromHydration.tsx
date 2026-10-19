@@ -6,7 +6,8 @@ jest.mock('@atlaskit/editor-common/is-ssr', () => ({
 }));
 
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import ExcludeFromHydration from '../../../ui/ExcludeFromHydration';
 

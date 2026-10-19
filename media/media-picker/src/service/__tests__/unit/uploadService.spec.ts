@@ -19,7 +19,7 @@ import type { TouchedFiles } from '@atlaskit/media-client/media-store/types';
 import type { UploadableFile } from '@atlaskit/media-client/uploader';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { asMock } from '@atlaskit/media-test-helpers/jestHelpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { LocalFileSource, type LocalFileWithSource } from '../../../service/types';
 import {

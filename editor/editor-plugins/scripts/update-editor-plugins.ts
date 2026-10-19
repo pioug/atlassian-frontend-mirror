@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
+import { execFileSync } from 'child_process';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as fs from 'fs';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
@@ -179,26 +182,31 @@ function getUpdatedDependenciesFromPackageJsons(
 	return depVersions;
 }
 
-function getFeatureFlagsFromPackageJsons(
+function getFeatureFlagsFromFactsMap(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	packageJsons: Record<string, any>[],
-): Record<string, string> {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const mergedFeatureFlags: Record<string, any> = {};
+): Record<string, { referenceOnly: true; type: 'boolean' }> {
+	const afmRootPath = path.resolve(rootPath, '..');
+	const factsMapPackages = JSON.parse(
+		execFileSync(
+			path.join(afmRootPath, 'bin', 'facts_map_interactive'),
+			['package-feature-flags', '--only-product', '--build-cache'],
+			{ cwd: afmRootPath, encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 },
+		),
+	) as Record<string, { flags: string[] }>;
+
+	const flags = new Set<string>();
 	packageJsons.forEach((packageJson) => {
-		const featureFlags = packageJson['platform-feature-flags'];
-		if (featureFlags) {
-			for (const key of Object.keys(featureFlags)) {
-				mergedFeatureFlags[key] = {
-					...featureFlags[key],
-					referenceOnly: true,
-				};
-			}
+		const packageName = packageJson.name;
+		if (typeof packageName === 'string') {
+			factsMapPackages[packageName]?.flags.forEach((flag) => flags.add(flag));
 		}
 	});
-	return mergedFeatureFlags;
+
+	return Object.fromEntries(
+		[...flags].sort().map((flag) => [flag, { type: 'boolean', referenceOnly: true }]),
+	);
 }
 
 // Function to read and return package.json of editor plugins
@@ -428,7 +436,7 @@ async function run() {
 		.option('update-feature-flags', {
 			alias: 'f',
 			type: 'boolean',
-			description: 'Update feature flags as well',
+			description: 'Update feature flags from FactsMap as well',
 			default: false,
 		})
 		.option('force-versions', {
@@ -444,8 +452,8 @@ async function run() {
 		const newEditorPluginsDeps = getUpdatedDependenciesFromPackageJsons(packageJsons);
 		const editorPluginsPackageJson = getEditorPluginsPackageJson();
 		const featureFlags = argv['update-feature-flags']
-			? getFeatureFlagsFromPackageJsons(packageJsons)
-			: editorPluginsPackageJson['platform-feature-flags'];
+			? getFeatureFlagsFromFactsMap(packageJsons)
+			: undefined;
 		const currentDeps = editorPluginsPackageJson.dependencies;
 
 		if (!currentDeps) {
@@ -488,7 +496,10 @@ async function run() {
 				...editorPluginsPackageJson,
 				exports: orderObjectByDepthAndRoot(newEditorPluginsExports),
 				dependencies: sortObjectKeys(updatedDeps),
-				'platform-feature-flags': featureFlags,
+				// This aggregate package references flags used by its included plugins.
+				...(featureFlags !== undefined && {
+					'platform-feature-flags': featureFlags,
+				}),
 				// only update the 'exports' property if it already exists in the package
 				...(editorPluginsPackageJson.exports && {
 					exports: orderObjectByDepthAndRoot(newEditorPluginsExports),

@@ -2,7 +2,7 @@ import React from 'react';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { fireEvent, render } from '@atlassian/testing-library';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import * as Fire3PWorkflowsClickEventModule from '../../SmartLinkEvents/useFire3PWorkflowsClickEvent';
 import { HyperlinkWithSmartLinkResolver } from '../HyperlinkResolver';

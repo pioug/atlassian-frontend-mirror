@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import type { FieldProps } from '@atlaskit/form/field';
 import { Layering } from '@atlaskit/layering/layering';
 import type { Status } from '@atlaskit/linking-types/datasource';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import type { FilterOptionOption } from '@atlaskit/react-select/filters';
 import Select from '@atlaskit/select/default';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

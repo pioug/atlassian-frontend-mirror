@@ -2,17 +2,17 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { ConnectedReactionPicker } from '@atlaskit/reactions/ConnectedReactionPicker';
 import { ConnectedReactionsView } from '@atlaskit/reactions/ConnectedReactionsView';
-import type { Store as ReactionsStore } from '@atlaskit/reactions/types';
+import type { Store as ReactionsStore } from '@atlaskit/reactions/store';
 
 export default function ConnectedPickerExample({
 	store,
 	emojiProvider,
 }: {
-	store: ReactionsStore;
 	emojiProvider: Promise<EmojiProvider>;
+	store: ReactionsStore;
 }): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">

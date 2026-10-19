@@ -10,7 +10,7 @@ import Heading from '@atlaskit/heading/heading';
 import PullRequestIcon from '@atlaskit/icon/core/pull-request';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

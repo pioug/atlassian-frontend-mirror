@@ -10,7 +10,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
-import type { ServiceConfig } from '@atlaskit/util-service-support';
+import type { ServiceConfig } from '@atlaskit/util-service-support/types';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import EmojiRepository from '../../../../api/EmojiRepository';

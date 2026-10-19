@@ -50,10 +50,9 @@ import Textfield from '@atlaskit/textfield/text-field';
  *   Expectation: focus lands on the selected (second) option.
  *
  * - `auto-focus-disabled-popup`: a button trigger opens a `role="dialog"`
- *   popup configured with the `Popup` `autoFocus={false}` prop. The popup
- *   disables its initial-focus behaviour, so focus must stay on the
- *   trigger.
- *   Expectation: focus stays on the trigger button.
+ *   popup configured with the `Popup` `autoFocus={false}` prop. On the
+ *   top-layer path, `autoFocus` has no effect and the role decides.
+ *   Expectation: focus lands on the first button.
  *
  * - `set-initial-focus-ref-popup`: a button trigger opens a `role="dialog"`
  *   popup whose content render prop wires `setInitialFocusRef` to the

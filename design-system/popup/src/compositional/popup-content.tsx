@@ -6,7 +6,12 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Portal from '@atlaskit/portal/portal';
 
 import PopperWrapper from '../popper-wrapper';
-import { type ContentProps, type PopupProps as LegacyPopupProps } from '../types';
+import {
+	type ContentProps,
+	type DialogContentProps,
+	type PopupProps as LegacyPopupProps,
+	type TInitialFocusRole,
+} from '../types';
 import { usePopupAppearance } from '../use-appearance';
 import { IdContext } from './id-context';
 import { IsOpenContext } from './is-open-context';
@@ -45,15 +50,9 @@ type CommonContentPopupProps = Pick<
 	| 'strategy'
 	| 'zIndex'
 	| 'shouldFitViewport'
-	| 'role'
 	| 'label'
 	| 'titleId'
 > & {
-	// This type has been kept the same as the Popup `content` prop for now.
-	// It could be nice to also support ReactNode e.g. `ReactNode | ((props: ContentProps) => ReactNode)`,
-	// so that consumers don't need to use a function when they are not using the props that are passed.
-	children: (props: ContentProps) => React.ReactNode;
-
 	/**
 	 * ___Use with caution___
 	 *
@@ -78,9 +77,56 @@ type StandardPopupContentProps = CommonContentPopupProps & {
 	shouldFitContainer?: false;
 };
 
-export type PopupContentProps = ShouldFitContainerContentPopupProps | StandardPopupContentProps;
+type TPopupContentBase = ShouldFitContainerContentPopupProps | StandardPopupContentProps;
 
-type TPopupContentLegacyProps = PopupContentProps & {
+// The `children` type has been kept the same as the Popup `content` prop for now.
+// It could be nice to also support ReactNode e.g. `ReactNode | ((props: ContentProps) => ReactNode)`,
+// so that consumers don't need to use a function when they are not using the props that are passed.
+
+/**
+ * Props for popup content with any role, or no role. `children` does not get `setInitialFocusRef`.
+ */
+export type PopupContentProps = TPopupContentBase & {
+	/**
+	 * Use this to set the accessibility role for the popup.
+	 * We strongly recommend using only `menu` or `dialog`.
+	 * Must be used along with `label` or `titleId`.
+	 *
+	 * Only `role="dialog"` and `role="alertdialog"` (as literal types) give `children`
+	 * the `setInitialFocusRef` setter.
+	 */
+	role?: string;
+	children: (props: ContentProps) => React.ReactNode;
+};
+
+/**
+ * Props for popup content with `role="dialog"` or `role="alertdialog"`.
+ * `children` gets `setInitialFocusRef`.
+ */
+export type DialogPopupContentProps = TPopupContentBase & {
+	/**
+	 * Use this to set the accessibility role for the popup.
+	 * Must be used along with `label` or `titleId`.
+	 * Required. `undefined` lets a role gated on `platform-dst-top-layer` keep the setter.
+	 */
+	// TODO: drop `| undefined` at the flag cleanup, in a further major, with a codemod
+	// that turns the gated role into `role="dialog"`.
+	role: TInitialFocusRole | undefined;
+	children: (props: DialogContentProps) => React.ReactNode;
+};
+
+/**
+ * The `PopupContent` component type. The dialog signature comes first, so only a role
+ * that is always `'dialog'` or `'alertdialog'` gets `setInitialFocusRef`.
+ */
+export interface TPopupContent {
+	(props: DialogPopupContentProps): React.ReactNode;
+	(props: PopupContentProps): React.ReactNode;
+}
+
+type TPopupContentImplProps = DialogPopupContentProps | PopupContentProps;
+
+type TPopupContentLegacyProps = TPopupContentImplProps & {
 	isOpen: boolean;
 	id: string | undefined;
 };
@@ -185,9 +231,12 @@ function PopupContentLegacy({
  *
  * Popup content is the component that renders the content of the popup.
  *
- * It must be a child of the Popup component.
+ * It must be a child of the Popup component. Only `role="dialog"` and
+ * `role="alertdialog"` give `children` the `setInitialFocusRef` setter.
  */
-export function PopupContent(props: PopupContentProps): React.ReactNode {
+function PopupContent(props: DialogPopupContentProps): React.ReactNode;
+function PopupContent(props: PopupContentProps): React.ReactNode;
+function PopupContent(props: TPopupContentImplProps): React.ReactNode {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
 	const id = useContext(IdContext);
@@ -209,3 +258,6 @@ export function PopupContent(props: PopupContentProps): React.ReactNode {
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- intentional forward to a typed implementation
 	return <PopupContentLegacy {...props} isOpen={isOpen} id={id} />;
 }
+
+// Not `export function`: the React Compiler's gating mode drops the export of an overloaded function.
+export { PopupContent };

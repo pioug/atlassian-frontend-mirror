@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { MarkComponent } from '../../mark';
 

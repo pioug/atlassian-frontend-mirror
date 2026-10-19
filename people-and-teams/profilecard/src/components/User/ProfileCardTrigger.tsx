@@ -2,7 +2,8 @@ import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } fr
 
 import { useIntl } from 'react-intl';
 
-import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
+import { KudosType } from '@atlaskit/give-kudos/types';
 import { Popup } from '@atlaskit/popup/popup';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';

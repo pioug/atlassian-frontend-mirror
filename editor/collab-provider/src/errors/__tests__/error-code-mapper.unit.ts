@@ -1,5 +1,4 @@
 import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { errorCodeMapper } from '../error-code-mapper';
 import type { InternalError } from '../internal-errors';
@@ -399,19 +398,13 @@ describe('Error code mapper', () => {
 			},
 		} as unknown as InternalError;
 
-		it('maps to DOCUMENT_BLOCKED when platform_editor_blocked_document_ux is on', () => {
-			passGate('platform_editor_blocked_document_ux');
+		it('maps to DOCUMENT_BLOCKED', () => {
 			expect(errorCodeMapper(blacklistedError)).toEqual({
 				code: PROVIDER_ERROR_CODE.DOCUMENT_BLOCKED,
 				message: 'The document is blocked and cannot be edited',
 				recoverable: false,
 				status: 423,
 			});
-		});
-
-		it('is dropped (undefined) when the gate is off, preserving current behaviour', () => {
-			failGate('platform_editor_blocked_document_ux');
-			expect(errorCodeMapper(blacklistedError)).toBeUndefined();
 		});
 	});
 

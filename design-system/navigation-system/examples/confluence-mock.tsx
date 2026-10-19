@@ -35,7 +35,7 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import IconTile from '@atlaskit/icon/icon-tile';
 import Image from '@atlaskit/image';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';

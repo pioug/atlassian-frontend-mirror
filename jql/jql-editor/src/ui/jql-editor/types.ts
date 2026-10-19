@@ -38,6 +38,12 @@ export type HydratedGoal = {
 	type: 'goal';
 };
 
+export type HydratedFocusArea = {
+	id: string;
+	name: string;
+	type: 'focusArea';
+};
+
 export type HydratedDeprecatedField = {
 	deprecatedSearcherKey: string;
 	/**
@@ -66,6 +72,7 @@ export type HydratedValue =
 	| HydratedTeam
 	| HydratedProject
 	| HydratedGoal
+	| HydratedFocusArea
 	| HydratedDeprecatedField
 	| HydratedLozengeWithAvatar
 	| HydratedAssets;

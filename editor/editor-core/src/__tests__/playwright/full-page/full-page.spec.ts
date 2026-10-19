@@ -94,6 +94,7 @@ test.describe('table', () => {
 		},
 		adf: tableAdf,
 	});
+
 	test('table floating toolbar should be visible after scrolling', async ({ editor }) => {
 		await editor.page.setViewportSize({ width: 800, height: 400 });
 

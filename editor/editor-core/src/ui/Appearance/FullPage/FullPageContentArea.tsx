@@ -10,20 +10,23 @@ import classnames from 'classnames';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { messages } from '@atlaskit/editor-common/messages/full-page';
+import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type {
 	EditorAppearance,
 	EditorContentMode,
-	FeatureFlags,
+} from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
+import type {
 	OptionalPlugin,
 	PublicPluginAPI,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
 	ReactHookFactory,
 	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types/ui-components';
 import type { BasePlugin } from '@atlaskit/editor-plugins/base';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugins/block-menu';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
@@ -32,17 +35,15 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorDefaultLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
-import type { akEditorGutterPaddingReduced as AkEditorGutterPaddingReducedType } from '@atlaskit/editor-shared-styles/consts';
+} from '@atlaskit/editor-shared-styles/constants';
+import type { akEditorGutterPaddingReduced as AkEditorGutterPaddingReducedType } from '@atlaskit/editor-shared-styles/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import type EditorActions from '../../../actions';
 import type { ContentComponents, ReactComponents } from '../../../types/editor-props';
-import type { MarkdownModePlugin } from '../../../types/markdown-mode';
 import { ClickAreaBlock } from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
 import { ContextPanel } from '../../ContextPanel';
@@ -121,26 +122,6 @@ const compiledStyles = cssMap({
 				marginBottom: token('space.300'),
 			},
 		},
-	},
-	/*
-	 EDITOR-7249: Scope to the main editor's ProseMirror (direct child) so nested
-	 editors like the footer page-comment composer aren't hidden in Syntax view.
-	*/
-	hideEditorContentAreaProsemirrorWithAttributeStyle: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'&[data-markdown-mode-hide-prosemirror="true"] > .ak-editor-content-area > .ProseMirror': {
-			display: 'none',
-		},
-	},
-	hideEditorContentAreaScrollGutterWithAttributeStyle: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'&[data-markdown-mode-hide-scroll-gutter="true"] > .ak-editor-content-area > [data-vc="scroll-gutter"]':
-			{
-				display: 'none',
-			},
-	},
-	hideEditorScrollGutterStyle: {
-		display: 'none',
 	},
 	fullWidthNonChromelessBreakoutBlockTableStyle: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-1
@@ -256,68 +237,10 @@ const compiledStyles = cssMap({
 	contentAreaHeightNoToolbar: {
 		height: '100%',
 	},
-	// When the markdown source view is shown (markdown mode toggled on and not in
-	// the WYSIWYG "preview" view) we tint the whole editor container with the
-	// sunken surface so the source editor reads as a distinct, inset surface.
-	markdownModeContainerBackgroundStyle: {
-		backgroundColor: token('elevation.surface.sunken'),
-		// In the markdown MVP layout the source view (CodeMirror) is bounded to the
-		// viewport and owns its own scrolling, so the editor's scroll container must
-		// not also own vertical scrolling — its always-on `overflow-y: scroll` track
-		// would otherwise render a second, redundant scrollbar alongside CodeMirror's.
-		// This style is only applied in markdown source mode, so WYSIWYG / preview
-		// scrolling is unaffected.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- scoped override of the descendant scroll container
-		'& [data-editor-scroll-container="true"]': {
-			overflowY: 'hidden',
-		},
-	},
-	markdownModeContentAreaStyle: {
-		boxSizing: 'border-box',
-		height: '100%',
-		margin: 0,
-		maxWidth: 'none',
-		minWidth: 0,
-		paddingBottom: 0,
-		// No top padding here: it would inset the whole source view (including
-		// CodeMirror's `.cm-scroller`), leaving a gap above the editor's vertical
-		// scrollbar. The top inset is applied inside the scroller instead (see the
-		// `.cm-scroller` `paddingTop` in MarkdownSourceView) so the scrollbar still
-		// spans the full height.
-		paddingTop: 0,
-		width: '100%',
-		// The markdown source view is rendered through PluginSlot. Stretch those
-		// intermediate wrappers so its in-flow footer can sit at the bottom without
-		// overlaying the CodeMirror scrollbar.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'> .ak-editor-content-area': {
-			boxSizing: 'border-box',
-			display: 'flex',
-			flexDirection: 'column',
-			height: '100%',
-			minHeight: 0,
-			minWidth: 0,
-			padding: 0,
-			width: '100%',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'> .ak-editor-content-area > [data-testid="plugins-components-wrapper"]': {
-			display: 'flex',
-			flex: '1 1 auto',
-			minHeight: 0,
-			minWidth: 0,
-			width: '100%',
-		},
-	},
 });
 
 type EditorAPI = PublicPluginAPI<
-	[
-		OptionalPlugin<ContextPanelPlugin>,
-		BasePlugin,
-		OptionalPlugin<BlockMenuPlugin>,
-		OptionalPlugin<MarkdownModePlugin>,
-	]
+	[OptionalPlugin<ContextPanelPlugin>, BasePlugin, OptionalPlugin<BlockMenuPlugin>]
 >;
 
 interface FullPageEditorContentAreaProps {
@@ -389,29 +312,6 @@ const Content = React.forwardRef<
 		[],
 	);
 
-	const markdownPluginCurrentView = useSharedPluginStateWithSelector(
-		props.editorAPI,
-		['markdownMode'],
-		(states) => states.markdownModeState?.view,
-	);
-
-	const markdownPluginCurrentIsMarkdownMode = useSharedPluginStateWithSelector(
-		props.editorAPI,
-		['markdownMode'],
-		(states) => states.markdownModeState?.isMarkdownMode,
-	);
-	const isMarkdownModeExperimentEnabled = expValEqualsNoExposure(
-		'cc-markdown-mode',
-		'isEnabled',
-		true,
-	);
-	const shouldHideProseMirrorForMarkdownMode =
-		isMarkdownModeExperimentEnabled &&
-		markdownPluginCurrentView !== 'preview' &&
-		markdownPluginCurrentIsMarkdownMode;
-	const shouldHideScrollGutterForMarkdownMode =
-		isMarkdownModeExperimentEnabled && markdownPluginCurrentIsMarkdownMode;
-
 	const content = (
 		<EditorContentContainer
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -426,27 +326,11 @@ const Content = React.forwardRef<
 		>
 			<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 				<div
-					data-markdown-mode-hide-prosemirror={
-						shouldHideProseMirrorForMarkdownMode ? 'true' : undefined
-					}
-					data-markdown-mode-hide-scroll-gutter={
-						shouldHideScrollGutterForMarkdownMode ? 'true' : undefined
-					}
 					css={[
 						compiledStyles.editorContentAreaNew,
 						// TODO: EDITOR-7801 - When we remove emotion usage in editor-core, we can remove the any cast.
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration
 						compiledStyles.editorContentAreaProsemirrorStyle as any,
-						// EDITOR-6558: hide ProseMirror when the markdown-mode plugin
-						// reports a non-WYSIWYG view.
-						shouldHideProseMirrorForMarkdownMode &&
-							compiledStyles.hideEditorContentAreaProsemirrorWithAttributeStyle,
-						shouldHideScrollGutterForMarkdownMode &&
-							compiledStyles.hideEditorContentAreaScrollGutterWithAttributeStyle,
-						// TODO: EDITOR-7801 - When we remove emotion usage in editor-core, we can remove the any cast.
-						shouldHideProseMirrorForMarkdownMode &&
-							// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration
-							(compiledStyles.markdownModeContentAreaStyle as any),
 						compiledStyles.tableFullPageEditorStylesNew,
 						compiledStyles.fullWidthNonChromelessBreakoutBlockTableStyle,
 						// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
@@ -509,10 +393,6 @@ const Content = React.forwardRef<
 							(editorExperiment('platform_editor_blocks', true) ? (
 								<div
 									id="editor-scroll-gutter"
-									css={
-										shouldHideScrollGutterForMarkdownMode &&
-										compiledStyles.hideEditorScrollGutterStyle
-									}
 									style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
 									data-vc="scroll-gutter"
 									data-editor-scroll-gutter="true"
@@ -520,10 +400,6 @@ const Content = React.forwardRef<
 							) : (
 								<div
 									id="editor-scroll-gutter"
-									css={
-										shouldHideScrollGutterForMarkdownMode &&
-										compiledStyles.hideEditorScrollGutterStyle
-									}
 									style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
 									data-vc="scroll-gutter"
 								></div>
@@ -544,13 +420,7 @@ const Content = React.forwardRef<
 			ref={containerRef}
 		>
 			<div
-				css={[
-					compiledStyles.contentAreaWrapper,
-					// TODO: EDITOR-7801 - When we remove emotion usage in editor-core, we can remove the any cast.
-					shouldHideProseMirrorForMarkdownMode &&
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration
-						(compiledStyles.markdownModeContainerBackgroundStyle as any),
-				]}
+				css={compiledStyles.contentAreaWrapper}
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
 			>

@@ -8,6 +8,7 @@ import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disab
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import { getCachedProviderPctMapAndRefresh } from '../../../../state/services/personalization/getCachedProviderPctMapAndRefresh';

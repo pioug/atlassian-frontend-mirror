@@ -2,7 +2,9 @@ import React from 'react';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { render, screen, userEvent as user } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent as user } from '@atlassian/testing-library/user-event';
 
 import { HyperlinkWithSmartLinkResolver } from '../index';
 

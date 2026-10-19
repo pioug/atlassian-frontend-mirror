@@ -8,7 +8,7 @@ import Field from '@atlaskit/form/field';
 import { HelperMessage } from '@atlaskit/form/helper-message';
 import ShipIcon from '@atlaskit/icon/core/release';
 import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
-import Page from '@atlaskit/page';
+import Page from '@atlaskit/page/page';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

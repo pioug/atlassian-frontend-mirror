@@ -13,6 +13,7 @@ test.describe('datasource', () => {
 			withRendererActions: true,
 		},
 	});
+
 	test(`Can see a rendered datasource table`, async ({ renderer }) => {
 		// This test exposes one or more accessibility violations. Testing is currently skipped but violations need to
 		// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove

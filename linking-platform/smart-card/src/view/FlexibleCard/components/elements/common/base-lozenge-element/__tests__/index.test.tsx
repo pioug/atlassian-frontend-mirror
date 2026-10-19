@@ -8,7 +8,9 @@ import { IntlProvider } from 'react-intl';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { ElementName } from '../../../../../../../constants';
 import * as uiOptions from '../../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';

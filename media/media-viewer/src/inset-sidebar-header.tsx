@@ -8,7 +8,7 @@ import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import { type FileIdentifier, type Identifier } from '@atlaskit/media-client/identifier';
 import { isExternalImageIdentifier } from '@atlaskit/media-client/is-external-image-identifier';
-import { type MediaTraceContext } from '@atlaskit/media-common/analytics';
+import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 import { messages } from '@atlaskit/media-ui/messages';
 

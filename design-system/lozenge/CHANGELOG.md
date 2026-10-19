@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.5
 
 ### Patch Changes

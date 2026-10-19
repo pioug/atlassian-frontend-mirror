@@ -381,6 +381,8 @@ const AvatarGroup = ({
 				shouldFlip
 				zIndex={510}
 				shouldRenderToParent={shouldPopupRenderToParent}
+				// Legacy path only. Types only: keeps `setInitialFocusRef` until flag cleanup.
+				role={undefined}
 				content={({ setInitialFocusRef }) => (
 					<FocusManager>
 						<PopupAvatarGroup

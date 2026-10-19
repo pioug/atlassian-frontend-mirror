@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
 import EmojiTypeAhead from '@atlaskit/emoji/emoji-type-ahead';
-import type { EmojiId, OptionalEmojiDescription } from '@atlaskit/emoji/types';
+import type { EmojiId, OptionalEmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 
 export default function EmojiTypeAheadInputExample({
 	emojiProvider,

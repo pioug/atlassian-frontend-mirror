@@ -6,7 +6,9 @@ import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { response1 } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { Bleed, Box, Flex } from '@atlaskit/primitives/compiled';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { AuthorGroupElement, Card, PreviewElement } from '../../src';

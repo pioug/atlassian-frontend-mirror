@@ -14,7 +14,7 @@ import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group'
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Popup } from '@atlaskit/popup/popup';
@@ -97,6 +97,8 @@ function ButtonMenuItemWithPopup({
 					isOpen={isNestedPopupOpen}
 					onClose={() => setIsNestedPopupOpen(false)}
 					placement="bottom-start"
+					// The bridge keeps the setter until flag cleanup.
+					role={undefined}
 					content={({ setInitialFocusRef }) => (
 						<div>
 							<ButtonItem ref={setInitialFocusRef}>Menu item 1</ButtonItem>

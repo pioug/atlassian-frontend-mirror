@@ -6,9 +6,7 @@ import { cssMap, cx } from '@atlaskit/css';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import Tile from '@atlaskit/tile/tile';
 import { token } from '@atlaskit/tokens';
@@ -30,23 +28,11 @@ interface ContainerProperties {
 
 type IconSize = 'xxsmall' | 'xsmall' | 'small' | 'medium';
 const styles = cssMap({
-	avatarWrapper: {
-		width: '24px',
-		height: '24px',
-	},
 	avatarMargin: {
 		marginTop: token('space.025'),
 		marginRight: token('space.025'),
 		marginBottom: token('space.025'),
 		marginLeft: token('space.025'),
-	},
-	smallAvatarWrapper: {
-		width: '16px',
-		height: '16px',
-	},
-	smallAvatarMargin: {
-		marginInline: 0,
-		marginBlock: 0,
 	},
 
 	linkIconWrapper: {
@@ -221,19 +207,10 @@ const getJiraContainerProperties = ({
 	const { subType, name } = containerTypeProperties || {};
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
-		icon: fg('enable_teams_t26_design_drop_core_experiences') ? (
+		icon: (
 			<ContainerIconWrapper iconSize={iconSize}>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
 			</ContainerIconWrapper>
-		) : (
-			<Flex
-				xcss={cx(
-					iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
-					iconSize === 'small' ? styles.smallAvatarMargin : styles.avatarMargin,
-				)}
-			>
-				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
-			</Flex>
 		),
 		title: <FormattedMessage {...messages.addJiraProject} />,
 		containerTypeText: <FormattedMessage {...messages.spaceContainerTextOverride} />,
@@ -277,13 +254,9 @@ const getWebLinkContainerProperties = ({
 				<LinkIcon label="" size="medium" />
 			</Box>
 		) : isDisplayedOnProfileCard ? (
-			fg('enable_teams_t26_design_drop_core_experiences') ? (
-				<Box xcss={styles.profileCardWebLinkIconWrapper}>
-					<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
-				</Box>
-			) : (
+			<Box xcss={styles.profileCardWebLinkIconWrapper}>
 				<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
-			)
+			</Box>
 		) : (
 			<Box xcss={styles.linkIconWrapper} testId="team-link-card-globe-icon">
 				<LinkIcon label="" size="small" />
@@ -307,30 +280,19 @@ interface GetContainerPropertiesParams {
 
 export const getContainerProperties = ({
 	containerType,
-	iconSize = fg('enable_teams_t26_design_drop_core_experiences') ? 'small' : 'medium',
+	iconSize = 'small',
 	containerTypeProperties,
 	isEmptyContainer,
 	isDisplayedOnProfileCard,
 }: GetContainerPropertiesParams): ContainerProperties => {
-	const isT26DesignDropCoreExperiencesEnabled = fg('enable_teams_t26_design_drop_core_experiences');
-
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
-				icon: isT26DesignDropCoreExperiencesEnabled ? (
+				icon: (
 					<ContainerIconWrapper iconSize={iconSize}>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
 					</ContainerIconWrapper>
-				) : (
-					<Flex
-						xcss={cx(
-							iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
-							iconSize === 'small' ? styles.smallAvatarMargin : styles.avatarMargin,
-						)}
-					>
-						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
-					</Flex>
 				),
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerTextOverride} />,
@@ -338,19 +300,10 @@ export const getContainerProperties = ({
 		case 'LoomSpace':
 			return {
 				description: <FormattedMessage {...messages.loomSpaceDescription} />,
-				icon: isT26DesignDropCoreExperiencesEnabled ? (
+				icon: (
 					<ContainerIconWrapper iconSize={iconSize}>
 						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
 					</ContainerIconWrapper>
-				) : (
-					<Flex
-						xcss={cx(
-							iconSize === 'small' ? styles.smallAvatarWrapper : styles.avatarWrapper,
-							iconSize === 'small' ? styles.smallAvatarMargin : styles.avatarMargin,
-						)}
-					>
-						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
-					</Flex>
 				),
 				title: <FormattedMessage {...messages.addLoomSpace} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerTextOverride} />,

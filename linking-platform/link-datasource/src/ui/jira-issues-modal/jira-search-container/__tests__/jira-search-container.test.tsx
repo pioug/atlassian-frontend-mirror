@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';

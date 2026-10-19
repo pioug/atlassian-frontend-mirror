@@ -1,7 +1,7 @@
 import { type AttributeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export type RichInlineNodeAttrs = Record<
-	'assets' | 'goal' | 'lozengeWithAvatar' | 'project' | 'team' | 'user',
+	'assets' | 'focusArea' | 'goal' | 'lozengeWithAvatar' | 'project' | 'team' | 'user',
 	{ [name: string]: AttributeSpec }
 >;
 
@@ -13,6 +13,7 @@ const baseRichInlineNodeAttrs: { [name: string]: AttributeSpec } = {
 
 export const richInlineNodeAttrs: RichInlineNodeAttrs = {
 	assets: baseRichInlineNodeAttrs,
+	focusArea: baseRichInlineNodeAttrs,
 	goal: baseRichInlineNodeAttrs,
 	lozengeWithAvatar: baseRichInlineNodeAttrs,
 	project: baseRichInlineNodeAttrs,

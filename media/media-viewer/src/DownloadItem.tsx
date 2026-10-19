@@ -18,6 +18,7 @@ export const DownloadItem = ({
 	analyticspayload,
 	traceContext,
 	iconBefore,
+	variant,
 	children,
 	fallbackMediaName,
 }: DownloadItemProps): React.JSX.Element => {
@@ -57,6 +58,7 @@ export const DownloadItem = ({
 					}
 				}}
 				iconBefore={iconBefore}
+				variant={variant}
 			>
 				{children}
 			</DownloadButton>

@@ -13,7 +13,8 @@ import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotati
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils/get-unsupported-content-level-data';
 import type { ADFStage } from '@atlaskit/editor-common/utils/validator';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { EmojiProviderLookupOrder, EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
 
 import type { ReactSerializerInit, RendererContext, Serializer } from '../';
 import type { TextHighlighter, ExtensionViewportSize } from '../react/types';

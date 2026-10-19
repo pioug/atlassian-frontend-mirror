@@ -72,7 +72,7 @@ function ColorModeSwitch() {
 /**
  * Drives the `UNSAFE-dynamic` and `UNSAFE-dynamic-dark` themes from two input colours per mode.
  */
-export default function CustomThemingExample(): React.JSX.Element {
+export default function CustomThemeColorExample(): React.JSX.Element {
 	const [lightInputs, setLightInputs] = useState<DynamicInputs>({
 		dynamicForeground: '#172b4d',
 		dynamicBackground: '#ffffff',
@@ -92,7 +92,7 @@ export default function CustomThemingExample(): React.JSX.Element {
 		>
 			<Box padding="space.300">
 				<Stack space="space.300">
-					<Heading size="xxlarge">Custom theming</Heading>
+					<Heading size="xxlarge">Custom theme color</Heading>
 					<ColorModeSwitch />
 					<ColorInputs mode="Light" values={lightInputs} onChange={setLightInputs} />
 					<ColorInputs mode="Dark" values={darkInputs} onChange={setDarkInputs} />

@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+
 test('table should pass base aXe audit', async ({ page }) => {
 	await page.visitExample<typeof import('../../../examples/expandable.tsx')>(
 		'design-system',

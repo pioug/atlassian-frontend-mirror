@@ -5,7 +5,7 @@ import { HelperMessage } from '@atlaskit/form/helper-message';
 import { MessageWrapper } from '@atlaskit/form/message-wrapper';
 import { ValidMessage } from '@atlaskit/form/valid-message';
 import Link from '@atlaskit/link/link';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 
 export default function MessagesExample(): React.JSX.Element {
 	return (

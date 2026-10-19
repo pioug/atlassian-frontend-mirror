@@ -1,7 +1,7 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { extractInvokePreviewAction } from '../../../extractors/action/extract-invoke-preview-action';
 import { extractInvokeViewAction } from '../../../extractors/action/extract-invoke-view-action';

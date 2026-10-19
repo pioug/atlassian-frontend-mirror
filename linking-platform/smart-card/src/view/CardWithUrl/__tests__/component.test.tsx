@@ -13,7 +13,8 @@ import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { fireEvent, render, userEvent } from '@atlassian/testing-library';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { getClickUrl } from '../../../state/getClickUrl';
 import { useSmartLink } from '../../../state/hooks/useSmartLink';

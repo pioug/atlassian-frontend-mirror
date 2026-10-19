@@ -16,8 +16,8 @@ import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { EmojiId } from '@atlaskit/emoji';
-import { EmojiPicker } from '@atlaskit/emoji';
+import { EmojiPicker } from '@atlaskit/emoji/emoji-picker';
+import type { EmojiId } from '@atlaskit/emoji/types';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 

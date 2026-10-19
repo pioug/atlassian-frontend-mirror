@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 242.0.0
+
+### Major Changes
+
+- [`31dd8d40ffba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31dd8d40ffba2) -
+  Cleanup `experiment` `cc-markdown-mode`. Markdown mode is unshipped: the markdown schema rebuild,
+  source-view toolbar bridge, and markdown-mode layout paths are removed.
+
+## 241.0.0
+
+### Major Changes
+
+- [`23d4e2a131b50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23d4e2a131b50) -
+  Remove the `platform_editor_ai_normalized_telemetry` experiment and retain its enabled behaviour.
+  Consumers must remove reads and overrides of the retired experiment.
+
 ## 240.0.3
 
 ### Patch Changes

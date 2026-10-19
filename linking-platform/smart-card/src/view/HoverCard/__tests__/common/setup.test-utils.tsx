@@ -15,11 +15,13 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers/intersection-observer';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import type { CardProps } from '@atlaskit/smart-card/card/types';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, type Matcher } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import * as analytics from '../../../../utils/analytics/analytics';
 import { fakeFactory } from '../../../../utils/fake-factory';

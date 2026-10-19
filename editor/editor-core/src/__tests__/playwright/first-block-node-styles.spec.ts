@@ -1,7 +1,7 @@
 import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
 import { expect } from '@af/editor-libra/matchers';
 import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
-import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing/skip-file-decorator';
 
 import {
 	blockCardAdf,
@@ -65,6 +65,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: panelAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstPanelNode = nodes.panel.first();
@@ -106,6 +107,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: codeBlockAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.codeBlock.first();
@@ -120,6 +122,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: taskListAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.actionList.first();
@@ -134,6 +137,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: ruleNodeAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.divider.first();
@@ -148,6 +152,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: expandAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.expand.first();
@@ -163,6 +168,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: layoutAndBigParagraphs,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.layout.first();
@@ -177,6 +183,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: blockCardAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.blockCard.first();
@@ -191,6 +198,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: mediaSingleAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.mediaSingle.first();
@@ -205,6 +213,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: mediaGroupAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.mediaGroup.first();
@@ -219,6 +228,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: bodiedExtensionAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.bodiedExtension.first();
@@ -233,6 +243,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: extensionAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.extension.first();
@@ -247,6 +258,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: embedCardAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.embedCard.first();
@@ -261,6 +273,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: decisionListAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.decisionList.first();
@@ -275,6 +288,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: paragraphAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.paragraph.first();
@@ -289,6 +303,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: bulletListAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.bulletList.first();
@@ -303,6 +318,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: headingNodeAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.h1.first();
@@ -320,6 +336,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: blockquoteAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.blockquote.first();
@@ -334,6 +351,7 @@ test.describe('first block node styles', () => {
 			exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
 			adf: tableAdf,
 		});
+
 		test('should have correct margin tops', async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			const firstNode = nodes.table.first();

@@ -1,9 +1,111 @@
+import { type StoreActionApi } from 'react-sweet-state';
+
 import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
+import { JQLEditorSchema } from '../../schema';
+import { actions, initialState } from '../index';
+import type { Props, State } from '../types';
+import { hydrateQuery } from './index';
 import { normaliseHydrationKey } from './normaliseHydrationKey';
 import { ValidQueryVisitor } from './ValidQueryVisitor';
+
+describe('Focus Area hydration keys', () => {
+	it.each([true, false])(
+		'normalises Focus Area keys only in the treatment cohort (%s)',
+		async (enabled) => {
+			if (enabled) {
+				mockExpEnabled('focus_in_jira_m1');
+			} else {
+				mockExpDisabled('focus_in_jira_m1');
+			}
+			const focusArea = { type: 'focusArea' as const, id: 'focus-area-1', name: 'Cloud Migration' };
+			const state = {
+				...initialState,
+				query: 'focusArea = "focus-area-1"',
+				enableRichInlineNodes: true,
+			};
+			const setState = jest.fn();
+			const props: Props = {
+				autocompleteProvider: state.autocompleteProvider,
+				createAndFireAnalyticsEvent: jest.fn(),
+				enableRichInlineNodes: true,
+				externalMessages: [],
+				intlRef: state.intlRef,
+				isSearching: state.isSearching,
+				query: state.query,
+				onHydrate: async () => ({ focusArea: [focusArea] }),
+			};
+			await hydrateQuery()({ getState: () => state, setState, dispatch: jest.fn() }, props);
+			expect(setState).toHaveBeenCalledWith({
+				hydratedValues: {
+					[enabled ? 'focusarea' : 'focusArea']: new Map([[focusArea.id, focusArea]]),
+				},
+			});
+		},
+	);
+});
+
+describe('initial editor hydration', () => {
+	beforeEach(() => {
+		jest.spyOn(actions, 'getAutocompleteSuggestions').mockReturnValue(() => {});
+	});
+
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
+
+	it.each([true, false])(
+		'hydrates the initial query before user interaction (focus experiment: %s)',
+		async (enabled) => {
+			if (enabled) {
+				mockExpEnabled('focus_in_jira_m1');
+			} else {
+				mockExpDisabled('focus_in_jira_m1');
+			}
+			mockExpDisabled('atlassian_projects_-_native_integration');
+			const query = '"FocusArea" = "focus-area-1" AND assignee = user-1';
+			const focusArea = { type: 'focusArea' as const, id: 'focus-area-1', name: 'Cloud Migration' };
+			const user = { type: 'user' as const, id: 'user-1', name: 'Test User', avatarUrl: '' };
+			const onHydrate = jest.fn(async () => ({ FocusArea: [focusArea], assignee: [user] }));
+			let state: State = { ...initialState, enableRichInlineNodes: true };
+			const props: Props = {
+				autocompleteProvider: state.autocompleteProvider,
+				createAndFireAnalyticsEvent: jest.fn(),
+				enableRichInlineNodes: true,
+				externalMessages: [],
+				intlRef: state.intlRef,
+				isSearching: state.isSearching,
+				query,
+				onHydrate,
+			};
+			const api: StoreActionApi<State> = {
+				getState: () => state,
+				setState: (update) => {
+					state = { ...state, ...update };
+				},
+				dispatch: jest.fn((action) => action(api, props)),
+			};
+			actions.initialiseEditorState()(api, props);
+			await onHydrate.mock.results[0].value;
+
+			expect(onHydrate).toHaveBeenCalledWith(query);
+			expect(state.editorState.doc.textContent).toBe(query);
+			const nodeTypes: string[] = [];
+			state.editorState.doc.descendants((node) => {
+				nodeTypes.push(node.type.name);
+			});
+			expect(nodeTypes).toContain(JQLEditorSchema.nodes.user.name);
+			if (enabled) {
+				expect(nodeTypes).toContain(JQLEditorSchema.nodes.focusArea.name);
+			} else {
+				expect(nodeTypes).not.toContain(JQLEditorSchema.nodes.focusArea.name);
+			}
+		},
+	);
+});
 
 // Base queries that don't involve membersOf
 const baseQueries = [

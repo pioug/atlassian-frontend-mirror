@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import { EmojiPicker } from '@atlaskit/emoji/emoji-picker';
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
-import type { EmojiId, OptionalEmojiDescription } from '@atlaskit/emoji/types';
+import type { EmojiId, OptionalEmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 
 export default function EmojiPickerSelectionExample({
 	emojiProvider,

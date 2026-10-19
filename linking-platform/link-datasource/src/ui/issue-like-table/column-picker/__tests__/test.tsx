@@ -6,7 +6,6 @@ import invariant from 'tiny-invariant';
 
 import type { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types/datasource';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
@@ -57,17 +56,7 @@ const renderColumnPicker = (
 };
 
 describe('Column picker', () => {
-	it('should render the customize icon with a chevron when the settings menu gate is off', () => {
-		failGate('platform_lp_sllv_table_settings_menu');
-		renderColumnPicker([], []);
-
-		expect(screen.getByTestId('column-picker-trigger-button')).toBeInTheDocument();
-		expect(screen.getByLabelText('down')).toBeInTheDocument();
-		expect(screen.getByLabelText('customize')).toBeInTheDocument();
-	});
-
-	it('should render the distribute columns icon without a chevron when the settings menu gate is on', () => {
-		passGate('platform_lp_sllv_table_settings_menu');
+	it('should render the distribute columns icon without a chevron', () => {
 		renderColumnPicker([], []);
 
 		expect(screen.getByRole('button', { name: 'Configure columns' })).toBeInTheDocument();

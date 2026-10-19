@@ -107,6 +107,8 @@ const PopupComponent = () => {
 					<Text>Open Popup</Text>
 				</DropdownItem>
 			)}
+			role="dialog"
+			label="Popup"
 		/>
 	);
 };

@@ -4,7 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import { TEXT_COLLAPSED_MENU } from '@atlaskit/editor-common/toolbar/keys';
 import type { CommonComponentProps } from '@atlaskit/editor-toolbar-model/types';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 

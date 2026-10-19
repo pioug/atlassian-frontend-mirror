@@ -23,11 +23,13 @@ import type { MediaType } from '@atlaskit/media-common/main-types';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 import {
-	useHasMediaFooterVideoControls,
+	useHasMediaFooterPlayerControls,
 	useIsInsetViewer,
 	useSetMediaFooterControls,
 } from './insetViewerContext';
@@ -38,6 +40,8 @@ const INSET_HEADER_HEIGHT = token('space.800');
 // and resolving the token would mean reading the DOM on every resize.
 export const INSET_VIEWER_GUTTER_PX = 24;
 const INSET_SIDEBAR_WIDTH = '400px';
+// The media footer is the header's height, and taller when it holds player controls.
+const INSET_PLAYER_FOOTER_HEIGHT = `calc(${INSET_HEADER_HEIGHT} + ${token('space.050')})`;
 
 const insetSidebarWidthTransitionStyles = css({
 	transitionProperty: 'width',
@@ -259,8 +263,8 @@ const insetViewerMediaFooterBarStyles = css({
 	pointerEvents: 'all',
 });
 
-const insetViewerVideoMediaFooterBarStyles = css({
-	height: `calc(${INSET_HEADER_HEIGHT} + ${token('space.050')})`,
+const insetViewerPlayerMediaFooterBarStyles = css({
+	height: INSET_PLAYER_FOOTER_HEIGHT,
 	paddingTop: token('space.250'),
 });
 
@@ -497,11 +501,18 @@ const insetViewerArrowStyles = css({
 	},
 });
 
+// The arrows' container is the stage above the footer, so half the footer is added to centre them on
+// the whole media column, wherever the footer's height changes.
 const insetViewerArrowWrapperStyles = css({
+	top: `calc(50% + ${INSET_HEADER_HEIGHT} / 2)`,
 	paddingTop: token('space.0'),
 	paddingBottom: token('space.0'),
 	paddingLeft: token('space.0'),
 	paddingRight: token('space.0'),
+});
+
+const insetViewerPlayerArrowWrapperStyles = css({
+	top: `calc(50% + ${INSET_PLAYER_FOOTER_HEIGHT} / 2)`,
 });
 
 const insetViewerLeftWrapperStyles = css({
@@ -681,6 +692,12 @@ const customAudioPlayerWrapperStyles = css({
 	width: '100%',
 });
 
+// The controls are in the footer, so the player's play/pause blanket covers the whole stage.
+const insetViewerCustomAudioPlayerWrapperStyles = css({
+	top: 0,
+	height: '100%',
+});
+
 const audioPlayerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	backgroundColor: '#22272B',
@@ -694,6 +711,18 @@ const audioPlayerStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	position: 'relative',
+});
+
+const insetViewerAudioPlayerStyles = css({
+	backgroundColor: token('color.background.neutral'),
+	borderRadius: token('radius.large', '8px'),
+	// Same horizontal gutter as the video is fitted to.
+	width: `calc(100% - ${INSET_VIEWER_GUTTER_PX * 2}px)`,
+	height: '100%',
+});
+
+const insetViewerAudioCoverStyles = css({
+	backgroundColor: token('color.background.neutral'),
 });
 
 const audioStyles = css({
@@ -718,6 +747,9 @@ const defaultCoverWrapperStyles = css({
 	alignItems: 'center',
 	justifyContent: 'center',
 	color: token('color.text'),
+});
+
+const defaultCoverScaleStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		transform: 'scale(2)',
@@ -727,6 +759,11 @@ const defaultCoverWrapperStyles = css({
 const downloadButtonWrapperStyles = css({
 	marginTop: token('space.300'),
 	textAlign: 'center',
+});
+
+// The media button's text is fixed dark on its light blue, so it stays dark on hover. The inset
+// viewer's themed button sets its own hover colors.
+const downloadButtonWrapperHoverStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
 		'&:hover, &:active': {
@@ -746,7 +783,7 @@ const customVideoPlayerWrapperStyles = css({
 	},
 });
 
-const insetViewerCustomVideoPlayerWrapperStyles = css({
+const insetViewerCustomMediaPlayerWrapperStyles = css({
 	width: '100%',
 	height: '100%',
 	maxWidth: '100%',
@@ -961,13 +998,13 @@ export const MediaStage = ({ children }: Children): JSX.Element => (
 
 export const MediaFooterBar = (): JSX.Element => {
 	const setMediaFooterControls = useSetMediaFooterControls();
-	const hasVideoControls = useHasMediaFooterVideoControls();
+	const hasPlayerControls = useHasMediaFooterPlayerControls();
 	return (
 		<div
 			ref={setMediaFooterControls}
 			css={[
 				insetViewerMediaFooterBarStyles,
-				hasVideoControls && insetViewerVideoMediaFooterBarStyles,
+				hasPlayerControls && insetViewerPlayerMediaFooterBarStyles,
 			]}
 			data-testid="media-viewer-media-footer"
 		/>
@@ -1159,6 +1196,7 @@ export const LeftWrapper = ({
 	isArchiveSideBarVisible,
 }: Children & LeftWrapperProps): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const hasPlayerControls = useHasMediaFooterPlayerControls();
 	return (
 		<div
 			css={[
@@ -1166,6 +1204,7 @@ export const LeftWrapper = ({
 				leftWrapperStyles,
 				isArchiveSideBarVisible && leftWrapperStylesWithSideBar,
 				isInsetViewer && insetViewerArrowWrapperStyles,
+				isInsetViewer && hasPlayerControls && insetViewerPlayerArrowWrapperStyles,
 				isInsetViewer && insetViewerLeftWrapperStyles,
 			]}
 		>
@@ -1176,12 +1215,14 @@ export const LeftWrapper = ({
 
 export const RightWrapper = ({ children }: Children): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const hasPlayerControls = useHasMediaFooterPlayerControls();
 	return (
 		<div
 			css={[
 				arrowWrapperStyles,
 				rightWrapperStyles,
 				isInsetViewer && insetViewerArrowWrapperStyles,
+				isInsetViewer && hasPlayerControls && insetViewerPlayerArrowWrapperStyles,
 				isInsetViewer && insetViewerRightWrapperStyles,
 			]}
 		>
@@ -1380,20 +1421,36 @@ export const RightHeader = ({ children }: Children): JSX.Element => {
 	);
 };
 
-export const CustomAudioPlayerWrapper = ({ children }: Children): JSX.Element => (
-	<div css={customAudioPlayerWrapperStyles}>{children}</div>
-);
+export const CustomAudioPlayerWrapper = ({ children }: Children): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div
+			css={[
+				customAudioPlayerWrapperStyles,
+				isInsetViewer && insetViewerCustomAudioPlayerWrapperStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
+};
 
 type AudioPlayerProps = DataTestID & Children;
 
 export const AudioPlayer: {
 	(props: AudioPlayerProps): JSX.Element;
 	displayName: string;
-} = ({ 'data-testid': datatestId, children }: AudioPlayerProps): JSX.Element => (
-	<div css={audioPlayerStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+} = ({ 'data-testid': datatestId, children }: AudioPlayerProps): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div
+			css={[audioPlayerStyles, isInsetViewer && insetViewerAudioPlayerStyles]}
+			data-testid={datatestId}
+		>
+			{children}
+		</div>
+	);
+};
 
 AudioPlayer.displayName = 'AudioPlayer';
 
@@ -1422,23 +1479,40 @@ type AudioCoverProps = {
 	src: string;
 };
 
-export const AudioCover = ({ src, alt }: AudioCoverProps): JSX.Element => (
-	<img css={audioCoverStyles} alt={alt} src={src} />
-);
+export const AudioCover = ({ src, alt }: AudioCoverProps): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<img
+			css={[audioCoverStyles, isInsetViewer && insetViewerAudioCoverStyles]}
+			alt={alt}
+			src={src}
+		/>
+	);
+};
 
-export const DefaultCoverWrapper = ({ children }: Children): JSX.Element => (
-	<div css={defaultCoverWrapperStyles}>{children}</div>
-);
+export const DefaultCoverWrapper = ({ children }: Children): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div css={[defaultCoverWrapperStyles, !isInsetViewer && defaultCoverScaleStyles]}>
+			{children}
+		</div>
+	);
+};
 
-export const DownloadButtonWrapper = ({ children }: Children): JSX.Element => (
-	<div css={downloadButtonWrapperStyles}>{children}</div>
-);
+export const DownloadButtonWrapper = ({ children }: Children): JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
+	return (
+		<div css={[downloadButtonWrapperStyles, !isInsetViewer && downloadButtonWrapperHoverStyles]}>
+			{children}
+		</div>
+	);
+};
 
-type CustomVideoPlayerWrapperProps = DataTestID & Children;
+type CustomMediaPlayerWrapperProps = DataTestID & Children;
 
-export const CustomVideoPlayerWrapper: ForwardRefExoticComponent<
-	CustomVideoPlayerWrapperProps & RefAttributes<HTMLDivElement>
-> = forwardRef<HTMLDivElement, CustomVideoPlayerWrapperProps>(
+export const CustomMediaPlayerWrapper: ForwardRefExoticComponent<
+	CustomMediaPlayerWrapperProps & RefAttributes<HTMLDivElement>
+> = forwardRef<HTMLDivElement, CustomMediaPlayerWrapperProps>(
 	({ 'data-testid': datatestId, children }, ref) => {
 		const isInsetViewer = useIsInsetViewer();
 		return (
@@ -1446,7 +1520,7 @@ export const CustomVideoPlayerWrapper: ForwardRefExoticComponent<
 				ref={ref}
 				css={[
 					!isInsetViewer && customVideoPlayerWrapperStyles,
-					isInsetViewer && insetViewerCustomVideoPlayerWrapperStyles,
+					isInsetViewer && insetViewerCustomMediaPlayerWrapperStyles,
 				]}
 				data-testid={datatestId}
 			>

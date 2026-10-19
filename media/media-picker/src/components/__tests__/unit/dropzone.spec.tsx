@@ -12,7 +12,7 @@ import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
-import { act, render } from '@atlassian/testing-library';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
 import { Dropzone } from '../../dropzone/dropzone';

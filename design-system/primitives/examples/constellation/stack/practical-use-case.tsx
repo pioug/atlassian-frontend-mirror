@@ -4,7 +4,7 @@ import Heading from '@atlaskit/heading/heading';
 import ComponentIcon from '@atlaskit/icon/core/component';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import FeedbackIcon from '@atlaskit/icon/core/feedback';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import StoryObject from '@atlaskit/object/story';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';

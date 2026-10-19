@@ -9,16 +9,16 @@ import type { CustomPopperProps, PopperChildrenProps } from '@atlaskit/popper/ma
 import * as popperModule from '@atlaskit/popper/main';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { screen } from '@atlassian/testing-library/screen';
 import {
 	act,
 	createEvent,
 	fireEvent,
 	render,
-	screen,
-	userEvent,
 	waitFor,
-	within,
-} from '@atlassian/testing-library';
+} from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import * as panelSplitterWidthUtils from '../../panel-splitter/get-pixel-width';
 import { PanelSplitter, type PanelSplitterProps } from '../../panel-splitter/panel-splitter';
@@ -102,9 +102,7 @@ const TestComponent = ({
 	const panelSplitterParentRef = useRef<HTMLDivElement | null>(null);
 	const [panelWidth, setPanelWidth] = useState(overrides.initialPanelWidth ?? 300);
 
-	const getResizeBounds = useCallback((): ResizeBounds => {
-		return { min: '200px', max: '400px' };
-	}, []);
+	const getResizeBounds = useCallback((): ResizeBounds => ({ min: '200px', max: '400px' }), []);
 
 	useEffect(() => {
 		invariant(panelSplitterParentRef.current);
@@ -1115,7 +1113,7 @@ describe('PanelSplitter', () => {
 				popperSpy = jest
 					.spyOn(popperModule, 'Popper')
 					.mockImplementation((props: CustomPopperProps<unknown>) => {
-						const children = props.children;
+						const { children } = props;
 						if (!children) {
 							return originalPopper(props);
 						}

@@ -9,7 +9,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import { act, fireEvent, render } from '@atlassian/testing-library';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import { SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';

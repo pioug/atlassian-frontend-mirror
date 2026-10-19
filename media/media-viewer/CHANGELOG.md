@@ -1,5 +1,36 @@
 # @atlaskit/media-viewer
 
+## 54.11.23
+
+### Patch Changes
+
+- [`11c2b18af98d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11c2b18af98d1) -
+  In the inset Media Viewer:
+  - Audio files match video: the controls sit in the media footer, the player fills the stage with
+    the same gutters, and clicking it plays or pauses.
+  - Text and code files follow the inset layout: no black bar above the text, the same side gutter
+    and rounded corners as other media, and a footer with the language and, in the advanced text
+    viewer, the line count. `@atlaskit/media-ui` adds the `line_count` and `plain_text` messages for
+    it.
+  - The error view uses theme colors for its text, so it reads in light mode, and its download
+    button shows the "Download" text again instead of only an icon, as a themed primary button like
+    the rest of the inset viewer's buttons.
+  - The password prompt for protected documents uses theme colors for its heading, lock icon and
+    wrong-password message, so it reads in light mode.
+  - The previous and next arrows stay centred on the media column, including when the footer is
+    taller because it holds player controls.
+  - Loading spinners, including the media player's, follow the theme.
+
+  Applies when `useInsetViewer` is set and `cc_comments_inset_media_viewer` is on.
+
+- Updated dependencies
+
+## 54.11.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.11.21
 
 ### Patch Changes

@@ -20,6 +20,7 @@ test.describe('Primitives components should pass basic aXe audit', () => {
 
 		await expect(page.locator('[data-testid="flex-basic"]')).toBeVisible();
 	});
+
 	test('Grid, should pass basic aXe audit', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../examples/60-grid-compiled.tsx')>(
 			'design-system',
@@ -29,6 +30,7 @@ test.describe('Primitives components should pass basic aXe audit', () => {
 
 		await expect(page.locator('[data-testid="grid-basic"]').first()).toBeVisible();
 	});
+
 	test('Inline, should pass basic aXe audit', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../examples/10-inline-basic.vr.ap.tsx')>(
 			'design-system',

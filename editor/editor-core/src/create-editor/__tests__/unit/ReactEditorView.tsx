@@ -134,7 +134,7 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { addUFOCustomData } from '@atlaskit/react-ufo/add-ufo-custom-data';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
@@ -312,7 +312,15 @@ describe('@atlaskit/editor-core', () => {
 			],
 		};
 
-		eeTest.describe('platform_editor_ssr_toolbar_optimistic', 'enabled').variant(true, () => {
+		afterEach(() => {
+			setupEditorExperiments('test', {});
+		});
+
+		describe('when platform_editor_ssr_toolbar_optimistic is enabled', () => {
+			beforeEach(() => {
+				setupEditorExperiments('test', { platform_editor_ssr_toolbar_optimistic: true });
+			});
+
 			it.each(['full-page', 'full-width', 'max'] as const)(
 				'matches the SSR selection for %s when the experiment is enabled',
 				(appearance) => {
@@ -337,7 +345,11 @@ describe('@atlaskit/editor-core', () => {
 			);
 		});
 
-		eeTest.describe('platform_editor_ssr_toolbar_optimistic', 'disabled').variant(false, () => {
+		describe('when platform_editor_ssr_toolbar_optimistic is disabled', () => {
+			beforeEach(() => {
+				setupEditorExperiments('test', { platform_editor_ssr_toolbar_optimistic: false });
+			});
+
 			it('preserves the Max width end selection when the experiment is disabled', () => {
 				const onEditorCreated = jest.fn(({ view }: { view: EditorView }) => view.state);
 				renderWithIntl(
@@ -1556,45 +1568,23 @@ describe('@atlaskit/editor-core', () => {
 			return { calls, renderProp };
 		};
 
-		eeTest('cc-markdown-mode', {
-			true: async () => {
-				const { calls, renderProp } = captureRenderProp();
-				const baseProps = requiredProps();
-				const presetWithoutMarker = createUniversalPreset({ props: {} });
-				const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
+		it('does not re-render with the new preset content components after reconfigure', async () => {
+			const { calls, renderProp } = captureRenderProp();
+			const baseProps = requiredProps();
+			const presetWithoutMarker = createUniversalPreset({ props: {} });
+			const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
 
-				const { rerender } = renderWithIntl(
-					<ReactEditorView {...baseProps} preset={presetWithoutMarker} render={renderProp} />,
-				);
-				expect(calls.at(-1)).not.toContain(markerContentComponent);
+			const { rerender } = renderWithIntl(
+				<ReactEditorView {...baseProps} preset={presetWithoutMarker} render={renderProp} />,
+			);
 
-				rerender(<ReactEditorView {...baseProps} preset={presetWithMarker} render={renderProp} />);
+			rerender(<ReactEditorView {...baseProps} preset={presetWithMarker} render={renderProp} />);
 
-				// With the gate ON, `bumpConfigVersion` schedules a follow-up
-				// render so the render prop is re-invoked with the post-mutation
-				// `config.current.contentComponents`.
-				await waitFor(() => {
-					expect(calls.at(-1)).toContain(markerContentComponent);
-				});
-			},
-			false: async () => {
-				const { calls, renderProp } = captureRenderProp();
-				const baseProps = requiredProps();
-				const presetWithoutMarker = createUniversalPreset({ props: {} });
-				const presetWithMarker = createUniversalPreset({ props: {} }).add(markerPlugin);
-
-				const { rerender } = renderWithIntl(
-					<ReactEditorView {...baseProps} preset={presetWithoutMarker} render={renderProp} />,
-				);
-
-				rerender(<ReactEditorView {...baseProps} preset={presetWithMarker} render={renderProp} />);
-
-				// Gate OFF: the layout effect mutates `config.current` in place
-				// without scheduling a re-render. Flush any pending React work so
-				// the assertion is deterministic rather than racing a wall clock.
-				await act(async () => {});
-				expect(calls.at(-1)).not.toContain(markerContentComponent);
-			},
+			// The layout effect mutates `config.current` in place without
+			// scheduling a re-render. Flush any pending React work so the
+			// assertion is deterministic rather than racing a wall clock.
+			await act(async () => {});
+			expect(calls.at(-1)).not.toContain(markerContentComponent);
 		});
 	});
 

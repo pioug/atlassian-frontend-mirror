@@ -35,6 +35,12 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../elements/emoji/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/mention/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../node-data-provider/afm-products/tsconfig.json"
 		},
 		{
@@ -42,6 +48,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/task-decision/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"

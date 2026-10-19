@@ -24,7 +24,8 @@ import {
 	largePdfFileId,
 	videoFileId,
 } from '@atlaskit/media-test-helpers/exampleMediaItems';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { MediaInlineCardRelay } from '../src';

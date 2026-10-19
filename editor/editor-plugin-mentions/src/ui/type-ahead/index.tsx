@@ -12,7 +12,7 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 import MentionItem from '@atlaskit/mention/mention-item';
 import {

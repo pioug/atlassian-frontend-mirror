@@ -177,9 +177,11 @@ dialog focusing steps look for the HTML `autofocus` attribute.
   - `menu`: first focusable (menu item)
   - `listbox`: `[aria-selected="true"]` option, or first focusable
   - `tooltip` / no role: no focus movement
-- Combobox carve-out (for `menu` and `listbox`): if the popup is owned by a focused combobox-like
-  textbox, focus stays on the textbox and the popup surfaces the active option via
-  `aria-activedescendant`. A single predicate (`isComboboxControllingPopup`) covers both layouts:
+- Combobox carve-out (for `menu`, `listbox`, and `dialog` / `alertdialog`): if the popup is owned by
+  a focused combobox-like textbox, focus stays on the textbox and the popup surfaces the active
+  option via `aria-activedescendant`. For `dialog` / `alertdialog`, the textbox must be outside the
+  dialog: a dialog that contains its own combobox still takes focus. A single predicate
+  (`isComboboxControllingPopup`) covers both layouts:
   - **In-popup combobox**: the focused textbox lives inside the popup `container` (the popup is
     rendered as a child of the combobox wrapper).
   - **External combobox**: the focused textbox is rendered OUTSIDE the popup (`react-select`
@@ -242,6 +244,15 @@ first menu item) rather than preserving the consumer-chosen target. This matches
 timing races, and a more correct phase-machine `exitCommitted` design adds significant surface area
 for a scenario that has not been observed in practice. Consumers that need to preserve focus across
 a programmatic reopen should manage focus themselves after the popup opens.
+
+#### Role and focus are a package deal
+
+The role alone decides initial focus. There is no opt-out: a popup that must not take focus must not
+use `dialog`, `alertdialog`, `menu` or `listbox`. `@atlaskit/popup`'s `autoFocus` has no effect on
+the top-layer path. See [`../decisions/role-and-focus.md`](../decisions/role-and-focus.md).
+
+Not done: `preventScroll` on the initial `focus()`. It would also stop the popover's own scroll
+container from scrolling a selected listbox option into view, so it is not a safe one-line change.
 
 ---
 

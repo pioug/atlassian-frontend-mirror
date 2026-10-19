@@ -5,11 +5,13 @@ import { IntlProvider } from 'react-intl';
 import Heading from '@atlaskit/heading/heading';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardStore } from '@atlaskit/linking-common/store';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import '@atlaskit/link-test-helpers/jest';
-import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CardAction } from '../../../constants';
 import { HoverCard as StandaloneHoverCard } from '../../../entry-points/hover';

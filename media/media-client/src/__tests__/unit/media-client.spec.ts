@@ -6,7 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/jestHelpers';
 import type { AuthProvider, Auth } from '@atlaskit/media-core/auth';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import {
 	MediaClient,

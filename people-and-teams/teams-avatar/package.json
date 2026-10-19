@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-avatar",
-	"version": "4.1.8",
+	"version": "4.1.9",
 	"description": "A team avatar is a visual representation of a team.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -66,10 +66,5 @@
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"wait-for-expect": "root:*"
-	},
-	"platform-feature-flags": {
-		"enable_teams_t26_design_drop_core_experiences": {
-			"type": "boolean"
-		}
 	}
 }

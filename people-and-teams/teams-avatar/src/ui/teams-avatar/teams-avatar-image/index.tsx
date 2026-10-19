@@ -3,122 +3,21 @@
  * @jsx jsx
  */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type { SizeType } from '@atlaskit/avatar/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { token } from '@atlaskit/tokens';
 
-import { FallbackAvatar } from './fallback';
 import { TEAM_FALLBACK_AVATAR_DATA_URI } from './fallback/constants';
 import { getTeamAvatarSrc } from './utils';
 
-/**
- * Team avatars do not support the `UNSAFE_xsmall` (20px) avatar size; the
- * per-size dimension maps below are exhaustive over the supported sizes only.
- */
-type TeamAvatarImageSize = Exclude<SizeType, 'UNSAFE_xsmall'>;
-
 type AvatarImageProps = {
-	size: TeamAvatarImageSize;
 	alt?: string;
 	src?: string;
 	testId?: string;
 	teamId?: string;
-	compact?: boolean;
 };
-
-const boxShadowCssVar = '--avatar-box-shadow';
-const bgColorCssVar = '--avatar-bg-color';
-
-/**
- * We need to maintan the container styles manually until Avatar provides the correct border radius.
- * After that we can return to wrapping in <AvatarContent> rather than span
- */
-const containerStyles = cssMap({
-	root: {
-		display: 'flex',
-		position: 'static',
-		alignItems: 'stretch',
-		justifyContent: 'center',
-		flexDirection: 'column',
-		border: 'none',
-		cursor: 'inherit',
-		outline: 'none',
-		overflow: 'hidden',
-		paddingBlockEnd: token('space.0'),
-		paddingBlockStart: token('space.0'),
-		paddingInlineEnd: token('space.0'),
-		paddingInlineStart: token('space.0'),
-		transform: 'translateZ(0)',
-		transition: 'transform 200ms, opacity 200ms',
-		'&::after': {
-			width: '100%',
-			position: 'absolute',
-			inset: token('space.0'),
-			backgroundColor: 'transparent',
-			content: "' '",
-			opacity: 0,
-			pointerEvents: 'none',
-			transition: 'opacity 200ms',
-		},
-	},
-	nonCompactSpacing: {
-		marginBlockEnd: token('space.025'),
-		marginBlockStart: token('space.025'),
-		marginInlineEnd: token('space.025'),
-		marginInlineStart: token('space.025'),
-	},
-	compactSpacing: {
-		marginBlockEnd: token('space.0'),
-		marginBlockStart: token('space.0'),
-		marginInlineEnd: token('space.0'),
-		marginInlineStart: token('space.0'),
-	},
-	circle: {
-		borderRadius: token('radius.full', '50%'),
-		'&::after': {
-			borderRadius: token('radius.full', '50%'),
-		},
-	},
-	positionRelative: {
-		position: 'relative',
-	},
-	disabled: {
-		cursor: 'not-allowed',
-		'&::after': {
-			backgroundColor: token('elevation.surface'),
-			opacity: token('opacity.disabled'),
-		},
-	},
-});
-
-const unboundStyles = cssMap({
-	root: {
-		boxSizing: 'content-box',
-		backgroundColor: `var(${bgColorCssVar})`,
-		boxShadow: `var(${boxShadowCssVar})`,
-	},
-	interactive: {
-		cursor: 'pointer',
-		'&:hover::after': {
-			backgroundColor: token('color.interaction.hovered'),
-			opacity: '1',
-		},
-		'&:active::after': {
-			backgroundColor: token('color.interaction.pressed'),
-			opacity: '1',
-		},
-		'@media screen and (forced-colors: active)': {
-			'&:focus-visible': {
-				outlineWidth: 1,
-			},
-		},
-	},
-});
 
 const avatarImageStyles = cssMap({
 	image: {
@@ -126,71 +25,6 @@ const avatarImageStyles = cssMap({
 		flex: '1 1 100%',
 		width: '100%',
 		height: '100%',
-	},
-});
-
-const SIZES: Record<TeamAvatarImageSize, number> = {
-	xxsmall: 16,
-	xsmall: 16,
-	small: 24,
-	medium: 32,
-	large: 40,
-	xlarge: 96,
-	xxlarge: 128,
-};
-
-const borderRadiusMap = cssMap({
-	xxsmall: {
-		borderRadius: token('radius.tile'),
-	},
-	xsmall: {
-		borderRadius: token('radius.tile'),
-	},
-	small: {
-		borderRadius: token('radius.tile'),
-	},
-	medium: {
-		borderRadius: token('radius.tile'),
-	},
-	large: {
-		borderRadius: token('radius.tile'),
-	},
-	xlarge: {
-		borderRadius: token('radius.tile'),
-	},
-	xxlarge: {
-		borderRadius: token('radius.tile'),
-	},
-});
-
-const widthHeightMap = cssMap({
-	xxsmall: {
-		width: '16px',
-		height: '16px',
-	},
-	xsmall: {
-		width: '16px',
-		height: '16px',
-	},
-	small: {
-		width: '24px',
-		height: '24px',
-	},
-	medium: {
-		width: '32px',
-		height: '32px',
-	},
-	large: {
-		width: '40px',
-		height: '40px',
-	},
-	xlarge: {
-		width: '96px',
-		height: '96px',
-	},
-	xxlarge: {
-		width: '128px',
-		height: '128px',
 	},
 });
 
@@ -202,67 +36,22 @@ const widthHeightMap = cssMap({
 export const TeamAvatarImage = ({
 	alt = '',
 	src,
-	size,
 	testId,
 	teamId,
-	compact = false,
 }: AvatarImageProps): JSX.Element => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	const avatarSrc = getTeamAvatarSrc(src, teamId);
 
-	useEffect(() => {
-		if (fg('enable_teams_t26_design_drop_core_experiences')) {
-			return;
-		}
-		setHasImageErrored(false);
-	}, [avatarSrc]);
-
-	if ((!avatarSrc || hasImageErrored) && !fg('enable_teams_t26_design_drop_core_experiences')) {
-		return (
-			<FallbackAvatar
-				aria-label={alt}
-				width={SIZES[size]}
-				height={SIZES[size]}
-				data-testid={testId}
-				compact={compact}
-			/>
-		);
-	}
-
-	if (fg('enable_teams_t26_design_drop_core_experiences')) {
-		const resolvedSrc = hasImageErrored ? TEAM_FALLBACK_AVATAR_DATA_URI : avatarSrc;
-		return (
-			<Box
-				as="img"
-				src={resolvedSrc}
-				alt={alt}
-				testId={testId && `${testId}--image`}
-				xcss={avatarImageStyles.image}
-				onError={() => setHasImageErrored(true)}
-			/>
-		);
-	}
-
+	const resolvedSrc = hasImageErrored ? TEAM_FALLBACK_AVATAR_DATA_URI : avatarSrc;
 	return (
-		<span
-			css={[
-				unboundStyles.root,
-				containerStyles.root,
-				borderRadiusMap[size],
-				widthHeightMap[size],
-				compact ? containerStyles.compactSpacing : containerStyles.nonCompactSpacing,
-			]}
-			data-testid={testId}
-			aria-label={alt}
-		>
-			<img
-				src={avatarSrc}
-				alt={alt}
-				data-testid={testId && `${testId}--image`}
-				css={[avatarImageStyles.image]}
-				onError={() => setHasImageErrored(true)}
-			/>
-		</span>
+		<Box
+			as="img"
+			src={resolvedSrc}
+			alt={alt}
+			testId={testId && `${testId}--image`}
+			xcss={avatarImageStyles.image}
+			onError={() => setHasImageErrored(true)}
+		/>
 	);
 };

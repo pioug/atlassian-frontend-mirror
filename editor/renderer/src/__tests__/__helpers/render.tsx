@@ -9,7 +9,7 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 export const renderWithIntl = (component: React.ReactNode): RenderResult => {
 	return render(<IntlProvider locale="en">{component}</IntlProvider>);

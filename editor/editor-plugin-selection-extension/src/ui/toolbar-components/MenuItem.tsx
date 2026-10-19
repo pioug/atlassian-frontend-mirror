@@ -3,8 +3,8 @@ import React from 'react';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
-import Lozenge from '@atlaskit/lozenge/lozenge';
-import { Box } from '@atlaskit/primitives/compiled';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { selectionExtensionPluginKey } from '../../pm-plugins/main';
 import { getSelectionAdfInfoNew, getSelectionTextInfo } from '../../pm-plugins/utils';

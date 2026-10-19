@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 14.4.6
+
+### Patch Changes
+
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  Update for the `@atlaskit/popup` `setInitialFocusRef` type change. Runtime behaviour does not
+  change.
+- Updated dependencies
+
 ## 14.4.5
 
 ### Patch Changes

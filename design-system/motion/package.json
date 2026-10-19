@@ -95,19 +95,28 @@
 					"sortKey": 4
 				},
 				{
+					"title": "Motion presence boundary",
+					"id": "motion-presence-boundary",
+					"sortKey": 5,
+					"status": {
+						"type": "alpha",
+						"description": "MotionPresenceBoundary is currently in early access. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+					}
+				},
+				{
 					"title": "Staggered entrance",
 					"id": "staggered-entrance",
-					"sortKey": 5
+					"sortKey": 6
 				},
 				{
 					"title": "Accessibility",
 					"id": "accessibility",
-					"sortKey": 6
+					"sortKey": 7
 				},
 				{
 					"title": "Entering motion",
 					"id": "entering-motion",
-					"sortKey": 7,
+					"sortKey": 8,
 					"status": {
 						"type": "intent-to-deprecate",
 						"description": "The `FadeIn`, `SlideIn`, `ZoomIn` and `ShrinkOut` entering motions will soon be deprecated. Please use the new [Motion](/components/motion/motion-primitive) component instead."
@@ -116,7 +125,7 @@
 				{
 					"title": "Variables",
 					"id": "variables",
-					"sortKey": 8,
+					"sortKey": 9,
 					"status": {
 						"type": "intent-to-deprecate",
 						"description": "The duration and curve variables will soon be deprecated. Please use the new [motion design tokens](/components/tokens/all-tokens#motion) instead."
@@ -150,6 +159,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",

@@ -6,7 +6,12 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import '@atlaskit/link-test-helpers/jest';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { screen, waitFor, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import {
+	waitFor,
+	waitForElementToBeRemoved,
+} from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import useIncomingOutgoingAri from '../../../state/hooks/use-incoming-outgoing-links';
 import useResponse from '../../../state/hooks/use-response';

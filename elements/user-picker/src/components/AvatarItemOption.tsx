@@ -9,7 +9,7 @@ import React, { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/removable-tag';
 import type { TagColor } from '@atlaskit/tag/types';

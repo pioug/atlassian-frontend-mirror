@@ -13,7 +13,10 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"jest-extended": "root:*",

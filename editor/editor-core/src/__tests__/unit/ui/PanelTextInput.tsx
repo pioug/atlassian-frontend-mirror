@@ -4,7 +4,7 @@ import type { RenderResult } from '@testing-library/react';
 import { fireEvent, render } from '@testing-library/react';
 
 import PanelTextInput from '@atlaskit/editor-common/PanelTextInput';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 const noop = () => {};
 

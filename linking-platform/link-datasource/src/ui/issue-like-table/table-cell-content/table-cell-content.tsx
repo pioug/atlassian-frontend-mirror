@@ -8,7 +8,7 @@ import type {
 	Link,
 } from '@atlaskit/linking-types/datasource';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { useDatasourceItem } from '../../../state';
 import { useExecuteAtomicAction } from '../../../state/actions/useExecuteAtomicAction';

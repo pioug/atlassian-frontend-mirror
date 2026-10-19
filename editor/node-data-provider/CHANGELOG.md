@@ -1,5 +1,17 @@
 # @atlaskit/node-data-provider
 
+## 29.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.0
 
 ### Patch Changes

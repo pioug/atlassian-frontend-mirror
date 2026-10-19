@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { type Assets } from '../utils';
 

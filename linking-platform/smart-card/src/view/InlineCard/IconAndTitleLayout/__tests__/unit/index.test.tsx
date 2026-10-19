@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { fireEvent, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
 import { IconAndTitleLayout } from '../../index';

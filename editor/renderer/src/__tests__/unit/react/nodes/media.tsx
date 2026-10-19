@@ -44,7 +44,7 @@ import type { FileIdentifier, ExternalImageIdentifier } from '@atlaskit/media-cl
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { sleep, nextTick } from '@atlaskit/media-test-helpers/nextTick';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import Media from '../../../../react/nodes/media';
 import type { MediaSSR } from '../../../../types/mediaOptions';

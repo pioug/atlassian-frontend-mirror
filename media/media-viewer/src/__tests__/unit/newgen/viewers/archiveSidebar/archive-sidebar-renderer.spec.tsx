@@ -18,7 +18,9 @@ import { unzip } from 'unzipit';
 import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { sleep } from '@atlaskit/media-test-helpers/nextTick';
-import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import ArchiveSidebarRenderer, {
 	type ArchiveSidebarRendererProps,

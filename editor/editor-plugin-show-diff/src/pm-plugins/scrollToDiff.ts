@@ -6,6 +6,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ShowDiffPlugin } from '../showDiffPluginType';
 import { isDiffDecoration, SCROLL_TARGET_MARGIN_CSS_PROPERTY } from './decorations/decorationKeys';
+import { getWidgetElement } from './decorations/utils/getWidgetElement';
 
 /**
  * Extra space above the scrolled-to element so it does not sit flush under the
@@ -36,22 +37,18 @@ function updateScrollTargetMargin(
 	);
 }
 
-/**
- * Returns the resolved HTMLElement for a given DOM node, walking up to the
- * parent element if the node itself is not an Element (e.g. a text node).
- */
 function scrollToSelection(node: Node | null | undefined): void {
-	const element =
-		node instanceof Element
-			? node
-			: node?.parentElement instanceof Element
-				? node.parentElement
-				: null;
+	// ProseMirror may return a text node; scroll its parent element instead.
+	const element = node instanceof Element ? node : node?.parentElement;
 	if (!(element instanceof HTMLElement)) {
 		return;
 	}
+	const scrollOptions: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start' };
+	if (fg('platform_editor_ai_suggestion_table_scroll_fix')) {
+		scrollOptions.inline = 'center';
+	}
 	if (fg('platform_editor_ai_show_diff_patch_1')) {
-		element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		element.scrollIntoView(scrollOptions);
 		return;
 	}
 
@@ -59,10 +56,26 @@ function scrollToSelection(node: Node | null | undefined): void {
 	const previousScrollMarginTop = element.style.scrollMarginTop;
 	element.style.scrollMarginTop = `${SCROLL_TOP_MARGIN_PX}px`;
 	try {
-		element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		element.scrollIntoView(scrollOptions);
 	} finally {
 		element.style.scrollMarginTop = previousScrollMarginTop;
 	}
+}
+
+function resolveScrollTarget(view: EditorView, target: Decoration): Node | null | undefined {
+	if (isDiffDecoration(target) && target.spec.decorationType === 'widget') {
+		return getWidgetElement(target);
+	}
+	if (isDiffDecoration(target) && fg('platform_editor_ai_show_diff_patch_2')) {
+		return (
+			Array.from(view.dom.querySelectorAll<HTMLElement>('[data-diff-id]')).find(
+				(element) => element.dataset.diffId === target.spec.diffId,
+			) ?? view.nodeDOM(target.from)
+		);
+	}
+
+	const targetNode = view.nodeDOM(target.from);
+	return targetNode instanceof Element ? targetNode : view.domAtPos(target.from)?.node;
 }
 
 /**
@@ -87,30 +100,29 @@ export const scrollToDecoration = (
 	// `getScrollableDecorations`. Only set under `platform_editor_ai_show_diff_patch_1`.
 	const target = (isDiffDecoration(decoration) && decoration.spec.scrollTarget) || decoration;
 
-	let rafId: number | null = requestAnimationFrame(() => {
-		rafId = null;
+	let rafId: number | null = null;
+	let cancelled = false;
+
+	const scrollToTarget = () => {
+		if (view.isDestroyed) {
+			return;
+		}
 		if (fg('platform_editor_ai_show_diff_patch_1')) {
 			updateScrollTargetMargin(view, target.from, api);
 		}
-		if (isDiffDecoration(target) && target.spec.decorationType === 'widget') {
-			// @ts-expect-error - decoration.type is not typed public API
-			const widgetDom = target?.type?.toDOM;
-			scrollToSelection(widgetDom);
-		} else if (isDiffDecoration(target) && fg('platform_editor_ai_show_diff_patch_2')) {
-			const targetNode =
-				Array.from(view.dom.querySelectorAll<HTMLElement>('[data-diff-id]')).find(
-					(element) => element.dataset.diffId === target.spec.diffId,
-				) ?? view.nodeDOM(target?.from);
+		scrollToSelection(resolveScrollTarget(view, target));
+	};
 
-			scrollToSelection(targetNode);
-		} else {
-			const targetNode = view.nodeDOM(target?.from);
-			const node = targetNode instanceof Element ? targetNode : view.domAtPos(target?.from)?.node;
-			scrollToSelection(node);
+	// Called from the plugin's post-DOM update hook; defer measurement until layout can settle.
+	rafId = requestAnimationFrame(() => {
+		rafId = null;
+		if (!cancelled) {
+			scrollToTarget();
 		}
 	});
 
 	return () => {
+		cancelled = true;
 		if (rafId !== null) {
 			cancelAnimationFrame(rafId);
 			rafId = null;

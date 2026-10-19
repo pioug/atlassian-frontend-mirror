@@ -5,7 +5,7 @@ import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import Link from '@atlaskit/link/link';
 import SectionMessage from '@atlaskit/section-message/message';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { default as FullPageExample } from './5-full-page';
 

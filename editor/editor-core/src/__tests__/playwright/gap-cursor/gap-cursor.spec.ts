@@ -27,6 +27,7 @@ test.describe('Gap-cursor:', () => {
 			},
 			adf: connectedExtensionADF,
 		});
+
 		test(`should stay where it was after confirmation dialog closed`, async ({ editor }) => {
 			const nodes = EditorNodeContainerModel.from(editor);
 			await nodes.extension.first().waitFor({ state: 'visible' });
@@ -89,6 +90,7 @@ test.describe('Gap-cursor:', () => {
 			});
 		});
 	});
+
 	test.describe('Comment Editor', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
@@ -98,6 +100,7 @@ test.describe('Gap-cursor:', () => {
 			},
 			adf: infoPanelADF,
 		});
+
 		test('gap-cursor: should display to left of block node after hitting left key for comment editor', async ({
 			editor,
 		}) => {
@@ -107,6 +110,7 @@ test.describe('Gap-cursor:', () => {
 			const gapCursorModel = EditorGapCursorModel.from(editor);
 			await expect(gapCursorModel.span).toBeVisible();
 		});
+
 		test('gap-cursor: should display to right of block node after hitting right key for comment editor', async ({
 			editor,
 		}) => {
@@ -117,6 +121,7 @@ test.describe('Gap-cursor:', () => {
 			await expect(gapCursorModel.span).toBeVisible();
 		});
 	});
+
 	test.describe('Full Page Editor', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
@@ -126,6 +131,7 @@ test.describe('Gap-cursor:', () => {
 			},
 			adf: infoPanelADF,
 		});
+
 		test('gap-cursor: should display to left of block node after hitting left key for full-page editor', async ({
 			editor,
 		}) => {
@@ -135,6 +141,7 @@ test.describe('Gap-cursor:', () => {
 			const gapCursorModel = EditorGapCursorModel.from(editor);
 			await expect(gapCursorModel.span).toBeVisible();
 		});
+
 		test('gap-cursor: should display to right of block node after hitting right key for full-page editor', async ({
 			editor,
 		}) => {
@@ -145,6 +152,7 @@ test.describe('Gap-cursor:', () => {
 			await expect(gapCursorModel.span).toBeVisible();
 		});
 	});
+
 	test.describe('Code Block', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
@@ -153,6 +161,7 @@ test.describe('Gap-cursor:', () => {
 			},
 			adf: listWithCodeBlockADF,
 		});
+
 		test(`gap-cursor: should display next to codeblock when clicked list item with a code block`, async ({
 			editor,
 		}) => {

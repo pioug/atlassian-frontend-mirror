@@ -26,9 +26,10 @@ import {
 	UnAuthClientWithProviderImage,
 	UnicornResolvedClient,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Grid } from '@atlaskit/primitives';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/grid';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CustomByStatusElement } from '@atlaskit/smart-card/custom-by-status-element';
 import { CustomElementByAccessType as CustomByAccessTypeElement } from '@atlaskit/smart-card/custom-element-by-access-type';

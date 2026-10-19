@@ -27,7 +27,9 @@ import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
-import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 

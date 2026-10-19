@@ -4,9 +4,9 @@ import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
-import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import combineExtensionProviders from '@atlaskit/editor-common/extensions/combine-extension-providers';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Existing renderer extension provider test helper.
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

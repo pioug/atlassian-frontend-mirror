@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/lozenge';
+import type { ThemeAppearance } from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

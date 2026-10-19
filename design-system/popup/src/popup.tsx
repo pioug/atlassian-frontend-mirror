@@ -21,7 +21,7 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 
 import PopperWrapper from './popper-wrapper';
 import { PopupTopLayer } from './popup-top-layer';
-import { type PopupProps } from './types';
+import { type DialogPopupProps, type PopupProps, type TPopup } from './types';
 import { usePopupAppearance } from './use-appearance';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
 import { useGetMemoizedMergedTriggerRefNew } from './use-get-memoized-merged-trigger-ref-new';
@@ -34,7 +34,7 @@ const wrapperStyles = cssMap({
 	},
 });
 
-const PopupLegacy: FC<PopupProps> = (props: PopupProps) => {
+const PopupLegacy: FC<DialogPopupProps | PopupProps> = (props: DialogPopupProps | PopupProps) => {
 	const {
 		xcss,
 		appearance: inAppearance = 'default',
@@ -172,7 +172,13 @@ const PopupLegacy: FC<PopupProps> = (props: PopupProps) => {
 	return popupContent;
 };
 
-export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
+/**
+ * __Popup__
+ *
+ * A popup displays brief content in an overlay. Only `role="dialog"` and
+ * `role="alertdialog"` give `content` the `setInitialFocusRef` setter.
+ */
+export const Popup: TPopup = memo((props: DialogPopupProps | PopupProps) => {
 	// Choose the rendering implementation at the component boundary rather than
 	// gating hooks inside a single component. Each implementation owns its own
 	// hooks unconditionally, so a runtime feature-flag change swaps component

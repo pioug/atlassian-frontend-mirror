@@ -16,7 +16,10 @@ export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContex
 				'@atlaskit/primitives/box',
 				'@atlaskit/primitives/text',
 				'@atlaskit/primitives/compiled',
+				'@atlaskit/primitives/compiled/box',
+				'@atlaskit/primitives/compiled/text',
 				'@atlaskit/tile',
+				'@atlaskit/tile/tile',
 			]);
 
 			if (importDeclaration.length) {

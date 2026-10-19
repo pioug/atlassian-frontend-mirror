@@ -11,7 +11,7 @@ import { getLanguageType } from '@atlaskit/media-ui/getLanguageType';
 import { isCodeViewerItem } from '@atlaskit/media-ui/isCodeViewerItem';
 import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { createPreviewUnsupportedEvent } from '../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
@@ -25,7 +25,7 @@ import { isMediaViewerError } from '../../isMediaViewerError';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
 import { Spinner } from '../../loading';
 import {
-	CustomVideoPlayerWrapper,
+	CustomMediaPlayerWrapper,
 	AudioPlayer,
 	CustomAudioPlayerWrapper,
 	DefaultCoverWrapper,
@@ -315,7 +315,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 				case 'video':
 					return (
 						<ArchiveItemViewerWrapper>
-							<CustomVideoPlayerWrapper data-testid="media-viewer-video-content">
+							<CustomMediaPlayerWrapper data-testid="media-viewer-video-content">
 								<CustomMediaPlayer
 									type="video"
 									isAutoPlay={false}
@@ -326,7 +326,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 										selectedArchiveEntry,
 									)}
 								/>
-							</CustomVideoPlayerWrapper>
+							</CustomMediaPlayerWrapper>
 						</ArchiveItemViewerWrapper>
 					);
 				case 'audio':

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
+import { doesHydrateWithSsr } from '@atlassian/ssr-tests/ssr-tests';
 
 import Example from '../../../../examples/20-stack-basic.vr.ap';
 

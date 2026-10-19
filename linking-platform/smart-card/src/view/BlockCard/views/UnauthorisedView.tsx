@@ -13,7 +13,7 @@ import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';

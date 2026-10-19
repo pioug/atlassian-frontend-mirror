@@ -42,12 +42,13 @@ const roleToAriaHasPopup: TAriaHasPopupByRole = {
 	grid: 'grid',
 };
 
-type TGetAriaForTriggerOptions<TRole extends TAriaForTriggerRole> = {
+type TGetAriaForTriggerOptions<TRole extends TAriaForTriggerRole | undefined> = {
 	/**
 	 * The `role` that will be set on the `<Popover>` element. Used to derive
-	 * the correct `aria-haspopup` value for the trigger.
+	 * the correct `aria-haspopup` value for the trigger. No role gives no
+	 * `aria-haspopup`.
 	 */
-	role: TRole;
+	role?: TRole;
 	/**
 	 * Whether the popover is currently open. Drives `aria-expanded`.
 	 */
@@ -59,8 +60,8 @@ type TGetAriaForTriggerOptions<TRole extends TAriaForTriggerRole> = {
 	popoverId: string;
 };
 
-type TAriaForTrigger<TRole extends TAriaForTriggerRole> = {
-	'aria-haspopup': TAriaHasPopupByRole[TRole];
+type TAriaForTrigger<TRole extends TAriaForTriggerRole | undefined> = {
+	'aria-haspopup': TRole extends TAriaForTriggerRole ? TAriaHasPopupByRole[TRole] : undefined;
 	'aria-expanded': boolean;
 	/**
 	 * `aria-controls` is `undefined` while the popover is closed, because
@@ -78,8 +79,8 @@ type TAriaForTrigger<TRole extends TAriaForTriggerRole> = {
  * Centralises three attributes that are easy to forget or get wrong individually:
  *
  * - `aria-haspopup` - derived from the popover's role (e.g. `dialog → "dialog"`,
- *   `menu → "menu"`, `tooltip → undefined`). React omits the attribute when
- *   the value is `undefined`.
+ *   `menu → "menu"`). No role gives no `aria-haspopup`: the value is
+ *   `undefined`, so React omits the attribute.
  * - `aria-expanded` - reflects the current open state.
  * - `aria-controls` - references the popover element by its id while the
  *   popover is open, and is omitted while the popover is closed and unmounted.
@@ -118,11 +119,16 @@ type TAriaForTrigger<TRole extends TAriaForTriggerRole> = {
  * );
  * ```
  */
-export function getAriaForTrigger<TRole extends TAriaForTriggerRole>({
+export function getAriaForTrigger<TRole extends TAriaForTriggerRole | undefined = undefined>(
+	options: TGetAriaForTriggerOptions<TRole>,
+): TAriaForTrigger<TRole>;
+export function getAriaForTrigger({
 	role,
 	isOpen,
 	popoverId,
-}: TGetAriaForTriggerOptions<TRole>): TAriaForTrigger<TRole> {
+}: TGetAriaForTriggerOptions<TAriaForTriggerRole | undefined>): TAriaForTrigger<
+	TAriaForTriggerRole | undefined
+> {
 	// `aria-controls` is set to `undefined` while closed. The `Popover` /
 	// `Dialog` primitives unmount their host element after the exit
 	// animation finishes, so a closed-state `aria-controls` would point
@@ -131,7 +137,7 @@ export function getAriaForTrigger<TRole extends TAriaForTriggerRole>({
 	// until the target exists, avoiding the dangling reference while
 	// keeping the relationship live whenever it is meaningful.
 	return {
-		'aria-haspopup': roleToAriaHasPopup[role],
+		'aria-haspopup': role ? roleToAriaHasPopup[role] : undefined,
 		'aria-expanded': isOpen,
 		'aria-controls': isOpen ? popoverId : undefined,
 	};

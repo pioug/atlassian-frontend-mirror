@@ -318,8 +318,7 @@ Integration tests are located in `__tests__/playwright/` and use example pages f
 ### Adding Feature Flags
 
 1. Import `fg` from `@atlaskit/platform-feature-flags`
-2. Register flag in `package.json` under `platform-feature-flags`
-3. Put fg check as **last condition** in if statements: `if (a === b && fg('my_fg'))`
+2. Put the `fg` check as the **last condition** in if statements: `if (a === b && fg('my_fg'))`
 
 ## Important Patterns
 

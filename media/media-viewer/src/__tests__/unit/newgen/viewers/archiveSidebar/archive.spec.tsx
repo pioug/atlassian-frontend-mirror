@@ -26,7 +26,9 @@ import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { createPreviewUnsupportedEvent } from '../../../../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
@@ -160,7 +162,7 @@ describe('Archive', () => {
 		expect(await screen.findByTestId('media-viewer-audio-content')).toBeInTheDocument();
 	});
 
-	it('should render CustomVideoPlayerWrapper when a video entry is selected', async () => {
+	it('should render CustomMediaPlayerWrapper when a video entry is selected', async () => {
 		setUnzipEntries([
 			{ name: 'file_a.mov', blob: jest.fn().mockResolvedValue(new Blob(['data'])) },
 		]);

@@ -13,7 +13,7 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
 import { imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { MediaCardRelay } from '../src';

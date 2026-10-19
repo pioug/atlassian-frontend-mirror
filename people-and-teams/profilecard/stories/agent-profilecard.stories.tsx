@@ -3,7 +3,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 
-import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
+import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils/with-platform-feature-gates';
 import { withAnalyticsLogger } from '@atlassian/platform-storybook-helpers/analytics-logger';
 import { withStorybookLinkHarness } from '@atlassian/platform-storybook-helpers/link-harness';
 import { withMaxWidth } from '@atlassian/platform-storybook-helpers/max-width';

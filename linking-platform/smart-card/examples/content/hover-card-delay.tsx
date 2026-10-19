@@ -8,7 +8,7 @@ import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Grid } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';

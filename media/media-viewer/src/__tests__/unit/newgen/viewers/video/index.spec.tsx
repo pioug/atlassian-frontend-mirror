@@ -25,7 +25,7 @@ import { getErrorDetail } from '../../../../../getErrorDetail';
 import { getSecondaryErrorReason } from '../../../../../getSecondaryErrorReason';
 import {
 	InsetViewerProvider,
-	useHasMediaFooterVideoControls,
+	useHasMediaFooterPlayerControls,
 } from '../../../../../insetViewerContext';
 import { MediaViewerError } from '../../../../../MediaViewerError';
 import { MediaFooterBar, Video } from '../../../../../styleWrappers';
@@ -40,7 +40,7 @@ jest.mock('../../../../../styleWrappers', () => {
 		Video: jest.fn(original.Video),
 		// lazy wrappers: the mock* fns are initialised after the factory runs
 		FittedVideoFrame: forwardRef((props: any, ref: any) => mockFittedVideoFrame(props, ref)),
-		CustomVideoPlayerWrapper: forwardRef((props: any, ref: any) =>
+		CustomMediaPlayerWrapper: forwardRef((props: any, ref: any) =>
 			mockVideoPlayerWrapper(props, ref),
 		),
 	};
@@ -101,8 +101,8 @@ const videoItem: ProcessedFileState = {
 	representations: {},
 };
 
-const HasVideoControlsProbe = () => (
-	<span data-testid="has-video-controls">{String(useHasMediaFooterVideoControls())}</span>
+const HasPlayerControlsProbe = () => (
+	<span data-testid="has-video-controls">{String(useHasMediaFooterPlayerControls())}</span>
 );
 
 interface SetupOptions {
@@ -469,14 +469,14 @@ describe('Video viewer', () => {
 		});
 
 		it('should tell the media footer it has video controls while mounted in the inset viewer', async () => {
-			setup({ isInsetViewer: true, probe: <HasVideoControlsProbe /> });
+			setup({ isInsetViewer: true, probe: <HasPlayerControlsProbe /> });
 			await waitForContent();
 
 			expect(screen.getByTestId('has-video-controls')).toHaveTextContent('true');
 		});
 
 		it('should tell the media footer the video controls are gone once unmounted', async () => {
-			const { unmountViewer } = setup({ isInsetViewer: true, probe: <HasVideoControlsProbe /> });
+			const { unmountViewer } = setup({ isInsetViewer: true, probe: <HasPlayerControlsProbe /> });
 			await waitForContent();
 
 			unmountViewer();
@@ -485,7 +485,7 @@ describe('Video viewer', () => {
 		});
 
 		it('should not tell the media footer about video controls when the inset viewer is not enabled', async () => {
-			setup({ isInsetViewer: false, probe: <HasVideoControlsProbe /> });
+			setup({ isInsetViewer: false, probe: <HasPlayerControlsProbe /> });
 			await waitForContent();
 
 			expect(screen.getByTestId('has-video-controls')).toHaveTextContent('false');

@@ -26,6 +26,12 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../../build/website/docs/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
 		}
 	]

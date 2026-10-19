@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricElementsAnalyticsContext';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
-import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision';
-import { ResourcedTaskItem } from '@atlaskit/task-decision';
+import ResourcedTaskItem from '@atlaskit/task-decision/resourced-task-item';
+import type { ContentRef, TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 export interface Props {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

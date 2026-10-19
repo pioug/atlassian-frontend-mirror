@@ -107,6 +107,7 @@ test.describe('Modal dialog: top-layer focus contract', () => {
 			},
 		});
 	});
+
 	test('focus movement: Tab traverses each control before wrapping', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/98-testing-initial-focus-matrix.tsx')>(
 			'design-system',

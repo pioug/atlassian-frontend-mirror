@@ -10,8 +10,9 @@ import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { APIError } from '@atlaskit/linking-common/api-error';
-import { Box } from '@atlaskit/primitives/compiled';
-import { render, screen, waitFor } from '@atlassian/testing-library';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';

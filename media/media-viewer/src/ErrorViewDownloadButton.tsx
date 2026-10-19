@@ -9,6 +9,7 @@ import { messages } from '@atlaskit/media-ui/messages';
 
 import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadItem } from './DownloadItem';
+import { useIsInsetViewer } from './insetViewerContext';
 import type { MediaViewerError } from './MediaViewerError';
 import { DownloadButtonWrapper } from './styleWrappers';
 
@@ -19,6 +20,7 @@ export const ErrorViewDownloadButton = ({
 	traceContext,
 	collectionName,
 }: ErrorViewDownloadButtonProps): React.JSX.Element => {
+	const isInsetViewer = useIsInsetViewer();
 	const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(fileState, error);
 	const testId = 'media-viewer-error-download-button';
 
@@ -28,6 +30,7 @@ export const ErrorViewDownloadButton = ({
 				testId={testId}
 				analyticspayload={downloadEvent}
 				appearance="primary"
+				variant={isInsetViewer ? 'insetText' : 'default'}
 				fileState={fileState}
 				mediaClient={mediaClient}
 				collectionName={collectionName}

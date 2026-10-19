@@ -47,9 +47,11 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-re
 import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
 import {

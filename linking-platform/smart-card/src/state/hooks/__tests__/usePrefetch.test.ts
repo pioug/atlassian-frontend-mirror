@@ -1,5 +1,5 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
 import { usePrefetch } from '../usePrefetch';
@@ -11,7 +11,7 @@ jest.mock('@atlaskit/link-provider/use-smart-link-context', () => ({
 }));
 
 jest.mock('react', () => ({
-	...jest.requireActual<Object>('react'),
+	...jest.requireActual<object>('react'),
 	useCallback: jest.fn().mockImplementation((fn) => fn),
 }));
 

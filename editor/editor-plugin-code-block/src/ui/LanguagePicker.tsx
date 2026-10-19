@@ -12,7 +12,7 @@ import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBl
 import type { SelectOption } from '@atlaskit/editor-common/types/floating-toolbar';
 import { akEditorLineHeight } from '@atlaskit/editor-shared-styles/constants';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { components } from '@atlaskit/react-select/components';
 import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { GroupProps, OptionProps, ValueType } from '@atlaskit/select/types';

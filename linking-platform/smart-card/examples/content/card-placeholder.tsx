@@ -2,7 +2,8 @@ import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Inline, Text } from '@atlaskit/primitives/compiled';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { LoadingCardLink } from '../../src/view/CardWithUrl/component-lazy/LoadingCardLink';
 

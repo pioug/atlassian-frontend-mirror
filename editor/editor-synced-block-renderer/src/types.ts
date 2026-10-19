@@ -1,4 +1,4 @@
-import type { RendererProps } from '@atlaskit/renderer/renderer-props';
+import type { RendererProps } from '@atlaskit/renderer/core';
 
 export type SyncedBlockRendererOptions = Pick<
 	RendererProps,

@@ -11,6 +11,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { cardPlugin } from '../index';
 import { blockCardNodeView } from '../nodeviews/blockCard';
@@ -285,7 +286,13 @@ export const createPlugin =
 								 * By using this approach, the browser is free to schedule the resolution of the promises below in between rendering/network/
 								 * other tasks as per common implementations of the JavaScript event loop in browsers.
 								 */
-								const invoke = rafSchedule(() =>
+								const invoke = rafSchedule(() => {
+									if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+										const index = rafCancellationCallbacks.indexOf(invoke.cancel);
+										if (index !== -1) {
+											rafCancellationCallbacks.splice(index, 1);
+										}
+									}
 									resolveWithProvider(
 										view,
 										provider,
@@ -295,8 +302,8 @@ export const createPlugin =
 										pluginInjectionApi?.analytics?.sharedState.currentState()
 											?.createAnalyticsEvent ?? undefined,
 										currentState?.embedCardTransformers?.embedCardNodeTransformer,
-									),
-								);
+									);
+								});
 								rafCancellationCallbacks.push(invoke.cancel);
 								invoke();
 							});

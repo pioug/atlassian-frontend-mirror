@@ -48,6 +48,7 @@ export const getPluginStateWithUpdatedPos = (
 	overlayCandidatePosition?: number;
 	provider: CardProvider | null;
 	removeOverlay?: () => void;
+	removeOverlayCardId?: string;
 	requests: {
 		analyticsAction?: ACTION;
 		appearance: CardAppearance;

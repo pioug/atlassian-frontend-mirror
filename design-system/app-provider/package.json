@@ -68,6 +68,7 @@
 		"@atlaskit/avatar-group": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/form": "workspace:^",

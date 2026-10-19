@@ -10,7 +10,7 @@ import { jsx, styled } from '@compiled/react';
 import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id/datasource-experience-id-provider';

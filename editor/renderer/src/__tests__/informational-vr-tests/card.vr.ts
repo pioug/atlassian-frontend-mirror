@@ -107,14 +107,6 @@ snapshotInformational(RendererBlockCard, {
 	},
 	featureFlags: {},
 });
-snapshotInformational(RendererBlockCard, {
-	prepare: async (page) => {
-		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
-	},
-	featureFlags: {
-		platform_ssr_smartlink_cards: [true, false],
-	},
-});
 snapshotInformational(RendererBlockCardResolving, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-resolving-view').waitFor({ state: 'visible' });

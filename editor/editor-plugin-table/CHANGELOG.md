@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-table
 
+## 40.0.3
+
+### Patch Changes
+
+- [`c011dee405917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c011dee405917) -
+  Fix the table cell options button being hidden behind native sticky header rows after scrolling,
+  behind the `platform_editor_table_cell_menu_btn_zindex` experiment. The anchored button now uses
+  the sticky header button z-index so it stays above the header with
+  `platform_editor_sticky_headers_zindex` enabled or disabled.
+- Updated dependencies
+
+## 40.0.2
+
+### Patch Changes
+
+- [`72696d778e3ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72696d778e3ae) -
+  Reduce renderer table cell cloning and map active cell highlights through document changes behind
+  platform_editor_table_q4_perf_patch.
+
+  Only evaluate the performance patch when platform_editor_table_q4_loveability is enabled.
+
+- Updated dependencies
+
+## 40.0.1
+
+### Patch Changes
+
+- [`fa1e60dbfa6e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa1e60dbfa6e5) -
+  Keep rendered diffs visible when navigating inside horizontally overflowing tables, behind
+  `platform_editor_ai_suggestion_table_scroll_fix`.
+- Updated dependencies
+
 ## 40.0.0
 
 ### Patch Changes

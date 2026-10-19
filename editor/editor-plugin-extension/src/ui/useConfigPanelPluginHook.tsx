@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { clearEditingContext, forceAutoSave } from '../editor-commands/commands';
 import type { ExtensionPlugin } from '../extensionPluginType';

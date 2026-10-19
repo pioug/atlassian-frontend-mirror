@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ArrowDownRightIcon from '@atlaskit/icon/core/arrow-down-right';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 export default (): React.JSX.Element => (

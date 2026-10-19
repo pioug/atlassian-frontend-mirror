@@ -13,6 +13,7 @@ import { default as MembersOfTeamNodesExample } from './09-membersof-team-nodes.
 import { default as ProjectNodesExample } from './10-project-nodes.vr.ap';
 import { default as GoalNodesExample } from './11-goal-nodes.vr.ap';
 import { default as FunctionArgumentNodesExample } from './12-function-argument-nodes';
+import { default as FocusAreaNodesExample } from './14-focus-area-nodes';
 
 export const BasicEditor: WorkbenchExample = wb(BasicEditorExample);
 export const UserNodes: WorkbenchExample = wb(UserNodesExample);
@@ -27,3 +28,4 @@ export const MembersOfTeamNodes: WorkbenchExample = wb(MembersOfTeamNodesExample
 export const ProjectNodes: WorkbenchExample = wb(ProjectNodesExample);
 export const GoalNodes: WorkbenchExample = wb(GoalNodesExample);
 export const FunctionArgumentNodes: WorkbenchExample = wb(FunctionArgumentNodesExample);
+export const FocusAreaNodes: WorkbenchExample = wb(FocusAreaNodesExample);

@@ -5,9 +5,9 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Text } from '@atlaskit/primitives/compiled';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { type ContainerTypes } from '../../../common/types';
 import { TeamLinkCard } from './index';

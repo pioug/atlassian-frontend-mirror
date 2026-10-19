@@ -16,7 +16,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import { Inline, Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

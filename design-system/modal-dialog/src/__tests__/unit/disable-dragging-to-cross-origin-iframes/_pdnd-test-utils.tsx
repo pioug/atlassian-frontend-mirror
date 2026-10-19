@@ -11,7 +11,7 @@ import type {
 	Input,
 	NativeMediaType,
 } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
-import { fireEvent } from '@atlassian/testing-library';
+import { fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 export function getDefaultInput(overrides: Partial<Input> = {}): Input {
 	const defaults: Input = {

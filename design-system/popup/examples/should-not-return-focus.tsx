@@ -70,6 +70,8 @@ export default (): JSX.Element => {
 						Trigger
 					</button>
 				)}
+				role="dialog"
+				label="Popup"
 			/>
 			{isInputVisible ? <TestInput onCancel={onCancel} /> : null}
 		</div>

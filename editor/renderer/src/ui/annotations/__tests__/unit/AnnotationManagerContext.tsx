@@ -4,7 +4,8 @@ import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { createAnnotationManager } from '@atlaskit/editor-common/annotation';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
-import { screen, renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { createAnnotationStep } from '../../../../steps';
 import { RendererActionsContext } from '../../../RendererActionsContext';

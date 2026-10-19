@@ -1,14 +1,17 @@
 import React from 'react';
 
 import AudioIcon from '@atlaskit/icon/core/audio';
+import IconTile from '@atlaskit/icon/icon-tile';
 import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { ProcessedFileState, FileState } from '@atlaskit/media-state/file-state';
 import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
+import { InsetViewerProvider } from '@atlaskit/media-ui/insetViewerProvider';
 import type { WithShowControlMethodProp } from '@atlaskit/media-ui/types';
 
 import { Outcome } from '../domain/outcome';
+import { type WithInsetViewerFooterProps, withInsetViewerFooter } from '../insetViewerContext';
 import { MediaViewerError } from '../MediaViewerError';
 import {
 	AudioPlayer,
@@ -16,6 +19,7 @@ import {
 	Audio,
 	DefaultCoverWrapper,
 	CustomAudioPlayerWrapper,
+	CustomMediaPlayerWrapper,
 } from '../styleWrappers';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { isIE } from '../utils/isIE';
@@ -52,7 +56,21 @@ const getCoverUrl = (
 		collection: collectionName,
 	});
 
-export class AudioViewer extends BaseViewer<string, Props, State> {
+class _AudioViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps, State> {
+	componentDidMount(): void {
+		super.componentDidMount();
+		if (this.props.isInsetViewer) {
+			this.props.setHasPlayerControls?.(true);
+		}
+	}
+
+	componentWillUnmount(): void {
+		if (this.props.isInsetViewer) {
+			this.props.setHasPlayerControls?.(false);
+		}
+		super.componentWillUnmount();
+	}
+
 	protected get initialState(): {
 		content: Outcome<string, MediaViewerError>;
 	} {
@@ -67,6 +85,12 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 
 		if (coverUrl && item.status !== 'error') {
 			return <AudioCover src={coverUrl} alt={item.name} />;
+		} else if (this.props.isInsetViewer) {
+			return (
+				<DefaultCoverWrapper>
+					<IconTile icon={AudioIcon} label="cover" appearance="gray" size="xlarge" />
+				</DefaultCoverWrapper>
+			);
 		} else {
 			return defaultCover;
 		}
@@ -94,28 +118,37 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 	};
 
 	protected renderSuccessful(src: string): React.JSX.Element {
-		const { item, showControls, previewCount, onCanPlay } = this.props;
+		const { item, showControls, previewCount, onCanPlay, isInsetViewer, mediaFooterControls } =
+			this.props;
 
 		const useCustomAudioPlayer = !isIE();
 		const isAutoPlay = previewCount === 0;
-		return useCustomAudioPlayer ? (
-			<AudioPlayer data-testid="media-viewer-audio-content">
-				{this.renderCover()}
-				<CustomAudioPlayerWrapper>
-					<CustomMediaPlayer
-						type="audio"
-						isAutoPlay={isAutoPlay}
-						src={src}
-						fileId={item.id}
-						isShortcutEnabled={true}
-						showControls={showControls}
-						onCanPlay={onCanPlay}
-						onFirstPlay={this.onFirstPlay}
-						onError={this.onError}
-					/>
-				</CustomAudioPlayerWrapper>
-			</AudioPlayer>
-		) : (
+		if (useCustomAudioPlayer) {
+			const player = (
+				<AudioPlayer data-testid="media-viewer-audio-content">
+					{this.renderCover()}
+					<CustomAudioPlayerWrapper>
+						<InsetViewerProvider isInsetViewer={isInsetViewer}>
+							<CustomMediaPlayer
+								type="audio"
+								isAutoPlay={isAutoPlay}
+								src={src}
+								fileId={item.id}
+								isShortcutEnabled={true}
+								showControls={showControls}
+								onCanPlay={onCanPlay}
+								onFirstPlay={this.onFirstPlay}
+								onError={this.onError}
+								controlsPortalElement={mediaFooterControls}
+							/>
+						</InsetViewerProvider>
+					</CustomAudioPlayerWrapper>
+				</AudioPlayer>
+			);
+			// Same stage wrapper as the video, so audio fills the stage the same way.
+			return isInsetViewer ? <CustomMediaPlayerWrapper>{player}</CustomMediaPlayerWrapper> : player;
+		}
+		return (
 			<AudioPlayer>
 				{this.renderCover()}
 				<CustomAudioPlayerWrapper>
@@ -201,3 +234,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 		URL.revokeObjectURL(content.data);
 	}
 }
+
+export const AudioViewer: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<Props> & React.RefAttributes<any>
+> = withInsetViewerFooter(_AudioViewer);

@@ -11,7 +11,7 @@ import invariant from 'tiny-invariant';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';

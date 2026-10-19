@@ -7,7 +7,9 @@ import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import KeyboardEventWithKeyCode from '@atlaskit/media-test-helpers/keyboardEventWithKeyCode';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { InsetViewerProvider } from '../../../insetViewerContext';
 import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';

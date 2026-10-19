@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import type { DateRangeType } from '@atlaskit/linking-types/datasource';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { getFormattedDateRange } from './getFormattedDateRange';
 

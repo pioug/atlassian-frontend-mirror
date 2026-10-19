@@ -3,7 +3,7 @@
 import React from 'react';
 
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/removable-tag';
 import type { TagColor } from '@atlaskit/tag/types';

@@ -18,8 +18,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExternalImageIdentifier, isMediaBlobUrl } from '@atlaskit/media-client';
+import { isMediaBlobUrl } from '@atlaskit/media-client';
 import type { Identifier } from '@atlaskit/media-client/identifier';
+import { isExternalImageIdentifier } from '@atlaskit/media-client/is-external-image-identifier';
 
 import type { MediaState, getPosHandler as ProsemirrorGetPosHandler } from '../../types';
 import { isExternalMedia } from '../../ui/toolbar/utils';

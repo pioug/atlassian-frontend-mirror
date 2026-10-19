@@ -1,7 +1,9 @@
 import type { CardStore } from '@atlaskit/linking-common/store';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { act, screen, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act } from '@atlassian/testing-library/testing-library/react';
+import { within } from '@atlassian/testing-library/within';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';

@@ -10,7 +10,8 @@ import Avatar from '@atlaskit/avatar/avatar';
 import IconButton from '@atlaskit/button/icon/button';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import CollapseIcon from '@atlaskit/icon/core/chevron-up';
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/lozenge';
+import type { ThemeAppearance } from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { token } from '@atlaskit/tokens';
 
 import { ProviderCardExampleList } from './ProviderCardExampleList';

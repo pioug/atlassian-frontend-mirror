@@ -4,7 +4,7 @@ const runTypeCheck = () => {
 	// execute yarn run check-types
 	const { execSync } = require('child_process');
 	try {
-		execSync('yarn run check-types', { stdio: 'inherit' });
+		execSync('afm run check-types', { stdio: 'inherit' });
 		// eslint-disable-next-line no-console
 		console.log('✅ 🚀 Type checks passed successfully for generated Global component types!');
 	} catch (error) {

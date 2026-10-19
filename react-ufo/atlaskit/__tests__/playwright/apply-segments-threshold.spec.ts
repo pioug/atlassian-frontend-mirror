@@ -85,6 +85,7 @@ test.describe('ReactUFO: Interactions Segments threshold configuration', () => {
 		examplePage: 'multiple-segments-labelstack-tree';
 		__exampleDependency?: typeof import('../../examples/31-multiple-segments-labelstack-tree.tsx');
 	});
+
 	test('segments limited to 3', async ({ page, waitForReactUFOInteractionPayload }) => {
 		const mainDiv = page.locator('[data-testid="page-container"]');
 		await expect(mainDiv).toBeVisible();

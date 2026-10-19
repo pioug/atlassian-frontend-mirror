@@ -15,18 +15,18 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { checkForModal } from '../../../../ui/Addon/checkForModal';
 import { clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
 
 jest.mock('@atlaskit/editor-common/selection/actions', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/editor-common/selection/actions'),
+	...jest.requireActual<object>('@atlaskit/editor-common/selection/actions'),
 }));
 jest.mock('@atlaskit/editor-common/commands', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/editor-common/commands'),
+	...jest.requireActual<object>('@atlaskit/editor-common/commands'),
 }));
 jest.mock('@atlaskit/editor-common/utils/dom', () => ({
 	...jest.requireActual('@atlaskit/editor-common/utils/dom'),

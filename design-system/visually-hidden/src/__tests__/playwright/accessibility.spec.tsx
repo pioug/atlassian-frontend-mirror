@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+
 test('visually-hidden should pass basic aXe audit', async ({ page }) => {
 	await page.visitExample<typeof import('../../../examples/01-toggle-hidden-element.tsx')>(
 		'design-system',

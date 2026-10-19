@@ -3,7 +3,7 @@ import mapValues from 'lodash/mapValues';
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, Plugin, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { JQLSyntaxError } from '@atlaskit/jql-ast';
+import { JQLSyntaxError } from '@atlaskit/jql-ast/jql-syntax-error';
 
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';

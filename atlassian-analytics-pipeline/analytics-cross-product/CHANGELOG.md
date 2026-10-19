@@ -1,5 +1,13 @@
 # @atlaskit/analytics-cross-product
 
+## 2.3.0
+
+### Minor Changes
+
+- [`9cd2b3c9a8041`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cd2b3c9a8041) -
+  Add a product-neutral, feature-gated Stream 3 runtime for privacy-safe cross-product departure and
+  arrival observation, and connect Studio's product root and authoritative Rovo navigation sinks.
+
 ## 2.2.0
 
 ### Minor Changes

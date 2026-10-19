@@ -18,6 +18,7 @@ test.describe('when the paragraphs are in the first level of the document', () =
 			test.use({
 				adf: threeNormalParagraphs,
 			});
+
 			test('should not set the margin-top (0px)', async ({ renderer }) => {
 				const paragraphs = renderer.page.locator('p');
 				await expect(paragraphs.first()).toHaveCSS('margin-top', '0px');
@@ -28,6 +29,7 @@ test.describe('when the paragraphs are in the first level of the document', () =
 			test.use({
 				adf: firstParagraphCentered,
 			});
+
 			test('should not set the margin-top (0px)', async ({ renderer }) => {
 				const paragraphs = renderer.page.locator('.fabric-editor-alignment > p');
 				await expect(paragraphs).toHaveCSS('margin-top', '0px');
@@ -39,6 +41,7 @@ test.describe('when the paragraphs are in the first level of the document', () =
 		test.use({
 			adf: mixAlignmentParagraph,
 		});
+
 		test('should set the second paragraph margin-top', async ({ renderer }) => {
 			const secondParagraph = renderer.page.locator(
 				'.fabric-editor-alignment[data-align="end"] > p',
@@ -64,6 +67,7 @@ test.describe('when the paragraphs are in the first level of the document', () =
 				test.use({
 					adf: threeNormalParagraphs,
 				});
+
 				test('should have the margin-top', async ({ renderer }) => {
 					const paragraph = renderer.page.locator(
 						`.ak-renderer-document p:nth-of-type(${nthParagraph})`,
@@ -76,6 +80,7 @@ test.describe('when the paragraphs are in the first level of the document', () =
 				test.use({
 					adf,
 				});
+
 				test('should set the margin-top', async ({ renderer }) => {
 					const paragraph = renderer.page.locator('.fabric-editor-alignment > p');
 					await expect(paragraph).not.toHaveCSS('margin-top', '0px');
@@ -102,6 +107,7 @@ test.describe('when the paragraphs are in the first level of the document', () =
 			test.use({
 				adf,
 			});
+
 			test('should not set margin-top to first paragraph', async ({ renderer }) => {
 				const paragraphs = renderer.page.locator('p');
 				await expect(paragraphs.first()).toHaveCSS('margin-top', '0px');

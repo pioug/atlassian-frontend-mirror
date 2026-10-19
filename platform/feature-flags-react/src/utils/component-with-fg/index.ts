@@ -10,5 +10,5 @@ export const componentWithFG = <A extends NonNullable<unknown>, B extends NonNul
 	ComponentFalse: ComponentType<B>,
 ): FC<
 	PropsWithoutRef<A> & PropsWithoutRef<B> & GetRefAttributes<PropsWithRef<A>, PropsWithRef<B>>
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/static-feature-flags
+	// eslint-disable-next-line @atlaskit/platform/static-feature-flags
 > => componentWithCondition(() => fg(featureFlagName), ComponentTrue, ComponentFalse);

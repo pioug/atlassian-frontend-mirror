@@ -1,4 +1,5 @@
 import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
+// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	ApplyDraftResult,

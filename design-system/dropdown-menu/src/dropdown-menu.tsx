@@ -12,7 +12,7 @@ import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
-import type { TriggerProps } from '@atlaskit/popup/types';
+import type { DialogContentProps, TriggerProps } from '@atlaskit/popup/types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports, @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 
@@ -350,18 +350,22 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 						</Button>
 					);
 				}}
-				content={({ setInitialFocusRef, update }) => (
+				// Legacy only. Run time passes the setter for every role; the types hide it.
+				// The cast goes at the flag cleanup.
+				content={(contentProps) => (
 					<FocusManager onClose={handleOnClose}>
 						<MenuWrapper
 							spacing={spacing}
 							maxHeight={MAX_HEIGHT}
 							maxWidth={shouldFitContainer ? undefined : 800}
 							onClose={handleOnClose}
-							onUpdate={update}
+							onUpdate={contentProps.update}
 							isLoading={isLoading}
 							statusLabel={statusLabel}
 							setInitialFocusRef={
-								isTriggeredUsingKeyboard || autoFocus ? setInitialFocusRef : undefined
+								isTriggeredUsingKeyboard || autoFocus
+									? (contentProps as DialogContentProps).setInitialFocusRef
+									: undefined
 							}
 							shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
 							isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}

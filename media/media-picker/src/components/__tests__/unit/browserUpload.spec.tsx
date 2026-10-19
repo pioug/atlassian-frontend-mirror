@@ -5,7 +5,9 @@ import { fromObservable } from '@atlaskit/media-client/from-observable';
 import type { TouchFileDescriptor } from '@atlaskit/media-client/media-store/types';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers/jestHelpers';
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { type BrowserConfig, type UploadErrorEventPayload } from '../../../types';
 import { Browser } from '../../browser/browser';

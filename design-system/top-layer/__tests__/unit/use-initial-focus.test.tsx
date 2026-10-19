@@ -558,6 +558,122 @@ describe('useInitialFocus (via Popover)', () => {
 		expect(screen.getByTestId('option-1')).toHaveFocus();
 	});
 
+	it('does not move focus into a dialog popup controlled by a focused combobox outside it', () => {
+		const popupId = 'external-combobox-dialog-popup';
+		function TestExternalComboboxDialog({ isOpen }: { isOpen: boolean }) {
+			return (
+				<div>
+					<input
+						type="text"
+						role="combobox"
+						aria-controls={popupId}
+						aria-expanded={isOpen}
+						aria-haspopup="dialog"
+						data-testid="external-input"
+					/>
+					<Popover isOpen={isOpen} role="dialog" label="external-combobox-dialog" id={popupId}>
+						<button type="button" data-testid="dialog-button">
+							Result
+						</button>
+					</Popover>
+				</div>
+			);
+		}
+
+		const { rerender } = render(<TestExternalComboboxDialog isOpen={false} />);
+		const input = screen.getByTestId('external-input');
+		input.focus();
+
+		rerender(<TestExternalComboboxDialog isOpen={true} />);
+
+		expect(input).toHaveFocus();
+		expect(screen.getByTestId('dialog-button')).not.toHaveFocus();
+	});
+
+	it('does not move focus into a dialog popup when an outside combobox controls an element inside it', () => {
+		// The outside combobox's `aria-controls` points at a listbox inside the
+		// dialog, not at the dialog itself. The combobox still controls the
+		// dialog, so focus stays on it.
+		function TestExternalComboboxInnerTarget({ isOpen }: { isOpen: boolean }) {
+			return (
+				<div>
+					<input
+						type="text"
+						role="combobox"
+						aria-controls="inner-results"
+						aria-expanded={isOpen}
+						aria-haspopup="dialog"
+						data-testid="external-input"
+					/>
+					<Popover isOpen={isOpen} role="dialog" label="external-combobox-inner-target">
+						<button type="button" data-testid="dialog-button">
+							Filter
+						</button>
+						<div role="listbox" id="inner-results" aria-label="Results">
+							<div role="option" aria-selected="false" tabIndex={-1}>
+								One
+							</div>
+						</div>
+					</Popover>
+				</div>
+			);
+		}
+
+		const { rerender } = render(<TestExternalComboboxInnerTarget isOpen={false} />);
+		const input = screen.getByTestId('external-input');
+		input.focus();
+
+		rerender(<TestExternalComboboxInnerTarget isOpen={true} />);
+
+		expect(input).toHaveFocus();
+		expect(screen.getByTestId('dialog-button')).not.toHaveFocus();
+	});
+
+	it('still moves focus into a dialog popup that contains a focused combobox', () => {
+		// The combobox and its listbox are both inside the dialog, so the
+		// combobox does not control the dialog. The content focuses the
+		// combobox in its own mount effect, which runs before Popover's.
+		function InnerCombobox() {
+			const ref = React.useRef<HTMLInputElement>(null);
+			React.useEffect(() => {
+				ref.current?.focus();
+			}, []);
+			return (
+				<>
+					<input
+						ref={ref}
+						type="text"
+						role="combobox"
+						aria-controls="inner-listbox"
+						aria-expanded
+						data-testid="inner-input"
+					/>
+					<div role="listbox" id="inner-listbox" aria-label="Options">
+						<div role="option" aria-selected="false">
+							One
+						</div>
+					</div>
+				</>
+			);
+		}
+		function TestDialogWithCombobox({ isOpen }: { isOpen: boolean }) {
+			return (
+				<Popover isOpen={isOpen} role="dialog" label="dialog-with-combobox">
+					<button type="button" data-testid="first-button">
+						First
+					</button>
+					<InnerCombobox />
+				</Popover>
+			);
+		}
+
+		const { rerender } = render(<TestDialogWithCombobox isOpen={false} />);
+
+		rerender(<TestDialogWithCombobox isOpen={true} />);
+
+		expect(screen.getByTestId('first-button')).toHaveFocus();
+	});
+
 	it('re-focuses the first menu item on exiting → entering reopen (Escape-then-reopen flow)', () => {
 		// Animated path so the host element stays mounted in the `exiting`
 		// phase while the user reopens. Without animation the phase would

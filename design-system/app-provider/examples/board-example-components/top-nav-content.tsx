@@ -23,11 +23,11 @@ import {
 	AppSwitcher,
 	CustomLogo,
 	EndItem,
-	Notifications,
-	Profile,
 	Search,
-	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
 
 import avatar1Url from '../assets/avatars/avatar-1.jpg';

@@ -13,7 +13,9 @@ import { FormattedMessage } from 'react-intl';
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single/constants';
 import { captionMessages as messages } from '@atlaskit/editor-common/media/caption';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 const placeholderText = css({

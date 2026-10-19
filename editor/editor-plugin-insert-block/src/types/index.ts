@@ -81,9 +81,8 @@ export interface InsertBlockPluginOptions {
 	 * `value.name` before they're rendered in the toolbar / dropdown /
 	 * element browser. Items returning `false` are hidden.
 	 *
-	 * Used by Markdown Mode (gated by the `cc-markdown-mode` experiment in
-	 * Confluence) to allowlist only items whose corresponding node/mark
-	 * types have a clean GFM round-trip. Currently applied to the main
+	 * Used by Markdown Mode to allowlist only items whose corresponding
+	 * node/mark types have a clean GFM round-trip. Currently applied to the main
 	 * toolbar insert surfaces (`ToolbarInsertBlock`, `useInsertButtonState`).
 	 */
 	itemFilter?: (item: { value: { name: string } }) => boolean;

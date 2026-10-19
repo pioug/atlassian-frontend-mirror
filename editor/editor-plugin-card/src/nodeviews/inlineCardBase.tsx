@@ -55,6 +55,16 @@ export const InlineCard: React.MemoExoticComponent<
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const refId = useRef(uuid());
 		const removeCardDispatched = useRef(false);
+		const pendingRegisterCard = useRef<ReturnType<typeof rafSchedule> | null>(null);
+
+		useEffect(() => {
+			return () => {
+				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+					pendingRegisterCard.current?.cancel();
+					pendingRegisterCard.current = null;
+				}
+			};
+		}, []);
 
 		const { getState: getSmartlinkState } = cardContext?.value?.store || {};
 		const cardState = getSmartlinkState?.()[url || ''];
@@ -95,7 +105,7 @@ export const InlineCard: React.MemoExoticComponent<
 				const { title, url } = data;
 				// don't dispatch immediately since we might be in the middle of
 				// rendering a nodeview
-				rafSchedule(() => {
+				const scheduleRegisterCard = rafSchedule(() => {
 					// prosemirror-bump-fix
 					const pos = getPos();
 
@@ -115,7 +125,11 @@ export const InlineCard: React.MemoExoticComponent<
 					onRes?.(tr, title);
 
 					view.dispatch(tr);
-				})();
+				});
+				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
+					pendingRegisterCard.current = scheduleRegisterCard;
+				}
+				scheduleRegisterCard();
 			},
 			[getPos, view, onRes],
 		);

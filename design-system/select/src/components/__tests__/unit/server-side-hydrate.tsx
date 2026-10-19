@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { doesRenderWithSsr, hydrateWithSsr } from '@atlassian/ssr-tests';
+import {
+	doesSsrRenderOnly as doesRenderWithSsr,
+	hydrateWithSsr,
+} from '@atlassian/ssr-tests/ssr-tests';
 
 import Example from '../../../../examples/00-single-select.vr.ap';
 

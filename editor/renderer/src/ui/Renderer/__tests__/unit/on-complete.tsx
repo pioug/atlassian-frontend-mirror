@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { RendererFunctionalComponent as Renderer } from '../../';
 

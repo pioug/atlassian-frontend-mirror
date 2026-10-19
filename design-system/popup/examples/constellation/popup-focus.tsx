@@ -78,6 +78,8 @@ const PopupFocusExample = (): JSX.Element => {
 					</Button>
 				)}
 				placement="bottom-start"
+				role="dialog"
+				label="Choose the initial focus"
 			/>
 		</Fragment>
 	);

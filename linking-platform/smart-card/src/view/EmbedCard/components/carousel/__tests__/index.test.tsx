@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
-import { act, fireEvent, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import Carousel from '../index';
 import type { CarouselItem } from '../types';

@@ -3,7 +3,9 @@ import React from 'react';
 import { createIntl } from 'react-intl';
 
 import { fakeIntl } from '@atlaskit/media-test-helpers/fakeI18n';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { ZoomLevel } from '../../../domain/zoomLevel';
 import { ZoomControlsBase, type ZoomControlsProps } from '../../../zoomControls';

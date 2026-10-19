@@ -10,8 +10,9 @@ import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { render, screen, waitFor } from '@atlassian/testing-library';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { useControlDataExportConfig } from '../../../state/hooks/use-control-data-export-config';
 import { fakeFactory } from '../../../utils/fake-factory';

@@ -24,7 +24,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles/constants';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import type { MediaNextEditorPluginType } from '../../../mediaPluginType';
 import type { MediaPluginState } from '../../../types';

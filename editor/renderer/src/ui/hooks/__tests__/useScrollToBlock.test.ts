@@ -1,6 +1,7 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import * as blockMenuUtils from '@atlaskit/editor-common/block-menu';
-import { renderHook, act } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { act } from '@atlassian/testing-library/testing-library/react';
 
 import { useScrollToBlock } from '../useScrollToBlock';
 

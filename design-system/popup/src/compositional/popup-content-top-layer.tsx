@@ -30,7 +30,12 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { getPopupAxisSizes } from '../internal/get-popup-axis-sizes';
 import { useRoleProps } from '../internal/top-layer-bridge';
-import { type ContentProps, type PopupComponentProps, type PopupProps } from '../types';
+import {
+	type ContentProps,
+	type DialogContentProps,
+	type PopupComponentProps,
+	type PopupProps,
+} from '../types';
 import { TriggerRefObjectContext } from './trigger-ref-object-context';
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
@@ -53,7 +58,9 @@ export function PopupContentTopLayer({
 	placement = 'auto',
 	fallbackPlacements: _fallbackPlacements,
 	popupComponent: PopupContainer,
-	autoFocus = true,
+	// top-layer: initial focus follows `role`. No-op.
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	autoFocus: _autoFocus = true,
 	shouldFitContainer = false,
 	// Keep the explicit `false`. See the note in `popup-top-layer.tsx`.
 	shouldFitViewport = false,
@@ -96,7 +103,7 @@ export function PopupContentTopLayer({
 	shouldDisableGpuAcceleration: _shouldDisableGpuAcceleration,
 }: Omit<PopupProps, 'content' | 'trigger'> & {
 	// `PopupContent` uses a `children` render prop where legacy `Popup` used `content`.
-	children: (props: ContentProps) => ReactNode;
+	children: (props: DialogContentProps) => ReactNode;
 	// Legacy popup used Popper-only knob; here it is accepted as a no-op.
 	shouldDisableGpuAcceleration?: boolean;
 	isOpen: boolean;
@@ -143,7 +150,8 @@ export function PopupContentTopLayer({
 	);
 
 	// ── Content render-prop bridge ──
-	const contentProps: ContentProps = useMemo(
+	// The args always hold the setter; the `TPopupContent` types decide who can see it.
+	const contentProps: DialogContentProps = useMemo(
 		() => ({
 			isOpen,
 			update: noop as ContentProps['update'],
@@ -160,21 +168,17 @@ export function PopupContentTopLayer({
 	const anchorRef = useContext(TriggerRefObjectContext);
 
 	/**
-	 * Override the role-based initial focus chosen by the underlying
-	 * `Popover` (its internal `useInitialFocus`).
+	 * Initial focus, applied once per open:
 	 *
-	 * React flushes child effects before parent effects, so by the time
-	 * this effect runs the role-based default focus has already moved.
-	 * We then apply the legacy `Popup` contract:
+	 * - The underlying `Popover` moves focus by `role` (its internal
+	 *   `useInitialFocus`). `autoFocus` has no effect here: role and focus
+	 *   go together. With no role, or a role that does not move focus,
+	 *   focus stays where it was. See
+	 *   `@atlaskit/top-layer` `notes/decisions/role-and-focus.md`.
+	 * - `setInitialFocusRef` wins. React flushes child effects before
+	 *   parent effects, so this runs after `Popover`'s initial focus.
 	 *
-	 * 1. If the consumer wired `setInitialFocusRef`, focus that element
-	 *    (escape hatch wins).
-	 * 2. Otherwise, if `autoFocus={false}`, return focus to the trigger.
-	 *    The `autoFocus` prop on `Popup` opts out of any initial-focus
-	 *    movement, even for roles like `dialog`.
-	 *
-	 * When neither applies the role-based default from the underlying
-	 * `Popover` stays in place.
+	 * Only `isOpen` is a dependency: a prop change while open never moves focus.
 	 */
 	useEffect(() => {
 		if (!isOpen) {
@@ -191,15 +195,8 @@ export function PopupContentTopLayer({
 		const consumerTarget = consumerInitialFocusRef.current;
 		if (consumerTarget && consumerTarget.isConnected) {
 			consumerTarget.focus();
-			return;
 		}
-		if (!autoFocus) {
-			const trigger = anchorRef?.current ?? null;
-			if (trigger && trigger.isConnected) {
-				trigger.focus();
-			}
-		}
-	}, [isOpen, autoFocus, anchorRef]);
+	}, [isOpen]);
 
 	// `isOpen` is included so the anchor positioning effect re-runs when
 	// the Popover host element is unmounted/remounted across open cycles.
@@ -235,7 +232,9 @@ export function PopupContentTopLayer({
 					id={providedId}
 					data-placement={placement}
 					data-testid={testId}
-					tabIndex={autoFocus ? -1 : undefined}
+					// Focusable by script and by a click on empty space inside, so focus
+					// stays in the popup; -1 adds no tab stop.
+					tabIndex={-1}
 					xcss={xcss as PopupComponentProps['xcss']}
 					// Forwarded because several in-tree containers key their own
 					// `overflow: auto` branch off it.

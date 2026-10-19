@@ -2,7 +2,7 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 
 import { emojiPluginKey } from '../emojiPlugin';
 import type { EmojiPlugin } from '../emojiPluginType';

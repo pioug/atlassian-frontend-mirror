@@ -7,7 +7,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics/types/enums';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import type { ComponentCrashErrorAEP } from '../../../../analytics/events';
 import { PLATFORM } from '../../../../analytics/events';

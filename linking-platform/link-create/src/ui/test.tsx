@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { Popup } from '@atlaskit/popup/popup';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';

@@ -14,7 +14,8 @@ import { listPlugin } from '@atlaskit/editor-plugin-list/list-plugin';
 import { mediaInsertPlugin } from '@atlaskit/editor-plugin-media-insert/media-insert-plugin';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media/media-plugin';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { type Decorator, withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils';
+import type { Decorator } from '@atlassian/feature-flags-storybook-utils/types';
+import { withPlatformFeatureGates } from '@atlassian/feature-flags-storybook-utils/with-platform-feature-gates';
 
 const MAX_URL_LENGTH = 2048;
 

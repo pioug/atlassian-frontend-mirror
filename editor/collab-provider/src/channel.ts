@@ -3,7 +3,7 @@ import type { Socket } from 'socket.io-client';
 
 import type { Metadata, UserPermitType } from '@atlaskit/editor-common/collab';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
-import { utils } from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support/constants';
 
 import type AnalyticsHelper from './analytics/analytics-helper';
 import { MEASURE_NAME, startMeasure, stopMeasure } from './analytics/performance';

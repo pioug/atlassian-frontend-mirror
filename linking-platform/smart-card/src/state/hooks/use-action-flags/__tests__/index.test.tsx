@@ -3,7 +3,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
-import { act, render, fireEvent, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { _resetFlagsForTesting } from '../../../../view/Flag';
 import useActionFlags from '../index';

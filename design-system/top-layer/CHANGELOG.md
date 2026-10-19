@@ -1,5 +1,20 @@
 # @atlaskit/top-layer
 
+## 6.3.0
+
+### Minor Changes
+
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  `getAriaForTrigger` now accepts no `role`, which gives no `aria-haspopup`; Popup uses it on the
+  top-layer path.
+
+### Patch Changes
+
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  `Popover`: a `dialog` or `alertdialog` popover no longer takes focus when a focused combobox or
+  text input outside it controls it. This matches `menu` and `listbox`.
+- Updated dependencies
+
 ## 6.2.7
 
 ### Patch Changes

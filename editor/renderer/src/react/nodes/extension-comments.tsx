@@ -8,10 +8,10 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { jsx, css } from '@compiled/react';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
-import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
-import { CommentBadgeNext } from '@atlaskit/editor-common/media-single';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import type { AnnotationUpdateEventPayloads } from '@atlaskit/editor-common/types';
+import { VIEW_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import { CommentBadgeNext } from '@atlaskit/editor-common/media-single/CommentBadgeNext';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
+import type { AnnotationUpdateEventPayloads } from '@atlaskit/editor-common/types/emitter';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 

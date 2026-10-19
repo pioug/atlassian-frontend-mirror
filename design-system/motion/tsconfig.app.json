@@ -82,6 +82,9 @@
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{
+			"path": "../tag/tsconfig.app.json"
+		},
+		{
 			"path": "../textfield/tsconfig.app.json"
 		},
 		{

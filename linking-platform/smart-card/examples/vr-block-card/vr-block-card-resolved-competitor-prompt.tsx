@@ -2,7 +2,7 @@ import React from 'react';
 
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import Client from '@atlaskit/link-provider/client';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { mocks } from '../utils/common';

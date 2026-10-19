@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { ConnectedReactionsView } from '@atlaskit/reactions/ConnectedReactionsView';
-import type { Store as ReactionsStore } from '@atlaskit/reactions/types';
+import type { Store as ReactionsStore } from '@atlaskit/reactions/store';
 
 export default function ConnectedViewExample({
 	store,
 	emojiProvider,
 }: {
-	store: ReactionsStore;
 	emojiProvider: Promise<EmojiProvider>;
+	store: ReactionsStore;
 }): React.JSX.Element {
 	const [viewOnly, setViewOnly] = useState(false);
 	return (

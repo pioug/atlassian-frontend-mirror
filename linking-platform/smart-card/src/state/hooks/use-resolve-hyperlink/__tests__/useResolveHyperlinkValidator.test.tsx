@@ -2,7 +2,7 @@ import React from 'react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { default as useResolveHyperlinkValidator } from '../useResolveHyperlinkValidator';
 

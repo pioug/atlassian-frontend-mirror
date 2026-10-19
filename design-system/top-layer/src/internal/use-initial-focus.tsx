@@ -22,13 +22,14 @@ import { type TPhase } from './use-animated-visibility';
  *
  * Combobox pattern exception: if the popup is controlled by a focused
  * combobox-like trigger (its `aria-controls` references this popup),
- * focus stays on the textbox regardless of role. See
+ * focus stays on the textbox. This applies to `menu`, `listbox`, and to
+ * `dialog` / `alertdialog` when the combobox is outside the dialog. See
  * `isComboboxControllingPopup`.
  */
 
 /**
  * WAI-ARIA APG Combobox Pattern: when a combobox controls a popup (listbox,
- * grid, tree, or menu), DOM focus must remain on the textbox. Subsequent
+ * grid, tree, menu, or dialog), DOM focus must remain on the textbox. Subsequent
  * navigation through popup items uses `aria-activedescendant` (or proxied
  * keyboard events), never DOM focus movement.
  *
@@ -125,6 +126,16 @@ function getInitialFocusTarget({
 	role: string | undefined;
 }): HTMLElement | null {
 	if (role === 'dialog' || role === 'alertdialog') {
+		// APG allows a combobox to control a dialog popup. Focus stays on the
+		// combobox only when it is OUTSIDE the dialog. A dialog that contains
+		// its own combobox still takes focus (see the comment below on why the
+		// carve-out is per-role).
+		if (
+			!container.contains(container.ownerDocument.activeElement) &&
+			isComboboxControllingPopup({ container })
+		) {
+			return null;
+		}
 		// Prefer element with the native HTML autofocus attribute.
 		const autofocusEl = container.querySelector<HTMLElement>('[autofocus]');
 		if (autofocusEl) {
@@ -134,11 +145,12 @@ function getInitialFocusTarget({
 		return getFirstFocusable({ container });
 	}
 
-	// The combobox carve-out is kept role-specific (menu / listbox) rather
-	// than hoisted. Hoisting it over-matched on dialog popups that contain
-	// a nested combobox (e.g. datetime-picker's dialog hosts a react-select),
-	// where the active combobox's `aria-controls` falsely matched the
-	// container and suppressed the dialog's own focus contract.
+	// The combobox carve-out is kept role-specific rather than hoisted.
+	// Hoisting it over-matched on dialog popups that contain a nested
+	// combobox (e.g. datetime-picker's dialog hosts a react-select), where
+	// the active combobox's `aria-controls` falsely matched the container
+	// and suppressed the dialog's own focus contract. The dialog branch
+	// above therefore skips only for a combobox outside the dialog.
 	if (role === 'menu') {
 		if (isComboboxControllingPopup({ container })) {
 			return null;

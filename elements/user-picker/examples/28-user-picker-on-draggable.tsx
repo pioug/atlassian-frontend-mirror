@@ -5,7 +5,11 @@ import { DragDropContext } from '@atlaskit/pragmatic-drag-and-drop-react-beautif
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/draggable';
 import { Droppable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration/droppable';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/box';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { Stack } from '@atlaskit/primitives/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
@@ -130,7 +134,7 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
 	return result;
 };
 
-const getItemStyle = (isDragging: boolean, draggableStyle?: Object) => ({
+const getItemStyle = (isDragging: boolean, draggableStyle?: object) => ({
 	// some basic styles to make the items look a bit nicer
 	userSelect: 'none',
 	padding: token('space.200'),

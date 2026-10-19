@@ -1,6 +1,6 @@
 import { bind } from 'bind-event-listener';
 
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
+import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

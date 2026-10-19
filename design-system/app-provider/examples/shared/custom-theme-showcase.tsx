@@ -5,6 +5,8 @@
 import React, { useEffect } from 'react';
 
 import { AppProvider } from '@atlaskit/app-provider/app-provider';
+import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
+import { useIsInsideThemeProvider } from '@atlaskit/app-provider/use-is-inside-theme-provider';
 import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
@@ -74,9 +76,11 @@ export function CustomThemeShowcase({
 	topNavigation?: React.ReactNode;
 }): React.JSX.Element {
 	const { colorMode } = useThemeObserver();
+	// The full website supplies an AppProvider; standalone examples need their own.
+	const Provider = useIsInsideThemeProvider() ? ThemeProvider : AppProvider;
 
 	return (
-		<AppProvider
+		<Provider
 			defaultColorMode={colorMode}
 			defaultTheme={{
 				light: {
@@ -114,6 +118,6 @@ export function CustomThemeShowcase({
 					<PanelSplitter label="Resize dynamic theme controls" />
 				</Panel>
 			</Root>
-		</AppProvider>
+		</Provider>
 	);
 }

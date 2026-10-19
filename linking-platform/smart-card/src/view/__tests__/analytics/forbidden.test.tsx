@@ -11,7 +11,9 @@ import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import '@atlaskit/link-test-helpers/jest';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { fakeFactory } from '../../../utils/fake-factory';
 import { mocks } from '../../../utils/mocks';

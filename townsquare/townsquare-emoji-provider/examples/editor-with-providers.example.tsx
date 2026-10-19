@@ -10,8 +10,8 @@ import withReactEditorViewOuterListeners from '@atlaskit/editor-common/ui-react/
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
-import { EmojiPicker } from '@atlaskit/emoji/picker';
-import { Box } from '@atlaskit/primitives/compiled';
+import EmojiPicker from '@atlaskit/emoji/emoji-picker';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { getEmojiProviderForCloudId } from '../src/provider';

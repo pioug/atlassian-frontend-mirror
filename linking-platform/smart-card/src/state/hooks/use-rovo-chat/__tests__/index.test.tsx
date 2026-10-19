@@ -3,7 +3,8 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
-import { act, renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
+import { act } from '@atlassian/testing-library/testing-library/react';
 
 import useRovoChat from '../index';
 

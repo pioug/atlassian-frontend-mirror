@@ -1,4 +1,4 @@
-import type { CommentAction as AkCommentAction } from '@atlaskit/comment';
+import type { CommentAction as AkCommentAction } from '@atlaskit/comment/action-item';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { EditorProps } from '@atlaskit/editor-core/editor';

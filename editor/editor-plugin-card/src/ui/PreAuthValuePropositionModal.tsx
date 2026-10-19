@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 
 import type { CardPlugin } from '../cardPluginType';
 import type { EditorCardPluginEvents } from './analytics/create-events-queue';

@@ -25,7 +25,7 @@ import { wideImage } from '@atlaskit/media-test-helpers/wideImageURI';
 import { wideTransparentImage } from '@atlaskit/media-test-helpers/wideTransparentImageURI';
 import RadioGroup from '@atlaskit/radio/radio-group';
 import Range from '@atlaskit/range/range';
-import Toggle from '@atlaskit/toggle';
+import Toggle from '@atlaskit/toggle/toggle';
 
 import { openAction, closeAction, deleteAction, actions } from '../example-helpers';
 import { MainWrapper } from '../example-helpers';

@@ -6,7 +6,10 @@ import { IntlProvider } from 'react-intl';
 
 import { AnnotationMarkStates } from '@atlaskit/adf-schema/annotation';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import {
+	AnnotationUpdateEmitter,
+	AnnotationUpdateEvent,
+} from '@atlaskit/editor-common/types/emitter';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { ReactSerializer } from '../../../index';

@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 4.1.9
+
+### Patch Changes
+
+- [`9cb91ac8b93c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb91ac8b93c9) -
+  Remove the released `enable_teams_t26_design_drop_core_experiences` gate and make the T26 core
+  experience designs permanent.
+
 ## 4.1.8
 
 ### Patch Changes

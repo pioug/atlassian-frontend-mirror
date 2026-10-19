@@ -71,6 +71,7 @@ test.describe('event handlers', () => {
 				enableClickToEdit: true,
 			},
 		});
+
 		test('should swap renderer to editor when clicking on paragraph', async ({ renderer }) => {
 			const paragraph = renderer.page.locator('p');
 			await paragraph.click();
@@ -85,6 +86,7 @@ test.describe('event handlers', () => {
 				enableClickToEdit: true,
 			},
 		});
+
 		test('should not swap renderer to editor on selection', async ({ renderer }) => {
 			const paragraph2 = renderer.page.locator('p:nth-of-type(2)');
 			const paragraph4 = renderer.page.locator('p:nth-of-type(2)');

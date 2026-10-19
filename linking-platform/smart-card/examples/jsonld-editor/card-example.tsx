@@ -6,7 +6,9 @@ import { IntlProvider } from 'react-intl';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import Link from '@atlaskit/link/link';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { Card } from '../../src';
 import { HoverCard } from '../../src/hoverCard';

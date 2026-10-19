@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
+import { doesHydrateWithSsr } from '@atlassian/ssr-tests/ssr-tests';
 
 describe('Server side hydration', () => {
 	test('should ssr then hydrate correctly', async () => {

@@ -4,7 +4,8 @@ import Heading from '@atlaskit/heading/heading';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data/items-with-binaries';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import { MainWrapper } from '../example-helpers';
 import { ToggleBox } from '../example-helpers/svg-helpers/toggle';

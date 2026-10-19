@@ -3,20 +3,17 @@ import React, { Suspense, useCallback, useEffect, useState, useRef } from 'react
 import { FormattedMessage } from 'react-intl';
 import Loadable from 'react-loadable';
 
-import {
-	isExternalImageIdentifier,
-	isFileIdentifier,
-	toCommonMediaClientError,
-} from '@atlaskit/media-client';
+import { isFileIdentifier, toCommonMediaClientError } from '@atlaskit/media-client';
 import { useFileState } from '@atlaskit/media-client-react/use-file-state';
 import { useMediaClient } from '@atlaskit/media-client-react/use-media-client';
 import type { NonErrorFileState } from '@atlaskit/media-client/file-state';
 import type { ExternalImageIdentifier } from '@atlaskit/media-client/identifier';
+import { isExternalImageIdentifier } from '@atlaskit/media-client/is-external-image-identifier';
 import type { FileState, ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { isCodeViewerItem } from '@atlaskit/media-ui/isCodeViewerItem';
 import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { createCommencedEvent } from './analytics/events/operational/commenced';
 import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';

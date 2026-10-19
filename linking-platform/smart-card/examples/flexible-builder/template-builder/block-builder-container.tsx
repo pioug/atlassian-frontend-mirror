@@ -3,7 +3,7 @@ import React, { type PropsWithChildren, useCallback, useState } from 'react';
 import IconButton from '@atlaskit/button/icon/button';
 import Button from '@atlaskit/button/standard-button';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

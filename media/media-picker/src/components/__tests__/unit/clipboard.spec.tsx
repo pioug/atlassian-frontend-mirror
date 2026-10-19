@@ -7,7 +7,7 @@ import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnaly
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { ClipboardMockFile } from '@atlaskit/media-test-helpers/clipboardEventMocks';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { LocalFileSource } from '../../../service/types';
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';

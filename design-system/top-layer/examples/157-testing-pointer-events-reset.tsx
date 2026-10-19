@@ -9,7 +9,7 @@ import { jsx } from '@compiled/react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';

@@ -20,7 +20,6 @@ import {
 } from '@atlaskit/editor-smart-link-draggable';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { token } from '@atlaskit/tokens';
@@ -194,7 +193,7 @@ export default function BlockCard(props: {
 	}
 
 	let cardComponent;
-	if (smartLinks?.ssr && url && fg('platform_ssr_smartlink_cards')) {
+	if (smartLinks?.ssr && url) {
 		cardComponent = (
 			<CardSSR
 				appearance="block"

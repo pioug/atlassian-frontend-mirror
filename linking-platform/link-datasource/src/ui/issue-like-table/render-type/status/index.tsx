@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { Status } from '@atlaskit/linking-types/datasource';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 
 interface StatusProps extends Status {
 	testId?: string;

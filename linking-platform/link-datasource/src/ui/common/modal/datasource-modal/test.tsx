@@ -9,8 +9,9 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { Box, Text } from '@atlaskit/primitives/compiled';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';

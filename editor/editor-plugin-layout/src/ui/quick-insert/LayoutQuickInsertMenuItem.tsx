@@ -9,7 +9,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics/types/enums';
-import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,

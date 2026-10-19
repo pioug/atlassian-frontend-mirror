@@ -7,7 +7,7 @@ import MentionItem from '@atlaskit/mention/mention-item';
 import type { MentionDescription } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { ProfileCardComponent } from '../ProfileCardComponent';
 import { isAgentMention } from './utils';

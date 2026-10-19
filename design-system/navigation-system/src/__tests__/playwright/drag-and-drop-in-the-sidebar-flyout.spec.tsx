@@ -40,6 +40,7 @@ test.describe('drag and drop in the sidebar flyout', () => {
 			typeof import('../../../examples/drag-and-drop-in-the-sidebar-flyout.tsx')
 		>('design-system', 'navigation-system', 'drag-and-drop-in-the-sidebar-flyout');
 	});
+
 	test('the flyout should stay open if dropped inside it', async ({ page }) => {
 		const toggle = page.getByTestId('side-nav-toggle-button');
 

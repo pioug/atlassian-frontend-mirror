@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createMouseEvent } from '@atlaskit/media-test-helpers/createMouseEvent';
 import { createTouchEvent } from '@atlaskit/media-test-helpers/createTouchEvent';
-import { render, fireEvent } from '@atlassian/testing-library';
+import { render, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { ImagePlacerContainer, type ImagePlacerContainerProps } from '../../image-placer/container';
 

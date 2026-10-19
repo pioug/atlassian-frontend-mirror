@@ -43,7 +43,7 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncedBlockProvider } from '@atlaskit/editor-synced-block-provider/syncBlockProvider';
 import type { MentionProvider } from '@atlaskit/mention/types';
-import type { TaskDecisionProvider } from '@atlaskit/task-decision';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type EditorActions from '../actions';
 import type { EditorOnChangeHandler } from './editor-onchange';

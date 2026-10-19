@@ -17,6 +17,7 @@ test.describe('Avatar', () => {
 		await expect(page.locator(nonInteractiveAvatar)).toBeVisible();
 		await expect(page.locator(disabledAvatar)).toBeVisible();
 	});
+
 	test('Interactive avatar should receive focus', async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/03-basic-avatar-item.vr.ap.tsx')>(
 			'design-system',

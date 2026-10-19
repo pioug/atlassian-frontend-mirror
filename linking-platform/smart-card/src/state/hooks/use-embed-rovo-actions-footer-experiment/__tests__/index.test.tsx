@@ -4,7 +4,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import useEmbedRovoActionsFooterExperiment from '../index';
 

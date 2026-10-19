@@ -7,7 +7,7 @@ import upperFirst from 'lodash/upperFirst';
 import pkgDir from 'pkg-dir';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
+import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 const root = pkgDir.sync();
 

@@ -96,10 +96,8 @@ snapshotInformational(PopupCompositionTopLayer, {
 
 // Both halves put the popup at 527px to 719px and 200px wide, capped to the 200px
 // below the trigger with its sticky footer pinned to the bottom of the
-// scrollport: this pair is parity. The remaining differences are the trigger's
-// focus ring, which only the top-layer path leaves behind (`popup-top-layer.tsx`
-// focuses the trigger when `autoFocus` is `false`), and `PopoverSurface`'s
-// smaller corner radius.
+// scrollport: this pair is parity. The remaining difference is
+// `PopoverSurface`'s smaller corner radius.
 snapshotInformational(FitViewportDefaultSurface, {
 	description: 'shouldFitViewport on the default surface',
 	variants,

@@ -1,7 +1,8 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AtlassianNavigation, Notifications } from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+import { Notifications } from '@atlaskit/atlassian-navigation/notifications';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 
 const NotificationsBadge = () => (

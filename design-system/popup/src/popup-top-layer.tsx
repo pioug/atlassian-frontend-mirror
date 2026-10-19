@@ -33,9 +33,12 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { getPopupAxisSizes } from './internal/get-popup-axis-sizes';
+import { getTriggerRole } from './internal/get-trigger-role';
 import { useRoleProps } from './internal/top-layer-bridge';
 import {
 	type ContentProps,
+	type DialogContentProps,
+	type DialogPopupProps,
 	type PopupComponentProps,
 	type PopupProps,
 	type TriggerProps,
@@ -53,7 +56,7 @@ const EMPTY_STYLE: CSSProperties = {};
  *
  * Gated behind the `platform-dst-top-layer` feature flag.
  */
-export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
+export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function PopupTopLayer({
 	xcss,
 	isOpen,
 	id: providedId,
@@ -66,7 +69,9 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	fallbackPlacements: _fallbackPlacements,
 	shouldFlip: _shouldFlip = true,
 	popupComponent: PopupContainer,
-	autoFocus = true,
+	// top-layer: initial focus follows `role`. No-op.
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	autoFocus: _autoFocus = true,
 	shouldFitContainer = false,
 	// top-layer: focus restoration is handled natively by the Popover API. No-op.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -115,7 +120,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// top-layer: appearance is accepted but UNSAFE_modal-below-sm is not yet implemented.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	appearance: _appearance,
-}: PopupProps) {
+}: DialogPopupProps | PopupProps) {
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -139,21 +144,17 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	}, []);
 
 	/**
-	 * Override the role-based initial focus chosen by the underlying
-	 * `Popover` (its internal `useInitialFocus`).
+	 * Initial focus, applied once per open:
 	 *
-	 * React flushes child effects before parent effects, so by the time
-	 * this effect runs the role-based default focus has already moved.
-	 * We then apply the legacy `Popup` contract:
+	 * - The underlying `Popover` moves focus by `role` (its internal
+	 *   `useInitialFocus`). `autoFocus` has no effect here: role and focus
+	 *   go together. With no role, or a role that does not move focus,
+	 *   focus stays where it was. See
+	 *   `@atlaskit/top-layer` `notes/decisions/role-and-focus.md`.
+	 * - `setInitialFocusRef` wins. React flushes child effects before
+	 *   parent effects, so this runs after `Popover`'s initial focus.
 	 *
-	 * 1. If the consumer wired `setInitialFocusRef`, focus that element
-	 *    (escape hatch wins).
-	 * 2. Otherwise, if `autoFocus={false}`, return focus to the trigger.
-	 *    The `autoFocus` prop on `Popup` opts out of any initial-focus
-	 *    movement, even for roles like `dialog`.
-	 *
-	 * When neither applies the role-based default from the underlying
-	 * `Popover` stays in place.
+	 * Only `isOpen` is a dependency: a prop change while open never moves focus.
 	 */
 	useEffect(() => {
 		if (!isOpen) {
@@ -170,15 +171,8 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 		const consumerTarget = consumerInitialFocusRef.current;
 		if (consumerTarget && consumerTarget.isConnected) {
 			consumerTarget.focus();
-			return;
 		}
-		if (!autoFocus) {
-			const trigger = triggerRef.current;
-			if (trigger && trigger.isConnected) {
-				trigger.focus();
-			}
-		}
-	}, [isOpen, autoFocus]);
+	}, [isOpen]);
 
 	const popoverId = usePopoverId();
 
@@ -216,7 +210,8 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	// Content render-prop bridge.
 	// Legacy content() receives { isOpen, update, setInitialFocusRef, onClose }.
 	// update is a no-op because CSS Anchor Positioning self-updates.
-	const contentProps: ContentProps = useMemo(
+	// The args always hold the setter; the `TPopup` types decide who can see it.
+	const contentProps: DialogContentProps = useMemo(
 		() => ({
 			isOpen,
 			update: noop as ContentProps['update'],
@@ -233,7 +228,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	const resolvedPopoverId = providedId ?? popoverId;
 
 	const ariaAttributes = getAriaForTrigger({
-		role: (roleProps.role ?? 'dialog') as Parameters<typeof getAriaForTrigger>[0]['role'],
+		role: getTriggerRole({ role: roleProps.role }),
 		isOpen,
 		popoverId: resolvedPopoverId,
 	});
@@ -276,7 +271,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 						id={providedId}
 						data-placement={placement}
 						data-testid={testId}
-						tabIndex={autoFocus ? -1 : undefined}
+						tabIndex={-1}
 						xcss={xcss as PopupComponentProps['xcss']}
 						// Forwarded because several in-tree containers key their own
 						// `overflow: auto` branch off it.

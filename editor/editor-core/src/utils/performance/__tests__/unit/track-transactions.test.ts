@@ -7,12 +7,12 @@ import { getTimeSince } from '../../getTimeSince';
 import { TransactionTracker } from '../../track-transactions';
 
 jest.mock('../../getTimeSince', () => ({
-	...jest.requireActual<Object>('../../getTimeSince'),
+	...jest.requireActual<object>('../../getTimeSince'),
 	getTimeSince: jest.fn(),
 }));
 
 jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/is-performance-api-available'),
+	...jest.requireActual<object>('@atlaskit/editor-common/is-performance-api-available'),
 	isPerformanceAPIAvailable: () => true,
 }));
 

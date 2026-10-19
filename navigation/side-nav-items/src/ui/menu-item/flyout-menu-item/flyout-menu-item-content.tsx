@@ -93,6 +93,12 @@ export type FlyoutMenuItemContentProps = {
 	/**
 	 * Whether the flyout menu should be focused when opened.
 	 * @default true
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-TODO Internal documentation for deprecation (no external access)}
+	 * TODO: replace ENGHEALTH-TODO with the real ticket.
+	 * No effect when `platform-dst-top-layer` is enabled — focus follows the
+	 * popup's `role`, and the flyout is a `dialog`, so it always moves focus in.
+	 * This prop will be removed when the flag is cleaned up.
 	 */
 	autoFocus?: boolean;
 

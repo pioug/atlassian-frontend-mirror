@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
+import { ReactionStatus, type ReactionSummary } from '@atlaskit/reactions/reaction';
 import { Reactions } from '@atlaskit/reactions/Reactions';
-import { ReactionStatus, type ReactionSummary } from '@atlaskit/reactions/types';
 
 export default function ReactionsExample({
 	emojiProvider,

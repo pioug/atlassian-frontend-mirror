@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
+import { doesHydrateWithSsr } from '@atlassian/ssr-tests/ssr-tests';
 
 import ButtonExample from '../../../../examples/05-button.vr.ap';
 import IconButtonExample from '../../../../examples/07-icon-button.vr.ap';

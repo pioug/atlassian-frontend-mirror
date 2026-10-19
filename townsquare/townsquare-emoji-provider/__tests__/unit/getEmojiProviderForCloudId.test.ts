@@ -2,16 +2,13 @@ const mockEmojiResource: jest.Mock = jest.fn().mockImplementation(() => ({
 	getEmojiProvider: jest.fn().mockResolvedValue({ setSelectedTone: jest.fn() }),
 }));
 
-// The entry point imports the recommended `emoji-resource` module; the barrel still imports the
-// deprecated `resource` shim. Both resolve to the same class, so both are backed by one mock.
+// Both the entry point and the barrel import the recommended `emoji-resource` module, so a single
+// mock backs them both.
 jest.mock('@atlaskit/emoji/emoji-resource', () => ({
+	...jest.requireActual('@atlaskit/emoji/emoji-resource'),
 	__esModule: true,
 	default: mockEmojiResource,
 }));
-jest.mock('@atlaskit/emoji/resource', () => ({
-	EmojiResource: mockEmojiResource,
-}));
-
 type EntryPoint = typeof import('../../src/getEmojiProviderForCloudId');
 type Barrel = typeof import('../../src/provider');
 

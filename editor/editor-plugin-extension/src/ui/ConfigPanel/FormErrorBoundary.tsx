@@ -13,7 +13,8 @@ import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/ty
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions/field-definitions';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import SectionMessage from '@atlaskit/section-message/message';
 
 interface ErrorInfo {

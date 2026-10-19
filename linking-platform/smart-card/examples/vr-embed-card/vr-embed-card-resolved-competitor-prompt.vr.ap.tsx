@@ -2,7 +2,7 @@ import React from 'react';
 
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import VRCardView from '../utils/vr-card-view';

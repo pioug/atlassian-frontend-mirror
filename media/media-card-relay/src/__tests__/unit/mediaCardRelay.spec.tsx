@@ -14,7 +14,7 @@ import { useFragment } from 'react-relay';
 import Card from '@atlaskit/media-card/cardLoader';
 import MediaInlineCard from '@atlaskit/media-card/loader';
 import { mapSsrMediaItemToFileState } from '@atlaskit/media-client/ssr-media-item';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { MediaCardRelay } from '../../mediaCardRelay';
 import { MediaInlineCardRelay } from '../../mediaInlineCardRelay';

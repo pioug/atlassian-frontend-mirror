@@ -33,8 +33,8 @@ import Button from '@atlaskit/button/default/button';
 import AkButton from '@atlaskit/button/standard-button';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Text } from '@atlaskit/primitives/compiled';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 

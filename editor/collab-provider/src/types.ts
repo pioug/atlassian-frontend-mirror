@@ -1,7 +1,7 @@
 import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
 
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import type { AnonymousAsset } from '@atlaskit/anonymous-assets';
+import type { AnonymousAsset } from '@atlaskit/anonymous-assets/types';
 import type {
 	StepJson,
 	CollabSendableSelection,

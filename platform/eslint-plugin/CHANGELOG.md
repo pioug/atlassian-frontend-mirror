@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 5.0.0
+
+### Major Changes
+
+- [`dbc7ca7314c16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbc7ca7314c16) -
+  Remove the `ensure-feature-flag-registration` rule. Platform feature flags no longer need package
+  metadata registration.
+
 ## 4.5.1
 
 ### Patch Changes

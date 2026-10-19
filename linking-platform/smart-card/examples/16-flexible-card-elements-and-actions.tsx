@@ -15,9 +15,12 @@ import {
 	UnicornResolvedClient,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { unicornResponse } from '@atlaskit/link-test-helpers/smart-card/mocks/unicorn';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Grid } from '@atlaskit/primitives';
-import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Grid } from '@atlaskit/primitives/grid';
 import Range from '@atlaskit/range/range';
 
 import {

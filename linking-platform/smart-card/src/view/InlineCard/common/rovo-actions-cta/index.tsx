@@ -10,7 +10,8 @@ import { useIntl } from 'react-intl';
 import { cssMap, jsx } from '@atlaskit/css';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import extractRovoChatAction from '../../../../extractors/flexible/actions/extract-rovo-chat-action';

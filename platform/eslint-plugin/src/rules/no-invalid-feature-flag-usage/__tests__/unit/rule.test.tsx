@@ -2,7 +2,7 @@ import { tester } from '../../../../__tests__/utils/_tester';
 import rule from '../../index';
 
 describe('enforce-feature-flag-usage-structure tests', () => {
-	tester.run('ensure-feature-flag-registration', rule, {
+	tester.run('no-invalid-feature-flag-usage', rule, {
 		valid: [
 			{
 				// IfStatement

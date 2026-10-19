@@ -8,7 +8,8 @@ import React from 'react';
 import { jsx } from '@compiled/react';
 
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { SvgView } from '../svgImage-compiled';
 // Mock useResolveSvg to return a valid SVG URL

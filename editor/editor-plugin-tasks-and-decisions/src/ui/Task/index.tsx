@@ -10,7 +10,7 @@ import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
-import type { ContentRef } from '@atlaskit/task-decision';
+import type { ContentRef } from '@atlaskit/task-decision/types';
 
 import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 import type { TaskAndDecisionsSharedState } from '../../types';

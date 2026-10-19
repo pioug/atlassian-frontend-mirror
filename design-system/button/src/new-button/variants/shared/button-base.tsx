@@ -75,6 +75,8 @@ type ButtonBaseProps<TagName extends HTMLElement> = CommonBaseProps &
 		ref: React.Ref<TagName>;
 		type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 		componentName?: string;
+		// Private root styling slot for internal variants; not part of Button's public API.
+		rootXcss?: React.ComponentProps<typeof Pressable>['xcss'];
 		role?: string;
 		iconButtonRef?: React.Ref<HTMLButtonElement>;
 		tooltipRef?: React.Ref<HTMLButtonElement>;
@@ -642,6 +644,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 			testId,
 			analyticsContext,
 			componentName,
+			rootXcss,
 			role,
 			onMouseOver,
 			onMouseOut,
@@ -737,6 +740,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isLoading && styles.loading,
 					isSplitButton && styles.splitButton,
 					isNavigationSplitButton && styles.navigationSplitButton,
+					rootXcss,
 				)}
 				isDisabled={isDisabled}
 				aria-live="polite"

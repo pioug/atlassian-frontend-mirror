@@ -8,20 +8,19 @@
 
 import '../jest_mocks/socket.io-client.mock';
 
-jest.mock('@atlaskit/util-service-support', () => {
-	return {
-		utils: {
-			requestService: jest.fn(),
-		},
-	};
-});
+jest.mock('@atlaskit/util-service-support/constants', () => ({
+	...jest.requireActual('@atlaskit/util-service-support/constants'),
+	utils: {
+		requestService: jest.fn(),
+	},
+}));
 
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
 
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import type { Metadata, CollabSendableSelection, StepJson } from '@atlaskit/editor-common/collab';
-import { utils } from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support/constants';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import * as Performance from '../../analytics/performance';

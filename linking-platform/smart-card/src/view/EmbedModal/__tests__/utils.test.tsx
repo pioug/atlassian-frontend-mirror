@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { closeEmbedModal } from '../../../__tests__/__utils__/unit-helpers';
 import { openEmbedModal } from '../utils';

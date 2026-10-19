@@ -2,6 +2,7 @@ import { rendererTestCase as test, expect } from './not-libra';
 import { numberedColumnTableWithWidthAdf } from './table-scaling-fullpage.spec.ts-fixtures';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
+
 test.describe('numbered column table scaling in full page renderer', () => {
 	test.use({
 		adf: numberedColumnTableWithWidthAdf,

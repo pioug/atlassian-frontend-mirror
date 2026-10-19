@@ -4,7 +4,9 @@ jest.mock('../../../service/uploadServiceImpl');
 
 import Button from '@atlaskit/button/standard-button';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { UploadServiceImpl } from '../../../service/uploadServiceImpl';
 import { type BrowserConfig } from '../../../types';

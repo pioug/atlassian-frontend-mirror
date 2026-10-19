@@ -7,7 +7,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { waitFor } from '@atlassian/testing-library/testing-library/react';
 
 // Mock the hook — all experiment logic is tested in the hook's own test file.
 const mockUseSocialProofExperiment = jest.fn();

@@ -7,11 +7,14 @@ import styled from 'styled-components';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import AkAvatar from '@atlaskit/avatar/avatar';
-import AkComment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
+import { CommentAction } from '@atlaskit/comment/action-item';
+import { CommentAuthor } from '@atlaskit/comment/author';
+import AkComment from '@atlaskit/comment/comment';
+import { CommentTime } from '@atlaskit/comment/time';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 import type { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import type { EditorProps } from '@atlaskit/editor-core/editor';
-import { ConnectedReactionsView } from '@atlaskit/reactions';
+import { ConnectedReactionsView } from '@atlaskit/reactions/ConnectedReactionsView';
 import ReactRenderer from '@atlaskit/renderer/renderer';
 
 import type { HttpError } from '../api/HttpError';

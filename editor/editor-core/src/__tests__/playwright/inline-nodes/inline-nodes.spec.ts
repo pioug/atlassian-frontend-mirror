@@ -2,7 +2,7 @@ import { editorTestCase as test } from '@af/editor-libra/editor-test-case';
 import { expect } from '@af/editor-libra/matchers';
 import { fixTest } from '@af/integration-testing';
 import { BROWSERS } from '@af/integration-testing/config/constants';
-import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing/skip-file-decorator';
 
 import {
 	multilineWithDates,
@@ -349,6 +349,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 				adf: adfs.multipleNodesAcrossLines,
 			});
+
 			test(`Can move the selection down one line using down arrow key when ${nodeName} is the first node of each line`, async ({
 				editor,
 			}) => {
@@ -386,6 +387,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 					head: 18,
 				});
 			});
+
 			test(`Can move the selection up one line using up arrow key when ${nodeName} is the first node of each line`, async ({
 				editor,
 			}) => {
@@ -424,6 +426,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 					head: 1,
 				});
 			});
+
 			test(`Can move the selection down one line using down arrow key when in between ${nodeName} nodes`, async ({
 				editor,
 				browser,
@@ -456,6 +459,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 					head: 18,
 				});
 			});
+
 			test(`Can move the selection up one line using up arrow key when in between ${nodeName} nodes`, async ({
 				editor,
 			}) => {
@@ -524,6 +528,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 					head: 1,
 				});
 			});
+
 			test('Can extend the selection one line down with shift + arrow down', async ({ editor }) => {
 				fixTest({
 					jiraIssueId: 'ED-20526',
@@ -567,6 +572,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 				exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
 				adf: adfs.multiline,
 			});
+
 			test('Can insert text directly after the last node view in the same paragraph', async ({
 				editor,
 			}) => {
@@ -583,6 +589,7 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 					head: 11,
 				});
 			});
+
 			test('should capture and report a11y violations', async ({ editor }) => {
 				await editor.selection.set({
 					anchor: 7,

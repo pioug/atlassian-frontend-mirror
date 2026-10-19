@@ -8,7 +8,7 @@ import {
 	ResolvedClient,
 	UnAuthClient,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import CardViewSection from '../card-view/card-view-section';
 import { VRTestCase } from '../utils/common';

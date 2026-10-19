@@ -5,7 +5,7 @@ import {
 	type InvokeRequest,
 	SmartLinkActionType,
 } from '@atlaskit/linking-types/smart-link-actions';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import useInvoke from '../index';
 

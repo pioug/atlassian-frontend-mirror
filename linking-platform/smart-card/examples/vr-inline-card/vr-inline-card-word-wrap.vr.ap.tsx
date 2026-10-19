@@ -14,7 +14,9 @@ import {
 	ResolvingClient,
 	UnAuthClient,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import CardViewSection from '../card-view/card-view-section';

@@ -15,7 +15,8 @@ import { MediaProvider } from '@atlaskit/media-client-react/media-provider';
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { errorFileId, imageFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { MediaInlineCardRelay } from '../src';

@@ -13,8 +13,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { createRule } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { EmojiProvider } from '@atlaskit/emoji/resource';
-import type { EmojiDescription } from '@atlaskit/emoji/types';
+import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules/constants';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
 

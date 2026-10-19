@@ -8,7 +8,7 @@ import UIMediaSingle from '@atlaskit/editor-common/MediaSingle';
 import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer/types';
 import { Card } from '@atlaskit/smart-card/card/lazy';

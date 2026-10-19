@@ -17,7 +17,7 @@ import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView } from '../../pm-plugins/utils';

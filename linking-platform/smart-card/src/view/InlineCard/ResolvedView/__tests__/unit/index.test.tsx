@@ -5,7 +5,8 @@ import { IntlProvider } from 'react-intl';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';

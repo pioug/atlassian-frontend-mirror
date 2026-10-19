@@ -8,7 +8,9 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
-import { act, render, screen, userEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';

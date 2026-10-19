@@ -31,10 +31,5 @@
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
-	},
-	"platform-feature-flags": {
-		"moving_jira_entry-points_api_under_platform": {
-			"type": "boolean"
-		}
 	}
 }

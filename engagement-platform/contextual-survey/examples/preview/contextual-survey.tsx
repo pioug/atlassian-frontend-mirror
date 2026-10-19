@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { ContextualSurvey } from '@atlaskit/contextual-survey/new';
+import { ContextualSurvey } from '@atlaskit/contextual-survey/new/ContextualSurvey';
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';

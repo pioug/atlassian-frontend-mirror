@@ -17,7 +17,9 @@ import { hideControlsClassName } from '@atlaskit/media-ui/classNames';
 import { Shortcut } from '@atlaskit/media-ui/shortcut';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 import { createNavigatedEvent } from './analytics/events/ui/createNavigatedEvent';
 import { fireAnalytics } from './analytics/fireAnalytics';

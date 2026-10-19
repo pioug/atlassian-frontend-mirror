@@ -5,7 +5,8 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { MentionAvatar } from '../../../components/MentionAvatar';
 

@@ -3,7 +3,8 @@ import React from 'react';
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useInteractionContext } from '@atlaskit/react-ufo/use-interaction-context';
-import { render, screen, fireEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { ImageRenderer } from '../imageRendererV2';
 

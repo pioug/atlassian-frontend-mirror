@@ -1,4 +1,5 @@
 import { expect, test } from '@af/integration-testing';
+
 test('toggle should pass base aXe audit', async ({ page }) => {
 	await page.visitExample<typeof import('../../../examples/0-stateful.vr.ap.tsx')>(
 		'design-system',

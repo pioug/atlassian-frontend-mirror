@@ -2,7 +2,8 @@ import React from 'react';
 
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaType } from '@atlaskit/media-common/main-types';
-import { render, screen, fireEvent } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { ImageRenderer } from '../imageRenderer';
 import { resizeModeToMediaImageProps } from '../resizeModeToMediaImageProps';

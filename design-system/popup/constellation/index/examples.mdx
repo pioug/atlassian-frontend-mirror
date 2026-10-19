@@ -100,9 +100,13 @@ positioning of the popup won't work correctly.
 
 ### Set focus
 
-You can focus a specific element when opening the popup. The `content` render props provide a ref
-`setInitialFocusRef` to be set on the desired element. Only set focus to an element at the start of
-the popup, otherwise people who use assistive technology may miss the content.
+You can focus a specific element when opening a dialog popup. When `role` is `"dialog"` or
+`"alertdialog"`, the `content` render props provide a ref `setInitialFocusRef` to be set on the
+desired element. Until `platform-dst-top-layer` is cleaned up, a role gated on that flag
+(`fg('platform-dst-top-layer') ? 'dialog' : undefined`) also gets it. Other roles do not get it: a
+menu or listbox has a fixed focus rule, and a popup with no role must not take focus. Give the
+dialog a `label` or a `titleId`. Only set focus to an element at the start of the popup, otherwise
+people who use assistive technology may miss the content.
 
 The specified element needs to be available in the document as soon as the popup is opened,
 otherwise it will not be focused upon. This means it will not work for content that renders into the
@@ -119,6 +123,11 @@ will need to manually set focus on the content once it is rendered.
 
 If an element is focused, setting the `autofocus` prop to `false` will ensure it keeps focus when
 the popup is opened.
+
+With the `platform-dst-top-layer` feature flag on, `autoFocus` has no effect and focus follows
+`role`. The `dialog`, `alertdialog`, `menu` and `listbox` roles move focus into the popup when it
+opens. To keep focus where it is, do not use one of these roles. One exception: if a focused
+combobox or text field controls the popup, focus stays on that field.
 
 <Example
 	Component={PopupDisableAutofocusExample}

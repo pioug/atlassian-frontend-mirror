@@ -1,5 +1,5 @@
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
-import { type Jast } from '@atlaskit/jql-ast';
+import type { Jast } from '@atlaskit/jql-ast/query';
 
 import { JQLAstPluginKey } from './index';
 

@@ -24,7 +24,8 @@ import {
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers/intersection-observer';
 import type { JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import * as startUfoExperienceModule from '../../../state/analytics/startUfoExperience';
 import * as succeedUfoExperienceModule from '../../../state/analytics/succeedUfoExperience';

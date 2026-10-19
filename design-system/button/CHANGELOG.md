@@ -1,5 +1,16 @@
 # @atlaskit/button
 
+## 25.5.0
+
+### Minor Changes
+
+- [`a5a56584627e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5a56584627e6) -
+  [ux] Add the FilterButton subcomponent with a built-in trailing count and default/compact spacing.
+  Its internal count pill matches Badge dimensions without a Badge dependency. Unselected counts are
+  neutral in both gate settings. Selected counts use the information treatment with
+  platform-dst-tokens-finesse off and neutral when the gate is on. Disabled and loading counts use
+  disabled tokens in both gate states.
+
 ## 25.4.8
 
 ### Patch Changes

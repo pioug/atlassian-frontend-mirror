@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Banner from '@atlaskit/banner';
+import Banner from '@atlaskit/banner/banner';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 

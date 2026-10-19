@@ -1,4 +1,4 @@
-import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view/types';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

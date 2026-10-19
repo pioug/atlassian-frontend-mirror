@@ -20,7 +20,8 @@ import SoundIcon from '@atlaskit/icon/core/volume-high';
 import type { NumericalCardDimensions } from '@atlaskit/media-common/main-types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -558,7 +559,12 @@ export class CustomMediaPlayerBase extends Component<
 			justifyContent="center"
 			xcss={spinnerWrapperStyles.root}
 		>
-			<Spinner appearance="invert" size="large" />
+			<Spinner
+				// The overlay viewer is always dark, so it inverts the spinner. The inset viewer follows the
+				// theme, so it uses the spinner's own subtle icon colour.
+				appearance={this.props.isInsetViewer ? 'inherit' : 'invert'}
+				size="large"
+			/>
 		</Flex>
 	);
 

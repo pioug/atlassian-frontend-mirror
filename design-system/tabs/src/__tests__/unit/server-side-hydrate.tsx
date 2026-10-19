@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
+import { doesHydrateWithSsr } from '@atlassian/ssr-tests/ssr-tests';
 
 import Example from '../../../examples/00-default-tabs.vr.ap';
 

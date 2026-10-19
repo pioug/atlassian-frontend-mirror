@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.5.0",
+	"version": "7.5.2",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -108,7 +108,6 @@
 		"lodash": "root:*",
 		"react-sweet-state": "root:*",
 		"tiny-invariant": "root:*",
-		"use-callback-ref": "root:*",
 		"use-debounce": "root:*",
 		"uuid": "root:*"
 	},
@@ -189,9 +188,6 @@
 			"type": "boolean"
 		},
 		"platform_lp_sllv_preserve_assets_columns": {
-			"type": "boolean"
-		},
-		"platform_lp_sllv_table_settings_menu": {
 			"type": "boolean"
 		},
 		"platform_lp_sllv_on_request_settled": {

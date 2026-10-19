@@ -49,7 +49,6 @@
 	"peerDependencies": {
 		"react": "^18.2.0"
 	},
-	"platform-feature-flags": {},
 	"devDependencies": {
 		"react": "root:*"
 	}

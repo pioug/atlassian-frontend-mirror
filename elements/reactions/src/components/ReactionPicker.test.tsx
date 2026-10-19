@@ -4,7 +4,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type Stub, replaceRaf } from 'raf-stub';
 
-import { type EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { Popper } from '@atlaskit/popper/main';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

@@ -5,7 +5,7 @@ import AvatarItem from '@atlaskit/avatar/avatar-item';
 import { cssMap } from '@atlaskit/css';
 import { Date as AKDate } from '@atlaskit/date/date';
 import Icon from '@atlaskit/icon/core/archive-box';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { TBody } from '@atlaskit/table/body';
 import { Row } from '@atlaskit/table/row';

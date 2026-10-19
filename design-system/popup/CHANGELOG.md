@@ -1,5 +1,32 @@
 # @atlaskit/popup
 
+## 10.0.0
+
+### Major Changes
+
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  `setInitialFocusRef` is now typed only for dialog popups. It moved from `ContentProps` to the new
+  `DialogContentProps`, and `content` gets it only when `role` is `'dialog'` or `'alertdialog'` (a
+  role gated to `undefined` also works). Runtime behaviour does not change. To migrate, give a popup
+  that uses `setInitialFocusRef` a dialog role and a name, for example
+  `role={fg('platform-dst-top-layer') ? 'dialog' : undefined}` and a `label`, and type its content
+  props `DialogContentProps`. For a `menu` or `listbox` popup, or a hover card, remove
+  `setInitialFocusRef`.
+
+  `TriggerProps['aria-haspopup']` is now optional: with `platform-dst-top-layer` on, the trigger of
+  a popup with no `role` has no `aria-haspopup`. A type that copies it must make it optional too.
+
+### Patch Changes
+
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  With `platform-dst-top-layer` on, initial focus follows `role`: `dialog`, `alertdialog`, `menu`
+  and `listbox` move focus into the popup, and with no role focus stays where it was. `autoFocus`
+  has no effect and is deprecated.
+- [`2d838c26559c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d838c26559c5) -
+  `getAriaForTrigger` now accepts no `role`, which gives no `aria-haspopup`; Popup uses it on the
+  top-layer path.
+- Updated dependencies
+
 ## 9.0.4
 
 ### Patch Changes

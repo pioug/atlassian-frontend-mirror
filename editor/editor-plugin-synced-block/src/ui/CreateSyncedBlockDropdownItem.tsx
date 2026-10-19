@@ -10,7 +10,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { SyncBlocksIcon } from '@atlaskit/editor-toolbar/sync-blocks-icon';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';

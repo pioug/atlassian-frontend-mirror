@@ -4,7 +4,7 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { monitorForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-text-selection';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
-import { fireEvent } from '@atlassian/testing-library';
+import { fireEvent } from '@atlassian/testing-library/testing-library/react';
 
 import { disableDraggingToCrossOriginIFramesForElement } from '../../../internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../../../internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';

@@ -24,6 +24,7 @@ test.describe('JQL Editor User Nodes', () => {
 		await visitHydratedExample(jqlEditor);
 		await expect(jqlEditor.input).toHaveText(INITIAL_QUERY);
 	});
+
 	test('User nodes are hydrated on paste', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
 		await visitHydratedExample(jqlEditor);
@@ -33,6 +34,7 @@ test.describe('JQL Editor User Nodes', () => {
 		await jqlEditor.waitForHydratedNodes(['Cristian Casais']);
 		await expect(jqlEditor.input).toHaveText('assignee = Cristian Casais');
 	});
+
 	test('User nodes are hydrated when inserted from autocomplete', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
 		await visitHydratedExample(jqlEditor);
@@ -43,6 +45,7 @@ test.describe('JQL Editor User Nodes', () => {
 		await jqlEditor.waitForHydratedNodes(['Cristian Casais']);
 		await expect(jqlEditor.input).toHaveText('assignee = Cristian Casais');
 	});
+
 	test('User nodes are not hydrated as user types', async ({ page }) => {
 		const jqlEditor = new JQLEditorPage(page);
 		await visitHydratedExample(jqlEditor);

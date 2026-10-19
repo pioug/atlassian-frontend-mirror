@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 238.0.4
+
+### Patch Changes
+
+- [`31dd8d40ffba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31dd8d40ffba2) -
+  Cleanup `experiment` `cc-markdown-mode`. Markdown mode is unshipped: the markdown schema rebuild,
+  source-view toolbar bridge, and markdown-mode layout paths are removed.
+- Updated dependencies
+
+## 238.0.3
+
+### Patch Changes
+
+- [`fc2f6ea92bf86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc2f6ea92bf86) -
+  Behind `platform_editor_reduce_memory_leaks`: stop `editorStateNotificationPlugin` accumulating
+  every transaction in an array that is never read. The array kept each transaction, its documents
+  and any closures stored in transaction meta alive for the life of the editor, which in turn
+  retained deleted node views and their DOM.
+- Updated dependencies
+
+## 238.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 238.0.1
 
 ### Patch Changes

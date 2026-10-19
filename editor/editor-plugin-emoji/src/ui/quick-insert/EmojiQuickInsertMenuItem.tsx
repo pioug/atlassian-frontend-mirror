@@ -8,7 +8,7 @@ import {
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { TypeAheadInsert } from '@atlaskit/editor-common/types';
+import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 

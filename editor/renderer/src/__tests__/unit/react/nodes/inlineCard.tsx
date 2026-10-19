@@ -12,7 +12,7 @@ import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers/i
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers/intersection-observer';
 import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 

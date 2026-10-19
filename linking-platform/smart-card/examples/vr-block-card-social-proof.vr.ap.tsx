@@ -9,7 +9,8 @@ import Heading from '@atlaskit/heading/heading';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { Card } from '../src';
 import { default as useSocialProofExperiment } from '../src/state/hooks/use-social-proof-experiment/index';

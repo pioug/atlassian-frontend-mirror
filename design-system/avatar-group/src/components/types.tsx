@@ -4,7 +4,7 @@ import type AnalyticsEvent from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { default as Avatar, AvatarPropTypes } from '@atlaskit/avatar/avatar';
 import type { SizeType } from '@atlaskit/avatar/types';
 import type { MenuGroupProps } from '@atlaskit/menu/types';
-import type { ContentProps } from '@atlaskit/popup/types';
+import type { DialogContentProps } from '@atlaskit/popup/types';
 
 import type { AvatarGroupItemProps } from './avatar-group-item';
 import { type MoreIndicatorProps } from './more-indicator';
@@ -52,7 +52,7 @@ export type FocusableElement = HTMLAnchorElement | HTMLButtonElement;
 export type Action = 'next' | 'prev' | 'first' | 'last';
 
 export interface PopupAvatarGroupProps extends MenuGroupProps {
-	setInitialFocusRef?: ContentProps['setInitialFocusRef'];
+	setInitialFocusRef?: DialogContentProps['setInitialFocusRef'];
 }
 
 /**

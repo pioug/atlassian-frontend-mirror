@@ -1,5 +1,5 @@
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';
 import { generateScriptProps } from './generateScriptProps';

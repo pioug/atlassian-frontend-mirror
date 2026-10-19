@@ -9,6 +9,7 @@ const featureFlag = 'platform-dst-top-layer';
 test.beforeEach(({ skipAxeCheck }) => {
 	skipAxeCheck();
 });
+
 test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('popup can be opened via Enter key on trigger', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -60,6 +61,7 @@ test.describe('Popup top-layer — WCAG 2.1.1 Keyboard', () => {
 		await expect(page.getByTestId('popup--container')).toBeVisible();
 	});
 });
+
 test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 	test('Escape closes the popup', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -105,6 +107,7 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 		await expect(trigger).toBeFocused();
 	});
 });
+
 test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('focus stays on the trigger when popup has no `role`', async ({ page }) => {
 		/**
@@ -150,6 +153,7 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 		await expect(trigger).toBeFocused();
 	});
 });
+
 type FocusOptionsWithVisible = NonNullable<Parameters<HTMLElement['focus']>[0]> & {
 	focusVisible?: boolean;
 };
@@ -183,6 +187,7 @@ test.describe('Popup top-layer — WCAG 2.4.7 Focus Visible', () => {
 		expect(hasFocusVisible).toBe(true);
 	});
 });
+
 test.describe('Popup top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 	test('popup content is visible and not obscured', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -203,6 +208,7 @@ test.describe('Popup top-layer — WCAG 2.4.11 Content Not Obscured', () => {
 		await expect(content).toBeVisible();
 	});
 });
+
 test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('trigger has aria-expanded=false when popup is closed', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -233,7 +239,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 	});
 
-	test('trigger has aria-haspopup', async ({ page }) => {
+	test('trigger has no aria-haspopup when the popup has no role', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
 			'design-system',
 			'popup',
@@ -244,7 +250,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
-		await expect(trigger).toHaveAttribute('aria-haspopup');
+		await expect(trigger).not.toHaveAttribute('aria-haspopup');
 	});
 
 	test('popup content has popover attribute', async ({ page }) => {
@@ -288,6 +294,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		expect(label || labelledBy).toBeTruthy();
 	});
 });
+
 test.describe('Popup top-layer — WCAG 4.1.3 Status Messages', () => {
 	test('popup state change is perceivable via aria-expanded', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -313,6 +320,7 @@ test.describe('Popup top-layer — WCAG 4.1.3 Status Messages', () => {
 		await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 	});
 });
+
 test.describe('Popup top-layer — WCAG 1.3.1 Info and Relationships', () => {
 	test('trigger aria-controls references the actual popup element', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -343,6 +351,7 @@ test.describe('Popup top-layer — WCAG 1.3.1 Info and Relationships', () => {
 		await expect(page.locator('#popup-content')).toBeVisible();
 	});
 });
+
 test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 	test('popup content follows trigger in document order (not portalled to body end)', async ({
 		page,
@@ -382,6 +391,7 @@ test.describe('Popup top-layer — WCAG 1.3.2 Meaningful Sequence', () => {
 		expect(notLastBodyChild).toBe(true);
 	});
 });
+
 test.describe('Popup top-layer — Dismiss behaviors', () => {
 	test('clicking outside closes the popup (light dismiss)', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -420,6 +430,7 @@ test.describe('Popup top-layer — Dismiss behaviors', () => {
 		await expect(page.getByTestId('popup--container')).toBeHidden();
 	});
 });
+
 test.describe('Popup top-layer — Positioning and sizing', () => {
 	test('popup is positioned near the trigger', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/10-popup.vr.ap.tsx')>(
@@ -477,6 +488,7 @@ test.describe('Popup top-layer — Positioning and sizing', () => {
 		expect(Math.abs(contentBox.width - triggerBox.width)).toBeLessThan(1);
 	});
 });
+
 test.describe('Popup top-layer — Nested popups', () => {
 	// Native `popover="auto"` chains nested popovers via DOM ancestry —
 	// when a child popover opens inside an open parent popover, the parent
@@ -536,6 +548,7 @@ test.describe('Popup top-layer — Nested popups', () => {
 		await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 	});
 });
+
 test.describe('Popup top-layer — Dialog role focus behavior', () => {
 	test('Tab wraps forward from last to first focusable element', async ({ page }) => {
 		await page.visitExample<

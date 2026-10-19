@@ -38,10 +38,12 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-plugins": "workspace:^",
+		"@atlaskit/renderer": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*"

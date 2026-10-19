@@ -1,0 +1,50 @@
+---
+title: Motion presence boundary
+description: Separate a container's motion lifecycle from its content.
+order: 0
+---
+
+import MotionPresenceBoundaryExample from '../../examples/constellation/motion-presence-boundary';
+
+`MotionPresenceBoundary` separates an animated container's presence lifecycle from the motion-aware
+components inside it. Use it when descendants of a popup, modal, drawer, flag, or another container
+should not inherit the container's presence state or contribute to its exit completion.
+
+Open and close the dropdown, then turn off **Use MotionPresenceBoundary** and try again. Without the
+boundary, the tag inherits the dropdown's presence and animates separately. With the boundary, only
+the dropdown animates. Changing the toggle closes the dropdown so each comparison starts fresh.
+Animations follow your reduced-motion preference.
+
+<Example
+	Component={MotionPresenceBoundaryExample}
+	packageName="@atlaskit/motion"
+	title="Compare presence with and without a boundary"
+	featureFlagDefaults={{
+		'platform-dst-motion-isolate-presence': true,
+		'platform-dst-motion-uplift-labels': true,
+	}}
+/>
+
+Place the boundary inside the component that owns the container animation and wrap the container's
+content:
+
+```tsx
+import Motion from '@atlaskit/motion/entering/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
+
+<ExitingPersistence>
+	{isOpen && (
+		<Motion key="container" enteringAnimation={enterMotion} exitingAnimation={exitMotion}>
+			<MotionPresenceBoundary>{content}</MotionPresenceBoundary>
+		</Motion>
+	)}
+</ExitingPersistence>;
+```
+
+The boundary restores the standalone presence defaults for its descendants and does not render a DOM
+element. It does not disable motion: explicit `Motion` components and nested `ExitingPersistence`
+boundaries inside it retain their own entry, exit, and completion lifecycle.
+
+Do not wrap each animated item individually. Add one boundary at the point where container motion
+ownership ends and content motion ownership begins.

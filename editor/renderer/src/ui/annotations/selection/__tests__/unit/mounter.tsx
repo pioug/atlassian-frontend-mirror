@@ -20,7 +20,8 @@ import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import type RendererActions from '../../../../../actions/index';

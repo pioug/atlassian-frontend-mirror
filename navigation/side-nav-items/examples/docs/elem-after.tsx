@@ -3,7 +3,7 @@ import React from 'react';
 import Badge from '@atlaskit/badge/badge';
 import HomeIcon from '@atlaskit/icon/core/home';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';

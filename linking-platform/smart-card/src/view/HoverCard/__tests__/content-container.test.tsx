@@ -2,7 +2,8 @@ import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import ContentContainer from '../components/ContentContainer';

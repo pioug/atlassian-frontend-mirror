@@ -1,4 +1,4 @@
-import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor';
+import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor-provider';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

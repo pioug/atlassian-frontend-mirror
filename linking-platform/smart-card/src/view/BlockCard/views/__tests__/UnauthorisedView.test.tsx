@@ -3,7 +3,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
 
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,

@@ -4,7 +4,9 @@ import type { Identifier } from '@atlaskit/media-client/identifier';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/pressable';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
+import { xcss } from '@atlaskit/primitives/xcss/xcss';
 
 type NativeMediaViewerProps = {
 	identifier: Identifier;

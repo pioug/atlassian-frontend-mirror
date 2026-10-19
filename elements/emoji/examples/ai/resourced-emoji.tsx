@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import type { EmojiProvider } from '@atlaskit/emoji/emoji-resource';
 import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 
 export default function ResourcedEmojiExample({
 	emojiProvider,

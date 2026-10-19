@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnicornResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { SmartLinkSize, SmartLinkTheme } from '@atlaskit/smart-card/enums';
 import { TitleElement } from '@atlaskit/smart-card/flexible/title-element';

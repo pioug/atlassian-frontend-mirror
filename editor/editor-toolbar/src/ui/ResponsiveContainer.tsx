@@ -9,8 +9,8 @@ import type { AllowedStyles, ApplySchema, CompiledStyles } from '@compiled/react
 
 import { cssMap, cx } from '@atlaskit/css';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { Box } from '@atlaskit/primitives/compiled';
-import type { MediaQuery } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import type { MediaQuery } from '@atlaskit/primitives/compiled/types';
 import type { DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 const styles = cssMap({

@@ -6,7 +6,7 @@ import { jsx } from '@compiled/react';
 
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import UnresolvedView from '../../src/view/BlockCard/views/unresolved-view';

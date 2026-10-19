@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { renderHook } from '@atlassian/testing-library';
+import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';

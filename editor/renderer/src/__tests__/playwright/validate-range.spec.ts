@@ -14,6 +14,7 @@ test.use({ rendererMountOptions: { withRendererActions: true } });
 
 test.describe('validate-range: paragraphsWithMedia', () => {
 	test.use({ adf: paragraphsWithMedia });
+
 	test(`A selection containing text and media validates false`, async ({ renderer }) => {
 		const paragraphs = renderer.page.locator(PARAGRAPH);
 

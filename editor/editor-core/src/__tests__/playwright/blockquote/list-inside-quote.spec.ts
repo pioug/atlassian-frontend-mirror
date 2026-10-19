@@ -20,7 +20,7 @@ import {
 	tr,
 	ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { skipAutoA11y } from '@atlassian/a11y-playwright-testing';
+import { skipAutoA11y } from '@atlassian/a11y-playwright-testing/skip-decorator';
 
 import { nestedNumberedListDocument, numberedListDocument } from '../../__fixtures__/base-adfs';
 import {
@@ -36,6 +36,7 @@ test.describe('List inside a blockquote', () => {
 			appearance: 'full-page',
 		},
 	});
+
 	test.describe('List in a non-nested blockquote', () => {
 		test.use({
 			exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),

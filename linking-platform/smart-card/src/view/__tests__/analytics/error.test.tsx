@@ -8,7 +8,8 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-car
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { APIError } from '@atlaskit/linking-common/api-error';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-import { render, screen, waitFor } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
 import { mocks } from '../../../utils/mocks';

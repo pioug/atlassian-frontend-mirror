@@ -86,7 +86,7 @@ import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 // eslint-disable-next-line no-restricted-imports -- This development example must enable the experiment before the editor initializes.
 import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import {

@@ -65,6 +65,7 @@ export interface Props {
 	avatarUrl?: string;
 	id: string;
 	isAvatarImagePreShaped?: boolean;
+	isRovoChat?: boolean;
 	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	onClick?: MentionEventHandler;
@@ -72,7 +73,6 @@ export interface Props {
 	onMouseLeave?: MentionEventHandler;
 	profilecardProvider: ProfilecardProvider;
 	renderAvatarSlot?: boolean;
-	isRovoChat?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
 	userType?: MentionUserType;
@@ -163,11 +163,7 @@ export default function MentionWithProfileCard({
 		isExperimentEnabled('pt_user_profile_card_migration_exp')
 	) {
 		if (renderUserMentionCard) {
-			const prefilledProfileData = isExperimentEnabled(
-				'platform_mention_profilecard_accessible_name_exp',
-			)
-				? { accountId: id, name: text.replace(AT_PREFIX_REGEX, '') }
-				: undefined;
+			const prefilledProfileData = { accountId: id, name: text.replace(AT_PREFIX_REGEX, '') };
 			return (
 				<>
 					{renderUserMentionCard({

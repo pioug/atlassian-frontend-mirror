@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 151.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 151.0.3
+
+### Patch Changes
+
+- [`72696d778e3ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72696d778e3ae) -
+  Reduce renderer table cell cloning and map active cell highlights through document changes behind
+  platform_editor_table_q4_perf_patch.
+
+  Only evaluate the performance patch when platform_editor_table_q4_loveability is enabled.
+
+- Updated dependencies
+
+## 151.0.2
+
+### Patch Changes
+
+- [`bc79027197d91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc79027197d91) -
+  Clean up the platform_ssr_smartlink_cards feature gate, retaining SSR cards when enabled by the
+  consumer.
+- Updated dependencies
+
 ## 151.0.1
 
 ### Patch Changes

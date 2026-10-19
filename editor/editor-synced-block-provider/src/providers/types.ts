@@ -1,7 +1,7 @@
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { NodeDataProvider } from '@atlaskit/node-data-provider/node-data-provider';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';

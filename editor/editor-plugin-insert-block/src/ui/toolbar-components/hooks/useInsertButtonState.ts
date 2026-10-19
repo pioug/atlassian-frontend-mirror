@@ -8,7 +8,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/type
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Breakpoint } from '@atlaskit/editor-toolbar/show';
-import type { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 
 import type { InsertBlockPlugin } from '../../../insertBlockPluginType';
 import type { ToolbarInsertBlockButtonsConfig } from '../../../types';

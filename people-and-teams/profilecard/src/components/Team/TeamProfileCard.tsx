@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import LinkButton from '@atlaskit/button/link';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import LinkItem from '@atlaskit/menu/link-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';

@@ -3,9 +3,11 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import NotificationIcon from '@atlaskit/icon/core/notification';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { JiraLogoCS as JiraLogo } from '@atlaskit/logo/jira/logo';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { Flex, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { DefaultCreate } from '../../../examples/shared/create';

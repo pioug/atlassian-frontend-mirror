@@ -28,6 +28,7 @@ test.describe('Default Drawer', () => {
 		const drawerCloseButton = page.getByTestId('DrawerCloseButton');
 		await expect(drawerCloseButton).toBeFocused();
 	});
+
 	test('should return focus to trigger element when closed', async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',
@@ -41,6 +42,7 @@ test.describe('Default Drawer', () => {
 		await drawerCloseButton.click();
 		await expect(drawerTrigger).toBeFocused();
 	});
+
 	test('focus should not go beyond drawer container', async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/02-drawer-default.vr.ap.tsx')>(
 			'design-system',

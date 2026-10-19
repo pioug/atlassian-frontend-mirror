@@ -3,7 +3,8 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { screen, within } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { within } from '@atlassian/testing-library/within';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import ResolvedView from '../ResolvedView';

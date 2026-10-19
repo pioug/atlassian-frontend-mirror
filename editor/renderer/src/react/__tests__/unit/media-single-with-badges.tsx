@@ -8,7 +8,7 @@ import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema/annotation';
 import type { BorderMarkDefinition } from '@atlaskit/adf-schema/border';
 import type { LinkDefinition } from '@atlaskit/adf-schema/link';
 import type { MediaType } from '@atlaskit/adf-schema/media';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import MediaWithDraftAnnotation from '../../nodes/media';

@@ -4,9 +4,9 @@ import { fireEvent, screen, within, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { renderWithIntl } from '../__tests__/_testing-library';
 import { ReactionsDialog, type ReactionsDialogProps } from './ReactionsDialog';

@@ -7,7 +7,8 @@ import UFOInteractionContext, {
 } from '@atlaskit/react-ufo/interaction-context';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { fireEvent, render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { CardViewBase, type CardViewProps } from '../../card/cardView';
 import { imgTestId, spinnerTestId } from '../utils/_testIDs';

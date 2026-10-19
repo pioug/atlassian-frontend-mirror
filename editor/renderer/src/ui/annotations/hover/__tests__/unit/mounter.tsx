@@ -14,7 +14,7 @@ import type {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { render } from '@atlassian/testing-library';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../../../draft/dom';

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { StatusPicker } from '@atlaskit/status/picker';
 import { Status } from '@atlaskit/status/status';
 import type { Color } from '@atlaskit/status/status';
+import { StatusPicker } from '@atlaskit/status/status-picker';
 
 export default function StatusAndPicker(): React.JSX.Element {
 	const [text, setText] = React.useState('In progress');

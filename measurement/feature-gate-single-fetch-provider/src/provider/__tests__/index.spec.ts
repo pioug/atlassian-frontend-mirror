@@ -1,4 +1,4 @@
-import Fetcher from '@atlaskit/feature-gate-fetcher';
+import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
 import {
 	type BaseClientOptions,
 	type CustomAttributes,
@@ -10,10 +10,12 @@ import {
 
 import SingleFetchProvider, { type ProviderOptions } from '../index';
 
-jest.mock('@atlaskit/feature-gate-fetcher', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-fetcher'),
-	fetchExperimentValues: jest.fn(),
-	fetchClientSdkKey: jest.fn(),
+jest.mock('@atlaskit/feature-gate-fetcher/Fetcher', () => ({
+	__esModule: true,
+	default: {
+		fetchExperimentValues: jest.fn(),
+		fetchClientSdkKey: jest.fn(),
+	},
 }));
 
 const mockClientSdkKey = 'mock-client-sdk-key';

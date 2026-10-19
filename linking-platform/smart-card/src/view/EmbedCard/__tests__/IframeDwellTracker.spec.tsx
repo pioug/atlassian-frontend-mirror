@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { act, render } from '@atlassian/testing-library';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { IframeDwellTracker, type IframeDwellTrackerProps } from '../components/IframeDwellTracker';
 

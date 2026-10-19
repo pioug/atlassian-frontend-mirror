@@ -1,6 +1,7 @@
 import { type Action } from 'react-sweet-state';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getJastFromState } from '../../plugins/jql-ast/getJastFromState';
 import { replaceRichInlineNodes } from '../../plugins/rich-inline-nodes/util/replace-nodes-transaction';
@@ -49,6 +50,8 @@ export const hydrateQuery =
 			const hydratedValuesMap: HydratedValuesMap = Object.entries(newHydratedValues).reduce(
 				(map, [fieldName, values]) => {
 					const fieldNameToUse =
+						(values.some((value) => value.type === 'focusArea') &&
+							isExperimentEnabled('focus_in_jira_m1')) ||
 						FeatureGates.getExperimentValue(
 							'atlassian_projects_-_native_integration',
 							'releaseVersion',

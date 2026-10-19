@@ -11,7 +11,7 @@ import useMeasureEditorMountTime from '../../useMeasureEditorMountTime';
 const mockStopMeasureDuration = 1234;
 
 jest.mock('@atlaskit/editor-common/performance-measures', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
+	...jest.requireActual<object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	clearMeasure: jest.fn(),
 	stopMeasure: jest.fn(

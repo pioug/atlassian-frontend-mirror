@@ -1,5 +1,32 @@
 # @atlaskit/reactions
 
+## 36.7.26
+
+### Patch Changes
+
+- [`3d30d343fd579`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d30d343fd579) -
+  Prevent host content-renderer list margins from shifting semantic reaction lists behind
+  jfp_a11y_team_comment_actions_semantic.
+- Updated dependencies
+
+## 36.7.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.7.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.7.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.7.22
 
 ### Patch Changes

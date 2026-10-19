@@ -5,8 +5,11 @@ import { IntlProvider } from 'react-intl';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema/annotation';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types';
-import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types/annotation';
+import {
+	AnnotationUpdateEmitter,
+	AnnotationUpdateEvent,
+} from '@atlaskit/editor-common/types/emitter';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

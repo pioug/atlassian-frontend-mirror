@@ -33,7 +33,7 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProfileCard from '@atlaskit/profilecard/profile-card';
+import { ProfilecardInternal as ProfileCard } from '@atlaskit/profilecard/profilecard-internal';
 
 export default function UserProfileCardExample(): React.JSX.Element {
 	return (

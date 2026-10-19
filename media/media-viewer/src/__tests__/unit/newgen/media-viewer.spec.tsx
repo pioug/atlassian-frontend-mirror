@@ -21,6 +21,7 @@ import {
 	type MediaViewerExtensions,
 	type MediaViewerNavigationDirection,
 } from '../../../components/types';
+import { DownloadButton } from '../../../DownloadButton';
 import { InsetSidebarHeader } from '../../../inset-sidebar-header';
 import { InsetViewerProvider } from '../../../insetViewerContext';
 import { List } from '../../../list';
@@ -39,6 +40,10 @@ import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvid
 jest.mock('../../../list', () => {
 	const original = jest.requireActual('../../../list');
 	return { ...original, List: jest.fn(original.List) };
+});
+jest.mock('../../../DownloadButton', () => {
+	const original = jest.requireActual('../../../DownloadButton');
+	return { ...original, DownloadButton: jest.fn(original.DownloadButton) };
 });
 jest.mock('../../../insetViewerContext', () => {
 	const original = jest.requireActual('../../../insetViewerContext');
@@ -524,6 +529,23 @@ describe('<MediaViewer />', () => {
 
 				// eslint-disable-next-line @atlassian/a11y/no-violation-count
 				await expect(document.body).toBeAccessible({ violationCount: 1 });
+			},
+		);
+
+		it.each([
+			{ presentation: 'overlay', extensions: {}, variant: 'default' },
+			{ presentation: 'inset', extensions: { useInsetViewer: true }, variant: 'insetText' },
+		])(
+			'should render the error view download button with the $variant variant in the $presentation presentation',
+			async ({ extensions, variant }) => {
+				passGate('cc_comments_inset_media_viewer');
+				renderViewer(extensions, undefined, generateSampleFileItem.failedVideo);
+
+				await screen.findByTestId('media-viewer-error-download-button');
+				expect(DownloadButton).toHaveBeenCalledWith(
+					expect.objectContaining({ testId: 'media-viewer-error-download-button', variant }),
+					expect.anything(),
+				);
 			},
 		);
 

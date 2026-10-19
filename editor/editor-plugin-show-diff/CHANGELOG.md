@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 26.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- [`fa1e60dbfa6e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa1e60dbfa6e5) -
+  Keep rendered diffs visible when navigating inside horizontally overflowing tables, behind
+  `platform_editor_ai_suggestion_table_scroll_fix`.
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

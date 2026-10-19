@@ -77,6 +77,13 @@ const listContainerStyles = css({
 	padding: 0,
 });
 
+const listMarginResetStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override host content list margins while preserving native list semantics.
+	'&&': {
+		margin: 0,
+	},
+});
+
 /**
  * Set of all available UFO experiences relating to Reactions Dialog
  */
@@ -676,7 +683,7 @@ export const Reactions: React.MemoExoticComponent<
 					aria-label={intl.formatMessage(messages.addedReaction)}
 				>
 					{shouldRenderReactionList ? (
-						<ul css={[listContainerStyles, noWrap && noFlexWrapStyles]}>
+						<ul css={[listContainerStyles, listMarginResetStyles, noWrap && noFlexWrapStyles]}>
 							{memorizedReactions.map((reaction) => renderReactionItem(reaction, 'li'))}
 						</ul>
 					) : (
@@ -741,7 +748,7 @@ export const Reactions: React.MemoExoticComponent<
 						) : reactions.length > 0 && fg('platform_reactions_a11y_group_added_reactions') ? (
 							renderReactionGroup()
 						) : fg('jfp_a11y_team_comment_actions_semantic') ? (
-							<ul css={listContainerStyles}>
+							<ul css={[listContainerStyles, listMarginResetStyles]}>
 								{memorizedReactions.map((reaction) => renderReactionItem(reaction, 'li'))}
 							</ul>
 						) : (

@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
 import { syncBlockMessages as messages } from '@atlaskit/editor-common/messages/syncBlock';
 import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block/constants';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
-import { Anchor } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 
 import { SyncedBlockErrorStateCard } from './SyncedBlockErrorStateCard';
 

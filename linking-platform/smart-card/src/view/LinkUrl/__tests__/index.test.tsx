@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { render, screen } from '@atlassian/testing-library';
+import { screen } from '@atlassian/testing-library/screen';
+import { render } from '@atlassian/testing-library/testing-library/react';
 
 import LinkUrl from '../index';
 import * as UseLinkWarningModalExports from '../LinkWarningModal/hooks/use-link-warning-modal';

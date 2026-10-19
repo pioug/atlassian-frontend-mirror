@@ -6,7 +6,9 @@ import {
 	ResolvedClient,
 	ResolvedClientEmbedUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 import { Card } from '../../src';
 

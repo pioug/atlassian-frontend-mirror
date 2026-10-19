@@ -17,7 +17,9 @@ import type { ErrorFileState, FileState } from '@atlaskit/media-state/file-state
 import { token } from '@atlaskit/tokens';
 
 import type { Outcome } from '../../domain/outcome';
+import { useIsInsetViewer } from '../../insetViewerContext';
 import type { MediaViewerError } from '../../MediaViewerError';
+import { INSET_VIEWER_GUTTER_PX } from '../../styleWrappers';
 
 const codeViewWrapperStyles = css({
 	position: 'absolute',
@@ -27,6 +29,14 @@ const codeViewWrapperStyles = css({
 	bottom: 0,
 	backgroundColor: token('elevation.surface'),
 	overflow: 'auto',
+});
+
+const insetViewerCodeViewWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- the gutter is a px constant because the image and video fit maths need it as a number, so it is imported to keep code files on the same gutter
+	left: `${INSET_VIEWER_GUTTER_PX}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- the gutter is a px constant because the image and video fit maths need it as a number, so it is imported to keep code files on the same gutter
+	right: `${INSET_VIEWER_GUTTER_PX}px`,
+	borderRadius: token('radius.large', '8px'),
 });
 
 // Based on some basic benchmarking with @atlaskit/code it was found that ~10,000 lines took around ~5secs to render, which locks the main thread.
@@ -54,8 +64,13 @@ export const CodeViewWrapper: ForwardRefExoticComponent<
 		},
 		ref: React.Ref<HTMLDivElement>,
 	) => {
+		const isInsetViewer = useIsInsetViewer();
 		return (
-			<div css={codeViewWrapperStyles} data-testid={testId} ref={ref}>
+			<div
+				css={[codeViewWrapperStyles, isInsetViewer && insetViewerCodeViewWrapperStyles]}
+				data-testid={testId}
+				ref={ref}
+			>
 				{children}
 			</div>
 		);

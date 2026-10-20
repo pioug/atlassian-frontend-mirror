@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 29.0.0
+
+### Patch Changes
+
+- [`25d608f808027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25d608f808027) -
+  Look up GLOBAL template preview images by `snippetKey`, so every product's copy of a template
+  shows its preview and Atlassian attribution (behind `platform_editor_slash_command`). Remove the
+  snippet-specific preview fallback from generic quick insert provider items
+- Updated dependencies
+
 ## 28.0.2
 
 ### Patch Changes

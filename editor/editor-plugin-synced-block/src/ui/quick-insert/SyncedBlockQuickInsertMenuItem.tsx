@@ -14,7 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
-import Lozenge from '@atlaskit/lozenge/lozenge';
+import Lozenge from '@atlaskit/lozenge/new/lozenge';
 
 import { createSyncedBlock } from '../../editor-commands';
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';

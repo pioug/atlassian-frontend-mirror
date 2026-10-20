@@ -38,6 +38,10 @@ export type PanelSplitterContextType = {
 	 */
 	onResizeInternal?: (newWidth: number) => void;
 	/**
+	 * Loads the optional sizing engine before committing an interaction.
+	 */
+	prepareResize?: () => Promise<boolean>;
+	/**
 	 * The minimum and maximum bounds for resizing the panel.
 	 * The bounds can be provided as `px` or `vw` values.
 	 */

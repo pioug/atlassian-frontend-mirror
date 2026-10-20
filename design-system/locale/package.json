@@ -42,6 +42,8 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/form": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/workbench": "workspace:^",

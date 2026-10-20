@@ -1,5 +1,26 @@
 # @atlaskit/jql-editor
 
+## 8.5.1
+
+### Patch Changes
+
+- [`073e9747fe74c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/073e9747fe74c) -
+  Under the `focus_in_jira_m1` experiment, reopen autocomplete when clicking goal, project, and
+  focus area rich nodes, including an already selected value. Request value suggestions even when
+  there is no space after the operator.
+
+## 8.5.0
+
+### Minor Changes
+
+- [`464cd9e1d836d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/464cd9e1d836d) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

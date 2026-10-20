@@ -1,6 +1,9 @@
-import { bind } from 'bind-event-listener';
+import { bindAll } from 'bind-event-listener';
 
-import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/styles/sync-block';
+import {
+	SyncBlockSharedCssClassName,
+	SyncBlockLabelSharedCssClassName,
+} from '@atlaskit/editor-common/styles/sync-block';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -17,12 +20,8 @@ const getSelectedReference = (view: EditorView): Element | null => {
 };
 
 export const createReferenceSelectionView = (view: EditorView): { destroy: () => void } => {
-	const syncReferenceSelection = () => {
-		if (!view.editable) {
-			return;
-		}
-		const reference = getSelectedReference(view);
-		if (!reference) {
+	const syncReferenceSelection = (reference: Element | null) => {
+		if (!view.editable || !reference) {
 			return;
 		}
 		const pos = view.posAtDOM(reference, 0);
@@ -37,9 +36,32 @@ export const createReferenceSelectionView = (view: EditorView): { destroy: () =>
 		// Track the containing atom without focusing the editor or clearing highlighted text.
 		view.dispatch(view.state.tr.setSelection(NodeSelection.create(doc, pos)));
 	};
-	const unbind = bind(view.dom.ownerDocument, {
-		type: 'selectionchange',
-		listener: syncReferenceSelection,
-	});
+	const unbind = bindAll(view.dom.ownerDocument, [
+		{
+			type: 'selectionchange',
+			listener: () => syncReferenceSelection(getSelectedReference(view)),
+		},
+		{
+			type: 'click',
+			listener: (event) => {
+				if (event.button !== 0 || !view.editable) {
+					return;
+				}
+				const target = event.target instanceof Element ? event.target : null;
+				const reference = target?.closest(`.${SyncBlockSharedCssClassName.prefix}`);
+				if (!reference || !view.dom.contains(reference)) {
+					return;
+				}
+				// Edge clicks never create a native selection inside the renderer.
+				syncReferenceSelection(reference);
+				if (
+					!target?.closest(`.${SyncBlockSharedCssClassName.renderer}`) &&
+					!target?.closest(`.${SyncBlockLabelSharedCssClassName.labelClassName}`)
+				) {
+					view.focus();
+				}
+			},
+		},
+	]);
 	return { destroy: unbind };
 };

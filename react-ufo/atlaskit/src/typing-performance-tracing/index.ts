@@ -1,15 +1,12 @@
 import { type RefObject, useEffect, useRef } from 'react';
 
-import {
-	unstable_IdlePriority as idlePriority,
-	unstable_scheduleCallback as scheduleCallback,
-} from 'scheduler';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
 import { getInteractionRate, getTypingPerformanceTracingMethod } from '../config';
 import { addMetadata, addNewInteraction, tryComplete } from '../interaction-metrics';
+import scheduleIdleCallback from '../interaction-metrics-init/schedule-idle-callback';
 
 type KeyboardEvent = {
 	key: string;
@@ -72,7 +69,7 @@ function typingPerformanceTracingTimeout(element: HTMLElement, name: string, rat
 		isInteractionInitialised = false;
 		const timesCopy = times;
 		times = [];
-		scheduleCallback(idlePriority, () => {
+		scheduleIdleCallback(() => {
 			const computeStartTime = performance.now();
 			const data = getTypingMetadata(timesCopy, computeStartTime, 'timeout');
 			addMetadata(id, data);
@@ -147,7 +144,7 @@ function typingPerformanceTracingTimeoutNoAlloc(element: HTMLElement, name: stri
 			},
 		};
 		resetStats();
-		scheduleCallback(idlePriority, () => {
+		scheduleIdleCallback(() => {
 			addMetadata(id, typingMetaData);
 			tryComplete(id);
 		});
@@ -231,7 +228,7 @@ function typingPerformanceTracingMutationObserver(
 		resetTimesArray();
 		resetEventTime();
 		count = 0;
-		scheduleCallback(idlePriority, () => {
+		scheduleIdleCallback(() => {
 			const computeStartTime = performance.now();
 			const timesSubarray = timesCopy.subarray(0, countCopy);
 			const data = getTypingMetadata(timesSubarray, computeStartTime, 'mutationObserver');

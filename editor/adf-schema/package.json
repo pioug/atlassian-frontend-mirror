@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "57.7.18",
+	"version": "57.7.19",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema-generator": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -60,6 +61,7 @@
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlassian/adf-schema-json": "workspace:^",
 		"@atlassian/atlassian-frontend-prettier-config-1.0.1": "root:*",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@babel/cli": "root:*",
 		"@babel/core": "root:*",

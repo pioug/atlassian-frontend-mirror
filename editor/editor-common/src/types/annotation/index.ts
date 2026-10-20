@@ -22,8 +22,6 @@ export type AnnotationByMatches = {
 type ActionResult = { doc: JSONDocNode; step: RemoveMarkStep | RemoveNodeMarkStep } | false;
 export type AnnotationActionResult =
 	| ({
-			/** The list of types of all nodes, which wrap the annotation. */
-			ancestorNodeTypes?: string[];
 			doc: JSONDocNode;
 			/** The list of types of all inline nodes, which were wrapped by annotation. */
 			inlineNodeTypes?: string[];

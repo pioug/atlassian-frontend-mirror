@@ -78,6 +78,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/atlassian-navigation": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/menu": "workspace:^",

@@ -2,7 +2,7 @@ import {
 	akEditorTableCellOnStickyHeaderZIndex,
 	akEditorUnitZIndex,
 	akRichMediaResizeZIndex,
-} from '@atlaskit/editor-shared-styles';
+} from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {

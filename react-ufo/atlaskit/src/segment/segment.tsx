@@ -17,6 +17,8 @@ import {
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
 import {
@@ -54,6 +56,7 @@ import {
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 import generateId from '../short-id';
+import scheduleNormalPriorityTask from './schedule-normal-priority-task';
 import scheduleOnPaint from './schedule-on-paint';
 import SsrRenderProfiler from './ssr-render-profiler/ssr-render-profiler';
 
@@ -154,7 +157,11 @@ const UFOSegment: {
 						}
 					};
 
-					scheduleCallback(NormalPriority, onComplete);
+					if (fg('platform_ufo_native_task_scheduling')) {
+						scheduleNormalPriorityTask(onComplete);
+					} else {
+						scheduleCallback(NormalPriority, onComplete);
+					}
 				}
 			}
 		}

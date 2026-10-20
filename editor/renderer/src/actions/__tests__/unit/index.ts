@@ -248,7 +248,6 @@ describe.skip('RendererActions', () => {
 			if (!result) {
 				throw new Error('Expected applyAnnotation to return a result');
 			}
-			expect(result.ancestorNodeTypes).toBeUndefined();
 			expectAnnotationApplied({
 				expectedStep: { from: 0, stepType: 'addMark', to: 9 },
 				expectedTargetNodeType: 'text',
@@ -263,7 +262,6 @@ describe.skip('RendererActions', () => {
 			if (!result) {
 				throw new Error('Expected applyAnnotation to return a result');
 			}
-			expect(result.ancestorNodeTypes).toBeUndefined();
 			expectAnnotationApplied({
 				expectedStep: { from: 18, stepType: 'addMark', to: 30 },
 				expectedTargetNodeType: 'text',

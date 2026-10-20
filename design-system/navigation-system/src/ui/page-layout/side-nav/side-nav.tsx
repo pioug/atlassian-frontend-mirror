@@ -48,6 +48,7 @@ import { convertResizeBoundToPixels } from '../panel-splitter/convert-resize-bou
 import { PanelSplitterProvider } from '../panel-splitter/provider';
 import type { ResizeBound, ResizeBounds } from '../panel-splitter/types';
 import { resolveLayoutWidth } from '../resolve-layout-width';
+import { gridRootChatFitId, gridRootId } from '../root';
 import type { CommonSlotProps } from '../types';
 import { useLayoutAreaSizing } from '../use-layout-area-sizing';
 import { useLayoutId } from '../use-layout-id';
@@ -558,6 +559,8 @@ function SideNavInternal({
 	}, [isExpandedOnDesktop, isExpandedOnMobile, toggleVisibilityForChatPanel]);
 	const {
 		state: managedSizing,
+		isManaged,
+		prepareResize,
 		getResizeBounds: getManagedResizeBounds,
 		startResize,
 		resize,
@@ -675,6 +678,12 @@ function SideNavInternal({
 	const openLayerObserver = useOpenLayerObserver();
 	const flyoutStateRef = useRef<FlyoutState>({ type: 'not-active' });
 	const isFlyoutVisible = sideNavState?.flyout === 'open';
+	// Flyouts, including their close animation, already have overlay placement.
+	// The CSS-first inline allocation must not override it with an ID selector.
+	const shouldApplyUnmanagedSizing =
+		!managedSizing &&
+		sideNavState?.flyout !== 'open' &&
+		sideNavState?.flyout !== 'triggered-animate-close';
 
 	const isExpandedOnDesktopRef = useStableRef(isExpandedOnDesktop);
 	const hasPeekStartedRef = useRef(false);
@@ -1339,6 +1348,20 @@ function SideNavInternal({
 				]}
 				data-testid={testId}
 			>
+				{isChatPanelLayoutEnabled && (
+					// CSS reserves only the nav minimum for chat's fit decision, before effects or lazy loading.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+					<style>{`
+#${gridRootChatFitId} { --n_fitNav: 0px; }
+${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: main / aside / aside / aside; width: min(90%, ${clampedWidth}); }` : ''}
+@media (min-width: 64rem) {
+  @container navigation-main-space (min-width: ${minWidth}) {
+    #${gridRootChatFitId} { --n_fitNav: ${isExpandedOnDesktop ? minWidth : '0px'}; }
+    ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: side-nav; width: min(${clampedWidth}, calc(100cqw + var(--n_fitNav) - var(--n_chatTrack, 0px))); }` : ''}
+  }
+}
+`}</style>
+				)}
 				{/**
 				 * This CSS var is used by the `Panel` slot to enforce its maximum width constraint.
 				 * When we remove the UNSAFE legacy usage, we can change this to `HoistCssVarToLocalGrid`
@@ -1367,11 +1390,10 @@ function SideNavInternal({
 					panelWidth={renderedWidth}
 					onCompleteResize={onCompleteResize}
 					onResizeStartInternal={
-						isChatPanelLayoutEnabled && managedSizing ? onResizeStartInternal : undefined
+						isChatPanelLayoutEnabled && isManaged ? onResizeStartInternal : undefined
 					}
-					onResizeInternal={
-						isChatPanelLayoutEnabled && managedSizing ? onResizeInternal : undefined
-					}
+					onResizeInternal={isChatPanelLayoutEnabled && isManaged ? onResizeInternal : undefined}
+					prepareResize={isChatPanelLayoutEnabled ? prepareResize : undefined}
 					getResizeBounds={getResizeBounds}
 					resizingCssVar={panelSplitterResizingVar}
 					// Not resizable when in peek (flyout) mode.

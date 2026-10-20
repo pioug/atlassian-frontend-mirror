@@ -8,7 +8,6 @@ import React, { useEffect, useCallback, useMemo, type SyntheticEvent } from 'rea
 import { jsx } from '@compiled/react';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { shouldUseAltRepresentation } from '../../api/shouldUseAltRepresentation';
@@ -163,8 +162,7 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 		}
 	}, [inView, onBeforeLoad]);
 
-	const imgAlt =
-		isDecorative && fg('emoji_decorative_label') ? '' : emoji.name || emoji.shortName || '';
+	const imgAlt = isDecorative ? '' : emoji.name || emoji.shortName || '';
 
 	const emojiNode = (
 		<img

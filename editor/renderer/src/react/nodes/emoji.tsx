@@ -15,8 +15,8 @@ import { messages } from '@atlaskit/editor-common/emoji/messages';
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
-import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
+import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
 import type { EmojiId, EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 

@@ -15,7 +15,6 @@ import React, {
 import { css, jsx } from '@compiled/react';
 import { IntlContext } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -302,7 +301,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 
 	const intl = useContext(IntlContext);
 
-	const isAriaLabelEmpty = editorEmoji || (isDecorative && fg('emoji_decorative_label'));
+	const isAriaLabelEmpty = editorEmoji || isDecorative;
 	let ariaLabel: string | undefined;
 	if (isAriaLabelEmpty) {
 		ariaLabel = undefined;

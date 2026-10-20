@@ -44,6 +44,7 @@
 		"meros": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"sinon": "root:*"

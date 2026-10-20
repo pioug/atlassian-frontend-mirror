@@ -2,114 +2,99 @@ type SnippetPreviewImageUrls = { dark: string; light: string };
 
 const DAM_CDN_LINK = 'https://dam-cdn.atl.orangelogic.com/CDNLink';
 
+/**
+ * Keyed by `snippetKey`, which is the same for every product's copy of a GLOBAL template.
+ */
 const snippetPreviewImageUrlsByKey: Readonly<Record<string, SnippetPreviewImageUrls>> = {
-	// Action items
-	'019e5cd9-5ca1-7258-befd-4f50d491bb42': {
+	'action-items': {
 		light: `${DAM_CDN_LINK}/AT12OVLE.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJI.png`,
 	},
-	// Bug report
-	'019e5cd9-5ca1-7258-befd-1c3c59b0aa00': {
+	'bug-report': {
 		light: `${DAM_CDN_LINK}/AT12OVMN.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJ6.png`,
 	},
-	// Campaign brief
-	'019e5cd9-5ca1-7258-befd-398bb4e40f15': {
+	'campaign-brief': {
 		light: `${DAM_CDN_LINK}/AT12OVMY.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJE.png`,
 	},
-	// Colorful layout
-	'019e5cd9-5ca1-7258-befd-53b6eec19427': {
+	'colourful-layout': {
 		light: `${DAM_CDN_LINK}/AT12OVN6.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVIG.png`,
 	},
-	// Colorful numbered table
-	'019e5cd9-5ca1-7258-befd-70a282facf16': {
+	'colourful-numbered-table': {
 		light: `${DAM_CDN_LINK}/AT12OVN7.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJL.png`,
 	},
-	// Colorful summary
-	'019e5cd9-5ca1-7258-befd-7e200502de8e': {
+	'colourful-summary': {
 		light: `${DAM_CDN_LINK}/AT12OVN4.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVIE.png`,
 	},
-	// Colorful table
-	'019e5cd9-5ca1-7258-befd-5524d394ba0a': {
+	'colourful-table': {
 		light: `${DAM_CDN_LINK}/AT12OVMJ.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJM.png`,
 	},
-	// Competitive snapshot
-	'019e5cd9-5ca1-7258-befd-40d1947b7b84': {
+	'competitive-snapshot': {
 		light: `${DAM_CDN_LINK}/AT12OVMR.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJC.png`,
 	},
-	// Criteria rubric
-	'019e5cd9-5ca1-7258-befd-84723a493931': {
+	'criteria-rubric': {
 		light: `${DAM_CDN_LINK}/AT12OVMA.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJ1.png`,
 	},
-	// Customer quote
-	'019e5cd9-5ca1-7258-befd-5fcf6165870f': {
+	'customer-quote': {
 		light: `${DAM_CDN_LINK}/AT12OVLF.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJK.png`,
 	},
-	// Decision log
-	'019e5cd9-5ca1-7258-befd-30c6e8712ba4': {
+	'decision-log': {
 		light: `${DAM_CDN_LINK}/AT12OVMT.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJ9.png`,
 	},
-	// Launch checklist
-	'019e5cd9-5ca1-7258-befd-3ce1c551015e': {
+	'launch-checklist': {
 		light: `${DAM_CDN_LINK}/AT12OVKW.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVHN.png`,
 	},
-	// Meeting agenda
-	'019e5cd9-5ca1-7258-befd-47559a8d7cfc': {
+	'meeting-agenda': {
 		light: `${DAM_CDN_LINK}/AT12OVMU.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJD.png`,
 	},
-	// Project status snapshot
-	'019e5cd9-5ca1-7258-befd-2943939d1b79': {
+	'project-status-snapshot': {
 		light: `${DAM_CDN_LINK}/AT12OVMO.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJU.png`,
 	},
-	// Pros and cons
-	'019e5cd9-5ca1-7258-befd-6db9658d75f4': {
+	'pros-and-cons': {
 		light: `${DAM_CDN_LINK}/AT12OVN5.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVHY.png`,
 	},
-	// Quick project update
-	'019e5cd9-5ca1-7258-befd-820ce1acd7a0': {
+	'quick-project-update': {
 		light: `${DAM_CDN_LINK}/AT12OVNA.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVI5.png`,
 	},
-	// Risks and assumptions
-	'019e5cd9-5ca1-7258-befd-2da95ce98772': {
+	'risks-and-assumptions': {
 		light: `${DAM_CDN_LINK}/AT12OVMQ.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJ7.png`,
 	},
-	// Roles and responsibilities matrix
-	'019e5cd9-5ca1-7258-befd-37cd3a06776d': {
+	'roles-and-responsibilities-matrix': {
 		light: `${DAM_CDN_LINK}/AT12OVM8.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVHG.png`,
 	},
-	// Run sheet
-	'019e5cd9-5ca1-7258-befd-4a9979f87235': {
+	'run-sheet': {
 		light: `${DAM_CDN_LINK}/AT12OVMZ.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJB.png`,
 	},
-	// Started → Now
-	'019e5cd9-5ca1-7258-befd-74fb1585da6f': {
+	'started-now': {
 		light: `${DAM_CDN_LINK}/AT12OVN8.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJQ.png`,
 	},
-	// Weekly calendar
-	'019e5cd9-5ca1-7258-befd-580c2c95a0a0': {
+	'weekly-calendar': {
 		light: `${DAM_CDN_LINK}/AT12OVN2.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVIJ.png`,
 	},
 };
 
+/**
+ * Returns the preview image URLs for a GLOBAL template's `snippetKey`.
+ */
 export const getSnippetPreviewImageUrls = (
 	snippetKey: string,
 ): SnippetPreviewImageUrls | undefined =>

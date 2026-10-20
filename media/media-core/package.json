@@ -39,6 +39,8 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/media-common": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"wait-for-expect": "root:*"

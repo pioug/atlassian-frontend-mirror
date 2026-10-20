@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
+import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -11,6 +12,7 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import { Aside } from '../../aside';
 import { ChatPanel } from '../../chat-panel';
 import { Main } from '../../main/main';
+import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import * as panelSplitterProvider from '../../panel-splitter/provider';
 import { Root } from '../../root';
 import { SetSideNavVisibilityState } from '../../side-nav/set-side-nav-visibility-state';
@@ -46,11 +48,36 @@ const TopNavStart = ({
 );
 
 function LocalPanelSizing() {
-	useLayoutAreaSizing({
+	const sizing = useLayoutAreaSizing({
 		area: 'panel',
 		config: { isOpen: true, defaultWidth: 400, minWidth: 320 },
 	});
-	return <div data-testid="local-panel">local panel</div>;
+	return (
+		<div data-testid="local-panel" data-layout-with-panel-slot>
+			local panel
+			<button type="button" onClick={() => void sizing.prepareResize?.()}>
+				Load sizing
+			</button>
+		</div>
+	);
+}
+
+// JSDOM cannot resolve the responsive grid areas used when lazy sizing adopts CSS widths.
+function mockInlineGridAreas() {
+	const originalComputedStyle = window.getComputedStyle;
+	return jest.spyOn(window, 'getComputedStyle').mockImplementation((element) => {
+		const style = originalComputedStyle(element);
+		const areas: Record<string, string> = {
+			sidenav: 'side-nav',
+			'local-panel': 'panel',
+			chat: 'chat-panel',
+		};
+		const area = areas[element.getAttribute('data-testid') ?? ''];
+		if (area) {
+			Object.defineProperty(style, 'gridArea', { value: area });
+		}
+		return style;
+	});
 }
 
 function OverlayOrderFixture() {
@@ -94,6 +121,62 @@ describe('Side nav', () => {
 	});
 
 	describe('slot size', () => {
+		it('collapses the real desktop SideNav when a chat resize exhausts inline space', async () => {
+			passGate('platform-dst-chat-panel-layout');
+			const originalWidth = window.innerWidth;
+			window.innerWidth = 1600;
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+			jest.mocked(window.matchMedia).mockReturnValue(window.matchMedia('(min-width: 64rem)'));
+			const rootWidth = jest
+				.spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+				.mockReturnValue(1600);
+			const onCollapse = jest.fn();
+			const computedStyle = mockInlineGridAreas();
+			try {
+				render(
+					<Root defaultSideNavCollapsed={false}>
+						<SideNav testId="sidenav" onCollapse={onCollapse}>
+							navigation
+						</SideNav>
+						<Main>
+							<LocalPanelSizing />
+						</Main>
+						<ChatPanel testId="chat" onClose={jest.fn()}>
+							<PanelSplitter label="Resize chat" />
+						</ChatPanel>
+					</Root>,
+				);
+				for (const [testId, width] of [
+					['sidenav', 320],
+					['local-panel', 400],
+					['chat', 400],
+				] as const) {
+					const slot = screen.getByTestId(testId);
+					jest.spyOn(slot, 'getBoundingClientRect').mockReturnValue({
+						...slot.getBoundingClientRect(),
+						width,
+					});
+				}
+				const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
+				fireEvent.focus(slider);
+				// Focus loads sizing asynchronously, as it does in the browser.
+				await waitFor(() => expect(slider).toHaveAttribute('max', '960'));
+				// Exact range-input values exercise the keyboard resizing contract.
+				// eslint-disable-next-line testing-library/prefer-user-event
+				fireEvent.change(slider, { target: { value: 800 } });
+				await waitFor(() =>
+					expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false'),
+				);
+				expect(onCollapse).toHaveBeenCalledTimes(1);
+				expect(onCollapse).toHaveBeenCalledWith({ screen: 'desktop', trigger: 'programmatic' });
+				expect(screen.getByTestId('chat')).toHaveStyle({ '--n_cPnlW': '800px' });
+			} finally {
+				window.innerWidth = originalWidth;
+				rootWidth.mockRestore();
+				computedStyle.mockRestore();
+			}
+		});
+
 		it.each([true, false])(
 			'dismisses the older overlay (chat opens first: %s)',
 			async (chatFirst) => {
@@ -174,6 +257,8 @@ describe('Side nav', () => {
 				const { rerender } = render(fixture(false));
 				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
 				rerender(fixture(true));
+				// Custom occupied-track modes are calculated after sizing activates.
+				fireEvent(window, new Event('resize'));
 				await waitFor(() =>
 					expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false'),
 				);
@@ -223,7 +308,7 @@ describe('Side nav', () => {
 			});
 		});
 
-		it('should resize until Main reaches its minimum without shrinking the local panel', () => {
+		it('should resize through Main and the local panel spare width', async () => {
 			passGate('platform-dst-chat-panel-layout');
 			const defaultWindowWidth = window.innerWidth;
 			window.innerWidth = 1440;
@@ -234,6 +319,7 @@ describe('Side nav', () => {
 				.spyOn(HTMLElement.prototype, 'clientWidth', 'get')
 				.mockReturnValue(1100);
 			const PanelSplitterProvider = jest.spyOn(panelSplitterProvider, 'PanelSplitterProvider');
+			const computedStyle = mockInlineGridAreas();
 
 			render(
 				<Root>
@@ -262,12 +348,16 @@ describe('Side nav', () => {
 				.spyOn(screen.getByTestId('local-panel'), 'getBoundingClientRect')
 				.mockReturnValue(rect(400));
 
-			const [{ getResizeBounds }] = [...PanelSplitterProvider.mock.calls]
-				.reverse()
-				.find(([props]) => typeof props.getResizeBounds === 'function')!;
-			expect(getResizeBounds()).toEqual({ min: '240px', max: '380px' });
+			await userEvent.click(screen.getByRole('button', { name: 'Load sizing' }));
+			await waitFor(() => {
+				const [{ getResizeBounds }] = [...PanelSplitterProvider.mock.calls]
+					.reverse()
+					.find(([props]) => typeof props.getResizeBounds === 'function')!;
+				expect(getResizeBounds()).toEqual({ min: '240px', max: '460px' });
+			});
 
 			PanelSplitterProvider.mockRestore();
+			computedStyle.mockRestore();
 			rootWidth.mockRestore();
 			window.innerWidth = defaultWindowWidth;
 		});

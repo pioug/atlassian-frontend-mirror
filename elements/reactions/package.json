@@ -74,7 +74,9 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",

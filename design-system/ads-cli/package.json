@@ -45,6 +45,7 @@
 		"chalk": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"esbuild": "root:*",
 		"pkg": "root:*"

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 27.0.1
+
+### Patch Changes
+
+- [`ab1712cdf840c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab1712cdf840c) -
+  Select reference synced blocks when clicking anywhere in the block under
+  platform_editor_blocks_patch_11.
+- Updated dependencies
+
+## 27.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.4
 
 ### Patch Changes

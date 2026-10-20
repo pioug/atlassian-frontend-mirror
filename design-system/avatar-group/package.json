@@ -60,6 +60,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",

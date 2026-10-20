@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 2.11.0
+
+### Minor Changes
+
+- [`aaef460866e63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaef460866e63) -
+  Allow LinkMenuItem and ReorderableMenuItems item icon to accept an image source (local app asset,
+  hosted URL declared in permissions.external.images, data URI or root-relative path) in addition to
+  a UI Kit glyph, and add iconDark with the same type for dark mode.
+
 ## 2.10.6
 
 ### Patch Changes

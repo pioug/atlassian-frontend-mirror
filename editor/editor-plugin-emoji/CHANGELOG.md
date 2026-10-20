@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 30.0.0
+
+### Patch Changes
+
+- [`49d75093d8f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49d75093d8f1c) -
+  Clean up feature gate `platform_editor_custom_emoji_unicode_fallback`
+- Updated dependencies
+
 ## 29.0.2
 
 ### Patch Changes

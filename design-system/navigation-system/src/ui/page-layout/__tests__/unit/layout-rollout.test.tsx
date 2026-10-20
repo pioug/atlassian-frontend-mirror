@@ -9,11 +9,11 @@ import { Root } from '../../root';
 import { useLayoutAreaSizing } from '../../use-layout-area-sizing';
 
 function SizingProbe() {
-	const { state } = useLayoutAreaSizing({
+	const { isManaged } = useLayoutAreaSizing({
 		area: 'panel',
 		config: { defaultWidth: 400, minWidth: 320, isOpen: true },
 	});
-	return <span data-testid="sizing-state">{state ? 'managed' : 'unmanaged'}</span>;
+	return <span data-testid="sizing-state">{isManaged ? 'managed' : 'unmanaged'}</span>;
 }
 
 it.each([false, true])(
@@ -58,7 +58,7 @@ it.each([false, true])(
 		expect(screen.getByTestId('sizing-state')).toHaveTextContent(/^managed$/);
 		expect(screen.getByTestId('root')).toHaveCompiledCss(
 			'grid-template-columns',
-			'minmax(var(--n_mainMinW),1fr) minmax(0,max-content)',
+			'minmax(var(--n_mainMinW),1fr) var(--n_chatTrack,0)',
 			{ media: '(min-width: 40rem)' },
 		);
 		expect(screen.getByTestId('root')).toHaveTextContent('--n_mainMinW: 320px');

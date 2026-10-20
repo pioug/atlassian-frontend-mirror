@@ -29,5 +29,8 @@
 	"keywords": [
 		"fabric",
 		"ui"
-	]
+	],
+	"devDependencies": {
+		"@atlaskit/docs": "workspace:^"
+	}
 }

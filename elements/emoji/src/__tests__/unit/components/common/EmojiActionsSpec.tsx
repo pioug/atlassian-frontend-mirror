@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { matchers } from '@emotion/jest';
-import { screen, waitFor, within } from '@testing-library/react';
+import { act, screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -9,6 +9,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
 import EmojiActions, { emojiActionsTestId } from '../../../../components/common/EmojiActions';
@@ -794,6 +795,114 @@ describe('<EmojiActions />', () => {
 			});
 		});
 	});
+
+	describe.each([false, true])('blur dismissal with picker refresh=%s', (refreshEnabled) => {
+		beforeEach(() => {
+			passGate('platform_suppression_removal_fix_reactions');
+			passGate('platform_emoji_skin_tone_blur_fix');
+			setTeamojiExperimentEnabled(refreshEnabled);
+		});
+
+		it.each(['click', 'Enter'])(
+			'keeps the choices open after %s activation',
+			async (activation) => {
+				const onToneSelectorCancelled = jest.fn();
+				renderWithIntl(
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						selectedTone={0}
+						onToneSelectorCancelled={onToneSelectorCancelled}
+					/>,
+				);
+				const trigger = screen.getByTestId(tonePreviewTestId);
+				if (activation === 'click') {
+					await userEvent.click(trigger);
+				} else {
+					trigger.focus();
+					await userEvent.keyboard('{Enter}');
+				}
+
+				expect(screen.getByTestId(toneSelectorTestId)).toBeVisible();
+				expect(screen.getByRole('radio', { checked: true })).toHaveFocus();
+				expect(screen.getByRole('searchbox', { hidden: true })).not.toBeVisible();
+				expect(trigger).toHaveAttribute('aria-expanded', 'true');
+				expect(onToneSelectorCancelled).not.toHaveBeenCalled();
+			},
+		);
+
+		it('selects a tone by clicking its visible emoji without cancelling', async () => {
+			const onToneSelectorCancelled = jest.fn();
+			renderWithIntl(
+				<EmojiActions
+					{...props}
+					toneEmoji={toneEmoji}
+					selectedTone={0}
+					onToneSelectorCancelled={onToneSelectorCancelled}
+				/>,
+			);
+			const trigger = screen.getByTestId(tonePreviewTestId);
+			await userEvent.click(trigger);
+			await userEvent.click(screen.getByLabelText(changeEmojiLabel(toneEmoji.skinVariations![0])));
+
+			expect(props.onToneSelected).toHaveBeenCalledWith(1);
+			expect(props.onToneSelected).toHaveBeenCalledTimes(1);
+			expect(screen.getByTestId(toneSelectorTestId)).not.toBeVisible();
+			expect(trigger).toHaveFocus();
+			expect(onToneSelectorCancelled).not.toHaveBeenCalled();
+		});
+
+		it.each(['outside', 'document'])('dismisses when focus leaves for %s', async (destination) => {
+			const onToneSelectorCancelled = jest.fn();
+			renderWithIntl(
+				<>
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						selectedTone={0}
+						onToneSelectorCancelled={onToneSelectorCancelled}
+					/>
+					<button type="button">Outside</button>
+				</>,
+			);
+			await userEvent.click(screen.getByTestId(tonePreviewTestId));
+
+			if (destination === 'outside') {
+				act(() => screen.getByRole('button', { name: 'Outside' }).focus());
+				expect(screen.getByRole('button', { name: 'Outside' })).toHaveFocus();
+			} else {
+				fireEvent.blur(screen.getByRole('radio', { checked: true }), { relatedTarget: null });
+			}
+
+			expect(screen.getByTestId(toneSelectorTestId)).not.toBeVisible();
+			expect(onToneSelectorCancelled).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	it.each([false, true])(
+		'preserves existing blur dismissal when the fix is disabled, picker refresh=%s',
+		async (refreshEnabled) => {
+			passGate('platform_suppression_removal_fix_reactions');
+			failGate('platform_emoji_skin_tone_blur_fix');
+			setTeamojiExperimentEnabled(refreshEnabled);
+			const onToneSelectorCancelled = jest.fn();
+			renderWithIntl(
+				<EmojiActions
+					{...props}
+					toneEmoji={toneEmoji}
+					selectedTone={0}
+					onToneSelectorCancelled={onToneSelectorCancelled}
+				/>,
+			);
+			const trigger = screen.getByTestId(tonePreviewTestId);
+			await userEvent.click(trigger);
+
+			expect(screen.getByTestId(toneSelectorTestId)).not.toBeVisible();
+			expect(screen.getByRole('searchbox')).toBeVisible();
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+			expect(onToneSelectorCancelled).toHaveBeenCalledTimes(1);
+		},
+	);
 
 	it('should close selector when tab is pressed', async () => {
 		renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} />);

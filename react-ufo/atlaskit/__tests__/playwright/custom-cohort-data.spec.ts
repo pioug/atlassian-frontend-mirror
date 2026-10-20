@@ -5,7 +5,7 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Custom Cohort Data', () => {
-	const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
+	const requiredFeatureFlags = ['platform_ufo_native_task_scheduling'];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {

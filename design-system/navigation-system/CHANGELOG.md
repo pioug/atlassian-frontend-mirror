@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 11.3.2
+
+### Patch Changes
+
+- [`bd8355ce4adc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd8355ce4adc8) -
+  Refine chat and local panel resizing with directional cascading and responsive overlay behaviour.
+  Lazy-load resize logic while preserving the initial layout during hydration.
+
 ## 11.3.1
 
 ### Patch Changes

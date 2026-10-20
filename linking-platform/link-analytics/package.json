@@ -52,7 +52,9 @@
 	"devDependencies": {
 		"@af/analytics-codegen": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link-picker": "workspace:^",
+		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",

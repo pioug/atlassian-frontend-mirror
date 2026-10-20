@@ -66,6 +66,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/banner": "workspace:^",
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",

@@ -15,7 +15,7 @@ import { useMenuListHeight } from '@atlaskit/editor-common/quick-insert/use-menu
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterMenuItem, SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import {

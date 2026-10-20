@@ -59,6 +59,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/inline-dialog": "workspace:^",
 		"@atlaskit/link": "workspace:^",

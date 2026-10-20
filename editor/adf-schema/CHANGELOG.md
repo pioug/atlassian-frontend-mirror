@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 57.7.19
+
+### Patch Changes
+
+- [`db9a31339d0d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db9a31339d0d5) -
+  [EDITOR-9512] prevent table cell background color from being parsed as text highlight color when
+  `platform_editor_fix_table_cell_background` is enabled.
+
 ## 57.7.18
 
 ### Patch Changes

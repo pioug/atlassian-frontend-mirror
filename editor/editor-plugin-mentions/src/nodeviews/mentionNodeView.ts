@@ -77,6 +77,12 @@ const isAgentMentionsExperimentEnabled = (): boolean =>
 const isAgentMentionUserType = (userType: string | null | undefined): boolean =>
 	userType === 'APP' || userType === 'AGENT';
 
+// In SSR `HTMLElement` is not defined, so we need to use duck typing here, follow the same pattern used from the emoji and layout plugins.
+const isHTMLElement = (node: Node): node is HTMLElement =>
+	isExperimentEnabled('platform_editor_mention_rovo') && isSSR()
+		? 'innerHTML' in node && 'style' in node && 'classList' in node
+		: node instanceof HTMLElement;
+
 /**
  * Returns true if the node is an APP/AGENT mention whose stored text is a raw
  * AAID (e.g. '@712020:uuid') rather than a resolved display name.
@@ -227,7 +233,9 @@ export class MentionNodeView implements NodeView {
 	private mentionTextElement: HTMLElement | undefined;
 	private mentionAvatar: MentionAvatarController | undefined;
 	private cleanupRovoChatStyles: (() => void) | undefined;
-	private rovoChatIdentityProvider: MentionProvider | undefined;
+	private lastMentionProviderForRovoIdentity: MentionProvider | undefined;
+	// Undefined until the initial styling state has been applied.
+	private hasRovoChatStyles: boolean | undefined;
 	private hasAvatarSlot = false;
 	private isDestroyed = false;
 	private disabledTooltip:
@@ -272,7 +280,7 @@ export class MentionNodeView implements NodeView {
 		if (canReportMissingProvider && isAvatarEnabled) {
 			this.reportAvatarFailure('missing_provider');
 		}
-		this.domElement = dom instanceof HTMLElement ? dom : undefined;
+		this.domElement = isHTMLElement(dom) ? dom : undefined;
 		this.mentionPrimitiveElement = this.domElement
 			? (this.domElement.querySelector<HTMLElement>(`.${primitiveClassName}`) ?? undefined)
 			: undefined;
@@ -356,13 +364,30 @@ export class MentionNodeView implements NodeView {
 		}
 	}
 
+	private isRovoChatFromCache(): boolean {
+		return (
+			isExperimentEnabled('platform_editor_mention_rovo') &&
+			this.config.options?.mentionNodeDataProvider?.getMentionDataFromCache({
+				id: this.node.attrs.id,
+				userType: this.node.attrs.userType,
+			})?.isRovoChat === true
+		);
+	}
+
 	private async resolveRovoChatIdentity(
 		mentionProvider: MentionProvider | undefined,
 	): Promise<void> {
-		if (this.rovoChatIdentityProvider === mentionProvider) {
+		// Apply cached identity immediately so SSR includes Rovo styling before the async lookup.
+		if (this.isRovoChatFromCache()) {
+			this.lastMentionProviderForRovoIdentity = mentionProvider;
+			this.setRovoChatStyles(true);
 			return;
 		}
-		this.rovoChatIdentityProvider = mentionProvider;
+
+		if (this.lastMentionProviderForRovoIdentity === mentionProvider) {
+			return;
+		}
+		this.lastMentionProviderForRovoIdentity = mentionProvider;
 
 		if (
 			!isExperimentEnabled('platform_editor_mention_rovo') ||
@@ -372,8 +397,21 @@ export class MentionNodeView implements NodeView {
 			return;
 		}
 
-		const identityAccountId = await mentionProvider.getRovoChatAgentIdentityAccountId();
-		if (this.rovoChatIdentityProvider !== mentionProvider) {
+		let identityAccountId: string | undefined;
+		try {
+			identityAccountId = await mentionProvider.getRovoChatAgentIdentityAccountId();
+		} catch {
+			// Fall back to cached identity or ordinary mention styling if the lookup fails.
+		}
+		if (this.isDestroyed || this.lastMentionProviderForRovoIdentity !== mentionProvider) {
+			return;
+		}
+		if (isExperimentEnabled('platform_editor_mention_rovo')) {
+			// Recheck after awaiting: newer cached identity must take precedence over this lookup's result.
+			this.setRovoChatStyles(
+				this.isRovoChatFromCache() ||
+					(identityAccountId !== undefined && identityAccountId === this.node.attrs.id),
+			);
 			return;
 		}
 		if (identityAccountId === undefined || identityAccountId !== this.node.attrs.id) {
@@ -385,6 +423,10 @@ export class MentionNodeView implements NodeView {
 	}
 
 	private setRovoChatStyles(isRovoChat: boolean): void {
+		// Avoid resetting styles and rebinding mouse listeners when the state is unchanged.
+		if (this.hasRovoChatStyles === isRovoChat) {
+			return;
+		}
 		this.cleanupRovoChatStyles?.();
 		this.cleanupRovoChatStyles = undefined;
 
@@ -392,6 +434,7 @@ export class MentionNodeView implements NodeView {
 		if (!primitive) {
 			return;
 		}
+		this.hasRovoChatStyles = isRovoChat;
 
 		primitive.classList.toggle('mention-rovo-chat', isRovoChat);
 		if (!isRovoChat) {
@@ -412,6 +455,10 @@ export class MentionNodeView implements NodeView {
 		setBackground(baseBackground);
 		primitive.style.setProperty('color', inverseText);
 		this.mentionTextElement?.style.setProperty('color', inverseText);
+		// SSR needs the styles above; mouse listeners are attached only on the client.
+		if (isExperimentEnabled('platform_editor_mention_rovo') && isSSR()) {
+			return;
+		}
 
 		const onMouseEnter = () => setBackground(hoveredBackground);
 		const onMouseLeave = () => setBackground(baseBackground);

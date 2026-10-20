@@ -99,6 +99,7 @@
 		"@af/analytics-codegen": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/link-analytics": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",

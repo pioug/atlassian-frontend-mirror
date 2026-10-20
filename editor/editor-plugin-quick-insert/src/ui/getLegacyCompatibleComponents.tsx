@@ -1,6 +1,4 @@
-import React, { useMemo } from 'react';
-
-import { useIntl } from 'react-intl';
+import React from 'react';
 
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
@@ -10,8 +8,6 @@ import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
-import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import { getSnippetPreviewImageUrls } from '@atlaskit/editor-common/quick-insert/snippet-preview-image-urls';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type {
 	CommonComponentProps,
@@ -42,7 +38,6 @@ const LegacyQuickInsertProviderMenuItem = ({
 	item: QuickInsertItem;
 	onInsert: (item: QuickInsertItem) => void;
 }): React.JSX.Element => {
-	const { formatMessage } = useIntl();
 	const { editorView, isOffline } = useQuickInsertContext();
 	const isDisabled = item.isDisabledOffline === true && isOffline;
 	const onSelect = ({ insert, source }: OnSelectContext) => {
@@ -53,33 +48,13 @@ const LegacyQuickInsertProviderMenuItem = ({
 		return result;
 	};
 	const Icon = item.icon;
-	const itemKey = item.key === undefined ? undefined : String(item.key);
-	const snippetKeyPrefix = 'snippet-extension:snippet-';
-	const previewKey = itemKey?.startsWith(snippetKeyPrefix)
-		? itemKey.slice(snippetKeyPrefix.length)
-		: undefined;
-	const fallbackPreviewImage = previewKey ? getSnippetPreviewImageUrls(previewKey) : undefined;
-	const preview = useMemo(
-		() =>
-			item.preview ??
-			(fallbackPreviewImage
-				? {
-						image: fallbackPreviewImage,
-						attribution: {
-							name: formatMessage(quickInsertMessages.previewAttributionAtlassian),
-						},
-					}
-				: undefined),
-		[formatMessage, fallbackPreviewImage, item.preview],
-	);
-
 	return (
 		<QuickInsertMenuItem
 			description={item.description}
 			iconBefore={Icon ? <Icon /> : <AppsIcon label="" />}
 			isDisabled={isDisabled}
 			onSelect={onSelect}
-			preview={preview}
+			preview={item.preview}
 			shortcut={item.keyshortcut}
 			title={item.title}
 		/>

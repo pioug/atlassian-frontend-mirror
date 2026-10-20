@@ -29,6 +29,9 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/editor-markdown-transformer": "workspace:^",
+		"@atlaskit/renderer": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",

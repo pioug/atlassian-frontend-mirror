@@ -15,7 +15,7 @@ import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-inte
 import {
 	chatPanelLiveWidthVar,
 	chatPanelVar,
-	type localSlotLayers,
+	localSlotLayers,
 	mainMinimumWidthVar,
 } from './constants';
 import { convertResizeBoundToPixels } from './panel-splitter/convert-resize-bound-to-pixels';
@@ -197,6 +197,8 @@ export function ChatPanel({
 	const [overlayWidth, setOverlayWidth] = useState(compactDefaultWidth);
 	const [isInline, setIsInline] = useState(false);
 	const {
+		isManaged,
+		prepareResize,
 		state: managedSizing,
 		getResizeBounds: getManagedResizeBounds,
 		startResize,
@@ -322,17 +324,43 @@ export function ChatPanel({
 				// Hoist the committed or actively resizing inline width so SideNav can yield
 				// space to ChatPanel without allowing the page layout to overflow.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-				<style>{`
-#${gridRootId} { ${chatPanelLiveWidthVar}: var(${panelSplitterResizingVar}, ${chatPanelVariableWidth}); }
-`}</style>
+				<style>
+					{managedSizing
+						? `
+#${gridRootId} { --n_chatTrack: ${mode === 'inline' ? `${renderedWidth}px` : '0px'}; ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
+`
+						: `
+#${gridRootId} { --n_chatTrack: 0px; ${chatPanelLiveWidthVar}: 0px; }
+#${gridRootId} [data-layout-chat-panel] {
+  grid-area: 2 / 1 / -1 / -1;
+  width: min(calc(var(--n_layoutW) * 0.9), ${chatPanelOverlayVariableWidth});
+  z-index: ${localSlotLayers.chatPanelOverlay};
+  background-color: ${token('elevation.surface.overlay')};
+  ${hasBorder ? `box-shadow: ${token('elevation.shadow.overlay')}; border-inline-start: none;` : ''}
+}
+@media (min-width: 40rem) {
+  @container navigation-chat-space (min-width: ${minWidth}) {
+    #${gridRootId} { --n_chatTrack: min(100cqw, var(${panelSplitterResizingVar}, ${chatPanelVariableWidth})); ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
+    #${gridRootId} [data-layout-chat-panel] {
+      grid-area: chat-panel;
+      width: min(100cqw, var(${panelSplitterResizingVar}, ${chatPanelVariableWidth}));
+      z-index: auto;
+      background-color: ${token('elevation.surface')};
+      ${hasBorder ? `box-shadow: initial; border-inline-start: ${token('border.width')} solid ${token('color.border')};` : ''}
+    }
+  }
+}
+`}
+				</style>
 			}
 			<PanelSplitterProvider
 				panelId={chatPanelPanelSplitterId}
 				panelRef={ref}
 				panelWidth={renderedWidth}
 				onCompleteResize={onCompleteResize}
-				onResizeStartInternal={managedSizing ? onResizeStartInternal : undefined}
-				onResizeInternal={managedSizing ? onResizeInternal : undefined}
+				prepareResize={prepareResize}
+				onResizeStartInternal={isManaged ? onResizeStartInternal : undefined}
+				onResizeInternal={isManaged ? onResizeInternal : undefined}
 				getResizeBounds={getResizeBounds}
 				resizingCssVar={panelSplitterResizingVar}
 				position="start"

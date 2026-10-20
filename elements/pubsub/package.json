@@ -14,6 +14,7 @@
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",

@@ -15,16 +15,12 @@ jest.mock('@atlaskit/react-ufo/config', () => ({
 	getInteractionRate: jest.fn().mockReturnValue(1),
 }));
 
-jest.mock('scheduler', () => {
-	const original = jest.requireActual('scheduler');
-
-	return {
-		...original,
-		unstable_scheduleCallback: jest.fn((_priority, callback) => {
-			callback();
-		}),
-	};
-});
+jest.mock('../../../interaction-metrics-init/schedule-idle-callback', () => ({
+	__esModule: true,
+	default: jest.fn((callback: () => void) => {
+		callback();
+	}),
+}));
 
 type mockedTypingMethod = jest.MockedFunction<typeof getTypingPerformanceTracingMethod>;
 

@@ -11,6 +11,7 @@ import {
 	useCallback,
 	type ComponentType,
 	type FC,
+	type FocusEvent,
 	type KeyboardEvent,
 	type MouseEvent,
 	useEffect,
@@ -444,6 +445,18 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		setShowToneSelector(false);
 	}, [shouldUseProductivityColorControl, showToneSelector, onToneSelectorCancelled]);
 
+	const onBlurHandler = useCallback(
+		(event: FocusEvent<HTMLDivElement>) => {
+			if (
+				!fg('platform_emoji_skin_tone_blur_fix') ||
+				!event.currentTarget.contains(event.relatedTarget)
+			) {
+				onMouseLeaveHandler();
+			}
+		},
+		[onMouseLeaveHandler],
+	);
+
 	useEffect(() => {
 		if (shouldUseProductivityColorControl && showToneSelector) {
 			wasProductivityColorSelectorOpen.current = true;
@@ -511,7 +524,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 			data-testid={emojiActionsTestId}
 			css={previewFooterNew}
 			onMouseLeave={onMouseLeaveHandler}
-			onBlur={fg('platform_suppression_removal_fix_reactions') ? onMouseLeaveHandler : undefined}
+			onBlur={fg('platform_suppression_removal_fix_reactions') ? onBlurHandler : undefined}
 		>
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch
@@ -535,7 +548,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 			data-testid={emojiActionsTestId}
 			css={previewFooter}
 			onMouseLeave={onMouseLeaveHandler}
-			onBlur={fg('platform_suppression_removal_fix_reactions') ? onMouseLeaveHandler : undefined}
+			onBlur={fg('platform_suppression_removal_fix_reactions') ? onBlurHandler : undefined}
 		>
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.11.3
+
+### Patch Changes
+
+- [`532fb3a45825f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/532fb3a45825f) -
+  Expose all current Avatar offerings in the ADS component catalogs.
+
 ## 1.11.2
 
 ### Patch Changes

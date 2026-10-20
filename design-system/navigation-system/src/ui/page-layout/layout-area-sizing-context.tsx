@@ -23,16 +23,22 @@ export type StoredLayoutArea = LayoutAreaConfig & {
 	preferredInlineWidth?: number;
 	preferredOverlayWidth?: number;
 	liveResize?: { mode: LayoutAreaMode; width: number };
-	openedAt?: number;
 };
 
 /**
- * Effective sibling widths held fixed during and after a user resize, until the
- * layout dimensions or configuration change. This is not a resize history.
+ * One resize transaction. Keep its starting widths for controlled rejection,
+ * and its resulting widths for synchronous or delayed acknowledgement.
  */
 export type ResizeSession = {
 	area: LayoutArea;
 	baselineWidths: Partial<Record<LayoutArea, number>>;
+	/**
+	 * Overlay resizing changes only its surface width, not the inline layout modes.
+	 * Retain these modes until a layout/configuration change ends the transaction.
+	 */
+	overlayModes?: Partial<Record<LayoutArea, LayoutAreaMode>>;
+	completedWidth?: number;
+	completedWidths?: Partial<Record<LayoutArea, number>>;
 };
 
 export type LayoutAreaState = {
@@ -46,6 +52,7 @@ export type LayoutAreaAllocation = LayoutAreaState & {
 };
 
 export type LayoutAreaSizingContextValue = {
+	prepareResize?: () => Promise<boolean>;
 	getResizeBounds: (area: LayoutArea) => ResizeBounds | undefined;
 	registerArea: (area: LayoutArea, config: LayoutAreaConfig) => void;
 	unregisterArea: (area: LayoutArea) => void;

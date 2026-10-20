@@ -74,6 +74,7 @@
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/link": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/range": "workspace:^",

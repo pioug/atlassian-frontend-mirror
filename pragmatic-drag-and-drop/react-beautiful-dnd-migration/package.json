@@ -30,6 +30,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/codemod-utils": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/radio": "workspace:^",

@@ -5,14 +5,19 @@ import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Schema } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
 import type {
 	JQLRuleSuggestion,
 	JQLSuggestions,
 } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import { JQLEditorSchema } from '../schema';
 import * as analyticsActionsModule from './analytics';
 import { getAutocompleteOptionId } from './getAutocompleteOptionId';
 import { actions, initialState } from './index';
@@ -75,6 +80,235 @@ const stateWithProviders = {
 		onFunctionArguments,
 	},
 };
+
+describe('opening rich node suggestions', () => {
+	const pickerTypes = ['goal', 'project', 'focusArea'] as const;
+	// Focus-area rendering lands separately; exercise its token type in a test-only schema.
+	const schema = new Schema({
+		nodes: JQLEditorSchema.spec.nodes.addToEnd(
+			'focusArea',
+			JQLEditorSchema.spec.nodes.get('goal')!,
+		),
+		marks: JQLEditorSchema.spec.marks,
+	});
+	const createEditor = (type: 'goal' | 'project' | 'focusArea' | 'team' = 'goal', space = ' ') => {
+		const fieldName = {
+			goal: 'Goals[Goals]',
+			project: 'Project[AtlassianProject]',
+			focusArea: 'Focus Areas[FocusAreas]',
+			team: 'team',
+		}[type];
+		const prefix = `"${fieldName}" =${space}`;
+		const node = schema.nodes[type].create(
+			{ id: '123', name: 'Example', fieldName },
+			schema.text('123'),
+		);
+		const doc = schema.nodes.doc.create(
+			undefined,
+			schema.nodes.paragraph.create(undefined, [schema.text(prefix), node]),
+		);
+		const nodePos = prefix.length + 1;
+		let state: State = {
+			...initialState,
+			query: `${prefix}123`,
+			editorState: EditorState.create({ schema, doc }),
+		};
+		const store: StoreActionApi<State> = {
+			getState: () => state,
+			setState: (update) => {
+				state = { ...state, ...update };
+			},
+			dispatch: (action) => action(store, {} as Props),
+		};
+		jest.spyOn(actions, 'configurePlugins').mockReturnValue(() => {});
+		actions.initialiseEditorView(
+			document.createElement('div'),
+			{},
+			{
+				onCreatePortal: jest.fn(),
+				onDestroyPortal: jest.fn(),
+				onRegisterPluginContainer: jest.fn(),
+			},
+		)(store, {} as Props);
+		const view = state.editorView!;
+		const click = () =>
+			view.props.handleClickOn!(view, nodePos, node, nodePos, new MouseEvent('click'), true);
+		return { view, store, nodePos, click, fieldName, prefix };
+	};
+
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
+
+	it.each(pickerTypes)(
+		'reopens suggestions for %s, including when it is already selected',
+		(type) => {
+			mockExpEnabled('focus_in_jira_m1');
+			mockExpDisabled('anip-1095-goals-in-harmonised-filter');
+			const { view, store, nodePos, click } = createEditor(type);
+			const suggestions = jest
+				.spyOn(actions, 'getAutocompleteSuggestions')
+				.mockReturnValue(() => {});
+			try {
+				for (let attempt = 0; attempt < 2; attempt++) {
+					actions.closeAutocomplete()(store);
+					expect(click()).toBe(true);
+					expect(view.state.selection).toEqual(NodeSelection.create(view.state.doc, nodePos));
+					expect(store.getState().autocomplete.shouldStayClosedOnNextUpdate).toBe(false);
+					expect(suggestions).toHaveBeenLastCalledWith(view.state);
+				}
+				expect(suggestions).toHaveBeenCalledTimes(2);
+			} finally {
+				view.destroy();
+			}
+		},
+	);
+
+	it.each(pickerTypes.flatMap((type) => [' ', ''].map((space) => ({ type, space }))))(
+		'opens $type alternatives with ArrowDown with "$space" after the operator',
+		({ type, space }) => {
+			mockExpEnabled('focus_in_jira_m1');
+			failGate('enable-jql-membersof-autocomplete');
+			const { view, store, nodePos, fieldName, prefix } = createEditor(type, space);
+			const providers = jest.spyOn(actions, 'callAutocompleteProviders').mockReturnValue(() => {});
+			document.body.appendChild(view.dom);
+			try {
+				view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)));
+				view.focus();
+				const selection = view.state.selection;
+				// Reopening after dismissal must work without changing the selected token.
+				for (let attempt = 0; attempt < 2; attempt++) {
+					actions.closeAutocomplete()(store);
+					const event = new KeyboardEvent('keydown', {
+						key: 'ArrowDown',
+						bubbles: true,
+						cancelable: true,
+					});
+					view.dom.dispatchEvent(event);
+					expect(event.defaultPrevented).toBe(true);
+					expect(store.getState().autocomplete.shouldStayClosed).toBe(false);
+					expect(view.state.selection.eq(selection)).toBe(true);
+					expect(view.hasFocus()).toBe(true);
+					expect(store.getState().query).toBe(`${prefix}123`);
+					expect(providers).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							rules: expect.objectContaining({
+								value: expect.objectContaining({
+									matchedText: '',
+									replacePosition: [prefix.length, prefix.length + 3],
+									context: expect.objectContaining({ field: `"${fieldName}"` }),
+								}),
+							}),
+						}),
+					);
+				}
+				// Let the autocomplete plugin navigate options once the menu is open.
+				const event = new KeyboardEvent('keydown', { key: 'ArrowDown', cancelable: true });
+				view.dom.dispatchEvent(event);
+				expect(event.defaultPrevented).toBe(false);
+				expect(providers).toHaveBeenCalledTimes(2);
+			} finally {
+				view.destroy();
+			}
+		},
+	);
+
+	it.each([
+		{ type: 'goal', enabled: false, selected: true, key: 'ArrowDown' },
+		{ type: 'team', enabled: true, selected: true, key: 'ArrowDown' },
+		{ type: 'goal', enabled: true, selected: false, key: 'ArrowDown' },
+		{ type: 'goal', enabled: true, selected: true, key: 'Escape' },
+		{ type: 'goal', enabled: true, selected: true, key: 'Enter' },
+		{ type: 'goal', enabled: true, selected: true, key: 'Tab' },
+		{ type: 'goal', enabled: true, selected: true, key: 'ArrowLeft' },
+		{ type: 'goal', enabled: true, selected: true, key: 'ArrowDown', shiftKey: true },
+	] as const)(
+		'leaves other keyboard interactions unchanged: %j',
+		({ type, enabled, selected, ...keys }) => {
+			if (enabled) {
+				mockExpEnabled('focus_in_jira_m1');
+			} else {
+				mockExpDisabled('focus_in_jira_m1');
+			}
+			const { view, store, nodePos } = createEditor(type);
+			const suggestions = jest
+				.spyOn(actions, 'getAutocompleteSuggestions')
+				.mockReturnValue(() => {});
+			try {
+				if (selected) {
+					view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)));
+				}
+				suggestions.mockClear();
+				const event = new KeyboardEvent('keydown', { ...keys, cancelable: true });
+				view.dom.dispatchEvent(event);
+				expect(event.defaultPrevented).toBe(false);
+				expect(store.getState().autocomplete.shouldStayClosedOnNextUpdate).toBe(true);
+				expect(suggestions).not.toHaveBeenCalled();
+			} finally {
+				view.destroy();
+			}
+		},
+	);
+
+	it.each(pickerTypes.flatMap((type) => [' ', ''].map((space) => ({ type, space }))))(
+		'requests $type alternatives with "$space" after the operator',
+		({ type, space }) => {
+			mockExpEnabled('focus_in_jira_m1');
+			failGate('enable-jql-membersof-autocomplete');
+			const { view, click, fieldName, prefix } = createEditor(type, space);
+			const providers = jest.spyOn(actions, 'callAutocompleteProviders').mockReturnValue(() => {});
+			try {
+				click();
+				expect(providers).toHaveBeenCalledWith(
+					expect.objectContaining({
+						rules: expect.objectContaining({
+							value: expect.objectContaining({
+								matchedText: '',
+								replacePosition: [prefix.length, prefix.length + 3],
+								context: expect.objectContaining({ field: `"${fieldName}"` }),
+							}),
+						}),
+					}),
+				);
+			} finally {
+				view.destroy();
+			}
+		},
+	);
+
+	it.each(pickerTypes)('preserves existing %s behavior when the experiment is disabled', (type) => {
+		mockExpDisabled('focus_in_jira_m1');
+		failGate('enable-jql-membersof-autocomplete');
+		const { view, click, store, nodePos } = createEditor(type, '');
+		const providers = jest.spyOn(actions, 'callAutocompleteProviders').mockReturnValue(() => {});
+		try {
+			expect(click()).toBe(false);
+			expect(store.getState().autocomplete.shouldStayClosedOnNextUpdate).toBe(true);
+			actions.openAutocompleteOnNextUpdate()(store);
+			view.dispatch(view.state.tr.setSelection(NodeSelection.create(view.state.doc, nodePos)));
+			expect(providers).toHaveBeenCalledWith(
+				expect.objectContaining({
+					rules: expect.objectContaining({
+						operator: expect.objectContaining({ matchedText: '=' }),
+					}),
+				}),
+			);
+		} finally {
+			view.destroy();
+		}
+	});
+
+	it('preserves existing team behavior', () => {
+		mockExpEnabled('focus_in_jira_m1');
+		const { view, click, store } = createEditor('team');
+		try {
+			expect(click()).toBe(false);
+			expect(store.getState().autocomplete.shouldStayClosedOnNextUpdate).toBe(true);
+		} finally {
+			view.destroy();
+		}
+	});
+});
 
 describe('getAutocompleteOptions', () => {
 	const suggestions = {

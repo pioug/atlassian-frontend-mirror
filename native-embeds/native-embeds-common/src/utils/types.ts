@@ -192,6 +192,13 @@ export type ManifestEditorToolbarActions<
 	TCustomActions extends Record<string, EditorToolbarAction> = Record<string, EditorToolbarAction>,
 > = {
 	/**
+	 * When true, the "More Options" dropdown matches the media toolbar's menu: icons use the
+	 * default spacing and the menu uses the default width. When omitted or false, the menu
+	 * keeps spacious icons and a 250px width.
+	 */
+	compactMoreItems?: boolean;
+
+	/**
 	 * Custom action definitions, keyed by unique identifier.
 	 * These can be referenced in the `items` array alongside built-in keys.
 	 */

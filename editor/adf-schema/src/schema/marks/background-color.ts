@@ -1,4 +1,5 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
@@ -97,20 +98,42 @@ const isSupportedBackgroundColor = (hexColor: string): boolean => {
 	);
 };
 
+const getBackgroundColor = (value: string): TextColorAttributes | false => {
+	let hexColor;
+	if (value.match(RGB_PREFIX_BG_COLOR_REGEX)) {
+		hexColor = rgbToHex(value);
+	} else if (value[0] === '#') {
+		hexColor = value.toLowerCase();
+	}
+	// else handle other colour formats
+	return hexColor && isSupportedBackgroundColor(hexColor) ? { color: hexColor } : false;
+};
+
 export const backgroundColor: MarkSpec = backgroundColorFactory({
 	parseDOM: [
 		{
 			style: 'background-color',
 			getAttrs: (maybeValue) => {
-				const value = maybeValue as string;
-				let hexColor;
-				if (value.match(RGB_PREFIX_BG_COLOR_REGEX)) {
-					hexColor = rgbToHex(value);
-				} else if (value[0] === '#') {
-					hexColor = value.toLowerCase();
+				if (isExperimentEnabled('platform_editor_fix_table_cell_background')) {
+					return false;
 				}
-				// else handle other colour formats
-				return hexColor && isSupportedBackgroundColor(hexColor) ? { color: hexColor } : false;
+				return getBackgroundColor(maybeValue as string);
+			},
+		},
+		{
+			// the table cell and background color palettes overlap on Blue and Green, so
+			// we need to exclude table cells to avoid parsing table cell background as background color
+			tag: '[style]:not(td):not(th)',
+			consuming: false,
+			priority: 60,
+			getAttrs: (maybeElement) => {
+				if (
+					!isExperimentEnabled('platform_editor_fix_table_cell_background') ||
+					!(maybeElement instanceof HTMLElement)
+				) {
+					return false;
+				}
+				return getBackgroundColor(maybeElement.style.backgroundColor);
 			},
 		},
 		// This rule ensures when loading from a renderer or editor where the

@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::c626923c661f9bd920bca78494578b7c>>
+ * @codegen <<SignedSource::16ec4101443a261472c81553a5161eea>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -296,6 +296,267 @@ export const components: ComponentMcpPayload[] = [
 				name: 'target',
 				type: '"_blank" | "_self" | "_top" | "_parent"',
 				description: 'Pass target down to the anchor, if href is provided.',
+			},
+		],
+	},
+	{
+		name: 'AvatarContent',
+		package: '@atlaskit/avatar',
+		description:
+			'A wrapper component for custom avatar content that provides consistent styling and behavior.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for custom avatar content that needs consistent styling',
+			'Wrap custom content to maintain avatar behavior',
+			'Ensure custom content follows avatar design principles',
+			"Use when standard avatar props don't meet your needs",
+		],
+		contentGuidelines: [
+			'Ensure custom content is appropriate for avatar context',
+			'Maintain consistent visual hierarchy',
+			'Keep custom content simple and clear',
+		],
+		keywords: ['avatar', 'content', 'custom', 'children', 'wrapper'],
+		category: 'images',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport Avatar from '@atlaskit/avatar/avatar';\nimport { AvatarContent } from '@atlaskit/avatar/avatar-content';\nimport { css, jsx } from '@atlaskit/css';\nimport PeopleGroupIcon from '@atlaskit/icon/core/people-group';\nimport { token } from '@atlaskit/tokens';\nconst styles = {\n\ticonContainer: css({\n\t\tdisplay: 'grid',\n\t\theight: '100%',\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tplaceItems: 'center',\n\t}),\n};\nfunction AvatarContentExample(): JSX.Element {\n\treturn (\n\t\t<Avatar size=\"large\" borderColor={token('color.background.brand.bold')}>\n\t\t\t<AvatarContent>\n\t\t\t\t<div css={styles.iconContainer}>\n\t\t\t\t\t<PeopleGroupIcon label=\"More users\" />\n\t\t\t\t</div>\n\t\t\t</AvatarContent>\n\t\t</Avatar>\n\t);\n}\nexport default AvatarContentExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+			},
+		],
+	},
+	{
+		name: 'AvatarItem',
+		package: '@atlaskit/avatar',
+		description:
+			'A component that combines an avatar with text content for displaying user information in lists. AvatarItem combines an avatar with primary and secondary text to create a rich user representation in lists and menus. It supports both interactive (clickable) and non-interactive modes, making it perfect for user lists, team members, or any context where you need to display user information with actions.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for displaying user information in lists and menus',
+			'Choose between interactive and display-only based on context',
+			'Provide clear primary and secondary text hierarchy',
+			'Use consistent spacing and alignment within lists',
+			'Consider the interaction pattern before implementation',
+			'Use AvatarItem when you need to show user information with additional context like names, emails, or status information',
+			'Provide clear primary and secondary text',
+			'Use meaningful labels for accessibility',
+			'Consider the interaction pattern (clickable vs display-only) based on your use case',
+		],
+		contentGuidelines: [
+			'Use clear, descriptive primary text (usually names)',
+			'Provide relevant secondary text (emails, roles, etc.)',
+			'Keep text concise but informative',
+			'Use consistent formatting across similar items',
+			'Avoid redundant information between primary and secondary text',
+		],
+		keywords: ['avatar', 'item', 'list', 'user', 'profile', 'interactive'],
+		category: 'images',
+		examples: [
+			'import Avatar from \'@atlaskit/avatar/avatar\';\nimport AvatarItem from \'@atlaskit/avatar/avatar-item\';\nconst Example = (): React.JSX.Element => (\n\t<AvatarItem\n\t\tavatar={<Avatar name="Bob Wilson" status="approved" />}\n\t\tprimaryText="Bob Wilson"\n\t\tsecondaryText="bob.wilson@company.com"\n\t\thref="/user/bob-wilson"\n\t/>\n);\nexport default Example;',
+		],
+		props: [
+			{
+				name: 'avatar',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Slot to place an avatar element. Use @atlaskit/avatar.',
+				isRequired: true,
+			},
+			{
+				name: 'backgroundColor',
+				type: 'string',
+				description: 'Change background color.',
+			},
+			{
+				name: 'href',
+				type: 'string',
+				description: 'URL for avatars being used as a link.',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description: 'Disable the item from being interactive.',
+			},
+			{
+				name: 'isTruncationDisabled',
+				type: 'boolean',
+				description:
+					'By default, overflowing text is truncated if it exceeds the container width. Use this prop to disable this.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'Used to provide better content to screen readers when using presence/status. Rather\nthan a screen reader speaking "online, approved, John Smith", passing in an label\nallows a custom message like "John Smith (approved and online)".',
+			},
+			{
+				name: 'onClick',
+				type: '(event: MouseEvent<Element, globalThis.MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				description: 'Handler to be called on click.',
+			},
+			{
+				name: 'primaryText',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'PrimaryText text.',
+			},
+			{
+				name: 'secondaryText',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'SecondaryText text.',
+			},
+			{
+				name: 'target',
+				type: '"_blank" | "_self" | "_top" | "_parent"',
+				description: 'Pass target down to the anchor, if href is provided.',
+			},
+		],
+	},
+	{
+		name: 'Presence',
+		package: '@atlaskit/avatar',
+		description:
+			"A standalone component for displaying user presence indicators. Presence indicators show the current availability status of users. They help other users understand when someone is available for communication and are useful in collaborative applications where knowing someone's availability is important for workflow.",
+		status: 'general-availability',
+		usageGuidelines: [
+			'Prefer using `<Avatar presence="…" />` instead of `<Presence presence="…" />`',
+			'Use sparingly for real-time status only',
+			"Don't overuse as they can create visual clutter",
+			'Show presence only when relevant to user workflow',
+			'Use consistent presence states across the application',
+			'Consider the context and user needs before showing presence',
+			'Use presence indicators sparingly for real-time status',
+			"Don't overuse them as they can create visual clutter",
+			"Only show presence when it's relevant to the user's workflow",
+		],
+		contentGuidelines: [
+			'Use clear, universally understood presence states',
+			'Be consistent with presence terminology',
+			'Provide clear visual distinction between states',
+			'Avoid ambiguous or unclear presence indicators',
+		],
+		keywords: ['presence', 'status', 'online', 'offline', 'busy', 'focus', 'indicator'],
+		category: 'status',
+		examples: [
+			'import Presence from \'@atlaskit/avatar/presence\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Presence presence="online" />\n\t\t<Presence presence="busy" />\n\t\t<Presence presence="focus" />\n\t\t<Presence presence="offline" />\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'borderColor',
+				type: 'string',
+				description:
+					'Used to override the default border color of the presence indicator.\nAccepts any color argument that the border-color CSS property accepts.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description:
+					'Content to use as a custom presence indicator (usually not required if\nconsuming Presence separate to Avatar).',
+			},
+			{
+				name: 'presence',
+				type: '"online" | "busy" | "focus" | "offline"',
+				description: 'The type of presence indicator to show.',
+			},
+		],
+	},
+	{
+		name: 'Skeleton',
+		package: '@atlaskit/avatar',
+		description:
+			"A skeleton loading component for avatars that shows a placeholder while content is loading. Skeleton components provide visual feedback during loading states, helping users understand that content is being fetched. Skeleton components should match the size and shape of the actual content they're replacing to prevent layout shifts.",
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use during loading states to maintain layout stability',
+			'Match the size and shape of the actual avatar content',
+			'Prevent layout shifts by maintaining consistent dimensions',
+			'Use for short loading periods (under 3 seconds)',
+			'Consider using spinners for longer loading times',
+			'Use skeleton avatars when user data is loading to maintain layout stability and provide visual feedback',
+			'Match the size and shape of the actual avatar content to prevent layout shifts',
+		],
+		contentGuidelines: [
+			'Keep skeleton content minimal and non-distracting',
+			'Use consistent skeleton patterns across similar components',
+			'Avoid overly detailed skeleton content',
+			'Ensure skeleton content is clearly distinguishable from real content',
+		],
+		keywords: ['skeleton', 'loading', 'placeholder', 'shimmer', 'avatar'],
+		category: 'loading',
+		examples: [
+			'import Skeleton from \'@atlaskit/avatar/skeleton\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Skeleton size="xxlarge" />\n\t\t<Skeleton size="large" appearance="circle" />\n\t\t<Skeleton size="small" appearance="hexagon" weight="normal" color="blue" />\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"circle" | "square" | "hexagon"',
+				description:
+					'Indicates the shape of the avatar skeleton. Most avatars are circular, but square avatars can be used for container objects.',
+				defaultValue: '"circle"',
+			},
+			{
+				name: 'color',
+				type: 'string',
+				description: 'Color of the skeleton. By default, it will inherit the current text color.',
+			},
+			{
+				name: 'size',
+				type: '"small" | "xxsmall" | "xsmall" | "UNSAFE_xsmall" | "medium" | "large" | "xlarge" | "xxlarge"',
+				description: 'Defines the size of the avatar skeleton.',
+			},
+			{
+				name: 'weight',
+				type: '"strong" | "normal"',
+				description:
+					'Defines the opacity of the avatar skeleton. Use `weight="normal"` for the default opacity, or `weight="strong"` for a bolder opacity.',
+			},
+		],
+	},
+	{
+		name: 'Status',
+		package: '@atlaskit/avatar',
+		description:
+			'A standalone component for displaying status indicators. Status indicators show the approval or permission state of users or entities. They help communicate important state information at a glance and are useful in workflow applications where approval states or permissions are important for user understanding.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Prefer using `<Avatar status="…" />` instead of `<Status status="…" />`',
+			'Use for approval states, permission levels, or important state information',
+			'Make sure the status is relevant and helpful to user workflow',
+			'Use consistent status states across the application',
+			'Consider the context and user needs before showing status',
+			"Don't overuse status indicators to avoid visual clutter",
+			'Use status indicators to show approval states, permission levels, or other important state information that affects how users should interact with the entity',
+			"Make sure the status is relevant and helpful to the user's workflow",
+		],
+		contentGuidelines: [
+			'Use clear, universally understood status states',
+			'Be consistent with status terminology',
+			'Provide clear visual distinction between states',
+			'Avoid ambiguous or unclear status indicators',
+		],
+		keywords: ['status', 'approved', 'declined', 'locked', 'indicator', 'permission'],
+		category: 'status',
+		examples: [
+			'import Status from \'@atlaskit/avatar/status\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Status status="approved" />\n\t\t<Status status="declined" />\n\t\t<Status status="locked" />\n\t</>\n);\nexport default Examples;',
+		],
+		props: [
+			{
+				name: 'borderColor',
+				type: 'string',
+				description:
+					'Override the default border color of the status indicator. This accepts\nany color argument that the CSS property `border-color` accepts.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				description:
+					'Content to use as a custom status indicator. Not needed if consuming\n`Status` separate to `Avatar`.',
+			},
+			{
+				name: 'status',
+				type: '"approved" | "declined" | "locked" | "warning"',
+				description: 'The type of status indicator to show.',
 			},
 		],
 	},

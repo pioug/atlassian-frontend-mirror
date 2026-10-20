@@ -19,7 +19,12 @@ import { tap } from 'rxjs/operators/tap';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidv4 } from 'uuid';
 
-import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
+import {
+	type EditorState,
+	NodeSelection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { isListOperator } from '@atlaskit/jql-ast/ast/operator';
@@ -28,8 +33,10 @@ import type { JQLParseError } from '@atlaskit/jql-ast/jql-parse-error';
 import { normaliseJqlString } from '@atlaskit/jql-ast/normalise-jql-string';
 import { JQLAutocomplete } from '@atlaskit/jql-autocomplete/jql-autocomplete';
 import type { JQLRuleSuggestion } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
-import { type AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
-import type { AutocompleteProvider } from '@atlaskit/jql-editor-common/autocomplete/types';
+import {
+	type AutocompleteOptions,
+	type AutocompleteProvider,
+} from '@atlaskit/jql-editor-common/autocomplete/types';
 import { EventType } from '@atlaskit/jql-editor-common/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -91,6 +98,8 @@ import {
 } from './types';
 
 const initialIntl = createIntl({ locale: 'en' });
+
+const valuePickerNodeTypes = new Set(['goal', 'project', 'focusArea']);
 
 const defaultAutocompleteOptions: AutocompleteOptionGroup = {
 	tokens: [],
@@ -275,13 +284,27 @@ export const actions: Actions = {
 				const textPositionStop = textBeforeSelectionEnd.length;
 
 				const autocomplete = JQLAutocomplete.fromText(text);
+				const isSelectedPickerValue =
+					editorState.selection instanceof NodeSelection &&
+					valuePickerNodeTypes.has(editorState.selection.node.type.name) &&
+					isExperimentEnabled('focus_in_jira_m1');
 
 				const suggestions = autocomplete.getJQLSuggestionsForCaretPosition([
-					textPositionStart,
+					// At the start of a value immediately after '=', the parser resolves the operator.
+					// Read inside the value while retaining the whole token as the replacement range.
+					isSelectedPickerValue ? textPositionStart + 1 : textPositionStart,
 					textPositionStop,
 				]);
 
 				const { rules, tokens } = suggestions as ContextAwareJQLSuggestions;
+				if (isSelectedPickerValue) {
+					for (const rule of [rules.value, rules.function, tokens]) {
+						if (rule) {
+							rule.matchedText = '';
+							rule.replacePosition = [textPositionStart, textPositionStop];
+						}
+					}
+				}
 
 				// In some situations (e.g. "issuetype in "), autocomplete expects a list, but we want to display operands
 				// to the user as a shortcut – so they don't have to manually type the opening parenthesis. There is logic
@@ -691,6 +714,42 @@ export const actions: Actions = {
 				clipboardTextSerializer,
 				clipboardTextParser,
 				attributes,
+				handleKeyDown: keydownHandler({
+					ArrowDown: (state) => {
+						if (
+							!(state.selection instanceof NodeSelection) ||
+							!valuePickerNodeTypes.has(state.selection.node.type.name) ||
+							!getState().autocomplete.shouldStayClosedOnNextUpdate ||
+							!isExperimentEnabled('focus_in_jira_m1')
+						) {
+							return false;
+						}
+
+						// Open from the selected token; let the autocomplete plugin handle keys once open.
+						dispatch(actions.openAutocompleteOnNextUpdate());
+						dispatch(actions.getAutocompleteSuggestions(state));
+						return true;
+					},
+				}),
+				handleClickOn: (view, _pos, node, nodePos, _event, direct) => {
+					if (
+						!direct ||
+						!valuePickerNodeTypes.has(node.type.name) ||
+						!isExperimentEnabled('focus_in_jira_m1')
+					) {
+						return false;
+					}
+
+					view.focus();
+					dispatch(actions.openAutocompleteOnNextUpdate());
+					const selection = NodeSelection.create(view.state.doc, nodePos);
+					if (selection.eq(view.state.selection)) {
+						dispatch(actions.getAutocompleteSuggestions(view.state));
+					} else {
+						view.dispatch(view.state.tr.setSelection(selection));
+					}
+					return true;
+				},
 			});
 
 			// Unobserve previously observed elements
@@ -1020,9 +1079,7 @@ export const useCustomErrorComponent: HookFunction<
 	BoundActions<State, Actions>,
 	void
 > = createHook<State, Actions, CustomErrorComponent | undefined>(Store, {
-	selector: (state) => {
-		return state.customComponents?.ErrorMessage;
-	},
+	selector: (state) => state.customComponents?.ErrorMessage,
 });
 
 const memoizedAutocompleteOptionsSelector = createSelector<

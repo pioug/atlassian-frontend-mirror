@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "132.0.4",
+	"version": "133.0.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -908,9 +908,6 @@
 		"platform_editor_ssr_reuse_requires_content": {
 			"type": "boolean"
 		},
-		"cc_comments_log_draft_annotation_ancestor_nodes": {
-			"type": "boolean"
-		},
 		"jfp_a11y_fix_create_issue_no_results_link_focus": {
 			"type": "boolean"
 		},
@@ -924,12 +921,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_selection_local_ids": {
-			"type": "boolean"
-		},
-		"platform_editor_panel_c1_fallback_transform": {
-			"type": "boolean"
-		},
-		"platform_editor_custom_emoji_unicode_fallback": {
 			"type": "boolean"
 		},
 		"platform_editor_use_vanilla_components_patch_2": {

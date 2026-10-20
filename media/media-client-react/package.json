@@ -67,6 +67,8 @@
 		}
 	},
 	"devDependencies": {
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",

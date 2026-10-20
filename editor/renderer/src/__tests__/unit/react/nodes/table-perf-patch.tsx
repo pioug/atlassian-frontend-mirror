@@ -3,7 +3,10 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { p, table, td, tr } from '@atlaskit/adf-utils/builders';
+import { paragraph as p } from '@atlaskit/adf-utils/paragraph';
+import { table } from '@atlaskit/adf-utils/table';
+import { tableCell as td } from '@atlaskit/adf-utils/table-cell';
+import { tableRow as tr } from '@atlaskit/adf-utils/table-row';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';

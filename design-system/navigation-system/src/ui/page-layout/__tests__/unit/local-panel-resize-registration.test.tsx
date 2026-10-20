@@ -1,5 +1,12 @@
 import React from 'react';
 
+// Exercise sizing synchronously here; deferred delivery and hydration have their
+// own coverage in deferred-layout-sizing.test.tsx.
+jest.mock('../../layout-area-sizing-provider', () => ({
+	LayoutAreaSizingProvider: jest.requireActual('../../layout-area-sizing-runtime')
+		.LayoutAreaSizingRuntime,
+}));
+
 import createStub from 'raf-stub';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { createMockEnvironment } from 'relay-test-utils';
@@ -170,7 +177,7 @@ it.each([
 				fireEvent.dragOver(splitter, { clientX });
 				act(() => raf.step());
 				expect(panel.style.getPropertyValue('--p_lclPnlW')).toBe(
-					`${area === 'panel' ? 1400 - clientX : 400}px`,
+					`${area === 'panel' ? 1400 - clientX : Math.max(320, clientX - 520)}px`,
 				);
 				expect(registrationCount()).toBe(initialRegistrations);
 				expect(onRender).toHaveBeenCalledTimes(initialRenders);

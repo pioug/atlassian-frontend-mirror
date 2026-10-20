@@ -3,6 +3,8 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory/profile-card-provider';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
@@ -821,9 +823,18 @@ export const createTypeAheadConfig = ({
 			sessionId = uuid();
 
 			if (mentionProvider && isTeamType(userType)) {
-				return insert(
+				const teamMentionTr = insert(
 					buildNodesForTeamMention(schema, item.mention, mentionProvider, sanitizePrivateContent),
 				);
+
+				if (fg('platform_editor_team_mention_link_analytics')) {
+					return addLinkMetadata(state.selection, teamMentionTr, {
+						action: ACTION.INSERTED,
+						inputMethod: INPUT_METHOD.MENTION_TYPEAHEAD,
+					});
+				}
+
+				return teamMentionTr;
 			}
 
 			if (

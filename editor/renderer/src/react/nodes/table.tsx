@@ -409,7 +409,7 @@ export class TableContainer extends React.Component<
 	 * table-cell short-circuit (PGXT-10294) above also still applies.
 	 */
 	private applyNestedRendererTableFix(): void {
-		if (!this.containerRef || !fg('platform_nested_table_style_override')) {
+		if (!this.containerRef) {
 			return;
 		}
 		if (!this.isInsideNestedRenderer() || this.isInsideTableContext()) {

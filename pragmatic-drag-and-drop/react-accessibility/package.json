@@ -29,6 +29,7 @@
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

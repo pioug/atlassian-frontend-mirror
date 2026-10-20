@@ -22,8 +22,31 @@ import { SideNavVisibilityProvider } from './side-nav/visibility-provider';
 
 // ID of the root element that the banner and top bar slots hoist their sizes to. Only internally exported.
 export const gridRootId = 'unsafe-design-system-page-layout-root';
+export const gridRootFitId: string = `${gridRootId}-fit`;
+export const gridRootChatFitId: string = `${gridRootId}-chat-fit`;
 
 const styles = cssMap({
+	widthContainer: {
+		containerType: 'inline-size',
+		containerName: 'navigation-layout-width',
+		width: '100%',
+	},
+	mainSpace: {
+		'--n_layoutW': '100cqw',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
+		['--n_mainMinW' satisfies typeof mainMinimumWidthVar]: '20rem',
+		containerType: 'inline-size',
+		containerName: 'navigation-main-space',
+		boxSizing: 'content-box',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
+		width: `max(0px, calc(var(--n_layoutW) - var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}) - var(--n_fitAside, 0px) - var(--n_fitRibbon, 0px) - var(--n_fitPanel, 0px)))`,
+	},
+	chatSpace: {
+		'--n_fitNav': '0px',
+		containerType: 'inline-size',
+		containerName: 'navigation-chat-space',
+		width: 'max(0px, calc(100% - var(--n_fitNav)))',
+	},
 	legacyRoot: {
 		display: 'grid',
 		minHeight: '100vh',
@@ -46,6 +69,7 @@ const styles = cssMap({
 		['--n_mainMinW' satisfies typeof mainMinimumWidthVar]: '20rem',
 		display: 'grid',
 		minHeight: '100vh',
+		width: 'var(--n_layoutW)',
 		gridTemplateAreas: `
             "banner"
             "top-bar"
@@ -63,7 +87,7 @@ const styles = cssMap({
                 "aside chat-panel"
            `,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
-			gridTemplateColumns: `minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) minmax(0, max-content)`,
+			gridTemplateColumns: `minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) var(--n_chatTrack, 0px)`,
 		},
 		// There is no ribbon grid area below 64rem. SideNav is inline from this breakpoint.
 		'@media (min-width: 64rem)': {
@@ -74,7 +98,7 @@ const styles = cssMap({
            `,
 			gridTemplateRows: 'auto auto 3fr',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
-			gridTemplateColumns: `auto auto minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) auto minmax(0, max-content)`,
+			gridTemplateColumns: `auto auto minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) auto var(--n_chatTrack, 0px)`,
 		},
 		// The legacy navigation-system Panel keeps its existing large-viewport grid area.
 		'@media (min-width: 90rem)': {
@@ -84,7 +108,7 @@ const styles = cssMap({
                 "ribbon side-nav main aside panel chat-panel"
            `,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
-			gridTemplateColumns: `auto auto minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) auto auto minmax(0, max-content)`,
+			gridTemplateColumns: `auto auto minmax(var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}), 1fr) auto auto var(--n_chatTrack, 0px)`,
 		},
 	},
 	// Hides any non-layout components that would otherwise be added to an implicit grid track and
@@ -117,6 +141,29 @@ const styles = cssMap({
 		overflow: 'clip',
 	},
 });
+
+function LayoutFitContainers({ children }: { children: React.ReactNode }) {
+	// CSS cannot use custom properties in a size-query condition. Query the
+	// remaining capacity instead: these wrappers subtract configured minimums
+	// and occupied tracks, while the actual grid keeps its original host width.
+	return (
+		<div css={styles.widthContainer} data-layout-width-container="">
+			{/* Resolve query units before the nested capacity containers change their meaning. */}
+			{/* A fixed literal only: React 18 otherwise HTML-escapes the CSS syntax during SSR. */}
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, react/no-danger */}
+			<style
+				dangerouslySetInnerHTML={{
+					__html: `@property --n_layoutW { syntax: '<length>'; inherits: true; initial-value: 0px; }`,
+				}}
+			/>
+			<div css={styles.mainSpace} id={gridRootFitId}>
+				<div css={styles.chatSpace} id={gridRootChatFitId}>
+					{children}
+				</div>
+			</div>
+		</div>
+	);
+}
 
 /**
  * The root component of the navigation system. It wraps the underlying components with the necessary contexts allowing to use certain data and hooks
@@ -195,6 +242,7 @@ export function Root({
 	const ref = useRef<HTMLDivElement>(null);
 	const isChatPanelLayoutEnabled = fg('platform-dst-chat-panel-layout');
 	const LayoutProvider = isChatPanelLayoutEnabled ? LayoutAreaSizingProvider : React.Fragment;
+	const WidthContainer = isChatPanelLayoutEnabled ? LayoutFitContainers : React.Fragment;
 
 	useEffect(() => {
 		if (process.env.NODE_ENV !== 'production') {
@@ -249,21 +297,23 @@ This message will not be displayed in production.
 											triggerLabel={skipLinksTriggerLabel}
 											testId={testId}
 										>
-											<div
-												ref={ref}
-												css={[
-													isChatPanelLayoutEnabled ? styles.root : styles.legacyRoot,
-													fg('platform-dst-motion-uplift-panel') && styles.panelUplift,
-													fg('platform-dst-top-layer')
-														? styles.safetyRailWithTopLayer
-														: styles.safetyRail,
-												]}
-												className={xcss}
-												id={gridRootId}
-												data-testid={testId}
-											>
-												{children}
-											</div>
+											<WidthContainer>
+												<div
+													ref={ref}
+													css={[
+														isChatPanelLayoutEnabled ? styles.root : styles.legacyRoot,
+														fg('platform-dst-motion-uplift-panel') && styles.panelUplift,
+														fg('platform-dst-top-layer')
+															? styles.safetyRailWithTopLayer
+															: styles.safetyRail,
+													]}
+													className={xcss}
+													id={gridRootId}
+													data-testid={testId}
+												>
+													{children}
+												</div>
+											</WidthContainer>
 										</SkipLinksProvider>
 									</DangerouslyHoistSlotSizes.Provider>
 								</OpenLayerObserver>

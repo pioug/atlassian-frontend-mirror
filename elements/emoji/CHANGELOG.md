@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 73.0.3
+
+### Patch Changes
+
+- [`e54e1541aa52f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e54e1541aa52f) -
+  Fix the skin-tone selector closing when focus moves between its controls or when clicking a tone
+  behind `platform_emoji_skin_tone_blur_fix` when `platform_suppression_removal_fix_reactions` is
+  enabled.
+
 ## 73.0.2
 
 ### Patch Changes

@@ -11,7 +11,9 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import type { ServiceConfig } from '@atlaskit/util-service-support/types';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { EmojiResource, type EmojiResourceConfig } from '../../../../api/EmojiResource';
@@ -868,6 +870,53 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('skin tone selection', () => {
+		it.each([false, true])(
+			'updates the hand and preference when clicking a visible tone with picker refresh=%s',
+			async (refresh) => {
+				passGate('platform_suppression_removal_fix_reactions');
+				passGate('platform_emoji_skin_tone_blur_fix');
+				if (refresh) {
+					mockExpEnabled(teamojiRefreshExperimentName);
+				} else {
+					mockExpDisabled(teamojiRefreshExperimentName);
+				}
+				const emojiProvider = getEmojiResourcePromiseFromRepository(
+					new EmojiRepository(JSON.parse(JSON.stringify(helper.allEmojis))),
+				);
+				const provider = await emojiProvider;
+				provider.setSelectedTone(0);
+				await helper.setupPicker({ emojiProvider }, undefined, onEvent);
+				const list = getUpdatedList();
+				const emojis = await helper.emojisVisible(list);
+				await userEvent.hover(emojis[0]);
+				await userEvent.click(
+					screen.getByRole('button', {
+						name: 'Choose your skin tone, default skin tone selected',
+					}),
+				);
+
+				const toneGroup = screen.getByRole('radiogroup');
+				const selectedHand = raisedHandEmoji.skinVariations![0];
+				await userEvent.click(within(toneGroup).getByLabelText(changeEmojiLabel(selectedHand)));
+
+				const trigger = screen.getByRole('button', {
+					name: 'Choose your skin tone, light skin tone selected',
+				});
+				expect(trigger).toHaveFocus();
+				expect(trigger).toHaveAttribute('aria-expanded', 'false');
+				expect(within(trigger).getByTestId(`sprite-emoji-${selectedHand.shortName}`)).toBeVisible();
+				expect(provider.getSelectedTone()).toBe(1);
+				expect(localStorage.setItem).toHaveBeenCalledWith(selectedToneStorageKey, '1');
+				expect(
+					await within(list).findByRole('button', { name: changeEmojiLabel(selectedHand) }),
+				).toBeVisible();
+				expect(onEvent).not.toHaveBeenCalledWith(
+					expect.objectContaining({ payload: toneSelectorClosedEvent() }),
+					'fabric-elements',
+				);
+			},
+		);
+
 		it('should display the tone emoji by default', async () => {
 			await helper.setupPicker();
 

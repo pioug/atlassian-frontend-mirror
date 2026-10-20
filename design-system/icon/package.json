@@ -65,6 +65,7 @@
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",

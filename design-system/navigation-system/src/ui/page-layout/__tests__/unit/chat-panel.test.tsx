@@ -1,5 +1,12 @@
 import React from 'react';
 
+// Exercise sizing synchronously here; deferred delivery and hydration have their
+// own coverage in deferred-layout-sizing.test.tsx.
+jest.mock('../../layout-area-sizing-provider', () => ({
+	LayoutAreaSizingProvider: jest.requireActual('../../layout-area-sizing-runtime')
+		.LayoutAreaSizingRuntime,
+}));
+
 import { renderToString } from 'react-dom/server';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -128,7 +135,7 @@ it.each([false, true])(
 			const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.focus(slider);
-			const maximum = overlayNav ? 880 : 560;
+			const maximum = 960;
 			expect(slider).toHaveAttribute('max', String(maximum));
 			// An over-limit keyboard request is clamped by the range input.
 			// eslint-disable-next-line testing-library/prefer-user-event
@@ -278,7 +285,10 @@ it('constrains the server-rendered chat track before hydration at the inline bre
 		const markup = renderToString(element);
 		// The server cannot measure Root. Its CSS must let the chat track shrink,
 		// and constrain the chat element to that track before any effects run.
-		expect(markup).toContain('minmax(var(--n_mainMinW),1fr) minmax(0,max-content)');
+		expect(markup).toContain('minmax(var(--n_mainMinW),1fr) var(--n_chatTrack,0)');
+		expect(markup).toContain("syntax: '<length>'");
+		expect(markup).toContain('@container navigation-chat-space (min-width: 320px)');
+		expect(markup).not.toContain('&gt;');
 		expect(markup).toContain('max-width:100%');
 		const container = document.createElement('div');
 		container.innerHTML = markup;

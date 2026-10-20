@@ -17,6 +17,9 @@ describe('getAgentColor', () => {
 
 	it('uses the configured colour for named agents', () => {
 		expect(getAgentColor({ agentId: '00000000', agentNamedId: 'planner_agent' })).toBe('purple');
+		expect(getAgentColor({ agentId: '00000000', agentNamedId: 'content_reviewer_agent' })).toBe(
+			'blue',
+		);
 	});
 
 	it('defaults to yellow when there is no hexadecimal identity', () => {

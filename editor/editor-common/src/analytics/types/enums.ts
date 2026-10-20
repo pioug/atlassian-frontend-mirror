@@ -264,6 +264,7 @@ export enum INPUT_METHOD {
 	SHORTCUT = 'shortcut',
 	TOOLBAR = 'toolbar',
 	TYPEAHEAD = 'typeAhead',
+	MENTION_TYPEAHEAD = 'mentionTypeahead',
 	DATASOURCE = 'datasource_config',
 	TABLE_CONTEXT_MENU = 'tableContextMenu',
 	MOUSE = 'mouse',

@@ -20,6 +20,8 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/avatar": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

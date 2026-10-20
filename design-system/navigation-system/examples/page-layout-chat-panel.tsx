@@ -10,7 +10,6 @@ import { createMockEnvironment } from 'relay-test-utils';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import { JiraIcon } from '@atlaskit/logo/jira/icon';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { ChatPanel } from '@atlaskit/navigation-system/layout/chat-panel';
@@ -29,8 +28,12 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
-import { TopNavButton } from '@atlaskit/navigation-system/theming/top-nav-button';
-import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import {
+	AppLogo,
+	AppSwitcher,
+	ChatButton,
+	Search,
+} from '@atlaskit/navigation-system/top-nav-items';
 import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -149,9 +152,7 @@ export default function ChatPanelExample(): JSX.Element {
 						</TopNavMiddle>
 						<TopNavEnd>
 							{!isChatPanelOpen && (
-								<TopNavButton iconBefore={AiChatIcon} onClick={() => setIsChatPanelOpen(true)}>
-									Ask Rovo
-								</TopNavButton>
+								<ChatButton onClick={() => setIsChatPanelOpen(true)}>Ask Rovo</ChatButton>
 							)}
 						</TopNavEnd>
 					</TopNav>

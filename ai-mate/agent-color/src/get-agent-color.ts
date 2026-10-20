@@ -41,6 +41,7 @@ const NAMED_AGENT_COLORS: Readonly<Record<string, AgentColor>> = {
 	mcp_lovable_agent: 'blue',
 	mcp_replit_agent: 'blue',
 	rovo_agent: 'blue',
+	content_reviewer_agent: 'blue',
 	jira_work_agent: 'blue',
 	jira_intelligent_triage_agent: 'blue',
 	jira_coding_agent: 'blue',

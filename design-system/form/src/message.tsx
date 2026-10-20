@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { type ReactNode, useContext, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useContext } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
@@ -91,15 +91,7 @@ const MessageRow = ({
 	testId,
 }: MessageRowProps): React.ReactNode => {
 	const icon = messageIcons[appearance];
-	const messageRef = useRef<HTMLDivElement>(null);
-	const [hasMessageWrapper, setHasMessageWrapper] = useState(false);
 	const { isWrapper } = useContext(MessageWrapperContext);
-
-	useEffect(() => {
-		if (messageRef.current) {
-			setHasMessageWrapper(isWrapper);
-		}
-	}, [isWrapper]);
 
 	/**
 	 * The wrapping span is necessary to preserve spaces between children.
@@ -116,9 +108,8 @@ const MessageRow = ({
 			css={[messageStyles, messageAppearanceStyles[appearance]]}
 			data-testid={testId}
 			id={isExiting ? undefined : fieldId}
-			ref={messageRef}
-			// For backwards compatability, if there is a wrapper, aria-live is not needed
-			aria-live={!hasMessageWrapper ? 'polite' : undefined}
+			// Let the wrapper own announcements from the first render when present.
+			aria-live={isWrapper ? undefined : 'polite'}
 			aria-hidden={isExiting ? true : undefined}
 		>
 			{icon && <IconWrapper>{icon}</IconWrapper>}

@@ -131,6 +131,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",

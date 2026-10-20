@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 133.0.1
+
+### Patch Changes
+
+- [`84e89f54232c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84e89f54232c1) -
+  Render preloaded Rovo mention identity styling during SSR behind platform_editor_mention_rovo.
+- Updated dependencies
+
+## 133.0.0
+
+### Major Changes
+
+- [`904166434c26b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/904166434c26b) -
+  Remove abandoned draft annotation ancestor node logging. Delete the unused
+  `getRangeAncestorNodeNames` export and `ancestorNodeTypes` annotation result fields. Renderer
+  annotations no longer contain the unused ancestor node field.
+
+### Minor Changes
+
+- [`cd47720f33219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd47720f33219) -
+  Report team mentions as creationMethod 'linkpicker_searchResult' instead of 'unknown' on the link
+  created event, and add a linkCreationType attribute ('mention' | 'conventionalSmartLink' | 'link')
+  so mentions can be told apart from conventional smart links. The team mention change is behind the
+  `platform_editor_team_mention_link_analytics` gate.
+
+### Patch Changes
+
+- [`25d608f808027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25d608f808027) -
+  Look up GLOBAL template preview images by `snippetKey`, so every product's copy of a template
+  shows its preview and Atlassian attribution (behind `platform_editor_slash_command`). Remove the
+  snippet-specific preview fallback from generic quick insert provider items
+- [`b5a57ab5f5fea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5a57ab5f5fea) -
+  Clean up feature gate `platform_editor_panel_c1_fallback_transform`
+- [`49d75093d8f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49d75093d8f1c) -
+  Clean up feature gate `platform_editor_custom_emoji_unicode_fallback`
+- [`e05b45927358b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e05b45927358b) -
+  Duplicate experienceSampled actionSubjectId into attributes behind
+  duplicate_actionsubjectid_to_attributes.
+- Updated dependencies
+
 ## 132.0.4
 
 ### Patch Changes

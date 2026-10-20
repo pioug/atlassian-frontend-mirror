@@ -35,7 +35,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['dropdown'], ['DropdownItemCheckbox', 'DropdownItemRadio']],
 
 	// Content & display
-	[['avatar'], ['Avatar', 'AvatarTag']],
+	[['avatar'], ['Avatar', 'AvatarContent']],
 	[['badge'], ['Badge', 'Lozenge']],
 	[['flag'], ['Flag', 'Banner']],
 	[['empty'], ['EmptyState', 'InlineEditableTextfield']],
@@ -53,7 +53,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['motion'], ['Motion', 'ExitingPersistence']],
 
 	// Feedback
-	[['spinner'], ['Spinner']],
+	[['spinner'], ['Spinner', 'Skeleton']],
 
 	// Multi-term (merge can return more than two names)
 	[

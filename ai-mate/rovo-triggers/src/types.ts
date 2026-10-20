@@ -440,6 +440,9 @@ export type OpenBrowseAgentPayload = PayloadCore<'open-browse-agent-modal'>;
 
 export type OpenBrowseAgentSidebarPayload = PayloadCore<'open-browse-agent-sidebar'>;
 
+/** Opens the skills list within the conversation that contains a rendered chat message. */
+export type OpenBrowseSkillsPayload = PayloadCore<'open-browse-skills', { conversationId: string }>;
+
 export type RovoRemixConsumer = 'editor' | 'renderer';
 
 export type RovoRemixPreset = 'selection' | 'page';
@@ -955,6 +958,7 @@ export type Payload =
 	| OpenBrowseAgentPayload
 	| SmartlinksSubscriptionChangedPayload
 	| OpenBrowseAgentSidebarPayload
+	| OpenBrowseSkillsPayload
 	| OpenRovoRemixSidebarPayload
 	| UpdateRovoRemixPresetPayload
 	| SubmitRovoRemixPayload

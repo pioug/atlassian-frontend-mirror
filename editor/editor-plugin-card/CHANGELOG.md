@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 35.0.0
+
+### Patch Changes
+
+- [`cd47720f33219`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd47720f33219) -
+  Report team mentions as creationMethod 'linkpicker_searchResult' instead of 'unknown' on the link
+  created event, and add a linkCreationType attribute ('mention' | 'conventionalSmartLink' | 'link')
+  so mentions can be told apart from conventional smart links. The team mention change is behind the
+  `platform_editor_team_mention_link_analytics` gate.
+- Updated dependencies
+
 ## 34.0.3
 
 ### Patch Changes

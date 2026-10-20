@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 152.0.0
+
+### Patch Changes
+
+- [`4249049d8adeb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4249049d8adeb) -
+  Remove platform_nested_table_style_override and retain nested renderer table style overrides while
+  preserving table-cell safeguards.
+- [`49d75093d8f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49d75093d8f1c) -
+  Clean up feature gate `platform_editor_custom_emoji_unicode_fallback`
+- [`904166434c26b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/904166434c26b) -
+  Remove abandoned draft annotation ancestor node logging. Delete the unused
+  `getRangeAncestorNodeNames` export and `ancestorNodeTypes` annotation result fields. Renderer
+  annotations no longer contain the unused ancestor node field.
+- Updated dependencies
+
 ## 151.0.4
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/native-embeds-common
 
+## 2.9.0
+
+### Minor Changes
+
+- [ux] With chart comments on (cc_maui_annotations_on_extensions and
+  cc_maui_comments_on_charts_exp), the MAUI edit-mode toolbar matches media: Copy and Delete move
+  into the More options menu, which follows Comment with no separator, and the menu uses media's
+  icon spacing and width.
+
+  Adds an optional `compactMoreItems` flag to `ManifestEditorToolbarActions`. When true, the native
+  embed More options menu uses default icon spacing and width. When omitted, other native embeds are
+  unchanged; only the MAUI manifest sets it.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.1
 
 ### Patch Changes

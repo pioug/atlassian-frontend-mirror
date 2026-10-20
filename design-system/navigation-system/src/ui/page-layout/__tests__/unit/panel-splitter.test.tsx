@@ -246,7 +246,7 @@ describe('PanelSplitter', () => {
 		expect(onResizeInternal).toHaveBeenCalledTimes(1);
 	});
 
-	it('clamps managed drag updates at the minimum', () => {
+	it('forwards below-minimum requests to the managed cascade', () => {
 		passGate('platform-dst-chat-panel-layout');
 		const onResizeInternal = jest.fn();
 		render(
@@ -260,7 +260,7 @@ describe('PanelSplitter', () => {
 		const splitter = screen.getByTestId('panel-splitter');
 		drag({ element: splitter, fromX: 200, toX: 0 });
 
-		expect(onResizeInternal).toHaveBeenCalledWith(100);
+		expect(onResizeInternal).toHaveBeenCalledWith(0);
 	});
 
 	it.each([false, true])(
@@ -587,6 +587,40 @@ describe('PanelSplitter', () => {
 			// Even though the panel width is 100px, the range input should default a value within the min and max
 			expect(rangeInput).toHaveValue('100');
 			expect(rangeInput).toHaveAttribute('aria-valuetext', '11% width');
+		});
+
+		it.each([
+			['End', 960],
+			['Home', 320],
+			['ArrowRight', 420],
+		])('preserves %s intent while deferred sizing is loading', async (key, expectedWidth) => {
+			passGate('platform-dst-chat-panel-layout');
+			let resolveReady: ((ready: boolean) => void) | undefined;
+			const ready = new Promise<boolean>((resolve) => {
+				resolveReady = resolve;
+			});
+			const onCompleteResize = jest.fn();
+			render(
+				<TestComponent
+					initialPanelWidth={400}
+					prepareResize={() => ready}
+					onResizeInternal={jest.fn()}
+					onCompleteResize={onCompleteResize}
+					getResizeBounds={() => ({ min: '320px', max: '960px' })}
+				/>,
+			);
+			const slider = screen.getByRole('slider', { name: 'Panel splitter', hidden: true });
+			const user = createUser();
+			// JSDOM cannot apply the media query that makes the splitter tabbable.
+			act(() => slider.focus());
+			expect(slider).toHaveAttribute('max', '500');
+			await user.keyboard(`{${key}}`);
+			expect(onCompleteResize).not.toHaveBeenCalled();
+			await act(async () => resolveReady?.(true));
+			await waitFor(() => expect(slider).toHaveValue(String(expectedWidth)));
+			expect(slider).toHaveAttribute('max', '960');
+			expect(onCompleteResize).toHaveBeenCalledTimes(1);
+			expect(onCompleteResize).toHaveBeenCalledWith(expectedWidth);
 		});
 
 		it('should have the correct value text for screen readers', async () => {

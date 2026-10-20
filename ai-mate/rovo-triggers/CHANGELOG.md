@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 12.4.0
+
+### Minor Changes
+
+- [`91c547704e4b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91c547704e4b1) -
+  [ux] Show a deleted skill card when chat history resolves a missing skill without GraphQL errors,
+  and a retryable error card for failed skill requests. Browse skills opens the in-chat skills list.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.2
 
 ### Patch Changes

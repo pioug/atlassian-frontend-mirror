@@ -10,6 +10,7 @@ import { useIntl } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EmojiDescription, EmojiDescriptionWithVariations, ToneValueType } from '../../types';
 import { createAndFireEventInElementsChannel } from '../../util/analytics/analytics';
@@ -86,6 +87,13 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 		radioRefs.current[nextIndex]?.focus();
 	}, []);
 
+	const onMouseDownHandler = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+		if (fg('platform_emoji_skin_tone_blur_fix')) {
+			// Keep focus inside the selector until the label activates its radio.
+			event.preventDefault();
+		}
+	}, []);
+
 	const onToneSelectedHandler = (toneValue: ToneValueType) => () => {
 		if (selectedTone === toneValue && onToneClose) {
 			onToneClose();
@@ -112,10 +120,12 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 	return (
 		<div
 			role="radiogroup"
+			tabIndex={fg('platform_emoji_skin_tone_blur_fix') ? -1 : undefined}
 			data-testid={toneSelectorTestId}
 			id="emoji-picker-tone-selector"
 			aria-label={formatMessage(messages.emojiSelectSkinToneListAriaLabelText)}
 			css={!isVisible && hidden}
+			onMouseDown={onMouseDownHandler}
 		>
 			{emojiToneCollection.map((tone, renderIndex) => {
 				return isRefreshEmojiPickerEnabled() ? (

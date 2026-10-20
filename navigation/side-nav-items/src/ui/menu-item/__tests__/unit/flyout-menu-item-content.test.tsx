@@ -20,6 +20,22 @@ describe('FlyoutMenuItemContent', () => {
 		failGate('platform-dst-top-layer');
 	});
 
+	it.each([true, false])(
+		'should name the outer dialog from its generated heading when isDefaultOpen is %s',
+		async (isDefaultOpen) => {
+			const { user } = setupComponent({ isDefaultOpen });
+			if (!isDefaultOpen) {
+				await user.click(screen.getByRole('button', { name: 'Recent' }));
+			}
+
+			const dialog = screen.getByRole('dialog', { name: 'Recent' });
+			const heading = screen.getByRole('heading', { name: 'Recent' });
+			expect(heading.id).toBeTruthy();
+			expect(dialog).toHaveAttribute('aria-labelledby', heading.id);
+			await expect(dialog).toBeAccessible();
+		},
+	);
+
 	it('should preserve the supplied title and accessible name as content loads', async () => {
 		const titleId = 'recent-flyout-title';
 		const { user, loadContent } = setupComponent({ titleId, isContentLoaded: false });
@@ -28,12 +44,14 @@ describe('FlyoutMenuItemContent', () => {
 		const dialog = screen.getByRole('dialog', { name: 'Recent' });
 		expect(dialog).toHaveAttribute('aria-labelledby', titleId);
 		expect(screen.getByRole('heading', { name: 'Recent' })).toHaveAttribute('id', titleId);
+		await expect(dialog).toBeAccessible();
 
 		loadContent();
 
 		expect(dialog).toHaveAccessibleName('Recent');
 		expect(screen.getByRole('heading', { name: 'Recent' })).toHaveAttribute('id', titleId);
 		expect(document.querySelectorAll(`[id="${titleId}"]`)).toHaveLength(1);
+		await expect(dialog).toBeAccessible();
 	});
 
 	it('should preserve input focus when delayed content arrives in flyout', async () => {
@@ -60,19 +78,22 @@ type FixtureProps = Partial<Omit<FlyoutMenuItemContentProps, 'children'>> &
 	Pick<React.ComponentProps<typeof FlyoutHeader>, 'autoFocusCloseButton'> & {
 		/** Replaces a public loading heading with the loaded FlyoutHeader. */
 		isContentLoaded?: boolean;
+		/** Opens the flyout before any trigger interaction, as in the reported VR fixtures. */
+		isDefaultOpen?: boolean;
 		/** Keeps an input mounted across the loading transition. */
 		showSearch?: boolean;
 	};
 
 function FlyoutFixture({
 	autoFocusCloseButton,
+	isDefaultOpen,
 	isContentLoaded = true,
 	showSearch,
 	...props
 }: FixtureProps) {
 	return (
 		<ul>
-			<FlyoutMenuItem>
+			<FlyoutMenuItem isDefaultOpen={isDefaultOpen}>
 				<FlyoutMenuItemTrigger>Recent</FlyoutMenuItemTrigger>
 				<FlyoutMenuItemContent {...props}>
 					{isContentLoaded ? (

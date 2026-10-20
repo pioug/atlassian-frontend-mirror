@@ -4,7 +4,9 @@ import type { ReactNode, Ref } from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
-import { Anchor, Box, Pressable } from '@atlaskit/primitives/compiled';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 
 import type { DataAttributes } from '../types';

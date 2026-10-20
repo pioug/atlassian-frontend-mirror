@@ -1,5 +1,12 @@
 # @atlaskit/agent-color
 
+## 1.0.5
+
+### Patch Changes
+
+- [`98d6d06eee16d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98d6d06eee16d) -
+  Set the content reviewer agent's stable colour to blue.
+
 ## 1.0.4
 
 ### Patch Changes

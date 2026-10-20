@@ -8,7 +8,7 @@ import type {
 	RegisterMenuItem,
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { ListRow } from '../ListRow';
 import { TypeAheadItemRow } from './TypeAheadItemRow';

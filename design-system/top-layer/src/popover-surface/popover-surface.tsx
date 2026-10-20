@@ -19,7 +19,7 @@ const styles = cssMap({
 		// Pairs the text colour with the overlay background, so the surface keeps its
 		// contrast wherever it is rendered.
 		color: token('color.text'),
-		borderRadius: token('radius.small', '3px'),
+		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'auto',
 	},

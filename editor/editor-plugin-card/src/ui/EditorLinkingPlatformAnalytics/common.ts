@@ -50,6 +50,7 @@ export const getMethod: (metadata: EventMetadata) => string | undefined = withHi
 			case INPUT_METHOD.FORMATTING:
 				return 'editor_type';
 			case INPUT_METHOD.TYPEAHEAD:
+			case INPUT_METHOD.MENTION_TYPEAHEAD:
 				return 'linkpicker_searchResult';
 			case INPUT_METHOD.MANUAL:
 				return 'linkpicker_manual';
@@ -60,6 +61,16 @@ export const getMethod: (metadata: EventMetadata) => string | undefined = withHi
 		}
 	},
 );
+
+export const getLinkCreationType = (
+	{ inputMethod }: EventMetadata,
+	display: string,
+): 'mention' | 'conventionalSmartLink' | 'link' => {
+	if (inputMethod === INPUT_METHOD.MENTION_TYPEAHEAD) {
+		return 'mention';
+	}
+	return display === 'url' ? 'link' : 'conventionalSmartLink';
+};
 
 export const getUpdateType: (metadata: EventMetadata) => string | undefined = withHistoryMethod(
 	({ action }: EventMetadata) => {

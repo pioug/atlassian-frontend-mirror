@@ -82,6 +82,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/blanket": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",

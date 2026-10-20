@@ -1,5 +1,12 @@
 # @atlaskit/top-layer
 
+## 6.3.1
+
+### Patch Changes
+
+- [`d99b2b7a494fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d99b2b7a494fa) -
+  Update PopoverSurface to use radius.large without an explicit fallback.
+
 ## 6.3.0
 
 ### Minor Changes

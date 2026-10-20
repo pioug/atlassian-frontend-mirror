@@ -248,6 +248,7 @@ export const createEditorToolbarActions = <
 		EditorToolbarAction
 	>,
 >(config: {
+	compactMoreItems?: boolean;
 	customActions?: TCustomActions;
 	items: (BuiltinToolbarKey | keyof TCustomActions)[];
 	moreItems?: (BuiltinToolbarKey | keyof TCustomActions)[];

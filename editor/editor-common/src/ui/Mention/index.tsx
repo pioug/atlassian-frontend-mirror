@@ -113,6 +113,11 @@ export default class Mention extends PureComponent<MentionProps, object> {
 					disabledTooltip={disabledTooltip}
 					eventHandlers={eventHandlers}
 					mentionProvider={mentionProvider}
+					mentionNodeData={
+						mentionNodeDataProvider && isExperimentEnabled('platform_editor_mention_rovo')
+							? mentionNodeDataProvider.getMentionDataFromCache({ id, userType })
+							: undefined
+					}
 					profilecardProvider={profilecardProvider}
 				/>
 			</>

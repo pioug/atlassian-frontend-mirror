@@ -225,10 +225,8 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		</div>
 	);
 
-	it('when feature gate platform_nested_table_style_override is ON, applies !important styles only in nested renderer', () => {
-		passGate('platform_nested_table_style_override');
-
-		// Feature gate enabled: should apply !important inline styles in nested renderer
+	it('applies !important styles only in a nested renderer outside a table context', () => {
+		// Apply !important inline styles in nested renderer
 		const { unmount } = render(<NestedRendererTable />);
 		const tableContainer = screen.getByTestId('table-container');
 		expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
@@ -236,35 +234,25 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		expect(tableContainer.style.getPropertyPriority('max-width')).toBe('important');
 		unmount();
 
-		// Feature gate enabled: should NOT apply !important in top-level renderer
+		// Do not apply !important in top-level renderer
 		const { unmount: unmountTopLevel } = render(<TopLevelTable />);
 		const topLevelContainer = screen.getByTestId('table-container');
 		expect(topLevelContainer.style.getPropertyPriority('width')).not.toBe('important');
 		expect(topLevelContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 		unmountTopLevel();
 
-		// Feature gate enabled: should NOT apply !important when nested renderer content is inside a table cell
+		// Do not apply !important when nested renderer content is inside a table cell
 		const { unmount: unmountTableCell } = render(<NestedRendererTableInsideTableCell />);
 		const tableCellContainer = screen.getByTestId('table-container');
 		expect(tableCellContainer.style.getPropertyPriority('width')).not.toBe('important');
 		expect(tableCellContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 		unmountTableCell();
 
-		// Feature gate enabled: should NOT apply !important to native nested tables
+		// Do not apply !important to native nested tables
 		render(<NestedRendererNativeNestedTable />);
 		const nestedTableContainer = screen.getByTestId('table-container');
 		expect(nestedTableContainer.style.getPropertyPriority('width')).not.toBe('important');
 		expect(nestedTableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
-	});
-
-	it('when feature gate platform_nested_table_style_override is OFF, does not apply !important even in nested renderer', () => {
-		failGate('platform_nested_table_style_override');
-
-		// Feature gate disabled: should NOT apply !important even in nested renderer
-		render(<NestedRendererTable />);
-		const tableContainer = screen.getByTestId('table-container');
-		expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
-		expect(tableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 	});
 
 	describe('with platform_nested_table_style_override_2', () => {
@@ -319,7 +307,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		);
 
 		it('promotes width:100% for a table in a nested renderer (no width attr)', () => {
-			passGate('platform_nested_table_style_override');
 			passGate('platform_nested_table_style_override_2');
 
 			render(<NestedRendererTableNoWidth />);
@@ -333,7 +320,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		});
 
 		it('promotes width:100% for a fixed-pixel width in a default-appearance nested renderer (PGXT-10421 repro)', () => {
-			passGate('platform_nested_table_style_override');
 			passGate('platform_nested_table_style_override_2');
 
 			render(<NestedRendererTableDefaultAppearance />);
@@ -345,7 +331,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		});
 
 		it('preserves an explicitly resized table width (does NOT force 100%) so PGXT-10226 is not regressed', () => {
-			passGate('platform_nested_table_style_override');
 			// Note: platform_nested_table_style_override_2 is intentionally NOT forced.
 			// For an explicitly resized table the gate-2 condition short-circuits on
 			// `!isExplicitlyResized` before the gate is read, so it is never called on
@@ -360,12 +345,11 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
 		});
 
-		it('when gate-2 is OFF, a non-resized table keeps the gate-1 computed width (not 100%)', () => {
-			passGate('platform_nested_table_style_override');
+		it('when gate-2 is OFF, a non-resized table keeps its computed width (not 100%)', () => {
 			failGate('platform_nested_table_style_override_2');
 
 			// Non-resized table so the gate-2 condition is evaluated (and here OFF),
-			// falling through to the gate-1 behaviour of promoting the computed width.
+			// falling through to promoting the computed width.
 			render(<NestedRendererTableNoWidth />);
 			const tableContainer = screen.getByTestId('table-container');
 			expect(tableContainer.style.getPropertyValue('width')).not.toBe('100%');
@@ -373,7 +357,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		});
 
 		it('still does not apply !important inside a table cell context (PGXT-10294)', () => {
-			passGate('platform_nested_table_style_override');
 			// Note: platform_nested_table_style_override_2 is intentionally not forced
 			// here. The table-cell context short-circuits in applyNestedRendererTableFix
 			// before the gate-2 branch is reached, so the gate is never read on this path.

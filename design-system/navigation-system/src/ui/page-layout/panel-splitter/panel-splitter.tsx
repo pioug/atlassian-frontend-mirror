@@ -246,6 +246,7 @@ const PortaledPanelSplitter = ({
 	onCompleteResize,
 	onResizeStartInternal,
 	onResizeInternal,
+	prepareResize,
 	getResizeBounds,
 	panel,
 	portal,
@@ -261,6 +262,7 @@ const PortaledPanelSplitter = ({
 		| 'onCompleteResize'
 		| 'onResizeStartInternal'
 		| 'onResizeInternal'
+		| 'prepareResize'
 		| 'getResizeBounds'
 		| 'resizingCssVar'
 		| 'resizingElementRef'
@@ -397,10 +399,14 @@ const PortaledPanelSplitter = ({
 
 					const resizingWidth = `clamp(${resizeBounds.min}, ${targetWidth}px, ${resizeBounds.max})`;
 					if (fg('platform-dst-chat-panel-layout') && onResizeInternal) {
-						// Let the sizing provider constrain the width against Main's available space.
+						// The allocator needs below-minimum requests for the local-to-chat cascade.
+						const currentBounds = getResizeBounds();
 						const width = Math.max(
-							convertResizeBoundToPixels(resizeBounds.min),
-							Math.min(targetWidth, convertResizeBoundToPixels(resizeBounds.max)),
+							0,
+							Math.min(
+								targetWidth,
+								prepareResize ? window.innerWidth : convertResizeBoundToPixels(currentBounds.max),
+							),
 						);
 						if (width !== lastManagedResizeWidth) {
 							lastManagedResizeWidth = width;
@@ -413,10 +419,15 @@ const PortaledPanelSplitter = ({
 
 					source.data.resizingWidth = resizingWidth;
 				},
-				onDrop({ source }) {
+				async onDrop({ source }) {
 					invariant(isPanelSplitterDragData(source.data));
 
 					preventUnhandled.stop();
+					if (prepareResize) {
+						if (!(await prepareResize()) || !panel.isConnected) {
+							return;
+						}
+					}
 
 					// PDD may deliver its final throttled drag update immediately before drop.
 					// Commit that update once before measuring; do not persist a previous frame.
@@ -447,6 +458,7 @@ const PortaledPanelSplitter = ({
 		onCompleteResize,
 		onResizeStartInternal,
 		onResizeInternal,
+		prepareResize,
 		onResizeStart,
 		onResizeEnd,
 		panel,
@@ -474,19 +486,48 @@ const PortaledPanelSplitter = ({
 		}),
 	);
 
+	const focusSequence = useRef(0);
+	const keyboardBoundsReady = useRef(false);
+	const pendingKeyboardWidth = useRef<number | null>(null);
 	const handleSliderInputChange = useCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) => {
+		async (event: React.SyntheticEvent<HTMLInputElement>, pendingKey?: string) => {
 			const isManagedResize = fg('platform-dst-chat-panel-layout') && onResizeInternal;
-			let value = isManagedResize ? parseFloat(event.target.value) : parseInt(event.target.value);
+			const sequence = focusSequence.current;
+			let value = isManagedResize
+				? parseFloat(event.currentTarget.value)
+				: parseInt(event.currentTarget.value);
+			if (prepareResize) {
+				if (!(await prepareResize()) || !panel.isConnected || sequence !== focusSequence.current) {
+					return;
+				}
+			}
 			if (isManagedResize) {
 				// The available region may have changed since focus, including without a
 				// window resize. Use the allocator's current bounds for the public payload.
 				const bounds = getResizeBounds();
 				const min = convertResizeBoundToPixels(bounds.min);
 				const max = convertResizeBoundToPixels(bounds.max);
+				if (pendingKey) {
+					// Native range inputs would apply these keys to the placeholder bounds.
+					// Preserve the intent until the chunk provides the real bounds instead.
+					const current = pendingKeyboardWidth.current ?? getPixelWidth(panel);
+					const isRtl = getTextDirection(panel) === 'rtl';
+					const increase =
+						pendingKey === 'ArrowUp' ||
+						pendingKey === (isRtl ? 'ArrowLeft' : 'ArrowRight') ||
+						pendingKey === 'PageUp';
+					const step = pendingKey.startsWith('Page') ? Math.max(20, (max - min) / 10) : 20;
+					value =
+						pendingKey === 'End'
+							? max
+							: pendingKey === 'Home'
+								? min
+								: current + (increase ? step : -step);
+				}
 				value = Math.max(min, Math.min(value, max));
 				setRangeInputBounds({ min, max });
 			}
+			pendingKeyboardWidth.current = value;
 			setRangeInputValue(value);
 
 			/**
@@ -496,12 +537,50 @@ const PortaledPanelSplitter = ({
 			onCompleteResize(value);
 			keyboardResizeManager.onResize({ initialWidth: panelWidth, finalWidth: value });
 		},
-		[getResizeBounds, onCompleteResize, onResizeInternal, panelWidth, keyboardResizeManager],
+		[
+			getResizeBounds,
+			onCompleteResize,
+			onResizeInternal,
+			panelWidth,
+			keyboardResizeManager,
+			panel,
+			prepareResize,
+		],
+	);
+	const handleSliderKeyDown = useCallback(
+		(event: React.KeyboardEvent<HTMLInputElement>) => {
+			if (
+				prepareResize &&
+				!keyboardBoundsReady.current &&
+				[
+					'Home',
+					'End',
+					'ArrowLeft',
+					'ArrowRight',
+					'ArrowUp',
+					'ArrowDown',
+					'PageUp',
+					'PageDown',
+				].includes(event.key)
+			) {
+				event.preventDefault();
+				void handleSliderInputChange(event, event.key);
+			}
+		},
+		[handleSliderInputChange, prepareResize],
 	);
 
 	const resizeEventListenerCleanupFn = useRef<(() => void) | null>(null);
 
-	const handleSliderFocus = useCallback(() => {
+	const handleSliderFocus = useCallback(async () => {
+		const sequence = ++focusSequence.current;
+		keyboardBoundsReady.current = false;
+		pendingKeyboardWidth.current = null;
+		if (prepareResize) {
+			if (!(await prepareResize()) || !panel.isConnected || sequence !== focusSequence.current) {
+				return;
+			}
+		}
 		/**
 		 * We are only updating the range input's properties when the element is focused, as a performance optimisation.
 		 * It isn't necessary to recalculate these values until the element is going to be used.
@@ -511,7 +590,9 @@ const PortaledPanelSplitter = ({
 		resizeEventListenerCleanupFn.current?.();
 
 		// Update the range input value to match the current panel width.
-		setRangeInputValue(panelWidth);
+		const width = prepareResize ? getPixelWidth(panel) : panelWidth;
+		pendingKeyboardWidth.current = width;
+		setRangeInputValue(width);
 
 		const resizeBounds = getResizeBounds();
 
@@ -520,6 +601,7 @@ const PortaledPanelSplitter = ({
 			min: convertResizeBoundToPixels(resizeBounds.min),
 			max: convertResizeBoundToPixels(resizeBounds.max),
 		});
+		keyboardBoundsReady.current = true;
 
 		/**
 		 * _While the slider element is focused_, add a window resize event listener to update the range input bounds
@@ -539,9 +621,11 @@ const PortaledPanelSplitter = ({
 				});
 			},
 		});
-	}, [panelWidth, getResizeBounds]);
+	}, [panelWidth, getResizeBounds, panel, prepareResize]);
 
 	const handleSliderBlur = useCallback(() => {
+		focusSequence.current++;
+		keyboardBoundsReady.current = false;
 		// Remove the resize event listener when the range input is blurred.
 		resizeEventListenerCleanupFn.current?.();
 	}, []);
@@ -586,6 +670,7 @@ const PortaledPanelSplitter = ({
 						fg('platform-dst-tokens-finesse') && grabAreaStyles.rootFinesse,
 					]}
 					data-testid={testId}
+					data-panel-splitter={prepareResize ? '' : undefined}
 					onDoubleClick={onDoubleClick}
 				>
 					<VisuallyHidden>
@@ -598,6 +683,7 @@ const PortaledPanelSplitter = ({
 							aria-valuetext={ariaValueText}
 							aria-labelledby={labelId}
 							onChange={handleSliderInputChange}
+							onKeyDown={prepareResize ? handleSliderKeyDown : undefined}
 							onFocus={handleSliderFocus}
 							onBlur={handleSliderBlur}
 						/>
@@ -679,6 +765,7 @@ export const PanelSplitter = ({
 		onResizeStartInternal,
 		onResizeInternal,
 		getResizeBounds,
+		prepareResize,
 		resizingCssVar,
 		resizingElementRef,
 		position,
@@ -782,6 +869,7 @@ export const PanelSplitter = ({
 			onCompleteResize={onCompleteResize}
 			onResizeStartInternal={onResizeStartInternal}
 			onResizeInternal={onResizeInternal}
+			prepareResize={prepareResize}
 			getResizeBounds={getResizeBounds}
 			resizingCssVar={resizingCssVar}
 			resizingElementRef={resizingElementRef}

@@ -34,6 +34,7 @@
 		"schema-dts": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"react-dom": "root:*"
 	}

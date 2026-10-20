@@ -2,13 +2,13 @@ import type { EmojiDefinition } from '@atlaskit/adf-schema/emoji';
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { defaultEmojiHeight } from '@atlaskit/emoji';
+import { defaultEmojiHeight } from '@atlaskit/emoji/constants';
+import type EmojiResource from '@atlaskit/emoji/emoji-resource';
 import type {
 	EmojiId,
 	EmojiProvider,
-	EmojiResource,
 	OptionalEmojiDescriptionWithVariations,
-} from '@atlaskit/emoji';
+} from '@atlaskit/emoji/types';
 import { NodeDataProvider } from '@atlaskit/node-data-provider/node-data-provider';
 
 export class EmojiNodeDataProvider extends NodeDataProvider<

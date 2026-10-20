@@ -6,7 +6,13 @@ import type { LinkCreatedEvent, LinkDeletedEvent, LinkUpdatedEvent } from '../an
 import { EVENT, EVENT_SUBJECT } from '../analytics/types';
 import { appearanceForLink, getUrl } from '../analytics/utils';
 import type { AnalyticsBindingsProps } from './common';
-import { getDeleteType, getMethod, getSourceEventFromMetadata, getUpdateType } from './common';
+import {
+	getDeleteType,
+	getLinkCreationType,
+	getMethod,
+	getSourceEventFromMetadata,
+	getUpdateType,
+} from './common';
 
 /**
  * Set display category as `link` if not displaying the link as a smart card
@@ -54,6 +60,7 @@ export const LinkEventsBinding = ({ cardPluginEvents }: AnalyticsBindingsProps) 
 					display,
 					nodeContext,
 					creationMethod,
+					linkCreationType: getLinkCreationType(metadata, display),
 				});
 			},
 			[EVENT.UPDATED]: ({ node, nodeContext, previousDisplay, ...metadata }) => {

@@ -17,6 +17,8 @@ export function useLayoutAreaSizing({
 	area: LayoutArea;
 	config: LayoutAreaConfig;
 }): {
+	isManaged: boolean;
+	prepareResize: (() => Promise<boolean>) | undefined;
 	state: LayoutAreaState | undefined;
 	getResizeBounds: () => ResizeBounds | undefined;
 	startResize: (mode: LayoutAreaMode) => void;
@@ -88,5 +90,13 @@ export function useLayoutAreaSizing({
 		() => getAreaResizeBounds?.(area),
 		[area, getAreaResizeBounds],
 	);
-	return { state, startResize, resize, completeResize, getResizeBounds };
+	return {
+		state,
+		startResize,
+		resize,
+		completeResize,
+		getResizeBounds,
+		isManaged: context !== null,
+		prepareResize: context?.prepareResize,
+	};
 }

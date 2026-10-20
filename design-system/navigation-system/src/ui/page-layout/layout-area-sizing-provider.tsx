@@ -1,43 +1,33 @@
-import React, { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+	type ComponentType,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
-import { bind } from 'bind-event-listener';
+import { bind, bindAll } from 'bind-event-listener';
 
-import { calculateLayoutAreaStates } from './calculate-layout-area-states';
 import {
 	LayoutAreaSizingContext,
 	type LayoutArea,
-	type LayoutAreaAllocation,
 	type LayoutAreaConfig,
-	type LayoutAreaMode,
-	type LayoutAreaState,
 	type LayoutAreaSizingContextValue,
+	type LayoutAreaState,
 	type LayoutWidthBound,
-	type ResizeSession,
-	type StoredLayoutArea,
 } from './layout-area-sizing-context';
+import type { LayoutAreaSizingRuntime } from './layout-area-sizing-runtime';
 import { layoutAreaStateContexts } from './layout-area-state-contexts';
-import { useOccupiedLayoutWidth } from './use-occupied-layout-width';
+import { useCssLayoutAreaStates } from './use-css-layout-area-states';
 
-const defaultMainMinWidth = 320;
-
-type LayoutDimensions = {
-	viewportWidth: number;
-	layoutWidth: number;
-	isChatPanelOverlay: boolean;
-	isSideNavOverlay: boolean;
-};
-
-function useStableAreaState(state: LayoutAreaState | undefined): LayoutAreaState | undefined {
-	const { mode, width, minWidth } = state ?? {};
-	return useMemo(
-		() =>
-			mode !== undefined && width !== undefined && minWidth !== undefined
-				? { mode, width, minWidth }
-				: undefined,
-		[mode, width, minWidth],
-	);
-}
-
+/**
+ * Stable, synchronous boundary for SSR content. The drag/cascade implementation
+ * is a sibling, not a replacement wrapper, so loading it cannot remount the app.
+ * CSS handles initial and responsive geometry; only splitter interaction requests
+ * the asynchronous chunk. The eager observer reads modes without changing widths.
+ */
 export function LayoutAreaSizingProvider({
 	children,
 	layoutRef,
@@ -45,288 +35,185 @@ export function LayoutAreaSizingProvider({
 	children: ReactNode;
 	layoutRef?: React.RefObject<HTMLDivElement | null>;
 }): JSX.Element {
-	const occupiedWidth = useOccupiedLayoutWidth(layoutRef);
-	const [dimensions, setDimensions] = useState<LayoutDimensions | null>(null);
-	const [mainMinWidth, setMainMinWidth] = useState<LayoutWidthBound>(defaultMainMinWidth);
-	const [areas, setAreas] = useState<Partial<Record<LayoutArea, StoredLayoutArea>>>({});
-	const [resizeSession, setResizeSession] = useState<ResizeSession | null>(null);
-	const areaStatesRef = React.useRef<Partial<Record<LayoutArea, LayoutAreaAllocation>>>({});
-	const configsRef = React.useRef<Partial<Record<LayoutArea, LayoutAreaConfig>>>({});
-	const openSequence = React.useRef(0);
+	const [Runtime, setRuntime] = useState<ComponentType<
+		React.ComponentProps<typeof LayoutAreaSizingRuntime>
+	> | null>(null);
+	const [states, setStates] = useState<Partial<Record<LayoutArea, LayoutAreaState>>>({});
+	const actions = useRef<LayoutAreaSizingContextValue | null>(null);
+	const configs = useRef<Partial<Record<LayoutArea, LayoutAreaConfig>>>({});
+	const [lastOpenedOverlay, setLastOpenedOverlay] = useState<'side-nav' | 'chat-panel' | null>(
+		null,
+	);
+	const [configRevision, setConfigRevision] = useState(0);
+	const cssModes = useCssLayoutAreaStates(layoutRef, configRevision, Runtime === null);
+	const sideNavMode = states['side-nav']?.mode ?? cssModes['side-nav'];
+	const chatPanelMode = states['chat-panel']?.mode ?? cssModes['chat-panel'];
+
+	// Overlay dismissal is available before the sizing chunk loads. Keep the open
+	// order here too: replaying registrations into the runtime loses that order.
 	useEffect(() => {
-		setResizeSession(null);
-	}, [mainMinWidth, occupiedWidth]);
+		const inlineChatQuery = window.matchMedia('(min-width: 40rem)');
+		const dismissOlderOverlay = () => {
+			const sideNav = configs.current['side-nav'];
+			const chatPanel = configs.current['chat-panel'];
+			if (!sideNav?.isOpen || !chatPanel?.isOpen || !lastOpenedOverlay) {
+				return;
+			}
+			// Before allocation, CSS puts both areas in overlay below 40rem. Once
+			// sizing is active, also honour overlays caused by custom widths/slots.
+			if (inlineChatQuery.matches && (sideNavMode !== 'overlay' || chatPanelMode !== 'overlay')) {
+				return;
+			}
+			const olderOverlay = lastOpenedOverlay === 'side-nav' ? chatPanel : sideNav;
+			olderOverlay.onRequestClose?.();
+		};
+		dismissOlderOverlay();
+		return bind(inlineChatQuery, { type: 'change', listener: dismissOlderOverlay });
+	}, [chatPanelMode, lastOpenedOverlay, sideNavMode]);
+
+	const mainMinWidth = useRef<LayoutWidthBound>(320);
+	const loadRef = useRef<() => void>(() => {});
+	const ready = useRef(false);
+	const waiting = useRef<Array<(ready: boolean) => void>>([]);
+	const pending = useRef<Array<(runtime: LayoutAreaSizingContextValue) => void>>([]);
+	const prepareResize = useCallback((): Promise<boolean> => {
+		if (ready.current) {
+			return Promise.resolve(true);
+		}
+		return new Promise((resolve) => {
+			waiting.current.push(resolve);
+			loadRef.current();
+		});
+	}, []);
 
 	useEffect(() => {
 		const root = layoutRef?.current;
-		let previous: LayoutDimensions | null = null;
-		// Match the actual rem-based grid breakpoint, including browser font settings.
-		const inlineChatQuery = window.matchMedia('(min-width: 40rem)');
-		const inlineSideNavQuery = window.matchMedia('(min-width: 64rem)');
-		const updateDimensions = (contentWidth?: number) => {
-			const style = root && contentWidth === undefined ? getComputedStyle(root) : null;
-			const layoutWidth =
-				contentWidth ??
-				(root
-					? Math.max(
-							0,
-							root.clientWidth -
-								(parseFloat(style?.paddingLeft ?? '') || 0) -
-								(parseFloat(style?.paddingRight ?? '') || 0),
-						)
-					: window.innerWidth);
-			const next = {
-				viewportWidth: window.innerWidth,
-				layoutWidth,
-				isChatPanelOverlay: !inlineChatQuery.matches,
-				isSideNavOverlay: !inlineSideNavQuery.matches,
-			};
-			if (
-				previous?.viewportWidth === next.viewportWidth &&
-				previous.layoutWidth === next.layoutWidth &&
-				previous.isChatPanelOverlay === next.isChatPanelOverlay &&
-				previous.isSideNavOverlay === next.isSideNavOverlay
-			) {
+		if (!root) {
+			return;
+		}
+		let cancelled = false;
+		let loading = false;
+		const waitingForRuntime = waiting.current;
+		const load = () => {
+			if (loading) {
 				return;
 			}
-			previous = next;
-			setDimensions(next);
-			setResizeSession(null);
+			loading = true;
+			void import(
+				/* webpackChunkName: "@atlaskit-internal_navigation-layout-sizing" */ './layout-area-sizing-runtime'
+			).then(
+				({ LayoutAreaSizingRuntime }) => {
+					if (!cancelled) {
+						setRuntime(() => LayoutAreaSizingRuntime);
+					}
+				},
+				() => {
+					loading = false;
+					pending.current = [];
+					for (const resolve of waitingForRuntime.splice(0)) {
+						resolve(false);
+					}
+				},
+			);
 		};
-		updateDimensions();
-		const observer = new ResizeObserver((entries) => {
-			const entry = entries.find((entry) => entry.target === root);
-			if (entry) {
-				updateDimensions(entry.contentRect.width);
+		loadRef.current = load;
+		const loadForSplitter = (event: Event) => {
+			if (event.target instanceof Element && event.target.closest('[data-panel-splitter]')) {
+				load();
 			}
-		});
-		if (root) {
-			observer.observe(root);
-		}
-		const unbindResize = bind(window, { type: 'resize', listener: () => updateDimensions() });
-		const unbindQuery = bind(inlineChatQuery, {
-			type: 'change',
-			listener: () => updateDimensions(),
-		});
-		const unbindSideNavQuery = bind(inlineSideNavQuery, {
-			type: 'change',
-			listener: () => updateDimensions(),
-		});
+		};
+		const unbindRoot = bindAll(root, [
+			{ type: 'pointerover', listener: loadForSplitter, options: { passive: true } },
+			{ type: 'focusin', listener: loadForSplitter },
+			{ type: 'pointerdown', listener: loadForSplitter, options: { passive: true } },
+		]);
 		return () => {
-			observer.disconnect();
-			unbindResize();
-			unbindQuery();
-			unbindSideNavQuery();
+			cancelled = true;
+			ready.current = false;
+			pending.current = [];
+			for (const resolve of waitingForRuntime.splice(0)) {
+				resolve(false);
+			}
+			loadRef.current = () => {};
+			unbindRoot();
 		};
 	}, [layoutRef]);
 
-	const registerArea = useCallback((area: LayoutArea, config: LayoutAreaConfig) => {
-		const previous = configsRef.current[area];
-		configsRef.current[area] = config;
-		setResizeSession((current) => {
-			// A changed layout/configuration needs a fresh allocation. A controlled
-			// acknowledgement for the resized area keeps its siblings fixed.
-			return previous?.isOpen === config.isOpen &&
-				previous.minWidth === config.minWidth &&
-				previous.maxWidth === config.maxWidth &&
-				previous.defaultWidth === config.defaultWidth &&
-				previous.compactDefaultWidth === config.compactDefaultWidth &&
-				(previous.requestedWidth === config.requestedWidth || current?.area === area)
-				? current
-				: null;
-		});
-		// Allocate once per registration, outside the updater React may replay. Gaps are
-		// harmless: only relative ordering of closed-to-open transitions is significant.
-		const openedAt = ++openSequence.current;
-		setAreas((current) => {
-			const existing = current[area];
-
-			return {
-				...current,
-				[area]: {
-					...existing,
-					...config,
-					liveResize: config.isOpen ? existing?.liveResize : undefined,
-					openedAt: config.isOpen && !existing?.isOpen ? openedAt : existing?.openedAt,
-				},
-			};
-		});
-	}, []);
-
-	const unregisterArea = useCallback((area: LayoutArea) => {
-		delete configsRef.current[area];
-		setResizeSession(null);
-		setAreas((current) => {
-			if (!current[area]) {
-				return current;
-			}
-			// Closing uses isOpen: false and retains preferences. Unregistering means
-			// the owning component unmounted; a replacement must start with its own defaults.
-			const next = { ...current };
-			delete next[area];
-			return next;
-		});
-	}, []);
-
-	const freezeSiblingWidths = useCallback((area: LayoutArea) => {
-		const baselineWidths: Partial<Record<LayoutArea, number>> = {};
-		for (const areaName of ['side-nav', 'panel', 'chat-panel'] as const) {
-			const state = areaStatesRef.current[areaName];
-			if (state?.mode === 'inline') {
-				baselineWidths[areaName] = state.width;
-			}
-		}
-		// Keep the same siblings fixed after completion, including while a controlled
-		// consumer rejects or asynchronously accepts the requested width.
-		setResizeSession({ area, baselineWidths });
-	}, []);
-
-	const startResize = useCallback(
-		(area: LayoutArea, mode: LayoutAreaMode) => {
-			if (mode !== 'inline') {
-				return;
-			}
-			freezeSiblingWidths(area);
-
-			// Start from the effective width, which may already be compressed below the preferred width.
-			// Reapplying the preferred width here would move the splitter away from the pointer.
-			const renderedState = areaStatesRef.current[area];
-			if (renderedState?.mode === 'inline') {
-				setAreas((current) => {
-					const existing = current[area];
-					return existing
-						? {
-								...current,
-								[area]: {
-									...existing,
-									liveResize: { mode, width: renderedState.width },
-								},
-							}
-						: current;
-				});
-			}
-		},
-		[freezeSiblingWidths],
-	);
-
-	const resize = useCallback((area: LayoutArea, mode: LayoutAreaMode, width: number) => {
-		setAreas((current) => {
-			const existing = current[area];
-			if (existing?.liveResize?.mode === mode && existing.liveResize.width === width) {
-				return current;
-			}
-			return existing
-				? {
-						...current,
-						[area]: { ...existing, liveResize: { mode, width } },
-					}
-				: current;
-		});
-	}, []);
-
-	const completeResize = useCallback(
-		(area: LayoutArea, mode: LayoutAreaMode, width: number) => {
-			if (mode === 'inline') {
-				// Keyboard resizing completes without a preceding pointer-drag session.
-				freezeSiblingWidths(area);
-			}
-			setAreas((current) => {
-				const existing = current[area];
-				if (!existing) {
-					return current;
+	const onReady = useCallback((runtime: LayoutAreaSizingContextValue | null) => {
+		actions.current = runtime;
+		if (runtime) {
+			runtime.setMainMinWidth(mainMinWidth.current);
+			for (const area of ['side-nav', 'panel', 'chat-panel'] as const) {
+				const config = configs.current[area];
+				if (config) {
+					runtime.registerArea(area, config);
 				}
-
-				if (mode === 'overlay') {
-					return {
-						...current,
-						[area]: { ...existing, liveResize: undefined, preferredOverlayWidth: width },
-					};
-				}
-
-				return {
-					...current,
-					[area]: {
-						...existing,
-						liveResize: undefined,
-						preferredInlineWidth: width,
-					},
-				};
-			});
-		},
-		[freezeSiblingWidths],
-	);
-
-	const areaStates = useMemo(
-		() =>
-			dimensions === null
-				? {}
-				: calculateLayoutAreaStates({
-						...dimensions,
-						occupiedWidth,
-						mainMinWidth,
-						areas,
-						resizeSession,
-					}),
-		[areas, mainMinWidth, resizeSession, dimensions, occupiedWidth],
-	);
-	useEffect(() => {
-		areaStatesRef.current = areaStates;
-	}, [areaStates]);
-
-	useEffect(() => {
-		if (
-			areaStates['side-nav']?.mode !== 'overlay' ||
-			areaStates['chat-panel']?.mode !== 'overlay'
-		) {
-			return;
+			}
 		}
-
-		const sideNav = areas['side-nav'];
-		const chatPanel = areas['chat-panel'];
-		if (!sideNav?.isOpen || !chatPanel?.isOpen) {
-			return;
+	}, []);
+	const onUpdate = useCallback((next: Partial<Record<LayoutArea, LayoutAreaState>>) => {
+		setStates(next);
+		const runtime = actions.current;
+		if (runtime && Object.values(next).some(Boolean)) {
+			ready.current = true;
+			for (const action of pending.current.splice(0)) {
+				action(runtime);
+			}
+			for (const resolve of waiting.current.splice(0)) {
+				resolve(true);
+			}
 		}
-
-		if ((sideNav.openedAt ?? 0) > (chatPanel.openedAt ?? 0)) {
-			chatPanel.onRequestClose?.();
+	}, []);
+	const dispatch = useCallback((action: (runtime: LayoutAreaSizingContextValue) => void) => {
+		if (ready.current && actions.current) {
+			action(actions.current);
 		} else {
-			sideNav.onRequestClose?.();
+			pending.current.push(action);
+			loadRef.current();
 		}
-	}, [areas, areaStates]);
-
-	// Read bounds lazily: changing a sibling's capacity must not publish new render
-	// state or recreate drag listeners for a region whose own width did not change.
-	const getResizeBounds = useCallback<LayoutAreaSizingContextValue['getResizeBounds']>((area) => {
-		const bounds = areaStatesRef.current[area]?.resizeBounds;
-		return bounds ? { min: `${bounds.min}px`, max: `${bounds.max}px` } : undefined;
 	}, []);
-
 	const value = useMemo<LayoutAreaSizingContextValue>(
 		() => ({
-			getResizeBounds,
-			registerArea,
-			unregisterArea,
-			startResize,
-			resize,
-			completeResize,
-			setMainMinWidth,
+			prepareResize,
+			registerArea: (area, config) => {
+				if (area !== 'panel' && config.isOpen && !configs.current[area]?.isOpen) {
+					setLastOpenedOverlay(area);
+				}
+				configs.current[area] = config;
+				setConfigRevision((revision) => revision + 1);
+				actions.current?.registerArea(area, config);
+			},
+			unregisterArea: (area) => {
+				delete configs.current[area];
+				setConfigRevision((revision) => revision + 1);
+				actions.current?.unregisterArea(area);
+			},
+			setMainMinWidth: (width) => {
+				if (mainMinWidth.current !== width) {
+					setConfigRevision((revision) => revision + 1);
+				}
+				mainMinWidth.current = width;
+				actions.current?.setMainMinWidth(width);
+			},
+			getResizeBounds: (area) => actions.current?.getResizeBounds(area),
+			startResize: (area, mode) => dispatch((runtime) => runtime.startResize(area, mode)),
+			resize: (area, mode, width) => dispatch((runtime) => runtime.resize(area, mode, width)),
+			completeResize: (area, mode, width) =>
+				dispatch((runtime) => runtime.completeResize(area, mode, width)),
 		}),
-		[completeResize, getResizeBounds, registerArea, resize, startResize, unregisterArea],
+		[dispatch, prepareResize],
 	);
-	const sideNavState = useStableAreaState(areaStates['side-nav']);
-	const panelState = useStableAreaState(areaStates.panel);
-	const chatPanelState = useStableAreaState(areaStates['chat-panel']);
 	const SideNavStateProvider = layoutAreaStateContexts['side-nav'].Provider;
 	const PanelStateProvider = layoutAreaStateContexts.panel.Provider;
 	const ChatPanelStateProvider = layoutAreaStateContexts['chat-panel'].Provider;
-
 	return (
 		<LayoutAreaSizingContext.Provider value={value}>
-			<SideNavStateProvider value={sideNavState}>
-				<PanelStateProvider value={panelState}>
-					<ChatPanelStateProvider value={chatPanelState}>{children}</ChatPanelStateProvider>
+			<SideNavStateProvider value={states['side-nav']}>
+				<PanelStateProvider value={states.panel}>
+					<ChatPanelStateProvider value={states['chat-panel']}>{children}</ChatPanelStateProvider>
 				</PanelStateProvider>
 			</SideNavStateProvider>
+			{Runtime && <Runtime layoutRef={layoutRef} onReady={onReady} onUpdate={onUpdate} />}
 		</LayoutAreaSizingContext.Provider>
 	);
 }

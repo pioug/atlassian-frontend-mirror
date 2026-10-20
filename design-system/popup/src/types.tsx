@@ -325,14 +325,14 @@ interface BaseProps {
 				React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
 		  >;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- this is being fixed by the top layer flag https://switcheroo.atlassian.com/ui/gates/bc5e8d6e-521f-4afa-b131-abc90c49b435/key/platform-dst-top-layer
 	/**
 	 * This controls whether the popup takes focus when opening.
 	 * This changes the `popupComponent` component tabIndex to `null`.
 	 * The default is `true`.
 	 *
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-TODO Internal documentation for deprecation (no external access)}
-	 * TODO: replace ENGHEALTH-TODO with the real ticket.
-	 * No effect when `platform-dst-top-layer` is enabled — focus follows `role`. `dialog`, `alertdialog`, `menu` and
+	 * @deprecated No effect when `platform-dst-top-layer` is enabled — focus
+	 * follows `role`. `dialog`, `alertdialog`, `menu` and
 	 * `listbox` move focus into the popup on open; no role, or any other role,
 	 * keeps focus where it is. To keep focus where it is, do not use one of
 	 * those four roles. This prop will be removed when the flag is cleaned up.

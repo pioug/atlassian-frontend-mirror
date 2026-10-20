@@ -41,6 +41,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",

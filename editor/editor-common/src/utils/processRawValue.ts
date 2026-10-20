@@ -14,7 +14,6 @@ import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
@@ -167,11 +166,9 @@ export function processRawValueWithoutValidation(
 		transformedAdf = result.transformedAdf;
 	}
 
-	if (fg('platform_editor_panel_c1_fallback_transform')) {
-		const panelC1Result = runPanelC1FallbackTransform(schema, transformedAdf as ADFEntity);
-		if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
-			transformedAdf = panelC1Result.transformedAdf;
-		}
+	const panelC1Result = runPanelC1FallbackTransform(schema, transformedAdf as ADFEntity);
+	if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
+		transformedAdf = panelC1Result.transformedAdf;
 	}
 
 	if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
@@ -361,11 +358,9 @@ export function processRawValue(
 			}
 		}
 
-		if (fg('platform_editor_panel_c1_fallback_transform')) {
-			const panelC1Result = runPanelC1FallbackTransform(schema, transformedAdf as ADFEntity);
-			if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
-				transformedAdf = panelC1Result.transformedAdf;
-			}
+		const panelC1Result = runPanelC1FallbackTransform(schema, transformedAdf as ADFEntity);
+		if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
+			transformedAdf = panelC1Result.transformedAdf;
 		}
 
 		// Validate ADF first before converting nested-table extensions into nested tables

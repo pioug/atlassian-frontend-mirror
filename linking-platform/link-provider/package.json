@@ -68,6 +68,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",

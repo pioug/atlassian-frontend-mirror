@@ -29,7 +29,6 @@ import type {
 	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -374,14 +373,11 @@ export class EmojiNodeView implements NodeView {
 
 		const { text, shortName } = this.node.attrs;
 
-		// When the gate is enabled and the emoji is "custom" (i.e. its fallback
-		// text is not a single standard Unicode emoji), render the Unicode
-		// Replacement Character (U+FFFD) instead of the shortName text. Standard
-		// emojis continue to fall back to their Unicode text representation.
+		// Custom emojis (fallback text is not a single standard Unicode emoji)
+		// render the Unicode Replacement Character (U+FFFD) instead of the
+		// shortName text. Standard emojis fall back to their Unicode text.
 		const fallbackText = text || shortName;
-		const useReplacementChar =
-			fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallbackText);
-		const renderedFallbackText = useReplacementChar ? '\uFFFD' : fallbackText;
+		const renderedFallbackText = isSingleEmoji(fallbackText) ? fallbackText : '\uFFFD';
 
 		fallbackElement.innerText = renderedFallbackText;
 		fallbackElement.setAttribute('role', 'img');

@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 18.2.1
+
+### Patch Changes
+
+- [`c1bb23bb0d6e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1bb23bb0d6e6) -
+  Use the message wrapper context during the first render so wrapped form messages do not
+  temporarily create a nested live region.
+
 ## 18.2.0
 
 ### Minor Changes

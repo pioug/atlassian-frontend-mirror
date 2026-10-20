@@ -16,7 +16,7 @@ import type {
 	contentHeightWhenFixed as ContentHeightWhenFixedType,
 } from '../constants';
 import { mainMinimumWidthVar } from '../constants';
-import { gridRootId } from '../root';
+import { gridRootFitId, gridRootId } from '../root';
 import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
 import { useLayoutMainSizing } from '../use-layout-main-sizing';
@@ -85,7 +85,7 @@ export function Main({
 		<Fragment>
 			{fg('platform-dst-chat-panel-layout') && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-				<style>{`#${gridRootId} { ${mainMinimumWidthVar}: ${minWidth}px; }`}</style>
+				<style>{`#${gridRootId}, #${gridRootFitId} { ${mainMinimumWidthVar}: ${minWidth}px; }`}</style>
 			)}
 			<div
 				id={id}

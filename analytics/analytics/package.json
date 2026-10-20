@@ -36,6 +36,8 @@
 	},
 	"devDependencies": {
 		"@af/suppress-react-warnings": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",

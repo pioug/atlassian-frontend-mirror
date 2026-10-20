@@ -15,6 +15,10 @@
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",

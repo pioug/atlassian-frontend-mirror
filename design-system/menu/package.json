@@ -74,6 +74,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
 		"@atlaskit/link": "workspace:^",
+		"@atlaskit/object": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

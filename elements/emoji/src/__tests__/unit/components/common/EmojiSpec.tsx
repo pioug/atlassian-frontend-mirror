@@ -5,7 +5,6 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import Emoji from '../../../../components/common/Emoji';
@@ -260,18 +259,29 @@ describe('<Emoji />', () => {
 			expect(results).toHaveNoViolations();
 		});
 
-		ffTest.on(
-			'emoji_decorative_label',
-			'should remove aria-label for image emoji when isDecorative is true',
-			() => {
-				it('should not have aria-label and should have presentation role', async () => {
-					const result = await renderWithIntl(<Emoji emoji={imageEmoji} isDecorative />);
-					mockAllIsIntersecting(true);
-					const emoji = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
-					expect(emoji).not.toHaveAttribute('aria-label');
-					expect(emoji).toHaveAttribute('role', 'presentation');
-				});
-			},
-		);
+		it('should render decorative image emoji without accessible labels', async () => {
+			const result = await renderWithIntl(<Emoji emoji={imageEmoji} isDecorative />);
+			mockAllIsIntersecting(true);
+			const emoji = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+			expect(emoji).not.toHaveAttribute('aria-label');
+			expect(emoji).toHaveAttribute('role', 'presentation');
+			expect(result.getByAltText('')).toBeInTheDocument();
+		});
+
+		it('should render decorative sprite emoji without an accessible label', async () => {
+			const result = await renderWithIntl(<Emoji emoji={spriteEmoji} isDecorative />);
+			const emoji = result.getByTestId(`sprite-emoji-${spriteEmoji.shortName}`);
+			expect(emoji).not.toHaveAttribute('aria-label');
+			expect(emoji).toHaveAttribute('role', 'presentation');
+		});
+
+		it('should retain accessible labels when isDecorative is false', async () => {
+			const result = await renderWithIntl(<Emoji emoji={imageEmoji} isDecorative={false} />);
+			mockAllIsIntersecting(true);
+			const emoji = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+			expect(emoji).toHaveAttribute('aria-label');
+			expect(emoji).toHaveAttribute('role', 'img');
+			expect(result.getByAltText(imageEmoji.name)).toBeInTheDocument();
+		});
 	});
 });

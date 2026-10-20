@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - ReorderableMenuItems
  *
- * @codegen <<SignedSource::29e498949872bda549276b4df32e3434>>
+ * @codegen <<SignedSource::d312b56abc54f98b565425a37c038c15>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::3217debf5ba68e84ca5ef7cdbf6ebb43>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::c4a5138ef88fa4afdfc33dcd5314731f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::956ce4482c6294788d7a91427e49339f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::ad6a16c2947d833ce99a45d1aeb09f54>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -17,9 +17,16 @@ export interface Item {
 	label: string;
 	href: string;
 	/**
-	 * The name of the icon to display before the label. If omitted, a default icon is used.
+	 * The icon to display before the label. Accepts either a UI Kit icon glyph name, or an image source:
+	 * a local app asset, a hosted URL (its host must be declared in `permissions.external.images` in the
+	 * app manifest), a data URI, or a root-relative path. If omitted, a default icon is used.
 	 */
-	icon?: IconProps['glyph'];
+	icon?: IconProps['glyph'] | string;
+	/**
+	 * The icon to display instead of `icon` when dark mode is selected. Accepts the same values as `icon`
+	 * and follows the same rules. If omitted, `icon` is also used in dark mode.
+	 */
+	iconDark?: IconProps['glyph'] | string;
 	/**
 	 * Route-path pattern(s) that highlight this item when the current
 	 * route matches, written relative to the app root.

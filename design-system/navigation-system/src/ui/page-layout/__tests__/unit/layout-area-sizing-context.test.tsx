@@ -8,7 +8,8 @@ import { waitFor } from '@atlassian/testing-library/wait-for';
 import { calculateLayoutAreaStates } from '../../calculate-layout-area-states';
 import * as layoutAllocation from '../../calculate-layout-area-states';
 import type { LayoutArea } from '../../layout-area-sizing-context';
-import { LayoutAreaSizingProvider } from '../../layout-area-sizing-provider';
+import { LayoutAreaSizingProvider as DeferredLayoutAreaSizingProvider } from '../../layout-area-sizing-provider';
+import { LayoutAreaSizingRuntime as LayoutAreaSizingProvider } from '../../layout-area-sizing-runtime';
 import { useLayoutAreaSizing } from '../../use-layout-area-sizing';
 import { useLayoutMainSizing } from '../../use-layout-main-sizing';
 
@@ -32,6 +33,230 @@ function calculate(
 }
 
 describe('layout area allocation', () => {
+	it.each(['side-nav', 'panel', 'chat-panel'] as const)(
+		'keeps %s overlay while resizing without reallocating inline siblings',
+		(area) => {
+			const result = calculateLayoutAreaStates({
+				viewportWidth: 1300,
+				isChatPanelOverlay: false,
+				isSideNavOverlay: false,
+				mainMinWidth: 320,
+				areas: {
+					...openAreas,
+					[area]: { ...openAreas[area], liveResize: { mode: 'overlay', width: 450 } },
+				},
+				resizeSession: {
+					area,
+					baselineWidths: {
+						'side-nav': area === 'side-nav' ? undefined : 320,
+						panel: area === 'panel' ? undefined : 400,
+						'chat-panel': area === 'chat-panel' ? undefined : 400,
+					},
+					overlayModes: {
+						'side-nav': area === 'side-nav' ? 'overlay' : 'inline',
+						panel: area === 'panel' ? 'overlay' : 'inline',
+						'chat-panel': area === 'chat-panel' ? 'overlay' : 'inline',
+					},
+				},
+			});
+			for (const name of ['side-nav', 'panel', 'chat-panel'] as const) {
+				expect(result[name]).toMatchObject({
+					mode: name === area ? 'overlay' : 'inline',
+					width: name === area ? 450 : openAreas[name].defaultWidth,
+				});
+			}
+		},
+	);
+
+	it.each([641, 800])(
+		'does not collapse SideNav for a request beyond the panel maximum: %s',
+		(target) => {
+			const result = calculateLayoutAreaStates({
+				viewportWidth: 1600,
+				isChatPanelOverlay: false,
+				isSideNavOverlay: false,
+				mainMinWidth: 320,
+				areas: {
+					...openAreas,
+					panel: {
+						...openAreas.panel,
+						maxWidth: 500,
+						liveResize: { mode: 'inline', width: target },
+					},
+				},
+				resizeSession: {
+					area: 'panel',
+					baselineWidths: { 'side-nav': 320, panel: 400, 'chat-panel': 400 },
+				},
+			});
+			expect(result).toMatchObject({
+				'side-nav': { mode: 'inline', width: 320 },
+				panel: { width: 500 },
+				'chat-panel': { width: 400 },
+			});
+		},
+	);
+
+	it.each([
+		{ target: 500, maxWidth: undefined, local: 420, chat: 500 },
+		{ target: 400, maxWidth: undefined, local: 520, chat: 400 },
+		{ target: 100, maxWidth: undefined, local: 600, chat: 320 },
+		{ target: 400, maxWidth: '30vw' as const, local: 480, chat: 400 },
+	])(
+		'gives released Chat space to local: $target, max $maxWidth',
+		({ target, maxWidth, local, chat }) => {
+			const result = calculateLayoutAreaStates({
+				viewportWidth: 1600,
+				isChatPanelOverlay: false,
+				isSideNavOverlay: false,
+				mainMinWidth: 320,
+				areas: {
+					...openAreas,
+					panel: { ...openAreas.panel, maxWidth },
+					'chat-panel': {
+						...openAreas['chat-panel'],
+						liveResize: { mode: 'inline', width: target },
+					},
+				},
+				resizeSession: {
+					area: 'chat-panel',
+					baselineWidths: { 'side-nav': 320, panel: 320, 'chat-panel': 600 },
+				},
+			});
+			expect(result).toMatchObject({
+				'side-nav': { width: 320 },
+				panel: { width: local },
+				'chat-panel': { width: chat },
+			});
+		},
+	);
+
+	it.each([true, false])(
+		'does not grow a non-inline local panel when Chat shrinks (open: %s)',
+		(isOpen) => {
+			const result = calculateLayoutAreaStates({
+				viewportWidth: 1600,
+				isChatPanelOverlay: false,
+				isSideNavOverlay: false,
+				mainMinWidth: 320,
+				areas: {
+					...openAreas,
+					panel: { ...openAreas.panel, isOpen },
+					'chat-panel': { ...openAreas['chat-panel'], liveResize: { mode: 'inline', width: 400 } },
+				},
+				resizeSession: {
+					area: 'chat-panel',
+					baselineWidths: { 'side-nav': 320, 'chat-panel': 600 },
+				},
+			});
+			expect(result['chat-panel']?.width).toBe(400);
+			expect(result['side-nav']?.width).toBe(320);
+			expect(result.panel).toEqual(
+				isOpen ? expect.objectContaining({ mode: 'overlay', width: 400 }) : undefined,
+			);
+		},
+	);
+	it.each([
+		{ target: 480, local: 480, nav: 320 },
+		{ target: 600, local: 600, nav: 280 },
+		{ target: 640, local: 640, nav: 240 },
+		{ target: 641, local: 641, nav: undefined },
+		{ target: 1000, local: 880, nav: undefined },
+	])('keeps Chat fixed during local growth to $target', ({ target, local, nav }) => {
+		const result = calculateLayoutAreaStates({
+			viewportWidth: 1600,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: {
+				...openAreas,
+				panel: { ...openAreas.panel, liveResize: { mode: 'inline', width: target } },
+			},
+			resizeSession: {
+				area: 'panel',
+				baselineWidths: { 'side-nav': 320, panel: 400, 'chat-panel': 400 },
+			},
+		});
+		expect(result['side-nav']?.width).toBe(nav);
+		expect(result.panel).toMatchObject({ width: local, resizeBounds: { max: 880 } });
+		expect(result['chat-panel']?.width).toBe(400);
+	});
+
+	it('cascades local shrinking towards Chat only after reaching the local minimum', () => {
+		const result = calculateLayoutAreaStates({
+			viewportWidth: 1600,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: {
+				...openAreas,
+				panel: { ...openAreas.panel, liveResize: { mode: 'inline', width: 280 } },
+			},
+			resizeSession: {
+				area: 'panel',
+				baselineWidths: { 'side-nav': 320, panel: 400, 'chat-panel': 400 },
+			},
+		});
+		expect(result).toMatchObject({
+			'side-nav': { width: 320 },
+			panel: { width: 320 },
+			'chat-panel': { width: 360 },
+		});
+	});
+
+	it('keeps an existing overlay out of a cascading inline resize and its keyboard bounds', () => {
+		const initial = calculateLayoutAreaStates({
+			viewportWidth: 1300,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: openAreas,
+			initialModes: { 'side-nav': 'inline', panel: 'overlay', 'chat-panel': 'inline' },
+		});
+		expect(initial['chat-panel']?.resizeBounds.max).toBe(980);
+		const resized = calculateLayoutAreaStates({
+			viewportWidth: 1300,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: {
+				...openAreas,
+				'chat-panel': { ...openAreas['chat-panel'], liveResize: { mode: 'inline', width: 980 } },
+			},
+			resizeSession: { area: 'chat-panel', baselineWidths: { 'side-nav': 320, 'chat-panel': 400 } },
+		});
+		expect(resized['side-nav']).toBeUndefined();
+		expect(resized.panel?.mode).toBe('overlay');
+		expect(resized['chat-panel']?.width).toBe(980);
+	});
+
+	it('collapses SideNav only after inline siblings reach minimum, without widening them again', () => {
+		const allocate = (width: number) =>
+			calculateLayoutAreaStates({
+				viewportWidth: 1600,
+				isChatPanelOverlay: false,
+				isSideNavOverlay: false,
+				mainMinWidth: 320,
+				areas: {
+					...openAreas,
+					'chat-panel': { ...openAreas['chat-panel'], liveResize: { mode: 'inline', width } },
+				},
+				resizeSession: {
+					area: 'chat-panel',
+					baselineWidths: { 'side-nav': 320, panel: 400, 'chat-panel': 400 },
+				},
+			});
+		expect(allocate(720)).toMatchObject({
+			'side-nav': { width: 240 },
+			panel: { width: 320 },
+			'chat-panel': { width: 720 },
+		});
+		const collapsed = allocate(740);
+		expect(collapsed['side-nav']).toBeUndefined();
+		expect(collapsed).toMatchObject({ panel: { width: 320 }, 'chat-panel': { width: 740 } });
+		expect(allocate(1200)).toMatchObject({ panel: { width: 320 }, 'chat-panel': { width: 960 } });
+	});
+
 	it.each([0, 200, 500])(
 		'caps overlay SideNav to Main after %ipx of occupied tracks',
 		(occupiedWidth) => {
@@ -193,7 +418,7 @@ describe('layout area allocation', () => {
 	});
 
 	it.each([undefined, 560])(
-		'keeps ChatPanel fixed during local panel growth (preferred width: %s)',
+		'keeps ChatPanel fixed when local growth collapses SideNav (preferred width: %s)',
 		(preferredInlineWidth) => {
 			expect(
 				calculateLayoutAreaStates({
@@ -222,8 +447,7 @@ describe('layout area allocation', () => {
 					},
 				}),
 			).toMatchObject({
-				'side-nav': { width: 240 },
-				panel: { width: 320 },
+				panel: { width: 503 },
 				'chat-panel': { width: 560 },
 			});
 		},
@@ -298,11 +522,16 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 	const render = (ui: React.ReactElement) =>
 		renderWithoutStrictMode(ui, { wrapper: strictMode ? React.StrictMode : React.Fragment });
 
-	it('does not reallocate for callback-only changes and dismisses using the latest callback', () => {
+	it('does not reallocate for callback-only changes and dismisses using the latest callback', async () => {
 		const originalWidth = window.innerWidth;
 		window.innerWidth = 600;
 		const allocate = jest.spyOn(layoutAllocation, 'calculateLayoutAreaStates');
 		const onClose = jest.fn();
+		jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(600);
+		jest
+			.spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+			.mockReturnValue({ width: 320 } as DOMRect);
+		let prepareResize: (() => Promise<boolean>) | undefined;
 		function Areas({ version, navOpen }: { version: string; navOpen: boolean }) {
 			useLayoutAreaSizing({
 				area: 'side-nav',
@@ -312,24 +541,37 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 				area: 'chat-panel',
 				config: { ...openAreas['chat-panel'], onRequestClose: () => onClose(version) },
 			});
-			return <output data-testid="chat">{chat.state?.width}</output>;
+			prepareResize = chat.prepareResize;
+			return (
+				<output data-layout-chat-panel="" data-testid="chat">
+					{chat.state?.width}
+				</output>
+			);
 		}
-		const fixture = (version: string, navOpen = false) => (
-			<LayoutAreaSizingProvider>
-				<Areas version={version} navOpen={navOpen} />
-			</LayoutAreaSizingProvider>
-		);
+		function Fixture({ version, navOpen = false }: { version: string; navOpen?: boolean }) {
+			const ref = React.useRef<HTMLDivElement>(null);
+			return (
+				<DeferredLayoutAreaSizingProvider layoutRef={ref}>
+					<div ref={ref}>
+						<Areas version={version} navOpen={navOpen} />
+					</div>
+				</DeferredLayoutAreaSizingProvider>
+			);
+		}
 		try {
-			const { rerender } = render(fixture('first'));
-			expect(screen.getByTestId('chat')).toHaveTextContent('320');
+			const { rerender } = render(<Fixture version="first" />);
+			await act(async () => {
+				void prepareResize?.();
+			});
+			await waitFor(() => expect(screen.getByTestId('chat')).toHaveTextContent('320'));
 			allocate.mockClear();
-			rerender(fixture('second'));
-			rerender(fixture('latest'));
+			rerender(<Fixture version="second" />);
+			rerender(<Fixture version="latest" />);
 			expect(allocate).not.toHaveBeenCalled();
 			expect(onClose).not.toHaveBeenCalled();
 			// Opening navigation replaces chat; its close handler must not retain
 			// the closure captured at registration, even when both update together.
-			rerender(fixture('opening navigation', true));
+			rerender(<Fixture version="opening navigation" navOpen />);
 			expect(onClose).toHaveBeenCalledWith('opening navigation');
 			expect(onClose.mock.calls.every(([version]) => version === 'opening navigation')).toBe(true);
 		} finally {
@@ -337,6 +579,62 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 			allocate.mockRestore();
 		}
 	});
+
+	it.each(['pointer', 'keyboard'])(
+		'retains local growth after controlled Chat shrinking by %s',
+		(input) => {
+			const originalWidth = window.innerWidth;
+			window.innerWidth = 1600;
+			let actions: ReturnType<typeof useLayoutAreaSizing>;
+			function Area({ area, requestedWidth }: { area: LayoutArea; requestedWidth?: number }) {
+				const sizing = useLayoutAreaSizing({
+					area,
+					config: {
+						...openAreas[area],
+						defaultWidth: area === 'panel' ? 320 : 400,
+						requestedWidth,
+					},
+				});
+				if (area === 'chat-panel') {
+					actions = sizing;
+				}
+				return <output data-testid={area}>{sizing.state?.width}</output>;
+			}
+			const fixture = (width: number) => (
+				<LayoutAreaSizingProvider>
+					<Area area="side-nav" requestedWidth={320} />
+					<Area area="panel" />
+					<Area area="chat-panel" requestedWidth={width} />
+				</LayoutAreaSizingProvider>
+			);
+			try {
+				const { rerender } = render(fixture(600));
+				expect(screen.getByTestId('panel')).toHaveTextContent(/^320$/);
+				if (input === 'pointer') {
+					act(() => actions.startResize('inline'));
+					act(() => actions.resize('inline', 400));
+					expect(screen.getByTestId('panel')).toHaveTextContent(/^520$/);
+					// Reversing within the same gesture uses the original baseline.
+					act(() => actions.resize('inline', 500));
+					expect(screen.getByTestId('panel')).toHaveTextContent(/^420$/);
+					act(() => actions.resize('inline', 400));
+				}
+				act(() => actions.completeResize('inline', 400));
+				// A controlled consumer still owns acceptance of the requested width.
+				expect(screen.getByTestId('chat-panel')).toHaveTextContent(/^600$/);
+				expect(screen.getByTestId('panel')).toHaveTextContent(/^320$/);
+				rerender(fixture(400));
+				expect(screen.getByTestId('chat-panel')).toHaveTextContent(/^400$/);
+				expect(screen.getByTestId('panel')).toHaveTextContent(/^520$/);
+				expect(screen.getByTestId('side-nav')).toHaveTextContent(/^320$/);
+				// Starting another gesture must not apply the released space twice.
+				act(() => actions.startResize('inline'));
+				expect(screen.getByTestId('panel')).toHaveTextContent(/^520$/);
+			} finally {
+				window.innerWidth = originalWidth;
+			}
+		},
+	);
 
 	it('restores a controlled drag preview until its completed request is accepted', () => {
 		const originalWidth = window.innerWidth;
@@ -359,15 +657,18 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 		try {
 			const { rerender } = render(fixture(400));
 			act(() => actions.startResize('inline'));
-			act(() => actions.resize('inline', 560));
-			expect(screen.getByTestId('panel')).toHaveTextContent('560');
-			expect(screen.getByTestId('side-nav')).toHaveTextContent('320');
-			act(() => actions.completeResize('inline', 560));
+			act(() => actions.resize('inline', 600));
+			expect(screen.getByTestId('panel')).toHaveTextContent('600');
+			expect(screen.getByTestId('chat-panel')).toHaveTextContent('400');
+			expect(screen.getByTestId('side-nav')).toHaveTextContent('280');
+			act(() => actions.completeResize('inline', 600));
 			expect(screen.getByTestId('panel')).toHaveTextContent('400');
 			expect(screen.getByTestId('side-nav')).toHaveTextContent('320');
-			rerender(fixture(560));
-			expect(screen.getByTestId('panel')).toHaveTextContent('560');
-			expect(screen.getByTestId('side-nav')).toHaveTextContent('320');
+			expect(screen.getByTestId('chat-panel')).toHaveTextContent('400');
+			rerender(fixture(600));
+			expect(screen.getByTestId('panel')).toHaveTextContent('600');
+			expect(screen.getByTestId('side-nav')).toHaveTextContent('280');
+			expect(screen.getByTestId('chat-panel')).toHaveTextContent('400');
 		} finally {
 			window.innerWidth = originalWidth;
 		}
@@ -440,7 +741,9 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 			const { unmount } = render(<Fixture />);
 			expect(screen.getByTestId('panel')).toHaveTextContent('overlay');
 			act(() => chatActions?.completeResize('inline', 1000));
-			expect(screen.getByTestId('chat-panel')).toHaveTextContent('inline:545');
+			// SideNav collapses, while the existing local overlay reserves no inline track.
+			expect(screen.getByTestId('chat-panel')).toHaveTextContent('inline:865');
+			expect(screen.getByTestId('panel')).toHaveTextContent('overlay');
 			const root = screen.getByTestId('root');
 			act(() =>
 				callbacks.forEach((callback) =>
@@ -512,7 +815,7 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 	);
 
 	it.each<LayoutArea>(['side-nav', 'panel', 'chat-panel'])(
-		'resizes %s only against Main, including below its minimum and after completion',
+		'cascades %s growth without snapping on completion',
 		(area) => {
 			const originalWidth = window.innerWidth;
 			window.innerWidth = 1600;
@@ -524,11 +827,9 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 				}
 				return <output data-testid={name}>{sizing.state?.width}</output>;
 			}
-			const expectWidths = (width: number) => {
+			const expectWidths = (widths: Record<LayoutArea, number>) => {
 				for (const name of ['side-nav', 'panel', 'chat-panel'] as const) {
-					expect(screen.getByTestId(name)).toHaveTextContent(
-						new RegExp(`^${name === area ? width : openAreas[name].defaultWidth}$`),
-					);
+					expect(screen.getByTestId(name)).toHaveTextContent(new RegExp(`^${widths[name]}$`));
 				}
 			};
 			try {
@@ -539,25 +840,38 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 						<Area name="chat-panel" />
 					</LayoutAreaSizingProvider>,
 				);
-				const maximum = openAreas[area].defaultWidth + 160;
+				const target = area === 'chat-panel' ? 700 : 600;
+				const result =
+					area === 'side-nav'
+						? { 'side-nav': 600, panel: 320, 'chat-panel': 360 }
+						: area === 'panel'
+							? { 'side-nav': 280, panel: 600, 'chat-panel': 400 }
+							: { 'side-nav': 260, panel: 320, 'chat-panel': 700 };
 				act(() => actions.startResize('inline'));
-				expectWidths(openAreas[area].defaultWidth);
-				act(() => actions.resize('inline', 2000));
-				expectWidths(maximum);
-				act(() => actions.completeResize('inline', maximum));
-				expectWidths(maximum);
+				expectWidths({ 'side-nav': 320, panel: 400, 'chat-panel': 400 });
+				act(() => actions.resize('inline', target));
+				expectWidths(result);
+				act(() => actions.completeResize('inline', target));
+				expectWidths(result);
 				act(() => actions.startResize('inline'));
-				act(() => actions.resize('inline', 0));
-				expectWidths(openAreas[area].minWidth);
+				act(() => actions.resize('inline', openAreas[area].minWidth));
+				const shrunk = {
+					...result,
+					[area]: openAreas[area].minWidth,
+					...(area === 'chat-panel'
+						? { panel: result.panel + target - openAreas[area].minWidth }
+						: {}),
+				};
+				expectWidths(shrunk);
 				act(() => actions.completeResize('inline', openAreas[area].minWidth));
-				expectWidths(openAreas[area].minWidth);
+				expectWidths(shrunk);
 			} finally {
 				window.innerWidth = originalWidth;
 			}
 		},
 	);
 
-	it('keeps compressed siblings fixed through successive resizes, then responds to viewport changes', () => {
+	it('retains cascaded widths through successive resizes, then responds to viewport changes', () => {
 		const originalWidth = window.innerWidth;
 		window.innerWidth = 1300;
 		const actions: Partial<Record<LayoutArea, ReturnType<typeof useLayoutAreaSizing>>> = {};
@@ -574,12 +888,15 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 					<Area area="chat-panel" />
 				</LayoutAreaSizingProvider>,
 			);
-			for (const area of ['chat-panel', 'panel', 'side-nav'] as const) {
+			for (const [area, width] of [
+				['chat-panel', 420],
+				['panel', 360],
+			] as const) {
+				act(() => actions[area]?.startResize('inline'));
+				act(() => actions[area]?.resize('inline', width));
 				const before = ['side-nav', 'panel', 'chat-panel'].map(
 					(name) => screen.getByTestId(name).textContent,
 				);
-				act(() => actions[area]?.startResize('inline'));
-				act(() => actions[area]?.resize('inline', 2000));
 				act(() =>
 					actions[area]?.completeResize('inline', Number(screen.getByTestId(area).textContent)),
 				);
@@ -587,6 +904,9 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 					['side-nav', 'panel', 'chat-panel'].map((name) => screen.getByTestId(name).textContent),
 				).toEqual(before);
 			}
+			expect(screen.getByTestId('side-nav')).toBeEmptyDOMElement();
+			expect(screen.getByTestId('panel')).toHaveTextContent('360');
+			expect(screen.getByTestId('chat-panel')).toHaveTextContent('420');
 			act(() => {
 				window.innerWidth = 1200;
 				window.dispatchEvent(new Event('resize'));
@@ -679,10 +999,10 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 		}
 
 		render(
-			<LayoutAreaSizingProvider>
+			<DeferredLayoutAreaSizingProvider>
 				<Area area="side-nav" onRequestClose={closeSideNav} />
 				<Area area="chat-panel" onRequestClose={closeChatPanel} />
-			</LayoutAreaSizingProvider>,
+			</DeferredLayoutAreaSizingProvider>,
 		);
 
 		await waitFor(() => expect(closeSideNav).toHaveBeenCalled());

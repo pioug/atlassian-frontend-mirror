@@ -2,7 +2,7 @@ import type { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema'
 import { expect, test, viewports } from './fixtures';
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
-const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
+const requiredFeatureFlags = ['platform_ufo_native_task_scheduling'];
 
 const featureFlagsCombos = [[...requiredFeatureFlags]];
 

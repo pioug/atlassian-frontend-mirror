@@ -1,13 +1,10 @@
 import { unstable_scheduleCallback as scheduleCallback } from 'scheduler';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import scheduleIdleCallback from './schedule-idle-callback';
 
-jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
-	fg: jest.fn(),
-}));
+const GATE = 'platform_ufo_native_task_scheduling';
 
 jest.mock('scheduler', () => ({
 	unstable_IdlePriority: 'idlePriority',
@@ -15,40 +12,80 @@ jest.mock('scheduler', () => ({
 }));
 
 describe('scheduleIdleCallback', () => {
+	const originalRequestIdleCallback = window.requestIdleCallback;
+	let originalScheduler: unknown;
+
 	beforeEach(() => {
+		originalScheduler = (globalThis as any).scheduler;
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		window.requestIdleCallback = originalRequestIdleCallback;
+		(globalThis as any).scheduler = originalScheduler;
+		jest.useRealTimers();
 		jest.clearAllMocks();
 	});
 
-	it('should use requestIdleCallback if available and feature flag is enabled', () => {
-		const work = jest.fn();
-		(fg as jest.Mock).mockReturnValue(true);
-		window.requestIdleCallback = jest.fn();
+	describe('when platform_ufo_native_task_scheduling is disabled', () => {
+		beforeEach(() => {
+			failGate(GATE);
+		});
 
-		scheduleIdleCallback(work);
+		it('uses the scheduler package at idle priority, even if requestIdleCallback is available', () => {
+			const work = jest.fn();
+			window.requestIdleCallback = jest.fn();
 
-		expect(window.requestIdleCallback).toHaveBeenCalledWith(work);
-		expect(scheduleCallback).not.toHaveBeenCalled();
+			scheduleIdleCallback(work);
+
+			expect(scheduleCallback).toHaveBeenCalledWith('idlePriority', work);
+			expect(window.requestIdleCallback).not.toHaveBeenCalled();
+		});
 	});
 
-	it('should use scheduler callback if requestIdleCallback is not available', () => {
-		const work = jest.fn();
-		(fg as jest.Mock).mockReturnValue(true);
-		// @ts-ignore
-		window.requestIdleCallback = undefined;
+	describe('when platform_ufo_native_task_scheduling is enabled', () => {
+		beforeEach(() => {
+			passGate(GATE);
+		});
 
-		scheduleIdleCallback(work);
+		it('uses requestIdleCallback when available', () => {
+			const work = jest.fn();
+			const postTask = jest.fn(() => Promise.resolve());
+			window.requestIdleCallback = jest.fn();
+			(globalThis as any).scheduler = { postTask };
 
-		expect(scheduleCallback).toHaveBeenCalledWith('idlePriority', work);
-	});
+			scheduleIdleCallback(work);
 
-	it('should use scheduler callback if feature flag is disabled', () => {
-		const work = jest.fn();
-		(fg as jest.Mock).mockReturnValue(false);
-		window.requestIdleCallback = jest.fn();
+			expect(window.requestIdleCallback).toHaveBeenCalledWith(work);
+			expect(postTask).not.toHaveBeenCalled();
+			expect(scheduleCallback).not.toHaveBeenCalled();
+		});
 
-		scheduleIdleCallback(work);
+		it('falls back to scheduler.postTask with background priority when requestIdleCallback is unavailable', () => {
+			const work = jest.fn();
+			const postTask = jest.fn(() => Promise.resolve());
+			// @ts-ignore - simulate browsers without requestIdleCallback (e.g. Safari)
+			window.requestIdleCallback = undefined;
+			(globalThis as any).scheduler = { postTask };
 
-		expect(scheduleCallback).toHaveBeenCalledWith('idlePriority', work);
-		expect(window.requestIdleCallback).not.toHaveBeenCalled();
+			scheduleIdleCallback(work);
+
+			expect(postTask).toHaveBeenCalledWith(work, { priority: 'background' });
+			expect(scheduleCallback).not.toHaveBeenCalled();
+		});
+
+		it('falls back to setTimeout when neither requestIdleCallback nor scheduler.postTask is available', () => {
+			const work = jest.fn();
+			// @ts-ignore - simulate browsers without requestIdleCallback (e.g. Safari)
+			window.requestIdleCallback = undefined;
+			(globalThis as any).scheduler = undefined;
+
+			scheduleIdleCallback(work);
+
+			expect(work).not.toHaveBeenCalled();
+			jest.runAllTimers();
+			expect(work).toHaveBeenCalledTimes(1);
+			expect(scheduleCallback).not.toHaveBeenCalled();
+		});
 	});
 });

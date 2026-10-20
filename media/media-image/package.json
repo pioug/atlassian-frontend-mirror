@@ -54,6 +54,7 @@
 	"devDependencies": {
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/inline-message": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/select": "workspace:^",

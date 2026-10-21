@@ -97,11 +97,13 @@ export function getHashCode(str: string): number {
  *
  * @param str - The input string used to determine the participant color.
  * @param agentType - Optional agent type supplied by agent-aware callers.
+ * @param agentNamedId - Optional stable external configuration reference for named colour overrides.
  * @returns The palette colour and index; `isFixed` prevents callers from reallocating brand colours.
  */
 export function getParticipantColor(
 	str: string,
 	agentType?: string,
+	agentNamedId?: string,
 ): { color: ParticipantColor; index: number; isFixed?: true } {
 	// `agentType` may be a named id (e.g. `mcp_lovable_agent`) or a display name (e.g. `lovable`).
 	const brand = agentType
@@ -118,7 +120,8 @@ export function getParticipantColor(
 		}
 	}
 
-	const agentColor = agentType ? getAgentColor({ agentId: str }) : undefined;
+	const agentColor =
+		agentType || agentNamedId ? getAgentColor({ agentId: str, agentNamedId }) : undefined;
 	const preferredIndex = agentColor
 		? AGENT_COLOR_TO_PARTICIPANT_COLOR_INDEX[agentColor]
 		: getHashCode(str) % participantColors.length;

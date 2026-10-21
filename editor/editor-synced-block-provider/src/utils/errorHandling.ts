@@ -542,6 +542,28 @@ export const fetchSuccessPayload = (
 	attributes: { resourceId, blockInstanceId, ...(sourceProduct && { sourceProduct }) },
 });
 
+/**
+ * Per-request `syncedBlockGetSourceInfo` success event. Pairs with
+ * `getSourceInfoErrorPayload` so a success rate can be computed per request.
+ */
+export const getSourceInfoSuccessPayload = (
+	resourceId: string,
+	blockInstanceId?: string,
+	sourceProduct?: string,
+	sourceLocation?: SyncBlockSourceLocation,
+): RendererSyncBlockEventPayload => ({
+	action: ACTION.FETCHED,
+	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
+	eventType: EVENT_TYPE.OPERATIONAL,
+	attributes: {
+		resourceId,
+		...(blockInstanceId && { blockInstanceId }),
+		...(sourceProduct && { sourceProduct }),
+		...(sourceLocation && { sourceLocation }),
+	},
+});
+
 export const createSuccessPayload = (
 	resourceId: string,
 	sourceProduct?: string,

@@ -34,7 +34,7 @@ Dialog (<dialog>) → visual styling div → ModalContext.Provider → ScrollCon
 | `react-scrolllock`             | Native inertness prevents background interaction                                           |
 | `@atlaskit/blanket`            | `::backdrop` pseudo-element                                                                |
 | z-index / `Positioner`         | Top layer is always above everything                                                       |
-| `useCloseOnEscapePress`        | Native `cancel` event on `<dialog>`                                                        |
+| `useCloseOnEscapePress`        | `Dialog` takes the Escape `keydown` (see Dialog close flow)                                |
 | `usePreventProgrammaticScroll` | Native inertness handles this                                                              |
 | `FadeIn` / `@atlaskit/motion`  | CSS `@starting-style` + `allow-discrete` via `Dialog animate` default motion               |
 | `react-focus-lock` returnFocus | Native `<dialog>` focus restoration (returns focus to previously-focused element on close) |
@@ -88,11 +88,38 @@ trigger element).
 
 ### `shouldCloseOnEscapePress` and `shouldCloseOnOverlayClick` respected in top-layer path
 
-Top-layer Dialog always calls `onClose({ reason })` for Escape and backdrop click. Modal-dialog
-gates in its **`onDialogClose`** handler: it only forwards to the app’s `onClose` (and unmounts)
-when the reason is allowed by the corresponding prop. So when `shouldCloseOnEscapePress={false}`,
-Escape does not close the modal; when `shouldCloseOnOverlayClick={false}`, backdrop click does not
-close it. Behavior matches the legacy path. See `notes/architecture/dialog-close-flow.md`.
+Modal-wrapper matches the legacy path. When `shouldCloseOnEscapePress={false}`, Escape does not call
+`onClose`; when `shouldCloseOnOverlayClick={false}`, a backdrop click does not. The app's `onClose`
+runs while the modal is open, and the app may refuse the dismissal any number of times by keeping
+the modal open.
+
+- Escape: `Dialog` cancels the Escape `keydown`, so the browser makes no close request, and asks
+  once per key press.
+- Backdrop click: `Dialog` asks only when the press and the release are both on the backdrop
+  (`pointerdown` and `pointerup`), so a drag that starts or ends inside the modal does not close it.
+  Legacy closes for a drag from the backdrop into the modal. To simulate a backdrop click in tests,
+  fire `pointerDown` and `pointerUp` on the dialog before `click`, or use `userEvent`.
+- During the exit, an Escape or a backdrop click does not call `onClose` again. Legacy did. An
+  Escape during a nested modal's exit asks the parent modal.
+- Other close requests (for example Android back): the `<dialog>` has `closedby="none"`, so they go
+  past the modal. `onClose` does not run, and the modal stays open. On Android, back navigates.
+- A close that Dialog did not ask about (for example a `<form method="dialog">` submit or
+  `dialog.close()`): not supported. Dialog shows the modal again, and `onClose` does not run.
+
+See [Dialog close flow](../decisions/dialog-close-flow.md) ("ModalDialog and Drawer").
+
+### Escape that an inner handler cancels
+
+If a handler inside the modal calls `preventDefault()` on an Escape `keydown` (for example a custom
+editor that cancels an edit), the two paths differ:
+
+- Legacy: `useCloseOnEscapePress` ignores `defaultPrevented`, so `onClose` runs too. One press
+  cancels the edit and closes the modal.
+- Top layer: `Dialog` does not ask. One press cancels the edit; a second press asks to close.
+
+This is a decision. The top-layer behaviour matches native `<dialog>`: a cancelled Escape makes no
+close request. We do not change legacy; the difference goes away when the flag rolls out. Drawer
+behaves the same way.
 
 ### `autoFocus` behavior differences
 

@@ -26,6 +26,7 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ah
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration, DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -93,6 +94,8 @@ export interface PluginState {
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
 export type BlockControlsPluginConfig = {
+	/** Called with the clicked block from either drag-handle implementation. */
+	onBlockHandleClick?: (context: { node: Node }) => void;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- EDITOR-8696 tracks migration to the Quick Insert plugin configuration.
 	/**
 	 * Enable the quick insert plus button icon on the left of the drag handle.
@@ -214,6 +217,8 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			 *          context cannot be determined.
 			 */
 			getTextInfo: (editorView: EditorView) => { textContent: string; textLength: number } | null;
+			/** Notifies the host about a drag-handle click. */
+			notifyBlockHandleClick: (context: { node: Node }) => void;
 			registerNodeDecoration: (factory: NodeDecorationFactory) => void;
 			unregisterNodeDecoration: (type: string) => void;
 		};

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import type { EventCreator, UserPickerSession } from './analytics';
 import { createDefaultPickerAttributes } from './createDefaultPickerAttributes';
 import { createEvent } from './createEvent';
@@ -63,8 +61,6 @@ export const selectEvent: EventCreator = (
 		downKeyCount: downKeyCount(session),
 		result: result(args[0]),
 		numberOfResults: numberOfResults(state),
-		...(fg('jsm_routing_recommended_agent_minor_fix')
-			? selectedCustomGroupAnalyticsAttributes(props, args[0])
-			: {}),
+		...selectedCustomGroupAnalyticsAttributes(props, args[0]),
 	});
 };

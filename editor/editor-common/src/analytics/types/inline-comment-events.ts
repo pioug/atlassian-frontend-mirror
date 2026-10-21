@@ -1,5 +1,17 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { OperationalAEP, TrackAEP } from './utils';
+import type { OperationalAEP, ScreenAEP, TrackAEP } from './utils';
+
+export type InlineCommentToolbarViewedAEP = ScreenAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.INLINE_COMMENT_TOOLBAR,
+	undefined,
+	{
+		commentTargetType: string | undefined;
+		hasExistingComments: boolean;
+		isCommentButtonEnabled: boolean;
+	},
+	undefined
+> & { name: 'inlineCommentToolbar' };
 
 export type AnnotationActionType =
 	| ACTION.INSERTED

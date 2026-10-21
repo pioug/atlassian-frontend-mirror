@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 244.0.0
+
+### Major Changes
+
+- [`4e89e49fff475`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e89e49fff475) -
+  Clean up the fully rolled out experiment `platform_editor_ai_replace_doc`.
+
+  **Breaking change (`@atlaskit/tmp-editor-statsig`):** the `platform_editor_ai_replace_doc` entry
+  has been removed from the editor experiments config, so it is no longer a valid experiment key.
+  Any consumer that still references it — for example
+  `expValEquals('platform_editor_ai_replace_doc', 'isEnabled', true)`,
+  `expVal('platform_editor_ai_replace_doc', ...)`,
+  `editorExperiment('platform_editor_ai_replace_doc', ...)` or a test override for that key — will
+  fail to type check after upgrading.
+
+  **Migration:** remove those references. The experiment is fully rolled out, so treat it as
+  permanently enabled and keep only the `isEnabled: true` branch of any conditional (that is what
+  `@atlassian/editor-rovo-bridge` now does for the `replaceDoc` tool call). The separate
+  `platform_editor_ai_replace_doc_use_all_selection` experiment is unaffected and remains available.
+
+## 243.0.0
+
+### Major Changes
+
+- [`50afcae9f3b5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50afcae9f3b5f) -
+  Clean up experiment `a11y-fixes-week3-may-2026` and internationalize accessible labels for
+  expanding follow-ups, expanding sources, and removing definition sources.
+
+### Patch Changes
+
+- [`5f26ef3b1da7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f26ef3b1da7c) -
+  Clean up experiment `platform_editor_nested_drag_handle_icon` from the generated package
+  declarations. The experiment was already removed from the experiments config.
+
 ## 242.0.0
 
 ### Major Changes

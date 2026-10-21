@@ -6,7 +6,6 @@
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cssMap as compiledCssMap, css, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
 import FocusLock from 'react-focus-lock';
 import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 
@@ -32,7 +31,7 @@ import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { Dialog } from '@atlaskit/top-layer/dialog-content';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
-import type { TDialogCloseReason } from '@atlaskit/top-layer/dialog/types';
+import type { TDialogCloseReason, TDialogDismissedBy } from '@atlaskit/top-layer/dialog/types';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps, WidthNames } from '../../types';
 import { ModalContext } from '../context';
@@ -267,18 +266,22 @@ function getTopLayerSurfaceHeight(input: ModalDialogProps['height']) {
 	return input;
 }
 
-function getDialogDismissedBy({
+function getDismissedBy({
 	shouldCloseOnEscapePress,
 	shouldCloseOnOverlayClick,
 }: {
 	shouldCloseOnEscapePress: boolean;
 	shouldCloseOnOverlayClick: boolean;
-}): React.ComponentPropsWithoutRef<typeof Dialog>['dismissedBy'] {
+}): TDialogDismissedBy {
 	if (shouldCloseOnEscapePress && shouldCloseOnOverlayClick) {
 		return 'escape-and-outside-click';
 	}
 	if (shouldCloseOnEscapePress) {
 		return 'escape';
+	}
+	// Backdrop clicks only: `Dialog` asks on both, and `onDialogAsk` ignores Escape.
+	if (shouldCloseOnOverlayClick) {
+		return 'escape-and-outside-click';
 	}
 	return 'none';
 }
@@ -291,7 +294,11 @@ function getDialogDismissedBy({
  *
  * Key decisions:
  * - Animation: CSS transitions via @starting-style / allow-discrete.
- * - Close gating: Dialog only forwards allowed reasons.
+ * - Close gating: matches legacy while open. Dialog asks on Escape and backdrop
+ *   clicks (the consumer may refuse any number of times). During the exit they
+ *   do not call `onClose` again.
+ * - A close that Dialog did not ask about (e.g. `<form method="dialog">`): not
+ *   supported. Dialog shows the modal again, and `onClose` does not run.
  * - onClose event param: undefined - consumers should use close reason.
  * - Focus restoration: native <dialog> behavior replaces react-focus-lock's
  *   returnFocus (see accessibility-criteria.md).
@@ -356,8 +363,8 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 		[defaultTestId, titleId, onCloseHandler, hasProvidedOnClose, isFullScreen],
 	);
 
-	// Dialog has already applied the close behavior configured by `dismissedBy`.
-	// Pass a synthetic event to satisfy the KeyboardOrMouseEvent contract.
+	// Pass a synthetic event to satisfy the KeyboardOrMouseEvent contract. Dialog calls this
+	// for an allowed Escape or backdrop click.
 	const onDialogClose = useCallback(
 		({ reason }: { reason: TDialogCloseReason }) => {
 			onCloseHandler(createCloseEvent({ reason }) as unknown as KeyboardOrMouseEvent);
@@ -365,30 +372,30 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 		[onCloseHandler],
 	);
 
-	const dismissedBy = getDialogDismissedBy({
-		shouldCloseOnEscapePress,
-		shouldCloseOnOverlayClick,
-	});
+	/**
+	 * Dialog asks on an allowed Escape or backdrop click. Ignoring an Escape ask refuses it:
+	 * Dialog still cancels the Escape `keydown`, so nothing else closes.
+	 */
+	const onDialogAsk = useCallback(
+		({ reason }: { reason: TDialogCloseReason }) => {
+			if (reason === 'escape' && !shouldCloseOnEscapePress) {
+				return;
+			}
+			onDialogClose({ reason });
+		},
+		[onDialogClose, shouldCloseOnEscapePress],
+	);
 
-	const shouldShimCloseOnOverlayClick = shouldCloseOnOverlayClick && !shouldCloseOnEscapePress;
+	// Unlike legacy, Escape and backdrop clicks during the exit do not call `onClose` again.
+	// See `@atlaskit/top-layer` notes: `decisions/dialog-close-flow.md`.
 
-	// Required until we fully remove `shouldCloseOnEscapePress`.
-	// Dialog's `dismissedBy` options do not support outside click without Escape (because it is a bad pattern)
+	// Dialog could not reopen after a close it did not ask about (its parent layer is closed), so
+	// the `<dialog>` is already gone. End the exit.
 	useEffect(() => {
-		const dialog = dialogRef.current;
-		if (!dialog || !shouldShimCloseOnOverlayClick) {
-			return;
+		if (isExiting && !dialogRef.current) {
+			onExitFinish?.();
 		}
-
-		return bind(dialog, {
-			type: 'click',
-			listener(event) {
-				if (event.target === event.currentTarget) {
-					onDialogClose({ reason: 'overlay-click' });
-				}
-			},
-		});
-	}, [onDialogClose, shouldShimCloseOnOverlayClick]);
+	}, [isExiting, onExitFinish]);
 
 	// ExitingPersistence: isExiting → isOpen={false} → Dialog exit animation →
 	// onExitFinish → onCloseComplete + unmount.
@@ -444,8 +451,8 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 	return (
 		<Dialog
 			ref={dialogRef}
-			onClose={onDialogClose}
-			dismissedBy={dismissedBy}
+			onClose={onDialogAsk}
+			dismissedBy={getDismissedBy({ shouldCloseOnEscapePress, shouldCloseOnOverlayClick })}
 			onExitFinish={handleDialogExitFinish}
 			shouldAnimate={!isFullScreen}
 			isOpen={!isExiting}

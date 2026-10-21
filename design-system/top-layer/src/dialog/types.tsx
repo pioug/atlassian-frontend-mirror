@@ -5,13 +5,12 @@ import type { XCSSProp } from '@compiled/react';
 import type { StrictXCSSProp } from '@atlaskit/css';
 
 /**
- * Close reasons produced by the Dialog primitive.
+ * Why the user asked to dismiss the dialog.
  *
- * - `'escape'`: user pressed Escape (native `cancel` event on `<dialog>`).
- * - `'overlay-click'`: user clicked the backdrop / overlay area.
+ * - `'escape'`: the user pressed Escape.
+ * - `'overlay-click'`: the user clicked the backdrop.
  *
- * Consumer-initiated ("programmatic") close is not a reason the primitive
- * produces. The consumer simply sets `isOpen={false}`.
+ * To close the dialog yourself, set `isOpen={false}`. This does not call `onClose`.
  */
 export type TDialogCloseReason = 'escape' | 'overlay-click';
 
@@ -30,31 +29,23 @@ export type TDialogDismissedBy = 'none' | 'escape' | 'escape-and-outside-click';
 type TDialogBaseProps = {
 	children: ReactNode;
 	/**
-	 * Controlled visibility intent for the dialog. Native visibility and lifecycle
-	 * phase can temporarily differ from this value while a close settles.
+	 * Whether the dialog is open. Set it to `false` to close the dialog. When
+	 * `shouldAnimate` is `true`, the entry and exit animations play.
 	 *
-	 * - `true`: calls `showModal()`. When `shouldAnimate` is `true`, the entry
-	 *   animation plays as a keyframe animation.
-	 * - `false`: calls `close()`. When `shouldAnimate` is `true`, the exit
-	 *   animation plays as a keyframe animation while the lifecycle phase is `exiting`,
-	 *   kept visible by an `allow-discrete` transition.
-	 *
-	 * **Lifecycle observable to consumers:**
-	 *
-	 * - The `<dialog>` host element is in the DOM only while open or its exit
-	 *   animation is playing. After exit completes the element is unmounted so
-	 *   it does not leave an empty `role="dialog"` element in the accessibility
-	 *   tree. The exact unmount timing is private and may change.
-	 * - The `id` (supplied or generated) is stable across opens.
-	 * - The `ref` is populated only while the host element is rendered. Consumers
-	 *   that read from the ref should gate the read on `isOpen` being `true`.
+	 * - The `<dialog>` element is in the DOM only while the dialog is open or its
+	 *   exit animation plays.
+	 * - The `id` (supplied or generated) stays the same across opens.
+	 * - The `ref` is set only while the `<dialog>` element is rendered. Read it
+	 *   only while `isOpen` is `true`.
 	 */
 	isOpen: boolean;
 	/**
-	 * Called after the dialog closes through an allowed Escape or backdrop interaction.
+	 * Called when the user asks to dismiss the dialog (an allowed Escape or backdrop click).
+	 * Set `isOpen={false}` to close it, or keep `isOpen` `true` to keep it open. You can
+	 * refuse any number of times, in every browser.
 	 *
-	 * User dismissal cannot be rejected from this callback. The consumer must set
-	 * `isOpen={false}` in response to synchronize controlled state with the native dialog.
+	 * Other close requests (for example the Android back button) do not call `onClose` and do not
+	 * close the dialog. On Android, back navigates as if the dialog was not there.
 	 */
 	onClose: (args: { reason: TDialogCloseReason }) => void;
 	/**
@@ -142,12 +133,16 @@ type TDialogBaseProps = {
 	 */
 	onEnterFinish?: () => void;
 	/**
-	 * Called after the native closed `toggle` and any exit animations settle.
-	 * With no animation or reduced motion, this still waits for the browser's
-	 * task-queued `toggle` so focus restoration finishes against a mounted host.
+	 * Called after the dialog has closed and its exit animation (if any) has finished.
 	 *
 	 * Use this for external lifecycle coordination, e.g. firing an
 	 * `onCloseComplete` callback or notifying ExitingPersistence.
+	 *
+	 * A call while `isOpen` is `true` means the dialog closed without `Dialog` asking (for
+	 * example `dialog.close()` through the ref, or a `<form method="dialog">` submit) and
+	 * `Dialog` could not show it again: a layer that contains it is closed, or `showModal()`
+	 * failed. It stays closed until `isOpen` changes. Otherwise `Dialog` shows it again at once
+	 * and does not call `onExitFinish`.
 	 */
 	onExitFinish?: () => void;
 };
@@ -155,9 +150,8 @@ type TDialogBaseProps = {
 /**
  * Props for the `Dialog` primitive.
  *
- * Low-level wrapper around the native `<dialog>` element.
- * Manages visibility (`showModal()` / `close()`), animation, Escape handling,
- * and backdrop-click detection. Has no visual opinions - no width, height,
+ * Low-level modal dialog. Manages visibility, animation, Escape and backdrop
+ * clicks. Has no visual opinions - no width, height,
  * background, border-radius, or layout. Consumers (e.g. `@atlaskit/modal-dialog`)
  * provide their own visual styling.
  *

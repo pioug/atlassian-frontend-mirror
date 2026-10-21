@@ -622,12 +622,9 @@ test.describe('native popover and dialog API timing', () => {
 		expect(log).toEqual(['sync', 'microtask', 'toggle:closed->open']);
 	});
 
-	test('dialog showModal: should fire beforetoggle that is not cancelable', async ({ page }) => {
-		// Captures the LAST observed beforetoggle. showModal fires a cancelable
-		// open-side beforetoggle (closed→open), and close() fires the
-		// non-cancelable open→closed beforetoggle. We assert against the close
-		// side via `.at(-1)` so that semantics match the original intent of the
-		// test, without relying on a mutable `let` accumulator.
+	test('dialog showModal: should fire a cancelable beforetoggle on open, and not on close', async ({
+		page,
+	}) => {
 		const cancelable = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');
 			document.body.appendChild(dialog);
@@ -638,13 +635,57 @@ test.describe('native popover and dialog API timing', () => {
 			dialog.showModal();
 			dialog.close();
 			dialog.remove();
-			return captured.at(-1) ?? null;
+			return captured;
 		});
 
-		expect(cancelable).toBe(false);
+		expect(cancelable).toEqual([true, false]);
+	});
+
+	test('dialog showModal: should not open when beforetoggle is canceled', async ({ page }) => {
+		const isOpen = await page.evaluate(() => {
+			const dialog = document.createElement('dialog');
+			document.body.appendChild(dialog);
+			dialog.addEventListener('beforetoggle', (event) => event.preventDefault());
+			dialog.showModal();
+			const result = dialog.hasAttribute('open');
+			dialog.remove();
+			return result;
+		});
+
+		expect(isOpen).toBe(false);
 	});
 
 	// dialog.show()
+	test('dialog show: should open a disconnected dialog without throwing', async ({ page }) => {
+		const isOpen = await page.evaluate(() => {
+			const dialog = document.createElement('dialog');
+			dialog.show();
+			return dialog.hasAttribute('open');
+		});
+
+		expect(isOpen).toBe(true);
+	});
+
+	test('dialog show: should fire a cancelable beforetoggle, and not open when it is canceled', async ({
+		page,
+	}) => {
+		const result = await page.evaluate(() => {
+			const dialog = document.createElement('dialog');
+			document.body.appendChild(dialog);
+			const captured: boolean[] = [];
+			dialog.addEventListener('beforetoggle', (event) => {
+				captured.push(event.cancelable);
+				event.preventDefault();
+			});
+			dialog.show();
+			const isOpen = dialog.hasAttribute('open');
+			dialog.remove();
+			return { cancelable: captured[0] ?? null, isOpen };
+		});
+
+		expect(result).toEqual({ cancelable: true, isOpen: false });
+	});
+
 	test('dialog show: should fire beforetoggle synchronously with closed→open', async ({ page }) => {
 		const log = await page.evaluate(() => {
 			const dialog = document.createElement('dialog');

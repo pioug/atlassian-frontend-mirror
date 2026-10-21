@@ -335,6 +335,49 @@ test.describe('Animation lifecycle - animation callbacks', () => {
 		await expect(exitCount).toHaveText('1');
 	});
 
+	// An allowed Escape: `onClose` sets `isOpen` to false, the exit runs, then focus returns.
+	test('Dialog exit runs after an allowed Escape', async ({ page, browserName }) => {
+		test.fixme(
+			browserName === 'firefox' || browserName === 'webkit',
+			'Firefox and WebKit do not support allow-discrete for display, so exit animations do not run',
+		);
+
+		await page.visitExample<typeof import('../../examples/testing-dialog-animation-callbacks.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-animation-callbacks',
+		);
+		await page.addStyleTag({
+			content: `
+				dialog,
+				dialog[open],
+				dialog::backdrop,
+				dialog[open]::backdrop {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
+
+		const trigger = page.getByTestId('dialog-trigger');
+		const exitCount = page.getByTestId('dialog-exit-count');
+		await trigger.focus();
+		await page.keyboard.press('Enter');
+		await expect(page.getByTestId('dialog-content')).toBeVisible();
+		await page.evaluate(finishCssAnimations, { selector: 'dialog' });
+		await page.getByTestId('dialog-close').focus();
+
+		await page.keyboard.press('Escape');
+
+		await expect
+			.poll(() => page.evaluate(hasRunningCssAnimation, { selector: 'dialog' }))
+			.toBe(true);
+		await expect(exitCount).toHaveText('0');
+		await page.evaluate(finishCssAnimations, { selector: 'dialog' });
+		await expect(page.getByTestId('dialog-content')).toBeHidden();
+		await expect(exitCount).toHaveText('1');
+		await expect(trigger).toBeFocused();
+	});
+
 	test('Popover leaves the accessibility tree before its exit animation finishes', async ({
 		page,
 		browserName,

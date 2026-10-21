@@ -1,5 +1,27 @@
 # @atlaskit/reactions
 
+## 37.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.0.0
+
+### Major Changes
+
+- [`a5edf0fe16236`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5edf0fe16236) -
+  Rename @atlaskit/reactions/reaction to @atlaskit/reactions/reaction-types to avoid
+  case-insensitive collisions with Reaction. Update imports to reaction-types; exported types and
+  values are unchanged.
+
+### Patch Changes
+
+- [`50afcae9f3b5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50afcae9f3b5f) -
+  Clean up experiment `a11y-fixes-week3-may-2026` and internationalize accessible labels for
+  expanding follow-ups, expanding sources, and removing definition sources.
+- Updated dependencies
+
 ## 36.7.26
 
 ### Patch Changes

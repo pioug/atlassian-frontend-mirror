@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 14.2.1
+
+### Patch Changes
+
+- [`a60d6a809f326`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a60d6a809f326) -
+  Clean up feature gate `jsm_routing_recommended_agent_minor_fix`.
+
 ## 14.2.0
 
 ### Minor Changes

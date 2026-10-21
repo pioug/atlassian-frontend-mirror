@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 30.0.3
+
+### Patch Changes
+
+- [`1cc2a27e90935`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cc2a27e90935) -
+  Remove the platform_editor_typeahead_early_focus experiment and retain the enabled Test cohort,
+  focusing typeahead queries as soon as they are attached.
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.0
 
 ### Patch Changes

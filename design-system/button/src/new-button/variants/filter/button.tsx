@@ -7,6 +7,7 @@ import React from 'react';
 import { cssMap as unboundedCssMap } from '@compiled/react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
@@ -16,7 +17,12 @@ import ButtonBase from '../shared/button-base';
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
 
-export type FilterButtonProps = Omit<ButtonProps, 'appearance'> & {
+export type FilterButtonProps = Omit<ButtonProps, 'appearance' | 'iconAfter'> & {
+	/**
+	 * Whether to show a trailing chevron down icon.
+	 * @default true
+	 */
+	hasChevronDown?: boolean;
 	/**
 	 * The count displayed after the label. Pass a formatted string, such as "99+",
 	 * to abbreviate a count. Zero is displayed; omit the prop to hide the metric.
@@ -119,7 +125,7 @@ const FilterButton: React.MemoExoticComponent<
 			children,
 			trailingMetric,
 			iconBefore,
-			iconAfter,
+			hasChevronDown = true,
 			'aria-label': ariaLabel,
 			'aria-labelledby': ariaLabelledBy,
 			isLoading = false,
@@ -145,7 +151,7 @@ const FilterButton: React.MemoExoticComponent<
 				isDisabled={isDisabled}
 				isSelected={isSelected}
 				hasIconBefore={Boolean(iconBefore)}
-				hasIconAfter={Boolean(iconAfter)}
+				hasIconAfter={hasChevronDown}
 				type={type}
 				componentName="FilterButton"
 				rootXcss={cx(
@@ -173,9 +179,9 @@ const FilterButton: React.MemoExoticComponent<
 						)}
 					</span>
 				</Content>
-				{iconAfter && (
+				{hasChevronDown && (
 					<Content type="icon" position="after" isLoading={isLoading}>
-						<IconRenderer icon={iconAfter} />
+						<IconRenderer icon={ChevronDownIcon} />
 					</Content>
 				)}
 			</ButtonBase>

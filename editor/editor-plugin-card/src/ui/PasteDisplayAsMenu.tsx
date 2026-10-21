@@ -192,7 +192,8 @@ const AppearanceOptionIconButton = ({
 	onClick,
 }: AppearanceOptionIconButtonProps) => {
 	return (
-		<Box xcss={styles.iconWrapper}>
+		// Marked as a menu item so ToolbarMenuContainer's empty-section CSS doesn't hide "Display as".
+		<Box xcss={styles.iconWrapper} data-toolbar-component="menu-item">
 			<ToolbarTooltip content={label} position="bottom">
 				<Pressable
 					xcss={cx(

@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 10.0.1
+
+### Patch Changes
+
+- [`25dc3ae9b98d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25dc3ae9b98d3) -
+  Behind `platform-dst-top-layer`: `setInitialFocusRef` now moves focus once, straight to its
+  target.
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

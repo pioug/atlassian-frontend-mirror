@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 25.6.0
+
+### Minor Changes
+
+- [`3a7d6e19bc1e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a7d6e19bc1e8) -
+  Replace the `iconAfter` prop on `FilterButton` with `hasChevronDown` to keep its trailing icon
+  consistent. The chevron now appears by default, or set `hasChevronDown={false}` to hide it.
+  `FilterButton` no longer accepts custom trailing icons. `iconBefore` is unchanged.
+
 ## 25.5.0
 
 ### Minor Changes

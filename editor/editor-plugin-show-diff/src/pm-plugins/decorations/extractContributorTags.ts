@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ContributorTagModel, DiffDescriptor, TagContributor } from '../../showDiffPluginType';
 import { resolveBaseNodeName } from '../utils/baseNodeName';
+import { isTaggableBlockNodeName } from '../utils/taggableBlockNodes';
 import type {
 	ResolvedDiffContributor,
 	ResolvedDiffContributors,
@@ -182,6 +183,14 @@ export const extractContributorTags = (
 
 		const { spec } = decoration;
 		if (!spec.attributionKey || !TAGGABLE_DECORATION_TYPES.has(spec.decorationType)) {
+			continue;
+		}
+		// Attribution also serves navigation; only supported blocks can host a tag of their own.
+		if (
+			spec.decorationType === 'block' &&
+			spec.nodeName !== undefined &&
+			!isTaggableBlockNodeName(spec.nodeName)
+		) {
 			continue;
 		}
 

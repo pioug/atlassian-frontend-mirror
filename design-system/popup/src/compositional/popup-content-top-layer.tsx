@@ -12,7 +12,6 @@ import {
 	type SetStateAction,
 	useCallback,
 	useContext,
-	useEffect,
 	useMemo,
 	useRef,
 } from 'react';
@@ -110,18 +109,18 @@ export function PopupContentTopLayer({
 	id: string | undefined;
 }): ReactNode {
 	/**
-	 * Escape hatch for consumer-chosen initial focus target.
+	 * Consumer-chosen initial focus target.
 	 *
 	 * The legacy compositional `PopupContent` surfaced
 	 * `setInitialFocusRef` on the content children render prop with a
 	 * `Dispatch<SetStateAction<HTMLElement | null>>` signature so it
 	 * could be passed as a React `ref` callback. We keep the same shape
-	 * for API compatibility, but store the value in a ref rather than
-	 * component state. Flipping state on every open caused a needless
-	 * re-render and, more importantly, raced the initial-focus effect
-	 * below. The ref is read in the open-side effect to override the
-	 * role-based default focus chosen by `useInitialFocus` inside the
-	 * underlying `Popover`.
+	 * for API compatibility, but store the value in a ref. `Popover`
+	 * reads it as `initialFocusRef` when it opens. For a role that moves
+	 * focus, a target inside the popup takes focus instead of the role
+	 * default, and focus moves once. Other roles ignore it.
+	 * `autoFocus` has no effect here: role and focus go together. See
+	 * `@atlaskit/top-layer` `notes/decisions/role-and-focus.md`.
 	 */
 	const consumerInitialFocusRef = useRef<HTMLElement | null>(null);
 	const setInitialFocusRef = useCallback<Dispatch<SetStateAction<HTMLElement | null>>>((value) => {
@@ -162,41 +161,15 @@ export function PopupContentTopLayer({
 	);
 
 	// ── Role mapping ──
-	const roleProps = useRoleProps({ role, label, titleId });
+	const roleProps = useRoleProps({
+		role,
+		label,
+		titleId,
+		initialFocusRef: consumerInitialFocusRef,
+	});
 
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const anchorRef = useContext(TriggerRefObjectContext);
-
-	/**
-	 * Initial focus, applied once per open:
-	 *
-	 * - The underlying `Popover` moves focus by `role` (its internal
-	 *   `useInitialFocus`). `autoFocus` has no effect here: role and focus
-	 *   go together. With no role, or a role that does not move focus,
-	 *   focus stays where it was. See
-	 *   `@atlaskit/top-layer` `notes/decisions/role-and-focus.md`.
-	 * - `setInitialFocusRef` wins. React flushes child effects before
-	 *   parent effects, so this runs after `Popover`'s initial focus.
-	 *
-	 * Only `isOpen` is a dependency: a prop change while open never moves focus.
-	 */
-	useEffect(() => {
-		if (!isOpen) {
-			/**
-			 * Clear the consumer-supplied focus target on close so a
-			 * subsequent open does not silently inherit a stale ref from
-			 * the previous open cycle. The next open will re-collect a
-			 * target only if the content render prop re-wires
-			 * `setInitialFocusRef`.
-			 */
-			consumerInitialFocusRef.current = null;
-			return;
-		}
-		const consumerTarget = consumerInitialFocusRef.current;
-		if (consumerTarget && consumerTarget.isConnected) {
-			consumerTarget.focus();
-		}
-	}, [isOpen]);
 
 	// `isOpen` is included so the anchor positioning effect re-runs when
 	// the Popover host element is unmounted/remounted across open cycles.

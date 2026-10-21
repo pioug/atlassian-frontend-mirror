@@ -33,10 +33,12 @@ export type DiffType = 'inline' | 'block' | 'step' | 'smart';
  *
  * `userId` is the primary actor identity. `agentId` distinguishes multiple agents (or an agent
  * from its user) when they share that user ID, with `agentType` used as a fallback when `agentId`
- * is empty. `wasOffline` preserves additional provenance without affecting identity.
+ * is empty. `agentNamedId` carries a stable external configuration reference for presentation
+ * overrides. `wasOffline` preserves additional provenance without affecting identity.
  */
 export type DiffStepAttribution = {
 	agentId?: string;
+	agentNamedId?: string;
 	agentType?: string;
 	userId?: string;
 	wasOffline?: boolean;

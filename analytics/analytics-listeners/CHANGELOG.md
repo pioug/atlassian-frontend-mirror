@@ -1,5 +1,12 @@
 # @atlaskit/analytics-listeners
 
+## 11.4.3
+
+### Patch Changes
+
+- [`b1560e6d7f4ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1560e6d7f4ed) -
+  Add CWR Remix attribution metadata to Remix lifecycle events.
+
 ## 11.4.2
 
 ### Patch Changes

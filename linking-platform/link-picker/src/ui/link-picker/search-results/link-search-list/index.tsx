@@ -16,7 +16,6 @@ import {
 import { css, cssMap, jsx } from '@compiled/react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
@@ -232,11 +231,7 @@ export const LinkSearchList: ForwardRefExoticComponent<
 				const emptyState = activePlugin?.emptyStateNoResults?.();
 				if (emptyState) {
 					return (
-						<div
-							id={tabPanelId}
-							css={styles.emptyStateNoResultsWrapper}
-							{...(fg('navx-5378-link-picker-tab-roles') ? { role: 'tabpanel' } : {})}
-						>
+						<div id={tabPanelId} css={styles.emptyStateNoResultsWrapper} role="tabpanel">
 							{emptyState}
 						</div>
 					);
@@ -244,10 +239,7 @@ export const LinkSearchList: ForwardRefExoticComponent<
 			}
 
 			return (
-				<div
-					id={tabPanelId}
-					{...(fg('navx-5378-link-picker-tab-roles') ? { role: 'tabpanel' } : {})}
-				>
+				<div id={tabPanelId} role="tabpanel">
 					<NoResults shouldRenderImage={shouldRenderNoResultsImage} />
 				</div>
 			);
@@ -330,7 +322,7 @@ export const LinkSearchList: ForwardRefExoticComponent<
 				css={listContainerStyles}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={className}
-				{...(fg('navx-5378-link-picker-tab-roles') ? { role: 'tabpanel' } : {})}
+				role="tabpanel"
 				{...restProps}
 			>
 				{itemsContent}

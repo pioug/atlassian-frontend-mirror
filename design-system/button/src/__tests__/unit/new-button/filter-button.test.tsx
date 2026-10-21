@@ -6,13 +6,41 @@ import userEvent from '@testing-library/user-event';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
-import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import FilterIcon from '@atlaskit/icon/core/filter';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import FilterButton from '../../../new-button/variants/filter/button';
 import { expectTokenStyle } from '../_util/expect-token-style';
 
 describe('FilterButton', () => {
+	it('shows a decorative chevron by default without changing the accessible name', () => {
+		failGate('platform-dst-tokens-finesse');
+		render(<FilterButton trailingMetric={8}>Filter</FilterButton>);
+
+		expect(screen.getByRole('button')).toHaveAccessibleName('Filter 8');
+		expect(screen.getByRole('presentation', { hidden: true })).toBeInTheDocument();
+		expect(screen.queryByRole('img')).not.toBeInTheDocument();
+		expect(screen.getByRole('button')).not.toHaveAttribute('haschevrondown');
+	});
+
+	it('preserves iconBefore when the chevron is hidden', () => {
+		failGate('platform-dst-tokens-finesse');
+		const { rerender } = render(
+			<FilterButton iconBefore={FilterIcon} trailingMetric={8}>
+				Filter
+			</FilterButton>,
+		);
+		expect(screen.getAllByRole('presentation', { hidden: true })).toHaveLength(2);
+
+		rerender(
+			<FilterButton iconBefore={FilterIcon} trailingMetric={8} hasChevronDown={false}>
+				Filter
+			</FilterButton>,
+		);
+		expect(screen.getAllByRole('presentation', { hidden: true })).toHaveLength(1);
+		expect(screen.getByRole('button')).toHaveAccessibleName('Filter 8');
+	});
+
 	it('renders zero and formatted counts, and hides an omitted count', () => {
 		failGate('platform-dst-tokens-finesse');
 		const { rerender } = render(<FilterButton trailingMetric={0}>Filter</FilterButton>);
@@ -259,12 +287,7 @@ describe('FilterButton', () => {
 			<DropdownMenu
 				shouldRenderToParent
 				trigger={({ triggerRef, ...triggerProps }) => (
-					<FilterButton
-						{...triggerProps}
-						ref={triggerRef}
-						trailingMetric="8"
-						iconAfter={ChevronDownIcon}
-					>
+					<FilterButton {...triggerProps} ref={triggerRef} trailingMetric="8">
 						Filter
 					</FilterButton>
 				)}

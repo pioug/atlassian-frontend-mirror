@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 30.1.0
+
+### Minor Changes
+
+- [`0352c4e5b3ada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0352c4e5b3ada) -
+  Add an optional onBlockHandleClick callback for drag-handle, including keyboard activation.
+  Confluence configures the callback behind the confluence_table_to_database experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.0
 
 ### Patch Changes

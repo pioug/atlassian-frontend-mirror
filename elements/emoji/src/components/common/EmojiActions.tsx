@@ -21,6 +21,7 @@ import { css, jsx } from '@compiled/react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
@@ -53,6 +54,13 @@ const emojiActionsWrapper = css({
 	display: 'flex',
 	justifyContent: 'flex-end',
 	alignItems: 'center',
+});
+
+const styles = cssMap({
+	stableSearchRow: {
+		// Preserve the search field's height while the shorter tone controls replace it.
+		minHeight: '60px',
+	},
 });
 
 const emojiToneSelectorContainer = css({
@@ -526,7 +534,12 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 			onMouseLeave={onMouseLeaveHandler}
 			onBlur={fg('platform_suppression_removal_fix_reactions') ? onBlurHandler : undefined}
 		>
-			<div css={emojiActionsWrapper}>
+			<div
+				css={[
+					emojiActionsWrapper,
+					fg('platform_emoji_skin_tone_blur_fix') && styles.stableSearchRow,
+				]}
+			>
 				<EmojiPickerListSearch
 					onChange={onChange}
 					query={query}

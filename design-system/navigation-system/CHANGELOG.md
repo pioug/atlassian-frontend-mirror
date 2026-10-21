@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 11.3.3
+
+### Patch Changes
+
+- [`7ddc892892fda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ddc892892fda) -
+  Gate panel content-switch motion behind platform-dst-motion-uplift-panel-content independently of
+  panel open/close motion, and retain the navigation panel motion boundary when its content key is
+  cleared.
+- Updated dependencies
+
 ## 11.3.2
 
 ### Patch Changes

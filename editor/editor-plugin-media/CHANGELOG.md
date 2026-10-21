@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media
 
+## 31.0.3
+
+### Patch Changes
+
+- [`53facf8e5239c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53facf8e5239c) -
+  Add comment target attribution to editor thread opens and toolbar screen events behind
+  cc_maui_annotations_on_extensions.
+
+  Add a shared analytics payload type for the inline comment toolbar screen event.
+
+- Updated dependencies
+
+## 31.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

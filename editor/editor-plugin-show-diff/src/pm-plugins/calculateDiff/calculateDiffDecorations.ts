@@ -811,10 +811,12 @@ const calculateDiffDecorationsInner = ({
 						createDeletedLineBreakDecoration({
 							attributionKey,
 							colorScheme: changeColorScheme,
+							diffId: showContributorTags ? `blank-line-${pos}` : undefined,
 							isActive,
 							pos,
 							reveal,
 							side: -1,
+							tagMountContext,
 						}),
 					);
 				}

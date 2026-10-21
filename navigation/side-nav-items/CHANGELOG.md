@@ -1,5 +1,14 @@
 # @atlaskit/side-nav-items
 
+## 2.6.0
+
+### Minor Changes
+
+- [`ea9a0b435660c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea9a0b435660c) -
+  Add a `label` prop to `FlyoutMenuItemContent` to name the flyout dialog when its content has no
+  `FlyoutHeader`, behind `navx-5263-a11y-flyout-dialog-name`. Global side navigation flyout items
+  now pass their label so the dialog always has an accessible name.
+
 ## 2.5.8
 
 ### Patch Changes

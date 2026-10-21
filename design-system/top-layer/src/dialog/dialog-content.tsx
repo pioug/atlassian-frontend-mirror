@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import React, { forwardRef, type Ref, useCallback, useId, useRef } from 'react';
+import { flushSync } from 'react-dom';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 import { bindAll } from 'bind-event-listener';
@@ -13,11 +14,14 @@ import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
+import { isNativeElementOpen } from '../internal/is-native-element-open';
 import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
-import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
-import { type TDialogCloseReason, type TDialogProps } from './types';
+import { type TDialogDismissedBy, type TDialogProps } from './types';
+import { useBackdropClick } from './use-backdrop-click';
+import { useCancelFallback } from './use-cancel-fallback';
+import { useEscapeKeydown } from './use-escape-keydown';
 
 // Surface reset, including `color` (the UA `dialog` rule sets `CanvasText`).
 // KEEP IN SYNC with `surfaceResetStyles` in `popover/popover.tsx`.
@@ -130,19 +134,69 @@ const backdropStyles = cssMap({
 	},
 });
 
+function isEscapeAllowed({ dismissedBy }: { dismissedBy: TDialogDismissedBy }): boolean {
+	return dismissedBy === 'escape' || dismissedBy === 'escape-and-outside-click';
+}
+
+function isBackdropClickAllowed({ dismissedBy }: { dismissedBy: TDialogDismissedBy }): boolean {
+	return dismissedBy === 'escape-and-outside-click';
+}
+
+// Whether every `<dialog>` and `[popover]` that contains the node is open. Crosses shadow roots.
+function isEveryAncestorLayerOpen({ node }: { node: Node }): boolean {
+	const parent = node.parentNode instanceof ShadowRoot ? node.parentNode.host : node.parentElement;
+	if (!parent) {
+		return true;
+	}
+	if (
+		parent instanceof HTMLElement &&
+		(parent instanceof HTMLDialogElement || parent.hasAttribute('popover')) &&
+		!isNativeElementOpen({ element: parent })
+	) {
+		return false;
+	}
+	return isEveryAncestorLayerOpen({ node: parent });
+}
+
+/**
+ * Safety net for a direct native close (for example `dialog.close()` or a `<form method="dialog">`
+ * submit), which consumers should not do. `isOpen` is the source of truth, so show it again.
+ *
+ * Skipped inside a closed layer: an open modal there is invisible but still makes the page inert.
+ * Returns whether the dialog is open again.
+ */
+function reopenAfterUnaskedClose({ dialog }: { dialog: HTMLDialogElement }): boolean {
+	if (dialog.open || !isEveryAncestorLayerOpen({ node: dialog })) {
+		return false;
+	}
+	try {
+		dialog.showModal();
+	} catch {
+		return false;
+	}
+	return dialog.open;
+}
+
 /**
  * Low-level `<dialog>` primitive. No visual opinions - no width, height,
  * background, border-radius, or layout. Consumers provide their own styling.
  *
- * Visibility is controlled declaratively via `isOpen`:
- * - `isOpen={true}` calls `.showModal()` (entry via a keyframe animation)
- * - `isOpen={false}` calls `.close()` (exit via a keyframe animation, kept visible
- *   by an `allow-discrete` transition)
+ * Visibility is controlled by `isOpen`. When the user asks to dismiss the dialog
+ * (an allowed Escape or backdrop click), `onClose` runs. Set `isOpen={false}` to
+ * close it, or keep `isOpen` `true` to keep it open, in every browser.
  *
- * Handles native `cancel` event (Escape) and backdrop click detection.
+ * **How closing works**
  *
- * Close flow: allowed user dismissal closes the native dialog before `onClose`
- * notifies the consumer. The consumer must synchronize `isOpen` in response.
+ * - Standard path: the `<dialog>` has `closedby="none"`, so the browser never closes it for a
+ *   user action. `Dialog` listens for Escape (`useEscapeKeydown`) and backdrop clicks
+ *   (`useBackdropClick`) itself, and asks through `onClose`. Other close requests (for example
+ *   Android back) go past the dialog.
+ * - Fallback: browsers without `closedby` (Safari 27 and earlier) still send `cancel` for close
+ *   requests. `useCancelFallback` refuses them. It binds only in those browsers.
+ * - Do not close the native dialog directly (`dialog.close()`, `<form method="dialog">`). If it
+ *   closes while `isOpen` is `true`, `Dialog` shows it again and does not call `onClose`.
+ *
+ * See notes/decisions/dialog-close-flow.md
  *
  * Accessibility: render at least one focusable element (typically a close
  * button) when `isOpen` becomes `true`. Tab is always trapped inside the
@@ -175,14 +229,15 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const dialogId = providedId ?? generatedId;
 	const ownRef = useRef<HTMLDialogElement>(null);
 	const combinedRef = mergeRefs([ownRef, ref as Ref<HTMLDialogElement>]);
-	const closeReasonRef = useRef<TDialogCloseReason | null>(null);
 	const dismissedByRef = useRef(dismissedBy);
 	const onCloseRef = useRef(onClose);
+	const isOpenRef = useRef(isOpen);
 	// Keep native event handlers stable while ensuring they read the latest committed props.
 	useLayoutEffect(() => {
 		dismissedByRef.current = dismissedBy;
 		onCloseRef.current = onClose;
-	}, [dismissedBy, onClose]);
+		isOpenRef.current = isOpen;
+	}, [dismissedBy, onClose, isOpen]);
 
 	const { phase, isMounted, onBeforeToggle, onToggle } = useAnimatedVisibility({
 		isOpen,
@@ -208,32 +263,22 @@ export const Dialog: React.ForwardRefExoticComponent<
 		return bindAll(dialog, [
 			{ type: 'beforetoggle', listener: onBeforeToggle },
 			{
-				// Browsers retarget clicks on ::backdrop to the <dialog> element.
-				// Close on backdrop click when outside-click dismissal is enabled.
-				type: 'click',
-				listener(event) {
-					if (
-						event.target === event.currentTarget &&
-						dismissedByRef.current === 'escape-and-outside-click'
-					) {
-						closeReasonRef.current = 'overlay-click';
-						dialog.close();
-					}
-				},
-			},
-			{
 				type: 'toggle',
 				listener(event) {
-					if (event.newState === 'closed') {
-						const reason = closeReasonRef.current;
-						closeReasonRef.current = null;
-						// A reason is only set for user-initiated closes. When React closes the
-						// dialog because isOpen changed, the consumer already knows.
-						if (reason) {
-							onCloseRef.current({ reason });
-						}
+					// The consumer unmounted the dialog in `onClose`. Do not schedule
+					// `onExitFinish` after unmount.
+					if (!dialog.isConnected) {
+						return;
 					}
-
+					// Safety net: something closed the native dialog while `isOpen` is `true`, so
+					// show it again. Runs before `onToggle`, so the exit never settles.
+					if (
+						event.newState === 'closed' &&
+						isOpenRef.current &&
+						reopenAfterUnaskedClose({ dialog })
+					) {
+						return;
+					}
 					onToggle(event);
 				},
 			},
@@ -251,7 +296,9 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// (open-count subscriptions) work with top-layer dialogs.
 	useNotifyOpenLayerObserver({
 		type: 'modal',
-		isOpen,
+		// A close that `Dialog` did not ask about, inside a closed layer, unmounts the dialog while
+		// `isOpen` stays `true`.
+		isOpen: isOpen && isMounted,
 		// No-op: no current use case for programmatic close via OpenLayerObserver.
 		onClose: noop,
 	});
@@ -263,7 +310,6 @@ export const Dialog: React.ForwardRefExoticComponent<
 		}
 
 		if (isOpen) {
-			closeReasonRef.current = null;
 			if (!dialog.open) {
 				dialog.showModal();
 			}
@@ -279,45 +325,32 @@ export const Dialog: React.ForwardRefExoticComponent<
 		}
 	}, [isOpen]);
 
-	// Safari bug: escape closes open dialog and popovers, rather than just innermost popover
-	// See notes/decisions/safari-escape-nested-popover-in-dialog.md
-	const { shouldIgnoreEscape } = useSafariEscapeFix({
-		dialogRef: ownRef,
-		isVisible: isMounted,
-	});
+	// Standard path: Escape.
+	const handleEscape = useCallback(() => {
+		if (!isEscapeAllowed({ dismissedBy: dismissedByRef.current })) {
+			return;
+		}
+		// Commit the consumer's `isOpen` answer before the keydown ends.
+		flushSync(() => {
+			onCloseRef.current({ reason: 'escape' });
+		});
+	}, []);
+	useEscapeKeydown({ dialogRef: ownRef, isMounted, onEscape: handleEscape });
 
-	// Handle native Escape (cancel event)
-	const handleCancel = useCallback(
-		(event: React.SyntheticEvent<HTMLDialogElement>) => {
-			// Only handle a cancel targeting THIS dialog. Native `cancel` does not
-			// bubble, but React's synthetic event bubbles up the component tree, so
-			// for nested dialogs (one rendered inside another's DOM subtree) the
-			// inner dialog's Escape would otherwise also fire an ancestor dialog's
-			// handler and close it too. Mirrors the backdrop-click target guard below.
-			if (event.target !== event.currentTarget) {
-				return;
-			}
+	// Standard path: backdrop click.
+	const handleBackdropClick = useCallback(() => {
+		if (!isBackdropClickAllowed({ dismissedBy: dismissedByRef.current })) {
+			return;
+		}
+		// Commit the consumer's `isOpen` answer before the click ends.
+		flushSync(() => {
+			onCloseRef.current({ reason: 'overlay-click' });
+		});
+	}, []);
+	useBackdropClick({ dialogRef: ownRef, isMounted, onBackdropClick: handleBackdropClick });
 
-			// Spurious Safari `cancel`: the keydown snapshot saw an open child
-			// popover, so this Escape belongs to that popover (light-dismissed
-			// natively). Keep the dialog open instead of forwarding to `onClose`.
-			if (shouldIgnoreEscape()) {
-				event.preventDefault();
-				return;
-			}
-
-			// Without native `closedby`, cancel Escape only when dismissal is disabled.
-			// Allowed dismissal follows Popover behavior: the browser closes the element
-			// and `onClose` notifies the controlled owner of the reason.
-			if (dismissedBy === 'none') {
-				event.preventDefault();
-				return;
-			}
-
-			closeReasonRef.current = 'escape';
-		},
-		[dismissedBy, shouldIgnoreEscape],
-	);
+	// Fallback: only in browsers without `closedby`.
+	useCancelFallback({ dialogRef: ownRef, isMounted });
 
 	// Unmount the `<dialog>` once exit completes so it does not leave an
 	// empty `role="dialog"` element in the accessibility tree. A later open
@@ -353,7 +386,9 @@ export const Dialog: React.ForwardRefExoticComponent<
 				shouldAnimateBackdrop && phase === 'exiting' && backdropStyles.exit,
 			]}
 			style={style}
-			onCancel={handleCancel}
+			// The browser never closes the dialog for a user action. `Dialog` handles Escape and
+			// backdrop clicks itself. Fixed, so the server and client render the same markup.
+			closedby="none"
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(

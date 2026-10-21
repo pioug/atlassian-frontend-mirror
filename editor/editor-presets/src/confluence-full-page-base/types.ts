@@ -19,7 +19,10 @@ import type { AvatarGroupPlugin } from '@atlaskit/editor-plugin-avatar-group/ava
 import type { BasePlugin } from '@atlaskit/editor-plugin-base/basePluginType';
 import type { BatchAttributeUpdatesPlugin } from '@atlaskit/editor-plugin-batch-attribute-updates/batchAttributeUpdatesPluginType';
 import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugin-better-type-history/betterTypeHistoryPluginType';
-import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
+import type {
+	BlockControlsPlugin,
+	BlockControlsPluginConfig,
+} from '@atlaskit/editor-plugin-block-controls/blockControlsPluginType';
 import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { BlockTypePlugin } from '@atlaskit/editor-plugin-block-type/blockTypePluginType';
 import type { BorderPlugin } from '@atlaskit/editor-plugin-border/borderPluginType';
@@ -346,7 +349,7 @@ export interface AllPublicPluginOptions {
 	base: never;
 	batchAttributeUpdates: never;
 	betterTypeHistory: never;
-	blockControls: never;
+	blockControls?: Pick<BlockControlsPluginConfig, 'onBlockHandleClick'>;
 	blockMenu: OptionsFromPluginOptionsBuilder<typeof blockMenuPluginOptions>;
 	blockType: OptionsFromPluginOptionsBuilder<typeof blockTypePluginOptions>;
 	border: never;

@@ -29,7 +29,6 @@ import Portal from '@atlaskit/portal/portal';
 import { Box } from '@atlaskit/primitives/compiled/box';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useCloseManagerV2 } from '../hooks/useCloseManager';
@@ -547,10 +546,7 @@ export const ReactionPicker: React.MemoExoticComponent<
 								ariaAttributes={{
 									'aria-expanded': isPopupTrayOpen,
 									'aria-controls': PICKER_CONTROL_ID,
-									...(isPopupTrayOpen &&
-									expValEquals('a11y-fixes-week3-may-2026', 'isEnabled', true)
-										? { 'aria-owns': PICKER_CONTROL_ID }
-										: {}),
+									...(isPopupTrayOpen ? { 'aria-owns': PICKER_CONTROL_ID } : {}),
 								}}
 								ref={(node: HTMLButtonElement | null) => {
 									if (node && isPopupTrayOpen) {

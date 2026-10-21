@@ -364,6 +364,7 @@ export enum ACTION_SUBJECT {
 	TYPEAHEAD = 'typeAhead',
 	TYPEAHEAD_ITEM = 'typeAheadItem',
 	ANNOTATION = 'annotation',
+	INLINE_COMMENT_TOOLBAR = 'inlineCommentToolbar',
 	SEARCH_RESULT = 'searchResult',
 	CREATE_LINK_INLINE_DIALOG = 'createLinkInlineDialog',
 	CODE_BLOCK = 'codeBlock',

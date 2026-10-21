@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "36.7.26",
+	"version": "37.0.1",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -112,7 +112,7 @@
 		},
 		"./MemoryReactionsStore": "./src/store/MemoryReactionsStore.ts",
 		"./MockReactionsClient": "./src/MockReactionsClient.ts",
-		"./reaction": "./src/types/reaction.ts",
+		"./reaction-types": "./src/types/reaction.ts",
 		"./Reaction": "./src/components/Reaction.tsx",
 		"./ReactionConsumer": "./src/store/ReactionConsumer.tsx",
 		"./ReactionPicker": "./src/components/ReactionPicker.tsx",

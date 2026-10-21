@@ -732,22 +732,8 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-01
-	platform_editor_ai_replace_doc: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-18
 	platform_editor_nest_table_in_panel: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-29
-	'a11y-fixes-week3-may-2026': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1629,15 +1615,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-01
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_replace_doc/setup
-	platform_editor_ai_replace_doc: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_replace_doc',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-18
 	platform_editor_nest_table_in_panel: createBooleanExperiment({
 		productKeys: {
@@ -1666,15 +1643,6 @@ export const editorExperimentsConfig: {
 	confluence_editor_paste_3p_link_actions_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_editor_paste_3p_link_actions_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-29
-	'a11y-fixes-week3-may-2026': createBooleanExperiment({
-		productKeys: {
-			confluence: 'a11y-fixes-week3-may-2026',
-			jira: 'a11y-fixes-week3-may-2026',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

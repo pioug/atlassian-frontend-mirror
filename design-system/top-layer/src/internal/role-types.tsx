@@ -18,6 +18,12 @@ export type TRoleWithImplicitName =
 	| 'alert'
 	| 'log';
 
+/**
+ * Roles that move focus into the popover when it opens. Only these roles accept
+ * `initialFocusRef`. See `notes/decisions/role-and-focus.md`.
+ */
+export type TRoleWithInitialFocus = 'dialog' | 'alertdialog' | 'menu' | 'listbox';
+
 // Shared ARIA role discrimination types
 //
 // These encode the WCAG 4.1.2 constraint: roles like `dialog`, `alertdialog`,

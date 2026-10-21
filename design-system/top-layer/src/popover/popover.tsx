@@ -266,6 +266,7 @@ const POPUP_ROLES: Set<TRoleRequiringAccessibleName | TRoleWithImplicitName> = n
  * only, not on close. Consumers should update controlled intent by setting
  * `isOpen` to `false` from `onClose`. If controlled intent remains open after
  * native close, the Popover remains closed until the prop changes.
+ * `Dialog` asks first instead; see `notes/decisions/dialog-close-flow.md`.
  *
  * - Spec: <https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute>
  * - <https://github.com/whatwg/html/issues/8973>
@@ -296,6 +297,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		isOpen,
 		enteringAnimationXcss,
 		exitingAnimationXcss,
+		initialFocusRef,
 		// ARIA
 		role,
 		label,
@@ -413,7 +415,7 @@ export const Popover: React.ForwardRefExoticComponent<
 	// Passing `phase` keeps `useFocusWrap` attached through the animated-exit
 	// window (WCAG 2.4.3 guard). See notes/architecture/focus.md.
 	useFocusWrap({ elementRef: ownRef, role, phase });
-	useInitialFocus({ elementRef: ownRef, phase, role });
+	useInitialFocus({ elementRef: ownRef, initialFocusRef, phase, role });
 
 	// Bind via `useLayoutEffect`, and BEFORE the show/hide layout effect
 	// below, so listeners are attached when `showPopover()` synchronously

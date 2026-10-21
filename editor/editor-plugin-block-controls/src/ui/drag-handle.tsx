@@ -579,6 +579,9 @@ export const DragHandle = ({
 				}
 
 				const resolvedStartPos = tr.doc.resolve(startPos);
+				if (resolvedStartPos.nodeAfter) {
+					api?.blockControls?.actions.notifyBlockHandleClick({ node: resolvedStartPos.nodeAfter });
+				}
 
 				const selection =
 					selectionPreservationPluginKey.getState(view.state)?.preservedSelection || tr.selection;
@@ -635,6 +638,11 @@ export const DragHandle = ({
 				api?.core?.actions.execute(({ tr }) => {
 					if (startPos === undefined) {
 						return tr;
+					}
+
+					const node = tr.doc.resolve(startPos).nodeAfter;
+					if (node) {
+						api?.blockControls?.actions.notifyBlockHandleClick({ node });
 					}
 
 					const selection =

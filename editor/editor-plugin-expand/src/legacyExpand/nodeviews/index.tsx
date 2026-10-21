@@ -36,6 +36,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ExpandPlugin } from '../../types';
+import { renderExpandButton } from '../../ui/renderExpandButton';
 import {
 	deleteExpandAtPos,
 	setSelectionInsideExpand,
@@ -310,6 +311,15 @@ export class ExpandNodeView implements NodeView {
 		}
 
 		const { __expanded } = (node && node.attrs) || this.node.attrs;
+
+		if (isExperimentEnabled('platform_editor_expand_icon_vanilla')) {
+			renderExpandButton(this.icon, {
+				intl,
+				allowInteractiveExpand: this.allowInteractiveExpand,
+				expanded: this.__livePage ? !__expanded : __expanded,
+			});
+			return;
+		}
 
 		this.nodeViewPortalProviderAPI.render(
 			() => (
@@ -874,7 +884,9 @@ export class ExpandNodeView implements NodeView {
 		if (this.icon) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.icon.removeEventListener('keydown', this.handleIconKeyDown);
-			this.nodeViewPortalProviderAPI.remove(this.renderKey);
+			if (!isExperimentEnabled('platform_editor_expand_icon_vanilla')) {
+				this.nodeViewPortalProviderAPI.remove(this.renderKey);
+			}
 		}
 
 		this.decorationCleanup?.();

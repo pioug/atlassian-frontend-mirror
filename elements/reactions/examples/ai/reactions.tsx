@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import type { EmojiProvider } from '@atlaskit/emoji/types';
-import { ReactionStatus, type ReactionSummary } from '@atlaskit/reactions/reaction';
+import { ReactionStatus, type ReactionSummary } from '@atlaskit/reactions/reaction-types';
 import { Reactions } from '@atlaskit/reactions/Reactions';
 
 export default function ReactionsExample({

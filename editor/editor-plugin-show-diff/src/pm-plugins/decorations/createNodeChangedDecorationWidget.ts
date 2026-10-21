@@ -299,16 +299,17 @@ export const createNodeChangedDecorationWidget = ({
 		// The blocks have no content to serialize, so the deletion is shown as one struck-through
 		// return glyph per line the author removed. A single widget, not one per line: the lines are
 		// gone from `newDoc`, so they all resolve to the same anchor and separate widgets would stack.
-		//
-		// No attribution: the glyph is not a tag host, matching `canTagWidget` below.
 		return [
 			createDeletedLineBreakDecoration({
+				attributionKey: showContributorTags ? attributionKey : undefined,
 				colorScheme,
 				count: deletedBlankLineCount,
+				diffId: showContributorTags ? `widget-${change.fromA}-${change.toA}` : undefined,
 				isActive,
 				pos: safeInsertPos,
 				reveal,
 				side: placeBelow ? 1 : -1,
+				tagMountContext,
 			}),
 		];
 	}

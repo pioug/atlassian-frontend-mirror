@@ -1293,12 +1293,13 @@ describe('Tooltip', () => {
 
 			// Trigger hiding tooltip
 			await user.unhover(trigger);
-			// flush delay
+			// Hover the tooltip before the hide delay ends, as a user moving to it does. Once the
+			// tooltip starts to hide, the closing popover is inert, so a user cannot hover it.
+			await user.hover(screen.getByTestId('tooltip'));
+			// flush delay and motion
 			act(() => {
 				jest.runOnlyPendingTimers();
 			});
-			await user.hover(screen.queryByTestId('tooltip')!);
-			// flush motion
 			act(() => {
 				jest.runOnlyPendingTimers();
 			});

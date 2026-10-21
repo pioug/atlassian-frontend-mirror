@@ -32,6 +32,7 @@ import {
 	fetchErrorPayload,
 	fetchSuccessPayload,
 	getSourceInfoErrorPayload,
+	getSourceInfoSuccessPayload,
 	sourceInfoOrphanedPayload,
 	updateReferenceErrorPayload,
 } from '../utils/errorHandling';
@@ -460,21 +461,26 @@ export class ReferenceSyncBlockStoreManager {
 			// the resourceId.
 			const sourceProduct = product ?? getSourceProductFromResourceIdSafe(resourceId);
 
+			// With the experiment off, events and experience calls are identical to master.
+			const isPerRequestSourceInfo = isExperimentEnabled('platform_editor_blocks_patch_12');
+
 			if (!sourceAri || !product || !blockInstanceId) {
 				this.fireAnalyticsEvent?.(
 					getSourceInfoErrorPayload(
 						'SourceAri, product or blockInstanceId missing',
 						resourceId,
 						sourceProduct,
+						isPerRequestSourceInfo ? getSourceLocation(sourceAri) : undefined,
 					),
 				);
 				return Promise.resolve(undefined);
 			}
 
 			const sourceLocation = getSourceLocation(sourceAri);
-			// Undefined with `platform_editor_blocks_patch_13` off, so experience calls below keep
-			// exactly their previous arguments (no `metadata` key, `success()` without arguments).
-			const experienceMetadata = sourceLocation && { sourceLocation };
+			// The shared experience cannot count requests, so with the experiment on the
+			// per-request event below carries `sourceLocation` instead of the experience.
+			const experienceMetadata =
+				!isPerRequestSourceInfo && sourceLocation ? { sourceLocation } : undefined;
 			const withExperienceMetadata = (options: { reason: string }) =>
 				experienceMetadata ? { ...options, metadata: experienceMetadata } : options;
 
@@ -512,6 +518,17 @@ export class ReferenceSyncBlockStoreManager {
 							this.fetchSourceInfoExperience?.success({ metadata: experienceMetadata });
 						} else {
 							this.fetchSourceInfoExperience?.success();
+						}
+						// Pairs with the error event above as the per-request denominator.
+						if (isPerRequestSourceInfo && sourceLocation) {
+							this.fireAnalyticsEvent?.(
+								getSourceInfoSuccessPayload(
+									resourceId,
+									blockInstanceId,
+									sourceProduct,
+									sourceLocation,
+								),
+							);
 						}
 					} else {
 						this.fetchSourceInfoExperience?.failure(

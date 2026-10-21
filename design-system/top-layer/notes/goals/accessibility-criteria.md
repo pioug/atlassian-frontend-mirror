@@ -98,8 +98,10 @@ methods); it does not require Escape to close. Our approach ensures focus can al
   by JavaScript — pressing Escape will always close the topmost auto popover. This eliminates
   keyboard traps by design.
 - `<dialog>.showModal()` **fires `cancel` event on Escape.** Even for modals, the browser provides a
-  native Escape mechanism. The `shouldCloseOnEscapePress` prop would control whether the `cancel`
-  event calls `onClose`, but cannot prevent the Escape key from being recognized.
+  native Escape mechanism. `Dialog` takes the Escape `keydown` and asks the consumer. A `Dialog`
+  consumer can refuse any number of times. This is not a keyboard trap
+  ([2.1.2](https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html)): the user can still
+  Tab to the dialog's controls, such as its close button (see Requirement 4).
 - **Native focus management replaces competing libraries.** `<dialog>.showModal()` natively traps
   focus; `popover="auto"` natively provides light-dismiss. No custom JS focus-trapping libraries are
   needed, eliminating the "two traps fighting" scenario entirely.
@@ -489,10 +491,13 @@ in dropdown menus. Only components with `role="dialog"` should cycle Tab.
   for `popover="auto"` and `popover="hint"` — no custom hook needed. See notes/architecture/focus.md
   for details.
 
-**Deliberate design decision — no custom initial-focus API:**
+**Deliberate design decision — one narrow initial-focus API:**
 
-`@atlaskit/top-layer` does **not** expose a custom initial-focus API (e.g., `autoFocusRef`,
-`initialFocusRef`). This is intentional:
+`@atlaskit/top-layer` has one custom initial-focus API: `Popover`'s `initialFocusRef`, typed only
+for roles that move focus (`dialog`, `alertdialog`, `menu`, `listbox`). It exists so
+`@atlaskit/popup`'s `setInitialFocusRef` moves focus once, inside top-layer, instead of a second
+`focus()` after the role default. See `notes/architecture/focus.md#initialfocusref`. Otherwise, lean
+on native behaviour:
 
 - **`<dialog>.showModal()`** follows the
   [dialog focusing steps](https://html.spec.whatwg.org/multipage/interactive-elements.html#dialog-focusing-steps):
@@ -567,33 +572,43 @@ modals, dialogs, and custom menus should close on Escape.
 **The problem:** `shouldCloseOnEscapePress` allows consumers to disable Escape dismissal, creating
 keyboard traps. Gerard explicitly calls this out — it should not exist.
 
-**Legacy compatibility exception (modal dialog):** `@atlaskit/modal-dialog` may still **gate**
-whether Escape results in an application `onClose` when `shouldCloseOnEscapePress={false}`, to match
-long-standing product contracts. Native `<dialog>` still receives the `cancel` event on Escape; the
-top-layer primitive always reports the close reason. Only whether the **consumer’s** `onClose` runs
-is gated — this is intentional parity with the pre-migration path until the prop is fully deprecated
-and removed. **No other layered primitives** should offer a way to block Escape dismissal for
-`popover="auto"` layers.
+**Modal dialogs can refuse Escape:** a `Dialog` consumer may refuse Escape any number of times by
+keeping `isOpen` `true` (for example an unsaved-changes guard). `Dialog` cancels the Escape
+`keydown` when focus is in the dialog, or on `<body>` after it was last in the dialog, so the
+browser makes no close request, in every browser. `@atlaskit/modal-dialog` and `@atlaskit/drawer`
+use this for their legacy contract, and `shouldCloseOnEscapePress={false}` (ModalDialog) maps to
+`dismissedBy="none"`, or to the default with Escape asks ignored. This is not a WCAG 2.1.2 keyboard
+trap: focus stays in the dialog, and the user can Tab to its controls (for example a close button).
+The dialog must keep a visible way to close. See
+[Dialog close flow](../decisions/dialog-close-flow.md). **No other layered primitives** should offer
+a way to block Escape dismissal.
 
 **Non-negotiable outcome:**
 
 - ✅ Escape **always** dismisses popovers, dropdowns, inline dialogs, and other `popover="auto"`
   layers (browser light dismiss is not JS-cancelable)
-- ✅ Modal: Escape is always recognized by the platform; **closing the app modal** may still be
-  suppressed when `shouldCloseOnEscapePress={false}` (legacy)
+- ✅ Modal (`Dialog`): Escape always asks. The consumer may refuse, and the user can still Tab to
+  the dialog's controls
 - ✅ `shouldCloseOnEscapePress` prop is deprecated and eventually removed
 - ✅ Light dismiss (click outside) works for non-modal layers
-- ✅ For modals: Escape fires the `cancel` event (platform); `onClose` may be gated by
-  `shouldCloseOnEscapePress` for legacy parity (see exception above)
+- ✅ For modals: `Dialog` calls `onClose` for Escape, unless `dismissedBy` is `"none"`. A consumer
+  can refuse by ignoring the ask (ModalDialog with `shouldCloseOnEscapePress={false}` ignores Escape
+  asks)
 
 **How the migration solves it:**
 
 - `popover="auto"` **light dismiss cannot be blocked.** The browser's native Escape handling for
   auto popovers is not JS-cancelable — pressing Escape will always close the topmost popover. This
   makes keyboard traps **impossible by design**.
-- `<dialog>` **fires `cancel` event on Escape.** While technically `preventDefault()` can be called
-  on the cancel event, we should NOT expose this to consumers. The `onClose` callback fires
-  unconditionally.
+- `<dialog>` **Escape asks first.** `Dialog` calls `onClose` while the dialog is still open, and
+  closes only when the consumer sets `isOpen={false}`. A consumer may refuse an Escape or backdrop
+  dismissal by keeping `isOpen` `true`, for example for an unsaved-changes guard or an in-progress
+  submit. Refusals should be rare and temporary, and the dialog must keep a visible way to close or
+  cancel ([2.1.2](https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html)). `Dialog` has
+  `closedby="none"` and handles Escape and backdrop clicks itself, so the browser never forces a
+  close. Other close requests (for example Android back) go past the dialog: on Android, back
+  navigates, and `Dialog` does not ask. So a refusal cannot trap a user on Android. Popover light
+  dismiss stays notify-after. See [Dialog close flow](../decisions/dialog-close-flow.md).
 - `shouldCloseOnEscapePress` **deprecated.** For the rare case where Escape shouldn't close (e.g.,
   onboarding spotlight), use `popover="manual"` which doesn't have light dismiss — but the consumer
   must provide an alternative exit method (explicit close button).
@@ -661,6 +676,10 @@ can leave).
 | 3   | Background inert when modal is open         | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html), [1.3.2](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html)                                                                | `<dialog>.showModal()` native inertness                                                                                | 0.7       |
 | 4   | Escape always dismisses — no exceptions     | Gerard Cohen | [1.4.13](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html), [ARIA APG](https://www.w3.org/WAI/ARIA/apg/) (and [2.1.2](https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html)) | `popover="auto"` native light dismiss; deprecate `shouldCloseOnEscapePress`                                            | 0.5–1.0   |
 | 5   | Focus returns to trigger on dismiss         | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html)                                                                                                                                               | Browser's native focus restoration (Popover API); `returnFocusRef` at component level for "trigger deleted" edge cases | 0.5–1.0   |
+
+Requirement 4 has one documented exception: a modal `Dialog` consumer may refuse Escape. The user
+can still Tab to the dialog's controls, so it is not a keyboard trap (see
+[Requirement 4](#requirement-4-escape-must-always-dismiss--non-negotiable)).
 
 ---
 

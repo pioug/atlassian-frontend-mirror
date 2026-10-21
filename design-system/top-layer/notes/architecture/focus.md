@@ -155,11 +155,24 @@ const autofocusRef = useCallback((node: HTMLButtonElement | null) => {
 <button ref={autofocusRef}>Focused on open</button>;
 ```
 
-React 19+ reflects the `autoFocus` JSX prop as the HTML `autofocus` attribute, so this workaround is
-only needed for React 18.
+React 19 client rendering does not set the attribute either: `react-dom` 19.2 skips `autoFocus` when
+it sets DOM properties, and calls `.focus()` during the commit, as React 18 does. (Its server
+renderer does emit `autofocus` in the HTML.) So this workaround is needed for React 18 and React 19.
 
 For `Dialog` (which uses `showModal()`), the same ref callback pattern applies — the browser's
 dialog focusing steps look for the HTML `autofocus` attribute.
+
+The native attribute only works for an element that is in the dialog when `showModal()` runs. For
+content that mounts later, in an open dialog, React's `autoFocus` works, so keep both. Entry-point
+modals (`ModalTrigger` from `@atlassian/entry-points`) also move focus with `FocusInsideOnLoad`
+after the entry point loads: to the `autoFocus` ref, else to the first focusable element. That
+overrides both the attribute and React's `autoFocus`. With `platform-dst-top-layer` on, the
+top-layer `ModalDialog` does not forward its `ref`, so `FocusInsideOnLoad` finds no modal and does
+nothing.
+
+The same caveat breaks JSX `autoFocus` inside `ModalDialog` content with `platform-dst-top-layer`
+on. See [`../follow-ups/dialog-react-autofocus.md`](../follow-ups/dialog-react-autofocus.md) for the
+affected consumers and the options for a general fix.
 
 ### Decisions
 
@@ -172,10 +185,12 @@ dialog focusing steps look for the HTML `autofocus` attribute.
 
 `useInitialFocus` hook (`src/internal/use-initial-focus.tsx`):
 
-- On open, resolves the correct focus target based on role:
-  - `dialog`: `[autofocus]` element, or first focusable
-  - `menu`: first focusable (menu item)
-  - `listbox`: `[aria-selected="true"]` option, or first focusable
+- On open, resolves the correct focus target based on role. For the roles that move focus, an
+  `initialFocusRef` target inside the popover comes first (see [`initialFocusRef`](#initialfocusref)
+  below):
+  - `dialog`: `initialFocusRef` target, `[autofocus]` element, or first focusable
+  - `menu`: `initialFocusRef` target, or first focusable (menu item)
+  - `listbox`: `initialFocusRef` target, `[aria-selected="true"]` option, or first focusable
   - `tooltip` / no role: no focus movement
 - Combobox carve-out (for `menu`, `listbox`, and `dialog` / `alertdialog`): if the popup is owned by
   a focused combobox-like textbox, focus stays on the textbox and the popup surfaces the active
@@ -244,6 +259,35 @@ first menu item) rather than preserving the consumer-chosen target. This matches
 timing races, and a more correct phase-machine `exitCommitted` design adds significant surface area
 for a scenario that has not been observed in practice. Consumers that need to preserve focus across
 a programmatic reopen should manage focus themselves after the popup opens.
+
+#### `initialFocusRef`
+
+`Popover` takes an optional `initialFocusRef`. `getInitialFocusTarget` uses it as the first choice
+in each role branch that moves focus. For a dialog the order is: the `initialFocusRef` target, then
+the first `[autofocus]` element, then the first focusable element.
+
+- **Roles:** only `dialog`, `alertdialog`, `menu` and `listbox` use it. The types accept it only for
+  those roles (`TRoleWithInitialFocus`), and the runtime ignores it for other roles and for no role.
+  Use it for `dialog` and `alertdialog`, where the author chooses the target. `menu` and `listbox`
+  already focus the right element.
+- **Inside the popover only:** a target that the popover does not contain (outside it, or not in the
+  DOM) is ignored, and the role default applies.
+- **Combobox carve-out first:** the carve-out decides whether focus moves. The target only decides
+  where. A combobox that controls the popover keeps focus.
+- **Popup:** `@atlaskit/popup` passes its `setInitialFocusRef` target only for roles that move
+  focus. `useRoleProps` (`popup/src/internal/top-layer-bridge.tsx`) puts `initialFocusRef` only on
+  those role variants, so the types hold the whole way down.
+- **Timing:** read in the same effect as the role default, so our code moves focus once. Set the ref
+  before the open commits, for example as the `ref` of an element in `children`. Content that mounts
+  later does not get focus.
+- **Native autofocus runs first:** `showPopover()` runs the popover focusing steps, so an
+  `[autofocus]` element takes focus before the effect. The target then takes focus, so listeners see
+  two focus moves. The jsdom polyfill does the same.
+- **Reopen mid-exit:** the content stays mounted, so the target takes focus again.
+
+It replaced an effect in `@atlaskit/popup` that ran after `Popover`'s initial focus and focused the
+target a second time. Listeners saw two focus moves, and the effect keyed on `isOpen`, not on the
+phase rules above.
 
 #### Role and focus are a package deal
 

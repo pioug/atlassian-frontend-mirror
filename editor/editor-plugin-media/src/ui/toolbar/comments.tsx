@@ -2,7 +2,13 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
+import type { InlineCommentToolbarViewedAEP } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
 import { VIEW_METHOD } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
@@ -91,6 +97,22 @@ export const commentButton = (
 		disabled: isOfflineMode(api?.connectivity?.sharedState?.currentState()?.mode),
 		onMount: () => {
 			onCommentButtonMount && onCommentButtonMount();
+			if (fg('cc_maui_annotations_on_extensions')) {
+				const payload: InlineCommentToolbarViewedAEP = {
+					eventType: EVENT_TYPE.SCREEN,
+					name: 'inlineCommentToolbar',
+					action: ACTION.VIEWED,
+					actionSubject: ACTION_SUBJECT.INLINE_COMMENT_TOOLBAR,
+					attributes: {
+						commentTargetType: 'media',
+						hasExistingComments: hasActiveComments,
+						isCommentButtonEnabled: !isOfflineMode(
+							api?.connectivity?.sharedState?.currentState()?.mode,
+						),
+					},
+				};
+				api?.analytics?.actions.fireAnalyticsEvent(payload);
+			}
 		},
 	};
 };

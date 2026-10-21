@@ -1,5 +1,25 @@
 # @atlaskit/editor-shared-styles
 
+## 4.6.0
+
+### Minor Changes
+
+- [`1a9b1697e578d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a9b1697e578d) -
+  Propagate named agent IDs through suggestion diff attribution so OOTB agent colour overrides are
+  applied.
+
+## 4.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.5.2
 
 ### Patch Changes

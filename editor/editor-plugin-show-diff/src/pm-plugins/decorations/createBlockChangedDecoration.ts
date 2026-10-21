@@ -341,7 +341,7 @@ export const createBlockChangedDecoration = ({
 					}),
 				},
 				buildDiffDecorationSpec({
-					attributionKey: shouldTagBlock ? attributionKey : undefined,
+					attributionKey: showContributorTags ? attributionKey : undefined,
 					colorScheme,
 					decorationType: 'block',
 					diffId,

@@ -174,6 +174,19 @@ actually happened.
   — the six-point contract a custom `popupComponent` has to meet for a size cap to reach its
   content: stated in the `PopupComponentProps` docblock, unenforced, and broken by six in-tree
   containers
+- **[follow-ups/dialog-escape-with-focus-on-body.md](./follow-ups/dialog-escape-with-focus-on-body.md)**
+  — done: with focus on `<body>` (the focused element was removed), the Dialog that focus was last
+  in takes the Escape, as legacy does. Why it records on `focusin`, measurements, and the options we
+  did not use
+- **[follow-ups/dialog-closedby.md](./follow-ups/dialog-closedby.md)** — should Dialog set the
+  native `closedby` attribute? Done: always `closedby="none"`, with a `cancel` fallback for browsers
+  without it (Safari 27). Support table, the WebKit flag, and the options we did not choose
+- **[follow-ups/dialog-forced-close-fallback.md](./follow-ups/dialog-forced-close-fallback.md)**:
+  superseded by `closedby="none"`. A short record of the same-task reopen after a forced close, and
+  why we removed it
+- **[follow-ups/dialog-close-request-dismisses-inner-layer.md](./follow-ups/dialog-close-request-dismisses-inner-layer.md)**:
+  TODO: Android back should close an open Select menu, Popper or Spotlight in a dialog first, as
+  Escape does. The proposal, its limits and tests
 - **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —
   `useInitialFocus` is unimplemented for `role="tree"` and `role="grid"`
 - **[follow-ups/popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** —

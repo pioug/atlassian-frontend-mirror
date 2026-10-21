@@ -206,8 +206,7 @@ export function DrawerTopLayer({
 	});
 
 	// Bridge the Dialog primitive's `onClose({ reason })` to the legacy
-	// `onClose(event, analyticsEvent)` contract via a synthetic event. Drawer
-	// has no `shouldCloseOn*` props, so both reasons always forward.
+	// `onClose(event, analyticsEvent)` contract via a synthetic event.
 	const handleDialogClose = useCallback(
 		({ reason }: { reason: TDialogCloseReason }) => {
 			const event = createCloseEvent({ reason }) as unknown as SyntheticEvent<HTMLElement>;
@@ -255,6 +254,9 @@ export function DrawerTopLayer({
 			shouldReturnFocus.current.focus();
 		}
 	}, [onCloseComplete, shouldReturnFocus]);
+
+	// Unlike legacy, Escape and backdrop clicks during the exit do not call `onClose` again.
+	// See `@atlaskit/top-layer` notes: `decisions/dialog-close-flow.md`.
 
 	const accessibleName = getAccessibleName({ label, titleId });
 

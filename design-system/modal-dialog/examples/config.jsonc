@@ -21,6 +21,7 @@
 		"93-multi-column.vr.ap.tsx",
 		"95-custom-child.vr.ap.tsx",
 		"97-modal-a11y-background-inert.tsx",
+		"104-testing-escape-refused.tsx",
 		"96-with-current-surface.vr.ap.tsx",
 	],
 	"exampleDependencies": ["react-beautiful-dnd"],

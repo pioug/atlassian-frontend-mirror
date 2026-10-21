@@ -196,6 +196,17 @@ export const isContributorTagsEnabled = (
 	contributors !== undefined &&
 	Object.keys(contributors).length > 0;
 
+const getAttributionParticipantColor = (
+	attribution: DiffStepAttribution | undefined,
+	identity: AttributionIdentity,
+	contributors: ResolvedDiffContributors | undefined,
+): ReturnType<typeof getParticipantColor> =>
+	getParticipantColor(
+		identity.colorSeed,
+		getAgentBrandForColor(attribution, contributors),
+		attribution?.agentNamedId,
+	);
+
 export const createAttributionColorMap = (
 	stepAttributions: Array<DiffStepAttribution | undefined>,
 	contributors?: ResolvedDiffContributors,
@@ -210,10 +221,7 @@ export const createAttributionColorMap = (
 		if (!identity) {
 			continue;
 		}
-		const { index, isFixed } = getParticipantColor(
-			identity.colorSeed,
-			getAgentBrandForColor(attribution, contributors),
-		);
+		const { index, isFixed } = getAttributionParticipantColor(attribution, identity, contributors);
 		const color = HASHED_PARTICIPANT_COLOR_SCHEMES[index];
 		if (isFixed && color) {
 			colors.set(identity.key, color);
@@ -228,10 +236,7 @@ export const createAttributionColorMap = (
 			continue;
 		}
 
-		const { index } = getParticipantColor(
-			identity.colorSeed,
-			getAgentBrandForColor(attribution, contributors),
-		);
+		const { index } = getAttributionParticipantColor(attribution, identity, contributors);
 		const hashedColor = getSlotColor(index);
 		if (!hashedColor) {
 			continue;

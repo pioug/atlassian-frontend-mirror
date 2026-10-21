@@ -17,7 +17,6 @@ import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messag
 import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles/constants';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
@@ -554,11 +553,7 @@ export const InputQuery: React.MemoExoticComponent<
 					setInFocus(true);
 				};
 
-				if (isExperimentEnabled('platform_editor_typeahead_early_focus')) {
-					return scheduleFocusAfterAttachment(ref, focusQuery);
-				}
-
-				requestAnimationFrame(focusQuery);
+				return scheduleFocusAfterAttachment(ref, focusQuery);
 			}
 		}, [forceFocus, reopenQuery]);
 

@@ -2,6 +2,11 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
 import type { RevealOptions } from '../../../showDiffPluginType';
 import type { ColorScheme } from '../colorSchemes/types';
+import {
+	type ContributorTagMountContext,
+	createContributorTagHost,
+	unmountContributorTag,
+} from '../createContributorTagWidget';
 import { buildDiffDecorationSpec, scrollMarginTopValue } from '../decorationKeys';
 import { createContentWrapper } from './wrapBlockNodeView';
 
@@ -74,25 +79,41 @@ export const createDeletedLineBreakDecoration = ({
 	attributionKey,
 	colorScheme,
 	count,
+	diffId = crypto.randomUUID(),
 	isActive = false,
 	pos,
 	reveal,
 	side,
+	tagMountContext,
 }: {
 	attributionKey?: string;
 	colorScheme?: ColorScheme;
 	count?: number;
+	diffId?: string;
 	isActive?: boolean;
 	pos: number;
 	reveal?: RevealOptions;
 	side?: number;
-}): Decoration =>
-	Decoration.widget(pos, createDeletedLineBreakWidget({ colorScheme, count, isActive, reveal }), {
+	tagMountContext?: ContributorTagMountContext;
+}): Decoration => {
+	const dom = createDeletedLineBreakWidget({ colorScheme, count, isActive, reveal });
+	const tagHost = attributionKey
+		? createContributorTagHost({ diffId, mountContext: tagMountContext })
+		: undefined;
+	if (tagHost) {
+		// Keep only the decorative glyph hidden; the contributor tag must remain accessible.
+		dom.removeAttribute('aria-hidden');
+		Array.from(dom.children).forEach((child) => child.setAttribute('aria-hidden', 'true'));
+		dom.setAttribute('data-diff-id', diffId);
+		dom.prepend(tagHost.host);
+	}
+
+	return Decoration.widget(pos, dom, {
 		...buildDiffDecorationSpec({
-			attributionKey,
+			attributionKey: tagHost ? attributionKey : undefined,
 			colorScheme,
 			decorationType: 'widget',
-			diffId: crypto.randomUUID(),
+			diffId,
 			isActive,
 			// The glyph always stands in for removed content, whichever side of the changeset the
 			// change itself landed on.
@@ -102,4 +123,6 @@ export const createDeletedLineBreakDecoration = ({
 		// Without an explicit mark set, prosemirror-view wraps the widget in the marks of the
 		// adjacent text. The glyph carries its own deleted styling and must not inherit them.
 		marks: [],
+		destroy: () => unmountContributorTag(tagHost?.mount),
 	});
+};

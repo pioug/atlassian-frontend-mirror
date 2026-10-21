@@ -271,6 +271,11 @@ test.describe('Drawer top-layer: stacked drawers', () => {
 		await expect(dialogs).toHaveCount(1);
 		await expect(nestedTrigger).toBeFocused();
 
+		// As in legacy, the nested drawer takes Escape until its exit finishes and it unmounts.
+		await expect(
+			page.getByRole('dialog', { name: 'Nested drawer', exact: true, includeHidden: true }),
+		).toHaveCount(0);
+
 		// Closing the first drawer restores focus to its (outer) trigger.
 		await page.keyboard.press('Escape');
 		await expect(dialogs).toHaveCount(0);

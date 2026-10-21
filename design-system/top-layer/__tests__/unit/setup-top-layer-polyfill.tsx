@@ -687,7 +687,7 @@ describe('dialog.showModal()', () => {
 		cleanup();
 	});
 
-	it('should fire beforetoggle that is not cancelable', () => {
+	it('should fire beforetoggle that is cancelable', () => {
 		const dialog = createDialog();
 		const cleanup = appendToBody(dialog);
 		let cancelable: boolean | null = null;
@@ -700,7 +700,25 @@ describe('dialog.showModal()', () => {
 
 		dialog.showModal();
 
-		expect(cancelable).toBe(false);
+		expect(cancelable).toBe(true);
+
+		cleanup();
+	});
+
+	it('should not open when beforetoggle is canceled', () => {
+		const dialog = createDialog();
+		const cleanup = appendToBody(dialog);
+		bind(dialog, {
+			type: 'beforetoggle',
+			listener: (event) => {
+				event.preventDefault();
+			},
+		});
+
+		dialog.showModal();
+
+		expect(dialog).not.toHaveAttribute('open');
+		expect(dialog.matches(':modal')).toBe(false);
 
 		cleanup();
 	});
@@ -708,10 +726,11 @@ describe('dialog.showModal()', () => {
 
 // Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-show
 describe('dialog.show()', () => {
-	it('should not throw when dialog is disconnected', () => {
+	it('should open a disconnected dialog without throwing', () => {
 		const dialog = document.createElement('dialog');
 
 		expect(() => dialog.show()).not.toThrow();
+		expect(dialog).toHaveAttribute('open');
 	});
 
 	it('should be a no-op when already open', () => {
@@ -731,6 +750,26 @@ describe('dialog.show()', () => {
 		flushTasks();
 
 		expect(count).toBe(0);
+
+		cleanup();
+	});
+
+	it('should fire beforetoggle that is cancelable, and not open when it is canceled', () => {
+		const dialog = createDialog();
+		const cleanup = appendToBody(dialog);
+		let cancelable: boolean | null = null;
+		bind(dialog, {
+			type: 'beforetoggle',
+			listener: (event) => {
+				cancelable = event.cancelable;
+				event.preventDefault();
+			},
+		});
+
+		dialog.show();
+
+		expect(cancelable).toBe(true);
+		expect(dialog).not.toHaveAttribute('open');
 
 		cleanup();
 	});

@@ -112,8 +112,9 @@ describe('content change motion', () => {
 		jest.useRealTimers();
 	});
 
-	it('updates content immediately when the motion gate is disabled', () => {
-		failGate('platform-dst-motion-uplift-panel');
+	it('updates content immediately when only panel motion is enabled', () => {
+		passGate('platform-dst-motion-uplift-panel');
+		failGate('platform-dst-motion-uplift-panel-content');
 		const { rerender } = render(<Panel contentKey="first">First content</Panel>);
 
 		rerender(<Panel contentKey="second">Second content</Panel>);
@@ -122,8 +123,9 @@ describe('content change motion', () => {
 		expect(screen.getByText('Second content')).toBeInTheDocument();
 	});
 
-	it('exits the previous content before entering the next content when the gate is enabled', () => {
-		passGate('platform-dst-motion-uplift-panel');
+	it('exits the previous content before entering the next content when only content motion is enabled', () => {
+		failGate('platform-dst-motion-uplift-panel');
+		passGate('platform-dst-motion-uplift-panel-content');
 		const { rerender } = render(<Panel contentKey="first">First content</Panel>);
 
 		rerender(<Panel contentKey="second">Second content</Panel>);
@@ -142,8 +144,8 @@ describe('content change motion', () => {
 		expect(screen.getByText('Second content')).toBeInTheDocument();
 	});
 
-	it('updates unkeyed content immediately when the motion gate is enabled', () => {
-		passGate('platform-dst-motion-uplift-panel');
+	it('updates unkeyed content immediately when content motion is enabled', () => {
+		passGate('platform-dst-motion-uplift-panel-content');
 		const { rerender } = render(<Panel>First content</Panel>);
 
 		rerender(<Panel>Second content</Panel>);

@@ -17,6 +17,35 @@ describe('PubSub', () => {
 	});
 
 	describe('useSubscribe and usePublish', () => {
+		it('delivers open-tools without replacing the queued action or replaying the command', () => {
+			const openTools: Payload = {
+				type: 'agent-editor-open-tools',
+				openChat: false,
+				source: 'studio',
+				data: { agentId: 'agent-id', cloudId: 'cloud-id' },
+			};
+			const liveCallback = jest.fn();
+			const replayCallback = jest.fn();
+			const { unmount } = renderHook(() => useSubscribe({ topic }, liveCallback));
+			publish(topic, payload);
+			publish(topic, openTools);
+			expect(liveCallback).toHaveBeenLastCalledWith(openTools);
+			const { unmount: unmountReplay } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true }, replayCallback),
+			);
+			expect(replayCallback).toHaveBeenCalledTimes(1);
+			expect(replayCallback).toHaveBeenCalledWith(payload);
+			unmount();
+			unmountReplay();
+			const afterCommand = jest.fn();
+			publish(topic, openTools);
+			const { unmount: unmountAfterCommand } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true }, afterCommand),
+			);
+			expect(afterCommand).not.toHaveBeenCalled();
+			unmountAfterCommand();
+		});
+
 		it('should publish without requiring a React hook', () => {
 			const { unmount } = renderHook(() => useSubscribe({ topic }, callback));
 

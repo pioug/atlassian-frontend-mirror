@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "14.2.0",
+	"version": "14.2.1",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -184,9 +184,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-labels": {
-			"type": "boolean"
-		},
-		"jsm_routing_recommended_agent_minor_fix": {
 			"type": "boolean"
 		}
 	}

@@ -49,6 +49,7 @@ const MAX_CONSUMED_EVENT_KEYS = 5000;
 const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	'editor-context-payload',
 	'agent-changed',
+	'agent-editor-open-tools',
 	// Internal signals that must never overwrite the publish queue — they would
 	// cause `triggerLatest` subscribers (e.g. PubSubListener) to replay them
 	// instead of the real action event (e.g. open-browse-agent-modal) that

@@ -1,5 +1,29 @@
 # @atlaskit/editor-synced-block-provider
 
+## 25.0.3
+
+### Patch Changes
+
+- [`004b7c3c33232`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/004b7c3c33232) -
+  Fire a per-request `syncedBlockGetSourceInfo` success event, tagged with `sourceLocation`, when a
+  reference synced block resolves its source info, and tag the missing-source-ARI error with
+  `sourceLocation`. Stop adding `sourceLocation` metadata to the shared source-info experience
+  events. Gated by the `platform_editor_blocks_patch_12` experiment (with
+  `editor_synced_blocks_jira_custom_rich_text`); with the experiment off, events are unchanged.
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.0
 
 ### Patch Changes

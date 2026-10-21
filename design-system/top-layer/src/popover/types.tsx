@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, type RefObject } from 'react';
 
 import { type StrictXCSSProp } from '@atlaskit/css';
 
@@ -7,6 +7,7 @@ import {
 	type TAriaRoleRequired,
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
+	type TRoleWithInitialFocus,
 } from '../internal/role-types';
 
 /**
@@ -20,27 +21,58 @@ import {
 export type TPopoverCloseReason = 'escape' | 'light-dismiss' | 'programmatic';
 
 /**
- * Flat (non-discriminated) props accepted by the Popover component internally.
+ * `initialFocusRef` exists only for roles that move focus on open. Other
+ * roles, and no role, keep focus where it is, so a custom target has no
+ * meaning there.
+ */
+type TInitialFocusProps =
+	| {
+			role: TRoleWithInitialFocus;
+			/**
+			 * The element that takes focus when the popover opens, in place of the
+			 * default for its `role`. Read once per open, so set it before the open
+			 * commits (for example as the `ref` of an element in `children`). It is
+			 * ignored when it holds no element, or an element outside the popover.
+			 * When a combobox controls the popover, focus stays on the combobox.
+			 *
+			 * For `dialog` and `alertdialog` the order is: this target, then the
+			 * first `[autofocus]` element, then the first focusable element.
+			 *
+			 * Use it for `dialog` and `alertdialog`, where the author chooses the
+			 * target (for example the least destructive action). `menu` and `listbox`
+			 * already focus the right element.
+			 */
+			initialFocusRef?: RefObject<HTMLElement | null>;
+	  }
+	| {
+			role?: Exclude<TRoleRequiringAccessibleName | TRoleWithImplicitName, TRoleWithInitialFocus>;
+			initialFocusRef?: never;
+	  };
+
+/**
+ * Props accepted by the Popover component internally. Flat, except that
+ * `initialFocusRef` needs a role that moves focus (`TInitialFocusProps`).
  *
  * Used by wrappers like `PopupContent` that destructure props from a
  * discriminated union and re-pass the individual fields: TypeScript cannot
  * prove the fields still satisfy the union. ARIA correctness is enforced at
  * the `TPopupContentProps` boundary where consumers interact.
  */
-export type TPopoverForwardedProps = TPopoverBaseProps & {
-	mode?: 'auto' | 'hint' | 'manual';
-	/**
-	 * Called when the popover asks to close. See `TPopoverProps` for each `reason`.
-	 *
-	 * Also opts the popover into the open layer observer: only a popover with
-	 * `onClose` registers, so only it can be closed by `closeLayers()`.
-	 */
-	onClose?: (args: { reason: TPopoverCloseReason }) => void;
-	role?: TRoleRequiringAccessibleName | TRoleWithImplicitName;
-	label?: string;
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions -- maps to aria-labelledby
-	labelledBy?: string;
-};
+export type TPopoverForwardedProps = TPopoverBaseProps &
+	TInitialFocusProps & {
+		mode?: 'auto' | 'hint' | 'manual';
+		/**
+		 * Called when the popover asks to close. See `TPopoverProps` for each `reason`.
+		 *
+		 * Also opts the popover into the open layer observer: only a popover with
+		 * `onClose` registers, so only it can be closed by `closeLayers()`.
+		 */
+		onClose?: (args: { reason: TPopoverCloseReason }) => void;
+		role?: TRoleRequiringAccessibleName | TRoleWithImplicitName;
+		label?: string;
+		// eslint-disable-next-line @repo/internal/react/consistent-props-definitions -- maps to aria-labelledby
+		labelledBy?: string;
+	};
 
 export type { TPlacementOptions };
 
@@ -180,6 +212,7 @@ type TPopoverBaseProps = {
  */
 export type TPopoverProps = TPopoverBaseProps &
 	TAriaRoleRequired &
+	TInitialFocusProps &
 	(
 		| {
 				mode?: 'auto' | 'hint';

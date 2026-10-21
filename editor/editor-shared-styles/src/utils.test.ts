@@ -121,6 +121,14 @@ describe('utils', () => {
 			expect(getParticipantColor(agentId, 'convo-ai')).toMatchObject({ index });
 		});
 
+		it('uses the named colour override for the content reviewer agent', () => {
+			for (const id of ['first-agent', 'second-agent']) {
+				expect(getParticipantColor(id, 'CUSTOMER', 'content_reviewer_agent')).toMatchObject({
+					index: 1,
+				});
+			}
+		});
+
 		it('should return a participant color based on the hash code of the input string', () => {
 			expect(getParticipantColor('FawAXOcgL7ixM9qtAB0L')).toEqual({
 				index: 2,

@@ -118,13 +118,36 @@ function isComboboxControllingPopup({ container }: { container: HTMLElement }): 
 	});
 }
 
+/**
+ * The `initialFocusRef` override target, when it is inside the popover. A
+ * target outside the popover (or not in the DOM) is ignored, so the role
+ * default applies.
+ */
+function getOverrideTarget({
+	container,
+	initialFocusRef,
+}: {
+	container: HTMLElement;
+	initialFocusRef: RefObject<HTMLElement | null> | undefined;
+}): HTMLElement | null {
+	const target = initialFocusRef?.current;
+	if (target && container.contains(target)) {
+		return target;
+	}
+	return null;
+}
+
 function getInitialFocusTarget({
 	container,
+	initialFocusRef,
 	role,
 }: {
 	container: HTMLElement;
+	initialFocusRef: RefObject<HTMLElement | null> | undefined;
 	role: string | undefined;
 }): HTMLElement | null {
+	// In each role branch, the combobox carve-out decides whether focus moves.
+	// The override target, then the role default, decides where.
 	if (role === 'dialog' || role === 'alertdialog') {
 		// APG allows a combobox to control a dialog popup. Focus stays on the
 		// combobox only when it is OUTSIDE the dialog. A dialog that contains
@@ -135,6 +158,10 @@ function getInitialFocusTarget({
 			isComboboxControllingPopup({ container })
 		) {
 			return null;
+		}
+		const overrideTarget = getOverrideTarget({ container, initialFocusRef });
+		if (overrideTarget) {
+			return overrideTarget;
 		}
 		// Prefer element with the native HTML autofocus attribute.
 		const autofocusEl = container.querySelector<HTMLElement>('[autofocus]');
@@ -155,6 +182,10 @@ function getInitialFocusTarget({
 		if (isComboboxControllingPopup({ container })) {
 			return null;
 		}
+		const overrideTarget = getOverrideTarget({ container, initialFocusRef });
+		if (overrideTarget) {
+			return overrideTarget;
+		}
 		// Initial focus placement is the extent of what top-layer provides
 		// for menus. All subsequent keyboard navigation (arrow keys, Home/End,
 		// type-ahead, Enter/Space, submenu coordination) is the responsibility
@@ -170,6 +201,10 @@ function getInitialFocusTarget({
 		// textbox - navigation is proxied through it.
 		if (isComboboxControllingPopup({ container })) {
 			return null;
+		}
+		const overrideTarget = getOverrideTarget({ container, initialFocusRef });
+		if (overrideTarget) {
+			return overrideTarget;
 		}
 		// Prefer the selected option, then fall back to the first option.
 		// We intentionally match by `[role="option"]` rather than by
@@ -200,7 +235,9 @@ function getInitialFocusTarget({
 /**
  * Moves focus into a popover element when it opens, based on its ARIA role.
  *
- * Follows the WAI-ARIA APG initial-focus patterns for each role:
+ * Follows the WAI-ARIA APG initial-focus patterns for each role. For the
+ * roles that move focus, an `initialFocusRef` target inside the popover
+ * comes first:
  * - `dialog` / `alertdialog` → focus first focusable (or `[autofocus]`)
  * - `menu` → focus first menu item
  * - `listbox` → focus selected or first option
@@ -255,10 +292,17 @@ function getInitialFocusTarget({
  */
 export function useInitialFocus({
 	elementRef,
+	initialFocusRef,
 	phase,
 	role,
 }: {
 	elementRef: RefObject<HTMLElement | null>;
+	/**
+	 * Consumer-chosen initial focus target. For a role that moves focus, it
+	 * takes focus instead of the role default when the popover contains it.
+	 * The combobox carve-out still applies. Other roles, and no role, ignore it.
+	 */
+	initialFocusRef?: RefObject<HTMLElement | null>;
 	/**
 	 * Current visibility phase from `useAnimatedVisibility`. Initial
 	 * focus is moved on the transition out of `'closed'`:
@@ -297,6 +341,6 @@ export function useInitialFocus({
 			return;
 		}
 
-		getInitialFocusTarget({ container: element, role })?.focus();
-	}, [elementRef, phase, role]);
+		getInitialFocusTarget({ container: element, initialFocusRef, role })?.focus();
+	}, [elementRef, initialFocusRef, phase, role]);
 }

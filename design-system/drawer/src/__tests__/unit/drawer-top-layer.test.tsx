@@ -17,18 +17,11 @@ import { DrawerSidebar } from '../../drawer-panel/drawer-sidebar';
 import { type DrawerProps } from '../../types';
 
 /**
- * JSDOM does not run the `cancel` event's default close action. The shared
- * top-layer polyfill supplies the subsequent native `toggle` and `close` events.
+ * An Escape keydown in the drawer. The `<dialog>` has `closedby="none"`, so `Dialog` takes the
+ * Escape itself and asks through `onClose`.
  */
-function simulateDialogCancel(dialogEl: Element) {
-	const dialog = dialogEl as HTMLDialogElement;
-	const event = new Event('cancel', { cancelable: true });
-	act(() => {
-		dialog.dispatchEvent(event);
-		if (!event.defaultPrevented) {
-			dialog.close();
-		}
-	});
+function pressEscape(dialogEl: Element) {
+	fireEvent.keyDown(dialogEl, { key: 'Escape' });
 }
 
 type ControlledDrawerProps = {
@@ -177,7 +170,7 @@ describe('Drawer top-layer rendering', () => {
 		const onClose = jest.fn();
 		render(<ControlledDrawer onClose={onClose} />);
 
-		simulateDialogCancel(screen.getByTestId('drawer'));
+		pressEscape(screen.getByTestId('drawer'));
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		const event = onClose.mock.calls[0][0];
@@ -189,7 +182,7 @@ describe('Drawer top-layer rendering', () => {
 		render(<ControlledDrawer />);
 
 		expect(screen.getByTestId('drawer')).toBeInTheDocument();
-		simulateDialogCancel(screen.getByTestId('drawer'));
+		pressEscape(screen.getByTestId('drawer'));
 
 		await waitFor(() => expect(screen.queryByTestId('drawer')).not.toBeInTheDocument());
 	});
@@ -200,8 +193,10 @@ describe('Drawer top-layer rendering', () => {
 		const onClose = jest.fn();
 		render(<ControlledDrawer onClose={onClose} />);
 
-		// Backdrop click === clicking the <dialog> element itself
+		// Backdrop click === pressing and clicking the <dialog> element itself
 		// (event.target === event.currentTarget).
+		fireEvent.pointerDown(screen.getByTestId('drawer'));
+		fireEvent.mouseDown(screen.getByTestId('drawer'));
 		fireEvent.click(screen.getByTestId('drawer'));
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
@@ -242,7 +237,7 @@ describe('Drawer top-layer rendering', () => {
 		const onCloseComplete = jest.fn();
 		render(<ControlledDrawer onCloseComplete={onCloseComplete} />);
 
-		simulateDialogCancel(screen.getByTestId('drawer'));
+		pressEscape(screen.getByTestId('drawer'));
 
 		await waitFor(() => expect(onCloseComplete).toHaveBeenCalledTimes(1));
 		expect(onCloseComplete).toHaveBeenCalledWith(expect.any(HTMLElement));
@@ -253,7 +248,7 @@ describe('Drawer top-layer rendering', () => {
 	it('should support re-opening after close', async () => {
 		render(<ControlledDrawer />);
 
-		simulateDialogCancel(screen.getByTestId('drawer'));
+		pressEscape(screen.getByTestId('drawer'));
 		await waitFor(() => expect(screen.queryByTestId('drawer')).not.toBeInTheDocument());
 
 		fireEvent.click(screen.getByTestId('open-trigger'));
@@ -261,6 +256,46 @@ describe('Drawer top-layer rendering', () => {
 		const reopened = screen.getByTestId('drawer');
 		expect(reopened).toBeInTheDocument();
 		expect(reopened).toHaveAttribute('open');
+	});
+
+	// ── A close that Dialog did not ask about (e.g. `<form method="dialog">`) ──
+
+	function closeWithoutAsking(dialogEl: Element) {
+		act(() => {
+			(dialogEl as HTMLDialogElement).close();
+		});
+	}
+
+	it('should stay open without calling onClose when the dialog closes without Dialog asking', async () => {
+		const onClose = jest.fn();
+		const onCloseComplete = jest.fn();
+		render(<ControlledDrawer onClose={onClose} onCloseComplete={onCloseComplete} />);
+		const drawer = screen.getByTestId('drawer');
+
+		closeWithoutAsking(drawer);
+		// Let the task-queued `toggle` run.
+		await act(async () => {
+			await new Promise((resolve) => setTimeout(resolve, 0));
+		});
+
+		expect(drawer).toHaveAttribute('open');
+		expect(onClose).not.toHaveBeenCalled();
+		expect(onCloseComplete).not.toHaveBeenCalled();
+	});
+
+	it('should not call onClose when the consumer closes the drawer', async () => {
+		const onClose = jest.fn();
+		const renderDrawer = (isOpen: boolean) => (
+			<Drawer testId="drawer" isOpen={isOpen} onClose={onClose} label="Test drawer">
+				<DrawerContent>Body</DrawerContent>
+			</Drawer>
+		);
+		const { rerender } = render(renderDrawer(true));
+
+		rerender(renderDrawer(false));
+
+		await waitFor(() => expect(screen.queryByTestId('drawer')).not.toBeInTheDocument());
+		expect(onClose).not.toHaveBeenCalled();
 	});
 
 	// ── Analytics ──
@@ -273,7 +308,7 @@ describe('Drawer top-layer rendering', () => {
 			</AnalyticsListener>,
 		);
 
-		simulateDialogCancel(screen.getByTestId('drawer'));
+		pressEscape(screen.getByTestId('drawer'));
 
 		const expected = new UIAnalyticsEvent({
 			payload: {
@@ -308,6 +343,9 @@ describe('Drawer top-layer rendering', () => {
 			</AnalyticsListener>,
 		);
 
+		fireEvent.pointerDown(screen.getByTestId('drawer'));
+
+		fireEvent.mouseDown(screen.getByTestId('drawer'));
 		fireEvent.click(screen.getByTestId('drawer'));
 
 		await waitFor(() => expect(onEvent).toHaveBeenCalledTimes(1));
@@ -324,7 +362,7 @@ describe('Drawer top-layer rendering', () => {
 			</AnalyticsListener>,
 		);
 
-		simulateDialogCancel(screen.getByTestId('drawer'));
+		pressEscape(screen.getByTestId('drawer'));
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		expect(onClose.mock.calls[0][1]).toBeDefined();

@@ -3728,6 +3728,23 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 	},
+	listSelectedNodeStylesWithHighlightInheritance: {
+		// only apply selected styles to the outermost list to avoid nested selection styles for lists within lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *)':
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+
+				'&::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+	},
 	listsStyles: {
 		'& .ProseMirror': {
 			/* =============== INDENTATION SPACING ========= */
@@ -8158,6 +8175,26 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 	},
+	textSelectedNodeStylesWithHighlightInheritance: {
+		// Apply styles if isRootText && isOuterMostSelectedNode
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *)':
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+				boxShadow: `0 -4px 0 ${token('color.background.accent.blue.subtler')}, 0 4px 0 ${token(
+					'color.background.accent.blue.subtler',
+				)}`,
+
+				'&::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+	},
 	unsupportedStyles: {
 		'.unsupportedBlockView-content-wrap > div, .unsupportedInlineView-content-wrap > span:nth-of-type(2)':
 			{
@@ -8416,6 +8453,11 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	);
 
 	const browser = getBrowserInfo();
+	// Highlight inheritance shipped in Chromium 134. Keep explicit descendant rules for
+	// other engines and older versions; supporting ::selection alone is not sufficient.
+	const isSelectionHighlightInheritanceActive =
+		browser.chrome_version >= 134 &&
+		isExperimentEnabled('platform_editor_inp_selection_inheritance');
 
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
 	const isUpdateStatusColorsEnabled =
@@ -8460,8 +8502,12 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.blocktypeStylesRtlBlockquote,
 				isFloatingTocEnabled && editorContentStyles.headingScrollMarginStyles,
 				editorContentStyles.blockquoteSelectedNodeStyles,
-				editorContentStyles.listSelectedNodeStyles,
-				editorContentStyles.textSelectedNodeStyles,
+				isSelectionHighlightInheritanceActive
+					? editorContentStyles.listSelectedNodeStylesWithHighlightInheritance
+					: editorContentStyles.listSelectedNodeStyles,
+				isSelectionHighlightInheritanceActive
+					? editorContentStyles.textSelectedNodeStylesWithHighlightInheritance
+					: editorContentStyles.textSelectedNodeStyles,
 				editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc,
 				editorContentStyles.blocktypeStylesNestedDnd,
 				editorContentStyles.codeMarkStyles,

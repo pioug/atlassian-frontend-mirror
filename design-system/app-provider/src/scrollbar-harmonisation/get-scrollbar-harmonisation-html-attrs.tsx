@@ -11,14 +11,21 @@ import {
  * flash of un-harmonised scrollbars that would otherwise occur while waiting for
  * `useScrollbarHarmonisation`'s client-only effect to run.
  *
- * @param {boolean} [isEnabled] - An explicit value overrides the shared rollout gate; when
- * omitted, the shared gate controls the appearance.
+ * @param input - A boolean overrides the base appearance, while transparency still requires
+ * both shared gates. When omitted, the shared gates control the appearance. An object supplies
+ * both product-resolved gate results without evaluating shared gates; transparency requires
+ * `isEnabled` and `isTransparentEnabled` to both be true.
  *
  * @returns {Object} Object of HTML attributes to be applied to the document root
  */
-export function getScrollbarHarmonisationHtmlAttrs(isEnabled?: boolean): Record<string, string> {
-	const isGateEnabled = fg('platform_dst_scrollbar_harmonisation');
-	const shouldEnable = isEnabled ?? isGateEnabled;
+export function getScrollbarHarmonisationHtmlAttrs(
+	input?: boolean | { isEnabled: boolean; isTransparentEnabled: boolean },
+): Record<string, string> {
+	const resolvedGates = typeof input === 'object' && input !== null ? input : undefined;
+	const isGateEnabled = resolvedGates
+		? resolvedGates.isEnabled
+		: fg('platform_dst_scrollbar_harmonisation');
+	const shouldEnable = typeof input === 'boolean' ? input : isGateEnabled;
 
 	if (!shouldEnable) {
 		return {};
@@ -28,7 +35,9 @@ export function getScrollbarHarmonisationHtmlAttrs(isEnabled?: boolean): Record<
 		[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
 	};
 
-	const isTransparentTrackGateEnabled = fg('platform_dst_scrollbar_harmonisation_transparent');
+	const isTransparentTrackGateEnabled = resolvedGates
+		? resolvedGates.isTransparentEnabled
+		: fg('platform_dst_scrollbar_harmonisation_transparent');
 	if (isGateEnabled && isTransparentTrackGateEnabled) {
 		result[SCROLLBAR_HARMONISATION_TRANSPARENT_ATTRIBUTE] = '';
 	}

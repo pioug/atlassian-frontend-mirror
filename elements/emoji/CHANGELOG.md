@@ -1,5 +1,33 @@
 # @atlaskit/emoji
 
+## 73.0.7
+
+### Patch Changes
+
+- [`624b20b711277`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/624b20b711277) -
+  Keep the refreshed emoji picker's search row height stable when opening and selecting a skin tone
+  behind `platform_emoji_skin_tone_blur_fix`.
+- Updated dependencies
+
+## 73.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.0.4
+
+### Patch Changes
+
+- [`ab72bd9e98147`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab72bd9e98147) -
+  Clean up: emoji_decorative_label
+
 ## 73.0.3
 
 ### Patch Changes

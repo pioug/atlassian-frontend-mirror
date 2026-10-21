@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 239.0.2
+
+### Patch Changes
+
+- [`3784fb38fdbc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3784fb38fdbc2) -
+  Use parent highlight inheritance for paragraph and list node selections in Chromium 134+ behind
+  platform_editor_inp_selection_inheritance, preserving explicit descendant selection styles in
+  other browsers and the control cohort.
+- Updated dependencies
+
+## 239.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 239.0.0
 
 ### Patch Changes

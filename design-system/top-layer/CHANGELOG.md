@@ -1,5 +1,32 @@
 # @atlaskit/top-layer
 
+## 6.5.0
+
+### Minor Changes
+
+- [`25dc3ae9b98d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25dc3ae9b98d3) -
+  `Popover` accepts `initialFocusRef` to choose the element that takes focus on open, for roles that
+  move focus.
+
+## 6.4.0
+
+### Minor Changes
+
+- [`f026aadea067f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f026aadea067f) -
+  `Dialog` now asks before it closes. Escape or a backdrop click calls `onClose`, and the dialog
+  closes only when `isOpen` becomes `false`. Other close requests (for example Android back) do not
+  close the dialog. Do not close the native dialog directly (`dialog.close()` or a
+  `<form method="dialog">` submit): if it closes while `isOpen` is `true`, `Dialog` shows it again.
+
+  In tests, press Escape with a `keydown`, and click the backdrop with `userEvent`.
+
+### Patch Changes
+
+- [`f026aadea067f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f026aadea067f) -
+  The jsdom polyfill (`@atlaskit/top-layer/testing/polyfill`) now follows browsers more closely for
+  dialog and popover focus, modal inertness, popover hiding and `dialog.requestClose()`. Tests that
+  relied on the old leniency may need updates.
+
 ## 6.3.1
 
 ### Patch Changes

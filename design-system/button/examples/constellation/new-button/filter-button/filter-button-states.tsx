@@ -13,6 +13,7 @@ export default function FilterButtonStatesExample(): React.JSX.Element {
 			</FilterButton>
 			<FilterButton
 				trailingMetric={isSelected ? 1 : 0}
+				hasChevronDown={false}
 				isSelected={isSelected}
 				aria-pressed={isSelected}
 				onClick={() => setIsSelected(!isSelected)}

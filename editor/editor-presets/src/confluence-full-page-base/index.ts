@@ -350,6 +350,7 @@ export function confluenceFullPageBasePreset(
 		.add([
 			blockControlsPlugin,
 			{
+				onBlockHandleClick: pluginOptions.blockControls?.onBlockHandleClick,
 				rightSideControlsEnabled:
 					fg('confluence_remix_button_right_side_block_fg') &&
 					expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true),

@@ -1,8 +1,9 @@
 /* eslint-disable testing-library/prefer-screen-queries */
+/* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners -- `page.evaluate` code runs in the page and cannot import `bind-event-listener` */
 
 import invariant from 'tiny-invariant';
 
-import { expect, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 import {
 	focusInteractionScenarios,
@@ -64,8 +65,10 @@ test.describe('Dialog - open and close', () => {
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
 	});
 
-	// The native dialog closes before onClose fires - verified for both dismiss paths.
-	test('onClose is called after dialog closes (Escape and backdrop click)', async ({ page }) => {
+	// Dialog asks first: onClose runs while the native dialog is still open, for both dismiss paths.
+	test('onClose is called while the dialog is still open (Escape and backdrop click)', async ({
+		page,
+	}) => {
 		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
 			'design-system',
 			'top-layer',
@@ -82,7 +85,7 @@ test.describe('Dialog - open and close', () => {
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 		await expect(page.getByTestId('close-reason')).toHaveText('escape', { timeout: 500 });
-		await expect(page.getByTestId('dialog-open-during-on-close')).toHaveText('false');
+		await expect(page.getByTestId('dialog-open-during-on-close')).toHaveText('true');
 		await expect(page.getByTestId('controlled-open-state')).toHaveText('closed');
 		await expect(page.getByTestId('dialog')).toHaveCount(0);
 
@@ -92,8 +95,258 @@ test.describe('Dialog - open and close', () => {
 		await page.mouse.click(1, 1);
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click', { timeout: 500 });
-		await expect(page.getByTestId('dialog-open-during-on-close')).toHaveText('false');
+		await expect(page.getByTestId('dialog-open-during-on-close')).toHaveText('true');
 		await expect(page.getByTestId('dialog')).toHaveCount(0);
+	});
+
+	// Ask first: Dialog keeps the native dialog open, so the browser never emits `close`.
+	test('stays open when onClose keeps isOpen true (Escape and backdrop click)', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-close-timing',
+		);
+
+		await page.getByTestId('ignore-dismissal').check();
+		await page.getByTestId('dialog-trigger').click();
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		const closeBtn = page.locator('dialog button[aria-label="Close"]');
+		await expect(closeBtn).toBeFocused();
+		await closeBtn.click({ trial: true });
+
+		await page.keyboard.press('Escape');
+
+		await expect(page.getByTestId('close-count')).toHaveText('1');
+		await expect(page.getByTestId('close-reason')).toHaveText('escape');
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await expect(closeBtn).toBeFocused();
+		await expect(page.getByTestId('native-close-count')).toHaveText('0');
+
+		await page.mouse.click(1, 1);
+
+		await expect(page.getByTestId('close-count')).toHaveText('2');
+		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await expect(page.getByTestId('native-close-count')).toHaveText('0');
+	});
+
+	// Dialog takes the Escape `keydown`, so the browser makes no close request. The close-watcher
+	// rule (Chrome, Firefox 149+) never applies, and the dialog stays open in every browser.
+	test.describe('when the consumer refuses many Escapes', () => {
+		test('spaced Escapes: asks on each press and never closes', async ({ page }) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('popover-trigger').focus();
+			await recordDialogState({ page });
+
+			await pressSpacedEscapes({ page, count: 6 });
+
+			await expect(page.getByTestId('close-count')).toHaveText('6');
+			await expectNeverClosed({ page, escapes: 6, focusedTestId: 'popover-trigger' });
+		});
+
+		// 20 presses ask 20 times. A held key asks once.
+		test('back-to-back and held Escapes: asks once per press and never closes', async ({
+			page,
+		}) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('popover-trigger').focus();
+			await recordDialogState({ page });
+
+			await pressRapidAndHeldEscapes({ page });
+
+			await expect(page.getByTestId('close-count')).toHaveText('21');
+			await expectNeverClosed({ page, escapes: 40, focusedTestId: 'popover-trigger' });
+		});
+
+		test('a child popover takes the first Escape, the dialog is asked the next', async ({
+			page,
+		}) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('popover-trigger').click();
+			await expect(page.getByTestId('popover-button')).toBeVisible();
+			await page.getByTestId('popover-button').focus();
+
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('popover-button')).toBeHidden();
+			await expect(page.getByTestId('close-count')).toHaveText('0');
+
+			await page.getByTestId('popover-trigger').focus();
+			await page.keyboard.press('Escape');
+
+			await expect(page.getByTestId('close-count')).toHaveText('1');
+			await expect(page.getByTestId('dialog')).toHaveAttribute('open', '');
+		});
+
+		// The browser light-dismisses an open `auto` or `hint` popover even when focus stays on its
+		// trigger (as with a combobox or a tooltip). Dialog does not take that Escape.
+		for (const testIdPrefix of ['popover', 'hint-popover']) {
+			test(`an open child ${testIdPrefix} with focus on its trigger takes the Escape`, async ({
+				page,
+			}) => {
+				await openRefusingDialog({ page });
+				const trigger = page.getByTestId(`${testIdPrefix}-trigger`);
+				await trigger.click();
+				await expect(page.getByTestId(`${testIdPrefix}-button`)).toBeVisible();
+				await trigger.focus();
+				await recordDialogState({ page });
+
+				await page.keyboard.press('Escape');
+
+				await expect(page.getByTestId(`${testIdPrefix}-button`)).toBeHidden();
+				await expect(page.getByTestId('close-count')).toHaveText('0');
+				await expect(trigger).toBeFocused();
+
+				await page.keyboard.press('Escape');
+
+				await expect(page.getByTestId('close-count')).toHaveText('1');
+				const log = await getDialogLog({ page });
+				expect(log.nativeCloses).toBe(0);
+				expect(log.closedSamples).toBe(0);
+				await expect(page.getByTestId('dialog')).toHaveAttribute('open', '');
+			});
+		}
+
+		// A `manual` popover does not take Escape, so the Escape goes to the dialog, as it would for a
+		// native modal `<dialog>`. Dialog takes it, so the browser makes no close request.
+		test('a manual child popover with focus in it: the dialog takes the Escape', async ({
+			page,
+		}) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('manual-popover-trigger').click();
+			const popoverButton = page.getByTestId('manual-popover-button');
+			await expect(popoverButton).toBeVisible();
+			await popoverButton.focus();
+			await recordDialogState({ page });
+
+			await page.keyboard.press('Escape');
+
+			await expect(page.getByTestId('close-count')).toHaveText('1');
+			await expect(popoverButton).toBeVisible();
+			await expectNeverClosed({ page, escapes: 1, focusedTestId: 'manual-popover-button' });
+		});
+
+		/**
+		 * Back-to-back Escapes with no user input in between. Before `closedby="none"`, these reached
+		 * the browser as close requests, and the close-watcher rule (Chromium, Firefox 149+) made all
+		 * but the first one forced. Now Dialog takes each Escape, so there is no close request, no
+		 * `cancel` and no forced close, in every browser. Nothing runs between the Escapes:
+		 * Playwright's `page.evaluate` and `expect` grant user activation.
+		 */
+		test('back-to-back Escapes with focus in a manual child popover: asks per press, no close request', async ({
+			page,
+		}) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('manual-popover-trigger').click();
+			const popoverButton = page.getByTestId('manual-popover-button');
+			await expect(popoverButton).toBeVisible();
+			await popoverButton.focus();
+			await recordDialogState({ page });
+
+			for (let i = 0; i < 20; i++) {
+				await page.keyboard.press('Escape');
+			}
+
+			await expect(page.getByTestId('close-count')).toHaveText('20');
+			await expectNeverClosed({ page, escapes: 20, focusedTestId: 'manual-popover-button' });
+			// The manual popover stays open, and on top: Dialog does not reorder the top layer.
+			const layers = await getManualPopoverLayerState({ page });
+			expect(layers.isPopoverOpen).toBe(true);
+			expect(layers.isButtonOnTop).toBe(true);
+		});
+
+		// The consumer opens a confirm Dialog in `onClose`. It opens on top, with focus in it.
+		test('a confirm Dialog opened in onClose opens on top', async ({ page }) => {
+			await page.visitExample<
+				typeof import('../../examples/166-testing-dialog-escape-refused.tsx')
+			>('design-system', 'top-layer', 'testing-dialog-escape-refused');
+			await page.getByTestId('confirm-mode').click();
+			await page.getByTestId('dialog-trigger').click();
+			await expect(page.getByTestId('dialog')).toBeVisible();
+			await page.getByTestId('manual-popover-trigger').click();
+			const popoverButton = page.getByTestId('manual-popover-button');
+			await expect(popoverButton).toBeVisible();
+			await popoverButton.focus();
+			await recordDialogState({ page });
+
+			// The first ask refuses. The second opens the confirm.
+			await page.keyboard.press('Escape');
+			await page.keyboard.press('Escape');
+
+			const confirmButton = page.getByTestId('confirm-button');
+			await expect(page.getByTestId('confirm-dialog')).toHaveAttribute('open', '');
+			await expect(confirmButton).toBeFocused();
+			await expect(page.getByTestId('dialog')).toHaveAttribute('open', '');
+			await expect(page.getByTestId('close-count')).toHaveText('2');
+			const log = await getDialogLog({ page });
+			expect(log.cancels).toBe(0);
+			expect(log.closedSamples).toBe(0);
+			// The confirm is on top: a click at its button reaches it.
+			expect(await getTopTestIdAt({ page, testId: 'confirm-button' })).toBe('confirm-button');
+
+			await confirmButton.click();
+			await expect(page.getByTestId('confirm-dialog')).toBeHidden();
+			await expect(page.getByTestId('dialog')).toBeHidden();
+		});
+
+		// A click on content that cannot take focus moves focus to the `<dialog>` in Chromium,
+		// Firefox and WebKit, so Dialog still takes the Escape.
+		test('after a click on text in the dialog, focus is on the dialog and it asks once per press', async ({
+			page,
+		}) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('dialog-text').click();
+			await expect(page.getByTestId('dialog')).toBeFocused();
+			await recordDialogState({ page });
+
+			await pressRapidAndHeldEscapes({ page });
+
+			await expect(page.getByTestId('close-count')).toHaveText('21');
+			await expectNeverClosed({ page, escapes: 40, focusedTestId: 'dialog' });
+		});
+
+		// An inner handler that calls `preventDefault()` takes the Escape. The browser then makes no
+		// close request, so the dialog is not asked.
+		test('an inner handler that calls preventDefault() takes the Escape', async ({ page }) => {
+			await openRefusingDialog({ page });
+			await page.getByTestId('prevent-escape-button').focus();
+			await recordDialogState({ page });
+
+			await pressRapidAndHeldEscapes({ page });
+
+			await expect(page.getByTestId('close-count')).toHaveText('0');
+			await expectNeverClosed({ page, escapes: 40, focusedTestId: 'prevent-escape-button' });
+
+			// The dialog still takes an Escape from elsewhere in it.
+			await page.getByTestId('popover-trigger').focus();
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('close-count')).toHaveText('1');
+		});
+	});
+
+	// Focus goes to `<body>`. Focus was last in the dialog, so Dialog takes the Escape: no close
+	// request. Nothing runs between the Escapes: Playwright's `page.evaluate` and `expect` grant
+	// user activation.
+	test('after the focused element is removed, asks once per press', async ({ page }) => {
+		await openRefusingDialog({ page });
+		await page.getByTestId('removable-button').focus();
+		await page.keyboard.press('Enter');
+		await expect(page.getByTestId('removable-button')).toHaveCount(0);
+		await recordDialogState({ page });
+
+		await pressRapidAndHeldEscapes({ page });
+
+		const log = await getDialogLog({ page });
+		expect(log.escapes).toBe(40);
+		expect(log.focusedTestIds).toEqual(Array(40).fill(null));
+		expect(log.cancels).toBe(0);
+		expect(log.nativeCloses).toBe(0);
+		expect(log.closedSamples).toBe(0);
+		// A held key asks once: 20 + 1.
+		await expect(page.getByTestId('close-count')).toHaveText('21');
+		await expect(page.getByTestId('forced-count')).toHaveText('0');
+		await expect(page.getByTestId('dialog')).toHaveAttribute('open', '');
 	});
 
 	test('dismissedBy="escape" ignores backdrop clicks and allows Escape', async ({ page }) => {
@@ -123,11 +376,22 @@ test.describe('Dialog - open and close', () => {
 
 		await page.getByTestId('open-none').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await recordDialogState({ page });
 		await page.mouse.click(1, 1);
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
 		await expect(page.getByTestId('close-reason')).toBeHidden();
+
+		// Dialog takes every Escape, so the browser makes no close request.
+		await pressRapidAndHeldEscapes({ page });
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+		await expect(page.getByTestId('close-reason')).toBeHidden();
+		const log = await getDialogLog({ page });
+		expect(log.escapes).toBe(41);
+		expect(log.cancels).toBe(0);
+		expect(log.nativeCloses).toBe(0);
+		expect(log.closedSamples).toBe(0);
 		await page.getByRole('button', { name: 'Close', exact: true }).click();
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 	});
@@ -164,6 +428,69 @@ test.describe('Dialog - open and close', () => {
 		await page.keyboard.press('Enter');
 
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
+	});
+});
+
+// As native light dismiss: a backdrop click asks only when the press and the release are both on
+// the backdrop. "Ignore dismissal" keeps the dialog open, so `close-count` counts each ask.
+test.describe('Dialog - backdrop press', () => {
+	async function openIgnoringDialog(page: Page) {
+		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-dialog-close-timing',
+		);
+		await page.getByTestId('ignore-dismissal').check();
+		await page.getByTestId('dialog-trigger').click();
+		await expect(page.getByTestId('dialog-body')).toBeVisible();
+	}
+
+	async function getContentPoint(page: Page) {
+		const box = await page.getByTestId('dialog-body').boundingBox();
+		invariant(box, 'dialog body bounding box should exist');
+		return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+	}
+
+	test('does not ask for a drag from the content to the backdrop', async ({ page }) => {
+		await openIgnoringDialog(page);
+		const content = await getContentPoint(page);
+
+		await page.mouse.move(content.x, content.y);
+		await page.mouse.down();
+		await page.mouse.move(1, 1, { steps: 5 });
+		await page.mouse.up();
+
+		await expect(page.getByTestId('close-count')).toHaveText('0');
+
+		// A real backdrop click still asks.
+		await page.mouse.click(1, 1);
+		await expect(page.getByTestId('close-count')).toHaveText('1');
+		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
+	});
+
+	test('does not ask for a drag from the backdrop to the content', async ({ page }) => {
+		await openIgnoringDialog(page);
+		const content = await getContentPoint(page);
+
+		await page.mouse.move(1, 1);
+		await page.mouse.down();
+		await page.mouse.move(content.x, content.y, { steps: 5 });
+		await page.mouse.up();
+
+		await expect(page.getByTestId('close-count')).toHaveText('0');
+	});
+
+	test.describe('with touch', () => {
+		test.use({ hasTouch: true });
+
+		test('asks for a tap on the backdrop', async ({ page }) => {
+			await openIgnoringDialog(page);
+
+			await page.touchscreen.tap(1, 1);
+
+			await expect(page.getByTestId('close-count')).toHaveText('1');
+			await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
+		});
 	});
 });
 
@@ -534,3 +861,137 @@ test.describe('Dialog - ARIA', () => {
 		await expect(closeButton).toHaveAttribute('aria-label', 'Close');
 	});
 });
+
+async function pressSpacedEscapes({ page, count }: { page: Page; count: number }) {
+	for (let i = 0; i < count; i++) {
+		await page.keyboard.press('Escape');
+		await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 150)));
+	}
+}
+
+// 20 back to back, then 20 held (repeated `keydown`, one `keyup`).
+async function pressRapidAndHeldEscapes({ page }: { page: Page }) {
+	for (let i = 0; i < 20; i++) {
+		await page.keyboard.press('Escape');
+	}
+	for (let i = 0; i < 20; i++) {
+		await page.keyboard.down('Escape');
+	}
+	await page.keyboard.up('Escape');
+}
+
+async function openRefusingDialog({ page }: { page: Page }) {
+	await page.visitExample<typeof import('../../examples/166-testing-dialog-escape-refused.tsx')>(
+		'design-system',
+		'top-layer',
+		'testing-dialog-escape-refused',
+	);
+	await page.getByTestId('dialog-trigger').click();
+	await expect(page.getByTestId('dialog')).toBeVisible();
+}
+
+type TDialogLog = {
+	escapes: number;
+	cancels: number;
+	nativeCloses: number;
+	closedSamples: number;
+	focusedTestIds: (string | null)[];
+};
+
+// Records native close events, and samples `dialog.open` on every Escape and every frame.
+async function recordDialogState({ page }: { page: Page }) {
+	await page.evaluate(() => {
+		const dialog = document.querySelector('dialog');
+		if (!dialog) {
+			throw new Error('No dialog');
+		}
+		const log: TDialogLog = {
+			escapes: 0,
+			cancels: 0,
+			nativeCloses: 0,
+			closedSamples: 0,
+			focusedTestIds: [],
+		};
+		const sample = () => {
+			if (!dialog.open) {
+				log.closedSamples++;
+			}
+		};
+		dialog.addEventListener('cancel', () => log.cancels++);
+		dialog.addEventListener('close', () => log.nativeCloses++);
+		window.addEventListener(
+			'keydown',
+			(event) => {
+				if (event.key === 'Escape') {
+					log.escapes++;
+					log.focusedTestIds.push(document.activeElement?.getAttribute('data-testid') ?? null);
+					sample();
+				}
+			},
+			true,
+		);
+		window.addEventListener('keyup', sample);
+		const onFrame = () => {
+			sample();
+			requestAnimationFrame(onFrame);
+		};
+		requestAnimationFrame(onFrame);
+		(window as unknown as { dialogLog: TDialogLog }).dialogLog = log;
+	});
+}
+
+// Whether the manual child popover is open, and whether it is on top at its centre (layer order).
+function getManualPopoverLayerState({ page }: { page: Page }) {
+	return page.evaluate(() => {
+		const button = document.querySelector('[data-testid="manual-popover-button"]');
+		const popover = button?.closest('[popover]');
+		if (!button || !popover) {
+			throw new Error('No manual popover');
+		}
+		const box = button.getBoundingClientRect();
+		const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+		return {
+			isPopoverOpen: popover.matches(':popover-open'),
+			isButtonOnTop: hit === button,
+			hitTestId: hit?.getAttribute('data-testid') ?? hit?.tagName ?? null,
+		};
+	});
+}
+
+// The test id of the element on top at the centre of the element with this test id.
+function getTopTestIdAt({ page, testId }: { page: Page; testId: string }) {
+	return page.evaluate((id) => {
+		const element = document.querySelector(`[data-testid="${id}"]`);
+		if (!element) {
+			throw new Error(`No element ${id}`);
+		}
+		const box = element.getBoundingClientRect();
+		const hit = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+		return hit?.closest('[data-testid]')?.getAttribute('data-testid') ?? null;
+	}, testId);
+}
+
+function getDialogLog({ page }: { page: Page }): Promise<TDialogLog> {
+	return page.evaluate(() => (window as unknown as { dialogLog: TDialogLog }).dialogLog);
+}
+
+async function expectNeverClosed({
+	page,
+	escapes,
+	focusedTestId,
+}: {
+	page: Page;
+	escapes: number;
+	focusedTestId: string;
+}) {
+	const log = await getDialogLog({ page });
+	expect(log.escapes).toBe(escapes);
+	// No close request, so no `cancel`.
+	expect(log.cancels).toBe(0);
+	expect(log.nativeCloses).toBe(0);
+	expect(log.closedSamples).toBe(0);
+	expect(log.focusedTestIds).toEqual(Array(escapes).fill(focusedTestId));
+	await expect(page.getByTestId('forced-count')).toHaveText('0');
+	await expect(page.getByTestId('dialog')).toHaveAttribute('open', '');
+	await expect(page.getByTestId(focusedTestId)).toBeFocused();
+}

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 27.1.0
+
+### Minor Changes
+
+- [`1a9b1697e578d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a9b1697e578d) -
+  Propagate named agent IDs through suggestion diff attribution so OOTB agent colour overrides are
+  applied.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.1
+
+### Patch Changes
+
+- [`4a8b1eae7cd41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a8b1eae7cd41) -
+  Show contributor tags on highlighted blank-line return glyphs behind
+  `confluence_ncs_step_diffing_version_history` and `platform_editor_ai_show_diff_patch_2`.
+- Updated dependencies
+
 ## 27.0.0
 
 ### Patch Changes

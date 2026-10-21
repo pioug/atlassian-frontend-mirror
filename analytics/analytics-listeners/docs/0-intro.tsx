@@ -8,12 +8,26 @@ const _default_1: any = md`
 
   The following listeners are currently implemented:
 
-  * Fabric Editor
-  * Fabric elements
+  * A2UI
+  * AI Mate
+  * Analytics Visualization Platform (AVP)
+  * Atlas
   * Atlaskit (core)
-  * Navigation
+  * Cross Flow
+  * Fabric Editor
+  * Fabric Elements
+  * Growth
+  * Linking Platform
   * Media
+  * Navigation
+  * Notifications
+  * Omni Channel
   * People Teams
+  * Post Office
+  * Recent Work
+  * Rovo Extension
+  * Teamwork Graph
+  * Townsquare Home
 
   Atlaskit (core) events may result in multiple events being fired for the same action if you have instrumented AK components with your own analytics. In this case we recommend temporarily excluding the atlaskit listener via the 'excludedChannels' prop until we have a fix for this on the backend.
 

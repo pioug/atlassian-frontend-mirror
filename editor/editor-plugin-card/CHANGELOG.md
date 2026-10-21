@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-card
 
+## 35.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.1
+
+### Patch Changes
+
+- [`5ffd5098ef9f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ffd5098ef9f9) -
+  Fix the paste menu "Display as" section being hidden when `platform_editor_menu_radius_update` is
+  enabled.
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

@@ -342,6 +342,15 @@ Not every behavior needs a browser test. Use this framework to decide:
 - For positioning tests, use `page.evaluate(() => window.scrollTo(...))` to control the viewport
 - For animation tests, avoid `page.waitForTimeout` — use `transitionend` event listeners or poll
   element visibility
+- The jsdom polyfill reports `pointer-events: none` for inert content, so a `user-event` click
+  behind a modal dialog throws. See
+  [polyfill-inert-pointer-events.md](../decisions/polyfill-inert-pointer-events.md).
+- In jsdom, focus goes to `<body>` after you pick a Select option. This is not the polyfill.
+  `@atlaskit/react-select` sets `blurInputOnSelect` to `isTouchCapable()`, which is true in jsdom
+  because jsdom implements `TouchEvent`. Chrome, Safari and Firefox keep focus in the input. Do not
+  assert focus after a pick. If the test needs browser focus, pass `blurInputOnSelect={false}` in
+  the test render only, or focus the input again. A dialog still takes Escape from `<body>` when
+  focus was last in it, so an Escape step after a pick passes both ways.
 
 ### Known pre-existing failures in this package's own Playwright suite
 

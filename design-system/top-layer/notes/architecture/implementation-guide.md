@@ -442,11 +442,15 @@ type TDialogCloseReason = 'escape' | 'overlay-click';
 
 The dialog **never closes itself**. The full flow:
 
-1. **Escape key:** Native `cancel` event fires → we call `event.preventDefault()` (browser does NOT
-   close it) → we call `onClose({ reason: 'escape' })` → consumer decides whether to set
-   `isOpen={false}`.
-2. **Backdrop click:** Our `onClick` handler detects `event.target === event.currentTarget` → calls
-   `onClose({ reason: 'overlay-click' })` → consumer decides.
+1. **Escape key:** We take the Escape `keydown` and call `preventDefault()` (the browser makes no
+   close request) → we call `onClose({ reason: 'escape' })` → consumer decides whether to set
+   `isOpen={false}`. The `<dialog>` has `closedby="none"`, so other close requests (e.g. Android
+   back) do not close it. Browsers without `closedby` (Safari 27) get a `cancel` fallback that
+   refuses them.
+2. **Backdrop click:** Our `click` listener checks that the `pointerdown` and the `pointerup` were
+   both on the `<dialog>` itself → calls `onClose({ reason: 'overlay-click' })` → consumer decides.
+   We do not use native light dismiss (`closedby="any"`); see
+   [Why not native light dismiss](../decisions/dialog-close-flow.md#why-not-native-light-dismiss).
 3. **Programmatic:** Consumer calls their own close logic → sets `isOpen={false}`.
 4. **`isOpen={false}` detected:** `useLayoutEffect` calls `dialog.close()` → exit animation plays →
    `onExitFinish` fires → children unmount.

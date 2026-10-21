@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 6.13.1
+
+### Patch Changes
+
+- [`9926fce79a4d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9926fce79a4d4) -
+  Cleanup feature gate `navx-5378-link-picker-tab-roles`. Keep tab-panel roles enabled for link
+  picker results, loading, and empty states.
+
 ## 6.13.0
 
 ### Minor Changes

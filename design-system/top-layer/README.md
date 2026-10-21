@@ -89,7 +89,10 @@ import { Dialog } from '@atlaskit/top-layer/dialog-content';
 - `onClose({ reason })` fires after an allowed Escape (`'escape'`) or backdrop click
   (`'overlay-click'`). Set `isOpen={false}` in response.
 - `dismissedBy` limits user dismissal: `'escape-and-outside-click'` (default), `'escape'` or
-  `'none'`.
+  `'none'`. To allow only backdrop clicks, use the default and ignore `onClose` calls with
+  `reason: 'escape'`.
+- The `<dialog>` has `closedby="none"`: `Dialog` handles Escape and backdrop clicks itself. Other
+  close requests (for example Android back) do not close the dialog and do not call `onClose`.
 
 ## Animations
 

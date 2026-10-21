@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.1.2
+
+### Patch Changes
+
+- [`48fcbfb7d55a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48fcbfb7d55a4) -
+  Add native browser task scheduling behind the `platform_ufo_native_task_scheduling` feature gate,
+  as a step towards removing the `scheduler` package dependency for React 19 compatibility:
+  - `UFOSegment` completion uses `scheduler.postTask` (`user-visible`) with a `setTimeout` fallback.
+  - `scheduleIdleCallback` uses `requestIdleCallback`, then `scheduler.postTask` (`background`),
+    then `setTimeout`.
+  - Typing performance tracing now schedules work via `scheduleIdleCallback`.
+
+  Clean up the `ufo_payload_use_idle_callback` feature gate (0% in production) in favour of the new
+  gate.
+
 ## 8.1.1
 
 ### Patch Changes

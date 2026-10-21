@@ -7,6 +7,7 @@ import React, {
 	useCallback,
 	useContext,
 	useEffect,
+	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -113,6 +114,15 @@ export type FlyoutMenuItemContentProps = {
 	containerTestId?: string;
 
 	/**
+	 * Accessible name for the flyout dialog. Use it when the content has no `FlyoutHeader`,
+	 * for example when the trigger label names the flyout.
+	 *
+	 * When provided, it names the dialog instead of a `FlyoutHeader` title. It is ignored when
+	 * `titleId` is provided.
+	 */
+	label?: string;
+
+	/**
 	 * The maximum height of the flyout menu in pixels.
 	 *
 	 * If not provided, defaults to 760px.
@@ -150,6 +160,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 			autoFocus,
 			maxHeight = FLYOUT_MENU_MAX_HEIGHT_PX,
 			titleId: providedTitleId,
+			label,
 		},
 		forwardedRef,
 	) => {
@@ -216,6 +227,11 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 
 		const generatedTitleId = useTitleId();
 		const titleId = providedTitleId ?? generatedTitleId;
+		// The title id is only rendered by a FlyoutHeader, so without one the dialog has no name.
+		// The label gets its own id so it can never duplicate a FlyoutHeader's id.
+		const labelId = useId();
+		const shouldUseLabel =
+			fg('navx-5263-a11y-flyout-dialog-name') && Boolean(label) && providedTitleId === undefined;
 
 		const computedMaxHeight = useMemo(
 			() =>
@@ -246,7 +262,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				xcss={flyoutMenuItemContentStyles.root}
 				autoFocus={autoFocus}
 				role="dialog"
-				titleId={titleId}
+				titleId={shouldUseLabel ? labelId : titleId}
 				/**
 				 * Disabling GPU acceleration removes the use of `transform` by popper.js for this popup.
 				 *
@@ -278,6 +294,12 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 									value={fg('platform-dst-top-layer') ? undefined : setInitialFocusRef}
 								>
 									<InitialFocusOriginContext.Provider value={initialFocusOriginRef}>
+										{shouldUseLabel && (
+											// `hidden` so it is only announced as the dialog name, not read again.
+											<span hidden id={labelId}>
+												{label}
+											</span>
+										)}
 										{children}
 									</InitialFocusOriginContext.Provider>
 								</SetInitialFocusRefContext.Provider>

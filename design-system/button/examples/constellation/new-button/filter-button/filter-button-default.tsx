@@ -9,7 +9,7 @@ export default function FilterButtonDefaultExample(): React.JSX.Element {
 			<FilterButton trailingMetric={8}>Filter</FilterButton>
 			<FilterButton trailingMetric={0}>Filter</FilterButton>
 			<FilterButton trailingMetric="99+">Filter</FilterButton>
-			<FilterButton>Filter</FilterButton>
+			<FilterButton hasChevronDown={false}>Filter</FilterButton>
 		</Inline>
 	);
 }

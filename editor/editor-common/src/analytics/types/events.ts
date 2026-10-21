@@ -51,6 +51,7 @@ import type { FormatEventPayload } from './format-events';
 import type { GeneralEventPayload } from './general-events';
 import type { HighlightActionsEventPayload } from './highlight-actions-menu-events';
 import type { HighlightEventPayload } from './highlight-events';
+import type { InlineCommentToolbarViewedAEP } from './inline-comment-events';
 import type { InsertEventPayload } from './insert-events';
 import type { VisitedLinkAEP } from './link-events';
 import type {
@@ -102,6 +103,7 @@ export type SimplifiedNode = {
 };
 
 export type AnalyticsEventPayload<T = void> =
+	| InlineCommentToolbarViewedAEP
 	| AvatarEventPayload
 	| GeneralEventPayload<T>
 	| FormatEventPayload

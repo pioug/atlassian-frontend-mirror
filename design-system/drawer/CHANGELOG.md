@@ -1,5 +1,15 @@
 # @atlaskit/drawer
 
+## 14.3.8
+
+### Patch Changes
+
+- [`f026aadea067f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f026aadea067f) -
+  On the top-layer path (`platform-dst-top-layer`), `onClose` now runs in the same cases as on the
+  legacy path while the drawer is open, and the drawer stays open until `isOpen` becomes `false`.
+  Unlike legacy, Escape and backdrop clicks during the exit animation do not call `onClose` again.
+- Updated dependencies
+
 ## 14.3.7
 
 ### Patch Changes

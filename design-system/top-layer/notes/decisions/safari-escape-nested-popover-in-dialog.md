@@ -2,6 +2,13 @@
 
 ## Status
 
+**Update (2026-10-19): the `useSafariEscapeFix` hook is deleted.** `Dialog` now renders
+`closedby="none"`. In Safari 27 (no `closedby`), the `cancel` fallback (`use-cancel-fallback.tsx`)
+refuses every `cancel`, including the spurious one below, so the keydown snapshot is not needed. The
+regression test in `__tests__/playwright/nested-layers.spec.tsx` still guards the behaviour. See
+[`dialog-close-flow.md`](./dialog-close-flow.md#fallback-browsers-without-closedby). The
+focus-on-click notes below still apply.
+
 **RESOLVED (2026-07-13).** Fixed with a keydown-time "nested popover open" snapshot that the
 dialog's `cancel` handler consults. The logic is encapsulated in the `useSafariEscapeFix` hook
 (`src/internal/use-safari-escape-fix.tsx`), consumed by `src/dialog/dialog-content.tsx`, and is

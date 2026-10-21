@@ -3369,10 +3369,11 @@ describe('escape keydown event propagation', () => {
 		menuIsOpen: true,
 	};
 
+	// The dialog is open: content in a closed `<dialog>` is not rendered, so it cannot take focus.
 	it('should not be prevented if "shouldPreventEscapePropagation" is false', async () => {
 		render(
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
-			<dialog onKeyDown={handleKeyDownMock}>
+			<dialog open onKeyDown={handleKeyDownMock}>
 				<Select {...mockedProps} />
 			</dialog>,
 		);
@@ -3387,7 +3388,7 @@ describe('escape keydown event propagation', () => {
 	it('should be prevented if "shouldPreventEscapePropagation" is true', async () => {
 		render(
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
-			<dialog onKeyDown={handleKeyDownMock}>
+			<dialog open onKeyDown={handleKeyDownMock}>
 				<Select {...mockedProps} shouldPreventEscapePropagation />
 			</dialog>,
 		);

@@ -1,5 +1,18 @@
 # @atlaskit/rovo-triggers
 
+## 12.5.0
+
+### Minor Changes
+
+- [`a796bbf214c2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a796bbf214c2c) -
+  Allow Studio to signal the matching mounted root agent editor to open its tools modal. Keep
+  rollout gating at the Studio publisher, require chat opening to be disabled, and exclude the
+  signal from replay. Preserve editor-owned selections, saves, and integration-test dependencies.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.4.0
 
 ### Minor Changes

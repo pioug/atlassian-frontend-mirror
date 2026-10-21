@@ -78,18 +78,34 @@ type AIResultViewedAEP = TrackAEP<
 	undefined
 >;
 
+/**
+ * Generated image / MAUI app block counts of the Rovo page edit behind an AI result, copied from the
+ * backend edit action data. Either all are present or none are; absent means not eligible or unknown.
+ */
+export type AIResultVisualBlockCounts = {
+	addedImageBlocks?: number;
+	addedMauiAppBlocks?: number;
+	imageBlocks?: number;
+	mauiAppBlocks?: number;
+	removedImageBlocks?: number;
+	removedMauiAppBlocks?: number;
+	replacedImageBlocks?: number;
+	replacedMauiAppBlocks?: number;
+};
+
 type AIResultActionedAEP = TrackAEP<
 	ACTION.ACTIONED,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
 	AIUnifiedCommonAttributes &
-		AIUnifiedAgentAttributes & {
+		AIUnifiedAgentAttributes &
+		AIResultVisualBlockCounts & {
 			aiActionedType?: string;
 			aiGroupId: string | undefined;
 			aiResultAction: string;
 			promptType?: string;
 			refinementCount?: number;
-			wasRedone?: Boolean;
+			wasRedone?: boolean;
 		},
 	undefined
 >;

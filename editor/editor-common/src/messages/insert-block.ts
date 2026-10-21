@@ -346,7 +346,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	mentionDescription: {
 		id: 'fabric.editor.mention.description',
-		defaultMessage: 'Mention someone to send them a notification',
+		defaultMessage: 'Notify someone by mentioning them',
 		description: 'Reference another person in your document',
 	},
 	emoji: {

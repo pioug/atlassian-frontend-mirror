@@ -246,6 +246,17 @@ export function InlineCommentView({
 		}
 
 		// fire analytics
+		const targetNode = editorView.state.doc.nodeAt(position);
+		const targetNodeType = targetNode?.type.name;
+		let commentTargetType = targetNode ? 'other' : 'unknown';
+		if (targetNodeType === 'extension') {
+			commentTargetType =
+				targetNode?.attrs.extensionKey === 'native-embed:maui' ? 'remixEmbed' : 'other';
+		} else if (['media', 'mediaSingle', 'mediaInline'].includes(targetNodeType ?? '')) {
+			commentTargetType = 'media';
+		} else if (targetNode?.isText) {
+			commentTargetType = 'text';
+		}
 		const payload: AnnotationAEP = {
 			action: ACTION.VIEWED,
 			actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -253,7 +264,8 @@ export function InlineCommentView({
 			eventType: EVENT_TYPE.TRACK,
 			attributes: {
 				overlap: activeAnnotations.length ? activeAnnotations.length - 1 : 0,
-				targetNodeType: editorView.state.doc.nodeAt(position)?.type.name,
+				targetNodeType,
+				commentTargetType,
 				method: selectAnnotationMethod,
 			},
 		};

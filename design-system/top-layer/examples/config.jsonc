@@ -61,6 +61,8 @@
 		"160-testing-popover-fit-available-space.tsx",
 		"161-testing-popover-anchored-size.tsx",
 		"165-testing-popover-focus-handoff.tsx",
+		"166-testing-dialog-escape-refused.tsx",
+		"167-testing-dialog-in-auto-popover.tsx",
 		// The VR examples in the 80-89 band are imported by their spec rather than
 		// visited by URL, and the others are unregistered. The ones listed here are
 		// the ones recent changes added: a missing entry cannot fail anything, it

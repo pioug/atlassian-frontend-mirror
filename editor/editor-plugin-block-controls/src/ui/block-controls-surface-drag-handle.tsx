@@ -291,6 +291,9 @@ export const BlockControlsSurfaceDragHandle = ({
 				const selection =
 					selectionPreservationPluginKey.getState(view.state)?.preservedSelection ?? tr.selection;
 				const resolvedStartPos = tr.doc.resolve(startPos);
+				if (resolvedStartPos.nodeAfter) {
+					api?.blockControls?.actions.notifyBlockHandleClick({ node: resolvedStartPos.nodeAfter });
+				}
 				api?.analytics?.actions.attachAnalyticsEvent({
 					action: ACTION.CLICKED,
 					actionSubject: ACTION_SUBJECT.BUTTON,

@@ -263,6 +263,14 @@ export function Panel({
 	const id = useLayoutId({ providedId });
 
 	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-panel');
+	const isContentMotionEnabled = fg('platform-dst-motion-uplift-panel-content');
+	const prevContentKeyRef = useRef(contentKey);
+
+	useEffect(() => {
+		if (isContentMotionEnabled && contentKey !== undefined) {
+			prevContentKeyRef.current = contentKey;
+		}
+	}, [contentKey, isContentMotionEnabled]);
 	const defaultWidth = useSafeDefaultWidth({
 		defaultWidthProp,
 		fallbackDefaultWidth,
@@ -445,9 +453,13 @@ export function Panel({
 						isMotionUpliftEnabled && state === 'exiting' && styles.contentExiting,
 					]}
 				>
-					{isMotionUpliftEnabled && contentKey !== undefined ? (
-						<ExitingPersistence exitThenEnter>
-							<PanelContentMotion key={contentKey}>{children}</PanelContentMotion>
+					{isContentMotionEnabled ? (
+						<ExitingPersistence exitThenEnter={contentKey !== undefined}>
+							<PanelContentMotion
+								key={contentKey === undefined ? prevContentKeyRef.current : contentKey}
+							>
+								{children}
+							</PanelContentMotion>
 						</ExitingPersistence>
 					) : (
 						children

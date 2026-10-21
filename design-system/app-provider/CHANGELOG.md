@@ -1,5 +1,14 @@
 # @atlaskit/app-provider
 
+## 8.2.0
+
+### Minor Changes
+
+- [`9da1c92713695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9da1c92713695) -
+  Add product-resolved base and transparent gate inputs to getScrollbarHarmonisationHtmlAttrs for
+  SSR, preserving existing boolean and shared-gate behavior for platform_dst_scrollbar_harmonisation
+  and platform_dst_scrollbar_harmonisation_transparent.
+
 ## 8.1.0
 
 ### Minor Changes

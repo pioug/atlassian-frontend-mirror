@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-expand
 
+## 30.0.3
+
+### Patch Changes
+
+- [`892a6ad6af76e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/892a6ad6af76e) -
+  Use a native expand toggle behind the platform_editor_expand_icon_vanilla experiment while
+  preserving the selector used to reveal inline comments.
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.0
 
 ### Patch Changes

@@ -1,5 +1,70 @@
 # @atlaskit/editor-common
 
+## 133.3.0
+
+### Minor Changes
+
+- [`53facf8e5239c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53facf8e5239c) -
+  Add comment target attribution to editor thread opens and toolbar screen events behind
+  cc_maui_annotations_on_extensions.
+
+  Add a shared analytics payload type for the inline comment toolbar screen event.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.2.0
+
+### Minor Changes
+
+- [`004b7c3c33232`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/004b7c3c33232) -
+  Add `SyncedBlockGetSourceInfoSuccessAEP`, the per-request `syncedBlockGetSourceInfo` success
+  analytics event type, to `SyncBlockEventPayload` and `RendererSyncBlockEventPayload`. It is only
+  emitted behind the `platform_editor_blocks_patch_12` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.1.0
+
+### Minor Changes
+
+- [`3304359a4e416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3304359a4e416) -
+  CWR-25: report the backend's generated image / MAUI app block counts of a Rovo page edit
+  (`aifc-adf-update`) on the edit acceptance-rate events: the chat-stream `aiResult viewed` and the
+  Editor AI `aiResult actioned` (`accepted` / `automaticallyInserted`).
+  - `@atlassian/rovo-content-bridge-api-commands`: new
+    `./commands/generated-edit-visual-block-counts` entry point exporting
+    `getGeneratedEditVisualBlockCounts`, which copies the eight counts only when all are present as
+    non-negative integers, so `0` stays distinct from absent (not eligible).
+  - `@atlassian/conversation-assistant-action-helpers`: optional counts on
+    `AIFCADFUpdateActionPayload`.
+  - `@atlaskit/editor-common`: new `AIResultVisualBlockCounts` type, accepted on the
+    `aiResult actioned` payload.
+  - `@atlassian/editor-plugin-ai`: optional `singleInstrumentationId` / `visualBlockCounts` on
+    `EndSessionMetadata`. A finished session's counts are added to that result's queued accepted
+    event.
+  - `@atlassian/editor-plugin-ai-streaming-orchestrator`: `endSession` accepts the same optional
+    fields and passes them on when the session finishes.
+  - `@atlassian/editor-rovo-bridge`: hands the counts from the final page-edit payload to the
+    session end.
+  - `@atlassian/conversation-assistant`: the chat-stream `aiResult viewed` reports the counts when
+    the response has exactly one page-create or page-edit action.
+
+### Patch Changes
+
+- [`a801a2321cc04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a801a2321cc04) -
+  Update the Mention description copy to "Notify someone by mentioning them".
+- Updated dependencies
+
 ## 133.0.1
 
 ### Patch Changes

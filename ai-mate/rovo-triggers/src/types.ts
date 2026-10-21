@@ -945,7 +945,13 @@ export type SmartlinksSubscriptionChangedPayload =
  */
 export type CloseInContextAifcModalPayload = PayloadCore<'close-in-context-aifc-modal'>;
 
+export type AgentEditorOpenToolsPayload = PayloadCore<
+	'agent-editor-open-tools',
+	{ agentId: string; cloudId: string }
+> & { openChat: false };
+
 export type Payload =
+	| AgentEditorOpenToolsPayload
 	| MessageSendPayload
 	| ChatClosePayload
 	| CloseInContextAifcModalPayload

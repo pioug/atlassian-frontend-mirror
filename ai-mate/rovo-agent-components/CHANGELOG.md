@@ -1,5 +1,24 @@
 # @atlaskit/rovo-agent-components
 
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.0
+
+### Major Changes
+
+- [`daad5d62bf7cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daad5d62bf7cb) -
+  Move `ResolvedAgentAvatar` into the Editor-owned shared AI package without changing its behavior.
+  Replace imports from `@atlaskit/rovo-agent-components/ui/agent-avatar/ResolvedAgentAvatar` with
+  `@atlassian/editor-ai-common/ResolvedAgentAvatar`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.9.23
 
 ### Patch Changes

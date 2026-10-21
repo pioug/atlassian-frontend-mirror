@@ -116,6 +116,15 @@ type SyncedBlockDeleteSuccessAttributes = SyncedBlockSuccessAttributes & {
 
 type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes;
 
+/**
+ * Per-request source-info success attrs. `sourceLocation` is only set for Jira sources when
+ * `editor_synced_blocks_jira_custom_rich_text` is enabled (behind the `platform_editor_blocks_patch_12`
+ * experiment).
+ */
+type SyncedBlockGetSourceInfoSuccessAttributes = SyncedBlockSuccessAttributes & {
+	sourceLocation?: SyncedBlockSourceLocationAttribute;
+};
+
 type SyncedBlockCopySuccessAttributes = SyncedBlockSuccessAttributes & {
 	inputMethod: INPUT_METHOD;
 };
@@ -213,6 +222,18 @@ export type SyncedBlockFetchSuccessAEP = OperationalAEP<
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
 	FetchSyncedBlockSuccessAttributes
+>;
+
+/**
+ * Fired once per source-info request that resolves with a title and url. Pairs with
+ * `SyncedBlockGetSourceInfoErrorAEP` as the per-request denominator for the source-info
+ * success rate (the shared experience events cannot count per request).
+ */
+export type SyncedBlockGetSourceInfoSuccessAEP = OperationalAEP<
+	ACTION.FETCHED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_GET_SOURCE_INFO,
+	SyncedBlockGetSourceInfoSuccessAttributes
 >;
 
 export type SyncedBlockCreateSuccessAEP = OperationalAEP<
@@ -388,6 +409,7 @@ export type SyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
 	| SyncedBlockFetchSuccessAEP
+	| SyncedBlockGetSourceInfoSuccessAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| SyncedBlockFetchReferencesErrorAEP
 	| ExperienceEventPayload
@@ -407,6 +429,7 @@ export type RendererSyncBlockEventPayload =
 	| SyncedBlockGetSourceInfoErrorAEP
 	| SyncedBlockFetchErrorAEP
 	| SyncedBlockFetchSuccessAEP
+	| SyncedBlockGetSourceInfoSuccessAEP
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| SyncedBlockSourceInfoOrphanedAEP
 	| SyncedBlockCacheDeletionForcedAEP

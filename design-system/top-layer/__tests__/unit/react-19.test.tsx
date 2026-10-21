@@ -535,7 +535,7 @@ describe('React 19 readiness (top-layer)', () => {
 			expect(onClose).not.toHaveBeenCalled();
 		});
 
-		it('Dialog fires onClose with reason "escape" on native cancel event', async () => {
+		it('Dialog fires onClose with reason "escape" on an Escape keydown', async () => {
 			const onClose = jest.fn<void, [{ reason: 'escape' | 'overlay-click' }]>();
 			render(
 				<Dialog isOpen={true} onClose={onClose} label="cancel">
@@ -543,11 +543,7 @@ describe('React 19 readiness (top-layer)', () => {
 				</Dialog>,
 			);
 			const dialog = screen.getByRole('dialog', { hidden: true }) as HTMLDialogElement;
-			const cancelEvent = new Event('cancel', { cancelable: true });
-			fireEvent(dialog, cancelEvent);
-			if (!cancelEvent.defaultPrevented) {
-				dialog.close();
-			}
+			fireEvent.keyDown(dialog, { key: 'Escape' });
 			await waitFor(() => expect(onClose).toHaveBeenCalledWith({ reason: 'escape' }));
 		});
 	});

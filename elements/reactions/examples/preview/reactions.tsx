@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 
 import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { ari, getReactionSummary } from '@atlaskit/reactions/MockReactionsClient';
-import { ReactionStatus } from '@atlaskit/reactions/reaction';
+import { ReactionStatus } from '@atlaskit/reactions/reaction-types';
 import { Reactions } from '@atlaskit/reactions/Reactions';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 

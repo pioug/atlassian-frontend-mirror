@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import ModalDialog from '../../modal-dialog';
 import ModalTransition from '../../modal-transition';
@@ -36,14 +36,9 @@ function ControlledModal({
 	);
 }
 
-function simulateDialogCancel(dialog: HTMLDialogElement) {
-	const event = new Event('cancel', { cancelable: true });
-	act(() => {
-		dialog.dispatchEvent(event);
-		if (!event.defaultPrevented) {
-			dialog.close();
-		}
-	});
+// An Escape keydown in the dialog. `Dialog` takes it and asks through `onClose`.
+function pressEscape(dialog: HTMLDialogElement) {
+	fireEvent.keyDown(dialog, { key: 'Escape' });
 }
 
 /**
@@ -82,13 +77,10 @@ it('should call onOpenComplete when re-opened before exit settles', async () => 
 		const dialog = screen.getByTestId('modal') as HTMLDialogElement;
 
 		animations.current = [exitAnimation];
-		simulateDialogCancel(dialog);
-		// `onClose` runs in the task-queued close `toggle`, outside `act`, so wait for `isOpen=false` to commit; else the reopen click batches with it.
-		await waitFor(() =>
-			expect(screen.getByTestId('controlled-modal')).toHaveAttribute('data-is-open', 'false'),
-		);
-		// One snapshot for the entry and one for the exit.
-		expect(getAnimations).toHaveBeenCalledTimes(2);
+		pressEscape(dialog);
+		expect(screen.getByTestId('controlled-modal')).toHaveAttribute('data-is-open', 'false');
+		// One snapshot for the entry and one for the exit, taken after the task-queued close `toggle`.
+		await waitFor(() => expect(getAnimations).toHaveBeenCalledTimes(2));
 
 		animations.current = [];
 		fireEvent.click(screen.getByTestId('open-trigger'));

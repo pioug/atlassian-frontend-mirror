@@ -34,6 +34,7 @@ import { undo } from '@atlaskit/prosemirror-history/undo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExpandPlugin } from '../../types';
+import { renderExpandButton } from '../../ui/renderExpandButton';
 import {
 	deleteExpand,
 	setSelectionInsideExpand,
@@ -792,6 +793,15 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
+		if (isExperimentEnabled('platform_editor_expand_icon_vanilla')) {
+			renderExpandButton(icon, {
+				intl: this.intl,
+				allowInteractiveExpand: this.allowInteractiveExpand,
+				expanded,
+			});
+			return;
+		}
+
 		this.nodeViewPortalProviderAPI.render(
 			() => (
 				<ExpandButton
@@ -822,7 +832,9 @@ export class ExpandNodeView implements NodeView {
 			this.cleanUpEditorDisabledOnChange();
 		}
 
-		this.nodeViewPortalProviderAPI.remove(this.renderKey);
+		if (!isExperimentEnabled('platform_editor_expand_icon_vanilla')) {
+			this.nodeViewPortalProviderAPI.remove(this.renderKey);
+		}
 	}
 }
 

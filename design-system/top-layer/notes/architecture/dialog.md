@@ -69,6 +69,10 @@ Added to the living standard, `closedby` controls what user actions automaticall
 "Light dismiss" (clicking outside the dialog) is only active when `closedby="any"`. For modal
 dialogs, a click on the `::backdrop` is what triggers this.
 
+`@atlaskit/top-layer` `Dialog` sets `closedby="none"`. It handles Escape and backdrop clicks with
+its own listeners. See
+[Why not native light dismiss](../decisions/dialog-close-flow.md#why-not-native-light-dismiss).
+
 ## `requestClose()` vs `close()`
 
 - `.close(returnValue?)` — closes the dialog immediately and synchronously.

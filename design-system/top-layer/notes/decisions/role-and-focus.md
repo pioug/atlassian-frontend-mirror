@@ -39,8 +39,8 @@ taking focus. This is why the carve-out is per role, not hoisted above all roles
 ## `autoFocus` on `@atlaskit/popup`
 
 On the top-layer path, `autoFocus` has no effect on initial focus. To keep focus where it is, do not
-use `dialog`, `alertdialog`, `menu` or `listbox`. `setInitialFocusRef` still wins over the role
-default. The legacy path (flag off) does not change.
+use `dialog`, `alertdialog`, `menu` or `listbox`. For those roles, `setInitialFocusRef` still wins
+over the role default. The legacy path (flag off) does not change.
 
 `DropdownMenu`, `InlineDialog`, `PopupSelect`, `avatar-group` and `spotlight` already worked this
 way on the top-layer path. Popup now matches them.
@@ -65,12 +65,31 @@ Why:
 - **No role means no focus move.** If content must take focus when it opens, it is a dialog: give it
   `role="dialog"` and a name. A hover card must not take focus, so it loses the setter.
 
-The runtime still passes the setter for every role. DS internals that need it on the legacy path
-read it through an internal cast (`DropdownMenu`) or an explicit `role={undefined}`
+The runtime still passes the setter for every role, but on the top-layer path its target takes focus
+only for a role that moves focus (see the next section). DS internals that need it on the legacy
+path read it through an internal cast (`DropdownMenu`) or an explicit `role={undefined}`
 (`avatar-group`). Entry-points `PopupTrigger` passes the setter for every role through one internal
 cast; its own load focus (on the container while loading, then into the content) does not change.
 Teams `PopupTriggerWithHover` passes the setter for every role: through the dialog signature with no
 role or a dialog role, through an internal cast with another role. The casts go at the flag cleanup.
+
+### Popup hands the target to `Popover`
+
+**Decision recorded 2026-10-21.** Popup stores the setter's target in a ref and passes it to
+`Popover` as `initialFocusRef`. `useInitialFocus` focuses it in place of the role default, so focus
+moves once. Before, a Popup effect focused the target after `Popover` had focused the role default.
+
+`initialFocusRef` is used only by the roles that move focus: `dialog`, `alertdialog`, `menu` and
+`listbox`, in both the types and the runtime. That is wider than Popup's setter (dialog-only)
+because `Popover` is a lower-level primitive. It is the first choice in each of those role branches,
+after the combobox check, and only when the popover contains it.
+
+This changes behaviour behind `platform-dst-top-layer`. Before, Popup's effect focused the setter's
+target for every role. Now a consumer that passes the setter with no role, or with a role that does
+not move focus, keeps focus where it is. For example, Teams `PopupTriggerWithHover` passes the
+setter with no role. Such a consumer must use `role="dialog"` and a name if its content must take
+focus. Popup's `useRoleProps` adds the ref only to the role variants that move focus, so the types
+hold the whole way down. See [`../architecture/focus.md`](../architecture/focus.md#initialfocusref).
 
 ## Why
 

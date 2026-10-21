@@ -99,6 +99,13 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 		name: 'blockControls',
 
 		actions: {
+			notifyBlockHandleClick: (context) => {
+				try {
+					config?.onBlockHandleClick?.(context);
+				} catch {
+					// A host callback must not prevent the block menu from opening.
+				}
+			},
 			getTextInfo: (editorView) => {
 				const blockControlsState = api?.blockControls?.sharedState.currentState();
 

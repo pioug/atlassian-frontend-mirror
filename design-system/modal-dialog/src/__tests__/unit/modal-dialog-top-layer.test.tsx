@@ -1,13 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import noop from '@atlaskit/ds-lib/noop';
+import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { screen } from '@atlassian/testing-library/screen';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import ModalBody from '../../modal-body';
 import ModalDialog from '../../modal-dialog';
@@ -21,18 +26,11 @@ jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
 /**
- * JSDOM does not run the `cancel` event's default close action. The shared
- * top-layer polyfill supplies the subsequent native `toggle` and `close` events.
+ * An Escape keydown in the dialog. The `<dialog>` has `closedby="none"`, so `Dialog` takes the
+ * Escape itself and asks through `onClose`.
  */
-function simulateDialogCancel(dialogEl: Element) {
-	const dialog = dialogEl as HTMLDialogElement;
-	const event = new Event('cancel', { cancelable: true });
-	act(() => {
-		dialog.dispatchEvent(event);
-		if (!event.defaultPrevented) {
-			dialog.close();
-		}
-	});
+function pressEscape(dialogEl: Element) {
+	fireEvent.keyDown(dialogEl, { key: 'Escape' });
 }
 
 function getModalCustomProperties(dialogEl: HTMLElement): string {
@@ -141,7 +139,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 		const dialog = screen.getByTestId('modal');
 		expect(dialog.tagName).toBe('DIALOG');
-		expect(dialog).not.toHaveAttribute('closedby');
+		expect(dialog).toHaveAttribute('closedby', 'none');
 	});
 
 	it('should open the dialog element when mounted', () => {
@@ -177,16 +175,34 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		expect(screen.getByText('Modal Title')).toBeInTheDocument();
 	});
 
-	it('should call onClose when escape is pressed (cancel event)', async () => {
+	it('should call onClose when escape is pressed', async () => {
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		expect(onClose).toHaveBeenCalledWith(expect.any(KeyboardEvent), expect.anything());
 		expect((onClose.mock.calls[0][0] as KeyboardEvent).key).toBe('Escape');
+	});
+
+	// As product tests do it: click a trigger, then press Escape with no explicit `focus()`.
+	it('should call onClose for a userEvent Escape after opening from a trigger, and return focus to it', async () => {
+		const user = userEvent.setup();
+		const onClose = jest.fn();
+		render(<ControlledModal onClose={onClose} defaultOpen={false} />);
+		const trigger = screen.getByTestId('open-trigger');
+
+		await user.click(trigger);
+		expect(screen.getByTestId('modal')).toHaveAttribute('open');
+
+		await user.keyboard('{Escape}');
+
+		expect(onClose).toHaveBeenCalledTimes(1);
+		expect((onClose.mock.calls[0][0] as KeyboardEvent).key).toBe('Escape');
+		await waitFor(() => expect(screen.queryByTestId('modal')).not.toBeInTheDocument());
+		expect(trigger).toHaveFocus();
 	});
 
 	it('should call onClose when backdrop is clicked', async () => {
@@ -195,6 +211,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 		const dialog = screen.getByTestId('modal');
 		// Backdrop click: event.target === event.currentTarget (clicking the dialog itself)
+		fireEvent.pointerDown(dialog);
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
@@ -207,7 +225,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		// With reduced motion active, the modal unmounts immediately (no exit animation).
 		await waitFor(() => expect(screen.queryByTestId('modal')).not.toBeInTheDocument());
@@ -331,7 +349,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		const dialog = screen.getByTestId('modal');
 		expect(dialog).toHaveAttribute('open');
 
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		// The ExitingPersistence glue should have called dialog.close()
 		// to trigger the CSS exit animation.
@@ -343,7 +361,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		render(<ControlledModal onCloseComplete={onCloseComplete} />);
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		// With reduced motion, onCloseComplete fires immediately (no exit animation).
 		await waitFor(() => expect(onCloseComplete).toHaveBeenCalledTimes(1));
@@ -355,6 +373,9 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 		const dialog = screen.getByTestId('modal');
 
+		fireEvent.pointerDown(dialog);
+
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		await waitFor(() => expect(screen.queryByTestId('modal')).not.toBeInTheDocument());
@@ -367,11 +388,14 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		render(<ControlledModal onClose={onClose} shouldCloseOnEscapePress={false} />);
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		expect(onClose).not.toHaveBeenCalled();
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
 
+		fireEvent.pointerDown(dialog);
+
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 	});
@@ -381,6 +405,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		render(<ControlledModal onClose={onClose} shouldCloseOnOverlayClick={false} />);
 
 		const dialog = screen.getByTestId('modal');
+		fireEvent.pointerDown(dialog);
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		expect(onClose).not.toHaveBeenCalled();
@@ -391,7 +417,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} shouldCloseOnOverlayClick={false} />);
 
-		simulateDialogCancel(screen.getByTestId('modal'));
+		pressEscape(screen.getByTestId('modal'));
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 	});
@@ -408,11 +434,76 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 		const dialog = screen.getByTestId('modal');
 
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
+		fireEvent.pointerDown(dialog);
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		expect(onClose).not.toHaveBeenCalled();
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
+	});
+
+	// ── A close that Dialog did not ask about (e.g. `<form method="dialog">`) ──
+
+	function closeWithoutAsking(dialogEl: Element) {
+		act(() => {
+			(dialogEl as HTMLDialogElement).close();
+		});
+	}
+
+	async function flushToggle() {
+		await act(async () => {
+			await new Promise((resolve) => setTimeout(resolve, 0));
+		});
+	}
+
+	it('should stay open without calling onClose when the dialog closes without Dialog asking', async () => {
+		const onClose = jest.fn();
+		const onCloseComplete = jest.fn();
+		render(<ControlledModal onClose={onClose} onCloseComplete={onCloseComplete} />);
+		const modal = screen.getByTestId('modal');
+
+		closeWithoutAsking(modal);
+		await flushToggle();
+
+		expect(modal).toHaveAttribute('open');
+		expect(onClose).not.toHaveBeenCalled();
+		expect(onCloseComplete).not.toHaveBeenCalled();
+	});
+
+	describe('open layer observer count', () => {
+		function ModalCount() {
+			const api = useOpenLayerObserver();
+			const [count, setCount] = useState(0);
+			useEffect(() => {
+				if (!api) {
+					return;
+				}
+				setCount(api.getCount({ type: 'modal' }));
+				return api.onChange(() => setCount(api.getCount({ type: 'modal' })));
+			}, [api]);
+			return <span data-testid="modal-count">{count}</span>;
+		}
+
+		it('should keep counting as an open modal when the dialog closes without Dialog asking', async () => {
+			render(
+				<OpenLayerObserver>
+					<ModalCount />
+					<ModalTransition>
+						<ModalDialog testId="modal" label="Modal" onClose={noop}>
+							<ModalBody>Body</ModalBody>
+						</ModalDialog>
+					</ModalTransition>
+				</OpenLayerObserver>,
+			);
+			expect(screen.getByTestId('modal-count')).toHaveTextContent('1');
+
+			closeWithoutAsking(screen.getByTestId('modal'));
+			await flushToggle();
+
+			expect(screen.getByTestId('modal')).toHaveAttribute('open');
+			expect(screen.getByTestId('modal-count')).toHaveTextContent('1');
+		});
 	});
 
 	// ── Click inside content does NOT close ──
@@ -445,7 +536,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 		// Close the modal via Escape
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		await waitFor(() => expect(screen.queryByTestId('modal')).not.toBeInTheDocument());
 
@@ -465,7 +556,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 		// Close
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 		await waitFor(() => expect(screen.queryByTestId('modal')).not.toBeInTheDocument());
 
 		// Re-open
@@ -482,7 +573,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		const dialog = screen.getByTestId('modal');
 		expect(dialog).toHaveAttribute('open');
 
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		// After Escape, the ExitingPersistence glue should call dialog.close()
 		// to trigger the CSS exit animation.
@@ -497,6 +588,9 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		const dialog = screen.getByTestId('modal');
 		expect(dialog).toHaveAttribute('open');
 
+		fireEvent.pointerDown(dialog);
+
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		expect(dialog).not.toHaveAttribute('open');
@@ -509,6 +603,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		render(<ControlledModal onCloseComplete={onCloseComplete} />);
 
 		const dialog = screen.getByTestId('modal');
+		fireEvent.pointerDown(dialog);
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		// With reduced motion, onCloseComplete fires immediately (no exit animation).
@@ -568,7 +664,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		);
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		await waitFor(() => expect(analyticsCallback).toHaveBeenCalledTimes(1));
 		expect(analyticsCallback.mock.calls[0][0].payload).toEqual({
@@ -592,7 +688,7 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		);
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		// First arg: synthetic KeyboardEvent; second arg: analytics event
@@ -618,6 +714,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		);
 
 		const dialog = screen.getByTestId('modal');
+		fireEvent.pointerDown(dialog);
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		await waitFor(() => expect(analyticsCallback).toHaveBeenCalledTimes(1));
@@ -679,12 +777,12 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 	// ── onClose synthetic event shape ──
 
-	it('should provide a KeyboardEvent with key=Escape when closed via cancel event', async () => {
+	it('should provide a KeyboardEvent with key=Escape when closed via Escape', async () => {
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
 		const dialog = screen.getByTestId('modal');
-		simulateDialogCancel(dialog);
+		pressEscape(dialog);
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
 		const event = onClose.mock.calls[0][0];
@@ -697,6 +795,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		render(<ControlledModal onClose={onClose} />);
 
 		const dialog = screen.getByTestId('modal');
+		fireEvent.pointerDown(dialog);
+		fireEvent.mouseDown(dialog);
 		fireEvent.click(dialog);
 
 		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));

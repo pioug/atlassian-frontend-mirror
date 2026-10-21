@@ -1,5 +1,15 @@
 # @atlaskit/modal-dialog
 
+## 17.1.1
+
+### Patch Changes
+
+- [`f026aadea067f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f026aadea067f) -
+  On the top-layer path (`platform-dst-top-layer`), `onClose` now runs in the same cases as on the
+  legacy path while the modal is open, and the modal stays open until you unmount it. Unlike legacy,
+  Escape and backdrop clicks during the exit animation do not call `onClose` again.
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

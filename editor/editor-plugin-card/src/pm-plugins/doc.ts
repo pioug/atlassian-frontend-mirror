@@ -150,7 +150,8 @@ export const replaceQueuedUrlWithCard =
 		if (
 			cardData.type === 'embedCard' &&
 			embedCardNodeTransformer &&
-			fg('platform_native_embeds_rollout_non_maui_experience')
+			(fg('platform_native_embeds_rollout_non_maui_experience') ||
+				fg('platform_native_embeds_rollout_all_products'))
 		) {
 			const transformResult = embedCardNodeTransformer(
 				schema,

@@ -33,6 +33,16 @@ const spacing: ValueSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 			xlarge: { value: 'Space200' },
 			xxlarge: { value: 'Space300' },
 		},
+		inset: {
+			xxsmall: { value: 'Space050' },
+			xsmall: { value: 'Space100' },
+			small: { value: 'Space150' },
+			medium: { value: 'Space200' },
+			large: { value: 'Space250' },
+			xlarge: { value: 'Space300' },
+			xxlarge: { value: 'Space400' },
+			'3xlarge': { value: 'Space600' },
+		},
 		negative: {
 			'025': { value: 'SpaceNegative025' },
 			'050': { value: 'SpaceNegative050' },

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.11.4
+
+### Patch Changes
+
+- [`1066a661d8c7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1066a661d8c7a) -
+  Refresh generated AgentAuthor documentation with its avatar, link, and profile-card options.
+
 ## 1.11.3
 
 ### Patch Changes

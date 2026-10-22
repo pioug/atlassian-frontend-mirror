@@ -10,6 +10,7 @@ export enum ACTION {
 	ACTIONED = 'actioned',
 	ACTIVATED = 'activated',
 	ADDED = 'added',
+	ADOPTED = 'adopted',
 	API_ERROR = 'apiError',
 	API_RECEIVED = 'apiReceived',
 	API_PURGED = 'apiPurged',

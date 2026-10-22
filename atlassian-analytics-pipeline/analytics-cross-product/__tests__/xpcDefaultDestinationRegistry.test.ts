@@ -19,13 +19,16 @@ describe('createXpcDefaultDestinationRegistry', () => {
 	it.each([
 		['https://acme.atlassian.net/wiki/spaces/TEAM', 'confluence'],
 		['https://acme.atlassian.net/browse/TEST-1', 'jira'],
+		['https://servo-playground.jira-dev.com/wiki/spaces/TEAM', 'confluence'],
+		['https://acme.jira-dev.com/browse/TEST-1', 'jira'],
+		['https://acme.jira-dev.com/jira/software/projects/TEST', 'jira'],
 		['https://home.atlassian.com', 'home'],
 		['https://admin.atlassian.com', 'admin'],
 	])('classifies the controlled destination %s', (url, destinationProduct) => {
 		expect(resolve(url)).toMatchObject({
 			destinationProduct,
 			outcome: 'cross',
-			taxonomyVersion: 1,
+			taxonomyVersion: 2,
 		});
 	});
 
@@ -38,6 +41,10 @@ describe('createXpcDefaultDestinationRegistry', () => {
 
 	it('keeps unsupported Atlassian routes unknown and third-party hosts excluded', () => {
 		expect(resolve('https://acme.atlassian.net/unsupported')).toMatchObject({
+			outcome: 'unknown',
+			reason: 'recognizedHostUnknownRoute',
+		});
+		expect(resolve('https://acme.jira-dev.com/unsupported')).toMatchObject({
 			outcome: 'unknown',
 			reason: 'recognizedHostUnknownRoute',
 		});

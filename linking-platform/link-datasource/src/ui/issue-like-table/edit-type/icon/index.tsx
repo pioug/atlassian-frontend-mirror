@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import type { FieldProps } from '@atlaskit/form/field';
-import { Layering } from '@atlaskit/layering/layering';
 import type { Icon } from '@atlaskit/linking-types/datasource';
 import type { FilterOptionOption } from '@atlaskit/react-select/filters';
 import Select from '@atlaskit/select/default';
@@ -16,6 +15,7 @@ import { getCleanedSelectProps } from '../../get-cleaned-select-props';
 import { SharedIconComponent } from '../../shared-components/icon';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { InlineEditLayer } from '../inline-edit-layer';
 
 interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'icon'>;
@@ -52,7 +52,7 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<Layering isDisabled={false}>
+		<InlineEditLayer>
 			<Select<Icon>
 				{...getCleanedSelectProps(props)}
 				menuPortalTarget={document.body}
@@ -87,7 +87,7 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 				}
 				shouldPreventEscapePropagation
 			/>
-		</Layering>
+		</InlineEditLayer>
 	);
 };
 

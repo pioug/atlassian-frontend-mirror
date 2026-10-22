@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
+import type { CardRegistrations } from '@atlaskit/editor-common/card/types';
 import { getActiveLinkMark } from '@atlaskit/editor-common/link/utils';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import { PASTE_MENU } from '@atlaskit/editor-common/toolbar/keys';
@@ -27,14 +28,18 @@ import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { CardContext } from '@atlaskit/link-provider/types';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react/conditional-hooks-factory/conditional-hooks-factory';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
+import { useCardRegistry } from '../actions/useCardRegistry';
 import type { CardPlugin } from '../cardPluginType';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
+import type { CardPluginState } from '../types';
 import { getSingleSmartLinkUrlFromSlice } from './currentPastedSmartLink';
 import {
 	changeNativeEmbedAppearance,
@@ -49,11 +54,6 @@ export const SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION_KEY =
 type PasteOptionsToolbarSharedState = {
 	pasteEndPos: number;
 	pasteStartPos: number;
-};
-
-type CardSharedState = {
-	cards: Array<{ pos: number }>;
-	selectedInlineLinkPosition?: number;
 };
 
 type PasteSharedStateApi = {
@@ -376,6 +376,23 @@ export const normalizeSelectionToLinkRangeForUrlAppearance = ({
 	editorView.dispatch(linkRangeSelectionTr);
 };
 
+type CardApi = ExtractInjectionAPI<CardPlugin> | undefined;
+type CardState = CardRegistrations | CardPluginState | null | undefined;
+
+// Remove with platform_editor_reduce_forced_layout_2 cleanup; call useCardRegistry(api?.card?.actions) directly.
+const useCardStateWithRegistryExperiment: (api: CardApi) => CardState = conditionalHooksFactory<
+	CardState,
+	[api: CardApi]
+>(
+	() => isExperimentEnabled('platform_editor_reduce_forced_layout_2'),
+	function useRegisteredCardState(api) {
+		return useCardRegistry(api?.card?.actions);
+	},
+	function useLegacyCardState(api) {
+		return useSharedPluginStateWithSelector(api, ['card'], (states) => states.cardState);
+	},
+);
+
 const PasteDisplayAsMenuHorizontalView = ({
 	api,
 	allowBlockCards,
@@ -409,10 +426,8 @@ const PasteDisplayAsMenuHorizontalView = ({
 				: undefined;
 		},
 	);
-	// Subscribe to card state so the menu re-renders when resolved card metadata updates.
-	useSharedPluginStateWithSelector(api, ['card'], (states) => {
-		return states.cardState as CardSharedState | undefined;
-	});
+	// platform_editor_reduce_forced_layout_2 selects the registry when enabled and shared state otherwise.
+	useCardStateWithRegistryExperiment(api);
 	const pastedLinkUrlFromSlice = getSingleSmartLinkUrlFromSlice(getCurrentPastedSlice(api));
 
 	const pastedLinkUrlFromCard =

@@ -57,19 +57,6 @@ jest.mock('@atlaskit/editor-common/performance/measure-render', () => ({
 	}),
 }));
 
-jest.mock('@atlaskit/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig', () => ({
-	inputTracking: {
-		enabled: true,
-		samplingRate: 1,
-		countNodes: true,
-		trackSeverity: true,
-		trackRenderingTime: false,
-		trackSingleKeypress: false,
-		severityDegradedThreshold: 3000,
-		severityNormalThreshold: 2000,
-	},
-}));
-
 jest.mock('@atlaskit/editor-common/analytics/fire-analytics-event', () => ({
 	...jest.requireActual('@atlaskit/editor-common/analytics/fire-analytics-event'),
 	fireAnalyticsEvent: jest.fn(),

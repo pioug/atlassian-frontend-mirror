@@ -5,8 +5,8 @@ import { Component } from 'react';
 import Button from '@atlaskit/button/default/button';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import type { FileState } from '@atlaskit/media-client';
 import { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileState } from '@atlaskit/media-client/media-state';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
 	defaultCollectionName,

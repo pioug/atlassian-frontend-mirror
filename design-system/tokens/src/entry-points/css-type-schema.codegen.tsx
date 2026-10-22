@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::141c71d12ffeea7fe84070cd285cd8d3>>
+ * @codegen <<SignedSource::643f639bb128aa6b4c74006713f9c804>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -401,6 +401,16 @@ export type SpaceGap =
 	| 'var(--ds-space-gap-xsmall)'
 	| 'var(--ds-space-gap-xxlarge)'
 	| 'var(--ds-space-gap-xxsmall)';
+export type SpacePadding =
+	| Space
+	| 'var(--ds-space-inset-3xlarge)'
+	| 'var(--ds-space-inset-large)'
+	| 'var(--ds-space-inset-medium)'
+	| 'var(--ds-space-inset-small)'
+	| 'var(--ds-space-inset-xlarge)'
+	| 'var(--ds-space-inset-xsmall)'
+	| 'var(--ds-space-inset-xxlarge)'
+	| 'var(--ds-space-inset-xxsmall)';
 export type SpaceMargin = Space | 'auto' | '0 auto';
 export type SpaceInset = Space | '50%';
 export type Shadow =
@@ -685,7 +695,7 @@ export interface DesignTokenStyles {
 	outlineWidth: BorderWidth;
 	overflowWrap: 'normal' | 'break-word' | 'anywhere';
 	overlay: never;
-	padding: Space;
+	padding: SpacePadding;
 	paddingBlock: Space;
 	paddingBlockEnd: Space;
 	paddingBlockStart: Space;

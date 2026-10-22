@@ -7,11 +7,17 @@ import { cssMap, jsx, styled } from '@compiled/react';
 import Form from '@atlaskit/form/form';
 import type { OnSubmitHandler } from '@atlaskit/form/types';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
-import type { ObjectSchema, SearchForm } from '../../../types/assets/types';
+import {
+	aqlKey,
+	type ObjectSchema,
+	type ObjectSchemaOption,
+	type SearchForm,
+} from '../../../types/assets/types';
 import { AqlSearchInput } from './aql-search-input';
 import { AssetsObjectSchemaSelect } from './object-schema-select';
 import { FormRowContainer } from './styled';
@@ -68,33 +74,44 @@ export const AssetsSearchContainer = (props: SearchContainerProps): JSX.Element 
 
 	return (
 		<Form<SearchForm> onSubmit={onFormSubmit}>
-			{({ formProps }) => (
-				<FormContainer {...formProps} id={SEARCH_FORM_ID}>
-					<FormRowContainer isNarrowGap>
-						<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
-							<Flex justifyContent="end">
-								<CloseButton onClick={onCancel} />
+			{({ formProps, setFieldValue }) => {
+				const onSchemaChange = (schema: ObjectSchemaOption) => {
+					if (fg('platform_lp_sllv_assets_default_schema_aql')) {
+						const defaultAql = `objectSchema = "${schema.label}"`;
+						setFieldValue(aqlKey, defaultAql);
+						onSearch(defaultAql, schema.value);
+					}
+				};
+
+				return (
+					<FormContainer {...formProps} id={SEARCH_FORM_ID}>
+						<FormRowContainer isNarrowGap>
+							<Flex gap="space.200" justifyContent="space-between" xcss={styles.flexStyles}>
+								<Flex justifyContent="end">
+									<CloseButton onClick={onCancel} />
+								</Flex>
+								<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
+									{modalTitle}
+									<AssetsObjectSchemaSelect
+										value={initialSearchData.objectSchema ?? undefined}
+										workspaceId={workspaceId}
+										initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
+										classNamePrefix="assets-datasource-modal--object-schema-select"
+										onSchemaChange={onSchemaChange}
+									/>
+								</Flex>
 							</Flex>
-							<Flex justifyContent="start" xcss={styles.modalTitleContainer}>
-								{modalTitle}
-								<AssetsObjectSchemaSelect
-									value={initialSearchData.objectSchema ?? undefined}
-									workspaceId={workspaceId}
-									initialObjectSchemas={initialSearchData.objectSchemas ?? undefined}
-									classNamePrefix="assets-datasource-modal--object-schema-select"
-								/>
-							</Flex>
-						</Flex>
-					</FormRowContainer>
-					<FormRowContainer>
-						<AqlSearchInput
-							value={initialSearchData.aql ?? DEFAULT_AQL_QUERY}
-							workspaceId={workspaceId}
-							isSearching={isSearching}
-						/>
-					</FormRowContainer>
-				</FormContainer>
-			)}
+						</FormRowContainer>
+						<FormRowContainer>
+							<AqlSearchInput
+								value={initialSearchData.aql ?? DEFAULT_AQL_QUERY}
+								workspaceId={workspaceId}
+								isSearching={isSearching}
+							/>
+						</FormRowContainer>
+					</FormContainer>
+				);
+			}}
 		</Form>
 	);
 };

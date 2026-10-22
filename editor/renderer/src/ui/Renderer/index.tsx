@@ -306,6 +306,7 @@ export const RendererFunctionalComponent = (
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
 			return {
 				startPos: props.startPos ?? 0,
+				isPerformanceModeActive: props.isPerformanceModeActive ?? false,
 				providers: providerFactory,
 				eventHandlers: props.eventHandlers,
 				extensionHandlers: props.extensionHandlers,
@@ -566,9 +567,16 @@ export const RendererFunctionalComponent = (
 	const rendererContext = useMemo(
 		() => ({
 			...createRendererContext(props.featureFlags, props.isTopLevelRenderer),
+			isPerformanceModeActive: props.isPerformanceModeActive ?? false,
 			timeZone: props.timeZone,
 		}),
-		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.timeZone],
+		[
+			props.featureFlags,
+			props.isTopLevelRenderer,
+			createRendererContext,
+			props.timeZone,
+			props.isPerformanceModeActive,
+		],
 	);
 	const isCollapsibleHeadingsEnabled =
 		props.allowCollapsibleHeadings === true &&

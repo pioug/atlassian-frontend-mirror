@@ -26,6 +26,7 @@ import type {
 } from '@atlaskit/editor-ui-control-model/types';
 
 import type EditorActions from '../../actions';
+import { prefetchAppVendors } from './app-vendor/prefetchAppVendors';
 import { ExtensionQuickInsertMenuItem } from './ExtensionQuickInsertMenuItem';
 import { QuickInsertSkillMenuItem } from './QuickInsertSkillMenuItem';
 
@@ -147,6 +148,8 @@ export const getExtensionQuickInsertComponents = ({
 	items: MenuItem[];
 }): RegisterMenuItem<ExtensionQuickInsertComponentProps>[] => {
 	const getExtensionItemRank = createExtensionItemRanker(items);
+	// Every row prefetches all items so the first row to mount fetches vendors in one batch.
+	const prefetchVendors = () => prefetchAppVendors(items);
 
 	return items.map((item, index) => {
 		const structureRank = getStructureExtensionItemRank(item);
@@ -177,22 +180,25 @@ export const getExtensionQuickInsertComponents = ({
 				keywords: item.keywords,
 				title: item.title,
 			})),
-			component: (props) => {
-				const Component =
-					item.extensionType === 'com.atlassian.rovo.skill'
-						? QuickInsertSkillMenuItem
-						: ExtensionQuickInsertMenuItem;
-
-				return (
-					<Component
+			component: (props) =>
+				item.extensionType === 'com.atlassian.rovo.skill' ? (
+					<QuickInsertSkillMenuItem
 						apiRef={apiRef}
 						createAnalyticsEvent={createAnalyticsEvent}
 						editorActions={editorActions}
 						item={item}
 						onInsert={props.onInsert}
 					/>
-				);
-			},
+				) : (
+					<ExtensionQuickInsertMenuItem
+						apiRef={apiRef}
+						createAnalyticsEvent={createAnalyticsEvent}
+						editorActions={editorActions}
+						item={item}
+						onInsert={props.onInsert}
+						prefetchVendors={prefetchVendors}
+					/>
+				),
 		};
 	});
 };

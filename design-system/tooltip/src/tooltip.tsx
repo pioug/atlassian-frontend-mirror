@@ -573,16 +573,13 @@ function Tooltip({
 		apiRef.current?.requestHide({ isImmediate: true });
 	}, []);
 
-	// Registered unconditionally so the hook order never depends on the feature
-	// flag value. On the top-layer path the Popover primitive (used by
-	// TopLayerTooltipPopup) registers with the observer directly, so we pass
-	// isOpen: false to avoid double-counting (the hook is a no-op while the
-	// layer is not open).
+	// Called unconditionally so the hook order never depends on the feature
+	// flag value. On the top-layer path a tooltip is not a layer (open layer
+	// checks skip tooltips), so it does not register with the observer.
 	useNotifyOpenLayerObserver({
 		// Layer is only visually open if both the tooltip popup (container) and children are rendered.
-		isOpen: fg('platform-dst-top-layer-tooltip')
-			? false
-			: shouldRenderTooltipPopup && shouldRenderTooltipChildren,
+		isOpen: shouldRenderTooltipPopup && shouldRenderTooltipChildren,
+		isEnabled: !fg('platform-dst-top-layer-tooltip'),
 		/**
 		 * We don't strictly need to provide an onClose callback at this time, as there is
 		 * already code that handles hiding the tooltip when a drag is started (and the only

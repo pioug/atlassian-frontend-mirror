@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 7.5.4
+
+### Patch Changes
+
+- [`007cec4e0b312`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/007cec4e0b312) -
+  Assets config modal: selecting an object schema now populates the AQL input with objectSchema =
+  "<schema name>" and runs the search immediately, so the schema's objects are shown without the
+  user having to type a query first. Any existing AQL is replaced when the schema changes. Behind
+  platform_lp_sllv_assets_default_schema_aql.
+
+## 7.5.3
+
+### Patch Changes
+
+- [`0cc2e73141eea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc2e73141eea) -
+  Behind the `platform-dst-top-layer` feature gate, no longer uses `@atlaskit/layering`. Open
+  overlays are found with the `@atlaskit/top-layer/page-surface` entry points instead
+  (`platform-dst-top-layer-tooltip` for tooltip). Behaviour with the gate off is unchanged.
+- Updated dependencies
+
 ## 7.5.2
 
 ### Patch Changes

@@ -94,6 +94,44 @@ import { Dialog } from '@atlaskit/top-layer/dialog-content';
 - The `<dialog>` has `closedby="none"`: `Dialog` handles Escape and backdrop clicks itself. Other
   close requests (for example Android back) do not close the dialog and do not call `onClose`.
 
+## Page surfaces
+
+Utilities for page surfaces: surfaces that are not in the top layer (for example a side panel, a
+grid or the side nav) and must work alongside top-layer surfaces. They replace the
+`@atlaskit/layering` open layer observer.
+
+```tsx
+import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
+import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-close-popovers';
+import { useCloseOnUnclaimedEscape } from '@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape';
+
+// A side panel that closes on Escape, unless an open dialog or popover claimed it.
+useCloseOnUnclaimedEscape({ isEnabled: isOpen, onClose: () => setIsOpen(false) });
+
+// A grid that ignores keys while a dialog or popover opened from it is open.
+if (hasOpenDialogOrPopover({ within: event.currentTarget })) {
+	return;
+}
+```
+
+- `useCloseOnUnclaimedEscape({ isEnabled, onClose, shouldClose, targetRef })` closes a page surface
+  (one that is not in the top layer, for example a side panel) on Escape. The browser closes
+  top-layer surfaces on Escape itself, but a page surface also receives that Escape. The hook
+  ignores a claimed Escape: when `event.defaultPrevented` is `true`, when `event.repeat` is `true`,
+  when an open dialog or popover is inside the target, or when `shouldClose` returns `false`. It
+  listens on `document`, or on `targetRef` when you pass one. The `targetRef` element must be
+  mounted when `isEnabled` becomes `true`. Do not use the hook for a `Popover` or a `Dialog`: they
+  already close on Escape.
+- `hasOpenDialogOrPopover({ within, type })` returns `true` when an open `<dialog>`, or an open
+  `Popover` that has an `onClose`, is inside `within` (default: `document`). Tooltips and popovers
+  without `onClose` never count. `type: 'modal'` counts only modal dialogs. Call it at event time: a
+  `keydown` listener still sees a popover that the same Escape will close.
+- `requestClosePopovers({ within })` calls `onClose({ reason: 'programmatic' })` on each open
+  closable popover inside `within`. It never hides anything itself, and it does not ask dialogs. Use
+  it when the layout changes, for example when a side nav collapses.
+- Top-layer surfaces render inline, so a surface opened from inside an element is a DOM descendant
+  of that element. Use `within` where you used observer namespaces.
+
 ## Animations
 
 Both `Popover` and `Dialog` support CSS-based entry/exit animations via the `shouldAnimate` prop.

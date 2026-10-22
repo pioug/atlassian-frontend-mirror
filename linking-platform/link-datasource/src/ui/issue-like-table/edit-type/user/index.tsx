@@ -6,7 +6,6 @@ import { useDebouncedCallback } from 'use-debounce';
 import Avatar from '@atlaskit/avatar/avatar';
 import AvatarItem from '@atlaskit/avatar/avatar-item';
 import type { FieldProps } from '@atlaskit/form/field';
-import { Layering } from '@atlaskit/layering/layering';
 import type { User } from '@atlaskit/linking-types/datasource';
 import type { FilterOptionOption } from '@atlaskit/react-select/filters';
 import Select from '@atlaskit/select/default';
@@ -23,6 +22,7 @@ import { USER_TYPE_TEST_ID } from '../../render-type/user';
 import { userTypeMessages } from '../../render-type/user/messages';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { InlineEditLayer } from '../inline-edit-layer';
 
 interface UserEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'user'>;
@@ -82,7 +82,7 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<Layering isDisabled={false}>
+		<InlineEditLayer>
 			<Select<User>
 				{...getCleanedSelectProps(props)}
 				menuPortalTarget={document.body}
@@ -122,7 +122,7 @@ const UserEditType = (props: UserEditTypeProps): React.JSX.Element => {
 				}
 				shouldPreventEscapePropagation
 			/>
-		</Layering>
+		</InlineEditLayer>
 	);
 };
 

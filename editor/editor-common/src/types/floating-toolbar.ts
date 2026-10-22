@@ -173,6 +173,8 @@ export type FloatingToolbarButton<T extends object> = {
 	confirmDialog?: ConfirmDialogOptions | (() => ConfirmDialogOptions);
 	disabled?: boolean;
 	focusEditoronEnter?: boolean; // To focus the editor when button is pressed default value - false
+	/** Keep the tooltip open when the button is pressed. Set it when a press changes the tooltip content. */
+	hasNewContentOnTriggerClick?: boolean;
 	hidden?: boolean;
 	hideTooltipOnClick?: boolean;
 	href?: string;
@@ -194,8 +196,6 @@ export type FloatingToolbarButton<T extends object> = {
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	selected?: boolean;
-	/** Keep the tooltip open when the button is pressed. Set it when a press changes the tooltip content. */
-	hasNewContentOnTriggerClick?: boolean;
 	showTitle?: boolean;
 	supportsViewMode?: boolean; // TODO: MODES-3950 - Clean up this floating toolbar view mode logic
 	tabIndex?: number | null | undefined;
@@ -424,6 +424,12 @@ export interface FloatingToolbarConfig {
 	 * behind it. Defaults to `'default'` (the wrapper's surface, as today).
 	 */
 	containerSurface?: 'default' | 'none';
+
+	/** Refresh items when data outside EditorState changes. Snapshots must be stable between updates. */
+	externalStore?: {
+		getSnapshot: () => unknown;
+		subscribe: (listener: () => void) => () => void;
+	};
 
 	/**
 	 * Enable Popup component's focus trap

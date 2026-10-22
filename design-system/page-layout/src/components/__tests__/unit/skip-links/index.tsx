@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -98,6 +98,58 @@ describe('skip links', () => {
 			expect(allLinksInSkipLinks[0]).toHaveTextContent('Intro Section');
 			expect(allLinksInSkipLinks[1]).toHaveTextContent('Banner');
 			expect(allLinksInSkipLinks[2]).toHaveTextContent('External Footer');
+		});
+	});
+
+	describe('SkipLink activation', () => {
+		const originalScrollIntoView = Element.prototype.scrollIntoView;
+		const originalScrollTo = window.scrollTo;
+
+		const renderSkipLink = () => {
+			const context = {
+				skipLinksData: [{ id: 'main-content', skipLinkTitle: 'Main content' }],
+				registerSkipLink: noop,
+				unregisterSkipLink: noop,
+			};
+
+			render(
+				<SkipLinksContext.Provider value={context}>
+					<SkipLinkWrapper />
+					<div id="main-content">Main content area</div>
+				</SkipLinksContext.Provider>,
+			);
+		};
+
+		beforeEach(() => {
+			// jsdom does not implement these, and they are not what is under test.
+			Element.prototype.scrollIntoView = jest.fn();
+			window.scrollTo = jest.fn();
+		});
+
+		afterEach(() => {
+			Element.prototype.scrollIntoView = originalScrollIntoView;
+			window.scrollTo = originalScrollTo;
+		});
+
+		it('moves focus to the target and removes the temporary tabindex on blur', () => {
+			renderSkipLink();
+
+			const target = screen.getByText('Main content area');
+			expect(target).not.toHaveAttribute('tabindex');
+
+			act(() => {
+				screen.getByRole('link', { name: 'Main content' }).click();
+			});
+
+			expect(target).toHaveFocus();
+			expect(target).toHaveAttribute('tabindex', '-1');
+
+			act(() => {
+				target.blur();
+			});
+
+			expect(target).not.toHaveFocus();
+			expect(target).not.toHaveAttribute('tabindex');
 		});
 	});
 });

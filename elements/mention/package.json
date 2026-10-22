@@ -163,5 +163,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.3.4"
+	"version": "30.4.0"
 }

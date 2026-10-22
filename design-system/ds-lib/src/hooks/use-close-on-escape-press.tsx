@@ -10,7 +10,6 @@ interface UseCloseOnEscapePressOpts {
 }
 
 /**
- * @deprecated Please use useCloseOnEscapePress from '@atlaskit/layering' instead.
  * Calls back when the escape key is pressed.
  * To be used exclusively for closing layered components.
  * Use the `isDisabled` argument to ignore closing events.
@@ -21,6 +20,10 @@ interface UseCloseOnEscapePressOpts {
  *   isDisabled: false,
  * });
  * ```
+ *
+ * @deprecated The browser top layer handles stacking and Escape natively. Use `@atlaskit/top-layer`
+ * (DS components use it on their `platform-dst-top-layer` path). To close a page surface (for
+ * example a side panel) on Escape, use `useCloseOnUnclaimedEscape` from `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`.
  */
 export default function useCloseOnEscapePress({
 	onClose,

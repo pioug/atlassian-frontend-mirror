@@ -101,6 +101,8 @@ export interface ReactSerializerInit {
 	headingIdPrefix?: string;
 	hideExtensionKeysWhilePending?: string[];
 	isInsideOfInlineExtension?: boolean;
+	/** Document activation supplied by the host, available to custom serializers. */
+	isPerformanceModeActive?: boolean;
 	isPresentational?: boolean;
 	media?: MediaOptions;
 	mentionNodeDataProvider?: MentionNodeDataProvider;

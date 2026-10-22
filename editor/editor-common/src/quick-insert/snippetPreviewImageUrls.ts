@@ -18,6 +18,10 @@ const snippetPreviewImageUrlsByKey: Readonly<Record<string, SnippetPreviewImageU
 		light: `${DAM_CDN_LINK}/AT12OVMY.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJE.png`,
 	},
+	'change-request': {
+		light: `${DAM_CDN_LINK}/AT12P40V.png`,
+		dark: `${DAM_CDN_LINK}/AT12P40Y.png`,
+	},
 	'colourful-layout': {
 		light: `${DAM_CDN_LINK}/AT12OVN6.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVIG.png`,
@@ -50,6 +54,10 @@ const snippetPreviewImageUrlsByKey: Readonly<Record<string, SnippetPreviewImageU
 		light: `${DAM_CDN_LINK}/AT12OVMT.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJ9.png`,
 	},
+	'incident-summary': {
+		light: `${DAM_CDN_LINK}/AT12P40X.png`,
+		dark: `${DAM_CDN_LINK}/AT12P47X.png`,
+	},
 	'launch-checklist': {
 		light: `${DAM_CDN_LINK}/AT12OVKW.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVHN.png`,
@@ -81,6 +89,10 @@ const snippetPreviewImageUrlsByKey: Readonly<Record<string, SnippetPreviewImageU
 	'run-sheet': {
 		light: `${DAM_CDN_LINK}/AT12OVMZ.png`,
 		dark: `${DAM_CDN_LINK}/AT12OVJB.png`,
+	},
+	'service-request': {
+		light: `${DAM_CDN_LINK}/AT12P40W.png`,
+		dark: `${DAM_CDN_LINK}/AT12P47Y.png`,
 	},
 	'started-now': {
 		light: `${DAM_CDN_LINK}/AT12OVN8.png`,

@@ -9,8 +9,8 @@ import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 import { Observable } from 'rxjs/Observable';
 import * as sinon from 'sinon';
 
-import type { FileState } from '@atlaskit/media-client';
 import * as MediaClientReactModule from '@atlaskit/media-client-react/get-media-client';
+import type { FileState } from '@atlaskit/media-client/media-state';
 
 import SiteEmojiResource, {
 	type EmojiProgress,

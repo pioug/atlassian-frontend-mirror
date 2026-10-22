@@ -3,7 +3,7 @@ import React from 'react';
 import { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import { type FileState } from '@atlaskit/media-client';
+import { type FileState } from '@atlaskit/media-client/media-state';
 import { defaultMediaPickerCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import {

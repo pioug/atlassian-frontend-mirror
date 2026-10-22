@@ -10,7 +10,7 @@ import type {
 	PublicPluginAPI,
 } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
-import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
+import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ToolbarModelRenderer } from '@atlaskit/editor-toolbar-model/toolbar-model-renderer';

@@ -138,7 +138,21 @@ export interface EmbedCardTransformers {
 	embedCardNodeTransformer: EmbedCardNodeTransformer;
 }
 
+/** Resolved card metadata and its live node-view position getter. */
+export type CardRegistration = {
+	/** Read the node view's current position after document edits. */
+	getPos: () => number | undefined;
+	id: string;
+	title?: string;
+	url?: string;
+};
+
+/** Immutable registrations keyed by card ID. */
+export type CardRegistrations = Readonly<Record<string, Readonly<CardRegistration>>>;
+
 export type CardPluginActions = {
+	/** Returns current registrations keyed by card ID. */
+	getCardRegistrations: () => CardRegistrations;
 	getEndingToolbarItems: GetEndingToolbarItems;
 	getStartingToolbarItems: GetStartingToolbarItems;
 	hideLinkToolbar: HideLinkToolbarAction;
@@ -153,7 +167,9 @@ export type CardPluginActions = {
 	 * `queueCardsFromChangedTr` when unavailable.
 	 */
 	queueCardsFromRange?: QueueCardsFromRangeAction;
+	registerCard: (info: CardRegistration) => void;
 	registerEmbedCardTransformer: (transformers: EmbedCardTransformers) => void;
+	removeRegisteredCard: (id: string) => void;
 	/**
 	 * Resolves a URL via the Object Resolver Service and returns the canonical
 	 * expanded URL. Useful for expanding Confluence short-link URLs
@@ -164,4 +180,5 @@ export type CardPluginActions = {
 	 */
 	resolveShortLinkUrl: (url: string) => Promise<string | undefined>;
 	setProvider: (provider: Promise<CardProvider>) => Promise<boolean>;
+	subscribeToCardRegistry: (listener: () => void) => () => void;
 };

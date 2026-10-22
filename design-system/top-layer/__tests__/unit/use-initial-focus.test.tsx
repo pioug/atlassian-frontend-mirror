@@ -634,10 +634,11 @@ describe('useInitialFocus (via Popover)', () => {
 	it('still moves focus into a dialog popup that contains a focused combobox', () => {
 		// The combobox and its listbox are both inside the dialog, so the
 		// combobox does not control the dialog. The content focuses the
-		// combobox in its own mount effect, which runs before Popover's.
+		// combobox in its own layout effect, which runs before Popover's (as
+		// react-select's `autoFocus` does in `componentDidMount`).
 		function InnerCombobox() {
 			const ref = React.useRef<HTMLInputElement>(null);
-			React.useEffect(() => {
+			React.useLayoutEffect(() => {
 				ref.current?.focus();
 			}, []);
 			return (
@@ -1028,5 +1029,96 @@ describe('initialFocusRef (via Popover)', () => {
 		rerender(<TestRoleWithTarget isOpen={true} />);
 
 		expect(trigger).toHaveFocus();
+	});
+});
+
+describe('initial focus timing (via Popover)', () => {
+	it('moves focus before any passive effect runs', () => {
+		// Initial focus is a layout effect, so focus has landed by the time the
+		// content's own `useEffect` runs (in the same commit, before paint).
+		const wasFocusedInEffect: boolean[] = [];
+		function FirstItem() {
+			const itemRef = React.useRef<HTMLButtonElement>(null);
+			React.useEffect(() => {
+				wasFocusedInEffect.push(Boolean(itemRef.current?.matches(':focus')));
+			}, []);
+			return (
+				<button type="button" data-testid="first-item" ref={itemRef}>
+					First
+				</button>
+			);
+		}
+		function TestMenu({ isOpen }: { isOpen: boolean }) {
+			return (
+				<Popover isOpen={isOpen} role="menu" label="timing-menu">
+					<FirstItem />
+				</Popover>
+			);
+		}
+
+		const { rerender } = render(<TestMenu isOpen={false} />);
+
+		rerender(<TestMenu isOpen={true} />);
+
+		expect(wasFocusedInEffect).toEqual([true]);
+		expect(screen.getByTestId('first-item')).toHaveFocus();
+	});
+
+	function TestDialogWithEffectTarget({
+		isOpen,
+		effectType,
+	}: {
+		isOpen: boolean;
+		effectType: 'layout' | 'passive';
+	}) {
+		const targetRef = React.useRef<HTMLElement | null>(null);
+		return (
+			<Popover isOpen={isOpen} role="dialog" label="effect-target" initialFocusRef={targetRef}>
+				<div>
+					<button type="button" data-testid="first-button">
+						First
+					</button>
+					<EffectTarget targetRef={targetRef} effectType={effectType} />
+				</div>
+			</Popover>
+		);
+	}
+
+	function EffectTarget({
+		targetRef,
+		effectType,
+	}: {
+		targetRef: React.MutableRefObject<HTMLElement | null>;
+		effectType: 'layout' | 'passive';
+	}) {
+		const buttonRef = React.useRef<HTMLButtonElement>(null);
+		const useChosenEffect = effectType === 'layout' ? React.useLayoutEffect : React.useEffect;
+		useChosenEffect(() => {
+			targetRef.current = buttonRef.current;
+		}, [targetRef]);
+		return (
+			<button type="button" data-testid="target-button" ref={buttonRef}>
+				Target
+			</button>
+		);
+	}
+
+	it('focuses a target that the content sets in its own layout effect', () => {
+		// Child layout effects run before the Popover's, so the target is set in time.
+		const { rerender } = render(<TestDialogWithEffectTarget isOpen={false} effectType="layout" />);
+
+		rerender(<TestDialogWithEffectTarget isOpen={true} effectType="layout" />);
+
+		expect(screen.getByTestId('target-button')).toHaveFocus();
+	});
+
+	it('misses a target that the content sets in a passive effect', () => {
+		// A child `useEffect` runs after the Popover's layout effect has read the
+		// ref, so the role default takes focus. Set the target in a ref callback.
+		const { rerender } = render(<TestDialogWithEffectTarget isOpen={false} effectType="passive" />);
+
+		rerender(<TestDialogWithEffectTarget isOpen={true} effectType="passive" />);
+
+		expect(screen.getByTestId('first-button')).toHaveFocus();
 	});
 });

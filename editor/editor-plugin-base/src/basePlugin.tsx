@@ -6,20 +6,17 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactory } from '@atlaskit/editor-common/types/plugin-factory';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { history } from '@atlaskit/prosemirror-history/history';
 
 import type { BasePlugin, Callback } from './basePluginType';
 import { setKeyboardHeight } from './editor-commands/set-keyboard-height';
 import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
 import filterStepsPlugin from './pm-plugins/filter-steps';
-import frozenEditor from './pm-plugins/frozen-editor';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import { createLazyNodeViewDecorationPlugin } from './pm-plugins/lazy-node-view-decoration';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import scrollGutter from './pm-plugins/scroll-gutter/plugin';
 import { getKeyboardHeight } from './pm-plugins/scroll-gutter/util/get-keyboard-height';
-import { inputTracking } from './pm-plugins/utils/inputTrackingConfig';
 
 export function resolveCallbacks(
 	from: number,
@@ -127,19 +124,6 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 				{
 					name: 'newlinePreserveMarksPlugin',
 					plugin: newlinePreserveMarksPlugin,
-				},
-				{
-					name: 'frozenEditor',
-					plugin: ({ dispatchAnalyticsEvent }) => {
-						if (isExperimentEnabled('platform_editor_remove_legacy_perf_events')) {
-							return undefined;
-						}
-						return frozenEditor(api?.contextIdentifier)(
-							dispatchAnalyticsEvent,
-							inputTracking,
-							undefined,
-						);
-					},
 				},
 				{ name: 'history', plugin: () => history() as SafePlugin },
 				// should be last :(

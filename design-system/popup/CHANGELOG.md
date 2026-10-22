@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 10.0.2
+
+### Patch Changes
+
+- [`9000e8d33cf0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9000e8d33cf0b) -
+  Clean up `platform_dst_popup_media_query_perf_fix`. Popups now only subscribe to the `below.sm`
+  media query when `appearance` is `UNSAFE_modal-below-sm`.
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

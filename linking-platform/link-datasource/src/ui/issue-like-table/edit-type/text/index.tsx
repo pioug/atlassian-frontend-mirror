@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
 import type { FieldProps } from '@atlaskit/form/field';
-import { Layering } from '@atlaskit/layering/layering';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import { succeedUfoExperience } from '../../../../analytics/ufoExperiences/succeedUfoExperience';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { InlineEditLayer } from '../inline-edit-layer';
 
 interface TextEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'string'>;
@@ -32,7 +32,7 @@ const TextEditType = (props: TextEditTypeProps): React.JSX.Element => {
 	}, [experienceId]);
 
 	return (
-		<Layering isDisabled={false}>
+		<InlineEditLayer>
 			<Textfield
 				{...props}
 				autoFocus
@@ -51,7 +51,7 @@ const TextEditType = (props: TextEditTypeProps): React.JSX.Element => {
 					})
 				}
 			/>
-		</Layering>
+		</InlineEditLayer>
 	);
 };
 

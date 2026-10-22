@@ -10,7 +10,9 @@ import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/as
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '@atlaskit/link-datasource/confluence-search-modal';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import type { CardContext } from '@atlaskit/link-provider/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import type { CardPlugin } from '../cardPluginType';
 import type {
 	CardInfo,
 	CardPluginState,
@@ -62,13 +64,22 @@ export const mergeCardInfo = (titleUrlPair: TitleUrlPair, info?: CardInfo): Titl
 export const displayInfoForCard = (node: Node, info?: CardInfo): TitleUrlPair =>
 	mergeCardInfo(titleUrlPairFromNode(node), info);
 
-export const findCardInfo = (state: EditorState): CardInfo | undefined => {
-	const pluginState: CardPluginState | undefined = pluginKey.getState(state);
-	if (!pluginState) {
-		return undefined;
+export const findCardInfo = (
+	state: EditorState,
+	cardActions?: Pick<ReturnType<CardPlugin>['actions'], 'getCardRegistrations'>,
+): CardInfo | undefined => {
+	if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+		const registrations = cardActions?.getCardRegistrations?.() ?? {};
+		const card = Object.values(registrations).find(
+			(registration) => registration.getPos() === state.selection.from,
+		);
+		return card
+			? { id: card.id, title: card.title, url: card.url, pos: state.selection.from }
+			: undefined;
+	} else {
+		const pluginState: CardPluginState | undefined = pluginKey.getState(state);
+		return pluginState?.cards.find((cardInfo) => cardInfo.pos === state.selection.from);
 	}
-
-	return pluginState.cards.find((cardInfo) => cardInfo.pos === state.selection.from);
 };
 
 const isAppearanceSupportedInParent = (

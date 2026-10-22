@@ -215,6 +215,9 @@ re-export shims. Use the per-export subpaths below.
 | `@atlaskit/top-layer/use-simple-light-dismiss`                     | Light dismiss for manual popovers                   |
 | `@atlaskit/top-layer/placement-map/index`                          | Legacy placement string conversion                  |
 | `@atlaskit/top-layer/dialog-scroll-lock`                           | Background scroll prevention for modals             |
+| `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`      | Whether an open layer exists                        |
+| `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`   | Close a page surface on Escape                      |
+| `@atlaskit/top-layer/page-surface/request-close-popovers`          | Ask open layers to close                            |
 | `@atlaskit/top-layer/get-first-focusable` (and `-last-`, `-next-`) | Focusable element queries                           |
 
 ### Focus management

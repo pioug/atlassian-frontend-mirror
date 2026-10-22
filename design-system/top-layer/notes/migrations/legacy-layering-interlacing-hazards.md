@@ -76,9 +76,10 @@ these all render in the browser top layer.** Two consequences reshape the risk p
    - `@atlaskit/navigation-system` flyouts (deferred),
    - `@atlaskit/menu` and `@atlaskit/banner` (in-flow, not overlays — fine unless a consumer portals
      them),
-   - **base `@atlaskit/select` / `@atlaskit/react-select`** — only `PopupSelect` / `MenuPortal`
-     migrated; a plain `Select` with `menuPortalTarget={document.body}` is still a base-layer portal
-     (Rule 3).
+   - **base `@atlaskit/select` / `@atlaskit/react-select` with the flag off** — with
+     `platform-dst-top-layer` on, the menu always renders in a top-layer `Popover` and ignores
+     `menuPortalTarget` / `menuPosition`; with it off, `menuPortalTarget={document.body}` is still a
+     base-layer portal (Rule 3).
 
 **How to detect that a top-layer surface is present** (i.e. that a nearby legacy overlay _will_
 interlace): the presence of any of these DS components in the subtree is now itself the signal,
@@ -279,8 +280,11 @@ close order, or an Escape that closes the wrong layer.
 
 **Safe subset (not a hit)** `@atlaskit/layering/experimental/open-layer-observer`
 (`useNotifyOpenLayerObserver`, `useOpenLayerObserver`, `closeLayers`, the namespace providers) is a
-**notification/coordination** API, **not** a stacking mechanism. It stays valid on both the legacy
-and top-layer paths — only the level-tree/Escape surface above is the interlacing risk.
+**notification/coordination** API, **not** a stacking mechanism, so it is not an interlacing risk.
+It only runs on the legacy path: with `platform-dst-top-layer` on, the observer is `null` and
+top-layer surfaces do not register. Use `hasOpenDialogOrPopover`, `requestClosePopovers` and
+`useCloseOnUnclaimedEscape` from `@atlaskit/top-layer` there, with `within` in place of a namespace
+(see [`layering-package-future.md`](./layering-package-future.md)).
 
 **Fix** Let the browser own dismissal for migrated surfaces; keep the `@atlaskit/layering` level
 tree only for surfaces still in the base layer, and don't mix a single logical stack across both

@@ -15,7 +15,6 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 // These experiments have a jira-specific key that differs from the experiment name,
 // so they must opt out of product-key routing to avoid sending the wrong key on jira.
 export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
-	'platform_editor_blocks',
 	'platform_editor_controls',
 	'advanced_layouts',
 	'single_column_layouts',
@@ -255,13 +254,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-09
-	platform_editor_blocks: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1140,15 +1132,6 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
-	}),
-	// Added 2026-06-09
-	platform_editor_blocks: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_blocks_conf',
-			jira: 'platform_editor_blocks_jira',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
 	}),
 	// Added 2025-08-05
 	platform_editor_native_anchor_with_dnd: createBooleanExperiment({

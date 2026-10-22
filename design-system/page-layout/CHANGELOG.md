@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 5.5.7
+
+### Patch Changes
+
+- [`e53fde9c2496f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e53fde9c2496f) -
+  Fixed skip links throwing a ReferenceError when activated by restoring target focus cleanup.
+- Updated dependencies
+
 ## 5.5.6
 
 ### Patch Changes

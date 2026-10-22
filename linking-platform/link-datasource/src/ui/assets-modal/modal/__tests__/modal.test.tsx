@@ -8,6 +8,7 @@ import type { DatasourceTableState } from '../../../../hooks/useDatasourceTableS
 import { FetchError } from '../../../../services/FetchError';
 import { PermissionError } from '../../../../services/PermissionError';
 import {
+	getAssetsClientDefaultHookState,
 	getAssetsClientErrorHookState,
 	getAssetsClientLoadingHookState,
 	getDefaultDataSourceTableHookState,
@@ -947,6 +948,67 @@ describe('AssetsConfigModal', () => {
 				// The request still asks for the selection, so the schema comes back narrowed to it
 				await expect(searchToNoResultsAndInsert(macroColumnKeys)).resolves.toEqual(macroColumnKeys);
 			});
+		});
+	});
+
+	describe('when a schema is selected before any AQL is typed', () => {
+		const setupFreshModal = async () => {
+			const mockReset = jest.fn();
+			const result = await setup({
+				parameters: undefined,
+				visibleColumnKeys: [],
+				assetsClientHookState: {
+					...getAssetsClientDefaultHookState(),
+					existingObjectSchema: undefined,
+				},
+				datasourceTableHookState: {
+					...getDefaultDataSourceTableHookState(),
+					reset: mockReset,
+				},
+			});
+			return { ...result, mockReset };
+		};
+
+		it('should search the schema and let the user insert without typing a query when the gate is on', async () => {
+			passGate('platform_lp_sllv_assets_default_schema_aql');
+			const { selectNewSchema, getByTestId, findByRole, onInsert, mockReset } =
+				await setupFreshModal();
+
+			await selectNewSchema('schemaTwo');
+
+			await waitFor(() => {
+				expect(getByTestId('assets-datasource-modal--aql-search-input')).toHaveValue(
+					'objectSchema = "schemaTwo"',
+				);
+			});
+			expect(mockReset).toHaveBeenCalledWith({
+				shouldResetColumns: true,
+				shouldForceRequest: true,
+			});
+
+			(await findByRole('button', { name: 'Insert objects' })).click();
+			await waitFor(() => {
+				expect(onInsert).toHaveBeenCalledTimes(1);
+			});
+			const [insertedAdf] = onInsert.mock.calls[0];
+			expect(insertedAdf.attrs.datasource.parameters).toEqual(
+				expect.objectContaining({
+					aql: 'objectSchema = "schemaTwo"',
+					schemaId: '2',
+					workspaceId: 'some-workspace-id',
+				}),
+			);
+		});
+
+		it('should wait for the user to search when the gate is off', async () => {
+			failGate('platform_lp_sllv_assets_default_schema_aql');
+			const { selectNewSchema, getByTestId, getByRole, mockReset } = await setupFreshModal();
+
+			await selectNewSchema('schemaTwo');
+
+			expect(getByTestId('assets-datasource-modal--aql-search-input')).toHaveValue('');
+			expect(mockReset).not.toHaveBeenCalled();
+			expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
 		});
 	});
 

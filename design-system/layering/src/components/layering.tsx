@@ -37,6 +37,12 @@ const LevelProvider: FC<{
 	);
 };
 
+/**
+ * @deprecated The browser top layer handles stacking and Escape natively. Use `@atlaskit/top-layer`
+ * (DS components use it on their `platform-dst-top-layer` path). To check whether an overlay is
+ * open, use `hasOpenDialogOrPopover` from `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`. During the rollout, do not render
+ * `Layering` when `fg('platform-dst-top-layer')` is on.
+ */
 export const Layering: ({
 	children,
 	isDisabled,

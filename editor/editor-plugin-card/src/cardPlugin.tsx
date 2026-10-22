@@ -18,6 +18,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
+import { createCardRegistry } from './actions/cardRegistry';
 import type { CardPlugin } from './cardPluginType';
 import { blockCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/blockCard';
 import { embedCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/embedCard';
@@ -55,6 +56,7 @@ const PasteMenuSmartCardClientSync = ({ clientRef }: { clientRef: SmartCardClien
 };
 
 export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptions, api }) => {
+	const cardRegistry = createCardRegistry();
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
@@ -240,6 +242,10 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 		},
 
 		actions: {
+			registerCard: cardRegistry.registerCard,
+			removeRegisteredCard: cardRegistry.removeCard,
+			getCardRegistrations: cardRegistry.getCardRegistrations,
+			subscribeToCardRegistry: cardRegistry.subscribe,
 			setProvider: async (providerPromise) => {
 				const provider = await providerPromise;
 				// Prevent someone trying to set the exact same provider twice for performance reasons

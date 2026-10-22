@@ -237,6 +237,8 @@ export const useAnnotationClickEvent = (
 					actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
+						// Let products identify the annotated target without changing the open behavior.
+						annotationId: annotationsByType[0]?.id,
 						overlap: annotationsByType.length || 0,
 						targetNodeType: eventTargetType,
 						method: viewMethod,

@@ -1,65 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { bind, bindAll } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
-import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
-import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Dialog } from '../../src/dialog/dialog-content';
 import { type TDialogCloseReason, type TDialogDismissedBy } from '../../src/dialog/types';
-
-// ── Observer test helpers ──
-
-/**
- * Renders the open layer count as text so tests can assert declaratively
- * on what the observer reports, without imperatively reading the API.
- * Subscribes to onChange so it re-renders whenever the count changes.
- */
-function LayerCountDisplay() {
-	const api = useOpenLayerObserver();
-	const [totalCount, setTotalCount] = useState(0);
-	const [modalCount, setModalCount] = useState(0);
-
-	useEffect(() => {
-		if (!api) {
-			return;
-		}
-
-		// Sync immediately in case counts changed before this effect ran
-		setTotalCount(api.getCount());
-		setModalCount(api.getCount({ type: 'modal' }));
-
-		// Subscribe to future changes
-		return api.onChange(() => {
-			setTotalCount(api.getCount());
-			setModalCount(api.getCount({ type: 'modal' }));
-		});
-	}, [api]);
-
-	return (
-		<div>
-			<span data-testid="total-count">{totalCount}</span>
-			<span data-testid="modal-count">{modalCount}</span>
-		</div>
-	);
-}
-
-/**
- * A button that calls closeLayers() when clicked, allowing tests to trigger
- * programmatic close without imperatively holding the API reference.
- */
-function CloseLayersButton() {
-	const api = useOpenLayerObserver();
-	return (
-		<button type="button" onClick={() => api?.closeLayers()}>
-			Close layers
-		</button>
-	);
-}
+import { hasOpenDialogOrPopover } from '../../src/page-surface/has-open-dialog-or-popover';
+import { requestClosePopovers } from '../../src/page-surface/request-close-popovers';
 
 // An Escape keydown, as a browser sends it. `Dialog` takes it (the dialog has `closedby="none"`).
 function fireEscape(target: Element) {
@@ -1426,76 +1377,62 @@ describe('Dialog primitive', () => {
 	});
 });
 
-describe('Dialog primitive - open layer observer', () => {
-	it('registers with the observer as type "modal" when open', () => {
+describe('Dialog primitive - open layers', () => {
+	it('counts as an open modal layer while open', () => {
 		render(
-			<OpenLayerObserver>
-				<LayerCountDisplay />
-				<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
-					Dialog content
-				</Dialog>
-			</OpenLayerObserver>,
+			<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
+				Dialog content
+			</Dialog>,
 		);
 
-		expect(screen.getByTestId('total-count')).toHaveTextContent('1');
-		expect(screen.getByTestId('modal-count')).toHaveTextContent('1');
+		expect(hasOpenDialogOrPopover()).toBe(true);
+		expect(hasOpenDialogOrPopover({ type: 'modal' })).toBe(true);
 	});
 
-	it('does not register with the observer when closed', () => {
+	it('does not count as an open layer when closed', () => {
 		render(
-			<OpenLayerObserver>
-				<LayerCountDisplay />
-				<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
-					Dialog content
-				</Dialog>
-			</OpenLayerObserver>,
+			<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
+				Dialog content
+			</Dialog>,
 		);
 
-		expect(screen.getByTestId('total-count')).toHaveTextContent('0');
+		expect(hasOpenDialogOrPopover()).toBe(false);
 	});
 
-	it('deregisters from the observer when isOpen transitions to false', () => {
+	it('stops counting as an open layer when isOpen transitions to false', () => {
 		const { rerender } = render(
-			<OpenLayerObserver>
-				<LayerCountDisplay />
-				<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
-					Dialog content
-				</Dialog>
-			</OpenLayerObserver>,
+			<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
+				Dialog content
+			</Dialog>,
 		);
 
-		expect(screen.getByTestId('total-count')).toHaveTextContent('1');
+		expect(hasOpenDialogOrPopover()).toBe(true);
 
 		rerender(
-			<OpenLayerObserver>
-				<LayerCountDisplay />
-				<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
-					Dialog content
-				</Dialog>
-			</OpenLayerObserver>,
+			<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
+				Dialog content
+			</Dialog>,
 		);
 
-		expect(screen.getByTestId('total-count')).toHaveTextContent('0');
+		expect(hasOpenDialogOrPopover()).toBe(false);
 	});
 
-	it('does not close when the observer requests closeLayers()', () => {
+	it('is not asked to close by requestClosePopovers()', () => {
 		const onClose = jest.fn();
 
 		render(
-			<OpenLayerObserver>
-				<CloseLayersButton />
-				<Dialog onClose={onClose} isOpen={true} label="Test dialog">
-					Dialog content
-				</Dialog>
-			</OpenLayerObserver>,
+			<Dialog onClose={onClose} isOpen={true} label="Test dialog">
+				Dialog content
+			</Dialog>,
 		);
 
-		// The button is outside the modal dialog, so it is inert and a user cannot click it. Click it
-		// programmatically, as app code that calls `closeLayers()` would run.
-		fireEvent.click(screen.getByRole('button', { name: 'Close layers' }));
+		act(() => {
+			requestClosePopovers();
+		});
 
-		// Modals are intentionally persistent - they should not be dismissed
-		// by closeLayers(). The observer onClose is a no-op.
+		// Dialogs are persistent: outside code cannot close them.
 		expect(onClose).not.toHaveBeenCalled();
+		expect(screen.getByRole('dialog', { hidden: true })).toHaveAttribute('open');
+		expect(hasOpenDialogOrPopover()).toBe(true);
 	});
 });

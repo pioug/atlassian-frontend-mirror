@@ -26,6 +26,7 @@ import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolba
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { cardPlugin } from '../cardPlugin';
 import { hideLinkToolbar, showLinkToolbar } from '../pm-plugins/actions';
@@ -205,7 +206,10 @@ export const buildEditLinkToolbar = ({
 				return null;
 			}
 
-			const displayInfo = displayInfoForCard(node, findCardInfo(view.state));
+			const displayInfo = displayInfoForCard(
+				node,
+				findCardInfo(view.state, pluginInjectionApi?.card.actions),
+			);
 
 			return (
 				<EditLinkToolbar
@@ -220,8 +224,11 @@ export const buildEditLinkToolbar = ({
 					forceFocusSelector={pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onSubmit={(newHref, newText, inputMethod, analytic) => {
-						const urlChanged = newHref !== displayInfo.url;
-						const titleChanged = newText !== displayInfo.title;
+						const currentDisplayInfo = isExperimentEnabled('platform_editor_reduce_forced_layout_2')
+							? displayInfoForCard(node, findCardInfo(view.state, pluginInjectionApi?.card.actions))
+							: displayInfo;
+						const urlChanged = newHref !== currentDisplayInfo.url;
+						const titleChanged = newText !== currentDisplayInfo.title;
 
 						// If the title is changed in a smartlink, convert to standard blue hyperlink
 						// (even if the url was also changed) - we don't want to lose the custom title.

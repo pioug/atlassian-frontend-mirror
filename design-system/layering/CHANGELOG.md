@@ -1,5 +1,16 @@
 # @atlaskit/layering
 
+## 6.1.0
+
+### Minor Changes
+
+- [`0cc2e73141eea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc2e73141eea) -
+  Deprecates `@atlaskit/layering`. The browser top layer (`@atlaskit/top-layer`) handles stacking
+  and Escape, and the `@atlaskit/top-layer/page-surface` entry points replace the open layer
+  observer. `useLayering`, `useCloseOnEscapePress`, `useNotifyOpenLayerObserver` and
+  `useOpenLayerObserver` accept a new `isEnabled` option, so callers can turn them off on the
+  `platform-dst-top-layer` path.
+
 ## 6.0.0
 
 ### Major Changes

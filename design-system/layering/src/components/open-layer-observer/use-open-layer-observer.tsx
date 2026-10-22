@@ -28,12 +28,26 @@ type OpenLayerObserverPublicAPI = Pick<
  *   });
  * }, [openLayerObserver]);
  * ```
+ *
+ * @deprecated Use `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover` and
+ * `@atlaskit/top-layer/page-surface/request-close-popovers`: `getCount` becomes `hasOpenDialogOrPopover` and
+ * `closeLayers` becomes `requestClosePopovers`. For `onChange`, listen for `toggle` and `close`
+ * in the capture phase, then call `hasOpenDialogOrPopover`. During the rollout, pass
+ * `isEnabled: !fg('platform-dst-top-layer')`.
  */
-export function useOpenLayerObserver(): OpenLayerObserverPublicAPI | null {
+export function useOpenLayerObserver({
+	isEnabled = true,
+}: {
+	/**
+	 * Set to `false` to opt out (for example on a feature-gated top-layer code path). The hook then
+	 * returns `null`, as if there were no `OpenLayerObserver` in the tree. Defaults to `true`.
+	 */
+	isEnabled?: boolean;
+} = {}): OpenLayerObserverPublicAPI | null {
 	const context = useContext(OpenLayerObserverContext);
 
 	const publicAPI: OpenLayerObserverPublicAPI | null = useMemo(() => {
-		if (context === null) {
+		if (context === null || !isEnabled) {
 			return null;
 		}
 
@@ -42,7 +56,7 @@ export function useOpenLayerObserver(): OpenLayerObserverPublicAPI | null {
 			onChange: context.onChange,
 			closeLayers: context.closeLayers,
 		};
-	}, [context]);
+	}, [context, isEnabled]);
 
 	return publicAPI;
 }

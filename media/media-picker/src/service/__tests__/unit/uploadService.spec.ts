@@ -10,11 +10,12 @@ import { waitFor } from '@testing-library/react';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuidV4 } from 'uuid';
 
-import type { FileState } from '@atlaskit/media-client';
-import { type ProcessingFileState, RequestError } from '@atlaskit/media-client';
+import { RequestError } from '@atlaskit/media-client';
 import { createMediaSubject } from '@atlaskit/media-client/create-media-subject';
 import { fromObservable } from '@atlaskit/media-client/from-observable';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileState } from '@atlaskit/media-client/media-state';
+import { type ProcessingFileState } from '@atlaskit/media-client/media-state';
 import type { TouchedFiles } from '@atlaskit/media-client/media-store/types';
 import type { UploadableFile } from '@atlaskit/media-client/uploader';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';

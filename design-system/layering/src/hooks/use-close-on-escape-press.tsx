@@ -9,6 +9,11 @@ const ESCAPE = 'Escape';
 interface UseCloseOnEscapePressOpts {
 	onClose: (e: KeyboardEvent) => void;
 	isDisabled?: boolean;
+	/**
+	 * Set to `false` to opt out entirely (for example on a feature-gated top-layer code path). No
+	 * listener is bound and the layering tree is not consulted. Defaults to `true`.
+	 */
+	isEnabled?: boolean;
 }
 
 /**
@@ -22,10 +27,19 @@ interface UseCloseOnEscapePressOpts {
  *   isDisabled: false,
  * });
  * ```
+ *
+ * @deprecated The browser top layer handles stacking and Escape natively. Use `@atlaskit/top-layer`
+ * (DS components use it on their `platform-dst-top-layer` path). To close a page surface (for
+ * example a side panel) on Escape, use `useCloseOnUnclaimedEscape` from `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`.
+ * During the rollout, pass `isEnabled: !fg('platform-dst-top-layer')`.
  */
-export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapePressOpts): void {
+export function useCloseOnEscapePress({
+	onClose,
+	isDisabled,
+	isEnabled = true,
+}: UseCloseOnEscapePressOpts): void {
 	const escapePressed = useRef(false);
-	const { isLayerDisabled } = useLayering();
+	const { isLayerDisabled } = useLayering({ isEnabled });
 
 	const onKeyDown = useCallback(
 		(e: KeyboardEvent) => {
@@ -48,6 +62,9 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
 	}, []);
 
 	useEffect(() => {
+		if (!isEnabled) {
+			return;
+		}
 		return bindAll(
 			window,
 			[
@@ -62,5 +79,5 @@ export function useCloseOnEscapePress({ onClose, isDisabled }: UseCloseOnEscapeP
 			],
 			{ capture: false },
 		);
-	}, [onKeyDown, onKeyUp]);
+	}, [isEnabled, onKeyDown, onKeyUp]);
 }

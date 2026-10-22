@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 30.1.2
+
+### Patch Changes
+
+- [`0aef8124fd34f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0aef8124fd34f) -
+  Add an optional controlVisibility map to the block-control surface context. Visibility predicates
+  receive earlier controls' isHidden results in registry rank order, keyed by registered control
+  key. Behind the platform_editor_remix_control_priority experiment on the
+  platform_editor_block_control_migration path, use this context to let Remix yield to earlier
+  eligible controls on the same block without coupling it to suggestions. With the experiment
+  disabled, retain the original context and Remix rank and visibility.
+- Updated dependencies
+
+## 30.1.1
+
+### Patch Changes
+
+- [`c02fec2c86f55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c02fec2c86f55) -
+  Clean up experiment `platform_editor_remove_legacy_perf_events`
+- Updated dependencies
+
 ## 30.1.0
 
 ### Minor Changes

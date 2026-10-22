@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-base
 
+## 30.0.3
+
+### Patch Changes
+
+- [`99e14378c613c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99e14378c613c) -
+  Clean up platform_editor_blocks and retain enabled scroll gutter behavior.
+- [`c02fec2c86f55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c02fec2c86f55) -
+  Clean up experiment `platform_editor_remove_legacy_perf_events`
+- Updated dependencies
+
 ## 30.0.2
 
 ### Patch Changes

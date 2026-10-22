@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::3693c84242890a6f6edcca866a473b40>>
+ * @codegen <<SignedSource::a02b9bfe4cd29c77e4376a6f77ab8e26>>
  * @codegenCommand yarn build tokens
  */
 import type tokens from './token-names';
@@ -63,6 +63,46 @@ const replacementMapper: RenameMap[] = [
     "path": "space.gap.xxsmall",
     "state": "experimental",
     "replacement": "space.025"
+  },
+  {
+    "path": "space.inset.3xlarge",
+    "state": "experimental",
+    "replacement": "space.600"
+  },
+  {
+    "path": "space.inset.large",
+    "state": "experimental",
+    "replacement": "space.250"
+  },
+  {
+    "path": "space.inset.medium",
+    "state": "experimental",
+    "replacement": "space.200"
+  },
+  {
+    "path": "space.inset.small",
+    "state": "experimental",
+    "replacement": "space.150"
+  },
+  {
+    "path": "space.inset.xlarge",
+    "state": "experimental",
+    "replacement": "space.300"
+  },
+  {
+    "path": "space.inset.xsmall",
+    "state": "experimental",
+    "replacement": "space.100"
+  },
+  {
+    "path": "space.inset.xxlarge",
+    "state": "experimental",
+    "replacement": "space.400"
+  },
+  {
+    "path": "space.inset.xxsmall",
+    "state": "experimental",
+    "replacement": "space.050"
   }
 ];
 

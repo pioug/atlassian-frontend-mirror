@@ -78,8 +78,6 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	autoformattingProvider: undefined,
 	linking: undefined,
 	media: undefined,
-	inputSamplingLimit: undefined,
-	performanceTracking: undefined,
 	skipValidation: undefined,
 	syncedBlockProvider: undefined,
 	UNSAFE_containLayout: undefined,

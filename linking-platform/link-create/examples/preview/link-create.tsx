@@ -3,7 +3,9 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
-import LinkCreate, { CreateForm, TextField } from '@atlaskit/link-create';
+import { CreateForm } from '@atlaskit/link-create/create-form';
+import LinkCreate from '@atlaskit/link-create/modal-create';
+import { TextField } from '@atlaskit/link-create/text-field';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 const styles = cssMap({

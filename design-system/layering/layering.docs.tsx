@@ -25,14 +25,14 @@ const documentation: StructuredContentSource = {
 		packagePath,
 		packageJson,
 		overview:
-			'Coordinates layered UI (modals, popups, drawers, spotlights) so only the topmost layer responds to dismissal interactions like the Escape key. Wrap a layered surface in `<Layering>`, then use `useCloseOnEscapePress` to wire up dismissal — disabled layers will automatically defer to whichever layer is currently on top.',
+			"Deprecated. The browser top layer handles stacking and Escape natively, so use `@atlaskit/top-layer` instead (DS components use it on their `platform-dst-top-layer` path). To check whether an overlay is open, use `hasOpenDialogOrPopover` from `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`. During the rollout, pass `isEnabled: !fg('platform-dst-top-layer')` to the layering hooks, and do not render `Layering` when the gate is on.",
 	},
 	components: [
 		{
 			name: 'Layering',
 			description:
 				'Registers its subtree as a layer in the layering tree. When `isDisabled` is false, this layer participates in topmost-layer tracking; sibling hooks like `useCloseOnEscapePress` only fire on the layer that is actually on top.',
-			status: 'general-availability',
+			status: 'deprecated',
 			import: {
 				name: 'Layering',
 				package: '@atlaskit/layering/layering',
@@ -41,6 +41,7 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
+				"Deprecated. Do not add new usages. Render the surface with `@atlaskit/top-layer`. During the rollout, do not render `Layering` when `fg('platform-dst-top-layer')` is on.",
 				'Wrap the root of any layered surface (modal, popup, drawer, spotlight) in `<Layering>` so dismissal hooks can tell which layer is on top.',
 				'Leave `isDisabled` at its default while the layer is mounted but inactive (for example, a modal that is open but covered by a nested popup). The disabled layer stops claiming the top spot until it becomes active again.',
 			],
@@ -57,14 +58,22 @@ const documentation: StructuredContentSource = {
 			name: 'useLayering',
 			description:
 				'Returns information about the current layer in the layering tree: the layer depth, a check for whether this layer is currently disabled (i.e. not on top), and the top-most depth in the tree.',
-			status: 'general-availability',
-			parameters: [],
+			status: 'deprecated',
+			parameters: [
+				{
+					name: 'options',
+					type: '{ isEnabled?: boolean }',
+					description:
+						'Set `isEnabled` to false to opt out, for example on the `platform-dst-top-layer` path. The hook then reports no layering.',
+				},
+			],
 			returns: {
 				type: '{ currentLevel: number; isLayerDisabled: () => boolean; getTopLevel: () => number | null }',
 				description:
 					'`currentLevel` is the depth of the calling layer. `isLayerDisabled()` returns true when a deeper layer is currently on top. `getTopLevel()` returns the deepest registered layer, or `null` if no layers are mounted.',
 			},
 			usageGuidelines: [
+				"Deprecated. Do not add new usages. To ignore keys while an overlay is open, call `hasOpenDialogOrPopover({ within })` from `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover` at event time. During the rollout, pass `isEnabled: !fg('platform-dst-top-layer')`.",
 				'Use inside a layered surface to gate behaviour that should only run for the top-most layer (for example, registering global keyboard listeners or auto-focusing content).',
 				'Prefer `useCloseOnEscapePress` for the common case of closing on Escape — only reach for `useLayering` when you need raw level info.',
 			],
@@ -76,17 +85,18 @@ const documentation: StructuredContentSource = {
 			name: 'useCloseOnEscapePress',
 			description:
 				'Calls `onClose` when the Escape key is pressed and this layer is currently on top of the layering tree. Layers covered by a deeper layer are skipped, so Escape closes the topmost surface first.',
-			status: 'general-availability',
+			status: 'deprecated',
 			parameters: [
 				{
 					name: 'options',
-					type: '{ onClose: (e: KeyboardEvent) => void; isDisabled?: boolean }',
+					type: '{ onClose: (e: KeyboardEvent) => void; isDisabled?: boolean; isEnabled?: boolean }',
 					description:
-						'`onClose` runs on the first Escape keydown per press. Set `isDisabled` to opt out without unmounting the hook (for example, when the surface is mounted but in a non-closable state).',
+						'`onClose` runs on the first Escape keydown per press. Set `isDisabled` to opt out without unmounting the hook (for example, when the surface is mounted but in a non-closable state). Set `isEnabled` to false to bind no listener at all, for example on the `platform-dst-top-layer` path.',
 				},
 			],
 			returns: { type: 'void' },
 			usageGuidelines: [
+				"Deprecated. Do not add new usages. Top-layer surfaces close on Escape natively. To close a page surface (for example a side panel) on Escape, use `useCloseOnUnclaimedEscape` from `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`. During the rollout, pass `isEnabled: !fg('platform-dst-top-layer')`.",
 				'Mount inside the component that owns the surface (modal body, popup body, drawer body). Wrap that component in `<Layering>` or it will not receive layer information.',
 				'Do not pair with a second top-level Escape listener — the hook already coordinates dismissal across stacked layers.',
 			],

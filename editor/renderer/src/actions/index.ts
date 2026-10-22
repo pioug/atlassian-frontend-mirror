@@ -27,10 +27,15 @@ import {
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnalyticsEventPayload, AnnotationDeleteAEP } from '../analytics/events';
 import { createAnnotationStep, getPosFromRange } from '../steps';
+import {
+	getAnnotationMarksWithLegacyContent,
+	isLegacyContentExtension,
+} from './get-annotation-marks-with-legacy-content';
 import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
 import { getIndexMatch, isBlockAnnotationTarget } from './matches-utils';
 import { getSelectionContext } from './selection';
@@ -391,6 +396,41 @@ export default class RendererActions
 		if (!annotationMarkType) {
 			return [];
 		}
+
+		if (isExperimentEnabled('platform_editor_fix_lcm_renderer_annotations')) {
+			const marks: Array<{ fromLegacyContent: boolean; mark: Mark }> = [];
+			doc.descendants((node) => {
+				const annotationsMark = node.marks.filter((m) => m.type === annotationMarkType);
+				marks.push(...annotationsMark.map((mark) => ({ fromLegacyContent: false, mark })));
+				if (isLegacyContentExtension(node)) {
+					marks.push(
+						...getAnnotationMarksWithLegacyContent(node, annotationMarkType).map((mark) => ({
+							fromLegacyContent: true,
+							mark,
+						})),
+					);
+				}
+
+				return annotationsMark.length === 0;
+			});
+
+			const rootAnnotationIds = new Set(
+				marks
+					.filter(({ fromLegacyContent }) => !fromLegacyContent)
+					.map(({ mark }) => mark.attrs.id),
+			);
+			const uniqueMarks: Map<AnnotationId, Mark> = new Map();
+			marks.forEach(({ mark, fromLegacyContent }) => {
+				const id = mark.attrs.id;
+				if (fromLegacyContent && (rootAnnotationIds.has(id) || uniqueMarks.has(id))) {
+					return;
+				}
+				uniqueMarks.set(id, mark);
+			});
+
+			return Array.from(uniqueMarks.values());
+		}
+
 		const marks: Mark[] = [];
 
 		doc.descendants((node) => {

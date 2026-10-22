@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
 
+import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import {
 	BLOCK_CONTROLS_LEFT_GROUP,
 	BLOCK_CONTROLS_LEFT_SECTION,
@@ -8,6 +9,7 @@ import {
 	BLOCK_CONTROLS_RIGHT_SECTION,
 	BLOCK_CONTROLS_RIGHT_SURFACE,
 } from '@atlaskit/editor-common/block-controls/surface-keys';
+import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import {
 	getComponentIdentity,
 	resolveSurface,
@@ -21,6 +23,7 @@ import type {
 	SurfaceContext,
 	ToolbarType,
 } from '@atlaskit/editor-ui-control-model/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { partitionComponentsByPersistence } from './utils/partition-components-by-persistence';
 import { VisibilityWrapper } from './visibility-container';
@@ -89,6 +92,23 @@ const withoutVisibilityPredicate = (component: RegisterComponent): RegisterCompo
 	return visibleComponent as RegisterComponent;
 };
 
+const withControlVisibility = (
+	surfaceContext: SurfaceContext,
+	controlVisibility: ReadonlyMap<string, boolean>,
+): SurfaceContext => {
+	const context = surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT);
+	if (!context) {
+		return surfaceContext;
+	}
+	const controlContext = createSurfaceContext(BLOCK_CONTROL_UI_CONTEXT, {
+		...context,
+		controlVisibility: new Map(controlVisibility),
+	});
+	return {
+		get: (token) => controlContext.get(token) ?? surfaceContext.get(token),
+	};
+};
+
 /**
  * Replaces the shared surface group with one stable wrapper group per visible control. The wrappers
  * inherit each control's rank, so SurfaceRenderer keeps the registry order without re-evaluating
@@ -110,9 +130,22 @@ const getBlockControlsSurfaceComponents = (
 	const resolvedSurface = resolveSurface(components, surface);
 	const groupIdentity = getComponentIdentity(group);
 	const controls = resolvedSurface.childrenMap.get(groupIdentity) ?? [];
-	const visibleControls = controls.filter(
-		(control) => !(control.isHidden?.({ surfaceContext }) ?? false),
-	);
+	const visibleControls: RegisterComponent[] = [];
+	const controlVisibility = isExperimentEnabled('platform_editor_remix_control_priority')
+		? new Map<string, boolean>()
+		: undefined;
+	for (const control of controls) {
+		const isHidden =
+			control.isHidden?.({
+				surfaceContext: controlVisibility
+					? withControlVisibility(surfaceContext, controlVisibility)
+					: surfaceContext,
+			}) ?? false;
+		controlVisibility?.set(control.key, isHidden);
+		if (!isHidden) {
+			visibleControls.push(control);
+		}
+	}
 	if (!resolvedSurface.root || visibleControls.length === 0) {
 		return undefined;
 	}

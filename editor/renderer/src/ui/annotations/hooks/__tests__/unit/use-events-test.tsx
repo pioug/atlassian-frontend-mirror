@@ -433,6 +433,32 @@ describe('Annotations: Hooks/useEvents', () => {
 		});
 
 		describe('when ON_ANNOTATION_CLICK is emitted', () => {
+			it.each(['badge', 'commentButton', undefined] as const)(
+				'preserves the opening method %s and adds the first valid annotation id',
+				(viewMethod) => {
+					act(() => root.render(<CustomComp />));
+					act(() => {
+						updateSubscriberFake.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
+							annotationIds: ['', 'thread-id'],
+							eventTarget: container!,
+							eventTargetType: 'extension',
+							viewMethod,
+						});
+					});
+					expect(createAnalyticsEventFake).toHaveBeenCalledTimes(1);
+					expect(createAnalyticsEventFake).toHaveBeenCalledWith(
+						expect.objectContaining({
+							attributes: {
+								annotationId: 'thread-id',
+								targetNodeType: 'extension',
+								method: viewMethod,
+								overlap: 1,
+							},
+						}),
+					);
+				},
+			);
+
 			it('should set annotations', () => {
 				const annotationIds = ['lol1', 'lol2'];
 				expect(fakeFunction).toHaveBeenCalledTimes(0);
@@ -464,6 +490,7 @@ describe('Annotations: Hooks/useEvents', () => {
 				expect(createAnalyticsEventFake).toHaveBeenCalledWith(
 					expect.objectContaining({
 						attributes: {
+							annotationId: 'lol1',
 							targetNodeType: 'media',
 							method: 'badge',
 							overlap: 2,

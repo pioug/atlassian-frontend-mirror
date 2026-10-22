@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 245.0.0
+
+### Major Changes
+
+- [`99e14378c613c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99e14378c613c) -
+  Clean up platform_editor_blocks and retain enabled scroll gutter behavior.
+
 ## 244.0.0
 
 ### Major Changes

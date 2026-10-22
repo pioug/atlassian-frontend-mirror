@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { bind } from 'bind-event-listener';
 
 import Blanket from '@atlaskit/blanket/blanket';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -42,10 +43,20 @@ const BasicExample = (): JSX.Element => {
 		setShouldAllowClickThrough(true);
 	}, []);
 
-	useCloseOnEscapePress({
-		onClose: closeBlanket,
-		isDisabled: !isBlanketVisible,
-	});
+	// Close the blanket when Escape is pressed.
+	useEffect(() => {
+		if (!isBlanketVisible) {
+			return;
+		}
+		return bind(window, {
+			type: 'keydown',
+			listener: (event) => {
+				if (event.key === 'Escape') {
+					closeBlanket();
+				}
+			},
+		});
+	}, [isBlanketVisible, closeBlanket]);
 
 	return (
 		<Stack space="space.100" alignInline="start">

@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import type { ButtonItemProps, CustomItemComponentProps } from '@atlaskit/menu/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 import useChildIdsEffect from '../../common/use-child-ids-effect';
@@ -199,7 +198,7 @@ export const NestingItem: <TCustomComponentProps extends CustomItemComponentProp
 		);
 	};
 
-	const shouldFocus = isDefaultFocusControl && fg('platform-side-navigation-keyboard-focus');
+	const shouldFocus = isDefaultFocusControl;
 	const backButtonRef = shouldFocus ? goBackButtonRef : null;
 	const activeParentRef = shouldFocus ? parentItemRef : null;
 

@@ -146,13 +146,15 @@ export function TopNavEnd({
 
 	// The shared provider also covers the mobile overflow popup itself. Keep the
 	// previous content-only namespace coverage when the layout gate is disabled.
-	const actions = fg('platform-dst-chat-panel-layout') ? (
-		children
-	) : (
-		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
-			{children}
-		</OpenLayerObserverNamespaceProvider>
-	);
+	// The observer is not used when the top-layer gate is on, so no provider is needed.
+	const actions =
+		fg('platform-dst-chat-panel-layout') || fg('platform-dst-top-layer') ? (
+			children
+		) : (
+			<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
+				{children}
+			</OpenLayerObserverNamespaceProvider>
+		);
 
 	const content = (
 		<nav
@@ -191,7 +193,7 @@ export function TopNavEnd({
 		</nav>
 	);
 
-	return fg('platform-dst-chat-panel-layout') ? (
+	return fg('platform-dst-chat-panel-layout') && !fg('platform-dst-top-layer') ? (
 		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavEndNamespace}>
 			{content}
 		</OpenLayerObserverNamespaceProvider>

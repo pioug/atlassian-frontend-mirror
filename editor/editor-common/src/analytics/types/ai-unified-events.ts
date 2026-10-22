@@ -66,7 +66,10 @@ type AIInteractionDiscardedAEP = TrackAEP<
 	ACTION.DISCARDED,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	AIUnifiedCommonAttributes & AIUnifiedAgentAttributes,
+	AIUnifiedCommonAttributes &
+		AIUnifiedAgentAttributes & {
+			aiResultAction?: string;
+		},
 	undefined
 >;
 
@@ -110,6 +113,28 @@ type AIResultActionedAEP = TrackAEP<
 	undefined
 >;
 
+export type AIRovoModifiedObject = {
+	actionName: 'create' | 'update';
+	objectId: string;
+	objectType: string;
+	targetProduct: string;
+};
+
+/**
+ * Fires once an AI result has successfully created or modified a work item (page, issue, etc.).
+ * Sequence to `aiResult actioned`.
+ */
+export type AIResultAdoptedEventPayload = TrackAEP<
+	ACTION.ADOPTED,
+	ACTION_SUBJECT.AI_RESULT,
+	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
+	AIUnifiedCommonAttributes &
+		AIUnifiedAgentAttributes & {
+			rovoModifiedObjects: AIRovoModifiedObject[];
+		},
+	undefined
+>;
+
 type AIResultErrorAEP = TrackAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.AI_RESULT,
@@ -139,5 +164,6 @@ export type AIUnifiedEventPayload =
 	| AIResultErrorAEP
 	| AIInteractionDismissedAEP
 	| AIResultActionedAEP
+	| AIResultAdoptedEventPayload
 	| AIFeedbackSubmittedAEP
 	| AIInteractionDiscardedAEP;

@@ -201,6 +201,88 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				},
 			},
 		},
+		inset: {
+			xxsmall: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.050',
+					introduced: '20.7.0',
+					description:
+						'Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			xsmall: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.100',
+					introduced: '20.7.0',
+					description:
+						'Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			small: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.150',
+					introduced: '20.7.0',
+					description:
+						'Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			medium: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.200',
+					introduced: '20.7.0',
+					description:
+						'Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			large: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.250',
+					introduced: '20.7.0',
+					description:
+						'Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			xlarge: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.300',
+					introduced: '20.7.0',
+					description:
+						'Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			xxlarge: {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.400',
+					introduced: '20.7.0',
+					description:
+						'Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+			'3xlarge': {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.600',
+					introduced: '20.7.0',
+					description:
+						'Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+				},
+			},
+		},
 		negative: {
 			'025': {
 				attributes: {

@@ -28,6 +28,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const borderRadius: TransformedToken[] = [];
 	const space: TransformedToken[] = [];
 	const gapSpace: TransformedToken[] = [];
+	const insetSpace: TransformedToken[] = [];
 	const shadow: TransformedToken[] = [];
 	const textColor: TransformedToken[] = [];
 	const textColorPressed: TransformedToken[] = [];
@@ -94,6 +95,8 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 		if (token.path.includes('space')) {
 			if (token.path[1] === 'gap') {
 				gapSpace.push(token);
+			} else if (token.path[1] === 'inset') {
+				insetSpace.push(token);
 			} else {
 				space.push(token);
 			}
@@ -156,6 +159,7 @@ type NumericSize = \`\${number}px\` | \`\${number}rem\` | \`\${number}vh\` | \`\
 export type SizeIntrinsic = 'min-content' | 'max-content' | 'fit-content' | 'auto' | NumericSize | \`min(\${NumericSize}, \${NumericSize})\` | \`max(\${NumericSize}, \${NumericSize})\` | 0 | '0';
 export type Space = ${mapToCssVar(space)} | 0 | '0';
 export type SpaceGap = Space | ${mapToCssVar(gapSpace)};
+export type SpacePadding = Space | ${mapToCssVar(insetSpace)};
 export type SpaceMargin = Space | 'auto' | '0 auto';
 export type SpaceInset = Space | '50%';
 export type Shadow = ${mapToCssVar(shadow)} | 'initial';
@@ -283,7 +287,7 @@ export interface DesignTokenStyles {
 	outlineWidth: BorderWidth;
 	overflowWrap: 'normal' | 'break-word' | 'anywhere';
 	overlay: never;
-	padding: Space;
+	padding: SpacePadding;
 	paddingBlock: Space;
 	paddingBlockEnd: Space;
 	paddingBlockStart: Space;

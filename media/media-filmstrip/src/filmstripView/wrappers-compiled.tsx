@@ -10,6 +10,7 @@ import { css } from '@compiled/react';
 
 import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import ArrowRight from '@atlaskit/icon/core/arrow-right';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { MediaFilmStripListItemSelector } from '.';
@@ -164,6 +165,9 @@ export const ArrowLeftWrapper = ({
 			css={[resetButtonStyle, arrowWrapperStyles, arrowLeftWrapperStyles, arrowWrapperMotionStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className="arrow"
+			// Without an explicit type, a <button> defaults to type="submit" and submits any
+			// ancestor <form> (e.g. JSM portal create with a Forms attachment field), JSDCLOUD-19830.
+			{...(fg('platform_media_filmstrip_arrow_type_fix') ? { type: 'button' as const } : {})}
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 		>
 			{children}
@@ -191,6 +195,9 @@ export const ArrowRightWrapper = ({
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className="arrow"
+			// Without an explicit type, a <button> defaults to type="submit" and submits any
+			// ancestor <form> (e.g. JSM portal create with a Forms attachment field), JSDCLOUD-19830.
+			{...(fg('platform_media_filmstrip_arrow_type_fix') ? { type: 'button' as const } : {})}
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 		>
 			{children}

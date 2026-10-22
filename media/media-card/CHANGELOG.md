@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 82.1.42
+
+### Patch Changes
+
+- [`295a4aac735d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/295a4aac735d6) -
+  Show a visible focus indicator on media cards when platform_media_card_focus_indicator_fix is
+  enabled
+
+## 82.1.41
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.1.40
 
 ### Patch Changes

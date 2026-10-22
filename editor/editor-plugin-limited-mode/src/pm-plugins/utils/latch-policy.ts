@@ -18,11 +18,10 @@ import type {
  * 600ms within 30s corroborated by a slow keystroke in that same 30s. Two qualifying windows at
  * least 30s apart latch limited mode.
  *
- * `freezeTaskMs` matches `DEFAULT_FREEZE_THRESHOLD` in
- * `editor-plugin-base/src/pm-plugins/frozen-editor.ts`, which backs the existing
- * `ACTION.BROWSER_FREEZE` telemetry, so production dashboards can be used to calibrate it.
- * `slowInputMs` is deliberately tighter than that file's `DEFAULT_SLOW_THRESHOLD` of 300 — this
- * needs to notice a degraded experience, not just an unusable one.
+ * `freezeTaskMs` matches the freeze threshold of the removed legacy `ACTION.BROWSER_FREEZE`
+ * telemetry, so its historical dashboards can be used to calibrate it. `slowInputMs` is
+ * deliberately tighter than that telemetry's slow-input threshold of 300 — this needs to notice a
+ * degraded experience, not just an unusable one.
  *
  * `requiredConfirmations` and `confirmationGapMs` are the values that matter most — see the comment
  * on the former.

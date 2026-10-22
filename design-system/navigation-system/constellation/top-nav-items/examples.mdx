@@ -30,7 +30,7 @@ For other components that can be used within the top nav, see
 ## Start items
 
 These actions go in the [top nav start](/components/navigation-system/layout/examples#top-nav-slots)
-area.
+area. They are left-aligned in the following order:
 
 - Side nav toggle button: Opens and closes the
   [side nav](/components/navigation-system/layout/examples#side-nav).
@@ -63,8 +63,8 @@ not via `children`.
 
 - When the keyboard shortcut is enabled, the toggle button’s tooltip will automatically show Ctrl+[
   as the shortcut.
-- The toggle button is left-aligned when the side nav is collapsed, and right-aligned when the side
-  nav is expanded.
+- The toggle button appears before the app switcher and logo, whether the side nav is collapsed or
+  expanded.
 
 <Example Component={TopNavStartToggleExample} />
 
@@ -72,8 +72,7 @@ not via `children`.
 
 App logo displays an app [logo icon](/components/logo) and name.
 
-- It has a maximum width of 320px, after which the app name truncates. The app name also truncates
-  based on the available space when the side nav is resized.
+- It has a maximum width of 320px, after which the app name truncates.
 - At `s` breakpoints and below (less that 1024px), the app name is not shown.
 
 See the [responsive section](#responsive) for more information.
@@ -92,8 +91,7 @@ hidden with the app name at `s` breakpoints and below (less than 1024px).
 
 Custom logo provides a container for custom logo images with the following constraints:
 
-- Maximum width: 320px. If the image is wider than this, or if space is limited when the side nav is
-  resized, the logo will scale down to fit.
+- Maximum width: 320px. If the image is wider than this, the logo will scale down to fit.
 - Maximum height: 24px. If the image is shorter than this, the logo will scale up to fit.
 
 Do not provide explicit width and height values on the image, otherwise it will not respect the
@@ -111,8 +109,7 @@ See the [responsive section](#responsive) for more information.
 Optional text used for app customisation by customers.
 
 - When present, it appears to the right of the logo.
-- It has a maximum width of 200px, after which the text truncates. It also truncates based on the
-  available space when the side nav is resized.
+- It has a maximum width of 200px, after which the text truncates.
 - At `s` breakpoints and below (less than 1024px), the custom title is not displayed.
 
 <Example Component={CustomTitleExample} />
@@ -124,10 +121,7 @@ These actions go in the
 
 - They should consist of a search component and a create component, in that order to maintain the
   correct layout behaviour.
-- The actions are centre-aligned when the side nav is collapsed, and left-aligned when the side nav
-  is expanded.
-- At `xl` breakpoints (1768px or greater), the middle items are centred in the viewport when the
-  side nav is expanded, but are pushed out by the side nav to avoid overlapping.
+- The actions are center-aligned.
 - We have provided placeholder components. See
   [navigation resources (Atlassians only)](https://hello.atlassian.net/wiki/x/rBE7MAE) for
   recommended platform components.

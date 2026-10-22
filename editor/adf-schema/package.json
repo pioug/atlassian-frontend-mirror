@@ -1,13 +1,16 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "57.7.21",
+	"version": "57.7.22",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
-		"team": "Editor: Lego"
+		"team": "Editor: Lego",
+		"prTasks": [
+			"For ADF changes, I have assessed compatibility with existing documents and deployed consumers, recorded required upgrades and rollout order in the proposal, and checked that disabling the experiment preserves saved ADF, including through any fallback. See https://hello.atlassian.net/wiki/spaces/EDITOR/pages/3693372087."
+		]
 	},
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

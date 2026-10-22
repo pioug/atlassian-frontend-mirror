@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::824cdbc375ca52317de89f73f8d1bbf1>>
+ * @codegen <<SignedSource::8203c23679a465e00dcccc27d4c67e54>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -52389,13 +52389,47 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		status: 'general-availability',
 		keywords: ['studio', 'browse'],
 		category: 'rovo',
-		examples: [],
+		examples: [
+			"import { cssMap } from '@atlaskit/css';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport {\n\tAgentAuthor,\n\ttype AgentAuthorProps,\n} from '@atlassian/studio-browse-kit/ui/agent-card/components/AgentAuthor';\nimport { agents, ConnectedExample, ExampleFrame } from '../examples-utils/support';\nconst PORTRAIT = `data:image/svg+xml,${encodeURIComponent('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" viewBox=\"0 0 48 48\"><rect width=\"48\" height=\"48\" fill=\"#CFE1FD\"/><circle cx=\"24\" cy=\"18\" r=\"8\" fill=\"#1868DB\"/><path d=\"M8 48v-8a16 16 0 0 1 32 0v8\" fill=\"#1868DB\"/></svg>')}`;\ntype ExampleAgent = NonNullable<React.ComponentProps<typeof ConnectedExample>['agentData']>[number];\nconst INDIVIDUAL = {\n\t...agents[0],\n\tauthoringTeam: null,\n\tcreator: {\n\t\tname: 'Alex Morgan',\n\t\taccountStatus: 'active',\n\t\tpicture: PORTRAIT,\n\t\taccountId: 'alex-morgan',\n\t},\n} satisfies ExampleAgent;\ntype AgentAuthorScenario =\n\t| 'individual'\n\t| 'deactivated'\n\t| 'withoutPicture'\n\t| 'team'\n\t| 'system'\n\t| 'outOfTheBox'\n\t| 'forge'\n\t| 'thirdParty'\n\t| 'remote'\n\t| 'missingCreator'\n\t| 'missingVendor';\nconst SCENARIOS: Record<AgentAuthorScenario, ExampleAgent> = {\n\tindividual: INDIVIDUAL,\n\tdeactivated: { ...INDIVIDUAL, creator: { ...INDIVIDUAL.creator, accountStatus: 'inactive' } },\n\twithoutPicture: {\n\t\t...INDIVIDUAL,\n\t\tcreator: {\n\t\t\tname: 'Alex Morgan',\n\t\t\taccountStatus: 'active',\n\t\t\taccountId: 'alex-morgan',\n\t\t\tpicture: '',\n\t\t},\n\t},\n\tteam: { ...INDIVIDUAL, authoringTeam: { displayName: 'Release engineering' } },\n\tsystem: { ...INDIVIDUAL, creatorType: 'SYSTEM' },\n\toutOfTheBox: { ...INDIVIDUAL, creatorType: 'OOTB' },\n\tforge: { ...INDIVIDUAL, creatorType: 'FORGE', forgeCreator: 'App vendor' },\n\tthirdParty: { ...INDIVIDUAL, creatorType: 'THIRD_PARTY', forgeCreator: 'App vendor' },\n\tremote: { ...INDIVIDUAL, creatorType: 'REMOTE_A2A', forgeCreator: 'App vendor' },\n\tmissingCreator: { ...INDIVIDUAL, creator: null },\n\tmissingVendor: { ...INDIVIDUAL, creatorType: 'FORGE', forgeCreator: null },\n};\nconst styles = cssMap({\n\tname: {\n\t\tcolor: token('color.text.brand'),\n\t\tfontWeight: token('font.weight.semibold'),\n\t},\n});\nexport type AgentAuthorPreviewProps = {\n\tscenario?: AgentAuthorScenario;\n\thasAvatar?: boolean;\n\thasLink?: boolean;\n\tavatarProps?: AgentAuthorProps['avatarProps'];\n\tstyledName?: boolean;\n\tupliftEnabled?: boolean;\n};\nexport function AgentAuthorPreview({\n\tscenario = 'individual',\n\thasAvatar = false,\n\thasLink = false,\n\tavatarProps,\n\tstyledName = false,\n\tupliftEnabled = true,\n}: AgentAuthorPreviewProps): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame key={String(upliftEnabled)} upliftEnabled={upliftEnabled}>\n\t\t\t<ConnectedExample key={scenario} agentData={[SCENARIOS[scenario]]}>\n\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<Text weight=\"medium\">Created by</Text>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\t<AgentAuthor\n\t\t\t\t\t\t\t\tagentRef={agentRefs[0]}\n\t\t\t\t\t\t\t\thasAvatar={hasAvatar}\n\t\t\t\t\t\t\t\thasLink={hasLink}\n\t\t\t\t\t\t\t\tavatarProps={avatarProps}\n\t\t\t\t\t\t\t\txcss={styledName ? styles.name : undefined}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t)}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentAuthorPreview;",
+			"import { AgentAuthor } from '@atlassian/studio-browse-kit/ui/agent-card/components/AgentAuthor';\nimport { AGENT_AUTHOR_EXAMPLE } from '../examples-utils/agent-author-support';\nimport { ConnectedExample, ExampleFrame } from '../examples-utils/support';\nexport default function WithAvatarPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample agentData={[AGENT_AUTHOR_EXAMPLE]}>\n\t\t\t\t{({ agentRefs }) => <AgentAuthor agentRef={agentRefs[0]} hasAvatar />}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}",
+			"import { AgentAuthor } from '@atlassian/studio-browse-kit/ui/agent-card/components/AgentAuthor';\nimport { AGENT_AUTHOR_EXAMPLE } from '../examples-utils/agent-author-support';\nimport { ConnectedExample, ExampleFrame } from '../examples-utils/support';\nexport default function WithLinkPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ConnectedExample agentData={[AGENT_AUTHOR_EXAMPLE]}>\n\t\t\t\t{({ agentRefs }) => <AgentAuthor agentRef={agentRefs[0]} hasLink />}\n\t\t\t</ConnectedExample>\n\t\t</ExampleFrame>\n\t);\n}",
+		],
 		props: [
 			{
 				name: 'agentRef',
 				type: '{ readonly " $data"?: AgentAuthor_StudioBrowseKit$data; readonly " $fragmentSpreads": FragmentRefs<"AgentAuthor_StudioBrowseKit">; }',
 				description: '',
 				isRequired: true,
+			},
+			{
+				name: 'avatarProps',
+				type: '{ appearance?: AppearanceType; UNSAFE_isUpdatedGeometry?: boolean; borderColor?: string; presence?: (string & {}) | Presence | Omit<ReactNode, string>; size?: SizeType; status?: (string & {}) | ... 1 more ... | Status; testId?: string; imgLoading?: "lazy" | "eager"; }',
+				description: '',
+			},
+			{
+				name: 'hasAvatar',
+				type: 'boolean',
+				description: '',
+			},
+			{
+				name: 'hasLink',
+				type: 'boolean',
+				description: '',
+			},
+			{
+				name: 'hasProfileCard',
+				type: 'boolean',
+				description: '',
+			},
+			{
+				name: 'profileCardProps',
+				type: '{ cloudId?: string; resourceClient?: ProfileClient; }',
+				description: '',
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				description: '',
 			},
 		],
 	},

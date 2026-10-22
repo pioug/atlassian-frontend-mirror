@@ -61,7 +61,10 @@ describe('AssetsObjectSchemaSelect', () => {
 		totalObjectSchemas: 2,
 	};
 
-	const renderDefaultObjectSchemaSelect = async (initialObjectSchemas?: ObjectSchema[]) => {
+	const renderDefaultObjectSchemaSelect = async (
+		initialObjectSchemas?: ObjectSchema[],
+		onSchemaChange?: jest.Mock,
+	) => {
 		let renderFunction = render;
 		const renderComponent = () =>
 			renderFunction(
@@ -69,6 +72,7 @@ describe('AssetsObjectSchemaSelect', () => {
 					workspaceId={workspaceId}
 					initialObjectSchemas={initialObjectSchemas}
 					value={undefined}
+					onSchemaChange={onSchemaChange}
 				/>,
 				{ wrapper: formWrapper },
 			);
@@ -110,6 +114,22 @@ describe('AssetsObjectSchemaSelect', () => {
 			expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(1);
 			expect(mockFetchObjectSchemas).toHaveBeenCalledWith('test updated');
 		});
+	});
+
+	it('should call onSchemaChange with the selected option', async () => {
+		const onSchemaChange = jest.fn();
+		await renderDefaultObjectSchemaSelect(
+			mockFetchObjectSchemasSuccess.objectSchemas,
+			onSchemaChange,
+		);
+		const selectInput = (await screen.findByTestId(objectSchemaSelectButton)).children[0];
+		fireEvent.click(selectInput);
+
+		const selectOption = await screen.findAllByText('schemaTwo');
+		fireEvent.click(selectOption[0]);
+
+		expect(onSchemaChange).toHaveBeenCalledTimes(1);
+		expect(onSchemaChange).toHaveBeenCalledWith({ label: 'schemaTwo', value: '2' });
 	});
 
 	describe('field validation', () => {

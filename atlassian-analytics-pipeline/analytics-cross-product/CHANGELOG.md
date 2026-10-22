@@ -1,5 +1,12 @@
 # @atlaskit/analytics-cross-product
 
+## 2.3.1
+
+### Patch Changes
+
+- [`0626a46b4148a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0626a46b4148a) -
+  Recognize Jira staging routes in XPC observation under studio_xpc_stream3_observation
+
 ## 2.3.0
 
 ### Minor Changes

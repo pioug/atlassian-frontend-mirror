@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "152.0.2",
+	"version": "152.2.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -157,6 +157,9 @@
 			"type": "boolean"
 		},
 		"platform_native_embeds_rollout_non_maui_experience": {
+			"type": "boolean"
+		},
+		"platform_native_embeds_rollout_all_products": {
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {

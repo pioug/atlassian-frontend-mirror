@@ -25,6 +25,12 @@ type NotifyOpenLayerObserverProps = {
 	 * Note: the callback will only be called for _open_ layers (based on the `isOpen` prop).
 	 */
 	onClose: LayerCloseListenerFn;
+
+	/**
+	 * Set to `false` to opt out entirely (for example on a feature-gated top-layer code path). The
+	 * layer is then never registered, whatever `isOpen` is. Defaults to `true`.
+	 */
+	isEnabled?: boolean;
 };
 /**
  * Hook that increments/decrements the open layer count when the component mounts/unmounts or becomes visible/hidden.
@@ -42,11 +48,16 @@ type NotifyOpenLayerObserverProps = {
  *   onClose: () => setIsOpen(false) // Optional callback to close this layer
  * });
  * ```
+ *
+ * @deprecated Render the surface with `@atlaskit/top-layer` (a `Popover` with `onClose`, or a
+ * `Dialog`). It is then an open layer for the `@atlaskit/top-layer/page-surface` entry points automatically. During
+ * the rollout, pass `isEnabled: !fg('platform-dst-top-layer')`.
  */
 export function useNotifyOpenLayerObserver({
 	isOpen,
 	type,
 	onClose,
+	isEnabled = true,
 }: NotifyOpenLayerObserverProps): void {
 	const context = useContext(OpenLayerObserverContext);
 	const namespace = useOpenLayerObserverNamespace();
@@ -56,7 +67,7 @@ export function useNotifyOpenLayerObserver({
 		 * Registers the `onClose` callback with the OpenLayerObserver.
 		 */
 
-		if (context === null) {
+		if (context === null || !isEnabled) {
 			return;
 		}
 
@@ -73,5 +84,5 @@ export function useNotifyOpenLayerObserver({
 		}
 
 		return context.onClose(onClose, { namespace, type });
-	}, [context, isOpen, namespace, onClose, type]);
+	}, [context, isEnabled, isOpen, namespace, onClose, type]);
 }

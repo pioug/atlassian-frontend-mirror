@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 29.0.4
+
+### Patch Changes
+
+- [`7d0f2c4f8ded7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d0f2c4f8ded7) -
+  Cache Smart Card lookups by URL during Find and Replace behind
+  `platform_editor_reduce_forced_layout_2`.
+- Updated dependencies
+
+## 29.0.3
+
+### Patch Changes
+
+- [`f268dee2526f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f268dee2526f7) -
+  Migrate Smart Card registration and removal from transactions to editor actions behind
+  `platform_editor_reduce_forced_layout_2`. Remove unused card overlay registration behind
+  `platform_editor_reduce_forced_layout_2`.
+- Updated dependencies
+
 ## 29.0.2
 
 ### Patch Changes

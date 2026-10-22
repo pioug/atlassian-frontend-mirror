@@ -1,48 +1,28 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { scrollGutterPluginKey } from './plugin-key';
 
 const GUTTER_SIZE_IN_PX = 120;
-const GUTTER_SELECTOR_NAME = 'editor-scroll-gutter';
 const GUTTER_ATTR = 'data-editor-scroll-gutter';
 
 /**
  * Create a gutter element that can be added or removed from the DOM.
  */
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
-	if (editorExperiment('platform_editor_blocks', true)) {
-		if (!parent) {
-			return () => {};
-		}
-		const existing = parent.querySelector(`[${GUTTER_ATTR}]`);
-		if (existing instanceof HTMLElement) {
-			return () => parent.removeChild(existing);
-		}
-		const gutter = document.createElement('div');
-		gutter.style.paddingBottom = `${gutterSize}px`;
-		gutter.setAttribute('data-vc', 'scroll-gutter');
-		gutter.setAttribute(GUTTER_ATTR, 'true');
-		parent.appendChild(gutter);
-		return () => parent.removeChild(gutter);
+	if (!parent) {
+		return () => {};
 	}
-
-	const gutterRef = document.getElementById(GUTTER_SELECTOR_NAME);
-	if (gutterRef) {
-		return () => parent?.removeChild(gutterRef);
+	const existing = parent.querySelector(`[${GUTTER_ATTR}]`);
+	if (existing instanceof HTMLElement) {
+		return () => parent.removeChild(existing);
 	}
-
 	const gutter = document.createElement('div');
 	gutter.style.paddingBottom = `${gutterSize}px`;
 	gutter.setAttribute('data-vc', 'scroll-gutter');
-	gutter.id = GUTTER_SELECTOR_NAME;
-
-	if (parent) {
-		parent.appendChild(gutter);
-	}
-
-	return () => parent?.removeChild(gutter);
+	gutter.setAttribute(GUTTER_ATTR, 'true');
+	parent.appendChild(gutter);
+	return () => parent.removeChild(gutter);
 }
 
 export type ScrollGutterPluginOptions = {

@@ -278,6 +278,9 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
  * namespace to group layers.
  *
  * It is intended for use with the `useOpenLayerObserver` hook.
+ *
+ * @deprecated Not needed with the `@atlaskit/top-layer/page-surface` entry points, which reads open layers from the
+ * DOM. During the rollout, render it only when `fg('platform-dst-top-layer')` is off.
  */
 export function OpenLayerObserver({ children }: { children: React.ReactNode }): React.JSX.Element {
 	// Using state to ensure a stable reference to a single instance.

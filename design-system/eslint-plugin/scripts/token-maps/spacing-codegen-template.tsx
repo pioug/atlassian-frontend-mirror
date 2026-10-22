@@ -2,12 +2,10 @@ import format from '@af/formatting/sync';
 import tokens from '@atlaskit/tokens/atlassian-spacing';
 
 const spacingTokenPrefix = 'space.';
-const gapSuffix = '.gap';
 const negativeSuffix = '.negative';
 const positiveSpaceTokens = tokens
 	.filter((token) => token.name.startsWith(spacingTokenPrefix))
-	.filter((token) => !token.name.includes(negativeSuffix))
-	.filter((token) => !token.name.includes(gapSuffix))
+	.filter((token) => /^\d+$/.test(token.name.split('.')[1]))
 	.map((t) => ({
 		name: t.cleanName, // Need to use cleanName to avoid getting '[default]' in the token names
 		fallback: t.value,

@@ -11,6 +11,7 @@ import {
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
@@ -48,8 +49,13 @@ const runAllTimers = () => {
 	});
 };
 
+/**
+ * Covers the `platform-dst-top-layer` gate off path (open layer observer).
+ * The gate on path is covered in `side-nav-flyout-top-layer.test.tsx`.
+ */
 describe('side nav flyout', () => {
 	beforeEach(() => {
+		failGate('platform-dst-top-layer');
 		resetMatchMedia();
 		jest.useFakeTimers();
 

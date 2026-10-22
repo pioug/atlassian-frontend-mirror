@@ -66,6 +66,10 @@ export const InlineCard: React.MemoExoticComponent<
 			};
 		}, []);
 
+		const cardActions = pluginInjectionApi?.card.actions;
+		const registerResolvedCard = cardActions?.registerCard;
+		const removeRegisteredCard = cardActions?.removeRegisteredCard;
+
 		const { getState: getSmartlinkState } = cardContext?.value?.store || {};
 		const cardState = getSmartlinkState?.()[url || ''];
 
@@ -80,11 +84,21 @@ export const InlineCard: React.MemoExoticComponent<
 					return;
 				}
 				removeCardDispatched.current = true;
-				const { tr } = view.state;
-				removeCard({ id })(tr);
-				view.dispatch(tr);
+				if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+					removeRegisteredCard?.(id);
+				} else {
+					const { tr } = view.state;
+					removeCard({ id })(tr);
+					view.dispatch(tr);
+				}
 			};
-		}, [getPos, view]);
+		}, [
+			getPos,
+			isExperimentEnabled('platform_editor_reduce_forced_layout_2') ? undefined : view,
+			isExperimentEnabled('platform_editor_reduce_forced_layout_2')
+				? removeRegisteredCard
+				: undefined,
+		]);
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
 			() =>
@@ -106,32 +120,48 @@ export const InlineCard: React.MemoExoticComponent<
 				// don't dispatch immediately since we might be in the middle of
 				// rendering a nodeview
 				const scheduleRegisterCard = rafSchedule(() => {
-					// prosemirror-bump-fix
-					const pos = getPos();
+					if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+						if (removeCardDispatched.current || getPos() === undefined) {
+							return;
+						}
+						const id = refId.current;
+						registerResolvedCard?.({ id, title, url, getPos });
+						onRes?.(undefined, title);
+					} else {
+						// prosemirror-bump-fix
+						const pos = getPos();
 
-					if (typeof pos !== 'number') {
-						return;
+						if (typeof pos !== 'number') {
+							return;
+						}
+
+						const tr = view.state.tr;
+
+						registerCard({
+							title,
+							url,
+							pos,
+							id: refId.current,
+						})(tr);
+
+						onRes?.(tr, title);
+
+						view.dispatch(tr);
 					}
-
-					const tr = view.state.tr;
-
-					registerCard({
-						title,
-						url,
-						pos,
-						id: refId.current,
-					})(tr);
-
-					onRes?.(tr, title);
-
-					view.dispatch(tr);
 				});
 				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
 					pendingRegisterCard.current = scheduleRegisterCard;
 				}
 				scheduleRegisterCard();
 			},
-			[getPos, view, onRes],
+			[
+				getPos,
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2') ? undefined : view,
+				onRes,
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2')
+					? registerResolvedCard
+					: undefined,
+			],
 		);
 
 		const onError = useCallback(

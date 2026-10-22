@@ -82,6 +82,9 @@ export interface DialogContentProps extends ContentProps {
 	 * The specified element needs to be available in the DOM as soon as the popup is opened, otherwise it
 	 * will not be focused upon. This means it will not work for content that renders into the popup content
 	 * after it has already opened (e.g. async or lazy loaded content).
+	 *
+	 * Pass it as the element's `ref`, or call it in a layout effect. With
+	 * `platform-dst-top-layer` on, a call from a `useEffect` is too late.
 	 */
 	setInitialFocusRef: Dispatch<SetStateAction<HTMLElement | null>>;
 }

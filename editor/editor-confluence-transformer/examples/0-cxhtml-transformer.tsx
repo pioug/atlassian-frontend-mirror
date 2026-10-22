@@ -155,8 +155,6 @@ const ComposableEditorWrapper = (props: EditorProps) => {
 			media={props.media}
 			collabEdit={props.collabEdit}
 			primaryToolbarComponents={props.primaryToolbarComponents}
-			performanceTracking={props.performanceTracking}
-			inputSamplingLimit={props.inputSamplingLimit}
 			allowUndoRedoButtons={props.allowUndoRedoButtons}
 			linking={props.linking}
 			activityProvider={props.activityProvider}

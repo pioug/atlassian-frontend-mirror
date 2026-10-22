@@ -9,6 +9,8 @@ import type { NestedRendererType } from './ui/Renderer/types';
 
 export type RendererContextProps = {
 	featureFlags?: FeatureFlags;
+	/** Explicit to each renderer; independent nested renderers default to false. */
+	isPerformanceModeActive?: boolean;
 	// Keep this uninitialized it will be set to true in the top level renderer
 	isTopLevelRenderer?: boolean;
 	// used for analytics to track the type of nested renderer this is

@@ -12,8 +12,6 @@ import layoutExampleSideNavLight from './images/layout-example-sideNav-light.png
 import layoutExampleSideNavDark from './images/layout-example-sideNav-dark.png';
 import layoutExampleTopNav1Light from './images/layout-example-topNav-1-light.png';
 import layoutExampleTopNav1Dark from './images/layout-example-topNav-1-dark.png';
-import layoutExampleTopNav2Light from './images/layout-example-topNav-2-light.png';
-import layoutExampleTopNav2Dark from './images/layout-example-topNav-2-dark.png';
 
 import SectionMessage from '@atlaskit/section-message';
 
@@ -29,9 +27,6 @@ The full page layout with all areas rendered has the structure depicted below, o
 	srcDark={layoutExampleDark}
 	alt="Example of the navigation system layout areas"
 />
-
-The top nav overlaps the side nav when it is expanded to give the appearance of a full height side
-nav.
 
 When composing your page layout ensure that:
 
@@ -55,8 +50,8 @@ the top of the screen.
 
 Use the top nav area to render [top nav items](/components/navigation-system/top-nav-items).
 
-- It will display at the top of the screen, below the banner if one is present. It has a fixed
-  height of 56px.
+- It will display at the top of the screen, below the banner if one is present. Its default height
+  is 48px, or 56px with the updated app switcher. Use the `height` prop to override it.
 - Use the [top nav slots](#top-nav-slots) to position actions within top nav.
 - The top nav is responsive, with the [top nav items](/components/navigation-system/top-nav-items)
   changing according to the viewport size.
@@ -68,21 +63,14 @@ Use the top nav area to render [top nav items](/components/navigation-system/top
 The top nav has three layout components that you must use to position
 [top nav items](/components/navigation-system/top-nav-items) within the top nav flexbox.
 
-- `TopNavStart`: Area for left-aligned items. Appears in the side nav when the side nav is expanded
-  to give the appearance of a full height sidebar.
+- `TopNavStart`: Area for left-aligned items.
 - `TopNavMiddle`: Area for centre-aligned items.
 - `TopNavEnd`: Area for right-aligned items.
 
 <Image
 	src={layoutExampleTopNav1Light}
 	srcDark={layoutExampleTopNav1Dark}
-	alt="Example of the top nav slots - side nav collapsed"
-/>
-
-<Image
-	src={layoutExampleTopNav2Light}
-	srcDark={layoutExampleTopNav2Dark}
-	alt="Example of the top nav slots - side nav opened"
+	alt="Example of the top nav slots"
 />
 
 #### Top nav custom theming

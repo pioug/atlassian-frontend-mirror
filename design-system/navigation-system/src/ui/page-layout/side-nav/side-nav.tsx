@@ -28,6 +28,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { token } from '@atlaskit/tokens';
+import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
 import { TopNavStartElement } from '../../../context/top-nav-start/top-nav-start-element';
@@ -54,6 +55,7 @@ import { useLayoutAreaSizing } from '../use-layout-area-sizing';
 import { useLayoutId } from '../use-layout-id';
 import { useResizingWidthCssVarOnRootElement } from '../use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from '../use-safe-default-width';
+import { bindOpenLayerChange } from './bind-open-layer-change';
 import { sideNavFlyoutCloseDelayMs } from './flyout-close-delay-ms';
 import { SetSideNavVisibilityState } from './set-side-nav-visibility-state';
 import { SideNavToggleButtonElement } from './side-nav-toggle-button-element';
@@ -93,6 +95,56 @@ function getPixelCustomProperty(
  */
 const isFirefox: boolean =
 	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+const textEntryInputTypes = new Set([
+	'text',
+	'search',
+	'email',
+	'url',
+	'tel',
+	'password',
+	'number',
+]);
+
+function isEditableContent({ element }: { element: Element }): boolean {
+	if (element instanceof HTMLElement && typeof element.isContentEditable === 'boolean') {
+		return element.isContentEditable;
+	}
+	// Fallback for DOM implementations without `isContentEditable`.
+	const editingHost = element.closest('[contenteditable]');
+	return editingHost !== null && editingHost.getAttribute('contenteditable') !== 'false';
+}
+
+/**
+ * Returns `true` for an element that the user can type text into.
+ */
+function isTextEntryElement({ element }: { element: Element }): boolean {
+	if (element instanceof HTMLInputElement) {
+		return textEntryInputTypes.has(element.type) && !element.readOnly && !element.disabled;
+	}
+	if (element instanceof HTMLTextAreaElement) {
+		return !element.readOnly && !element.disabled;
+	}
+	return isEditableContent({ element });
+}
+
+/**
+ * Used when the `platform-dst-top-layer` gate is on.
+ *
+ * The flyout stays open while a layer opened from the side nav is open, or while the user
+ * is typing in a text field inside the side nav (for example while renaming an item inline).
+ */
+function isFlyoutHeldOpen({ nav }: { nav: HTMLElement }): boolean {
+	if (hasOpenDialogOrPopover({ within: nav })) {
+		return true;
+	}
+	const activeElement = nav.ownerDocument.activeElement;
+	return (
+		activeElement !== null &&
+		nav.contains(activeElement) &&
+		isTextEntryElement({ element: activeElement })
+	);
+}
 
 type FlyoutState =
 	| { type: 'open' }
@@ -675,7 +727,7 @@ function SideNavInternal({
 	const toggleButtonElement = useContext(SideNavToggleButtonElement);
 	const topNavStartElement = useContext(TopNavStartElement);
 	const devTimeOnlyAttributes: Record<string, string | boolean> = {};
-	const openLayerObserver = useOpenLayerObserver();
+	const openLayerObserver = useOpenLayerObserver({ isEnabled: !fg('platform-dst-top-layer') });
 	const flyoutStateRef = useRef<FlyoutState>({ type: 'not-active' });
 	const isFlyoutVisible = sideNavState?.flyout === 'open';
 	// Flyouts, including their close animation, already have overlay placement.
@@ -762,6 +814,14 @@ function SideNavInternal({
 			}
 		}
 
+		function canClose(): boolean {
+			if (!fg('platform-dst-top-layer')) {
+				return openLayerObserver?.getCount({ namespace: openLayerObserverSideNavNamespace }) === 0;
+			}
+			const nav = navRef.current;
+			return !(nav && isFlyoutHeldOpen({ nav }));
+		}
+
 		return function onAction(
 			action:
 				| 'open'
@@ -815,7 +875,7 @@ function SideNavInternal({
 
 			if (action === 'ready-to-close') {
 				// If there are no open layers, we can close the flyout.
-				if (openLayerObserver?.getCount({ namespace: openLayerObserverSideNavNamespace }) === 0) {
+				if (canClose()) {
 					close();
 					return;
 				}
@@ -1191,6 +1251,49 @@ function SideNavInternal({
 		);
 	}, [openLayerObserver, updateFlyoutState]);
 
+	const focusOutTimeoutIdRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+	useEffect(() => {
+		// The same as the open layer observer `onChange` above, for when the `platform-dst-top-layer`
+		// gate is on. Top-layer surfaces opened from the side nav are DOM descendants of it.
+		const nav = navRef.current;
+		if (!nav || !fg('platform-dst-top-layer')) {
+			return;
+		}
+
+		function closeIfReady() {
+			if (flyoutStateRef.current.type !== 'ready-to-close' || !nav) {
+				return;
+			}
+			if (isFlyoutHeldOpen({ nav })) {
+				return;
+			}
+			updateFlyoutState('force-close');
+		}
+
+		const unbindLayerChange = bindOpenLayerChange({ within: nav, onChange: closeIfReady });
+		const unbindFocusOut = bind(nav, {
+			type: 'focusout',
+			listener() {
+				// Wait for focus to move before checking where it went.
+				clearTimeout(focusOutTimeoutIdRef.current);
+				focusOutTimeoutIdRef.current = setTimeout(closeIfReady, 0);
+			},
+		});
+
+		// Removing the focused text field (for example when an inline rename ends) fires no
+		// `focusout` in some browsers, so also check again when content inside the side nav changes.
+		const removalObserver = new MutationObserver(closeIfReady);
+		removalObserver.observe(nav, { childList: true, subtree: true });
+
+		return function cleanup() {
+			unbindLayerChange();
+			unbindFocusOut();
+			removalObserver.disconnect();
+			clearTimeout(focusOutTimeoutIdRef.current);
+		};
+	}, [updateFlyoutState]);
+
 	useEffect(() => {
 		// Clear flyout close timer if being unmounted
 		return function cleanupPendingFlyoutClose() {
@@ -1431,25 +1534,34 @@ export function SideNav({
 	canToggleWithShortcut,
 	id,
 }: SideNavProps): JSX.Element {
+	const sideNav = (
+		<SideNavInternal
+			defaultCollapsed={defaultCollapsed}
+			defaultWidth={defaultWidth}
+			minWidth={minWidth}
+			maxWidth={maxWidth}
+			testId={testId}
+			label={label}
+			skipLinkLabel={skipLinkLabel}
+			onExpand={onExpand}
+			onCollapse={onCollapse}
+			onPeekStart={onPeekStart}
+			onPeekEnd={onPeekEnd}
+			id={id}
+			canToggleWithShortcut={canToggleWithShortcut}
+		>
+			{children}
+		</SideNavInternal>
+	);
+
+	// Top-layer surfaces are found through the DOM, so the namespace is only needed when the gate is off.
+	if (fg('platform-dst-top-layer')) {
+		return sideNav;
+	}
+
 	return (
 		<OpenLayerObserverNamespaceProvider namespace={openLayerObserverSideNavNamespace}>
-			<SideNavInternal
-				defaultCollapsed={defaultCollapsed}
-				defaultWidth={defaultWidth}
-				minWidth={minWidth}
-				maxWidth={maxWidth}
-				testId={testId}
-				label={label}
-				skipLinkLabel={skipLinkLabel}
-				onExpand={onExpand}
-				onCollapse={onCollapse}
-				onPeekStart={onPeekStart}
-				onPeekEnd={onPeekEnd}
-				id={id}
-				canToggleWithShortcut={canToggleWithShortcut}
-			>
-				{children}
-			</SideNavInternal>
+			{sideNav}
 		</OpenLayerObserverNamespaceProvider>
 	);
 }

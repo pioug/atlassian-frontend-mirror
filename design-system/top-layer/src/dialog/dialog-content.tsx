@@ -9,9 +9,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { bindAll } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import noop from '@atlaskit/ds-lib/noop';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
 import { isNativeElementOpen } from '../internal/is-native-element-open';
@@ -291,17 +289,6 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// `phase` keeps the listener attached through the animated-exit window
 	// (WCAG 2.4.3 Focus Order regression guard).
 	useFocusWrap({ elementRef: ownRef, role: 'dialog', phase });
-
-	// Notify the open layer observer so app-coordination features
-	// (open-count subscriptions) work with top-layer dialogs.
-	useNotifyOpenLayerObserver({
-		type: 'modal',
-		// A close that `Dialog` did not ask about, inside a closed layer, unmounts the dialog while
-		// `isOpen` stays `true`.
-		isOpen: isOpen && isMounted,
-		// No-op: no current use case for programmatic close via OpenLayerObserver.
-		onClose: noop,
-	});
 
 	useLayoutEffect(() => {
 		const dialog = ownRef.current;

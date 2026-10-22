@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import noop from '@atlaskit/ds-lib/noop';
-import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
-import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
+import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 // eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
@@ -471,38 +470,22 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 		expect(onCloseComplete).not.toHaveBeenCalled();
 	});
 
-	describe('open layer observer count', () => {
-		function ModalCount() {
-			const api = useOpenLayerObserver();
-			const [count, setCount] = useState(0);
-			useEffect(() => {
-				if (!api) {
-					return;
-				}
-				setCount(api.getCount({ type: 'modal' }));
-				return api.onChange(() => setCount(api.getCount({ type: 'modal' })));
-			}, [api]);
-			return <span data-testid="modal-count">{count}</span>;
-		}
-
+	describe('open modal layer', () => {
 		it('should keep counting as an open modal when the dialog closes without Dialog asking', async () => {
 			render(
-				<OpenLayerObserver>
-					<ModalCount />
-					<ModalTransition>
-						<ModalDialog testId="modal" label="Modal" onClose={noop}>
-							<ModalBody>Body</ModalBody>
-						</ModalDialog>
-					</ModalTransition>
-				</OpenLayerObserver>,
+				<ModalTransition>
+					<ModalDialog testId="modal" label="Modal" onClose={noop}>
+						<ModalBody>Body</ModalBody>
+					</ModalDialog>
+				</ModalTransition>,
 			);
-			expect(screen.getByTestId('modal-count')).toHaveTextContent('1');
+			expect(hasOpenDialogOrPopover({ type: 'modal' })).toBe(true);
 
 			closeWithoutAsking(screen.getByTestId('modal'));
 			await flushToggle();
 
 			expect(screen.getByTestId('modal')).toHaveAttribute('open');
-			expect(screen.getByTestId('modal-count')).toHaveTextContent('1');
+			expect(hasOpenDialogOrPopover({ type: 'modal' })).toBe(true);
 		});
 	});
 

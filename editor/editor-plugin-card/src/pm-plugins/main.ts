@@ -38,13 +38,15 @@ const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
 const MAX_RESOLVED_INLINE_SMART_LINKS = 1;
 
 const handleAwarenessOverlay = (view: EditorView): void => {
-	const currentState = getPluginState(view.state);
-	const overlayCandidatePos = currentState?.overlayCandidatePosition;
-	if (overlayCandidatePos) {
-		currentState.removeOverlay?.();
-		const tr = view.state.tr;
-		clearOverlayCandidate(tr);
-		view.dispatch(tr);
+	if (!isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+		const currentState = getPluginState(view.state);
+		const overlayCandidatePos = currentState?.overlayCandidatePosition;
+		if (overlayCandidatePos) {
+			currentState.removeOverlay?.();
+			const tr = view.state.tr;
+			clearOverlayCandidate(tr);
+			view.dispatch(tr);
+		}
 	}
 };
 
@@ -187,7 +189,10 @@ export const createPlugin =
 					const canBeUpgradedToEmbed =
 						allowEmbeds && isEmbedSupportedAtPosition(linkPosition, prevEditorState, 'inline');
 
-					if (canBeUpgradedToBlock || canBeUpgradedToEmbed) {
+					if (
+						!isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+						(canBeUpgradedToBlock || canBeUpgradedToEmbed)
+					) {
 						newState.overlayCandidatePosition = linkPosition;
 					}
 

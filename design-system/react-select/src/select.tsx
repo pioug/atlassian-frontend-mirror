@@ -2992,8 +2992,8 @@ export default class Select<
 					{this.renderMenu()}
 					{this.renderFormField()}
 					{/*
-					 * On the top-layer path MenuPortalTopLayer owns this
-					 * notification; skip here to avoid a duplicate open signal.
+					 * On the top-layer path the MenuPortalTopLayer `Popover` has an
+					 * `onClose`, so open layer checks find it without the observer.
 					 */}
 					{!fg('platform-dst-top-layer') && (
 						<NotifyOpenLayerObserver

@@ -31,6 +31,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import TooltipContainer, { type TooltipContainerProps } from '@atlaskit/tooltip/TooltipContainer';
 import type { TooltipProps } from '@atlaskit/tooltip/types';
+import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-close-popovers';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { contentInsetBlockStart } from '../constants';
@@ -285,7 +286,7 @@ const PortaledPanelSplitter = ({
 		max: 500,
 	});
 
-	const openLayerObserver = useOpenLayerObserver();
+	const openLayerObserver = useOpenLayerObserver({ isEnabled: !fg('platform-dst-top-layer') });
 
 	/**
 	 * This is a temporary workaround to enable the `SideNavPanelSplitter` component
@@ -371,6 +372,8 @@ const PortaledPanelSplitter = ({
 					onResizeStart?.(resizeStartData);
 
 					// Close any open layers when the user starts resizing
+					// Not gated. Top-layer tooltips (`platform-dst-top-layer-tooltip`) are not known to the observer.
+					requestClosePopovers();
 					openLayerObserver?.closeLayers();
 				},
 				onDrag({ location, source }) {
@@ -478,6 +481,8 @@ const PortaledPanelSplitter = ({
 		createKeyboardResizeManager({
 			onResizeStart: (...args) => {
 				// Close any open layers when the user starts resizing with keyboard
+				// Not gated. Top-layer tooltips (`platform-dst-top-layer-tooltip`) are not known to the observer.
+				requestClosePopovers();
 				openLayerObserver?.closeLayers();
 
 				onResizeStartStableRef.current?.(...args);

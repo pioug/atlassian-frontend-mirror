@@ -16,6 +16,19 @@ import Clone from './clone';
 import NodeResolverSpotlightInner from './node-resolver-spotlight-inner';
 import SpotlightDialog from './spotlight-dialog';
 import { SpotlightTransitionConsumer } from './spotlight-transition';
+
+/**
+ * Gives the spotlight dialog a layer level for legacy layered components.
+ * On the top-layer path no legacy layered components are rendered, so the
+ * children render directly.
+ */
+function SpotlightLayering({ children }: { children: React.ReactNode }): React.JSX.Element {
+	if (fg('platform-dst-top-layer')) {
+		return <>{children}</>;
+	}
+	return <Layering isDisabled={false}>{children}</Layering>;
+}
+
 interface SpotlightInnerProps extends SpotlightProps {
 	/**
 	 * The spotlight target DOM element.
@@ -174,7 +187,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 							</ElementBox>
 						)}
 						{TargetReplacement && !replacementElement ? null : (
-							<Layering isDisabled={false}>
+							<SpotlightLayering>
 								<ExitingPersistence appear>
 									{isOpen && (
 										<FadeIn
@@ -211,7 +224,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 										</FadeIn>
 									)}
 								</ExitingPersistence>
-							</Layering>
+							</SpotlightLayering>
 						)}
 						<ScrollLock />
 					</Portal>

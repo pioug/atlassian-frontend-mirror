@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
@@ -173,9 +174,19 @@ const colorPaletteWrapperStyles = css({
 	marginRight: token('space.100'),
 	marginBottom: '0px',
 	marginLeft: token('space.100'),
+});
+
+const colorPaletteFlexStyles = css({
 	/* Firefox bug fix: https://product-fabric.atlassian.net/browse/ED-1789 */
 	display: 'flex',
 	flexWrap: 'wrap',
+});
+
+// Grid columns fix the swatch count per row, so rounding the swatch borders to whole device
+// pixels at fractional zoom cannot wrap a swatch onto an extra row.
+const colorPaletteGridStyles = css({
+	display: 'grid',
+	justifyContent: 'start',
 });
 
 const colorPaletteRowGapStyles = css({
@@ -203,6 +214,7 @@ export default ({
 	const { colorMode } = useThemeObserver();
 	const palette = getPalette(colorMode, variant);
 	const resolvedCols = cols ?? variantToCols[variant];
+	const isGridLayout = isExperimentEnabled('platform_status_lozenge_fractional_zoom_fix');
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
 	useEffect(() => {
 		colorRefs.current = colorRefs.current.slice(0, palette.length);
@@ -236,10 +248,17 @@ export default ({
 
 	return (
 		<ul
-			css={[colorPaletteWrapperStyles, variant === 'extended' && colorPaletteRowGapStyles]}
+			css={[
+				colorPaletteWrapperStyles,
+				isGridLayout ? colorPaletteGridStyles : colorPaletteFlexStyles,
+				variant === 'extended' && colorPaletteRowGapStyles,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
-			style={{ maxWidth: resolvedCols * 32 }}
+			style={{
+				gridTemplateColumns: isGridLayout ? `repeat(${resolvedCols}, max-content)` : undefined,
+				maxWidth: isGridLayout ? undefined : resolvedCols * 32,
+			}}
 		>
 			{palette.map(([colorValue, backgroundColor, borderColor, iconColor], i) => (
 				<Color

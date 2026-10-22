@@ -12,7 +12,6 @@ export type ChromelessEditorProps = Pick<
 	| 'disabled'
 	| 'shouldFocus'
 	| 'quickInsert'
-	| 'performanceTracking'
 	| 'secondaryToolbarComponents'
 	| 'featureFlags'
 	| 'onChange'

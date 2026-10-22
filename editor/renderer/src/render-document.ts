@@ -178,7 +178,10 @@ const _validation = (
 	if (
 		result &&
 		!expValEquals('cc-maui-experiment', 'isEnabled', true) &&
-		!fg('platform_native_embeds_rollout_non_maui_experience') &&
+		!(
+			fg('platform_native_embeds_rollout_non_maui_experience') ||
+			fg('platform_native_embeds_rollout_all_products')
+		) &&
 		fg('platform_editor_native_embeds_fallback_transform')
 	) {
 		const { transformedAdf, hasValidTransform } = nativeEmbedsFallbackTransform(result, schema);

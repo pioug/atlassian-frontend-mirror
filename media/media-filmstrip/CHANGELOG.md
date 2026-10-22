@@ -1,5 +1,15 @@
 # @atlaskit/media-filmstrip
 
+## 53.0.2
+
+### Patch Changes
+
+- [`36dd3a4bbd460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36dd3a4bbd460) -
+  Set `type="button"` on the filmstrip left/right scroll arrow buttons so clicking them no longer
+  submits an ancestor `<form>` (JSDCLOUD-19830). Behind the feature gate
+  `platform_media_filmstrip_arrow_type_fix`.
+- Updated dependencies
+
 ## 53.0.1
 
 ### Patch Changes

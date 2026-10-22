@@ -1,16 +1,31 @@
+/**
+ * @deprecated Use the `@atlaskit/top-layer/page-surface` entry points instead.
+ */
 export type LayerCountChangeListenerFn = (args: { count: number }) => void;
+/**
+ * @deprecated Use the `@atlaskit/top-layer/page-surface` entry points instead.
+ */
 export type CleanupFn = () => void;
 
+/**
+ * @deprecated Use the `@atlaskit/top-layer/page-surface` entry points instead.
+ */
 export type LayerCloseListenerFn = () => void;
 
 /**
  * The type of layer. This is used as a filter when requesting the count of open layers.
+ *
+ * @deprecated Use the `@atlaskit/top-layer/page-surface` entry points instead. Pass `type: 'modal'` to `hasOpenDialogOrPopover`
+ * to only count modal dialogs.
  */
 // We can add more types as we need them - e.g. `tooltip`, `select`, etc.
 // Disabling the eslint rule, as it semantically makes sense to include "Type" in the name.
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type LayerType = 'modal' | 'popup';
 
+/**
+ * @deprecated Use the `@atlaskit/top-layer/page-surface` entry points instead.
+ */
 export type OpenLayerObserverInternalAPI = {
 	/**
 	 * Returns the current count of open layers.

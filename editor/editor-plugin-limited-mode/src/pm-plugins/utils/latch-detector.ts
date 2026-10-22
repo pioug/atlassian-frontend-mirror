@@ -12,11 +12,10 @@ import type { LatchPolicy } from './latch-policy';
  * Holds no configuration and makes no decisions: it measures, and forwards. Everything tunable lives
  * on the policy, including the clock it reads.
  *
- * The measurement mirrors `editor-plugin-base/src/pm-plugins/frozen-editor.ts`, which already runs an
- * identical `longtask` observer and per-keystroke rAF measurement for every session to feed
- * `ACTION.SLOW_INPUT` / `ACTION.BROWSER_FREEZE`. It is duplicated rather than shared so that this
- * experiment stays self-contained inside the limited-mode plugin — no new cross-plugin dependency,
- * and deleting it is a single-directory revert if the experiment does not ship. The marginal cost is
+ * The measurement mirrors the removed legacy `ACTION.SLOW_INPUT` / `ACTION.BROWSER_FREEZE`
+ * telemetry (a `longtask` observer and per-keystroke rAF measurement). It stays self-contained
+ * inside the limited-mode plugin — no cross-plugin dependency, and deleting it is a
+ * single-directory revert if the experiment does not ship. The marginal cost is
  * one `performance.now()` and one `requestAnimationFrame` per keystroke.
  */
 export const createLatchDetector = ({
@@ -86,8 +85,7 @@ export const createLatchDetector = ({
 			const start = now();
 
 			// Runs after every handleTextInput and all resulting plugin work, but before paint — the
-			// same measurement point frozen-editor uses, so the numbers are comparable to existing
-			// SLOW_INPUT telemetry.
+			// same measurement point as the legacy SLOW_INPUT telemetry, so the numbers are comparable.
 			requestAnimationFrame(() => {
 				if (destroyed || policy.isLatched()) {
 					return;

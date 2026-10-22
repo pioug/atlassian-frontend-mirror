@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.5.2",
+	"version": "7.5.4",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -95,6 +95,7 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
@@ -200,7 +201,13 @@
 		"astral_units_workspace_host_resolver": {
 			"type": "boolean"
 		},
+		"platform_lp_sllv_assets_default_schema_aql": {
+			"type": "boolean"
+		},
 		"electric_issue_like_table_xpc_url_wrapping": {
+			"type": "boolean"
+		},
+		"platform-dst-top-layer": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer-tooltip": {

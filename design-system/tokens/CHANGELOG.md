@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 20.7.0
+
+### Minor Changes
+
+- [`df0f737b2b415`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df0f737b2b415) -
+  Add semantic inset space tokens as experimental tokens. Limit these tokens to `padding` in the CSS
+  token schema. Include replacement metadata pointing to the matching active numeric spacing tokens.
+
 ## 20.6.1
 
 ### Patch Changes

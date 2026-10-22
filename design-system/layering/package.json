@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "6.0.0",
+	"version": "6.1.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -9,7 +9,11 @@
 		"website": {
 			"tags": [
 				"platform-labs"
-			]
+			],
+			"status": {
+				"type": "deprecated",
+				"description": "This package is deprecated. The browser top layer handles stacking and Escape natively. Use [top layer](/components/top-layer), and `hasOpenDialogOrPopover` from `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover` to check whether an overlay is open."
+			}
 		},
 		"react-compiler": {
 			"enabled": true,

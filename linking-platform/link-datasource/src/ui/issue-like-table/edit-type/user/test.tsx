@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
@@ -113,6 +114,7 @@ describe('UserEditType', () => {
 	});
 
 	it('should stop propagation of Escape key event', async () => {
+		failGate('platform-dst-top-layer');
 		const parentKeyDownHandler = jest.fn();
 
 		setup(undefined, parentKeyDownHandler);
@@ -127,6 +129,7 @@ describe('UserEditType', () => {
 	});
 
 	it('should render dropdown menu in a portal', async () => {
+		failGate('platform-dst-top-layer');
 		setup();
 
 		const menu = await screen.findByRole('listbox');
@@ -134,5 +137,38 @@ describe('UserEditType', () => {
 
 		// When portaled, menu should not be inside the container
 		expect(container.contains(menu)).toBe(false);
+	});
+
+	describe('with the top-layer gate on', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
+
+		it('should close the open menu on Escape without cancelling the edit', async () => {
+			const parentKeyDownHandler = jest.fn();
+			setup(undefined, parentKeyDownHandler);
+			const input = await screen.findByTestId(testId);
+			expect(await screen.findByRole('listbox')).toBeInTheDocument();
+
+			const isNotPrevented = fireEvent.keyDown(input, { key: 'Escape' });
+
+			expect(isNotPrevented).toBe(false);
+			expect(parentKeyDownHandler).not.toHaveBeenCalled();
+			await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+		});
+
+		it('should let Escape reach the inline edit when the menu is closed, and prevent it so a modal stays open', async () => {
+			const parentKeyDownHandler = jest.fn();
+			setup(undefined, parentKeyDownHandler);
+			const input = await screen.findByTestId(testId);
+			expect(await screen.findByRole('listbox')).toBeInTheDocument();
+			fireEvent.keyDown(input, { key: 'Escape' });
+			await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+
+			const isNotPrevented = fireEvent.keyDown(input, { key: 'Escape' });
+
+			expect(isNotPrevented).toBe(false);
+			expect(parentKeyDownHandler).toHaveBeenCalledTimes(1);
+		});
 	});
 });

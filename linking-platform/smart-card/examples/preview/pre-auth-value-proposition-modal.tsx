@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { UnAuthClient } from '@atlaskit/link-test-helpers';
+import { UnAuthClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { PreAuthValuePropositionModal } from '@atlaskit/smart-card/pre-auth-value-proposition-modal';
 import { token } from '@atlaskit/tokens';

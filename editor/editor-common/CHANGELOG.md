@@ -1,5 +1,52 @@
 # @atlaskit/editor-common
 
+## 133.6.0
+
+### Minor Changes
+
+- [`0aef8124fd34f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0aef8124fd34f) -
+  Add an optional controlVisibility map to the block-control surface context. Visibility predicates
+  receive earlier controls' isHidden results in registry rank order, keyed by registered control
+  key. Behind the platform_editor_remix_control_priority experiment on the
+  platform_editor_block_control_migration path, use this context to let Remix yield to earlier
+  eligible controls on the same block without coupling it to suggestions. With the experiment
+  disabled, retain the original context and Remix rank and visibility.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.5.0
+
+### Minor Changes
+
+- [`63204a720ea3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63204a720ea3d) -
+  Add ACTION.ADOPTED and the AIResultAdoptedEventPayload unified analytics type (aiResult adopted)
+  to AIUnifiedEventPayload, and allow aiResultAction on the unified aiResult discarded payload.
+- [`5157e2c52cfcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5157e2c52cfcd) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`5a339a6a201dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a339a6a201dd) -
+  Gate the `suggestionType` analytics attribute, and the `suggestionType` field passed to
+  `onSubmitSuggestionFeedback`, behind `platform_editor_ai_suggestion_type_analytics`;
+  `suggestionType` is now optional on AI suggestions event payloads.
+- [`b3013aaa4d7ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3013aaa4d7ce) -
+  Slash menu: add preview images for the Jira Change request, Incident summary and Service request
+  block templates
+- Updated dependencies
+
+## 133.4.0
+
+### Minor Changes
+
+- [`f268dee2526f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f268dee2526f7) -
+  Migrate Smart Card registration and removal from transactions to editor actions behind
+  `platform_editor_reduce_forced_layout_2`. Remove unused card overlay registration behind
+  `platform_editor_reduce_forced_layout_2`.
+
 ## 133.3.0
 
 ### Minor Changes

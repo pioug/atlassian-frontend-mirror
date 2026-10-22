@@ -35,7 +35,7 @@ export const createXpcDefaultDestinationRegistry = ({
 	localhostProduct,
 }: XpcDefaultDestinationRegistryOptions = {}): XpcDestinationRegistry => ({
 	allowedHttpHosts: localhostProduct ? ['localhost'] : [],
-	atlassianHostSuffixes: ['atlassian.com', 'atlassian.net', 'atl-paas.net'],
+	atlassianHostSuffixes: ['atlassian.com', 'atlassian.net', 'atl-paas.net', 'jira-dev.com'],
 	rules: [
 		...(localhostProduct
 			? [
@@ -97,6 +97,33 @@ export const createXpcDefaultDestinationRegistry = ({
 			routeFamily: routeFamily.jiraProduct,
 		},
 		{
+			host: 'jira-dev.com',
+			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('confluence-wiki-route-staging'),
+			pathPrefix: '/wiki',
+			precedence: 100,
+			product: product.confluence,
+			routeFamily: routeFamily.confluenceContent,
+		},
+		{
+			host: 'jira-dev.com',
+			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('jira-issue-route-staging'),
+			pathPrefix: '/browse',
+			precedence: 100,
+			product: product.jira,
+			routeFamily: routeFamily.jiraIssue,
+		},
+		{
+			host: 'jira-dev.com',
+			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('jira-product-route-staging'),
+			pathPrefix: '/jira',
+			precedence: 100,
+			product: product.jira,
+			routeFamily: routeFamily.jiraProduct,
+		},
+		{
 			host: 'home.atlassian.com',
 			id: XpcDestinationResolver.createMatcherId('atlassian-home-production'),
 			precedence: 100,
@@ -125,5 +152,5 @@ export const createXpcDefaultDestinationRegistry = ({
 			routeFamily: routeFamily.admin,
 		},
 	],
-	taxonomyVersion: 1,
+	taxonomyVersion: 2,
 });

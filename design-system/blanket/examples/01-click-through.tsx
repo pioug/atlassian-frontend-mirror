@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { bind } from 'bind-event-listener';
 
 import Blanket from '@atlaskit/blanket/blanket';
 import Button from '@atlaskit/button/default/button';
-import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 
@@ -11,10 +12,22 @@ const BasicExample = (): React.JSX.Element => {
 	const showBlanketClick = useCallback(() => {
 		setIsBlanketVisible((isBlanketVisible) => !isBlanketVisible);
 	}, [setIsBlanketVisible]);
-	useCloseOnEscapePress({
-		onClose: showBlanketClick,
-		isDisabled: !isBlanketVisible,
-	});
+
+	// Hide the blanket when Escape is pressed.
+	useEffect(() => {
+		if (!isBlanketVisible) {
+			return;
+		}
+		return bind(window, {
+			type: 'keydown',
+			listener: (event) => {
+				if (event.key === 'Escape') {
+					setIsBlanketVisible(false);
+				}
+			},
+		});
+	}, [isBlanketVisible]);
+
 	return (
 		<Stack space="space.100" alignInline="start">
 			<Text>

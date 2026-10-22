@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 12.6.0
+
+### Minor Changes
+
+- [`c55cfd54b1e96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c55cfd54b1e96) -
+  Add optional requestedSkills to message-send and chat-new payloads.
+
 ## 12.5.0
 
 ### Minor Changes

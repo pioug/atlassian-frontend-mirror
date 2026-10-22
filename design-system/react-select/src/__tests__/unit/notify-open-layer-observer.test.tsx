@@ -2,16 +2,20 @@
 // @ts-nocheck
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
+import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
+import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-close-popovers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Select from '../../select';
+import StateManagedSelect from '../../state-manager';
 
 /**
- * Pins the open-layer observer wiring across the flag flip: legacy
- * `NotifyOpenLayerObserver` runs when the flag is off; on the top-layer path
- * `MenuPortalTopLayer` registers the menu as `type='popup'` instead.
+ * Pins the open layer wiring across the flag flip: legacy
+ * `NotifyOpenLayerObserver` runs when the flag is off. On the top-layer path
+ * nothing registers with the observer; the menu `Popover` has an `onClose`, so
+ * `hasOpenDialogOrPopover` finds it and `requestClosePopovers` closes it.
  *
  * Stubs `@atlaskit/layering` and asserts on the spy's call counts.
  */
@@ -71,26 +75,63 @@ describe('Legacy NotifyOpenLayerObserver - flag OFF (still fires)', () => {
 });
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-describe('Legacy NotifyOpenLayerObserver - flag ON (top-layer registers as popup)', () => {
-	// Flag-on: legacy observer suppressed; `MenuPortalTopLayer` registers as
-	// `type='popup'` so `closeLayers({ target: 'popup' })` (Modal / Drawer)
-	// can dismiss it. `Popover` also calls the hook untyped, but only typed
-	// registrations are `closeLayers`-aware.
-	it('flag ON, no portal target - registers a typed "popup" with the observer', () => {
+describe('Open layers - flag ON (found through the DOM, not the observer)', () => {
+	beforeEach(() => {
 		passGate('platform-dst-top-layer');
-		render(<Select menuIsOpen options={options} />);
-		const popupOpens = legacyObserverSpy.mock.calls.filter(
-			([event, payload]) => event === 'open' && payload.type === 'popup',
-		);
-		expect(popupOpens).toHaveLength(1);
 	});
 
-	it('flag ON, with portal target - registers a typed "popup" with the observer', () => {
-		passGate('platform-dst-top-layer');
-		render(<Select menuIsOpen menuPortalTarget={document.body} options={options} />);
-		const popupOpens = legacyObserverSpy.mock.calls.filter(
-			([event, payload]) => event === 'open' && payload.type === 'popup',
+	it.each([
+		['no portal target', {}],
+		['with portal target', { menuPortalTarget: document.body }],
+	])('flag ON, %s - does not register with the observer', (_, extraProps) => {
+		render(<Select menuIsOpen options={options} {...extraProps} />);
+		expect(legacyObserverSpy).not.toHaveBeenCalled();
+	});
+
+	it.each([
+		['no portal target', {}],
+		['with portal target', { menuPortalTarget: document.body }],
+	])('flag ON, %s - the open menu is an open layer', (_, extraProps) => {
+		const { rerender } = render(<Select menuIsOpen options={options} {...extraProps} />);
+		expect(screen.getByRole('listbox')).toBeInTheDocument();
+		expect(hasOpenDialogOrPopover()).toBe(true);
+
+		rerender(<Select menuIsOpen={false} options={options} {...extraProps} />);
+		expect(hasOpenDialogOrPopover()).toBe(false);
+	});
+
+	it('flag ON - requestClosePopovers closes the menu', () => {
+		const onMenuClose = jest.fn();
+		render(
+			<StateManagedSelect
+				defaultMenuIsOpen
+				options={options}
+				onMenuClose={onMenuClose}
+				aria-label="choose option"
+			/>,
 		);
-		expect(popupOpens).toHaveLength(1);
+		expect(screen.getByRole('listbox')).toBeInTheDocument();
+
+		act(() => {
+			requestClosePopovers();
+		});
+
+		expect(onMenuClose).toHaveBeenCalledTimes(1);
+		expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+		expect(hasOpenDialogOrPopover()).toBe(false);
+	});
+
+	it('flag ON - requestClosePopovers outside the select leaves the menu open', () => {
+		const onMenuClose = jest.fn();
+		const outside = document.createElement('div');
+		document.body.appendChild(outside);
+		render(<Select menuIsOpen options={options} onMenuClose={onMenuClose} />);
+
+		act(() => {
+			requestClosePopovers({ within: outside });
+		});
+
+		expect(onMenuClose).not.toHaveBeenCalled();
+		outside.remove();
 	});
 });

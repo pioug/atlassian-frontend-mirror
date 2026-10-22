@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 
 /**
@@ -24,13 +23,12 @@ export function usePopupAppearance({
 	const canBecomeModal = _appearance === 'UNSAFE_modal-below-sm';
 
 	/**
-	 * This gate removes unnecessary state changes across the below-sm boundary
-	 * The state change is only needed if the popup can become a modal - and this is maintained
+	 * Only subscribe to the below-sm boundary when the popup can become a modal,
+	 * to avoid unnecessary state changes for every other popup
 	 */
-	const shouldUseMediaQuery = !fg('platform_dst_popup_media_query_perf_fix') || canBecomeModal;
 	const mq = useMediaQuery(
 		'below.sm',
-		shouldUseMediaQuery
+		canBecomeModal
 			? (e) => {
 					setIsSmallViewport(!!e.matches);
 				}

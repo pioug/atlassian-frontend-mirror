@@ -51,6 +51,7 @@ export type MessageSendPayload = PayloadCore<
 		prompt: string;
 		productKey?: string;
 		minionAlias?: string;
+		requestedSkills?: string[];
 		files?: UploadedFile[];
 	}
 >;
@@ -194,6 +195,7 @@ export type ChatNewPayload = PayloadCore<
 		/** Correlates a Quick Find journey with the Chat activity it launches. */
 		rovoJourneyId?: string;
 		minionAlias?: string;
+		requestedSkills?: string[];
 		// Skip creating a seeded conversation in the BE with auto-generated name
 		skipCreatingSeededConversation?: boolean;
 		/**

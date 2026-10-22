@@ -99,15 +99,18 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 		const editorAppearance = pluginInjectionApi?.card.sharedState.currentState()?.editorAppearance;
 		const destinationUrl = useSmartLinkDestinationUrl(node.attrs.url);
 
-		const onResolve = useCallback((tr: Transaction, title?: string): void => {
-			const metadata = tr.getMeta(pluginKey);
-			const removeOverlay = isExperimentEnabled('platform_editor_reduce_memory_leaks')
-				? createRemoveOverlay(setIsInsertedRef)
-				: () => setIsInserted(false);
-			if (metadata && metadata.type === 'REGISTER') {
-				registerRemoveOverlay(removeOverlay, metadata.info)(tr);
-			} else {
-				registerRemoveOverlay(removeOverlay)(tr);
+		// Remove tr: Transaction | undefined parameter with platform_editor_reduce_forced_layout_2 cleanup.
+		const onResolve = useCallback((tr: Transaction | undefined, title?: string): void => {
+			if (tr) {
+				const metadata = tr.getMeta(pluginKey);
+				const removeOverlay = isExperimentEnabled('platform_editor_reduce_memory_leaks')
+					? createRemoveOverlay(setIsInsertedRef)
+					: () => setIsInserted(false);
+				if (metadata && metadata.type === 'REGISTER') {
+					registerRemoveOverlay(removeOverlay, metadata.info)(tr);
+				} else {
+					registerRemoveOverlay(removeOverlay)(tr);
+				}
 			}
 
 			if (title) {
@@ -117,11 +120,15 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 
 		const markMostRecentlyInsertedLink = useCallback(
 			(isLinkMostRecentlyInserted: boolean) => {
-				if (isOverlayEnabled) {
+				if (isOverlayEnabled && !isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
 					setIsInserted(isLinkMostRecentlyInserted);
 				}
 			},
-			[isOverlayEnabled],
+			[
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2')
+					? undefined
+					: isOverlayEnabled,
+			],
 		);
 
 		const setOverlayHoveredStyles = useCallback(

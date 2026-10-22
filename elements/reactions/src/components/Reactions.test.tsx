@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, screen, within, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
@@ -31,6 +31,7 @@ import {
 } from './Reactions';
 import { RENDER_MODAL_TESTID } from './ReactionsDialog';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
+import { RENDER_SUMMARY_VIEW_POPUP_TESTID } from './ReactionSummaryView';
 import { RENDER_SELECTOR_TESTID } from './Selector';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { RENDER_TRIGGER_BUTTON_TESTID } from './Trigger';
@@ -458,6 +459,351 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			expect(
 				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
 			).not.toBeInTheDocument();
+		});
+	});
+
+	describe('platform_a11y_reactions_removal_focus feature gate', () => {
+		/**
+		 * Mirrors the reactions store: toggling adds the user's reaction, and removing the only count removes the reaction from the list.
+		 */
+		const toggleReaction = (list: ReactionSummary[], emojiId: string): ReactionSummary[] => {
+			if (!list.some((reaction) => reaction.emojiId === emojiId)) {
+				return [...list, { ari, containerAri, emojiId, count: 1, reacted: true }];
+			}
+			return list.flatMap((reaction) => {
+				if (reaction.emojiId !== emojiId) {
+					return [reaction];
+				}
+				if (!reaction.reacted) {
+					return [{ ...reaction, count: reaction.count + 1, reacted: true }];
+				}
+				return reaction.count > 1
+					? [{ ...reaction, count: reaction.count - 1, reacted: false }]
+					: [];
+			});
+		};
+
+		const StatefulReactions = ({
+			initialReactions,
+			...extraProps
+		}: { initialReactions: ReactionSummary[] } & Partial<ReactionsProps>) => {
+			const [currentReactions, setCurrentReactions] = React.useState(initialReactions);
+			return (
+				<Reactions
+					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+					reactions={currentReactions}
+					status={status}
+					onReactionClick={(emojiId) =>
+						setCurrentReactions((list) => toggleReaction(list, emojiId))
+					}
+					onSelection={mockOnSelection}
+					loadReaction={mockLoadReaction}
+					{...extraProps}
+				/>
+			);
+		};
+
+		const toggleReactionWithKeyboard = async (reactionButton: HTMLElement) => {
+			act(() => reactionButton.focus());
+			await userEvent.keyboard('{Enter}');
+		};
+
+		const getReactionButton = (emojiId?: string) =>
+			screen
+				.getAllByTestId(RENDER_REACTION_TESTID)
+				.find((button) => button.getAttribute('data-emoji-id') === emojiId);
+
+		/**
+		 * The quick reactions the Jira For You page shows with a zero count until someone reacts
+		 */
+		const forYouQuickReactions: QuickReactionEmojiSummary = {
+			ari,
+			containerAri,
+			emojiIds: [DefaultReactions[0].id ?? '', DefaultReactions[1].id ?? ''],
+		};
+
+		it('moves focus to the next reaction when a reaction is removed', async () => {
+			passGate('platform_a11y_reactions_removal_focus');
+			renderWithIntl(
+				<StatefulReactions
+					initialReactions={[
+						getReactionSummary(DefaultReactions[0].shortName, 1, true),
+						getReactionSummary(DefaultReactions[1].shortName, 3, false),
+						getReactionSummary(DefaultReactions[2].shortName, 2, false),
+					]}
+				/>,
+			);
+
+			const [removedReaction, nextReaction] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			await toggleReactionWithKeyboard(removedReaction);
+
+			expect(removedReaction).not.toBeInTheDocument();
+			expect(nextReaction).toHaveFocus();
+		});
+
+		it('moves focus to the reaction picker trigger when the last reaction is removed', async () => {
+			passGate('platform_a11y_reactions_removal_focus');
+			renderWithIntl(
+				<StatefulReactions
+					initialReactions={[
+						getReactionSummary(DefaultReactions[0].shortName, 3, false),
+						getReactionSummary(DefaultReactions[1].shortName, 1, true),
+					]}
+				/>,
+			);
+
+			const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			await toggleReactionWithKeyboard(reactionButtons[1]);
+
+			expect(reactionButtons[1]).not.toBeInTheDocument();
+			expect(screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID)).toHaveFocus();
+		});
+
+		it('moves focus to the reaction picker trigger when the only reaction is removed', async () => {
+			passGate('platform_a11y_reactions_removal_focus');
+			renderWithIntl(
+				<StatefulReactions
+					initialReactions={[getReactionSummary(DefaultReactions[0].shortName, 1, true)]}
+				/>,
+			);
+
+			const [reactionButton] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			await toggleReactionWithKeyboard(reactionButton);
+
+			expect(screen.queryAllByTestId(RENDER_REACTION_TESTID)).toHaveLength(0);
+			expect(screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID)).toHaveFocus();
+		});
+
+		it('keeps focus on the reaction when it is toggled but not removed', async () => {
+			passGate('platform_a11y_reactions_removal_focus');
+			renderWithIntl(
+				<StatefulReactions
+					initialReactions={[
+						getReactionSummary(DefaultReactions[0].shortName, 2, true),
+						getReactionSummary(DefaultReactions[1].shortName, 3, false),
+					]}
+				/>,
+			);
+
+			const [toggledReaction] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			await toggleReactionWithKeyboard(toggledReaction);
+
+			expect(toggledReaction).toBeInTheDocument();
+			expect(toggledReaction).toHaveFocus();
+		});
+
+		describe('with quick reactions, as on Jira For You', () => {
+			beforeEach(() => {
+				// Grouping added reactions renders them in a different element than the zero count quick reactions
+				passGate('platform_reactions_a11y_group_added_reactions');
+			});
+
+			it('keeps focus on a quick reaction when its only count is removed', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				renderWithIntl(
+					<StatefulReactions
+						initialReactions={[getReactionSummary(DefaultReactions[0].shortName, 1, true)]}
+						quickReactionEmojis={forYouQuickReactions}
+					/>,
+				);
+
+				const removedReaction = getReactionButton(DefaultReactions[0].id);
+				await toggleReactionWithKeyboard(removedReaction!);
+
+				expect(removedReaction).not.toBeInTheDocument();
+				expect(getReactionButton(DefaultReactions[0].id)).toHaveFocus();
+			});
+
+			it('moves focus to the reaction picker trigger, not a quick reaction, when the only reaction is removed', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				renderWithIntl(
+					<StatefulReactions
+						initialReactions={[getReactionSummary(DefaultReactions[2].shortName, 1, true)]}
+						quickReactionEmojis={forYouQuickReactions}
+					/>,
+				);
+
+				await toggleReactionWithKeyboard(getReactionButton(DefaultReactions[2].id)!);
+
+				expect(getReactionButton(DefaultReactions[2].id)).toBeUndefined();
+				expect(screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID)).toHaveFocus();
+			});
+
+			it('keeps focus on a quick reaction when it is added as the first reaction', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				renderWithIntl(
+					<StatefulReactions initialReactions={[]} quickReactionEmojis={forYouQuickReactions} />,
+				);
+
+				const addedReaction = getReactionButton(DefaultReactions[1].id);
+				await toggleReactionWithKeyboard(addedReaction!);
+
+				expect(addedReaction).not.toBeInTheDocument();
+				expect(getReactionButton(DefaultReactions[1].id)).toHaveFocus();
+			});
+		});
+
+		describe('with the summary view', () => {
+			const openSummaryView = async () => {
+				await userEvent.click(await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID));
+				return screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			};
+
+			const getSummaryViewReactionButton = (summaryView: HTMLElement, emojiId?: string) =>
+				within(summaryView)
+					.getAllByTestId(RENDER_REACTION_TESTID)
+					.find((button) => button.getAttribute('data-emoji-id') === emojiId);
+
+			it('moves focus to the next reaction in the summary view when a reaction is removed', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				renderWithIntl(
+					<StatefulReactions
+						initialReactions={[
+							getReactionSummary(DefaultReactions[0].shortName, 3, false),
+							getReactionSummary(DefaultReactions[3].shortName, 2, false),
+							getReactionSummary(DefaultReactions[1].shortName, 1, true),
+							getReactionSummary(DefaultReactions[2].shortName, 1, false),
+						]}
+						summaryViewEnabled
+						summaryViewThreshold={3}
+					/>,
+				);
+
+				const summaryView = await openSummaryView();
+				const removedReaction = getSummaryViewReactionButton(summaryView, DefaultReactions[1].id);
+				await toggleReactionWithKeyboard(removedReaction!);
+
+				expect(removedReaction).not.toBeInTheDocument();
+				expect(getSummaryViewReactionButton(summaryView, DefaultReactions[2].id)).toHaveFocus();
+			});
+
+			it('moves focus to the reaction picker trigger when a removal drops below the summary threshold', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				renderWithIntl(
+					<StatefulReactions
+						initialReactions={[
+							getReactionSummary(DefaultReactions[0].shortName, 3, false),
+							getReactionSummary(DefaultReactions[3].shortName, 2, false),
+							getReactionSummary(DefaultReactions[2].shortName, 1, true),
+						]}
+						summaryViewEnabled
+						summaryViewThreshold={3}
+					/>,
+				);
+
+				const summaryView = await openSummaryView();
+				await toggleReactionWithKeyboard(
+					getSummaryViewReactionButton(summaryView, DefaultReactions[2].id)!,
+				);
+
+				expect(screen.queryByTestId(RENDER_REACTIONS_SUMMARY_TESTID)).not.toBeInTheDocument();
+				expect(screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID)).toHaveFocus();
+			});
+		});
+
+		it('does not move focus when the removed reaction was clicked without focusing it', async () => {
+			passGate('platform_a11y_reactions_removal_focus');
+			renderWithIntl(
+				<StatefulReactions
+					initialReactions={[
+						getReactionSummary(DefaultReactions[0].shortName, 1, true),
+						getReactionSummary(DefaultReactions[1].shortName, 3, false),
+					]}
+				/>,
+			);
+
+			const [removedReaction] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			// Safari, and Firefox on macOS, do not focus buttons on click
+			fireEvent.click(removedReaction);
+
+			expect(removedReaction).not.toBeInTheDocument();
+			expect(document.body).toHaveFocus();
+		});
+
+		describe('when reactions only update after the server responds', () => {
+			const initialReactions = [
+				getReactionSummary(DefaultReactions[0].shortName, 1, true),
+				getReactionSummary(DefaultReactions[1].shortName, 3, false),
+			];
+			const renderWithReactions = (currentReactions: ReactionSummary[]) => (
+				<>
+					<Reactions
+						emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+						reactions={currentReactions}
+						status={status}
+						onReactionClick={mockOnReactionsClick}
+						onSelection={mockOnSelection}
+						loadReaction={mockLoadReaction}
+					/>
+					<button type="button">Outside</button>
+				</>
+			);
+
+			it('moves focus to the next reaction once the removal is confirmed', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				const { rerender } = renderWithIntl(renderWithReactions(initialReactions));
+
+				const [removedReaction, nextReaction] =
+					await screen.findAllByTestId(RENDER_REACTION_TESTID);
+				await toggleReactionWithKeyboard(removedReaction);
+				rerender(
+					renderWithReactions(toggleReaction(initialReactions, initialReactions[0].emojiId)),
+				);
+
+				expect(removedReaction).not.toBeInTheDocument();
+				expect(nextReaction).toHaveFocus();
+			});
+
+			it('does not move focus if the user has moved focus elsewhere before the reaction is removed', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				const { rerender } = renderWithIntl(renderWithReactions(initialReactions));
+
+				const [removedReaction] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+				await toggleReactionWithKeyboard(removedReaction);
+				const outsideButton = screen.getByRole('button', { name: 'Outside' });
+				act(() => outsideButton.focus());
+				rerender(
+					renderWithReactions(toggleReaction(initialReactions, initialReactions[0].emojiId)),
+				);
+
+				expect(removedReaction).not.toBeInTheDocument();
+				expect(outsideButton).toHaveFocus();
+			});
+
+			it('does not take focus for a later removal after the user has left the reaction', async () => {
+				passGate('platform_a11y_reactions_removal_focus');
+				const { rerender } = renderWithIntl(renderWithReactions(initialReactions));
+
+				const [removedReaction] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+				await toggleReactionWithKeyboard(removedReaction);
+				// e.g. clicking plain text moves focus to the document body, and the request never succeeds
+				await act(async () => removedReaction.blur());
+				// An unrelated update later removes the reaction, e.g. another user's change
+				rerender(
+					renderWithReactions(toggleReaction(initialReactions, initialReactions[0].emojiId)),
+				);
+
+				expect(removedReaction).not.toBeInTheDocument();
+				expect(document.body).toHaveFocus();
+			});
+		});
+
+		it('does not move focus when the gate is off', async () => {
+			failGate('platform_a11y_reactions_removal_focus');
+			renderWithIntl(
+				<StatefulReactions
+					initialReactions={[
+						getReactionSummary(DefaultReactions[0].shortName, 1, true),
+						getReactionSummary(DefaultReactions[1].shortName, 3, false),
+					]}
+				/>,
+			);
+
+			const [removedReaction] = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			await toggleReactionWithKeyboard(removedReaction);
+
+			expect(removedReaction).not.toBeInTheDocument();
+			expect(document.body).toHaveFocus();
 		});
 	});
 

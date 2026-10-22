@@ -9,6 +9,7 @@ import ButtonTheme from '@atlaskit/button/theme';
 import { css, cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import { useLayering } from '@atlaskit/layering/use-layering';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
@@ -101,7 +102,7 @@ const SpotlightCard: React.ForwardRefExoticComponent<
 		headingId,
 	} = props;
 	const { Header = DefaultHeader, Footer = DefaultFooter } = components;
-	const { currentLevel } = useLayering();
+	const { currentLevel } = useLayering({ isEnabled: !fg('platform-dst-top-layer') });
 
 	return (
 		<ButtonTheme.Provider value={spotlightButtonTheme}>

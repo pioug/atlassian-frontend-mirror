@@ -16,6 +16,18 @@ import { css, jsx } from '@emotion/react';
 import Link from '@atlaskit/link/link';
 
 const skipLinkListItemStyles = css({ marginBlockStart: 0 });
+
+const handleBlur = (event: Event) => {
+	const target = event.currentTarget;
+
+	if (!(target instanceof Element)) {
+		return;
+	}
+
+	target.removeAttribute('tabindex');
+	target.removeEventListener('blur', handleBlur);
+};
+
 const focusTargetRef = (href: string) => (event: ReactMouseEvent | ReactKeyboardEvent) => {
 	event.preventDefault();
 	const targetRef = document.querySelector(href);
@@ -31,7 +43,6 @@ const focusTargetRef = (href: string) => (event: ReactMouseEvent | ReactKeyboard
 
 	if (targetRef) {
 		targetRef.setAttribute('tabindex', '-1');
-		// @ts-ignore
 		targetRef.addEventListener('blur', handleBlur);
 		// @ts-ignore
 		targetRef.focus();

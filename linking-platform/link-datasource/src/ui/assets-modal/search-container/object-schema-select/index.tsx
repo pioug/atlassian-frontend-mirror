@@ -36,6 +36,7 @@ const FieldContainer = styled.div({
 type AssetsObjectSchemaSelectProps = {
 	classNamePrefix?: string;
 	initialObjectSchemas: ObjectSchema[] | undefined;
+	onSchemaChange?: (schema: ObjectSchemaOption) => void;
 	testId?: string;
 	value: ObjectSchema | undefined;
 	workspaceId: string;
@@ -69,6 +70,7 @@ export const AssetsObjectSchemaSelect = ({
 	value,
 	workspaceId,
 	initialObjectSchemas,
+	onSchemaChange,
 	classNamePrefix: _classNamePrefix = 'assets-datasource-modal--object-schema-select',
 	testId = 'assets-datasource-modal--object-schema-select',
 }: AssetsObjectSchemaSelectProps): JSX.Element => {
@@ -137,7 +139,12 @@ export const AssetsObjectSchemaSelect = ({
 						isLoading={objectSchemasLoading}
 						options={options}
 						placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
-						onChange={(newOption) => newOption && onChange(newOption)}
+						onChange={(newOption) => {
+							if (newOption) {
+								onChange(newOption);
+								onSchemaChange?.(newOption);
+							}
+						}}
 						inputValue={searchTerm}
 						onInputChange={handleInputChange}
 						onMenuClose={onClose}

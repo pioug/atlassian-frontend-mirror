@@ -1281,6 +1281,16 @@ export interface SpacingTokenSchema<BaseToken> {
 			xlarge: SpacingToken<BaseToken>;
 			xxlarge: SpacingToken<BaseToken>;
 		};
+		inset: {
+			xxsmall: SpacingToken<BaseToken>;
+			xsmall: SpacingToken<BaseToken>;
+			small: SpacingToken<BaseToken>;
+			medium: SpacingToken<BaseToken>;
+			large: SpacingToken<BaseToken>;
+			xlarge: SpacingToken<BaseToken>;
+			xxlarge: SpacingToken<BaseToken>;
+			'3xlarge': SpacingToken<BaseToken>;
+		};
 		negative: {
 			'025': SpacingToken<BaseToken>;
 			'050': SpacingToken<BaseToken>;

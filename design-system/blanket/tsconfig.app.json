@@ -70,9 +70,6 @@
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
-			"path": "../layering/tsconfig.app.json"
-		},
-		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{

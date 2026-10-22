@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ba1d8bc10c558170bad6de69314fc708>>
+ * @codegen <<SignedSource::d44f59ae592b3a2684444b70c1c95f10>>
  * @codegenCommand yarn build tokens
  */
 
@@ -702,6 +702,238 @@ const tokens: Token[] = [
       "xxsmall"
     ],
     "cleanName": "space.gap.xxsmall"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.600",
+      "introduced": "20.7.0",
+      "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "48px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.600",
+        "introduced": "20.7.0",
+        "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space600"
+    },
+    "name": "space.inset.3xlarge",
+    "path": [
+      "space",
+      "inset",
+      "3xlarge"
+    ],
+    "cleanName": "space.inset.3xlarge"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.250",
+      "introduced": "20.7.0",
+      "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "20px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.250",
+        "introduced": "20.7.0",
+        "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space250"
+    },
+    "name": "space.inset.large",
+    "path": [
+      "space",
+      "inset",
+      "large"
+    ],
+    "cleanName": "space.inset.large"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.200",
+      "introduced": "20.7.0",
+      "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "16px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.200",
+        "introduced": "20.7.0",
+        "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space200"
+    },
+    "name": "space.inset.medium",
+    "path": [
+      "space",
+      "inset",
+      "medium"
+    ],
+    "cleanName": "space.inset.medium"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.150",
+      "introduced": "20.7.0",
+      "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "12px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.150",
+        "introduced": "20.7.0",
+        "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space150"
+    },
+    "name": "space.inset.small",
+    "path": [
+      "space",
+      "inset",
+      "small"
+    ],
+    "cleanName": "space.inset.small"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.300",
+      "introduced": "20.7.0",
+      "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "24px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.300",
+        "introduced": "20.7.0",
+        "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space300"
+    },
+    "name": "space.inset.xlarge",
+    "path": [
+      "space",
+      "inset",
+      "xlarge"
+    ],
+    "cleanName": "space.inset.xlarge"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.100",
+      "introduced": "20.7.0",
+      "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "8px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.100",
+        "introduced": "20.7.0",
+        "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space100"
+    },
+    "name": "space.inset.xsmall",
+    "path": [
+      "space",
+      "inset",
+      "xsmall"
+    ],
+    "cleanName": "space.inset.xsmall"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.400",
+      "introduced": "20.7.0",
+      "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "32px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.400",
+        "introduced": "20.7.0",
+        "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space400"
+    },
+    "name": "space.inset.xxlarge",
+    "path": [
+      "space",
+      "inset",
+      "xxlarge"
+    ],
+    "cleanName": "space.inset.xxlarge"
+  },
+  {
+    "attributes": {
+      "group": "spacing",
+      "state": "experimental",
+      "replacement": "space.050",
+      "introduced": "20.7.0",
+      "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+    },
+    "value": "4px",
+    "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.050",
+        "introduced": "20.7.0",
+        "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": "Space050"
+    },
+    "name": "space.inset.xxsmall",
+    "path": [
+      "space",
+      "inset",
+      "xxsmall"
+    ],
+    "cleanName": "space.inset.xxsmall"
   },
   {
     "attributes": {

@@ -1,5 +1,21 @@
 # @atlaskit/side-navigation
 
+## 13.3.8
+
+### Patch Changes
+
+- [`9de29f5200eb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9de29f5200eb3) -
+  Make the launched side navigation keyboard focus behaviour permanent while preserving
+  isDefaultFocusControl.
+
+## 13.3.7
+
+### Patch Changes
+
+- [`3f5c966717a03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f5c966717a03) -
+  Make the launched side navigation keyboard focus behaviour permanent while preserving
+  isDefaultFocusControl.
+
 ## 13.3.6
 
 ### Patch Changes

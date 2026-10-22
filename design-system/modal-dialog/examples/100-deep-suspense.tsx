@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 
-const ModalDialog = lazy(() => import('@atlaskit/modal-dialog'));
+const ModalDialog = lazy(() => import('@atlaskit/modal-dialog/modal-dialog'));
 const ModalHeader = lazy(() => import('@atlaskit/modal-dialog/modal-header'));
 const ModalTitle = lazy(() => import('@atlaskit/modal-dialog/modal-title'));
 const ModalBody = lazy(() => import('@atlaskit/modal-dialog/modal-body'));

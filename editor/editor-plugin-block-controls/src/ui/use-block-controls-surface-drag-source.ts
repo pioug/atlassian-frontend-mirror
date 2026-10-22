@@ -6,7 +6,6 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics/types/enums';
-import { startMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -27,8 +26,6 @@ import {
 	getNodeSpacingForDragPreview,
 } from './block-controls-surface-drag-handle-utils';
 import { dragPreview, type DragPreviewContent } from './drag-preview';
-
-const EDITOR_BLOCKS_DRAG_INIT = 'Editor Blocks Drag Initialization Time';
 
 type Options = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
@@ -168,9 +165,6 @@ export const useBlockControlsSurfaceDragSource = ({
 				}
 
 				// This handle is outside ProseMirror, so it owns the side effects normally started by PM.
-				if (!isExperimentEnabled('platform_editor_remove_legacy_perf_events')) {
-					startMeasure(EDITOR_BLOCKS_DRAG_INIT);
-				}
 				defaultActiveAnchorTracker.reset();
 
 				api?.core?.actions.execute(({ tr }) => {

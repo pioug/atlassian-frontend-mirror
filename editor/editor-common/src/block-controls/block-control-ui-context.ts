@@ -25,6 +25,7 @@ export type BlockControlUIContextActiveNode = BlockControlUIContextNode & {
 export type BlockControlUIContext = {
 	activeControlKey?: string;
 	activeNode?: BlockControlUIContextActiveNode;
+	controlVisibility?: ReadonlyMap<string, boolean>;
 	rootNode: BlockControlUIContextNode;
 	targetNode: BlockControlUIContextNode;
 };

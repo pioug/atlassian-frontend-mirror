@@ -47,6 +47,7 @@ import type {
 	FloatingToolbarPlugin,
 	FloatingToolbarPluginState,
 } from './floatingToolbarPluginType';
+import { useToolbarExternalStore } from './hooks/useToolbarExternalStore';
 import { copyNode } from './pm-plugins/commands';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
@@ -313,6 +314,9 @@ export function ContentComponent({
 		configWithNodeInfo =
 			pluginInjectionApi?.floatingToolbar?.sharedState.currentState()?.configWithNodeInfo;
 	}
+
+	// Subscribe to an external store for rerenders. Used by editor-plugin-card for card registration via editor actions
+	useToolbarExternalStore(configWithNodeInfo?.config?.externalStore);
 
 	if (isSSR()) {
 		return null;

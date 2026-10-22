@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { ForbiddenClient } from '@atlaskit/link-test-helpers';
+import { ForbiddenClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { UnresolvedAction } from '@atlaskit/smart-card/flexible/unresolved-action';
 export default function Preview(): React.JSX.Element {

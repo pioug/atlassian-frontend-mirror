@@ -2,6 +2,31 @@
 order: 2
 ---
 
+## Deprecated
+
+This package is deprecated. Do not add new usages. The browser top layer handles stacking and Escape
+natively. Use `@atlaskit/top-layer`. Design system components use it on their
+`platform-dst-top-layer` path, and they no longer render `Layering` there.
+
+During the rollout, keep each existing call and turn it off on the top layer path. For hooks, pass
+`isEnabled: !fg('platform-dst-top-layer')`. For `Layering` and the observer providers, render them
+only when the gate is off.
+
+| Layering API                           | Replacement                                                                                                                                                                                        |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Layering`                             | Not needed. Do not render it when the gate is on.                                                                                                                                                  |
+| `useLayering().isLayerDisabled()`      | `hasOpenDialogOrPopover({ within })` from `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`, called at event time.                                                                     |
+| `useLayering().currentLevel`           | Not needed. Top layer surfaces render inline.                                                                                                                                                      |
+| `useCloseOnEscapePress`                | Top layer surfaces close on Escape natively. For a page surface (for example a side panel), use `useCloseOnUnclaimedEscape` from `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`. |
+| `useOpenLayerObserver().getCount()`    | `hasOpenDialogOrPopover` from `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`. Use `type: 'modal'` to only count modal dialogs.                                                      |
+| `useOpenLayerObserver().onChange()`    | Listen for `toggle` and `close` in the capture phase, then call `hasOpenDialogOrPopover`.                                                                                                          |
+| `useOpenLayerObserver().closeLayers()` | `requestClosePopovers` from `@atlaskit/top-layer/page-surface/request-close-popovers`.                                                                                                             |
+| `useNotifyOpenLayerObserver`           | Render the surface with `@atlaskit/top-layer` (`Popover` with `onClose`, or `Dialog`). It is then an open layer.                                                                                   |
+| `OpenLayerObserver`                    | Not needed.                                                                                                                                                                                        |
+| `OpenLayerObserverNamespaceProvider`   | Not needed. Pass the element as `within` instead of a namespace.                                                                                                                                   |
+
+## About layering
+
 Layering aims to provide an out-of-the-box layered experience with consistent API. It also handles
 multiple layers transparently. Layering uses React Context under the hood. We provide one component
 API and one hook API to easily embed layering into your components. In other words, the API ‘mocks’

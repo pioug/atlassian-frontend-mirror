@@ -6,12 +6,13 @@ import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl';
 
 import { type HeadType } from '@atlaskit/dynamic-table/types';
-import { createMediaSubscribable, type FileState } from '@atlaskit/media-client';
+import { createMediaSubscribable } from '@atlaskit/media-client';
 import { createMediaSubject } from '@atlaskit/media-client/create-media-subject';
 import { FileFetcherImpl } from '@atlaskit/media-client/file-fetcher';
 import { fromObservable } from '@atlaskit/media-client/from-observable';
 import type { MediaType } from '@atlaskit/media-client/media';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
+import { type FileState } from '@atlaskit/media-client/media-state';
 import type { MediaSubscribable } from '@atlaskit/media-client/media-subscribable/types';
 import {
 	imageFileId,

@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import type { IntlShape } from 'react-intl';
 
+import type { CardRegistration } from '@atlaskit/editor-common/card/types';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { timestampToString } from '@atlaskit/editor-common/utils/date';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -12,6 +13,7 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isPromise } from '@atlaskit/mention/is-promise';
 import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
 import { MentionNameStatus } from '@atlaskit/mention/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 
 import type { FindReplacePlugin } from '../../findReplacePluginType';
@@ -78,7 +80,7 @@ const isElement = (nodeType?: string) =>
 const isExpandTitle = (match: Match) =>
 	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
 
-export const createDecoration = (match: Match, isSelected?: Boolean): Decoration => {
+export const createDecoration = (match: Match, isSelected?: boolean): Decoration => {
 	const { start, end, nodeType } = match;
 	const { colorMode } = getGlobalTheme();
 
@@ -90,7 +92,8 @@ export const createDecoration = (match: Match, isSelected?: Boolean): Decoration
 		return Decoration.node(start, end, {
 			class: className,
 		});
-	} else if (isExpandTitle(match)) {
+	}
+	if (isExpandTitle(match)) {
 		const className = classnames(searchMatchExpandTitleClass, {
 			[selectedSearchMatchClass]: isSelected,
 			[darkModeSearchMatchClass]: colorMode === 'dark',
@@ -98,16 +101,15 @@ export const createDecoration = (match: Match, isSelected?: Boolean): Decoration
 		return Decoration.node(start, end, {
 			class: className,
 		});
-	} else {
-		const className = classnames(searchMatchTextClass, {
-			[selectedSearchMatchClass]: isSelected,
-			[darkModeSearchMatchClass]: colorMode === 'dark',
-		});
-
-		return Decoration.inline(start, end, {
-			class: className,
-		});
 	}
+	const className = classnames(searchMatchTextClass, {
+		[selectedSearchMatchClass]: isSelected,
+		[darkModeSearchMatchClass]: colorMode === 'dark',
+	});
+
+	return Decoration.inline(start, end, {
+		class: className,
+	});
 };
 
 type FindMatchesType = {
@@ -185,21 +187,31 @@ export function findMatches({
 		}
 	};
 
+	// Cache to avoid repeated O(n) url lookups
+	let registeredCardsByUrl: Map<string | undefined, CardRegistration> | null = null;
+
 	const collectCardTitleMatch = (node: PmNode, pos: number) => {
-		const cards = api?.card?.sharedState.currentState()?.cards;
-		if (cards) {
-			const relevantCard = cards.find((card) => card.url === node.attrs.url);
-			const title = relevantCard?.title;
-			if (relevantCard) {
-				if (title) {
-					collectNodeMatch({ text: title, pos }, node);
-				} else {
-					// when there is no title, e.g. in an error case like unauthorized
-					// the link card just shows the entire url as the title in inline card
-					if (node.type.name === 'inlineCard') {
-						collectNodeMatch({ text: node.attrs.url, pos }, node);
-					}
+		// Populate cache
+		if (!registeredCardsByUrl && isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+			registeredCardsByUrl = new Map();
+			for (const card of Object.values(api?.card?.actions?.getCardRegistrations?.() ?? {})) {
+				if (card.getPos() !== undefined) {
+					registeredCardsByUrl.set(card.url, card);
 				}
+			}
+		}
+
+		const relevantCard = isExperimentEnabled('platform_editor_reduce_forced_layout_2')
+			? registeredCardsByUrl?.get(node.attrs.url)
+			: api?.card?.sharedState.currentState()?.cards?.find((card) => card.url === node.attrs.url);
+
+		if (relevantCard) {
+			if (relevantCard.title) {
+				collectNodeMatch({ text: relevantCard.title, pos }, node);
+			} else if (node.type.name === 'inlineCard') {
+				// when there is no title, e.g. in an error case like unauthorized
+				// the link card just shows the entire url as the title in inline card
+				collectNodeMatch({ text: node.attrs.url, pos }, node);
 			}
 		}
 	};
@@ -213,7 +225,7 @@ export function findMatches({
 						pos,
 					};
 				} else {
-					textGrouping.text = textGrouping.text + node.text;
+					textGrouping.text += node.text;
 				}
 			} else {
 				collectTextMatch(textGrouping);
@@ -314,7 +326,8 @@ export function findClosestMatch(selectionPos: number, matches: Match[]): number
 	if (forwardMatchIndex === -1) {
 		// if there are no forward matches, it must be the last match
 		return matches.length > 0 ? matches.length - 1 : 0;
-	} else if (forwardMatchIndex === 0) {
+	}
+	if (forwardMatchIndex === 0) {
 		return forwardMatchIndex;
 	}
 
@@ -325,9 +338,8 @@ export function findClosestMatch(selectionPos: number, matches: Match[]): number
 
 	if (forwardMatchPos - selectionPos < selectionPos - backwardMatchPos) {
 		return forwardMatchIndex;
-	} else {
-		return backwardMatchIndex;
 	}
+	return backwardMatchIndex;
 }
 
 /**

@@ -1,5 +1,11 @@
 # @atlaskit/editor-extension-dropbox
 
+## 27.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.2
 
 ### Patch Changes

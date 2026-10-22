@@ -247,6 +247,86 @@
       },
       "value": 2
     },
+    "Spacing/space.inset.3xlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.600",
+        "introduced": "20.7.0",
+        "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 48
+    },
+    "Spacing/space.inset.large": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.250",
+        "introduced": "20.7.0",
+        "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 20
+    },
+    "Spacing/space.inset.medium": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.200",
+        "introduced": "20.7.0",
+        "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 16
+    },
+    "Spacing/space.inset.small": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.150",
+        "introduced": "20.7.0",
+        "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 12
+    },
+    "Spacing/space.inset.xlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.300",
+        "introduced": "20.7.0",
+        "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 24
+    },
+    "Spacing/space.inset.xsmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.100",
+        "introduced": "20.7.0",
+        "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 8
+    },
+    "Spacing/space.inset.xxlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.400",
+        "introduced": "20.7.0",
+        "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 32
+    },
+    "Spacing/space.inset.xxsmall": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.050",
+        "introduced": "20.7.0",
+        "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      },
+      "value": 4
+    },
     "Spacing/space.negative.025": {
       "attributes": {
         "group": "spacing",
@@ -386,6 +466,14 @@
     "Spacing/space.gap.medium": "Spacing/space.100",
     "Spacing/space.gap.large": "Spacing/space.150",
     "Spacing/space.gap.xlarge": "Spacing/space.200",
-    "Spacing/space.gap.xxlarge": "Spacing/space.300"
+    "Spacing/space.gap.xxlarge": "Spacing/space.300",
+    "Spacing/space.inset.xxsmall": "Spacing/space.050",
+    "Spacing/space.inset.xsmall": "Spacing/space.100",
+    "Spacing/space.inset.small": "Spacing/space.150",
+    "Spacing/space.inset.medium": "Spacing/space.200",
+    "Spacing/space.inset.large": "Spacing/space.250",
+    "Spacing/space.inset.xlarge": "Spacing/space.300",
+    "Spacing/space.inset.xxlarge": "Spacing/space.400",
+    "Spacing/space.inset.3xlarge": "Spacing/space.600"
   }
 }

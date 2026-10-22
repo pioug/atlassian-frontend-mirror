@@ -42,7 +42,7 @@ describe('shouldRecreatePreset', () => {
 	it('should return FALSE when relevant properties is not changed', () => {
 		const nextProps = {
 			...props,
-			inputSamplingLimit: 5,
+			shouldFocus: true,
 		};
 
 		const actual = shouldRecreatePreset(props, nextProps);

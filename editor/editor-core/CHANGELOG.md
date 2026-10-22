@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 240.0.0
+
+### Major Changes
+
+- [`c02fec2c86f55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c02fec2c86f55) -
+  Remove deprecated `inputSamplingLimit` and `performanceTracking` editor props. They had no effect;
+  remove them from any `Editor` / `ComposableEditor` usages.
+
+### Minor Changes
+
+- [`5157e2c52cfcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5157e2c52cfcd) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`99e14378c613c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99e14378c613c) -
+  Clean up platform_editor_blocks and retain enabled scroll gutter behavior.
+- [`cf2946633c12a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf2946633c12a) -
+  Show the Marketplace vendor as a "By {vendor}" byline in quick insert previews for Connect and
+  Forge apps under the platform_editor_slash_command experiment. Vendor names are fetched from a
+  lazily loaded chunk when the first extension row is shown.
+- Updated dependencies
+
+## 239.0.3
+
+### Patch Changes
+
+- [`cd33055ac8c87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd33055ac8c87) -
+  Behind the platform_status_lozenge_fractional_zoom_fix experiment: centre editor status text on
+  cap height so it no longer sits ~1px high at fractional browser zoom on 1x displays, and lay out
+  status colour swatches on a fixed-column grid so they no longer wrap an extra row there.
+- Updated dependencies
+
 ## 239.0.2
 
 ### Patch Changes

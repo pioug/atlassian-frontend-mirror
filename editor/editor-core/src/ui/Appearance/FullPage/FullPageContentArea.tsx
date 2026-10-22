@@ -389,21 +389,14 @@ const Content = React.forwardRef<
 						{!!props.customContentComponents && 'after' in props.customContentComponents
 							? contentComponentClickWrapper(props.customContentComponents.after)
 							: null}
-						{allowScrollGutter &&
-							(editorExperiment('platform_editor_blocks', true) ? (
-								<div
-									id="editor-scroll-gutter"
-									style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
-									data-vc="scroll-gutter"
-									data-editor-scroll-gutter="true"
-								></div>
-							) : (
-								<div
-									id="editor-scroll-gutter"
-									style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
-									data-vc="scroll-gutter"
-								></div>
-							))}
+						{allowScrollGutter && (
+							<div
+								id="editor-scroll-gutter"
+								style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
+								data-vc="scroll-gutter"
+								data-editor-scroll-gutter="true"
+							></div>
+						)}
 					</div>
 				</div>
 			</ClickAreaBlock>

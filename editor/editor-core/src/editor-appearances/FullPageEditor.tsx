@@ -11,7 +11,6 @@ export type FullPageEditorProps = Pick<
 	| 'defaultValue'
 	| 'disabled'
 	| 'mentionProvider'
-	| 'performanceTracking'
 	| 'contextIdentifierProvider'
 	| 'searchProvider'
 	| 'activityProvider'

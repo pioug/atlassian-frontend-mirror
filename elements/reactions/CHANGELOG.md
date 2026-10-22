@@ -1,5 +1,21 @@
 # @atlaskit/reactions
 
+## 37.1.0
+
+### Minor Changes
+
+- [`5157e2c52cfcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5157e2c52cfcd) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`87589cc4647ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87589cc4647ba) -
+  Keep keyboard focus when the focused reaction is removed or re-rendered, including with quick
+  reactions and in the summary view, instead of losing it to the document body. Behind feature gate
+  platform_a11y_reactions_removal_focus.
+- Updated dependencies
+
 ## 37.0.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @atlaskit/tooltip
 
+## 24.4.1
+
+### Patch Changes
+
+- [`0cc2e73141eea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc2e73141eea) -
+  Behind the `platform-dst-top-layer` feature gate, no longer uses `@atlaskit/layering`. Open
+  overlays are found with the `@atlaskit/top-layer/page-surface` entry points instead
+  (`platform-dst-top-layer-tooltip` for tooltip). Behaviour with the gate off is unchanged.
+- Updated dependencies
+
 ## 24.4.0
 
 ### Minor Changes

@@ -285,4 +285,4 @@ export const toComponentProps = (props: object, indent: string = '\n\t'): string
 		'',
 	);
 
-export { overrideEmbedContent } from '@atlaskit/link-test-helpers';
+export { overrideEmbedContent } from '@atlaskit/link-test-helpers/smart-card/mocks/embed-content';

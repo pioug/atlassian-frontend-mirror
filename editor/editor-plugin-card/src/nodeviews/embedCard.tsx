@@ -212,13 +212,13 @@ export type EmbedCardState = {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class EmbedCardComponent extends React.PureComponent<
-	SmartCardProps & { id?: string },
+	SmartCardProps & { id: string },
 	EmbedCardState
 > {
 	private scrollContainer?: HTMLElement;
 	private embedIframeRef = React.createRef<HTMLIFrameElement>();
 
-	constructor(props: SmartCardProps & { id?: string }) {
+	constructor(props: SmartCardProps & { id: string }) {
 		super(props);
 		this.scrollContainer =
 			isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
@@ -270,18 +270,31 @@ export class EmbedCardComponent extends React.PureComponent<
 		// don't dispatch immediately since we might be in the middle of
 		// rendering a nodeview
 		rafSchedule(() => {
-			const pos = this.getPosSafely();
-			if (pos === undefined) {
-				return;
-			}
-			return view.dispatch(
-				registerCard({
+			if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+				if (this.removeCardDispatched || this.getPosSafely() === undefined) {
+					return;
+				}
+				const { pluginInjectionApi, id } = this.props;
+				pluginInjectionApi?.card.actions?.registerCard({
+					id,
 					title,
 					url,
-					pos,
-					id: this.props.id,
-				})(view.state.tr),
-			);
+					getPos: this.getPosSafely,
+				});
+			} else {
+				const pos = this.getPosSafely();
+				if (pos === undefined) {
+					return;
+				}
+				return view.dispatch(
+					registerCard({
+						title,
+						url,
+						pos,
+						id: this.props.id,
+					})(view.state.tr),
+				);
+			}
 		})();
 
 		try {
@@ -432,9 +445,14 @@ export class EmbedCardComponent extends React.PureComponent<
 			return;
 		}
 		this.removeCardDispatched = true;
-		const { tr } = this.props.view.state;
-		removeCard({ id: this.props.id })(tr);
-		this.props.view.dispatch(tr);
+		if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+			const { pluginInjectionApi, id } = this.props;
+			pluginInjectionApi?.card.actions?.removeRegisteredCard(id);
+		} else {
+			const { tr } = this.props.view.state;
+			removeCard({ id: this.props.id })(tr);
+			this.props.view.dispatch(tr);
+		}
 	}
 
 	render(): React.JSX.Element {

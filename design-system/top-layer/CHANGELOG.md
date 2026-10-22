@@ -1,5 +1,31 @@
 # @atlaskit/top-layer
 
+## 6.6.0
+
+### Minor Changes
+
+- [`0cc2e73141eea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc2e73141eea) -
+  Adds three entry points: `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`
+  (`hasOpenDialogOrPopover`), `@atlaskit/top-layer/page-surface/request-close-popovers`
+  (`requestClosePopovers`) and `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`
+  (`useCloseOnUnclaimedEscape`). They are for page surfaces (for example a side panel or a grid)
+  that must work alongside top-layer surfaces, and they replace the `@atlaskit/layering` open layer
+  observer with DOM queries. `useCloseOnUnclaimedEscape` closes a page surface on Escape, unless an
+  open dialog or popover claimed the Escape. Only an open `<dialog>`, or an open `Popover` that has
+  an `onClose`, counts. `Popover` and `Dialog` no longer register with the open layer observer, and
+  `@atlaskit/top-layer` no longer depends on `@atlaskit/layering`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.1
+
+### Patch Changes
+
+- [`a93f58326250f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a93f58326250f) -
+  `Popover` moves initial focus in a layout effect, so focus lands before the browser paints.
+
 ## 6.5.0
 
 ### Minor Changes

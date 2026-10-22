@@ -4,6 +4,7 @@
  */
 import { jsx, css, cssMap } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 import { token } from '@atlaskit/tokens';
@@ -47,6 +48,13 @@ const wrapperStyles = cssMap({
 		'button:focus + &': {
 			outline: `solid ${token('border.width.focused')} ${token('color.border.focused')}`,
 		},
+	},
+});
+
+const openMediaViewerFocusStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'span:focus-within + &': {
+		outline: `solid ${token('border.width.focused')} ${token('color.border.focused')}`,
 	},
 });
 
@@ -181,6 +189,7 @@ export const Wrapper: {
 			}
 			css={[
 				wrapperStyles.default,
+				fg('platform_media_card_focus_indicator_fix') && openMediaViewerFocusStyles,
 				cursorStyle,
 				displayBackground && backgroundStyle,
 				wrapperShadowKey && shadowStyleMap[wrapperShadowKey],

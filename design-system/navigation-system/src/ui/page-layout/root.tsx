@@ -243,6 +243,8 @@ export function Root({
 	const isChatPanelLayoutEnabled = fg('platform-dst-chat-panel-layout');
 	const LayoutProvider = isChatPanelLayoutEnabled ? LayoutAreaSizingProvider : React.Fragment;
 	const WidthContainer = isChatPanelLayoutEnabled ? LayoutFitContainers : React.Fragment;
+	// Top-layer surfaces are found through the DOM, so the observer is only needed when the gate is off.
+	const LayerObserverProvider = fg('platform-dst-top-layer') ? React.Fragment : OpenLayerObserver;
 
 	useEffect(() => {
 		if (process.env.NODE_ENV !== 'production') {
@@ -290,7 +292,7 @@ This message will not be displayed in production.
 					<IsSideNavShortcutEnabledProvider isSideNavShortcutEnabled={isSideNavShortcutEnabled}>
 						<TopNavStartProvider>
 							<LayoutProvider {...(isChatPanelLayoutEnabled ? { layoutRef: ref } : {})}>
-								<OpenLayerObserver>
+								<LayerObserverProvider>
 									<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
 										<SkipLinksProvider
 											label={skipLinksLabel}
@@ -316,7 +318,7 @@ This message will not be displayed in production.
 											</WidthContainer>
 										</SkipLinksProvider>
 									</DangerouslyHoistSlotSizes.Provider>
-								</OpenLayerObserver>
+								</LayerObserverProvider>
 							</LayoutProvider>
 						</TopNavStartProvider>
 					</IsSideNavShortcutEnabledProvider>

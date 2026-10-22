@@ -7743,6 +7743,16 @@ const editorContentStyles = cssMapScoped({
 				},
 		},
 	},
+	// Trim the status text to cap height so the capitals are centred rather than the 16px line box,
+	// which sits ~1px high at fractional zoom on 1x displays because Chrome rounds the font ascent
+	// and half-leading down to whole device pixels. Clip horizontally only so descenders and
+	// accents outside the cap-height box are not cut off.
+	statusStylesTeam26TextTrim: {
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			textBox: 'trim-both cap alphabetic',
+			overflow: 'clip visible',
+		},
+	},
 	// Pre-experiment semantic mapping for every named colour except neutral. Replaced
 	// by statusStylesNamedAccent when platform_editor_update_status_colors is on, and
 	// deleted wholesale when that experiment is cleaned up.
@@ -8582,6 +8592,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					: fg('platform-component-visual-refresh')
 						? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
 						: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
+				isStatusStylesTeam26 &&
+					isExperimentEnabled('platform_status_lozenge_fractional_zoom_fix') &&
+					editorContentStyles.statusStylesTeam26TextTrim,
 				isStatusStylesTeam26 &&
 					isUpdateStatusColorsEnabled &&
 					editorContentStyles.statusStylesNamedAccent,

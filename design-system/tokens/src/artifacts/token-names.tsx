@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d072e16631e9fcbd519ab65335430217>>
+ * @codegen <<SignedSource::10bde040438caa4a9c01e47293268550>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -582,6 +582,14 @@ const tokens = {
 	'space.gap.xsmall': '--ds-space-gap-xsmall',
 	'space.gap.xxlarge': '--ds-space-gap-xxlarge',
 	'space.gap.xxsmall': '--ds-space-gap-xxsmall',
+	'space.inset.3xlarge': '--ds-space-inset-3xlarge',
+	'space.inset.large': '--ds-space-inset-large',
+	'space.inset.medium': '--ds-space-inset-medium',
+	'space.inset.small': '--ds-space-inset-small',
+	'space.inset.xlarge': '--ds-space-inset-xlarge',
+	'space.inset.xsmall': '--ds-space-inset-xsmall',
+	'space.inset.xxlarge': '--ds-space-inset-xxlarge',
+	'space.inset.xxsmall': '--ds-space-inset-xxsmall',
 	'space.negative.025': '--ds-space-negative-025',
 	'space.negative.050': '--ds-space-negative-050',
 	'space.negative.075': '--ds-space-negative-075',
@@ -1196,6 +1204,14 @@ export type CSSTokenMap = {
 	'space.gap.xsmall': 'var(--ds-space-gap-xsmall)';
 	'space.gap.xxlarge': 'var(--ds-space-gap-xxlarge)';
 	'space.gap.xxsmall': 'var(--ds-space-gap-xxsmall)';
+	'space.inset.3xlarge': 'var(--ds-space-inset-3xlarge)';
+	'space.inset.large': 'var(--ds-space-inset-large)';
+	'space.inset.medium': 'var(--ds-space-inset-medium)';
+	'space.inset.small': 'var(--ds-space-inset-small)';
+	'space.inset.xlarge': 'var(--ds-space-inset-xlarge)';
+	'space.inset.xsmall': 'var(--ds-space-inset-xsmall)';
+	'space.inset.xxlarge': 'var(--ds-space-inset-xxlarge)';
+	'space.inset.xxsmall': 'var(--ds-space-inset-xxsmall)';
 	'space.negative.025': 'var(--ds-space-negative-025)';
 	'space.negative.050': 'var(--ds-space-negative-050)';
 	'space.negative.075': 'var(--ds-space-negative-075)';

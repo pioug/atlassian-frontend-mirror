@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { render, type RenderOptions, waitFor } from '@testing-library/react';
+import { fireEvent, render, type RenderOptions, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import '@atlaskit/link-test-helpers/jest/to-be-fired-with-analytic-event-once';
 import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
 import {
@@ -138,6 +139,89 @@ describe('AssetsSearchContainer', () => {
 		const button = await findByTestId(searchButtonTestId);
 		await button.click();
 		await waitFor(() => {
+			expect(mockOnSearch).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('searching the selected schema by default', () => {
+		const aqlInputTestId = 'assets-datasource-modal--aql-search-input';
+		const otherSchema: ObjectSchema = { id: '2', name: 'Customer Assets' };
+
+		const selectSchema = async (name: string) => {
+			const objectSchemaSelect = await screen.findByTestId(objectSchemaSelectTestId);
+			// Open Menu, needs to find the button element to perform click correctly
+			fireEvent.click(objectSchemaSelect.children[0]);
+			fireEvent.click((await screen.findAllByText(name))[0]);
+		};
+
+		it('should fill in the AQL and search when a schema is selected with an empty query', async () => {
+			passGate('platform_lp_sllv_assets_default_schema_aql');
+			await renderAssetsSearchContainer({
+				aql: undefined,
+				objectSchema: undefined,
+				objectSchemas: [objectSchema, otherSchema],
+			});
+
+			await selectSchema(otherSchema.name);
+
+			await waitFor(() => {
+				expect(screen.getByTestId(aqlInputTestId)).toHaveValue('objectSchema = "Customer Assets"');
+			});
+			expect(mockOnSearch).toHaveBeenCalledTimes(1);
+			expect(mockOnSearch).toHaveBeenCalledWith('objectSchema = "Customer Assets"', otherSchema.id);
+		});
+
+		it('should replace the default AQL and search again when a different schema is selected', async () => {
+			passGate('platform_lp_sllv_assets_default_schema_aql');
+			await renderAssetsSearchContainer({
+				aql: undefined,
+				objectSchema: undefined,
+				objectSchemas: [objectSchema, otherSchema],
+			});
+
+			await selectSchema(objectSchema.name);
+			await waitFor(() => {
+				expect(screen.getByTestId(aqlInputTestId)).toHaveValue('objectSchema = "schemaOne"');
+			});
+
+			await selectSchema(otherSchema.name);
+			await waitFor(() => {
+				expect(screen.getByTestId(aqlInputTestId)).toHaveValue('objectSchema = "Customer Assets"');
+			});
+			expect(mockOnSearch).toHaveBeenCalledTimes(2);
+			expect(mockOnSearch).toHaveBeenLastCalledWith(
+				'objectSchema = "Customer Assets"',
+				otherSchema.id,
+			);
+		});
+
+		it('should replace a saved default AQL when editing an existing table and switching schema', async () => {
+			passGate('platform_lp_sllv_assets_default_schema_aql');
+			await renderAssetsSearchContainer({
+				aql: 'objectSchema = "schemaOne"',
+				objectSchema: objectSchema,
+				objectSchemas: [objectSchema, otherSchema],
+			});
+
+			await selectSchema(otherSchema.name);
+
+			await waitFor(() => {
+				expect(screen.getByTestId(aqlInputTestId)).toHaveValue('objectSchema = "Customer Assets"');
+			});
+			expect(mockOnSearch).toHaveBeenCalledWith('objectSchema = "Customer Assets"', otherSchema.id);
+		});
+
+		it('should not fill in the AQL or search when the gate is off', async () => {
+			failGate('platform_lp_sllv_assets_default_schema_aql');
+			await renderAssetsSearchContainer({
+				aql: undefined,
+				objectSchema: undefined,
+				objectSchemas: [objectSchema, otherSchema],
+			});
+
+			await selectSchema(otherSchema.name);
+
+			expect(screen.getByTestId(aqlInputTestId)).toHaveValue('');
 			expect(mockOnSearch).not.toHaveBeenCalled();
 		});
 	});

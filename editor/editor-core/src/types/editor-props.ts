@@ -20,7 +20,6 @@ import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-stat
 import type { FeedbackInfo } from '@atlaskit/editor-common/types/feedback-dialog';
 import type { LinkingOptions } from '@atlaskit/editor-common/types/hyperlink';
 import type { Transformer } from '@atlaskit/editor-common/types/next-editor-plugin';
-import type { PerformanceTracking } from '@atlaskit/editor-common/types/performance-tracking';
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types/quick-insert';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui-toolbar';
@@ -129,7 +128,7 @@ interface EditorBaseProps {
 	contextPanel?: ReactComponents;
 
 	// Set the default editor content.
-	defaultValue?: Node | string | Object;
+	defaultValue?: Node | string | object;
 
 	// Set if the editor should be disabled.
 	disabled?: boolean;
@@ -171,14 +170,6 @@ interface EditorBaseProps {
 	 * ```
 	 */
 	featureFlags?: { [featureFlag: string]: string | boolean };
-
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-	/**
-	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig.ts
-	 * @description The nth keystroke after which an input time taken event is sent, 0 to disable it
-	 * @default 100
-	 */
-	inputSamplingLimit?: number;
 
 	// Enables modernised comment editor chrome and spacing styles.
 	isEditorModernisationEnabled?: boolean;
@@ -290,13 +281,6 @@ export interface EditorSharedPropsWithPlugins {
 
 	// Set for an on save callback.
 	onSave?: (editorView: EditorView) => void;
-
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-	/**
-	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig.ts
-	 * @description Control performance metric measurements and tracking
-	 */
-	performanceTracking?: PerformanceTracking;
 
 	primaryToolbarComponents?: PrimaryToolbarComponents;
 

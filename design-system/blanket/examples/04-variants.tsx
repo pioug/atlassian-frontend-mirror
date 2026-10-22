@@ -3,14 +3,15 @@
  * @jsx jsx
  */
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { bind } from 'bind-event-listener';
 
 import Badge from '@atlaskit/badge/badge';
 import Blanket from '@atlaskit/blanket/blanket';
 import Button from '@atlaskit/button/default/button';
 import { css, cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -66,10 +67,20 @@ const BasicExample = (): JSX.Element => {
 		setCountBlanketClicked((countClicked) => countClicked + 1);
 	}, []);
 
-	useCloseOnEscapePress({
-		onClose: toggleIsTinted,
-		isDisabled: !isTinted,
-	});
+	// Remove the tint when Escape is pressed.
+	useEffect(() => {
+		if (!isTinted) {
+			return;
+		}
+		return bind(window, {
+			type: 'keydown',
+			listener: (event) => {
+				if (event.key === 'Escape') {
+					setIsTinted(false);
+				}
+			},
+		});
+	}, [isTinted]);
 
 	return (
 		<Box>

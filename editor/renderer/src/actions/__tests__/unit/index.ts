@@ -16,6 +16,8 @@ import {
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
@@ -28,6 +30,7 @@ import {
 } from '../../../__tests__/__fixtures__/annotation';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import * as steps from '../../../steps';
+import { getAnnotationMarksWithLegacyContent } from '../../get-annotation-marks-with-legacy-content';
 import RendererActions from '../../index';
 
 const mockArg = {} as any;
@@ -802,5 +805,171 @@ describe.skip('RendererActions', () => {
 				status: 'ambiguous',
 			});
 		});
+	});
+});
+
+describe('RendererActions.getAnnotationMarks with legacy content', () => {
+	const experiment = 'platform_editor_fix_lcm_renderer_annotations';
+	const annotation = (id: string, annotationType = 'inlineComment') => ({
+		type: 'annotation',
+		attrs: { id, annotationType },
+	});
+	const paragraph = (id: string) => ({
+		type: 'paragraph',
+		content: [{ type: 'text', text: id, marks: [annotation(id)] }],
+	});
+	const legacyContent = (content: unknown[]) => ({
+		type: 'extension',
+		attrs: {
+			extensionType: 'com.atlassian.confluence.migration',
+			extensionKey: 'legacy-content',
+			parameters: { nestedContent: { type: 'doc', version: 1, content } },
+		},
+	});
+
+	function initActions(content: unknown[]) {
+		const actions = new RendererActions(true);
+		actions._privateRegisterRenderer(
+			mockArg,
+			defaultSchema.nodeFromJSON({ type: 'doc', version: 1, content }),
+			defaultSchema,
+		);
+		return actions;
+	}
+
+	it('discovers nested marks in root order, including sibling and deeply nested LCMs', () => {
+		mockExpEnabled(experiment);
+		const actions = initActions([
+			paragraph('root-before'),
+			legacyContent([
+				paragraph('nested-one'),
+				{
+					type: 'table',
+					content: [
+						{
+							type: 'tableRow',
+							content: [
+								{
+									type: 'tableCell',
+									content: [legacyContent([paragraph('nested-deep')])],
+								},
+							],
+						},
+					],
+				},
+			]),
+			legacyContent([paragraph('nested-sibling')]),
+			paragraph('root-after'),
+		]);
+		const docBefore = actions.doc?.toJSON();
+		const sizeBefore = actions.doc?.content.size;
+
+		const marks = actions.getAnnotationMarks();
+
+		expect(marks.map((mark) => mark.attrs.id)).toEqual([
+			'root-before',
+			'nested-one',
+			'nested-deep',
+			'nested-sibling',
+			'root-after',
+		]);
+		expect(actions.doc?.toJSON()).toEqual(docBefore);
+		expect(actions.doc?.content.size).toBe(sizeBefore);
+	});
+
+	it('keeps the root ProseMirror mark when root and nested IDs overlap', () => {
+		mockExpEnabled(experiment);
+		const actions = initActions([paragraph('shared'), legacyContent([paragraph('shared')])]);
+		const rootMark = actions.doc?.firstChild?.firstChild?.marks[0];
+
+		expect(actions.getAnnotationMarks()).toEqual([rootMark]);
+		expect(actions.getAnnotationMarks()[0]).toBe(rootMark);
+	});
+
+	it('does not scan legacy content when the experiment is disabled', () => {
+		mockExpDisabled(experiment);
+		const actions = initActions([paragraph('root'), legacyContent([paragraph('nested')])]);
+
+		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['root']);
+	});
+
+	it('recomputes nested marks on each call and drops IDs removed from the document', () => {
+		mockExpEnabled(experiment);
+		const actions = initActions([legacyContent([paragraph('nested')])]);
+
+		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['nested']);
+		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['nested']);
+
+		actions.doc = defaultSchema.nodeFromJSON({ type: 'doc', version: 1, content: [] });
+
+		expect(actions.getAnnotationMarks()).toEqual([]);
+	});
+
+	it('returns no marks when no renderer document is registered', () => {
+		mockExpEnabled(experiment);
+		const unregistered = new RendererActions(true);
+
+		expect(unregistered.getAnnotationMarks()).toEqual([]);
+	});
+
+	it('ignores unrelated extensions, cxhtml, malformed nested content, and invalid marks', () => {
+		mockExpEnabled(experiment);
+		const actions = initActions([
+			{
+				type: 'extension',
+				attrs: {
+					extensionType: 'com.atlassian.confluence.other',
+					extensionKey: 'legacy-content',
+					parameters: { nestedContent: { type: 'doc', content: [paragraph('unrelated')] } },
+				},
+			},
+			{
+				type: 'extension',
+				attrs: {
+					extensionType: 'com.atlassian.confluence.migration',
+					extensionKey: 'legacy-content',
+					parameters: { nestedContent: '<p><span data-comment-id="cxhtml" /></p>' },
+				},
+			},
+			legacyContent([
+				{
+					type: 'paragraph',
+					content: [
+						{ type: 'text', text: 'invalid type', marks: [annotation('wrong-type', 'other')] },
+						{ type: 'text', text: 'empty id', marks: [annotation('  ')] },
+						{
+							type: 'text',
+							text: 'missing id',
+							marks: [{ type: 'annotation', attrs: { annotationType: 'inlineComment' } }],
+						},
+					],
+				},
+			]),
+		]);
+
+		expect(actions.getAnnotationMarks()).toEqual([]);
+	});
+
+	it('handles cyclic nested ADF without losing marks discovered before the cycle', () => {
+		const nestedContent: { content: unknown[]; type: string } = {
+			type: 'doc',
+			content: [paragraph('before-cycle')],
+		};
+		nestedContent.content.push(nestedContent);
+		const legacyExtension = {
+			type: { name: 'extension' },
+			attrs: {
+				extensionType: 'com.atlassian.confluence.migration',
+				extensionKey: 'legacy-content',
+				parameters: { nestedContent },
+			},
+		} as unknown as Node;
+
+		const marks = getAnnotationMarksWithLegacyContent(
+			legacyExtension,
+			defaultSchema.marks.annotation,
+		);
+
+		expect(marks.map((mark) => mark.attrs.id)).toEqual(['before-cycle']);
 	});
 });

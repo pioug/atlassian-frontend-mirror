@@ -15,7 +15,6 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/med
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { FileState } from '@atlaskit/media-client';
 import {
 	getAttrsFromUrl,
 	isImageRepresentationReady,
@@ -24,6 +23,7 @@ import {
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import type { CopyDestination, CopySourceFile } from '@atlaskit/media-client/file-fetcher';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
+import type { FileState } from '@atlaskit/media-client/media-state';
 import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { getClientIdForFile } from '@atlaskit/media-common/clientIdCache';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

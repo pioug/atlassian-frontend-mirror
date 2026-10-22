@@ -10,7 +10,6 @@ export type FullWidthEditorProps = Pick<
 	| 'defaultValue'
 	| 'disabled'
 	| 'mentionProvider'
-	| 'performanceTracking'
 	| 'contextIdentifierProvider'
 	| 'searchProvider'
 	| 'annotationProviders'

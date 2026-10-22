@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
@@ -11,6 +11,8 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension/extensionPluginType';
 
 import type EditorActions from '../../actions';
+import { getAppVendorLookup } from './app-vendor/getAppVendorLookup';
+import { useAppVendorName } from './app-vendor/useAppVendorName';
 import { executeExtensionQuickInsertItem } from './executeExtensionQuickInsertItem';
 import { ExtensionQuickInsertIcon } from './ExtensionQuickInsertIcon';
 
@@ -20,14 +22,31 @@ export const ExtensionQuickInsertMenuItem = ({
 	editorActions,
 	item,
 	onInsert,
+	prefetchVendors,
 }: {
 	apiRef: React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined>;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	editorActions: EditorActions;
 	item: MenuItem;
 	onInsert?: () => void;
+	/** Starts fetching vendor names for every extension item in the menu. */
+	prefetchVendors?: () => void;
 }): React.JSX.Element => {
 	const { editorView, isOffline } = useQuickInsertContext();
+	const vendorName = useAppVendorName(getAppVendorLookup(item)?.id);
+
+	useEffect(() => {
+		prefetchVendors?.();
+	}, [prefetchVendors]);
+
+	const preview = useMemo(
+		() =>
+			vendorName && !item.preview?.attribution
+				? { ...item.preview, attribution: { name: vendorName } }
+				: item.preview,
+		[item.preview, vendorName],
+	);
+
 	const onSelect = useCallback(
 		({ insert, source }: OnSelectContext) => {
 			const result = executeExtensionQuickInsertItem({
@@ -52,7 +71,7 @@ export const ExtensionQuickInsertMenuItem = ({
 			isDisabled={isOffline}
 			lozenge={item.lozenge}
 			onSelect={onSelect}
-			preview={item.preview}
+			preview={preview}
 			description={item.description}
 			title={item.title}
 		/>

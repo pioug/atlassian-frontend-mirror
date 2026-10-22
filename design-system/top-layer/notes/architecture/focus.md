@@ -243,9 +243,16 @@ affected consumers and the options for a general fix.
   `transitionend`-gated focus call (~150ms late on a typical entry animation) is a focus-stealing
   hazard: subsequent user input (e.g. an arrow-left to back out of a nested submenu) can land before
   the deferred `focus()` fires, snapping focus back to a now-stale element.
-- Synchronous inside `useEffect` — no `requestAnimationFrame` wrapper. The host element is already
-  in the top layer when the effect runs (the show layout effect calls `showPopover()` /
-  `showModal()` first), so focus and screen-reader announcement land together.
+- Synchronous inside `useLayoutEffect` — no `requestAnimationFrame` wrapper. `Popover` calls the
+  hook after the show layout effect, so `showPopover()` has run and the host is in the top layer.
+  Focus lands in the same task as the open, before the browser paints, so the first frame already
+  shows focus where it belongs and the content's own `useEffect`s see it there.
+- **Content that moves focus itself.** Content that calls `.focus()` in its own layout effect (or a
+  class `componentDidMount`, as `react-select`'s `autoFocus` does) runs before initial focus, as
+  before. Content that calls `.focus()` in a `useEffect` now runs after it, so its focus wins and
+  listeners see two focus moves. Before the move to a layout effect, initial focus ran after it and
+  overrode it. To choose the target, use `initialFocusRef` (`setInitialFocusRef` in
+  `@atlaskit/popup`) instead.
 - Only used in `Popover`, not `Dialog`.
 
 #### Known limitation: programmatic reopen with consumer-managed focus
@@ -277,9 +284,10 @@ the first `[autofocus]` element, then the first focusable element.
 - **Popup:** `@atlaskit/popup` passes its `setInitialFocusRef` target only for roles that move
   focus. `useRoleProps` (`popup/src/internal/top-layer-bridge.tsx`) puts `initialFocusRef` only on
   those role variants, so the types hold the whole way down.
-- **Timing:** read in the same effect as the role default, so our code moves focus once. Set the ref
-  before the open commits, for example as the `ref` of an element in `children`. Content that mounts
-  later does not get focus.
+- **Timing:** read in the same layout effect as the role default, so our code moves focus once. Set
+  the target in a ref callback (for example as the `ref` of an element in `children`) or in the
+  content's own layout effect, which runs first. A target set in the content's `useEffect` is too
+  late, and the role default takes focus. Content that mounts later does not get focus.
 - **Native autofocus runs first:** `showPopover()` runs the popover focusing steps, so an
   `[autofocus]` element takes focus before the effect. The target then takes focus, so listeners see
   two focus moves. The jsdom polyfill does the same.

@@ -6,7 +6,6 @@ import { type ReactNode, useCallback, useContext, useMemo, useRef } from 'react'
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
@@ -113,15 +112,6 @@ export function MenuPortalTopLayer<
 		onClose: handlePopoverClose,
 	});
 
-	// Explicit observer registration: the outer Popover is intentionally
-	// roleless (see Popover comment below), so Popover cannot auto-register
-	// from its role. This lets `closeLayers()` (Modal / Drawer) dismiss us.
-	useNotifyOpenLayerObserver({
-		type: 'popup',
-		isOpen: isAnchored,
-		onClose: handlePopoverClose,
-	});
-
 	// Top-layer owns positioning; zero offset/rect preserves the consumer
 	// styles call shape.
 	const { className } = getStyleProps(
@@ -131,10 +121,14 @@ export function MenuPortalTopLayer<
 	);
 
 	// Popover stays mounted and is driven by `isOpen` so its layout-effect
-	// teardown (`hidePopover`, observer cleanup, position-hook style reset)
+	// teardown (`hidePopover`, position-hook style reset)
 	// runs against a live element. Conditional render would skip that path.
 	//
 	// Select owns dismissal so both its external control and menu count as inside.
+	//
+	// Passing `onClose` makes the menu a closable open layer: `hasOpenDialogOrPopover()`
+	// counts it, and `requestClosePopovers()` (Modal / Drawer) closes it
+	// through `onClose({ reason: 'programmatic' })`.
 	//
 	// The Popover host is intentionally roleless: the inner `MenuList`
 	// keeps `role="listbox"` and the id referenced by `aria-controls`.

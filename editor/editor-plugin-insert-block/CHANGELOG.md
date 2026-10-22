@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 30.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.3
+
+### Patch Changes
+
+- [`d2ab481bc48f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2ab481bc48f5) -
+  Render the registered Insert toolbar button before EditorView is attached under
+  platform_editor_ssr_toolbar_optimistic, preventing late insertion when
+  platform_editor_slash_command is enabled.
+- Updated dependencies
+
 ## 30.0.2
 
 ### Patch Changes

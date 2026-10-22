@@ -40,13 +40,13 @@ import { isIntersectionObserverSupported } from './isIntersectionObserverSupport
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BlockCardComponent extends React.PureComponent<
-	SmartCardProps & { id?: string },
+	SmartCardProps & { id: string },
 	unknown
 > {
 	private scrollContainer?: HTMLElement;
 	private pendingRegisterCard?: ReturnType<typeof rafSchedule>;
 
-	constructor(props: SmartCardProps & { id?: string }) {
+	constructor(props: SmartCardProps & { id: string }) {
 		super(props);
 		this.scrollContainer =
 			isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
@@ -67,20 +67,28 @@ export class BlockCardComponent extends React.PureComponent<
 		// don't dispatch immediately since we might be in the middle of
 		// rendering a nodeview
 		const scheduleRegisterCard = rafSchedule(() => {
-			const pos = getPos();
+			if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+				if (this.removeCardDispatched || getPos() === undefined) {
+					return;
+				}
+				const { pluginInjectionApi, id } = this.props;
+				pluginInjectionApi?.card.actions?.registerCard({ id, title, url, getPos });
+			} else {
+				const pos = getPos();
 
-			if (typeof pos !== 'number') {
-				return;
+				if (typeof pos !== 'number') {
+					return;
+				}
+
+				view.dispatch(
+					registerCard({
+						title,
+						url,
+						pos,
+						id: this.props.id,
+					})(view.state.tr),
+				);
 			}
-
-			view.dispatch(
-				registerCard({
-					title,
-					url,
-					pos,
-					id: this.props.id,
-				})(view.state.tr),
-			);
 		});
 		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
 			this.pendingRegisterCard = scheduleRegisterCard;
@@ -103,9 +111,14 @@ export class BlockCardComponent extends React.PureComponent<
 			return;
 		}
 		this.removeCardDispatched = true;
-		const { tr } = this.props.view.state;
-		removeCard({ id: this.props.id })(tr);
-		this.props.view.dispatch(tr);
+		if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+			const { pluginInjectionApi, id } = this.props;
+			pluginInjectionApi?.card.actions?.removeRegisteredCard(id);
+		} else {
+			const { tr } = this.props.view.state;
+			removeCard({ id: this.props.id })(tr);
+			this.props.view.dispatch(tr);
+		}
 	}
 
 	gapCursorSpan = (): React.JSX.Element | undefined => {

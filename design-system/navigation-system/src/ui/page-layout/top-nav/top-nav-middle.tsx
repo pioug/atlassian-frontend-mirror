@@ -7,6 +7,7 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { openLayerObserverTopNavMiddleNamespace } from '../constants';
@@ -90,9 +91,14 @@ export function TopNavMiddle({
 }): JSX.Element {
 	return (
 		<div css={styles.root}>
-			<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavMiddleNamespace}>
-				{children}
-			</OpenLayerObserverNamespaceProvider>
+			{/* Nothing reads this namespace. The observer is not used when the top-layer gate is on. */}
+			{fg('platform-dst-top-layer') ? (
+				children
+			) : (
+				<OpenLayerObserverNamespaceProvider namespace={openLayerObserverTopNavMiddleNamespace}>
+					{children}
+				</OpenLayerObserverNamespaceProvider>
+			)}
 		</div>
 	);
 }

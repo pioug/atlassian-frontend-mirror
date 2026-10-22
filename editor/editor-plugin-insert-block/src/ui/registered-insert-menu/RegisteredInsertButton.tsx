@@ -20,6 +20,7 @@ import { AddIcon } from '@atlaskit/editor-toolbar/add-icon';
 import { ToolbarButton } from '@atlaskit/editor-toolbar/toolbar-button';
 import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import { RegisteredInsertMenuContent } from './RegisteredInsertMenuContent';
@@ -37,6 +38,7 @@ type Props = {
  */
 export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null => {
 	const { editorView } = useEditorToolbar();
+	const isOptimistic = isExperimentEnabled('platform_editor_ssr_toolbar_optimistic');
 	const { formatMessage } = useIntl();
 	const { isDisabled, popupsBoundariesElement, popupsMountPoint, popupsScrollableElement } =
 		useToolbarUI();
@@ -66,8 +68,12 @@ export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null
 		}
 	}, []);
 	const open = useCallback(() => {
+		// Early clicks must not queue a popup to open when the editor becomes ready.
+		if (!editorView) {
+			return;
+		}
 		setIsOpen(true);
-	}, []);
+	}, [editorView]);
 	const onPopupUnmount = useCallback(() => {
 		// Outside dismissal must not move focus away from the element that was clicked.
 		setIsOpen(false);
@@ -75,7 +81,7 @@ export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null
 	const closeAndRestoreFocus = useCallback(() => close(true), [close]);
 	const closeForSelection = useCallback(() => close(false), [close]);
 
-	if (!api?.insertBlock || !editorView) {
+	if (!api?.insertBlock || (!editorView && !isOptimistic)) {
 		return null;
 	}
 
@@ -92,14 +98,15 @@ export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null
 				<ToolbarButton
 					ariaKeyshortcuts={getAriaKeyshortcuts(insertElements)}
 					iconBefore={<AddIcon size="small" label={formatMessage(messages.insertMenu)} />}
-					isDisabled={!isAllowed || isDisabled}
+					// Keep the optimistic SSR button visible before the live view is attached.
+					isDisabled={isDisabled || ((!isOptimistic || !!editorView) && !isAllowed)}
 					isSelected={isOpen}
 					onClick={isOpen ? () => close(true) : open}
 					ref={buttonRef}
 					testId={TOOLBAR_BUTTON_TEST_ID.INSERT}
 				/>
 			</ToolbarTooltip>
-			{isOpen && buttonRef.current && (
+			{isOpen && buttonRef.current && editorView && (
 				<Popup
 					alignX="right"
 					boundariesElement={popupsBoundariesElement}

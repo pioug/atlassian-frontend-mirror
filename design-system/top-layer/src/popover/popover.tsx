@@ -10,19 +10,15 @@ import { bind } from 'bind-event-listener';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import once from '@atlaskit/ds-lib/once';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
+import { requestCloseEventName } from '../internal/closable-popover-contract';
 import { isNativeElementOpen } from '../internal/is-native-element-open';
 import {
 	resolvePlacement,
 	type TPlacementAxis,
 	type TPlacementEdge,
 } from '../internal/resolve-placement';
-import {
-	type TRoleRequiringAccessibleName,
-	type TRoleWithImplicitName,
-} from '../internal/role-types';
 import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
@@ -238,19 +234,6 @@ const popupMotionStyles: Record<TPlacementAxis, Record<TPlacementEdge, Record<st
 type TPopoverMode = 'auto' | 'hint' | 'manual';
 
 /**
- * Roles registered with the open layer observer as `popup`, so `closeLayers()`
- * dismisses them. `modal` comes from Dialog only; other layer types are unused.
- */
-const POPUP_ROLES: Set<TRoleRequiringAccessibleName | TRoleWithImplicitName> = new Set([
-	'menu',
-	'listbox',
-	'dialog',
-	'alertdialog',
-	'tree',
-	'grid',
-]);
-
-/**
  * Unopinionated top-layer primitive. Owns visibility and animation only;
  * compose with `useAnchoredPopover` for positioning and sizing.
  *
@@ -321,19 +304,9 @@ export const Popover: React.ForwardRefExoticComponent<
 		onCloseRef.current = onClose;
 	}, [onClose]);
 
-	// Register with open layer observer so `closeLayers()` and open-count
-	// subscriptions work. Only popup-like roles register as `popup`; passive
-	// roles (tooltip, status, etc.) leave `type` undefined. Without `onClose`
-	// the layer cannot be closed, so it does not register.
-	const handleObserverClose = useCallback(() => {
-		onCloseRef.current?.({ reason: 'programmatic' });
-	}, []);
-
-	useNotifyOpenLayerObserver({
-		type: role && POPUP_ROLES.has(role) ? 'popup' : undefined,
-		isOpen: isOpen && Boolean(onClose),
-		onClose: handleObserverClose,
-	});
+	// A popover with `onClose` is closable (see `closable-popover-contract`).
+	// `requestClosePopovers()` asks it to close; the consumer decides.
+	const isClosable = Boolean(onClose);
 
 	// `hint` falls back to `auto` when unsupported: closest behavior (light
 	// dismiss works), but `auto` participates in the auto-dismiss stack so it
@@ -409,13 +382,12 @@ export const Popover: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Focus management: initial focus on entry (role-dependent), Tab cycling
-	// for dialog roles. Restoration is native for outermost popovers; nested
-	// popovers are handled above via the `beforetoggle` snapshot.
-	// Passing `phase` keeps `useFocusWrap` attached through the animated-exit
-	// window (WCAG 2.4.3 guard). See notes/architecture/focus.md.
+	// Focus management: Tab cycling for dialog roles. Initial focus is below
+	// the show/hide layout effect. Restoration is native for outermost
+	// popovers; nested popovers are handled above via the `beforetoggle`
+	// snapshot. Passing `phase` keeps `useFocusWrap` attached through the
+	// animated-exit window (WCAG 2.4.3 guard). See notes/architecture/focus.md.
 	useFocusWrap({ elementRef: ownRef, role, phase });
-	useInitialFocus({ elementRef: ownRef, initialFocusRef, phase, role });
 
 	// Bind via `useLayoutEffect`, and BEFORE the show/hide layout effect
 	// below, so listeners are attached when `showPopover()` synchronously
@@ -459,10 +431,20 @@ export const Popover: React.ForwardRefExoticComponent<
 			},
 		});
 
+		// `requestClosePopovers()` asks the consumer to close. Nothing is
+		// hidden here, so a consumer that keeps `isOpen` stays in sync.
+		const unbindRequestClose = bind(element, {
+			type: requestCloseEventName,
+			listener: () => {
+				onCloseRef.current?.({ reason: 'programmatic' });
+			},
+		});
+
 		return () => {
 			unbindEscape();
 			unbindToggle();
 			unbindBeforeToggle();
+			unbindRequestClose();
 		};
 	}, [handleBeforeToggle, handleToggleClosed, isMounted, onBeforeToggle, onToggle]);
 
@@ -497,6 +479,12 @@ export const Popover: React.ForwardRefExoticComponent<
 		} catch {}
 	}, [isOpen]);
 
+	// Initial focus (role-dependent) is a layout effect, so it must come AFTER
+	// the show/hide layout effect above: React runs layout effects in source
+	// order, and focus only works once `showPopover()` has run. Focus then
+	// lands in the same task as the open, before the browser paints.
+	useInitialFocus({ elementRef: ownRef, initialFocusRef, phase, role });
+
 	// Unmount the host once exit completes so it does not leave an empty
 	// `role`/`popover` element in the accessibility tree. The element
 	// remounts on the next open; the `popoverId` is stable across opens.
@@ -512,6 +500,8 @@ export const Popover: React.ForwardRefExoticComponent<
 			// eslint-disable-next-line react/no-unknown-property -- popover attribute not yet in React types
 			popover={mode}
 			role={role}
+			// Keep in sync with `closablePopoverAttribute` (internal/closable-popover-contract).
+			data-top-layer-closable={isClosable ? '' : undefined}
 			aria-label={label}
 			aria-labelledby={labelledBy}
 			data-testid={testId}

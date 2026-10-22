@@ -178,6 +178,9 @@
 			"path": "../textarea/tsconfig.app.json"
 		},
 		{
+			"path": "../textfield/tsconfig.app.json"
+		},
+		{
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{

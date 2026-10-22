@@ -12,10 +12,10 @@ export function createPlugin(dispatch: Dispatch<WidthPluginState>): SafePlugin |
 			init: () => {
 				return {
 					// The init value of width is a placeholder, it cannot be 0,
-					// we use `window.outerWidth` window dimension,
-					// Which will not cause reflow at the start.
+					// we use the window dimension, which will not cause reflow at the start.
+					// `innerWidth` excludes browser chrome and follows page zoom, unlike `outerWidth`.
 					width: isExperimentEnabled('platform_editor_reduce_forced_layout')
-						? window.outerWidth
+						? window.innerWidth
 						: document.body.offsetWidth,
 				};
 			},

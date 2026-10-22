@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import type { FieldProps } from '@atlaskit/form/field';
-import { Layering } from '@atlaskit/layering/layering';
 import type { Status } from '@atlaskit/linking-types/datasource';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import type { FilterOptionOption } from '@atlaskit/react-select/filters';
@@ -16,6 +15,7 @@ import type { ExecuteFetch } from '../../../../state/actions';
 import { getCleanedSelectProps } from '../../get-cleaned-select-props';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { InlineEditLayer } from '../inline-edit-layer';
 
 interface StatusEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'status'>;
@@ -52,7 +52,7 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<Layering isDisabled={false}>
+		<InlineEditLayer>
 			<Select<Status>
 				{...getCleanedSelectProps(props)}
 				menuPortalTarget={document.body}
@@ -87,7 +87,7 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 				}
 				shouldPreventEscapePropagation
 			/>
-		</Layering>
+		</InlineEditLayer>
 	);
 };
 

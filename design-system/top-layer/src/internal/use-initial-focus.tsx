@@ -1,4 +1,6 @@
-import { type RefObject, useEffect, useRef } from 'react';
+import { type RefObject, useRef } from 'react';
+
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { type TPhase } from './use-animated-visibility';
@@ -280,15 +282,20 @@ function getInitialFocusTarget({
  * collapsed: the `prevPhase` ref guard rejects any transition whose
  * previous phase was not `closed` or `exiting`.
  *
- * Tradeoff vs the previous `requestAnimationFrame` based approach: we no
- * longer wait one paint before focusing. The element is already attached
- * and in the top layer when this effect runs (the show / hide layout
- * effect runs first), so screen-reader announcement and visible focus
- * land together. If a regression appears that needs the extra paint
- * (e.g. browsers that require a layout pass before `focus()` works on a
- * freshly promoted top-layer element), wrap the `focus()` call in a
- * single `requestAnimationFrame` here and re-add a same-element ref
- * check inside the RAF callback.
+ * Runs in a layout effect, so focus lands in the same task as the open,
+ * before the browser paints. Call it AFTER the layout effect that calls
+ * `showPopover()`: React runs a component's layout effects in source order,
+ * and a hidden popover cannot take focus.
+ *
+ * An `initialFocusRef` target must be set by then: in a ref callback, a
+ * child's layout effect, or during render. A child's `useEffect` runs later
+ * and its target is missed.
+ *
+ * If a regression appears that needs a paint before focusing (e.g. browsers
+ * that require a layout pass before `focus()` works on a freshly promoted
+ * top-layer element), wrap the `focus()` call in a single
+ * `requestAnimationFrame` here and re-add a same-element ref check inside
+ * the RAF callback.
  */
 export function useInitialFocus({
 	elementRef,
@@ -323,7 +330,7 @@ export function useInitialFocus({
 	// the consumer toggles in the same frame are still collapsed.
 	const prevPhaseRef = useRef<TPhase>('closed');
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const prevPhase = prevPhaseRef.current;
 		prevPhaseRef.current = phase;
 

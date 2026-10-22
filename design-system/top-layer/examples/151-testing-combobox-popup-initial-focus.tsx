@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
@@ -288,13 +288,14 @@ function DialogPopup({
 	);
 }
 
-// Focuses itself on mount, so it is the active element when the dialog's
-// initial focus runs.
+// Focuses itself on mount, in a layout effect, so it is the active element when
+// the dialog's initial focus runs (also a layout effect, after this one). This
+// is what react-select's `autoFocus` does, in `componentDidMount`.
 function InnerCombobox() {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const listboxId = usePopoverId();
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		inputRef.current?.focus();
 	}, []);
 

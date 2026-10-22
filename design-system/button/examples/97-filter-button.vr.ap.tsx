@@ -4,6 +4,7 @@ import FilterButton from '@atlaskit/button/filter-button';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import FilterIcon from '@atlaskit/icon/core/filter';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
@@ -21,6 +22,9 @@ export default function FilterButtonExample(): React.JSX.Element {
 					Filter
 				</FilterButton>
 				<FilterButton hasChevronDown={false}>Filter</FilterButton>
+				<FilterButton iconBefore={FilterIcon} trailingMetric={8}>
+					Filter
+				</FilterButton>
 			</Inline>
 			<Inline space="space.100">
 				<FilterButton trailingMetric={8} hasChevronDown={false} spacing="compact">

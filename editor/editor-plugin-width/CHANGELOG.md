@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-width
 
+## 30.0.1
+
+### Patch Changes
+
+- [`7e9b540abc74b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e9b540abc74b) -
+  Behind `platform_editor_reduce_forced_layout`, use `window.innerWidth` instead of
+  `window.outerWidth` for the width plugin's initial placeholder width. `outerWidth` includes
+  browser chrome and ignores page zoom, so content first rendered against an overstated width and
+  shifted once the real width was measured.
+- Updated dependencies
+
 ## 30.0.0
 
 ### Patch Changes

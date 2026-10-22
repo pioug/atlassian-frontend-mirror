@@ -43,6 +43,7 @@ import { ReactionPicker, type ReactionPickerProps } from './ReactionPicker';
 import { ReactionsDialog } from './ReactionsDialog';
 import { ReactionSummaryView } from './ReactionSummaryView';
 import { type SelectorProps } from './Selector';
+import { RENDER_TRIGGER_BUTTON_TESTID } from './Trigger';
 
 const wrapperStyle = css({
 	display: 'flex',
@@ -621,6 +622,120 @@ export const Reactions: React.MemoExoticComponent<
 			return [...memorizedReactions].sort((a, b) => b?.count - a?.count);
 		}, [memorizedReactions]);
 
+		const wrapperRef = useRef<HTMLDivElement>(null);
+		/**
+		 * The reaction button the user activated while it had focus, with the order of the reactions shown alongside it
+		 */
+		const activatedReactionRef = useRef<{
+			button: HTMLElement;
+			emojiId: string;
+			list: HTMLElement | null;
+			shownEmojiIds: string[];
+		} | null>(null);
+
+		const trackActivatedReaction = useCallback(
+			(
+				emojiId: string,
+				event: React.MouseEvent<HTMLButtonElement>,
+				shownReactions: ReactionSummary[],
+			) => {
+				const button = event.currentTarget;
+				// Only keyboard and screen reader users, or mouse clicks that focus the button, can lose focus with it
+				if (button.ownerDocument.activeElement !== button) {
+					activatedReactionRef.current = null;
+					return;
+				}
+				activatedReactionRef.current = {
+					button,
+					emojiId,
+					// Read now, as a removed button no longer has ancestors
+					list: button.closest('ul'),
+					shownEmojiIds: shownReactions.map((reaction) => reaction.emojiId),
+				};
+				// Focus moved away by the user while the button is still shown was not lost with it.
+				// Chrome fires focusout before detaching a removed button, so check once the removal has finished.
+				button.addEventListener(
+					'focusout',
+					() =>
+						queueMicrotask(() => {
+							if (button.isConnected && activatedReactionRef.current?.button === button) {
+								activatedReactionRef.current = null;
+							}
+						}),
+					{ once: true },
+				);
+			},
+			[],
+		);
+
+		const handleTrackedReactionClick = useCallback(
+			(emojiId: string, event: React.MouseEvent<HTMLButtonElement>) => {
+				trackActivatedReaction(emojiId, event, memorizedReactions);
+				onReactionClick(emojiId, event);
+			},
+			[memorizedReactions, onReactionClick, trackActivatedReaction],
+		);
+
+		const handleTrackedSummaryViewReactionClick = useCallback(
+			(emojiId: string, event: React.MouseEvent<HTMLButtonElement>) => {
+				trackActivatedReaction(emojiId, event, sortedReactions);
+				handleSummaryViewReactionClick(emojiId, event);
+			},
+			[handleSummaryViewReactionClick, sortedReactions, trackActivatedReaction],
+		);
+
+		/**
+		 * Restore focus when the activated reaction button leaves the DOM, either because the reaction was removed or
+		 * because the reactions re-rendered in a different layout, rather than losing it to the document body
+		 */
+		useEffect(() => {
+			if (!fg('platform_a11y_reactions_removal_focus')) {
+				return;
+			}
+			const activatedReaction = activatedReactionRef.current;
+			// Only the first update after an activation can be its result
+			activatedReactionRef.current = null;
+			const wrapper = wrapperRef.current;
+			if (!activatedReaction || activatedReaction.button.isConnected || !wrapper) {
+				return;
+			}
+
+			const { activeElement } = wrapper.ownerDocument;
+			// Never take focus from where the user has since moved it
+			if (activeElement && activeElement !== wrapper.ownerDocument.body) {
+				return;
+			}
+
+			// The summary view tray can be portalled outside the wrapper, so search the activated button's list first
+			const { list } = activatedReaction;
+			const findReactionButton = (emojiId: string) =>
+				[list?.isConnected ? list : null, wrapper]
+					.flatMap((root) =>
+						root ? Array.from(root.querySelectorAll<HTMLElement>('button[data-emoji-id]')) : [],
+					)
+					.find((button) => button.dataset.emojiId === emojiId);
+
+			const { emojiId, shownEmojiIds } = activatedReaction;
+			const index = shownEmojiIds.indexOf(emojiId);
+			const focusCandidates = [
+				// The same reaction re-rendered, e.g. a quick reaction going back to a zero count
+				() => findReactionButton(emojiId),
+				...shownEmojiIds.slice(index + 1).map((id) => () => findReactionButton(id)),
+				() => wrapper.querySelector<HTMLElement>(`[data-testid="${RENDER_TRIGGER_BUTTON_TESTID}"]`),
+				...shownEmojiIds
+					.slice(0, index)
+					.reverse()
+					.map((id) => () => findReactionButton(id)),
+			];
+			for (const findCandidate of focusCandidates) {
+				const candidate = findCandidate();
+				if (candidate?.isConnected) {
+					candidate.focus();
+					return;
+				}
+			}
+		}, [memorizedReactions]);
+
 		/**
 		 * event handler to open dialog with selected reaction
 		 * @param emojiId initial emoji id to load dialog with
@@ -652,7 +767,9 @@ export const Reactions: React.MemoExoticComponent<
 				rootElement={rootElement}
 				reaction={reaction}
 				emojiProvider={emojiProvider}
-				onClick={onReactionClick}
+				onClick={
+					fg('platform_a11y_reactions_removal_focus') ? handleTrackedReactionClick : onReactionClick
+				}
 				onMouseEnter={handleReactionMouseEnter}
 				onFocused={handleReactionFocused}
 				flash={flash[reaction.emojiId]}
@@ -696,6 +813,7 @@ export const Reactions: React.MemoExoticComponent<
 		return (
 			<UFOSegment name="reactions">
 				<div
+					ref={wrapperRef}
 					css={[
 						wrapperStyle,
 						noWrap && noFlexWrapStyles,
@@ -712,7 +830,11 @@ export const Reactions: React.MemoExoticComponent<
 									flash={flash}
 									particleEffectByEmoji={particleEffectByEmoji}
 									onSelection={handleOnSelection}
-									onReactionClick={handleSummaryViewReactionClick}
+									onReactionClick={
+										fg('platform_a11y_reactions_removal_focus')
+											? handleTrackedSummaryViewReactionClick
+											: handleSummaryViewReactionClick
+									}
 									onReactionFocused={handleReactionFocused}
 									onReactionMouseEnter={handleReactionMouseEnter}
 									placement={summaryViewPlacement}

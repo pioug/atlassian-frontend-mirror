@@ -71,7 +71,7 @@ export interface SmartCardProps extends CardProps {
 	isHovered?: boolean;
 	isPageSSRed?: boolean;
 	onClick?: EventHandler<MouseEvent | KeyboardEvent> | undefined;
-	onResolve?: (tr: Transaction, title?: string) => void;
+	onResolve?: (tr: Transaction | undefined, title?: string) => void;
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	provider?: Providers['cardProvider'];
 	smartCardContext?: CardContext;
@@ -136,13 +136,11 @@ const WithClickHandler = ({
  * @param UnsupportedComponent
  * @example
  */
-export function Card(
-	SmartCardComponent: React.ComponentType<
-		React.PropsWithChildren<SmartCardProps & { id?: string }>
-	>,
+export function Card<Props extends SmartCardProps>(
+	SmartCardComponent: React.ComponentType<React.PropsWithChildren<Props>>,
 	UnsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>,
-): React.ComponentType<React.PropsWithChildren<CardProps>> {
-	return class extends React.Component<CardProps> {
+): React.ComponentType<React.PropsWithChildren<Props>> {
+	return class extends React.Component<Props> {
 		state = {
 			isError: false,
 		};

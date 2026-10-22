@@ -5,7 +5,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { UnAuthClient } from '@atlaskit/link-test-helpers';
+import { UnAuthClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 

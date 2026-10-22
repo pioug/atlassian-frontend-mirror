@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { UnicornResolvedClient } from '@atlaskit/link-test-helpers';
+import { UnicornResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { SnippetElement } from '@atlaskit/smart-card/flexible/snippet-element';
 export default function Preview(): React.JSX.Element {

@@ -186,6 +186,8 @@ export interface RendererProps {
 	includeNodesCountInStats?: boolean;
 	innerRef?: React.RefObject<HTMLDivElement>;
 	isInsideOfInlineExtension?: boolean;
+	/** Document activation decided by the host product. Defaults to false. */
+	isPerformanceModeActive?: boolean;
 	isTopLevelRenderer?: boolean;
 	maxHeight?: number;
 	media?: MediaOptions;

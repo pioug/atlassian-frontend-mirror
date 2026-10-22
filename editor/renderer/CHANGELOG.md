@@ -1,5 +1,41 @@
 # @atlaskit/renderer
 
+## 152.2.0
+
+### Minor Changes
+
+- [`5157e2c52cfcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5157e2c52cfcd) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 152.1.1
+
+### Patch Changes
+
+- [`deffb3655ce41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/deffb3655ce41) -
+  Add platform_native_embeds_rollout_all_products alongside the existing non-MAUI rollout gate so
+  native embeds can roll out independently across host products.
+- Updated dependencies
+
+## 152.1.0
+
+### Minor Changes
+
+- [`29dedebbe1445`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29dedebbe1445) -
+  Expose host-derived performance mode activation through renderer context and custom serializer
+  initialization. Confluence supplies activation behind confluence_view_page_performance_mode; no
+  rendering optimizations are enabled by this API.
+
+### Patch Changes
+
+- [`ecf2ff276250a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecf2ff276250a) -
+  Include the annotation id in existing annotation viewed analytics so products can classify the
+  comment target.
+
 ## 152.0.2
 
 ### Patch Changes

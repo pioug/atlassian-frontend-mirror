@@ -30,8 +30,9 @@ type TInitialFocusProps =
 			role: TRoleWithInitialFocus;
 			/**
 			 * The element that takes focus when the popover opens, in place of the
-			 * default for its `role`. Read once per open, so set it before the open
-			 * commits (for example as the `ref` of an element in `children`). It is
+			 * default for its `role`. Read once per open, in a layout effect, so set
+			 * it in a ref callback (for example as the `ref` of an element in
+			 * `children`) or a layout effect. A `useEffect` is too late. It is
 			 * ignored when it holds no element, or an element outside the popover.
 			 * When a combobox controls the popover, focus stays on the combobox.
 			 *
@@ -64,8 +65,9 @@ export type TPopoverForwardedProps = TPopoverBaseProps &
 		/**
 		 * Called when the popover asks to close. See `TPopoverProps` for each `reason`.
 		 *
-		 * Also opts the popover into the open layer observer: only a popover with
-		 * `onClose` registers, so only it can be closed by `closeLayers()`.
+		 * Also makes the popover closable: only a popover with
+		 * `onClose` is counted by `hasOpenDialogOrPopover()` and asked to close by
+		 * `requestClosePopovers()` (`@atlaskit/top-layer/page-surface/request-close-popovers`).
 		 */
 		onClose?: (args: { reason: TPopoverCloseReason }) => void;
 		role?: TRoleRequiringAccessibleName | TRoleWithImplicitName;
@@ -227,20 +229,21 @@ export type TPopoverProps = TPopoverBaseProps &
 				 * The `reason` field indicates how the close was requested:
 				 * - `'escape'`: the user pressed the Escape key.
 				 * - `'light-dismiss'`: the user clicked outside (or another auto-dismiss).
-				 * - `'programmatic'`: the open layer observer's `closeLayers()` asked
-				 *   every open layer to close (for example, the side navigation toggle).
-				 *   The popover stays open until the consumer sets `isOpen` to `false`.
+				 * - `'programmatic'`: `requestClosePopovers()` asked every open closable
+				 *   popover to close (for example, the side navigation toggle). The popover stays
+				 *   open until the consumer sets `isOpen` to `false`.
 				 */
 				onClose: (args: { reason: TPopoverCloseReason }) => void;
 		  }
 		| {
 				mode: 'manual';
 				/**
-				 * Enables programmatic close through the open layer observer. When
-				 * provided, the popover registers as an open layer, and `closeLayers()`
-				 * calls this with `reason: 'programmatic'`. Set `isOpen` to `false` in
-				 * response. Without it, the popover does not register, so `closeLayers()`
-				 * cannot close it and it is not counted as an open layer.
+				 * Makes the popover closable. When provided,
+				 * `hasOpenDialogOrPopover()` counts the popover while it is open, and
+				 * `requestClosePopovers()` calls this with `reason: 'programmatic'`.
+				 * Set `isOpen` to `false` in response. Without it, the popover is not
+				 * closable: `requestClosePopovers()` cannot close it and
+				 * `hasOpenDialogOrPopover()` does not count it.
 				 *
 				 * Manual popovers have no light dismiss, so this is the only reason
 				 * they receive.

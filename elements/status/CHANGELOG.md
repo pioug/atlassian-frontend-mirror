@@ -1,5 +1,26 @@
 # @atlaskit/status
 
+## 5.14.0
+
+### Minor Changes
+
+- [`5157e2c52cfcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5157e2c52cfcd) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.13.25
+
+### Patch Changes
+
+- [`cd33055ac8c87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd33055ac8c87) -
+  Behind the platform_status_lozenge_fractional_zoom_fix experiment: centre editor status text on
+  cap height so it no longer sits ~1px high at fractional browser zoom on 1x displays, and lay out
+  status colour swatches on a fixed-column grid so they no longer wrap an extra row there.
+
 ## 5.13.24
 
 ### Patch Changes

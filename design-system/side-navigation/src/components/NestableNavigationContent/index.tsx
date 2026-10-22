@@ -7,7 +7,6 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import { css, jsx } from '@compiled/react';
 
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import useChildIds from '../../common/use-child-ids';
 import { GoBackItem as GoBackButton } from '../Item/go-back-item';
@@ -151,7 +150,7 @@ export const NestableNavigationContent: (props: NestableNavigationContentProps) 
 	const backTestId = testId && `${testId}--go-back-item`;
 	const [activeParentId, setActiveParentId] = useState<string>('');
 	const [focusGoBackButton, setFocusGoBackButton] = useState(false);
-	const shouldFocus = isDefaultFocusControl && fg('platform-side-navigation-keyboard-focus');
+	const shouldFocus = isDefaultFocusControl;
 
 	const renderGoBackItem =
 		overrides && overrides.GoBackItem && overrides.GoBackItem.render

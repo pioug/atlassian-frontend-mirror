@@ -3,7 +3,7 @@ import React from 'react';
 import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { UnAuthClient } from '@atlaskit/link-test-helpers';
+import { UnAuthClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 
 import { currentSiteCloudIdService } from '../../src/state/services/current-site-cloud-id';
 import { personalizationConstants } from '../../src/state/services/personalization/constants';

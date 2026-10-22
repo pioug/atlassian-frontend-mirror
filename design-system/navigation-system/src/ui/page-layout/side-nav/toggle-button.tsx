@@ -14,6 +14,8 @@ import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-close-popovers';
 
 import { IconButton } from '../../top-nav-items/themed/icon-button';
 import { SideNavToggleButtonAttachRef } from './side-nav-toggle-button-attach-ref';
@@ -195,7 +197,7 @@ export const SideNavToggleButton: ({
 	const toggleVisibility = useToggleSideNav({ trigger: 'toggle-button' });
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const openLayerObserver = useOpenLayerObserver();
+	const openLayerObserver = useOpenLayerObserver({ isEnabled: !fg('platform-dst-top-layer') });
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {
@@ -203,6 +205,8 @@ export const SideNavToggleButton: ({
 
 			toggleVisibility();
 
+			// Not gated. Top-layer tooltips (`platform-dst-top-layer-tooltip`) are not known to the observer.
+			requestClosePopovers();
 			openLayerObserver?.closeLayers();
 		},
 		[isSideNavExpanded, onClick, openLayerObserver, toggleVisibility],

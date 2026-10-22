@@ -58,6 +58,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import CogIcon from '@atlaskit/icon/core/settings';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { CardAppearance } from '@atlaskit/smart-card/card/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -260,6 +261,12 @@ export const floatingToolbar = (
 
 		return {
 			title: intl.formatMessage(messages.card),
+			externalStore: isExperimentEnabled('platform_editor_reduce_forced_layout_2')
+				? pluginInjectionApi?.card?.actions && {
+						getSnapshot: pluginInjectionApi.card.actions.getCardRegistrations,
+						subscribe: pluginInjectionApi.card.actions.subscribeToCardRegistry,
+					}
+				: undefined,
 			className,
 			nodeType,
 			preventPopupOverflow: isLinkPickerEnabled,
@@ -315,16 +322,35 @@ const unlinkCard = (
 	node: Node,
 	state: EditorState,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ): Command => {
-	const displayInfo = displayInfoForCard(node, findCardInfo(state));
-	const text = displayInfo.title || displayInfo.url;
-	if (text) {
-		return commandWithMetadata(changeSelectedCardToText(text, editorAnalyticsApi), {
-			action: ACTION.UNLINK,
-		});
-	}
+	if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
+		return (currentState, dispatch, view) => {
+			const displayInfo = displayInfoForCard(
+				node,
+				findCardInfo(currentState, pluginInjectionApi?.card.actions),
+			);
+			const text = displayInfo.title || displayInfo.url;
+			return text
+				? commandWithMetadata(changeSelectedCardToText(text, editorAnalyticsApi), {
+						action: ACTION.UNLINK,
+					})(currentState, dispatch, view)
+				: false;
+		};
+	} else {
+		const displayInfo = displayInfoForCard(
+			node,
+			findCardInfo(state, pluginInjectionApi?.card.actions),
+		);
+		const text = displayInfo.title || displayInfo.url;
+		if (text) {
+			return commandWithMetadata(changeSelectedCardToText(text, editorAnalyticsApi), {
+				action: ACTION.UNLINK,
+			});
+		}
 
-	return () => false;
+		return () => false;
+	}
 };
 
 const buildAlignmentOptions = (
@@ -408,7 +434,10 @@ const generateToolbarItems =
 		if (url && !isSafeUrl(url)) {
 			return [];
 		} else {
-			const { title } = displayInfoForCard(node, findCardInfo(state));
+			const { title } = displayInfoForCard(
+				node,
+				findCardInfo(state, pluginInjectionApi?.card.actions),
+			);
 			metadata = {
 				url: url,
 				title: title,
@@ -646,6 +675,7 @@ const generateToolbarItems =
 							inlineCard,
 							editorAnalyticsApi,
 							!areAllNewToolbarFlagsDisabled,
+							pluginInjectionApi,
 						),
 						{
 							type: 'copy-button',
@@ -685,6 +715,7 @@ const generateToolbarItems =
 								inlineCard,
 								editorAnalyticsApi,
 								!areAllNewToolbarFlagsDisabled,
+								pluginInjectionApi,
 							),
 							{ type: 'separator', fullHeight: true },
 						] as FloatingToolbarItem<Command>[]),
@@ -838,6 +869,7 @@ const getUnlinkButtonGroup = (
 	inlineCard: NodeType,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	areAnyNewToolbarFlagsEnabled?: boolean,
+	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ) => {
 	return node.type === inlineCard
 		? ([
@@ -848,7 +880,9 @@ const getUnlinkButtonGroup = (
 					title: intl.formatMessage(linkToolbarMessages.unlink),
 					icon: LinkBrokenIcon,
 					iconFallback: LinkBrokenIcon,
-					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
+					onClick: withToolbarMetadata(
+						unlinkCard(node, state, editorAnalyticsApi, pluginInjectionApi),
+					),
 				},
 				...(areAnyNewToolbarFlagsEnabled ? [] : [{ type: 'separator' }]),
 			] as Array<FloatingToolbarItem<Command>>)

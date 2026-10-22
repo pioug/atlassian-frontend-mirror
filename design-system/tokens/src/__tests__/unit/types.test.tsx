@@ -2,6 +2,25 @@ import type { DesignTokenStyles } from '../../entry-points/css-type-schema.codeg
 import type { AttributeSchema, ValueSchema } from '../../types';
 
 describe('schema types', () => {
+	it('limits inset tokens to uniform padding', () => {
+		const inset = 'var(--ds-space-inset-medium)' as const;
+		const styles: Partial<DesignTokenStyles> = {
+			padding: inset,
+			// @ts-expect-error Inset tokens must not be used for directional padding.
+			paddingInline: inset,
+			// @ts-expect-error Inset tokens must not be used for gaps.
+			gap: inset,
+			// @ts-expect-error Inset tokens must not be used for margin.
+			margin: inset,
+			// @ts-expect-error Inset tokens must not be used for layout positioning.
+			inset,
+			// @ts-expect-error Inset tokens must not be used for dimensions.
+			width: inset,
+		};
+
+		expect(styles.padding).toEqual(inset);
+	});
+
 	it('limits gap tokens to gap, rowGap, and columnGap', () => {
 		const gap = 'var(--ds-space-gap-medium)' as const;
 		const styles: Partial<DesignTokenStyles> = {

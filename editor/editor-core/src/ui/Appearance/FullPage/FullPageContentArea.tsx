@@ -328,9 +328,7 @@ const Content = React.forwardRef<
 				<div
 					css={[
 						compiledStyles.editorContentAreaNew,
-						// TODO: EDITOR-7801 - When we remove emotion usage in editor-core, we can remove the any cast.
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration
-						compiledStyles.editorContentAreaProsemirrorStyle as any,
+						compiledStyles.editorContentAreaProsemirrorStyle,
 						compiledStyles.tableFullPageEditorStylesNew,
 						compiledStyles.fullWidthNonChromelessBreakoutBlockTableStyle,
 						// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
@@ -428,8 +426,7 @@ const Content = React.forwardRef<
 					content
 				)}
 			</div>
-			{/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration */}
-			<div css={compiledStyles.sidebarArea as any}>
+			<div css={compiledStyles.sidebarArea}>
 				{props.contextPanel || <ContextPanel editorAPI={props.editorAPI} visible={false} />}
 			</div>
 		</div>

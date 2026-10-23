@@ -1,15 +1,15 @@
-/* eslint-disable jsdoc/require-jsdoc, react/jsx-props-no-spreading -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable jsdoc/require-jsdoc, react/jsx-props-no-spreading -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import React, { Fragment, useEffect, useState } from 'react';
 
-/* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { css, jsx } from '@emotion/react';
-import type { SerializedStyles } from '@emotion/react';
+// Preserve the copy/paste fixture's fixed clipboard borders.
+// These styles require selectors or values outside @atlaskit/css.
+import { cssMap, jsx } from '@compiled/react';
 
 import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils/breadcrumbs-misc-actions';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
@@ -56,39 +56,40 @@ import type { EditorProps } from '../src/types/editor-props';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-const wrapper = css({
-	boxSizing: 'border-box',
-	height: 'calc(100vh - 32px)',
-	display: 'flex',
-});
-const content = css({
-	padding: 0,
-	height: '100%',
-	width: '50%',
-	border: `${token('border.width.selected')} solid #ccc`,
-	boxSizing: 'border-box',
-});
-
-const fullWidthEditorStyles = css({
-	padding: 0,
-	width: '100%',
-	border: `${token('border.width.selected')} solid #ccc`,
-	boxSizing: 'border-box',
-});
-
-const rendererWrapper = css({
-	width: '500px',
-});
-
-const externalClipboardWrapper = css({
-	width: '500px',
-	padding: token('space.150'),
-	border: `${token('border.width')} dashed #ccc`,
-});
-
-const pastedImageStyles = css({
-	maxWidth: '200px',
-	height: 'auto',
+const styles = cssMap({
+	wrapper: {
+		boxSizing: 'border-box',
+		height: 'calc(100vh - 32px)',
+		display: 'flex',
+	},
+	content: {
+		padding: 0,
+		height: '100%',
+		width: '50%',
+		border: `${token('border.width.selected')} solid #ccc`,
+		boxSizing: 'border-box',
+	},
+	fullWidthEditorStyles: {
+		padding: 0,
+		width: '100%',
+		border: `${token('border.width.selected')} solid #ccc`,
+		boxSizing: 'border-box',
+	},
+	rendererWrapper: {
+		width: '500px',
+	},
+	externalClipboardWrapper: {
+		width: '500px',
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		border: `${token('border.width')} dashed #ccc`,
+	},
+	pastedImageStyles: {
+		maxWidth: '200px',
+		height: 'auto',
+	},
 });
 
 const getLocalStorageKey = (collectionName: string) =>
@@ -393,7 +394,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 		}
 	};
 
-	renderEditor = (collectionName: string, contentStyles?: SerializedStyles) => {
+	renderEditor = (collectionName: string, fullWidth = false) => {
 		const defaultValue =
 			(localStorage && localStorage.getItem(getLocalStorageKey(collectionName))) || undefined;
 		const SaveAndCancelButtons = createSaveAndCancelButtons(collectionName);
@@ -415,7 +416,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 
 		return (
 			<EditorContext key={collectionName}>
-				<div css={contentStyles || content}>
+				<div css={[fullWidth ? styles.fullWidthEditorStyles : styles.content]}>
 					<h2>Editor ({collectionName})</h2>
 					<SmartCardProvider>
 						<WithEditorActions
@@ -490,7 +491,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 
 	renderRenderer = () => {
 		return (
-			<div css={rendererWrapper}>
+			<div css={styles.rendererWrapper}>
 				<h2>Renderer ({defaultCollectionName})</h2>
 				<ReactRenderer document={rendererDoc} adfStage="stage0" dataProviders={dataProviders} />
 			</div>
@@ -500,18 +501,18 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 	render() {
 		return (
 			<div>
-				<div css={wrapper}>
+				<div css={styles.wrapper}>
 					{this.renderEditor(defaultCollectionName)}
 					{this.renderEditor(defaultMediaPickerCollectionName)}
 					{this.renderRenderer()}
-					<div css={externalClipboardWrapper}>
+					<div css={styles.externalClipboardWrapper}>
 						<ExampleExternalClipboard />
 						<ClipboardWidthPopup
 							content={
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								<div style={{ padding: token('space.250') }}>
 									<h3>Clipboard in popup: </h3>
-									{this.renderEditor(defaultCollectionName, fullWidthEditorStyles)}
+									{this.renderEditor(defaultCollectionName, true)}
 									<ExampleExternalClipboard />
 								</div>
 							}
@@ -647,7 +648,7 @@ const ExampleExternalClipboard = () => {
 								alt="Pasted preview"
 								width={Math.round(pastedImgWidth / pastedImgScaleFactor)}
 								height={Math.round(pastedImgHeight / pastedImgScaleFactor)}
-								css={pastedImageStyles}
+								css={styles.pastedImageStyles}
 							/>
 						</p>
 					)}
@@ -657,7 +658,7 @@ const ExampleExternalClipboard = () => {
 	);
 };
 
-export default function Example(props: EditorProps & ExampleProps): jsx.JSX.Element {
+export default function Example(props: EditorProps & ExampleProps): JSX.Element {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ height: '100%' }}>

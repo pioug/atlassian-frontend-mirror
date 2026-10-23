@@ -38,6 +38,11 @@
  *  - Popover open state tracked via `data-popover-open` (no `:popover-open` in jsdom).
  *  - Auto popovers: maintain an open stack, perform light-dismiss on document mousedown
  *    outside the open chain, and dismiss the topmost on Escape.
+ *  - Escape: the dismissal is the keydown's default action. It runs when `dispatchEvent()`
+ *    returns, after every keydown listener, unless one called `preventDefault()`. So the layer is
+ *    closed (and a dialog's `cancel` has fired) right after `fireEvent.keyDown()`, as in a browser,
+ *    where it runs in the same task. `toggle` and `close` are still later tasks. Unlike Chromium
+ *    and Firefox, it also runs for untrusted events, so that tests can send Escape.
  *  - On open, removes any inline `opacity: 0` from the popover element, so the
  *    JavaScript positioning fallback's `ResizeObserver` reveal is not needed in
  *    jsdom, where its non-zero-layout guard can never pass.
@@ -1361,42 +1366,62 @@ function requestCloseDialogCloseWatcher({ dialog }: { dialog: TPolyfillDialog })
 }
 
 /**
- * Dismisses the latest eligible Escape target, allowing application handlers to prevent dismissal.
- * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#set-up-the-dialog-close-watcher
+ * Escape `keydown` events that passed through the document and wait for their default action.
+ */
+const pendingEscapeKeydowns = new WeakSet<Event>();
+
+/**
+ * Records an Escape `keydown` as it passes through the document. Its default action runs when
+ * dispatch returns, after every listener (see the `dispatchEvent` patch below).
  */
 function handleDocumentKeydown(event: KeyboardEvent) {
 	// A prevented key event must not invoke its default dismissal action.
 	if (event.key !== 'Escape' || event.defaultPrevented) {
 		return;
 	}
+	pendingEscapeKeydowns.add(event);
+}
 
-	// Defer the default action until application keydown listeners have run.
-	setTimeout(() => {
-		if (event.defaultPrevented) {
-			return;
-		}
-		// Native close requests select from the layers remaining after keydown.
-		flushDialogMutations();
-		pruneClosedEscapeLayers();
-		const layer = escapeLayers.findLast((candidate) => acceptsEscape({ layer: candidate }));
-		if (!layer) {
-			return;
-		}
-		if (layer.type === 'popover') {
-			layer.element.hidePopover();
-			return;
-		}
-		// A cancel handler that calls `requestClose()` does not fire `cancel` again.
-		if (layer.element._isRunningCancelAction) {
-			return;
-		}
-		const allowed = runDialogCancelAction({ dialog: layer.element, canPreventClose: true });
-		// The cancel handler can close or reopen the dialog; only close the original opening.
-		if (allowed && escapeLayers.includes(layer) && isEscapeLayerOpen({ layer })) {
-			// close() dispatches beforetoggle and queues toggle and close notifications.
-			layer.element.close();
-		}
-	}, 0);
+/**
+ * The Escape default action: dismisses the latest eligible Escape target, unless a keydown
+ * listener prevented it. As in a browser, it runs in the same task as the keydown, after the
+ * dispatch, so the layer is closed before the code that dispatched the event continues. The
+ * `toggle` event is still a later task.
+ *
+ * Unlike a browser, it also runs for untrusted events (`fireEvent`, `dispatchEvent()`), so that
+ * tests can send Escape. Chromium and Firefox ignore an untrusted Escape.
+ * Spec: https://html.spec.whatwg.org/multipage/interaction.html#close-requests
+ * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#set-the-dialog-close-watcher
+ */
+function runEscapeDefaultAction(event: Event) {
+	if (!pendingEscapeKeydowns.has(event)) {
+		return;
+	}
+	pendingEscapeKeydowns.delete(event);
+	if (event.defaultPrevented) {
+		return;
+	}
+	// Native close requests select from the layers remaining after keydown.
+	flushDialogMutations();
+	pruneClosedEscapeLayers();
+	const layer = escapeLayers.findLast((candidate) => acceptsEscape({ layer: candidate }));
+	if (!layer) {
+		return;
+	}
+	if (layer.type === 'popover') {
+		layer.element.hidePopover();
+		return;
+	}
+	// A cancel handler that calls `requestClose()` does not fire `cancel` again.
+	if (layer.element._isRunningCancelAction) {
+		return;
+	}
+	const allowed = runDialogCancelAction({ dialog: layer.element, canPreventClose: true });
+	// The cancel handler can close or reopen the dialog; only close the original opening.
+	if (allowed && escapeLayers.includes(layer) && isEscapeLayerOpen({ layer })) {
+		// close() dispatches beforetoggle and queues toggle and close notifications.
+		layer.element.close();
+	}
 }
 
 const schedulePopoverToggle = createToggleScheduler();
@@ -1846,6 +1871,16 @@ if (typeof HTMLElement !== 'undefined') {
 			listener: handleDocumentKeydown,
 			options: { capture: true },
 		});
+
+		// Runs the Escape default action when the keydown dispatch returns. A listener cannot
+		// stand in for it: one that calls `stopPropagation()`, or one added later, would run after
+		// it or stop it.
+		const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
+		EventTarget.prototype.dispatchEvent = function dispatchEvent(this: EventTarget, event: Event) {
+			const result = originalDispatchEvent.call(this, event);
+			runEscapeDefaultAction(event);
+			return result;
+		};
 	}
 }
 

@@ -85,6 +85,9 @@
 			"path": "../logo/tsconfig.app.json"
 		},
 		{
+			"path": "../lozenge/tsconfig.app.json"
+		},
+		{
 			"path": "../navigation-system/tsconfig.app.json"
 		},
 		{
@@ -107,6 +110,9 @@
 		},
 		{
 			"path": "../tabs/tsconfig.app.json"
+		},
+		{
+			"path": "../textarea/tsconfig.app.json"
 		},
 		{
 			"path": "../textfield/tsconfig.app.json"

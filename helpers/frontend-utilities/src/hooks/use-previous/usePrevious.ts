@@ -13,3 +13,5 @@ export const usePrevious = <T = any>(value: T): T | undefined => {
 	// Return previous value (happens before update in useEffect above)
 	return ref.current;
 };
+
+export default usePrevious;

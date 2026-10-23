@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "240.0.0",
+	"version": "240.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,7 +83,6 @@
 		"@atlaskit/width-detector": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
-		"@emotion/react": "root:*",
 		"@types/react-loadable": "root:*",
 		"@types/rison": "root:*",
 		"classnames": "root:*",
@@ -185,7 +184,6 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/user-profile-card": "workspace:^",
-		"@emotion/jest": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/diff": "root:*",
 		"@types/is-number": "root:*",
@@ -309,7 +307,7 @@
 		"./editor-instance": "./src/entry-points/editor-instance.ts",
 		"./editor-props": "./src/entry-points/editor-props.ts",
 		"./EditorContentContainer": "./src/entry-points/EditorContentContainer.tsx",
-		"./EditorContext": "./src/entry-points/EditorContext.tsx",
+		"./EditorContext": "./src/editor-context.ts",
 		"./exclude-from-hydration": "./src/entry-points/exclude-from-hydration.tsx",
 		"./feature-flags-from-props": "./src/entry-points/feature-flags-from-props.ts",
 		"./getNodesCount": "./src/entry-points/getNodesCount.ts",

@@ -3,26 +3,26 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::0cdd00ba33f247092a407d023bb794fc>>
+ * @codegen <<SignedSource::0b83e3dfd8f6213c32d09c41442f7ef4>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::2b5c4e2d3ee02b00f78935460cc1a0e5>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::b6072c09d294edb68256db1d5ab5c0cb>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 import React from "react";
-import { type BackgroundColor, type Space, type MediaQuery, type BorderRadius, tokensMap } from "./tokens.codegen";
-import type * as CSS from "csstype";
+import { type ColorValue, type Space, type MediaQuery, type XcssColorProp, type BorderRadius, tokensMap } from "./tokens.codegen";
 import { type SerializedStyles, type CSSObject } from "@emotion/serialize";
+import type * as CSS from "csstype";
 
 type CSSProperties = CSS.PropertiesFallback<number | string>;
 type TokensMap = typeof tokensMap;
 type TokensMapPropKey = keyof TokensMap;
 type TokenizedProps = {
-    [K in TokensMapPropKey]?: keyof TokensMap[K];
+    [K in TokensMapPropKey]?: K extends XcssColorProp ? ColorValue : keyof TokensMap[K];
 };
 type RawCSSValue = string & Record<string, never>;
 type RelaxedTokenizedProps = {
-    [K in TokensMapPropKey]?: keyof TokensMap[K] | RawCSSValue;
+    [K in TokensMapPropKey]?: K extends XcssColorProp ? ColorValue | RawCSSValue : keyof TokensMap[K] | RawCSSValue;
 };
 type AllMedia = MediaQuery | '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)' | '@media (prefers-color-scheme: dark)' | '@media (prefers-color-scheme: light)' | '@media (prefers-reduced-motion: reduce)';
 type StandardCSSProps = Omit<CSSProperties, TokensMapPropKey>;
@@ -221,15 +221,18 @@ type XCSSProp = ReturnType<XCSSPropsValidator<XCSSValidatorArg>>;
 
 export type BoxProps = {
 	/**
-	 * A token alias for background color. See: [Design tokens](https://atlassian.design/components/tokens/all-tokens)
-	 * for a list of available colors.
+	 * A color token, or a light and dark hex pair.
+	 *
+	 * Any text, background, or border color token is accepted, including on a property from
+	 * another category. See [Design tokens](https://atlassian.design/components/tokens/all-tokens).
+	 *
+	 * A hex pair follows the product color mode:
+	 * `{ light: '#FFCBD1', dark: '#8B0000' }`.
 	 *
 	 * When the background color is set to a surface token, the current surface CSS variable
 	 * will also be set to this value in the `Box` styles.
-	 *
-	 * @type [Background color tokens](https://atlassian.design/components/tokens/all-tokens#color-background)
 	 */
-	backgroundColor?: BackgroundColor;
+	backgroundColor?: ColorValue;
 
 	/**
 	 * @type ForgeComponent

@@ -34,6 +34,8 @@ export type PayloadCore<TKey extends string, TData = void> = {
 	source: string;
 	openChat?: boolean;
 	openChatMode?: RovoChatOpenMode;
+	/** Open the mini-modal at its maximum size; ignored by sidebar opens. */
+	openAtMaxSize?: boolean;
 	autoFocusInput?: boolean;
 	product?: string;
 	interactionSource?: string;
@@ -611,6 +613,9 @@ export type InsertUrlsPayload = PayloadCore<
 	}
 >;
 
+/** Syncs a mounted chat input with its saved conversation draft. */
+export type SyncPromptInputDraftPayload = PayloadCore<'sync-prompt-input-draft'>;
+
 /** Inserts a skill chip into the chat input at the current cursor position. */
 export type InsertSkillPayload = PayloadCore<
 	'insert-skill-into-prompt-input',
@@ -851,6 +856,8 @@ export type SmartLinksContextPayload = PayloadCore<'smartlinks-context-payload'>
 		 * Available regardless of SmartLinks auth state — matched against connector friendlyName.
 		 */
 		generatorName?: string;
+		/** Representative page URL for filling a contextual third-party starter. */
+		representativeUrl?: string;
 		/** Number of occurrences on the page — used for ranking in the banner. */
 		count: number;
 	}>;
@@ -991,6 +998,7 @@ export type Payload =
 	| InsertUrlsPayload
 	| InsertSkillPayload
 	| OpenSkillUploadPayload
+	| SyncPromptInputDraftPayload
 	| SelectActionPayload
 	| AddChartToDashboardPayload
 	| GenericExternalActionErrorPayload

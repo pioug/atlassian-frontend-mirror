@@ -10,6 +10,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
@@ -481,6 +482,12 @@ export const inlineCommentPlugin = (
 				click: (view: EditorView, event: MouseEvent) => {
 					if (!(event.target instanceof HTMLElement)) {
 						return false;
+					}
+					if (isExperimentEnabled('platform_editor_fix_lcm_editor_annotations')) {
+						// The LCM renderer bridge owns selection so its draft-close guard runs first.
+						if (event.target.closest('[data-lcm-annotation-renderer]')) {
+							return false;
+						}
 					}
 
 					// Find the nearest ancestor (or self) with the data-id attribute

@@ -18,39 +18,63 @@ import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import Range from '@atlaskit/range/range';
 import Select from '@atlaskit/select/default';
+import Tab from '@atlaskit/tabs/tab';
+import TabList from '@atlaskit/tabs/tab-list';
+import TabPanel from '@atlaskit/tabs/tab-panel';
+import Tabs from '@atlaskit/tabs/tabs';
+import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 import useThemeObserver from '@atlaskit/tokens/use-theme-observer';
 
+import { ChatLayout } from './shared/chat-layout';
 import { SyncColorMode } from './shared/custom-theme-showcase';
 import { DashboardLayout } from './shared/dashboard-layout';
 import { EditorialBrief } from './shared/editorial-brief';
 import { SettingsLayout } from './shared/settings-layout';
 import { SpacingInspector } from './shared/spacing-inspector/spacing-inspector';
+import { SpacingSwatch } from './shared/spacing-inspector/spacing-pattern';
 
 const toPercentage = (value: number) => `${Math.round(value * 100)}%`;
 
-const GAP_SCALE = { min: 0.3, max: 3, step: 0.05 } as const;
+const SPACING_SCALE = { min: 0.3, max: 3, step: 0.05 } as const;
 
-const gapTokens = [
-	{ name: 'xxsmall', size: 2 },
-	{ name: 'xsmall', size: 4 },
-	{ name: 'small', size: 6 },
-	{ name: 'medium', size: 8 },
-	{ name: 'large', size: 12 },
-	{ name: 'xlarge', size: 16 },
-	{ name: 'xxlarge', size: 24 },
-] as const;
+const spacingTokens = {
+	gap: [
+		{ name: 'xxsmall', size: 2 },
+		{ name: 'xsmall', size: 4 },
+		{ name: 'small', size: 6 },
+		{ name: 'medium', size: 8 },
+		{ name: 'large', size: 12 },
+		{ name: 'xlarge', size: 16 },
+		{ name: 'xxlarge', size: 24 },
+	],
+	inset: [
+		{ name: 'xxsmall', size: 4 },
+		{ name: 'xsmall', size: 8 },
+		{ name: 'small', size: 12 },
+		{ name: 'medium', size: 16 },
+		{ name: 'large', size: 20 },
+		{ name: 'xlarge', size: 24 },
+		{ name: 'xxlarge', size: 32 },
+	],
+} as const;
 
-type GapName = (typeof gapTokens)[number]['name'];
-type GapSettings = {
+type SpacingKind = keyof typeof spacingTokens;
+type SpacingName = (typeof spacingTokens.gap)[number]['name'];
+const spacingLabels = {
+	gap: { singular: 'gap', plural: 'gaps', title: 'Gap' },
+	inset: { singular: 'inset', plural: 'insets', title: 'Inset' },
+} as const;
+
+type SpacingSettings = {
 	scale: number;
 	uniformity: number;
 	curve: number;
 	round: boolean;
-	overrides: Partial<Record<GapName, number>>;
+	overrides: Partial<Record<SpacingName, number>>;
 };
 
-const DEFAULT_GAPS: GapSettings = {
+const DEFAULT_SPACING: SpacingSettings = {
 	scale: 1,
 	uniformity: 0,
 	curve: 1,
@@ -60,17 +84,19 @@ const DEFAULT_GAPS: GapSettings = {
 
 const formatPixels = (value: number) => `${Number(value.toFixed(2))}px`;
 
-function getGapInfluence(size: number, settings: GapSettings): number {
-	const position = (size - 2) / (24 - 2);
-	return settings.uniformity + (1 - settings.uniformity) * position ** settings.curve;
-}
-
-function getGapValues(settings: GapSettings): Record<GapName, number> {
-	const values = {} as Record<GapName, number>;
+function getSpacingValues(
+	kind: SpacingKind,
+	settings: SpacingSettings,
+): Record<SpacingName, number> {
+	const tokens = spacingTokens[kind];
+	const smallest = tokens[0].size;
+	const largest = tokens[tokens.length - 1].size;
+	const values = {} as Record<SpacingName, number>;
 	let previous = 0;
 
-	for (const { name, size } of gapTokens) {
-		const exponent = getGapInfluence(size, settings);
+	for (const { name, size } of tokens) {
+		const position = (size - smallest) / (largest - smallest);
+		const exponent = settings.uniformity + (1 - settings.uniformity) * position ** settings.curve;
 		// Strong curves and rounding may bring adjacent sizes together, but must not reverse them.
 		const value = Math.max(previous, size * settings.scale ** exponent);
 		previous = value;
@@ -81,7 +107,7 @@ function getGapValues(settings: GapSettings): Record<GapName, number> {
 	return values;
 }
 
-const gapPresets: { name: string; description: string; settings: GapSettings }[] = [
+const spacingPresets: { name: string; description: string; settings: SpacingSettings }[] = [
 	{
 		name: 'Compact',
 		description: 'Close throughout',
@@ -90,7 +116,7 @@ const gapPresets: { name: string; description: string; settings: GapSettings }[]
 	{
 		name: 'Default',
 		description: 'Original rhythm',
-		settings: DEFAULT_GAPS,
+		settings: DEFAULT_SPACING,
 	},
 	{
 		name: 'Comfortable',
@@ -99,7 +125,7 @@ const gapPresets: { name: string; description: string; settings: GapSettings }[]
 	},
 	{
 		name: 'Spacious',
-		description: 'Larger section breaks',
+		description: 'Generous spacing',
 		settings: { scale: 2, uniformity: 0.1, curve: 2, round: true, overrides: {} },
 	},
 	{
@@ -109,7 +135,7 @@ const gapPresets: { name: string; description: string; settings: GapSettings }[]
 	},
 ];
 
-const gapChartStyles = cssMap({
+const chartStyles = cssMap({
 	container: { width: '100%', minWidth: 0 },
 	chart: { display: 'block', width: '100%', font: token('font.body.small') },
 	label: { fill: token('color.text.subtle') },
@@ -128,10 +154,15 @@ const presetStyles = cssMap({
 	grid: {
 		gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
 	},
-	gapPreviewHeading: { fill: token('color.text') },
-	gapPreviewText: { fill: token('color.text.subtlest') },
-	gapPreview: { maxWidth: '100%', height: 'auto' },
-	gapTile: { display: 'flex', alignItems: 'start' },
+	previewHeading: { fill: token('color.text') },
+	previewText: { fill: token('color.text.subtlest') },
+	insetSurface: {
+		fill: token('color.background.selected'),
+		stroke: token('color.border.selected'),
+	},
+	insetContent: { fill: token('elevation.surface') },
+	preview: { maxWidth: '100%', height: 'auto' },
+	previewTile: { display: 'flex', alignItems: 'start' },
 	tile: {
 		width: '100%',
 		height: '100%',
@@ -183,18 +214,37 @@ function ScaleSlider({
 }) {
 	return (
 		<Stack space="space.gap.xsmall">
-			<Inline spread="space-between" alignBlock="center">
+			<Inline spread="space-between" alignBlock="center" space="space.gap.small" shouldWrap>
 				<Label htmlFor={id}>{label}</Label>
 				<Text size="small" color="color.text.subtle">
 					{formatValue(value)}
 				</Text>
 			</Inline>
-			<Range id={id} min={min} max={max} step={step} value={value} onChange={onChange} />
+			<Range
+				id={id}
+				type="range"
+				min={min}
+				max={max}
+				step={step}
+				value={value}
+				aria-valuetext={formatValue(value)}
+				onChange={onChange}
+			/>
 		</Stack>
 	);
 }
 
-function GapResponseChart({ values }: { values: Record<GapName, number> }) {
+function SpacingResponseChart({
+	kind,
+	values,
+}: {
+	kind: SpacingKind;
+	values: Record<SpacingName, number>;
+}) {
+	const tokens = spacingTokens[kind];
+	const labels = spacingLabels[kind];
+	const smallest = tokens[0].size;
+	const largest = tokens[tokens.length - 1].size;
 	const [width, setWidth] = useState(320);
 	const containerRef = useRef<HTMLDivElement>(null);
 
@@ -213,11 +263,12 @@ function GapResponseChart({ values }: { values: Record<GapName, number> }) {
 	const right = width - 14;
 	const top = 30;
 	const bottom = 192;
-	const maximum = Math.ceil(Math.max(24, ...Object.values(values)) / 8) * 8;
-	const x = (size: number) => left + 6 + ((size - 2) / 22) * (right - left - 12);
+	const maximum = Math.ceil(Math.max(largest, ...Object.values(values)) / 8) * 8;
+	const x = (size: number) =>
+		left + 6 + ((size - smallest) / (largest - smallest)) * (right - left - 12);
 	const y = (value: number) => bottom - 6 - (value / maximum) * (bottom - top - 12);
-	const current = gapTokens.map(({ name, size }) => ({ size, value: values[name] }));
-	const original = gapTokens.map(({ size }) => ({ size, value: size }));
+	const current = tokens.map(({ name, size }) => ({ size, value: values[name] }));
+	const original = tokens.map(({ size }) => ({ size, value: size }));
 	const path = (points: { size: number; value: number }[]) =>
 		points
 			.map((point, index) => `${index ? 'L' : 'M'}${x(point.size)},${y(point.value)}`)
@@ -226,81 +277,70 @@ function GapResponseChart({ values }: { values: Record<GapName, number> }) {
 	return (
 		<Stack space="space.gap.medium">
 			<Heading as="h3" size="xsmall">
-				Gap sizes
+				{labels.title} sizes
 			</Heading>
 			<Inline space="space.gap.large" shouldWrap>
 				<Inline space="space.gap.xsmall" alignBlock="center">
 					<svg width="20" height="10" aria-hidden="true">
-						<path d="M0 5H20" css={gapChartStyles.current} />
+						<path d="M0 5H20" css={chartStyles.current} />
 					</svg>
 					<Text size="small">Current settings</Text>
 				</Inline>
 				<Inline space="space.gap.xsmall" alignBlock="center">
 					<svg width="20" height="10" aria-hidden="true">
-						<path d="M0 5H20" css={gapChartStyles.original} />
+						<path d="M0 5H20" css={chartStyles.original} />
 					</svg>
 					<Text size="small">Original</Text>
 				</Inline>
 			</Inline>
-			<div ref={containerRef} css={gapChartStyles.container}>
+			<div ref={containerRef} css={chartStyles.container}>
 				{/* eslint-disable-next-line @atlaskit/design-system/no-html-image -- Live chart requires SVG paths and dynamic coordinates. */}
 				<svg
 					width="100%"
 					height={height}
 					viewBox={`0 0 ${width} ${height}`}
-					css={gapChartStyles.chart}
+					css={chartStyles.chart}
 					role="img"
-					aria-label={`Applied gap sizes: ${gapTokens.map(({ name }) => `${name} ${formatPixels(values[name])}`).join(', ')}`}
+					aria-label={`Applied ${labels.singular} sizes: ${tokens.map(({ name }) => `${name} ${formatPixels(values[name])}`).join(', ')}`}
 				>
-					<text x={left} y={16} css={gapChartStyles.label}>
-						Resulting gap (px)
+					<text x={left} y={16} css={chartStyles.label}>
+						Resulting {labels.singular} (px)
 					</text>
 					{[0, maximum / 2, maximum].map((value) => (
 						<g key={value}>
-							<line x1={left} x2={right} y1={y(value)} y2={y(value)} css={gapChartStyles.grid} />
-							<text
-								x={left - 8}
-								y={y(value)}
-								dy="0.35em"
-								textAnchor="end"
-								css={gapChartStyles.label}
-							>
+							<line x1={left} x2={right} y1={y(value)} y2={y(value)} css={chartStyles.grid} />
+							<text x={left - 8} y={y(value)} dy="0.35em" textAnchor="end" css={chartStyles.label}>
 								{value}
 							</text>
 						</g>
 					))}
-					{[2, 8, 16, 24].map((size) => (
+					{[smallest, tokens[3].size, tokens[5].size, largest].map((size) => (
 						<text
 							key={size}
 							x={x(size)}
 							y={bottom + 16}
 							textAnchor="middle"
-							css={gapChartStyles.label}
+							css={chartStyles.label}
 						>
 							{size}
 						</text>
 					))}
-					<text
-						x={(left + right) / 2}
-						y={height - 8}
-						textAnchor="middle"
-						css={gapChartStyles.label}
-					>
-						Original gap (px)
+					<text x={(left + right) / 2} y={height - 8} textAnchor="middle" css={chartStyles.label}>
+						Original {labels.singular} (px)
 					</text>
 					<path
 						d={path(current)}
-						css={gapChartStyles.current}
-						data-testid="gap-spacing-response-curve"
+						css={chartStyles.current}
+						data-testid={`${kind}-spacing-response-curve`}
 					/>
 					<path
 						d={path(original)}
-						css={gapChartStyles.original}
-						data-testid="gap-spacing-original-curve"
+						css={chartStyles.original}
+						data-testid={`${kind}-spacing-original-curve`}
 					/>
-					{gapTokens.map(({ name, size }) => (
-						<circle key={name} cx={x(size)} cy={y(values[name])} r={3} css={gapChartStyles.point}>
-							<title>{`space.gap.${name}: ${formatPixels(values[name])}`}</title>
+					{tokens.map(({ name, size }) => (
+						<circle key={name} cx={x(size)} cy={y(values[name])} r={3} css={chartStyles.point}>
+							<title>{`space.${kind}.${name}: ${formatPixels(values[name])}`}</title>
 						</circle>
 					))}
 				</svg>
@@ -309,52 +349,88 @@ function GapResponseChart({ values }: { values: Record<GapName, number> }) {
 	);
 }
 
-function GapPresetTile({
+function SpacingPresetTile({
+	kind,
 	preset,
 	isSelected,
 	onSelect,
 }: {
-	preset: (typeof gapPresets)[number];
+	kind: SpacingKind;
+	preset: (typeof spacingPresets)[number];
 	isSelected: boolean;
 	onSelect: () => void;
 }) {
-	const gaps = getGapValues(preset.settings);
-	const previewHeight = 3 * (20 + gaps.medium) + 2 * gaps.xxlarge;
+	const values = getSpacingValues(kind, preset.settings);
+	const insetWidth = 64 + 2 * values.xlarge;
+	const insetHeight = 32 + 2 * values.xlarge;
+	const previewHeight = 3 * (20 + values.medium) + 2 * values.xxlarge;
 	return (
 		<Pressable
-			xcss={cx(presetStyles.tile, presetStyles.gapTile, isSelected && presetStyles.selected)}
+			xcss={cx(presetStyles.tile, presetStyles.previewTile, isSelected && presetStyles.selected)}
 			aria-pressed={isSelected}
 			onClick={onSelect}
 		>
 			<Stack space="space.gap.medium">
-				<svg
-					width="72"
-					height={previewHeight * 0.75}
-					viewBox={`0 0 96 ${previewHeight}`}
-					preserveAspectRatio="xMinYMin meet"
-					aria-hidden="true"
-					css={presetStyles.gapPreview}
-				>
-					{/* Keep the content and scale identical so only each preset's gaps change. */}
-					{[0, 1, 2].map((sectionIndex) => (
-						<g
-							key={sectionIndex}
-							transform={`translate(0 ${sectionIndex * (20 + gaps.medium + gaps.xxlarge)})`}
-						>
-							<rect width={62} height={5} rx={1} css={presetStyles.gapPreviewHeading} />
-							{[0, 1, 2].map((lineIndex) => (
+				{kind === 'gap' ? (
+					<svg
+						width="72"
+						height={previewHeight * 0.75}
+						viewBox={`0 0 96 ${previewHeight}`}
+						preserveAspectRatio="xMinYMin meet"
+						aria-hidden="true"
+						css={presetStyles.preview}
+					>
+						{/* Keep the content and scale identical so only each preset's gaps change. */}
+						{[0, 1, 2].map((sectionIndex) => (
+							<g
+								key={sectionIndex}
+								transform={`translate(0 ${sectionIndex * (20 + values.medium + values.xxlarge)})`}
+							>
+								<rect width={62} height={5} rx={1} css={presetStyles.previewHeading} />
+								{[0, 1, 2].map((lineIndex) => (
+									<rect
+										key={lineIndex}
+										y={5 + values.medium + lineIndex * 6}
+										width={lineIndex === 2 ? 69 : 96}
+										height={3}
+										rx={1}
+										css={presetStyles.previewText}
+									/>
+								))}
+							</g>
+						))}
+					</svg>
+				) : (
+					<svg
+						width={insetWidth * 0.5}
+						height={insetHeight * 0.5}
+						viewBox={`0 0 ${insetWidth} ${insetHeight}`}
+						aria-hidden="true"
+						css={presetStyles.preview}
+					>
+						<rect
+							x={0.5}
+							y={0.5}
+							width={insetWidth - 1}
+							height={insetHeight - 1}
+							rx={4}
+							css={presetStyles.insetSurface}
+						/>
+						<g transform={`translate(${values.xlarge} ${values.xlarge})`}>
+							<rect width={64} height={32} css={presetStyles.insetContent} />
+							{[0, 1, 2].map((line) => (
 								<rect
-									key={lineIndex}
-									y={5 + gaps.medium + lineIndex * 6}
-									width={lineIndex === 2 ? 69 : 96}
-									height={3}
+									key={line}
+									y={4 + line * 10}
+									width={line === 2 ? 40 : 64}
+									height={4}
 									rx={1}
-									css={presetStyles.gapPreviewText}
+									css={presetStyles.previewText}
 								/>
 							))}
 						</g>
-					))}
-				</svg>
+					</svg>
+				)}
 				<Stack space="space.gap.xxsmall">
 					<Text weight="semibold">{preset.name}</Text>
 					<Text size="small" color="color.text.subtle">
@@ -366,21 +442,16 @@ function GapPresetTile({
 	);
 }
 
-function GapControls({
+function SpacingPresets({
+	kind,
 	settings,
-	values,
 	onChange,
-	onInspect,
 }: {
-	settings: GapSettings;
-	values: Record<GapName, number>;
-	onChange: (settings: GapSettings) => void;
-	onInspect: (token: string | null) => void;
+	kind: SpacingKind;
+	settings: SpacingSettings;
+	onChange: (settings: SpacingSettings) => void;
 }) {
-	// General controls recalculate every gap; individual edits explicitly retain other overrides.
-	const update = (changes: Partial<GapSettings>) =>
-		onChange({ ...settings, overrides: {}, ...changes });
-	const selectedPreset = gapPresets.find(
+	const selectedPreset = spacingPresets.find(
 		(preset) =>
 			settings.scale === preset.settings.scale &&
 			settings.uniformity === preset.settings.uniformity &&
@@ -389,119 +460,157 @@ function GapControls({
 			Object.keys(settings.overrides).length === 0,
 	);
 	return (
-		<Stack role="region" aria-label="Spacing" space="space.400">
-			<Stack space="space.gap.large">
-				<Inline spread="space-between" alignBlock="center">
-					<Heading as="h3" size="xsmall">
-						Presets
-					</Heading>
-					<Button
-						appearance="subtle"
-						spacing="compact"
-						aria-label="Reset spacing"
-						onClick={() => onChange(DEFAULT_GAPS)}
-					>
-						Reset
-					</Button>
-				</Inline>
-				<Grid gap="space.gap.medium" xcss={presetStyles.grid}>
-					{gapPresets.map((preset) => (
-						<GapPresetTile
-							key={preset.name}
-							preset={preset}
-							isSelected={selectedPreset === preset}
-							onSelect={() => onChange(preset.settings)}
-						/>
-					))}
-				</Grid>
-			</Stack>
+		<Stack space="space.gap.large">
+			<Heading as="h3" size="xsmall">
+				Presets
+			</Heading>
+			<Grid gap="space.gap.medium" xcss={presetStyles.grid}>
+				{spacingPresets.map((preset) => (
+					<SpacingPresetTile
+						kind={kind}
+						key={preset.name}
+						preset={preset}
+						isSelected={selectedPreset === preset}
+						onSelect={() => onChange(preset.settings)}
+					/>
+				))}
+			</Grid>
+		</Stack>
+	);
+}
 
-			<GapResponseChart values={values} />
+function SpacingScaleControls({
+	kind,
+	settings,
+	onChange,
+}: {
+	kind: SpacingKind;
+	settings: SpacingSettings;
+	onChange: (changes: Partial<SpacingSettings>) => void;
+}) {
+	const labels = spacingLabels[kind];
 
-			<Stack space="space.gap.xlarge">
-				<Heading as="h3" size="xsmall">
-					Scale
-				</Heading>
+	return (
+		<Stack space="space.gap.xlarge">
+			<Heading as="h3" size="xsmall">
+				Scale
+			</Heading>
+			<ScaleSlider
+				id={`${kind}-spacing-spacing`}
+				label={`${labels.title} scale`}
+				value={settings.scale}
+				{...SPACING_SCALE}
+				onChange={(scale) => onChange({ scale })}
+			/>
+			<Stack space="space.gap.xsmall">
 				<ScaleSlider
-					id="gap-spacing-spacing"
-					label="Gap scale"
-					value={settings.scale}
-					{...GAP_SCALE}
-					onChange={(scale) => update({ scale })}
-				/>
-				<Stack space="space.gap.xsmall">
-					<ScaleSlider
-						id="gap-spacing-uniformity"
-						label="Scale uniformity"
-						value={settings.uniformity}
-						min={0}
-						max={1}
-						step={0.1}
-						onChange={(uniformity) => update({ uniformity })}
-					/>
-					<Text size="small" color="color.text.subtle">
-						At 0%, the smallest gaps change gently. At 100%, all gaps scale evenly. The 2px gap
-						stays fixed at 0% uniformity.
-					</Text>
-				</Stack>
-				<Stack space="space.gap.xsmall">
-					<ScaleSlider
-						id="gap-spacing-curve"
-						label="Curve strength"
-						value={settings.curve}
-						min={0.25}
-						max={3}
-						step={0.25}
-						formatValue={(value) => `${value}×`}
-						onChange={(curve) => update({ curve })}
-					/>
-					<Text size="small" color="color.text.subtle">
-						Above 1×, changes concentrate in larger gaps. Below 1×, medium gaps respond more. Curve
-						strength has no effect at 100% uniformity.
-					</Text>
-				</Stack>
-				<Checkbox
-					id="gap-spacing-rounding"
-					label="Round gap values"
-					isChecked={settings.round}
-					onChange={(event) => update({ round: event.target.checked })}
+					id={`${kind}-spacing-uniformity`}
+					label="Scale uniformity"
+					value={settings.uniformity}
+					min={0}
+					max={1}
+					step={0.1}
+					onChange={(uniformity) => onChange({ uniformity })}
 				/>
 				<Text size="small" color="color.text.subtle">
-					Automatic values stay ordered; stronger curves or rounding can make adjacent sizes equal.
+					At 0%, the smallest {labels.plural} change gently. At 100%, all {labels.plural} scale
+					evenly. The {spacingTokens[kind][0].size}px {labels.singular} stays fixed at 0%
+					uniformity.
 				</Text>
 			</Stack>
+			<Stack space="space.gap.xsmall">
+				<ScaleSlider
+					id={`${kind}-spacing-curve`}
+					label="Curve strength"
+					value={settings.curve}
+					min={0.25}
+					max={3}
+					step={0.25}
+					formatValue={(value) => `${value}×`}
+					onChange={(curve) => onChange({ curve })}
+				/>
+				<Text size="small" color="color.text.subtle">
+					Above 1×, changes concentrate in larger {labels.plural}. Below 1×, medium {labels.plural}{' '}
+					respond more. Curve strength has no effect at 100% uniformity.
+				</Text>
+			</Stack>
+			<Checkbox
+				id={`${kind}-spacing-rounding`}
+				label={`Round ${labels.singular} values`}
+				isChecked={settings.round}
+				onChange={(event) => onChange({ round: event.target.checked })}
+			/>
+			<Text size="small" color="color.text.subtle">
+				Automatic values stay ordered; stronger curves or rounding can make adjacent sizes equal.
+			</Text>
+		</Stack>
+	);
+}
+
+function SpacingControls({
+	kind,
+	settings,
+	values,
+	onChange,
+	onGeneralChange,
+	isLinked,
+	onInspect,
+}: {
+	kind: SpacingKind;
+	settings: SpacingSettings;
+	values: Record<SpacingName, number>;
+	onChange: (settings: SpacingSettings) => void;
+	onGeneralChange: (changes: Partial<SpacingSettings>) => void;
+	isLinked: boolean;
+	onInspect?: (token: string | null) => void;
+}) {
+	const tokens = spacingTokens[kind];
+	const labels = spacingLabels[kind];
+	const largest = tokens[tokens.length - 1].size;
+
+	return (
+		<Stack role="region" aria-label={`${labels.title} spacing`} space="space.gap.xxlarge">
+			<SpacingPresets kind={kind} settings={settings} onChange={onGeneralChange} />
+
+			<SpacingResponseChart kind={kind} values={values} />
+
+			<SpacingScaleControls kind={kind} settings={settings} onChange={onGeneralChange} />
 
 			<Stack space="space.gap.xlarge">
 				<Stack space="space.gap.xsmall">
 					<Heading as="h3" size="xsmall">
-						Individual gaps
+						Individual {labels.plural}
 					</Heading>
 					<Text size="small" color="color.text.subtle">
-						Adjust any gap independently. Changing a general spacing control recalculates all gaps
-						and clears individual adjustments.
+						Adjust any {labels.singular} independently.{' '}
+						{isLinked
+							? 'Changing a general control recalculates gaps and insets and clears their individual adjustments.'
+							: `Changing a general ${labels.singular} control recalculates all ${labels.plural} and clears their individual adjustments.`}
 					</Text>
 				</Stack>
-				{gapTokens.map(({ name }) => (
+				{tokens.map(({ name }) => (
 					<div
 						key={name}
-						onMouseEnter={() => onInspect(`space.gap.${name}`)}
+						onMouseEnter={() => onInspect?.(`space.${kind}.${name}`)}
 						onMouseLeave={(event) =>
-							!event.currentTarget.matches(':focus-within') && onInspect(null)
+							!event.currentTarget.matches(':focus-within') && onInspect?.(null)
 						}
-						onFocus={() => onInspect(`space.gap.${name}`)}
+						onFocus={() => onInspect?.(`space.${kind}.${name}`)}
 						onBlur={(event) =>
-							!event.currentTarget.contains(event.relatedTarget as Node | null) && onInspect(null)
+							!event.currentTarget.contains(event.relatedTarget as Node | null) && onInspect?.(null)
 						}
 					>
 						<ScaleSlider
-							id={`gap-spacing-${name}`}
+							id={`${kind}-spacing-${name}`}
 							label={name}
 							value={values[name]}
 							min={0}
-							max={24 * GAP_SCALE.max}
+							max={largest * SPACING_SCALE.max}
 							step={settings.round ? 1 : 0.01}
 							formatValue={formatPixels}
-							onChange={(value) => update({ overrides: { ...settings.overrides, [name]: value } })}
+							onChange={(value) =>
+								onChange({ ...settings, overrides: { ...settings.overrides, [name]: value } })
+							}
 						/>
 					</div>
 				))}
@@ -514,6 +623,7 @@ const layoutOptions = [
 	{ label: 'Article', value: 'article' },
 	{ label: 'Dashboard', value: 'dashboard' },
 	{ label: 'Settings', value: 'settings' },
+	{ label: 'Chat', value: 'chat' },
 ] as const;
 type Layout = (typeof layoutOptions)[number]['value'];
 
@@ -535,6 +645,12 @@ const previewStyles = cssMap({
 		},
 	},
 	controls: { minWidth: 0 },
+	overlayLabel: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		columnGap: token('space.gap.medium'),
+	},
+	controlPanel: { width: '100%', paddingBlockStart: token('space.200') },
 	root: {
 		minWidth: 0,
 		width: '100%',
@@ -546,12 +662,34 @@ const previewStyles = cssMap({
 export default function CustomThemeSpacingExample(): React.JSX.Element {
 	const { colorMode } = useThemeObserver();
 	const [layout, setLayout] = useState<Layout>('article');
-	const [gapSettings, setGapSettings] = useState<GapSettings>(DEFAULT_GAPS);
+	const [gapSettings, setGapSettings] = useState<SpacingSettings>(DEFAULT_SPACING);
+	const [insetSettings, setInsetSettings] = useState<SpacingSettings>(DEFAULT_SPACING);
+	const [isSettingsLinked, setIsSettingsLinked] = useState(false);
+	const [spacingTab, setSpacingTab] = useState(0);
+	const updateGeneralSettings = (kind: SpacingKind, changes: Partial<SpacingSettings>) => {
+		const update = (current: SpacingSettings) => ({ ...current, overrides: {}, ...changes });
+		if (kind === 'gap' || isSettingsLinked) setGapSettings(update);
+		if (kind === 'inset' || isSettingsLinked) setInsetSettings(update);
+	};
+	const toggleSettingsLink = (linked: boolean) => {
+		if (linked) {
+			// Link general settings from the visible tab without copying pixel overrides between scales.
+			if (spacingTab === 0) {
+				setInsetSettings((current) => ({ ...gapSettings, overrides: current.overrides }));
+			} else {
+				setGapSettings((current) => ({ ...insetSettings, overrides: current.overrides }));
+			}
+		}
+		setIsSettingsLinked(linked);
+	};
 	const [showGaps, setShowGaps] = useState(false);
+	const [showInsets, setShowInsets] = useState(false);
 	const [activeToken, setActiveToken] = useState<string | null>(null);
-	const gapValues = getGapValues(gapSettings);
+	const gapValues = getSpacingValues('gap', gapSettings);
+	const insetValues = getSpacingValues('inset', insetSettings);
 	// Only the preview inherits these overrides; controls retain their original spacing.
-	const gapStyles: React.CSSProperties & Record<`--ds-space-gap-${string}`, string> = {
+	const spacingStyles: React.CSSProperties &
+		Record<`--ds-space-${SpacingKind}-${SpacingName}`, string> = {
 		'--ds-space-gap-xxsmall': `calc(${token('space.025')} * ${gapValues.xxsmall / 2})`,
 		'--ds-space-gap-xsmall': `calc(${token('space.050')} * ${gapValues.xsmall / 4})`,
 		'--ds-space-gap-small': `calc(${token('space.075')} * ${gapValues.small / 6})`,
@@ -559,6 +697,13 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 		'--ds-space-gap-large': `calc(${token('space.150')} * ${gapValues.large / 12})`,
 		'--ds-space-gap-xlarge': `calc(${token('space.200')} * ${gapValues.xlarge / 16})`,
 		'--ds-space-gap-xxlarge': `calc(${token('space.300')} * ${gapValues.xxlarge / 24})`,
+		'--ds-space-inset-xxsmall': `calc(${token('space.050')} * ${insetValues.xxsmall / 4})`,
+		'--ds-space-inset-xsmall': `calc(${token('space.100')} * ${insetValues.xsmall / 8})`,
+		'--ds-space-inset-small': `calc(${token('space.150')} * ${insetValues.small / 12})`,
+		'--ds-space-inset-medium': `calc(${token('space.200')} * ${insetValues.medium / 16})`,
+		'--ds-space-inset-large': `calc(${token('space.250')} * ${insetValues.large / 20})`,
+		'--ds-space-inset-xlarge': `calc(${token('space.300')} * ${insetValues.xlarge / 24})`,
+		'--ds-space-inset-xxlarge': `calc(${token('space.400')} * ${insetValues.xxlarge / 32})`,
 	};
 
 	return (
@@ -567,11 +712,12 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 			<Grid xcss={previewStyles.page}>
 				<Box as="main" padding="space.400" xcss={previewStyles.main}>
 					<Stack space="space.300">
-						<SpacingInspector enabled={showGaps} activeToken={activeToken}>
-							<Box style={gapStyles} xcss={previewStyles.root} testId="gap-spacing-preview">
+						<SpacingInspector showGaps={showGaps} showInsets={showInsets} activeToken={activeToken}>
+							<Box style={spacingStyles} xcss={previewStyles.root} testId="gap-spacing-preview">
 								{layout === 'article' && <EditorialBrief />}
 								{layout === 'dashboard' && <DashboardLayout />}
 								{layout === 'settings' && <SettingsLayout />}
+								{layout === 'chat' && <ChatLayout />}
 							</Box>
 						</SpacingInspector>
 					</Stack>
@@ -598,28 +744,124 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 									isSearchable={false}
 								/>
 							</Stack>
-							<Stack space="space.gap.xsmall">
+							<Stack space="space.gap.xsmall" role="group" aria-labelledby="layout-spacing-label">
+								<Text
+									id="layout-spacing-label"
+									size="small"
+									weight="semibold"
+									color="color.text.subtle"
+								>
+									Layout overlay
+								</Text>
 								<Checkbox
-									label="Show gaps"
-									aria-describedby="gap-spacing-overlay-description"
+									label={
+										<span css={previewStyles.overlayLabel}>
+											<span>Show gaps</span>
+											<SpacingSwatch kind="gap" />
+										</span>
+									}
 									isChecked={showGaps}
 									onChange={(event) => setShowGaps(event.target.checked)}
 								/>
-								<Text id="gap-spacing-overlay-description" size="small" color="color.text.subtle">
-									Highlight gaps between elements. Hover a gap to see its token and size, or focus a
-									gap slider to highlight its uses.
+								<Checkbox
+									label={
+										<span css={previewStyles.overlayLabel}>
+											<span>Show insets</span>
+											<SpacingSwatch kind="inset" />
+										</span>
+									}
+									isChecked={showInsets}
+									onChange={(event) => setShowInsets(event.target.checked)}
+								/>
+								<Checkbox
+									label="Show all spacing"
+									isChecked={showGaps && showInsets}
+									isIndeterminate={showGaps !== showInsets}
+									onChange={(event) => {
+										setShowGaps(event.target.checked);
+										setShowInsets(event.target.checked);
+									}}
+								/>
+							</Stack>
+						</Stack>
+						<Stack space="space.gap.large">
+							<Inline spread="space-between" alignBlock="center" space="space.gap.medium">
+								<Heading as="h2" size="small">
+									Spacing variables
+								</Heading>
+								<Button
+									appearance="subtle"
+									spacing="compact"
+									aria-label={
+										isSettingsLinked
+											? 'Reset gaps and insets'
+											: spacingTab === 0
+												? 'Reset gaps'
+												: 'Reset insets'
+									}
+									onClick={() =>
+										updateGeneralSettings(spacingTab === 0 ? 'gap' : 'inset', DEFAULT_SPACING)
+									}
+								>
+									Reset
+								</Button>
+							</Inline>
+							<Stack space="space.gap.xsmall">
+								<Inline spread="space-between" alignBlock="center" space="space.gap.medium">
+									<Label htmlFor="link-spacing-settings">Link gap and inset settings</Label>
+									<Toggle
+										id="link-spacing-settings"
+										descriptionId="link-spacing-description"
+										isChecked={isSettingsLinked}
+										onChange={(event) => toggleSettingsLink(event.currentTarget.checked)}
+									/>
+								</Inline>
+								<Text id="link-spacing-description" size="small" color="color.text.subtle">
+									Linking copies this tab’s general settings to both. Individual sizes stay
+									separate.
 								</Text>
 							</Stack>
 						</Stack>
-						<Heading as="h2" size="small">
-							Spacing variables
-						</Heading>
-						<GapControls
-							settings={gapSettings}
-							values={gapValues}
-							onChange={setGapSettings}
-							onInspect={setActiveToken}
-						/>
+						<Tabs
+							id="spacing-controls"
+							selected={spacingTab}
+							onChange={(index) => {
+								setSpacingTab(index);
+								setActiveToken(null);
+							}}
+							shouldUnmountTabPanelOnChange
+						>
+							<TabList>
+								<Tab>Gaps</Tab>
+								<Tab>Insets</Tab>
+							</TabList>
+							<TabPanel>
+								<Box xcss={previewStyles.controlPanel}>
+									<SpacingControls
+										kind="gap"
+										settings={gapSettings}
+										values={gapValues}
+										onChange={setGapSettings}
+										onGeneralChange={(changes) => updateGeneralSettings('gap', changes)}
+										isLinked={isSettingsLinked}
+										onInspect={setActiveToken}
+									/>
+								</Box>
+							</TabPanel>
+							<TabPanel>
+								<Box xcss={previewStyles.controlPanel}>
+									<SpacingControls
+										kind="inset"
+										settings={insetSettings}
+										values={insetValues}
+										onChange={setInsetSettings}
+										onGeneralChange={(changes) => updateGeneralSettings('inset', changes)}
+										isLinked={isSettingsLinked}
+										onInspect={setActiveToken}
+									/>
+								</Box>
+							</TabPanel>
+						</Tabs>
 					</Stack>
 				</Box>
 			</Grid>

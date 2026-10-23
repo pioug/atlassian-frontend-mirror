@@ -88,6 +88,7 @@
 		"@atlaskit/side-nav-items": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
 		"@atlaskit/tag": "workspace:^",
+		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",

@@ -170,6 +170,16 @@ passed, one of the following properties must also be added: `label` or `titleId`
 	featureFlagSwitchers={['motionPopup']}
 />
 
+Use `DropdownMenu` whenever possible: this example is not a blessed, production-ready menu pattern.
+If a complex interaction requires a `Popup` with `role="menu"`, the consumer must implement the menu
+behavior. Give each action the appropriate menu-item role, move focus to a menu item when the menu
+opens, support Arrow Up, Arrow Down, Home, and End navigation, and return focus to the trigger when
+an action or Escape closes the menu. Preserve each menu item's native Enter and Space activation
+behavior. Validate the complete interaction with the assistive technologies and browser environments
+that the product supports. For the complete role and interaction requirements, refer to the
+[WAI-ARIA menu role](https://www.w3.org/TR/wai-aria-1.0/roles#menu) and the
+[ARIA Authoring Practices menu and menubar pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menubar/).
+
 ## Full width
 
 Use `shouldFitContainer` to fit the popup width to its parent's width. When set to `true`, the

@@ -17,10 +17,6 @@ interface Options {
 	readonly onTopLeave?: (event: WheelEvent | TouchEvent) => void;
 }
 
-// TODO: Fill in the hook {description}.
-/**
- * {description}.
- */
 export default function useScrollCapture({
 	isEnabled,
 	onBottomArrive,

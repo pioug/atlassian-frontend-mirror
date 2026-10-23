@@ -3,26 +3,26 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::2724d0dfafd1ee3ef2669c39f023e253>>
+ * @codegen <<SignedSource::392c83d3ec6b5c775668d42c70d4fc4a>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::1aa90ffdcfb58d322bcb08b186ba73bf>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::d55e3c03d4f7d97c4a598fe6bf67eefb>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 import React from "react";
-import { type BackgroundColor, type Space, type MediaQuery, type BorderRadius, tokensMap } from "./tokens.codegen";
-import type * as CSS from "csstype";
+import { type ColorValue, type Space, type MediaQuery, type XcssColorProp, type BorderRadius, tokensMap } from "./tokens.codegen";
 import { type SerializedStyles, type CSSObject } from "@emotion/serialize";
+import type * as CSS from "csstype";
 
 type CSSProperties = CSS.PropertiesFallback<number | string>;
 type TokensMap = typeof tokensMap;
 type TokensMapPropKey = keyof TokensMap;
 type TokenizedProps = {
-    [K in TokensMapPropKey]?: keyof TokensMap[K];
+    [K in TokensMapPropKey]?: K extends XcssColorProp ? ColorValue : keyof TokensMap[K];
 };
 type RawCSSValue = string & Record<string, never>;
 type RelaxedTokenizedProps = {
-    [K in TokensMapPropKey]?: keyof TokensMap[K] | RawCSSValue;
+    [K in TokensMapPropKey]?: K extends XcssColorProp ? ColorValue | RawCSSValue : keyof TokensMap[K] | RawCSSValue;
 };
 type AllMedia = MediaQuery | '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)' | '@media (prefers-color-scheme: dark)' | '@media (prefers-color-scheme: light)' | '@media (prefers-reduced-motion: reduce)';
 type StandardCSSProps = Omit<CSSProperties, TokensMapPropKey>;
@@ -221,9 +221,15 @@ type XCSSProp = ReturnType<XCSSPropsValidator<XCSSValidatorArg>>;
 
 export type PressableProps = {
 	/**
-	 * Token representing background color with a built-in fallback value.
+	 * A color token, or a light and dark hex pair.
+	 *
+	 * Any text, background, or border color token is accepted, including on a property from
+	 * another category.
+	 *
+	 * A hex pair follows the product color mode:
+	 * `{ light: '#FFCBD1', dark: '#8B0000' }`.
 	 */
-	backgroundColor?: BackgroundColor;
+	backgroundColor?: ColorValue;
 	children: React.ReactNode;
 	/**
 	 * Whether the button is disabled.

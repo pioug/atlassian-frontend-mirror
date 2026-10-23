@@ -3,10 +3,11 @@ import {
 	gridGapRectangles,
 	uncoveredRectangles,
 } from '../../examples/shared/spacing-inspector/measure-gaps';
+import { insetRectangles } from '../../examples/shared/spacing-inspector/measure-insets';
 import {
-	indexGapStyles,
-	resolveGapToken,
-} from '../../examples/shared/spacing-inspector/resolve-gap-token';
+	indexSpacingStyles,
+	resolveSpacingToken,
+} from '../../examples/shared/spacing-inspector/resolve-spacing-token';
 
 describe('spacing inspector token identity', () => {
 	let sheet: HTMLStyleElement;
@@ -24,7 +25,7 @@ describe('spacing inspector token identity', () => {
 		jest.restoreAllMocks();
 	});
 	const resolve = (axis: 'row-gap' | 'column-gap' = 'row-gap') =>
-		resolveGapToken(element, axis, indexGapStyles(document));
+		resolveSpacingToken(element, axis, indexSpacingStyles(document));
 
 	it('distinguishes token references with equal fallback values', () => {
 		sheet.textContent =
@@ -36,6 +37,83 @@ describe('spacing inspector token identity', () => {
 		element.style.setProperty('--ds-space-gap-large', 'calc(var(--ds-space-150) * 2)');
 		sheet.textContent = '.sample { row-gap: var(--ds-space-gap-large, 12px); }';
 		expect(resolve()).toBe('space.gap.large');
+	});
+	it('resolves inset tokens on all four sides without confusing numeric padding', () => {
+		element.style.setProperty('--ds-space-inset-large', 'calc(var(--ds-space-250) * 2)');
+		sheet.textContent = '.sample { padding: var(--ds-space-inset-large, 20px); }';
+		for (const side of [
+			'padding-top',
+			'padding-right',
+			'padding-bottom',
+			'padding-left',
+		] as const) {
+			expect(resolveSpacingToken(element, side, indexSpacingStyles(document))).toBe(
+				'space.inset.large',
+			);
+		}
+		sheet.textContent = '.sample { padding: var(--ds-space-250, 20px); }';
+		expect(resolveSpacingToken(element, 'padding-top', indexSpacingStyles(document))).toBe(
+			'space.250',
+		);
+	});
+	it('respects directional overrides and important padding declarations', () => {
+		sheet.textContent = '.sample { padding: var(--ds-space-inset-large); padding-top: 20px; }';
+		expect(resolveSpacingToken(element, 'padding-top', indexSpacingStyles(document))).toBeNull();
+		expect(resolveSpacingToken(element, 'padding-bottom', indexSpacingStyles(document))).toBe(
+			'space.inset.large',
+		);
+		sheet.textContent =
+			'.sample { padding: var(--ds-space-inset-large) !important; padding-top: 20px; }';
+		expect(resolveSpacingToken(element, 'padding-top', indexSpacingStyles(document))).toBe(
+			'space.inset.large',
+		);
+	});
+	it('reads variable padding shorthands when the browser exposes empty expanded longhands', () => {
+		sheet.textContent = '.sample { padding: var(--ds-space-inset-large); }';
+		const rule = sheet.sheet!.cssRules[0] as CSSStyleRule;
+		Object.defineProperty(rule, 'style', {
+			value: {
+				length: 4,
+				0: 'padding-top',
+				1: 'padding-right',
+				2: 'padding-bottom',
+				3: 'padding-left',
+				getPropertyValue: (property: string) =>
+					property === 'padding' ? 'var(--ds-space-inset-large)' : '',
+				getPropertyPriority: () => '',
+			},
+		});
+		for (const side of [
+			'padding-top',
+			'padding-right',
+			'padding-bottom',
+			'padding-left',
+		] as const) {
+			expect(resolveSpacingToken(element, side, indexSpacingStyles(document))).toBe(
+				'space.inset.large',
+			);
+		}
+	});
+	it('maps logical padding overrides to the correct side in RTL', () => {
+		sheet.textContent =
+			'.sample { direction: rtl; padding: var(--ds-space-inset-large); padding-inline-start: 10px; }';
+		expect(resolveSpacingToken(element, 'padding-right', indexSpacingStyles(document))).toBeNull();
+		expect(resolveSpacingToken(element, 'padding-left', indexSpacingStyles(document))).toBe(
+			'space.inset.large',
+		);
+	});
+	it('resolves multi-value padding shorthands and nested fallbacks', () => {
+		sheet.textContent =
+			'.sample { padding: var(--ds-space-inset-small, calc(var(--fallback, 6px) * 2)) var(--ds-space-inset-large); }';
+		expect(resolveSpacingToken(element, 'padding-top', indexSpacingStyles(document))).toBe(
+			'space.inset.small',
+		);
+		expect(resolveSpacingToken(element, 'padding-bottom', indexSpacingStyles(document))).toBe(
+			'space.inset.small',
+		);
+		expect(resolveSpacingToken(element, 'padding-left', indexSpacingStyles(document))).toBe(
+			'space.inset.large',
+		);
 	});
 	it('uses specificity, source order, and important declarations', () => {
 		sheet.textContent =
@@ -117,6 +195,15 @@ describe('spacing inspector token identity', () => {
 });
 
 describe('spacing inspector geometry', () => {
+	it('paints fractional inset padding without overlapping corners or covering content', () => {
+		expect(insetRectangles({ x: 10, y: 20, width: 100, height: 80 }, 9.5)).toEqual([
+			{ x: 10, y: 20, width: 100, height: 9.5 },
+			{ x: 10, y: 90.5, width: 100, height: 9.5 },
+			{ x: 10, y: 29.5, width: 9.5, height: 61 },
+			{ x: 100.5, y: 29.5, width: 9.5, height: 61 },
+		]);
+		expect(insetRectangles({ x: 0, y: 0, width: 100, height: 80 }, 0)).toEqual([]);
+	});
 	it('removes gutters covered by a spanning grid item', () => {
 		expect(
 			uncoveredRectangles({ x: 100, y: 0, width: 8, height: 92 }, [

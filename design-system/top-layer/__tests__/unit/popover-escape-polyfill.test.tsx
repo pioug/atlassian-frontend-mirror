@@ -58,29 +58,29 @@ describe('polyfilled popover Escape dismissal', () => {
 	}
 
 	it.each(['auto', 'hint'] as const)(
-		'dismisses %s after keydown handlers and before toggle',
+		'dismisses %s after keydown handlers, when dispatch returns, and before toggle',
 		(mode) => {
 			const popover = createPopover({ mode });
 			const events: string[] = [];
+			const recordKeydown = (name: string) => () => {
+				expect(popover.matches(':popover-open')).toBe(true);
+				events.push(name);
+			};
 			cleanups.push(
 				bindAll(popover, [
-					{
-						type: 'keydown',
-						listener: () => {
-							expect(popover.matches(':popover-open')).toBe(true);
-							events.push('keydown');
-						},
-					},
+					{ type: 'keydown', listener: recordKeydown('keydown') },
 					{ type: 'beforetoggle', listener: () => events.push('beforetoggle') },
 					{ type: 'toggle', listener: () => events.push('toggle') },
 				]),
+				// The last listener on the event path still sees the popover open.
+				bind(window, { type: 'keydown', listener: recordKeydown('window keydown') }),
 			);
 			pressEscape({ target: popover });
-			expect(events).toEqual(['keydown']);
-			expect(popover.matches(':popover-open')).toBe(true);
-			jest.runAllTimers();
-			expect(events).toEqual(['keydown', 'beforetoggle', 'toggle']);
+			// As in a browser: closed in the same task as the keydown, `toggle` in a later task.
+			expect(events).toEqual(['keydown', 'window keydown', 'beforetoggle']);
 			expect(popover.matches(':popover-open')).toBe(false);
+			jest.runAllTimers();
+			expect(events).toEqual(['keydown', 'window keydown', 'beforetoggle', 'toggle']);
 		},
 	);
 

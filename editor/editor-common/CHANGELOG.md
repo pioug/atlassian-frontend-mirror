@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 133.7.0
+
+### Minor Changes
+
+- [`36a41f480cf20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36a41f480cf20) -
+  Disambiguate canonical module suffixes while preserving existing public import paths. Share
+  existing entrypoints where aliases normalize to the same name; preserve implementations and rename
+  the less-used private file only where needed.
+
+### Patch Changes
+
+- [`de0b3e0a118bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de0b3e0a118bc) -
+  Add comment target attribution to inline comment draft-open analytics.
+- Updated dependencies
+
+## 133.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.6.0
 
 ### Minor Changes

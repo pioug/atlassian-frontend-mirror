@@ -93,10 +93,6 @@ const builtins = {
 	}),
 };
 
-// TODO: Fill in the hook {description}.
-/**
- * {description}.
- */
 export default function useCreatable<
 	Option,
 	IsMulti extends boolean,

@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 246.0.0
+
+### Major Changes
+
+- [`5a8122a83eec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a8122a83eec5) -
+  Clean up experiment `platform_editor_fix_new_line_after_heading`
+
 ## 245.0.0
 
 ### Major Changes

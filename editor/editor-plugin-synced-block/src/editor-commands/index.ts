@@ -35,7 +35,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -184,13 +183,9 @@ export const createSyncedBlock = ({
 			return false;
 		}
 
-		if (isExperimentEnabled('platform_editor_sync_block_node_types')) {
-			nodeTypes = [
-				...new Set(
-					getSourceNodesFromSelectionRange(tr, tr.selection).map((node) => node.type.name),
-				),
-			].sort();
-		}
+		nodeTypes = [
+			...new Set(getSourceNodesFromSelectionRange(tr, tr.selection).map((node) => node.type.name)),
+		].sort();
 
 		const attrs = syncBlockStore.sourceManager.generateBodiedSyncBlockAttrs();
 		const newBodiedSyncBlockNode = bodiedSyncBlock.createAndFill(
@@ -220,7 +215,7 @@ export const createSyncedBlock = ({
 	}
 
 	// Stash creation-type signals on the final transaction after any typeahead
-	// reassignment. nodeTypes is populated only for gated non-empty conversions.
+	// reassignment. nodeTypes is populated only for non-empty conversions.
 	tr.setMeta(creationMetaKey, { createdEmpty, inputMethod, nodeTypes });
 
 	return tr;

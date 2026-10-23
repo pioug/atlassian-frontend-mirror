@@ -62,9 +62,6 @@
 	"platform-feature-flags": {
 		"should-redirect-directory-to-teams-app": {
 			"type": "boolean"
-		},
-		"teams-app-migration-exclusions": {
-			"type": "boolean"
 		}
 	}
 }

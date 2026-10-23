@@ -11,11 +11,13 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import reducer from './reducer';
 import type { InlineCommentPluginState, InlineCommentMap, InlineCommentAction } from './types';
 import {
 	decorationKey,
+	getAnnotationDiscovery,
 	findAnnotationsInSelection,
 	inlineCommentPluginKey,
 	isBlockNodeAnnotationsSelected,
@@ -23,12 +25,11 @@ import {
 } from './utils';
 
 /**
- * Creates a handleDocChanged function with its own deleted annotations cache.
- * This ensures each editor instance has its own cache, avoiding cross-contamination.
+ * Creates a document-sync handler with a deleted annotations cache in its closure.
  */
 const createHandleDocChanged = () => {
 	// Cache for preserving deleted annotation resolved states through delete/undo cycles
-	// This lives in closure scope per editor instance to avoid serialization and reduce state size
+	// This stays outside plugin state so the undo cache is not serialized.
 	const deletedAnnotationsCache: InlineCommentMap = {};
 
 	return (
@@ -40,16 +41,37 @@ const createHandleDocChanged = () => {
 		}
 
 		const updatedState = getSelectionChangedHandler(false)(tr, prevPluginState);
+		const legacyContentExperimentEnabled = isExperimentEnabled(
+			'platform_editor_fix_lcm_editor_annotations',
+		);
+		const currentDiscovery = legacyContentExperimentEnabled
+			? getAnnotationDiscovery(tr.doc)
+			: undefined;
+		const previousAnnotationIds = currentDiscovery
+			? new Set(getAnnotationDiscovery(tr.before).annotationIds)
+			: undefined;
+		const newNestedAnnotationIds = currentDiscovery
+			? currentDiscovery.nestedAnnotationIds.filter(
+					(id) =>
+						!previousAnnotationIds?.has(id) &&
+						prevPluginState.annotations[id] === undefined &&
+						deletedAnnotationsCache[id] === undefined,
+				)
+			: [];
 
 		// Collect annotation IDs currently in the document
-		const annotationIdsInDocument = new Set<string>();
-		tr.doc.descendants((node: PMNode) => {
-			node.marks.forEach((mark: Mark) => {
-				if (mark.type.name === 'annotation') {
-					annotationIdsInDocument.add(mark.attrs.id);
-				}
+		const annotationIdsInDocument = currentDiscovery
+			? new Set([...currentDiscovery.rootAnnotationIds, ...currentDiscovery.nestedAnnotationIds])
+			: new Set<string>();
+		if (!currentDiscovery) {
+			tr.doc.descendants((node: PMNode) => {
+				node.marks.forEach((mark: Mark) => {
+					if (mark.type.name === 'annotation') {
+						annotationIdsInDocument.add(mark.attrs.id);
+					}
+				});
 			});
-		});
+		}
 
 		const annotationIdsInState = Object.keys(prevPluginState.annotations);
 
@@ -59,7 +81,9 @@ const createHandleDocChanged = () => {
 			annotationIdsInState.some((id) => !annotationIdsInDocument.has(id));
 
 		if (!annotationsHaveChanged) {
-			return updatedState;
+			return newNestedAnnotationIds.length > 0
+				? { ...updatedState, dirtyAnnotations: true }
+				: updatedState;
 		}
 
 		// Cache deleted annotations to be able to restore their resolved states on undo
@@ -80,7 +104,11 @@ const createHandleDocChanged = () => {
 			}
 		});
 
-		return { ...updatedState, annotations: updatedAnnotations };
+		return {
+			...updatedState,
+			annotations: updatedAnnotations,
+			...(newNestedAnnotationIds.length > 0 && { dirtyAnnotations: true }),
+		};
 	};
 };
 
@@ -224,7 +252,6 @@ const getSelectionChangeHandlerNew =
 			selectAnnotationMethod: undefined,
 		};
 	};
-
 const getSelectionChangedHandler =
 	(reopenCommentView: boolean) =>
 	(tr: ReadonlyTransaction, pluginState: InlineCommentPluginState): InlineCommentPluginState =>
@@ -234,60 +261,72 @@ const getSelectionChangedHandler =
 			: // else if platform_editor_comments_api_manager == false
 				getSelectionChangeHandlerOld(reopenCommentView)(tr, pluginState);
 
-// Create the handler with cache once at module level
-const handleDocChangedWithSync = createHandleDocChanged();
+const createAnnotationPluginFactory = (
+	onDocChanged: (
+		tr: ReadonlyTransaction,
+		pluginState: InlineCommentPluginState,
+	) => InlineCommentPluginState,
+) =>
+	pluginFactory(inlineCommentPluginKey, reducer, {
+		onSelectionChanged: getSelectionChangedHandler(true),
+		onDocChanged,
 
-const dest = pluginFactory(inlineCommentPluginKey, reducer, {
-	onSelectionChanged: getSelectionChangedHandler(true),
-	onDocChanged: handleDocChangedWithSync,
+		mapping: (tr, pluginState, editorState) => {
+			const { draftDecorationSet, bookmark } = pluginState;
+			let mappedDecorationSet: DecorationSet = DecorationSet.empty,
+				mappedBookmark;
+			let hasMappedDecorations = false;
 
-	mapping: (tr, pluginState, editorState) => {
-		const { draftDecorationSet, bookmark } = pluginState;
-		let mappedDecorationSet: DecorationSet = DecorationSet.empty,
-			mappedBookmark;
-		let hasMappedDecorations = false;
+			if (draftDecorationSet) {
+				mappedDecorationSet = draftDecorationSet.map(tr.mapping, tr.doc);
+			}
 
-		if (draftDecorationSet) {
-			mappedDecorationSet = draftDecorationSet.map(tr.mapping, tr.doc);
-		}
+			hasMappedDecorations =
+				mappedDecorationSet.find(undefined, undefined, (spec) =>
+					Object.values(decorationKey).includes(spec.key),
+				).length > 0;
 
-		hasMappedDecorations =
-			mappedDecorationSet.find(undefined, undefined, (spec) =>
-				Object.values(decorationKey).includes(spec.key),
-			).length > 0;
+			// When changes to decoration target make decoration invalid (e.g. delete text, add mark to node),
+			// we need to reset bookmark to hide create component and to avoid invalid draft being published
+			// We only perform this change when document selection has changed.
+			if (!hasMappedDecorations && shouldClearBookMarkCheck(tr, editorState, bookmark)) {
+				return {
+					...pluginState,
+					draftDecorationSet: mappedDecorationSet,
+					bookmark: undefined,
+				};
+			}
 
-		// When changes to decoration target make decoration invalid (e.g. delete text, add mark to node),
-		// we need to reset bookmark to hide create component and to avoid invalid draft being published
-		// We only perform this change when document selection has changed.
-		if (!hasMappedDecorations && shouldClearBookMarkCheck(tr, editorState, bookmark)) {
+			if (bookmark) {
+				mappedBookmark = bookmark.map(tr.mapping);
+			}
+
+			// return same pluginState if mappings did not change
+			if (mappedBookmark === bookmark && mappedDecorationSet === draftDecorationSet) {
+				return pluginState;
+			}
+
 			return {
 				...pluginState,
 				draftDecorationSet: mappedDecorationSet,
-				bookmark: undefined,
+				bookmark: mappedBookmark,
 			};
-		}
+		},
+	});
 
-		if (bookmark) {
-			mappedBookmark = bookmark.map(tr.mapping);
-		}
-
-		// return same pluginState if mappings did not change
-		if (mappedBookmark === bookmark && mappedDecorationSet === draftDecorationSet) {
-			return pluginState;
-		}
-
-		return {
-			...pluginState,
-			draftDecorationSet: mappedDecorationSet,
-			bookmark: mappedBookmark,
-		};
-	},
-});
+const handleDocChangedWithSync = createHandleDocChanged();
+// Keep the control cohort's existing module-level cache lifetime unchanged.
+const legacyDest = createAnnotationPluginFactory(handleDocChangedWithSync);
+const commandFactory = pluginFactory(inlineCommentPluginKey, reducer);
 export const createPluginState: (
 	dispatch: Dispatch,
 	initialState: InlineCommentPluginState | ((state: EditorState) => InlineCommentPluginState),
-) => SafeStateField<InlineCommentPluginState> = dest.createPluginState;
+) => SafeStateField<InlineCommentPluginState> = (dispatch, initialState) =>
+	(isExperimentEnabled('platform_editor_fix_lcm_editor_annotations')
+		? createAnnotationPluginFactory(createHandleDocChanged())
+		: legacyDest
+	).createPluginState(dispatch, initialState);
 export const createCommand: <A = InlineCommentAction>(
 	action: A | ((state: Readonly<EditorState>) => false | A),
 	transform?: (tr: Transaction, state: EditorState) => Transaction,
-) => Command = dest.createCommand;
+) => Command = commandFactory.createCommand;

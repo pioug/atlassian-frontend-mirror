@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 27.0.7
+
+### Patch Changes
+
+- [`bb942625d4990`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb942625d4990) -
+  Clean up the shipped synced block node types experiment, retaining node type collection for
+  content conversions.
+- Updated dependencies
+
+## 27.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.5
 
 ### Patch Changes

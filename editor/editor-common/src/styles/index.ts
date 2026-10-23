@@ -53,7 +53,7 @@ export { GRID_GUTTER } from './shared/grid';
 export {
 	FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
 	DATASOURCE_INNER_CONTAINER_CLASSNAME,
-} from './shared/smartCard';
+} from './shared/smart-card';
 export {
 	buttonGroupStyle,
 	buttonGroupStyleBeforeVisualRefresh,

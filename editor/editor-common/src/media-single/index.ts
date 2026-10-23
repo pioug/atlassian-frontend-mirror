@@ -29,3 +29,5 @@ export { CommentBadgeNext } from './CommentBadgeNext';
 export { ExternalImageBadge } from './ExternalImageBadge';
 export { MediaBadges } from './MediaBadges';
 export type { CommentBadgeProps } from './CommentBadge';
+
+export { default, type Props } from '../ui/MediaSingle';

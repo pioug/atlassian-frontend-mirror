@@ -1,5 +1,33 @@
 # @atlaskit/top-layer
 
+## 6.7.0
+
+### Minor Changes
+
+- [`36a41f480cf20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36a41f480cf20) -
+  Disambiguate canonical module suffixes while preserving existing public import paths. Share
+  existing entrypoints where aliases normalize to the same name; preserve implementations and rename
+  the less-used private file only where needed.
+
+## 6.6.1
+
+### Patch Changes
+
+- [`b3d0e852d470c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d0e852d470c) -
+  Testing `toBeVisible()` patch: an element inside an open popover or dialog is no longer reported
+  as visible when its own style, or an ancestor's, hides it. Only the top-layer host rules are
+  replaced: a closed popover or dialog hides its content, and an open one is not hidden by its own
+  style.
+- [`b3d0e852d470c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d0e852d470c) -
+  Testing polyfill: run the Escape dismissal when the keydown dispatch returns, after every keydown
+  listener, instead of in a later task. This matches browsers, where close watchers run in the same
+  task as the keydown. A layer is now closed right after `fireEvent.keyDown()`; `toggle` and `close`
+  still fire in later tasks.
+- [`b3d0e852d470c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d0e852d470c) -
+  Testing `toBeVisible()` patch: an ancestor's `opacity: 0` above an open popover or modal dialog no
+  longer hides it, as in a browser, where a top-layer element is painted outside its ancestors'
+  opacity. `display: none`, `visibility` and `hidden` above the host still hide it.
+
 ## 6.6.0
 
 ### Minor Changes

@@ -2,8 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// The example overrides editor-owned code-block descendants.
+// These styles require selectors or values outside @atlaskit/css.
+import type { JSX } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import {
 	akEditorCodeBackground,
@@ -13,16 +16,17 @@ import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const wrapper: any = css({
+const wrapper = css({
 	height: '500px',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
-export const content: any = css({
-	padding: `0 ${token('space.250')}`,
+const content = css({
+	paddingTop: 0,
+	paddingRight: token('space.250'),
+	paddingBottom: 0,
+	paddingLeft: token('space.250'),
 	height: '100%',
-	background: token('color.background.neutral.subtle'),
+	backgroundColor: token('color.background.neutral.subtle'),
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .ProseMirror': {
@@ -32,7 +36,10 @@ export const content: any = css({
 			fontFamily: akEditorCodeFontFamily,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			background: akEditorCodeBackground,
-			padding: token('space.150'),
+			paddingTop: token('space.150'),
+			paddingRight: token('space.150'),
+			paddingBottom: token('space.150'),
+			paddingLeft: token('space.150'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderRadius: token('radius.small', '3px'),
 		},
@@ -43,7 +50,7 @@ export type Props = {};
 export type State = { disabled: boolean };
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export default function Example(): jsx.JSX.Element {
+export default function Example(): JSX.Element {
 	return (
 		<div css={wrapper}>
 			<div css={content}>

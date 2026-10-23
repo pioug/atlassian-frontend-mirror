@@ -16,7 +16,7 @@ import { getLastFocusable } from '../../src/focus/get-last-focusable';
 import { getNextFocusable } from '../../src/focus/get-next-focusable';
 import { getAriaForTrigger } from '../../src/internal/get-aria-for-trigger';
 import { useAnchoredPopover } from '../../src/internal/use-anchored-popover';
-import { fromLegacyPlacement } from '../../src/placement-map';
+import { fromLegacyPlacement } from '../../src/placement-map/from-legacy-placement';
 import { PopoverSurface } from '../../src/popover-surface/popover-surface';
 import { createPopoverCloseEvent } from '../../src/popover/create-close-event';
 import { Popover } from '../../src/popover/popover';

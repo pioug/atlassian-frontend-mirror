@@ -315,12 +315,12 @@ export class EditorCardProvider
 		}
 
 		// if parent class NodeDataProvider has cached the network request for the node
-		// we can skip fetching the data async and updating the session storage cache
+		// we can skip fetching the data async and updating the document cache
 		if (isResolvedCachedResponse && this.getCacheStatusForNode(jsonNode) === 'network') {
 			return;
 		}
 
-		// fetch the latest data async and update the session storage cache
+		// fetch the latest data async and update the document cache
 		this.getDataAsync(node, (payload) => {
 			const response: SmartLinkResponse | undefined = payload.data;
 			if (!payload.error && response?.meta) {

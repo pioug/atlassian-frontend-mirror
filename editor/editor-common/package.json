@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "133.6.0",
+	"version": "133.7.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -473,7 +473,7 @@
 		"./MediaSingle/grid": "./src/ui/MediaSingle/grid.ts",
 		"./MediaSingle/link": "./src/ui/MediaSingle/link.ts",
 		"./MediaSingle/types": "./src/ui/MediaSingle/types.ts",
-		"./MediaSingle": "./src/ui/MediaSingle/index.tsx",
+		"./MediaSingle": "./src/media-single/index.ts",
 		"./ui-mention": "./src/ui/Mention/index.tsx",
 		"./ui-mention/mention-with-profilecard": "./src/ui/Mention/mention-with-profilecard.tsx",
 		"./messages/mentions": "./src/messages/mentions.ts",
@@ -577,7 +577,7 @@
 		"./messages/selection-toolbar": "./src/messages/selection-toolbar.ts",
 		"./selection/types": "./src/selection/types.ts",
 		"./selection/utils": "./src/selection/utils.ts",
-		"./SelectionBasedNodeView": "./src/selection-based-node-view/SelectionBasedNodeView.tsx",
+		"./SelectionBasedNodeView": "./src/selection-based-node-view/index.ts",
 		"./FloatingToolbar/Separator": "./src/ui/FloatingToolbar/Separator.tsx",
 		"./selection/setGapCursorSelection": "./src/selection/gap-cursor/utils/setGapCursorSelection.ts",
 		"./OverflowShadow/shadowObserver": "./src/ui/OverflowShadow/shadowObserver.ts",
@@ -606,7 +606,7 @@
 		"./FloatingToolbar/SmallerEditIcon": "./src/ui/FloatingToolbar/SmallerEditIcon.tsx",
 		"./styles/smart-card": "./src/styles/shared/smart-card.ts",
 		"./analytics/types/smart-links": "./src/analytics/types/smart-links.ts",
-		"./styles/smartCard": "./src/styles/shared/smartCard.ts",
+		"./styles/smartCard": "./src/styles/shared/smart-card.ts",
 		"./guideline/snapping": "./src/guideline/snapping.ts",
 		"./table/SortingIcon": "./src/table/SortingIcon.tsx",
 		"./sync-block/ssr_error": "./src/sync-block/ssr_error.ts",
@@ -688,7 +688,7 @@
 		"./user-preferences/user-preferences": "./src/user-preferences/user-preferences.ts",
 		"./UserIntentPopupWrapper": "./src/user-intent/UserIntentPopupWrapper.tsx",
 		"./useSharedPluginState": "./src/hooks/useSharedPluginState.ts",
-		"./useSharedPluginStateSelector": "./src/hooks/useSharedPluginStateSelector/useSharedPluginStateSelector.ts",
+		"./useSharedPluginStateSelector": "./src/hooks/useSharedPluginStateSelector/index.ts",
 		"./useSharedPluginStateWithSelector": "./src/hooks/useSharedPluginStateWithSelector.ts",
 		"./utils/annotation": "./src/utils/annotation/index.ts",
 		"./utils/breakout": "./src/utils/breakout.ts",

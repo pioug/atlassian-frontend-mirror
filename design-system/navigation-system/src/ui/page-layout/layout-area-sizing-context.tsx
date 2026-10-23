@@ -20,7 +20,11 @@ export type LayoutAreaConfig = {
 };
 
 export type StoredLayoutArea = LayoutAreaConfig & {
-	preferredInlineWidth?: number;
+	/**
+	 * Local panels share this preference across inline and overlay modes.
+	 * SideNav and ChatPanel retain separate overlay preferences.
+	 */
+	preferredWidth?: number;
 	preferredOverlayWidth?: number;
 	liveResize?: { mode: LayoutAreaMode; width: number };
 };

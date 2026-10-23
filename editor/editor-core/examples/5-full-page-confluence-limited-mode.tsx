@@ -1,13 +1,15 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
+import type { JSX } from 'react';
 import { Fragment, useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve benchmark typography, dimensions, and table descendant styles.
+// These styles require selectors or values outside @atlaskit/css.
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { getLimitedModeThresholds } from '@atlaskit/editor-common/limited-mode-document-thresholds';
@@ -457,106 +459,119 @@ const toTsv = (rows: Row[], summary: Summary): string => {
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
-const wrapper = css({ display: 'flex', height: '100%' });
-const editorPane = css({ flexGrow: 1, minWidth: 0 });
-const controlPane = css({
-	width: '600px',
-	flexShrink: 0,
-	padding: token('space.200', '16px'),
-	overflowY: 'auto',
-	borderLeft: `1px solid ${token('color.border', '#dfe1e6')}`,
-	font: token('font.body.small'),
-});
-const controls = css({
-	display: 'flex',
-	flexWrap: 'wrap',
-	gap: token('space.100', '8px'),
-	alignItems: 'center',
-});
-
-const sectionHeading = css({ font: token('font.heading.small'), margin: 0 });
-const subHeading = css({ font: token('font.heading.xsmall'), margin: 0 });
-
-const badgeBase = css({
-	display: 'inline-block',
-	padding: '2px 8px',
-	borderRadius: '4px',
-	fontWeight: token('font.weight.bold', '700'),
-	color: token('color.text.inverse', '#fff'),
-});
-const badgeOn = css({ background: token('color.background.accent.red.bolder', '#ca3521') });
-const badgeOff = css({ background: token('color.background.accent.green.bolder', '#22a06b') });
-
-const configCard = css({
-	marginTop: token('space.100', '8px'),
-	padding: token('space.100', '8px'),
-	borderRadius: '4px',
-	border: `1px solid ${token('color.border', '#dfe1e6')}`,
-});
-const barTrack = css({
-	height: '8px',
-	borderRadius: '4px',
-	background: token('color.background.neutral', '#091e420f'),
-	overflow: 'hidden',
-	marginTop: token('space.050', '4px'),
-});
-const barFill = css({ height: '100%' });
-const barFillNormal = css({ background: token('color.background.accent.blue.bolder', '#1868db') });
-const barFillOver = css({ background: token('color.background.accent.red.bolder', '#ca3521') });
-const metricRow = css({
-	display: 'flex',
-	justifyContent: 'space-between',
-	gap: token('space.100', '8px'),
-});
-const buttonGrid = css({
-	display: 'flex',
-	flexWrap: 'wrap',
-	gap: token('space.075', '6px'),
-	marginTop: token('space.100', '8px'),
-});
-const sectionNote = css({
-	margin: `${token('space.050', '4px')} 0`,
-	color: token('color.text.subtlest'),
-});
-const sectionSpacer = css({ marginTop: token('space.300', '24px') });
-
-const tableStyle = css({
-	width: '100%',
-	borderCollapse: 'collapse',
-	marginTop: token('space.150', '12px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'th, td': {
-		textAlign: 'right',
-		padding: '3px 5px',
-		borderBottom: `1px solid ${token('color.border', '#dfe1e6')}`,
-		whiteSpace: 'nowrap',
+const styles = cssMap({
+	wrapper: { display: 'flex', height: '100%' },
+	editorPane: { flexGrow: 1, minWidth: 0 },
+	controlPane: {
+		width: '600px',
+		flexShrink: 0,
+		paddingTop: token('space.200', '16px'),
+		paddingRight: token('space.200', '16px'),
+		paddingBottom: token('space.200', '16px'),
+		paddingLeft: token('space.200', '16px'),
+		overflowY: 'auto',
+		borderLeft: `1px solid ${token('color.border', '#dfe1e6')}`,
+		font: token('font.body.small'),
 	},
-});
-const firstCol = css({ textAlign: 'left' });
-const seriesRow = css({ background: token('color.background.neutral', '#f4f5f7') });
-const overThresholdCell = css({
-	color: token('color.text.accent.red', '#ae2a19'),
-	fontWeight: 700,
-});
-const degradedCell = css({ color: token('color.text.accent.orange', '#a54800'), fontWeight: 700 });
-const improvedCell = css({ color: token('color.text.accent.green', '#216e4e'), fontWeight: 700 });
-const regressedCell = css({ color: token('color.text.accent.red', '#ae2a19'), fontWeight: 700 });
-const improvedText = css({ color: token('color.text.accent.green', '#216e4e') });
-const regressedText = css({ color: token('color.text.accent.red', '#ae2a19') });
-
-const summaryCard = css({
-	marginTop: token('space.150', '12px'),
-	padding: token('space.150', '12px'),
-	borderRadius: '6px',
-	border: `1px solid ${token('color.border', '#dfe1e6')}`,
-	background: token('color.background.neutral', '#f4f5f7'),
-});
-const headline = css({ fontSize: '18px', fontWeight: 700, margin: 0 });
-const statGrid = css({
-	display: 'grid',
-	gridTemplateColumns: '1fr 1fr',
-	gap: token('space.075', '6px'),
-	marginTop: token('space.100', '8px'),
+	controls: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: token('space.100', '8px'),
+		alignItems: 'center',
+	},
+	sectionHeading: { font: token('font.heading.small'), margin: 0 },
+	subHeading: { font: token('font.heading.xsmall'), margin: 0 },
+	badgeBase: {
+		display: 'inline-block',
+		padding: '2px 8px',
+		borderRadius: '4px',
+		fontWeight: token('font.weight.bold', '700'),
+		color: token('color.text.inverse', '#fff'),
+	},
+	badgeOn: { backgroundColor: token('color.background.accent.red.bolder', '#ca3521') },
+	badgeOff: { backgroundColor: token('color.background.accent.green.bolder', '#22a06b') },
+	configCard: {
+		marginTop: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
+		borderRadius: '4px',
+		border: `1px solid ${token('color.border', '#dfe1e6')}`,
+	},
+	barTrack: {
+		height: '8px',
+		borderRadius: '4px',
+		backgroundColor: token('color.background.neutral', '#091e420f'),
+		overflow: 'hidden',
+		marginTop: token('space.050', '4px'),
+	},
+	barFill: { height: '100%' },
+	barFillNormal: {
+		backgroundColor: token('color.background.accent.blue.bolder', '#1868db'),
+	},
+	barFillOver: {
+		backgroundColor: token('color.background.accent.red.bolder', '#ca3521'),
+	},
+	metricRow: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		gap: token('space.100', '8px'),
+	},
+	buttonGrid: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: token('space.075', '6px'),
+		marginTop: token('space.100', '8px'),
+	},
+	sectionNote: {
+		marginTop: token('space.050', '4px'),
+		marginRight: 0,
+		marginBottom: token('space.050', '4px'),
+		marginLeft: 0,
+		color: token('color.text.subtlest'),
+	},
+	sectionSpacer: { marginTop: token('space.300', '24px') },
+	tableStyle: {
+		width: '100%',
+		borderCollapse: 'collapse',
+		marginTop: token('space.150', '12px'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'th, td': {
+			textAlign: 'right',
+			padding: '3px 5px',
+			borderBottom: `1px solid ${token('color.border', '#dfe1e6')}`,
+			whiteSpace: 'nowrap',
+		},
+	},
+	firstCol: { textAlign: 'left' },
+	seriesRow: { backgroundColor: token('color.background.neutral', '#f4f5f7') },
+	overThresholdCell: {
+		color: token('color.text.accent.red', '#ae2a19'),
+		fontWeight: 700,
+	},
+	degradedCell: { color: token('color.text.accent.orange', '#a54800'), fontWeight: 700 },
+	improvedCell: { color: token('color.text.accent.green', '#216e4e'), fontWeight: 700 },
+	regressedCell: { color: token('color.text.accent.red', '#ae2a19'), fontWeight: 700 },
+	improvedText: { color: token('color.text.accent.green', '#216e4e') },
+	regressedText: { color: token('color.text.accent.red', '#ae2a19') },
+	summaryCard: {
+		marginTop: token('space.150', '12px'),
+		paddingTop: token('space.150', '12px'),
+		paddingRight: token('space.150', '12px'),
+		paddingBottom: token('space.150', '12px'),
+		paddingLeft: token('space.150', '12px'),
+		borderRadius: '6px',
+		border: `1px solid ${token('color.border', '#dfe1e6')}`,
+		backgroundColor: token('color.background.neutral', '#f4f5f7'),
+	},
+	headline: { fontSize: '18px', fontWeight: 700, margin: 0 },
+	statGrid: {
+		display: 'grid',
+		gridTemplateColumns: '1fr 1fr',
+		gap: token('space.075', '6px'),
+		marginTop: token('space.100', '8px'),
+	},
 });
 
 const isDegraded = (m: Measurement | undefined) => Boolean(m && m.p90 > DEGRADED_INP_MS);
@@ -576,37 +591,37 @@ const ConfigCard = ({ stats }: { stats: DocStats & { enabled: boolean } }) => {
 	const overNodeCount = nodeCount > nodeCountThreshold;
 
 	return (
-		<div css={configCard}>
-			<div css={metricRow}>
+		<div css={styles.configCard}>
+			<div css={styles.metricRow}>
 				<strong>Limited mode for this document</strong>
-				<span css={[badgeBase, stats.enabled ? badgeOn : badgeOff]}>
+				<span css={[styles.badgeBase, stats.enabled ? styles.badgeOn : styles.badgeOff]}>
 					{stats.enabled ? 'ON' : 'OFF'}
 				</span>
 			</div>
-			<div css={metricRow}>
+			<div css={styles.metricRow}>
 				<span>node count</span>
-				<span css={overNodeCount ? overThresholdCell : undefined}>
+				<span css={[overNodeCount ? styles.overThresholdCell : undefined]}>
 					{nodeCount} / {nodeCountThreshold}
 				</span>
 			</div>
-			<div css={barTrack}>
+			<div css={styles.barTrack}>
 				<div
-					css={[barFill, overNodeCount ? barFillOver : barFillNormal]}
+					css={[styles.barFill, overNodeCount ? styles.barFillOver : styles.barFillNormal]}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- width is a computed percentage of the node-count threshold
 					style={{ width: `${pct}%` }}
 				/>
 			</div>
-			<div css={metricRow}>
+			<div css={styles.metricRow}>
 				<span>nodeSize</span>
-				<span css={docSize > docSizeThreshold ? overThresholdCell : undefined}>
+				<span css={[docSize > docSizeThreshold ? styles.overThresholdCell : undefined]}>
 					{docSize} / {docSizeThreshold}
 				</span>
 			</div>
-			<div css={metricRow}>
+			<div css={styles.metricRow}>
 				<span>text</span>
 				<span>{stats.textChars} chars</span>
 			</div>
-			<div css={metricRow}>
+			<div css={styles.metricRow}>
 				<span>legacy-content macro</span>
 				<span>{stats.hasLcm ? 'yes' : 'no'}</span>
 			</div>
@@ -622,45 +637,47 @@ const SummaryCard = ({ summary }: { summary: Summary }) => {
 	const fmtPct = (n: number | null) => (n === null ? '—' : `${n >= 0 ? '+' : ''}${n.toFixed(1)}%`);
 	const fmtMs = (n: number | null) => (n === null ? '—' : `${n.toFixed(1)}ms`);
 	return (
-		<div css={summaryCard}>
-			<p css={headline}>
+		<div css={styles.summaryCard}>
+			<p css={styles.headline}>
 				Overall improvement (limited mode active):{' '}
 				{improvement === null ? (
 					'—'
 				) : (
-					<span css={improvement >= 0 ? improvedText : regressedText}>{fmtPct(improvement)}</span>
+					<span css={[improvement >= 0 ? styles.improvedText : styles.regressedText]}>
+						{fmtPct(improvement)}
+					</span>
 				)}
 			</p>
-			<div css={statGrid}>
-				<div css={metricRow}>
+			<div css={styles.statGrid}>
+				<div css={styles.metricRow}>
 					<span>Activated / completed</span>
 					<span>
 						{summary.activatedRows} / {summary.completedRows}
 					</span>
 				</div>
-				<div css={metricRow}>
+				<div css={styles.metricRow}>
 					<span>Mean Δ p90 (all rows)</span>
 					<span>{fmtPct(summary.meanImprovementAllPct)}</span>
 				</div>
-				<div css={metricRow}>
+				<div css={styles.metricRow}>
 					<span>Mean p90 off → on</span>
 					<span>
 						{fmtMs(summary.meanOffP90)} → {fmtMs(summary.meanOnP90)}
 					</span>
 				</div>
-				<div css={metricRow}>
+				<div css={styles.metricRow}>
 					<span>Worst on p90</span>
 					<span>{fmtMs(summary.worstOnP90)}</span>
 				</div>
-				<div css={metricRow}>
+				<div css={styles.metricRow}>
 					<span>Degraded rows off → on</span>
 					<span>
 						{summary.degradedOff} → {summary.degradedOn}
 					</span>
 				</div>
-				<div css={metricRow}>
+				<div css={styles.metricRow}>
 					<span>False activations</span>
-					<span css={summary.falseActivations > 0 ? regressedText : undefined}>
+					<span css={[summary.falseActivations > 0 ? styles.regressedText : undefined]}>
 						{summary.falseActivations}
 					</span>
 				</div>
@@ -672,10 +689,10 @@ const SummaryCard = ({ summary }: { summary: Summary }) => {
 const ResultsTable = ({ rows }: { rows: Row[] }) => {
 	let lastSeries = '';
 	return (
-		<table css={tableStyle}>
+		<table css={styles.tableStyle}>
 			<thead>
 				<tr>
-					<th css={firstCol}>Fixture</th>
+					<th css={styles.firstCol}>Fixture</th>
 					<th>pos</th>
 					<th>nodes</th>
 					<th>nodeSize</th>
@@ -695,26 +712,34 @@ const ResultsTable = ({ rows }: { rows: Row[] }) => {
 					return (
 						<Fragment key={rowKey(r.label, r.position)}>
 							{showSeries && (
-								<tr css={seriesRow}>
+								<tr css={styles.seriesRow}>
 									<td colSpan={10}>
 										<strong>{r.series}</strong>
 									</td>
 								</tr>
 							)}
 							<tr>
-								<td css={firstCol}>{r.label}</td>
+								<td css={styles.firstCol}>{r.label}</td>
 								<td>{r.position}</td>
-								<td css={r.wouldEnable ? overThresholdCell : undefined}>{r.nodeCount}</td>
+								<td css={[r.wouldEnable ? styles.overThresholdCell : undefined]}>{r.nodeCount}</td>
 								<td>{r.docSize}</td>
 								<td>{r.wouldEnable ? 'ON' : 'off'}</td>
-								<td css={isDegraded(r.off) ? degradedCell : undefined}>{fmt(r.off, 'p50')}</td>
-								<td css={isDegraded(r.off) ? degradedCell : undefined}>{fmt(r.off, 'p90')}</td>
-								<td css={isDegraded(r.on) ? degradedCell : undefined}>{fmt(r.on, 'p50')}</td>
-								<td css={isDegraded(r.on) ? degradedCell : undefined}>{fmt(r.on, 'p90')}</td>
+								<td css={[isDegraded(r.off) ? styles.degradedCell : undefined]}>
+									{fmt(r.off, 'p50')}
+								</td>
+								<td css={[isDegraded(r.off) ? styles.degradedCell : undefined]}>
+									{fmt(r.off, 'p90')}
+								</td>
+								<td css={[isDegraded(r.on) ? styles.degradedCell : undefined]}>
+									{fmt(r.on, 'p50')}
+								</td>
+								<td css={[isDegraded(r.on) ? styles.degradedCell : undefined]}>
+									{fmt(r.on, 'p90')}
+								</td>
 								{delta === null ? (
 									<td>—</td>
 								) : (
-									<td css={delta >= 0 ? improvedCell : regressedCell}>
+									<td css={[delta >= 0 ? styles.improvedCell : styles.regressedCell]}>
 										{delta >= 0 ? '+' : ''}
 										{delta.toFixed(0)}%
 									</td>
@@ -730,7 +755,7 @@ const ResultsTable = ({ rows }: { rows: Row[] }) => {
 
 // ─── Main component ────────────────────────────────────────────────────────────
 
-const ExampleEditorComponent = (): jsx.JSX.Element => {
+const ExampleEditorComponent = (): JSX.Element => {
 	const editorActionsRef = useRef<EditorActions | null>(null);
 	const editorApiRef = useRef<EditorAPI>(undefined);
 
@@ -974,8 +999,8 @@ const ExampleEditorComponent = (): jsx.JSX.Element => {
 	const editorKey = `lm-${limitedModeEnabled}-${latchResetCount}`;
 
 	return (
-		<div css={wrapper}>
-			<div css={editorPane}>
+		<div css={styles.wrapper}>
+			<div css={styles.editorPane}>
 				<PresetContextProvider>
 					<FullPageExample
 						key={editorKey}
@@ -1011,22 +1036,22 @@ const ExampleEditorComponent = (): jsx.JSX.Element => {
 				</PresetContextProvider>
 			</div>
 
-			<div css={controlPane}>
-				<h3 css={sectionHeading}>Limited mode</h3>
-				<div css={controls}>
+			<div css={styles.controlPane}>
+				<h3 css={styles.sectionHeading}>Limited mode</h3>
+				<div css={styles.controls}>
 					<Button appearance="primary" isDisabled={running} onClick={toggleLimitedMode}>
 						Limited mode plugin: {limitedModeEnabled ? 'ON' : 'OFF'}
 					</Button>
-					<span css={[badgeBase, latchedEnabled ? badgeOn : badgeOff]}>
+					<span css={[styles.badgeBase, latchedEnabled ? styles.badgeOn : styles.badgeOff]}>
 						latched: {latchedEnabled === undefined ? '…' : latchedEnabled ? 'ON' : 'OFF'}
 					</span>
 				</div>
-				<p css={sectionNote}>
+				<p css={styles.sectionNote}>
 					Toggle registers/unregisters the plugin (killSwitch) and keeps the current document. When
 					ON, limited mode latches per the thresholds shown below.
 				</p>
 
-				<div css={buttonGrid}>
+				<div css={styles.buttonGrid}>
 					<Button
 						spacing="compact"
 						isDisabled={running || !limitedModeEnabled || Boolean(latchedEnabled)}
@@ -1042,38 +1067,38 @@ const ExampleEditorComponent = (): jsx.JSX.Element => {
 						Reset latch (remount)
 					</Button>
 				</div>
-				<p css={sectionNote}>
+				<p css={styles.sectionNote}>
 					Force latch dispatches the same transaction the detector does when the high bar is met, so
 					every consumer sees a real latch. Reset remounts the editor, keeping the document — the
 					latch is one-way, so a remount is the only way to clear it (in production, a page reload).
 				</p>
 
-				<div css={controls}>
+				<div css={styles.controls}>
 					<Button isDisabled={running} onClick={runSingle}>
 						Run INP test (this page)
 					</Button>
 					<span>{progress}</span>
 				</div>
-				<p css={sectionNote}>
+				<p css={styles.sectionNote}>
 					Types {RUNS}×{ITERATIONS} keystrokes into the current document (end &amp; start) and
 					reports its INP in the current limited-mode state — no fixtures loaded. Note: this inserts
 					characters into the page.
 				</p>
 				{singleResult && (
-					<div css={summaryCard}>
-						<div css={metricRow}>
+					<div css={styles.summaryCard}>
+						<div css={styles.metricRow}>
 							<strong>Current page INP</strong>
 							<span>limited mode {latchedEnabled ? 'ON' : 'OFF'}</span>
 						</div>
-						<div css={metricRow}>
+						<div css={styles.metricRow}>
 							<span>end</span>
-							<span css={isDegraded(singleResult.end) ? degradedCell : undefined}>
+							<span css={[isDegraded(singleResult.end) ? styles.degradedCell : undefined]}>
 								p50 {fmt(singleResult.end, 'p50')} / p90 {fmt(singleResult.end, 'p90')}
 							</span>
 						</div>
-						<div css={metricRow}>
+						<div css={styles.metricRow}>
 							<span>start</span>
-							<span css={isDegraded(singleResult.start) ? degradedCell : undefined}>
+							<span css={[isDegraded(singleResult.start) ? styles.degradedCell : undefined]}>
 								p50 {fmt(singleResult.start, 'p50')} / p90 {fmt(singleResult.start, 'p90')}
 							</span>
 						</div>
@@ -1082,9 +1107,9 @@ const ExampleEditorComponent = (): jsx.JSX.Element => {
 
 				{stats && <ConfigCard stats={stats} />}
 
-				<div css={sectionSpacer}>
-					<h4 css={subHeading}>Samples</h4>
-					<div css={buttonGrid}>
+				<div css={styles.sectionSpacer}>
+					<h4 css={styles.subHeading}>Samples</h4>
+					<div css={styles.buttonGrid}>
 						{SAMPLES.map((sample) => (
 							<Button
 								key={sample.label}
@@ -1098,16 +1123,16 @@ const ExampleEditorComponent = (): jsx.JSX.Element => {
 					</div>
 				</div>
 
-				<div css={sectionSpacer}>
-					<h4 css={subHeading}>INP benchmark suite</h4>
-					<p css={sectionNote}>
+				<div css={styles.sectionSpacer}>
+					<h4 css={styles.subHeading}>INP benchmark suite</h4>
+					<p css={styles.sectionNote}>
 						Loads every fixture and types {RUNS}×{ITERATIONS} keystrokes (first {WARMUP} of each run
 						discarded, pooled) at the <strong>end</strong> and <strong>start</strong>, limited mode
 						off vs on. Δ p90 green = faster, red = slower. Compare the headline improvement across
 						tweaks. Keep the tab focused while running. Stop ends the run within a keystroke or two
 						and keeps whatever rows already completed.
 					</p>
-					<div css={controls}>
+					<div css={styles.controls}>
 						<Button appearance="primary" isDisabled={running} onClick={onRun}>
 							{running ? 'Running…' : 'Run benchmark suite'}
 						</Button>

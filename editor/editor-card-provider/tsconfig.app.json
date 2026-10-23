@@ -44,9 +44,6 @@
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
-			"path": "../../helpers/frontend-utilities/tsconfig.app.json"
-		},
-		{
 			"path": "../../linking-platform/json-ld-types/tsconfig.app.json"
 		},
 		{

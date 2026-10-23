@@ -2,7 +2,7 @@
 order: 3
 ---
 
-<!-- Migrated from Atlaskit, could do with rewriting but not important as these versions are quite old. -->
+{/* Migrated from Atlaskit, could do with rewriting but not important as these versions are quite old. */}
 
 ## Upgrade from 4.x to 5.x
 
@@ -52,18 +52,18 @@ from package) , therefore, we can pass the table tree here in case we follow ren
 Additionally, a new prop `items` is added on Row component (exported from package), which accepts
 array of children object for particular parent item.
 
-<!--See the example below:
-${(
-  <Example
-    packageName="@atlaskit/table-tree"
-    Component={
-      require('../examples/upgrade-guide-examples/static-data').default
-    }
-    source={require('!!raw-loader!../examples/upgrade-guide-examples/static-data')}
-    title="With Static Data"
-    language="jsx"
-  />
-)}-->
+```tsx
+const items = [{ id: 'chapter-1', title: 'Chapter 1', children: [] }];
+
+<Rows
+	items={items}
+	render={({ id, title, children }) => (
+		<Row itemId={id} items={children} hasChildren={children.length > 0}>
+			<Cell>{title}</Cell>
+		</Row>
+	)}
+/>;
+```
 
 ### Explanation:
 
@@ -128,19 +128,21 @@ tableTreeDataHelper.updateItems(<_items_to_add>, <_current_items_>, <_parent_ite
 
 _In case of root items ( 1st level object) only one parameter items is enough_
 
-<!--
-${(
-  <Example
-    packageName="@atlaskit/table-tree"
-    Component={
-      require('../examples/upgrade-guide-examples/async-data-loading').default
-    }
-    source={require('!!raw-loader!../examples/upgrade-guide-examples/async-data-loading')}
-    title="Advance Usage: With Async loading"
-    language="jsx"
-  />
-)}
--->
+```tsx
+type Item = { id: string; title: string; hasChildren?: boolean };
+
+const helper = new TableTreeDataHelper<Item>({ key: 'id' });
+
+const onExpand = async (parentItem: Item): Promise<void> => {
+	// Fetch rows that belong below the row the user expanded.
+	const childItems: Item[] = await loadRows(parentItem);
+
+	setItems((currentItems: Item[]): Item[] =>
+		// Add the fetched rows to the current tree beneath their parent.
+		helper.updateItems(childItems, currentItems, parentItem),
+	);
+};
+```
 
 The idea here is to get the path of parent item in the table tree object using cache, cache makes it
 really fast, and then update parent update with children and return the new items with updated

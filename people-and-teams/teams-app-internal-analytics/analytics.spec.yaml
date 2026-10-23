@@ -468,6 +468,22 @@ events:
           type: []
           required: false
           description: the result
+        failureType:
+          type: string
+          required: false
+          description: whether the failure came from an invite response or the whole request
+        errorReason:
+          type: string
+          required: false
+          description: a bounded reason or backend error code for the failure
+        status:
+          type: number
+          required: false
+          description: the HTTP or backend error status
+        traceId:
+          type: string
+          required: false
+          description: the backend trace id for a failed request
   - inviteToSoftwareAndBusinessProjects succeeded:
       type: track
       description: fired when inviting users to software and business projects succeeded

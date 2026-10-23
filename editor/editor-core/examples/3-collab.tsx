@@ -2,15 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import { useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
 import { useConfluenceFullPagePreset } from '@af/editor-examples-helpers/example-presets/useConfluenceFullPagePreset';
 import { createMockCollabEditProvider } from '@af/editor-examples-helpers/utils/mockWebSocketsCollabProvider';
 import Button from '@atlaskit/button/default/button';
+import { css, jsx } from '@atlaskit/css';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -92,7 +92,7 @@ const column = css({
 	flex: '1 1 0',
 });
 
-export default function CollabMultipleProvider(): jsx.JSX.Element {
+export default function CollabMultipleProvider(): JSX.Element {
 	return (
 		<IntlProvider locale="en">
 			<div>

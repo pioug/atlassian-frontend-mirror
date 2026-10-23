@@ -2,8 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// The font workaround targets an element owned by ElementBrowser.
+// These styles require selectors or values outside @atlaskit/css.
+import type { JSX } from 'react';
+
+import { css, jsx } from '@compiled/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
@@ -72,7 +75,7 @@ const ElementBrowserComp = () => {
 
 	return <ElementBrowserWithIntl getItems={getItems} />;
 };
-export const ElementBrowserModal = (): jsx.JSX.Element => (
+export const ElementBrowserModal = (): JSX.Element => (
 	<div css={hideEnterKey}>
 		<EditorContext>
 			<ElementBrowserComp />
@@ -116,7 +119,7 @@ const ElementBrowserCompWithDisabled = () => {
 	return <ElementBrowserWithIntl getItems={getItems} />;
 };
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const ElementBrowserModalWithDisabled = (): jsx.JSX.Element => (
+export const ElementBrowserModalWithDisabled = (): JSX.Element => (
 	<div css={hideEnterKey}>
 		<EditorContext>
 			<ElementBrowserCompWithDisabled />

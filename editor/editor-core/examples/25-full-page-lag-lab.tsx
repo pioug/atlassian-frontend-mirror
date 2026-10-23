@@ -4,10 +4,12 @@
  */
 import { format } from 'url';
 
+import type { JSX } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve selectors for the latency controls in this performance fixture.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { Drawer } from '@atlaskit/drawer/drawer';
@@ -95,12 +97,21 @@ const exampleWrapper = css({
 
 const latencyPanelContainer = css({
 	maxWidth: '250px',
-	padding: token('space.200'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"input[type='number']": {
 		width: '230px',
-		padding: token('space.050'),
-		margin: token('space.050'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		marginTop: token('space.050'),
+		marginRight: token('space.050'),
+		marginBottom: token('space.050'),
+		marginLeft: token('space.050'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-child': {
 			marginLeft: 0,
@@ -325,7 +336,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 	);
 };
 
-export default function Example(): jsx.JSX.Element {
+export default function Example(): JSX.Element {
 	const [latencyMode, setLatencyMode] = React.useState(defaultLatencyMode);
 	const [fixedLatency, setFixedLatency] = React.useState(defaultFixedLatency);
 	const [variableLatencyFrom, setVariableLatencyFrom] = React.useState(defaultRangeLatencyFrom);

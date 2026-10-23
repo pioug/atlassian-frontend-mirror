@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/locale",
-	"version": "5.4.0",
+	"version": "5.5.0",
 	"description": "Utility functions for handling localization",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,7 @@
 		"./default-locales": "./src/default-locales.tsx",
 		"./locale-select": "./src/locale-select.tsx",
 		"./localization-provider": "./src/internal/localization-provider/localization-provider.tsx",
+		"./get-time-format": "./src/internal/localization-provider/get-time-format.tsx",
 		"./date-parser": "./src/internal/date-parser/index.tsx"
 	},
 	"atlassian": {

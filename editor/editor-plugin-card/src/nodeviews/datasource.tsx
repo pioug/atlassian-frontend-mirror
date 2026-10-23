@@ -14,8 +14,10 @@ import type {
 	getPosHandler,
 	ReactComponentProps,
 } from '@atlaskit/editor-common/react-node-view/types';
-import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles/smart-card';
-import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles/smartCard';
+import {
+	DATASOURCE_INNER_CONTAINER_CLASSNAME,
+	SmartCardSharedCssClassName,
+} from '@atlaskit/editor-common/styles/smart-card';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import UnsupportedInline from '@atlaskit/editor-common/UnsupportedInline';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils/breakout';

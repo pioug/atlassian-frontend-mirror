@@ -1,5 +1,6 @@
 import rafSchedule from 'raf-schd';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/getInlineNodeViewProducer';
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -29,6 +30,11 @@ import {
 } from './actions';
 import { pluginKey } from './plugin-key';
 import reducer from './reducers';
+import {
+	getPastedInlineCards,
+	getResolvedPastedInlineCards,
+	withPastedInlineLinks,
+} from './util/pasted-inline-link';
 import { handleProvider, resolveWithProvider } from './util/resolve';
 import { getNewRequests, getPluginState, getPluginStateWithUpdatedPos } from './util/state';
 import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from './utils';
@@ -63,6 +69,7 @@ export const createPlugin =
 			fullWidthMode,
 			actionOptions,
 			cardPluginEvents,
+			trackPastedInlineLinks,
 			showUpgradeDiscoverability,
 			allowEmbeds,
 			allowBlockCards,
@@ -102,6 +109,7 @@ export const createPlugin =
 				init(): CardPluginState {
 					return {
 						requests: [],
+						...(trackPastedInlineLinks ? { pastedInlineLinks: [] } : {}),
 						provider: null,
 						cards: [],
 						datasourceStash: {},
@@ -120,7 +128,12 @@ export const createPlugin =
 				apply(tr, pluginState: CardPluginState, prevEditorState: EditorState) {
 					// Update all the positions of outstanding requests and
 					// cards in the plugin state.
-					const pluginStateWithUpdatedPos = getPluginStateWithUpdatedPos(pluginState, tr);
+					let pluginStateWithUpdatedPos = getPluginStateWithUpdatedPos(pluginState, tr);
+					// Pasted inline cards that already exist as nodes (copy and paste of cards).
+					pluginStateWithUpdatedPos = withPastedInlineLinks(
+						pluginStateWithUpdatedPos,
+						trackPastedInlineLinks ? getPastedInlineCards(tr) : [],
+					);
 
 					// apply any actions
 					const meta = tr.getMeta(pluginKey);
@@ -146,8 +159,7 @@ export const createPlugin =
 						return pluginStateWithUpdatedPos;
 					}
 
-					const newState = reducer(pluginStateWithUpdatedPos, meta);
-
+					let newState = reducer(pluginStateWithUpdatedPos, meta);
 					// Track the first resolved inline smart link for PO spotlight DOM targeting
 					if (meta.type === 'RESOLVE' && pluginState?.requests?.length) {
 						const resolvedRequest = pluginState.requests.find((req) => req.url === meta.url);
@@ -165,6 +177,19 @@ export const createPlugin =
 								];
 							}
 						}
+					}
+
+					// Pasted URLs that were converted to inline cards.
+					if (trackPastedInlineLinks && meta.type === 'RESOLVE') {
+						newState = withPastedInlineLinks(
+							newState,
+							getResolvedPastedInlineCards(
+								tr,
+								pluginState.requests,
+								meta.url,
+								INPUT_METHOD.CLIPBOARD,
+							),
+						);
 					}
 
 					if (!enableInlineUpgradeFeatures) {

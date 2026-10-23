@@ -102,6 +102,9 @@ export type Request = {
  */
 type DatasourceStash = Record<string, { views: DatasourceAdfView[] }>;
 
+/** The single eligible locally pasted inline link selected for a product nudge. */
+export type PastedInlineLink = { pos: number; url: string };
+
 export type CardPluginState = {
 	allowBlockCards?: boolean;
 	allowEmbeds?: boolean;
@@ -114,6 +117,13 @@ export type CardPluginState = {
 	inlineCardAwarenessCandidatePosition?: number;
 	layout?: DatasourceTableLayout;
 	overlayCandidatePosition?: number;
+	/**
+	 * Locally pasted inline links, mapped through edits. Defined only when `trackPastedInlineLinks`
+	 * is on. Once the consumer confirms display this holds only the displayed link.
+	 */
+	pastedInlineLinks?: PastedInlineLink[];
+	/** Permanently stop adding candidates after the consumer confirms actual display. */
+	pastedInlineLinkShown?: boolean;
 	provider: CardProvider | null;
 	removeOverlay?: () => void;
 	removeOverlayCardId?: string;
@@ -143,6 +153,8 @@ export type CardPluginOptions = CardOptions & {
 	lpLinkPicker?: boolean;
 	onClickCallback?: OnClickCallback;
 	smartCardContext?: CardContext;
+	/** Opt in to tracking locally pasted inline links in plugin state. */
+	trackPastedInlineLinks?: boolean;
 };
 
 // actions
@@ -236,6 +248,8 @@ export type RemoveDatasourceStash = {
 };
 
 export type CardPluginAction =
+	| { target: PastedInlineLink; type: 'PASTED_INLINE_LINK_SHOWN' }
+	| { target: PastedInlineLink; type: 'CLEAR_PASTED_INLINE_LINK' }
 	| SetProvider
 	| Queue
 	| Resolve

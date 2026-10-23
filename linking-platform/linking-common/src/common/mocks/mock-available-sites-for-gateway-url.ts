@@ -3,11 +3,11 @@
 
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockedAvailableSitesResultWithGatewayBaseUrl } from './available-sites-result';
 import {
 	AVAILABLE_SITES_ENDPOINT,
 	AVAILABLE_SITES_UNIT_COMPLIANT_ENDPOINT,
-} from './mockAvailableSites';
+} from './available-sites-endpoints';
+import { mockedAvailableSitesResultWithGatewayBaseUrl } from './available-sites-result';
 
 /**
  * Mock availableSites for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.

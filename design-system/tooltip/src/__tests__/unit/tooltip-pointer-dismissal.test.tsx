@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 
+import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
@@ -56,6 +57,13 @@ function releaseTrigger() {
 function crossBoundaryInsideTrigger() {
 	fireEvent.mouseOver(screen.getByTestId('trigger-label'), {
 		relatedTarget: screen.getByTestId('trigger'),
+	});
+}
+
+// Pointer leaves the trigger entirely, and does not come back.
+function leaveTrigger() {
+	fireEvent.mouseOut(screen.getByTestId('trigger'), {
+		relatedTarget: screen.getByTestId('after'),
 	});
 }
 
@@ -190,6 +198,34 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip pointer dismissal (top-laye
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 	});
 
+	it('should show on keyboard focus after an Escape dismissal once the pointer has left', async () => {
+		const user = createUser();
+		renderTooltip();
+
+		await user.hover(screen.getByTestId('trigger'));
+		runAllTimers();
+		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
+
+		await user.keyboard('{Escape}');
+		await flushPopoverExit();
+		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
+
+		// The pointer is still in the trigger, so a crossing inside it does not re-show.
+		crossBoundaryInsideTrigger();
+		runAllTimers();
+		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
+
+		leaveTrigger();
+		runAllTimers();
+
+		// Focus was never on the trigger, so there was no blur to end the dismissal.
+		await user.tab();
+		expect(screen.getByTestId('trigger')).toHaveFocus();
+		runAllTimers();
+
+		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+	});
+
 	it('should keep honouring hideTooltipOnMouseDown by hiding before the release', async () => {
 		const user = createUser();
 		renderTooltip({ hideTooltipOnMouseDown: true });
@@ -240,6 +276,28 @@ ffTest.off('platform-dst-top-layer-tooltip', 'Tooltip pointer dismissal (legacy)
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
 
 		crossBoundaryInsideTrigger();
+		runAllTimers();
+
+		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+	});
+
+	it('should show on keyboard focus after an Escape dismissal once the pointer has left', async () => {
+		const user = createUser();
+		renderTooltip();
+
+		await user.hover(screen.getByTestId('trigger'));
+		runAllTimers();
+		expect(screen.getByTestId('tooltip')).toBeInTheDocument();
+
+		await user.keyboard('{Escape}');
+		runAllTimers();
+		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
+
+		leaveTrigger();
+		runAllTimers();
+
+		await user.tab();
+		expect(screen.getByTestId('trigger')).toHaveFocus();
 		runAllTimers();
 
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');

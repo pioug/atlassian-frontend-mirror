@@ -69,6 +69,40 @@ describe('polyfilled dialog Escape cancellation', () => {
 		unbindParent();
 	});
 
+	it('cancels and closes when the keydown dispatch returns, after every keydown listener', () => {
+		const dialog = createDialog();
+		const events: string[] = [];
+		const unbind = bindAll(
+			dialog,
+			['cancel', 'beforetoggle', 'toggle', 'close'].map((type) => ({
+				type,
+				listener: (event: Event) => events.push(event.type),
+			})),
+		);
+		// The last listener on the event path still sees the dialog open.
+		const unbindWindow = bind(window, {
+			type: 'keydown',
+			listener: () => events.push(`window keydown, open=${dialog.open}`),
+		});
+		dialog.dispatchEvent(
+			new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }),
+		);
+		// As in a browser: `cancel` and `beforetoggle` in the same task as the keydown, and
+		// `toggle` and `close` in later tasks.
+		expect(events).toEqual(['window keydown, open=true', 'cancel', 'beforetoggle']);
+		expect(dialog.open).toBe(false);
+		jest.runAllTimers();
+		expect(events).toEqual([
+			'window keydown, open=true',
+			'cancel',
+			'beforetoggle',
+			'toggle',
+			'close',
+		]);
+		unbind();
+		unbindWindow();
+	});
+
 	it('preventing cancel leaves the dialog open without closing events', async () => {
 		const dialog = createDialog();
 		const closingEvent = jest.fn();

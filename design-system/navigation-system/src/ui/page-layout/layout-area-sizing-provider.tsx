@@ -10,6 +10,7 @@ import React, {
 
 import { bind, bindAll } from 'bind-event-listener';
 
+import { defaultMainMinWidth } from './constants';
 import {
 	LayoutAreaSizingContext,
 	type LayoutArea,
@@ -71,7 +72,7 @@ export function LayoutAreaSizingProvider({
 		return bind(inlineChatQuery, { type: 'change', listener: dismissOlderOverlay });
 	}, [chatPanelMode, lastOpenedOverlay, sideNavMode]);
 
-	const mainMinWidth = useRef<LayoutWidthBound>(320);
+	const mainMinWidth = useRef<LayoutWidthBound>(defaultMainMinWidth);
 	const loadRef = useRef<() => void>(() => {});
 	const ready = useRef(false);
 	const waiting = useRef<Array<(ready: boolean) => void>>([]);

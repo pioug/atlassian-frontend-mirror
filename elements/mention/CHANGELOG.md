@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 30.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.4.0
 
 ### Minor Changes

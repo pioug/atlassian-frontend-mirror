@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-card
 
+## 35.2.0
+
+### Minor Changes
+
+- [`8a910ddcb6d43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a910ddcb6d43) -
+  Add opt-in `trackPastedInlineLinks`. When enabled, the card plugin keeps a short, position-mapped
+  list of locally pasted inline links (pasted URLs converted to inline cards, and pasted inline
+  cards) in `pastedInlineLinks`. Existing links and other creation paths are never tracked, and a
+  candidate is dropped when its card is deleted, replaced or given a different URL.
+
+  The consumer decides which candidate to use. `markPastedInlineLinkShown(target)` confirms display:
+  it keeps only the displayed link and stops adding candidates. `clearPastedInlineLink(target)`
+  stops tracking one link. Existing first-resolved-inline-link changeboard targeting is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.1.4
+
+### Patch Changes
+
+- [`36a41f480cf20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36a41f480cf20) -
+  Disambiguate canonical module suffixes while preserving existing public import paths. Share
+  existing entrypoints where aliases normalize to the same name; preserve implementations and rename
+  the less-used private file only where needed.
+- Updated dependencies
+
+## 35.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.1.2
 
 ### Patch Changes

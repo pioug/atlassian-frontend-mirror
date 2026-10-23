@@ -8,6 +8,13 @@ import useIsSubsequentRender from './internal/hooks/use-is-subsequent-render';
 import useFirePortalEvent from './internal/hooks/use-portal-event';
 import type { PortalProps } from './types';
 
+/**
+ * @deprecated The browser top layer renders layered UI above the page without a portal. Use a
+ * design system layer component (for example Popup, Tooltip or Modal dialog), or `Popover` and
+ * `Dialog` from `@atlaskit/top-layer`. Content portalled to `document.body` renders below every open
+ * top-layer surface. Design system components still use Portal on their `platform-dst-top-layer`
+ * gate-off path.
+ */
 export default function Portal({
 	zIndex = 0,
 	children,

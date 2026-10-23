@@ -33,6 +33,12 @@ const documentation: StructuredContentSource = {
 				'Use clear trigger labels',
 				'Ensure keyboard navigation support',
 				'Provide escape key dismissal',
+				'Use DropdownMenu whenever possible. A Popup with role="menu" is not a blessed, production-ready menu pattern.',
+				'When a complex interaction requires a Popup with role="menu", implement the menu behavior: give each action the appropriate menu-item role and move focus to a menu item when the menu opens.',
+				'Support Arrow Up, Arrow Down, Home, and End navigation for a Popup with role="menu".',
+				'Return focus to the trigger when an action or Escape closes a Popup with role="menu", while preserving each menu item\'s native Enter and Space activation behavior.',
+				'Validate the complete menu interaction with the assistive technologies and browser environments that the product supports.',
+				'Refer to the WAI-ARIA menu role (https://www.w3.org/TR/wai-aria-1.0/roles#menu) and ARIA Authoring Practices menu and menubar pattern (https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) for the complete role and interaction requirements.',
 			],
 			examples: [
 				{

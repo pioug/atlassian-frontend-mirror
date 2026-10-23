@@ -24,6 +24,7 @@ import {
 	type TerminalErrorContext,
 	type TerminalErrorData,
 } from '../set-terminal-error';
+import { ensureSoftNavigationObserved } from '../soft-navigation';
 import scheduleIdleCallback from './schedule-idle-callback';
 
 export interface GenericAnalyticWebClientInstance {
@@ -194,6 +195,9 @@ export function init(
 
 	setupHiddenTimingCapture();
 	startLighthouseObserver();
+	if (fg('platform_ufo_soft_nav_paint_metrics')) {
+		ensureSoftNavigationObserved();
+	}
 
 	setupThrottleDetection();
 

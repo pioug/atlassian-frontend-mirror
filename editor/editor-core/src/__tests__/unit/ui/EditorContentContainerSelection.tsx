@@ -50,10 +50,10 @@ describe('selected-node highlight inheritance', () => {
 	});
 
 	it('keeps descendant selection rules in the experiment control', () => {
-		mockExpDisabled('platform_editor_inp_selection_inheritance');
+		mockExpDisabled('platform_editor_improve_inp');
 		mockGetBrowserInfo.mockReturnValue({ chrome_version: 134 });
 		renderContainer();
-		expect(wasExperimentExposed('platform_editor_inp_selection_inheritance')).toBe(true);
+		expect(wasExperimentExposed('platform_editor_improve_inp')).toBe(true);
 
 		expect(getActiveSelectedNodeSelectors()).toEqual(
 			expect.arrayContaining([expect.stringMatching(/\s+(?:\*)?::selection/u)]),
@@ -61,10 +61,10 @@ describe('selected-node highlight inheritance', () => {
 	});
 
 	it('keeps the parent highlight and omits descendant rules in Chromium 134+', async () => {
-		mockExpEnabled('platform_editor_inp_selection_inheritance');
+		mockExpEnabled('platform_editor_improve_inp');
 		mockGetBrowserInfo.mockReturnValue({ chrome_version: 134 });
 		renderContainer();
-		expect(wasExperimentExposed('platform_editor_inp_selection_inheritance')).toBe(true);
+		expect(wasExperimentExposed('platform_editor_improve_inp')).toBe(true);
 
 		const selectors = getActiveSelectedNodeSelectors();
 		expect(selectors.length).toBeGreaterThanOrEqual(2);
@@ -78,10 +78,10 @@ describe('selected-node highlight inheritance', () => {
 		['Safari', { safari: true, chrome_version: Number.NaN }],
 		['unknown browser / SSR', { chrome_version: 0 }],
 	])('keeps descendant rules for %s even in the experiment treatment', (_name, browser) => {
-		mockExpEnabled('platform_editor_inp_selection_inheritance');
+		mockExpEnabled('platform_editor_improve_inp');
 		mockGetBrowserInfo.mockReturnValue(browser);
 		renderContainer();
-		expect(wasExperimentExposed('platform_editor_inp_selection_inheritance')).toBe(false);
+		expect(wasExperimentExposed('platform_editor_improve_inp')).toBe(false);
 
 		expect(getActiveSelectedNodeSelectors()).toEqual(
 			expect.arrayContaining([expect.stringMatching(/\s+(?:\*)?::selection/u)]),

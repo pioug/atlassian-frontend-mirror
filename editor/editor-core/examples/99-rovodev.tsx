@@ -1,13 +1,15 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
+import type { JSX } from 'react';
 import React, { Profiler, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// The loading blanket styles a child rendered by another component.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 import { createRoot } from 'react-dom/client';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
@@ -211,7 +213,7 @@ function createEditorExampleForRovodev() {
 /**
  * Editor example component for rovodev with __mountEditor support.
  */
-export default function EditorExampleForRovodev(): jsx.JSX.Element {
+export default function EditorExampleForRovodev(): JSX.Element {
 	React.useLayoutEffect(() => {
 		createEditorExampleForRovodev();
 	}, []);

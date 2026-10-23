@@ -33,6 +33,7 @@ import {
 	TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
@@ -95,7 +96,147 @@ const reorderAnnotations = (annotations: Array<AnnotationInfo>, $from: ResolvedP
 	);
 };
 
+type AnnotationDiscovery = {
+	annotationIds: readonly string[];
+	nestedAnnotationIds: readonly string[];
+	rootAnnotationIds: readonly string[];
+};
+
+const legacyContentAnnotationsByDoc = new WeakMap<Node, AnnotationDiscovery>();
+const legacyContentAnnotationIdsByExtension = new WeakMap<Node, readonly string[]>();
+
+const readNestedContentNodes = (parameters: unknown): unknown[] | undefined => {
+	if (!parameters || typeof parameters !== 'object') {
+		return undefined;
+	}
+
+	const nestedContent = (parameters as { nestedContent?: unknown }).nestedContent;
+	if (!nestedContent || typeof nestedContent !== 'object') {
+		return undefined;
+	}
+
+	const nestedDocument = nestedContent as { content?: unknown; type?: unknown };
+	return nestedDocument.type === 'doc' && Array.isArray(nestedDocument.content)
+		? nestedDocument.content
+		: undefined;
+};
+
+const getNestedContentAnnotationIds = (extension: Node): readonly string[] => {
+	const cachedIds = legacyContentAnnotationIdsByExtension.get(extension);
+	if (cachedIds) {
+		return cachedIds;
+	}
+
+	const nestedNodes = readNestedContentNodes(extension.attrs.parameters);
+	if (!nestedNodes) {
+		const noIds = Object.freeze([] as string[]);
+		legacyContentAnnotationIdsByExtension.set(extension, noIds);
+		return noIds;
+	}
+
+	const annotationIds = new Set<string>();
+	const visitedAdfNodes = new WeakSet<object>();
+	const pending: unknown[] = [...nestedNodes].reverse();
+	while (pending.length > 0) {
+		const value = pending.pop();
+		if (!value || typeof value !== 'object' || visitedAdfNodes.has(value)) {
+			continue;
+		}
+		visitedAdfNodes.add(value);
+
+		const adfNode = value as {
+			attrs?: { extensionKey?: unknown; extensionType?: unknown; parameters?: unknown };
+			content?: unknown;
+			marks?: unknown;
+			type?: unknown;
+		};
+		if (Array.isArray(adfNode.marks)) {
+			adfNode.marks.forEach((rawMark) => {
+				if (!rawMark || typeof rawMark !== 'object') {
+					return;
+				}
+				const annotationMark = rawMark as { attrs?: unknown; type?: unknown };
+				const attrs = annotationMark.attrs;
+				if (annotationMark.type !== 'annotation' || !validateAnnotationAttributes(attrs)) {
+					return;
+				}
+				annotationIds.add(attrs.id);
+			});
+		}
+
+		if (
+			adfNode.type === 'extension' &&
+			adfNode.attrs?.extensionType === 'com.atlassian.confluence.migration' &&
+			adfNode.attrs.extensionKey === 'legacy-content'
+		) {
+			const nestedNodes = readNestedContentNodes(adfNode.attrs.parameters);
+			if (nestedNodes) {
+				for (let i = nestedNodes.length - 1; i >= 0; i--) {
+					pending.push(nestedNodes[i]);
+				}
+			}
+		}
+
+		if (Array.isArray(adfNode.content)) {
+			for (let i = adfNode.content.length - 1; i >= 0; i--) {
+				pending.push(adfNode.content[i]);
+			}
+		}
+	}
+
+	const ids = Object.freeze([...annotationIds]);
+	legacyContentAnnotationIdsByExtension.set(extension, ids);
+	return ids;
+};
+
+/** Discover annotation IDs from immutable legacy-content ADF without repeatedly scanning it. */
+export const getAnnotationDiscovery = (doc: Node): AnnotationDiscovery => {
+	const cachedDiscovery = legacyContentAnnotationsByDoc.get(doc);
+	if (cachedDiscovery) {
+		return cachedDiscovery;
+	}
+
+	const allAnnotationIds = new Set<string>();
+	const rootAnnotationIds = new Set<string>();
+	const nestedAnnotationIds = new Set<string>();
+
+	doc.descendants((node) => {
+		node.marks
+			.filter((mark) => mark.type.name === 'annotation')
+			.forEach((mark) => {
+				if (validateAnnotationMark(mark)) {
+					rootAnnotationIds.add(mark.attrs.id);
+					allAnnotationIds.add(mark.attrs.id);
+				}
+			});
+
+		if (
+			node.type.name === 'extension' &&
+			node.attrs.extensionType === 'com.atlassian.confluence.migration' &&
+			node.attrs.extensionKey === 'legacy-content'
+		) {
+			getNestedContentAnnotationIds(node).forEach((id) => {
+				nestedAnnotationIds.add(id);
+				allAnnotationIds.add(id);
+			});
+		}
+		return true;
+	});
+
+	const discovery = {
+		annotationIds: Object.freeze([...allAnnotationIds]),
+		rootAnnotationIds: Object.freeze([...rootAnnotationIds]),
+		nestedAnnotationIds: Object.freeze([...nestedAnnotationIds]),
+	};
+	legacyContentAnnotationsByDoc.set(doc, discovery);
+	return discovery;
+};
+
 export const getAllAnnotations = (doc: Node): string[] => {
+	if (isExperimentEnabled('platform_editor_fix_lcm_editor_annotations')) {
+		return [...getAnnotationDiscovery(doc).annotationIds];
+	}
+
 	const allAnnotationIds: Set<string> = new Set();
 
 	doc.descendants((node) => {
@@ -110,29 +251,37 @@ export const getAllAnnotations = (doc: Node): string[] => {
 	return Array.from(allAnnotationIds);
 };
 
-/*
- * verifies if annotation mark contains valid attributes
- */
-const validateAnnotationMark = (annotationMark: Mark): boolean => {
-	const { id, annotationType } = annotationMark.attrs as AnnotationMarkAttributes;
-	return validateAnnotationId(id) && validateAnnotationType(annotationType);
-
-	function validateAnnotationId(id: string): boolean {
-		if (!id || typeof id !== 'string') {
-			return false;
-		}
-		const invalidIds = ['null', 'undefined'];
-		return !invalidIds.includes(id.toLowerCase());
+const validateAnnotationId = (id: unknown): id is string => {
+	if (!id || typeof id !== 'string') {
+		return false;
 	}
-
-	function validateAnnotationType(type: AnnotationTypes): boolean {
-		if (!type || typeof type !== 'string') {
-			return false;
-		}
-		const allowedTypes = Object.values(AnnotationTypes);
-		return allowedTypes.includes(type);
-	}
+	const invalidIds = ['null', 'undefined'];
+	return !invalidIds.includes(id.toLowerCase());
 };
+
+const validateAnnotationType = (type: unknown): type is AnnotationTypes => {
+	if (!type || typeof type !== 'string') {
+		return false;
+	}
+	const allowedTypes = Object.values(AnnotationTypes);
+	return allowedTypes.some((allowedType) => allowedType === type);
+};
+
+const validateAnnotationAttributes = (attrs: unknown): attrs is AnnotationMarkAttributes => {
+	if (!attrs || typeof attrs !== 'object') {
+		return false;
+	}
+
+	return (
+		'id' in attrs &&
+		'annotationType' in attrs &&
+		validateAnnotationId(attrs.id) &&
+		validateAnnotationType(attrs.annotationType)
+	);
+};
+
+const validateAnnotationMark = (annotationMark: Mark): boolean =>
+	validateAnnotationAttributes(annotationMark.attrs);
 
 export const decorationKey = {
 	block: 'blockCommentDecoration',
@@ -326,9 +475,25 @@ export const getDraftCommandAnalyticsPayload = (
 		let attributes: Partial<AnnotationDraftAEPAttributes> = {};
 
 		if (drafting) {
+			const { selection } = state;
+			const targetNode =
+				selection instanceof NodeSelection ? selection.node : currentMediaNodeWithPos(state)?.node;
+			let commentTargetType: AnnotationDraftAEPAttributes['commentTargetType'] = 'other';
+			if (targetNode?.type.name === 'extension') {
+				commentTargetType =
+					targetNode.attrs.extensionKey === 'native-embed:maui' ? 'remixEmbed' : 'other';
+			} else if (
+				targetNode &&
+				['media', 'mediaSingle', 'mediaInline'].includes(targetNode.type.name)
+			) {
+				commentTargetType = 'media';
+			} else if (selection instanceof TextSelection || selection instanceof AllSelection) {
+				commentTargetType = 'text';
+			}
 			attributes = {
 				inputMethod,
 				overlap: getAnnotationsInSelectionCount(state),
+				commentTargetType,
 			} as AnnotationDraftAEPAttributes;
 		}
 

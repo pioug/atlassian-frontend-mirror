@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 33.0.4
+
+### Patch Changes
+
+- [`5a8122a83eec5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a8122a83eec5) -
+  Clean up experiment `platform_editor_fix_new_line_after_heading`
+- Updated dependencies
+
 ## 33.0.3
 
 ### Patch Changes

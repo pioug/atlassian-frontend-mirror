@@ -6,17 +6,6 @@ import { type FocusableElement } from '../../types';
 import handleFocus from '../utiles/handle-focus';
 import { FocusManagerContext } from './focus-manager-context';
 
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Focus manager__
- *
- * A focus manager {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
 const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
 	const menuItemRefs = useRef<FocusableElement[]>([]);
 	const registerRef = useCallback((ref: FocusableElement) => {

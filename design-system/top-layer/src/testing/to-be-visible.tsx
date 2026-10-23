@@ -14,10 +14,21 @@
  *   closed dialog / child   → false (correct - jsdom natively hides <dialog>)
  *   open dialog / child     → true  (correct)
  *
- * We correct both false positives and false negatives:
- *   1. Delegate to the original first.
- *   2. If it says "visible" → check for closed top-layer hosts (false positive).
- *   3. If it says "not visible" → check for open top-layer hosts (false negative).
+ * The patch walks the element and its ancestors with jest-dom's own rules (`display`,
+ * `visibility`, `opacity`, `hidden`, `<details>`), and adds the browser's UA rules for top-layer
+ * hosts:
+ *   1. A closed popover or dialog hides its subtree.
+ *   2. An open popover or dialog is not hidden by its own style. In jsdom that style can come from
+ *      author CSS that a `:popover-open` rule (not supported in jsdom) would override, or from
+ *      the JavaScript positioning fallback's inline `opacity: 0`, which a browser removes once
+ *      the popover has a layout.
+ *
+ *   3. Above an open popover or modal dialog, an ancestor's `opacity` does not apply: a top-layer element is painted
+ *      outside its ancestors' stacking contexts.
+ *
+ * Everything else still applies, as in a browser: an element hidden by its own style, or by an
+ * ancestor below the host, is not visible. Above the host, `display: none`, `visibility` and
+ * `hidden` still hide it (measured in Chromium, Firefox and WebKit).
  *
  * Must load via `setupFilesAfterEnv` (after jest-dom registers its matchers).
  * Polyfills live in `./polyfill` (loaded via `setupFiles`).
@@ -30,38 +41,121 @@ import { toBeVisible as originalToBeVisible } from '@testing-library/jest-dom/ma
 type TTopLayerState = 'open' | 'closed' | null;
 
 /**
- * Finds the nearest popover or dialog ancestor (including the element itself)
- * and returns its state: 'open', 'closed', or null if no top-layer ancestor exists.
- *
- * Checking the *nearest* ancestor handles nesting correctly:
- * a closed popover inside an open popover → nearest is closed → not visible.
+ * The state of the element as a popover or dialog host: 'open', 'closed', or null if it is
+ * neither.
  */
-function nearestTopLayerState(element: Element | null): TTopLayerState {
-	if (!element) {
-		return null;
-	}
-
+function getTopLayerState(element: Element): TTopLayerState {
 	if (element.hasAttribute('popover')) {
 		return element.hasAttribute('data-popover-open') ? 'open' : 'closed';
 	}
-
 	if (element.nodeName === 'DIALOG') {
 		return element.hasAttribute('open') ? 'open' : 'closed';
 	}
-
-	return nearestTopLayerState(element.parentElement);
+	return null;
 }
 
-function getNearestTopLayerType(element: Element): string {
-	if (!element.closest) {
-		return 'top-layer element';
+/**
+ * Whether an open host is in the top layer: an open popover, or a modal dialog. A dialog opened
+ * with `show()` stays in its ancestors' stacking contexts.
+ */
+function isInTopLayer(element: Element): boolean {
+	if (element.hasAttribute('popover')) {
+		return true;
 	}
-
-	if (element.closest('[popover]')) {
-		return 'popover';
+	try {
+		return element.matches(':modal');
+	} catch {
+		// `:modal` is answered by the testing polyfill; without it, assume a modal dialog.
+		return true;
 	}
+}
 
-	return 'dialog';
+function getTopLayerType(element: Element): string {
+	return element.hasAttribute('popover') ? 'popover' : 'dialog';
+}
+
+// jest-dom's style rule. `opacity` is skipped above a top-layer host (rule 3 above).
+function isStyleVisible({
+	element,
+	isAboveOpenHost,
+}: {
+	element: Element;
+	isAboveOpenHost: boolean;
+}): boolean {
+	const view = element.ownerDocument.defaultView;
+	if (!view) {
+		return true;
+	}
+	const { display, visibility, opacity } = view.getComputedStyle(element);
+	return (
+		display !== 'none' &&
+		visibility !== 'hidden' &&
+		visibility !== 'collapse' &&
+		(isAboveOpenHost || opacity !== '0')
+	);
+}
+
+// jest-dom's attribute rule: `hidden`, and a closed `<details>` hides all but its `<summary>`.
+function isAttributeVisible({
+	element,
+	previousElement,
+}: {
+	element: Element;
+	previousElement: Element | null;
+}): boolean {
+	if (element.hasAttribute('hidden')) {
+		return false;
+	}
+	if (element.nodeName !== 'DETAILS' || previousElement?.nodeName === 'SUMMARY') {
+		return true;
+	}
+	return element.hasAttribute('open');
+}
+
+type TVisibility = { isVisible: true } | { isVisible: false; closedHost: Element | null };
+
+/**
+ * Visibility as a browser would report it. `closedHost` is the closed popover or dialog that
+ * hides the element, if that is the reason.
+ */
+function getVisibility(element: Element): TVisibility {
+	if (element.ownerDocument !== element.getRootNode({ composed: true })) {
+		return { isVisible: false, closedHost: null };
+	}
+	let previousElement: Element | null = null;
+	let isAboveOpenHost = false;
+	for (
+		let current: Element | null = element;
+		current;
+		previousElement = current, current = current.parentElement
+	) {
+		const topLayerState = getTopLayerState(current);
+		if (topLayerState === 'closed') {
+			return { isVisible: false, closedHost: current };
+		}
+		if (!isAttributeVisible({ element: current, previousElement })) {
+			return { isVisible: false, closedHost: null };
+		}
+		// An open host's own style is not checked (rule 2 above).
+		if (topLayerState === 'open') {
+			isAboveOpenHost = isAboveOpenHost || isInTopLayer(current);
+		} else if (!isStyleVisible({ element: current, isAboveOpenHost })) {
+			return { isVisible: false, closedHost: null };
+		}
+	}
+	return { isVisible: true };
+}
+
+/**
+ * The nearest open popover or dialog that contains the element, for the message.
+ */
+function getNearestOpenHost(element: Element): Element | null {
+	for (let current: Element | null = element; current; current = current.parentElement) {
+		if (getTopLayerState(current) === 'open') {
+			return current;
+		}
+	}
+	return null;
 }
 
 // `expect` is registered globally by jest before this file runs.
@@ -80,30 +174,27 @@ expect.extend({
 				message: () => string;
 			}
 		).call(this, element);
-		const topLayerState = nearestTopLayerState(element);
-
-		if (originalResult.pass) {
-			// Original says visible - override if nearest top-layer host is closed.
-			if (topLayerState === 'closed') {
-				return {
-					pass: false,
-					message: () =>
-						`expected element to be visible, but it is inside a closed ${getNearestTopLayerType(element)}`,
-				};
-			}
+		const visibility = getVisibility(element);
+		if (visibility.isVisible === originalResult.pass) {
 			return originalResult;
 		}
 
-		// Original says not visible - override if nearest top-layer host is open.
-		// jsdom may hide [popover] elements even when they are logically open.
-		if (topLayerState === 'open') {
+		if (!visibility.isVisible) {
+			// Only a closed top-layer host makes jsdom say "visible" when a browser would not.
+			const { closedHost } = visibility;
+			const type = closedHost ? getTopLayerType(closedHost) : 'top-layer element';
 			return {
-				pass: true,
-				message: () =>
-					`expected element not to be visible, but it is inside an open ${getNearestTopLayerType(element)}`,
+				pass: false,
+				message: () => `expected element to be visible, but it is inside a closed ${type}`,
 			};
 		}
 
-		return originalResult;
+		// jsdom hides an open top-layer host with a style that a browser would not apply.
+		const openHost = getNearestOpenHost(element);
+		const type = openHost ? getTopLayerType(openHost) : 'top-layer element';
+		return {
+			pass: true,
+			message: () => `expected element not to be visible, but it is inside an open ${type}`,
+		};
 	},
 });

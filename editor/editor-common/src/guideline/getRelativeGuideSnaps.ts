@@ -1,4 +1,4 @@
-import { roundToNearest } from '../media-single';
+import { roundToNearest } from '../media-single/roundToNearest';
 import type { RelativeGuides } from './types';
 
 export const getRelativeGuideSnaps = (

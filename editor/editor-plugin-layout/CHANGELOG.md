@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 30.0.4
+
+### Patch Changes
+
+- [`afc1c40f08008`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afc1c40f08008) -
+  Remove the shipped media caption layout experiment and preserve caption editing.
+- Updated dependencies
+
 ## 30.0.3
 
 ### Patch Changes

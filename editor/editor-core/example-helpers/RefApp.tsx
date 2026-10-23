@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import type { JSX } from 'react';
 import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { toJSON } from '@atlaskit/editor-common/utils/nodes';
@@ -18,7 +12,7 @@ import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { content } from './styles';
+import { ExampleContent } from './ExampleContent';
 
 const emojiProvider = getEmojiProvider({
 	uploadSupported: true,
@@ -33,7 +27,7 @@ export interface State {
 }
 
 interface Props {
-	renderEditor: (props: Object) => React.ReactNode;
+	renderEditor: (props: object) => React.ReactNode;
 }
 
 // Ignored via go/ees005
@@ -91,11 +85,11 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 		}
 	}
 
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		const { reloadEditor, jsonDocument } = this.state;
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<div css={content}>
+			<ExampleContent>
 				{reloadEditor
 					? ''
 					: this.props.renderEditor({
@@ -107,7 +101,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 						})}
 				<legend>Renderer:</legend>
 				{this.renderRenderer(jsonDocument)}
-			</div>
+			</ExampleContent>
 		);
 	}
 }

@@ -7,7 +7,7 @@ import { mockedAccessibleResultWithGatewayBaseUrl } from './accessible-products-
 import {
 	ACCESSIBLE_PRODUCTS_ENDPOINT,
 	ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_ENDPOINT,
-} from './mockAvailableSites';
+} from './available-sites-endpoints';
 
 /**
  * Mock accessibleProducts for a specific gatewayBaseUrl. Only matches requests with the gatewayBaseUrl in the url.

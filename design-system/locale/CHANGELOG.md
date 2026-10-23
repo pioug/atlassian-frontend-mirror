@@ -1,5 +1,13 @@
 # @atlaskit/locale
 
+## 5.5.0
+
+### Minor Changes
+
+- [`cf5cda7218d8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf5cda7218d8e) -
+  Expose `getTimeFormat`, which returns locale time-format metadata including hour cycle, localized
+  day periods, digit mapping, and exact format parts.
+
 ## 5.4.0
 
 ### Minor Changes

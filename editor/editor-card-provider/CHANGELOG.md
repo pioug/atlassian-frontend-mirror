@@ -1,5 +1,19 @@
 # @atlaskit/editor-card-provider
 
+## 8.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [`771ebfec9f843`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/771ebfec9f843) -
+  Remove the platform_smartlink_document_cache gate and its session-storage fallback. Smart Link
+  responses remain cached within the current document.
+
 ## 8.1.37
 
 ### Patch Changes

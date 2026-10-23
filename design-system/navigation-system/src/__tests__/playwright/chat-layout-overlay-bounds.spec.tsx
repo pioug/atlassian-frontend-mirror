@@ -19,7 +19,7 @@ for (const { mode, buttons, expected } of [
 		expected: {
 			gridArea: 'main',
 			backgroundColor: 'rgb(235, 235, 235)',
-			insetBlockStart: '104px',
+			insetBlockStart: '0px',
 			borderInlineStartWidth: '0px',
 			borderInlineStartStyle: 'none',
 			boxShadow: expect.not.stringMatching(/^none$/),
@@ -62,10 +62,13 @@ for (const { mode, buttons, expected } of [
 		await expect.poll(presentation).toEqual(expected);
 		const before = await presentation();
 		const width = (await panel.boundingBox())!.width;
+		// The surface is sticky inside Main, which already starts below the banner and TopNav.
+		await expect.poll(async () => (await panel.boundingBox())?.y).toBe(104);
 		await slider.focus();
 		await expect(slider).not.toHaveAttribute('max', '500');
 		await expect.poll(presentation).toEqual(before);
 		await expect(panel).toHaveWidth(width);
+		await expect.poll(async () => (await panel.boundingBox())?.y).toBe(104);
 		await slider.blur();
 		await page.mouse.move(0, 0);
 		await expect(page.getByRole('tooltip')).toBeHidden();
@@ -94,11 +97,11 @@ async function prepareLocalOverlay(page: Page) {
 		await expect(chat).toHaveWidth(400);
 		await expect(main).toHaveWidth(580);
 	};
-	await assertLayout(320);
+	await assertLayout(400);
 	const slider = page.getByRole('slider', { name: 'Resize panel', exact: true });
 	await slider.focus();
 	await expect(slider).toHaveAttribute('max', '522');
-	await assertLayout(320);
+	await assertLayout(400);
 	return { slider, assertLayout };
 }
 
@@ -106,8 +109,8 @@ test('local overlay keyboard resizing preserves its mode and inline siblings', a
 	const { slider, assertLayout } = await prepareLocalOverlay(page);
 	// Keyboard completion has no start/preview callbacks.
 	await slider.press('ArrowRight');
-	await expect(slider).toHaveValue('340');
-	await assertLayout(340);
+	await expect(slider).toHaveValue('420');
+	await assertLayout(420);
 	await slider.blur();
 	await page.mouse.move(0, 0);
 	await expect(page.getByRole('tooltip')).toBeHidden();
@@ -118,7 +121,8 @@ test('local overlay keyboard resizing preserves its mode and inline siblings', a
 	await expect
 		.poll(() => panel.evaluate((element) => getComputedStyle(element).gridArea))
 		.toBe('panel');
-	await expect(panel).toHaveWidth(400);
+	// The same user preference is retained when returning inline.
+	await expect.poll(async () => (await panel.boundingBox())?.width).toBe(420);
 });
 
 test('local overlay pointer resizing preserves its mode and inline siblings', async ({ page }) => {
@@ -133,8 +137,8 @@ test('local overlay pointer resizing preserves its mode and inline siblings', as
 	await page.mouse.move(x, y);
 	await page.mouse.down();
 	await page.mouse.move(x - 10, y);
-	await page.mouse.move(x - 130, y, { steps: 10 });
-	await page.mouse.move(x - 130, y);
+	await page.mouse.move(x - 50, y, { steps: 10 });
+	await page.mouse.move(x - 50, y);
 	await assertLayout(450);
 	await page.mouse.up();
 	await assertLayout(450);
@@ -339,39 +343,27 @@ for (const width of [600, 300]) {
 		await expect(slider).toHaveAttribute('max', String(width * 0.9));
 		await slider.press('End');
 		await expect(slider).toHaveValue(String(width * 0.9));
-		await expect(chat).toHaveWidth(width * 0.9);
+		await expect.poll(async () => (await chat.boundingBox())?.width).toBe(width * 0.9);
 	});
 }
 
 test('local fit honours a custom Main minimum before sizing activation', async ({ page }) => {
 	await page.setViewportSize({ width: 1200, height: 900 });
-	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+	await page.visitExample<typeof import('../../../examples/page-layout-caller-owned-panel.tsx')>(
 		'design-system',
 		'navigation-system',
-		'page-layout-chat-panel',
+		'page-layout-caller-owned-panel',
+		{ featureFlag: 'platform-dst-chat-panel-layout' },
 	);
-	await page.getByRole('button', { name: 'Collapse side navigation', exact: true }).click();
-	await page.getByRole('button', { name: 'open local panel', exact: true }).click();
-	// These are the declarations Main emits for minWidth={500}; keep both the
-	// root grid and its capacity query in sync, as in the server-rendered component.
+	await page.getByRole('button', { name: 'Collapse navigation', exact: true }).click();
+	// Exercise Main's public prop, including the context used by the initial CSS layout.
+	await page.getByRole('button', { name: 'Set Main minimum to 500', exact: true }).click();
 	await page.addStyleTag({
-		content: `
-		[data-layout-width-container] { width: 700px; }
-		[data-layout-width-container] #unsafe-design-system-page-layout-root,
-		[data-layout-width-container] #unsafe-design-system-page-layout-root-fit { --n_mainMinW: 500px; }
-	`,
+		content: '[data-layout-width-container] { width: 700px; }',
 	});
-	const layout = page.getByTestId('layout-with-panel');
-	const panel = page.getByTestId('layout-with-panel--panel-slot');
+	const layout = page.getByTestId('caller-layout');
+	const panel = page.getByRole('region', { name: 'Preview', exact: true });
 	await expect(layout).toHaveWidth(700);
-	await expect
-		.poll(() =>
-			layout.evaluate((element) => ({
-				capacity: element.parentElement!.getBoundingClientRect().width,
-				minimum: getComputedStyle(element).getPropertyValue('--n_mainMinW').trim(),
-			})),
-		)
-		.toEqual({ capacity: 0, minimum: '500px' });
 	await expect
 		.poll(() => panel.evaluate((element) => getComputedStyle(element).gridArea))
 		.not.toBe('panel');
@@ -385,7 +377,7 @@ test('local fit honours a custom Main minimum before sizing activation', async (
 		.toBe('panel');
 	await expect(panel).toHaveWidth(320);
 	const before = await panel.boundingBox();
-	const slider = page.getByRole('slider', { name: 'Resize panel', exact: true });
+	const slider = page.getByRole('slider', { name: 'Resize preview', exact: true });
 	await slider.focus();
 	await expect(slider).toHaveAttribute('min', '320');
 	await expect(panel).toHaveWidth(before!.width);

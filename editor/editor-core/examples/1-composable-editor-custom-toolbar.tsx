@@ -2,15 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import { cssMap, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset/builder';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
@@ -33,13 +32,16 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives/box';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss/xcss';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { token } from '@atlaskit/tokens';
 
-const editorStyles = xcss({
-	margin: 'space.100',
+const styles = cssMap({
+	editorStyles: {
+		marginTop: token('space.100'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.100'),
+		marginLeft: token('space.100'),
+	},
 });
 
 const smartCardClient = new ConfluenceCardClient('stg');
@@ -173,7 +175,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
 	);
 }
 
-export function ComposableEditorWithToolbar(): jsx.JSX.Element {
+export function ComposableEditorWithToolbar(): JSX.Element {
 	const { preset, editorApi } = usePreset(createPreset);
 	const [editorView, setEditorView] = React.useState<EditorView>();
 	const onReady = React.useCallback((editorActions: EditorActions<any>) => {
@@ -183,7 +185,7 @@ export function ComposableEditorWithToolbar(): jsx.JSX.Element {
 	return (
 		<React.Fragment>
 			<DevTools editorView={editorView} />
-			<Box xcss={editorStyles}>
+			<Box xcss={styles.editorStyles}>
 				<Toolbar editorApi={editorApi} />
 				<ComposableEditor onEditorReady={onReady} appearance="chromeless" preset={preset} />
 			</Box>
@@ -192,7 +194,7 @@ export function ComposableEditorWithToolbar(): jsx.JSX.Element {
 }
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export default function ComposableEditorExample(): jsx.JSX.Element {
+export default function ComposableEditorExample(): JSX.Element {
 	return (
 		<EditorContext>
 			<SmartCardProvider client={smartCardClient}>

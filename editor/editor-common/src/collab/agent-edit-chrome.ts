@@ -16,7 +16,6 @@ export type AgentEditChromeRange = {
 
 export type AgentEditChromeData = {
 	actorUserId?: string;
-	invocationId?: string;
 	/**
 	 * The agent's own id in its source system (e.g. Rovo's fixed agent UUID). Distinct from
 	 * `agentIdentityAccountId`: this identifies *which agent*, not an Atlassian identity.
@@ -39,16 +38,17 @@ export type AgentEditChromeData = {
 	agentType?: string;
 	/** Lifetime of both the highlight and telepointer. Omission uses the shared static default; 0 prevents rendering. */
 	autoDismissAfterMs?: number;
-	/**
-	 * True for a Forge / third-party / remote agent. Drives the third-party telepointer treatment
-	 * (neutral pill plus the agent name) for producers that only observe step attribution.
-	 */
-	isThirdParty?: boolean;
 	/** Runtime CSS color value. Consumers should pass an ADS token value. */
 	highlightBackgroundColor?: string;
 	/** Runtime CSS color value. Consumers should pass an ADS token value. */
 	highlightBorderColor?: string;
 	highlightTextColor?: string;
+	invocationId?: string;
+	/**
+	 * True for a Forge / third-party / remote agent. Drives the third-party telepointer treatment
+	 * (neutral pill plus the agent name) for producers that only observe step attribution.
+	 */
+	isThirdParty?: boolean;
 	ranges: AgentEditChromeRange[];
 	/**
 	 * Which badge treatment the telepointer renders. Mirrors `TelepointerAgentKind` from
@@ -71,7 +71,7 @@ export type AgentEditChromeDynamicConfig = {
 
 /**
  * Resolves shared dynamic configuration at the producer boundary. The post-apply
- * chrome plugin uses the supplied values and does not read dynamic configuration itself.
+ * chrome plugin can override the lifetime for its gated linger treatment.
  */
 export const getAgentEditChromeDynamicConfig = (): AgentEditChromeDynamicConfig => ({
 	autoDismissAfterMs: expVal(

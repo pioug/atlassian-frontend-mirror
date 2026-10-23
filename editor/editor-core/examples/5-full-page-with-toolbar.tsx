@@ -2,19 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 
-import {
-	contentStyles,
-	wrapperStyles,
-} from '@af/editor-examples-helpers/example-presets/FullPageBase';
 import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import { cssMap, jsx } from '@atlaskit/css';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
@@ -26,6 +22,18 @@ import type { EditorActions } from '../src';
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
+
+const styles = cssMap({
+	wrapper: {
+		boxSizing: 'border-box',
+		height: '100%',
+	},
+	content: {
+		padding: 0,
+		height: '100%',
+		boxSizing: 'border-box',
+	},
+});
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
@@ -59,7 +67,7 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
 };
 
 export type Props = {
-	defaultValue?: Object;
+	defaultValue?: string | object;
 };
 
 const quickInsertProvider = quickInsertProviderFactory();
@@ -69,13 +77,13 @@ const quickInsert = {
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ExampleEditor extends React.Component<Props> {
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		return (
 			<IntlProvider locale="en">
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div css={wrapperStyles}>
+				<div css={styles.wrapper}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<div css={contentStyles}>
+					<div css={styles.content}>
 						<ToolsDrawer
 							renderEditor={({
 								mentionProvider,
@@ -152,7 +160,7 @@ export class ExampleEditor extends React.Component<Props> {
 }
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export default function Example(defaultValue: string | object): jsx.JSX.Element {
+export default function Example(defaultValue: string | object): JSX.Element {
 	return (
 		<EditorContext>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

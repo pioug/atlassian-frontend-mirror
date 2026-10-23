@@ -27,17 +27,23 @@ function getTargetWidth(area: StoredLayoutArea, isSideNavOverlay: boolean): numb
 
 	return area.liveResize?.mode === 'inline'
 		? area.liveResize.width
-		: (area.requestedWidth ?? area.preferredInlineWidth ?? defaultWidth);
+		: (area.requestedWidth ?? area.preferredWidth ?? defaultWidth);
 }
 
-function getOverlayTargetWidth(area: StoredLayoutArea, isSideNavOverlay: boolean): number {
+function getOverlayTargetWidth(
+	area: StoredLayoutArea,
+	isSideNavOverlay: boolean,
+	areaName: LayoutArea,
+): number {
 	const defaultWidth = isSideNavOverlay
 		? (area.compactDefaultWidth ?? area.defaultWidth)
 		: area.defaultWidth;
 
 	return area.liveResize?.mode === 'overlay'
 		? area.liveResize.width
-		: (area.requestedWidth ?? area.preferredOverlayWidth ?? defaultWidth);
+		: (area.requestedWidth ??
+				(areaName === 'panel' ? area.preferredWidth : area.preferredOverlayWidth) ??
+				defaultWidth);
 }
 
 export function calculateLayoutAreaStates({
@@ -295,7 +301,7 @@ export function calculateLayoutAreaStates({
 		const layoutMax = (areaName === 'chat-panel' ? layoutWidth : mainAreaWidth) * 0.9;
 		const max = Math.max(0, Math.min(configuredMax, layoutMax));
 		const effectiveMin = Math.min(min, max);
-		const target = getOverlayTargetWidth(area, isSideNavOverlay);
+		const target = getOverlayTargetWidth(area, isSideNavOverlay, areaName);
 		const width = clampTargetWidth({ target, min: effectiveMin, max });
 
 		states[areaName] = {

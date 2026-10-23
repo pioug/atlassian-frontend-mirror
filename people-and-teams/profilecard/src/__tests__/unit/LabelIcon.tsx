@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+
 import { default as IconLabel } from '../../components/Icon/IconLabel';
 
 describe('Profilecard', () => {
@@ -33,6 +35,33 @@ describe('Profilecard', () => {
 					expect(screen.getByRole('img')).toBeVisible();
 					expect(screen.getByRole('img')).toHaveAttribute('aria-label', validIcons[index]);
 				});
+			});
+		});
+
+		ffTest.on('ptc_a11y_profile_card_text_spacing', 'text spacing fix on', () => {
+			it('should wrap long details text instead of clipping it', () => {
+				render(
+					<dl>
+						<IconLabel icon="email" isDescriptionListItem>
+							Labeltext
+						</IconLabel>
+					</dl>,
+				);
+				expect(screen.getByText('Labeltext')).toHaveCompiledCss('overflow-wrap', 'anywhere');
+				expect(screen.getByText('Labeltext')).toHaveCompiledCss('overflow-x', 'visible');
+			});
+		});
+
+		ffTest.off('ptc_a11y_profile_card_text_spacing', 'text spacing fix off', () => {
+			it('should clip long details text', () => {
+				render(
+					<dl>
+						<IconLabel icon="email" isDescriptionListItem>
+							Labeltext
+						</IconLabel>
+					</dl>,
+				);
+				expect(screen.getByText('Labeltext')).toHaveCompiledCss('overflow-x', 'hidden');
 			});
 		});
 

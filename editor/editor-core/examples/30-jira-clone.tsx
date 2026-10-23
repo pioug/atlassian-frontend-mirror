@@ -2,10 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import { Fragment, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve the Jira fixture's custom sticky-header shadow and background.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
 import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
@@ -33,10 +35,12 @@ const stickyHeader = css({
 const editorSide = css({
 	flexGrow: 1,
 	overflow: 'hidden auto',
-	padding: `0px ${token('space.400')} ${token('space.400')}`,
+	paddingTop: '0px',
+	paddingRight: token('space.400'),
+	paddingBottom: token('space.400'),
+	paddingLeft: 'max(50% - 700px, 0px)',
 	width: 'calc(-12px + min(840px, 60%))',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-	paddingLeft: 'max(50% - 700px, 0px)',
 	height: 'calc(100vh - 100px)',
 });
 
@@ -44,7 +48,7 @@ const portalContainer = css({
 	display: 'flex',
 });
 
-export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
+export default function CommentWithJiraCardsExample(): JSX.Element {
 	const jiraToolbarRef = useRef(null);
 	const [portalElement, setPortalElement] = useState<HTMLDivElement>();
 

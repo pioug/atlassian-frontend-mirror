@@ -10,10 +10,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve the wrapper's 10px padding, which is outside the bounded @atlaskit/css API.
+import { css, jsx } from '@compiled/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
@@ -36,12 +37,14 @@ interface AdfState {
 	isValidAdf: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const wrapper: any = css`
-	display: 'flex';
-	padding: '10px';
-	flex-direction: 'column';
-`;
+const wrapper = css({
+	display: 'flex',
+	paddingTop: '10px',
+	paddingRight: '10px',
+	paddingBottom: '10px',
+	paddingLeft: '10px',
+	flexDirection: 'column',
+});
 
 export const providers: any = {
 	emojiProvider: getEmojiProvider({
@@ -61,7 +64,7 @@ export default class Example extends React.Component<{}, AdfState> {
 		isValidAdf: true,
 	};
 
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		return (
 			<EditorContext>
 				<div css={wrapper}>

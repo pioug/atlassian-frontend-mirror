@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/top-layer",
-	"version": "6.6.0",
+	"version": "6.7.0",
 	"description": "Low-level layering primitives based on popover and dialog",
 	"homepage": "https://atlassian.design/components/top-layer",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -46,7 +46,7 @@
 		"./get-next-focusable": "./src/focus/get-next-focusable.tsx",
 		"./is-at-current-menu-level": "./src/use-arrow-navigation/is-at-current-menu-level.tsx",
 		"./legacy-placements": "./src/placement-map/legacy-placements.tsx",
-		"./placement-map/index": "./src/placement-map/index.tsx",
+		"./placement-map/index": "./src/entry-points/placement-map.tsx",
 		"./popover/types": "./src/popover/types.tsx",
 		"./popover-surface": "./src/popover-surface/popover-surface.tsx",
 		"./popover/create-close-event": "./src/popover/create-close-event.tsx",

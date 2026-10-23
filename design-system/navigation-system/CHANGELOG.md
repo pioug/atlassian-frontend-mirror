@@ -1,5 +1,21 @@
 # @atlassian/navigation-system
 
+## 11.4.0
+
+### Minor Changes
+
+- [`87ab1d5ada9d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87ab1d5ada9d4) -
+  Move local-panel layout responsibilities from `@atlassian/panel-system` into
+  `@atlaskit/navigation-system`, including responsive positioning, sizing and resizing alongside
+  Main, SideNav and ChatPanel.
+
+  Expose `localPanelWidthVar` for positioning external controls beside the rendered local panel in
+  inline and overlay modes when Root enables `UNSAFE_dangerouslyHoistSlotSizes`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.3.4
 
 ### Patch Changes

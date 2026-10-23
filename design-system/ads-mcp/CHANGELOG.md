@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.11.5
+
+### Patch Changes
+
+- [`aeea5e28563e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeea5e28563e5) -
+  Refresh generated component documentation with disabled agent and hero card examples.
+
 ## 1.11.4
 
 ### Patch Changes

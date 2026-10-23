@@ -2,59 +2,61 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// The example sizes the editor-owned ProseMirror descendant.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives/box';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Inline } from '@atlaskit/primitives/inline';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Stack } from '@atlaskit/primitives/stack';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss/xcss';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';
 
 import { default as FullPageExample } from './5-full-page';
 
-const user = xcss({
-	width: '100%',
-	display: 'flex',
-	alignItems: 'center',
+const styles = cssMap({
+	user: {
+		width: '100%',
+		display: 'flex',
+		alignItems: 'center',
+	},
+	avatar: {
+		marginRight: token('space.050'),
+		borderRadius: token('radius.full'),
+		height: '24px',
+		width: '24px',
+	},
 });
 
-const avatar = xcss({
-	marginRight: 'space.050',
-	borderRadius: 'radius.full',
-	height: '24px',
-	width: '24px',
+const frameStyles = css({
+	width: '280px',
+	boxSizing: 'content-box',
+	maxWidth: '280px',
+	paddingInline: token('space.200'),
+	paddingBlock: token('space.150'),
+	borderWidth: token('border.width'),
+	borderStyle: 'solid',
+	borderColor: token('color.border'),
+	borderRadius: token('radius.small'),
+	boxShadow: token('elevation.shadow.overlay'),
 });
+
 const Author = () => (
-	<Box xcss={user}>
-		<Box as="img" xcss={avatar} src="https://i.imgur.com/zJi8dw9.jpg" alt="Author avatar"></Box>
+	<Box xcss={styles.user}>
+		<img css={styles.avatar} src="https://i.imgur.com/zJi8dw9.jpg" alt="Author avatar" />
 		<Box as="span">Philip J. Fry</Box>
 	</Box>
 );
 
-const frame = xcss({
-	display: 'flex',
-	flexDirection: 'column',
-	width: '280px',
-	boxSizing: 'content-box',
-	maxWidth: '280px',
-	paddingInline: 'space.200',
-	paddingBlock: 'space.150',
-	border: `${token('border.width')} solid ${token('color.border')}`,
-	borderRadius: 'radius.small',
-	boxShadow: 'elevation.shadow.overlay',
-	justifyContent: 'space-between',
-});
-
 const editorWrapper = css({
-	padding: token('space.100'),
+	paddingTop: token('space.100'),
+	paddingRight: token('space.100'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.100'),
 	backgroundColor: 'white',
 	border: `${token('border.width')} solid ${token('color.border')}`,
 	borderRadius: token('radius.small'),
@@ -65,13 +67,15 @@ const editorWrapper = css({
 });
 
 const InlineCommentEditor = (props: { editor: React.ReactNode }) => (
-	<Stack xcss={frame} space="space.150">
-		<Author />
-		<div css={editorWrapper}>{props.editor}</div>
-		<Inline alignInline="end">
-			<Button appearance="primary">Save</Button>
-		</Inline>
-	</Stack>
+	<div css={frameStyles}>
+		<Stack space="space.150" spread="space-between">
+			<Author />
+			<div css={editorWrapper}>{props.editor}</div>
+			<Inline alignInline="end">
+				<Button appearance="primary">Save</Button>
+			</Inline>
+		</Stack>
+	</div>
 );
 
 const editor = (
@@ -85,7 +89,7 @@ const editor = (
 	/>
 );
 
-const ScaledEditorsExample = (): jsx.JSX.Element => (
+const ScaledEditorsExample = (): JSX.Element => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<Box padding="space.250">
 		<InlineCommentEditor editor={editor} />

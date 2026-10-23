@@ -60,6 +60,7 @@ const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	'jira-create-context-payload',
 	'submit-rovo-remix',
 	'rovo-remix-handoff-failed',
+	'sync-prompt-input-draft',
 ]);
 
 const isIgnoredForTriggerLatest = (type: Payload['type']): boolean =>

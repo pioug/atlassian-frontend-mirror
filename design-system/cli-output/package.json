@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/cli-output",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Shared human-readable terminal formatting for Atlassian CLIs.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -31,17 +31,6 @@ const buttonStyles = cssMap({
 	},
 });
 
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Split Button__
- *
- * A split button lets people perform an action or choose from a small group of similar actions.
- *
- * - [Examples](https://atlassian.design/components/button/split-button/examples)
- * - [Code](https://atlassian.design/components/button/split-button/code)
- * - [Usage](https://atlassian.design/components/button/split-button/usage)
- */
 export const SplitButton: ({
 	children,
 	appearance,

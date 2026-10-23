@@ -1,17 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import type { JSX } from 'react';
 import React, { useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
 
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel/contextPanelPluginType';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers/get-example-extension-providers';
-import { token } from '@atlaskit/tokens';
 
+import { TemplateCard } from '../example-helpers/TemplateCard';
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
 import decisionAdf from '../example-helpers/templates/decision.adf.json';
 import type { EditorActions } from '../src';
@@ -62,22 +56,6 @@ templates[1] = {
          ensure everything is working correctly when the sidebar is overlaid.`,
 	adf: breakoutAdf,
 };
-
-const templateCard = css({
-	display: 'block',
-	width: '100%',
-	textAlign: 'left',
-	background: 'none',
-	cursor: 'pointer',
-	font: 'inherit',
-	border: `${token('border.width')} solid ${token('color.border')}`,
-	padding: token('space.100'),
-	marginBottom: token('space.100'),
-	borderRadius: token('radius.medium', '6px'),
-	'&:hover': {
-		background: token('color.background.accent.gray.subtler'),
-	},
-});
 
 // when loading a document on a small viewport, the tables plugin resizes
 // the column widths. this causes the editor's ADF to diverge from the
@@ -200,15 +178,10 @@ class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelSta
 			<ContextPanel visible={this.state.panelVisible} editorAPI={this.props.editorAPI}>
 				<div>
 					{templates.map((tmpl) => (
-						<button
-							type="button"
-							css={templateCard}
-							key={tmpl.title}
-							onClick={() => this.selectTemplate(tmpl)}
-						>
+						<TemplateCard key={tmpl.title} onSelect={() => this.selectTemplate(tmpl)}>
 							<h4>{tmpl.title}</h4>
 							<p>{tmpl.desc}</p>
-						</button>
+						</TemplateCard>
 					))}
 				</div>
 			</ContextPanel>
@@ -256,7 +229,7 @@ const EditorWithSidebar = () => {
 	return <ExampleEditor editorProps={editorProps} setEditorApi={setEditorAPI} />;
 };
 
-export default function Example(): jsx.JSX.Element {
+export default function Example(): JSX.Element {
 	return (
 		<EditorContext>
 			<EditorWithSidebar />

@@ -188,7 +188,7 @@ export const TeamContainers = ({
 	}, [hasError, unlinkError, onError]);
 
 	useEffect(() => {
-		if (fg('teams_a11y_20261005') && showMore && firstShowMoreItemRef.current) {
+		if (showMore && firstShowMoreItemRef.current) {
 			firstShowMoreItemRef.current.focus({ preventScroll: false });
 		}
 	}, [showMore]);
@@ -393,7 +393,7 @@ export const TeamContainers = ({
 											key={container.id}
 											role="listitem"
 											ref={index === 0 ? firstShowMoreItemRef : undefined}
-											tabIndex={index === 0 && fg('teams_a11y_20261005') ? -1 : undefined}
+											tabIndex={index === 0 ? -1 : undefined}
 										>
 											{card}
 										</Box>

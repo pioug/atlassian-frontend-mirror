@@ -23,15 +23,15 @@ const panelStyles = cssMap({
 		backgroundColor: token('elevation.surface.sunken'),
 	},
 	content: {
-		paddingBlock: token('space.300'),
-		paddingInline: token('space.300'),
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand -- Inset tokens require equal padding on all sides.
+		padding: token('space.inset.xlarge'),
 	},
 });
 
 const mainStyles = cssMap({
 	content: {
-		paddingBlock: token('space.400'),
-		paddingInline: token('space.400'),
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand -- Inset tokens require equal padding on all sides.
+		padding: token('space.inset.xxlarge'),
 	},
 });
 

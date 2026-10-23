@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 152.2.3
+
+### Patch Changes
+
+- [`afd887e901de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afd887e901de1) -
+  Discover annotations in legacy content macros and refresh their state when nested annotations are
+  added while platform_editor_fix_lcm_editor_annotations is enabled. Editor-scoped renderers can
+  load nested LCM annotations independently of the renderer experiment.
+
+  Allow the ProseMirror test editor helper to be checked with unused declaration checks enabled.
+
+## 152.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 152.2.1
+
+### Patch Changes
+
+- [`0e4b0764b8618`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e4b0764b8618) -
+  Discover annotations in legacy content macros when platform_editor_fix_lcm_renderer_annotations is
+  enabled
+
 ## 152.2.0
 
 ### Minor Changes

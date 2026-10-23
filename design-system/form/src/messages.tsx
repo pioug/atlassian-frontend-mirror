@@ -141,17 +141,6 @@ export const HelperMessage: ({ children, testId }: MessageProps) => JSX.Element 
  *
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Error message__
- *
- * An error message {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const ErrorMessage: ({ children, testId }: MessageProps) => JSX.Element = ({
 	children,
@@ -178,17 +167,6 @@ export const ErrorMessage: ({ children, testId }: MessageProps) => JSX.Element =
  *
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Valid message__
- *
- * A valid message {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports, @repo/internal/react/require-jsdoc
 export const ValidMessage: ({ children, testId }: MessageProps) => JSX.Element = ({
 	children,

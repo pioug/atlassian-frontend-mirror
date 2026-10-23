@@ -6,7 +6,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {
@@ -173,10 +172,7 @@ export const getGapCursorTargetForBlankSpaceClick = (
 			// image bounds below intentionally exclude the caption so clicks beside the image
 			// can place a gap cursor; bail out before that check when the click is on a caption.
 			const target = event.target as Element | null;
-			if (
-				isExperimentEnabled('platform_editor_fix_edit_media_caption_in_layout') &&
-				target?.closest('[data-caption]')
-			) {
+			if (target?.closest('[data-caption]')) {
 				return undefined;
 			}
 

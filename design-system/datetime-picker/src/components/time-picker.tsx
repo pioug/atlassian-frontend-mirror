@@ -8,6 +8,7 @@ import React, {
 	useCallback,
 	useEffect,
 	useId,
+	useMemo,
 	useReducer,
 	useState,
 } from 'react';
@@ -20,6 +21,7 @@ import IconButton from '@atlaskit/button/icon/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import ClockIcon from '@atlaskit/icon/core/clock';
+import { getTimeFormat } from '@atlaskit/locale/get-time-format';
 import {
 	createLocalizationProvider,
 	type LocalizationProvider,
@@ -114,7 +116,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 			onBlur: providedOnBlur = __noop,
 			onChange: providedOnChange = __noop,
 			onFocus: providedOnFocus = __noop,
-			parseInputValue = (time: string, _timeFormat: string) => parseTime(time),
+			parseInputValue,
 			placeholder,
 			selectProps = {},
 			shouldShowTimeButton = false,
@@ -139,6 +141,11 @@ const TimePicker: React.ForwardRefExoticComponent<
 		const [isOpen, setIsOpen] = useState<boolean>(defaultIsOpen);
 		const [shouldFocusTimeInput, setShouldFocusTimeInput] = useState(false);
 		const [value, setValue] = useState<string>(defaultValue);
+		const l10n: LocalizationProvider = createLocalizationProvider(locale);
+		const localeTimeFormat = useMemo(
+			() => (fg('platform-dst-locale-aware-time-parsing') ? getTimeFormat(locale) : undefined),
+			[locale],
+		);
 
 		// Hack to force update: https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
 		const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -195,7 +202,11 @@ const TimePicker: React.ForwardRefExoticComponent<
 				let sanitizedInput;
 
 				try {
-					sanitizedInput = parseInputValue(inputValue, timeFormat || defaultTimeFormat) as Date;
+					sanitizedInput = (
+						parseInputValue
+							? parseInputValue(inputValue, timeFormat || defaultTimeFormat)
+							: parseTime(inputValue, localeTimeFormat)
+					) as Date;
 				} catch {
 					return; // do nothing, the main validation should happen in the form
 				}
@@ -278,7 +289,6 @@ const TimePicker: React.ForwardRefExoticComponent<
 
 		const ICON_PADDING = 2;
 		const GRID_SIZE = 8;
-		const l10n: LocalizationProvider = createLocalizationProvider(locale);
 		const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
 		const SelectComponent = timeIsEditable ? CreatableSelect : Select;
 

@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 240.1.0
+
+### Minor Changes
+
+- [`87c07de9c4550`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87c07de9c4550) -
+  Remove the remaining Emotion usage and dependency from editor-core.
+
+## 240.0.2
+
+### Patch Changes
+
+- [`36a41f480cf20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36a41f480cf20) -
+  Disambiguate canonical module suffixes while preserving existing public import paths. Share
+  existing entrypoints where aliases normalize to the same name; preserve implementations and rename
+  the less-used private file only where needed.
+- Updated dependencies
+
+## 240.0.1
+
+### Patch Changes
+
+- [`1b742fbce0914`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b742fbce0914) -
+  Move selection highlight inheritance to the platform_editor_improve_inp experiment.
+- Updated dependencies
+
 ## 240.0.0
 
 ### Major Changes

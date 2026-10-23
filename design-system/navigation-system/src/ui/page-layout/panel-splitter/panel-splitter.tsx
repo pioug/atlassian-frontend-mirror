@@ -300,7 +300,8 @@ const PortaledPanelSplitter = ({
 	const initialClientXRef = useRef<number | null>(null);
 	// Live allocation changes panelWidth on every frame. Only the legacy path should
 	// rebind the drag listeners when this value changes.
-	const legacyPanelWidth = fg('platform-dst-chat-panel-layout') ? undefined : panelWidth;
+	const legacyPanelWidth =
+		fg('platform-dst-chat-panel-layout') || onResizeInternal ? undefined : panelWidth;
 
 	useEffect(() => {
 		const splitter = splitterRef.current;
@@ -401,7 +402,7 @@ const PortaledPanelSplitter = ({
 					});
 
 					const resizingWidth = `clamp(${resizeBounds.min}, ${targetWidth}px, ${resizeBounds.max})`;
-					if (fg('platform-dst-chat-panel-layout') && onResizeInternal) {
+					if (onResizeInternal) {
 						// The allocator needs below-minimum requests for the local-to-chat cascade.
 						const currentBounds = getResizeBounds();
 						const width = Math.max(
@@ -442,7 +443,7 @@ const PortaledPanelSplitter = ({
 					const finalWidth = getPixelWidth(panel);
 					// Persist the final preferred width before removing the imperative drag
 					// variable, so the rendered width is continuous across pointer release.
-					if (fg('platform-dst-chat-panel-layout')) {
+					if (fg('platform-dst-chat-panel-layout') || onResizeInternal) {
 						flushSync(() => onCompleteResize(finalWidth));
 					} else {
 						onCompleteResize(finalWidth);
@@ -496,7 +497,7 @@ const PortaledPanelSplitter = ({
 	const pendingKeyboardWidth = useRef<number | null>(null);
 	const handleSliderInputChange = useCallback(
 		async (event: React.SyntheticEvent<HTMLInputElement>, pendingKey?: string) => {
-			const isManagedResize = fg('platform-dst-chat-panel-layout') && onResizeInternal;
+			const isManagedResize = onResizeInternal;
 			const sequence = focusSequence.current;
 			let value = isManagedResize
 				? parseFloat(event.currentTarget.value)

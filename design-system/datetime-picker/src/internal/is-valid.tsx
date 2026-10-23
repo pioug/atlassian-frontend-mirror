@@ -4,12 +4,12 @@ export function isValid(timeString: string): boolean {
 	 */
 	const time = timeString
 		.trim()
-		.match(/([012]?[\d])(?::([0-5][\d]))?(?::([0-5][\d]))?\s*([ap]m?)?/i);
+		.match(/^([012]?[\d])(?:[:.]?([0-5][\d]))?(?:[:.]?([0-5][\d]))?\s*([ap](?:\s*\.?\s*m\.?)?)?$/i);
 
 	/**
 	 * Regex match for `1234`, `12:34`, `12.34`, `123456`, `12:34:56`, `12.34.56`
 	 */
-	const time24hr = timeString.trim().match(/([012][\d])[:.]?([0-5][\d])([:.]?([0-5][\d]))?/);
+	const time24hr = timeString.trim().match(/^([012][\d])[:.]?([0-5][\d])([:.]?([0-5][\d]))?$/);
 
 	/**
 	 * Convert `2:34:56 pm` down to `23456`

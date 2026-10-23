@@ -1,0 +1,106 @@
+# no-global-z-index
+
+Layers are moving to the browser
+[top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer). The top layer orders
+layers by insertion (the layer shown last is on top) and ignores `z-index`. No element in the page,
+at any `z-index`, can paint above a top layer element.
+
+Large `z-index` values exist to win the global stack, which is the contest the top layer now
+settles. Code that relies on "my `9999` beats your `510`" breaks as soon as either layer moves to
+the top layer.
+
+Small values (10 or less) are fine. They order siblings inside one component, such as a badge over
+an avatar or a sticky table header, and the top layer does not change that.
+
+For layered experiences, use a Design System layering component:
+
+- Overlays: [popup](https://atlassian.design/components/popup),
+  [tooltip](https://atlassian.design/components/tooltip),
+  [inline-dialog](https://atlassian.design/components/inline-dialog)
+- Messaging: [modal-dialog](https://atlassian.design/components/modal-dialog),
+  [flag](https://atlassian.design/components/flag),
+  [spotlight](https://atlassian.design/components/spotlight)
+- Forms and inputs: [dropdown-menu](https://atlassian.design/components/dropdown-menu),
+  [select](https://atlassian.design/components/select),
+  [datetime-picker](https://atlassian.design/components/datetime-picker)
+
+If none of these fit, use `@atlaskit/top-layer`.
+
+## Examples
+
+This rule marks `z-index` values above 10, and `calc(infinity)`, in:
+
+- object styles (`css`, `cssMap`, `xcss`, `styled`, inline `style`, `react-select` `styles`)
+- tagged template styles (`` css`…` ``, `` styled.div`…` ``, `` createGlobalStyle`…` ``)
+- `zIndex` JSX props
+- `element.style.zIndex = …` assignments
+- `style.setProperty('z-index', …)` calls
+
+It resolves numbers, numeric strings, ternaries, `??`, `||` and `&&`, and `const` values declared in
+the same file. It skips values it can't know from the file alone, such as imports, function calls,
+and `calc()` other than `calc(infinity)`. It skips objects passed to `expect(…)` assertions, such as
+`toHaveStyle({ zIndex: 700 })`, because they read a value rather than set one.
+
+### Not covered
+
+- `layers.*()` from `@atlaskit/theme`, such as `layers.modal()`. The rule can't know these values
+  from the file, and the
+  [`no-atlaskit-theme`](https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-atlaskit-theme/usage)
+  rule already bans importing `@atlaskit/theme`.
+- `element.style.cssText = 'z-index: 500'` and `element.setAttribute('style', 'z-index: 500')`
+- untagged template literals and plain strings, such as `` `z-index: 500;` ``
+- functions inside `styled` templates, such as `` styled.div`z-index: ${(props) => props.z};` ``
+
+### Incorrect
+
+```tsx
+const styles = css({ zIndex: 500 });
+                             ^^^
+
+const Overlay = styled.div`
+  z-index: 9999;
+  ^^^^^^^^^^^^^
+`;
+
+const MODAL_Z_INDEX = 510;
+const styles = css({ zIndex: MODAL_Z_INDEX });
+                             ^^^^^^^^^^^^^
+
+<Portal zIndex={700} />
+                ^^^
+
+<div style={{ zIndex: isOpen ? 1000 : 1 }} />
+                               ^^^^
+
+<Iframe zIndex={options.zIndex ?? 1000} />
+                                  ^^^^
+
+element.style.zIndex = '2147483647';
+                       ^^^^^^^^^^^^
+```
+
+### Correct
+
+```tsx
+// Local ordering inside a component
+const badgeStyles = css({ zIndex: 1 });
+const stickyHeaderStyles = css({ zIndex: 10 });
+
+// A Design System layering component handles ordering for you
+<Popup content={() => <Menu />} trigger={(props) => <Button {...props}>Open</Button>} />;
+```
+
+## When not to use it
+
+- **Page chrome meant to sit under everything.** A sticky header, side navigation or in-page banner
+  can need a `z-index` to stay above scrolling page content. That ordering is all within the base
+  layer, and every top layer surface should still paint above it.
+- **A base layer surface outside your control.** Rarely, code must order itself against something
+  you can't change, such as a third-party widget.
+
+An `eslint-disable` comment silences this rule, but not the AFM-wide ratchet "No new z-index values
+above 10 (AFM-wide)", which counts `z-index` values in changed lines and ignores disable comments.
+For a real exception, add the file to the ratchet's `excluded` list in
+`platform/monorepo.config/tasks/global-ratcheting/rules/no-global-z-index.ts` with an owner, a
+reason and a removal condition, or get the ratchet increase accepted. Moving existing values into a
+new file also counts as new.

@@ -40,12 +40,11 @@ describe('TeamLinkCardActions', () => {
 			).toBeVisible();
 		});
 
-		it('should hide cross icon when not hovered and dropdown is closed', () => {
+		it('keeps the disconnect button visible without hover or keyboard focus', () => {
 			renderWithIntl(<TeamLinkCardActions {...defaultProps} hovered={false} />);
-			const button = screen.queryByText('disconnect the container Test Container', {
-				selector: 'button',
-			});
-			expect(button).not.toBeInTheDocument();
+			expect(
+				screen.getByRole('button', { name: /disconnect the container Test Container/i }),
+			).toBeVisible();
 		});
 
 		it('should call onDisconnectButtonClick when cross icon is clicked', async () => {
@@ -80,10 +79,11 @@ describe('TeamLinkCardActions', () => {
 			).toBeVisible();
 		});
 
-		it('should hide show more icon when not hovered and dropdown is closed', () => {
+		it('keeps the menu button visible without hover or keyboard focus', () => {
 			renderWithIntl(<TeamLinkCardActions {...webLinkProps} hovered={false} />);
-			const button = screen.queryByText('more options for Test Container', { selector: 'button' });
-			expect(button).not.toBeInTheDocument();
+			expect(
+				screen.getByRole('button', { name: /more options for Test Container/i }),
+			).toBeVisible();
 		});
 
 		it('should show dropdown menu when show more icon is clicked', async () => {

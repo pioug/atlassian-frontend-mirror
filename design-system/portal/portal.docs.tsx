@@ -5,7 +5,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Portal',
 			description: 'A component for rendering content outside the normal DOM hierarchy.',
-			status: 'general-availability',
+			status: 'deprecated',
 			import: {
 				name: 'Portal',
 				package: '@atlaskit/portal/portal',
@@ -14,6 +14,7 @@ const documentation: StructuredContentSource = {
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
+				'Deprecated. Do not add new usages. Use a design system layer component (for example Popup, Tooltip or Modal dialog), or `Popover` and `Dialog` from `@atlaskit/top-layer`. These render in the browser top layer, so they need no portal. Content portalled to `document.body` renders below every open top-layer surface.',
 				'Use for rendering content outside normal DOM',
 				'Consider z-index and positioning',
 				'Handle focus management appropriately',

@@ -6,6 +6,7 @@ import React, { type ReactNode, useRef } from 'react';
 import { cssMap as cssMapCompiled, keyframes as keyframescompiled } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
@@ -132,6 +133,9 @@ const styles = cssMap({
 		whiteSpace: 'nowrap',
 		gap: token('space.100'),
 	},
+	detailsLabelWrap: {
+		whiteSpace: 'normal',
+	},
 	detailsLabelExtraTopSpace: {
 		marginTop: token('space.400'),
 	},
@@ -151,6 +155,10 @@ const styles = cssMap({
 		font: token('font.body.small'),
 		marginTop: token('space.0'),
 		marginLeft: token('space.0'),
+	},
+	detailsLabelTextWrap: {
+		overflow: 'visible',
+		overflowWrap: 'anywhere',
 	},
 	kudosBlobAnimation: {
 		display: 'none',
@@ -299,7 +307,7 @@ export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.
 			>
 				<Text
 					ref={textRef}
-					maxLines={1}
+					maxLines={fg('ptc_a11y_profile_card_text_spacing') ? undefined : 1}
 					color="color.text.inverse"
 					id="profile-card-job-title-label-text"
 				>
@@ -349,7 +357,11 @@ export const DetailsLabel = ({
 }): React.JSX.Element => (
 	<Box
 		as="dl"
-		xcss={cx(styles.detailsLabelNext, extraTopSpace && styles.detailsLabelExtraTopSpace)}
+		xcss={cx(
+			styles.detailsLabelNext,
+			extraTopSpace && styles.detailsLabelExtraTopSpace,
+			fg('ptc_a11y_profile_card_text_spacing') && styles.detailsLabelWrap,
+		)}
 	>
 		{children}
 	</Box>
@@ -362,7 +374,13 @@ export const DetailsLabelIcon = ({ children }: { children: ReactNode }): React.J
 );
 
 export const DetailsLabelText = ({ children }: { children: ReactNode }): React.JSX.Element => (
-	<Box as="dd" xcss={cx(styles.detailsLabelText)}>
+	<Box
+		as="dd"
+		xcss={cx(
+			styles.detailsLabelText,
+			fg('ptc_a11y_profile_card_text_spacing') && styles.detailsLabelTextWrap,
+		)}
+	>
 		{children}
 	</Box>
 );

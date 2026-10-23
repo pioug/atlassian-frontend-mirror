@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { FormEvent, KeyboardEvent } from 'react';
+import type { FormEvent, JSX, KeyboardEvent } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve the copy/paste fixture's fixed clipboard borders.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils/breadcrumbs-misc-actions';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -365,7 +366,7 @@ class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps,
 	}
 }
 
-export default function Example(props: EditorProps & ExampleProps): jsx.JSX.Element {
+export default function Example(props: EditorProps & ExampleProps): JSX.Element {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ height: '100%' }}>

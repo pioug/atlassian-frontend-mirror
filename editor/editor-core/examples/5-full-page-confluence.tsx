@@ -1,13 +1,15 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
+import type { JSX } from 'react';
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// The loading blanket styles a child rendered by another component.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import Spinner from '@atlaskit/spinner/spinner';
@@ -36,7 +38,7 @@ const disabledBlanket = css({
  *  - 64px sidebar on the left
  *  - collab editing enabled
  */
-const ExampleEditorComponent = (): jsx.JSX.Element => {
+const ExampleEditorComponent = (): JSX.Element => {
 	const [disabled, setDisabled] = useState(true);
 	const [appearance, setAppearance] = useState<EditorAppearance>(getAppearance() || 'full-page');
 

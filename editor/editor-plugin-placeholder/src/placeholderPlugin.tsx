@@ -1,12 +1,7 @@
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
-import { isEmptyDocument } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled/box';
-import Spinner from '@atlaskit/spinner/spinner';
 
 import { PlaceholderLoadingSpinner } from './PlaceholderLoadingSpinner';
 import type { PlaceholderPlugin } from './placeholderPluginType';
@@ -75,38 +70,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 				return null;
 			}
 
-			if (fg('platform_editor_placeholder_collab_spinner')) {
-				return <PlaceholderLoadingSpinner api={api} editorView={params.editorView} />;
-			}
-
-			const doc = params.editorView?.state.doc;
-
-			// @ts-ignore fix which needs follow up to use standard apis
-			const collabEditPluginState = params.editorView?.state?.collabEditPlugin$;
-
-			if (collabEditPluginState && collabEditPluginState.isReady !== true) {
-				if (doc && !isEmptyDocument(doc)) {
-					return null;
-				}
-
-				return (
-					<Box xcss={spinnerContainerStyles.spinnerContainer}>
-						<Spinner interactionName="live-pages-loading-spinner" size="medium" />
-					</Box>
-				);
-			}
-
-			return null;
+			return <PlaceholderLoadingSpinner api={api} editorView={params.editorView} />;
 		},
 	};
 };
-
-const spinnerContainerStyles = cssMap({
-	spinnerContainer: {
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'center',
-		width: '100%',
-	},
-});

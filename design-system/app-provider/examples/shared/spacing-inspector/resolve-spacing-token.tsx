@@ -1,22 +1,27 @@
-type Axis = 'row-gap' | 'column-gap';
+type SpacingProperty =
+	| 'row-gap'
+	| 'column-gap'
+	| 'padding-top'
+	| 'padding-right'
+	| 'padding-bottom'
+	| 'padding-left';
 
 type Declaration = {
 	selector: string;
-	value: string;
-	important: boolean;
+	style: CSSStyleDeclaration;
 	order: number;
 	uncertain: boolean;
 };
 
 type StylesheetIndex = {
-	declarations: Record<Axis, Declaration[]>;
+	declarations: Record<'gap' | 'padding', Declaration[]>;
 	inaccessible: boolean;
 };
 
 /**
- * Split a gap shorthand without splitting whitespace inside var() or calc().
+ * Split a spacing shorthand without splitting whitespace inside var() or calc().
  */
-function splitGap(value: string): string[] {
+function splitSpacing(value: string): string[] {
 	const values: string[] = [];
 	let depth = 0;
 	let start = 0;
@@ -34,34 +39,60 @@ function splitGap(value: string): string[] {
 	return values;
 }
 
-function readDeclaration(style: CSSStyleDeclaration, axis: Axis) {
+function readDeclaration(style: CSSStyleDeclaration, property: SpacingProperty, direction: string) {
+	const isPadding = property.startsWith('padding-');
+	const side = ['padding-top', 'padding-right', 'padding-bottom', 'padding-left'].indexOf(property);
+	const inlineStart = direction === 'rtl' ? 'padding-right' : 'padding-left';
+	const inlineEnd = direction === 'rtl' ? 'padding-left' : 'padding-right';
+	const logicalSides: Record<string, string[]> = {
+		'padding-block': ['padding-top', 'padding-bottom'],
+		'padding-inline': [inlineStart, inlineEnd],
+		'padding-block-start': ['padding-top'],
+		'padding-block-end': ['padding-bottom'],
+		'padding-inline-start': [inlineStart],
+		'padding-inline-end': [inlineEnd],
+	};
 	let winner: { value: string; important: boolean } | null = null;
 	for (let i = 0; i < style.length; i++) {
-		const property = style[i];
-		if (![axis, 'gap', 'all'].includes(property)) {
+		const declared = style[i];
+		const logicalIndex = isPadding ? (logicalSides[declared]?.indexOf(property) ?? -1) : -1;
+		if (![property, isPadding ? 'padding' : 'gap', 'all'].includes(declared) && logicalIndex < 0) {
 			continue;
 		}
-		const important = style.getPropertyPriority(property) === 'important';
+		const important = style.getPropertyPriority(declared) === 'important';
 		if (winner?.important && !important) {
 			continue;
 		}
-		const raw = style.getPropertyValue(property);
-		const values = property === 'gap' ? splitGap(raw) : [raw];
-		winner = {
-			value: values[property === 'gap' && axis === 'column-gap' ? 1 : 0] ?? values[0] ?? '',
-			important,
-		};
+		const raw = style.getPropertyValue(declared);
+		// Browsers expand padding into four longhands, but leave their values empty when
+		// the shorthand contains var(). The authored reference remains on the shorthand.
+		const paddingShorthand =
+			isPadding && declared === property && !raw ? style.getPropertyValue('padding') : '';
+		const values = splitSpacing(paddingShorthand || raw);
+		let value = values[0] ?? '';
+		if (declared === 'padding' || paddingShorthand) {
+			value =
+				[
+					values[0],
+					values[1] ?? values[0],
+					values[2] ?? values[0],
+					values[3] ?? values[1] ?? values[0],
+				][side] ?? '';
+		} else if ((declared === 'gap' && property === 'column-gap') || logicalIndex === 1) {
+			value = values[1] ?? value;
+		}
+		winner = { value, important };
 	}
 	return winner;
 }
 
 /**
- * Index only gap declarations. Unknown grouping rules (layers, containers, imports) remain
+ * Index gap and padding declarations. Unknown grouping rules (layers, containers, imports) remain
  * conservative candidates rather than silently being treated as ordinary unlayered rules.
  */
-export function indexGapStyles(document: Document): StylesheetIndex {
+export function indexSpacingStyles(document: Document): StylesheetIndex {
 	const index: StylesheetIndex = {
-		declarations: { 'row-gap': [], 'column-gap': [] },
+		declarations: { gap: [], padding: [] },
 		// Constructed stylesheets need separate cascade handling; retain unknown identities for now.
 		inaccessible: Boolean(document.adoptedStyleSheets?.length),
 	};
@@ -70,12 +101,20 @@ export function indexGapStyles(document: Document): StylesheetIndex {
 		for (const rule of Array.from(rules)) {
 			if (rule.type === CSSRule.STYLE_RULE) {
 				const { selectorText, style } = rule as CSSStyleRule;
-				for (const axis of ['row-gap', 'column-gap'] as const) {
-					const declaration = readDeclaration(style, axis);
-					if (declaration) {
-						index.declarations[axis].push({
+				const properties = Array.from({ length: style.length }, (_, i) => style[i]);
+				for (const family of ['gap', 'padding'] as const) {
+					if (
+						properties.some(
+							(property) =>
+								property === 'all' ||
+								(family === 'gap'
+									? ['gap', 'row-gap', 'column-gap'].includes(property)
+									: property === 'padding' || property.startsWith('padding-')),
+						)
+					) {
+						index.declarations[family].push({
 							selector: selectorText,
-							...declaration,
+							style,
 							order: order++,
 							uncertain,
 						});
@@ -140,9 +179,9 @@ function specificity(selector: string): number | null {
 	);
 }
 
-export function resolveGapToken(
+export function resolveSpacingToken(
 	element: HTMLElement,
-	axis: Axis,
+	property: SpacingProperty,
 	index: StylesheetIndex,
 ): string | null {
 	if (index.inaccessible) {
@@ -150,7 +189,13 @@ export function resolveGapToken(
 	}
 	let winner: { value: string; important: boolean; specificity: number; order: number } | null =
 		null;
-	for (const declaration of index.declarations[axis]) {
+	const computed = getComputedStyle(element);
+	const family = property.startsWith('padding-') ? 'padding' : 'gap';
+	for (const declaration of index.declarations[family]) {
+		const value = readDeclaration(declaration.style, property, computed.direction);
+		if (!value) {
+			continue;
+		}
 		for (const selector of declaration.selector.split(',')) {
 			const trimmed = selector.trim();
 			let matches = false;
@@ -168,34 +213,37 @@ export function resolveGapToken(
 			}
 			if (
 				!winner ||
-				Number(declaration.important) > Number(winner.important) ||
-				(declaration.important === winner.important &&
+				Number(value.important) > Number(winner.important) ||
+				(value.important === winner.important &&
 					(weight > winner.specificity ||
 						(weight === winner.specificity && declaration.order > winner.order)))
 			) {
-				winner = { ...declaration, specificity: weight };
+				winner = { ...value, order: declaration.order, specificity: weight };
 			}
 		}
 	}
-	const inline = readDeclaration(element.style, axis);
+	const inline = readDeclaration(element.style, property, computed.direction);
 	if (inline && (!winner || inline.important || !winner.important)) {
 		winner = { ...inline, specificity: 1000000, order: 0 };
 	}
 	// Animations/transitions can replace the matched declaration with a different value.
-	const computed = getComputedStyle(element);
 	if (computed.animationName && computed.animationName !== 'none') {
 		return null;
 	}
 	if (
 		computed.transitionProperty
 			.split(',')
-			.some((property) => ['all', 'gap', axis].includes(property.trim())) &&
+			.some(
+				(transition) =>
+					['all', family, property].includes(transition.trim()) ||
+					(family === 'padding' && transition.trim().startsWith('padding-')),
+			) &&
 		(computed.transitionDuration || '').split(',').some((duration) => parseFloat(duration) > 0)
 	) {
 		return null;
 	}
 	const name = winner?.value.match(
-		/^var\(\s*--ds-space-(gap-[a-z]+|(?:negative-)?\d+)\s*(?:,[\s\S]*)?\)$/,
+		/^var\(\s*--ds-space-((?:gap|inset)-[a-z]+|(?:negative-)?\d+)\s*(?:,[\s\S]*)?\)$/,
 	)?.[1];
 	return name ? `space.${name.replace(/-/g, '.')}` : null;
 }

@@ -8,6 +8,7 @@ import {
 	localStorageFetchProvider,
 	localStorageWriteProvider,
 } from '@af/editor-examples-helpers/utils/sync-block-local-storage-provider';
+import { cssMap } from '@atlaskit/css';
 import { BLOCK_ACTIONS_MENU_SECTION } from '@atlaskit/editor-common/block-menu/key';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
@@ -38,10 +39,8 @@ import AppIcon from '@atlaskit/icon/core/app';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
-import { Pressable } from '@atlaskit/primitives/pressable';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled - go/akcss
-import { xcss } from '@atlaskit/primitives/xcss/xcss';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { token } from '@atlaskit/tokens';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -50,10 +49,12 @@ import { ExampleForgeApp } from '../example-helpers/ExampleForgeApp';
 import { useNoteSelectionExtension } from '../example-helpers/useNoteSelectionExtension';
 import enMessages from '../src/i18n/en';
 
-const buttonStyles = xcss({
-	position: 'fixed',
-	bottom: 'space.0',
-	right: 'space.0',
+const styles = cssMap({
+	buttonStyles: {
+		position: 'fixed',
+		bottom: token('space.0'),
+		right: token('space.0'),
+	},
 });
 
 const smartLinksProvider = new ConfluenceCardProvider('staging');
@@ -534,7 +535,7 @@ function ComposableEditorPage() {
 				/>
 				{createButton && (
 					<Pressable
-						xcss={buttonStyles}
+						xcss={styles.buttonStyles}
 						onClick={() => {
 							const modifiedNodeAdf = JSON.parse(JSON.stringify(selectedNodeAdfRef.current));
 

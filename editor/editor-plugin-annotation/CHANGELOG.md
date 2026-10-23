@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-annotation
 
+## 29.1.0
+
+### Minor Changes
+
+- [`afd887e901de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afd887e901de1) -
+  Discover annotations in legacy content macros and refresh their state when nested annotations are
+  added while platform_editor_fix_lcm_editor_annotations is enabled. Editor-scoped renderers can
+  load nested LCM annotations independently of the renderer experiment.
+
+  Allow the ProseMirror test editor helper to be checked with unused declaration checks enabled.
+
+## 29.0.6
+
+### Patch Changes
+
+- [`de0b3e0a118bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de0b3e0a118bc) -
+  Add comment target attribution to inline comment draft-open analytics.
+- Updated dependencies
+
+## 29.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.4
 
 ### Patch Changes

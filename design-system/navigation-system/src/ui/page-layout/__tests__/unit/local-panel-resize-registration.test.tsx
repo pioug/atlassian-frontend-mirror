@@ -25,67 +25,71 @@ import { Main } from '../../main/main';
 import { PanelSplitter } from '../../panel-splitter/panel-splitter';
 import { Root } from '../../root';
 
-it.each([false, true])(
-	'keeps flag-off drag registration stable (persistence: %s)',
-	(persistence) => {
-		failGate('platform-dst-chat-panel-layout');
-		failGate('platform-dst-motion-uplift-panel');
-		(persistence ? passGate : failGate)('platform-dst-panel-system-width-persistence');
-		jest.useFakeTimers();
-		const draggable = jest.spyOn(elementAdapter, 'draggable');
-		const onResizeEnd = jest.fn();
-		const initialState = {
-			activePanel: { instanceId: 'panel', panelContent: <div>Panel content</div>, params: {} },
-		};
-		const fixture = (content: string) => (
-			<Root>
-				<Main>
-					<PanelProvider initialState={initialState}>
-						<LayoutWithPanel panelWidth={400} onResizeEnd={onResizeEnd} testId="layout">
-							{content}
-						</LayoutWithPanel>
-					</PanelProvider>
-				</Main>
-			</Root>
-		);
-		try {
-			const { rerender, unmount } = render(fixture('Main content'));
-			const splitter = screen.getByTestId('layout--panel-slot--splitter');
-			const registrationCount = () =>
-				draggable.mock.calls.filter(([options]) => options.element === splitter).length;
-			const initialRegistrations = registrationCount();
-			expect(initialRegistrations).toBeGreaterThan(0);
-			for (const content of ['Updated main content', 'Another update']) {
-				rerender(fixture(content));
-				expect(registrationCount()).toBe(initialRegistrations);
-			}
-			// Verify the legacy object payload is still adapted to the public number callback.
-			// eslint-disable-next-line testing-library/prefer-user-event
-			fireEvent.change(screen.getByRole('slider', { name: 'Resize panel', hidden: true }), {
-				target: { value: 480 },
-			});
-			act(() => jest.runOnlyPendingTimers());
-			expect(onResizeEnd).toHaveBeenCalledTimes(1);
-			expect(onResizeEnd).toHaveBeenCalledWith(480);
-			unmount();
-		} finally {
-			jest.useRealTimers();
-			jest.restoreAllMocks();
+it('keeps flag-off drag registration stable', () => {
+	failGate('platform-dst-chat-panel-layout');
+	failGate('platform-dst-motion-uplift-panel');
+	jest.useFakeTimers();
+	jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(1800);
+	const getComputedStyle = window.getComputedStyle;
+	jest.spyOn(window, 'getComputedStyle').mockImplementation((element) => {
+		const style = getComputedStyle(element);
+		// Browsers resolve percentages to pixels; JSDOM leaves them as percentages.
+		if (style.width.endsWith('%')) {
+			style.width = `${element.clientWidth}px`;
 		}
-	},
-);
+		return style;
+	});
+	const draggable = jest.spyOn(elementAdapter, 'draggable');
+	const onResizeEnd = jest.fn();
+	const initialState = {
+		activePanel: { instanceId: 'panel', panelContent: <div>Panel content</div>, params: {} },
+	};
+	const fixture = (content: string) => (
+		<Root>
+			<Main>
+				<PanelProvider initialState={initialState}>
+					<LayoutWithPanel defaultPanelWidth={400} onResizeEnd={onResizeEnd} testId="layout">
+						{content}
+					</LayoutWithPanel>
+				</PanelProvider>
+			</Main>
+		</Root>
+	);
+	try {
+		const { rerender, unmount } = render(fixture('Main content'));
+		const splitter = screen.getByTestId('layout--panel-slot--splitter');
+		const registrationCount = () =>
+			draggable.mock.calls.filter(([options]) => options.element === splitter).length;
+		const initialRegistrations = registrationCount();
+		expect(initialRegistrations).toBeGreaterThan(0);
+		for (const content of ['Updated main content', 'Another update']) {
+			rerender(fixture(content));
+			expect(registrationCount()).toBe(initialRegistrations);
+		}
+		// Verify the legacy object payload is still adapted to the public number callback.
+		// eslint-disable-next-line testing-library/prefer-user-event
+		fireEvent.change(screen.getByRole('slider', { name: 'Resize panel', hidden: true }), {
+			target: { value: 480 },
+		});
+		act(() => jest.runOnlyPendingTimers());
+		expect(onResizeEnd).toHaveBeenCalledTimes(1);
+		expect(onResizeEnd).toHaveBeenCalledWith({
+			initialWidth: 400,
+			finalWidth: 480,
+			mode: 'inline',
+		});
+		unmount();
+	} finally {
+		jest.useRealTimers();
+		jest.restoreAllMocks();
+	}
+});
 
-it.each([
-	[false, 'panel'],
-	[true, 'panel'],
-	[false, 'chat'],
-	[true, 'chat'],
-] as const)(
-	'keeps entry-point content and drag registration stable (persistence: %s, drag: %s)',
-	async (persistence, area) => {
+it.each(['panel', 'chat'] as const)(
+	'keeps entry-point content and drag registration stable (drag: %s)',
+	async (area) => {
 		passGate('platform-dst-chat-panel-layout');
 		failGate('platform-dst-motion-uplift-panel');
-		(persistence ? passGate : failGate)('platform-dst-panel-system-width-persistence');
 		const originalWidth = window.innerWidth;
 		window.innerWidth = 1800;
 		const matchMedia = window.matchMedia;
@@ -136,7 +140,7 @@ it.each([
 									activePanel: entryPointPanel,
 								}}
 							>
-								<LayoutWithPanel panelWidth={400} onResizeEnd={onResizeEnd} testId="layout">
+								<LayoutWithPanel defaultPanelWidth={400} onResizeEnd={onResizeEnd} testId="layout">
 									Main content
 								</LayoutWithPanel>
 							</PanelProvider>
@@ -186,7 +190,9 @@ it.each([
 			fireEvent.drop(splitter);
 			if (area === 'panel') {
 				expect(onResizeEnd).toHaveBeenCalledTimes(1);
-				expect(onResizeEnd).toHaveBeenCalledWith(460);
+				expect(onResizeEnd).toHaveBeenCalledWith(
+					expect.objectContaining({ finalWidth: 460, mode: 'inline' }),
+				);
 			}
 			unmount();
 		} finally {

@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { SmartLinkSize } from '../../constants';
@@ -141,6 +142,28 @@ const EmbedModal = ({
 			window.removeEventListener('blur', handleWindowBlur);
 		};
 	}, [isOpen]);
+
+	// `openEmbedModal` renders this modal into its own React root, outside the layering context of
+	// whatever opened it (e.g. a drawer or another modal). Layered components close on Escape via
+	// `window` keydown listeners, so without this they would all close on a single Escape press.
+	// Handle Escape during the capture phase on `window`, close only this modal, and stop the event
+	// before it reaches the layers underneath.
+	useEffect(() => {
+		if (!isOpen || !fg('platform_sl_embed_modal_escape_isolation')) {
+			return;
+		}
+		const handleEscapeKeyDown = (event: KeyboardEvent) => {
+			if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing) {
+				return;
+			}
+			event.stopPropagation();
+			handleOnClose();
+		};
+		window.addEventListener('keydown', handleEscapeKeyDown, { capture: true });
+		return () => {
+			window.removeEventListener('keydown', handleEscapeKeyDown, { capture: true });
+		};
+	}, [isOpen, handleOnClose]);
 
 	return (
 		<ModalTransition>

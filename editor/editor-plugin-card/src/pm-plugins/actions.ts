@@ -4,7 +4,13 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import type { SmartLinkEvents } from '@atlaskit/smart-card/smart-link-events';
 
-import type { CardInfo, CardPluginAction, Request, ToolbarResolvedAttributes } from '../types';
+import type {
+	CardInfo,
+	CardPluginAction,
+	PastedInlineLink,
+	Request,
+	ToolbarResolvedAttributes,
+} from '../types';
 import type { DatasourceTableLayout } from '../ui/LayoutButton/types';
 import { pluginKey } from './plugin-key';
 
@@ -136,3 +142,15 @@ export const setDatasourceStash = (
 
 export const removeDatasourceStash = (tr: Transaction, url: string): Transaction =>
 	cardAction(tr, { type: 'REMOVE_DATASOURCE_STASH', url });
+
+/** Confirm actual display, not merely target selection or a request to display. */
+export const markPastedInlineLinkShown =
+	(target: PastedInlineLink) =>
+	(tr: Transaction): Transaction =>
+		cardAction(tr, { type: 'PASTED_INLINE_LINK_SHOWN', target });
+
+/** Discard only this candidate; a stale callback must not clear a newer paste. */
+export const clearPastedInlineLink =
+	(target: PastedInlineLink) =>
+	(tr: Transaction): Transaction =>
+		cardAction(tr, { type: 'CLEAR_PASTED_INLINE_LINK', target });

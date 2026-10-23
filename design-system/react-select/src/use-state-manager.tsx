@@ -40,10 +40,6 @@ export type StateManagerProps<
 > = SelectPropsWithOptionalStateManagedProps<Option, IsMulti, Group> &
 	StateManagerAdditionalProps<Option>;
 
-// TODO: Fill in the hook {description}.
-/**
- * {description}.
- */
 export default function useStateManager<
 	Option,
 	IsMulti extends boolean,

@@ -110,6 +110,43 @@ describe('Registering renderer actions', () => {
 				exampleDocumentWithExtension.content,
 			);
 		});
+
+		it('inherits legacy annotation discovery through a nested provider with custom actions', () => {
+			const rootActions = new RendererActions(true);
+			const nestedActions = new RendererActions(true);
+			const rootRegister = jest.spyOn(rootActions, '_privateRegisterRenderer');
+			const nestedRegister = jest.spyOn(nestedActions, '_privateRegisterRenderer');
+			const extensionHandlers: ExtensionHandlers = {
+				'fake.confluence': (ext) => (
+					<RendererActionsContext context={nestedActions}>
+						<Renderer
+							adfStage="stage0"
+							document={{ type: 'doc', version: 1, content: ext.content as any }}
+							allowAnnotations={false}
+						/>
+					</RendererActionsContext>
+				),
+			};
+
+			const { unmount } = render(
+				<RendererActionsContext context={rootActions} includeLegacyContentAnnotations>
+					<Renderer document={exampleDocumentWithExtension} extensionHandlers={extensionHandlers} />
+				</RendererActionsContext>,
+			);
+
+			const expectedLegacyRegistration = [
+				expect.any(Object),
+				expect.any(Object),
+				expect.any(Object),
+				expect.anything(),
+				true,
+			];
+			expect(rootRegister).toHaveBeenCalledWith(...expectedLegacyRegistration);
+			expect(nestedRegister).toHaveBeenCalledWith(...expectedLegacyRegistration);
+
+			unmount();
+			expect(nestedActions.doc).toBeUndefined();
+		});
 	});
 });
 

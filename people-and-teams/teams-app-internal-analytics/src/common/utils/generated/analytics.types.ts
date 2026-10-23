@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::e099f8f594d92fe919ced88786e8e290>>
+ * @codegen <<SignedSource::dac7354c8bc9b9131d5f742dd2bf662d>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -120,6 +120,10 @@ export type InviteToProductServiceFailedAttributesType = {
 	errorsCount?: number | null;
 	errors?: unknown[] | null;
 	result?: unknown[] | null;
+	failureType?: string | null;
+	errorReason?: string | null;
+	status?: number | null;
+	traceId?: string | null;
 };
 export type InviteToSoftwareAndBusinessProjectsSucceededAttributesType = {
 	touchpoint: string;

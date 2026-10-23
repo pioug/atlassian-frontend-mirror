@@ -264,15 +264,15 @@ describe('PanelSplitter', () => {
 	});
 
 	it.each([false, true])(
-		'uses coordinated rendering only with the layout gate enabled (%s)',
-		(enabled) => {
-			(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
+		'uses coordinated rendering when the host supplies a sizing callback (%s)',
+		(coordinated) => {
+			failGate('platform-dst-chat-panel-layout');
 			const onResizeInternal = jest.fn();
-			render(<TestComponent onResizeInternal={onResizeInternal} />);
+			render(<TestComponent onResizeInternal={coordinated ? onResizeInternal : undefined} />);
 			const panel = screen.getByTestId('panel-splitter-parent');
 			const splitter = screen.getByTestId('panel-splitter');
 			drag({ element: splitter, fromX: 300, toX: 350 });
-			if (enabled) {
+			if (coordinated) {
 				expect(onResizeInternal).toHaveBeenCalledWith(350);
 				// No imperative width can move this panel ahead of the allocated sibling widths.
 				expect(panel.style.getPropertyValue(resizingCssVar)).toBe('');

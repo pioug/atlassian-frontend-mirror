@@ -70,7 +70,7 @@ const getDirectionFromPlacement = (placement: Placement): Direction =>
  *
  * `mouseover` also fires when the pointer crosses boundaries between elements
  * _inside_ the trigger. A `relatedTarget` the trigger does not contain is what
- * distinguishes a real re-entry from one of those.
+ * distinguishes a real re-entry (or, for `mouseout`, a real exit) from one of those.
  */
 function isTopLayerPointerReEntry({
 	trigger,
@@ -251,10 +251,9 @@ function Tooltip({
 		});
 	}, []);
 
-	// Set while a pointer press has dismissed the tooltip. Every read and write is
-	// behind `platform-dst-top-layer-tooltip`, where `popover="hint"` owns pointer
-	// dismissal, so the legacy path never sees this.
-	const isTopLayerPointerDismissedRef = useRef(false);
+	// Set by Escape, light dismiss or a press on the trigger. Every read and write is
+	// behind `platform-dst-top-layer-tooltip`.
+	const isDismissedUntilTriggerLeaveRef = useRef(false);
 
 	const tryShowTooltip = useCallback(
 		(source: Source) => {
@@ -280,13 +279,8 @@ function Tooltip({
 				return;
 			}
 
-			/**
-			 * Stay dismissed until the trigger is re-entered or blurred. Otherwise
-			 * light dismiss hides on pointerup and the next `mouseover` from a
-			 * boundary crossing inside the trigger re-shows it. Deliberately after
-			 * the "already active" branch, so a held press stays visible.
-			 */
-			if (isTopLayerPointerDismissedRef.current && fg('platform-dst-top-layer-tooltip')) {
+			// After the "already active" check, so a held press stays visible.
+			if (isDismissedUntilTriggerLeaveRef.current && fg('platform-dst-top-layer-tooltip')) {
 				return;
 			}
 
@@ -374,12 +368,10 @@ function Tooltip({
 		apiRef.current?.finishHideAnimation();
 	}, []);
 
-	// Browser dismiss (light dismiss on pointerup, or Escape). Recorded so we stay
-	// hidden until the trigger is re-entered. Only wired up on the top-layer path,
-	// but gated anyway to keep every use of the ref flag-checked.
+	// Browser dismiss: Escape, or light dismiss on pointerup.
 	const handlePopoverClose = useCallback(() => {
 		if (fg('platform-dst-top-layer-tooltip')) {
-			isTopLayerPointerDismissedRef.current = true;
+			isDismissedUntilTriggerLeaveRef.current = true;
 		}
 		apiRef.current?.requestHide({ isImmediate: true });
 	}, []);
@@ -414,10 +406,9 @@ function Tooltip({
 			return;
 		}
 
-		// Native light dismiss hides on pointerup, not here. Recorded now so the
-		// tooltip stays dismissed afterwards.
+		// Set now: light dismiss only hides on pointerup.
 		if (fg('platform-dst-top-layer-tooltip')) {
-			isTopLayerPointerDismissedRef.current = true;
+			isDismissedUntilTriggerLeaveRef.current = true;
 		}
 
 		// A press inside the show delay never reaches light dismiss, because no
@@ -455,7 +446,7 @@ function Tooltip({
 			}
 			event.preventDefault();
 
-			// Re-arm on a real re-entry, not on a boundary crossing inside the trigger.
+			// Not on a boundary crossing inside the trigger.
 			if (
 				isTopLayerPointerReEntry({
 					trigger: targetRef.current,
@@ -463,7 +454,7 @@ function Tooltip({
 				}) &&
 				fg('platform-dst-top-layer-tooltip')
 			) {
-				isTopLayerPointerDismissedRef.current = false;
+				isDismissedUntilTriggerLeaveRef.current = false;
 			}
 
 			const source: Source = isMousePosition
@@ -495,6 +486,17 @@ function Tooltip({
 			return;
 		}
 		event.preventDefault();
+
+		// Not on a boundary crossing inside the trigger.
+		if (
+			isTopLayerPointerReEntry({
+				trigger: targetRef.current,
+				relatedTarget: event.relatedTarget,
+			}) &&
+			fg('platform-dst-top-layer-tooltip')
+		) {
+			isDismissedUntilTriggerLeaveRef.current = false;
+		}
 
 		if (apiRef.current) {
 			apiRef.current.requestHide({
@@ -539,9 +541,8 @@ function Tooltip({
 	);
 
 	const onBlur = useCallback(() => {
-		// Focus leaving ends the dismissal, so focus coming back can show the tooltip.
 		if (fg('platform-dst-top-layer-tooltip')) {
-			isTopLayerPointerDismissedRef.current = false;
+			isDismissedUntilTriggerLeaveRef.current = false;
 		}
 
 		if (apiRef.current) {

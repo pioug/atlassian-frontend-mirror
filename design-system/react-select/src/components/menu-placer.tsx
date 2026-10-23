@@ -311,17 +311,6 @@ const coercePlacement = (p: MenuPlacement) => (p === 'auto' ? 'bottom' : p);
 
 // NOTE: internal only
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Menu placer__
- *
- * A menu placer {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
 const MenuPlacer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuPlacerProps<Option, IsMulti, Group>,
 ) => ReactElement<any, string | import('react').JSXElementConstructor<any>> = <

@@ -289,7 +289,7 @@ export async function createInteractionMetricsPayload(
 
 	const [finalVCMetrics, paintMetrics, batteryInfo] = await Promise.all([
 		vcMetrics || (await getVCMetrics(interaction)),
-		getPaintMetricsToLegacyFormat(type, end),
+		getPaintMetricsToLegacyFormat(type, start, end),
 		getBatteryInfoToLegacyFormat(),
 	]);
 

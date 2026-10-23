@@ -3,6 +3,7 @@ import React, { type ReactNode, useCallback, useEffect, useMemo, useState } from
 import { bind } from 'bind-event-listener';
 
 import { calculateLayoutAreaStates } from './calculate-layout-area-states';
+import { defaultMainMinWidth } from './constants';
 import {
 	LayoutAreaSizingContext,
 	type LayoutArea,
@@ -18,8 +19,6 @@ import {
 import { layoutAreaStateContexts } from './layout-area-state-contexts';
 import { resolveLayoutWidth } from './resolve-layout-width';
 import { useOccupiedLayoutWidth } from './use-occupied-layout-width';
-
-const defaultMainMinWidth = 320;
 
 type LayoutDimensions = {
 	viewportWidth: number;
@@ -329,7 +328,7 @@ export function LayoutAreaSizingRuntime({
 					return current;
 				}
 
-				if (mode === 'overlay') {
+				if (mode === 'overlay' && area !== 'panel') {
 					return {
 						...current,
 						[area]: { ...existing, liveResize: undefined, preferredOverlayWidth: width },
@@ -341,7 +340,8 @@ export function LayoutAreaSizingRuntime({
 					[area]: {
 						...existing,
 						liveResize: undefined,
-						preferredInlineWidth: width,
+						// Local panels have one preference, regardless of the resized mode.
+						preferredWidth: width,
 					},
 				};
 			});

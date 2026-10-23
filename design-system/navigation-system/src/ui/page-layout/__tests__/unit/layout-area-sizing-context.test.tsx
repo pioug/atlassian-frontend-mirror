@@ -404,10 +404,10 @@ describe('layout area allocation', () => {
 		expect(
 			calculate(1300, {
 				...openAreas,
-				panel: { ...openAreas.panel, preferredInlineWidth: 400 },
+				panel: { ...openAreas.panel, preferredWidth: 400 },
 				'chat-panel': {
 					...openAreas['chat-panel'],
-					preferredInlineWidth: 400,
+					preferredWidth: 400,
 				},
 			}),
 		).toMatchObject({
@@ -419,7 +419,7 @@ describe('layout area allocation', () => {
 
 	it.each([undefined, 560])(
 		'keeps ChatPanel fixed when local growth collapses SideNav (preferred width: %s)',
-		(preferredInlineWidth) => {
+		(preferredWidth) => {
 			expect(
 				calculateLayoutAreaStates({
 					viewportWidth: 1440,
@@ -438,7 +438,7 @@ describe('layout area allocation', () => {
 							defaultWidth: 560,
 							minWidth: 320,
 							isOpen: true,
-							preferredInlineWidth,
+							preferredWidth,
 						},
 					},
 					resizeSession: {

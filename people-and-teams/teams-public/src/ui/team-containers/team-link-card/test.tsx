@@ -121,7 +121,7 @@ describe('TeamLinkCard', () => {
 		}
 	});
 
-	it('should show/hide disconnect button on hover/unhover for non-WebLink containers', async () => {
+	it('keeps the disconnect button visible across hover and unhover', async () => {
 		renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
 		const container = screen.getByTestId('team-link-card-inner');
@@ -136,10 +136,10 @@ describe('TeamLinkCard', () => {
 			screen.queryByRole('button', {
 				name: /disconnect the container Test Container/i,
 			}),
-		).not.toBeInTheDocument();
+		).toBeVisible();
 	});
 
-	it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
+	it('keeps the menu button visible across hover and dropdown states', async () => {
 		const webLinkProps = {
 			...defaultProps,
 			containerType: 'WebLink' as ContainerTypes,
@@ -159,7 +159,7 @@ describe('TeamLinkCard', () => {
 			screen.queryByRole('button', {
 				name: /more options for Test Container/i,
 			}),
-		).not.toBeInTheDocument();
+		).toBeVisible();
 
 		await userEvent.hover(container);
 		await userEvent.click(moreOptionsButton);

@@ -53,10 +53,6 @@ const listenerOptions = {
 	passive: false,
 };
 
-// TODO: Fill in the hook {description}.
-/**
- * {description}.
- */
 export default function useScrollLock({ isEnabled, accountForScrollbars = true }: Options) {
 	const originalStyles = useRef<{ [key: string]: string }>({});
 	const scrollTarget = useRef<HTMLElement | null>(null);

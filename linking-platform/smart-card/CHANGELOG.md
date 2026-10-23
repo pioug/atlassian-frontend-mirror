@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 46.8.0
+
+### Minor Changes
+
+- [`366c86f823ba6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/366c86f823ba6) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.7.8
+
+### Patch Changes
+
+- [`28ac5d6dcda14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28ac5d6dcda14) -
+  Behind platform_sl_embed_modal_escape_isolation: pressing Escape in the Smart Link embed preview
+  modal now closes only the modal, instead of also closing the drawer or modal it was opened from.
+- Updated dependencies
+
 ## 46.7.7
 
 ### Patch Changes

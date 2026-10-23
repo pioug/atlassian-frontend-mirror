@@ -1,0 +1,42 @@
+---
+title: Filter button
+description: A filter button shows a filter action and an optional count.
+order: 0
+---
+
+import FilterButtonDefault from '../../examples/constellation/new-button/filter-button/filter-button-default';
+import FilterButtonStates from '../../examples/constellation/new-button/filter-button/filter-button-states';
+import FilterButtonDropdown from '../../examples/constellation/new-button/filter-button/filter-button-dropdown';
+
+## Counts
+
+Use `trailingMetric` to show a count after the label. It accepts a number or a formatted string,
+such as `"99+"`. Zero is displayed; omit the prop to hide the count.
+
+<Example
+	Component={FilterButtonDefault}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ platform_dst_button_chevron_sizing: true }}
+/>
+
+## Spacing and states
+
+Use normal spacing for most controls and `spacing="compact"` in smaller spaces. Filter button
+handles selected, disabled, and loading styles, including the count treatment.
+
+<Example
+	Component={FilterButtonStates}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ platform_dst_button_chevron_sizing: true }}
+/>
+
+## Dropdown trigger
+
+Use Filter button as a DropdownMenu custom trigger. Forward the trigger props and `triggerRef` to
+preserve keyboard interaction, focus, and expanded state.
+
+<Example
+	Component={FilterButtonDropdown}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ platform_dst_button_chevron_sizing: true }}
+/>

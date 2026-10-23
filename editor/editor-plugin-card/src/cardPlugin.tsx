@@ -23,7 +23,13 @@ import type { CardPlugin } from './cardPluginType';
 import { blockCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/blockCard';
 import { embedCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/embedCard';
 import { inlineCardSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/inlineCard';
-import { hideLinkToolbar, setProvider, showDatasourceModal } from './pm-plugins/actions';
+import {
+	clearPastedInlineLink,
+	markPastedInlineLinkShown,
+	hideLinkToolbar,
+	setProvider,
+	showDatasourceModal,
+} from './pm-plugins/actions';
 import { queueCardsFromChangedTr, queueCardsFromRange } from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
@@ -221,6 +227,14 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 		},
 
 		commands: {
+			markPastedInlineLinkShown:
+				(target) =>
+				({ tr }) =>
+					options.trackPastedInlineLinks ? markPastedInlineLinkShown(target)(tr) : null,
+			clearPastedInlineLink:
+				(target) =>
+				({ tr }) =>
+					options.trackPastedInlineLinks ? clearPastedInlineLink(target)(tr) : null,
 			queueCardsFromRange:
 				(from, to, source, analyticsAction, normalizeLinkText, sourceEvent, appearance) =>
 				({ tr }) =>

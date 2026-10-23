@@ -1,0 +1,18 @@
+---
+title: Filter button
+description: A filter button shows a filter action and an optional count.
+order: 1
+props:
+  packageName: '@atlaskit/button/filter-button'
+  exports:
+    - default
+---
+
+## Props
+
+Filter button supports Button props except `appearance`, which is always `default`. `trailingMetric`
+accepts a `number` or `string`. Use `0` to display zero, pass a formatted value such as `"99+"` to
+abbreviate a count, or omit the prop to hide it. The count is built in, so you don't need a Badge
+import or a separate Badge appearance.
+
+<TSMorphProps exportName="default" packageName="@atlaskit/button/filter-button" />

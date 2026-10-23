@@ -2,15 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl';
 import { injectIntl, IntlProvider } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { css, jsx } from '@atlaskit/css';
 import ElementBrowser from '@atlaskit/editor-common/element-browser/ElementBrowserLoader';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 
@@ -63,7 +63,7 @@ const ElementBrowserComp = () => {
 	);
 };
 
-export default (): jsx.JSX.Element => (
+export default (): JSX.Element => (
 	<EditorContext>
 		<ElementBrowserComp />
 	</EditorContext>

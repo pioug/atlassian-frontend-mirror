@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
@@ -11,6 +11,11 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { type GapBand, measureGaps } from './measure-gaps';
+import { type InsetBand, measureInsets } from './measure-insets';
+import { SpacingPattern } from './spacing-pattern';
+
+type SpacingBand = (GapBand | InsetBand) & { kind: 'gap' | 'inset' };
+type Snapshot = { width: number; height: number; bands: SpacingBand[] };
 
 const styles = cssMap({
 	root: { position: 'relative', minWidth: 0 },
@@ -31,44 +36,56 @@ const styles = cssMap({
 });
 
 const colors: Record<string, string> = {
-	'space.gap.xxsmall': token('color.chart.categorical.1'),
-	'space.gap.xsmall': token('color.chart.categorical.2'),
-	'space.gap.small': token('color.chart.categorical.3'),
-	'space.gap.medium': token('color.chart.categorical.4'),
-	'space.gap.large': token('color.chart.categorical.5'),
-	'space.gap.xlarge': token('color.chart.categorical.6'),
-	'space.gap.xxlarge': token('color.chart.categorical.7'),
+	'space.gap.xxsmall': token('color.chart.red.bold'),
+	'space.gap.xsmall': token('color.chart.orange.bold'),
+	'space.gap.small': token('color.chart.yellow.bold'),
+	'space.gap.medium': token('color.chart.green.bold'),
+	'space.gap.large': token('color.chart.teal.bold'),
+	'space.gap.xlarge': token('color.chart.blue.bold'),
+	'space.gap.xxlarge': token('color.chart.purple.bold'),
+	'space.inset.xxsmall': token('color.chart.red.bold'),
+	'space.inset.xsmall': token('color.chart.orange.bold'),
+	'space.inset.small': token('color.chart.yellow.bold'),
+	'space.inset.medium': token('color.chart.green.bold'),
+	'space.inset.large': token('color.chart.teal.bold'),
+	'space.inset.xlarge': token('color.chart.blue.bold'),
+	'space.inset.xxlarge': token('color.chart.purple.bold'),
 };
 
-function labelFor(band: GapBand) {
+function labelFor(band: SpacingBand) {
 	const size = `${Number(band.size.toFixed(2))}px`;
 	const name = band.token ?? 'Unknown token';
-	const fixed = band.token && !band.token.startsWith('space.gap.') ? ' · fixed' : '';
+	const fixed = band.token && /^space\.(negative\.)?\d+$/.test(band.token) ? ' · fixed' : '';
 	const extra = band.extra > 1 ? ` · ${Number(band.extra.toFixed(2))}px extra alignment` : '';
 	return `${name} · ${size}${fixed}${extra}`;
 }
 
 /**
- * Inspect rendered flex/grid gaps without annotating or replacing the layout primitives.
+ * Inspect rendered flex/grid gaps and inset padding without annotating the layout primitives.
  * All observers and pointer listeners exist only while the overlay is enabled.
  */
 export function SpacingInspector({
 	children,
-	enabled,
+	showGaps,
+	showInsets,
 	activeToken,
 }: {
 	children: React.ReactNode;
-	enabled: boolean;
+	showGaps: boolean;
+	showInsets: boolean;
 	activeToken: string | null;
 }): React.JSX.Element {
+	const patternId = useId();
 	const rootRef = useRef<HTMLDivElement>(null);
-	const snapshotRef = useRef<ReturnType<typeof measureGaps>>({ width: 0, height: 0, bands: [] });
+	const labelRef = useRef<SVGTextElement>(null);
+	const snapshotRef = useRef<Snapshot>({ width: 0, height: 0, bands: [] });
 	const [snapshot, setSnapshot] = useState(snapshotRef.current);
 	const [hoveredId, setHoveredId] = useState<string | null>(null);
+	const [labelTextWidth, setLabelTextWidth] = useState(0);
 
 	useEffect(() => {
 		const root = rootRef.current;
-		if (!enabled || !root) {
+		if ((!showGaps && !showInsets) || !root) {
 			return;
 		}
 		let disposed = false;
@@ -81,7 +98,27 @@ export function SpacingInspector({
 			if (disposed) {
 				return;
 			}
-			const next = measureGaps(root);
+			const bounds = root.getBoundingClientRect();
+			const next: Snapshot = {
+				width: bounds.width,
+				height: bounds.height,
+				bands: [
+					...(showGaps
+						? measureGaps(root).bands.map((band) => ({
+								...band,
+								id: `gap-${band.id}`,
+								kind: 'gap' as const,
+							}))
+						: []),
+					...(showInsets
+						? measureInsets(root).map((band) => ({
+								...band,
+								id: `inset-${band.id}`,
+								kind: 'inset' as const,
+							}))
+						: []),
+				],
+			};
 			snapshotRef.current = next;
 			setSnapshot(next);
 			const elements = new Set<Element>([
@@ -111,7 +148,7 @@ export function SpacingInspector({
 				records.some(
 					(record) =>
 						!(record.target instanceof Element) ||
-						!record.target.closest('[data-testid="spacing-gap-overlay"]'),
+						!record.target.closest('[data-testid="spacing-overlay"]'),
 				)
 			) {
 				schedule();
@@ -162,48 +199,65 @@ export function SpacingInspector({
 			sheets.disconnect();
 			unbind.forEach((unbind) => unbind());
 		};
-	}, [enabled]);
+	}, [showGaps, showInsets]);
 
-	const hovered = snapshot.bands.find((band) => band.id === hoveredId);
+	const bands = snapshot.bands.filter((band) => (band.kind === 'gap' ? showGaps : showInsets));
+	const patterns = Array.from(
+		new Map(bands.map((band) => [`${band.kind}-${band.token ?? 'unknown'}`, band])),
+	);
+	const hovered = bands.find((band) => band.id === hoveredId);
 	const highlight = activeToken ?? hovered?.token;
 	const label = hovered ? labelFor(hovered) : '';
-	const labelWidth = Math.min(snapshot.width, label.length * 7 + 16);
+	useLayoutEffect(() => {
+		// Snapshots also update when fonts or styles change, so measure the rendered text again.
+		setLabelTextWidth(labelRef.current?.getComputedTextLength() ?? 0);
+	}, [label, snapshot]);
+	const labelWidth = labelTextWidth + 16;
 	const labelX = hovered ? Math.max(0, Math.min(hovered.x, snapshot.width - labelWidth)) : 0;
 	const labelY = hovered ? Math.max(0, hovered.y - 28) : 0;
 
 	return (
 		<Box ref={rootRef} xcss={styles.root}>
 			{children}
-			{enabled && snapshot.width > 0 && (
+			{(showGaps || showInsets) && snapshot.width > 0 && (
 				<svg
 					viewBox={`0 0 ${snapshot.width} ${snapshot.height}`}
 					width={snapshot.width}
 					height={snapshot.height}
 					aria-hidden="true"
 					css={styles.overlay}
-					data-testid="spacing-gap-overlay"
+					data-testid="spacing-overlay"
 				>
-					{snapshot.bands.map((band) => (
+					<defs>
+						{patterns.map(([key, band]) => (
+							<SpacingPattern
+								key={key}
+								id={`${patternId}-${key}`}
+								kind={band.kind}
+								color={colors[band.token ?? ''] ?? token('color.background.neutral.bold')}
+							/>
+						))}
+					</defs>
+					{bands.map((band) => (
 						<rect
 							key={band.id}
 							x={band.x}
 							y={band.y}
 							width={band.width}
 							height={band.height}
-							fill={colors[band.token ?? ''] ?? token('color.background.neutral.bold')}
-							stroke={colors[band.token ?? ''] ?? token('color.border.bold')}
+							fill={`url(#${patternId}-${band.kind}-${band.token ?? 'unknown'})`}
 							fillOpacity={
 								highlight && band.token !== highlight
-									? 0.06
+									? 0.1
 									: band.token === highlight || band.id === hoveredId
-										? 0.5
-										: 0.2
+										? 0.85
+										: 0.5
 							}
-							strokeOpacity={highlight && band.token !== highlight ? 0.2 : 0.75}
-							strokeWidth={band.token === highlight || band.id === hoveredId ? 2 : 1}
-							strokeDasharray={band.token === null ? '3 2' : undefined}
-							data-gap-token={band.token ?? 'unknown'}
-							data-gap-size={band.size}
+							data-spacing-kind={band.kind}
+							data-gap-token={band.kind === 'gap' ? (band.token ?? 'unknown') : undefined}
+							data-gap-size={band.kind === 'gap' ? band.size : undefined}
+							data-inset-token={band.kind === 'inset' ? band.token : undefined}
+							data-inset-size={band.kind === 'inset' ? band.size : undefined}
 						>
 							<title>{labelFor(band)}</title>
 						</rect>
@@ -218,13 +272,7 @@ export function SpacingInspector({
 								rx={3}
 								css={styles.labelBackground}
 							/>
-							<text
-								x={labelX + 8}
-								y={labelY + 16}
-								textLength={Math.min(label.length * 7, labelWidth - 16)}
-								lengthAdjust="spacingAndGlyphs"
-								css={styles.label}
-							>
+							<text ref={labelRef} x={labelX + 8} y={labelY + 16} css={styles.label}>
 								{label}
 							</text>
 						</g>

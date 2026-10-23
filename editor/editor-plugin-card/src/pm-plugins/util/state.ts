@@ -7,13 +7,23 @@ import type {
 } from '@atlaskit/editor-common/provider-factory/card-provider';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types/datasource';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
-import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import type { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import type { SmartLinkEvents } from '@atlaskit/smart-card/smart-link-events';
 
-import type { CardPluginState, Request, ToolbarResolvedAttributes } from '../../types';
+import type {
+	CardPluginState,
+	Request,
+	ToolbarResolvedAttributes,
+	PastedInlineLink,
+} from '../../types';
 import type { DatasourceTableLayout } from '../../ui/LayoutButton/types';
 import { pluginKey } from '../plugin-key';
+import { mapPastedInlineLinks } from './pasted-inline-link';
 
 // ============================================================================ //
 // ============================== PLUGIN STATE ================================ //
@@ -25,7 +35,7 @@ export const getPluginState = (editorState: EditorState) =>
 
 export const getPluginStateWithUpdatedPos = (
 	pluginState: CardPluginState,
-	tr: ReadonlyTransaction,
+	tr: ReadonlyTransaction | Transaction,
 ): {
 	allowBlockCards?: boolean;
 	allowEmbeds?: boolean;
@@ -46,6 +56,8 @@ export const getPluginStateWithUpdatedPos = (
 	inlineCardAwarenessCandidatePosition?: number;
 	layout?: DatasourceTableLayout;
 	overlayCandidatePosition?: number;
+	pastedInlineLinks?: PastedInlineLink[];
+	pastedInlineLinkShown?: boolean;
 	provider: CardProvider | null;
 	removeOverlay?: () => void;
 	removeOverlayCardId?: string;
@@ -72,6 +84,9 @@ export const getPluginStateWithUpdatedPos = (
 	smartLinkEvents?: SmartLinkEvents;
 } => ({
 	...pluginState,
+	...(pluginState.pastedInlineLinks
+		? { pastedInlineLinks: mapPastedInlineLinks(pluginState.pastedInlineLinks, tr) }
+		: {}),
 	requests: pluginState.requests.map((request) => ({
 		...request,
 		pos: tr.mapping.map(request.pos),

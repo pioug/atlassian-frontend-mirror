@@ -15,7 +15,7 @@ import type {
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics/types/dispatch-analytics-event';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { getMaxWidthForNestedNode } from '@atlaskit/editor-common/media-single';
+import MediaSingle, { getMaxWidthForNestedNode } from '@atlaskit/editor-common/media-single';
 import {
 	DEFAULT_IMAGE_HEIGHT,
 	DEFAULT_IMAGE_WIDTH,
@@ -25,7 +25,6 @@ import { ExternalImageBadge } from '@atlaskit/editor-common/media-single/Externa
 import { MediaBadges } from '@atlaskit/editor-common/media-single/MediaBadges';
 import { calcMediaSinglePixelWidth } from '@atlaskit/editor-common/media-single/utils';
 import { captionMessages } from '@atlaskit/editor-common/media/caption';
-import MediaSingle from '@atlaskit/editor-common/MediaSingle';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { NodeViewContentHole } from '@atlaskit/editor-common/react-node-view';

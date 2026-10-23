@@ -15,7 +15,8 @@ import type {
 	contentInsetBlockStart as ContentInsetBlockStartType,
 	contentHeightWhenFixed as ContentHeightWhenFixedType,
 } from '../constants';
-import { mainMinimumWidthVar } from '../constants';
+import { defaultMainMinWidth, mainMinimumWidthVar } from '../constants';
+import { MainMinWidthContext } from '../main-min-width-context';
 import { gridRootFitId, gridRootId } from '../root';
 import type { CommonSlotProps } from '../types';
 import { useLayoutId } from '../use-layout-id';
@@ -60,7 +61,7 @@ export function Main({
 	skipLinkLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Main content' : 'Main Content',
 	testId,
 	id: providedId,
-	minWidth = 320,
+	minWidth = defaultMainMinWidth,
 }: CommonSlotProps & {
 	/**
 	 * The content of the layout area.
@@ -95,7 +96,11 @@ export function Main({
 				css={[mainElementStyles.root]}
 				data-testid={testId}
 			>
-				{children}
+				<MainMinWidthContext.Provider
+					value={fg('platform-dst-chat-panel-layout') ? minWidth : defaultMainMinWidth}
+				>
+					{children}
+				</MainMinWidthContext.Provider>
 			</div>
 		</Fragment>
 	);

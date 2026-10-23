@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-avatar",
-	"version": "4.1.9",
+	"version": "4.2.0",
 	"description": "A team avatar is a visual representation of a team.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,17 +25,17 @@
 		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
+	"main": "dist/cjs/entry-points/team-avatar.js",
+	"module": "dist/esm/entry-points/team-avatar.js",
+	"module:es2019": "dist/es2019/entry-points/team-avatar.js",
+	"types": "dist/types/entry-points/team-avatar.d.ts",
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
+	"atlaskit:src": "src/entry-points/team-avatar.ts",
 	"exports": {
-		".": "./src/index.ts",
-		"./index": "./src/ui/teams-avatar/index.tsx",
+		".": "./src/entry-points/team-avatar.ts",
+		"./index": "./src/entry-points/team-avatar.ts",
 		"./teams-avatar": "./src/ui/teams-avatar/index.tsx",
 		"./unsafe-url-is-refreshed-team-avatar": "./src/ui/teams-avatar/utils.ts",
 		"./utils": "./src/ui/teams-avatar/utils.ts"

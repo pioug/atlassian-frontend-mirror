@@ -51,10 +51,6 @@ export type AsyncProps<
 	Group extends GroupBase<Option>,
 > = StateManagerProps<Option, IsMulti, Group> & AsyncAdditionalProps<Option, Group>;
 
-// TODO: Fill in the hook {description}.
-/**
- * {description}.
- */
 export default function useAsync<
 	Option,
 	IsMulti extends boolean,

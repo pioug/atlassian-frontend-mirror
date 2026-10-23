@@ -1,0 +1,125 @@
+---
+title: Filter button
+description: A filter button shows a filter action and an optional count.
+order: 2
+---
+
+import Image from '@atlaskit/image';
+
+import filterButtonAnatomyLight from './images/filter-button-anatomy-light.png';
+import filterButtonAnatomyDark from './images/filter-button-anatomy-dark.png';
+import filterButtonMetricDoLight from './images/filter-button-metric-do-light.png';
+import filterButtonMetricDoDark from './images/filter-button-metric-do-dark.png';
+import filterButtonMetricDontLight from './images/filter-button-metric-dont-light.png';
+import filterButtonMetricDontDark from './images/filter-button-metric-dont-dark.png';
+import filterButtonLabelDoLight from './images/filter-button-label-do-light.png';
+import filterButtonLabelDoDark from './images/filter-button-label-do-dark.png';
+import filterButtonLabelDontLight from './images/filter-button-label-dont-light.png';
+import filterButtonLabelDontDark from './images/filter-button-label-dont-dark.png';
+
+## Usage
+
+Use a filter button to let people refine a list, board table or search results. It’s often used as a
+dropdown menu trigger. Its count shows how many filters or selections are active, so people can see
+that filters are applied even when the menu is closed.
+
+## Parts
+
+<Image
+	src={filterButtonAnatomyLight}
+	srcDark={filterButtonAnatomyDark}
+	alt="Filter button diagram. A caption follows this image."
+/>
+
+1. **Icon (optional):** A leading icon that reinforces the filter action.
+2. **Badge (optional):** The trailingMetric prop can be used to show how many filters or selections
+   are active.
+3. **Label:** Text describing what the button filters, such as “Filter”, “Status” or “Assignee”.
+4. **Dropdown icon (optional):** Indicates affordance to open a filter menu.
+
+## Default vs selected filter button
+
+A filter button has two main appearances. Use them accordingly.
+
+**Default:** Use the default appearance for system set filters. For example, this can include a view
+with no filters, or one that loads with filters already applied. Also use it when someone resets the
+view to its preset filters.
+
+**Selected (`isSelected`):** Use the selected filter button when a user has applied or changed the
+filter, for example by choosing statuses or removing a preset assignee. Keep the button selected
+while those filters are applied, even after the menu closes.
+
+## Best practices
+
+### Use the trailing metric to show active filters
+
+The trailing metric badge should be a number that helps people understand the current filtered view,
+usually the number of filters applied. The value is a string, so you can pass formatted values like
+`99+`.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: filterButtonMetricDoLight,
+			urlDarkMode: filterButtonMetricDoDark,
+			alt: 'A selected filter button labeled Epic level with a trailing metric of 2.',
+		}}
+	>
+		Show the number of active filters.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: filterButtonMetricDontLight,
+			urlDarkMode: filterButtonMetricDontDark,
+			alt: 'A button with a trailing metric that shows the text Active instead of a count.',
+		}}
+	>
+		Don’t use the metric for unrelated counts like notifications or text.
+	</DoDont>
+</DoDontGrid>
+
+### Ensure filter actions are clear
+
+Because the icons are optional, ensure filter actions are always clear. Use a label that helps
+people recognize the button as a filter, not a general action. When there’s no icon, ensure the
+label and surrounding context communicate its purpose.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: filterButtonLabelDoLight,
+			urlDarkMode: filterButtonLabelDoDark,
+			alt: 'A filter button labeled Filter with a filter icon and dropdown chevron.',
+		}}
+	>
+		Use clear labels like “Filter”. Shorter labels like “Status” work when the button is clearly
+		part of a filter bar.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: filterButtonLabelDontLight,
+			urlDarkMode: filterButtonLabelDontDark,
+			alt: 'A button labeled Select without a clear filter meaning.',
+		}}
+	>
+		Don’t use vague labels like “Person” or “Select”.
+	</DoDont>
+</DoDontGrid>
+
+## Accessibility
+
+- Don’t rely on the count or selected color alone to show filters are applied. Make sure assistive
+  technology announces the filter state, for example “Status, 2 filters applied”.
+- Don’t disable filter buttons to show that no filters are available. Disabled buttons can’t be
+  focused or reached by keyboard use, and they don’t explain why.
+- When used as a dropdown trigger, pass on the trigger props so the expanded state and focus are
+  announced.
+
+## Related
+
+- Use [badge](/components/badge) for counts in menu items and other places outside a filter button.
+- Use [button](/components/button) for actions without a filter count.

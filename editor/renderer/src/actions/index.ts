@@ -98,6 +98,7 @@ export default class RendererActions
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private ref?: any;
 	private onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	private includeLegacyContentAnnotations = false;
 
 	constructor(initFromContext: boolean = false) {
 		this.initFromContext = initFromContext;
@@ -110,6 +111,7 @@ export default class RendererActions
 		doc: Node,
 		schema: Schema,
 		onAnalyticsEvent?: (event: AnalyticsEventPayload) => void,
+		includeLegacyContentAnnotations = false,
 	): void {
 		if (!this.initFromContext) {
 			return;
@@ -123,12 +125,14 @@ export default class RendererActions
 		this.doc = doc;
 		this.schema = schema;
 		this.onAnalyticsEvent = onAnalyticsEvent;
+		this.includeLegacyContentAnnotations = includeLegacyContentAnnotations;
 	}
 
 	_privateUnregisterRenderer(): void {
 		this.doc = undefined;
 		this.ref = undefined;
 		this.schema = undefined;
+		this.includeLegacyContentAnnotations = false;
 	}
 
 	/**
@@ -397,7 +401,10 @@ export default class RendererActions
 			return [];
 		}
 
-		if (isExperimentEnabled('platform_editor_fix_lcm_renderer_annotations')) {
+		if (
+			this.includeLegacyContentAnnotations ||
+			isExperimentEnabled('platform_editor_fix_lcm_renderer_annotations')
+		) {
 			const marks: Array<{ fromLegacyContent: boolean; mark: Mark }> = [];
 			doc.descendants((node) => {
 				const annotationsMark = node.marks.filter((m) => m.type === annotationMarkType);

@@ -23,6 +23,8 @@ import coreDesign from '../assets/core-design.jpg';
 
 const articleStyles = cssMap({
 	root: {
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand -- Inset tokens require equal padding on all sides.
+		padding: token('space.inset.xxlarge'),
 		maxWidth: '760px',
 		marginInline: 'auto',
 		// borderRadius: token('radius.large'),
@@ -49,8 +51,8 @@ const quoteStyles = cssMap({
 	},
 	mark: {
 		display: 'flex',
-		paddingBlock: token('space.100'),
-		paddingInline: token('space.100'),
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand -- Inset tokens require equal padding on all sides.
+		padding: token('space.inset.xsmall'),
 		borderRadius: token('radius.full'),
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
@@ -71,8 +73,8 @@ const quoteStyles = cssMap({
 	pull: {
 		marginBlock: token('space.0'),
 		marginInline: token('space.0'),
-		paddingBlock: token('space.400'),
-		paddingInline: token('space.400'),
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand -- Inset tokens require equal padding on all sides.
+		padding: token('space.inset.xxlarge'),
 		borderBlockWidth: token('border.width'),
 		borderBlockStyle: 'solid',
 		borderBlockColor: token('color.border'),
@@ -125,8 +127,8 @@ const statStyles = cssMap({
 export function EditorialBrief(): React.JSX.Element {
 	return (
 		<article>
-			<Box padding="space.500" xcss={articleStyles.root}>
-				<Stack space="space.400">
+			<Box xcss={articleStyles.root}>
+				<Stack space="space.gap.xxlarge">
 					<Stack space="space.gap.large">
 						<Heading size="xxlarge">
 							Intelligence is most useful when it stays connected to intent

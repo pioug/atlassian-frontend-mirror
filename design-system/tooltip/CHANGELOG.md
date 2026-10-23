@@ -1,5 +1,15 @@
 # @atlaskit/tooltip
 
+## 24.4.2
+
+### Patch Changes
+
+- [`efe51cf5a9a36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efe51cf5a9a36) -
+  With `platform-dst-top-layer-tooltip`, a tooltip dismissed by Escape or a press now shows again on
+  keyboard focus once the pointer has left the trigger. Before, it stayed dismissed until the
+  pointer came back or focus left the trigger.
+- Updated dependencies
+
 ## 24.4.1
 
 ### Patch Changes

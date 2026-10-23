@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "11.3.4",
+	"version": "11.4.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"license": "Apache-2.0",
@@ -33,6 +33,7 @@
 		"./layout/main": "./src/entry-points/layout/main.tsx",
 		"./layout/panel-splitter": "./src/entry-points/layout/panel-splitter.tsx",
 		"./layout/panel": "./src/entry-points/layout/panel.tsx",
+		"./layout/panel-layout": "./src/entry-points/layout/panel-layout.tsx",
 		"./layout/root": "./src/entry-points/layout/root.tsx",
 		"./layout/side-nav": "./src/entry-points/layout/side-nav.tsx",
 		"./layout/top-nav": "./src/entry-points/layout/top-nav.tsx",

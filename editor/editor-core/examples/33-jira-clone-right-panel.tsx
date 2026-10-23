@@ -2,13 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve the Jira fixture's custom borders and sticky-header backgrounds.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
+import { cssMap } from '@atlaskit/css';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import WatchFilledIcon from '@atlaskit/icon/core/eye-open-filled';
 import FeedbackIcon from '@atlaskit/icon/core/feedback';
@@ -19,10 +22,7 @@ import { Main } from '@atlaskit/navigation-system/layout/main';
 import { Panel } from '@atlaskit/navigation-system/layout/panel';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { TopNav } from '@atlaskit/navigation-system/layout/top-nav';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives/box';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss/xcss';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
@@ -37,9 +37,11 @@ const portalContainer = css({
 	display: 'flex',
 });
 
-const rightSidebarContainer = xcss({
-	paddingRight: 'space.250',
-	paddingLeft: 'space.250',
+const styles = cssMap({
+	rightSidebarContainer: {
+		paddingRight: token('space.250'),
+		paddingLeft: token('space.250'),
+	},
 });
 
 const headerActionContainer = css({
@@ -66,7 +68,10 @@ const detailsHeaderContainer = css({
 	justifyContent: 'space-between',
 	alignItems: 'center',
 	width: '100%',
-	padding: `11px ${token('space.150')} 11px ${token('space.150')}`,
+	paddingTop: '11px',
+	paddingRight: token('space.150'),
+	paddingBottom: '11px',
+	paddingLeft: token('space.150'),
 	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: `${token('radius.small')} ${token('radius.small')} 0px 0px`,
 	position: 'sticky',
@@ -78,13 +83,16 @@ const detailsHeaderContainer = css({
 });
 
 const detialsContentContainer = css({
-	padding: `11px ${token('space.150')} 11px ${token('space.150')}`,
+	paddingTop: '11px',
+	paddingRight: token('space.150'),
+	paddingBottom: '11px',
+	paddingLeft: token('space.150'),
 	border: `solid ${token('border.width')} rgb(235, 236, 240)`,
 	borderRadius: `0px 0px ${token('radius.small', '4px')} ${token('radius.small', '4px')}`,
 	borderTop: '0px',
 });
 
-export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
+export default function CommentWithJiraCardsExample(): JSX.Element {
 	const [portalElement, setPortalElement] = useState<HTMLDivElement>();
 	const [isOpen, setIsOpen] = useState(true);
 
@@ -102,7 +110,7 @@ export default function CommentWithJiraCardsExample(): jsx.JSX.Element {
 				<Main>Main content</Main>
 				<Panel defaultWidth={600}>
 					<div css={rightSideContainer}>
-						<Box xcss={rightSidebarContainer}>
+						<Box xcss={styles.rightSidebarContainer}>
 							<div id="jira-issue-header-actions" css={headerActionContainer}>
 								<IconButton appearance="subtle" icon={FeedbackIcon} label="feedback" />
 								<IconButton appearance="subtle" icon={WatchFilledIcon} label="watch" />

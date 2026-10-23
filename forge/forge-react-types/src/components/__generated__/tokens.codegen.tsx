@@ -3,9 +3,9 @@
  *
  * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
  *
- * @codegen <<SignedSource::4f639bf68a8f83e17ca41c44772062a7>>
+ * @codegen <<SignedSource::2daf02ee03277efbd0d06a58f3a9e0de>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::7f755f1963a57513697cc7d212458848>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::6f230f681f272a946ce5530dcc448737>>
  */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */
@@ -29,14 +29,14 @@ import type { SerializedStyles } from '@emotion/serialize';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::515adb91be80b339763c40b099d603df>>
+ * @codegen <<SignedSource::d5ee90394c1d73d78a580438d6674bf3>>
  * @codegenId forge-tokens
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
- * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d88dceee1459b4e9e492bb497e903575>>
- * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
- * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::8817f4073995e5dc9c2bb766316632d6>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2d05e18dbb472322c67fd0bc8ec55082>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::d315a72fd47775e37868465c88b3ebfb>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::419cf7fccef8a341df2ce9890e3cdad2>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn", perfectionist/sort-object-types: "off" */
 export const dimensionMap = {
@@ -1609,6 +1609,45 @@ export type MetricTextSize = keyof typeof metricTextSizeMap;
 
 export const isSurfaceColorToken = (color: unknown): color is SurfaceColor =>
 	surfaceColorMap[color as SurfaceColor] !== undefined;
+
+/**
+ * Light and dark hex colors. `light` is the default and the light color mode value.
+ * `dark` is applied when an ancestor sets `data-color-mode="dark"`.
+ */
+export type ThemeHexColor = {
+	light: string;
+	dark: string;
+};
+
+/**
+ * A color token from the text, background, or border maps.
+ * Elevation surface tokens are part of the background map.
+ */
+export type ColorToken = TextColor | BackgroundColor | BorderColor;
+
+/**
+ * A color token, or a light/dark hex pair such as `{ light: '#FFCBD1', dark: '#8B0000' }`.
+ */
+export type ColorValue = ColorToken | ThemeHexColor;
+
+/**
+ * xcss properties whose values are colors.
+ * Keep in sync with `XCSS_COLOR_PROPS` in `components/utils/colorValue.ts`.
+ */
+export type XcssColorProp =
+	| 'color'
+	| 'backgroundColor'
+	| 'borderColor'
+	| 'borderBlockColor'
+	| 'borderBlockEndColor'
+	| 'borderBlockStartColor'
+	| 'borderBottomColor'
+	| 'borderInlineColor'
+	| 'borderInlineEndColor'
+	| 'borderInlineStartColor'
+	| 'borderLeftColor'
+	| 'borderRightColor'
+	| 'borderTopColor';
 
 export const getSerializedStylesMap = <T extends string>(
 	cssProperty: string,

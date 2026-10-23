@@ -5,9 +5,10 @@ import getPaintMetrics, { type LegacyPaintMetrics } from './get-paint-metrics';
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function getPaintMetricsToLegacyFormat(
 	type: InteractionType,
+	start: number,
 	end: number,
 ): Promise<LegacyPaintMetrics> {
-	const paint = await getPaintMetrics(type, end);
+	const paint = await getPaintMetrics(type, start, end);
 	const legacyFormat: LegacyPaintMetrics = {};
 
 	if (paint.fp !== undefined) {

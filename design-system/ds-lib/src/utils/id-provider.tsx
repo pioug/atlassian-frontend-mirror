@@ -17,17 +17,6 @@ export interface IdProviderProps {
 	 */
 	postfix?: string;
 }
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Id provider__
- *
- * An id provider {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
 export const IdProvider: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<IdProviderProps> & React.RefAttributes<string>
 > = forwardRef<string, IdProviderProps>(({ children, postfix = '', prefix = '' }, ref) => {

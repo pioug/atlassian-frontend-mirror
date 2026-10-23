@@ -1,5 +1,13 @@
 # @atlaskit/cli-output
 
+## 0.1.1
+
+### Patch Changes
+
+- [`b471d453db2a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b471d453db2a5) -
+  Keep npx follow-up commands when npm exec resolves a locally linked ADS or Platform CLI source
+  package, while preserving direct source invocations and explicit display overrides.
+
 ## 0.1.0
 
 ### Minor Changes

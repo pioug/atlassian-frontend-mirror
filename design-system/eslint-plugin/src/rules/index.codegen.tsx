@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::debe51c7d33e9ee24cb3cdad6fa1a864>>
+ * @codegen <<SignedSource::bfa086f08057659ef23fe7cb8282709d>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -28,6 +28,7 @@ import noEmptyIconButtonLabel from './no-empty-icon-button-label';
 import noEmptyStyledExpression from './no-empty-styled-expression';
 import noExportedCss from './no-exported-css';
 import noExportedKeyframes from './no-exported-keyframes';
+import noGlobalZIndex from './no-global-z-index';
 import noHtmlAnchor from './no-html-anchor';
 import noHtmlButton from './no-html-button';
 import noHtmlCheckbox from './no-html-checkbox';
@@ -113,6 +114,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-empty-styled-expression': noEmptyStyledExpression,
 	'no-exported-css': noExportedCss,
 	'no-exported-keyframes': noExportedKeyframes,
+	'no-global-z-index': noGlobalZIndex,
 	'no-html-anchor': noHtmlAnchor,
 	'no-html-button': noHtmlButton,
 	'no-html-checkbox': noHtmlCheckbox,

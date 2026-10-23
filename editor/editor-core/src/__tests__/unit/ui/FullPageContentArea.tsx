@@ -25,22 +25,6 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
 	expValEqualsNoExposure: jest.fn().mockReturnValue(false),
 }));
 
-// jest doesn't support @container styles in css
-jest.mock('@emotion/react', () => {
-	const originalModule = jest.requireActual('@emotion/react');
-	return {
-		...originalModule,
-		css: (...args: any[]) => {
-			const styles = originalModule.css(...args);
-			return {
-				...styles,
-				// eslint-disable-next-line require-unicode-regexp
-				styles: styles.styles.replace(/@container[^{]*{[^{}]*({[^{}]*}[^{}]*)*}/g, ''),
-			};
-		},
-	};
-});
-
 import { FullPageContentArea } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 
 const mockEditorView = {} as EditorView;

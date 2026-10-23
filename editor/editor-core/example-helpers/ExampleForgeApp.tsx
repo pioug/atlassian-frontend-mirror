@@ -2,22 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/** @jsxFrag */
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
+import { cssMap } from '@atlaskit/css';
 import type { SelectionExtensionComponentProps } from '@atlaskit/editor-plugin-selection-extension/types';
 import { Popup } from '@atlaskit/popup/popup';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives/box';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss/xcss';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
-const popupWrapperStyle = xcss({
-	padding: 'space.250',
-	maxWidth: '500px',
-	maxHeight: '500px',
+const styles = cssMap({
+	popupWrapperStyle: {
+		paddingTop: token('space.250'),
+		paddingRight: token('space.250'),
+		paddingBottom: token('space.250'),
+		paddingLeft: token('space.250'),
+		maxWidth: '500px',
+		maxHeight: '500px',
+	},
 });
 
 const EXAMPLE_LIVE_PAGE_PAGE_PADDING_TOP = 105;
@@ -36,7 +38,7 @@ export const ExampleForgeApp = ({
 		<Popup
 			content={() => {
 				return (
-					<Box xcss={popupWrapperStyle}>
+					<Box xcss={styles.popupWrapperStyle}>
 						<h3>Demo Forge Extension</h3>
 						<p>
 							<i>{selection.text}</i>

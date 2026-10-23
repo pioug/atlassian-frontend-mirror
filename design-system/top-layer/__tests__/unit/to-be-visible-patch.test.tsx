@@ -20,7 +20,7 @@
  * If either link breaks, the assertions below will fail and surface the
  * regression instead of letting it ship silently.
  */
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -28,6 +28,8 @@ import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
 const hiddenStyles = css({ display: 'none' });
+const transparentStyles = css({ opacity: 0 });
+const invisibleStyles = css({ visibility: 'hidden' });
 
 // `popover` is set imperatively rather than as a JSX attribute because
 // eslint-plugin-react does not yet recognise the Popover API attribute.
@@ -101,6 +103,106 @@ describe('toBeVisible patch', () => {
 			<dialog data-testid="closed-dialog">closed dialog content</dialog>,
 		);
 		expect(screen.getByTestId('closed-dialog')).not.toBeVisible();
+	});
+
+	describe('inside an open <dialog>', () => {
+		function OpenDialogFixture({ children }: { children: React.ReactNode }) {
+			const ref = useRef<HTMLDialogElement>(null);
+			useEffect(() => {
+				const dialog = ref.current;
+				dialog?.showModal();
+				return () => dialog?.close();
+			}, []);
+			return (
+				<dialog ref={ref} aria-label="dialog">
+					{children}
+				</dialog>
+			);
+		}
+
+		it('reports a visible element as visible', () => {
+			render(
+				<OpenDialogFixture>
+					<div data-testid="visible">visible</div>
+				</OpenDialogFixture>,
+			);
+			expect(screen.getByTestId('visible')).toBeVisible();
+		});
+
+		// Measured in Chromium, Firefox and WebKit: an open dialog does not make hidden content visible.
+		it('reports an element hidden by its own style as NOT visible', () => {
+			render(
+				<OpenDialogFixture>
+					<div data-testid="hidden" css={hiddenStyles}>
+						hidden
+					</div>
+				</OpenDialogFixture>,
+			);
+			expect(screen.getByTestId('hidden')).not.toBeVisible();
+		});
+
+		it('reports an element in a hidden ancestor below the dialog as NOT visible', () => {
+			render(
+				<OpenDialogFixture>
+					<div css={hiddenStyles}>
+						<div data-testid="child">child</div>
+					</div>
+					<div hidden>
+						<div data-testid="hidden-attribute-child">child</div>
+					</div>
+				</OpenDialogFixture>,
+			);
+			expect(screen.getByTestId('child')).not.toBeVisible();
+			expect(screen.getByTestId('hidden-attribute-child')).not.toBeVisible();
+		});
+
+		it('reports content in a closed popover inside the dialog as NOT visible', () => {
+			render(
+				<OpenDialogFixture>
+					<ClosedPopoverFixture />
+				</OpenDialogFixture>,
+			);
+			expect(screen.getByTestId('closed-popover')).not.toBeVisible();
+		});
+	});
+
+	// Measured in Chromium, Firefox and WebKit: a top-layer element is painted outside its
+	// ancestors' opacity, but still inherits `visibility` and does not render under `display: none`.
+	it('reports an OPEN popover as visible under an ancestor with opacity 0', () => {
+		render(
+			<div css={transparentStyles}>
+				<OpenPopoverFixture />
+			</div>,
+		);
+		expect(screen.getByTestId('open-popover')).toBeVisible();
+	});
+
+	it('reports an OPEN popover as NOT visible under an ancestor with visibility hidden', () => {
+		render(
+			<div>
+				<div css={invisibleStyles}>
+					<OpenPopoverFixture />
+				</div>
+			</div>,
+		);
+		expect(screen.getByTestId('open-popover')).not.toBeVisible();
+	});
+
+	it('reports an OPEN popover as NOT visible under an ancestor with display none', () => {
+		render(
+			<div css={hiddenStyles}>
+				<OpenPopoverFixture />
+			</div>,
+		);
+		expect(screen.getByTestId('open-popover')).not.toBeVisible();
+	});
+
+	it('reports content of an OPEN popover as visible when the host has an inline opacity of 0', () => {
+		// The JavaScript positioning fallback hides the host until a browser has laid it out.
+		render(<OpenPopoverFixture />);
+		const popover = screen.getByTestId('open-popover');
+		popover.style.opacity = '0';
+		expect(popover).toBeVisible();
 	});
 
 	// Required by @atlassian/a11y/require-jest-coverage. The matcher under test is

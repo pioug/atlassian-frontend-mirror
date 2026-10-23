@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 2.12.0
+
+### Minor Changes
+
+- [`451103006c776`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/451103006c776) -
+  Allow UI Kit Box and Pressable backgroundColor, and xcss color properties, to take any text,
+  background, or border color token, or a light/dark hex pair. Gated by
+  platform_forge_uikit_custom_colors. Invalid hex colors are rejected at runtime.
+
 ## 2.11.0
 
 ### Minor Changes

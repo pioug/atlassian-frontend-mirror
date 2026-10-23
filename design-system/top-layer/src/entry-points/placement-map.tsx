@@ -3,7 +3,7 @@
  * @deprecated Import from the generated per-export subpath instead.
  */
 
-export { fromLegacyPlacement } from '../placement-map';
+export { fromLegacyPlacement } from '../placement-map/from-legacy-placement';
 /**
  * @deprecated Import from the generated per-export subpath instead.
  */

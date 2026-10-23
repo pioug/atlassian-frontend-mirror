@@ -1,13 +1,15 @@
-/* eslint-disable no-console */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable no-console */
 
+import type { JSX } from 'react';
 import React, { Fragment, useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve the collaboration fixture's fixed white background.
+// These values are outside the bounded @atlaskit/css API.
+import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 import URLSearchParams from 'url-search-params';
 
@@ -109,9 +111,11 @@ export const getRandomUser = (): string => {
 
 const defaultCollabUrl = 'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const content: any = css({
-	padding: `0 ${token('space.250')}`,
+const content = css({
+	paddingTop: 0,
+	paddingRight: token('space.250'),
+	paddingBottom: 0,
+	paddingLeft: token('space.250'),
 	height: '50%',
 	background: '#fff',
 	boxSizing: 'border-box',
@@ -306,7 +310,7 @@ export default class Example extends React.Component<Props, State> {
 		this.setState({ hasError: true });
 	}
 
-	renderErrorFlag(): jsx.JSX.Element | undefined {
+	renderErrorFlag(): JSX.Element | undefined {
 		if (this.state.hasError) {
 			return (
 				<div
@@ -326,7 +330,7 @@ export default class Example extends React.Component<Props, State> {
 		return;
 	}
 
-	renderDocumentId(): jsx.JSX.Element {
+	renderDocumentId(): JSX.Element {
 		return (
 			<div
 				style={{
@@ -381,7 +385,7 @@ export default class Example extends React.Component<Props, State> {
 		);
 	}
 
-	renderEditor(): jsx.JSX.Element {
+	renderEditor(): JSX.Element {
 		const { documentId, collabUrl, need404, path } = this.state;
 		// Enable the debug log
 		(window as any).COLLAB_PROVIDER_LOGGER = true;
@@ -617,7 +621,7 @@ export default class Example extends React.Component<Props, State> {
 		}
 	};
 
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		if (this.state.documentId) {
 			return <IntlProvider locale="en">{this.renderEditor()}</IntlProvider>;
 		}

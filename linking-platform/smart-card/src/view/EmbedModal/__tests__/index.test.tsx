@@ -10,6 +10,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import {
 	render,
@@ -324,6 +325,64 @@ describe('EmbedModal', () => {
 				const button = screen.queryByTestId(`${testId}-download-button`);
 				expect(button).not.toBeInTheDocument();
 			});
+		});
+	});
+
+	describe('when Escape is pressed', () => {
+		// Simulates a layered component underneath the modal (e.g. a drawer) that closes on Escape
+		// through a `window` keydown listener, like `@atlaskit/layering`'s `useCloseOnEscapePress`.
+		let underlyingLayerOnEscape: jest.Mock;
+		const handleUnderlyingLayerKeyDown = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				underlyingLayerOnEscape();
+			}
+		};
+
+		beforeEach(() => {
+			underlyingLayerOnEscape = jest.fn();
+			window.addEventListener('keydown', handleUnderlyingLayerKeyDown);
+		});
+
+		afterEach(() => {
+			window.removeEventListener('keydown', handleUnderlyingLayerKeyDown);
+		});
+
+		it('closes only the modal and not the layer underneath when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+			passGate('platform_sl_embed_modal_escape_isolation');
+			const onClose = jest.fn();
+			renderEmbedModal({ onClose });
+			await screen.findByTestId(testId);
+
+			await user.keyboard('{Escape}');
+			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(underlyingLayerOnEscape).not.toHaveBeenCalled();
+		});
+
+		it('lets Escape reach the layer underneath once the modal has closed when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+			passGate('platform_sl_embed_modal_escape_isolation');
+			renderEmbedModal();
+			await screen.findByTestId(testId);
+
+			await user.keyboard('{Escape}');
+			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await user.keyboard('{Escape}');
+
+			expect(underlyingLayerOnEscape).toHaveBeenCalledTimes(1);
+		});
+
+		it('closes the modal and the layer underneath when platform_sl_embed_modal_escape_isolation is disabled', async () => {
+			failGate('platform_sl_embed_modal_escape_isolation');
+			const onClose = jest.fn();
+			renderEmbedModal({ onClose });
+			await screen.findByTestId(testId);
+
+			await user.keyboard('{Escape}');
+			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(underlyingLayerOnEscape).toHaveBeenCalledTimes(1);
 		});
 	});
 

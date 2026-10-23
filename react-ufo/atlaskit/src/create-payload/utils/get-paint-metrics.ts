@@ -1,4 +1,7 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import type { InteractionType } from '../../common';
+import { getSoftNavigationPaintMetrics } from '../../soft-navigation';
 
 // Type definitions for paint metrics
 export interface PaintMetrics {
@@ -16,8 +19,13 @@ export interface LegacyPaintMetrics {
 // Main function returns compact nested format
 export default async function getPaintMetrics(
 	type: InteractionType,
+	start: number,
 	end: number,
 ): Promise<PaintMetrics> {
+	if (type === 'transition' && fg('platform_ufo_soft_nav_paint_metrics')) {
+		return getSoftNavigationPaintMetrics(start);
+	}
+
 	if (type !== 'page_load') {
 		return {};
 	}

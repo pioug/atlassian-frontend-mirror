@@ -15,6 +15,7 @@ import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-inte
 import {
 	chatPanelLiveWidthVar,
 	chatPanelVar,
+	defaultMainMinWidth,
 	localSlotLayers,
 	mainMinimumWidthVar,
 } from './constants';
@@ -258,7 +259,7 @@ export function ChatPanel({
 		const localPanel = main.querySelector<HTMLElement>('[data-layout-with-panel-slot]');
 		const isLocalPanelInline = localPanel && getComputedStyle(localPanel).gridArea === 'panel';
 		const localPanelWidth = isLocalPanelInline ? localPanel.getBoundingClientRect().width : 0;
-		const mainMinimumWidth = getPixelCustomProperty(main, mainMinimumWidthVar, 320);
+		const mainMinimumWidth = getPixelCustomProperty(main, mainMinimumWidthVar, defaultMainMinWidth);
 		const mainContentWidth = mainWidth - localPanelWidth;
 		const availableWidth = Math.max(0, mainContentWidth - mainMinimumWidth);
 		const availableInlineWidth = Math.floor(chatPanelWidth + availableWidth);

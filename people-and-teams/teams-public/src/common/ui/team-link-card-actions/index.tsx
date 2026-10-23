@@ -3,13 +3,12 @@ import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
-import { cssMap, cx } from '@atlaskit/css';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -28,12 +27,6 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 		marginLeft: 'auto',
-	},
-	iconHidden: {
-		display: 'none',
-	},
-	iconVisible: {
-		display: 'flex',
 	},
 });
 
@@ -72,10 +65,6 @@ export const TeamLinkCardActions = ({
 	containerType,
 	title,
 	containerId,
-	hovered,
-	focused,
-	isDropdownOpen,
-	showKeyboardFocus,
 	onDisconnectButtonClick,
 	onEditLinkClick,
 	onDropdownOpenChange,
@@ -87,13 +76,6 @@ export const TeamLinkCardActions = ({
 	const returnFocusToDropdownTrigger = () => {
 		dropdownTriggerElementRef.current?.focus();
 	};
-
-	// Show icons when:
-	// 1. Hovering over the card
-	// 2. Dropdown is open
-	// 3. Focused via keyboard navigation (when showKeyboardFocus is true)
-	const shouldShowIcon =
-		fg('teams_a11y_20261005') || hovered || isDropdownOpen || (focused && showKeyboardFocus);
 
 	const handleDisconnectClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		e.preventDefault();
@@ -117,12 +99,7 @@ export const TeamLinkCardActions = ({
 
 	if (containerType === 'WebLink') {
 		return (
-			<Box
-				xcss={cx(
-					styles.showMoreIconWrapper,
-					shouldShowIcon ? styles.iconVisible : styles.iconHidden,
-				)}
-			>
+			<Box xcss={styles.showMoreIconWrapper}>
 				<DropdownMenu
 					trigger={({ triggerRef, ...triggerProps }) => (
 						<IconButton
@@ -158,9 +135,7 @@ export const TeamLinkCardActions = ({
 	}
 
 	return (
-		<Box
-			xcss={cx(styles.crossIconWrapper, shouldShowIcon ? styles.iconVisible : styles.iconHidden)}
-		>
+		<Box xcss={styles.crossIconWrapper}>
 			<Tooltip content={formatMessage(messages.disconnectTooltip)} position="top">
 				<IconButton
 					label={`disconnect the container ${title}`}

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.2.0
+
+### Minor Changes
+
+- [`837cca4562972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/837cca4562972) -
+  Report `metric:fcp` and `metric:lcp` for transition interactions from the Soft Navigations API,
+  relative to the transition start, behind `platform_ufo_soft_nav_paint_metrics`.
+
 ## 8.1.2
 
 ### Patch Changes

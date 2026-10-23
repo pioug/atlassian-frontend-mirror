@@ -1,4 +1,4 @@
-import { indexGapStyles, resolveGapToken } from './resolve-gap-token';
+import { indexSpacingStyles, resolveSpacingToken } from './resolve-spacing-token';
 
 export type Rectangle = { x: number; y: number; width: number; height: number };
 export type GapBand = Rectangle & { id: string; token: string | null; size: number; extra: number };
@@ -162,7 +162,7 @@ export function measureGaps(root: HTMLElement): {
 	bands: GapBand[];
 } {
 	const origin = root.getBoundingClientRect();
-	const index = indexGapStyles(root.ownerDocument);
+	const index = indexSpacingStyles(root.ownerDocument);
 	const bands: GapBand[] = [];
 	for (const [containerIndex, node] of Array.from(
 		root.querySelectorAll<HTMLElement>('*'),
@@ -190,8 +190,8 @@ export function measureGaps(root: HTMLElement): {
 		if (!rowGap && !columnGap) {
 			continue;
 		}
-		const rowToken = resolveGapToken(node, 'row-gap', index);
-		const columnToken = resolveGapToken(node, 'column-gap', index);
+		const rowToken = resolveSpacingToken(node, 'row-gap', index);
+		const columnToken = resolveSpacingToken(node, 'column-gap', index);
 		let rectangles: ReturnType<typeof flexGapRectangles> = [];
 		if (style.display.includes('grid')) {
 			const columns = tracks(style.gridTemplateColumns);

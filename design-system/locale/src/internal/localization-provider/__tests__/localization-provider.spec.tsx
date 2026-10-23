@@ -3,6 +3,7 @@ jest.mock('../../date-parser');
 
 import { createDateParser } from '../../date-parser';
 import { mockLocaleWeekInfo } from '../__fixtures__/mock-locale-week-info';
+import { getTimeFormat } from '../get-time-format';
 import { createLocalizationProvider, type LocalizationProvider } from '../localization-provider';
 import { toFormattedParts } from '../to-formatted-parts';
 
@@ -69,6 +70,35 @@ describe('LocalizationProvider', () => {
 		);
 		expect(mockedIntl.format).toHaveBeenCalledWith(date);
 		expect(result).toBe(expectedResult);
+	});
+
+	it.each([
+		['en-US', 'h12', 'AM', 'PM', '0'],
+		['en-GB', 'h23', '', '', '0'],
+		['ko-KR', 'h12', '오전', '오후', '0'],
+		['ar-EG', 'h12', 'ص', 'م', '٠'],
+	])('returns time format metadata for %s', (locale, hourCycle, am, pm, zero) => {
+		const timeFormat = getTimeFormat(locale);
+
+		expect(timeFormat.hourCycle).toBe(hourCycle);
+		expect(timeFormat.dayPeriods).toEqual({ am, pm });
+		expect(timeFormat.digits[zero]).toBe('0');
+		expect(timeFormat.timeParts).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ type: 'hour' }),
+				expect.objectContaining({ type: 'minute' }),
+			]),
+		);
+	});
+
+	it('returns locale-specific time separators', () => {
+		const timeFormat = getTimeFormat('fr-CA');
+
+		expect(timeFormat.timeParts).toEqual([
+			{ type: 'hour', value: '21' },
+			{ type: 'literal', value: ' h ' },
+			{ type: 'minute', value: '32' },
+		]);
 	});
 
 	it.each([

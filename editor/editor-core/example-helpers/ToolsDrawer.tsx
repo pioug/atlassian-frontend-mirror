@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
+// Button descendants are owned by the ADS button component.
+import { css, jsx } from '@compiled/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
@@ -34,7 +35,13 @@ import type { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-
 import type { MockTaskDecisionResource } from '@atlaskit/util-data-test/mock-task-decision-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { buttonGroup, content } from './styles';
+import { ExampleContent } from './ExampleContent';
+
+const buttonGroup = css({
+	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Preserve spacing on ADS button descendants.
+	'& > button': { marginLeft: token('space.050') },
+});
 
 const mediaMock = createEditorMediaMock();
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));
@@ -286,7 +293,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 		}));
 	};
 
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		const {
 			mentionProvider,
 			emojiProvider,
@@ -306,7 +313,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 				<AnalyticsListener channel="media" onEvent={(e) => console.log(e)}>
 					<AnalyticsListener channel="fabric-elements" onEvent={(e) => console.log(e)}>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<div css={content}>
+						<ExampleContent>
 							<div style={{ padding: `${token('space.150')} 0` }}>
 								️️️⚠️ Atlassians, for Media integration to work in non-mocked state, make sure you're
 								logged into // Ignored via go/ees005 // eslint-disable-next-line
@@ -413,7 +420,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 								<legend>JSON output:</legend>
 								<pre>{jsonDocument}</pre>
 							</div>
-						</div>
+						</ExampleContent>
 					</AnalyticsListener>
 				</AnalyticsListener>
 			</AnalyticsListener>

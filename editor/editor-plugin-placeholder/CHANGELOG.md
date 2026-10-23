@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 29.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.4
+
+### Patch Changes
+
+- [`a11407acf9fad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a11407acf9fad) -
+  Clean up platform_editor_placeholder_collab_spinner, retaining the reactive collaboration loading
+  spinner.
+
 ## 29.0.3
 
 ### Patch Changes

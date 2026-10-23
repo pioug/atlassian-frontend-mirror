@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 27.3.4
+
+### Patch Changes
+
+- [`bee9018494e1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bee9018494e1c) -
+  [PTC-17917] Wrap profile card details and job title instead of clipping them under custom text
+  spacing, behind `ptc_a11y_profile_card_text_spacing`
+- Updated dependencies
+
 ## 27.3.3
 
 ### Patch Changes

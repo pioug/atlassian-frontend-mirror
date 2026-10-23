@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 3.6.1
+
+### Patch Changes
+
+- [`c9e46bb98b3b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9e46bb98b3b2) -
+  Remove the completed Teams accessibility gate and retain accessible headings, keyboard navigation,
+  focus management and visible link actions.
+- Updated dependencies
+
 ## 3.6.0
 
 ### Minor Changes

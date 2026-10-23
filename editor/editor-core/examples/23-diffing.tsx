@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// Preserve the diff fixture's fixed typography and descendant spacing.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 import type { Change } from 'diff';
 import { diffLines } from 'diff';
 
@@ -17,11 +18,17 @@ import { token } from '@atlaskit/tokens';
 const container = css({
 	display: 'flex',
 	flexDirection: 'column',
-	margin: token('space.100'),
+	marginTop: token('space.100'),
+	marginRight: token('space.100'),
+	marginBottom: token('space.100'),
+	marginLeft: token('space.100'),
 	height: 'calc(100% - 30px)',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
-		margin: `${token('space.100')} 0`,
+		marginTop: token('space.100'),
+		marginRight: 0,
+		marginBottom: token('space.100'),
+		marginLeft: 0,
 	},
 });
 
@@ -45,7 +52,10 @@ const diffContainer = css({
 	lineHeight: '16px',
 	overflow: 'auto',
 	wordWrap: 'break-word',
-	padding: `${token('space.075')} ${token('space.075')}`,
+	paddingTop: token('space.075'),
+	paddingRight: token('space.075'),
+	paddingBottom: token('space.075'),
+	paddingLeft: token('space.075'),
 });
 
 const buttonContainer = css({
@@ -139,7 +149,7 @@ export default class DiffingExample extends React.Component<{}, State> {
 			return <LineComponent key={idx}>{diff.value}</LineComponent>;
 		});
 
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		const { editMode, diffs, documentOne, documentTwo } = this.state;
 		return (
 			<div css={container}>

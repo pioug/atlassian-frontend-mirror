@@ -21,6 +21,8 @@ export const resolveInvocation = ({
 		env.ATLASSIAN_CLI_DISPLAY_INVOCATION ??
 		(environmentVariable ? env[environmentVariable] : undefined);
 	if (configured) return configured;
-	if (!isDev) return publishedInvocation;
+	// npx can resolve a locally linked source package, so source loading alone does not imply
+	// that the user invoked node directly. npm exposes npx/npm exec through this command value.
+	if (!isDev || env.npm_command === 'exec') return publishedInvocation;
 	return `node ${/\s/.test(argv1) ? JSON.stringify(argv1) : argv1}`;
 };

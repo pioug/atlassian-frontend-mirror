@@ -1,12 +1,12 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 // oxlint-disable-next-line typescript-eslint/triple-slash-reference
 /// <reference path="../../types/compiled-shims.d.ts" />
 
 // Because we migrated with using cssMapScope API for non atomic css, so these atomic css related eslint suppression no longer needs to be fixed.
 /* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
 
 import { css, cssMapScoped, jsx, keyframes } from '@compiled/react';
@@ -1238,7 +1238,7 @@ const editorContentStyles = cssMapScoped({
 	},
 	// Establishes a container-query context on the content area for non-full-page
 	// appearances so `cqw`-based content sizing (native embeds, media) resolves against the
-	// sidebar-aware editor width instead of the viewport. See containerTypeStyles.ts (emotion twin).
+	// sidebar-aware editor width instead of the viewport.
 	nonFullPageContainerTypeStyles: {
 		containerType: 'inline-size',
 	},
@@ -8415,7 +8415,7 @@ export type EditorContentContainerProps = {
 /**
  * EditorContentStyles is a wrapper component that applies styles to its children
  * based on the provided feature flags, view mode, and other props.
- * It uses Emotion for styling and supports scrollable content.
+ * It uses Compiled for styling and supports scrollable content.
  *
  * This will be used in near future to replace the current editor content styles from index.tsx
  */
@@ -8447,7 +8447,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 
 	// Under the static-CSS experiment, --ak-editor-base-font-size is set earlier on the
 	// root div in editor-internal.tsx and inherited via the CSS cascade — do not set it here.
-	// For the legacy path, compute it from the Emotion theme as before.
+	// For the legacy font-size path, derive it from the editor theme.
 	const style = React.useMemo(
 		() => ({
 			'--ak-editor--table-overflow-shadow': tableOverflowShadow,
@@ -8466,8 +8466,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	// Highlight inheritance shipped in Chromium 134. Keep explicit descendant rules for
 	// other engines and older versions; supporting ::selection alone is not sufficient.
 	const isSelectionHighlightInheritanceActive =
-		browser.chrome_version >= 134 &&
-		isExperimentEnabled('platform_editor_inp_selection_inheritance');
+		browser.chrome_version >= 134 && isExperimentEnabled('platform_editor_improve_inp');
 
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
 	const isUpdateStatusColorsEnabled =

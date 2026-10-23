@@ -4,6 +4,11 @@
  * We have chosen to ignore this rule to prevent duplicating them across the different slots, and to provide a high level view of them and how they relate.
  */
 
+/**
+ * Default minimum width of Main, in pixels, before a custom minimum is registered.
+ */
+export const defaultMainMinWidth = 320;
+
 // These are "compressed" to discourage usage.
 export const sideNavVar = '--n_sNvw';
 export const asideVar = '--n_asDw';
@@ -14,6 +19,15 @@ export const mainMinimumWidthVar = '--n_mainMinW';
 export const bannerMountedVar = '--n_bnrM';
 export const topNavMountedVar = '--n_tNvM';
 export const ribbonVar = '--n_rbnW';
+
+/**
+ * Rendered border-box width of the local PanelLayout surface, in both inline and overlay modes.
+ * Published on document.documentElement after mounting when Root opts into
+ * UNSAFE_dangerouslyHoistSlotSizes. Only the primary Root should opt in.
+ * Use `var(${localPanelWidthVar}, 0px)` for external controls, not for width persistence
+ * or sizing the panel itself. The property is removed when the surface unmounts.
+ */
+export const localPanelWidthVar = '--n_localPanelWidth';
 
 /**
  * Captures the current width of the side navigation, at all times, including during resizing.

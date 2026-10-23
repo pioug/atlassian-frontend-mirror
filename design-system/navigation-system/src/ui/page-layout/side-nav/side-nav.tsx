@@ -36,6 +36,7 @@ import {
 	UNSAFE_sideNavLayoutVar,
 	type contentHeightWhenFixed,
 	type contentInsetBlockStart,
+	defaultMainMinWidth,
 	type localSlotLayers,
 	mainMinimumWidthVar,
 	openLayerObserverSideNavNamespace,
@@ -686,7 +687,7 @@ function SideNavInternal({
 		const isLocalPanelInline = localPanel && getComputedStyle(localPanel).gridArea === 'panel';
 		const localPanelWidth = isLocalPanelInline ? localPanel.getBoundingClientRect().width : 0;
 		const mainContentWidth = mainWidth - localPanelWidth;
-		const mainMinimumWidth = getPixelCustomProperty(main, mainMinimumWidthVar, 320);
+		const mainMinimumWidth = getPixelCustomProperty(main, mainMinimumWidthVar, defaultMainMinWidth);
 		const availableWidth = Math.max(0, mainContentWidth - mainMinimumWidth);
 		const availableInlineWidth = Math.floor(sideNavWidth + availableWidth);
 		const constrainedMaxWidth = maxWidth

@@ -34,10 +34,6 @@ interface UseRemoveButtonProps {
 }
 
 // Shared hook for remove button creation
-// TODO: Fill in the hook {description}.
-/**
- * {description}.
- */
 export function useRemoveButton({
 	isRemovable,
 	tagText,

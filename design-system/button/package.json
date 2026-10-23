@@ -53,9 +53,14 @@
 					"sortKey": 4
 				},
 				{
+					"title": "Filter button",
+					"id": "filter-button",
+					"sortKey": 5
+				},
+				{
 					"title": "Button group",
 					"id": "button-group",
-					"sortKey": 5
+					"sortKey": 6
 				},
 				{
 					"title": "Button (legacy)",
@@ -70,7 +75,7 @@
 							}
 						]
 					},
-					"sortKey": 6
+					"sortKey": 7
 				}
 			]
 		}

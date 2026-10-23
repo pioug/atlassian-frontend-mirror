@@ -1,25 +1,30 @@
-/* eslint-disable no-console */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
+/* eslint-disable no-console */
 
+import type { JSX } from 'react';
 import { PureComponent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
+// The popup boundary uses fixed offsets to exercise positioning.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers/imageUpload';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-import { content } from '../example-helpers/styles';
+import { ExampleContent } from '../example-helpers/ExampleContent';
 import { Editor } from '../src';
 
 const boundary = css({
 	border: `${token('border.width.selected')} solid ${token('color.border')}`,
-	padding: `130px 60px 10px ${token('space.500')}`,
+	paddingTop: '130px',
+	paddingRight: '60px',
+	paddingBottom: '10px',
+	paddingLeft: token('space.500'),
 });
 
 // Ignored via go/ees005
@@ -242,11 +247,11 @@ const SAVE_ACTION = () => console.log('Save');
 const mentionProvider = new Promise<any>((resolve) => resolve(mentionResourceProvider));
 const emojiProvider = getEmojiProvider();
 
-export default function Example(): jsx.JSX.Element {
+export default function Example(): JSX.Element {
 	return (
 		<div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Intentionally Broken Example</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<p style={{ marginBottom: token('space.150') }}>
@@ -263,12 +268,12 @@ export default function Example(): jsx.JSX.Element {
 						quickInsert={true}
 					/>
 				</div>
-			</div>
+			</ExampleContent>
 
 			<hr role="presentation" />
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Basic</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<p style={{ marginBottom: token('space.150') }}>
@@ -285,10 +290,10 @@ export default function Example(): jsx.JSX.Element {
 						quickInsert={true}
 					/>
 				</div>
-			</div>
+			</ExampleContent>
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Basic with Custom Boundry</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<p style={{ marginBottom: token('space.150') }}>
@@ -305,12 +310,12 @@ export default function Example(): jsx.JSX.Element {
 						emojiProvider={emojiProvider}
 					/>
 				</div>
-			</div>
+			</ExampleContent>
 
 			<hr role="presentation" />
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Basic Portal</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<p style={{ marginBottom: token('space.150') }}>
@@ -327,10 +332,10 @@ export default function Example(): jsx.JSX.Element {
 						devTools={true}
 					/>
 				</div>
-			</div>
+			</ExampleContent>
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Portal with Custom Boundry</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<p style={{ marginBottom: token('space.150') }}>
@@ -346,10 +351,10 @@ export default function Example(): jsx.JSX.Element {
 						emojiProvider={emojiProvider}
 					/>
 				</div>
-			</div>
+			</ExampleContent>
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Portal in Scroll Container</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<p style={{ marginBottom: token('space.150') }}>
@@ -365,15 +370,15 @@ export default function Example(): jsx.JSX.Element {
 						emojiProvider={emojiProvider}
 					/>
 				</div>
-			</div>
+			</ExampleContent>
 
 			<hr role="presentation" />
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div css={content}>
+			<ExampleContent>
 				<h2>Portal with custom scroll container</h2>
 				<JiraSidebarEditor />
-			</div>
+			</ExampleContent>
 		</div>
 	);
 }

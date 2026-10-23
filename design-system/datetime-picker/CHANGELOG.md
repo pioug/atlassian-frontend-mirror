@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 19.4.0
+
+### Minor Changes
+
+- [`cf5cda7218d8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf5cda7218d8e) -
+  Behind the `platform-dst-locale-aware-time-parsing` feature gate, parse localized editable time
+  input while retaining ISO output and legacy English forms.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.3.2
 
 ### Patch Changes

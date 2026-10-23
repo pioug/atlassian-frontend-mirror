@@ -1,5 +1,15 @@
 # @atlaskit/portal
 
+## 7.1.0
+
+### Minor Changes
+
+- [`21d6122b94997`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21d6122b94997) -
+  Deprecates `@atlaskit/portal`. The browser top layer renders layered UI above the page without a
+  portal. Use a design system layer component, or `Popover` and `Dialog` from `@atlaskit/top-layer`.
+  Content portalled to `document.body` renders below every open top-layer surface. Existing imports
+  keep working; a ratchet blocks new ones.
+
 ## 7.0.2
 
 ### Patch Changes

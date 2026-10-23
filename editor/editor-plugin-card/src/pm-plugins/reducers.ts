@@ -21,6 +21,7 @@ import type {
 	ShowDatasourceModal,
 	ShowLinkToolbar,
 } from '../types';
+import { removePastedInlineLink } from './util/pasted-inline-link';
 
 const queue = (state: CardPluginState, action: Queue) => {
 	return {
@@ -186,6 +187,24 @@ const removeDatasourceStash = (
 
 export default (state: CardPluginState, action: CardPluginAction): CardPluginState => {
 	switch (action.type) {
+		case 'PASTED_INLINE_LINK_SHOWN':
+			return state.pastedInlineLinks
+				? {
+						...state,
+						pastedInlineLinkShown: true,
+						// Keep only the displayed link so it can still be dismissed if it changes.
+						pastedInlineLinks: state.pastedInlineLinks.filter(
+							(link) => link.pos === action.target.pos && link.url === action.target.url,
+						),
+					}
+				: state;
+		case 'CLEAR_PASTED_INLINE_LINK':
+			return state.pastedInlineLinks
+				? {
+						...state,
+						pastedInlineLinks: removePastedInlineLink(state.pastedInlineLinks, action.target),
+					}
+				: state;
 		case 'QUEUE':
 			return queue(state, action);
 		case 'SET_PROVIDER':

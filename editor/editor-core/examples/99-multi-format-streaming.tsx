@@ -5,7 +5,9 @@
 import { useCallback, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- example file
-import { css, jsx } from '@emotion/react';
+// Preserve the wire-format fixture's compact typography and dimensions.
+// These styles require selectors or values outside @atlaskit/css.
+import { css, jsx } from '@compiled/react';
 
 import { FullPageBase } from '@af/editor-examples-helpers/example-presets/FullPageBase';
 import type { EditorAPI } from '@af/editor-examples-helpers/example-presets/types';
@@ -422,25 +424,34 @@ const sidePanelStyles = css({
 	borderLeft: `1px solid ${token('color.border')}`,
 	display: 'flex',
 	flexDirection: 'column',
-	background: token('elevation.surface'),
+	backgroundColor: token('elevation.surface'),
 });
 
 const sidePanelHeaderStyles = css({
-	padding: `${token('space.100')} ${token('space.200')}`,
+	paddingTop: token('space.100'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.200'),
 	borderBottom: `1px solid ${token('color.border')}`,
 	fontWeight: 600,
 	fontSize: 13,
 });
 
 const buttonGroupStyles = css({
-	padding: token('space.200'),
+	paddingTop: token('space.200'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.200'),
+	paddingLeft: token('space.200'),
 	display: 'flex',
 	flexDirection: 'column',
 	gap: token('space.150'),
 });
 
 const streamButtonStyles = css({
-	padding: `${token('space.100')} ${token('space.200')}`,
+	paddingTop: token('space.100'),
+	paddingRight: token('space.200'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.200'),
 	borderRadius: 4,
 	border: 'none',
 	cursor: 'pointer',
@@ -448,7 +459,7 @@ const streamButtonStyles = css({
 	fontSize: 13,
 	textAlign: 'start',
 	color: token('color.text.inverse'),
-	background: token('color.background.brand.bold'),
+	backgroundColor: token('color.background.brand.bold'),
 	'&:disabled': {
 		cursor: 'not-allowed',
 		opacity: 0.5,
@@ -456,7 +467,7 @@ const streamButtonStyles = css({
 });
 
 const streamButtonActiveStyles = css({
-	background: token('color.background.success.bold'),
+	backgroundColor: token('color.background.success.bold'),
 });
 
 const descStyles = css({
@@ -469,9 +480,12 @@ const descStyles = css({
 const logPanelStyles = css({
 	flex: 1,
 	borderTop: `1px solid ${token('color.border')}`,
-	padding: `${token('space.100')} ${token('space.150')}`,
+	paddingTop: token('space.100'),
+	paddingRight: token('space.150'),
+	paddingBottom: token('space.100'),
+	paddingLeft: token('space.150'),
 	overflow: 'auto',
-	background: token('elevation.surface.sunken'),
+	backgroundColor: token('elevation.surface.sunken'),
 	fontFamily: 'monospace',
 });
 

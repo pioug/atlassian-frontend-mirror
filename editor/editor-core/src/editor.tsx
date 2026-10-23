@@ -1,14 +1,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+import type { JSX } from 'react';
 import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx } from '@emotion/react';
 
 import { ComposableEditor } from './composable-editor';
 import type { InitialPluginConfiguration } from './preset-universal';
@@ -56,7 +50,7 @@ export default class Editor extends React.Component<EditorPropsWithInitialPlugin
 		editorDeprecationWarnings(props);
 	}
 
-	render(): jsx.JSX.Element {
+	render(): JSX.Element {
 		return (
 			<ComposableEditorWrapper
 				props={this.props}

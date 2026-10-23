@@ -27,7 +27,7 @@ import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
 
-import type { CardPluginOptions, CardPluginState } from './types';
+import type { CardPluginOptions, CardPluginState, PastedInlineLink } from './types';
 
 // Dummpy type of AnnotationPlugin
 // This is used to avoid editor universal preset's inferred type maximum length error
@@ -65,6 +65,10 @@ export type CardPlugin = NextEditorPlugin<
 	{
 		actions: CardPluginActions;
 		commands: {
+			/** Stop tracking a pasted link, for example one the consumer found ineligible. */
+			clearPastedInlineLink: (target: PastedInlineLink) => EditorCommand;
+			/** Confirm that the consumer displayed the message for this pasted link. */
+			markPastedInlineLinkShown: (target: PastedInlineLink) => EditorCommand;
 			/** EditorCommand form of `queueCardsFromRange`. Prefer over the action. */
 			queueCardsFromRange: (
 				from: number,

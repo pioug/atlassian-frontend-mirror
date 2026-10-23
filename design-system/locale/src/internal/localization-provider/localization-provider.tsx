@@ -6,7 +6,6 @@ import { type FormattedParts, toFormattedParts } from './to-formatted-parts';
 export type DateFormatter = (date: Date) => string;
 
 export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
-
 export interface LocalizationProvider {
 	getDaysShort: (weekStartDay?: WeekDay) => Array<string>;
 	getDaysLong: (weekStartDay?: WeekDay) => Array<string>;

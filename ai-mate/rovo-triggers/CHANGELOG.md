@@ -1,5 +1,36 @@
 # @atlaskit/rovo-triggers
 
+## 12.8.0
+
+### Minor Changes
+
+- [`a6bd756708d55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6bd756708d55) -
+  Use detected page links to fill third-party zero state prompts with inline Smart Links, preserving
+  the existing starter tile and hover placeholder text behind rovo_chat_3p_zero_state_prompt.
+- [`1721d1580140c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1721d1580140c) -
+  Add an optional `openAtMaxSize` flag to Rovo chat open payloads, asking the mini-modal to open at
+  its maximum size.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.7.0
+
+### Minor Changes
+
+- [`b580ff163e6a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b580ff163e6a0) -
+  [ux] Preserve unrelated chat settings and restore the latest unsent preview draft in the sidebar
+  when resetting the Smart Creation preview modal, behind the
+  cwr_entrypoint_parity_preserve_settings_on_reset experiment. Restore the existing page-context
+  default without evaluating unrelated web-search defaults.
+
+  Add an optional conversationId prop to RovoChatPromptInput and the sync-prompt-input-draft event
+  (SyncPromptInputDraftPayload) to Rovo triggers. Closing the preview publishes this event for the
+  matching sidebar input to restore its saved draft, including clearing the input when the draft was
+  cleared. Draft syncing does not itself open chat; the existing close and minimize handlers control
+  chat opening. The event does not overwrite queued chat insertions or replay on later mounts.
+
 ## 12.6.0
 
 ### Minor Changes

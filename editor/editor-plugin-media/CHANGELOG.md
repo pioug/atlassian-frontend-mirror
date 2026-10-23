@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 31.0.6
+
+### Patch Changes
+
+- [`36a41f480cf20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36a41f480cf20) -
+  Disambiguate canonical module suffixes while preserving existing public import paths. Share
+  existing entrypoints where aliases normalize to the same name; preserve implementations and rename
+  the less-used private file only where needed.
+- Updated dependencies
+
+## 31.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.4
 
 ### Patch Changes

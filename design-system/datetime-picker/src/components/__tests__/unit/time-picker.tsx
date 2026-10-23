@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import CreatableSelect from '@atlaskit/select/creatable-select';
 import type { OptionsType } from '@atlaskit/select/types';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type TimePickerBaseProps } from '../../../types';
 import TimePicker from '../../time-picker';
@@ -42,6 +43,9 @@ describe('TimePicker', () => {
 
 		createButton.value = value;
 		await user.click(createButton);
+	};
+	const enableLocaleAwareTimeParsing = () => {
+		passGate('platform-dst-locale-aware-time-parsing');
 	};
 
 	beforeEach(() => {
@@ -116,6 +120,179 @@ describe('TimePicker', () => {
 				{ locale: 'id', result: `${hour}.${minute}` },
 			],
 		);
+
+		it('should accept 24-hour and English day-period input when editable input uses a 24-hour locale', async () => {
+			enableLocaleAwareTimeParsing();
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(
+				createTimePicker({
+					locale: 'en-GB',
+					onChange: onChangeSpy,
+					timeIsEditable: true,
+				}),
+			);
+
+			await selectCustomTime('15:32', user);
+			expect(onChangeSpy).toHaveBeenLastCalledWith('15:32', expect.anything());
+
+			await selectCustomTime('3:32pm', user);
+			expect(onChangeSpy).toHaveBeenLastCalledWith('15:32', expect.anything());
+		});
+
+		it('should parse a localized day period when editable input uses a 12-hour locale', async () => {
+			enableLocaleAwareTimeParsing();
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(
+				createTimePicker({
+					locale: 'ko-KR',
+					onChange: onChangeSpy,
+					timeIsEditable: true,
+				}),
+			);
+
+			await selectCustomTime('오후 3:32', user);
+
+			expect(onChangeSpy).toHaveBeenLastCalledWith('15:32', expect.anything());
+
+			await selectCustomTime('3:32pm', user);
+			expect(onChangeSpy).toHaveBeenLastCalledWith('15:32', expect.anything());
+		});
+
+		it('should parse localized digits when editable input uses a 24-hour locale', async () => {
+			enableLocaleAwareTimeParsing();
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(
+				createTimePicker({
+					locale: 'fa-IR',
+					onChange: onChangeSpy,
+					timeIsEditable: true,
+				}),
+			);
+
+			await selectCustomTime('۱۵:۳۲', user);
+
+			expect(onChangeSpy).toHaveBeenLastCalledWith('15:32', expect.anything());
+		});
+
+		cases(
+			'should parse representative locale time variations',
+			async ({ locale, input, output }: { locale: string; input: string; output: string }) => {
+				enableLocaleAwareTimeParsing();
+				const user = userEvent.setup();
+				const onChangeSpy = jest.fn();
+				render(createTimePicker({ locale, onChange: onChangeSpy, timeIsEditable: true }));
+
+				await selectCustomTime(input, user);
+
+				expect(onChangeSpy).toHaveBeenLastCalledWith(output, expect.anything());
+			},
+			[
+				{ locale: 'en-US', input: '3:32 PM', output: '15:32' },
+				{ locale: 'en-GB', input: '15:32', output: '15:32' },
+				{ locale: 'ko-KR', input: '오후 3:32', output: '15:32' },
+				{ locale: 'ja-JP', input: '15:32', output: '15:32' },
+				{ locale: 'fa-IR', input: '۱۵:۳۲', output: '15:32' },
+				{ locale: 'ar-EG', input: '٣:٣٢ م', output: '15:32' },
+			],
+		);
+
+		cases(
+			'should fall through to legacy parsing when no localized day period is present',
+			async ({
+				input,
+				output,
+				timeFormat,
+			}: {
+				input: string;
+				output: string;
+				timeFormat?: string;
+			}) => {
+				enableLocaleAwareTimeParsing();
+				const user = userEvent.setup();
+				const onChangeSpy = jest.fn();
+				render(
+					createTimePicker({
+						locale: 'ko-KR',
+						onChange: onChangeSpy,
+						timeFormat,
+						timeIsEditable: true,
+					}),
+				);
+
+				await selectCustomTime(input, user);
+
+				expect(onChangeSpy).toHaveBeenLastCalledWith(output, expect.anything());
+			},
+			[
+				{ input: '15:32', output: '15:32' },
+				{ input: '3:32', output: '03:32' },
+				{ input: '3:32pm', output: '15:32' },
+				{ input: '13045', output: '01:30:45', timeFormat: 'HH:mm:ss' },
+				{ input: '123456', output: '12:34:56', timeFormat: 'HH:mm:ss' },
+			],
+		);
+
+		cases(
+			'should retain legacy editable time input forms',
+			async ({
+				input,
+				output,
+				timeFormat,
+			}: {
+				input: string;
+				output: string;
+				timeFormat?: string;
+			}) => {
+				enableLocaleAwareTimeParsing();
+				const user = userEvent.setup();
+				const onChangeSpy = jest.fn();
+				render(
+					createTimePicker({
+						onChange: onChangeSpy,
+						timeFormat,
+						timeIsEditable: true,
+					}),
+				);
+
+				await selectCustomTime(input, user);
+
+				expect(onChangeSpy).toHaveBeenCalledWith(output, expect.anything());
+			},
+			[
+				{ input: '1', output: '01:00' },
+				{ input: '01', output: '01:00' },
+				{ input: '1:30', output: '01:30' },
+				{ input: '130', output: '01:30' },
+				{ input: '1330', output: '13:30' },
+				{ input: '1:30:45', output: '01:30:45', timeFormat: 'HH:mm:ss' },
+				{ input: '13045', output: '01:30:45', timeFormat: 'HH:mm:ss' },
+				{ input: '123456', output: '12:34:56', timeFormat: 'HH:mm:ss' },
+				{ input: '1.30pm', output: '13:30' },
+				{ input: '1:30 p M', output: '13:30' },
+				{ input: '24:00', output: '00:00' },
+			],
+		);
+
+		it('should retain the selected value when editable input is invalid', async () => {
+			enableLocaleAwareTimeParsing();
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(
+				createTimePicker({
+					defaultValue: '15:30',
+					onChange: onChangeSpy,
+					timeIsEditable: true,
+				}),
+			);
+
+			await selectCustomTime('not a time', user);
+
+			expect(screen.getByTestId(`${testId}--input`)).toHaveValue('15:30');
+			expect(onChangeSpy).not.toHaveBeenCalled();
+		});
 	});
 
 	it('should be required when prop is passed', () => {

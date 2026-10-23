@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.14.0
+
+### Minor Changes
+
+- [`8d492589713e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d492589713e7) -
+  Add `no-global-z-index` rule, which flags `z-index` values above 10. Global layer ordering is
+  moving to the browser top layer. The rule is not in the `recommended` preset.
+
 ## 16.13.9
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 46.8.2
+
+### Patch Changes
+
+- [`baff2e6826566`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baff2e6826566) -
+  Behind `platform_sl_embed_modal_escape_isolation`: the Smart Link embed preview modal now only
+  handles Escape while it is the active layer, i.e. it is in front of the modal dialog stack and
+  focus is inside it (or fell back to the body after last being inside it). A dialog opened on top
+  of the preview, such as a Share dialog, now closes on Escape instead of the preview.
+
+## 46.8.1
+
+### Patch Changes
+
+- [`c42a7e002d68c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c42a7e002d68c) -
+  Remove the released billplat_a11y_icon_label_fix gate and always give Confluence and Jira
+  decorative icons an empty label.
+
 ## 46.8.0
 
 ### Minor Changes

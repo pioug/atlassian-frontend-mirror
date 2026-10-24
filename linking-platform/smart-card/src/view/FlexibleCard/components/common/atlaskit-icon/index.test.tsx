@@ -119,9 +119,7 @@ describe('AtlaskitIcon', () => {
 		);
 	});
 
-	it('passes an empty label to ConfluenceIcon and JiraIcon when billplat_a11y_icon_label_fix is on', () => {
-		passGate('billplat_a11y_icon_label_fix');
-
+	it('passes an empty label to ConfluenceIcon and JiraIcon', () => {
 		render(
 			<>
 				<AtlaskitIcon icon={IconType.Confluence} testId="confluence-icon" />

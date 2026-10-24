@@ -33,7 +33,4 @@ snapshotInformational(JiraSearchContainerVR, {
 		await page.getByTestId('jlol-basic-filter-project-trigger').click();
 		await projectPopup.waitFor({ state: 'hidden' });
 	},
-	featureFlags: {
-		platform_lp_jira_searchbar_wrap_a11y: true,
-	},
 });

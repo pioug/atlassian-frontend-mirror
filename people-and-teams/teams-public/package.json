@@ -25,17 +25,17 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./confluence-icon": "./src/common/assets/confluence-icon.ts",
-		"./ConfluenceIcon": "./src/common/assets/ConfluenceIcon.svg",
+		"./ConfluenceIcon": "./src/common/assets/confluence-icon.ts",
 		"./container-icon": "./src/common/ui/container-icon/index.tsx",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
 		"./jira-icon": "./src/common/assets/jira-icon.ts",
-		"./JiraIcon": "./src/common/assets/JiraIcon.svg",
+		"./JiraIcon": "./src/common/assets/jira-icon.ts",
 		"./loom-avatar/main": "./src/common/ui/loom-avatar/main.tsx",
 		"./loom-icon": "./src/common/assets/loom-icon.ts",
-		"./LoomIcon": "./src/common/assets/LoomIcon.svg",
+		"./LoomIcon": "./src/common/assets/loom-icon.ts",
 		"./main": "./src/ui/team-containers/main.tsx",
 		"./next/add-container-card": "./src/next/ui/team-containers/add-container-card/index.tsx",
 		"./next/team-container-skeleton": "./src/next/common/ui/team-container-skeleton/index.tsx",
@@ -118,7 +118,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.6.1",
+	"version": "3.6.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

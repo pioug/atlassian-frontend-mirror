@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "39.2.6",
+	"version": "39.2.7",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -110,7 +110,6 @@
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/chunkinator": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
-		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -137,7 +136,6 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
-		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@emotion/react": "root:*",

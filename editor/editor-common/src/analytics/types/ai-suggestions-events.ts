@@ -67,6 +67,7 @@ type RegenerationSuggestionDetails = SuggestionRemixAttributes &
 	TimeSinceGenerationAttribute & {
 		actionKind: string;
 		outcome?: AiSuggestionsRegenerationOutcome;
+		singleInstrumentationId?: string;
 		suggestionId: string;
 		suggestionType?: string;
 	};
@@ -83,6 +84,7 @@ type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
 	{
+		singleInstrumentationId?: string;
 		suggestionType?: string;
 		toolCalls: {
 			localIds: string[];
@@ -175,6 +177,7 @@ type SuggestionLifecycleAttributes = SuggestionRemixAttributes &
 		agentId?: string;
 		hasSources: boolean;
 		interactionPoint: AiSuggestionInteractionPoint;
+		singleInstrumentationId?: string;
 		suggestionId: string;
 		suggestionType?: string;
 	};
@@ -197,6 +200,7 @@ type UndoAcceptedSuggestionAEP = TrackAEP<
 	undefined,
 	TimeSinceGenerationAttribute & {
 		actionKind: string;
+		singleInstrumentationId?: string;
 		suggestionId: string;
 		suggestionType?: string;
 	},
@@ -267,6 +271,7 @@ type RightRailViewedAEP = TrackAEP<
 				TimeSinceGenerationAttribute & {
 					actionKind: string;
 					affectedBlocks: number;
+					singleInstrumentationId?: string;
 					suggestionType?: string;
 				}
 		>;
@@ -294,6 +299,7 @@ type ViewSuggestionReasoningAEP = TrackAEP<
 			hasSources: boolean;
 			interactionPoint: AiSuggestionInteractionPoint;
 			reasoningCharacterCount: number;
+			singleInstrumentationId?: string;
 			suggestionId: string;
 			suggestionType?: string;
 		},
@@ -314,6 +320,7 @@ type SuggestionsGeneratedAEP = TrackAEP<
 				affectedBlocks: number;
 				agentId?: string;
 				hasSources: boolean;
+				singleInstrumentationId?: string;
 				suggestionId: string;
 				suggestionType?: string;
 			}

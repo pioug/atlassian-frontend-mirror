@@ -337,7 +337,8 @@ describe('smart-card: card states, flexible', () => {
 			const message = screen.queryByTestId('auth-flow-disabled-errored-view-message');
 
 			expect(view).toBeTruthy();
-			expect(icon.getAttribute('aria-label')).toBe('Confluence');
+			expect(icon).toHaveAttribute('aria-hidden', 'true');
+			expect(icon).not.toHaveAttribute('aria-label');
 			expect(link).toHaveTextContent(mockUrl);
 			expect(message).not.toBeInTheDocument();
 			expect(mockOnError).toHaveBeenCalledWith({

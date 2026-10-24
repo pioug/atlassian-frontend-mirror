@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 133.7.2
+
+### Patch Changes
+
+- [`ba1d65046dd55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba1d65046dd55) -
+  Include optional originating generation batch instrumentation in suggestion analytics.
+
+## 133.7.1
+
+### Patch Changes
+
+- [`f546ba7760cde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f546ba7760cde) -
+  Clean up experiment confluence_native_tabs_m15: MultiBodiedExtension now always moves the
+  selection into the target frame on `changeActive` and always shows the empty frame placeholder.
+- Updated dependencies
+
 ## 133.7.0
 
 ### Minor Changes

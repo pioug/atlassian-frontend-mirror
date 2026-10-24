@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 246.1.0
+
+### Minor Changes
+
+- [`cf059694d5f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf059694d5f47) -
+  Remove the shipped experiment `confluence_quick_insert_embeds` from the editor experiments config.
+  Any remaining reference to this key will fail to type check; remove it and keep the shipped
+  behaviour.
+
 ## 246.0.0
 
 ### Major Changes

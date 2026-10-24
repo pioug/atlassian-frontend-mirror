@@ -195,8 +195,115 @@ describe('DateTimePicker', () => {
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
-	it('should not parse the date time value into the specified timezone', () => {
+	it('preserves a supplied numeric offset when editing a date', () => {
 		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		render(createDateTimePicker({ value: '2018-05-02T08:00:00.000+0800', onChange: onChange }));
+
+		firePickerEvent.changeDate('02/05/2018');
+
+		expect(onChange.mock.calls[0][0]).toBe('2018-02-05T08:00+0800');
+	});
+
+	it('recalculates an implicit local offset when editing across a DST boundary', () => {
+		const getTimezoneOffset = jest
+			.spyOn(Date.prototype, 'getTimezoneOffset')
+			.mockImplementation(function (this: Date) {
+				return this.getMonth() >= 2 && this.getMonth() <= 10 ? 240 : 300;
+			});
+
+		try {
+			const onChange = jest.fn();
+			passGate('platform-dst-dtp-preserve-offset');
+			render(createDateTimePicker({ value: '2017-01-15T08:00', onChange: onChange }));
+
+			firePickerEvent.changeDate('07/15/2017');
+
+			expect(onChange.mock.calls[0][0]).toBe('2017-07-15T08:00-0400');
+		} finally {
+			getTimezoneOffset.mockRestore();
+		}
+	});
+
+	it('preserves Z when editing a date', () => {
+		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		render(createDateTimePicker({ value: '2018-05-02T08:00:00.000Z', onChange: onChange }));
+
+		firePickerEvent.changeDate('02/05/2018');
+
+		expect(onChange.mock.calls[0][0]).toBe('2018-02-05T08:00Z');
+	});
+
+	it.each([
+		['a negative numeric offset', '-0800'],
+		['a colon-form offset', '+08:00'],
+		['an hour-only offset', '+08'],
+	])('preserves %s when editing a date', (_description, offset) => {
+		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		render(createDateTimePicker({ value: `2018-05-02T08:00:00.000${offset}`, onChange: onChange }));
+
+		firePickerEvent.changeDate('02/05/2018');
+
+		expect(onChange.mock.calls[0][0]).toBe(`2018-02-05T08:00${offset}`);
+	});
+
+	it.each(['+0800', 'Z'])('preserves %s when editing time', async (offset) => {
+		const user = userEvent.setup();
+		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		render(createDateTimePicker({ value: `2018-05-02T08:00:00.000${offset}`, onChange: onChange }));
+
+		await firePickerEvent.changeTime('09:30', user);
+
+		expect(onChange.mock.calls[0][0]).toBe(`2018-05-02T09:30${offset}`);
+	});
+
+	it('preserves an offset from a controlled value update', () => {
+		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		const { rerender } = render(
+			createDateTimePicker({ value: '2018-05-02T08:00:00.000+0800', onChange: onChange }),
+		);
+
+		rerender(createDateTimePicker({ value: '2018-05-02T08:00:00.000-0800', onChange: onChange }));
+		firePickerEvent.changeDate('02/05/2018');
+
+		expect(onChange.mock.calls[0][0]).toBe('2018-02-05T08:00-0800');
+	});
+
+	it('preserves an offset from a default value', () => {
+		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		render(
+			createDateTimePicker({ defaultValue: '2018-05-02T08:00:00.000+08:00', onChange: onChange }),
+		);
+
+		firePickerEvent.changeDate('02/05/2018');
+
+		expect(onChange.mock.calls[0][0]).toBe('2018-02-05T08:00+08:00');
+	});
+
+	it('does not preserve a malformed offset', () => {
+		const onChange = jest.fn();
+		passGate('platform-dst-dtp-preserve-offset');
+		render(
+			createDateTimePicker({
+				value: '2018-05-02T08:00:00.000+08:00invalid',
+				onChange: onChange,
+			}),
+		);
+
+		firePickerEvent.changeDate('02/05/2018');
+
+		expect(onChange.mock.calls[0][0]).toBe('');
+		expect(onChange).toHaveBeenCalledTimes(1);
+	});
+
+	it('keeps host-local parsing while offset preservation gate is disabled', () => {
+		const onChange = jest.fn();
+		failGate('platform-dst-dtp-preserve-offset');
 		render(createDateTimePicker({ value: '2018-05-02T08:00:00.000+0800', onChange: onChange }));
 
 		firePickerEvent.changeDate('02/05/2018');
@@ -261,6 +368,7 @@ describe('DateTimePicker', () => {
 		const user = userEvent.setup();
 		const onChange = jest.fn();
 		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+		passGate('platform-dst-dtp-preserve-offset');
 
 		render(createDateTimePicker({ value: dateTimeValue, onChange: onChange }));
 
@@ -277,6 +385,7 @@ describe('DateTimePicker', () => {
 		const user = userEvent.setup();
 		const onChange = jest.fn();
 		const dateTimeValue = '2018-05-02T08:00:00.000+0800';
+		passGate('platform-dst-dtp-preserve-offset');
 
 		render(createDateTimePicker({ defaultValue: dateTimeValue, onChange: onChange }));
 

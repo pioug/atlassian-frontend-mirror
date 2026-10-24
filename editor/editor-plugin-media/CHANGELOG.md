@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 31.0.7
+
+### Patch Changes
+
+- [`9b0d5710e9cfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b0d5710e9cfe) -
+  [ux] Apply background-removal results from original transparent PNGs without changing the selected
+  image dimensions or layout, and complete the replacement lifecycle behind
+  `cc_image_remove_background`.
+
+  Hydrate image metadata without waiting for the analytics context provider behind the same
+  experiment.
+
 ## 31.0.6
 
 ### Patch Changes

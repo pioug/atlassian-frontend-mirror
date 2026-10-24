@@ -23,7 +23,6 @@ import type {
 	ProcessingFileState,
 } from '@atlaskit/media-state/file-state';
 import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { RECENTS_COLLECTION } from '../../constants';
@@ -487,9 +486,8 @@ export class FileFetcherImpl implements FileFetcher {
 			}
 
 			const { type, size } = blob;
-			const extensionAllowed = anonymizeFilename
-				? isExperimentEnabled('cc_maui_polish_changes_batch_8')
-				: fg('platform_media_unique_external_upload_name');
+			const extensionAllowed =
+				anonymizeFilename || fg('platform_media_unique_external_upload_name');
 			const [, existingExtension] = splitExtension(initialName);
 			const extension = extensionAllowed && !existingExtension ? getExtension(type) : undefined;
 			const name = extension ? `${initialName}.${extension}` : initialName;

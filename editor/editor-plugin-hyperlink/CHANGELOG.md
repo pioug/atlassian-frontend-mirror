@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 31.0.5
+
+### Patch Changes
+
+- [`cf059694d5f47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf059694d5f47) -
+  Clean up experiment `confluence_quick_insert_embeds`. The `/link` quick-insert item priority is
+  back to its pre-experiment value (`1200`).
+- Updated dependencies
+
 ## 31.0.4
 
 ### Patch Changes

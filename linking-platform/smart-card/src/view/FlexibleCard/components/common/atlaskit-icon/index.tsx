@@ -168,7 +168,7 @@ const AtlaskitIcon = ({
 				<ConfluenceIcon
 					appearance="brand"
 					testId={testId}
-					{...(fg('billplat_a11y_icon_label_fix') ? { label: '' } : undefined)}
+					label=""
 					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
 				/>
 			);
@@ -177,7 +177,7 @@ const AtlaskitIcon = ({
 				<JiraIcon
 					appearance="brand"
 					testId={testId}
-					{...(fg('billplat_a11y_icon_label_fix') ? { label: '' } : undefined)}
+					label=""
 					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
 				/>
 			);

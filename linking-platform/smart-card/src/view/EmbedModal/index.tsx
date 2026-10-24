@@ -148,20 +148,58 @@ const EmbedModal = ({
 	// `window` keydown listeners, so without this they would all close on a single Escape press.
 	// Handle Escape during the capture phase on `window`, close only this modal, and stop the event
 	// before it reaches the layers underneath.
+	// Only claim Escape while this modal is the active layer, so a dialog opened on top of it (e.g. a
+	// Share dialog from the page underneath) keeps its Escape:
+	// - it is in front of the modal dialog stack, which is shared across React roots (the same rule
+	//   `ModalDialog` uses to decide whether it closes on Escape), and
+	// - focus is inside it, or focus fell back to `<body>` after last being inside it (as the
+	//   top-layer `Dialog` decides), which covers layers on top that are not modal dialogs.
+	const dialogRef = useRef<HTMLElement>(null);
+	// A newly opened modal dialog starts in front of the stack; `onStackChange` reports later moves.
+	const stackIndexRef = useRef(0);
+	const handleOnStackChange = useCallback((stackIndex: number) => {
+		stackIndexRef.current = stackIndex;
+	}, []);
 	useEffect(() => {
 		if (!isOpen || !fg('platform_sl_embed_modal_escape_isolation')) {
 			return;
 		}
+		const isInsideDialog = (node: EventTarget | null) =>
+			node instanceof Node && Boolean(dialogRef.current?.contains(node));
+
+		let wasLastFocused = isInsideDialog(dialogRef.current?.ownerDocument.activeElement ?? null);
+		const handleFocusIn = (event: FocusEvent) => {
+			wasLastFocused = isInsideDialog(event.target);
+		};
+		const isOwnEscape = (event: KeyboardEvent) => {
+			const dialog = dialogRef.current;
+			if (!dialog) {
+				return false;
+			}
+			if (event.target instanceof HTMLBodyElement || event.target instanceof HTMLHtmlElement) {
+				return wasLastFocused;
+			}
+			return event.composedPath().includes(dialog);
+		};
 		const handleEscapeKeyDown = (event: KeyboardEvent) => {
-			if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing) {
+			if (
+				event.key !== 'Escape' ||
+				event.defaultPrevented ||
+				event.isComposing ||
+				stackIndexRef.current !== 0 ||
+				!isOwnEscape(event)
+			) {
 				return;
 			}
 			event.stopPropagation();
 			handleOnClose();
 		};
+		window.addEventListener('focusin', handleFocusIn, { capture: true });
 		window.addEventListener('keydown', handleEscapeKeyDown, { capture: true });
 		return () => {
+			window.removeEventListener('focusin', handleFocusIn, { capture: true });
 			window.removeEventListener('keydown', handleEscapeKeyDown, { capture: true });
+			stackIndexRef.current = 0;
 		};
 	}, [isOpen, handleOnClose]);
 
@@ -170,10 +208,12 @@ const EmbedModal = ({
 			{isOpen && (
 				// eslint-disable-next-line @atlaskit/design-system/no-modal-label
 				<ModalDialog
+					ref={dialogRef}
 					height="100%"
 					onClose={handleOnClose}
 					onCloseComplete={handleOnCloseComplete}
 					onOpenComplete={handleOnOpenComplete}
+					onStackChange={handleOnStackChange}
 					testId={testId}
 					width={width}
 					label={title}

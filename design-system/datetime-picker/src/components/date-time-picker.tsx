@@ -111,6 +111,52 @@ type DateTimeState = {
 	zoneValue: string;
 };
 
+const hasExplicitZone = (value: string): boolean =>
+	value.endsWith('Z') || Math.max(value.lastIndexOf('+'), value.lastIndexOf('-')) > 15;
+
+const parseDateTimeValueWithOffset = (
+	value: string,
+): Pick<DateTimeState, 'dateValue' | 'timeValue' | 'zoneValue'> | undefined => {
+	const parsed = parseISO(value);
+	const zoneStart = value.endsWith('Z')
+		? value.length - 1
+		: Math.max(value.lastIndexOf('+'), value.lastIndexOf('-'));
+
+	if (!isValid(parsed) || value[10] !== 'T' || zoneStart <= 15) {
+		return undefined;
+	}
+
+	const zoneValue = value.slice(zoneStart);
+	if (!/^(?:Z|[+-]\d{2}(?::?\d{2})?)$/.test(zoneValue)) {
+		return undefined;
+	}
+
+	return {
+		dateValue: value.slice(0, 10),
+		timeValue: value.slice(11, 16),
+		zoneValue,
+	};
+};
+
+const parseDateTimeValue = (
+	value: string,
+): Pick<DateTimeState, 'dateValue' | 'timeValue' | 'zoneValue'> | undefined => {
+	if (fg('platform-dst-dtp-preserve-offset')) {
+		if (hasExplicitZone(value)) {
+			return parseDateTimeValueWithOffset(value);
+		}
+	}
+
+	const parsed = parseISO(value);
+	return isValid(parsed)
+		? {
+				dateValue: format(parsed, convertTokens('YYYY-MM-DD')),
+				timeValue: format(parsed, convertTokens('HH:mm')),
+				zoneValue: format(parsed, convertTokens('ZZ')),
+			}
+		: undefined;
+};
+
 /**
  * Two action types keep the reducer focused:
  *
@@ -173,6 +219,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 	) => {
 		const [isFocused, setIsFocused] = useState<boolean>(false);
 		const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
+		const isZoneExplicitRef = useRef(false);
 
 		/**
 		 * Defined inside the component so the reducer closes over `providedParseValue`
@@ -210,14 +257,9 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 								};
 					}
 
-					const parsed = parseISO(newValue);
-					return isValid(parsed)
-						? {
-								value: newValue,
-								dateValue: format(parsed, convertTokens('YYYY-MM-DD')),
-								timeValue: format(parsed, convertTokens('HH:mm')),
-								zoneValue: format(parsed, convertTokens('ZZ')),
-							}
+					const parsed = parseDateTimeValue(newValue);
+					return parsed
+						? { value: newValue, ...parsed }
 						: { value: newValue, dateValue: '', timeValue: '', zoneValue: '' };
 				}
 
@@ -228,6 +270,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 
 		const [dtState, dispatch] = useReducer(reducer, null, (): DateTimeState => {
 			const initialValue = providedValue ?? defaultValue ?? '';
+			isZoneExplicitRef.current = hasExplicitZone(initialValue);
 			const initialDate = datePickerPropsWithSelectProps?.defaultValue || '';
 			const initialTime = timePickerPropsWithSelectProps?.defaultValue || '';
 
@@ -242,14 +285,9 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 					: { value: initialValue, dateValue: initialDate, timeValue: initialTime, zoneValue: '' };
 			}
 
-			const parsed = parseISO(initialValue);
-			return isValid(parsed)
-				? {
-						value: initialValue,
-						dateValue: format(parsed, convertTokens('YYYY-MM-DD')),
-						timeValue: format(parsed, convertTokens('HH:mm')),
-						zoneValue: format(parsed, convertTokens('ZZ')),
-					}
+			const parsed = parseDateTimeValue(initialValue);
+			return parsed
+				? { value: initialValue, ...parsed }
 				: { value: initialValue, dateValue: initialDate, timeValue: initialTime, zoneValue: '' };
 		});
 
@@ -259,6 +297,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 		// `undefined` to the `value` prop will not clear the hidden input and will
 		// cause unexpected issues.
 		const hasReceivedProvidedValue = useRef(providedValue !== undefined);
+		const lastEmittedValueRef = useRef<string | undefined>();
 		// We don't want to set the state on the first render, as it would
 		// needlessly be a duplicate.
 		const isFirstRender = useRef(true);
@@ -271,9 +310,14 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 
 			if (providedValue !== undefined) {
 				hasReceivedProvidedValue.current = true;
+				if (providedValue !== lastEmittedValueRef.current) {
+					isZoneExplicitRef.current = hasExplicitZone(providedValue);
+				}
 				dispatch({ type: 'SET_VALUE', payload: providedValue });
 			} else if (hasReceivedProvidedValue.current) {
 				hasReceivedProvidedValue.current = false;
+				isZoneExplicitRef.current = false;
+				lastEmittedValueRef.current = undefined;
 				dispatch({ type: 'SET_VALUE', payload: '' });
 			}
 		}, [providedValue]);
@@ -307,19 +351,15 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 					);
 				}
 
-				const parsed = parseISO(value);
+				const parsed = parseDateTimeValue(value);
 
-				return isValid(parsed)
-					? {
-							dateValue: format(parsed, convertTokens('YYYY-MM-DD')),
-							timeValue: format(parsed, convertTokens('HH:mm')),
-							zoneValue: format(parsed, convertTokens('ZZ')),
-						}
-					: {
-							dateValue: dtState.dateValue,
-							timeValue: dtState.timeValue,
-							zoneValue: dtState.zoneValue,
-						};
+				return (
+					parsed || {
+						dateValue: dtState.dateValue,
+						timeValue: dtState.timeValue,
+						zoneValue: dtState.zoneValue,
+					}
+				);
 			},
 			[providedParseValue, dtState.dateValue, dtState.timeValue, dtState.zoneValue],
 		);
@@ -432,8 +472,14 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 					providedTimeValue,
 					providedZoneValue,
 				);
+				const valueToParse =
+					fg('platform-dst-dtp-preserve-offset') &&
+					!providedParseValue &&
+					!isZoneExplicitRef.current
+						? formatDateTimeZoneIntoIso(providedDateValue, providedTimeValue, '')
+						: isoValue;
 				const { zoneValue: parsedZone } = parseValue(
-					isoValue,
+					valueToParse,
 					providedDateValue,
 					providedTimeValue,
 					providedZoneValue,
@@ -452,6 +498,7 @@ const DateTimePicker: React.ForwardRefExoticComponent<
 						zoneValue: parsedZone,
 					},
 				});
+				lastEmittedValueRef.current = valueWithValidZone;
 				onChangePropWithAnalytics(valueWithValidZone);
 				// If the date or time value was cleared when there is an existing datetime value, then clear the value.
 			} else if (dtState.value) {

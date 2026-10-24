@@ -4,7 +4,6 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTION } from '../../analytics';
@@ -43,9 +42,6 @@ export const useMultiBodiedExtensionActions = ({
 				}
 
 				const selection = options?.selection ?? 'none';
-				if (selection === 'none' && !isExperimentEnabled('confluence_native_tabs_m15')) {
-					return updateActiveChildResult;
-				}
 
 				const pos = getPos();
 				if (typeof pos !== 'number') {

@@ -26,6 +26,7 @@ import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { FileState } from '@atlaskit/media-client/media-state';
 import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { getClientIdForFile } from '@atlaskit/media-common/clientIdCache';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
@@ -160,13 +161,20 @@ export class MediaNodeUpdater {
 			return;
 		}
 
-		const contextId = this.getNodeContextId() || (await this.getObjectId());
+		// File metadata must not wait for the analytics context's space ID. MediaSingle
+		// resolves the context separately through updateContextId in mediaAsyncOperations.
+		const contextAttrs =
+			this.props.isMediaSingle &&
+			UNSAFE_expValNoExposure('cc_image_remove_background', 'isEnabled', false)
+				? {}
+				: { __contextId: this.getNodeContextId() || (await this.getObjectId()) };
+
 		const { name, mimeType, size } = fileState;
 		const newAttrs = {
 			__fileName: name,
 			__fileMimeType: mimeType,
 			__fileSize: size,
-			__contextId: contextId,
+			...contextAttrs,
 		};
 
 		if (!hasPrivateAttrsChanged(attrs, newAttrs)) {
@@ -656,7 +664,7 @@ const hasPrivateAttrsChanged = (
 		currentAttrs.__fileName !== newAttrs.__fileName ||
 		currentAttrs.__fileMimeType !== newAttrs.__fileMimeType ||
 		currentAttrs.__fileSize !== newAttrs.__fileSize ||
-		currentAttrs.__contextId !== newAttrs.__contextId
+		('__contextId' in newAttrs && currentAttrs.__contextId !== newAttrs.__contextId)
 	);
 };
 

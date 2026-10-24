@@ -16,8 +16,6 @@ import { authToOwner } from '@atlaskit/media-core/auth-to-owner';
 import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
@@ -1478,7 +1476,6 @@ describe('FileFetcher', () => {
 
 		it('should use a UUID as the file name instead of extracting from the URL when anonymizeFilename is true', async () => {
 			const { fileFetcher } = setup();
-			mockExpDisabled('cc_maui_polish_changes_batch_8');
 
 			fileFetcher.uploadExternal('domain.com/path/file_name.mov', undefined, undefined, true);
 
@@ -1502,7 +1499,6 @@ describe('FileFetcher', () => {
 		it('should append an extension derived from the MIME type to an anonymized filename', async () => {
 			const { fileFetcher } = setup();
 			const uploadSpy = jest.spyOn(fileFetcher, 'upload');
-			mockExpEnabled('cc_maui_polish_changes_batch_8');
 			fetchMock.mock(
 				'https://example.com/path/raw_image_blob',
 				{
@@ -1645,22 +1641,9 @@ describe('FileFetcher', () => {
 				);
 			});
 
-			// The gate is never read for anonymized uploads, so these pin the behaviour that the
-			// new naming path must not disturb, across both cohorts of the experiment that
-			// branches this same step.
-			it('should leave anonymized names unchanged when the experiment is disabled', async () => {
-				mockExpDisabled('cc_maui_polish_changes_batch_8');
-				const { fileFetcher } = setup();
-				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
-				mockPngResponse(binaryUrl);
-
-				await fileFetcher.uploadExternal(binaryUrl, undefined, undefined, true);
-
-				expect(uploadedNames(uploadSpy)[0]).toMatch(new RegExp(`^${UUID_PATTERN}$`, 'i'));
-			});
-
-			it('should leave anonymized names unchanged when the experiment is enabled', async () => {
-				mockExpEnabled('cc_maui_polish_changes_batch_8');
+			// The gate is never read for anonymized uploads, so this pins the behaviour that the
+			// new naming path must not disturb.
+			it('should leave anonymized names unchanged by the unique-name gate', async () => {
 				const { fileFetcher } = setup();
 				const uploadSpy = jest.spyOn(fileFetcher, 'upload');
 				mockPngResponse(binaryUrl);

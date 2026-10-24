@@ -1,5 +1,12 @@
 # @atlaskit/teams-public
 
+## 3.6.2
+
+### Patch Changes
+
+- [`8c035d0133898`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c035d0133898) -
+  Point equivalent icon exports at the same typed SVG URL entrypoints.
+
 ## 3.6.1
 
 ### Patch Changes

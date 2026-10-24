@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 39.2.7
+
+### Patch Changes
+
+- [`c33f58ae5e045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c33f58ae5e045) -
+  Clean up experiment cc_maui_polish_changes_batch_8. Anonymized Rovo image uploads now always get a
+  MIME-derived file extension.
+
 ## 39.2.6
 
 ### Patch Changes

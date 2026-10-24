@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 7.6.1
+
+### Patch Changes
+
+- [`a0cff3f424826`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0cff3f424826) -
+  Remove the released platform_lp_jira_searchbar_wrap_a11y gate and always allow the basic search
+  input and filters to wrap with row spacing.
+- Updated dependencies
+
 ## 7.6.0
 
 ### Minor Changes

@@ -16,7 +16,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/core/file';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -136,13 +135,11 @@ const MultiBodiedExtensionFrames = ({
 	activeChildIndex,
 	articleRef,
 	emptyFramePlaceholderText,
-	shouldShowEmptyFramePlaceholder,
 	showMacroInteractionDesignUpdates,
 }: {
 	activeChildIndex: number;
 	articleRef: (node: HTMLElement | null) => void;
 	emptyFramePlaceholderText: string;
-	shouldShowEmptyFramePlaceholder: boolean;
 	showMacroInteractionDesignUpdates?: boolean;
 }) => {
 	return (
@@ -152,8 +149,7 @@ const MultiBodiedExtensionFrames = ({
 			css={[
 				/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
 				getFramesActiveFrameStyles(activeChildIndex, showMacroInteractionDesignUpdates),
-				shouldShowEmptyFramePlaceholder &&
-					getEmptyFramePlaceholderStyles(activeChildIndex, emptyFramePlaceholderText),
+				getEmptyFramePlaceholderStyles(activeChildIndex, emptyFramePlaceholderText),
 				/* eslint-enable @atlaskit/design-system/consistent-css-prop-usage */
 			]}
 			data-testid="multiBodiedExtension--frames"
@@ -339,7 +335,6 @@ const MultiBodiedExtensionWithWidth = ({
 		[handleContentDOMRef],
 	);
 
-	const shouldShowEmptyFramePlaceholder = isExperimentEnabled('confluence_native_tabs_m15');
 	const emptyFramePlaceholderText = React.useMemo(
 		() =>
 			JSON.stringify(
@@ -354,17 +349,10 @@ const MultiBodiedExtensionWithWidth = ({
 				activeChildIndex={activeChildIndex}
 				articleRef={articleRef}
 				emptyFramePlaceholderText={emptyFramePlaceholderText}
-				shouldShowEmptyFramePlaceholder={shouldShowEmptyFramePlaceholder}
 				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 			/>
 		);
-	}, [
-		activeChildIndex,
-		articleRef,
-		emptyFramePlaceholderText,
-		shouldShowEmptyFramePlaceholder,
-		showMacroInteractionDesignUpdates,
-	]);
+	}, [activeChildIndex, articleRef, emptyFramePlaceholderText, showMacroInteractionDesignUpdates]);
 
 	const actions = useMultiBodiedExtensionActions({
 		updateActiveChild,

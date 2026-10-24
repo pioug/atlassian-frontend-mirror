@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 19.4.1
+
+### Patch Changes
+
+- [`efaa75ad1bb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efaa75ad1bb94) -
+  Preserve supplied ISO offsets when editing datetime values behind
+  `platform-dst-dtp-preserve-offset`.
+
 ## 19.4.0
 
 ### Minor Changes

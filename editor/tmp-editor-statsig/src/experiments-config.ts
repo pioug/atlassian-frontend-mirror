@@ -194,16 +194,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-05
-	confluence_quick_insert_embeds: {
-		defaultValue: 'control' | 'prioritizeLinkInQIM' | 'prioritizeEmbedInQIM';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (
-			value: unknown,
-		) => value is 'control' | 'prioritizeLinkInQIM' | 'prioritizeEmbedInQIM';
-		values: ('control' | 'prioritizeLinkInQIM' | 'prioritizeEmbedInQIM')[];
-	};
 	confluence_remix_icon_right_side: {
 		defaultValue: boolean;
 		param: string;
@@ -873,14 +863,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	confluence_quick_insert_embeds: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'confluence_quick_insert_embeds',
-		},
-		param: 'cohort',
-		values: ['control', 'prioritizeLinkInQIM', 'prioritizeEmbedInQIM'],
-		defaultValue: 'control',
 	}),
 	confluence_remix_icon_right_side: createBooleanExperiment({
 		productKeys: {

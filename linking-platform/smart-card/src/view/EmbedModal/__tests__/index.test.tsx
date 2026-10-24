@@ -9,6 +9,7 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
@@ -370,6 +371,128 @@ describe('EmbedModal', () => {
 			await user.keyboard('{Escape}');
 
 			expect(underlyingLayerOnEscape).toHaveBeenCalledTimes(1);
+		});
+
+		describe('with a modal dialog opened on top of the modal', () => {
+			// A modal dialog opened from the page underneath after the preview (e.g. a Share dialog). It is
+			// rendered in a separate React root, like the page that opens it.
+			const renderForegroundModal = (onClose: () => void) =>
+				render(
+					<ModalDialog onClose={onClose} label="Share">
+						<button type="button">Share</button>
+					</ModalDialog>,
+				);
+
+			it('lets the modal dialog on top handle Escape when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+				passGate('platform_sl_embed_modal_escape_isolation');
+				const onClose = jest.fn();
+				const foregroundOnClose = jest.fn();
+				renderEmbedModal({ onClose, invokeViewAction });
+				await screen.findByTestId(testId);
+
+				renderForegroundModal(foregroundOnClose);
+				await screen.findByRole('button', { name: 'Share' });
+				// Even if the key press comes from inside the preview (e.g. focus did not move to the modal on
+				// top), the modal on top owns Escape. The preview is hidden from assistive technology while it
+				// is behind another modal.
+				const previewButton = within(screen.getByTestId(testId)).getAllByRole('button', {
+					hidden: true,
+				})[0];
+				previewButton.dispatchEvent(
+					new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }),
+				);
+
+				expect(foregroundOnClose).toHaveBeenCalledTimes(1);
+				expect(screen.getByTestId(testId)).toBeInTheDocument();
+				expect(onClose).not.toHaveBeenCalled();
+			});
+
+			it('handles Escape again once the modal dialog on top has closed when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+				passGate('platform_sl_embed_modal_escape_isolation');
+				const onClose = jest.fn();
+				renderEmbedModal({ onClose, invokeViewAction });
+				await screen.findByTestId(testId);
+
+				const { unmount } = renderForegroundModal(jest.fn());
+				await screen.findByRole('button', { name: 'Share' });
+				unmount();
+				within(screen.getByTestId(testId)).getAllByRole('button')[0].focus();
+				await user.keyboard('{Escape}');
+				await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+				expect(underlyingLayerOnEscape).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('with a non-modal layer on top of the modal that holds focus', () => {
+			// A layer that is not a modal dialog, so it is not in the modal dialog stack. It holds focus
+			// and claims Escape before `window` bubble listeners run.
+			let foregroundDialog: HTMLElement;
+			let foregroundOnEscape: jest.Mock;
+
+			beforeEach(() => {
+				foregroundOnEscape = jest.fn();
+				foregroundDialog = document.createElement('div');
+				foregroundDialog.setAttribute('role', 'dialog');
+				foregroundDialog.setAttribute('data-no-focus-lock', 'true');
+				const button = document.createElement('button');
+				button.textContent = 'Share';
+				foregroundDialog.appendChild(button);
+				foregroundDialog.addEventListener('keydown', (event) => {
+					if (event.key === 'Escape') {
+						event.stopPropagation();
+						foregroundOnEscape();
+					}
+				});
+				document.body.appendChild(foregroundDialog);
+			});
+
+			afterEach(() => {
+				foregroundDialog.remove();
+			});
+
+			it('lets the layer on top handle Escape when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+				passGate('platform_sl_embed_modal_escape_isolation');
+				const onClose = jest.fn();
+				renderEmbedModal({ onClose });
+				await screen.findByTestId(testId);
+
+				within(foregroundDialog).getByRole('button', { name: 'Share' }).focus();
+				await user.keyboard('{Escape}');
+
+				expect(foregroundOnEscape).toHaveBeenCalledTimes(1);
+				expect(screen.getByTestId(testId)).toBeInTheDocument();
+				expect(onClose).not.toHaveBeenCalled();
+			});
+
+			it('does not claim Escape when focus falls back to the body after leaving the modal when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+				passGate('platform_sl_embed_modal_escape_isolation');
+				renderEmbedModal();
+				await screen.findByTestId(testId);
+
+				within(foregroundDialog).getByRole('button', { name: 'Share' }).focus();
+				foregroundDialog.remove();
+				await user.keyboard('{Escape}');
+
+				expect(underlyingLayerOnEscape).toHaveBeenCalledTimes(1);
+			});
+		});
+
+		it('closes only the modal when focus falls back to the body after being in the modal when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+			passGate('platform_sl_embed_modal_escape_isolation');
+			const onClose = jest.fn();
+			renderEmbedModal({ onClose, invokeViewAction });
+			await screen.findByTestId(testId);
+
+			const modal = screen.getByTestId(testId);
+			within(modal).getAllByRole('button')[0].focus();
+			(document.activeElement as HTMLElement | null)?.blur();
+			await user.keyboard('{Escape}');
+			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(underlyingLayerOnEscape).not.toHaveBeenCalled();
 		});
 
 		it('closes the modal and the layer underneath when platform_sl_embed_modal_escape_isolation is disabled', async () => {

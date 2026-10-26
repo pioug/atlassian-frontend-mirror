@@ -34,6 +34,11 @@ export type { CustomMotionXCSS } from './use-motion';
 
 type MotionState = 'init' | 'entering' | 'exiting' | 'idle';
 
+const initialStateByAction = {
+	enter: 'visible',
+	exit: 'hidden',
+} as const;
+
 const styles = cssMap({
 	base: {
 		animationPlayState: 'running',
@@ -98,6 +103,11 @@ export interface MotionProps {
 	 * These are merged with any animation styles managed internally.
 	 */
 	style?: React.CSSProperties;
+
+	/**
+	 * The action to perform on the motion.
+	 */
+	action?: 'enter' | 'exit';
 
 	/**
 	 * A `testId` prop is provided for specified elements,
@@ -346,21 +356,35 @@ const MotionNext: React.ForwardRefExoticComponent<
 			exitingAnimation,
 			exitingAnimationXcss,
 			onFinish: onFinishMotion,
+			action,
 			xcss,
 			style: styleProp,
 			testId,
 		},
 		ref: Ref<any>,
-	): React.JSX.Element => {
+	): React.JSX.Element | null => {
 		const {
 			state,
 			ref: motionRef,
 			reanimate,
 		} = useMotion<HTMLDivElement>({
 			onFinish: onFinishMotion,
+			initialState: action ? initialStateByAction[action] : undefined,
 		});
 
 		useImperativeHandle(ref, () => ({ reanimate }), [reanimate]);
+
+		useEffect(() => {
+			if (action === 'exit' && state !== 'exiting' && state !== 'hidden') {
+				reanimate(Reanimate.exit);
+			} else if (action === 'enter' && (state === 'exiting' || state === 'hidden')) {
+				reanimate(Reanimate.enter);
+			}
+		}, [action, reanimate, state]);
+
+		if (state === 'hidden') {
+			return null;
+		}
 
 		// `xcss` and `style` apply to the wrapper `<div>` the `Motion` component renders,
 		// so they are merged here (not in the hook) alongside the hook's animation output.
@@ -399,7 +423,7 @@ const MotionNext: React.ForwardRefExoticComponent<
  */
 const Motion: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<MotionProps> & React.RefAttributes<any>
-> = forwardRef((props, ref: Ref<any>): React.JSX.Element => {
+> = forwardRef((props, ref: Ref<any>): React.JSX.Element | null => {
 	if (fg('platform-dst-use-motion')) {
 		return <MotionNext {...props} ref={ref} />;
 	}

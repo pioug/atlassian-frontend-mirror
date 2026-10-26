@@ -103,6 +103,12 @@ export interface CardViewProps {
 	readonly shouldOpenMediaViewer?: boolean;
 	readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
 	readonly onFocus?: (event: FocusEvent<HTMLDivElement>) => void;
+	/**
+	 * Fired when the "open in viewer" button receives focus. That button sits outside
+	 * the card wrapper, so its focus never reaches `onFocus`, yet it is how keyboard
+	 * users open the viewer. Internal to the card; not a consumer callback.
+	 */
+	readonly onOpenMediaViewerButtonFocus?: (event: FocusEvent<HTMLButtonElement>) => void;
 	readonly onDisplayImage?: () => void;
 	// FileCardProps
 	readonly cardPreview?: MediaFilePreview;
@@ -160,6 +166,7 @@ export const CardViewBase = ({
 	onClick,
 	onMouseEnter,
 	onFocus,
+	onOpenMediaViewerButtonFocus,
 	testId,
 	metadata,
 	status,
@@ -541,6 +548,7 @@ export const CardViewBase = ({
 					fileName={name ?? ''}
 					innerRef={openMediaViewerButtonRef}
 					onClick={onClick}
+					onFocus={onOpenMediaViewerButtonFocus}
 				/>
 			)}
 			<Wrapper

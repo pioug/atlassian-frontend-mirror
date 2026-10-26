@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 152.2.5
+
+### Patch Changes
+
+- [`6108d3efed54f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6108d3efed54f) -
+  [EDITOR-9812] align spacing for breakout-wrapped dividers between the editor and renderer when
+  `platform_editor_breakout_spacing_in_renderer` is enabled.
+
+## 152.2.4
+
+### Patch Changes
+
+- [`67557f74cffc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67557f74cffc4) -
+  [EDITOR-9048] preserve divider color, style and weight attributes in the renderer behind
+  platform_editor_lovability_dividers_attributes.
+- Updated dependencies
+
 ## 152.2.3
 
 ### Patch Changes

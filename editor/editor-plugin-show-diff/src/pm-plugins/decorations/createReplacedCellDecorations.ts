@@ -9,15 +9,17 @@ import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { RevealOptions } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import type { ColorScheme } from './colorSchemes/types';
+import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createBlockChangedDecoration } from './createBlockChangedDecoration';
 import type { ContributorTagMountContext } from './createContributorTagWidget';
 import { createInlineChangedDecoration } from './createInlineChangedDecoration';
-import { buildDiffDecorationSpec } from './decorationKeys';
+import { buildAnchorDecorationKey, buildDiffDecorationSpec } from './decorationKeys';
 import {
 	isCellAttrChanged,
 	isCellBackgroundChanged,
@@ -33,6 +35,26 @@ export type ReplacedCell = {
 	liveCellPos: number;
 	/** The other side's cell, from the replaced slice. */
 	otherCell: PMNode;
+};
+
+/**
+ * Whether only close tokens follow `pos` in its cell: it is at the end of its parent, and so is each
+ * ancestor up to the cell.
+ */
+const isAtEndOfCell = (doc: PMNode, pos: number): boolean => {
+	const $pos = doc.resolve(pos);
+	if ($pos.parentOffset !== $pos.parent.content.size) {
+		return false;
+	}
+	for (let depth = $pos.depth; depth > 0; depth--) {
+		if (CELL_TYPE_NAMES.includes($pos.node(depth).type.name)) {
+			return true;
+		}
+		if ($pos.indexAfter(depth - 1) !== $pos.node(depth - 1).childCount) {
+			return false;
+		}
+	}
+	return false;
 };
 
 /**
@@ -54,7 +76,8 @@ export const getReplacedCells = ({
 	const otherCells = slice.content.content;
 	if (
 		slice.openStart !== 0 ||
-		slice.openEnd !== 0 ||
+		((!fg('platform_editor_ai_show_diff_patch_2_fix') || !isAtEndOfCell(doc, toB)) &&
+			slice.openEnd !== 0) ||
 		otherCells.length === 0 ||
 		!otherCells.every((node) => CELL_TYPE_NAMES.includes(node.type.name))
 	) {
@@ -161,9 +184,10 @@ const createCellBackgroundLayer = (color: string): HTMLElement => {
 	return layer;
 };
 
-/** The other side's cell content, as blocks, for the top of the live cell. */
-const createCellContentWidget = ({
+/** The other side's cell content, as blocks, for the top of the live cell, with its indicator anchor. */
+const createCellContentWidgets = ({
 	cell,
+	doc,
 	pos,
 	nodeViewSerializer,
 	colorScheme,
@@ -171,16 +195,20 @@ const createCellContentWidget = ({
 	isActive,
 	isInserted,
 	leftAnchorId,
+	showIndicators,
 }: {
 	cell: PMNode;
 	colorScheme?: ColorScheme;
+	/** The document the widget is drawn in, with the live cell at `pos`. */
+	doc: PMNode;
 	intl: IntlShape;
 	isActive?: boolean;
 	isInserted: boolean;
 	leftAnchorId?: string;
 	nodeViewSerializer: NodeViewSerializer;
 	pos: number;
-}): Decoration | undefined => {
+	showIndicators?: boolean;
+}): Decoration[] => {
 	const dom = document.createElement('div');
 	cell.content.forEach((block) => {
 		const nodeView = nodeViewSerializer.tryCreateNodeView(
@@ -208,20 +236,27 @@ const createCellContentWidget = ({
 		}
 	});
 	if (dom.childNodes.length === 0) {
-		return undefined;
+		return [];
 	}
 	dom.setAttribute(
 		'data-testid',
 		isInserted ? 'show-diff-changed-decoration' : 'show-diff-deleted-decoration',
 	);
 
+	const diffId = crypto.randomUUID();
+	if (showIndicators && fg('platform_editor_ai_show_diff_patch_2_fix')) {
+		// The indicator bar of a widget anchors its top and bottom to the widget itself. Without this
+		// only the live cell's own bar resolves, which starts below the suggested content.
+		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
+	}
+
 	// Before the cell's own blocks, as a block of its own, so it never lands inside a paragraph the
 	// displayed side may hide.
-	return Decoration.widget(pos + 1, dom, {
+	const widget = Decoration.widget(pos + 1, dom, {
 		...buildDiffDecorationSpec({
 			colorScheme,
 			decorationType: 'widget',
-			diffId: crypto.randomUUID(),
+			diffId,
 			leftAnchorId,
 			isActive,
 			isInserted,
@@ -229,6 +264,14 @@ const createCellContentWidget = ({
 		}),
 		marks: [],
 	});
+
+	// The bar aligns its left edge to this anchor. The live cell's inline decoration makes one too,
+	// but not when the clean view hides it, and the widget is still showing then.
+	const leftAnchor =
+		showIndicators && fg('platform_editor_ai_show_diff_patch_2_fix')
+			? createLeftAnchorWidget({ doc, from: pos, diffId, leftAnchorId })
+			: undefined;
+	return leftAnchor ? [widget, leftAnchor] : [widget];
 };
 
 /**
@@ -246,6 +289,7 @@ export const createReplacedCellWidgets = ({
 	isActive,
 	isInserted,
 	leftAnchorId,
+	showIndicators,
 }: {
 	change: Pick<Change, 'fromB' | 'toB'>;
 	colorScheme?: ColorScheme;
@@ -255,6 +299,7 @@ export const createReplacedCellWidgets = ({
 	leftAnchorId?: string;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
+	showIndicators?: boolean;
 	slice: Slice;
 }): Decoration[] =>
 	getReplacedCells({ slice, doc: newDoc, fromB: change.fromB, toB: change.toB }).flatMap(
@@ -294,8 +339,9 @@ export const createReplacedCellWidgets = ({
 				);
 			}
 			if (!isCellContentEqual(otherCell, liveCell)) {
-				const contentWidget = createCellContentWidget({
+				const contentWidgets = createCellContentWidgets({
 					cell: otherCell,
+					doc: newDoc,
 					pos: liveCellPos,
 					nodeViewSerializer,
 					colorScheme,
@@ -303,14 +349,18 @@ export const createReplacedCellWidgets = ({
 					isActive,
 					isInserted,
 					leftAnchorId,
+					showIndicators,
 				});
-				if (contentWidget) {
-					decorations.push(contentWidget);
-				}
+				decorations.push(...contentWidgets);
 			}
 			return decorations;
 		},
 	);
+
+/** Whether a cell holds only blank lines: empty paragraphs or headings, with nothing to show. */
+const isBlankCell = (cell: PMNode): boolean =>
+	cell.childCount > 0 &&
+	cell.children.every((block) => block.isTextblock && block.content.size === 0);
 
 /**
  * The displayed side of a whole-cell replacement. A table cell is never removed on its own, only
@@ -375,6 +425,12 @@ export const createReplacedCellDecorations = ({
 			return decorations;
 		}
 
+		// A blank live cell has no content to strike through, so the suggestion takes its place, as
+		// in the clean view, rather than leaving a blank line below it.
+		const hidesLiveCell =
+			shouldHideDeleted ||
+			(!isInserted && isBlankCell(liveCell) && fg('platform_editor_ai_show_diff_patch_2_fix'));
+
 		decorations.push(
 			...createInlineChangedDecoration({
 				attributionKey,
@@ -388,13 +444,13 @@ export const createReplacedCellDecorations = ({
 				isInserted,
 				leftAnchorId,
 				reveal,
-				shouldHideDeleted,
+				shouldHideDeleted: hidesLiveCell,
 				showContributorTags,
 				showIndicators,
 				tagMountContext,
 			}),
 		);
-		if (shouldHideDeleted) {
+		if (hidesLiveCell) {
 			liveCell.forEach((block, offset) => {
 				const blockPos = liveCellPos + 1 + offset;
 				decorations.push(
@@ -405,7 +461,7 @@ export const createReplacedCellDecorations = ({
 						isActive,
 						isInserted,
 						leftAnchorId,
-						shouldHideDeleted,
+						shouldHideDeleted: hidesLiveCell,
 					}),
 				);
 			});

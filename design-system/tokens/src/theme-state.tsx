@@ -35,7 +35,7 @@ export interface ThemeState {
 	colorMode: ThemeColorModes;
 	contrastMode: ThemeContrastModes;
 	shape: Extract<ThemeIds, 'shape'>;
-	spacing: Extract<ThemeIds, 'spacing'>;
+	spacing: Extract<ThemeIds, 'spacing' | 'UNSAFE-spacing'>;
 	typography: Extract<ThemeIds, 'typography' | 'UNSAFE-typography'>;
 	motion?: Extract<ThemeIds, 'motion'>;
 	UNSAFE_themeOptions?: ThemeOptionsSchema;

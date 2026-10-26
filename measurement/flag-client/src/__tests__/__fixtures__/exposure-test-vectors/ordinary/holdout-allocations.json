@@ -1,0 +1,173 @@
+{
+  "cases": [
+    {
+      "caseId": "holdout_withheld",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_withheld"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_withheld"
+      }
+    },
+    {
+      "caseId": "holdout_not_withheld",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_withheld"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_withheld"
+      }
+    },
+    {
+      "caseId": "holdout_not_allocated",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_allocated"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_allocated"
+      }
+    },
+    {
+      "caseId": "holdout_not_eligible",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_eligible"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_eligible"
+      }
+    },
+    {
+      "caseId": "holdout_unsupported_rule",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_unsupported_rule"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_unsupported_rule"
+      }
+    },
+    {
+      "caseId": "null-rule",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_eligible",
+        "holdoutRuleId": null
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_eligible"
+      }
+    },
+    {
+      "caseId": "absent-rule",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_eligible"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_eligible"
+      }
+    },
+    {
+      "caseId": "no-allocation",
+      "allocation": null,
+      "counterfactual": false,
+      "expected": {}
+    },
+    {
+      "caseId": "counterfactual-only",
+      "allocation": null,
+      "counterfactual": true,
+      "expected": {}
+    },
+    {
+      "caseId": "empty-holdout-key",
+      "allocation": {
+        "holdoutKey": "",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_withheld"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_withheld"
+      }
+    },
+    {
+      "caseId": "empty-identifier-type",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "holdout-rule-1",
+        "identifierType": "",
+        "allocationReason": "holdout_not_withheld"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "holdout-rule-1",
+        "atl.feature_flag.holdout_allocation.identifier_type": "",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_withheld"
+      }
+    },
+    {
+      "caseId": "empty-rule-id",
+      "allocation": {
+        "holdoutKey": "exp-platform_test.holdout",
+        "holdoutRuleId": "",
+        "identifierType": "atlassianOrgId",
+        "allocationReason": "holdout_not_withheld"
+      },
+      "counterfactual": false,
+      "expected": {
+        "atl.feature_flag.holdout_allocation.holdout_key": "exp-platform_test.holdout",
+        "atl.feature_flag.holdout_allocation.holdout_rule_id": "",
+        "atl.feature_flag.holdout_allocation.identifier_type": "atlassianOrgId",
+        "atl.feature_flag.holdout_allocation.allocation_reason": "holdout_not_withheld"
+      }
+    }
+  ]
+}

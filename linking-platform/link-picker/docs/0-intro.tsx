@@ -7,7 +7,7 @@ ${(<AtlassianInternalWarning />)}
 
   The Standalone Link Picker component allows users to insert relevant links without having to leave their current context.
 
-  If you have any questions, you can reach out to [#rovo-growth](https://atlassian.enterprise.slack.com/archives/C09LKUEEPGT) for help.
+  If you have any questions, you can reach out to [#help-rovo-growth](https://atlassian.enterprise.slack.com/archives/C0CBM48P0DS) for help.
 
   ## Installation
 

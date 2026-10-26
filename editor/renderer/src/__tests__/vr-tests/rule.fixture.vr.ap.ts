@@ -7,3 +7,25 @@ export const RuleRenderer: ComponentType<any> = generateRendererComponent({
 	document: ruleNodeAdf,
 	appearance: 'full-width',
 });
+
+export const BreakoutRuleRenderer: ComponentType<any> = generateRendererComponent({
+	document: {
+		version: 1,
+		type: 'doc',
+		content: [
+			{
+				type: 'rule',
+				marks: [{ type: 'breakout', attrs: { mode: 'wide', width: 760 } }],
+			},
+			{
+				type: 'rule',
+				marks: [{ type: 'breakout', attrs: { mode: 'wide', width: 760 } }],
+			},
+			{
+				type: 'rule',
+				marks: [{ type: 'breakout', attrs: { mode: 'wide', width: 760 } }],
+			},
+		],
+	},
+	appearance: 'full-width',
+});

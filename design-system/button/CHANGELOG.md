@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 25.6.1
+
+### Patch Changes
+
+- [`a982c3e2f94d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a982c3e2f94d3) -
+  Use the forwarded-ref type for the legacy button so refs can be assigned without suppressing
+  TypeScript errors.
+- [`576a0ac18a777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/576a0ac18a777) -
+  Remove redundant duplicate-import suppressions
+
 ## 25.6.0
 
 ### Minor Changes

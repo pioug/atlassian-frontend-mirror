@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 30.1.4
+
+### Patch Changes
+
+- [`116bb93a54ec6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/116bb93a54ec6) -
+  Clean up experiment `platform_editor_react19_migration`
+- Updated dependencies
+
 ## 30.1.3
 
 ### Patch Changes

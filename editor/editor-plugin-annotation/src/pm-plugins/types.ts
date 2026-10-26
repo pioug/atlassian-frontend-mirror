@@ -102,6 +102,8 @@ export type InlineCommentAction =
 	  }
 	| {
 			data: {
+				isOpeningMediaCommentFromToolbar?: boolean;
+				selectAnnotationMethod?: VIEW_METHOD;
 				selectedAnnotations: AnnotationInfo[];
 			};
 			type: ACTIONS.SET_PENDING_SELECTIONS;
@@ -175,6 +177,11 @@ export type InlineCommentPluginState = {
 	 * selected.
 	 */
 	pendingSelectedAnnotations: AnnotationInfo[];
+
+	/** Applied when the pending selection is flushed, so never before the gate allows it. */
+	pendingIsOpeningMediaCommentFromToolbar?: boolean;
+
+	pendingSelectAnnotationMethod?: VIEW_METHOD;
 
 	/**
 	 * This is a count of the number of times the pendingSelectedAnnotations has been updated. This can be used to determine

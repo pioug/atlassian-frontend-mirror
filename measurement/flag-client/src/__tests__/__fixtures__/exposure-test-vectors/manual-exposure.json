@@ -1,0 +1,125 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "manual-exposure",
+  "description": "Explicitly requested manual exposure via logExposureEvent() without active trace context. Manual exposures have atl.feature_flag.exposure.manual=true and no trace/span IDs.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1",
+              "attributes": [
+                {
+                  "key": "atl.feature_flag.sdk.platform",
+                  "value": {
+                    "stringValue": "server"
+                  }
+                }
+              ]
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964450000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "checkout_redesign"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "control"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "targeting_match"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "delta_stream"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": true
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.user_id",
+                    "value": {
+                      "stringValue": "user-789"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sdk_metadata",
+                    "value": {
+                      "stringValue": "{\"migrationState\":\"BOTH_RETURN_FFP\"}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {
+      "timeUnixNano": "uint64 epoch nanoseconds",
+      "severityNumber": "1 (TRACE)",
+      "severityText": "TRACE",
+      "eventName": "flag-evaluated",
+      "feature_flag.key": "string",
+      "feature_flag.result.variant": "string",
+      "feature_flag.result.reason": "string",
+      "atl.feature_flag.exposure.manual": "boolean true"
+    },
+    "omitted": [
+      "traceId",
+      "spanId",
+      "Body",
+      "feature_flag.set.id",
+      "feature_flag.error.message",
+      "atl.feature_flag.rule_id",
+      "atl.feature_flag.target_apps",
+      "atl.feature_flag.client.version.token",
+      "atl.feature_flag.client.version.updated_at"
+    ]
+  }
+}

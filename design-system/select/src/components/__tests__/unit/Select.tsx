@@ -8,7 +8,6 @@ import selectEvent from 'react-select-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { components } from '@atlaskit/react-select/components';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
@@ -202,7 +201,6 @@ describe('Select', () => {
 		];
 
 		it.each(selectRenderers)('applies persistent inline rendering to %s', (_name, renderSelect) => {
-			passGate('platform_dst_inline_select_menu_control');
 			const MenuPortal = jest.fn(({ children }: { children: ReactNode }) => children);
 
 			render(renderSelect(MenuPortal));
@@ -211,25 +209,9 @@ describe('Select', () => {
 			expect(MenuPortal).not.toHaveBeenCalled();
 		});
 
-		it('keeps the inline menu open when menu control is disabled', () => {
-			failGate('platform_dst_inline_select_menu_control');
-			render(
-				<AtlaskitSelect
-					menuRenderMode="inline"
-					menuIsOpen={false}
-					options={OPTIONS}
-					label="Assignee"
-				/>,
-			);
-
-			expect(screen.getByRole('listbox')).toBeInTheDocument();
-			expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
-		});
-
 		it.each(selectRenderers)(
 			'controls the inline menu without replacing the search input in %s',
 			async (_name, renderSelect) => {
-				passGate('platform_dst_inline_select_menu_control');
 				const MenuPortal = jest.fn(({ children }: { children: ReactNode }) => children);
 				const { rerender } = render(renderSelect(MenuPortal, false));
 				const input = screen.getByRole('combobox', { name: 'Assignee' });

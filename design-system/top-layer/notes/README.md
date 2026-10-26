@@ -91,6 +91,10 @@ Architectural decisions, design rationale, and decision logs.
   an open tooltip inside `role="menu"` / `role="tablist"` is an accepted transient
   `aria-required-children` violation; no portal, no `aria-hidden` codemod. Spec, browser, axe and
   peer evidence, the rejected options, revisit triggers, and the per-file exemption recipe
+- **[inline-modal-surface.md](./decisions/inline-modal-surface.md)** — Decision: a custom modal
+  surface rendered inline in its host stays out of the top layer; only its Escape and Tab handling
+  changes, so nested top-layer layers own their keys first (Rovo mini-modal navigation; the keyboard
+  fix is #512050)
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
 - **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an

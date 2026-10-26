@@ -325,6 +325,7 @@ export interface MediaApi {
 		controller?: AbortController,
 		fetchMaxRes?: boolean,
 		traceContext?: MediaTraceContext,
+		clientOptions?: ClientOptions,
 	) => Promise<Blob>;
 
 	getItems: (

@@ -6,6 +6,10 @@ import rule from '../index';
 tester.run('feature-flags/no-alias', rule, {
 	valid: [
 		{
+			name: 'Renamed Jira feature-gating imports are not aliased',
+			code: "import { fg } from '@jira/platform__feature-gating';",
+		},
+		{
 			name: '`@atlassian/jira-feature-flagging` imports are not aliased',
 			code: outdent`
                 import { ff, ffVal } from '@atlassian/jira-feature-flagging';
@@ -44,6 +48,11 @@ tester.run('feature-flags/no-alias', rule, {
 		},
 	],
 	invalid: [
+		{
+			name: 'Do not alias renamed Jira feature gates',
+			code: "import { fg as readGate } from '@jira/platform__feature-gating';",
+			errors: [{ messageId: 'noSpecifierAlias' }],
+		},
 		{
 			name: 'Do not alias utils',
 			code: outdent`

@@ -10,14 +10,11 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { flushPromises } from '@atlaskit/link-test-helpers/promise/flush-promises';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import {
-	render,
-	waitFor,
-	waitForElementToBeRemoved,
-} from '@atlassian/testing-library/testing-library/react';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
@@ -154,7 +151,16 @@ describe('EmbedModal', () => {
 	const expectModalSize = (modal: HTMLElement, size: string) => {
 		// This check is not ideal but it is the only value on DS modal dialog
 		// HTML element that indicates change in size of the component.
-		expect(modal.getAttribute('style')).toContain(`--modal-dialog-width: ${size};`);
+		// The top-layer modal sets it on the surface inside the `<dialog>`, and resolves a
+		// percentage against the legacy positioner width.
+		const isTopLayer = fg('platform-dst-top-layer');
+		const surface = isTopLayer
+			? // eslint-disable-next-line testing-library/no-node-access -- The surface has no role or test ID.
+				modal.querySelector('[style*="--modal-dialog-width"]')
+			: modal;
+		const expectedSize =
+			isTopLayer && size.endsWith('%') ? `calc(${parseFloat(size)} * (100vw - 120px) / 100)` : size;
+		expect(surface?.getAttribute('style')).toContain(`--modal-dialog-width: ${expectedSize};`);
 	};
 
 	const expectModalMaxSize = (modal: HTMLElement) => expectModalSize(modal, MAX_MODAL_SIZE);
@@ -242,7 +248,7 @@ describe('EmbedModal', () => {
 			expect(tooltip.textContent).toBe(messages.preview_close.defaultMessage);
 
 			await user.click(button);
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 			const modal = screen.queryByTestId(testId);
 			expect(modal).not.toBeInTheDocument();
 			expect(onClose).toHaveBeenCalledTimes(1);
@@ -355,7 +361,7 @@ describe('EmbedModal', () => {
 			await screen.findByTestId(testId);
 
 			await user.keyboard('{Escape}');
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 
 			expect(onClose).toHaveBeenCalledTimes(1);
 			expect(underlyingLayerOnEscape).not.toHaveBeenCalled();
@@ -367,7 +373,7 @@ describe('EmbedModal', () => {
 			await screen.findByTestId(testId);
 
 			await user.keyboard('{Escape}');
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 			await user.keyboard('{Escape}');
 
 			expect(underlyingLayerOnEscape).toHaveBeenCalledTimes(1);
@@ -418,7 +424,7 @@ describe('EmbedModal', () => {
 				unmount();
 				within(screen.getByTestId(testId)).getAllByRole('button')[0].focus();
 				await user.keyboard('{Escape}');
-				await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+				await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 
 				expect(onClose).toHaveBeenCalledTimes(1);
 				expect(underlyingLayerOnEscape).not.toHaveBeenCalled();
@@ -489,7 +495,7 @@ describe('EmbedModal', () => {
 			within(modal).getAllByRole('button')[0].focus();
 			(document.activeElement as HTMLElement | null)?.blur();
 			await user.keyboard('{Escape}');
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 
 			expect(onClose).toHaveBeenCalledTimes(1);
 			expect(underlyingLayerOnEscape).not.toHaveBeenCalled();
@@ -502,7 +508,7 @@ describe('EmbedModal', () => {
 			await screen.findByTestId(testId);
 
 			await user.keyboard('{Escape}');
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 
 			expect(onClose).toHaveBeenCalledTimes(1);
 			expect(underlyingLayerOnEscape).toHaveBeenCalledTimes(1);
@@ -608,7 +614,7 @@ describe('EmbedModal', () => {
 			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
 			const button = await screen.findByTestId(`${testId}--close-button`);
 			await user.click(button);
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+			await waitFor(() => expect(screen.queryByTestId(testId)).not.toBeInTheDocument());
 
 			expect(onClose).toHaveBeenCalledTimes(1);
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(

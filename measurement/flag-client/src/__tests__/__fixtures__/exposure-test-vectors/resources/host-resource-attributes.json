@@ -1,0 +1,87 @@
+[
+  {
+    "name": "all ten documented host attributes are mapped",
+    "environment": {
+      "MICROS_SERVICE": "checkout-service",
+      "MICROS_SERVICE_VERSION": "1.42.0",
+      "MICROS_AWS_REGION": "us-east-1",
+      "MICROS_AWS_AVAILABILITY_ZONE": "us-east-1b",
+      "MICROS_ENV": "prod-east",
+      "MICROS_ENVTYPE": "prod",
+      "MICROS_GROUP": "commerce",
+      "MICROS_PERIMETER": "commercial",
+      "MICROS_IC": "none",
+      "MICROS_SERVICE_ARCHETYPE": "service"
+    },
+    "expected": {
+      "service.name": "checkout-service",
+      "service.version": "1.42.0",
+      "cloud.region": "us-east-1",
+      "cloud.availability_zone": "us-east-1b",
+      "deployment.environment.name": "prod-east",
+      "deployment.environment_type": "prod",
+      "deployment.group": "commerce",
+      "perimeter": "commercial",
+      "atlassian.isolation_context": "none",
+      "atlassian.service_archetype": "service"
+    }
+  },
+  {
+    "name": "MICROS_ENV maps environment name and MICROS_ENVTYPE maps environment type",
+    "environment": {
+      "MICROS_SERVICE": "checkout-service",
+      "MICROS_ENV": "adev-checkout-west",
+      "MICROS_ENVTYPE": "dev"
+    },
+    "expected": {
+      "service.name": "checkout-service",
+      "deployment.environment.name": "adev-checkout-west",
+      "deployment.environment_type": "dev"
+    }
+  },
+  {
+    "name": "surrounding whitespace is trimmed from host values",
+    "environment": {
+      "MICROS_SERVICE": "  checkout-service  ",
+      "MICROS_SERVICE_VERSION": "\t1.42.0\n",
+      "MICROS_AWS_REGION": " us-east-1",
+      "MICROS_ENV": "prod-east ",
+      "MICROS_ENVTYPE": "\nprod\t"
+    },
+    "expected": {
+      "service.name": "checkout-service",
+      "service.version": "1.42.0",
+      "cloud.region": "us-east-1",
+      "deployment.environment.name": "prod-east",
+      "deployment.environment_type": "prod"
+    }
+  },
+  {
+    "name": "blank optional host values are omitted",
+    "environment": {
+      "MICROS_SERVICE": "checkout-service",
+      "MICROS_SERVICE_VERSION": "",
+      "MICROS_AWS_REGION": " ",
+      "MICROS_AWS_AVAILABILITY_ZONE": "\t",
+      "MICROS_ENV": "\n",
+      "MICROS_ENVTYPE": "\t\n",
+      "MICROS_GROUP": "   ",
+      "MICROS_PERIMETER": "",
+      "MICROS_IC": " ",
+      "MICROS_SERVICE_ARCHETYPE": ""
+    },
+    "expected": {
+      "service.name": "checkout-service"
+    }
+  },
+  {
+    "name": "absent optional host values are omitted and undocumented values are never copied",
+    "environment": {
+      "MICROS_SERVICE": "checkout-service",
+      "UNRELATED_SECRET": "must-not-copy"
+    },
+    "expected": {
+      "service.name": "checkout-service"
+    }
+  }
+]

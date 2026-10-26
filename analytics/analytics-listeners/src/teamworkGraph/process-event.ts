@@ -17,9 +17,9 @@ export function processEvent(event: UIAnalyticsEvent): GasPayload {
 	const { packageName, packageVersion } = last(getPackageInfo(event)) || ({} as any);
 
 	const extraAttributes = getExtraAttributes(event);
-
-	const tags: Set<string> = new Set(event.payload.tags || []);
-	tags.add('teamworkGraph');
+	const tags: GasPayload['tags'] = event.payload.tags?.length
+		? Array.from(new Set(event.payload.tags as string[]))
+		: undefined;
 
 	const components = getComponents(event);
 
@@ -30,7 +30,7 @@ export function processEvent(event: UIAnalyticsEvent): GasPayload {
 		eventType: event.payload.eventType,
 		actionSubjectId: event.payload.actionSubjectId,
 		name: event.payload.name,
-		tags: Array.from(tags),
+		...(tags ? { tags } : {}),
 		attributes: {
 			packageName,
 			packageVersion,

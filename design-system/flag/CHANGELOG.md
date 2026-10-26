@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 19.0.2
+
+### Patch Changes
+
+- [`05ac854b33079`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05ac854b33079) -
+  Behind `platform-dst-top-layer`: `FlagGroup` (and so `FlagsProvider`) no longer renders an open
+  `popover="manual"` host while it shows no flags. The host now opens with the first flag and closes
+  after the last flag finishes its exit animation, so an empty `FlagsProvider` adds nothing to the
+  DOM. With the gate off, nothing changes.
+
 ## 19.0.1
 
 ### Patch Changes

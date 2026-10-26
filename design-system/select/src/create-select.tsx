@@ -9,7 +9,6 @@ import React, {
 	type JSX,
 } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type BaseSelect from '@atlaskit/react-select/base';
 
 import {
@@ -93,9 +92,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 					isInvalid={isInvalid || validationState === 'error'}
 					{...restProps}
 					components={inlineMenuComponents}
-					menuIsOpen={
-						fg('platform_dst_inline_select_menu_control') ? (props.menuIsOpen ?? true) : true
-					}
+					menuIsOpen={props.menuIsOpen ?? true}
 					tabSelectsValue={tabSelectsValue}
 					// indicates react-select to be async by default using the base Select component
 					// so that makers can pass all async props on the base select to async load options.

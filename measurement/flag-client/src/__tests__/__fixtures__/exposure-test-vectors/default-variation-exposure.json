@@ -1,0 +1,117 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "default-variation-exposure",
+  "description": "Evaluation selected the default variation (no rule matched). The atl.feature_flag.rule_id field uses the reserved value 'default'.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            },
+            {
+              "key": "deployment.environment.name",
+              "value": {
+                "stringValue": "staging"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1",
+              "attributes": [
+                {
+                  "key": "atl.feature_flag.sdk.platform",
+                  "value": {
+                    "stringValue": "server"
+                  }
+                }
+              ]
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964500000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "experimental_feature"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "disabled"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "default"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.rule_id",
+                    "value": {
+                      "stringValue": "default"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "bootstrap"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": false
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {
+      "feature_flag.key": "string",
+      "feature_flag.result.variant": "string",
+      "feature_flag.result.reason": "string value 'default'",
+      "atl.feature_flag.rule_id": "string value 'default' (reserved literal)"
+    },
+    "omitted": [
+      "traceId",
+      "spanId",
+      "feature_flag.error.message",
+      "feature_flag.set.id",
+      "atl.feature_flag.target_apps"
+    ]
+  }
+}

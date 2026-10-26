@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { TableSettingsMenu } from '../TableSettingsMenu';
 
@@ -51,14 +52,17 @@ describe('TableSettingsMenu', () => {
 		expect(screen.queryByRole('button', { name: 'More actions' })).not.toBeInTheDocument();
 	});
 
-	it('renders the popup above modal dialogs', async () => {
-		const user = userEvent.setup();
-		renderMenu();
+	// The top-layer popup renders no portal and needs no z-index to render above a modal.
+	ffTest.off('platform-dst-top-layer', 'legacy portal z-index', () => {
+		it('renders the popup above modal dialogs', async () => {
+			const user = userEvent.setup();
+			renderMenu();
 
-		await user.click(screen.getByRole('button', { name: 'More actions' }));
+			await user.click(screen.getByRole('button', { name: 'More actions' }));
 
-		const popup = await screen.findByRole('dialog', { name: 'Table settings' });
-		expect(popup.closest('.atlaskit-portal')).toHaveStyle(`z-index: ${layers.modal()}`);
+			const popup = await screen.findByRole('dialog', { name: 'Table settings' });
+			expect(popup.closest('.atlaskit-portal')).toHaveStyle(`z-index: ${layers.modal()}`);
+		});
 	});
 
 	it('moves focus to the setting and supports keyboard interaction', async () => {

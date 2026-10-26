@@ -1,0 +1,664 @@
+{
+  "cases": [
+    {
+      "caseId": "not_initialised-absent",
+      "input": {
+        "reason": "not_initialised",
+        "variant": null,
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "not_initialised",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "not_initialised-token",
+      "input": {
+        "reason": "not_initialised",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "not_initialised",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "not_initialised-token-and-time",
+      "input": {
+        "reason": "not_initialised",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "not_initialised",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "flag_not_found-absent",
+      "input": {
+        "reason": "flag_not_found",
+        "variant": null,
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "flag_not_found",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "flag_not_found-token",
+      "input": {
+        "reason": "flag_not_found",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "flag_not_found",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "flag_not_found-token-and-time",
+      "input": {
+        "reason": "flag_not_found",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "flag_not_found",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "type_mismatch-absent",
+      "input": {
+        "reason": "type_mismatch",
+        "variant": null,
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "type_mismatch",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "type_mismatch-token",
+      "input": {
+        "reason": "type_mismatch",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "type_mismatch",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "type_mismatch-token-and-time",
+      "input": {
+        "reason": "type_mismatch",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "type_mismatch",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "invalid_context-absent",
+      "input": {
+        "reason": "invalid_context",
+        "variant": null,
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "invalid_context",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "invalid_context-token",
+      "input": {
+        "reason": "invalid_context",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "invalid_context",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "invalid_context-token-and-time",
+      "input": {
+        "reason": "invalid_context",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "invalid_context",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "ss_cohort_match-absent",
+      "input": {
+        "reason": "ss_cohort_match",
+        "variant": "enabled",
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_cohort_match",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "ss_cohort_match-token",
+      "input": {
+        "reason": "ss_cohort_match",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_cohort_match",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "ss_cohort_match-token-and-time",
+      "input": {
+        "reason": "ss_cohort_match",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_cohort_match",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "ss_not_allocated-absent",
+      "input": {
+        "reason": "ss_not_allocated",
+        "variant": "enabled",
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_not_allocated",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "ss_not_allocated-token",
+      "input": {
+        "reason": "ss_not_allocated",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_not_allocated",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "ss_not_allocated-token-and-time",
+      "input": {
+        "reason": "ss_not_allocated",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_not_allocated",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "ss_holdout_withheld-absent",
+      "input": {
+        "reason": "ss_holdout_withheld",
+        "variant": "enabled",
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_holdout_withheld",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "ss_holdout_withheld-token",
+      "input": {
+        "reason": "ss_holdout_withheld",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_holdout_withheld",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "ss_holdout_withheld-token-and-time",
+      "input": {
+        "reason": "ss_holdout_withheld",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "ss_holdout_withheld",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "no_rules_matched-absent",
+      "input": {
+        "reason": "no_rules_matched",
+        "variant": "enabled",
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "no_rules_matched",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "no_rules_matched-token",
+      "input": {
+        "reason": "no_rules_matched",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "no_rules_matched",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "no_rules_matched-token-and-time",
+      "input": {
+        "reason": "no_rules_matched",
+        "variant": "enabled",
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "no_rules_matched",
+        "atl.feature_flag.result.source": "network",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "general_error-absent",
+      "input": {
+        "reason": "general_error",
+        "variant": null,
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "general_error",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "general_error-token",
+      "input": {
+        "reason": "general_error",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "general_error",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "general_error-token-and-time",
+      "input": {
+        "reason": "general_error",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "general_error",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    },
+    {
+      "caseId": "migration_deferred-absent",
+      "input": {
+        "reason": "migration_deferred",
+        "variant": null,
+        "token": null,
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "migration_deferred",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.token",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "migration_deferred-token",
+      "input": {
+        "reason": "migration_deferred",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": null
+      },
+      "expected": {
+        "feature_flag.result.reason": "migration_deferred",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched",
+        "atl.feature_flag.client.version.updated_at"
+      ]
+    },
+    {
+      "caseId": "migration_deferred-token-and-time",
+      "input": {
+        "reason": "migration_deferred",
+        "variant": null,
+        "token": "opaque-flags-token-42",
+        "updatedAt": "2026-08-17T11:00:00Z"
+      },
+      "expected": {
+        "feature_flag.result.reason": "migration_deferred",
+        "atl.feature_flag.result.source": "fallback",
+        "atl.feature_flag.sampling.rate": 1.0,
+        "atl.feature_flag.sampling.item.count": 1,
+        "atl.feature_flag.client.version.token": "opaque-flags-token-42",
+        "atl.feature_flag.client.version.updated_at": "2026-08-17T11:00:00Z"
+      },
+      "omitted": [
+        "feature_flag.version",
+        "feature_flag.result.value",
+        "atl.feature_flag.matched"
+      ]
+    }
+  ]
+}

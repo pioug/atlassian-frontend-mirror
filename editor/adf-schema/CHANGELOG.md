@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 57.7.24
+
+### Patch Changes
+
+- [`67557f74cffc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67557f74cffc4) -
+  [EDITOR-9048] preserve divider color, style and weight attributes in the renderer behind
+  platform_editor_lovability_dividers_attributes.
+
 ## 57.7.23
 
 ### Patch Changes

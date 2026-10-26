@@ -25,6 +25,7 @@ import Tabs from '@atlaskit/tabs/tabs';
 import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 import useThemeObserver from '@atlaskit/tokens/use-theme-observer';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ChatLayout } from './shared/chat-layout';
 import { SyncColorMode } from './shared/custom-theme-showcase';
@@ -56,11 +57,12 @@ const spacingTokens = {
 		{ name: 'large', size: 20 },
 		{ name: 'xlarge', size: 24 },
 		{ name: 'xxlarge', size: 32 },
+		{ name: '3xlarge', size: 48 },
 	],
 } as const;
 
 type SpacingKind = keyof typeof spacingTokens;
-type SpacingName = (typeof spacingTokens.gap)[number]['name'];
+type SpacingName = (typeof spacingTokens)[SpacingKind][number]['name'];
 const spacingLabels = {
 	gap: { singular: 'gap', plural: 'gaps', title: 'Gap' },
 	inset: { singular: 'inset', plural: 'insets', title: 'Inset' },
@@ -71,7 +73,6 @@ type SpacingSettings = {
 	uniformity: number;
 	curve: number;
 	round: boolean;
-	overrides: Partial<Record<SpacingName, number>>;
 };
 
 const DEFAULT_SPACING: SpacingSettings = {
@@ -79,7 +80,6 @@ const DEFAULT_SPACING: SpacingSettings = {
 	uniformity: 0,
 	curve: 1,
 	round: true,
-	overrides: {},
 };
 
 const formatPixels = (value: number) => `${Number(value.toFixed(2))}px`;
@@ -100,9 +100,7 @@ function getSpacingValues(
 		// Strong curves and rounding may bring adjacent sizes together, but must not reverse them.
 		const value = Math.max(previous, size * settings.scale ** exponent);
 		previous = value;
-		// Apply the same rounding to automatic values and independent manual overrides.
-		const effectiveValue = settings.overrides[name] ?? value;
-		values[name] = settings.round ? Math.round(effectiveValue) : effectiveValue;
+		values[name] = settings.round ? Math.round(value) : value;
 	}
 	return values;
 }
@@ -111,7 +109,7 @@ const spacingPresets: { name: string; description: string; settings: SpacingSett
 	{
 		name: 'Compact',
 		description: 'Close throughout',
-		settings: { scale: 0.65, uniformity: 0.6, curve: 0.75, round: true, overrides: {} },
+		settings: { scale: 0.65, uniformity: 0.6, curve: 0.75, round: true },
 	},
 	{
 		name: 'Default',
@@ -121,17 +119,17 @@ const spacingPresets: { name: string; description: string; settings: SpacingSett
 	{
 		name: 'Comfortable',
 		description: 'Gentle expansion',
-		settings: { scale: 1.5, uniformity: 0.3, curve: 1.5, round: true, overrides: {} },
+		settings: { scale: 1.5, uniformity: 0.3, curve: 1.5, round: true },
 	},
 	{
 		name: 'Spacious',
 		description: 'Generous spacing',
-		settings: { scale: 2, uniformity: 0.1, curve: 2, round: true, overrides: {} },
+		settings: { scale: 2, uniformity: 0.1, curve: 2, round: true },
 	},
 	{
 		name: 'Fluid',
 		description: 'Fractional spacing',
-		settings: { scale: 1.25, uniformity: 0.7, curve: 0.5, round: false, overrides: {} },
+		settings: { scale: 1.25, uniformity: 0.7, curve: 0.5, round: false },
 	},
 ];
 
@@ -148,6 +146,12 @@ const chartStyles = cssMap({
 		strokeDasharray: '2 3',
 	},
 	point: { fill: token('color.chart.brand') },
+	pointTarget: {
+		fill: 'transparent',
+		stroke: 'transparent',
+		strokeWidth: 2,
+		'&:focus-visible': { stroke: token('color.border.focused') },
+	},
 });
 
 const presetStyles = cssMap({
@@ -237,15 +241,19 @@ function ScaleSlider({
 function SpacingResponseChart({
 	kind,
 	values,
+	onInspect,
 }: {
 	kind: SpacingKind;
 	values: Record<SpacingName, number>;
+	onInspect?: (token: string | null) => void;
 }) {
 	const tokens = spacingTokens[kind];
 	const labels = spacingLabels[kind];
 	const smallest = tokens[0].size;
 	const largest = tokens[tokens.length - 1].size;
 	const [width, setWidth] = useState(320);
+	const [hoveredPoint, setHoveredPoint] = useState<SpacingName | null>(null);
+	const [focusedPoint, setFocusedPoint] = useState<SpacingName | null>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -300,7 +308,7 @@ function SpacingResponseChart({
 					height={height}
 					viewBox={`0 0 ${width} ${height}`}
 					css={chartStyles.chart}
-					role="img"
+					role="group"
 					aria-label={`Applied ${labels.singular} sizes: ${tokens.map(({ name }) => `${name} ${formatPixels(values[name])}`).join(', ')}`}
 				>
 					<text x={left} y={16} css={chartStyles.label}>
@@ -339,9 +347,54 @@ function SpacingResponseChart({
 						data-testid={`${kind}-spacing-original-curve`}
 					/>
 					{tokens.map(({ name, size }) => (
-						<circle key={name} cx={x(size)} cy={y(values[name])} r={3} css={chartStyles.point}>
-							<title>{`space.${kind}.${name}: ${formatPixels(values[name])}`}</title>
-						</circle>
+						<Tooltip
+							key={name}
+							tag="g"
+							content={`space.${kind}.${name}: ${formatPixels(values[name])}`}
+							position="top"
+							delay={0}
+							isScreenReaderAnnouncementDisabled
+						>
+							<circle
+								cx={x(size)}
+								cy={y(values[name])}
+								r={12}
+								css={chartStyles.pointTarget}
+								role="button"
+								tabIndex={0}
+								aria-label={`space.${kind}.${name}: ${formatPixels(values[name])}`}
+								onClick={() => onInspect?.(`space.${kind}.${name}`)}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter' || event.key === ' ') {
+										event.preventDefault();
+										onInspect?.(`space.${kind}.${name}`);
+									}
+								}}
+								onMouseEnter={() => {
+									setHoveredPoint(name);
+									onInspect?.(`space.${kind}.${name}`);
+								}}
+								onMouseLeave={(event) => {
+									setHoveredPoint(null);
+									!event.currentTarget.matches(':focus') && onInspect?.(null);
+								}}
+								onFocus={() => {
+									setFocusedPoint(name);
+									onInspect?.(`space.${kind}.${name}`);
+								}}
+								onBlur={() => {
+									setFocusedPoint(null);
+									onInspect?.(null);
+								}}
+							/>
+							<circle
+								cx={x(size)}
+								cy={y(values[name])}
+								r={hoveredPoint === name || focusedPoint === name ? 5 : 3}
+								css={chartStyles.point}
+								pointerEvents="none"
+							/>
+						</Tooltip>
 					))}
 				</svg>
 			</div>
@@ -456,8 +509,7 @@ function SpacingPresets({
 			settings.scale === preset.settings.scale &&
 			settings.uniformity === preset.settings.uniformity &&
 			settings.curve === preset.settings.curve &&
-			settings.round === preset.settings.round &&
-			Object.keys(settings.overrides).length === 0,
+			settings.round === preset.settings.round,
 	);
 	return (
 		<Stack space="space.gap.large">
@@ -551,70 +603,24 @@ function SpacingControls({
 	kind,
 	settings,
 	values,
-	onChange,
 	onGeneralChange,
-	isLinked,
 	onInspect,
 }: {
 	kind: SpacingKind;
 	settings: SpacingSettings;
 	values: Record<SpacingName, number>;
-	onChange: (settings: SpacingSettings) => void;
 	onGeneralChange: (changes: Partial<SpacingSettings>) => void;
-	isLinked: boolean;
 	onInspect?: (token: string | null) => void;
 }) {
-	const tokens = spacingTokens[kind];
 	const labels = spacingLabels[kind];
-	const largest = tokens[tokens.length - 1].size;
 
 	return (
 		<Stack role="region" aria-label={`${labels.title} spacing`} space="space.gap.xxlarge">
 			<SpacingPresets kind={kind} settings={settings} onChange={onGeneralChange} />
 
-			<SpacingResponseChart kind={kind} values={values} />
+			<SpacingResponseChart kind={kind} values={values} onInspect={onInspect} />
 
 			<SpacingScaleControls kind={kind} settings={settings} onChange={onGeneralChange} />
-
-			<Stack space="space.gap.xlarge">
-				<Stack space="space.gap.xsmall">
-					<Heading as="h3" size="xsmall">
-						Individual {labels.plural}
-					</Heading>
-					<Text size="small" color="color.text.subtle">
-						Adjust any {labels.singular} independently.{' '}
-						{isLinked
-							? 'Changing a general control recalculates gaps and insets and clears their individual adjustments.'
-							: `Changing a general ${labels.singular} control recalculates all ${labels.plural} and clears their individual adjustments.`}
-					</Text>
-				</Stack>
-				{tokens.map(({ name }) => (
-					<div
-						key={name}
-						onMouseEnter={() => onInspect?.(`space.${kind}.${name}`)}
-						onMouseLeave={(event) =>
-							!event.currentTarget.matches(':focus-within') && onInspect?.(null)
-						}
-						onFocus={() => onInspect?.(`space.${kind}.${name}`)}
-						onBlur={(event) =>
-							!event.currentTarget.contains(event.relatedTarget as Node | null) && onInspect?.(null)
-						}
-					>
-						<ScaleSlider
-							id={`${kind}-spacing-${name}`}
-							label={name}
-							value={values[name]}
-							min={0}
-							max={largest * SPACING_SCALE.max}
-							step={settings.round ? 1 : 0.01}
-							formatValue={formatPixels}
-							onChange={(value) =>
-								onChange({ ...settings, overrides: { ...settings.overrides, [name]: value } })
-							}
-						/>
-					</div>
-				))}
-			</Stack>
 		</Stack>
 	);
 }
@@ -667,17 +673,17 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 	const [isSettingsLinked, setIsSettingsLinked] = useState(false);
 	const [spacingTab, setSpacingTab] = useState(0);
 	const updateGeneralSettings = (kind: SpacingKind, changes: Partial<SpacingSettings>) => {
-		const update = (current: SpacingSettings) => ({ ...current, overrides: {}, ...changes });
+		const update = (current: SpacingSettings) => ({ ...current, ...changes });
 		if (kind === 'gap' || isSettingsLinked) setGapSettings(update);
 		if (kind === 'inset' || isSettingsLinked) setInsetSettings(update);
 	};
 	const toggleSettingsLink = (linked: boolean) => {
 		if (linked) {
-			// Link general settings from the visible tab without copying pixel overrides between scales.
+			// Copy settings from the visible tab; each family keeps its own base sizes.
 			if (spacingTab === 0) {
-				setInsetSettings((current) => ({ ...gapSettings, overrides: current.overrides }));
+				setInsetSettings(gapSettings);
 			} else {
-				setGapSettings((current) => ({ ...insetSettings, overrides: current.overrides }));
+				setGapSettings(insetSettings);
 			}
 		}
 		setIsSettingsLinked(linked);
@@ -687,25 +693,6 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 	const [activeToken, setActiveToken] = useState<string | null>(null);
 	const gapValues = getSpacingValues('gap', gapSettings);
 	const insetValues = getSpacingValues('inset', insetSettings);
-	// Only the preview inherits these overrides; controls retain their original spacing.
-	const spacingStyles: React.CSSProperties &
-		Record<`--ds-space-${SpacingKind}-${SpacingName}`, string> = {
-		'--ds-space-gap-xxsmall': `calc(${token('space.025')} * ${gapValues.xxsmall / 2})`,
-		'--ds-space-gap-xsmall': `calc(${token('space.050')} * ${gapValues.xsmall / 4})`,
-		'--ds-space-gap-small': `calc(${token('space.075')} * ${gapValues.small / 6})`,
-		'--ds-space-gap-medium': `calc(${token('space.100')} * ${gapValues.medium / 8})`,
-		'--ds-space-gap-large': `calc(${token('space.150')} * ${gapValues.large / 12})`,
-		'--ds-space-gap-xlarge': `calc(${token('space.200')} * ${gapValues.xlarge / 16})`,
-		'--ds-space-gap-xxlarge': `calc(${token('space.300')} * ${gapValues.xxlarge / 24})`,
-		'--ds-space-inset-xxsmall': `calc(${token('space.050')} * ${insetValues.xxsmall / 4})`,
-		'--ds-space-inset-xsmall': `calc(${token('space.100')} * ${insetValues.xsmall / 8})`,
-		'--ds-space-inset-small': `calc(${token('space.150')} * ${insetValues.small / 12})`,
-		'--ds-space-inset-medium': `calc(${token('space.200')} * ${insetValues.medium / 16})`,
-		'--ds-space-inset-large': `calc(${token('space.250')} * ${insetValues.large / 20})`,
-		'--ds-space-inset-xlarge': `calc(${token('space.300')} * ${insetValues.xlarge / 24})`,
-		'--ds-space-inset-xxlarge': `calc(${token('space.400')} * ${insetValues.xxlarge / 32})`,
-	};
-
 	return (
 		<ThemeProvider defaultColorMode={colorMode}>
 			<SyncColorMode colorMode={colorMode} />
@@ -713,12 +700,32 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 				<Box as="main" padding="space.400" xcss={previewStyles.main}>
 					<Stack space="space.300">
 						<SpacingInspector showGaps={showGaps} showInsets={showInsets} activeToken={activeToken}>
-							<Box style={spacingStyles} xcss={previewStyles.root} testId="gap-spacing-preview">
-								{layout === 'article' && <EditorialBrief />}
-								{layout === 'dashboard' && <DashboardLayout />}
-								{layout === 'settings' && <SettingsLayout />}
-								{layout === 'chat' && <ChatLayout />}
-							</Box>
+							<ThemeProvider
+								defaultColorMode={colorMode}
+								defaultTheme={{
+									spacing: {
+										id: 'UNSAFE-spacing',
+										overrides: {
+											dynamicSpaceGapScale: gapSettings.scale,
+											dynamicSpaceGapCurve: gapSettings.curve,
+											dynamicSpaceGapUniformity: gapSettings.uniformity,
+											dynamicSpaceGapRound: gapSettings.round,
+											dynamicSpaceInsetScale: insetSettings.scale,
+											dynamicSpaceInsetCurve: insetSettings.curve,
+											dynamicSpaceInsetUniformity: insetSettings.uniformity,
+											dynamicSpaceInsetRound: insetSettings.round,
+										},
+									},
+								}}
+							>
+								<SyncColorMode colorMode={colorMode} />
+								<Box xcss={previewStyles.root} testId="gap-spacing-preview">
+									{layout === 'article' && <EditorialBrief />}
+									{layout === 'dashboard' && <DashboardLayout />}
+									{layout === 'settings' && <SettingsLayout />}
+									{layout === 'chat' && <ChatLayout />}
+								</Box>
+							</ThemeProvider>
 						</SpacingInspector>
 					</Stack>
 				</Box>
@@ -817,8 +824,7 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 									/>
 								</Inline>
 								<Text id="link-spacing-description" size="small" color="color.text.subtle">
-									Linking copies this tab’s general settings to both. Individual sizes stay
-									separate.
+									Linking copies this tab’s settings to both. Each family keeps its own base sizes.
 								</Text>
 							</Stack>
 						</Stack>
@@ -841,9 +847,7 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 										kind="gap"
 										settings={gapSettings}
 										values={gapValues}
-										onChange={setGapSettings}
 										onGeneralChange={(changes) => updateGeneralSettings('gap', changes)}
-										isLinked={isSettingsLinked}
 										onInspect={setActiveToken}
 									/>
 								</Box>
@@ -854,9 +858,7 @@ export default function CustomThemeSpacingExample(): React.JSX.Element {
 										kind="inset"
 										settings={insetSettings}
 										values={insetValues}
-										onChange={setInsetSettings}
 										onGeneralChange={(changes) => updateGeneralSettings('inset', changes)}
-										isLinked={isSettingsLinked}
 										onInspect={setActiveToken}
 									/>
 								</Box>

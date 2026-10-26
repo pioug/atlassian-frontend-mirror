@@ -1,5 +1,22 @@
 # @atlaskit/media-client
 
+## 39.3.0
+
+### Minor Changes
+
+- [`c570c6f9b75f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c570c6f9b75f7) -
+  `getImage` takes an optional `clientOptions` argument after `traceContext`, so a caller can set
+  retry options for one request. `preloadMediaViewer` uses it to make a single attempt.
+- [`c570c6f9b75f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c570c6f9b75f7) -
+  Add `getImageWatermarkVersion(collectionName)` to `MediaClient`. It resolves the watermark version
+  `getImage` sends as `wmv`, or `undefined` when it sends none, so a caller that reuses an image
+  fetched earlier can tell whether the watermark config has changed since. `preloadMediaViewer` uses
+  it to key its warm-ups.
+- [`c570c6f9b75f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c570c6f9b75f7) -
+  Add `is-file-identifier`, `is-error-file-state` and `is-image-representation-ready` subpath
+  exports for `isFileIdentifier`, `isErrorFileState` and `isImageRepresentationReady`, so consumers
+  can import them without the package barrel.
+
 ## 39.2.7
 
 ### Patch Changes

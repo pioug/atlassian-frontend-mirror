@@ -361,3 +361,62 @@ test.describe('Flag top-layer — AutoDismissFlag', () => {
 		await expect(firstFlag).toBeHidden();
 	});
 });
+
+test.describe('Flag top-layer — host lifecycle', () => {
+	test('renders no popover host until a flag shows, and removes it after the last flag exits', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../../../examples/99-testing.tsx')>(
+			'design-system',
+			'flag',
+			'testing',
+			{
+				featureFlag,
+			},
+		);
+
+		const host = page.locator('[popover="manual"]');
+		await expect(host).toHaveCount(0);
+
+		const addFlagBtn = page.getByTestId('AddFlag');
+		await addFlagBtn.focus();
+		await page.keyboard.press('Enter');
+
+		// The alert mounts with its host and is exposed to assistive technology.
+		await expect(page.getByRole('alert')).toBeVisible();
+		await expect(host).toHaveCount(1);
+		expect(await host.evaluate((element) => element.matches(':popover-open'))).toBe(true);
+		// Showing a flag does not move focus.
+		await expect(addFlagBtn).toBeFocused();
+
+		await page.getByTestId('MyFlagTestId--1-dismiss').click();
+
+		await expect(page.getByTestId('MyFlagTestId--1')).toBeHidden();
+		await expect(host).toHaveCount(0);
+	});
+
+	test('opens the host again for a flag that shows after the host was removed', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../../../examples/99-testing.tsx')>(
+			'design-system',
+			'flag',
+			'testing',
+			{
+				featureFlag,
+			},
+		);
+
+		const host = page.locator('[popover="manual"]');
+		const addFlagBtn = page.getByTestId('AddFlag');
+
+		await addFlagBtn.click();
+		await page.getByTestId('MyFlagTestId--1-dismiss').click();
+		await expect(host).toHaveCount(0);
+
+		await addFlagBtn.click();
+
+		await expect(page.getByRole('alert')).toBeVisible();
+		expect(await host.evaluate((element) => element.matches(':popover-open'))).toBe(true);
+	});
+});

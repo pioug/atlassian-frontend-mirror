@@ -818,6 +818,95 @@ describe('<Motion />', () => {
 		expect(onFinish).toHaveBeenCalledWith('entering');
 	});
 
+	it('should control presence with the action prop when the use-motion gate is on', () => {
+		passGate('platform-dst-use-motion');
+		const onFinish = jest.fn();
+
+		const { rerender } = renderWithMotionStyles(
+			<Motion
+				action="enter"
+				enteringAnimation={ENTERING_ANIMATION}
+				exitingAnimation={EXITING_ANIMATION}
+				onFinish={onFinish}
+				testId="target"
+			>
+				<div />
+			</Motion>,
+		);
+
+		expect(screen.getByTestId('target')).toHaveStyle({ animation: '' });
+
+		act(() => {
+			jest.advanceTimersByTime(MOTION_DURATION);
+		});
+
+		expect(onFinish).not.toHaveBeenCalled();
+
+		rerender(
+			<Motion
+				action="exit"
+				enteringAnimation={ENTERING_ANIMATION}
+				exitingAnimation={EXITING_ANIMATION}
+				onFinish={onFinish}
+				testId="target"
+			>
+				<div />
+			</Motion>,
+		);
+
+		expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
+
+		act(() => {
+			jest.advanceTimersByTime(MOTION_DURATION);
+		});
+
+		expect(screen.queryByTestId('target')).not.toBeInTheDocument();
+
+		rerender(
+			<Motion
+				action="enter"
+				enteringAnimation={ENTERING_ANIMATION}
+				exitingAnimation={EXITING_ANIMATION}
+				onFinish={onFinish}
+				testId="target"
+			>
+				<div />
+			</Motion>,
+		);
+
+		expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
+	});
+
+	it('should start hidden when the initial action is exit', () => {
+		passGate('platform-dst-use-motion');
+
+		const { rerender } = renderWithMotionStyles(
+			<Motion
+				action="exit"
+				enteringAnimation={ENTERING_ANIMATION}
+				exitingAnimation={EXITING_ANIMATION}
+				testId="target"
+			>
+				<div />
+			</Motion>,
+		);
+
+		expect(screen.queryByTestId('target')).not.toBeInTheDocument();
+
+		rerender(
+			<Motion
+				action="enter"
+				enteringAnimation={ENTERING_ANIMATION}
+				exitingAnimation={EXITING_ANIMATION}
+				testId="target"
+			>
+				<div />
+			</Motion>,
+		);
+
+		expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
+	});
+
 	describe('platform-dst-use-motion feature gate', () => {
 		it('should render a single wrapper div and animate when the gate is on', () => {
 			passGate('platform-dst-use-motion');

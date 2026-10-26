@@ -29,7 +29,7 @@ const styles = cssMap({
 		'@media (min-width: 64rem)': {
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in broken UI.
 			// Clean up task: https://jplat.atlassian.net/browse/BLU-4788
-			// @ts-ignore
+			// @ts-expect-error -- cssMap does not support the && specificity selector; remove with BLU-4788.
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
 				display: 'flex',

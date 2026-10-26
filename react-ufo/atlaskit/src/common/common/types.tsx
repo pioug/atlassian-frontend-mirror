@@ -213,6 +213,7 @@ export interface InteractionMetrics {
 	ufoName: string;
 	preloadKey?: string;
 	previousInteractionName?: string;
+	previousInteractionId?: string;
 	isPreviousInteractionAborted: boolean;
 	type: InteractionType;
 	marks: Mark[];

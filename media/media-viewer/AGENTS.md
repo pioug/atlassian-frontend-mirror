@@ -55,7 +55,27 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 
 - React Compiler is enabled for this package
 - Peer dependencies: `@emotion/react`, `react`, `react-dom`, `react-intl`
-- Export subpaths: `.`, `./classnames`, `./media-viewer-loader`, `./types`, `./viewer-options`
+- Export subpaths: `.`, `./classnames`, `./media-viewer-loader`, `./preload`, `./types`,
+  `./viewer-options`
+- `./preload` exports `preloadMediaViewer`, called from hover/focus handlers in
+  `@atlaskit/media-card` and `@atlaskit/editor-plugin-media` to warm the viewer chunks and the full
+  resolution image ahead of the click. The in-flight request and its `AbortController` are held in
+  `src/warmedImages.ts` (at most 2 entries, 30 s each). `ImageViewer` takes the entry and awaits the
+  same request instead of issuing its own, so the image downloads once even when the click lands
+  mid-download. Once taken, the viewer owns the download and closing it aborts the request. Entries
+  nobody takes are aborted on eviction or expiry. Don't rely on the browser HTTP cache for this: the
+  warm-up is usually still downloading when the user clicks. Behind the
+  `platform_media_viewer_preload_on_hover` experiment. `preloadMediaViewer` is the only exposure
+  point and fires in both arms on hover or focus. `ImageViewer` has no check of its own: warm-ups
+  only exist in treatment. The store is on `globalThis` under
+  `Symbol.for('@atlaskit/media-viewer/warmed-images/v1')`, because a bundler can copy the module
+  into the card's bundle and the image viewer chunk separately. Bump the key if `Entry` changes.
+  Entries are keyed by file, collection and the `wmv` from `MediaClient.getImageWatermarkVersion`,
+  so a warm-up made before a watermark config change is never taken by a viewer opened after it. The
+  warm-up resolves the version before it touches the store. `ImageViewer` resolves it only when the
+  store holds a warm-up for the file, so control makes no extra auth call. The warm-up makes one
+  attempt (`retryOptions.maxAttempts: 1`) and reports `mediaFile` `preloadFailed` and a sampled
+  `preloadEnded` through the caller's `onAnalyticsEvent`. Aborts are not failures.
 - Supports custom viewer via `CustomRendererConfig`
 - Inset presentation: when `extensions.useInsetViewer` is set and the
   `cc_comments_inset_media_viewer` gate is on, `media-viewer.tsx` computes `isInsetViewer` once and

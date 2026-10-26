@@ -1,5 +1,27 @@
 # @atlaskit/media-card
 
+## 82.1.44
+
+### Patch Changes
+
+- [`c570c6f9b75f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c570c6f9b75f7) -
+  Warm the media viewer when a media card is hovered or focused, so opening it does not have to load
+  the viewer chunks and the full resolution image from cold.
+
+  Media cards that open the viewer on click warm it on `mouseenter`, when keyboard focus enters the
+  card, and when the "open in viewer" button receives focus. That button renders outside the card
+  wrapper, so its focus never reaches the card-level `onFocus`, and it is covered by a separate
+  internal `CardView` hook. Editor media nodes warm the viewer on hover and focus when
+  `allowImagePreview` is enabled.
+
+  Both fire the warm-up's operational events on the media channel: media-card through its analytics
+  context, and the editor through the analytics plugin.
+
+  Behind the `platform_media_viewer_preload_on_hover` experiment. The hover and focus handlers run
+  in both arms, so both arms are exposed on the same hover or focus.
+
+- Updated dependencies
+
 ## 82.1.43
 
 ### Patch Changes

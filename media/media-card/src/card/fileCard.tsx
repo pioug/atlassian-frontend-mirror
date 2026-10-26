@@ -45,6 +45,7 @@ import { useFilePreview } from '@atlaskit/media-file-preview/use-file-preview';
 import type { ProcessingFailedState, FileState } from '@atlaskit/media-state/file-state';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import { preloadMediaViewer } from '@atlaskit/media-viewer/preload';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import type { ViewerOptionsProps } from '@atlaskit/media-viewer/viewer-options';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
@@ -994,7 +995,28 @@ export const FileCard = ({
 		metadata.mediaType,
 	);
 
+	// Warm the viewer chunks and the full resolution image before the user commits
+	// to opening the viewer, so the click does not start by loading them. Runs in
+	// both arms of the experiment: `preloadMediaViewer` fires the exposure.
+	const warmMediaViewer = () => {
+		if (!shouldOpenMediaViewer) {
+			return;
+		}
+
+		preloadMediaViewer({
+			getMediaClient: () => mediaClient,
+			identifier,
+			mediaType: metadata.mediaType,
+			mimeType: metadata.mimeType,
+			fileState: fileStateValue,
+			traceContext,
+			onAnalyticsEvent: (payload) => fireMediaCardEvent(payload, createAnalyticsEvent),
+		});
+	};
+
 	const onImageMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
+		warmMediaViewer();
+
 		onMouseEnter?.({
 			event,
 			mediaItemDetails: metadata,
@@ -1005,6 +1027,9 @@ export const FileCard = ({
 		if (!isKeyboardFocusEnteringElement(event)) {
 			return;
 		}
+
+		warmMediaViewer();
+
 		onFocus?.({
 			event,
 			mediaItemDetails: metadata,
@@ -1059,6 +1084,7 @@ export const FileCard = ({
 				onClick={withCallbacks ? onCardViewClick : undefined}
 				onMouseEnter={withCallbacks ? onImageMouseEnter : undefined}
 				onFocus={withCallbacks ? onImageFocus : undefined}
+				onOpenMediaViewerButtonFocus={withCallbacks ? warmMediaViewer : undefined}
 				disableOverlay={disableOverlay}
 				progress={uploadProgressRef.current}
 				onDisplayImage={

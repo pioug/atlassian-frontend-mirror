@@ -453,6 +453,10 @@ describe('interaction-metrics timeout behavior', () => {
 			PreviousInteractionLog.timestamp = undefined;
 		});
 
+		afterEach(() => {
+			mockFg.mockReset();
+		});
+
 		it('should set id, type, and timestamp', () => {
 			mockPerformanceNow.mockReturnValue(2000);
 
@@ -547,6 +551,53 @@ describe('interaction-metrics timeout behavior', () => {
 			expect(PreviousInteractionLog.name).toBe('press-interaction');
 			expect(PreviousInteractionLog.type).toBe('press');
 			expect(PreviousInteractionLog.timestamp).toBe(4000);
+		});
+
+		describe('when platform_ufo_emit_previous_interaction_id is disabled', () => {
+			beforeEach(() => {
+				mockFg.mockReturnValue(false);
+			});
+
+			it('should not record previous interaction id on the next interaction', () => {
+				mockPerformanceNow.mockReturnValue(2000);
+
+				const pageLoadId = 'test-prev-interaction-11';
+				addNewInteraction(pageLoadId, 'work-item', 'page_load', 1000, 1, null, null, null);
+				tryComplete(pageLoadId, 2000);
+
+				const pressId = 'test-prev-interaction-12';
+				addNewInteraction(pressId, 'inline-edit', 'press', 3000, 1, null, null, null);
+
+				const pressInteraction = interactions.get(pressId);
+				expect(pressInteraction?.previousInteractionName).toBe('work-item');
+				expect(pressInteraction).not.toHaveProperty('previousInteractionId');
+			});
+		});
+
+		it('should record previous interaction id on the next interaction', () => {
+			mockFg.mockImplementation((name) => name === 'platform_ufo_emit_previous_interaction_id');
+			const pageLoadId = 'test-prev-interaction-8';
+			mockPerformanceNow.mockReturnValue(2000);
+
+			addNewInteraction(pageLoadId, 'work-item', 'page_load', 1000, 1, null, null, null);
+			tryComplete(pageLoadId, 2000);
+
+			const pressId = 'test-prev-interaction-9';
+			addNewInteraction(pressId, 'inline-edit', 'press', 3000, 1, null, null, null);
+
+			const pressInteraction = interactions.get(pressId);
+			expect(pressInteraction?.previousInteractionName).toBe('work-item');
+			expect(pressInteraction?.previousInteractionId).toBe(pageLoadId);
+		});
+
+		it('should leave previous interaction id undefined when there is no previous interaction', () => {
+			mockFg.mockImplementation((name) => name === 'platform_ufo_emit_previous_interaction_id');
+			const interactionId = 'test-prev-interaction-10';
+
+			addNewInteraction(interactionId, 'first', 'page_load', 1000, 1, null, null, null);
+
+			const interaction = interactions.get(interactionId);
+			expect(interaction?.previousInteractionId).toBeUndefined();
 		});
 	});
 });

@@ -6,6 +6,7 @@ import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -78,7 +79,9 @@ const createModal = (props?: ModalDialogProps) => (
 );
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-describe('<ModalDialog />', () => {
+// These suites cover the legacy (Portal and Blanket) markup. `modal-dialog-top-layer.test.tsx`
+// covers the top-layer path.
+ffTest.off('platform-dst-top-layer', '<ModalDialog />', () => {
 	beforeEach(() => {
 		skipA11yAudit();
 	});
@@ -602,7 +605,7 @@ describe('autoFocus', () => {
 	});
 });
 
-describe('forwarded ref', () => {
+ffTest.off('platform-dst-top-layer', 'forwarded ref', () => {
 	it('should forward a ref through', () => {
 		const ref = React.createRef<HTMLElement>();
 
@@ -617,7 +620,7 @@ describe('forwarded ref', () => {
 	});
 });
 
-describe('multiple modals', () => {
+ffTest.off('platform-dst-top-layer', 'multiple modals', () => {
 	beforeEach(() => {
 		skipA11yAudit();
 	});

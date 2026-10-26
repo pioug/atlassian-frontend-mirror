@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-annotation
 
+## 29.2.0
+
+### Minor Changes
+
+- [`d679456534ada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d679456534ada) -
+  Run the `AnnotationManager` preemptive gate when selecting an annotation on a block node, behind
+  `platform_editor_comments_api_manager`. Previously `showCommentForBlockNode` selected the
+  annotation immediately, so opening a comment on media could discard an in-progress comment without
+  prompting — inline text already went through the gate. It now uses the plugin's pending-selection
+  flow, which runs the gate and only then applies the selection. `SET_PENDING_SELECTIONS` carries
+  the view method and the media-toolbar flag so no analytics detail is lost on the way through.
+  Without a manager the selection is dispatched directly, as before.
+
 ## 29.1.0
 
 ### Minor Changes

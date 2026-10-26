@@ -8,6 +8,44 @@ interface DynamicColorInputs {
 	dynamicBackground: string;
 }
 
+/**
+ * Typed inputs for the experimental semantic spacing theme.
+ */
+type SpacingThemeInputs = {
+	/**
+	 * Positive gap ramp multiplier. Defaults to 1.
+	 */
+	dynamicSpaceGapScale?: number;
+	/**
+	 * Positive exponent controlling which gap sizes respond most. Defaults to 1.
+	 */
+	dynamicSpaceGapCurve?: number;
+	/**
+	 * Between 0 (curved response) and 1 (uniform scaling). Defaults to 0.
+	 */
+	dynamicSpaceGapUniformity?: number;
+	/**
+	 * Round calculated gaps to the nearest CSS pixel. Defaults to true.
+	 */
+	dynamicSpaceGapRound?: boolean;
+	/**
+	 * Positive inset ramp multiplier. Defaults to 1.
+	 */
+	dynamicSpaceInsetScale?: number;
+	/**
+	 * Positive exponent controlling which inset sizes respond most. Defaults to 1.
+	 */
+	dynamicSpaceInsetCurve?: number;
+	/**
+	 * Between 0 (curved response) and 1 (uniform scaling). Defaults to 0.
+	 */
+	dynamicSpaceInsetUniformity?: number;
+	/**
+	 * Round calculated insets to the nearest CSS pixel. Defaults to true.
+	 */
+	dynamicSpaceInsetRound?: boolean;
+};
+
 type HeadingSize = 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall' | 'xxsmall';
 
 /**
@@ -26,6 +64,9 @@ type HeadingScaleInputs = {
  * then shared by TypeScript consumers.
  */
 export interface CustomThemeOverrideRegistry {
+	'UNSAFE-spacing': {
+		spacing: SpacingThemeInputs;
+	};
 	'UNSAFE-dynamic': {
 		light: DynamicColorInputs;
 	};
@@ -201,7 +242,10 @@ function getCustomThemeOverrideStyles(
 					// Unset optional inputs are skipped so the theme's `var()` fallback applies. Writing
 					// `undefined` would be a valid custom property value that breaks the formula.
 					.filter(([, value]) => value !== undefined && value !== null)
-					.map(([propertyName, value]) => `${getCssVariableName(propertyName)}: ${value};`)
+					.map(
+						([propertyName, value]) =>
+							`${getCssVariableName(propertyName)}: ${typeof value === 'boolean' ? Number(value) : value};`,
+					)
 					.join('');
 
 				return styles

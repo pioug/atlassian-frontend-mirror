@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -284,7 +285,14 @@ describe('PreAuthValuePropositionModal', () => {
 		const user = userEvent.setup();
 		renderModalHost();
 
-		await user.click(await screen.findByTestId('pre-auth-value-proposition-modal--blanket'));
+		// Legacy renders a blanket. The top-layer `<dialog>` gets the click on its `::backdrop`.
+		await user.click(
+			await screen.findByTestId(
+				fg('platform-dst-top-layer')
+					? 'pre-auth-value-proposition-modal'
+					: 'pre-auth-value-proposition-modal--blanket',
+			),
+		);
 
 		await waitFor(() => {
 			expect(mockFireEvent).toHaveBeenCalledWith('ui.modal.closed.preAuthValueProposition', {

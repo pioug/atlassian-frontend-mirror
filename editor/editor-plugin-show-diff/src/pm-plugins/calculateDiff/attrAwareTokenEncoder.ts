@@ -2,7 +2,6 @@ import type { TokenEncoder } from 'prosemirror-changeset';
 
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getDiffableAttrNames } from '../decorations/utils/diffableAttrs';
 import {
@@ -38,9 +37,7 @@ export const attrAwareTokenEncoder: TokenEncoder<string | number> = {
 		// A one-sided reference is not comparable from an isolated token. Attribute-step comparison
 		// checks the reference when both versions have one.
 		const attrs =
-			fg('platform_editor_normalize_excerpt_diff') &&
-			node.type.name === 'extension' &&
-			isExcerptInclude(node.attrs)
+			node.type.name === 'extension' && isExcerptInclude(node.attrs)
 				? getComparableExcerptIncludeAttrs(node.attrs)
 				: node.attrs;
 		// Normalise variants (e.g. `panel_c1` → `panel`) so `diffableAttrs` needs one entry.

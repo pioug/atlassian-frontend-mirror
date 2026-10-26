@@ -18,6 +18,7 @@ export const themeIds = [
 	'dark-future',
 	'dark-increased-contrast',
 	'spacing',
+	'UNSAFE-spacing',
 	'shape',
 	'typography',
 	'UNSAFE-typography',

@@ -15,6 +15,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSha
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import BlockSyncedIcon from '@atlaskit/icon-lab/core/block-synced';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { createSyncedBlock } from '../../editor-commands';
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
@@ -65,7 +66,11 @@ export const SyncedBlockQuickInsertMenuItem = ({
 			description={formatMessage(blockTypeMessages.syncedBlockDescription)}
 			iconBefore={<BlockSyncedIcon label="" />}
 			isDisabled={editorDisabled}
-			lozenge={<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>}
+			lozenge={
+				!isExperimentEnabled('platform_editor_synced_block_remove_new_tag') ? (
+					<Lozenge appearance="new">{formatMessage(blockTypeMessages.newLozenge)}</Lozenge>
+				) : undefined
+			}
 			onSelect={onSelect}
 			preview={preview}
 			title={formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)}

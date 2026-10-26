@@ -21,6 +21,7 @@ import { HoverCard } from '../index';
 import { mockConfluenceResponse } from './__mocks__/mocks';
 import { analyticsTests } from './common/analytics.test-utils';
 import {
+	flushHoverCardExit,
 	forbiddenViewTests,
 	mockUrl,
 	runCommonHoverCardTests,
@@ -668,6 +669,7 @@ describe('standalone hover card', () => {
 					await event.click(await screen.findByTestId(testId));
 
 					if (outcome === 'should') {
+						await flushHoverCardExit();
 						expect(screen.queryByTestId('hover-card')).toBeNull();
 					} else {
 						expect(await screen.findByTestId('hover-card')).toBeDefined();
@@ -694,6 +696,7 @@ describe('standalone hover card', () => {
 					await event.unhover(triggerArea);
 					jest.advanceTimersByTime(0); // No Fade Out Delay
 				});
+				await flushHoverCardExit();
 				expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 			});
 
@@ -726,6 +729,7 @@ describe('standalone hover card', () => {
 				act(() => {
 					jest.advanceTimersByTime(1); // Fade Out Delay completed
 				});
+				await flushHoverCardExit();
 				expect(screen.queryByTestId('hover-card')).toBeNull();
 			});
 		});
@@ -767,6 +771,7 @@ describe('standalone hover card', () => {
 				await act(async () => {
 					await event.hover(cannotOpenElement);
 				});
+				await flushHoverCardExit();
 				expect(screen.queryByTestId(contentTestId)).not.toBeInTheDocument();
 				// Go back to element sets to can open again
 				const canOpenElementAgain = await screen.findByTestId(`${testId}-can-open`);

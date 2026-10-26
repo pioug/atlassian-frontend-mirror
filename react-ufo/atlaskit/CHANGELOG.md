@@ -1,5 +1,24 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.3.0
+
+### Minor Changes
+
+- [`dd0c688ca548f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd0c688ca548f) -
+  Add `previousInteractionId` to the UFO `interactionMetrics` payload so interactions can be joined
+  to the interaction (e.g. page load) that preceded them. Gated behind
+  `platform_ufo_emit_previous_interaction_id`.
+
+## 8.2.1
+
+### Patch Changes
+
+- [`3d03dcbdb3832`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d03dcbdb3832) -
+  Behind the `cc_editor_vc_exclude_flags` experiment, VC now also ignores an added or removed
+  top-layer host (`[popover]` or `<dialog>`) that holds `data-vc-oob` content. This covers a
+  top-layer flag host that is added with its first flag and removed after the last one. Other nodes
+  are not searched.
+
 ## 8.2.0
 
 ### Minor Changes

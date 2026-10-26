@@ -16,7 +16,14 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { buildImgErrorDiagnostics } from '../../buildImgErrorDiagnostics';
 import { Outcome } from '../../domain/outcome';
 import { MediaViewerError } from '../../MediaViewerError';
+import {
+	getWarmedImageKey,
+	hasWarmedImageForFile,
+	takeWarmedImage,
+	type WarmedImage,
+} from '../../warmedImages';
 import { BaseViewer } from '../base-viewer';
+import { getImageViewerRequestParams, IMAGE_VIEWER_FETCH_MAX_RES } from './imageRequestParams';
 import { InteractiveImg } from './interactive-img';
 
 export type ObjectUrl = string;
@@ -57,7 +64,11 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 
 	private cancelImageFetch?: () => void;
 
+	/** Counts `init` calls, so an `init` that a reset has replaced can tell it is stale. */
+	private initRuns = 0;
+
 	protected async init(): Promise<void> {
+		const initRun = (this.initRuns += 1);
 		const { item: fileState, mediaClient, collectionName, traceContext } = this.props;
 		if (isErrorFileState(fileState)) {
 			return;
@@ -93,20 +104,66 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 					objectUrl = value;
 				}
 			} else if (isImageRepresentationReady(fileState)) {
-				const item = processedFileStateToMediaItem(fileState);
+				// A hover or focus may already have started this exact request. Taking it
+				// means the image downloads once, even while the warm-up is still in
+				// flight. The viewer owns the download from here, so closing it aborts the
+				// request. A taken request keeps the trace context of whoever started it.
+				// Warm-ups only exist in the treatment arm of the
+				// `platform_media_viewer_preload_on_hover` experiment, so there is no check
+				// here: in control nothing is found and the viewer makes its own request.
+				// The key carries the watermark version, so a warm-up made before a
+				// watermark config change is not taken. The version is only resolved when
+				// a warm-up for this file exists, so control makes the same requests as
+				// before.
+				let warmed: WarmedImage | undefined;
+				if (hasWarmedImageForFile({ id: fileState.id, collectionName })) {
+					try {
+						const watermarkVersion = await mediaClient.getImageWatermarkVersion(collectionName);
+						// Closed or reset while the version resolved. Leave the warm-up in the
+						// store, which aborts it on expiry, rather than take it for nobody.
+						if (!this.mounted || initRun !== this.initRuns) {
+							return;
+						}
+						warmed = takeWarmedImage(
+							getWarmedImageKey({ id: fileState.id, collectionName, watermarkVersion }),
+						);
+					} catch {
+						// No version, so no warm-up can be matched. The viewer's own request below
+						// reports the auth failure.
+					}
+				}
 
-				const response = mediaClient.getImage(
-					item.details.id,
-					{
-						collection: collectionName,
-						mode: 'fit',
-					},
-					controller,
-					true,
-					traceContext,
-				);
-				this.cancelImageFetch = () => controller?.abort();
-				const blob = await response;
+				let blob: Blob | undefined;
+
+				if (warmed) {
+					this.cancelImageFetch = () => warmed.controller.abort();
+					try {
+						blob = await warmed.image;
+					} catch {
+						// The warm-up failed. Fall through and request it again so the viewer
+						// reports its own error if that fails too.
+					}
+
+					// Released while the warm-up was downloading, so there is nothing to show.
+					if (warmed.controller.signal.aborted) {
+						return;
+					}
+				}
+
+				if (!blob) {
+					const item = processedFileStateToMediaItem(fileState);
+
+					const response = mediaClient.getImage(
+						item.details.id,
+						getImageViewerRequestParams(collectionName),
+						controller,
+						IMAGE_VIEWER_FETCH_MAX_RES,
+						traceContext,
+					);
+					this.cancelImageFetch = () => controller?.abort();
+					blob = await response;
+				}
+
 				renderedBlobMimeType = blob.type || undefined;
 				objectUrl = URL.createObjectURL(blob);
 			} else {

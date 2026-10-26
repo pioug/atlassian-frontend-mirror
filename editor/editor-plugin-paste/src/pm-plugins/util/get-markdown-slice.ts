@@ -18,16 +18,12 @@ export function getMarkdownSliceViaGfm(
 	openStart: number,
 	openEnd: number,
 	markdownToPmConverter: (params: { markdown: string; schema: Schema }) => Fragment,
-	wrapBareUrls: boolean,
 ): Slice | undefined {
 	// The injected GFM converter enables tables, task lists, and strikethrough
-	// individually, but does not enable the GFM autolink-literal extension. In
-	// the treatment, wrap bare URLs in CommonMark autolink syntax so the card
-	// plugin receives a link mark to resolve. Preserve the current behavior in
-	// control while the fix rolls out.
-	const escapedTextInput = escapeBackslashAndLinksExceptCodeBlock(text, {
-		skipLinkEscaping: !wrapBareUrls,
-	});
+	// individually, but does not enable the GFM autolink-literal extension.
+	// Wrap bare URLs in CommonMark autolink syntax so the card plugin receives
+	// a link mark to resolve.
+	const escapedTextInput = escapeBackslashAndLinksExceptCodeBlock(text);
 	try {
 		const doc = schema.nodes.doc.createAndFill(
 			{},

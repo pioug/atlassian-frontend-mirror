@@ -116,7 +116,7 @@ const transform = (palette: Record<string, any>): Transform => {
 
 			if (originalToken.attributes.group === 'spacing') {
 				const value = originalToken.value;
-				return palette.space[value].value;
+				return resolvePaletteValue(palette.space, value);
 			}
 
 			if (originalToken.attributes.group === 'shape') {

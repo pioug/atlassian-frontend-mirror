@@ -1,13 +1,14 @@
 import React, { lazy, Suspense } from 'react';
 
+import { loadMediaViewerChunk } from '../chunkLoaders';
 import ModalSpinner from '../viewers/modalSpinner';
 import { MediaViewerPortal } from './portal';
 import type { MediaViewerWithMediaClientConfigProps } from './types';
 
 const MediaViewer = lazy(() =>
-	import(
-		/* webpackChunkName: "@atlaskit-internal_media-viewer" */ './media-viewer-error-boundary'
-	).then(({ MediaViewerWithErrorBoundary }) => ({ default: MediaViewerWithErrorBoundary })),
+	loadMediaViewerChunk().then(({ MediaViewerWithErrorBoundary }) => ({
+		default: MediaViewerWithErrorBoundary,
+	})),
 );
 
 export default function AsyncMediaViewer(

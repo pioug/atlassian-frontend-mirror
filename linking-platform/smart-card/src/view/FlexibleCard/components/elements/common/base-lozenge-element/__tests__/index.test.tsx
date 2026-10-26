@@ -9,8 +9,9 @@ import { IntlProvider } from 'react-intl';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { ElementName } from '../../../../../../../constants';
 import * as uiOptions from '../../../../../../../state/flexible-ui-context/useFlexibleUiOptionContext';
@@ -132,25 +133,23 @@ describe('Element: Lozenge', () => {
 
 		describe.each([false, true])('lozenge visual uplift: %s', (visualUplift) => {
 			it.each([
-				{ name: ElementName.State, billplatGate: true, optIn: true, rendersToParent: true },
-				{ name: ElementName.State, billplatGate: false, optIn: true, rendersToParent: false },
-				{ name: ElementName.State, billplatGate: true, optIn: false, rendersToParent: false },
-				{ name: ElementName.State, billplatGate: true, optIn: undefined, rendersToParent: false },
-				{ name: ElementName.Priority, billplatGate: true, optIn: true, rendersToParent: false },
+				{ name: ElementName.State, billplatGate: true, optIn: true },
+				{ name: ElementName.State, billplatGate: false, optIn: true },
+				{ name: ElementName.State, billplatGate: true, optIn: false },
+				{ name: ElementName.State, billplatGate: true, optIn: undefined },
+				{ name: ElementName.Priority, billplatGate: true, optIn: true },
 			])(
-				'scopes parent rendering to status: name=$name billplatGate=$billplatGate optIn=$optIn',
-				async ({ name, billplatGate, optIn, rendersToParent }) => {
-					failGate('platform-dst-top-layer');
+				'supports status selection: name=$name billplatGate=$billplatGate optIn=$optIn',
+				async ({ name, billplatGate, optIn }) => {
 					(billplatGate ? passGate : failGate)('billplat_jira_list_dropdown_top_layer');
 					(visualUplift ? passGate : failGate)('platform-dst-lozenge-tag-badge-visual-uplifts');
 					jest.spyOn(uiOptions, 'useFlexibleUiOptionContext').mockReturnValue({
 						shouldRenderStatusToParent: optIn,
 					});
-					jest
-						.spyOn(useInvoke, 'default')
-						.mockReturnValue(jest.fn().mockResolvedValue([{ id: 'done', text: 'Done' }]));
+					const invoke = jest.fn().mockResolvedValue([{ id: 'done', text: 'Done' }]);
+					jest.spyOn(useInvoke, 'default').mockReturnValue(invoke);
 					jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
-					const { container } = renderComponent({ action, name });
+					renderComponent({ action, name });
 					const trigger = await screen.findByRole('button', {
 						name: `Change status: ${defaultText}`,
 					});
@@ -161,18 +160,24 @@ describe('Element: Lozenge', () => {
 					expect(menuId).toBeTruthy();
 					const content = document.getElementById(menuId ?? '');
 					expect(content).toContainElement(menu);
-					if (rendersToParent) {
-						expect(container).toContainElement(content);
-						const triggerRoot = visualUplift ? trigger.parentElement : trigger;
-						expect(triggerRoot?.parentElement).toContainElement(content);
-						expect(trigger.compareDocumentPosition(content as Node)).toBe(
-							Node.DOCUMENT_POSITION_FOLLOWING,
-						);
-					} else {
-						expect(container).not.toContainElement(content);
-					}
+
 					expect(trigger).not.toHaveAttribute('aria-owns');
-					fireEvent.keyDown(menu, { key: 'Escape', code: 'Escape' });
+					await userEvent.click(within(menu).getByRole('menuitem', { name: 'Done' }));
+					await waitFor(() =>
+						expect(invoke).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: expect.objectContaining({
+									actionType: SmartLinkActionType.StatusUpdateAction,
+								}),
+							}),
+						),
+					);
+					await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+					expect(trigger).toHaveAccessibleName('Change status: Done');
+
+					await userEvent.click(trigger);
+					await screen.findByRole('menu');
+					await userEvent.keyboard('{Escape}');
 					await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
 					expect(trigger).not.toHaveAttribute('aria-owns');
 				},

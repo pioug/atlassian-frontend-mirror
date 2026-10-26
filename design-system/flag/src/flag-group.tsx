@@ -3,7 +3,16 @@
  * @jsx jsx
  */
 
-import { Children, type ReactElement, useEffect, useMemo, useRef } from 'react';
+import {
+	Children,
+	Fragment,
+	type ReactElement,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -13,6 +22,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap as cssMapAK, cx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
@@ -97,19 +107,19 @@ const groupStylesNew = cssMapAK({
 		insetBlockEnd: 0,
 		transition: token('motion.flag.reposition'),
 		width: '400px',
-		//@ts-ignore
+		// @ts-expect-error -- cssMap only accepts standard breakpoints.
 		'@media (max-width: 560px)': {
 			width: '100vw',
 		},
 	},
 	first: {
 		transform: 'translate(0,0)',
-		//@ts-ignore
+		// @ts-expect-error -- Flag stacking uses zIndex 5, which is outside the cssMap zIndex scale.
 		zIndex: 5,
 	},
 	second: {
 		transform: 'translateY(100%) translateY(16px)',
-		//@ts-ignore
+		// @ts-expect-error -- Flag stacking uses zIndex 4, which is outside the cssMap zIndex scale.
 		zIndex: 4,
 	},
 	nth: {
@@ -163,6 +173,18 @@ const flagGroupContainerStylesSymmetric = css({
 });
 
 /**
+ * Tells the flag group when a flag mounts and unmounts. A flag stays mounted
+ * while its exit animation plays, so the count includes exiting flags.
+ */
+function FlagPresence({ onChange }: { onChange: (delta: 1 | -1) => void }): null {
+	useLayoutEffect(() => {
+		onChange(1);
+		return () => onChange(-1);
+	}, [onChange]);
+	return null;
+}
+
+/**
  * __Flag group__
  *
  * A flag group is used to group a set of related flags, with entry and exit animations.
@@ -181,6 +203,28 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	} = props;
 
 	const hasFlags = Array.isArray(children) ? children.length > 0 : Boolean(children);
+
+	const useTopLayer = fg('platform-dst-top-layer');
+
+	// Top layer only. The host renders in place, so an open host with no flags
+	// adds an empty element to the consumer's DOM. Open the host only while a
+	// flag is mounted, including a flag that plays its exit animation.
+	const [mountedFlagCount, setMountedFlagCount] = useState(0);
+	const onFlagPresenceChange = useCallback((delta: 1 | -1) => {
+		setMountedFlagCount((count) => count + delta);
+	}, []);
+	// `hasFlags` opens the host for the first flag: flags count themselves from
+	// inside the host, so the count is 0 until the host renders. The count keeps
+	// the host open after the last flag leaves `children` but is still exiting.
+	const isHostOpen = hasFlags || mountedFlagCount > 0;
+
+	// Top layer only. The host mounts with its first flag, so that flag must
+	// animate in. Flags that are present when the group mounts do not animate,
+	// as on the portal path.
+	const hasMountedRef = useRef(false);
+	useEffect(() => {
+		hasMountedRef.current = true;
+	}, []);
 
 	const dismissFlagContext: FlagGroupAPI = useMemo(
 		() => ({
@@ -294,6 +338,7 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 									}
 								>
 									{flag}
+									{useTopLayer ? <FlagPresence onChange={onFlagPresenceChange} /> : null}
 								</FlagGroupContext.Provider>
 							</Motion>
 						</Box>
@@ -326,6 +371,7 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 										}
 									>
 										{flag}
+										{useTopLayer ? <FlagPresence onChange={onFlagPresenceChange} /> : null}
 									</FlagGroupContext.Provider>
 								</div>
 							)}
@@ -335,7 +381,6 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			: false;
 	};
 
-	const useTopLayer = fg('platform-dst-top-layer');
 	const useSymmetricAnchor = fg('cc_mohiti_flag_anchoring');
 
 	const isKeyboardDismissEnabled = fg('platform_dst_flag_keyboard_dismiss');
@@ -360,15 +405,22 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 				</VisuallyHidden>
 			) : null}
 
-			<ExitingPersistence appear={false}>{renderChildren()}</ExitingPersistence>
+			<ExitingPersistence appear={useTopLayer && hasMountedRef.current}>
+				{renderChildren()}
+			</ExitingPersistence>
 		</div>
 	);
 
 	if (useTopLayer) {
+		// Render no host (and run no Popover hooks) until a flag mounts.
 		return (
-			<Popover mode="manual" isOpen={true}>
-				{flags}
-			</Popover>
+			<Fragment>
+				{isHostOpen ? (
+					<Popover mode="manual" isOpen={true}>
+						{flags}
+					</Popover>
+				) : null}
+			</Fragment>
 		);
 	}
 

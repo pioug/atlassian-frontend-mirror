@@ -14,9 +14,7 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
-import type { InteractionContextType } from '@atlaskit/interaction-context';
-// eslint-disable-next-line no-duplicate-imports
-import InteractionContext from '@atlaskit/interaction-context';
+import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import { token } from '@atlaskit/tokens';
 
 import { type BaseProps } from '../types';
@@ -83,7 +81,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ButtonBaseProps> & React.RefAttributes<HTMLElement>
 > = React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBase(
 	props: ButtonBaseProps,
-	ref: React.Ref<HTMLElement>,
+	ref: React.ForwardedRef<HTMLElement>,
 ) {
 	const {
 		// I don't think analytics should be in button, but for now it is
@@ -131,8 +129,6 @@ const ButtonBase: React.ForwardRefExoticComponent<
 				return;
 			}
 
-			// We can write to ref's `current` property, but Typescript does not like it.
-			// @ts-ignore
 			ref.current = node;
 		},
 		[ourRef, ref],

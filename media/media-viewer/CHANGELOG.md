@@ -1,5 +1,49 @@
 # @atlaskit/media-viewer
 
+## 54.12.0
+
+### Minor Changes
+
+- [`c570c6f9b75f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c570c6f9b75f7) -
+  Add a new `@atlaskit/media-viewer/preload` entry point exporting `preloadMediaViewer`, which warms
+  what the viewer needs for a file before the user opens it: the lazily loaded viewer chunks, and
+  the full resolution image binary.
+
+  The image request is fetched with the exact params `ImageViewer` uses and is held with its
+  `AbortController`. `ImageViewer` takes that request and awaits it rather than issuing a second
+  one. This holds whether the warm-up has finished or is still downloading, which matters because a
+  multi-megabyte image is usually still in flight when the user clicks. Once taken, the viewer owns
+  the download, so closing the viewer aborts it.
+
+  At most two untaken warm-ups are held, for up to 30 seconds each. Warm-ups that are evicted or
+  expire are aborted. An image already being warmed is not requested again. The image is only warmed
+  for non-SVG images. When the caller passes the file state, it is also skipped until the backend
+  image representation exists, and skipped when the viewer would render a local preview. The image
+  warm-up is skipped when the connection reports data saver or an effective type of 3g or slower.
+  The chunks are still loaded.
+
+  The warm-up makes one attempt with no retries, so a failing image endpoint gets no extra load from
+  backoff. Pass `onAnalyticsEvent` to receive its operational events: `mediaFile` `preloadFailed` on
+  any failure other than an abort, never sampled, and `mediaFile` `preloadEnded` for 10% of
+  warm-ups, with whether the viewer took it or it expired, was evicted or failed.
+
+  The warmed image store lives on `globalThis` under a versioned `Symbol.for` key, so copies of the
+  module in different bundles share it. Warm-ups are keyed by the watermark version (`wmv`) of their
+  request as well as the file, so a viewer opened after a watermark config change never takes a
+  warm-up made before it.
+
+  The `import()` calls for the lazily loaded media viewer and image viewer chunks are consolidated
+  into a single call site each, so the warm-up cannot request a different chunk than the render
+  path.
+
+  Behind the `platform_media_viewer_preload_on_hover` experiment. `preloadMediaViewer` fires the
+  exposure on hover or focus in both arms, before they differ, and takes a lazy `getMediaClient` so
+  the control arm creates no client.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.11.28
 
 ### Patch Changes

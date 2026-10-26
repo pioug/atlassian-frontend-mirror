@@ -32,6 +32,8 @@ type MediaCardWrapperProps = {
 	children: React.ReactNode;
 	dimensions: NumericalCardDimensions;
 	onContextMenu?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+	onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
+	onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 	selected?: boolean;
 };
 
@@ -41,6 +43,8 @@ export const MediaCardWrapper = ({
 	selected,
 	borderWidth = 0,
 	onContextMenu,
+	onFocus,
+	onMouseEnter,
 }: MediaCardWrapperProps): jsx.JSX.Element => {
 	const calculatedBorderWidth = selected && borderWidth > 0 ? borderWidth + 1 : borderWidth;
 	const borderRadius = `${calculatedBorderWidth + 8}px`;
@@ -51,6 +55,8 @@ export const MediaCardWrapper = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="media-card-wrapper"
 			css={pointerCursorStyle}
+			onFocus={onFocus}
+			onMouseEnter={onMouseEnter}
 			style={{
 				borderColor: `var(--custom-palette-color)`,
 				borderWidth: `${calculatedBorderWidth}px`,

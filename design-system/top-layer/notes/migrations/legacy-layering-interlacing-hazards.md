@@ -290,6 +290,11 @@ top-layer surfaces do not register. Use `hasOpenDialogOrPopover`, `requestCloseP
 tree only for surfaces still in the base layer, and don't mix a single logical stack across both
 systems.
 
+An inline surface that keys off `isLayerDisabled()` also misses nested top-layer popovers, because
+their top-layer path renders no `<Layering>`. Check the DOM with
+`hasOpenDialogOrPopover({ within })` instead, and keep the surface out of the top layer. See
+[`decisions/inline-modal-surface.md`](../decisions/inline-modal-surface.md).
+
 ---
 
 ### Rule 7 — Manual focus traps / inert-ing the rest of the app 🟠

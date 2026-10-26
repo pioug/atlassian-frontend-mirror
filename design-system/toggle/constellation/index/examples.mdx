@@ -2,6 +2,7 @@
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message/message';
 import ToggleDefault from '../../examples/constellation/toggle-default';
 import ToggleDefaultChecked from '../../examples/constellation/toggle-default-checked';
 import ToggleStateless from '../../examples/constellation/toggle-stateless-default';
@@ -11,33 +12,54 @@ import ToggleDisabled from '../../examples/constellation/toggle-disabled';
 import ToggleTooltip from '../../examples/constellation/toggle-tooltip';
 import ToggleLabeled from '../../examples/constellation/toggle-label';
 
+<SectionMessage title="Motion in Early Access" appearance="warning">
+	Motion has been updated in toggle and is in Early Access. The motion updates are currently behind
+	the feature flag: platform_design_system_toggle_motion.
+</SectionMessage>
+
 ## Size
 
 ### Default
 
 The default form of a toggle. For pages with lots of toggles, use the default size.
 
-<Example Component={ToggleDefault} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleDefault}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ### Large
 
 To call attention to a specific action, use a `large` toggle.
 
-<Example Component={ToggleLarge} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleLarge}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ## Disabled
 
 When a selection has already been made outside of the current context that negates the need for the
 toggle, you could use the disabled state.
 
-<Example Component={ToggleDisabled} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleDisabled}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ## Tooltips
 
 To add an extra hint about what will happen when people interact with a toggle, use a
 [tooltip](/components/tooltip).
 
-<Example Component={ToggleTooltip} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleTooltip}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ## Checked
 
@@ -45,14 +67,22 @@ Set the initial checked value using `defaultChecked` (this is optional, by defau
 false if not provided). After that point, the checked value is controlled by the component. Provide
 an `onChange` handler to be notified of checked value changes.
 
-<Example Component={ToggleDefaultChecked} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleDefaultChecked}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ## Stateless
 
 In a stateless toggle, manage the checked state of the input by providing the `isChecked` prop. This
 requires an `onChange` handler to control the state value that you pass into the `isChecked` prop.
 
-<Example Component={ToggleStateless} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleStateless}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ## Loading
 
@@ -60,7 +90,11 @@ To handle async actions where the toggle's state is being fetched or updated asy
 set the loading state by providing the `isLoading` prop. This is only available in a stateless
 toggle.
 
-<Example Component={ToggleLoading} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleLoading}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>
 
 ## Labeled
 
@@ -68,4 +102,8 @@ It's better to include a visible label with the toggle. When there isn't a visib
 can pair toggle with, use the `label` prop to tell people who use assistive technology what the
 toggle is for.
 
-<Example Component={ToggleLabeled} packageName="@atlaskit/toggle" />
+<Example
+	Component={ToggleLabeled}
+	packageName="@atlaskit/toggle"
+	featureFlagSwitchers={['motionToggle']}
+/>

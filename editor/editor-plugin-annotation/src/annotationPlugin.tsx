@@ -123,6 +123,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			showCommentForBlockNode: showInlineCommentForBlockNode(
 				annotationProviders?.inlineComment.supportedBlockNodes,
 				annotationProviders?.inlineComment.isBlockNodeSupported,
+				annotationProviders?.annotationManager,
 			),
 			setSelectedAnnotation,
 			setPendingSelectedAnnotation,

@@ -3,6 +3,7 @@ import React from 'react';
 import { type VirtualElement } from '@popperjs/core';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -45,8 +46,9 @@ class VirtualReference implements VirtualElement {
 const virtualReferenceElement = new VirtualReference();
 const referenceElement = document.createElement('button');
 
+// These tests cover the legacy Popper.js path. `popper-top-layer.test.tsx` covers the top-layer path.
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-describe('Popper', () => {
+ffTest.off('platform-dst-top-layer', 'Popper', () => {
 	it('should render Popper', async () => {
 		render(
 			<Popper>

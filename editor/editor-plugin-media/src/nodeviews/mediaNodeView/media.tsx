@@ -21,9 +21,15 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import Card from '@atlaskit/media-card/cardLoader';
 import { CardLoading } from '@atlaskit/media-card/cardLoading';
 import type { CardDimensions, CardEvent, CardOnClickCallback } from '@atlaskit/media-card/types';
+import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import type { Identifier } from '@atlaskit/media-client/identifier';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import type { NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import {
+	preloadMediaViewer,
+	type MediaViewerPreloadEventPayload,
+} from '@atlaskit/media-viewer/preload';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -393,6 +399,44 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		}
 	};
 
+	/**
+	 * Warms the media viewer while the card is hovered or focused, so opening it
+	 * (double click, or the preview toolbar button) does not start by loading the
+	 * viewer chunks and the full resolution image. Runs in both arms of the
+	 * experiment: `preloadMediaViewer` fires the exposure.
+	 */
+	private warmMediaViewer = () => {
+		const { node, mediaOptions } = this.props;
+		const { viewMediaClientConfig } = this.state;
+
+		if (!mediaOptions?.allowImagePreview || !viewMediaClientConfig) {
+			return;
+		}
+
+		const { id, collection, type, __fileMimeType } = node.attrs;
+
+		if (type !== 'file' || !id) {
+			return;
+		}
+
+		preloadMediaViewer({
+			// Lazy, so the control arm never creates a client for a config the card may
+			// not use.
+			getMediaClient: () => getMediaClient(viewMediaClientConfig),
+			identifier: {
+				id,
+				mediaItemType: 'file',
+				collectionName: collection,
+			},
+			mimeType: __fileMimeType,
+			onAnalyticsEvent: (payload) =>
+				this.props.pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent<
+					MediaViewerPreloadEventPayload,
+					'customEventType'
+				>(payload, ANALYTICS_MEDIA_CHANNEL),
+		});
+	};
+
 	private onPreviewRender = (fileId: string) => {
 		this.emitMediaRenderEvent({ renderedMediaId: fileId, type: 'preview-rendered' });
 		// Only tracked where the reveal uses it. Every media card in every editor calls this,
@@ -528,6 +572,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				<MediaCardWrapper
 					dimensions={originalDimensions}
 					onContextMenu={this.selectMediaSingle}
+					onFocus={this.warmMediaViewer}
+					onMouseEnter={this.warmMediaViewer}
 					borderWidth={borderMark?.attrs.size}
 					selected={selected}
 				>

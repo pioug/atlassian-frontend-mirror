@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 5.0.1
+
+### Patch Changes
+
+- [`d3ad0b46019b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3ad0b46019b9) -
+  Recognize @jira/platform\_\_feature-gating alongside the legacy package name in feature-gate
+  detection.
+
 ## 5.0.0
 
 ### Major Changes

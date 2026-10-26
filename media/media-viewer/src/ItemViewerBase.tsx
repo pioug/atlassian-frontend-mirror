@@ -23,6 +23,7 @@ import {
 	startMediaFileUfoExperience,
 	succeedMediaFileUfoExperience,
 } from './analytics/ufoExperiences';
+import { loadImageViewerChunk } from './chunkLoaders';
 import { type FileStateFlags } from './components/types';
 import { Outcome } from './domain/outcome';
 import ErrorMessage from './errorMessageWithAnalytics';
@@ -42,9 +43,8 @@ import { InteractiveImg } from './viewers/image/interactive-img';
 import type { SvgViewerProps } from './viewers/svg';
 import type { Props as VideoViewerProps } from './viewers/video';
 
-function loadImageViewer() {
-	return import(/* webpackChunkName: "@atlaskit-internal_imageViewer" */ './viewers/image');
-}
+// Shared with `./preload` so the warm-up and the render path load the same chunk.
+const loadImageViewer = loadImageViewerChunk;
 
 const LoadableImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>

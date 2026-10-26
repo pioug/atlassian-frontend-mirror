@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 30.0.5
+
+### Patch Changes
+
+- [`ca7b9d268d51a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca7b9d268d51a) -
+  Clean up platform_editor_gfm_link_paste_fix, retaining bare URL link detection during GFM markdown
+  paste.
+
 ## 30.0.4
 
 ### Patch Changes

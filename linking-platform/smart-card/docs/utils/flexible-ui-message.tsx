@@ -11,7 +11,7 @@ const FlexibleUiMessage = (): React.JSX.Element => {
 		<SectionMessage
 			actions={[
 				<SectionMessageAction href={learnMoreLink}>Learn more</SectionMessageAction>,
-				<SectionMessageAction href="https://atlassian.enterprise.slack.com/archives/C09LKUEEPGT">
+				<SectionMessageAction href="https://atlassian.enterprise.slack.com/archives/C0CBM48P0DS">
 					Request and feedback
 				</SectionMessageAction>,
 			]}

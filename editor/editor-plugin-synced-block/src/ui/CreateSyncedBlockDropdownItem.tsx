@@ -11,6 +11,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSha
 import { SyncBlocksIcon } from '@atlaskit/editor-toolbar/sync-blocks-icon';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { canBeConvertedToSyncBlock } from '../pm-plugins/utils/utils';
@@ -81,7 +82,9 @@ const CreateSyncedBlockDropdownItem = ({
 
 	const isOffline = isOfflineMode(mode);
 
-	const lozenge = <SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />;
+	const lozenge = !isExperimentEnabled('platform_editor_synced_block_remove_new_tag') ? (
+		<SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />
+	) : undefined;
 
 	return (
 		<ToolbarDropdownItem
@@ -113,7 +116,9 @@ const CopySyncedBlockDropdownItem = ({
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 
-	const lozenge = <SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />;
+	const lozenge = !isExperimentEnabled('platform_editor_synced_block_remove_new_tag') ? (
+		<SyncedBlockNewLozenge label={formatMessage(blockMenuMessages.newLozenge)} />
+	) : undefined;
 	return (
 		<ToolbarDropdownItem
 			elemBefore={<SyncBlocksIcon label="" size="small" />}

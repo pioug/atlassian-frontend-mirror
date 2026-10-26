@@ -1,5 +1,12 @@
 # @atlaskit/analytics-listeners
 
+## 11.4.4
+
+### Patch Changes
+
+- [`25950389be74c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25950389be74c) -
+  Remove default tags from Teamwork Graph analytics events.
+
 ## 11.4.3
 
 ### Patch Changes

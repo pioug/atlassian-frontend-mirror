@@ -25,6 +25,15 @@ const userEventOptionsWithAdvanceTimers = {
 	advanceTimers: jest.advanceTimersByTime,
 };
 
+// The hover card can finish closing in a later task and microtask (top-layer popover),
+// so flush pending timers and then microtasks before asserting it is gone.
+export const flushHoverCardExit = async (): Promise<void> => {
+	await act(async () => {
+		jest.runOnlyPendingTimers();
+		await Promise.resolve();
+	});
+};
+
 export const mockUrl = 'https://some.url';
 
 type TestConfig = {
@@ -172,6 +181,7 @@ export const unauthorizedViewTests = (
 			act(() => {
 				jest.runAllTimers();
 			});
+			await flushHoverCardExit();
 			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -312,6 +322,7 @@ export const runCommonHoverCardTests = (
 			act(() => {
 				jest.advanceTimersByTime(1); // Delay completed
 			});
+			await flushHoverCardExit();
 
 			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
@@ -376,6 +387,7 @@ export const runCommonHoverCardTests = (
 			act(() => {
 				jest.runAllTimers();
 			});
+			await flushHoverCardExit();
 
 			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
@@ -457,6 +469,7 @@ export const runCommonHoverCardTests = (
 
 			expect(await screen.findByTestId('hover-card')).toBeInTheDocument();
 			await event.pointer({ keys: '[MouseRight>]', target: element });
+			await flushHoverCardExit();
 
 			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
@@ -514,6 +527,7 @@ export const runCommonHoverCardTests = (
 				await screen.findByTestId('block-card-icon');
 			}
 
+			await flushHoverCardExit();
 			const hoverCard = screen.queryByTestId('hover-card');
 			expect(hoverCard).not.toBeInTheDocument();
 

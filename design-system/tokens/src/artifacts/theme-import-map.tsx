@@ -6,7 +6,7 @@
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::b1d12c60fe57e05a2251249c2cea7224>>
+ * @codegen <<SignedSource::53ff14285f7c9bd19729a6820212b645>>
  * @codegenCommand yarn build tokens
  */
 
@@ -87,6 +87,11 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-spacing" */
       './themes/atlassian-spacing'
+    ),
+  'UNSAFE-spacing': () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_UNSAFE-spacing" */
+      './themes/UNSAFE-spacing'
     ),
   'typography': () =>
     import(

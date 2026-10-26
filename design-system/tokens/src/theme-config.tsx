@@ -23,6 +23,7 @@ export type Themes =
 	| 'UNSAFE-test-dark'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
+	| 'UNSAFE-spacing'
 	| 'atlassian-typography'
 	| 'UNSAFE-typography'
 	| 'atlassian-motion';
@@ -88,6 +89,7 @@ export const themeIdsWithOverrides: readonly [
 	'dark-future',
 	'dark-increased-contrast',
 	'spacing',
+	'UNSAFE-spacing',
 	'shape',
 	'typography',
 	'UNSAFE-typography',
@@ -323,6 +325,13 @@ export const themeConfig: Record<ThemeFileNames, ThemeConfig> = {
 		attributes: {
 			type: 'spacing',
 		},
+	},
+	'UNSAFE-spacing': {
+		id: 'UNSAFE-spacing',
+		displayName: 'UNSAFE Dynamic Spacing',
+		palette: 'spacingScale',
+		attributes: { type: 'spacing' },
+		extends: 'spacing',
 	},
 	'atlassian-typography': {
 		id: 'typography',

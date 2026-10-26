@@ -1,0 +1,117 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "trace-correlation-exposure",
+  "description": "Demonstrates trace and span ID correlation. When evaluation occurs within an active OTel trace context, the exposure record contains traceId and spanId. This fixture shows the present case; the absent case is covered in automatic-exposure fixture's omitted list for non-traced evaluations.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            },
+            {
+              "key": "deployment.environment.name",
+              "value": {
+                "stringValue": "local"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1",
+              "attributes": [
+                {
+                  "key": "atl.feature_flag.sdk.platform",
+                  "value": {
+                    "stringValue": "server"
+                  }
+                }
+              ]
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964800000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "traceId": "a3ce929d0e0e47364bf92f3577b34da6",
+                "spanId": "f067aa0ba902b701",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "traced_evaluation"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.set.id",
+                    "value": {
+                      "stringValue": "jira_server"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "enabled"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "targeting_match"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "delta_stream"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": false
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {
+      "traceId": "16-byte hex identifier (lowercase), e.g., 'a3ce929d0e0e47364bf92f3577b34da6'",
+      "spanId": "8-byte hex identifier (lowercase), e.g., 'f067aa0ba902b701'"
+    },
+    "omitted": [],
+    "notes": {
+      "conditional_presence": "traceId and spanId are conditional: present when evaluation occurs in an active trace context, absent otherwise.",
+      "correlation": "These IDs enable correlation between exposure events and distributed traces.",
+      "format": "IDs are represented as lowercase hex strings in the normalized logical OTLP content."
+    },
+    "companion_cases": "Manual exposure and default variation cases demonstrate absent trace context (omitted traceId/spanId)."
+  }
+}

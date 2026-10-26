@@ -1,5 +1,17 @@
 # @atlaskit/panel
 
+## 2.12.0
+
+### Minor Changes
+
+- [`6f0e3e4fc7830`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f0e3e4fc7830) -
+  Update i18n NPM package versions for discovery,navigation,web-platform,bitbucket,policy-platform
+  (Group 14)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.0
 
 ### Minor Changes

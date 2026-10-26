@@ -83,11 +83,7 @@ const getComparableExtensionAttrs = (node: PMNode): Record<string, unknown> =>
 	omit(node.attrs, transientExtensionAttrPaths);
 
 const haveSameRelevantExtensionAttrs = (beforeNode: PMNode, afterNode: PMNode): boolean => {
-	if (
-		fg('platform_editor_normalize_excerpt_diff') &&
-		isExcerptInclude(beforeNode.attrs) &&
-		isExcerptInclude(afterNode.attrs)
-	) {
+	if (isExcerptInclude(beforeNode.attrs) && isExcerptInclude(afterNode.attrs)) {
 		const beforeReference = getReferencedContentId(beforeNode.attrs);
 		const afterReference = getReferencedContentId(afterNode.attrs);
 		return (

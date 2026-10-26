@@ -13,6 +13,16 @@ function changeSlider(name: string, value: string) {
 	fireEvent.change(screen.getByRole('slider', { name }), { target: { value } });
 }
 
+function spacingInputs() {
+	// eslint-disable-next-line testing-library/no-node-access
+	const wrapper = screen.getByTestId('gap-spacing-preview').closest('[data-theme-overrides-scope]');
+	const scope = wrapper?.getAttribute('data-theme-overrides-scope');
+	// eslint-disable-next-line testing-library/no-node-access
+	return Array.from(document.head.querySelectorAll('style[data-theme-overrides]')).find((style) =>
+		style.textContent?.includes(`[data-theme-overrides-scope="${scope}"]`),
+	)?.textContent;
+}
+
 beforeEach(() => {
 	global.ResizeObserver = jest.fn(() => ({
 		observe: jest.fn(),
@@ -56,60 +66,50 @@ it('synchronizes the all-spacing toggle with the independent gap and inset toggl
 it('retains both spacing settings across tabs and resets each family independently', async () => {
 	const user = userEvent.setup();
 	render(<CustomThemeSpacingExample />);
-	const preview = screen.getByTestId('gap-spacing-preview');
-	const originalGap = preview.style.getPropertyValue('--ds-space-gap-xxlarge');
-	const originalInset = preview.style.getPropertyValue('--ds-space-inset-xxlarge');
-
 	changeSlider('Gap scale', '2');
-	const changedGap = preview.style.getPropertyValue('--ds-space-gap-xxlarge');
-	expect(changedGap).not.toBe(originalGap);
-	expect(preview.style.getPropertyValue('--ds-space-inset-xxlarge')).toBe(originalInset);
+	expect(spacingInputs()).toContain('--ds-dynamic-space-gap-scale: 2;');
+	expect(spacingInputs()).toContain('--ds-dynamic-space-inset-scale: 1;');
 
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
 	changeSlider('Inset scale', '3');
-	expect(screen.getByRole('slider', { name: 'xxsmall' })).toHaveValue('4');
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('96');
-	const changedInset = preview.style.getPropertyValue('--ds-space-inset-xxlarge');
-	expect(changedInset).not.toBe(originalInset);
-	expect(preview.style.getPropertyValue('--ds-space-gap-xxlarge')).toBe(changedGap);
+	expect(screen.getByRole('button', { name: 'space.inset.xxsmall: 4px' })).toBeVisible();
+	expect(screen.getByRole('button', { name: 'space.inset.3xlarge: 144px' })).toBeVisible();
+	expect(spacingInputs()).toContain('--ds-dynamic-space-inset-scale: 3;');
+	expect(spacingInputs()).toContain('--ds-dynamic-space-gap-scale: 2;');
 
 	await user.click(screen.getByRole('tab', { name: 'Gaps' }));
 	expect(screen.getByRole('slider', { name: 'Gap scale' })).toHaveValue('2');
 	await user.click(screen.getByRole('button', { name: 'Reset gaps' }));
-	expect(preview.style.getPropertyValue('--ds-space-gap-xxlarge')).toBe(originalGap);
-	expect(preview.style.getPropertyValue('--ds-space-inset-xxlarge')).toBe(changedInset);
+	expect(spacingInputs()).toContain('--ds-dynamic-space-gap-scale: 1;');
+	expect(spacingInputs()).toContain('--ds-dynamic-space-inset-scale: 3;');
 
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
 	expect(screen.getByRole('slider', { name: 'Inset scale' })).toHaveValue('3');
 	await user.click(screen.getByRole('button', { name: 'Reset insets' }));
-	expect(preview.style.getPropertyValue('--ds-space-inset-xxlarge')).toBe(originalInset);
+	expect(spacingInputs()).toContain('--ds-dynamic-space-inset-scale: 1;');
 });
 
-it('supports fractional inset overrides and clears them when an inset preset is selected', async () => {
+it('supports fractional inset presets without changing gap settings', async () => {
 	const user = userEvent.setup();
 	render(<CustomThemeSpacingExample />);
-	changeSlider('large', '17');
-	const preview = screen.getByTestId('gap-spacing-preview');
-	const gapOverride = preview.style.getPropertyValue('--ds-space-gap-large');
-
+	changeSlider('Gap scale', '2');
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
-	await user.click(screen.getByRole('checkbox', { name: 'Round inset values' }));
-	changeSlider('large', '41.25');
-	changeSlider('xsmall', '9.5');
-	expect(screen.getByRole('slider', { name: 'large' })).toHaveValue('41.25');
-	expect(screen.getByRole('slider', { name: 'xsmall' })).toHaveValue('9.5');
-	expect(screen.getByRole('img', { name: /Applied inset sizes:/ })).toHaveAccessibleName(
-		expect.stringContaining('large 41.25px'),
+	await user.click(screen.getByRole('button', { name: /Fluid Fractional spacing/ }));
+	expect(screen.getByRole('slider', { name: 'Inset scale' })).toHaveValue('1.25');
+	expect(screen.getByRole('checkbox', { name: 'Round inset values' })).not.toBeChecked();
+	expect(spacingInputs()).toContain('--ds-dynamic-space-inset-round: 0;');
+	expect(screen.getByRole('group', { name: /Applied inset sizes:/ })).toHaveAccessibleName(
+		expect.stringContaining('3xlarge 60px'),
 	);
 
 	await user.click(screen.getByRole('button', { name: /Default Original rhythm/ }));
-	expect(screen.getByRole('slider', { name: 'large' })).toHaveValue('20');
-	expect(screen.getByRole('slider', { name: 'xsmall' })).toHaveValue('8');
+	expect(screen.getByRole('button', { name: 'space.inset.large: 20px' })).toBeVisible();
+	expect(screen.getByRole('button', { name: 'space.inset.xsmall: 8px' })).toBeVisible();
 	expect(screen.getByRole('checkbox', { name: 'Round inset values' })).toBeChecked();
-	expect(preview.style.getPropertyValue('--ds-space-gap-large')).toBe(gapOverride);
+	expect(spacingInputs()).toContain('--ds-dynamic-space-gap-scale: 2;');
 });
 
-it('links general controls in both directions while retaining each family’s token sizes', async () => {
+it('links controls in both directions while retaining each family’s base token sizes', async () => {
 	const user = userEvent.setup();
 	render(<CustomThemeSpacingExample />);
 	expect(screen.queryByRole('tab', { name: 'Both' })).not.toBeInTheDocument();
@@ -120,73 +120,67 @@ it('links general controls in both directions while retaining each family’s to
 	changeSlider('Scale uniformity', '1');
 	changeSlider('Curve strength', '2');
 	await user.click(screen.getByRole('checkbox', { name: 'Round gap values' }));
-	expect(screen.getByRole('slider', { name: 'xxsmall' })).toHaveValue('4');
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('48');
+	expect(screen.getByRole('button', { name: 'space.gap.xxsmall: 4px' })).toBeVisible();
+	expect(screen.getByRole('button', { name: 'space.gap.xxlarge: 48px' })).toBeVisible();
 
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
 	expect(screen.getByRole('slider', { name: 'Inset scale' })).toHaveValue('2');
 	expect(screen.getByRole('slider', { name: 'Scale uniformity' })).toHaveValue('1');
 	expect(screen.getByRole('slider', { name: 'Curve strength' })).toHaveValue('2');
-	expect(screen.getByRole('slider', { name: 'xxsmall' })).toHaveValue('8');
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('64');
+	expect(screen.getByRole('button', { name: 'space.inset.xxsmall: 8px' })).toBeVisible();
+	expect(screen.getByRole('button', { name: 'space.inset.xxlarge: 64px' })).toBeVisible();
+	expect(screen.getByRole('button', { name: 'space.inset.3xlarge: 96px' })).toBeVisible();
 	expect(screen.getByRole('checkbox', { name: 'Round inset values' })).not.toBeChecked();
 	changeSlider('Inset scale', '1.25');
 	await user.click(screen.getByRole('tab', { name: 'Gaps' }));
 	expect(screen.getByRole('slider', { name: 'Gap scale' })).toHaveValue('1.25');
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('30');
+	expect(screen.getByRole('button', { name: 'space.gap.xxlarge: 30px' })).toBeVisible();
 });
 
-it('links from the active tab while retaining individual sizes, then unlinks without resetting', async () => {
+it('links from the active tab and unlinks without resetting either family', async () => {
 	const user = userEvent.setup();
 	render(<CustomThemeSpacingExample />);
 	changeSlider('Gap scale', '2');
 	changeSlider('Curve strength', '2');
-	changeSlider('xxlarge', '55');
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
+	changeSlider('Inset scale', '1.5');
 	changeSlider('Scale uniformity', '0.5');
 	await user.click(screen.getByRole('checkbox', { name: 'Round inset values' }));
-	changeSlider('xxlarge', '41.25');
 	const link = screen.getByRole('checkbox', { name: 'Link gap and inset settings' });
 	await user.click(link);
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('41.25');
 	await user.click(screen.getByRole('tab', { name: 'Gaps' }));
-	expect(screen.getByRole('slider', { name: 'Gap scale' })).toHaveValue('1');
+	expect(screen.getByRole('slider', { name: 'Gap scale' })).toHaveValue('1.5');
 	expect(screen.getByRole('slider', { name: 'Curve strength' })).toHaveValue('1');
 	expect(screen.getByRole('slider', { name: 'Scale uniformity' })).toHaveValue('0.5');
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('55');
 	expect(screen.getByRole('checkbox', { name: 'Round gap values' })).not.toBeChecked();
-	const preview = screen.getByTestId('gap-spacing-preview');
-	const insetValue = preview.style.getPropertyValue('--ds-space-inset-xxlarge');
-	changeSlider('xxlarge', '50');
-	expect(preview.style.getPropertyValue('--ds-space-inset-xxlarge')).toBe(insetValue);
-	const beforeUnlink = preview.style.cssText;
+	const beforeUnlink = spacingInputs();
 	await user.click(link);
-	expect(preview).toHaveStyle(beforeUnlink);
+	expect(spacingInputs()).toBe(beforeUnlink);
 	changeSlider('Gap scale', '3');
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
-	expect(screen.getByRole('slider', { name: 'Inset scale' })).toHaveValue('1');
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('41.25');
+	expect(screen.getByRole('slider', { name: 'Inset scale' })).toHaveValue('1.5');
+	expect(spacingInputs()).toContain('--ds-dynamic-space-gap-scale: 3;');
+	expect(spacingInputs()).toContain('--ds-dynamic-space-inset-scale: 1.5;');
 });
 
-it('applies presets and reset to both families while linked, clearing individual overrides', async () => {
+it('applies presets and reset to both families while linked', async () => {
 	const user = userEvent.setup();
 	render(<CustomThemeSpacingExample />);
-	const preview = screen.getByTestId('gap-spacing-preview');
-	const defaults = preview.style.cssText;
-	changeSlider('xxlarge', '55');
+	const defaults = spacingInputs();
+	changeSlider('Gap scale', '3');
 	await user.click(screen.getByRole('tab', { name: 'Insets' }));
-	changeSlider('xxlarge', '66');
+	changeSlider('Inset scale', '1.5');
 	await user.click(screen.getByRole('checkbox', { name: 'Link gap and inset settings' }));
 	await user.click(screen.getByRole('button', { name: /Spacious Generous spacing/ }));
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('64');
+	expect(screen.getByRole('button', { name: 'space.inset.3xlarge: 96px' })).toBeVisible();
 	await user.click(screen.getByRole('tab', { name: 'Gaps' }));
-	expect(screen.getByRole('slider', { name: 'xxlarge' })).toHaveValue('48');
+	expect(screen.getByRole('button', { name: 'space.gap.xxlarge: 48px' })).toBeVisible();
 	expect(screen.getByRole('button', { name: /Spacious Generous spacing/ })).toHaveAttribute(
 		'aria-pressed',
 		'true',
 	);
 	await user.click(screen.getByRole('button', { name: 'Reset gaps and insets' }));
-	expect(preview).toHaveStyle(defaults);
+	expect(spacingInputs()).toBe(defaults);
 	expect(screen.getByRole('checkbox', { name: 'Link gap and inset settings' })).toBeChecked();
 	expect(screen.getByRole('button', { name: /Default Original rhythm/ })).toHaveAttribute(
 		'aria-pressed',

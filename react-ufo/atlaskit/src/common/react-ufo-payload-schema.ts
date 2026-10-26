@@ -230,6 +230,7 @@ export type ReactUFOPayload = {
 					during: Record<string, boolean | string | number>;
 				};
 				previousInteractionName?: string;
+				previousInteractionId?: string;
 				isPreviousInteractionAborted: boolean;
 				abortedByInteractionName?: string;
 				apdex: ApdexType[];

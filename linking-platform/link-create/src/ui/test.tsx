@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
@@ -516,7 +516,9 @@ describe('Confirm dismiss dialog', () => {
 
 			// close exit warning
 			await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
-			await waitForElementToBeRemoved(screen.queryByTestId(dismissDialogTestId));
+			await waitFor(() =>
+				expect(screen.queryByTestId(dismissDialogTestId)).not.toBeInTheDocument(),
+			);
 
 			// refocus on the text field
 			await userEvent.click(await screen.findByLabelText(/Enter some Text/i));

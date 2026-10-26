@@ -32,7 +32,7 @@ ${(<AtlassianInternalWarning />)}
 
   Optionally, if you are looking to provide your customer a way to edit the datasource they created, you can do so by creating your own configuration modal. Please refer to the [Writing a Datasource Modal](/packages/linking-platform/link-datasource/docs/writing-a-datasource-modal) guide.
 
-  If you have any questions, you can reach out to [#rovo-growth](https://atlassian.enterprise.slack.com/archives/C09LKUEEPGT) for help.
+  If you have any questions, you can reach out to [#help-rovo-growth](https://atlassian.enterprise.slack.com/archives/C0CBM48P0DS) for help.
 
   ## Installation
 

@@ -1,0 +1,21 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "suppressed-exposure",
+  "description": "Suppressed automatic exposure via per-call disableExposureLogging option. No exposure record is emitted; this fixture describes absence expectations rather than a malformed record.",
+  "exposure": null,
+  "expectations": {
+    "recordCount": 0,
+    "fields": {},
+    "omitted": [],
+    "notes": {
+      "suppressed_case": "Successful evaluation with exposure logging disabled produces NO exposure record. A collector or logger MUST NOT emit any LogRecord for this case.",
+      "scenario": {
+        "evaluation": "Successful evaluation with variant result",
+        "flag": "feature_flag_key",
+        "option": "disableExposureLogging: true",
+        "outcome": "No exposure record created"
+      },
+      "validation": "Validator confirms absence by verifying no LogRecord with this flag key and timestamp is present in the batch."
+    }
+  }
+}

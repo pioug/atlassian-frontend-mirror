@@ -12,6 +12,7 @@ import React, {
 import { replaceRaf } from 'raf-stub';
 
 import Button from '@atlaskit/button/default/button';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
@@ -123,7 +124,10 @@ describe('Popup', () => {
 			);
 			const popupWrapper = screen.getByTestId('popup');
 			expect(popupWrapper).toBeInTheDocument();
-			expect(popupWrapper).toHaveAttribute('data-ds--level');
+			// The layering level attribute is legacy-only. The top layer needs no layering level.
+			if (!fg('platform-dst-top-layer')) {
+				expect(popupWrapper).toHaveAttribute('data-ds--level');
+			}
 			await userEvent.click(screen.getByTitle('outerIframe'));
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
@@ -149,7 +153,8 @@ describe('Popup', () => {
 			'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
 		}).toEqual({
 			'aria-expanded': 'false',
-			'aria-haspopup': 'true',
+			// The top-layer path sets `aria-haspopup` from the popup role, and this popup has no role.
+			'aria-haspopup': fg('platform-dst-top-layer') ? null : 'true',
 		});
 	});
 

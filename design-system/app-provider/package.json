@@ -63,6 +63,7 @@
 		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
+		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/avatar-group": "workspace:^",
@@ -92,6 +93,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/search-dialog": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",

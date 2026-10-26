@@ -6,6 +6,7 @@ import {
 	RESOLVE_METHOD,
 	type VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics/types/inline-comment-events';
+import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
 import { NATIVE_EMBED_EXTENSION_KEY } from '@atlaskit/editor-common/extensions/manifest-helpers';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
@@ -33,6 +34,7 @@ import {
 } from '../pm-plugins/utils';
 import { AnnotationSelectionType } from '../types';
 import type {
+	AnnotationInfo,
 	AnnotationProviders,
 	InlineCommentAnnotationProvider,
 	InlineCommentInputMethod,
@@ -104,13 +106,24 @@ export const flushPendingSelections =
 		return createCommand(command);
 	};
 
-export const setPendingSelectedAnnotation = (id: string): Command =>
+export const setPendingSelectedAnnotations = (
+	selectedAnnotations: AnnotationInfo[],
+	options?: {
+		isOpeningMediaCommentFromToolbar?: boolean;
+		selectAnnotationMethod?: VIEW_METHOD;
+	},
+): Command =>
 	createCommand({
 		type: ACTIONS.SET_PENDING_SELECTIONS,
 		data: {
-			selectedAnnotations: [{ id, type: AnnotationTypes.INLINE_COMMENT }],
+			selectedAnnotations,
+			selectAnnotationMethod: options?.selectAnnotationMethod,
+			isOpeningMediaCommentFromToolbar: options?.isOpeningMediaCommentFromToolbar,
 		},
 	});
+
+export const setPendingSelectedAnnotation = (id: string): Command =>
+	setPendingSelectedAnnotations([{ id, type: AnnotationTypes.INLINE_COMMENT }]);
 
 const removeInlineCommentFromNode = (
 	id: string,
@@ -297,6 +310,7 @@ export const showInlineCommentForBlockNode =
 	(
 		supportedBlockNodes: string[] = [],
 		isBlockNodeSupported?: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+		annotationManager?: AnnotationManager,
 	) =>
 	(
 		node: PMNode | null,
@@ -321,19 +335,28 @@ export const showInlineCommentForBlockNode =
 
 			if (unresolvedAnnotationMarks.length) {
 				if (dispatch) {
-					// bypass createCommand with setMeta
-					// so that external plugins can be aware of if there are active(unresolved) comments associated with the node
-					// i.e. media plugin can use the return result (true/false) to show toggle create comment component
-					dispatch(
-						state.tr.setMeta(inlineCommentPluginKey, {
-							type: ACTIONS.SET_SELECTED_ANNOTATION,
-							data: {
-								selectedAnnotations: unresolvedAnnotationMarks,
-								selectAnnotationMethod: viewMethod,
-								isOpeningMediaCommentFromToolbar,
-							},
-						}),
-					);
+					if (annotationManager) {
+						// Selecting directly would bypass the preemptive gate, discarding any unsaved
+						// comment. The plugin's view runs the gate on pending selections and flushes them.
+						setPendingSelectedAnnotations(unresolvedAnnotationMarks, {
+							selectAnnotationMethod: viewMethod,
+							isOpeningMediaCommentFromToolbar,
+						})(state, dispatch);
+					} else {
+						// bypass createCommand with setMeta
+						// so that external plugins can be aware of if there are active(unresolved) comments associated with the node
+						// i.e. media plugin can use the return result (true/false) to show toggle create comment component
+						dispatch(
+							state.tr.setMeta(inlineCommentPluginKey, {
+								type: ACTIONS.SET_SELECTED_ANNOTATION,
+								data: {
+									selectedAnnotations: unresolvedAnnotationMarks,
+									selectAnnotationMethod: viewMethod,
+									isOpeningMediaCommentFromToolbar,
+								},
+							}),
+						);
+					}
 
 					return true;
 				}

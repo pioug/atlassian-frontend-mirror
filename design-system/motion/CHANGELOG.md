@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 9.5.0
+
+### Minor Changes
+
+- [`6e59d3ef63809`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e59d3ef63809) -
+  Add an `action` prop to Motion for controlling enter and exit animations without conditionally
+  rendering the component, including support for the `platform-dst-use-motion` implementation.
+
 ## 9.4.0
 
 ### Minor Changes

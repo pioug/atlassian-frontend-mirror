@@ -41,7 +41,7 @@ const IconRenderer = ({ icon: Icon }: { icon: IconProp }): React.JSX.Element => 
 			: undefined,
 	};
 
-	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
+	// @ts-expect-error -- The render-prop guard returns IconProp (a component type), which is not a ReactNode.
 	return <>{isRenderProp ? Icon(iconProps) : <Icon {...iconProps} />}</>;
 };
 

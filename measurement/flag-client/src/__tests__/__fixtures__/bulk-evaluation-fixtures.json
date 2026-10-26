@@ -1,0 +1,276 @@
+{
+  "description": "Canonical bulk evaluation scenarios shared by Java and Node SDK tests and documentation.",
+  "scenarios": [
+    {
+      "name": "selected-value",
+      "requestContext": {
+        "identifiers": {
+          "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+        },
+        "attributes": {
+          "plan": "enterprise",
+          "role": "admin"
+        }
+      },
+      "flags": {
+        "selected.flag": {
+          "returnType": "STRING",
+          "defaultVariationId": "variation-default",
+          "randomisationIdentifier": "AtlassianAccountId",
+          "salt": "00000000-0000-0000-0000-000000000001",
+          "variations": {
+            "variation-default": {
+              "value": "default-value",
+              "priority": 0,
+              "useSafeCodeDefaultAsValue": false
+            },
+            "variation-0": {
+              "value": "value-0",
+              "priority": 1,
+              "useSafeCodeDefaultAsValue": false
+            },
+            "variation-1": {
+              "value": "value-1",
+              "priority": 2,
+              "useSafeCodeDefaultAsValue": false
+            }
+          },
+          "rules": {
+            "rule-everyone-stable-split": {
+              "priority": 0,
+              "conditions": [
+                {
+                  "type": "EVERYONE"
+                }
+              ],
+              "action": {
+                "type": "STABLE_SPLIT",
+                "trafficAllocationPermyriad": 10000,
+                "variationWeights": {
+                  "variation-0": 10000
+                }
+              }
+            }
+          },
+          "targetApps": {
+            "checkout-service": true
+          }
+        }
+      },
+      "expectedPayload": {
+        "requestContext": {
+          "identifiers": {
+            "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+          },
+          "attributes": {
+            "plan": "enterprise",
+            "role": "admin"
+          }
+        },
+        "status": "OK",
+        "flags": {
+          "selected.flag": {
+            "returnType": "STRING",
+            "value": "value-0",
+            "useCodeDefault": false,
+            "metadata": {
+              "sdkMetadata": {
+                "migrationState": "FFP"
+              },
+              "identifierType": "AtlassianAccountId",
+              "matchReason": "ss_cohort_match",
+              "variationId": "variation-0",
+              "ruleId": "rule-everyone-stable-split"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "safe-code-default",
+      "requestContext": {
+        "identifiers": {
+          "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+        },
+        "attributes": {
+          "plan": "enterprise",
+          "role": "admin"
+        }
+      },
+      "flags": {
+        "safe-default.flag": {
+          "returnType": "BOOLEAN",
+          "defaultVariationId": "variation-off",
+          "randomisationIdentifier": "AtlassianAccountId",
+          "salt": "00000000-0000-0000-0000-000000000001",
+          "variations": {
+            "variation-off": {
+              "priority": 0,
+              "useSafeCodeDefaultAsValue": true
+            },
+            "variation-on": {
+              "value": true,
+              "priority": 1,
+              "useSafeCodeDefaultAsValue": false
+            }
+          },
+          "rules": {},
+          "targetApps": {
+            "checkout-service": true
+          }
+        }
+      },
+      "expectedPayload": {
+        "requestContext": {
+          "identifiers": {
+            "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+          },
+          "attributes": {
+            "plan": "enterprise",
+            "role": "admin"
+          }
+        },
+        "status": "OK",
+        "flags": {
+          "safe-default.flag": {
+            "returnType": "BOOLEAN",
+            "useCodeDefault": true,
+            "metadata": {
+              "sdkMetadata": {
+                "migrationState": "FFP"
+              },
+              "identifierType": null,
+              "matchReason": "no_rules_matched",
+              "variationId": "variation-off",
+              "ruleId": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "not-initialised",
+      "requestContext": {
+        "identifiers": {
+          "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+        },
+        "attributes": {
+          "plan": "enterprise",
+          "role": "admin"
+        }
+      },
+      "flags": {},
+      "expectedPayload": {
+        "requestContext": {
+          "identifiers": {
+            "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+          },
+          "attributes": {
+            "plan": "enterprise",
+            "role": "admin"
+          }
+        },
+        "status": "NOT_INITIALISED",
+        "flags": {}
+      }
+    },
+    {
+      "name": "partial",
+      "requestContext": {
+        "identifiers": {
+          "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+        },
+        "attributes": {
+          "plan": "enterprise",
+          "role": "admin"
+        }
+      },
+      "flags": {
+        "selected.flag": {
+          "returnType": "STRING",
+          "defaultVariationId": "variation-default",
+          "randomisationIdentifier": "AtlassianAccountId",
+          "salt": "00000000-0000-0000-0000-000000000001",
+          "variations": {
+            "variation-default": {
+              "value": "default-value",
+              "priority": 0,
+              "useSafeCodeDefaultAsValue": false
+            },
+            "variation-0": {
+              "value": "value-0",
+              "priority": 1,
+              "useSafeCodeDefaultAsValue": false
+            }
+          },
+          "rules": {
+            "rule-everyone-stable-split": {
+              "priority": 0,
+              "conditions": [
+                {
+                  "type": "EVERYONE"
+                }
+              ],
+              "action": {
+                "type": "STABLE_SPLIT",
+                "trafficAllocationPermyriad": 10000,
+                "variationWeights": {
+                  "variation-0": 10000
+                }
+              }
+            }
+          },
+          "targetApps": {
+            "checkout-service": true
+          }
+        },
+        "bad-object.flag": {
+          "returnType": "JSON",
+          "defaultVariationId": "variation-primitive",
+          "randomisationIdentifier": "AtlassianAccountId",
+          "salt": "00000000-0000-0000-0000-000000000002",
+          "variations": {
+            "variation-primitive": {
+              "value": "not-an-object",
+              "priority": 0,
+              "useSafeCodeDefaultAsValue": false
+            }
+          },
+          "rules": {},
+          "targetApps": {
+            "checkout-service": true
+          }
+        }
+      },
+      "expectedPayload": {
+        "requestContext": {
+          "identifiers": {
+            "AtlassianAccountId": "3b241101-e2bb-4255-8caf-4136c566a962"
+          },
+          "attributes": {
+            "plan": "enterprise",
+            "role": "admin"
+          }
+        },
+        "status": "PARTIAL",
+        "errorMessage": "1 flag(s) omitted during bulk evaluation",
+        "flags": {
+          "selected.flag": {
+            "returnType": "STRING",
+            "value": "value-0",
+            "useCodeDefault": false,
+            "metadata": {
+              "sdkMetadata": {
+                "migrationState": "FFP"
+              },
+              "identifierType": "AtlassianAccountId",
+              "matchReason": "ss_cohort_match",
+              "variationId": "variation-0",
+              "ruleId": "rule-everyone-stable-split"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

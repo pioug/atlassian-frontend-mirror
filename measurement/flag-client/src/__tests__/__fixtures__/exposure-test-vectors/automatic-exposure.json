@@ -1,0 +1,194 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "automatic-exposure",
+  "description": "Successful automatic exposure with active trace and span context. Evaluation occurs within an active trace, producing an exposure record without explicit manual trigger.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            },
+            {
+              "key": "deployment.environment.name",
+              "value": {
+                "stringValue": "local"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1",
+              "attributes": [
+                {
+                  "key": "atl.feature_flag.sdk.platform",
+                  "value": {
+                    "stringValue": "server"
+                  }
+                },
+                {
+                  "key": "atl.feature_flag.sdk.type",
+                  "value": {
+                    "stringValue": "@atlassian/flag-server-node"
+                  }
+                }
+              ]
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964400000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+                "spanId": "00f067aa0ba902b7",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "new_dashboard"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.set.id",
+                    "value": {
+                      "stringValue": "jira_web"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "enabled"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "targeting_match"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.client.version.token",
+                    "value": {
+                      "stringValue": "flags-version-42"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.client.version.updated_at",
+                    "value": {
+                      "stringValue": "2026-08-17T11:00:00Z"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.rule_id",
+                    "value": {
+                      "stringValue": "rule-123"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.target_apps",
+                    "value": {
+                      "arrayValue": {
+                        "values": [
+                          {
+                            "stringValue": "jira_web"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "delta_stream"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": false
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.user_id",
+                    "value": {
+                      "stringValue": "user-123"
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.tenant_id",
+                    "value": {
+                      "stringValue": "tenant-456"
+                    }
+                  },
+                  {
+                    "key": "atl.attributes.edition",
+                    "value": {
+                      "stringValue": "premium"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sdk_metadata",
+                    "value": {
+                      "stringValue": "{\"migrationState\":\"FFP\"}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {
+      "timeUnixNano": "uint64 epoch nanoseconds",
+      "severityNumber": "1 (TRACE)",
+      "severityText": "TRACE",
+      "eventName": "flag-evaluated",
+      "traceId": "16-byte hex identifier (4bf92f3577b34da6a3ce929d0e0e4736)",
+      "spanId": "8-byte hex identifier (00f067aa0ba902b7)",
+      "feature_flag.key": "string",
+      "feature_flag.set.id": "string",
+      "feature_flag.result.variant": "string (success case)",
+      "feature_flag.result.reason": "string (standard OTel evaluation reason)",
+      "atl.feature_flag.client.version.token": "string (conditional)",
+      "atl.feature_flag.client.version.updated_at": "RFC 3339 UTC string",
+      "atl.feature_flag.rule_id": "string",
+      "atl.feature_flag.sampling.rate": "double in [0.0, 1.0]",
+      "atl.feature_flag.sampling.item.count": "integer >= 1",
+      "atl.feature_flag.target_apps": "string array",
+      "atl.feature_flag.result.source": "string (e.g., 'delta_stream')",
+      "atl.feature_flag.exposure.manual": "boolean false",
+      "atl.identifiers.user_id": "string (custom identifier)",
+      "atl.identifiers.tenant_id": "string (custom identifier)",
+      "atl.attributes.edition": "string (custom attribute)"
+    },
+    "omitted": [
+      "Body",
+      "feature_flag.error.message",
+      "feature_flag.version"
+    ]
+  }
+}

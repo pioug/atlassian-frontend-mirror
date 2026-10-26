@@ -80,6 +80,17 @@ describe('getThemeAndOverrides', () => {
 		expect(inlineStyles).toContain('--ds-dynamic-font-scale: 1.25;');
 	});
 
+	it('serializes boolean custom inputs as numeric CSS switches', () => {
+		const { inlineStyles } = getThemeAndOverrides({
+			light: {
+				id: 'UNSAFE-dynamic',
+				overrides: { enabled: true, disabled: false } as never,
+			},
+		});
+		expect(inlineStyles).toContain('--ds-enabled: 1;');
+		expect(inlineStyles).toContain('--ds-disabled: 0;');
+	});
+
 	it('serializes supplied untyped properties using the CSS variable convention', () => {
 		const { inlineStyles } = getThemeAndOverrides({
 			light: {

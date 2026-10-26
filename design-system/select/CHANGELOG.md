@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 23.1.4
+
+### Patch Changes
+
+- [`5596c2653ddea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5596c2653ddea) -
+  Clean up the `platform_dst_inline_select_menu_control` feature gate. Inline menus now always honor
+  `menuIsOpen`, defaulting to open when it is unspecified.
+
 ## 23.1.3
 
 ### Patch Changes

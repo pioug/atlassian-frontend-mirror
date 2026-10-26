@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 27.1.4
+
+### Patch Changes
+
+- [`a13cf337bdc67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a13cf337bdc67) -
+  Fix a suggested table cell change showing a blank cell when the changeset trims it to the cell's
+  open tokens, and keep its indicator bar on the suggested content. Behind
+  `platform_editor_ai_show_diff_patch_2_fix`.
+
+## 27.1.3
+
+### Patch Changes
+
+- [`9c5e91484b1a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c5e91484b1a4) -
+  Clean up feature gate `platform_editor_normalize_excerpt_diff`
+- Updated dependencies
+
 ## 27.1.2
 
 ### Patch Changes

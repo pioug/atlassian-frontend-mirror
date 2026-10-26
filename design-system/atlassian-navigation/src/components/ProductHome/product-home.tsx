@@ -199,7 +199,7 @@ const ProductHome = ({
 					<Logo
 						iconColor={iconColor}
 						textColor={textColor}
-						// @ts-ignore - The new icons don't have an appearance prop at the moment
+						// @ts-expect-error -- The new logo component does not declare the legacy appearance prop.
 						appearance={iconColor || textColor ? undefined : 'brand'}
 					/>
 				</div>
@@ -210,7 +210,7 @@ const ProductHome = ({
 					<Icon
 						iconColor={iconColor}
 						size={'small'}
-						// @ts-ignore - The new icons don't have an appearance prop at the moment
+						// @ts-expect-error -- The new icon component does not declare the legacy appearance prop.
 						appearance={iconColor || textColor ? undefined : 'brand'}
 					/>
 				</div>

@@ -22,7 +22,7 @@ describe('TeamworkGraphAnalyticsListener', () => {
 	const SOURCE = 'teamwork-app';
 	const ACTION = 'clicked';
 	const ACTION_SUBJECT = 'button';
-	const TEAMWORK_GRAPH_TAG = 'teamworkGraph';
+	const EVENT_TAG = 'atlaskit';
 	const LISTENER_VERSION = process.env._PACKAGE_VERSION_;
 	const MOCK_PACKAGE = {
 		TWG_QUERY_BUILDER: {
@@ -92,7 +92,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: DEFAULT_SOURCE,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG]),
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 				},
@@ -114,7 +113,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: DEFAULT_SOURCE,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG]),
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 				},
@@ -136,7 +134,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: DEFAULT_SOURCE,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG]),
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 				},
@@ -155,7 +152,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: 'graph',
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG]),
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 					sourceHierarchy: `${SOURCE}.query.graph`,
@@ -198,25 +194,24 @@ describe('TeamworkGraphAnalyticsListener', () => {
 					listenerVersion: LISTENER_VERSION,
 					sourceHierarchy: 'source1.source2.source3',
 				},
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG]),
 			},
 			context,
 		);
 	});
 
-	it('should append teamworkGraph tag if tags are not empty', () => {
+	it('should preserve existing event tags', () => {
 		fireAndVerify(
 			{
 				eventType: EVENT_TYPE,
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
-				tags: ['atlaskit'],
+				tags: [EVENT_TAG],
 			},
 			{
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: DEFAULT_SOURCE,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG]),
+				tags: [EVENT_TAG],
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 				},
@@ -224,19 +219,19 @@ describe('TeamworkGraphAnalyticsListener', () => {
 		);
 	});
 
-	it('should add teamworkGraph tag to existing event tags', () => {
+	it('should preserve multiple existing event tags', () => {
 		fireAndVerify(
 			{
 				eventType: EVENT_TYPE,
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
-				tags: ['atlaskit'],
+				tags: [EVENT_TAG, 'feature'],
 			},
 			{
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: DEFAULT_SOURCE,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG, 'atlaskit']),
+				tags: [EVENT_TAG, 'feature'],
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 				},
@@ -250,13 +245,13 @@ describe('TeamworkGraphAnalyticsListener', () => {
 				eventType: EVENT_TYPE,
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
-				tags: ['atlaskit', 'atlaskit', TEAMWORK_GRAPH_TAG],
+				tags: [EVENT_TAG, EVENT_TAG],
 			},
 			{
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
 				source: DEFAULT_SOURCE,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG, 'atlaskit']),
+				tags: [EVENT_TAG],
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 				},
@@ -280,13 +275,13 @@ describe('TeamworkGraphAnalyticsListener', () => {
 				eventType: EVENT_TYPE,
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
-				tags: ['atlaskit'],
+				tags: [EVENT_TAG],
 			},
 			{
 				source: DEFAULT_SOURCE,
 				action: ACTION,
 				actionSubject: ACTION_SUBJECT,
-				tags: expect.arrayContaining([TEAMWORK_GRAPH_TAG, 'atlaskit']),
+				tags: [EVENT_TAG],
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
 					packageName: MOCK_PACKAGE.TWG_QUERY_BUILDER.name,
@@ -316,7 +311,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 			},
 			{
 				actionSubject: ACTION_SUBJECT,
-				tags: [TEAMWORK_GRAPH_TAG],
 				source: DEFAULT_SOURCE,
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
@@ -347,7 +341,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 			},
 			{
 				actionSubject: ACTION_SUBJECT,
-				tags: [TEAMWORK_GRAPH_TAG],
 				source: 'query',
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
@@ -381,7 +374,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 			},
 			{
 				actionSubject: ACTION_SUBJECT,
-				tags: [TEAMWORK_GRAPH_TAG],
 				source: DEFAULT_SOURCE,
 				attributes: {
 					listenerVersion: LISTENER_VERSION,
@@ -415,7 +407,6 @@ describe('TeamworkGraphAnalyticsListener', () => {
 			},
 			{
 				actionSubject: ACTION_SUBJECT,
-				tags: [TEAMWORK_GRAPH_TAG],
 				source: DEFAULT_SOURCE,
 				attributes: {
 					listenerVersion: LISTENER_VERSION,

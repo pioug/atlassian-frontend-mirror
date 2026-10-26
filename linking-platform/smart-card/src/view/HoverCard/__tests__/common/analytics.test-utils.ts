@@ -14,7 +14,7 @@ import {
 	mockBaseResponseWithPreview,
 	mockUnauthorisedResponse,
 } from '../__mocks__/mocks';
-import { mockUrl } from './common.test-utils';
+import { flushHoverCardExit, mockUrl } from './common.test-utils';
 import {
 	type setup as hoverCardSetup,
 	mockIntersectionObserver,
@@ -123,6 +123,7 @@ export const analyticsTests = (
 			act(() => {
 				jest.runAllTimers();
 			});
+			await flushHoverCardExit();
 			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -259,6 +260,7 @@ export const analyticsTests = (
 			await screen.findByTestId('smart-block-title-resolved-view');
 			const button = await screen.findByTestId('smart-action-preview-action');
 			await event.click(button);
+			await flushHoverCardExit();
 
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({

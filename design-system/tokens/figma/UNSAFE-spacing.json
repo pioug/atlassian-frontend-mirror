@@ -1,0 +1,479 @@
+{
+  "name": "UNSAFE spacing",
+  "tokens": {
+    "UNSAFE spacing/space.0": {
+      "value": 0,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "description": "Equates to `0`. Use for resetting default spacing styles."
+      }
+    },
+    "UNSAFE spacing/space.025": {
+      "value": 2,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "1px",
+          "3px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for small and compact pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.050": {
+      "value": 4,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "3px",
+          "5px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for small and compact pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.075": {
+      "value": 6,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "5px",
+          "7px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for small and compact pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.100": {
+      "value": 8,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "7px",
+          "9px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for small and compact pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.150": {
+      "value": 12,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "10px",
+          "11px",
+          "13px",
+          "14px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for larger and less dense pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.200": {
+      "value": 16,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "14px",
+          "15px",
+          "17px",
+          "18px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for larger and less dense pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.250": {
+      "value": 20,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "19px",
+          "21px",
+          "22px",
+          "23px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for larger and less dense pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.300": {
+      "value": 24,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "23px",
+          "25px",
+          "26px",
+          "27px",
+          "28px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for larger and less dense pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.400": {
+      "value": 32,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "28px",
+          "29px",
+          "30px",
+          "31px",
+          "33px",
+          "34px",
+          "35px"
+        ],
+        "introduced": "0.12.0",
+        "description": "Use for the largest pieces of UI and for layout elements."
+      }
+    },
+    "UNSAFE spacing/space.500": {
+      "value": 40,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "description": "Use for the largest pieces of UI and for layout elements."
+      }
+    },
+    "UNSAFE spacing/space.600": {
+      "value": 48,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "description": "Use for the largest pieces of UI and for layout elements."
+      }
+    },
+    "UNSAFE spacing/space.800": {
+      "value": 64,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "description": "Use for the largest pieces of UI and for layout elements."
+      }
+    },
+    "UNSAFE spacing/space.1000": {
+      "value": 80,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "introduced": "0.12.0",
+        "description": "Use for the largest pieces of UI and for layout elements."
+      }
+    },
+    "UNSAFE spacing/space.gap.large": {
+      "value": "calc(var(--ds-dynamic-space-gap-large-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-large-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.150",
+        "introduced": "20.5.0",
+        "description": "Use for large gaps between elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.gap.medium": {
+      "value": "calc(var(--ds-dynamic-space-gap-medium-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-medium-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.100",
+        "introduced": "20.5.0",
+        "description": "Use for medium gaps between related elements in horizontal or vertical layouts. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.gap.small": {
+      "value": "calc(var(--ds-dynamic-space-gap-small-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-small-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.075",
+        "introduced": "20.5.0",
+        "description": "Use for small gaps between related elements, such as icons and text. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.gap.xlarge": {
+      "value": "calc(var(--ds-dynamic-space-gap-xlarge-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-xlarge-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.200",
+        "introduced": "20.5.0",
+        "description": "Use for extra-large gaps between elements or groups of related content. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.gap.xsmall": {
+      "value": "calc(var(--ds-dynamic-space-gap-xsmall-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-xsmall-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.050",
+        "introduced": "20.5.0",
+        "description": "Use for extra-small gaps between closely related elements. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.gap.xxlarge": {
+      "value": "calc(var(--ds-dynamic-space-gap-xxlarge-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-xxlarge-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.300",
+        "introduced": "20.5.0",
+        "description": "Use for the largest gaps between groups of related content. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.gap.xxsmall": {
+      "value": "calc(var(--ds-dynamic-space-gap-xxsmall-unrounded) * (1 - var(--ds-dynamic-space-gap-round, 1)) + round(nearest, var(--ds-dynamic-space-gap-xxsmall-unrounded), 1px) * var(--ds-dynamic-space-gap-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.025",
+        "introduced": "20.5.0",
+        "description": "Use for the smallest gaps between closely related elements. Do not use for component insets or dimensions."
+      }
+    },
+    "UNSAFE spacing/space.inset.3xlarge": {
+      "value": "calc(var(--ds-dynamic-space-inset-3xlarge-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-3xlarge-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.600",
+        "introduced": "20.7.0",
+        "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.large": {
+      "value": "calc(var(--ds-dynamic-space-inset-large-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-large-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.250",
+        "introduced": "20.7.0",
+        "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.medium": {
+      "value": "calc(var(--ds-dynamic-space-inset-medium-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-medium-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.200",
+        "introduced": "20.7.0",
+        "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.small": {
+      "value": "calc(var(--ds-dynamic-space-inset-small-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-small-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.150",
+        "introduced": "20.7.0",
+        "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.xlarge": {
+      "value": "calc(var(--ds-dynamic-space-inset-xlarge-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xlarge-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.300",
+        "introduced": "20.7.0",
+        "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.xsmall": {
+      "value": "calc(var(--ds-dynamic-space-inset-xsmall-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xsmall-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.100",
+        "introduced": "20.7.0",
+        "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.xxlarge": {
+      "value": "calc(var(--ds-dynamic-space-inset-xxlarge-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xxlarge-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.400",
+        "introduced": "20.7.0",
+        "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.inset.xxsmall": {
+      "value": "calc(var(--ds-dynamic-space-inset-xxsmall-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xxsmall-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.050",
+        "introduced": "20.7.0",
+        "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      }
+    },
+    "UNSAFE spacing/space.negative.025": {
+      "value": -2,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-1px",
+          "-3px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.050": {
+      "value": -4,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-3px",
+          "-5px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.075": {
+      "value": -6,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-5px",
+          "-7px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.100": {
+      "value": -8,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-7px",
+          "-9px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap small pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.150": {
+      "value": -12,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-10px",
+          "-11px",
+          "-13px",
+          "-14px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.200": {
+      "value": -16,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-14px",
+          "-15px",
+          "-17px",
+          "-18px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.250": {
+      "value": -20,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-19px",
+          "-21px",
+          "-22px",
+          "-23px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.300": {
+      "value": -24,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-23px",
+          "-25px",
+          "-26px",
+          "-27px",
+          "-28px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap larger pieces of UI."
+      }
+    },
+    "UNSAFE spacing/space.negative.400": {
+      "value": -32,
+      "attributes": {
+        "group": "spacing",
+        "state": "active",
+        "suggest": [
+          "-28px",
+          "-29px",
+          "-30px",
+          "-31px",
+          "-33px",
+          "-34px",
+          "-35px"
+        ],
+        "introduced": "1.21.0",
+        "description": "Use to negate parent whitespace or overlap the largest pieces of UI."
+      }
+    }
+  },
+  "renameMap": {
+    "UNSAFE spacing/space.gap.xxsmall": "UNSAFE spacing/space.025",
+    "UNSAFE spacing/space.gap.xsmall": "UNSAFE spacing/space.050",
+    "UNSAFE spacing/space.gap.small": "UNSAFE spacing/space.075",
+    "UNSAFE spacing/space.gap.medium": "UNSAFE spacing/space.100",
+    "UNSAFE spacing/space.gap.large": "UNSAFE spacing/space.150",
+    "UNSAFE spacing/space.gap.xlarge": "UNSAFE spacing/space.200",
+    "UNSAFE spacing/space.gap.xxlarge": "UNSAFE spacing/space.300",
+    "UNSAFE spacing/space.inset.xxsmall": "UNSAFE spacing/space.050",
+    "UNSAFE spacing/space.inset.xsmall": "UNSAFE spacing/space.100",
+    "UNSAFE spacing/space.inset.small": "UNSAFE spacing/space.150",
+    "UNSAFE spacing/space.inset.medium": "UNSAFE spacing/space.200",
+    "UNSAFE spacing/space.inset.large": "UNSAFE spacing/space.250",
+    "UNSAFE spacing/space.inset.xlarge": "UNSAFE spacing/space.300",
+    "UNSAFE spacing/space.inset.xxlarge": "UNSAFE spacing/space.400",
+    "UNSAFE spacing/space.inset.3xlarge": "UNSAFE spacing/space.600"
+  }
+}

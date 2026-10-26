@@ -52,7 +52,6 @@ import {
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/constants';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
@@ -1102,24 +1101,6 @@ export const DragHandle = ({
 	const isHandleShown = positionStylesOld.display !== 'none';
 
 	useEffect(() => {
-		if (isExperimentEnabled('platform_editor_react19_migration')) {
-			return;
-		}
-		if (handleOptions?.isFocused && buttonRef.current) {
-			const id = requestAnimationFrame(() => {
-				buttonRef.current?.focus();
-			});
-			return () => {
-				cancelAnimationFrame(id);
-				view.focus();
-			};
-		}
-	}, [buttonRef, handleOptions?.isFocused, view]);
-
-	useEffect(() => {
-		if (!isExperimentEnabled('platform_editor_react19_migration')) {
-			return;
-		}
 		if (!(handleOptions?.isFocused && isHandleShown && buttonRef.current)) {
 			return;
 		}

@@ -1,0 +1,112 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "optional-attribution-exposure",
+  "description": "Demonstrates conditional presence of client version token and updated-time attributes. This fixture includes both fields (present case). A companion case shows their absence.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1"
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964700000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "attribution_test_flag"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "treatment"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "targeting_match"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.client.version.token",
+                    "value": {
+                      "stringValue": "flags-version-99"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.client.version.updated_at",
+                    "value": {
+                      "stringValue": "2026-08-16T15:30:45Z"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "delta_stream"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": false
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.user_id",
+                    "value": {
+                      "stringValue": "user-with-attribution"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {
+      "atl.feature_flag.client.version.token": "string (opaque version token)",
+      "atl.feature_flag.client.version.updated_at": "RFC 3339 UTC timestamp string"
+    },
+    "omitted": [],
+    "notes": {
+      "conditional_presence": "These attributes are conditional: present when the SDK has the version information available, absent when unavailable.",
+      "usage": "atl.feature_flag.client.version.token is the opaque accepted client state-publication token (not the same as feature_flag.version). updated_at is the effective/applied time associated with this token.",
+      "absence_case": "See 'optional-attribution-exposure-absent' for the case where these fields are omitted."
+    }
+  }
+}

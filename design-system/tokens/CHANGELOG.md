@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 20.8.0
+
+### Minor Changes
+
+- [`0a6ed0c810f80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6ed0c810f80) -
+  Add the experimental UNSAFE-spacing theme with typed, independent gap and inset scale, curve,
+  uniformity, and rounding inputs.
+
 ## 20.7.0
 
 ### Minor Changes

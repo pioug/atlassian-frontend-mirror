@@ -1,5 +1,12 @@
 # @atlaskit/editor-extension-dropbox
 
+## 27.0.5
+
+### Patch Changes
+
+- [`116bb93a54ec6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/116bb93a54ec6) -
+  Clean up experiment `platform_editor_react19_migration`
+
 ## 27.0.4
 
 ### Patch Changes

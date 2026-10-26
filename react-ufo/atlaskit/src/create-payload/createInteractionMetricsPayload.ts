@@ -89,6 +89,7 @@ export async function createInteractionMetricsPayload(
 		routeName,
 		featureFlags,
 		previousInteractionName,
+		previousInteractionId,
 		isPreviousInteractionAborted,
 		abortedByInteractionName,
 		responsiveness,
@@ -381,6 +382,7 @@ export async function createInteractionMetricsPayload(
 					abortReason,
 					featureFlags,
 					previousInteractionName,
+					...(fg('platform_ufo_emit_previous_interaction_id') ? { previousInteractionId } : {}),
 					isPreviousInteractionAborted,
 					abortedByInteractionName,
 

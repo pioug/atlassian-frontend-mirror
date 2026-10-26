@@ -9,6 +9,7 @@ import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
 import { dynamicColorCustomProperties } from '../../schema/themes/UNSAFE-dynamic/_formulas';
+import { dynamicSpacingCustomProperties } from '../../schema/themes/UNSAFE-spacing/_formulas';
 import themeConfig, { type Palettes, type ThemeFileNames } from '../../src/theme-config';
 import {
 	ARTIFACT_OUTPUT_DIR,
@@ -57,6 +58,7 @@ const getThemeTokenFiles = (themeName: ThemeFileNames): string[] => {
 const themeCustomProperties: Partial<Record<ThemeFileNames, readonly CustomProperty[]>> = {
 	'UNSAFE-dynamic': dynamicColorCustomProperties,
 	'UNSAFE-dynamic-dark': dynamicColorCustomProperties,
+	'UNSAFE-spacing': dynamicSpacingCustomProperties,
 };
 
 const getPalette = (paletteId: Palettes) => {

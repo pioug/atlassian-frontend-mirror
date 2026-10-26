@@ -1,0 +1,102 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "optional-attribution-exposure-absent",
+  "description": "Demonstrates omission of client version token and updated-time attributes when unavailable. Companion to 'optional-attribution-exposure' which shows the present case.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1"
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964750000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "attribution_absent_flag"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "control"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "targeting_match"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "bootstrap"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": false
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.user_id",
+                    "value": {
+                      "stringValue": "user-without-attribution"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {},
+    "omitted": [
+      "atl.feature_flag.client.version.token",
+      "atl.feature_flag.client.version.updated_at",
+      "traceId",
+      "spanId"
+    ],
+    "notes": {
+      "conditional_omission": "When the SDK does not have available version information (e.g., bootstrap or local source), these attributes MUST NOT be synthesized or stubbed.",
+      "principle": "Unavailable conditional values are omitted rather than invented.",
+      "comparison": "Compare with 'optional-attribution-exposure' to see the same scenario with version information present."
+    }
+  }
+}

@@ -232,6 +232,15 @@ var themeConfig = exports.themeConfig = {
       type: 'spacing'
     }
   },
+  'UNSAFE-spacing': {
+    id: 'UNSAFE-spacing',
+    displayName: 'UNSAFE Dynamic Spacing',
+    palette: 'spacingScale',
+    attributes: {
+      type: 'spacing'
+    },
+    extends: 'spacing'
+  },
   'atlassian-typography': {
     id: 'typography',
     displayName: 'Atlassian Typography',

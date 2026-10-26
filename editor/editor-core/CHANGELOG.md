@@ -1,5 +1,16 @@
 # @atlaskit/editor-core
 
+## 240.1.1
+
+### Patch Changes
+
+- [`4185658461508`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4185658461508) -
+  Under platform_editor_ssr_toolbar_optimistic, defer early editor state creation and exposure when
+  the full-page toolbar is undocked or hidden, preserving docked and custom toolbar initialization.
+  Keep experiment evaluation consistent with mount cleanup so shared state follows the mounted
+  editor.
+- Updated dependencies
+
 ## 240.1.0
 
 ### Minor Changes

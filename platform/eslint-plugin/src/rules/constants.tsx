@@ -25,6 +25,7 @@ export const FEATURE_API_IMPORT_SOURCES: Set<string> = new Set([
 	'@atlassian/jira-feature-flagging',
 	'@atlassian/jira-feature-flagging-using-meta',
 	'@atlassian/jira-feature-gating',
+	'@jira/platform__feature-gating',
 	'@atlassian/jira-feature-experiments',
 	'@atlaskit/platform-feature-flags',
 	'@atlassian/repo-feature-flags-statsig',

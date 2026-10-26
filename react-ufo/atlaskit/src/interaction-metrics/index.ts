@@ -1621,6 +1621,9 @@ export function addNewInteraction(
 		preloadKey,
 		type,
 		previousInteractionName: PreviousInteractionLog.name,
+		...(fg('platform_ufo_emit_previous_interaction_id')
+			? { previousInteractionId: PreviousInteractionLog.id }
+			: {}),
 		isPreviousInteractionAborted: PreviousInteractionLog.isAborted === true,
 		marks: [],
 		customData: [],

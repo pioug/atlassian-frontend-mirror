@@ -11,6 +11,7 @@ import { renderToReadableStream, renderToString } from 'react-dom/server';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import StaticThemeLoadingSsrExample from '../../examples/static-theme-loading.ssr';
+import { ThemeProvider } from '../../src/theme-provider';
 
 Object.assign(globalThis, { ReadableStream });
 
@@ -59,6 +60,43 @@ function renderWithoutReactUse(): string {
 }
 
 describe('platform-static-theme-loading', () => {
+	it('renders scoped spacing inputs during SSR without static loading', () => {
+		failGate('platform-static-theme-loading');
+		const view = renderToString(
+			<ThemeProvider
+				defaultTheme={{
+					spacing: {
+						id: 'UNSAFE-spacing',
+						overrides: { dynamicSpaceGapCurve: 2, dynamicSpaceInsetRound: false },
+					},
+				}}
+			>
+				<div>Spacing preview</div>
+			</ThemeProvider>,
+		);
+		expect(view).toContain('spacing:UNSAFE-spacing');
+		expect(view).toContain('data-theme-overrides-scope=');
+		expect(view).toContain('--ds-dynamic-space-gap-curve: 2;');
+		expect(view).toContain('--ds-dynamic-space-inset-round: 0;');
+	});
+
+	itWithReact19Streaming('streams the spacing stylesheet and its typed inputs', async () => {
+		passGate('platform-static-theme-loading');
+		const view = await renderToReadableStream(
+			<ThemeProvider
+				defaultTheme={{
+					spacing: { id: 'UNSAFE-spacing', overrides: { dynamicSpaceGapRound: false } },
+				}}
+			>
+				<div>Spacing preview</div>
+			</ThemeProvider>,
+		);
+		const markup = await readMarkup(view);
+		expect(markup).toContain('data-theme="UNSAFE-spacing"');
+		expect(markup).toContain('--ds-space-gap-medium:');
+		expect(markup).toContain('--ds-dynamic-space-gap-round: 0;');
+	});
+
 	itWithReact19Streaming('streams CSS for default and nested non-default themes', async () => {
 		passGate('platform-static-theme-loading');
 		passGate('platform-dst-tokens-finesse');

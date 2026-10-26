@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import DropdownMenu from '../../dropdown-menu';
 import DropdownItem from '../../dropdown-menu-item';
@@ -57,15 +59,19 @@ describe('dropdown menu', () => {
 			expect(callback).toHaveBeenCalledWith(expect.objectContaining({ isOpen: false }));
 		});
 
-		it('should callback with false when opened', () => {
-			const callback = jest.fn();
-			render(createDropdown({ onOpenChange: callback, isOpen: true }));
+		// The legacy popup closes on a document `click` and passes that event. The top-layer path uses
+		// native light dismiss: see `dropdown-menu-top-layer.test.tsx`.
+		ffTest.off('platform-dst-top-layer', 'legacy outside click', () => {
+			it('should callback with false when opened', () => {
+				const callback = jest.fn();
+				render(createDropdown({ onOpenChange: callback, isOpen: true }));
 
-			fireEvent.click(document.body);
+				fireEvent.click(document.body);
 
-			expect(callback).toHaveBeenCalledWith({
-				isOpen: false,
-				event: new MouseEvent('click'),
+				expect(callback).toHaveBeenCalledWith({
+					isOpen: false,
+					event: new MouseEvent('click'),
+				});
 			});
 		});
 
@@ -206,7 +212,11 @@ describe('dropdown menu', () => {
 			expect(screen.getByTestId('nested-0--content')).not.toHaveAttribute('role', 'group');
 
 			fireEvent.click(screen.getByTestId(`nested-1--trigger`));
-			expect(screen.getByTestId('nested-1--content')).toHaveAttribute('role', 'group');
+			// The top-layer path renders a nested menu as a submenu with its own `menu` role.
+			expect(screen.getByTestId('nested-1--content')).toHaveAttribute(
+				'role',
+				fg('platform-dst-top-layer') ? 'menu' : 'group',
+			);
 		});
 	});
 
@@ -358,43 +368,49 @@ describe('dropdown menu', () => {
 			expect(loadingIndicator).toHaveAccessibleName(statusLabel);
 		});
 
-		it('should close the dropdown menu on outside click', () => {
-			render(
-				<>
-					<button aria-label="outside" data-testid="outside" type="button" />
-					{createDropdown()}
-				</>,
-			);
+		// The legacy popup closes on a document `click`. The top-layer path uses native light dismiss:
+		// see `dropdown-menu-top-layer.test.tsx`.
+		ffTest.off('platform-dst-top-layer', 'legacy outside click', () => {
+			it('should close the dropdown menu on outside click', () => {
+				render(
+					<>
+						<button aria-label="outside" data-testid="outside" type="button" />
+						{createDropdown()}
+					</>,
+				);
 
-			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+				fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+				expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-			fireEvent.click(screen.getByTestId('outside'));
+				fireEvent.click(screen.getByTestId('outside'));
 
-			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+				expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+			});
 		});
 
-		it('should close the dropdown menu on outside click which has stopPropagation', () => {
-			render(
-				<>
-					<button
-						aria-label="outside"
-						data-testid="outside"
-						type="button"
-						onClick={(e) => e.stopPropagation()}
-					/>
-					{createDropdown()}
-				</>,
-			);
+		ffTest.off('platform-dst-top-layer', 'legacy outside click with stopPropagation', () => {
+			it('should close the dropdown menu on outside click which has stopPropagation', () => {
+				render(
+					<>
+						<button
+							aria-label="outside"
+							data-testid="outside"
+							type="button"
+							onClick={(e) => e.stopPropagation()}
+						/>
+						{createDropdown()}
+					</>,
+				);
 
-			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+				fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+				expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-			fireEvent.click(screen.getByTestId('outside'));
+				fireEvent.click(screen.getByTestId('outside'));
 
-			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+				expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+			});
 		});
 
 		it('should generate a psuedorandom id to link the trigger and the popup if none was passed to it', () => {

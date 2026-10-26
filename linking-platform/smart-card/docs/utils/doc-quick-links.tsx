@@ -132,10 +132,10 @@ const externalLinks = [
 		onClick: () => openUrl('https://hello.atlassian.net/wiki/spaces/TWPLP/pages/4448067142'),
 	},
 	{
-		name: '#rovo-growth',
+		name: '#help-rovo-growth',
 		elemBefore: <MegaphoneIcon label="" />,
 		elemAfter: <LinkExternalIcon label="Open in new tab" />,
-		onClick: () => openUrl('https://atlassian.enterprise.slack.com/archives/C09LKUEEPGT'),
+		onClick: () => openUrl('https://atlassian.enterprise.slack.com/archives/C0CBM48P0DS'),
 	},
 	{
 		name: 'Contribution',

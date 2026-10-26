@@ -1630,6 +1630,38 @@ describe('MediaStore', () => {
 				);
 			});
 
+			it('should pass client options through to the request', async () => {
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
+
+				await mediaStore.getImage('123', undefined, undefined, undefined, undefined, {
+					retryOptions: { maxAttempts: 1 },
+				});
+
+				expect(requestModuleMock).toHaveBeenCalledWith(
+					expect.stringContaining('/file/123/image'),
+					expect.objectContaining({ clientOptions: { retryOptions: { maxAttempts: 1 } } }),
+					undefined,
+				);
+			});
+
+			it('should not retry a failed image request when maxAttempts is 1', async () => {
+				fetchMock.mockResponse('', { status: 500 });
+
+				const assertion = expect(
+					mediaStore.getImage('123', undefined, undefined, undefined, undefined, {
+						retryOptions: { maxAttempts: 1, startTimeoutInMs: 0 },
+					}),
+				).rejects.toBeDefined();
+				// fetchRetry still waits `startTimeoutInMs` after the last attempt.
+				await jest.runAllTimersAsync();
+				await assertion;
+
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+			});
+
 			it('should not request webp content when not supported', async () => {
 				fetchMock.once(JSON.stringify({ data }), {
 					status: 201,
@@ -1705,6 +1737,51 @@ describe('MediaStore', () => {
 					},
 				);
 			});
+		});
+
+		describe('getImageWatermarkVersion', () => {
+			const tokenWithWatermark = (watermark?: object) =>
+				`header.${btoa(
+					JSON.stringify({
+						iss: 'test-issuer',
+						...(watermark && { watermark: JSON.stringify(watermark) }),
+					}),
+				)}.signature`;
+
+			ffTest(
+				'confluence_watermark_admin_ui',
+				async () => {
+					(resolveAuth as jest.Mock).mockResolvedValueOnce({
+						baseUrl,
+						clientId,
+						token: tokenWithWatermark({ v: 'WjtFdA', ari: 'ari:cloud:confluence:abc:space/123' }),
+					});
+
+					await expect(mediaStore.getImageWatermarkVersion('some-collection')).resolves.toBe(
+						'WjtFdA',
+					);
+					expect(resolveAuth).toHaveBeenLastCalledWith(
+						authProvider,
+						{ collectionName: 'some-collection' },
+						undefined,
+					);
+
+					// A token without a watermark claim has no version.
+					(resolveAuth as jest.Mock).mockResolvedValueOnce({
+						baseUrl,
+						clientId,
+						token: tokenWithWatermark(),
+					});
+					await expect(mediaStore.getImageWatermarkVersion()).resolves.toBe(undefined);
+				},
+				async () => {
+					// `getImage` sends no `wmv` with the gate off, so there is no version to compare.
+					await expect(mediaStore.getImageWatermarkVersion('some-collection')).resolves.toBe(
+						undefined,
+					);
+					expect(resolveAuth).not.toHaveBeenCalled();
+				},
+			);
 		});
 
 		describe('getItems', () => {

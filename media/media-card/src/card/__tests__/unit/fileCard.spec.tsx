@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
+import { preloadMediaViewer } from '@atlaskit/media-viewer/preload';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -29,6 +30,10 @@ jest.mock('@atlaskit/media-viewer/media-viewer-loader', () => ({
 			</button>
 		</div>
 	),
+}));
+
+jest.mock('@atlaskit/media-viewer/preload', () => ({
+	preloadMediaViewer: jest.fn(),
 }));
 
 const renderFileCard = (
@@ -269,6 +274,93 @@ describe('<FileCard />', () => {
 				expect(screen.queryByTestId('mocked-media-viewer')).not.toBeInTheDocument();
 				expect(onSelectedItemChange).not.toHaveBeenCalled();
 			});
+		});
+	});
+
+	describe('media viewer preload', () => {
+		beforeEach(() => {
+			jest.mocked(preloadMediaViewer).mockClear();
+		});
+
+		const renderCardWithViewer = async (
+			shouldOpenMediaViewer: boolean,
+			props?: Partial<Parameters<typeof FileCard>[0]>,
+		) => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { container } = renderFileCard(
+				identifier,
+				{ shouldOpenMediaViewer, ...props },
+				mediaApi,
+			);
+			await screen.findByTestId('media-card-view');
+
+			return { container, fileItem, identifier };
+		};
+
+		it('should capture and report a11y violations', async () => {
+			const { container } = await renderCardWithViewer(true);
+
+			await expect(container).toBeAccessible();
+		});
+
+		it('warms the viewer when the pointer enters a card that opens the viewer', async () => {
+			const user = userEvent.setup();
+			const { identifier } = await renderCardWithViewer(true);
+
+			await user.hover(screen.getByTestId('media-card-view'));
+
+			expect(preloadMediaViewer).toHaveBeenCalledWith(
+				expect.objectContaining({
+					identifier,
+					mediaType: 'image',
+					// Fires the warm-up's analytics through the card's analytics context.
+					onAnalyticsEvent: expect.any(Function),
+				}),
+			);
+		});
+
+		it('does not warm the viewer for a card that does not open the viewer', async () => {
+			const user = userEvent.setup();
+			await renderCardWithViewer(false);
+
+			await user.hover(screen.getByTestId('media-card-view'));
+
+			expect(preloadMediaViewer).not.toHaveBeenCalled();
+		});
+
+		it('warms the viewer when keyboard focus reaches the open in viewer button', async () => {
+			const user = userEvent.setup();
+			const { identifier } = await renderCardWithViewer(true);
+
+			// The "open in viewer" button is rendered outside the card wrapper, so its focus
+			// never reaches the wrapper's `onFocus`. It is still how keyboard users open the
+			// viewer, hence its own hook.
+			await screen.findByRole('button', { name: /^Open / });
+			await user.tab();
+
+			expect(preloadMediaViewer).toHaveBeenCalledWith(
+				expect.objectContaining({ identifier, mediaType: 'image' }),
+			);
+		});
+
+		it('warms the viewer when keyboard focus enters the card itself', async () => {
+			const user = userEvent.setup();
+			const { identifier } = await renderCardWithViewer(true, {
+				actions: [{ label: 'Download', handler: jest.fn() }],
+			});
+
+			// Tab past the "open in viewer" button onto the action button, which lives inside
+			// the wrapper that carries `onFocus`.
+			await screen.findByTestId('media-card-primary-action');
+			await user.tab();
+			jest.mocked(preloadMediaViewer).mockClear();
+			await user.tab();
+
+			expect(preloadMediaViewer).toHaveBeenCalledWith(
+				expect.objectContaining({ identifier, mediaType: 'image' }),
+			);
 		});
 	});
 });

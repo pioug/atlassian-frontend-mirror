@@ -94,7 +94,16 @@ describe('MediaClient', () => {
 			spanId: 'some-span-id',
 		};
 
-		const result = mediaClient.getImage(fileId, params, abortController, true, traceContext);
+		const clientOptions = { retryOptions: { maxAttempts: 1 } };
+
+		const result = mediaClient.getImage(
+			fileId,
+			params,
+			abortController,
+			true,
+			traceContext,
+			clientOptions,
+		);
 
 		expect(mediaClient.mediaStore.getImage).toHaveBeenCalledWith(
 			fileId,
@@ -102,9 +111,18 @@ describe('MediaClient', () => {
 			abortController,
 			true,
 			traceContext,
+			clientOptions,
 		);
 
 		expect(result).toBe('some-image');
+	});
+
+	it('masks mediaStore.getImageWatermarkVersion method', async () => {
+		const { mediaClient } = setup();
+		(mediaClient.mediaStore.getImageWatermarkVersion as jest.Mock).mockResolvedValue('WjtFdA');
+
+		await expect(mediaClient.getImageWatermarkVersion('some-collection')).resolves.toBe('WjtFdA');
+		expect(mediaClient.mediaStore.getImageWatermarkVersion).toHaveBeenCalledWith('some-collection');
 	});
 
 	describe('.file.getFileState()', () => {

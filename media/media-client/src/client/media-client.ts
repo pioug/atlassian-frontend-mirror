@@ -6,6 +6,7 @@ import { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 import { mediaStore, type MediaStore } from '@atlaskit/media-state/media-store';
 
 import { type MobileUpload } from '../models/mobile-upload';
+import type { ClientOptions } from '../utils/request/types';
 import { type UploadEventPayloadMap, type EventPayloadListener } from './events';
 import { FileFetcherImpl, type FileFetcher } from './file-fetcher';
 import { MediaStore as MediaApi } from './media-store/MediaStore';
@@ -54,8 +55,16 @@ export class MediaClient {
 		controller?: AbortController,
 		fetchMaxRes?: boolean,
 		traceContext?: MediaTraceContext,
+		clientOptions?: ClientOptions,
 	): Promise<Blob> {
-		return this.mediaStore.getImage(id, params, controller, fetchMaxRes, traceContext);
+		return this.mediaStore.getImage(
+			id,
+			params,
+			controller,
+			fetchMaxRes,
+			traceContext,
+			clientOptions,
+		);
 	}
 
 	public getImageUrl(id: string, params?: MediaStoreGetFileImageParams): Promise<string> {
@@ -76,6 +85,10 @@ export class MediaClient {
 
 	public getClientIdSync(): string | undefined {
 		return this.mediaStore.getClientIdSync();
+	}
+
+	public async getImageWatermarkVersion(collectionName?: string): Promise<string | undefined> {
+		return this.mediaStore.getImageWatermarkVersion(collectionName);
 	}
 
 	public async getImageMetadata(

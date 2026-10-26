@@ -718,7 +718,7 @@ export type DocNode = PMNode & DocDefinition;
 export const doc: PMNodeSpecFactoryInstance<DocNode> =
   createPMNodeSpecFactory<DocNode>({
     content:
-      '(block | panel_c1 | codeBlock | panel | panel_c1_root_only | rule | bodiedRule | extension | bodiedExtension | multiBodiedExtension | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
+      '(block | panel_c1 | rule | codeBlock | panel | panel_c1_root_only | bodiedRule | extension | bodiedExtension | multiBodiedExtension | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
     marks:
       'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment annotation breakout',
   });

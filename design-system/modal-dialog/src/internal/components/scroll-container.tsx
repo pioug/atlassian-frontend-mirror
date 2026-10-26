@@ -30,7 +30,7 @@ const styles = cssMap({
 		overflowX: 'hidden',
 		overflowY: 'auto',
 		'@media (min-width: 30rem)': {
-			// @ts-ignore
+			// @ts-expect-error -- cssMap height values do not include unset.
 			height: 'unset',
 			overflowY: 'auto',
 		},

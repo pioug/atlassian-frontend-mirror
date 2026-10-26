@@ -1,0 +1,22 @@
+{
+	"name": "@atlaskit/flag-client",
+	"version": "1.0.0",
+	"description": "Browser-safe JavaScript client for reading server-evaluated feature flags from the Feature Flag Platform.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "MEP: Switcheroo"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"sideEffects": false,
+	"exports": {
+		"./client": "./src/client.ts",
+		"./types": "./src/types.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "root:*"
+	}
+}

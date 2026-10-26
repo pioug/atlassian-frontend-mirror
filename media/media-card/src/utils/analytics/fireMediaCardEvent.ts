@@ -1,11 +1,12 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common/constants';
 import { sanitiseAnalyticsPayload } from '@atlaskit/media-common/sanitisePayload';
+import type { MediaViewerPreloadEventPayload } from '@atlaskit/media-viewer/preload';
 
 import type { MediaCardAnalyticsEventPayload } from './analytics';
 
 export function fireMediaCardEvent(
-	payload: MediaCardAnalyticsEventPayload,
+	payload: MediaCardAnalyticsEventPayload | MediaViewerPreloadEventPayload,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): void {
 	if (createAnalyticsEvent) {

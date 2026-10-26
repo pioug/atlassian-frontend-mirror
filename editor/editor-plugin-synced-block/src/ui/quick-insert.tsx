@@ -15,6 +15,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createSyncedBlock } from '../editor-commands';
@@ -61,7 +62,7 @@ export const getQuickInsertConfig = (
 				],
 				isDisabledOffline: true,
 				keyshortcut: '',
-				lozenge: (
+				lozenge: !isExperimentEnabled('platform_editor_synced_block_remove_new_tag') ? (
 					<span css={lozengeWrapperStyles}>
 						<Lozenge
 							appearance={
@@ -71,7 +72,7 @@ export const getQuickInsertConfig = (
 							{formatMessage(blockTypeMessages.newLozenge)}
 						</Lozenge>
 					</span>
-				),
+				) : undefined,
 				icon: () => (
 					<IconSyncBlock label={formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)} />
 				),

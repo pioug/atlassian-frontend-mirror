@@ -24,7 +24,11 @@ function openMenu() {
 }
 
 function toggleMenuOpen() {
-	fireEvent.mouseDown(screen.getByTestId(`${testId}-select--dropdown-indicator`)!, { button: 0 });
+	const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`)!;
+	// A real press is mousedown then click. The top-layer Select opens its menu on the click,
+	// after popover light dismiss is done. The legacy Select opens on mousedown and ignores the click.
+	fireEvent.mouseDown(indicator, { button: 0 });
+	fireEvent.click(indicator);
 }
 
 function closeMenu() {

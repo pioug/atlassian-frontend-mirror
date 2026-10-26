@@ -187,14 +187,7 @@ export function createPlugin(
 
 	function getMarkdownSlice(text: string, openStart: number, openEnd: number): Slice | undefined {
 		if (markdownToPmConverter && isExperimentEnabled('platform_editor_paste_as_md_use_gfm')) {
-			return getMarkdownSliceViaGfm(
-				text,
-				schema,
-				openStart,
-				openEnd,
-				markdownToPmConverter,
-				isExperimentEnabled('platform_editor_gfm_link_paste_fix'),
-			);
+			return getMarkdownSliceViaGfm(text, schema, openStart, openEnd, markdownToPmConverter);
 		}
 
 		const escapedTextInput: string = escapeBackslashAndLinksExceptCodeBlock(text);

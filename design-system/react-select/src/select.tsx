@@ -746,7 +746,7 @@ function buildCategorizedOptions<Option, IsMulti extends boolean, Group extends 
 ): CategorizedGroupOrOption<Option, Group>[] {
 	return props.options
 		.map((groupOrOption, groupOrOptionIndex) => {
-			//@ts-ignore
+			// @ts-expect-error -- Option is unconstrained, but this check requires an object.
 			if ('options' in groupOrOption) {
 				const categorizedOptions = groupOrOption.options
 					.map((option, optionIndex) =>

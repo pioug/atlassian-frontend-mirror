@@ -26,6 +26,18 @@ type BatchedMutation = {
 	timestamp: DOMHighResTimeStamp;
 };
 
+/**
+ * Whether the node is a top-layer element (`[popover]` or `<dialog>`) that
+ * contains `data-vc-oob` content. A top-layer flag group mounts its layer only
+ * while a flag shows, so the layer is added and removed with its out-of-band
+ * content. Only top-layer elements are searched, so ordinary nodes stay cheap
+ * and are still counted.
+ */
+function isLayerContainingOutOfBandContent(node: HTMLElement): boolean {
+	const isLayer = node.hasAttribute('popover') || node.localName === 'dialog';
+	return isLayer && node.querySelector('[data-vc-oob]') !== null;
+}
+
 function createMutationObserver({
 	onAttributeMutation,
 	onChildListMutation,
@@ -46,7 +58,8 @@ function createMutationObserver({
 				continue;
 			}
 
-			if (expVal('cc_editor_vc_exclude_flags', 'isEnabled', false)) {
+			const shouldExcludeOutOfBand = expVal('cc_editor_vc_exclude_flags', 'isEnabled', false);
+			if (shouldExcludeOutOfBand) {
 				// Intended for excluding out of band mutations such as tooltips on hover, and page flags
 				// Currently being tested in Confluence
 				// Skip elements with data-vc-oob attribute
@@ -100,16 +113,23 @@ function createMutationObserver({
 					timestampBucket.set(mut.target, batch);
 				}
 
-				// Accumulate added nodes
+				// Accumulate added nodes. With the experiment on, skip a top-layer element
+				// that contains out-of-band content, such as a flag layer.
 				(mut.addedNodes ?? []).forEach((node: Node) => {
-					if (node instanceof HTMLElement) {
+					if (
+						node instanceof HTMLElement &&
+						!(shouldExcludeOutOfBand && isLayerContainingOutOfBandContent(node))
+					) {
 						batch!.addedNodes.push(new WeakRef(node));
 					}
 				});
 
 				// Accumulate removed nodes
 				(mut.removedNodes ?? []).forEach((node: Node) => {
-					if (node instanceof HTMLElement) {
+					if (
+						node instanceof HTMLElement &&
+						!(shouldExcludeOutOfBand && isLayerContainingOutOfBandContent(node))
+					) {
 						batch!.removedNodes.push(new WeakRef(node));
 					}
 				});

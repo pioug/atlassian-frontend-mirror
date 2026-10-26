@@ -364,7 +364,7 @@ class PopupSelectLegacy<
 			default:
 		}
 		if (this.props.onKeyDown) {
-			/* @ts-ignore - updating type of event React.KeyboardEvent effects the unbindWindowsKeyDown listener. Check if this can be fixed once the component gets refactor to functional */
+			// @ts-expect-error -- The window listener provides a native KeyboardEvent, but onKeyDown expects a React event.
 			this.props.onKeyDown(event);
 		}
 	};

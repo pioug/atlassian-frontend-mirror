@@ -27,6 +27,7 @@ import { createUrl } from '../../utils/request/createUrl';
 import { defaultShouldRetryError } from '../../utils/request/defaultShouldRetryError';
 import { extendTraceContext } from '../../utils/request/extendTraceContext';
 import {
+	type ClientOptions,
 	type RequestHeaders,
 	type RequestMetadata,
 	type CreateUrlOptions,
@@ -538,12 +539,26 @@ export class MediaStore implements MediaApi {
 		await this.request(`/file/${id}/artifact/${artifactName}`, options);
 	};
 
+	/**
+	 * The watermark version `getImage` sends as `wmv` for `collectionName`, or
+	 * `undefined` when it sends none. A caller that reuses an image fetched earlier can
+	 * compare it to tell whether the watermark config has changed since.
+	 */
+	async getImageWatermarkVersion(collectionName?: string): Promise<string | undefined> {
+		if (!fg('confluence_watermark_admin_ui')) {
+			return undefined;
+		}
+		const auth = await this.resolveAuth({ collectionName });
+		return getWatermarkVersionFromToken(auth.token);
+	}
+
 	async getImage(
 		id: string,
 		params?: MediaStoreGetFileImageParams,
 		controller?: AbortController,
 		fetchMaxRes?: boolean,
 		traceContext?: MediaTraceContext,
+		clientOptions?: ClientOptions,
 	): Promise<Blob> {
 		// TODO add checkWebpSupport() back https://product-fabric.atlassian.net/browse/MPT-584
 		const isWebpSupported = false;
@@ -582,6 +597,7 @@ export class MediaStore implements MediaApi {
 			},
 			headers,
 			traceContext,
+			clientOptions,
 			addMediaClientParam: true,
 		};
 

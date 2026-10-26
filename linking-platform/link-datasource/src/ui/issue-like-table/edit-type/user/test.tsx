@@ -8,6 +8,7 @@ import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id/use-datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
@@ -128,15 +129,12 @@ describe('UserEditType', () => {
 		expect(parentKeyDownHandler).not.toHaveBeenCalled();
 	});
 
-	it('should render dropdown menu in a portal', async () => {
-		failGate('platform-dst-top-layer');
+	it('should update the edit value when an option is selected', async () => {
 		setup();
 
-		const menu = await screen.findByRole('listbox');
-		const container = screen.getByTestId('inline-edit-user-select--container');
+		await userEvent.click(await screen.findByRole('option', { name: 'Unassigned' }));
 
-		// When portaled, menu should not be inside the container
-		expect(container.contains(menu)).toBe(false);
+		expect(setEditValues).toHaveBeenCalledWith({ type: 'user', values: [options[1]] });
 	});
 
 	describe('with the top-layer gate on', () => {

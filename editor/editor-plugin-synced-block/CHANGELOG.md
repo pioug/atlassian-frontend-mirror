@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 27.0.9
+
+### Patch Changes
+
+- [`61a54182e0115`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61a54182e0115) -
+  Hide synced block New badges across insertion and block menus behind the
+  platform_editor_synced_block_remove_new_tag experiment.
+- Updated dependencies
+
+## 27.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.7
 
 ### Patch Changes

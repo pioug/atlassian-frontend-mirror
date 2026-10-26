@@ -109,13 +109,21 @@ export default (
 				selectedAnnotations: action.data.canSetAsSelectedAnnotations
 					? [...pluginState.pendingSelectedAnnotations]
 					: pluginState.selectedAnnotations,
+				...(action.data.canSetAsSelectedAnnotations && {
+					selectAnnotationMethod: pluginState.pendingSelectAnnotationMethod,
+					isOpeningMediaCommentFromToolbar: pluginState.pendingIsOpeningMediaCommentFromToolbar,
+				}),
 				pendingSelectedAnnotations: [],
+				pendingSelectAnnotationMethod: undefined,
+				pendingIsOpeningMediaCommentFromToolbar: undefined,
 				isInlineCommentViewClosed: false,
 			};
 		case ACTIONS.SET_PENDING_SELECTIONS:
 			return {
 				...pluginState,
 				pendingSelectedAnnotations: [...action.data.selectedAnnotations],
+				pendingSelectAnnotationMethod: action.data.selectAnnotationMethod,
+				pendingIsOpeningMediaCommentFromToolbar: action.data.isOpeningMediaCommentFromToolbar,
 				pendingSelectedAnnotationsUpdateCount:
 					pluginState.pendingSelectedAnnotationsUpdateCount + 1,
 				skipSelectionHandling: true,

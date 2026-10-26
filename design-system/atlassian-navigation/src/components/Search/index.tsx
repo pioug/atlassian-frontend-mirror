@@ -180,7 +180,7 @@ export const Search = (props: SearchProps): React.JSX.Element => {
 			/>
 			<IconButton
 				component={component}
-				// @ts-ignore Overriding styles is not supported.
+				// @ts-expect-error -- IconButton does not support overriding styles through the css prop.
 				css={searchIconStyles}
 				href={href}
 				icon={<SearchIcon color="currentColor" spacing="spacious" label={label} />}

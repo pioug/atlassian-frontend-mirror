@@ -46,4 +46,5 @@ export type MediaViewerErrorReason =
 	| 'svg-blob-to-datauri'
 	| 'unsupported'
 	| 'custom-viewer-error'
-	| 'download';
+	| 'download'
+	| 'preload-image-fetch';

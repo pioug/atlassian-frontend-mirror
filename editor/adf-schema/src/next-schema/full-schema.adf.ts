@@ -35,12 +35,12 @@ const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 				// for `pm-spec`, so this keeps `block` the leading alternative in the PM content
 				// expression and leaves ProseMirror's defaultType/fill behaviour untouched.
 				panel.use('c1'),
+				rule.use('with_attrs_root_only'),
 				blockContentGroup,
 				codeBlock.use('root_only'),
 				panel.use('root_only'),
 				panel.use('c1_root_only'),
 				rule.use('root_only'),
-				rule.use('with_attrs_root_only'),
 				bodiedRule.use('root_only'),
 				extension.use('root_only'),
 				extension.use('root_only_with_annotation'),

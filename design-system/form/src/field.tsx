@@ -240,7 +240,7 @@ export default function Field<
 			 * (because we are using changing key prop to re-run field level validation, and that
 			 * cause the component re-mounting) to not override the actual value with the default value.
 			 */
-			// @ts-ignore
+			// @ts-expect-error -- An optional defaultValue can be undefined, but field state requires FieldValue.
 			value: isDefaultValueChanged ? defaultValue : (getCurrentValue(props.name) ?? defaultValue),
 		},
 		error: undefined,
@@ -285,9 +285,9 @@ export default function Field<
 			 * override the default value on re-registering, but also we don't need to change
 			 * the key prop to re-run validation.
 			 */
-			// @ts-ignore
+			// @ts-expect-error -- An optional defaultValue can be undefined, but registerField requires a value or initializer.
 			isDefaultValueChanged ||
-				// @ts-ignore
+				// @ts-expect-error -- The defaultValue union includes an initializer accepting FieldValue, not another initializer.
 				isFunction(latestPropsRef.current.defaultValue)
 				? latestPropsRef.current.defaultValue
 				: latestStateRef.current.fieldProps.value,

@@ -1,0 +1,184 @@
+{
+  "fixtureSchemaVersion": 1,
+  "caseId": "typed-context-exposure",
+  "description": "Full typed request context with multiple identifier types and custom scalar attributes. Demonstrates preservation of native types: string, boolean, integer, and double values are NOT coerced to strings.",
+  "exposure": {
+    "resourceLogs": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "flag-sdk-node-diagnostics"
+              }
+            },
+            {
+              "key": "cloud.region",
+              "value": {
+                "stringValue": "us-east-1"
+              }
+            },
+            {
+              "key": "deployment.environment.name",
+              "value": {
+                "stringValue": "production"
+              }
+            }
+          ]
+        },
+        "scopeLogs": [
+          {
+            "scope": {
+              "name": "@atlassian/flag-server-node",
+              "version": "0.2.0-alpha.1",
+              "attributes": [
+                {
+                  "key": "atl.feature_flag.sdk.platform",
+                  "value": {
+                    "stringValue": "server"
+                  }
+                }
+              ]
+            },
+            "logRecords": [
+              {
+                "timeUnixNano": "1786964600000000000",
+                "severityNumber": 1,
+                "severityText": "TRACE",
+                "eventName": "flag-evaluated",
+                "traceId": "0af7651916cd43dd8448eb211c80319c",
+                "spanId": "b7ad6b7169203331",
+                "attributes": [
+                  {
+                    "key": "feature_flag.key",
+                    "value": {
+                      "stringValue": "analytics_v2"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.set.id",
+                    "value": {
+                      "stringValue": "confluence_server"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.variant",
+                    "value": {
+                      "stringValue": "beta"
+                    }
+                  },
+                  {
+                    "key": "feature_flag.result.reason",
+                    "value": {
+                      "stringValue": "targeting_match"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.rule_id",
+                    "value": {
+                      "stringValue": "rule-analytics-456"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.rate",
+                    "value": {
+                      "doubleValue": 1.0
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.sampling.item.count",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.result.source",
+                    "value": {
+                      "stringValue": "delta_stream"
+                    }
+                  },
+                  {
+                    "key": "atl.feature_flag.exposure.manual",
+                    "value": {
+                      "boolValue": false
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.user_id",
+                    "value": {
+                      "stringValue": "user-abc-123"
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.tenant_id",
+                    "value": {
+                      "stringValue": "tenant-xyz-789"
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.organization_id",
+                    "value": {
+                      "stringValue": "org-corp-001"
+                    }
+                  },
+                  {
+                    "key": "atl.identifiers.cloud_id",
+                    "value": {
+                      "stringValue": "cloud-id-abc123def456"
+                    }
+                  },
+                  {
+                    "key": "atl.attributes.is_admin",
+                    "value": {
+                      "boolValue": true
+                    }
+                  },
+                  {
+                    "key": "atl.attributes.subscription_tier",
+                    "value": {
+                      "stringValue": "enterprise"
+                    }
+                  },
+                  {
+                    "key": "atl.attributes.license_count",
+                    "value": {
+                      "intValue": "500"
+                    }
+                  },
+                  {
+                    "key": "atl.attributes.feature_adoption_percentage",
+                    "value": {
+                      "doubleValue": 87.5
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "expectations": {
+    "recordCount": 1,
+    "fields": {
+      "atl.identifiers.user_id": "string (identifier type, always string value)",
+      "atl.identifiers.tenant_id": "string (identifier type, always string value)",
+      "atl.identifiers.organization_id": "string (identifier type, always string value)",
+      "atl.identifiers.cloud_id": "string (identifier type, always string value)",
+      "atl.attributes.is_admin": "boolean (custom attribute)",
+      "atl.attributes.subscription_tier": "string (custom attribute)",
+      "atl.attributes.license_count": "integer (custom attribute)",
+      "atl.attributes.feature_adoption_percentage": "double (custom attribute)"
+    },
+    "omitted": [],
+    "notes": {
+      "type_preservation": "Native scalar types are preserved: boolean remains boolean, integer remains integer, double remains double, string remains string. Values are NOT coerced to strings for transport.",
+      "identifiers": "All identifiers are strings. Custom identifiers emitted as atl.identifiers.<id_type>.",
+      "attributes": "Custom attributes support native scalar types: string, boolean, integer, and double. Emitted as atl.attributes.<custom_key>.",
+      "dynamic_suffix": "The suffix (e.g., 'user_id', 'is_admin', 'license_count') comes directly from the request context key.",
+      "cardinality": "Custom identifiers and attributes are emitted as separate attributes per key, allowing any number of them."
+    }
+  }
+}

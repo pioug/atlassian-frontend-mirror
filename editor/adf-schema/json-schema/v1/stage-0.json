@@ -115,10 +115,10 @@
           "$ref": "#/definitions/decisionList_node"
         },
         {
-          "$ref": "#/definitions/rule_node"
+          "$ref": "#/definitions/rule_with_attrs_node"
         },
         {
-          "$ref": "#/definitions/rule_with_attrs_node"
+          "$ref": "#/definitions/rule_node"
         },
         {
           "$ref": "#/definitions/bodiedRule_node"
@@ -1152,6 +1152,9 @@
                 "$ref": "#/definitions/expand_node"
               },
               {
+                "$ref": "#/definitions/rule_with_attrs_root_only_node"
+              },
+              {
                 "$ref": "#/definitions/codeBlock_root_only_node"
               },
               {
@@ -1162,9 +1165,6 @@
               },
               {
                 "$ref": "#/definitions/rule_root_only_node"
-              },
-              {
-                "$ref": "#/definitions/rule_with_attrs_root_only_node"
               },
               {
                 "$ref": "#/definitions/bodiedRule_root_only_node"

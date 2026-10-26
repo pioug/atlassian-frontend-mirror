@@ -336,6 +336,7 @@ export const createNodeChangedDecorationWidget = ({
 				isActive,
 				isInserted,
 				leftAnchorId,
+				showIndicators,
 			});
 		}
 		return createTableCellContentWidgets({

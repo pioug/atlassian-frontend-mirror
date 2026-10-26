@@ -16,6 +16,15 @@ import { getErrorDetail } from '../../../../../getErrorDetail';
 import { getSecondaryErrorReason } from '../../../../../getSecondaryErrorReason';
 import { MediaViewerError } from '../../../../../MediaViewerError';
 import { ImageViewer, type ImageViewerProps } from '../../../../../viewers/image';
+import {
+	clearWarmedImages,
+	getWarmedImageKey,
+	hasWarmedImage,
+	setWarmedImage,
+} from '../../../../../warmedImages';
+
+// Some tests below replace the global with a stub, so keep the real one for warm-ups.
+const RealAbortController = AbortController;
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {
@@ -35,11 +44,16 @@ const traceContext: MediaTraceContext = {
 	traceId: getRandomTelemetryId(),
 };
 
-function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
+function setup(
+	response: Promise<Blob>,
+	props?: Partial<ImageViewerProps>,
+	getImageWatermarkVersion: () => Promise<string | undefined> = () => Promise.resolve(undefined),
+) {
 	const mediaClient = fakeMediaClient();
 	asMockFunction(mediaClient.getImage).mockReturnValue(response);
 	asMockFunction(mediaClient.file.getFileBinaryURL).mockResolvedValue('some-binary-url');
 	asMockFunction(mediaClient.getClientId).mockResolvedValue(undefined);
+	asMockFunction(mediaClient.getImageWatermarkVersion).mockImplementation(getImageWatermarkVersion);
 	const onClose = jest.fn();
 	const onLoaded = jest.fn();
 	const onError = jest.fn();
@@ -436,6 +450,176 @@ describe('ImageViewer', () => {
 			} finally {
 				spy.mockRestore();
 			}
+		});
+	});
+
+	describe('taking a warmed image', () => {
+		const keyFor = (watermarkVersion: string | undefined) =>
+			getWarmedImageKey({ id: imageItem.id, collectionName, watermarkVersion });
+		const warmedKey = keyFor(undefined);
+
+		const warmUp = (image: Promise<Blob>, key = warmedKey) => {
+			const warmed = { image, controller: new RealAbortController() };
+			setWarmedImage(key, warmed);
+			return warmed;
+		};
+
+		const deferredBlob = () => {
+			let resolve: (blob: Blob) => void = () => {};
+			let reject: (error: Error) => void = () => {};
+			const promise = new Promise<Blob>((res, rej) => {
+				resolve = res;
+				reject = rej;
+			});
+			return { promise, resolve, reject };
+		};
+
+		beforeEach(() => {
+			clearWarmedImages();
+		});
+
+		afterEach(() => {
+			clearWarmedImages();
+		});
+
+		it('takes a warm-up instead of issuing a second request', async () => {
+			warmUp(Promise.resolve(new Blob()));
+
+			const { mediaClient } = setup(Promise.resolve(new Blob()));
+
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			expect(mediaClient.getImage).not.toHaveBeenCalled();
+			expect(hasWarmedImage(warmedKey)).toBe(false);
+			expect(screen.getByTestId('media-viewer-image')).toBeInTheDocument();
+		});
+
+		it('makes its own request when there is no warm-up, as in the control arm', async () => {
+			const { mediaClient } = setup(Promise.resolve(new Blob()));
+
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+			// Nothing to take, so the viewer doesn't resolve the watermark version either.
+			expect(mediaClient.getImageWatermarkVersion).not.toHaveBeenCalled();
+		});
+
+		describe('watermark version', () => {
+			it('leaves the warm-up in the store when closed while the version resolves', async () => {
+				const createObjectURL = jest.spyOn(URL, 'createObjectURL');
+				const warmed = warmUp(Promise.resolve(new Blob()));
+				let resolveVersion: (version: string | undefined) => void = () => {};
+
+				const { mediaClient, component } = setup(
+					Promise.resolve(new Blob()),
+					undefined,
+					() =>
+						new Promise((resolve) => {
+							resolveVersion = resolve;
+						}),
+				);
+				await waitFor(() => expect(mediaClient.getImageWatermarkVersion).toHaveBeenCalled());
+
+				component.unmount();
+				resolveVersion(undefined);
+				await new Promise((resolve) => setTimeout(resolve, 0));
+
+				// Not taken by the closed viewer, so the store still aborts it on expiry.
+				expect(hasWarmedImage(warmedKey)).toBe(true);
+				expect(warmed.controller.signal.aborted).toBe(false);
+				expect(createObjectURL).not.toHaveBeenCalled();
+				expect(mediaClient.getImage).not.toHaveBeenCalled();
+				createObjectURL.mockRestore();
+			});
+
+			it('takes a warm-up made with the same watermark version', async () => {
+				const key = keyFor('version-1');
+				warmUp(Promise.resolve(new Blob()), key);
+
+				const { mediaClient } = setup(Promise.resolve(new Blob()), undefined, () =>
+					Promise.resolve('version-1'),
+				);
+
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expect(mediaClient.getImageWatermarkVersion).toHaveBeenCalledWith(collectionName);
+				expect(mediaClient.getImage).not.toHaveBeenCalled();
+				expect(hasWarmedImage(key)).toBe(false);
+			});
+
+			it('makes its own request when the warm-up has an older watermark version', async () => {
+				const staleKey = keyFor('version-1');
+				warmUp(Promise.resolve(new Blob()), staleKey);
+
+				const { mediaClient } = setup(Promise.resolve(new Blob()), undefined, () =>
+					Promise.resolve('version-2'),
+				);
+
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+				// Left for the store to expire, never handed to this viewer.
+				expect(hasWarmedImage(staleKey)).toBe(true);
+			});
+
+			it('makes its own request when the watermark version cannot be resolved', async () => {
+				warmUp(Promise.resolve(new Blob()));
+
+				const { mediaClient } = setup(Promise.resolve(new Blob()), undefined, () =>
+					Promise.reject(new Error('auth failed')),
+				);
+
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+				expect(hasWarmedImage(warmedKey)).toBe(true);
+			});
+		});
+
+		it('falls back to its own request when a taken warm-up fails', async () => {
+			const download = deferredBlob();
+			warmUp(download.promise);
+
+			const { mediaClient, onError } = setup(Promise.resolve(new Blob()));
+			await waitFor(() => expect(hasWarmedImage(warmedKey)).toBe(false));
+
+			download.reject(new Error('warm-up failed'));
+
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+			expect(mediaClient.getImage).toHaveBeenCalledTimes(1);
+			expect(onError).not.toHaveBeenCalled();
+			expect(screen.getByTestId('media-viewer-image')).toBeInTheDocument();
+		});
+
+		it('aborts a taken warm-up and shows nothing when closed mid-download', async () => {
+			const createObjectURL = jest.spyOn(URL, 'createObjectURL');
+			const download = deferredBlob();
+			const warmed = warmUp(download.promise);
+
+			const { mediaClient, component } = setup(Promise.resolve(new Blob()));
+			await waitFor(() => expect(hasWarmedImage(warmedKey)).toBe(false));
+
+			component.unmount();
+			expect(warmed.controller.signal.aborted).toBe(true);
+
+			download.resolve(new Blob());
+			await new Promise((resolve) => setTimeout(resolve, 0));
+
+			expect(createObjectURL).not.toHaveBeenCalled();
+			expect(mediaClient.getImage).not.toHaveBeenCalled();
+			createObjectURL.mockRestore();
 		});
 	});
 

@@ -5,6 +5,7 @@ import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
@@ -165,7 +166,8 @@ describe('ProfileCardTrigger', () => {
 			renderWithIntl({ trigger: 'click' });
 
 			const triggerEl = await openPopupAndGetTrigger();
-			expect(triggerEl).toHaveAttribute('aria-haspopup');
+			// Legacy Popup sets `aria-haspopup="true"`. The top-layer Popup sets it only for a popup role.
+			expect(triggerEl.hasAttribute('aria-haspopup')).toBe(!fg('platform-dst-top-layer'));
 			expect(triggerEl).toHaveAttribute('aria-expanded');
 			expect(triggerEl).toHaveAttribute('aria-controls');
 		});

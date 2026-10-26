@@ -14,6 +14,10 @@ var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
  */
 
 /**
+ * Typed inputs for the experimental semantic spacing theme.
+ */
+
+/**
  * Optional unitless multipliers for individual heading sizes, applied on top of `dynamicFontScale`.
  * Each defaults to `1`, e.g. `dynamicFontHeadingXxlargeScale: 1.5` makes only `xxlarge` headings
  * larger.
@@ -134,7 +138,7 @@ function getCustomThemeOverrideStyles(overrides, scope) {
         var _ref8 = (0, _slicedToArray2.default)(_ref7, 2),
           propertyName = _ref8[0],
           value = _ref8[1];
-        return "".concat(getCssVariableName(propertyName), ": ").concat(value, ";");
+        return "".concat(getCssVariableName(propertyName), ": ").concat(typeof value === 'boolean' ? Number(value) : value, ";");
       }).join('');
       return styles ? "\n\t\t".concat(getThemeOverrideSelector(themeKind, themeName, scope), " {\n\t\t\t").concat(styles, "\n\t\t}\n\t") : [];
     });

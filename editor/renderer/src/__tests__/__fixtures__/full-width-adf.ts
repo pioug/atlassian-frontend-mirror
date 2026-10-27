@@ -1,5 +1,6 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { PanelType } from '@atlaskit/adf-schema/panel';
+import type { RuleWithAttrsDefinition } from '@atlaskit/adf-schema/rule';
 
 export const paragraphNodeAdf: DocNode = {
 	version: 1,
@@ -1111,6 +1112,21 @@ export const ruleNodeAdf: DocNode = {
 		{
 			type: 'rule',
 		},
+	],
+};
+
+export const ruleNodeWithAttributesAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{ type: 'rule' },
+		...(['solid', 'dashed', 'dotted', 'sketch', 'fade'] as const).flatMap(
+			(style): RuleWithAttrsDefinition[] => [
+				{ type: 'rule', attrs: { style, weight: 1, color: '#4C9AFF' } },
+				{ type: 'rule', attrs: { style, weight: 2 } },
+				{ type: 'rule', attrs: { style, weight: 3, color: '#FF5630' } },
+			],
+		),
 	],
 };
 

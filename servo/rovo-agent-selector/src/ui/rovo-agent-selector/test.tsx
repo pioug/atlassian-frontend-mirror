@@ -23,6 +23,7 @@ import type { RovoAgentSelectorProps } from './types';
 
 const testId = 'rovo-agent-selector';
 
+const CREATION_FIX_GATE = 'hubs_management_rovo_agent_creation_fix';
 const SELECTOR_GATE = 'jsm_help_center_one-click_rovo_agent';
 const MIGRATE_AGENT_AVATAR_GATE = 'migrate-agent-avatar-component-to-ads';
 
@@ -65,11 +66,16 @@ const TestRenderer = (propOverrides: Partial<RovoAgentSelectorProps>) => {
 	);
 };
 
-describe('RovoAgentSelector', () => {
+describe.each([false, true])('RovoAgentSelector (creation fix: %s)', (creationFixEnabled) => {
 	let environment: MockEnvironment;
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		if (creationFixEnabled) {
+			passGate(CREATION_FIX_GATE);
+		} else {
+			failGate(CREATION_FIX_GATE);
+		}
 		__internal.withProvidedVariables.tests_only_resetDebugCache?.();
 		environment = createMockEnvironment();
 	});

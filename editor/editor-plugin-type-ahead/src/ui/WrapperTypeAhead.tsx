@@ -22,7 +22,6 @@ import { useLoadItems } from './hooks/use-load-items';
 import { useOnForceSelect } from './hooks/use-on-force-select';
 import { InputQuery } from './InputQuery';
 import { RegisteredTypeAheadMenu } from './registered-menu/RegisteredTypeAheadMenu';
-import { getTypeAheadSurface } from './registered-menu/typeAheadSurfaces';
 
 type WrapperProps = {
 	anchorElement: HTMLElement;
@@ -81,7 +80,7 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 		const [query, setQuery] = useState<string>(reopenQuery || '');
 		const queryRef = useRef(query);
 		const editorViewRef = useRef(editorView);
-		const registeredSurface = getTypeAheadSurface(triggerHandler.id);
+		const registeredMenuKey = triggerHandler.registeredMenuKey;
 		const items = useLoadItems(
 			triggerHandler,
 			editorView,
@@ -89,7 +88,7 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 			showMoreOptionsButton,
 			api,
 			intl,
-			!registeredSurface,
+			!registeredMenuKey,
 		);
 
 		useEffect(() => {
@@ -230,7 +229,7 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 			return null;
 		}
 
-		if (registeredSurface) {
+		if (registeredMenuKey) {
 			return (
 				<RegisteredTypeAheadMenu
 					anchorElement={anchorElement}
@@ -246,7 +245,7 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 					query={query}
 					reopenQuery={reopenQuery}
 					setQuery={setQuery}
-					surface={registeredSurface}
+					registeredMenuKey={registeredMenuKey}
 					triggerHandler={triggerHandler}
 				/>
 			);

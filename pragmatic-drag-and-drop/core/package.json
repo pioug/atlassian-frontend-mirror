@@ -93,8 +93,7 @@
 		"globby": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"tiny-invariant": "root:*",
-		"wait-for-expect": "root:*"
+		"tiny-invariant": "root:*"
 	},
 	"homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

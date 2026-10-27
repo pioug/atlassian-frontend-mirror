@@ -3,12 +3,14 @@ import React, { Fragment } from 'react';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EditorAppearanceComponentProps } from '../../types/editor-appearance-component';
 import EditorContentContainer from '../EditorContentContainer/EditorContentContainer';
@@ -16,7 +18,11 @@ import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 import { ChromelessEditorContainer } from './ChromelessEditorContainer';
 type AppearanceProps = EditorAppearanceComponentProps<
-	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]
+	[
+		OptionalPlugin<MaxContentSizePlugin>,
+		OptionalPlugin<EditorViewModePlugin>,
+		OptionalPlugin<BlockMenuPlugin>,
+	]
 >;
 
 /**
@@ -62,6 +68,11 @@ export default class Editor extends React.Component<AppearanceProps> {
 			(states) => states?.editorViewModeState?.mode,
 		);
 
+		const useStandardNodeWidth =
+			(fg('platform_editor_expand_standard_width_fix') ||
+				isExperimentEnabled('work_item_modernization')) &&
+			(this.props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
+
 		const containerRef = isExperimentEnabled('platform_editor_perf_lint_cleanup')
 			? this.setContainerElement
 			: (ref: HTMLElement | null) => (this.containerElement = ref);
@@ -79,6 +90,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 						featureFlags={featureFlags}
 						viewMode={editorViewMode}
 						appearance={this.appearance}
+						useStandardNodeWidth={useStandardNodeWidth}
 					>
 						{customContentComponents && 'before' in customContentComponents
 							? customContentComponents.before

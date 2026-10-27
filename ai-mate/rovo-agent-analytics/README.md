@@ -71,6 +71,7 @@ Each group file in `src/actions/groups/` exports a **discriminated union payload
 | File | Payload Type | Description |
 | --- | --- | --- |
 | `agent-interactions.ts` | `AgentInteractionsEventPayload` | User-initiated interactions (view, edit, delete, duplicate, star, chat, verify…) |
+| `triggers.ts` | `TriggerEventPayload` | Inline trigger views and completed frontend CRUD operations |
 | `editing.ts` | `EditingEventPayload` | Agent save/mutation events (updated) |
 | `debug.ts` | `DebugEventPayload` | Debug modal actions (view, copy, toggle skill info) |
 | `tools.ts` | `ToolsEventPayload` | Tool execution actions (confirm, stream stop, result viewed, error) |

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-placeholder-text",
-	"version": "30.0.0",
+	"version": "31.0.0",
 	"description": "placeholder text plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,8 +48,7 @@
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"exports": {
 		".": "./src/index.ts",

@@ -8,6 +8,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { IconEmoji } from '@atlaskit/editor-common/assets';
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
@@ -17,11 +18,7 @@ import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
-import type {
-	TypeAheadHandler,
-	TypeAheadInsert,
-	TypeAheadItem,
-} from '@atlaskit/editor-common/types/type-ahead';
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -223,7 +220,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return tr;
 		},
 	};
-	const selectEmojiFromQuickInsert = (insert: TypeAheadInsert) => {
+	const selectEmojiFromQuickInsert = (insert: InsertContentCallback) => {
 		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 			return setInlineEmojiPopupOpen(true)(insert(''));
 		}

@@ -19,6 +19,7 @@ import {
 } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 
+import { closeOpenEmbedModal } from '../../../../../../../../__tests__/__utils__/unit-helpers';
 import extractLozengeActionItems from '../../../../../../../../extractors/action/extract-lozenge-action-items';
 import { ActionName } from '../../../../../../../../index';
 import * as useInvoke from '../../../../../../../../state/hooks/use-invoke';
@@ -117,7 +118,8 @@ describe('LozengeAction', () => {
 		return { ...result, component };
 	};
 
-	afterEach(() => {
+	afterEach(async () => {
+		await closeOpenEmbedModal();
 		jest.clearAllMocks();
 		jest.restoreAllMocks();
 	});

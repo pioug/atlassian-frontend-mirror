@@ -31,7 +31,6 @@
 		"zustand": "root:*"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "workspace:^",
-		"wait-for-expect": "root:*"
+		"@atlaskit/docs": "workspace:^"
 	}
 }

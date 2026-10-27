@@ -79,8 +79,7 @@ export type PastePluginOptions = {
 	isFullPage?: boolean;
 	/**
 	 * Optional markdown → ProseMirror fragment converter used for plain-text
-	 * Cmd+V paste when `platform_editor_paste_as_md_use_gfm` is enabled.
-	 * When omitted or the experiment is off, the legacy MarkdownTransformer is used.
+	 * Cmd+V paste. When omitted, the legacy MarkdownTransformer is used.
 	 */
 	markdownToPmConverter?: MarkdownToPmConverter;
 	pasteWarningOptions?: PasteWarningOptions;

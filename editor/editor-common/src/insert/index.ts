@@ -14,6 +14,12 @@ import {
 import { GapCursorSelection, Side } from '../selection';
 import { isEmptyParagraph, isListItemNode } from '../utils';
 
+/** Builds an insertion transaction using the editor state and position supplied by the host. */
+export type InsertContentCallback = (
+	content?: Node | object | string | Fragment,
+	options?: { selectInlineNode?: boolean },
+) => Transaction;
+
 export type InsertableContent = Node | Fragment;
 export enum LookDirection {
 	Before = 'before',
@@ -261,7 +267,7 @@ const finaliseInsert = (tr: Transaction, nodeLength: number) => {
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const insertSelectedItem =
-	(maybeNode?: Node | Object | string | Fragment, opts: { selectInlineNode?: boolean } = {}) =>
+	(maybeNode?: Node | object | string | Fragment, opts: { selectInlineNode?: boolean } = {}) =>
 	(state: EditorState, tr: Transaction, start: number): Transaction => {
 		if (!maybeNode) {
 			return tr;

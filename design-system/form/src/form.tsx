@@ -94,6 +94,14 @@ export interface FormProps<FormValues> {
 	 */
 	isDisabled?: boolean;
 	/**
+	 * Accessible label for error status icons rendered by form messages.
+	 */
+	errorMessageLabel?: string;
+	/**
+	 * Accessible label for valid status icons rendered by form messages.
+	 */
+	validMessageLabel?: string;
+	/**
 	 * `name` attribute applied to the `form` element.
 	 */
 	name?: string;
@@ -228,7 +236,7 @@ const FormBase = <FormValues extends Record<string, any>>(
 		}
 	};
 
-	const { isDisabled = false, children } = props;
+	const { isDisabled = false, children, errorMessageLabel, validMessageLabel } = props;
 	const { dirty, submitting } = state;
 
 	/**
@@ -244,8 +252,14 @@ const FormBase = <FormValues extends Record<string, any>>(
 	);
 
 	const FormContextValue = useMemo(() => {
-		return { registerField, getCurrentValue, subscribe: form.subscribe };
-	}, [registerField, getCurrentValue, form.subscribe]);
+		return {
+			registerField,
+			getCurrentValue,
+			subscribe: form.subscribe,
+			errorMessageLabel,
+			validMessageLabel,
+		};
+	}, [registerField, getCurrentValue, form.subscribe, errorMessageLabel, validMessageLabel]);
 
 	const conditionalFormProps: Record<string, any> = {
 		autocomplete,

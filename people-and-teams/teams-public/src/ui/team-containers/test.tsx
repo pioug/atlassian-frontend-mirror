@@ -505,6 +505,47 @@ describe('TeamContainers', () => {
 		await expect(container).toBeAccessible();
 	});
 
+	describe('show more/less aria-label (teams_a11y_20261019)', () => {
+		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
+			id: index.toString(),
+			type: 'ConfluenceSpace',
+			name: `Confluence Space Name ${index}`,
+			icon: 'icon',
+			link: 'link',
+		}));
+
+		beforeEach(() => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: teamContainers,
+			});
+		});
+
+		it('should NOT add aria-label to show more button when gate is off', () => {
+			mockFg.mockImplementation(() => false);
+			renderTeamContainers(teamId);
+
+			const btn = screen.getByText('Show more').closest('button');
+			expect(btn).not.toHaveAttribute('aria-label');
+		});
+
+		it('should add descriptive aria-label to show more button when gate is on', () => {
+			mockFg.mockImplementation((gate: string) => gate === 'teams_a11y_20261019');
+			renderTeamContainers(teamId);
+
+			const btn = screen.getByText('Show more').closest('button');
+			expect(btn).toHaveAttribute('aria-label', 'Show more team links');
+		});
+
+		it('should add descriptive aria-label to show less button when gate is on', async () => {
+			mockFg.mockImplementation((gate: string) => gate === 'teams_a11y_20261019');
+			renderTeamContainers(teamId);
+
+			screen.getByText('Show more').closest('button')!.click();
+			const btn = await screen.findByText('Show less');
+			expect(btn.closest('button')).toHaveAttribute('aria-label', 'Show less team links');
+		});
+	});
+
 	describe('show more focus management', () => {
 		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
 			id: index.toString(),

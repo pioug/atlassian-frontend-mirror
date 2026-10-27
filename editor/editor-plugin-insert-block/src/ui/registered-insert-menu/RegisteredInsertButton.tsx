@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import Popup from '@atlaskit/editor-common/Popup';
-import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
+import { useMenuPopupSizing } from '@atlaskit/editor-common/registered-menu/popup-sizing';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar/context';
 import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';

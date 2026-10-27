@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "152.2.5",
+	"version": "153.0.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -212,10 +212,6 @@
 		},
 		"platform_nested_table_style_override_2": {
 			"type": "boolean"
-		},
-		"platform_forge_inline_bodied_macro": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_forge_inline_bodied_layout_switch": {
 			"type": "boolean",

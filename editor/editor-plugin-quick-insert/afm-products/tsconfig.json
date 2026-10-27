@@ -53,6 +53,9 @@
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-tables/afm-products/tsconfig.json"
 		},
 		{
@@ -63,6 +66,9 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-products/tsconfig.json"

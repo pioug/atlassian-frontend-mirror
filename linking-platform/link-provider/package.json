@@ -79,8 +79,7 @@
 		"@types/async-retry": "root:*",
 		"@types/redux": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"wait-for-expect": "root:*"
+		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
 		"confluence_ep_shim_macro_links_v2": {

@@ -299,6 +299,34 @@ describe('PubSub', () => {
 				expect(callback).toHaveBeenCalledWith(insertPrompt);
 				unmount();
 			});
+
+			it('does not let `conversation-read` overwrite a queued action event', () => {
+				const chatOpen: Payload = {
+					type: 'chat-open',
+					data: { channelId: 'conversation-id' },
+					source: 'agent-session-card',
+				};
+				const conversationRead: Payload = {
+					type: 'conversation-read',
+					openChat: false,
+					data: { channelId: 'conversation-id' },
+					source: 'agent-session-card',
+				};
+
+				const { result } = renderHook(() => usePublish(topic));
+				const callback = jest.fn();
+
+				result.current(chatOpen);
+				result.current(conversationRead);
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic, triggerLatest: true }, callback),
+				);
+
+				expect(callback).toHaveBeenCalledTimes(1);
+				expect(callback).toHaveBeenCalledWith(chatOpen);
+				unmount();
+			});
 		});
 	});
 	describe('useSubscribeAll', () => {

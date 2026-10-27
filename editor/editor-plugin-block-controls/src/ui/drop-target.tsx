@@ -80,7 +80,7 @@ const nestedDropZoneStyle = css({
 	width: 'unset',
 });
 
-const enableDropZoneNext = [
+const ENABLE_DROP_ZONE = [
 	'paragraph',
 	'mediaSingle',
 	'heading',
@@ -93,10 +93,6 @@ const enableDropZoneNext = [
 	'blockCard',
 	'syncBlock',
 ];
-
-const getEnableDropZone = () => {
-	return enableDropZoneNext;
-};
 
 // This z index is used in container like layout
 const fullHeightStyleAdjustZIndexStyle = css({
@@ -195,7 +191,7 @@ const HoverZone = ({
 		const transformOffset = `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET}, 0)`;
 
 		const heightStyle =
-			anchorName && getEnableDropZone().includes(node?.type.name || '')
+			anchorName && ENABLE_DROP_ZONE.includes(node?.type.name || '')
 				? isAnchorSupported()
 					? `calc(anchor-size(${anchorName} height)/2 + ${heightStyleOffset})`
 					: `calc(${(anchorRectCache?.getHeight(anchorName) || 0) / 2}px + ${heightStyleOffset})`
@@ -235,7 +231,7 @@ const HoverZone = ({
 
 			let top = 'unset';
 			if (anchorName) {
-				const enabledDropZone = getEnableDropZone().includes(node?.type.name || '');
+				const enabledDropZone = ENABLE_DROP_ZONE.includes(node?.type.name || '');
 				if (isAnchorSupported()) {
 					top = enabledDropZone
 						? `calc(anchor(${anchorName} 50%))`

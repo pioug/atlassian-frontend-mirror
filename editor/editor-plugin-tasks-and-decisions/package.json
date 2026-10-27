@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "32.0.4",
+	"version": "33.0.1",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -71,7 +71,6 @@
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	}
 }

@@ -4,8 +4,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-
 import { DisconnectDialog, type DisconnectDialogProps, messages } from './index';
 
 const renderComponent = (props: Partial<DisconnectDialogProps> = {}) => {
@@ -48,36 +46,17 @@ describe('DisconnectDialog', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.on(
-		'workforce_optimization_team_modal_update',
-		'should show new disclaimer for JiraProject when flag is ON',
-		() => {
-			it('should show "might affect" wording for JiraProject', () => {
-				renderComponent({ containerType: 'JiraProject' });
-				expect(
-					screen.getByText(/might affect work connected to the team within the space/),
-				).toBeInTheDocument();
-			});
+	it('should show "might affect" wording for JiraProject', () => {
+		renderComponent({ containerType: 'JiraProject' });
+		expect(
+			screen.getByText(/might affect work connected to the team within the space/),
+		).toBeInTheDocument();
+	});
 
-			it('should show "will not affect" wording for ConfluenceSpace', () => {
-				renderComponent({ containerType: 'ConfluenceSpace' });
-				expect(
-					screen.getByText(/will not affect any work connected to the team within the space/),
-				).toBeInTheDocument();
-			});
-		},
-	);
-
-	ffTest.off(
-		'workforce_optimization_team_modal_update',
-		'should show old disclaimer when flag is OFF',
-		() => {
-			it('should show "will not affect" wording for JiraProject', () => {
-				renderComponent({ containerType: 'JiraProject' });
-				expect(
-					screen.getByText(/will not affect any work connected to the team within the/),
-				).toBeInTheDocument();
-			});
-		},
-	);
+	it('should show "will not affect" wording for ConfluenceSpace', () => {
+		renderComponent({ containerType: 'ConfluenceSpace' });
+		expect(
+			screen.getByText(/will not affect any work connected to the team within the space/),
+		).toBeInTheDocument();
+	});
 });

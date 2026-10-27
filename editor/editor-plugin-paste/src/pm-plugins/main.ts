@@ -45,7 +45,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils/handle-paste';
 import { insm } from '@atlaskit/insm/api';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common/clientIdCache';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -186,7 +185,7 @@ export function createPlugin(
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
 	function getMarkdownSlice(text: string, openStart: number, openEnd: number): Slice | undefined {
-		if (markdownToPmConverter && isExperimentEnabled('platform_editor_paste_as_md_use_gfm')) {
+		if (markdownToPmConverter) {
 			return getMarkdownSliceViaGfm(text, schema, openStart, openEnd, markdownToPmConverter);
 		}
 

@@ -82,6 +82,7 @@ function contributorOf(decoration: Decoration): string {
 function groupTouchingDecorations(
 	decorations: Decoration[],
 	isInlineDecoration: (decoration: Decoration) => boolean,
+	doc?: PMNode,
 ): Decoration[] {
 	if (decorations.length < 2) {
 		return decorations;
@@ -150,17 +151,30 @@ function groupTouchingDecorations(
 			return representative;
 		}
 
-		// Deleted content is a widget at the start of the added content that replaced it, on a more
-		// negative side so it paints above. That makes it the visual start of the edit, reachable
-		// only through its own DOM — resolving the group's start position lands on the added content
-		// painted after it. The group keeps its range, which navigation and the active-range
-		// calculation both need, and reports the widget as what to scroll to.
-		const scrollTarget = fg('platform_editor_ai_show_diff_patch_1')
-			? group.find(
+		// A widget on a more negative side paints before the live content. A replaced cell can
+		// host it at from + 1; if no such widget exists, use the original lookup at from.
+		// Keep the group's range for navigation and active-range calculation, but scroll to the widget.
+		let scrollTarget: Decoration | undefined;
+		const startNode = doc?.nodeAt(from);
+		if (fg('platform_editor_ai_show_diff_patch_1')) {
+			if (
+				fg('platform_editor_ai_show_diff_patch_2_fix') &&
+				(startNode?.type.name === 'tableCell' || startNode?.type.name === 'tableHeader')
+			) {
+				scrollTarget = group.find(
+					(decoration) =>
+						decoration.from === from + 1 &&
+						decorationSide(decoration) < decorationSide(representative),
+				);
+			}
+
+			if (!scrollTarget) {
+				scrollTarget = group.find(
 					(decoration) =>
 						decoration.from === from && decorationSide(decoration) < decorationSide(representative),
-				)
-			: undefined;
+				);
+			}
+		}
 
 		if (!scrollTarget && representative.from === from && representative.to === to) {
 			return representative;
@@ -247,7 +261,7 @@ export const getScrollableDecorations = (
 	let result: Decoration[];
 	if (fg('confluence_ncs_step_diffing_version_history')) {
 		// Group overlapping or directly touching ranges into one customer-facing edit.
-		result = groupTouchingDecorations([...blocks, ...inlines, ...widgets], isInlineDecoration);
+		result = groupTouchingDecorations([...blocks, ...inlines, ...widgets], isInlineDecoration, doc);
 	} else {
 		// Legacy behavior: exclude blocks that contain or are contained by an inline decoration.
 		const nonOverlappingBlocks = blocks.filter(

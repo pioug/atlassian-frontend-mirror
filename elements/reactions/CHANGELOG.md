@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 37.1.3
+
+### Patch Changes
+
+- [`8bea3ef71a661`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bea3ef71a661) -
+  Clean up `platform_a11y_fixes_reading_order` and make the accessible reading-order behavior
+  permanent.
+- Updated dependencies
+
+## 37.1.2
+
+### Patch Changes
+
+- [`7318b656851b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7318b656851b1) -
+  Type `ReactionSummary.users` as `User[] | null` to match the reactions service, which can send
+  `null` for the user list. `ReactionTooltip` now normalises a `null` list with `?? []` instead of a
+  destructuring default, which only covered `undefined`. Rendered output is unchanged.
+
 ## 37.1.1
 
 ### Patch Changes

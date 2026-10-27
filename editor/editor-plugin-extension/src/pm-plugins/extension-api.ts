@@ -29,7 +29,6 @@ import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosem
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { setEditingContextToContextPanel } from '../editor-commands/commands';
@@ -227,10 +226,6 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			dispatch(tr);
 		},
 		insertAtSelection: (adf: ADFEntity) => {
-			if (!fg('platform_forge_inline_bodied_macro')) {
-				return;
-			}
-
 			try {
 				validate(adf);
 			} catch {
@@ -299,7 +294,7 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			const { tr, schema } = state;
 
 			const changedValues = mutationCallback({
-				...(fg('platform_forge_inline_bodied_macro') ? { type: node.type.name } : {}),
+				type: node.type.name,
 				content: nodeToJSON(node).content,
 				attrs: node.attrs,
 				marks: node.marks.map((pmMark) => ({
@@ -335,11 +330,7 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 				? Fragment.fromJSON(schema, changedValues.content)
 				: node.content;
 			let newType: NodeType | undefined = node.type;
-			if (
-				changedValues.hasOwnProperty('type') &&
-				changedValues.type !== node.type.name &&
-				fg('platform_forge_inline_bodied_macro')
-			) {
+			if (changedValues.hasOwnProperty('type') && changedValues.type !== node.type.name) {
 				newType = changedValues.type ? schema.nodes[changedValues.type] : undefined;
 			}
 			if (!newType) {

@@ -67,7 +67,6 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"fast-csv": "root:*",
-		"wait-for-expect": "root:*"
+		"fast-csv": "root:*"
 	}
 }

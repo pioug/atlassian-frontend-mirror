@@ -219,6 +219,35 @@ describe('EmbedModal', () => {
 		expect(await screen.findByTestId(`${testId}-title`)).toHaveTextContent(title);
 	});
 
+	describe('modal title (platform_dst-modal_title)', () => {
+		const title = 'Link title';
+
+		it('keeps the h2 heading and names the dialog with label when the gate is off', async () => {
+			failGate('platform_dst-modal_title');
+			renderEmbedModal({ title });
+
+			const heading = await screen.findByTestId(`${testId}-title`);
+			expect(heading.tagName).toBe('H2');
+			expect(heading).toHaveTextContent(title);
+			expect(screen.getByRole('dialog', { name: title })).toHaveAttribute('aria-label', title);
+			expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument();
+		});
+
+		it('wraps the title in ModalTitle and names the dialog by it when the gate is on', async () => {
+			passGate('platform_dst-modal_title');
+			renderEmbedModal({ title });
+
+			const heading = await screen.findByTestId(`${testId}-title`);
+			expect(heading.tagName).toBe('SPAN');
+			expect(heading).toHaveTextContent(title);
+			expect(screen.getByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+
+			const dialog = screen.getByRole('dialog', { name: title });
+			expect(dialog).not.toHaveAttribute('aria-label');
+			expect(dialog).toHaveAttribute('aria-labelledby');
+		});
+	});
+
 	it('renders an iframe', async () => {
 		const iframeName = 'iframe-name';
 		const src = 'https://link-url';

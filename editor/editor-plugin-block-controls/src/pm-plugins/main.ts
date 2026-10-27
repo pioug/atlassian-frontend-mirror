@@ -283,20 +283,25 @@ export const apply = (
 			multiSelectDnD: MultiSelectDnD | undefined;
 			surfaceNodePositions: number[];
 	  } => {
-	let { activeNode, decorations, isResizerResizing, multiSelectDnD } = currentState;
+	let {
+		activeNode,
+		decorations,
+		isResizerResizing,
+		multiSelectDnD,
+		isMenuOpen,
+		isSelectedViaDragHandle,
+	} = currentState;
 	const { surfaceNodePositions } = currentState;
 	const {
 		editorHeight,
 		editorWidthLeft,
 		editorWidthRight,
 		isDragging,
-		isMenuOpen,
 		menuTriggerBy,
 		menuTriggerByNode,
 		blockMenuOptions,
 		isPMDragging,
 		lastDragCancelled,
-		isSelectedViaDragHandle,
 	} = currentState;
 	let isActiveNodeDeleted = false;
 	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr, flags);
@@ -1083,7 +1088,6 @@ export const apply = (
 				: latestActiveNode;
 	}
 
-	let isMenuOpenNew = isMenuOpen;
 	let nextMenuTriggerByNode = meta?.toggleMenu?.triggerByNode || menuTriggerByNode;
 	if (
 		isExperimentEnabled('platform_editor_block_control_migration') &&
@@ -1095,29 +1099,28 @@ export const apply = (
 		const mappedRoot = tr.mapping.mapResult(menuTriggerByNode.rootPos ?? menuTriggerByNode.pos, 1);
 		if (mapped.deleted || mappedRoot.deleted || !newState.doc.nodeAt(mapped.pos)?.isBlock) {
 			nextMenuTriggerByNode = undefined;
-			isMenuOpenNew = false;
+			isMenuOpen = false;
 		} else {
 			nextMenuTriggerByNode = { ...menuTriggerByNode, pos: mapped.pos, rootPos: mappedRoot.pos };
 		}
 	}
 	if (meta?.closeMenu) {
-		isMenuOpenNew = false;
+		isMenuOpen = false;
 	} else if (meta?.toggleMenu) {
 		const isSameAnchor = meta?.toggleMenu.anchorName === menuTriggerBy;
-		isMenuOpenNew =
+		isMenuOpen =
 			menuTriggerBy === undefined || isSameAnchor || (!isMenuOpen && !isSameAnchor)
 				? !isMenuOpen
 				: isMenuOpen;
 	}
 
-	let isSelectedViaDragHandleNew;
 	if (flags.toolbarFlagsEnabled) {
-		isSelectedViaDragHandleNew =
+		isSelectedViaDragHandle =
 			meta?.isSelectedViaDragHandle !== undefined
 				? meta?.isSelectedViaDragHandle
 				: isSelectedViaDragHandle;
 	} else {
-		isSelectedViaDragHandleNew =
+		isSelectedViaDragHandle =
 			meta?.isSelectedViaDragHandle !== undefined &&
 			flags.toolbarFlagsEnabled &&
 			meta?.isSelectedViaDragHandle;
@@ -1129,7 +1132,7 @@ export const apply = (
 		activeNode: newActiveNode,
 		activeDropTargetNode: currentActiveDropTargetNode,
 		isDragging: meta?.isDragging ?? isDragging,
-		isMenuOpen: isMenuOpenNew,
+		isMenuOpen,
 		menuTriggerBy: meta?.toggleMenu?.anchorName || menuTriggerBy,
 		menuTriggerByNode: nextMenuTriggerByNode,
 		blockMenuOptions: {
@@ -1154,7 +1157,7 @@ export const apply = (
 		isPMDragging: meta?.isPMDragging ?? isPMDragging,
 		multiSelectDnD,
 		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
-		isSelectedViaDragHandle: isSelectedViaDragHandleNew,
+		isSelectedViaDragHandle,
 	};
 };
 

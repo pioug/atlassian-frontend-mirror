@@ -12,6 +12,7 @@ import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
+import { FormContext } from './form-context';
 import { MessageWrapperContext } from './message-context';
 import MessageTrack from './message-track';
 
@@ -36,11 +37,20 @@ interface InternalMessageProps {
 	 */
 	appearance?: MessageAppearance;
 	fieldId?: string;
+	/**
+	 * Accessible label for the status icon. Use your internationalization library to provide a localized string.
+	 */
+	iconLabel?: string;
 }
 /**
  * Public API of the various message components.
  */
 export type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
+
+/**
+ * Public API of message components that render a status icon.
+ */
+export type StatusMessageProps = MessageProps & Pick<InternalMessageProps, 'iconLabel'>;
 
 const messageStyles = css({
 	display: 'flex',
@@ -74,9 +84,31 @@ const IconWrapper = ({ children }: { children: ReactNode }) => (
 	<span css={iconWrapperStyles.root}>{children}</span>
 );
 
-const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
-	error: <ErrorIcon color="currentColor" label="error" size="small" />,
-	valid: <SuccessIcon color="currentColor" label="success" size="small" />,
+const getMessageIcon = (
+	appearance: MessageAppearance,
+	iconLabel?: string,
+): JSX.Element | undefined => {
+	if (appearance === 'error') {
+		return <ErrorIcon color="currentColor" label={iconLabel ?? 'error'} size="small" />;
+	}
+
+	if (appearance === 'valid') {
+		return <SuccessIcon color="currentColor" label={iconLabel ?? 'success'} size="small" />;
+	}
+};
+
+const getContextIconLabel = (
+	appearance: MessageAppearance,
+	errorMessageLabel?: string,
+	validMessageLabel?: string,
+): string | undefined => {
+	if (appearance === 'error') {
+		return errorMessageLabel;
+	}
+
+	if (appearance === 'valid') {
+		return validMessageLabel;
+	}
 };
 
 interface MessageRowProps extends InternalMessageProps {
@@ -87,10 +119,13 @@ const MessageRow = ({
 	children,
 	appearance = 'default',
 	fieldId,
+	iconLabel,
 	isExiting = false,
 	testId,
 }: MessageRowProps): React.ReactNode => {
-	const icon = messageIcons[appearance];
+	const { errorMessageLabel, validMessageLabel } = useContext(FormContext);
+	const contextIconLabel = getContextIconLabel(appearance, errorMessageLabel, validMessageLabel);
+	const icon = getMessageIcon(appearance, iconLabel ?? contextIconLabel);
 	const { isWrapper } = useContext(MessageWrapperContext);
 
 	/**
@@ -129,6 +164,7 @@ const MotionMessage = (props: InternalMessageProps): React.ReactNode => {
 		<MessageRow
 			appearance={props.appearance}
 			fieldId={props.fieldId}
+			iconLabel={props.iconLabel}
 			isExiting={state === 'exiting'}
 			testId={props.testId}
 		>
@@ -160,14 +196,24 @@ const MotionMessage = (props: InternalMessageProps): React.ReactNode => {
 const Message = (props: InternalMessageProps): React.ReactNode => {
 	if (!fg('platform-dst-motion-uplift-input')) {
 		return (
-			<MessageRow appearance={props.appearance} fieldId={props.fieldId} testId={props.testId}>
+			<MessageRow
+				appearance={props.appearance}
+				fieldId={props.fieldId}
+				iconLabel={props.iconLabel}
+				testId={props.testId}
+			>
 				{props.children}
 			</MessageRow>
 		);
 	}
 
 	return (
-		<MotionMessage appearance={props.appearance} fieldId={props.fieldId} testId={props.testId}>
+		<MotionMessage
+			appearance={props.appearance}
+			fieldId={props.fieldId}
+			iconLabel={props.iconLabel}
+			testId={props.testId}
+		>
 			{props.children}
 		</MotionMessage>
 	);

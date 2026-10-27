@@ -16,4 +16,3 @@ export enum SelectItemMode {
 }
 
 export { typeAheadListMessages } from './messages';
-export type { TypeAheadSurfaceContext } from './TypeAheadSurfaceContext';

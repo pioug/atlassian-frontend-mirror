@@ -1,5 +1,23 @@
 # @atlaskit/tokens
 
+## 20.8.2
+
+### Patch Changes
+
+- [`27651bd7ed742`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27651bd7ed742) -
+  Allow semantic inset spacing tokens on individual sides and logical padding properties, in
+  addition to padding on all sides.
+
+## 20.8.1
+
+### Patch Changes
+
+- [`508957f05543b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/508957f05543b) -
+  Add an optional `dynamicFontLineHeightScale` input to the experimental `UNSAFE-typography` theme,
+  allowing line heights to change independently of font sizes. Add optional
+  `dynamicFontHeading<Size>LineHeightScale` inputs to adjust individual heading line heights on top
+  of the global line-height scale.
+
 ## 20.8.0
 
 ### Minor Changes

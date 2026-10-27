@@ -40,7 +40,6 @@
 		"@atlaskit/ssr": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"wait-for-expect": "root:*"
+		"react-dom": "root:*"
 	}
 }

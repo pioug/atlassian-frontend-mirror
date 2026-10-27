@@ -7,8 +7,7 @@ import { escapeBackslashAndLinksExceptCodeBlock } from './index';
 /**
  * Convert plain-text markdown to a ProseMirror Slice using the GFM converter.
  *
- * Only called when `platform_editor_paste_as_md_use_gfm` is enabled AND a
- * `markdownToPmConverter` is provided. Returns `undefined` if the converter
+ * Only called when a `markdownToPmConverter` is provided. Returns `undefined` if the converter
  * throws or produces an empty document — the caller will propagate `undefined`
  * without falling back to the legacy MarkdownTransformer.
  */

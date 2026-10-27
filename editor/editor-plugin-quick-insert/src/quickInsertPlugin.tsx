@@ -11,6 +11,7 @@ import type {
 	QuickInsertItem,
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import { createQuickInsertRankResolver } from '@atlaskit/editor-common/quick-insert/quick-insert-rank';
 import { memoProcessQuickInsertItems } from '@atlaskit/editor-common/quick-insert/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -66,6 +67,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 	const getItemRank = createQuickInsertRankResolver(options?.getItemRank);
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
+		registeredMenuKey: isExperimentEnabled('platform_editor_slash_command') ? MENU.key : undefined,
 		getRegisteredItemRank: getItemRank,
 		trigger: '/',
 		// Support fullwidth slash (U+FF0F) used by Japanese/CJK keyboards (e.g. typing / on a Japanese keyboard layout)
@@ -112,9 +114,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		api?.uiControlRegistry?.actions.register(
 			getQuickInsertComponents({
 				api,
-				includeElementBrowserItems: options?.enableElementBrowser === true,
+				getItemRank,
 				isRecommendedItem: options?.isRecommendedItem,
 				maxRecommendedItems: options?.maxRecommendedItems,
+				emptyStateHandler: options?.emptyStateHandler,
+				fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+				includeElementBrowserItems: options?.enableElementBrowser === true,
 			}),
 		);
 	}

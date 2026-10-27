@@ -1,5 +1,16 @@
 # @atlaskit/link-picker
 
+## 6.16.0
+
+### Minor Changes
+
+- [`a43d1f580386a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a43d1f580386a) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.15.0
 
 ### Minor Changes

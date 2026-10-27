@@ -1,9 +1,9 @@
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d1b97d238a1ba9a4502ee42a2ef7763>>
+ * @codegen <<SignedSource::fcc011b4633c6226dddf960e8ef4e595>>
  * @codegenId spacing
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen-token-maps
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::4f610fa8bb46de944777a03e71c40303>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::27b3f9240cb9c6f16e54a6ebd2c859b9>>
  */
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 export const positiveSpaceMap: {

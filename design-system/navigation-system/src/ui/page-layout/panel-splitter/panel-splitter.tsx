@@ -35,6 +35,7 @@ import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-c
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { contentInsetBlockStart } from '../constants';
+import { LayoutAreaSizingContext } from '../layout-area-sizing-context';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
 import { getPixelWidth } from './get-pixel-width';
@@ -271,6 +272,17 @@ const PortaledPanelSplitter = ({
 		| 'shortcut'
 	>): ReactNode => {
 	const splitterRef = useRef<HTMLDivElement | null>(null);
+	const registerSplitter = useContext(LayoutAreaSizingContext)?.registerSplitter;
+	const unregisterSplitter = useRef<(() => void) | undefined>(undefined);
+	const setSplitterRef = useCallback(
+		(element: HTMLDivElement | null) => {
+			unregisterSplitter.current?.();
+			splitterRef.current = element;
+			unregisterSplitter.current =
+				element && prepareResize ? registerSplitter?.(element) : undefined;
+		},
+		[prepareResize, registerSplitter],
+	);
 	const labelId = useId();
 	// Separate state used for the input range width to remove the UI's dependency on the "persisted" layout state value being updated
 	const [rangeInputValue, setRangeInputValue] = useState(panelWidth);
@@ -670,13 +682,12 @@ const PortaledPanelSplitter = ({
 				We intentionally do not add keyboard event listeners to this element, as keyboard accessibility
 				is provided via a dedicated keyboard shortcut elsewhere in the application. */}
 				<div
-					ref={splitterRef}
+					ref={setSplitterRef}
 					css={[
 						grabAreaStyles.root,
 						fg('platform-dst-tokens-finesse') && grabAreaStyles.rootFinesse,
 					]}
 					data-testid={testId}
-					data-panel-splitter={prepareResize ? '' : undefined}
 					onDoubleClick={onDoubleClick}
 				>
 					<VisuallyHidden>

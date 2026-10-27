@@ -3531,10 +3531,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 					? extensionAsInlineStyle
 					: oldExtensionAsInlineStyle,
-				fg('platform_forge_inline_bodied_macro') && [
-					migratedInlineBodiedFlowStyle,
-					forgeInlineBodiedSpacingStyle,
-				],
+				[migratedInlineBodiedFlowStyle, forgeInlineBodiedSpacingStyle],
 				inlineExtensionRendererMarginFix,
 				allowNestedHeaderLinks &&
 					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)

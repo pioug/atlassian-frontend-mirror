@@ -5,13 +5,19 @@ import userEvent from '@testing-library/user-event';
 import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/EventHandlers';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
+import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
+import { DOMParser } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import getMockProfileClient from '@atlaskit/profilecard/mock-profile-client';
+import ProfileCardClient from '@atlaskit/profilecard/profile-card-client';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import MentionNode from '../../../../react/nodes/mention';
 
@@ -35,6 +41,59 @@ describe('Renderer - React/Nodes/Mention', () => {
 			'data-access-level',
 			'APPLICATION',
 		);
+	});
+
+	describe.each([false, true])(
+		'copying a published mention with profile card: %s',
+		(withProfileCard) => {
+			it.each(['APP', 'DEFAULT', 'SPECIAL', undefined] as const)(
+				'preserves userType %s when parsed by the editor',
+				async (userType) => {
+					passGate('platform_mention_preserve_user_type');
+					const providers = new ProviderFactory();
+					if (withProfileCard) {
+						failGate('people-teams_migrate-user-profile-card');
+						mockExpDisabled('pt_user_profile_card_migration_exp');
+						mockExpDisabled('rovo_chat_mention_agents');
+						providers.setProvider(
+							'profilecardProvider',
+							Promise.resolve({
+								cloudId: 'test-cloud-id',
+								resourceClient: getMockProfileClient(ProfileCardClient, 0),
+								getActions: () => [],
+							}),
+						);
+					}
+					const { container, unmount } = renderWithIntl(
+						<MentionNode
+							id={mentionId}
+							text="@Mention"
+							userType={userType}
+							providers={providers}
+						/>,
+					);
+					if (withProfileCard) {
+						await screen.findByTestId('mention-with-profilecard-trigger');
+					}
+					const pasted = DOMParser.fromSchema(defaultSchema).parseSlice(container);
+					expect(pasted.content.firstChild?.attrs).toMatchObject({
+						id: mentionId,
+						userType: userType ?? null,
+					});
+					unmount();
+					providers.destroy();
+				},
+			);
+		},
+	);
+
+	it('omits userType from rendered HTML when the rollout gate is off', () => {
+		failGate('platform_mention_preserve_user_type');
+		renderWithIntl(<MentionNode id={mentionId} text="@Agent" userType="APP" />);
+
+		expect(
+			screen.getByTestId(`mention-${mentionId}`).closest('[data-mention-id]'),
+		).not.toHaveAttribute('data-user-type');
 	});
 
 	it('should pass event handlers into resourced mention', async () => {
@@ -177,6 +236,7 @@ describe('Renderer - React/Nodes/Mention', () => {
 	);
 
 	it('should synchronously render deterministic avatar data on the server', () => {
+		passGate('platform_mention_preserve_user_type');
 		mockExpEnabled('platform_editor_mention_node_avatar');
 		const mentionNodeDataProvider: MentionNodeDataProvider = {
 			getMentionData: jest.fn(),
@@ -203,6 +263,7 @@ describe('Renderer - React/Nodes/Mention', () => {
 		});
 		expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
 		expect(html).toContain('mention-avatar-slot');
+		expect(html).toContain('data-user-type="APP"');
 		expect(html).toContain('/wiki/aa-avatar/agent-1');
 		expect(html).toContain('Agent');
 		expect(html).not.toContain('@Agent');

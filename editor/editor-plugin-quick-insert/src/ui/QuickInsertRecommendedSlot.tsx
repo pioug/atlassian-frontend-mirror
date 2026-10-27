@@ -1,20 +1,30 @@
 import React from 'react';
 
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
-import type { RegisterMenuItem, SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
+import type {
+	CommonComponentProps,
+	RegisterMenuItem,
+	SurfaceContext,
+} from '@atlaskit/editor-ui-control-model/types';
 
-type Props = Record<string, unknown> & {
+type Props = CommonComponentProps & {
 	getSnapshot: (surfaceContext?: SurfaceContext) => RegisterMenuItem[];
 	index: number;
 };
 
 export const QuickInsertRecommendedSlot = ({
+	children,
+	parents,
+	surfaceContext,
 	index,
 	getSnapshot,
-	...props
 }: Props): React.ReactNode => {
-	const { surfaceContext } = useQuickInsertContext();
-	const item = getSnapshot(surfaceContext)[index];
+	const { surfaceContext: menuSurfaceContext } = useQuickInsertContext();
+	const item = getSnapshot(menuSurfaceContext)[index];
 
-	return item?.component ? React.createElement(item.component, props) : null;
+	return item?.component ? (
+		<item.component parents={parents} surfaceContext={surfaceContext}>
+			{children}
+		</item.component>
+	) : null;
 };

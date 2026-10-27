@@ -55,6 +55,7 @@ const ignoredTriggerLatestEvents = new Set<Payload['type']>([
 	// instead of the real action event (e.g. open-browse-agent-modal) that
 	// originally opened the chat.
 	'smartlinks-subscription-changed',
+	'conversation-read',
 	'smartlinks-context-payload',
 	'set-message-context',
 	'jira-create-context-payload',

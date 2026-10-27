@@ -29,8 +29,6 @@ import { EditorialBrief } from './shared/editorial-brief';
  */
 type TypographyOverrides = Required<CustomThemeOverrideRegistry['UNSAFE-typography']['typography']>;
 
-type HeadingScaleKey = Exclude<keyof TypographyOverrides, 'dynamicFontFamily' | 'dynamicFontScale'>;
-
 type FontOption = { label: string; value: string };
 
 const DEFAULT_FONT_FAMILY =
@@ -106,23 +104,60 @@ const fontFamilyOptions: FontOption[] = fontFamilyGroups.flatMap((group) => grou
 
 const FONT_SCALE = { min: 0.75, max: 1.5, step: 0.05 } as const;
 const HEADING_SCALE = { min: 0.5, max: 2.5, step: 0.05 } as const;
+const LINE_HEIGHT_SCALE = { min: 0.75, max: 2, step: 0.05 } as const;
 
 /**
  * Heading sizes in the order they appear on the page, with the element each renders by default.
  */
-const headingScales: { key: HeadingScaleKey; size: string; level: string }[] = [
-	{ key: 'dynamicFontHeadingXxlargeScale', size: 'xxlarge', level: 'H1' },
-	{ key: 'dynamicFontHeadingXlargeScale', size: 'xlarge', level: 'H2' },
-	{ key: 'dynamicFontHeadingLargeScale', size: 'large', level: 'H3' },
-	{ key: 'dynamicFontHeadingMediumScale', size: 'medium', level: 'H4' },
-	{ key: 'dynamicFontHeadingSmallScale', size: 'small', level: 'H5' },
-	{ key: 'dynamicFontHeadingXsmallScale', size: 'xsmall', level: 'H6' },
-	{ key: 'dynamicFontHeadingXxsmallScale', size: 'xxsmall', level: 'H6' },
-];
+const headingScales = [
+	{
+		key: 'dynamicFontHeadingXxlargeScale',
+		lineHeightKey: 'dynamicFontHeadingXxlargeLineHeightScale',
+		size: 'xxlarge',
+		level: 'H1',
+	},
+	{
+		key: 'dynamicFontHeadingXlargeScale',
+		lineHeightKey: 'dynamicFontHeadingXlargeLineHeightScale',
+		size: 'xlarge',
+		level: 'H2',
+	},
+	{
+		key: 'dynamicFontHeadingLargeScale',
+		lineHeightKey: 'dynamicFontHeadingLargeLineHeightScale',
+		size: 'large',
+		level: 'H3',
+	},
+	{
+		key: 'dynamicFontHeadingMediumScale',
+		lineHeightKey: 'dynamicFontHeadingMediumLineHeightScale',
+		size: 'medium',
+		level: 'H4',
+	},
+	{
+		key: 'dynamicFontHeadingSmallScale',
+		lineHeightKey: 'dynamicFontHeadingSmallLineHeightScale',
+		size: 'small',
+		level: 'H5',
+	},
+	{
+		key: 'dynamicFontHeadingXsmallScale',
+		lineHeightKey: 'dynamicFontHeadingXsmallLineHeightScale',
+		size: 'xsmall',
+		level: 'H6',
+	},
+	{
+		key: 'dynamicFontHeadingXxsmallScale',
+		lineHeightKey: 'dynamicFontHeadingXxsmallLineHeightScale',
+		size: 'xxsmall',
+		level: 'H6',
+	},
+] as const;
 
 const DEFAULT_TYPOGRAPHY: TypographyOverrides = {
 	dynamicFontFamily: DEFAULT_FONT_FAMILY,
 	dynamicFontScale: 1,
+	dynamicFontLineHeightScale: 1,
 	dynamicFontHeadingXxlargeScale: 1,
 	dynamicFontHeadingXlargeScale: 1,
 	dynamicFontHeadingLargeScale: 1,
@@ -130,6 +165,13 @@ const DEFAULT_TYPOGRAPHY: TypographyOverrides = {
 	dynamicFontHeadingSmallScale: 1,
 	dynamicFontHeadingXsmallScale: 1,
 	dynamicFontHeadingXxsmallScale: 1,
+	dynamicFontHeadingXxlargeLineHeightScale: 1,
+	dynamicFontHeadingXlargeLineHeightScale: 1,
+	dynamicFontHeadingLargeLineHeightScale: 1,
+	dynamicFontHeadingMediumLineHeightScale: 1,
+	dynamicFontHeadingSmallLineHeightScale: 1,
+	dynamicFontHeadingXsmallLineHeightScale: 1,
+	dynamicFontHeadingXxsmallLineHeightScale: 1,
 };
 
 type Preset = { name: string; description: string; typography: TypographyOverrides };
@@ -142,9 +184,13 @@ const presets: Preset[] = [
 			...DEFAULT_TYPOGRAPHY,
 			dynamicFontFamily: 'Georgia, serif',
 			dynamicFontScale: 1.05,
+			dynamicFontLineHeightScale: 1.1,
 			dynamicFontHeadingXxlargeScale: 1.6,
 			dynamicFontHeadingXlargeScale: 1.25,
 			dynamicFontHeadingLargeScale: 1.1,
+			dynamicFontHeadingXxlargeLineHeightScale: 0.85,
+			dynamicFontHeadingXlargeLineHeightScale: 0.9,
+			dynamicFontHeadingLargeLineHeightScale: 0.95,
 		},
 	},
 	{
@@ -158,6 +204,8 @@ const presets: Preset[] = [
 			dynamicFontHeadingLargeScale: 1.05,
 			dynamicFontHeadingSmallScale: 0.95,
 			dynamicFontHeadingXsmallScale: 0.95,
+			dynamicFontHeadingXxlargeLineHeightScale: 0.9,
+			dynamicFontHeadingXlargeLineHeightScale: 0.95,
 		},
 	},
 	{
@@ -169,6 +217,8 @@ const presets: Preset[] = [
 			dynamicFontScale: 0.95,
 			dynamicFontHeadingXxlargeScale: 1.2,
 			dynamicFontHeadingXlargeScale: 1.1,
+			dynamicFontHeadingXxlargeLineHeightScale: 0.95,
+			dynamicFontHeadingXlargeLineHeightScale: 0.95,
 		},
 	},
 ];
@@ -366,26 +416,41 @@ function TypographyControls({
 					{...FONT_SCALE}
 					onChange={(value) => onChange({ ...values, dynamicFontScale: value })}
 				/>
+				<ScaleSlider
+					id="editorial-line-height"
+					label="Line height"
+					value={values.dynamicFontLineHeightScale}
+					{...LINE_HEIGHT_SCALE}
+					onChange={(value) => onChange({ ...values, dynamicFontLineHeightScale: value })}
+				/>
 			</Stack>
 
 			<Stack space="space.200">
 				<Stack space="space.050">
 					<Heading as="h3" size="xsmall">
-						Heading sizes
+						Headings
 					</Heading>
 					<Text size="small" color="color.text.subtle">
-						Each heading is scaled on top of the font size above.
+						Heading controls scale the font size and line height set above.
 					</Text>
 				</Stack>
-				{headingScales.map(({ key, size, level }) => (
-					<ScaleSlider
-						key={key}
-						id={`editorial-heading-${size}`}
-						label={`${level} · ${size}`}
-						value={values[key]}
-						{...HEADING_SCALE}
-						onChange={(value) => onChange({ ...values, [key]: value })}
-					/>
+				{headingScales.map(({ key, lineHeightKey, size, level }) => (
+					<Stack key={key} space="space.100">
+						<ScaleSlider
+							id={`editorial-heading-${size}`}
+							label={`${level} · ${size} font size`}
+							value={values[key]}
+							{...HEADING_SCALE}
+							onChange={(value) => onChange({ ...values, [key]: value })}
+						/>
+						<ScaleSlider
+							id={`editorial-heading-${size}-line-height`}
+							label={`${level} · ${size} line height`}
+							value={values[lineHeightKey]}
+							{...LINE_HEIGHT_SCALE}
+							onChange={(value) => onChange({ ...values, [lineHeightKey]: value })}
+						/>
+					</Stack>
 				))}
 			</Stack>
 		</Stack>

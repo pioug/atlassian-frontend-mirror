@@ -1,5 +1,15 @@
 # @atlaskit/react-compiler-gating
 
+## 0.2.5
+
+### Patch Changes
+
+- [`18a1c474f8fd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18a1c474f8fd9) -
+  Behind the `confluence_cache_react_compiler_fg` experiment, `isReactCompilerActivePlatform` caches
+  its result for the page load once Statsig has initialised. It never caches before initialisation,
+  when the experiment returns its default. The React Compiler calls this function once per compiled
+  function when its module first runs, often during hydration.
+
 ## 0.2.4
 
 ### Patch Changes

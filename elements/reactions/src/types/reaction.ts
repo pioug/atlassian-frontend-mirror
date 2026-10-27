@@ -34,9 +34,10 @@ export interface ReactionSummary {
 	 */
 	reacted: boolean;
 	/**
-	 * Users collection
+	 * Users collection. The reactions service can send `null` rather than omitting the field, so
+	 * readers must handle both `null` and `undefined`.
 	 */
-	users?: User[];
+	users?: User[] | null;
 }
 
 /**

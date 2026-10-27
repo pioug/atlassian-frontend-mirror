@@ -287,7 +287,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	linkDescription: {
 		id: 'fabric.editor.link.description',
-		defaultMessage: 'Insert a link',
+		defaultMessage: 'Connect readers to related content',
 		description:
 			'Displayed as a description text for the link option in the editor insert menu, explaining that it allows users to insert a hyperlink into the document.',
 	},
@@ -311,7 +311,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	mediaFilesDescription: {
 		id: 'fabric.editor.mediaFiles.description',
-		defaultMessage: 'Add images and other files to your page',
+		defaultMessage: 'Add media and files',
 		description:
 			'Menu description shown in the quick insert menu. Explains that users can add images and other files to their page.',
 	},
@@ -357,7 +357,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	emojiDescription: {
 		id: 'fabric.editor.emoji.description',
-		defaultMessage: 'Use emojis to express ideas 🎉 and emotions 😄',
+		defaultMessage: 'Find and insert your favorite emoji 🎉',
 		description:
 			'Menu description shown in the quick insert menu. Explains that users can insert emojis to enhance their content.',
 	},
@@ -369,7 +369,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	tableDescription: {
 		id: 'fabric.editor.table.description',
-		defaultMessage: 'Insert a table',
+		defaultMessage: 'Insert a table to organize information',
 		description:
 			'Menu description shown in the quick insert menu. Explains that users can insert a table to organize data.',
 	},
@@ -403,7 +403,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	expandDescription: {
 		id: 'fabric.editor.expand.description',
-		defaultMessage: 'Insert an expand',
+		defaultMessage: 'Show or hide content in expandable sections',
 		description:
 			'Menu description shown in the quick insert menu. Explains that users can insert expandable content sections.',
 	},
@@ -415,7 +415,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	decisionDescription: {
 		id: 'fabric.editor.decision.description',
-		defaultMessage: "Capture decisions so they're easy to track",
+		defaultMessage: 'Track decisions with a visible record',
 		description:
 			'Menu description shown in the quick insert menu. Explains that users can insert decision elements for tracking.',
 	},
@@ -439,7 +439,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	horizontalRuleDescription: {
 		id: 'fabric.editor.horizontalRule.description',
-		defaultMessage: 'Separate content with a horizontal line',
+		defaultMessage: 'Separate sections with a dividing line',
 		description:
 			'Displayed as a description text for the divider option in the editor insert menu, explaining that it inserts a horizontal line to separate content sections in the document.',
 	},
@@ -481,8 +481,7 @@ export const toolbarInsertBlockMessages: {
 	},
 	columnsDescriptionAdvancedLayout: {
 		id: 'fabric.editor.columns.advanced.layout.description',
-		defaultMessage:
-			'Insert {numberOfColumns} equal {numberOfColumns, plural, one {column} other {columns}}',
+		defaultMessage: 'Insert a {numberOfColumns} column layout',
 		description:
 			'Menu option for advanced layouts. The placeholder {numberOfColumns} will be substituted with the number of equal columns being inserted.',
 	},

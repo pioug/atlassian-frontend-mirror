@@ -212,24 +212,17 @@ export const renderExtension = (
 	 * same shape — so keying on it would change how existing content renders. The renderer only
 	 * ever sees the stored node, never the manifest, so a parameter this code writes is the only
 	 * available signal.
-	 *
-	 * Evaluated once and shared with `isNativeForgeInline` below, so the gate is read a single time
-	 * per render, and the cheap checks stay in front of it so anything ineligible short-circuits
-	 * without firing an exposure it can never act on.
 	 */
 	const hasForgeInlineBodiedMarker = Boolean(
 		node?.extensionType === FORGE_EXTENSION_TYPE &&
 		node?.content &&
 		node?.parameters?.guestParams?.[FORGE_INLINE_BODIED_PARAM] === 'true',
 	);
-	const isForgeInlineBodiedEnabled =
-		hasForgeInlineBodiedMarker && fg('platform_forge_inline_bodied_macro');
 	const isInlineBodiedLayoutEnabled =
 		node?.extensionType === FORGE_EXTENSION_TYPE &&
 		node?.type === 'bodiedExtension' &&
 		node?.parameters?.layout === 'inline-bodied' &&
-		fg('platform_forge_inline_bodied_layout_switch') &&
-		fg('platform_forge_inline_bodied_macro');
+		fg('platform_forge_inline_bodied_layout_switch');
 	/**
 	 * The pass that marks the sibling textblocks around an inline extension resolves their
 	 * positions without a depth term, so it only ever matches at the top level. Inlining a nested
@@ -238,7 +231,7 @@ export const renderExtension = (
 	 * blocks until the sibling marking works at depth.
 	 */
 	const isNestedForgeInlineBodied =
-		!isTopLevel && (isForgeInlineBodiedEnabled || isInlineBodiedLayoutEnabled);
+		!isTopLevel && (hasForgeInlineBodiedMarker || isInlineBodiedLayoutEnabled);
 	const isInline = shouldDisplayExtensionAsInline?.(node) && !isNestedForgeInlineBodied;
 	const inlineClassName = isInline ? RendererCssClassName.EXTENSION_AS_INLINE : '';
 	/**
@@ -247,19 +240,14 @@ export const renderExtension = (
 	 * The inline styling above stops at the outer wrapper, so mark these nodes to let the
 	 * nested document's block spacing be collapsed too.
 	 */
-	const isNativeForgeInline = Boolean(isInline && isForgeInlineBodiedEnabled);
+	const isNativeForgeInline = Boolean(isInline && hasForgeInlineBodiedMarker);
 	/**
 	 * Migrated inline-bodied macros intentionally do not receive the native Forge marker. Mark the
 	 * rendered wrapper instead so the stylesheet can fix only the surrounding text flow without
 	 * applying the native nested-renderer, overflow or sizing rules to migrated content.
 	 * Custom UI also uses this outer text-flow treatment, without styling inside its iframe.
 	 */
-	const isMigratedInlineBodied = Boolean(
-		isInline &&
-		node?.content &&
-		!hasForgeInlineBodiedMarker &&
-		fg('platform_forge_inline_bodied_macro'),
-	);
+	const isMigratedInlineBodied = Boolean(isInline && node?.content && !hasForgeInlineBodiedMarker);
 
 	const asInlineAnalytics =
 		isInline && fireAnalyticsEvent && node ? (

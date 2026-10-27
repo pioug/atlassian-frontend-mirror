@@ -12,6 +12,7 @@ import { keyName as keyNameNormalized } from 'w3c-keyname';
 
 import { AssistiveText } from '@atlaskit/editor-common/AssistiveText';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import type { RegisteredMenuInteraction } from '@atlaskit/editor-common/registered-menu';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
@@ -127,12 +128,14 @@ type InputQueryProps = {
 	}) => void;
 	editorView: EditorView;
 	forceFocus: boolean;
+	inputLabel?: string;
 	/**
 	 * @private
 	 * @deprecated Pass `optionCount` instead.
 	 */
 	items?: TypeAheadItem[];
 	listId?: string;
+	menuInteraction?: RegisteredMenuInteraction;
 	onItemSelect: (mode: SelectItemMode) => void;
 	onQueryChange: (query: string) => void;
 	onQueryFocus: () => void;
@@ -160,6 +163,8 @@ export const InputQuery: React.MemoExoticComponent<
 		onUndoRedo,
 		editorView,
 		items,
+		inputLabel,
+		menuInteraction,
 		listId,
 		optionCount,
 		shouldKeepOpenOnRegisteredMenu,
@@ -179,11 +184,17 @@ export const InputQuery: React.MemoExoticComponent<
 		onUndoRedo,
 		editorView,
 		items,
+		inputLabel,
+		menuInteraction,
 		listId,
 		optionCount,
 		shouldKeepOpenOnRegisteredMenu,
 	}: InputQueryProps): jsx.JSX.Element => {
-		const resolvedOptionCount = optionCount ?? items?.length ?? 0;
+		const resolvedOptionCount = menuInteraction?.optionCount ?? optionCount ?? items?.length ?? 0;
+		const resolvedActiveDescendantId = menuInteraction
+			? menuInteraction.activeDescendantId
+			: activeDescendantId;
+		const resolvedListId = menuInteraction?.listId ?? listId ?? TYPE_AHEAD_DECORATION_ELEMENT_ID;
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
@@ -255,7 +266,12 @@ export const InputQuery: React.MemoExoticComponent<
 						// TODO: ED-14758 - Under the W3C specification, any keycode sent under IME would return a keycode 229
 						// event.isComposing can't be used alone as this also included a virtual keyboard under a keyboardless device, therefore, it seems the best practice would be intercepting the event as below.
 						// Some suggested the other workaround maybe listen on`keypress` instead of `keydown`
-						if (!event.isComposing && event.which !== 229 && event.keyCode !== 229) {
+						if (
+							!menuInteraction &&
+							!event.isComposing &&
+							event.which !== 229 &&
+							event.keyCode !== 229
+						) {
 							if (selectedIndex === -1) {
 								/**
 								 * TODO DTR-1401: (also see ED-17200) There are two options
@@ -274,12 +290,21 @@ export const InputQuery: React.MemoExoticComponent<
 						}
 						break;
 					case 'Tab':
+						if (menuInteraction) {
+							break;
+						}
 						event.shiftKey ? selectPreviousItem() : selectNextItem();
 						break;
 					case 'ArrowDown':
+						if (menuInteraction) {
+							break;
+						}
 						selectNextItem();
 						break;
 					case 'ArrowUp':
+						if (menuInteraction) {
+							break;
+						}
 						selectPreviousItem();
 						break;
 				}
@@ -289,7 +314,7 @@ export const InputQuery: React.MemoExoticComponent<
 					stopDefault = true;
 				}
 
-				if (isNavigationKey(event) || stopDefault) {
+				if ((!menuInteraction && isNavigationKey(event)) || stopDefault) {
 					event.stopPropagation();
 					event.preventDefault();
 					return false;
@@ -297,6 +322,7 @@ export const InputQuery: React.MemoExoticComponent<
 			},
 			[
 				onUndoRedo,
+				menuInteraction,
 				onItemSelect,
 				selectNextItem,
 				selectPreviousItem,
@@ -320,6 +346,24 @@ export const InputQuery: React.MemoExoticComponent<
 			};
 
 			const keyDown = (event: KeyboardEvent) => {
+				const isComposing = event.isComposing || event.which === 229 || event.keyCode === 229;
+				if (menuInteraction && isComposing) {
+					return;
+				}
+
+				if (menuInteraction && event.key === 'Tab') {
+					event.shiftKey ? menuInteraction.selectPrevious() : menuInteraction.selectNext();
+					event.stopPropagation();
+					event.preventDefault();
+					return;
+				}
+
+				if (menuInteraction?.onKeyDown(event)) {
+					event.stopPropagation();
+					event.preventDefault();
+					return;
+				}
+
 				const key = keyNameNormalized(event);
 				if (
 					['ArrowLeft', 'ArrowRight'].includes(key) &&
@@ -376,17 +420,14 @@ export const InputQuery: React.MemoExoticComponent<
 
 			const onFocusOut = (event: FocusEvent) => {
 				const { relatedTarget } = event;
-
-				// Given the user is changing the focus
-				// When the target is inside the TypeAhead Popup
-				// Then the popup should stay open
-				if (
-					relatedTarget instanceof HTMLElement &&
-					relatedTarget.closest &&
-					(relatedTarget.closest(`.${TYPE_AHEAD_POPUP_CONTENT_CLASS}`) ||
-						(shouldKeepOpenOnRegisteredMenu &&
-							relatedTarget.closest('[data-registered-type-ahead-menu]')))
-				) {
+				// Given the user is changing focus, keep the popup open when the target belongs to its menu.
+				const isInsideMenu = menuInteraction
+					? relatedTarget instanceof Node && menuInteraction.containsTarget(relatedTarget)
+					: relatedTarget instanceof HTMLElement &&
+						(!!relatedTarget.closest(`.${TYPE_AHEAD_POPUP_CONTENT_CLASS}`) ||
+							(shouldKeepOpenOnRegisteredMenu &&
+								!!relatedTarget.closest('[data-registered-type-ahead-menu]')));
+				if (isInsideMenu) {
 					return;
 				}
 
@@ -525,6 +566,7 @@ export const InputQuery: React.MemoExoticComponent<
 			editorView.state,
 			isEditorControlsEnabled,
 			shouldKeepOpenOnRegisteredMenu,
+			menuInteraction,
 		]);
 
 		useLayoutEffect(() => {
@@ -570,11 +612,13 @@ export const InputQuery: React.MemoExoticComponent<
 					onKeyUp={onKeyUp}
 					tabIndex={-1}
 					role="combobox"
-					aria-activedescendant={activeDescendantId}
-					aria-controls={listId ?? TYPE_AHEAD_DECORATION_ELEMENT_ID}
+					aria-activedescendant={resolvedActiveDescendantId}
+					aria-controls={resolvedListId}
 					aria-autocomplete="list"
-					aria-expanded={resolvedOptionCount !== 0}
-					aria-labelledby={assistiveHintID}
+					aria-expanded={menuInteraction?.expanded ?? resolvedOptionCount !== 0}
+					aria-haspopup={menuInteraction ? 'listbox' : undefined}
+					aria-label={menuInteraction?.label}
+					aria-labelledby={menuInteraction ? undefined : assistiveHintID}
 					suppressContentEditableWarning
 					data-query-prefix={triggerQueryPrefix}
 					data-place-holder={intl.formatMessage(
@@ -585,7 +629,11 @@ export const InputQuery: React.MemoExoticComponent<
 						<input
 							ref={inputRef}
 							type="text"
-							aria-label={intl.formatMessage(getAriaLabel(triggerQueryPrefix, intl))}
+							aria-label={
+								menuInteraction?.label ??
+								inputLabel ??
+								intl.formatMessage(getAriaLabel(triggerQueryPrefix, intl))
+							}
 						/>
 					) : (
 						query

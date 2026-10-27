@@ -9,8 +9,12 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import ExpandWithInt from '../../../ui/Expand';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { ExpandBodyBlock, withExpandBodyBlock } from '../../../ui/utils/expand-body';
 
 // Pinned so a server render and the subsequent client render produce identical ids. `_uniqueId` is
@@ -94,6 +98,66 @@ describe('Expand', () => {
 		);
 
 		expect(queryByTestId('tooltip--container')).toBeInTheDocument();
+	});
+
+	describe('gutter offset', () => {
+		const GATE = 'platform_editor_expand_standard_width_fix';
+
+		const renderTopLevelExpand = (rendererAppearance: RendererAppearance) => {
+			const { getByTestId } = renderWithIntl(
+				<ExpandWithInt
+					title="Expand test title"
+					nodeType="expand"
+					rendererAppearance={rendererAppearance}
+				>
+					<p>Text inside expand</p>
+				</ExpandWithInt>,
+			);
+			return getByTestId('expand-container-expand-expand-title-test');
+		};
+
+		// jsdom does not cascade Emotion's rules into getComputedStyle, so read the last matching rule.
+		const sideMargins = (element: HTMLElement) => {
+			const rules = Array.from(document.styleSheets)
+				.flatMap((sheet) => Array.from(sheet.cssRules))
+				// jsdom's rules come from another realm, so `instanceof CSSStyleRule` is always false.
+				.filter((rule): rule is CSSStyleRule => 'selectorText' in rule)
+				.filter(
+					(rule) =>
+						element.matches(rule.selectorText) && rule.style.getPropertyValue('margin-left'),
+				);
+			const last = rules[rules.length - 1];
+			return [
+				last?.style.getPropertyValue('margin-left'),
+				last?.style.getPropertyValue('margin-right'),
+			];
+		};
+
+		it('keeps a top-level expand inside the comment width when the gate is on', () => {
+			passGate(GATE);
+
+			expect(sideMargins(renderTopLevelExpand('comment'))).toEqual(['0', '0']);
+		});
+
+		it('pulls a top-level expand into the comment gutter when the gate is off', () => {
+			failGate(GATE);
+			mockExpDisabled('work_item_modernization');
+
+			expect(sideMargins(renderTopLevelExpand('comment'))).toEqual(['-12px', '-12px']);
+		});
+
+		it('keeps a top-level expand inside the comment width in the work item modernization experiment', () => {
+			failGate(GATE);
+			mockExpEnabled('work_item_modernization');
+
+			expect(sideMargins(renderTopLevelExpand('comment'))).toEqual(['0', '0']);
+		});
+
+		it('pulls a top-level expand into the full-page gutter when the gate is on', () => {
+			passGate(GATE);
+
+			expect(sideMargins(renderTopLevelExpand('full-page'))).toEqual(['-12px', '-12px']);
+		});
 	});
 
 	describe('without a node', () => {

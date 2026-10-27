@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 11.4.1
+
+### Patch Changes
+
+- [`55ae4d70ab929`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55ae4d70ab929) -
+  Replace panel splitter attribute discovery with direct element registration, preserving deferred
+  sizing and resize interactions for navigation and local panels.
+- Updated dependencies
+
 ## 11.4.0
 
 ### Minor Changes

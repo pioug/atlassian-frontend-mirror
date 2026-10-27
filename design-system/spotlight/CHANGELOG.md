@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 4.2.11
+
+### Patch Changes
+
+- [`668fece1df7e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/668fece1df7e1) -
+  Cleanup `feature_gate` `platform_spotlight_card_fit_content_anchor`. `SpotlightCard` now always
+  renders inside a `fit-content` anchor wrapper.
+
 ## 4.2.10
 
 ### Patch Changes

@@ -13,6 +13,13 @@ snapshot(EmbedModalWithFlexibleUiIcon, {
 	description: 'renders embed modal with flexible ui icon',
 });
 
+snapshot(EmbedModalWithFlexibleUiIcon, {
+	description: 'renders embed modal title with modal title gate',
+	featureFlags: {
+		'platform_dst-modal_title': [true, false],
+	},
+});
+
 // Will be re-enabled as part of UTEST-2316.
 snapshot.skip(EmbedModalConfluence, {
 	description: 'renders embed modal with Confluence icon',

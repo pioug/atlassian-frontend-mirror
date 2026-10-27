@@ -144,7 +144,7 @@ export type FieldComponentProps<FieldValue, Element extends SupportedElements> =
 	 */
 	validate?: (
 		value: FieldValue | undefined,
-		formState: Object,
+		formState: object,
 		fieldState: Meta,
 	) => string | void | Promise<string | void>;
 	/**
@@ -287,8 +287,7 @@ export default function Field<
 			 */
 			// @ts-expect-error -- An optional defaultValue can be undefined, but registerField requires a value or initializer.
 			isDefaultValueChanged ||
-				// @ts-expect-error -- The defaultValue union includes an initializer accepting FieldValue, not another initializer.
-				isFunction(latestPropsRef.current.defaultValue)
+				isFunction<FieldValue | undefined>(latestPropsRef.current.defaultValue)
 				? latestPropsRef.current.defaultValue
 				: latestStateRef.current.fieldProps.value,
 			(fieldState) => {
@@ -389,7 +388,7 @@ export default function Field<
 				getValidator: () =>
 					function validate(
 						value: FieldValue,
-						formState: Object,
+						formState: object,
 						fieldState?: FieldState<FieldValue>,
 					) {
 						const supplied = latestPropsRef.current.validate;

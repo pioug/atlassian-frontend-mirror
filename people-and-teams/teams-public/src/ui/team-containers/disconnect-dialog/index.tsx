@@ -8,7 +8,6 @@ import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -27,11 +26,6 @@ export const messages: {
 		description: string;
 	};
 	disconnectDialogDisclaimer: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	disconnectDialogDisclaimerNew: {
 		id: string;
 		// eslint-disable-next-line @atlassian/i18n/no-complex-selectors
 		defaultMessage: string;
@@ -69,21 +63,6 @@ export const messages: {
 		description: 'Description of the disconnect dialog for team containers',
 	},
 	disconnectDialogDisclaimer: {
-		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
-		defaultMessage: `Disconnecting the team from the {containerType, select,
-			JiraProject {space}
-			ConfluenceSpace {space}
-			LoomSpace {space}
-			other {link}
-		} will not affect any work connected to the team within the {containerType, select,
-			JiraProject {space}
-			ConfluenceSpace {space}
-			LoomSpace {space}
-			other {link}
-		}.`,
-		description: 'Disclaimer of the disconnect dialog for team containers',
-	},
-	disconnectDialogDisclaimerNew: {
 		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
 		// eslint-disable-next-line @atlassian/i18n/no-complex-selectors
 		defaultMessage: `{containerType, select,
@@ -156,12 +135,7 @@ export const DisconnectDialog = ({
 						/>
 					</Box>
 
-					<FormattedMessage
-						{...(fg('workforce_optimization_team_modal_update')
-							? messages.disconnectDialogDisclaimerNew
-							: messages.disconnectDialogDisclaimer)}
-						values={{ containerType }}
-					/>
+					<FormattedMessage {...messages.disconnectDialogDisclaimer} values={{ containerType }} />
 				</Stack>
 			</ModalBody>
 			<ModalFooter>

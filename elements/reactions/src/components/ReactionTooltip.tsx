@@ -123,7 +123,7 @@ export type ReactionTooltipProps = PropsWithChildren<{
 export const ReactionTooltip = ({
 	children,
 	emojiName,
-	reaction: { users = [] },
+	reaction,
 	maxReactions = TOOLTIP_USERS_LIMIT,
 	isEnabled = true,
 	allowUserDialog,
@@ -131,6 +131,9 @@ export const ReactionTooltip = ({
 	dismissTooltip,
 	wideTooltip = false,
 }: ReactionTooltipProps): JSX.Element => {
+	// A destructuring default only covers `undefined`; the service can also send `null`.
+	const users = reaction.users ?? [];
+
 	const handleClick = () => {
 		if (allowUserDialog && handleOpenReactionsDialog) {
 			dismissTooltip();
@@ -139,7 +142,7 @@ export const ReactionTooltip = ({
 	};
 
 	const content =
-		!users || users.length === 0 || !isEnabled ? null : (
+		users.length === 0 || !isEnabled ? null : (
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 			<div
 				css={[tooltipStyle, wideTooltip && wideTooltipStyle]}

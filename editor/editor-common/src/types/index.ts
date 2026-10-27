@@ -33,7 +33,6 @@ export type {
 export type {
 	TypeAheadStats,
 	TypeAheadItemRenderProps,
-	TypeAheadInsert,
 	TypeAheadSelectItem,
 	TypeAheadItem,
 	TypeAheadForceSelect,

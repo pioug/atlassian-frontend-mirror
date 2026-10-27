@@ -58,6 +58,14 @@ type HeadingScaleInputs = {
 };
 
 /**
+ * Optional line-height multipliers for individual heading sizes, applied on top of font, heading
+ * and global line-height scales without changing font sizes. Each defaults to `1`.
+ */
+type HeadingLineHeightScaleInputs = {
+	[Size in HeadingSize as `dynamicFontHeading${Capitalize<Size>}LineHeightScale`]?: number;
+};
+
+/**
  * The variable contract for custom themes that support runtime overrides.
  *
  * Add a theme here when it is introduced. Its theme dimensions and required override values are
@@ -83,7 +91,13 @@ export interface CustomThemeOverrideRegistry {
 			 * Unitless multiplier for font sizes and line heights. `1` is the default scale.
 			 */
 			dynamicFontScale: number;
-		} & HeadingScaleInputs;
+			/**
+			 * Optional multiplier for line heights, applied on top of font and heading scales without
+			 * changing font sizes. Defaults to `1`.
+			 */
+			dynamicFontLineHeightScale?: number;
+		} & HeadingScaleInputs &
+			HeadingLineHeightScaleInputs;
 	};
 }
 

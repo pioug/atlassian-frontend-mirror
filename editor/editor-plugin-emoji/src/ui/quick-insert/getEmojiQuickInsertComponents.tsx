@@ -1,10 +1,10 @@
 import React from 'react';
 
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { createQuickInsertMatcher } from '@atlaskit/editor-common/quick-insert/create-quick-insert-matcher';
 import { EMOJI_MENU_ITEM, MEDIA_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
 import { MEDIA_SECTION_RANK } from '@atlaskit/editor-common/quick-insert/rank';
-import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
@@ -13,7 +13,7 @@ import { EmojiQuickInsertMenuItem } from './EmojiQuickInsertMenuItem';
 export const getEmojiQuickInsertComponents = ({
 	selectEmojiFromQuickInsert,
 }: {
-	selectEmojiFromQuickInsert: (insert: TypeAheadInsert) => Transaction;
+	selectEmojiFromQuickInsert: (insert: InsertContentCallback) => Transaction;
 }): RegisterMenuItem[] => [
 	{
 		key: EMOJI_MENU_ITEM.key,

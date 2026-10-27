@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-marker",
-	"version": "29.0.4",
+	"version": "30.0.1",
 	"description": "Selection marker plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,8 +58,7 @@
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"wait-for-expect": "root:*"
+		"react-dom": "^19.2.0"
 	},
 	"platform-feature-flags": {}
 }

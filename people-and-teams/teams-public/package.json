@@ -118,7 +118,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.6.2",
+	"version": "3.6.4",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -133,7 +133,7 @@
 		"migrate-product-permissions": {
 			"type": "boolean"
 		},
-		"workforce_optimization_team_modal_update": {
+		"teams_a11y_20261019": {
 			"type": "boolean"
 		}
 	}

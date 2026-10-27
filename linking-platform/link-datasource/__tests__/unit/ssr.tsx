@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import waitForExpect from 'wait-for-expect';
-
 import { ssr } from '@atlaskit/ssr';
+import { waitFor } from '@atlassian/testing-library/wait-for';
 
 import Example from '../../examples/issue-like-table';
 
@@ -33,7 +32,7 @@ test('should ssr then hydrate example component correctly', async () => {
 	});
 
 	// wait until hydrate finishes. This is not what we're testing for
-	await waitForExpect(() => {
+	await waitFor(() => {
 		expect(hydrateDone).toBe(true);
 	});
 

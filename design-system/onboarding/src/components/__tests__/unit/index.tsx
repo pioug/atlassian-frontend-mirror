@@ -5,7 +5,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { screen } from '@atlassian/testing-library/screen';
-import { render } from '@atlassian/testing-library/testing-library/react';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
@@ -97,6 +97,13 @@ const buildOnboardingMarkup = (target: string) => (
 	</SpotlightManager>
 );
 
+// Spotlight target measurements are deferred with `setTimeout(0)` to avoid content shifting,
+// so flush pending timers before asserting on the cloned target's position.
+const flushDeferredMeasurement = () =>
+	act(async () => {
+		await new Promise((resolve) => setTimeout(resolve, 0));
+	});
+
 const SpotlightDialogLabel = (props: SpotlightDialogLabelProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
@@ -138,8 +145,9 @@ describe('Benefits Modal', () => {
 });
 
 describe('<Spotlight />', () => {
-	it('should position the cloned target ontop of the original', () => {
+	it('should position the cloned target ontop of the original', async () => {
 		render(buildOnboardingMarkup('target-one'));
+		await flushDeferredMeasurement();
 
 		expect(screen.getByTestId('spotlight--target')).toHaveStyle({
 			position: 'fixed',
@@ -164,9 +172,10 @@ describe('<Spotlight />', () => {
 		expect(screen.getByTestId('spotlight--dialog')).toHaveTextContent('Spotlight for target-one');
 	});
 
-	it('should re-render and show the second spotlight', () => {
+	it('should re-render and show the second spotlight', async () => {
 		const { rerender } = render(buildOnboardingMarkup('target-one'));
 		rerender(buildOnboardingMarkup('target-two'));
+		await flushDeferredMeasurement();
 
 		expect(screen.getByTestId('spotlight--target')).toHaveStyle({
 			left: '100px',
@@ -177,11 +186,12 @@ describe('<Spotlight />', () => {
 		expect(screen.getByTestId('spotlight--dialog')).toHaveTextContent('Spotlight for target-two');
 	});
 
-	it('should re-render and show the third spotlight', () => {
+	it('should re-render and show the third spotlight', async () => {
 		const { rerender } = render(buildOnboardingMarkup('target-one'));
 
 		rerender(buildOnboardingMarkup('target-two'));
 		rerender(buildOnboardingMarkup('target-three'));
+		await flushDeferredMeasurement();
 
 		expect(screen.getByTestId('spotlight--target')).toHaveStyle({
 			left: '150px',
@@ -478,7 +488,7 @@ describe('<Spotlight />', () => {
 	});
 
 	describe('render prop children API', () => {
-		it('should use the referenced element for the clone', () => {
+		it('should use the referenced element for the clone', async () => {
 			render(
 				<SpotlightManager>
 					<ul>
@@ -503,6 +513,8 @@ describe('<Spotlight />', () => {
 					<Spotlight target="target">Spotlight for target</Spotlight>
 				</SpotlightManager>,
 			);
+
+			await flushDeferredMeasurement();
 
 			const spotlightTarget = screen.getByTestId('spotlight--target');
 

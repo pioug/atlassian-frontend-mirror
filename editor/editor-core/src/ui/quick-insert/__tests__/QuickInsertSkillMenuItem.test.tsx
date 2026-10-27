@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
+import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/registered-menu/surface-context';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -68,7 +69,7 @@ describe('QuickInsertSkillMenuItem', () => {
 							? INPUT_METHOD.ELEMENT_BROWSER
 							: INPUT_METHOD.QUICK_INSERT,
 				}),
-			surface,
+			surfaceContext: createRegisteredMenuSurfaceContext({ menuOpenId: Symbol('menu'), surface }),
 		} as never);
 	};
 

@@ -14,6 +14,8 @@ import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton } from '@atlaskit/modal-dialog/close-button';
 import { useModal } from '@atlaskit/modal-dialog/hooks';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -173,9 +175,17 @@ const LinkInfo = ({
 				</div>
 			)}
 			<div css={[titleCss]}>
-				<Heading as="h2" size="small" color="color.text" testId={`${testId}-title`}>
-					{title}
-				</Heading>
+				{fg('platform_dst-modal_title') ? (
+					<ModalTitle>
+						<Heading as="span" size="small" color="color.text" testId={`${testId}-title`}>
+							{title}
+						</Heading>
+					</ModalTitle>
+				) : (
+					<Heading as="h2" size="small" color="color.text" testId={`${testId}-title`}>
+						{title}
+					</Heading>
+				)}
 			</div>
 			<ul role="list" css={buttonGroupCss}>
 				{onDownloadButtonClick && <li css={listItemCSS}>{downloadButton}</li>}

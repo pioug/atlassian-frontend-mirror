@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 31.0.1
+
+### Patch Changes
+
+- [`ea9ea48be9c3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea9ea48be9c3e) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.4
 
 ### Patch Changes

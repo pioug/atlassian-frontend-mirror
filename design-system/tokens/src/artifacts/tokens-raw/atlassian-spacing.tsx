@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d44f59ae592b3a2684444b70c1c95f10>>
+ * @codegen <<SignedSource::c1d6cde038e3d42f29e12a6295a37286>>
  * @codegenCommand yarn build tokens
  */
 
@@ -709,7 +709,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.600",
       "introduced": "20.7.0",
-      "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "48px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -720,7 +720,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.600",
         "introduced": "20.7.0",
-        "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space600"
     },
@@ -738,7 +738,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.250",
       "introduced": "20.7.0",
-      "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "20px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -749,7 +749,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.250",
         "introduced": "20.7.0",
-        "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space250"
     },
@@ -767,7 +767,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.200",
       "introduced": "20.7.0",
-      "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "16px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -778,7 +778,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.200",
         "introduced": "20.7.0",
-        "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space200"
     },
@@ -796,7 +796,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.150",
       "introduced": "20.7.0",
-      "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "12px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -807,7 +807,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.150",
         "introduced": "20.7.0",
-        "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space150"
     },
@@ -825,7 +825,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.300",
       "introduced": "20.7.0",
-      "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "24px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -836,7 +836,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.300",
         "introduced": "20.7.0",
-        "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space300"
     },
@@ -854,7 +854,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.100",
       "introduced": "20.7.0",
-      "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "8px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -865,7 +865,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.100",
         "introduced": "20.7.0",
-        "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space100"
     },
@@ -883,7 +883,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.400",
       "introduced": "20.7.0",
-      "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "32px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -894,7 +894,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.400",
         "introduced": "20.7.0",
-        "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space400"
     },
@@ -912,7 +912,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.050",
       "introduced": "20.7.0",
-      "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "value": "4px",
     "filePath": "schema/themes/atlassian-spacing/spacing.tsx",
@@ -923,7 +923,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.050",
         "introduced": "20.7.0",
-        "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": "Space050"
     },

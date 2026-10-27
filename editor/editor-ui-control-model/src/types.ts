@@ -184,11 +184,14 @@ export type MenuItemMatchContext = {
 		descriptor: MessageDescriptor,
 		values?: Record<string, string | number | boolean | Date>,
 	) => string;
+	itemKey: string;
 	query: string;
 };
 
 /** A successful menu-item match. Matchers return `null` when an item does not match. */
 export type MenuItemMatchResult = {
+	/** Any finite group (including negative values) appears before unset matches; higher groups appear first. */
+	priorityGroup?: number;
 	/** Relevance for the current query, normalized from 0 (best) to 1 (worst). */
 	score: number;
 };

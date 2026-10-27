@@ -119,6 +119,7 @@ export default function MentionWithProfileCard({
 			avatarUrl={avatarUrl}
 			isAvatarImagePreShaped={isAvatarImagePreShaped}
 			localId={localId}
+			userType={userType}
 			mentionProvider={mentionProvider}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}

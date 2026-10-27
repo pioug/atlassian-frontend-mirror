@@ -8,6 +8,13 @@ import { ElementBox } from '../../use-element-box';
 
 replaceRaf();
 
+// Element measurements are deferred with `setTimeout(0)` to avoid content shifting,
+// so flush pending timers before asserting on the measured box.
+const flushDeferredMeasurement = () =>
+	act(async () => {
+		await new Promise((resolve) => setTimeout(resolve, 0));
+	});
+
 const commonBoundingClientRectValues = {
 	left: 2,
 	right: 0,
@@ -36,7 +43,7 @@ const getBoundingClientRectValues: DOMRect[] = [
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('use-element-box', () => {
-	it('correctly provides element dimensions on initial render', () => {
+	it('correctly provides element dimensions on initial render', async () => {
 		const element = document.createElement('div');
 
 		jest
@@ -56,6 +63,7 @@ describe('use-element-box', () => {
 				}}
 			</ElementBox>,
 		);
+		await flushDeferredMeasurement();
 
 		expect(box).toEqual({
 			width: 100,
@@ -65,7 +73,7 @@ describe('use-element-box', () => {
 		});
 	});
 
-	it('listens to resizes and updates element position to match', () => {
+	it('listens to resizes and updates element position to match', async () => {
 		const element = document.createElement('div');
 
 		jest
@@ -86,6 +94,7 @@ describe('use-element-box', () => {
 				}}
 			</ElementBox>,
 		);
+		await flushDeferredMeasurement();
 
 		// eslint-disable-next-line testing-library/no-unnecessary-act
 		act(() => {
@@ -102,7 +111,7 @@ describe('use-element-box', () => {
 		});
 	});
 
-	it('updates dimensions correctly when the target element is swapped out', () => {
+	it('updates dimensions correctly when the target element is swapped out', async () => {
 		let element: HTMLElement = document.createElement('div');
 		const elementNext = document.createElement('span');
 		let box = {};
@@ -122,6 +131,7 @@ describe('use-element-box', () => {
 				}}
 			</ElementBox>,
 		);
+		await flushDeferredMeasurement();
 
 		expect(box).toEqual({
 			width: 100,
@@ -146,6 +156,7 @@ describe('use-element-box', () => {
 				}}
 			</ElementBox>,
 		);
+		await flushDeferredMeasurement();
 
 		expect(box).toEqual({
 			width: 50,

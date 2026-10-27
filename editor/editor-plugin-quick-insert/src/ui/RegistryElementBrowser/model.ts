@@ -4,6 +4,7 @@ import type {
 	MenuItemMatchContext,
 	RegisterComponent,
 	RegisterMenuItem,
+	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
 export type RegistryElementBrowserSection = {
@@ -35,12 +36,15 @@ const compareRanks = (left: number[], right: number[]): number => {
 	return 0;
 };
 
-const isVisible = (registration: RegisterComponent): boolean => registration.isHidden?.() !== true;
-
-const getChildren = (components: RegisterComponent[], parentKey: string): RegisterComponent[] =>
+const getChildren = (
+	components: RegisterComponent[],
+	parentKey: string,
+	surfaceContext?: SurfaceContext,
+): RegisterComponent[] =>
 	components.filter(
 		(component) =>
-			isVisible(component) && component.parents?.some((parent) => parent.key === parentKey),
+			component.parents?.some((parent) => parent.key === parentKey) &&
+			component.isHidden?.({ surfaceContext }) !== true,
 	);
 
 const getParentRank = (registration: RegisterComponent, parentKey: string): number =>
@@ -51,8 +55,9 @@ const getDescendantItems = (
 	parentKey: string,
 	ancestorRanks: number[],
 	sectionKey: string,
+	surfaceContext?: SurfaceContext,
 ): RegistryElementBrowserItem[] =>
-	getChildren(components, parentKey).flatMap((component) => {
+	getChildren(components, parentKey, surfaceContext).flatMap((component) => {
 		const ranks = [...ancestorRanks, getParentRank(component, parentKey)];
 		if (component.type === 'menu-item') {
 			return component.component
@@ -60,7 +65,7 @@ const getDescendantItems = (
 				: [];
 		}
 
-		return getDescendantItems(components, component.key, ranks, sectionKey);
+		return getDescendantItems(components, component.key, ranks, sectionKey, surfaceContext);
 	});
 
 /**
@@ -74,40 +79,44 @@ export const createRegistryElementBrowserModel = (
 		overflowKeys,
 		recommendedSectionKey,
 		rootKey,
+		surfaceContext,
 	}: {
 		footerKey: string;
 		overflowKeys: Set<string>;
 		recommendedSectionKey: string;
 		rootKey: string;
+		surfaceContext?: SurfaceContext;
 	},
 ): RegistryElementBrowserModel => {
 	const excludedKeys = new Set([footerKey, recommendedSectionKey, ...overflowKeys]);
-	const visibleComponents = components.filter(
-		(component) => isVisible(component) && !excludedKeys.has(component.key),
-	);
-	const sections = getChildren(visibleComponents, rootKey)
+	const visibleComponents = components.filter((component) => !excludedKeys.has(component.key));
+	const sections = getChildren(visibleComponents, rootKey, surfaceContext)
 		.filter((component) => component.type === 'menu-section')
 		.map((section) => ({ key: section.key, rank: getParentRank(section, rootKey) }))
 		.sort((left, right) => left.rank - right.rank);
 	const itemByKey = new Map<string, RegistryElementBrowserItem>();
 
 	sections.forEach((section) => {
-		getDescendantItems(visibleComponents, section.key, [section.rank], section.key).forEach(
-			(item) => {
-				const existing = itemByKey.get(item.registration.key);
-				if (!existing) {
-					itemByKey.set(item.registration.key, item);
-					return;
-				}
-				const sectionKeys = [...new Set([...existing.sectionKeys, ...item.sectionKeys])];
-				itemByKey.set(
-					item.registration.key,
-					compareRanks(item.ranks, existing.ranks) < 0
-						? { ...item, sectionKeys }
-						: { ...existing, sectionKeys },
-				);
-			},
-		);
+		getDescendantItems(
+			visibleComponents,
+			section.key,
+			[section.rank],
+			section.key,
+			surfaceContext,
+		).forEach((item) => {
+			const existing = itemByKey.get(item.registration.key);
+			if (!existing) {
+				itemByKey.set(item.registration.key, item);
+				return;
+			}
+			const sectionKeys = [...new Set([...existing.sectionKeys, ...item.sectionKeys])];
+			itemByKey.set(
+				item.registration.key,
+				compareRanks(item.ranks, existing.ranks) < 0
+					? { ...item, sectionKeys }
+					: { ...existing, sectionKeys },
+			);
+		});
 	});
 
 	const items = [...itemByKey.values()].sort((left, right) =>
@@ -154,16 +163,42 @@ export const getRegistryElementBrowserItems = ({
 		return itemsWithDescriptions;
 	}
 
-	return itemsWithDescriptions
-		.flatMap((item) => {
-			const result = item.registration.match?.({ formatMessage, query: normalizedQuery });
-			return result ? [{ ...item, score: Math.min(1, Math.max(0, result.score)) }] : [];
-		})
-		.sort(
+	const matches = itemsWithDescriptions.flatMap((item) => {
+		const result = item.registration.match?.({
+			formatMessage,
+			itemKey: item.registration.key,
+			query: normalizedQuery,
+		});
+		return result
+			? [
+					{
+						...item,
+						priorityGroup:
+							result.priorityGroup !== undefined && Number.isFinite(result.priorityGroup)
+								? result.priorityGroup
+								: undefined,
+						score: Math.min(1, Math.max(0, result.score)),
+					},
+				]
+			: [];
+	});
+	const prioritized = matches.filter(({ priorityGroup }) => priorityGroup !== undefined);
+	const unprioritized = matches.filter(({ priorityGroup }) => priorityGroup === undefined);
+
+	return [
+		...prioritized.sort(
+			(left, right) =>
+				(right.priorityGroup ?? 0) - (left.priorityGroup ?? 0) ||
+				left.score - right.score ||
+				compareRanks(left.ranks, right.ranks) ||
+				left.registration.key.localeCompare(right.registration.key),
+		),
+		...unprioritized.sort(
 			(left, right) =>
 				(left.ranks[0] ?? 0) - (right.ranks[0] ?? 0) ||
 				left.score - right.score ||
 				compareRanks(left.ranks, right.ranks) ||
 				left.registration.key.localeCompare(right.registration.key),
-		);
+		),
+	];
 };

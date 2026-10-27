@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<06939316e133874938bc494331e46a6a>>
+ * @generated SignedSource<<b5dd495e526095e66bf7c72140a7e1b8>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -15,11 +15,14 @@ export type rovoAgentSelector_AtlaskitRovoAgentSelector$data = {
   readonly agentStudio_getAgents: {
     readonly edges: ReadonlyArray<{
       readonly node: {
-        readonly creatorType: string | null;
-        readonly externalConfigReference: string | null;
-        readonly id: string;
-        readonly identityAccountId: string | null;
-        readonly name: string | null;
+        readonly creatorType?: string | null;
+        readonly externalConfigReference?: string | null;
+        readonly id?: string;
+        readonly identityAccountId?: string | null;
+        readonly name?: string | null;
+        readonly selectorAgent?: {
+          readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_agent">;
+        } | null;
         readonly " $fragmentSpreads": FragmentRefs<"agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar">;
       } | null;
     }>;
@@ -40,9 +43,37 @@ import rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery_graphq
 const node: ReaderFragment = (function(){
 var v0 = [
   "agentStudio_getAgents"
-];
+],
+v1 = {
+  "kind": "ScalarField",
+  "name": "id"
+},
+v2 = {
+  "kind": "ScalarField",
+  "name": "name"
+},
+v3 = {
+  "kind": "ScalarField",
+  "name": "externalConfigReference"
+},
+v4 = {
+  "kind": "ScalarField",
+  "name": "identityAccountId"
+},
+v5 = {
+  "kind": "ScalarField",
+  "name": "creatorType"
+},
+v6 = {
+  "kind": "FragmentSpread",
+  "name": "agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar"
+};
 return {
   "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider"
+    },
     {
       "defaultValue": null,
       "kind": "LocalArgument",
@@ -139,28 +170,47 @@ return {
               "plural": false,
               "selections": [
                 {
-                  "kind": "ScalarField",
-                  "name": "id"
+                  "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
+                  "kind": "Condition",
+                  "passingValue": false,
+                  "selections": [
+                    (v1/*: any*/),
+                    (v2/*: any*/),
+                    (v3/*: any*/),
+                    (v4/*: any*/),
+                    (v5/*: any*/)
+                  ]
                 },
+                (v6/*: any*/),
                 {
-                  "kind": "ScalarField",
-                  "name": "name"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "externalConfigReference"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "identityAccountId"
-                },
-                {
-                  "kind": "ScalarField",
-                  "name": "creatorType"
-                },
-                {
-                  "kind": "FragmentSpread",
-                  "name": "agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar"
+                  "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
+                  "kind": "Condition",
+                  "passingValue": true,
+                  "selections": [
+                    {
+                      "fragment": {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          {
+                            "kind": "InlineDataFragmentSpread",
+                            "name": "rovoAgentSelector_agent",
+                            "selections": [
+                              (v1/*: any*/),
+                              (v2/*: any*/),
+                              (v3/*: any*/),
+                              (v4/*: any*/),
+                              (v5/*: any*/),
+                              (v6/*: any*/)
+                            ],
+                            "argumentDefinitions": []
+                          }
+                        ],
+                        "type": "AgentStudioAssistant"
+                      },
+                      "kind": "AliasedInlineFragmentSpread",
+                      "name": "selectorAgent"
+                    }
+                  ]
                 },
                 {
                   "kind": "ScalarField",
@@ -181,6 +231,6 @@ return {
 };
 })();
 
-(node as any).hash = "fdde85142cfb9d4acca9413a6e844dc2";
+(node as any).hash = "8898283636f551cbf95680664a804dcc";
 
 export default node;

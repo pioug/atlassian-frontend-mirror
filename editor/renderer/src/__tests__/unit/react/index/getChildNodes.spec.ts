@@ -28,7 +28,6 @@ function getDocChildNodes(document: PMNode): PMNode[] {
 describe('ReactSerializer - getChildNodes integration with inline bodied extension marking', () => {
 	it('joins top-level Custom UI neighbours without marking nested neighbours', () => {
 		passGate('platform_forge_inline_bodied_layout_switch');
-		passGate('platform_forge_inline_bodied_macro');
 		const macro = () =>
 			bodiedExtension({
 				extensionType: 'com.atlassian.ecosystem',

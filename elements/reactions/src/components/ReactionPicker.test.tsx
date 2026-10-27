@@ -331,23 +331,7 @@ describe('PopperWrapper', () => {
 	});
 
 	describe('dialog role', () => {
-		it('should expose the panel with the legacy aria label when platform_a11y_fixes_reading_order is off', async () => {
-			failGate('platform_a11y_fixes_reading_order');
-			mockRenderPopperWrapper(popperWrapperProps, true);
-			const panel = await screen.findByRole('dialog', { name: 'Add reactions' });
-
-			expect(panel).toHaveAttribute('data-testid', RENDER_REACTIONPICKERPANEL_TESTID);
-			expect(panel).toHaveAttribute('role', 'dialog');
-			expect(panel).toHaveAttribute('aria-label', 'Add reactions');
-			expect(panel).not.toHaveAttribute('aria-modal');
-			expect(panel).not.toHaveAttribute('aria-labelledby');
-			expect(
-				screen.queryByRole('heading', { level: 2, name: 'Add reactions' }),
-			).not.toBeInTheDocument();
-		});
-
-		it('should expose the panel as a labelled non-modal dialog when platform_a11y_fixes_reading_order is on', async () => {
-			passGate('platform_a11y_fixes_reading_order');
+		it('should expose the panel as a labelled non-modal dialog', async () => {
 			mockRenderPopperWrapper(popperWrapperProps, true);
 			const panel = await screen.findByRole('dialog', { name: 'Add reactions' });
 			const heading = screen.getByRole('heading', { level: 2, name: 'Add reactions' });

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::34a31be5c9cf0491f6beb3e5b248fe32>>
+ * @codegen <<SignedSource::4f5046831b35f4dfa25614c21b5f4bfb>>
  * @codegenCommand yarn build tokens
  */
 
@@ -712,7 +712,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.600",
       "introduced": "20.7.0",
-      "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-3xlarge-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-3xlarge-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -721,7 +721,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.600",
         "introduced": "20.7.0",
-        "description": "Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.3xlarge",
@@ -741,7 +741,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.250",
       "introduced": "20.7.0",
-      "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-large-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-large-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -750,7 +750,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.250",
         "introduced": "20.7.0",
-        "description": "Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.large",
@@ -770,7 +770,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.200",
       "introduced": "20.7.0",
-      "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-medium-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-medium-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -779,7 +779,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.200",
         "introduced": "20.7.0",
-        "description": "Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.medium",
@@ -799,7 +799,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.150",
       "introduced": "20.7.0",
-      "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-small-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-small-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -808,7 +808,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.150",
         "introduced": "20.7.0",
-        "description": "Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.small",
@@ -828,7 +828,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.300",
       "introduced": "20.7.0",
-      "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-xlarge-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xlarge-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -837,7 +837,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.300",
         "introduced": "20.7.0",
-        "description": "Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.xlarge",
@@ -857,7 +857,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.100",
       "introduced": "20.7.0",
-      "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-xsmall-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xsmall-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -866,7 +866,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.100",
         "introduced": "20.7.0",
-        "description": "Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.xsmall",
@@ -886,7 +886,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.400",
       "introduced": "20.7.0",
-      "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-xxlarge-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xxlarge-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -895,7 +895,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.400",
         "introduced": "20.7.0",
-        "description": "Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.xxlarge",
@@ -915,7 +915,7 @@ const tokens: Token[] = [
       "state": "experimental",
       "replacement": "space.050",
       "introduced": "20.7.0",
-      "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+      "description": "Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
     },
     "original": {
       "value": "calc(var(--ds-dynamic-space-inset-xxsmall-unrounded) * (1 - var(--ds-dynamic-space-inset-round, 1)) + round(nearest, var(--ds-dynamic-space-inset-xxsmall-unrounded), 1px) * var(--ds-dynamic-space-inset-round, 1))",
@@ -924,7 +924,7 @@ const tokens: Token[] = [
         "state": "experimental",
         "replacement": "space.050",
         "introduced": "20.7.0",
-        "description": "Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding."
+        "description": "Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       }
     },
     "name": "space.inset.xxsmall",

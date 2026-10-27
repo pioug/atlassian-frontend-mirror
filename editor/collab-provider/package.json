@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "38.0.4",
+	"version": "39.0.2",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -73,6 +73,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_presence_ws_first_with_fallback": {
+			"type": "boolean"
+		},
+		"platform_editor_presence_ws_restore_after_upgrade": {
 			"type": "boolean"
 		},
 		"collab_edit_via_websocket_only_for_gcp": {

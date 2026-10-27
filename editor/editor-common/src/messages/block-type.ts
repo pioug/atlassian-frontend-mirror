@@ -211,7 +211,7 @@ export const messages: {
 	},
 	heading1Description: {
 		id: 'fabric.editor.heading1Description',
-		defaultMessage: 'Use this for a top level heading',
+		defaultMessage: 'Insert a level 1 heading',
 		description: 'Description of the main heading, heading 1',
 	},
 	heading2: {
@@ -222,7 +222,7 @@ export const messages: {
 	},
 	heading2Description: {
 		id: 'fabric.editor.heading2Description',
-		defaultMessage: 'Use this for key sections',
+		defaultMessage: 'Insert a level 2 heading',
 		description: 'Description of a subtitle heading or secondary heading',
 	},
 	heading3: {
@@ -233,7 +233,7 @@ export const messages: {
 	},
 	heading3Description: {
 		id: 'fabric.editor.heading3Description',
-		defaultMessage: 'Use this for sub sections and group headings',
+		defaultMessage: 'Insert a level 3 heading',
 		description:
 			'Description text shown in the block type menu to help users understand when to use Heading 3 for sub sections and group headings in the editor.',
 	},
@@ -245,7 +245,7 @@ export const messages: {
 	},
 	heading4Description: {
 		id: 'fabric.editor.heading4Description',
-		defaultMessage: 'Use this for deep headings',
+		defaultMessage: 'Insert a level 4 heading',
 		description:
 			'Description text shown in the block type menu to help users understand when to use Heading 4 for deep headings in the editor.',
 	},
@@ -257,7 +257,7 @@ export const messages: {
 	},
 	heading5Description: {
 		id: 'fabric.editor.heading5Description',
-		defaultMessage: 'Use this for grouping list items',
+		defaultMessage: 'Insert a level 5 heading',
 		description:
 			'Description text shown in the block type menu to help users understand when to use Heading 5 for grouping list items in the editor.',
 	},
@@ -269,7 +269,7 @@ export const messages: {
 	},
 	heading6Description: {
 		id: 'fabric.editor.heading6Description',
-		defaultMessage: 'Use this for low level headings',
+		defaultMessage: 'Insert a level 6 heading',
 		description:
 			'Description text shown in the block type menu to help users understand when to use Heading 6 for low level headings in the editor.',
 	},
@@ -335,7 +335,7 @@ export const messages: {
 	},
 	warningPanelDescription: {
 		id: 'fabric.editor.warningPanel.description',
-		defaultMessage: 'Add a note of caution in a colored panel',
+		defaultMessage: 'Add a caution in a colored panel',
 		description: 'Visually distinguishes your text by adding a warning panel',
 	},
 	errorPanel: {
@@ -355,7 +355,7 @@ export const messages: {
 	},
 	customPanelDescription: {
 		id: 'fabric.editor.customPanel.description',
-		defaultMessage: 'Add a note with an emoji and colored background',
+		defaultMessage: 'Add a panel with colors and emojis',
 		description: 'Visually distinguishes your panel by adding a emoji icon and background color ',
 	},
 	syncedBlock: {
@@ -376,7 +376,7 @@ export const messages: {
 	},
 	syncedBlockDescription: {
 		id: 'fabric.editor.syncedBlock.description',
-		defaultMessage: 'Sync content across multiple locations',
+		defaultMessage: 'Keep content consistent across multiple locations',
 		description: 'Description of the synced block that auto-updates content across Atlassian apps',
 	},
 	newLozenge: {

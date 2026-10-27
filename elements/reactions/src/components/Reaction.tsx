@@ -11,7 +11,6 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { cx } from '@atlaskit/css';
 import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
 import type { EmojiProvider, EmojiId } from '@atlaskit/emoji/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
@@ -245,9 +244,7 @@ export const Reaction = ({
 			xcss={cx(
 				styles.container,
 				rootElement === 'li' ? styles.listItem : undefined,
-				rootElement === 'li' && fg('platform_a11y_fixes_reading_order')
-					? styles.listItemNoMarker
-					: undefined,
+				rootElement === 'li' ? styles.listItemNoMarker : undefined,
 			)}
 			as={rootElement}
 		>

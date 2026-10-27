@@ -57,8 +57,7 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
-		"sinon": "root:*",
-		"wait-for-expect": "root:*"
+		"sinon": "root:*"
 	},
 	"exports": {
 		".": "./src/index.ts",

@@ -1,5 +1,32 @@
 # @atlaskit/smart-card
 
+## 46.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.10.0
+
+### Minor Changes
+
+- [`a43d1f580386a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a43d1f580386a) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.9.1
+
+### Patch Changes
+
+- [`ba8573779793b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8573779793b) -
+  Wrap the `EmbedModal` title in `ModalTitle` (inner `Heading` rendered as a `span`) and drop the
+  modal `label` behind the `platform_dst-modal_title` feature gate. Behaviour is unchanged while the
+  gate is off.
+- Updated dependencies
+
 ## 46.9.0
 
 ### Minor Changes

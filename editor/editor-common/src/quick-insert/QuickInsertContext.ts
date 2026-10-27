@@ -6,10 +6,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 
 import type { INPUT_METHOD } from '../analytics';
-import type { TypeAheadInsert } from '../types';
-
+import type { InsertContentCallback } from '../insert';
 export type QuickInsertSelectionHandler = (context: {
-	insert: TypeAheadInsert;
+	insert: InsertContentCallback;
 	source:
 		| INPUT_METHOD.ELEMENT_BROWSER
 		| INPUT_METHOD.INSERT_MENU
@@ -18,7 +17,6 @@ export type QuickInsertSelectionHandler = (context: {
 }) => Transaction | false | void;
 
 export type QuickInsertContextValue = {
-	activePreviewItemKey?: string;
 	editorView: EditorView;
 	isOffline: boolean;
 	item?: {
@@ -27,12 +25,14 @@ export type QuickInsertContextValue = {
 		isPreviewActive?: boolean;
 		isSelected: boolean;
 	};
-	menuOpenId?: symbol;
 	popupsMountPoint?: HTMLElement;
 	select: (selectionHandler: QuickInsertSelectionHandler) => void;
-	surface: 'typeahead' | 'toolbar' | 'element-browser';
 	surfaceContext?: SurfaceContext;
 };
 
+/**
+ * Gives Quick Insert items access to the editor and the function for selecting a command.
+ * The menu supplies shared values; each item adds its selected and preview state.
+ */
 export const QuickInsertContext: Context<QuickInsertContextValue | null> =
 	createContext<QuickInsertContextValue | null>(null);

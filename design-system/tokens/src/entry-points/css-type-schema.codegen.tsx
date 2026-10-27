@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::643f639bb128aa6b4c74006713f9c804>>
+ * @codegen <<SignedSource::79ba55a8fe9910c4640b6e6858880916>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -696,16 +696,16 @@ export interface DesignTokenStyles {
 	overflowWrap: 'normal' | 'break-word' | 'anywhere';
 	overlay: never;
 	padding: SpacePadding;
-	paddingBlock: Space;
-	paddingBlockEnd: Space;
-	paddingBlockStart: Space;
-	paddingBottom: Space;
-	paddingInline: Space;
-	paddingInlineEnd: Space;
-	paddingInlineStart: Space;
-	paddingLeft: Space;
-	paddingRight: Space;
-	paddingTop: Space;
+	paddingBlock: SpacePadding;
+	paddingBlockEnd: SpacePadding;
+	paddingBlockStart: SpacePadding;
+	paddingBottom: SpacePadding;
+	paddingInline: SpacePadding;
+	paddingInlineEnd: SpacePadding;
+	paddingInlineStart: SpacePadding;
+	paddingLeft: SpacePadding;
+	paddingRight: SpacePadding;
+	paddingTop: SpacePadding;
 	right: SpaceInset;
 	rowGap: SpaceGap;
 	textDecorationLine: 'line-through' | 'underline';

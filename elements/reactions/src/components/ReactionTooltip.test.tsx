@@ -152,6 +152,21 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		});
 	});
 
+	it('should render the children without a tooltip when the user list is null', async () => {
+		renderReactionTooltip({
+			reactionSummary: {
+				...demoReaction,
+				users: null,
+			},
+		});
+
+		const item = await screen.findByTestId(RENDER_CONTENT_TESTID);
+		expect(item).toHaveTextContent('content');
+		await userEvent.hover(item);
+
+		expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+	});
+
 	it('shows the agent and person names when an agent reacted', async () => {
 		renderReactionTooltip({
 			reactionSummary: {

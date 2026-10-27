@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<1aba12c2a84c7142fe9bb6cb185f8858>>
- * @relayHash 12880e14b0fefb818d1fe436550a007e
+ * @generated SignedSource<<1bd78a3263f5a7974fc6b24d59633ec1>>
+ * @relayHash 6676bfca27e152badeadb10b80af7258
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 0c9c836fc51b7899a32beec408e08896c09fa2b7db495d9fecc9ecf35fd5ac5b
+// @relayRequestID b44243e5dbb341d1ec1c1533f8a4d1097a01c1bd02a126f3049bc4bdee78926f
 
 import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -25,14 +25,19 @@ export type testRovoAgentSelectorQuery = {
   variables: testRovoAgentSelectorQuery$variables;
 };
 ({
+  "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider,
   "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
 } as {
+  readonly __relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider: {
+    readonly get: () => boolean;
+  };
   readonly __relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx: {
     readonly get: () => boolean;
   };
 });
 
 import migrateAgentAvatar_provider from '../migrate-agent-avatar-component-to-ads.relayprovider';
+import enableAgentCreationFix_provider from '@atlaskit/rovo-agent-selector/hubs-management-rovo-agent-creation-fix.relayprovider';
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -67,19 +72,37 @@ v3 = {
   "kind": "ScalarField",
   "name": "__typename"
 },
-v4 = {
+v4 = [
+  {
+    "kind": "ScalarField",
+    "name": "name"
+  },
+  {
+    "kind": "ScalarField",
+    "name": "externalConfigReference"
+  },
+  {
+    "kind": "ScalarField",
+    "name": "identityAccountId"
+  },
+  {
+    "kind": "ScalarField",
+    "name": "creatorType"
+  }
+],
+v5 = {
   "enumValues": null,
   "nullable": true,
   "plural": false,
   "type": "String"
 },
-v5 = {
+v6 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
   "type": "String"
 },
-v6 = {
+v7 = {
   "enumValues": null,
   "nullable": false,
   "plural": false,
@@ -111,6 +134,11 @@ return {
   "operation": {
     "argumentDefinitions": [
       (v0/*: any*/),
+      {
+        "defaultValue": null,
+        "kind": "LocalArgument",
+        "name": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider"
+      },
       {
         "defaultValue": null,
         "kind": "LocalArgument",
@@ -156,21 +184,12 @@ return {
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
-                    "kind": "ScalarField",
-                    "name": "name"
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "name": "externalConfigReference"
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "name": "identityAccountId"
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "name": "creatorType"
+                    "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
+                    "kind": "Condition",
+                    "passingValue": false,
+                    "selections": (v4/*: any*/)
                   },
                   {
                     "condition": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx",
@@ -192,7 +211,12 @@ return {
                       }
                     ]
                   },
-                  (v3/*: any*/)
+                  {
+                    "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
+                    "kind": "Condition",
+                    "passingValue": true,
+                    "selections": (v4/*: any*/)
+                  }
                 ]
               },
               {
@@ -217,7 +241,7 @@ return {
     ]
   },
   "params": {
-    "id": "0c9c836fc51b7899a32beec408e08896c09fa2b7db495d9fecc9ecf35fd5ac5b",
+    "id": "b44243e5dbb341d1ec1c1533f8a4d1097a01c1bd02a126f3049bc4bdee78926f",
     "metadata": {
       "relayTestingSelectionTypeInfo": {
         "agentStudio_getAgents": {
@@ -232,40 +256,40 @@ return {
           "plural": true,
           "type": "AgentStudioAgentEdge"
         },
-        "agentStudio_getAgents.edges.cursor": (v4/*: any*/),
+        "agentStudio_getAgents.edges.cursor": (v5/*: any*/),
         "agentStudio_getAgents.edges.node": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "AgentStudioAssistant"
         },
-        "agentStudio_getAgents.edges.node.__typename": (v5/*: any*/),
-        "agentStudio_getAgents.edges.node.creatorType": (v4/*: any*/),
-        "agentStudio_getAgents.edges.node.externalConfigReference": (v4/*: any*/),
-        "agentStudio_getAgents.edges.node.id": (v6/*: any*/),
+        "agentStudio_getAgents.edges.node.__typename": (v6/*: any*/),
+        "agentStudio_getAgents.edges.node.creatorType": (v5/*: any*/),
+        "agentStudio_getAgents.edges.node.externalConfigReference": (v5/*: any*/),
+        "agentStudio_getAgents.edges.node.id": (v7/*: any*/),
         "agentStudio_getAgents.edges.node.identityAccount": {
           "enumValues": null,
           "nullable": true,
           "plural": false,
           "type": "User"
         },
-        "agentStudio_getAgents.edges.node.identityAccount.__typename": (v5/*: any*/),
-        "agentStudio_getAgents.edges.node.identityAccount.id": (v6/*: any*/),
+        "agentStudio_getAgents.edges.node.identityAccount.__typename": (v6/*: any*/),
+        "agentStudio_getAgents.edges.node.identityAccount.id": (v7/*: any*/),
         "agentStudio_getAgents.edges.node.identityAccount.picture": {
           "enumValues": null,
           "nullable": false,
           "plural": false,
           "type": "URL"
         },
-        "agentStudio_getAgents.edges.node.identityAccountId": (v4/*: any*/),
-        "agentStudio_getAgents.edges.node.name": (v4/*: any*/),
+        "agentStudio_getAgents.edges.node.identityAccountId": (v5/*: any*/),
+        "agentStudio_getAgents.edges.node.name": (v5/*: any*/),
         "agentStudio_getAgents.pageInfo": {
           "enumValues": null,
           "nullable": false,
           "plural": false,
           "type": "PageInfo"
         },
-        "agentStudio_getAgents.pageInfo.endCursor": (v4/*: any*/),
+        "agentStudio_getAgents.pageInfo.endCursor": (v5/*: any*/),
         "agentStudio_getAgents.pageInfo.hasNextPage": {
           "enumValues": null,
           "nullable": false,
@@ -278,6 +302,7 @@ return {
     "operationKind": "query",
     "text": null,
     "providedVariables": {
+      "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider,
       "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
     }
   }

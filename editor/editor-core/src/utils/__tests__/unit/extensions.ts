@@ -106,7 +106,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 						type: 'menu-item',
 					}),
 				);
-				expect(component?.match?.({ formatMessage, query })).not.toBeNull();
+				expect(component?.match?.({ formatMessage, itemKey: component.key, query })).not.toBeNull();
 			},
 		);
 

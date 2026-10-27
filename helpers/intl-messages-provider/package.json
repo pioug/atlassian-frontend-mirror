@@ -34,8 +34,7 @@
 		"@atlassian/workbench": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",

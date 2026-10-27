@@ -2,7 +2,6 @@ import React, { createRef } from 'react';
 
 import { type RenderResult, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import waitForExpect from 'wait-for-expect';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
@@ -242,7 +241,7 @@ describe('EmojiTypeAhead', () => {
 		await userEvent.click(item);
 
 		await waitFor(() => expect(failureOccurred).toBe(true));
-		await waitForExpect(() => {
+		await waitFor(() => {
 			expect(fireEventSpy).toHaveBeenLastCalledWith(
 				expect.objectContaining(
 					withSessionId(recordFailedEmoji(choseEmoji)(SearchSourceTypes.TYPEAHEAD)),

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 28.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- [`57af9733630db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57af9733630db) -
+  Keep replaced table-cell suggestions visible below sticky headers and scroll to the suggested
+  content instead of the deleted text in grouped inverted diffs under
+  platform_editor_ai_show_diff_patch_2_fix.
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.1.4
 
 ### Patch Changes

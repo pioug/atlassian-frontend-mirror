@@ -56,6 +56,10 @@ export type LayoutAreaAllocation = LayoutAreaState & {
 };
 
 export type LayoutAreaSizingContextValue = {
+	/**
+	 * Registers a lazy-loading trigger without requesting the sizing runtime.
+	 */
+	registerSplitter?: (element: HTMLElement) => () => void;
 	prepareResize?: () => Promise<boolean>;
 	getResizeBounds: (area: LayoutArea) => ResizeBounds | undefined;
 	registerArea: (area: LayoutArea, config: LayoutAreaConfig) => void;

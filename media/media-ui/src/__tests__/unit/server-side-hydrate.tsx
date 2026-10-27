@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { act } from 'react';
 
 import { hydrateRoot } from 'react-dom/client';
-import waitForExpect from 'wait-for-expect';
+import { IntlProvider } from 'react-intl';
 
 import { mockConsole, ssr } from '@atlaskit/ssr';
+import { waitFor } from '@atlassian/testing-library/wait-for';
 
 import Example from '../../../examples/2-time-range';
 
 const getConsoleMockCalls = mockConsole(console);
 
-afterEach(() => {
+let root: ReturnType<typeof hydrateRoot> | undefined;
+
+afterEach(async () => {
+	await act(async () => root?.unmount());
+	root = undefined;
 	jest.resetAllMocks();
 });
 
-// FIXME: Jes 29 upgrade - [React Intl] Could not find required `intl` object. <IntlProvider> needs to exist in the component ancestry.
-test.skip('should ssr then hydrate media-ui correctly', async () => {
+const ExampleWithIntl = () => (
+	<IntlProvider locale="en">
+		<Example />
+	</IntlProvider>
+);
+
+test('should ssr then hydrate media-ui correctly', async () => {
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(Example);
+	elem.innerHTML = await ssr(ExampleWithIntl);
 
-	hydrateRoot(elem, <Example />);
-
-	await waitForExpect(() => {
+	await act(async () => {
+		root = hydrateRoot(elem, <ExampleWithIntl />);
+	});
+	await waitFor(() => {
 		const mockCalls = getConsoleMockCalls();
 		expect(mockCalls.length).toBe(0);
 	});

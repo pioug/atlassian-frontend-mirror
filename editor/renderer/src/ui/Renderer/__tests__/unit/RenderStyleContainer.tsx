@@ -6,7 +6,6 @@ import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
 import { BaseTheme } from '@atlaskit/editor-common/BaseTheme';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles/constants';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererStyleContainer } from '../../RendererStyleContainer';
 
@@ -56,8 +55,6 @@ describe('RendererStyleContainer', () => {
 	});
 
 	it('allows text adjacent to a migrated inline-bodied macro to wrap as inline content', () => {
-		passGate('platform_forge_inline_bodied_macro');
-
 		render(
 			<RendererStyleContainer
 				appearance="full-page"
@@ -83,31 +80,6 @@ describe('RendererStyleContainer', () => {
 		expect(containerRules.some((rule) => rule.selectorText.includes('[data-forge-inline]'))).toBe(
 			true,
 		);
-	});
-
-	it('omits native and migrated inline-bodied styles when the gate is off', () => {
-		failGate('platform_forge_inline_bodied_macro');
-
-		render(
-			<RendererStyleContainer
-				appearance="full-page"
-				allowNestedHeaderLinks={false}
-				useBlockRenderForCodeBlock={false}
-				testId="renderer-container"
-			>
-				<div />
-			</RendererStyleContainer>,
-		);
-
-		const containerRules = getContainerStyleRules(screen.getByTestId('renderer-container'));
-		expect(containerRules.length).toBeGreaterThan(0);
-		expect(
-			containerRules.filter(
-				(rule) =>
-					rule.selectorText.includes('[data-migrated-inline]') ||
-					rule.selectorText.includes('[data-forge-inline]'),
-			),
-		).toHaveLength(0);
 	});
 
 	it('should keep the editor visual refresh headings and paragraph styles', async () => {

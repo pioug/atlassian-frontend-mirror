@@ -107,6 +107,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				}
 
 				const isBlockMenuOpen = currentUserIntent === 'blockMenuOpen';
+				const isFocusOutsideEditor = currentUserIntent === 'focusOutsideEditor';
 
 				/**
 				 * There are a number of conditions we should not show the marker,
@@ -114,6 +115,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 				 * - Focus: to ensure it doesn't interrupt the normal cursor
 				 * - Typeahead Open: To ensure it doesn't show when we're typing in the typeahead
 				 * - Disabled: So that it behaves similar to the renderer in live pages/disabled
+				 * - Focus outside editor: To suppress editor chrome while a related external surface owns focus.
 				 * - Via the API: If another plugin has requested it to be hidden (force hidden).
 				 * - If danger styles is shown in decorationsPlugin, then we don't need to show the selection marker
 				 */
@@ -125,7 +127,8 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ config, api }) =>
 					(editorDisabled ?? false) ||
 					(showToolbar ?? false) ||
 					!!hasDangerDecorations ||
-					isBlockMenuOpen;
+					isBlockMenuOpen ||
+					isFocusOutsideEditor;
 
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
 			}, [

@@ -6,9 +6,9 @@ import {
 	type IsRecommendedItemResult,
 } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
+import { REGISTERED_MENU_SURFACE_CONTEXT } from '@atlaskit/editor-common/registered-menu/surface-context';
 import { isMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-is-menu-footer-section-key';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
-import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
 	RegisterComponent,
@@ -100,7 +100,7 @@ export const createRecommendedSnapshotCache = ({
 	let snapshot: { id: symbol; items: RegisterMenuItem[] } | undefined;
 
 	const getSnapshot = (surfaceContext?: SurfaceContext): RegisterMenuItem[] => {
-		const menuOpenId = surfaceContext?.get(TYPE_AHEAD_SURFACE_CONTEXT)?.menuOpenId;
+		const menuOpenId = surfaceContext?.get(REGISTERED_MENU_SURFACE_CONTEXT)?.menuOpenId;
 		if (!surfaceContext || !menuOpenId) {
 			return [];
 		}

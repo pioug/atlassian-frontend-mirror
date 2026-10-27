@@ -23,6 +23,8 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
@@ -118,10 +120,12 @@ export const CommentEditorWithIntl: {
 	const { editorAPI } = props;
 
 	// Get useStandardNodeWidth from block menu plugin shared state
-	// Only access editorAPI when the experiment is enabled to avoid performance impact
 	const useStandardNodeWidth =
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		(editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
+		fg('platform_editor_expand_standard_width_fix') ||
+		isExperimentEnabled('work_item_modernization')
+			? (editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false)
+			: editorExperiment('platform_editor_controls', 'variant1') &&
+				(editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
 
 	const { editorViewMode, primaryToolbarComponentsState, maxContentSizeReached } =
 		useSharedPluginStateWithSelector(
@@ -328,7 +332,11 @@ export const CommentEditorWithIntl: {
 										isScrollable={maxHeight ? true : undefined}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 										className={classnames('ak-editor-content-area', {
-											'less-margin': width < akEditorMobileBreakoutPoint,
+											'less-margin':
+												!(
+													fg('platform_editor_comment_margin_cq') ||
+													isExperimentEnabled('work_item_modernization')
+												) && width < akEditorMobileBreakoutPoint,
 										})}
 										featureFlags={featureFlags}
 										viewMode={editorViewMode}

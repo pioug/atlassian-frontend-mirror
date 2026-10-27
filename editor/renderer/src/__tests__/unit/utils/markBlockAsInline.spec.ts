@@ -35,7 +35,6 @@ describe('Custom UI inline-bodied paragraph composition', () => {
 
 	it('does not join neighbours of nested Custom UI macros', () => {
 		passGate('platform_forge_inline_bodied_layout_switch');
-		passGate('platform_forge_inline_bodied_macro');
 		const onMark = jest.fn();
 		const shouldDisplayExtensionAsInline = jest.fn().mockReturnValue(true);
 		markBlockAsInline({

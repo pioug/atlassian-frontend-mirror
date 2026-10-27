@@ -49,8 +49,7 @@
 		"react-dom": "^19.0.0",
 		"react-virtualized": "root:*",
 		"react-window": "root:*",
-		"stylelint": "root:*",
-		"wait-for-expect": "root:*"
+		"stylelint": "root:*"
 	},
 	"sideEffects": [
 		"*.compiled.css"

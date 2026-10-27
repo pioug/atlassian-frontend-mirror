@@ -23,8 +23,7 @@
 		"@testing-library/react": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "root:*",
-		"tiny-invariant": "root:*",
-		"wait-for-expect": "root:*"
+		"tiny-invariant": "root:*"
 	},
 	"sideEffects": [
 		"**/*.compiled.css"

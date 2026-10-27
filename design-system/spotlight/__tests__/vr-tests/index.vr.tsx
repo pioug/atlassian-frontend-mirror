@@ -17,7 +17,6 @@ snapshot(Card, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -39,7 +38,6 @@ snapshot(StepVariants, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -55,7 +53,6 @@ snapshot(NoMedia, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -71,7 +68,6 @@ snapshot(AllPlacements, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -87,7 +83,6 @@ snapshot(OverlayingUI, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -103,7 +98,6 @@ snapshot(FullWidthTarget, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -118,7 +112,6 @@ snapshot(Offset, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -133,7 +126,6 @@ snapshot(Links, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -148,7 +140,6 @@ snapshot(OnModal, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{
@@ -163,7 +154,6 @@ snapshot(Reflow, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-dst-top-layer-spotlight': true,
-		platform_spotlight_card_fit_content_anchor: true,
 	},
 	variants: [
 		{

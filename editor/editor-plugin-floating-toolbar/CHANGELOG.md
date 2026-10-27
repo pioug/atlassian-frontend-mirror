@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 32.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Minor Changes
+
+- [`69a94a43a77b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69a94a43a77b2) -
+  Add a `focusOutsideEditor` user intent that consumers can use to suppress editor toolbars and
+  selection markers while focus is on a related surface outside ProseMirror.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.5
 
 ### Patch Changes

@@ -1,8 +1,5 @@
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
-import {
-	breakoutResizableNodes as breakoutResizableNodesNew,
-	getBreakoutResizableNodes,
-} from '@atlaskit/editor-common/utils';
+import { breakoutResizableNodes, getBreakoutResizableNodes } from '@atlaskit/editor-common/utils';
 import {
 	akEditorUnitZIndex,
 	akRichMediaResizeZIndex,
@@ -83,8 +80,8 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string): number
 			'isEnabled',
 			true,
 		)
-			? [...breakoutResizableNodesNew, 'rule', 'panel']
-			: breakoutResizableNodesNew;
+			? [...breakoutResizableNodes, 'rule', 'panel']
+			: breakoutResizableNodes;
 	}
 
 	if (breakoutResizableNodesList.includes(nodeType)) {
@@ -116,8 +113,8 @@ export const rootElementGap = (nodeType: string): number => {
 			'isEnabled',
 			true,
 		)
-			? [...breakoutResizableNodesNew, 'rule', 'panel']
-			: breakoutResizableNodesNew;
+			? [...breakoutResizableNodes, 'rule', 'panel']
+			: breakoutResizableNodes;
 	}
 
 	if (nodeTypeExcludeList.includes(nodeType) || breakoutResizableNodesList.includes(nodeType)) {

@@ -44,8 +44,7 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-redux": "root:*",
-		"redux": "root:*",
-		"wait-for-expect": "root:*"
+		"redux": "root:*"
 	},
 	"exports": {
 		".": "./src/index.js",

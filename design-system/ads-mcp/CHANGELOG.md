@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.11.6
+
+### Patch Changes
+
+- [`c149c3839b565`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c149c3839b565) -
+  Add EntryPoint migration guidance to the ADS MCP registry.
+
 ## 1.11.5
 
 ### Patch Changes

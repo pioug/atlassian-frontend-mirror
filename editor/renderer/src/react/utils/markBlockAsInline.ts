@@ -26,8 +26,7 @@ export function markBlockAsInline({
 			node?.type.name === 'bodiedExtension' &&
 			node.attrs?.extensionType === 'com.atlassian.ecosystem' &&
 			node.attrs?.parameters?.layout === 'inline-bodied' &&
-			fg('platform_forge_inline_bodied_layout_switch') &&
-			fg('platform_forge_inline_bodied_macro')
+			fg('platform_forge_inline_bodied_layout_switch')
 		) {
 			return false;
 		}

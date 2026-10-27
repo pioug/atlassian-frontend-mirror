@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 28.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- [`7e91f3141329d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e91f3141329d) -
+  Decouple Quick Insert menu rendering and interaction from typeahead under the existing
+  `platform_editor_slash_command` experiment.
+- Updated dependencies
+
 ## 27.0.9
 
 ### Patch Changes

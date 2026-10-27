@@ -2,12 +2,38 @@ import type { DesignTokenStyles } from '../../entry-points/css-type-schema.codeg
 import type { AttributeSchema, ValueSchema } from '../../types';
 
 describe('schema types', () => {
-	it('limits inset tokens to uniform padding', () => {
+	it.each([
+		'xxsmall',
+		'xsmall',
+		'small',
+		'medium',
+		'large',
+		'xlarge',
+		'xxlarge',
+		'3xlarge',
+	] as const)('allows %s inset tokens for all padding properties', (size) => {
+		const inset = `var(--ds-space-inset-${size})` as const;
+		const styles: Partial<DesignTokenStyles> = {
+			padding: inset,
+			paddingBlock: inset,
+			paddingBlockEnd: inset,
+			paddingBlockStart: inset,
+			paddingBottom: inset,
+			paddingInline: inset,
+			paddingInlineEnd: inset,
+			paddingInlineStart: inset,
+			paddingLeft: inset,
+			paddingRight: inset,
+			paddingTop: inset,
+		};
+
+		expect(Object.values(styles)).toEqual(Array(11).fill(inset));
+	});
+
+	it('limits inset tokens to padding', () => {
 		const inset = 'var(--ds-space-inset-medium)' as const;
 		const styles: Partial<DesignTokenStyles> = {
 			padding: inset,
-			// @ts-expect-error Inset tokens must not be used for directional padding.
-			paddingInline: inset,
 			// @ts-expect-error Inset tokens must not be used for gaps.
 			gap: inset,
 			// @ts-expect-error Inset tokens must not be used for margin.

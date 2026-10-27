@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.1
+
+### Patch Changes
+
+- [`f2e219b3ca00d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2e219b3ca00d) -
+  Rank slash command search results with matcher priority groups while retaining the current
+  ordering for items without a group. Recommended results for audited search terms, including Jira,
+  receive fixed scores in group 0 under platform_editor_slash_command. The Element Browser applies
+  the same priority groups to its search results. Menu item matchers now require the item's key in
+  their context; callers must pass the registration key.
+- Updated dependencies
+
+## 30.0.0
+
+### Minor Changes
+
+- [`7e91f3141329d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e91f3141329d) -
+  Decouple Quick Insert menu rendering and interaction from typeahead under the existing
+  `platform_editor_slash_command` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.4
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import type Fuse from 'fuse.js';
 import type { IntlShape } from 'react-intl';
 
 import type { QuickInsertItem, QuickInsertProvider } from '../provider-factory';
-import type { RegisteredItemRankResolver } from '../type-ahead/item-rank';
+import type { RegisteredItemRankResolver } from '../registered-menu/item-rank';
 import type { EmptyStateHandler } from './empty-state-handler';
 
 export type QuickInsertOptions =

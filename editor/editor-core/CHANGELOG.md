@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 241.0.2
+
+### Patch Changes
+
+- [`d4520ef6ca372`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4520ef6ca372) -
+  Fix the comment editor text jumping 4px left right after it opens. The narrow-width margin comes
+  from a CSS container query instead of the `less-margin` class set after the width is measured,
+  when `platform_editor_comment_margin_cq` or the `work_item_modernization` experiment is on.
+- [`ea9ea48be9c3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea9ea48be9c3e) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
+## 241.0.1
+
+### Patch Changes
+
+- [`7f1515ac2bdee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f1515ac2bdee) -
+  Scope hidden native selection highlighting to selected nodes, preserved blocks, and table cells
+  behind platform_editor_improve_inp.
+- Updated dependencies
+
+## 241.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 240.1.1
 
 ### Patch Changes

@@ -24,6 +24,11 @@ var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
  */
 
 /**
+ * Optional line-height multipliers for individual heading sizes, applied on top of font, heading
+ * and global line-height scales without changing font sizes. Each defaults to `1`.
+ */
+
+/**
  * The variable contract for custom themes that support runtime overrides.
  *
  * Add a theme here when it is introduced. Its theme dimensions and required override values are

@@ -97,8 +97,7 @@
 		"identity-obj-proxy": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_media_picker_upload_batching": {

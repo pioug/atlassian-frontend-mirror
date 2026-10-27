@@ -10,6 +10,9 @@ import { getProduct, getSubProduct, isGCPtenant } from './helpers/utils';
 import { Provider } from './provider';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
 
+/**
+ * Creates the Socket.IO client for collab editing or presence, with the transports for that connection case.
+ */
 export function createSocketIOSocket(
 	url: string,
 	auth?: AuthCallback | InitAndAuthData,
@@ -104,11 +107,20 @@ export const WEBSOCKET_CONNECT_TIMEOUT_MS = 8000;
  * drop every frame, and then no error fires. Switch to polling-first when WebSocket does not connect in time,
  * or fails at the transport level. A server rejection (error with `data`) proves WebSocket works, so it never
  * triggers the fallback. Once switched, all reconnects of this socket use polling-first.
+ *
+ * With `platform_editor_presence_ws_restore_after_upgrade`, the fallback is no longer sticky and errors no longer
+ * trigger it. Errors that reach `connect_error` mean polling failed too (network down), or WebSocket already opened.
+ * Once WebSocket carries data, on open or after an upgrade from polling, go back to WebSocket-first.
  */
 function addPollingFallback(client: Socket, url: string, analyticsHelper?: AnalyticsHelper) {
 	let timer: ReturnType<typeof setTimeout> | undefined;
 	let webSocketWorks = false;
 	const isWebSocketFirst = () => !webSocketWorks && client.io.opts.transports?.[0] === 'websocket';
+	const markWebSocketWorks = () => {
+		webSocketWorks = true;
+		client.io.opts.transports = ['websocket', 'polling'];
+		client.io.opts.tryAllTransports = true;
+	};
 
 	const fallbackToPolling = (reason: string) => {
 		clearTimeout(timer);
@@ -135,6 +147,24 @@ function addPollingFallback(client: Socket, url: string, analyticsHelper?: Analy
 
 	startTimer();
 	client.io.on('reconnect_attempt', startTimer);
+
+	if (fg('platform_editor_presence_ws_restore_after_upgrade')) {
+		// The engine opens when the server handshake arrives, so the auth token fetch is not timed
+		client.io.on('open', () => {
+			clearTimeout(timer);
+			const { engine } = client.io;
+			if (engine.transport.name === 'websocket') {
+				markWebSocketWorks();
+			} else {
+				engine.once(
+					'upgrade',
+					(transport) => transport.name === 'websocket' && markWebSocketWorks(),
+				);
+			}
+		});
+		return;
+	}
+
 	client.on('connect', () => {
 		clearTimeout(timer);
 		webSocketWorks ||= client.io.engine.transport.name === 'websocket';
@@ -149,6 +179,9 @@ function addPollingFallback(client: Socket, url: string, analyticsHelper?: Analy
 	});
 }
 
+/**
+ * Creates a collab provider that connects with Socket.IO.
+ */
 export function createSocketIOCollabProvider(config: Omit<Config, 'createSocket'>): Provider {
 	return new Provider({ ...config, createSocket: createSocketIOSocket });
 }

@@ -39,8 +39,7 @@
 		"util": "root:*"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "workspace:^",
-		"wait-for-expect": "root:*"
+		"@atlaskit/docs": "workspace:^"
 	},
 	"platform-feature-flags": {
 		"enable-jql-membersof-autocomplete": {

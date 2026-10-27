@@ -74,6 +74,11 @@ const akEditorBreakpointForSmallDevice = `1266px`;
 const akEditorGutterPaddingReduced = 24;
 const akEditorFullPageNarrowBreakout = 600;
 const akEditorUltraWideLayoutWidth = 4000;
+// Matches the legacy comment `less-margin` check: WidthProvider width (the editor's border box)
+// below akEditorMobileBreakoutPoint (720). This content area's content box is that width minus
+// the 2 x 1px editor border and 2 x 20px padding.
+const akEditorCommentLessMarginBreakout = 720 - 2 - 40;
+const commentLessMarginContainerQuery = `@container (width < ${akEditorCommentLessMarginBreakout}px)`;
 // Layout responsiveness breakpoints — chosen to align editor layout responsiveness with the renderer.
 // Applied to the editor-area container query (max-width) for layout sections.
 const akEditorLayoutFullWidthBreakpoint = 724;
@@ -1235,6 +1240,19 @@ const editorContentStyles = cssMapScoped({
 		paddingRight: token('space.250'),
 		paddingBottom: token('space.250'),
 		paddingLeft: token('space.250'),
+	},
+	// Replaces the JS-driven `less-margin` class so the margin is right on first paint.
+	commentLessMarginStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[commentLessMarginContainerQuery]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'.ProseMirror': {
+				marginTop: token('space.150'),
+				marginRight: token('space.100'),
+				marginBottom: token('space.100'),
+				marginLeft: token('space.100'),
+			},
+		},
 	},
 	// Establishes a container-query context on the content area for non-full-page
 	// appearances so `cqw`-based content sizing (native embeds, media) resolves against the
@@ -2915,6 +2933,21 @@ const editorContentStyles = cssMapScoped({
 				background: 'transparent',
 			},
 		},
+	},
+	scopedHideSelectionStyles: {
+		// Keep highlight invalidation within selected subtrees instead of depending on
+		// ProseMirror-hideselection on the editor root. Include the node itself for
+		// inline/leaf node views, and selectedCell for CellSelection's DOM range.
+		// ak-editor-selected-node also covers preserved block selections.
+		'.ProseMirror .ProseMirror-selectednode, .ProseMirror .ak-editor-selected-node, .ProseMirror .selectedCell':
+			{
+				'&::selection, & *::selection': {
+					background: 'transparent',
+				},
+				'&::-moz-selection, & *::-moz-selection': {
+					background: 'transparent',
+				},
+			},
 	},
 	hyperLinkFloatingToolbarStyles: {
 		'.hyperlink-floating-toolbar': {
@@ -8494,7 +8527,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
 					editorContentStyles.extensionScrollInlineShadowStyles,
 				editorContentStyles.InlineNodeViewSharedStyles,
-				editorContentStyles.hideSelectionStyles,
+				isExperimentEnabled('platform_editor_improve_inp')
+					? editorContentStyles.scopedHideSelectionStyles
+					: editorContentStyles.hideSelectionStyles,
 				editorContentStyles.hideCursorWhenHideSelectionStyles,
 				editorContentStyles.selectedNodeStyles,
 				editorContentStyles.cursorStyles,
@@ -8716,6 +8751,10 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				isComment && editorContentStyles.commentEditorStyles,
 				isComment && editorContentStyles.tableCommentEditorStyles,
 				(isComment || isChromeless) && editorContentStyles.nonFullPageContainerTypeStyles,
+				isComment &&
+					(fg('platform_editor_comment_margin_cq') ||
+						isExperimentEnabled('work_item_modernization')) &&
+					editorContentStyles.commentLessMarginStyles,
 				isFullPage && editorContentStyles.fullPageEditorStyles,
 				isFullPage && editorContentStyles.scrollbarStyles,
 				editorContentStyles.firstCodeBlockWithNoMargin,

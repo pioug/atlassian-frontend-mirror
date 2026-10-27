@@ -3,7 +3,6 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { bind } from 'bind-event-listener';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export interface ElementBoundingBox {
 	height: number;
@@ -37,15 +36,11 @@ const useResizeAwareElementBox = (element: HTMLElement, updateMethod: ResizeUpda
 
 	useLayoutEffect(() => {
 		if (updateMethod === 'resizeListener') {
-			if (fg('scroll-lock-replacement')) {
-				// use setTimeout 0 to defer the state update to avoid content shifting when pages have scrollbars
-				// more details are https://www.loom.com/share/96a5d7c2afd74146a3c005bf20a8c69e?sid=968b00c1-e5ab-4ea0-9fe4-e534fe7088e4
-				setTimeout(() => {
-					setBox(getElementRect(element));
-				}, 0);
-			} else {
+			// use setTimeout 0 to defer the state update to avoid content shifting when pages have scrollbars
+			// more details are https://www.loom.com/share/96a5d7c2afd74146a3c005bf20a8c69e?sid=968b00c1-e5ab-4ea0-9fe4-e534fe7088e4
+			setTimeout(() => {
 				setBox(getElementRect(element));
-			}
+			}, 0);
 		}
 	}, [element, updateMethod]);
 
@@ -81,23 +76,15 @@ const usePollingElementBox = (element: HTMLElement, updateMethod: ResizeUpdateMe
 
 	useLayoutEffect(() => {
 		if (updateMethod === 'polling') {
-			if (fg('scroll-lock-replacement')) {
-				// use setTimeout 0 to defer the state update to avoid content shifting when pages have scrollbars
-				// more details are https://www.loom.com/share/96a5d7c2afd74146a3c005bf20a8c69e?sid=968b00c1-e5ab-4ea0-9fe4-e534fe7088e4
-				setTimeout(() => {
-					const newBox = getElementRect(element);
-					setWidth(newBox.width);
-					setHeight(newBox.height);
-					setLeft(newBox.left);
-					setTop(newBox.top);
-				}, 0);
-			} else {
+			// use setTimeout 0 to defer the state update to avoid content shifting when pages have scrollbars
+			// more details are https://www.loom.com/share/96a5d7c2afd74146a3c005bf20a8c69e?sid=968b00c1-e5ab-4ea0-9fe4-e534fe7088e4
+			setTimeout(() => {
 				const newBox = getElementRect(element);
 				setWidth(newBox.width);
 				setHeight(newBox.height);
 				setLeft(newBox.left);
 				setTop(newBox.top);
-			}
+			}, 0);
 		}
 	}, [element, updateMethod]);
 

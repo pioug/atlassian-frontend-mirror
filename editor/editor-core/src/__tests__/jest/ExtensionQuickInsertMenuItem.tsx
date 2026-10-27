@@ -47,7 +47,6 @@ describe('ExtensionQuickInsertMenuItem', () => {
 						isOffline: false,
 						item: { id: item.key, isSelected: false },
 						select,
-						surface: 'typeahead',
 					}}
 				>
 					<ExtensionQuickInsertMenuItem
@@ -99,7 +98,6 @@ describe('ExtensionQuickInsertMenuItem', () => {
 						isOffline: false,
 						item: { id: asyncItem.key, isSelected: false },
 						select,
-						surface: 'typeahead',
 					}}
 				>
 					<ExtensionQuickInsertMenuItem
@@ -141,7 +139,6 @@ describe('ExtensionQuickInsertMenuItem', () => {
 						isOffline: false,
 						item: { id: key, isSelected: false },
 						select: jest.fn(),
-						surface: 'typeahead',
 					}}
 				>
 					<ExtensionQuickInsertMenuItem

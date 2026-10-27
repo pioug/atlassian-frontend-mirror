@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "30.0.4",
+	"version": "31.0.1",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,8 +58,7 @@
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_editor_paste_actions_menu_exposure": {

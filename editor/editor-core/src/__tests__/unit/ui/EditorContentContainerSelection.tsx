@@ -81,7 +81,6 @@ describe('selected-node highlight inheritance', () => {
 		mockExpEnabled('platform_editor_improve_inp');
 		mockGetBrowserInfo.mockReturnValue(browser);
 		renderContainer();
-		expect(wasExperimentExposed('platform_editor_improve_inp')).toBe(false);
 
 		expect(getActiveSelectedNodeSelectors()).toEqual(
 			expect.arrayContaining([expect.stringMatching(/\s+(?:\*)?::selection/u)]),

@@ -54,14 +54,20 @@ describe('getThemeAndOverrides', () => {
 				overrides: {
 					dynamicFontFamily: 'Georgia, serif',
 					dynamicFontScale: 1,
+					dynamicFontLineHeightScale: 1.2,
 					dynamicFontHeadingXxlargeScale: 1.6,
 					dynamicFontHeadingXlargeScale: undefined,
+					dynamicFontHeadingXxlargeLineHeightScale: 0.9,
+					dynamicFontHeadingXlargeLineHeightScale: undefined,
 				},
 			},
 		});
 
 		expect(inlineStyles).toContain('--ds-dynamic-font-heading-xxlarge-scale: 1.6;');
+		expect(inlineStyles).toContain('--ds-dynamic-font-line-height-scale: 1.2;');
+		expect(inlineStyles).toContain('--ds-dynamic-font-heading-xxlarge-line-height-scale: 0.9;');
 		expect(inlineStyles).not.toContain('--ds-dynamic-font-heading-xlarge-scale');
+		expect(inlineStyles).not.toContain('--ds-dynamic-font-heading-xlarge-line-height-scale');
 		expect(inlineStyles).not.toContain('undefined');
 	});
 
@@ -78,6 +84,7 @@ describe('getThemeAndOverrides', () => {
 		expect(inlineStyles).not.toContain('data-color-mode');
 		expect(inlineStyles).toContain('--ds-dynamic-font-family: Georgia, serif;');
 		expect(inlineStyles).toContain('--ds-dynamic-font-scale: 1.25;');
+		expect(inlineStyles).not.toContain('-line-height-scale');
 	});
 
 	it('serializes boolean custom inputs as numeric CSS switches', () => {

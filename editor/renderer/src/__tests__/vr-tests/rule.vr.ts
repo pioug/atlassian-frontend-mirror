@@ -1,8 +1,18 @@
 import { snapshot } from '@af/visual-regression';
 
-import { BreakoutRuleRenderer, RuleRenderer } from './rule.fixture.vr.ap';
+import {
+	BreakoutRuleRenderer,
+	RuleRenderer,
+	RulesWithAttributesRenderer,
+} from './rule.fixture.vr.ap';
 
 snapshot(RuleRenderer);
+
+snapshot(RulesWithAttributesRenderer, {
+	featureFlags: {
+		platform_editor_lovability_dividers_attributes: [true, false],
+	},
+});
 
 snapshot(BreakoutRuleRenderer, {
 	featureFlags: {

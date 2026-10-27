@@ -22,7 +22,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./rovo-agent-selector": "./src/entry-points/rovo-agent-selector.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./types": "./src/entry-points/types.tsx",
+		"./hubs-management-rovo-agent-creation-fix.relayprovider": "./src/ui/rovo-agent-selector/hubs-management-rovo-agent-creation-fix.relayprovider.ts"
 	},
 	"dependencies": {
 		"@atlaskit/avatar": "workspace:^",
@@ -55,7 +56,7 @@
 		"relay-test-utils": "root:*"
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "3.2.1",
+	"version": "3.3.0",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -63,6 +64,10 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"platform-feature-flags": {
+		"hubs_management_rovo_agent_creation_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"jsm_help_center_one-click_rovo_agent": {
 			"type": "boolean"
 		},

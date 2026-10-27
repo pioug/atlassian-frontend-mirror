@@ -13,10 +13,14 @@ export const FormContext: React.Context<{
 	registerField: RegisterField;
 	getCurrentValue: GetCurrentValue;
 	subscribe: FormApi['subscribe'];
+	errorMessageLabel?: string;
+	validMessageLabel?: string;
 }> = createContext<{
 	registerField: RegisterField;
 	getCurrentValue: GetCurrentValue;
 	subscribe: FormApi['subscribe'];
+	errorMessageLabel?: string;
+	validMessageLabel?: string;
 }>({
 	registerField: function () {
 		return () => {};

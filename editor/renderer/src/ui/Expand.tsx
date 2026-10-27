@@ -28,6 +28,7 @@ import {
 } from '@atlaskit/editor-shared-styles/constants';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -43,6 +44,8 @@ type StyleProps = {
 	'data-title'?: string;
 	expanded?: boolean;
 	focused?: boolean;
+	/** Keeps a top-level expand inside the content width instead of pulling it into the gutter. */
+	useStandardWidth?: boolean;
 };
 
 type ContainerProps = StyleProps & {
@@ -209,7 +212,9 @@ const Container = (props: ContainerProps) => {
 		<div
 			css={[
 				containerStyles,
-				props['data-node-type'] === 'expand' && containerStylesDataNodeTypeExpand,
+				props['data-node-type'] === 'expand' &&
+					!props.useStandardWidth &&
+					containerStylesDataNodeTypeExpand,
 				props.expanded && containerStylesExpanded,
 				props.focused && containerStylesFocused,
 			]}
@@ -318,6 +323,7 @@ function Expand({
 	fireAnalyticsEvent,
 	localId,
 	nestedHeaderIds,
+	rendererAppearance,
 	rendererContentMode,
 	node,
 }: ExpandProps & WrappedComponentProps) {
@@ -479,6 +485,12 @@ function Expand({
 			data-local-id={localId}
 			expanded={expanded}
 			focused={focused}
+			// Comment surfaces (Jira description and comments) have no gutter for the expand to sit in.
+			useStandardWidth={
+				(fg('platform_editor_expand_standard_width_fix') ||
+					isExperimentEnabled('work_item_modernization')) &&
+				rendererAppearance === 'comment'
+			}
 		>
 			{nestedHeaderIds && nestedHeaderIds.length > 0 ? (
 				<ActiveHeaderIdConsumer

@@ -8,11 +8,11 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { copyDomNodeWithResult, toDOM } from '@atlaskit/editor-common/copy-button';
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { getSourceNodesFromSelectionRange } from '@atlaskit/editor-common/selection/utils';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import {
 	type Schema,
 	DOMSerializer,
@@ -57,7 +57,7 @@ type createSyncedBlockProps = {
 	inputMethod?: INPUT_METHOD;
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
-	typeAheadInsert?: TypeAheadInsert;
+	typeAheadInsert?: InsertContentCallback;
 };
 
 /**

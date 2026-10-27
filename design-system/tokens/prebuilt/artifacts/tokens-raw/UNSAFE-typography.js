@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ea3011426286d33e105e683bbd3e9abb>>
+ * @codegen <<SignedSource::a5de94ea768cbf5e5645d21cf836a146>>
  * @codegenCommand yarn build tokens
  */
 
 var tokens = [{
-  "value": "normal 653 calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1))/calc(2.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1))/calc(2.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -24,7 +24,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1))",
-      "lineHeight": "calc(2.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1))",
+      "lineHeight": "calc(2.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xxlarge-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -40,7 +40,7 @@ var tokens = [{
   "path": ["font", "heading", "xxlarge"],
   "cleanName": "font.heading.xxlarge"
 }, {
-  "value": "normal 653 calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1))/calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1))/calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xlarge-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -53,7 +53,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1))",
-      "lineHeight": "calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1))",
+      "lineHeight": "calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xlarge-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xlarge-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -69,7 +69,7 @@ var tokens = [{
   "path": ["font", "heading", "xlarge"],
   "cleanName": "font.heading.xlarge"
 }, {
-  "value": "normal 653 calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1))/calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1))/calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-large-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -82,7 +82,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1))",
-      "lineHeight": "calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1))",
+      "lineHeight": "calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-large-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-large-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -98,7 +98,7 @@ var tokens = [{
   "path": ["font", "heading", "large"],
   "cleanName": "font.heading.large"
 }, {
-  "value": "normal 653 calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1))/calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1))/calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-medium-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -111,7 +111,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1))",
-      "lineHeight": "calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1))",
+      "lineHeight": "calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-medium-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-medium-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -127,7 +127,7 @@ var tokens = [{
   "path": ["font", "heading", "medium"],
   "cleanName": "font.heading.medium"
 }, {
-  "value": "normal 653 calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-small-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -140,7 +140,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1))",
-      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1))",
+      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-small-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-small-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -156,7 +156,7 @@ var tokens = [{
   "path": ["font", "heading", "small"],
   "cleanName": "font.heading.small"
 }, {
-  "value": "normal 653 calc(0.875rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(0.875rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xsmall-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -169,7 +169,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(0.875rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1))",
-      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1))",
+      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xsmall-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xsmall-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -185,7 +185,7 @@ var tokens = [{
   "path": ["font", "heading", "xsmall"],
   "cleanName": "font.heading.xsmall"
 }, {
-  "value": "normal 653 calc(0.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1))/calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(0.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1))/calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -198,7 +198,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(0.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1))",
-      "lineHeight": "calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1))",
+      "lineHeight": "calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1) * var(--ds-dynamic-font-heading-xxsmall-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -214,7 +214,7 @@ var tokens = [{
   "path": ["font", "heading", "xxsmall"],
   "cleanName": "font.heading.xxsmall"
 }, {
-  "value": "normal 400 calc(1rem * var(--ds-dynamic-font-scale, 1))/calc(1.5rem * var(--ds-dynamic-font-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 400 calc(1rem * var(--ds-dynamic-font-scale, 1))/calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -227,7 +227,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "calc(1rem * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(1.5rem * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(1.5rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -243,7 +243,7 @@ var tokens = [{
   "path": ["font", "body", "large"],
   "cleanName": "font.body.large"
 }, {
-  "value": "normal 400 calc(0.875rem * var(--ds-dynamic-font-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 400 calc(0.875rem * var(--ds-dynamic-font-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -256,7 +256,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "calc(0.875rem * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -272,7 +272,7 @@ var tokens = [{
   "path": ["font", "body", "[default]"],
   "cleanName": "font.body"
 }, {
-  "value": "normal 400 calc(0.75rem * var(--ds-dynamic-font-scale, 1))/calc(1rem * var(--ds-dynamic-font-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 400 calc(0.75rem * var(--ds-dynamic-font-scale, 1))/calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -285,7 +285,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "calc(0.75rem * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(1rem * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(1rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -301,7 +301,7 @@ var tokens = [{
   "path": ["font", "body", "small"],
   "cleanName": "font.body.small"
 }, {
-  "value": "normal 653 calc(1.75rem * var(--ds-dynamic-font-scale, 1))/calc(2rem * var(--ds-dynamic-font-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1.75rem * var(--ds-dynamic-font-scale, 1))/calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -314,7 +314,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1.75rem * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(2rem * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(2rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -330,7 +330,7 @@ var tokens = [{
   "path": ["font", "metric", "large"],
   "cleanName": "font.metric.large"
 }, {
-  "value": "normal 653 calc(1.5rem * var(--ds-dynamic-font-scale, 1))/calc(1.75rem * var(--ds-dynamic-font-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1.5rem * var(--ds-dynamic-font-scale, 1))/calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -343,7 +343,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1.5rem * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(1.75rem * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(1.75rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -359,7 +359,7 @@ var tokens = [{
   "path": ["font", "metric", "medium"],
   "cleanName": "font.metric.medium"
 }, {
-  "value": "normal 653 calc(1rem * var(--ds-dynamic-font-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
+  "value": "normal 653 calc(1rem * var(--ds-dynamic-font-scale, 1))/calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -372,7 +372,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight653",
       "fontSize": "calc(1rem * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(1.25rem * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "var(--ds-dynamic-font-family, \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif)",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -388,7 +388,7 @@ var tokens = [{
   "path": ["font", "metric", "small"],
   "cleanName": "font.metric.small"
 }, {
-  "value": "normal 400 calc(0.875em * var(--ds-dynamic-font-scale, 1))/calc(1 * var(--ds-dynamic-font-scale, 1)) \"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+  "value": "normal 400 calc(0.875em * var(--ds-dynamic-font-scale, 1))/calc(1 * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1)) \"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
   "filePath": "schema/themes/atlassian-typography/theme.tsx",
   "isSource": false,
   "attributes": {
@@ -401,7 +401,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "calc(0.875em * var(--ds-dynamic-font-scale, 1))",
-      "lineHeight": "calc(1 * var(--ds-dynamic-font-scale, 1))",
+      "lineHeight": "calc(1 * var(--ds-dynamic-font-scale, 1) * var(--ds-dynamic-font-line-height-scale, 1))",
       "fontFamily": "FontFamilyWebMonoRefreshed",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"

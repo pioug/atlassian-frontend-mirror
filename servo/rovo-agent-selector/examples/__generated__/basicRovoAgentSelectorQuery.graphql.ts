@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<d80305263b1eea2538e0c499697b63bb>>
- * @relayHash e76334e11d3c6fda3fc6b7e1bd02c99a
+ * @generated SignedSource<<70a5b27aab2dfa0571e6cb3a15e06131>>
+ * @relayHash ceb1114c7aa6ea006d89620e7513d9c3
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID bdb482dadce98542de9b02f69c06b09090e68d1fb5cd62d3c168bc616fe8ee3d
+// @relayRequestID cac513f03736672df11898e6825227d424cc38166c4a0213ad91076d53a3d897
 
 import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -25,14 +25,19 @@ export type basicRovoAgentSelectorQuery = {
   variables: basicRovoAgentSelectorQuery$variables;
 };
 ({
+  "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider,
   "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
 } as {
+  readonly __relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider: {
+    readonly get: () => boolean;
+  };
   readonly __relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx: {
     readonly get: () => boolean;
   };
 });
 
 import migrateAgentAvatar_provider from '../../src/ui/rovo-agent-selector/migrate-agent-avatar-component-to-ads.relayprovider';
+import enableAgentCreationFix_provider from '@atlaskit/rovo-agent-selector/hubs-management-rovo-agent-creation-fix.relayprovider';
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -66,7 +71,25 @@ v2 = {
 v3 = {
   "kind": "ScalarField",
   "name": "__typename"
-};
+},
+v4 = [
+  {
+    "kind": "ScalarField",
+    "name": "name"
+  },
+  {
+    "kind": "ScalarField",
+    "name": "externalConfigReference"
+  },
+  {
+    "kind": "ScalarField",
+    "name": "identityAccountId"
+  },
+  {
+    "kind": "ScalarField",
+    "name": "creatorType"
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -93,6 +116,11 @@ return {
   "operation": {
     "argumentDefinitions": [
       (v0/*: any*/),
+      {
+        "defaultValue": null,
+        "kind": "LocalArgument",
+        "name": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider"
+      },
       {
         "defaultValue": null,
         "kind": "LocalArgument",
@@ -138,21 +166,12 @@ return {
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
-                    "kind": "ScalarField",
-                    "name": "name"
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "name": "externalConfigReference"
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "name": "identityAccountId"
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "name": "creatorType"
+                    "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
+                    "kind": "Condition",
+                    "passingValue": false,
+                    "selections": (v4/*: any*/)
                   },
                   {
                     "condition": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx",
@@ -174,7 +193,12 @@ return {
                       }
                     ]
                   },
-                  (v3/*: any*/)
+                  {
+                    "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
+                    "kind": "Condition",
+                    "passingValue": true,
+                    "selections": (v4/*: any*/)
+                  }
                 ]
               },
               {
@@ -199,12 +223,13 @@ return {
     ]
   },
   "params": {
-    "id": "bdb482dadce98542de9b02f69c06b09090e68d1fb5cd62d3c168bc616fe8ee3d",
+    "id": "cac513f03736672df11898e6825227d424cc38166c4a0213ad91076d53a3d897",
     "metadata": {},
     "name": "basicRovoAgentSelectorQuery",
     "operationKind": "query",
     "text": null,
     "providedVariables": {
+      "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider,
       "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
     }
   }

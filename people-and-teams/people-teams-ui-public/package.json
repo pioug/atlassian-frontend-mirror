@@ -64,7 +64,6 @@
 		"@testing-library/user-event": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	}
 }

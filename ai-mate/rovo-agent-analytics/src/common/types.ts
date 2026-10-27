@@ -11,6 +11,7 @@ import type { KnowledgeFiltersEventPayload } from '../actions/groups/knowledge-f
 import type { ModelPreferencesEventPayload } from '../actions/groups/model-preferences';
 import type { SubagentInteractionsEventPayload } from '../actions/groups/subagent-interactions';
 import type { ToolsEventPayload } from '../actions/groups/tools';
+import type { TriggerEventPayload } from '../actions/groups/triggers';
 import type { ValueCalculatorEventPayload } from '../actions/groups/value-calculator';
 
 export type RemainingRequired<T, P extends Partial<T>> = Required<Omit<T, keyof P>>;
@@ -89,6 +90,7 @@ export type EventPayload =
 	| SubagentInteractionsEventPayload
 	| DebugEventPayload
 	| ToolsEventPayload
+	| TriggerEventPayload
 	| EvaluationEventPayload
 	| InsightsEventPayload
 	| ValueCalculatorEventPayload

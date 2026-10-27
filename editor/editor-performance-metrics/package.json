@@ -56,8 +56,7 @@
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"wait-for-expect": "root:*"
+		"react-dom": "^19.2.0"
 	},
 	"scripts": {
 		"build-and-copy-page-score": "npx esbuild ./src/page-complexity-score/index.ts --bundle --platform=neutral --target=es2022 --format=iife --global-name=pageTreeScore | pbcopy"

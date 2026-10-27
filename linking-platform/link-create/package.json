@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "6.15.0",
+	"version": "6.16.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -109,8 +109,7 @@
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"scripts": {
 		"codegen-analytics": "ts-analytics-codegen --command='afm workspace @atlaskit/link-create codegen-analytics'"

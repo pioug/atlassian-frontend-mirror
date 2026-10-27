@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "29.0.4",
+	"version": "30.0.1",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,25 @@
 		".": "./src/index.ts",
 		"./quick-insert-plugin": "./src/entry-points/quick-insert-plugin.tsx",
 		"./registry-element-browser": "./src/entry-points/registry-element-browser.tsx",
-		"./quick-insert-plugin-type": "./src/entry-points/quick-insert-plugin-type.ts"
+		"./quick-insert-plugin-type": "./src/entry-points/quick-insert-plugin-type.ts",
+		"./__internal/registered-menu/root": {
+			"publish": null,
+			"default": "./src/ui/registered-menu/QuickInsertMenuRoot.tsx"
+		},
+		"./__internal/registered-menu/menu-section": {
+			"publish": null,
+			"default": "./src/ui/registered-menu/QuickInsertMenuSection.tsx"
+		},
+		"./__internal/registered-menu/empty-state": {
+			"publish": null,
+			"default": "./src/ui/registered-menu/QuickInsertEmptyState.tsx"
+		},
+		"./__internal/registered-menu/typeahead-menu": {
+			"publish": null,
+			"default": "./src/ui/registered-menu/TypeAheadQuickInsertMenu.tsx"
+		},
+		"./registered-menu/model": "./src/ui/registered-menu/get-quick-insert-menu-model.ts",
+		"./registered-menu/search-analytics": "./src/ui/registered-menu/useQuickInsertSearchAnalytics.ts"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
@@ -42,10 +60,12 @@
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
 		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -56,7 +76,8 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
-		"@emotion/react": "root:*"
+		"@emotion/react": "root:*",
+		"react-loosely-lazy": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -69,8 +90,7 @@
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"platform-feature-flags": {
 		"platform_editor_ease_of_use_metrics": {

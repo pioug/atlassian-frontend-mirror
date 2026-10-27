@@ -19,7 +19,11 @@ import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createBlockChangedDecoration } from './createBlockChangedDecoration';
 import type { ContributorTagMountContext } from './createContributorTagWidget';
 import { createInlineChangedDecoration } from './createInlineChangedDecoration';
-import { buildAnchorDecorationKey, buildDiffDecorationSpec } from './decorationKeys';
+import {
+	buildAnchorDecorationKey,
+	buildDiffDecorationSpec,
+	scrollMarginTopValue,
+} from './decorationKeys';
 import {
 	isCellAttrChanged,
 	isCellBackgroundChanged,
@@ -242,6 +246,9 @@ const createCellContentWidgets = ({
 		'data-testid',
 		isInserted ? 'show-diff-changed-decoration' : 'show-diff-deleted-decoration',
 	);
+	if (fg('platform_editor_ai_show_diff_patch_2_fix')) {
+		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
+	}
 
 	const diffId = crypto.randomUUID();
 	if (showIndicators && fg('platform_editor_ai_show_diff_patch_2_fix')) {

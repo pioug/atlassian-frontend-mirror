@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
@@ -62,6 +62,7 @@ export const TeamContainers = ({
 	elemBeforeCards,
 	hideSubTextIcon,
 }: TeamContainerProps): React.JSX.Element => {
+	const intl = useIntl();
 	const { unlinkError } = useTeamContainers(teamId);
 	const {
 		teamLinks,
@@ -404,7 +405,17 @@ export const TeamContainers = ({
 				})()}
 				{filteredTeamLinks.length > maxNumberOfContainersToShow && (
 					<Inline>
-						<Button appearance="subtle" spacing="compact" onClick={handleShowMore}>
+						<Button
+							appearance="subtle"
+							spacing="compact"
+							onClick={handleShowMore}
+							{...(fg('teams_a11y_20261019') && {
+								// Provide descriptive accessible name for screen readers
+								'aria-label': showMore
+									? intl.formatMessage(messages.showLessAriaLabel)
+									: intl.formatMessage(messages.showMoreAriaLabel),
+							})}
+						>
 							{showMore ? (
 								<FormattedMessage {...messages.showLess} />
 							) : (
@@ -438,5 +449,15 @@ const messages = defineMessages({
 		id: 'ptc-directory.team-profile-page.team-containers.show-less',
 		defaultMessage: 'Show less',
 		description: 'Button to show less containers',
+	},
+	showMoreAriaLabel: {
+		id: 'ptc-directory.team-profile-page.team-containers.show-more-aria-label',
+		defaultMessage: 'Show more team links',
+		description: 'Accessible label for the button to show more team links',
+	},
+	showLessAriaLabel: {
+		id: 'ptc-directory.team-profile-page.team-containers.show-less-aria-label',
+		defaultMessage: 'Show less team links',
+		description: 'Accessible label for the button to show less team links',
 	},
 });

@@ -69,15 +69,14 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
-		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*",
-		"wait-for-expect": "root:*"
+		"react-dom": "root:*"
 	},
 	"platform-feature-flags": {
 		"media-perf-uplift-mutation-fix": {

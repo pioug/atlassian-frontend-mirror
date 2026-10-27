@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 31.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.0
+
+### Patch Changes
+
+- [`c135881c26871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c135881c26871) -
+  Clean up experiment `platform_editor_paste_as_md_use_gfm`
+- Updated dependencies
+
 ## 30.0.4
 
 ### Patch Changes

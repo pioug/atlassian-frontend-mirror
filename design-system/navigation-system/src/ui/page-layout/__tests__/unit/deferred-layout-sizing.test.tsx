@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
@@ -9,7 +9,7 @@ import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { waitFor } from '@atlassian/testing-library/wait-for';
 
-import type { LayoutArea } from '../../layout-area-sizing-context';
+import { LayoutAreaSizingContext, type LayoutArea } from '../../layout-area-sizing-context';
 import { LayoutAreaSizingProvider } from '../../layout-area-sizing-provider';
 import { useLayoutAreaSizing } from '../../use-layout-area-sizing';
 import { useLayoutMainSizing } from '../../use-layout-main-sizing';
@@ -224,6 +224,13 @@ it('keeps SSR content and CSS widths through hydration and deferred activation w
 			};
 		});
 	function Chat() {
+		const splitterRef = useRef<HTMLButtonElement>(null);
+		const registerSplitter = useContext(LayoutAreaSizingContext)?.registerSplitter;
+		useEffect(() => {
+			if (splitterRef.current) {
+				return registerSplitter?.(splitterRef.current);
+			}
+		}, [registerSplitter]);
 		const sizing = useLayoutAreaSizing({
 			area: 'chat-panel',
 			config: { defaultWidth: 400, minWidth: 320, isOpen: true },
@@ -239,7 +246,7 @@ it('keeps SSR content and CSS widths through hydration and deferred activation w
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={{ gridArea: 'chat-panel', width: sizing.state?.width ?? 360 }}
 			>
-				<button data-panel-splitter="" type="button">
+				<button ref={splitterRef} type="button">
 					Resize
 				</button>
 				{/* Native uncontrolled input deliberately detects remounts across activation. */}

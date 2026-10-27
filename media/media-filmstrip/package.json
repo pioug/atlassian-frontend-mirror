@@ -80,7 +80,6 @@
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
-		"rxjs": "root:*",
-		"wait-for-expect": "root:*"
+		"rxjs": "root:*"
 	}
 }

@@ -1,5 +1,25 @@
 # @atlaskit/collab-provider
 
+## 39.0.2
+
+### Patch Changes
+
+- [`1f937e76a1cea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f937e76a1cea) -
+  Presence goes back to WebSocket first after the upgrade from polling succeeds, and network errors
+  no longer trigger the polling fallback, behind `platform_editor_presence_ws_restore_after_upgrade`
+
+## 39.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.0.4
 
 ### Patch Changes

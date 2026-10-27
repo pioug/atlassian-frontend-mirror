@@ -109,6 +109,79 @@ describe('Messages', () => {
 			expect(screen.getByRole('img', { name: 'success' })).toBeInTheDocument();
 		});
 
+		it('uses an ErrorMessage iconLabel', () => {
+			render(<ErrorMessage {...props} iconLabel="Erreur" />);
+			expect(screen.getByRole('img', { name: 'Erreur' })).toBeInTheDocument();
+		});
+
+		it('uses a ValidMessage iconLabel', () => {
+			render(<ValidMessage {...props} iconLabel="Valide" />);
+			expect(screen.getByRole('img', { name: 'Valide' })).toBeInTheDocument();
+		});
+
+		it('uses message labels provided by Form', () => {
+			render(
+				<Form errorMessageLabel="Erreur" onSubmit={() => {}} validMessageLabel="Valide">
+					<ErrorMessage {...props} />
+					<ValidMessage {...props} />
+				</Form>,
+			);
+			expect(screen.getByRole('img', { name: 'Erreur' })).toBeInTheDocument();
+			expect(screen.getByRole('img', { name: 'Valide' })).toBeInTheDocument();
+		});
+
+		it('prefers a message iconLabel over the label provided by Form', () => {
+			render(
+				<Form errorMessageLabel="Erreur" onSubmit={() => {}}>
+					<ErrorMessage {...props} iconLabel="Custom error" />
+				</Form>,
+			);
+
+			expect(screen.getByRole('img', { name: 'Custom error' })).toBeInTheDocument();
+			expect(screen.queryByRole('img', { name: 'Erreur' })).not.toBeInTheDocument();
+		});
+
+		it('updates message labels when Form labels change', () => {
+			const { rerender } = render(
+				<Form errorMessageLabel="Erreur" onSubmit={() => {}}>
+					<ErrorMessage {...props} />
+				</Form>,
+			);
+
+			expect(screen.getByRole('img', { name: 'Erreur' })).toBeInTheDocument();
+
+			rerender(
+				<Form errorMessageLabel="Fehler" onSubmit={() => {}}>
+					<ErrorMessage {...props} />
+				</Form>,
+			);
+
+			expect(screen.getByRole('img', { name: 'Fehler' })).toBeInTheDocument();
+			expect(screen.queryByRole('img', { name: 'Erreur' })).not.toBeInTheDocument();
+		});
+
+		it('treats an empty message iconLabel as an explicit override', () => {
+			render(
+				<Form errorMessageLabel="Erreur" onSubmit={() => {}}>
+					<ErrorMessage {...props} iconLabel="" />
+				</Form>,
+			);
+
+			// An empty label makes the icon decorative, so it renders as hidden presentation rather than an image.
+			expect(screen.getByRole('presentation', { hidden: true })).toBeInTheDocument();
+			expect(screen.queryByRole('img', { hidden: true })).not.toBeInTheDocument();
+		});
+
+		it('uses message labels when the motion gate is enabled', () => {
+			passGate(inputMotionGate);
+			render(
+				<Form errorMessageLabel="Erreur" onSubmit={() => {}}>
+					<ErrorMessage {...props} />
+				</Form>,
+			);
+			expect(screen.getByRole('img', { name: 'Erreur' })).toBeInTheDocument();
+		});
+
 		it('HelperMessage should not render any icon', () => {
 			render(<HelperMessage {...props} />);
 			expect(screen.queryByRole('img', { name: 'error' })).not.toBeInTheDocument();

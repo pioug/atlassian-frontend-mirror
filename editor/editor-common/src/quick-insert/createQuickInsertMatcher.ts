@@ -3,6 +3,8 @@ import Fuse from 'fuse.js';
 import type { RegisterMenuItemMatch } from '@atlaskit/editor-ui-control-model/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import { getQuickInsertSearchPriority } from './getQuickInsertSearchPriority';
+
 type QuickInsertSearchData = {
 	description?: string;
 	keywords?: string[];
@@ -49,10 +51,15 @@ export const createQuickInsertMatcher: QuickInsertMatcherFactory = (
 	let cachedFormatMessage: FormatMessage | undefined;
 	let fuse: Fuse<QuickInsertSearchData> | undefined;
 
-	const matcher: QuickInsertMatcher = ({ formatMessage, query }) => {
+	const matcher: QuickInsertMatcher = ({ formatMessage, itemKey, query }) => {
 		const normalizedQuery = query.trim();
 		if (!normalizedQuery) {
 			return { score: 0 };
+		}
+
+		const priority = getQuickInsertSearchPriority({ itemKey, query });
+		if (priority) {
+			return priority;
 		}
 
 		if (!fuse || cachedFormatMessage !== formatMessage) {

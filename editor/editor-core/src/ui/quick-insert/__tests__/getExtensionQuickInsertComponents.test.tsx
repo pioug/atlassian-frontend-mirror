@@ -122,7 +122,13 @@ describe('getExtensionQuickInsertComponents', () => {
 		const formatMessage = (({ defaultMessage }: { defaultMessage?: string }) =>
 			defaultMessage ?? '') as never;
 
-		expect(components[0]?.match?.({ formatMessage, query: 'incident review' })).not.toBeNull();
+		expect(
+			components[0]?.match?.({
+				formatMessage,
+				itemKey: components[0].key,
+				query: 'incident review',
+			}),
+		).not.toBeNull();
 	});
 
 	it('forwards explicit preview metadata to the registered item component', () => {

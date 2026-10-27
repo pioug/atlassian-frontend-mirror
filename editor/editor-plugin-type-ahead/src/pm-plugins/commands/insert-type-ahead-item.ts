@@ -1,11 +1,7 @@
 import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
-import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type {
-	TypeAheadHandler,
-	TypeAheadInsert,
-	TypeAheadItem,
-} from '@atlaskit/editor-common/types/type-ahead';
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -23,7 +19,7 @@ const validateNode = ({
 	schema,
 	maybeNode,
 }: {
-	maybeNode: PMNode | Object | string | Fragment | undefined;
+	maybeNode: PMNode | object | string | Fragment | undefined;
 	schema: Schema;
 }): PMNode | Fragment | null => {
 	if (!maybeNode) {
@@ -64,7 +60,7 @@ const createInsertCallback =
 		selectedIndex,
 		textStartPosition,
 		textInserted,
-	}: CreateInsertCallbackProps): TypeAheadInsert =>
+	}: CreateInsertCallbackProps): InsertContentCallback =>
 	(maybeNode, opts = {}): Transaction => {
 		const { tr } = state;
 		const position = {
@@ -261,7 +257,7 @@ export const insertTypeAheadItem =
 type ExecuteSelectionProps = Omit<Props, 'item'> & {
 	selectItem: (
 		state: EditorState,
-		insert: TypeAheadInsert,
+		insert: InsertContentCallback,
 		meta: {
 			mode: SelectItemMode;
 			query: string;
@@ -354,25 +350,19 @@ const executeTypeAheadSelection =
 export const performTypeAheadSelection =
 	(view: EditorView) =>
 	({
-		inputMethod,
-		selectionHandler,
 		handler,
 		query,
+		selectItem,
 	}: {
 		handler: TypeAheadHandler;
-		inputMethod: Parameters<QuickInsertSelectionHandler>[0]['source'];
 		query: string;
-		selectionHandler: QuickInsertSelectionHandler;
+		selectItem: (insert: InsertContentCallback) => Transaction | false | void;
 	}): void => {
 		executeTypeAheadSelection(view)({
 			handler,
 			mode: SelectItemMode.SELECTED,
 			query,
 			sourceListItem: [],
-			selectItem: (_state, insert) =>
-				selectionHandler({
-					insert,
-					source: inputMethod,
-				}),
+			selectItem: (_state, insert) => selectItem(insert),
 		});
 	};

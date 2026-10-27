@@ -1,20 +1,35 @@
 import { defineMessages } from 'react-intl';
 
 export const modalMessages: {
-	updateObjectsButtonText: {
-		id: string;
-		description: string;
+	assetsConfigModalTitle: {
 		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	filterObjectsText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	insertIssuesButtonText: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	insertObjectsTitle: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	tablePreviewText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	updateObjectsButtonText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	updateObjectsButtonText: {
@@ -32,5 +47,20 @@ export const modalMessages: {
 		description:
 			'Title for the Assets Objects Datasource config modal which prefixes a select picker',
 		defaultMessage: 'Insert objects from',
+	},
+	assetsConfigModalTitle: {
+		id: 'linkDataSource.assets.configmodal.title',
+		description: 'Title for the Assets Objects Datasource config modal',
+		defaultMessage: 'Assets table macro configuration',
+	},
+	filterObjectsText: {
+		id: 'linkDataSource.assets.configmodal.filterObjectsText',
+		description: 'Text for the filter option using aql search',
+		defaultMessage: 'Filter',
+	},
+	tablePreviewText: {
+		id: 'linkDataSource.assets.configmodal.tablePreviewText',
+		description: 'Text for the table preview',
+		defaultMessage: 'Table preview',
 	},
 });

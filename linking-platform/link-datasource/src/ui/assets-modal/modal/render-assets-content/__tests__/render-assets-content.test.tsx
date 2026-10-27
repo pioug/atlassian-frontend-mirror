@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl';
 
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DatasourceExperienceIdProvider } from '../../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { RenderAssetsContent, type RenderAssetsContentProps } from '../index';
@@ -102,5 +103,56 @@ describe('AssetsConfigModal', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = setup({ status: 'resolved' });
 		await expect(container).toBeAccessible();
+	});
+
+	describe('table preview heading', () => {
+		const headingName = 'Table preview';
+
+		describe('when astral_assets_macro_table_ui_uplift is enabled', () => {
+			beforeEach(() => {
+				passGate('astral_assets_macro_table_ui_uplift');
+			});
+
+			it('Should display the heading above the table when the status is resolved', () => {
+				const { getByRole, getByTestId } = setup({ status: 'resolved' });
+				expect(getByRole('heading', { name: headingName })).toBeInTheDocument();
+				expect(getByTestId('asset-datasource-table')).toBeInTheDocument();
+			});
+
+			it('Should display the heading while fetching initial data', () => {
+				const { getByRole, getByTestId } = setup({ isFetchingInitialData: true });
+				expect(getByRole('heading', { name: headingName })).toBeInTheDocument();
+				expect(getByTestId('assets-aql-datasource-modal--loading-state')).toBeInTheDocument();
+			});
+
+			it('Should display the heading when the status is rejected', () => {
+				const { getByRole, getByTestId } = setup({ status: 'rejected' });
+				expect(getByRole('heading', { name: headingName })).toBeInTheDocument();
+				expect(getByTestId('datasource-modal--loading-error')).toBeInTheDocument();
+			});
+
+			it('Should not display the heading when the status is empty', () => {
+				const { queryByRole, getByTestId } = setup({ status: 'empty' });
+				expect(queryByRole('heading', { name: headingName })).not.toBeInTheDocument();
+				expect(getByTestId('assets-aql-datasource-modal--initial-state-view')).toBeInTheDocument();
+			});
+
+			it('should capture and report a11y violations', async () => {
+				const { container } = setup({ status: 'resolved' });
+				await expect(container).toBeAccessible();
+			});
+		});
+
+		describe('when astral_assets_macro_table_ui_uplift is disabled', () => {
+			beforeEach(() => {
+				failGate('astral_assets_macro_table_ui_uplift');
+			});
+
+			it('Should not display the heading when the status is resolved', () => {
+				const { queryByRole, getByTestId } = setup({ status: 'resolved' });
+				expect(queryByRole('heading', { name: headingName })).not.toBeInTheDocument();
+				expect(getByTestId('asset-datasource-table')).toBeInTheDocument();
+			});
+		});
 	});
 });

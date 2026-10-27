@@ -2,12 +2,12 @@ import type { ReactElement, ReactNode } from 'react';
 
 import type { IntlShape } from 'react-intl';
 
-import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { TypeAheadPayload } from '../analytics/types/type-ahead';
+import type { InsertContentCallback } from '../insert';
+import type { RegisteredItemRankResolver } from '../registered-menu/item-rank';
 import type { SelectItemMode, TypeAheadAvailableNodes } from '../type-ahead';
-import type { RegisteredItemRankResolver } from '../type-ahead/item-rank';
 import type { EditorCommand } from '../types';
 
 type TypeAheadForceSelectProps = {
@@ -31,15 +31,10 @@ export type TypeAheadItemRenderProps = {
 	onHover: () => void;
 };
 
-export type TypeAheadInsert = (
-	node?: PMNode | object | string | Fragment,
-	opts?: { selectInlineNode?: boolean },
-) => Transaction;
-
 export type TypeAheadSelectItem = (
 	state: EditorState,
 	item: TypeAheadItem,
-	insert: TypeAheadInsert,
+	insert: InsertContentCallback,
 	meta: {
 		mode: SelectItemMode;
 		query: string;
@@ -174,11 +169,17 @@ export type TypeAheadHandler = {
 	headless?: boolean;
 
 	id: TypeAheadAvailableNodes;
-
 	onInvokeAnalytics?: TypeAheadPayload;
 
 	/** Handler executes logic when TypeAhead opens */
 	onOpen?: (editorState: EditorState) => void;
+
+	/**
+	 * Registry key for a custom menu root. The root must call registerInteraction
+	 * from RegisteredMenuContext so the host can show the popup and connect keyboard navigation.
+	 * The same context supplies the current query and selection action.
+	 */
+	registeredMenuKey?: string;
 
 	/** Handler returns a transaction which inserts the TypeAheadItem into the doc */
 	selectItem: TypeAheadSelectItem;

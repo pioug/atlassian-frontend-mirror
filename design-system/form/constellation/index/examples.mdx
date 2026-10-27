@@ -17,6 +17,7 @@ import FormFieldset from '../../examples/constellation/form-fieldset.tsx';
 import FormModalDialog from '../../examples/constellation/form-modal.tsx';
 import FormRangeField from '../../examples/constellation/form-range-field.tsx';
 import FormLayout from '../../examples/constellation/form-layout.tsx';
+import FormMessageLabelsI18n from '../../examples/constellation/form-message-labels-i18n.tsx';
 import FormFieldLevelValidation from '../../examples/constellation/form-field-level-validation.tsx';
 import FormSubmissionValidation from '../../examples/constellation/form-submission-validation.tsx';
 import FormAsyncValidation from '../../examples/constellation/form-asynchronous-validation.tsx';
@@ -334,6 +335,13 @@ the criteria. Error and warning messages disappear when the criteria is met.
 
 To ensure error messages are rendered through assistive technologies, wrap them in `MessageWrapper`
 and make sure they're in the DOM at the time the form is rendered.
+
+### Localizing status icon labels
+
+Use `errorMessageLabel` and `validMessageLabel` to provide localized accessible labels for error and
+valid status icons throughout a form.
+
+<Example Component={FormMessageLabelsI18n} packageName="@atlaskit/form" />
 
 ### Field-level validation
 

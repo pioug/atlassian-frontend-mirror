@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import waitForExpect from 'wait-for-expect';
 
 import {
 	mockReactDomWarningGlobal,
@@ -485,7 +484,7 @@ describe('MemoryReactionsStore', () => {
 
 			store.addReaction(containerAri, ari, '1f44d', undefined, failureCallBackFn);
 
-			await waitForExpect(() => {
+			await waitFor(() => {
 				expect(failureCallBackFn).toHaveBeenCalledWith(
 					ReactionUpdateType.added,
 					ari,
@@ -512,7 +511,7 @@ describe('MemoryReactionsStore', () => {
 
 			store.toggleReaction(containerAri, ari, '1f44f', undefined, failureCallBackFn);
 
-			await waitForExpect(() => {
+			await waitFor(() => {
 				expect(failureCallBackFn).toHaveBeenCalledWith(
 					ReactionUpdateType.removed,
 					ari,
@@ -541,7 +540,7 @@ describe('MemoryReactionsStore', () => {
 
 			store.addReaction(containerAri, ari, '1f44d');
 
-			await waitForExpect(() => {
+			await waitFor(() => {
 				expect(fakeClient.addReaction).toHaveBeenCalledTimes(1);
 				expect(store.getState()).toMatchObject({
 					reactions: {
@@ -566,7 +565,7 @@ describe('MemoryReactionsStore', () => {
 
 			store.toggleReaction(containerAri, ari, '1f44f');
 
-			await waitForExpect(() => {
+			await waitFor(() => {
 				expect(fakeClient.deleteReaction).toHaveBeenCalledTimes(1);
 				expect(store.getState()).toMatchObject({
 					reactions: {
@@ -649,7 +648,7 @@ describe('MemoryReactionsStore', () => {
 
 				await response;
 
-				await waitForExpect(() => {
+				await waitFor(() => {
 					expect(fakeFetchDetailsUFOInstance.success).not.toHaveBeenCalled();
 					expect(fakeFetchDetailsUFOInstance.failure).toHaveBeenCalled();
 				});
@@ -740,7 +739,7 @@ describe('MemoryReactionsStore', () => {
 
 				await response;
 
-				await waitForExpect(() => {
+				await waitFor(() => {
 					expect(fakeRemoveUFOInstance.success).not.toHaveBeenCalled();
 					expect(fakeRemoveUFOInstance.failure).toHaveBeenCalled();
 				});
@@ -759,7 +758,7 @@ describe('MemoryReactionsStore', () => {
 
 				await getReactionsResponse;
 
-				await waitForExpect(() => {
+				await waitFor(() => {
 					expect(fakeRenderUFOInstance.start).toHaveBeenCalled();
 					expect(fakeRenderUFOInstance.success).toHaveBeenCalled();
 					expect(fakeCreateAndFireSafe).toHaveBeenCalledWith(

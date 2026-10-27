@@ -1,5 +1,25 @@
 # @atlaskit/editor-extension-dropbox
 
+## 28.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.1
+
+### Patch Changes
+
+- [`f0deddc15426a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0deddc15426a) -
+  [ux] Update slash command titles to sentence case and refresh descriptions.
+- Updated dependencies
+
+## 28.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.5
 
 ### Patch Changes

@@ -216,7 +216,7 @@ const EmbedModal = ({
 					onStackChange={handleOnStackChange}
 					testId={testId}
 					width={width}
-					label={title}
+					label={fg('platform_dst-modal_title') ? undefined : title}
 					isBlanketHidden={isBlanketHidden}
 				>
 					<LinkInfo

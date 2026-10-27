@@ -126,7 +126,7 @@ const manifestFunction = ({
 			light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT12OVKI.png',
 		},
 	},
-	description: 'Embed Dropbox file to collaborate with your team',
+	description: 'Embed a Dropbox file',
 	icons: {
 		'16': () =>
 			import(

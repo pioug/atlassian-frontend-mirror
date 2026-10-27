@@ -47,6 +47,9 @@
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/checkbox/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{

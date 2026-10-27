@@ -78,9 +78,13 @@ const modalBodyErrorWrapperStyles = css({
 	height: 420,
 });
 
-const AssetsModalTitle = (
+const AssetsModalTitle = () => (
 	<ModalTitle>
-		<FormattedMessage {...modalMessages.insertObjectsTitle} />
+		<FormattedMessage
+			{...(fg('astral_assets_macro_table_ui_uplift')
+				? modalMessages.assetsConfigModalTitle
+				: modalMessages.insertObjectsTitle)}
+		/>
 	</ModalTitle>
 );
 
@@ -445,7 +449,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 			return undefined;
 		} else {
 			if (!workspaceId || assetsClientLoading) {
-				return <AssetsSearchContainerLoading modalTitle={AssetsModalTitle} />;
+				return <AssetsSearchContainerLoading modalTitle={<AssetsModalTitle />} />;
 			}
 			return (
 				<AssetsSearchContainer
@@ -456,7 +460,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 						objectSchemas,
 					}}
 					onSearch={handleOnSearch}
-					modalTitle={AssetsModalTitle}
+					modalTitle={<AssetsModalTitle />}
 					isSearching={status === 'loading'}
 					onCancel={onCancel}
 				/>

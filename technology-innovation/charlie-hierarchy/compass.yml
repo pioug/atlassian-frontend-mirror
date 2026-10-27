@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/4975bd5c-70d9-4211-af2e-8b95ba9b7b7f
 name: '@atlaskit/charlie-hierarchy'
-ownerId: ari:cloud:identity::team/962c7632-e016-46e9-bf43-a2812fc2472d # Technology Innovation
+ownerId: ari:cloud:identity::team/62a70be3-d4ee-4f08-bd7a-56da6f789488 # Technology Innovation
 labels:
   - platform-code
   - platform-afm

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-hooks",
-	"version": "2.12.0",
+	"version": "2.13.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,8 +43,7 @@
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
-		"react-intl": "root:*",
-		"wait-for-expect": "root:*"
+		"react-intl": "root:*"
 	},
 	"exports": {
 		".": "./src/index.ts",

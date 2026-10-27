@@ -44,8 +44,7 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"@atlassian/structured-docs-types": "workspace:^",
-		"wait-for-expect": "root:*"
+		"@atlassian/structured-docs-types": "workspace:^"
 	},
 	"homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

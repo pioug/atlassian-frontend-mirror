@@ -34,8 +34,7 @@
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@emotion/react": "root:*",
-		"raf-stub": "root:*",
-		"wait-for-expect": "root:*"
+		"raf-stub": "root:*"
 	},
 	"homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

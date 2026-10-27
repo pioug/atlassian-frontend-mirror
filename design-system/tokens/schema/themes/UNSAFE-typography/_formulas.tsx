@@ -2,12 +2,15 @@
  * Typography formulas for the `UNSAFE-typography` theme.
  *
  * The theme is derived from the base `atlassian-typography` schema so it always covers the same
- * tokens. Values are rewritten to read two runtime inputs:
+ * tokens. Values are rewritten to read runtime inputs:
  *
  * - `--ds-dynamic-font-family`: replaces the sans/brand font stack (code tokens keep monospace)
  * - `--ds-dynamic-font-scale`: unitless multiplier applied to font sizes and line heights
+ * - `--ds-dynamic-font-line-height-scale`: extra multiplier for line heights only
  * - `--ds-dynamic-font-heading-<size>-scale`: extra multiplier for one heading size, on top of the
  *   global scale, so individual headings can be sized out of proportion for stylistic effect
+ * - `--ds-dynamic-font-heading-<size>-line-height-scale`: extra multiplier for one heading's line
+ *   height only, on top of the global line-height scale
  *
  * The `_` prefix keeps this file out of the theme's token sources (see `build-themes.tsx`).
  */
@@ -26,6 +29,7 @@ import baseTypography from '../atlassian-typography/theme';
 
 const FONT_FAMILY_INPUT = '--ds-dynamic-font-family';
 const FONT_SCALE_INPUT = '--ds-dynamic-font-scale';
+const LINE_HEIGHT_SCALE_INPUT = '--ds-dynamic-font-line-height-scale';
 
 /**
  * The palette's type declares `typography` as a union of its scales, but the palette object spreads
@@ -59,12 +63,27 @@ const dynamicFontFamily = (paletteKey: string) =>
 		: `var(${FONT_FAMILY_INPUT}, ${(fontFamily as PaletteGroup)[paletteKey].value})`;
 
 /**
- * Multiplies a palette size by the global scale and, for headings, the heading's own scale.
+ * Multiplies a palette size by the global and heading scales, with independent line-height scales
+ * when requested.
  */
-const scaled = (group: PaletteGroup, paletteKey: string, headingSize?: string) =>
-	headingSize
-		? `calc(${toRem(group, paletteKey)} * var(${FONT_SCALE_INPUT}, 1) * var(--ds-dynamic-font-heading-${headingSize}-scale, 1))`
-		: `calc(${toRem(group, paletteKey)} * var(${FONT_SCALE_INPUT}, 1))`;
+const scaled = (
+	group: PaletteGroup,
+	paletteKey: string,
+	headingSize?: string,
+	lineHeightScaleInput?: string,
+) => {
+	const factors = [`var(${FONT_SCALE_INPUT}, 1)`];
+	if (headingSize) {
+		factors.push(`var(--ds-dynamic-font-heading-${headingSize}-scale, 1)`);
+	}
+	if (lineHeightScaleInput) {
+		factors.push(`var(${lineHeightScaleInput}, 1)`);
+		if (headingSize) {
+			factors.push(`var(--ds-dynamic-font-heading-${headingSize}-line-height-scale, 1)`);
+		}
+	}
+	return `calc(${toRem(group, paletteKey)} * ${factors.join(' * ')})`;
+};
 
 type Node = { [key: string]: unknown };
 
@@ -114,7 +133,12 @@ export const dynamicTypography: typeof baseTypography = mapTokens(baseTypography
 		...value,
 		fontFamily: dynamicFontFamily(value.fontFamily),
 		fontSize: scaled(fontSize as PaletteGroup, value.fontSize as string, headingSize),
-		lineHeight: scaled(lineHeight as PaletteGroup, value.lineHeight as string, headingSize),
+		lineHeight: scaled(
+			lineHeight as PaletteGroup,
+			value.lineHeight as string,
+			headingSize,
+			LINE_HEIGHT_SCALE_INPUT,
+		),
 	};
 });
 

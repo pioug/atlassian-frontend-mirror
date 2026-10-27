@@ -242,6 +242,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 					text={text}
 					accessLevel={accessLevel}
 					localId={localId}
+					userType={mentionUserType}
 					mentionProvider={mentionProvider}
 					appType={mentionNodeData?.appType}
 					avatarUrl={mentionNodeData?.avatarUrl}

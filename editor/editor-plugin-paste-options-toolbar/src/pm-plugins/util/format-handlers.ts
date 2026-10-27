@@ -7,7 +7,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MarkdownToPmConverter } from '../../pasteOptionsToolbarPluginType';
 import type { PasteOptionsPluginState } from '../../types/types';
@@ -238,10 +237,9 @@ export function getMarkdownSlice(
 
 		textInput = textSplitByCodeBlock.join('```');
 
-		const doc =
-			markdownToPmConverter && isExperimentEnabled('platform_editor_paste_as_md_use_gfm')
-				? schema.nodes.doc.createAndFill({}, markdownToPmConverter({ markdown: textInput, schema }))
-				: new MarkdownTransformer(schema, md).parse(escapeLinks(textInput));
+		const doc = markdownToPmConverter
+			? schema.nodes.doc.createAndFill({}, markdownToPmConverter({ markdown: textInput, schema }))
+			: new MarkdownTransformer(schema, md).parse(escapeLinks(textInput));
 
 		if (!doc || !doc.content) {
 			return;

@@ -2,69 +2,52 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	useCallback,
-	useId,
-	useLayoutEffect,
-	useMemo,
-	useRef,
-	useState,
-	useSyncExternalStore,
-} from 'react';
-
-import { useIntl } from 'react-intl';
+import React, { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import Popup from '@atlaskit/editor-common/Popup';
-import {
-	getQuickInsertMenuModel,
-	getQuickInsertMenuRows,
-	selectQuickInsertCategoryItems,
-} from '@atlaskit/editor-common/quick-insert/registered-menu-model';
-import { useMenuPopupSizing } from '@atlaskit/editor-common/quick-insert/use-menu-popup-sizing';
-import { useQuickInsertSearchAnalytics } from '@atlaskit/editor-common/quick-insert/use-search-analytics';
-import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
-import {
-	TYPE_AHEAD_SURFACE_CONTEXT,
-	type TypeAheadSurfaceContext,
-} from '@atlaskit/editor-common/type-ahead-surface-context';
+import type {
+	RegisteredMenuInteraction,
+	RegisteredMenuContextValue,
+	RegisteredMenuSelection,
+} from '@atlaskit/editor-common/registered-menu';
+import { RegisteredMenuContext } from '@atlaskit/editor-common/registered-menu/context';
+import { useMenuPopupSizing } from '@atlaskit/editor-common/registered-menu/popup-sizing';
+import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/registered-menu/surface-context';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
-import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import { token } from '@atlaskit/tokens';
 
+import { performTypeAheadSelection } from '../../pm-plugins/commands/insert-type-ahead-item';
 import type { CloseSelectionOptions } from '../../pm-plugins/constants';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import { InputQuery } from '../InputQuery';
-import { getTypeAheadGlobalViewMoreId } from './getTypeAheadGlobalViewMoreId';
-import { getTypeAheadItemId } from './getTypeAheadItemId';
-import { TypeAheadMenuRenderer } from './TypeAheadMenuRenderer';
-import { TypeAheadProvider } from './TypeAheadProvider';
-import type { TypeAheadSurface } from './typeAheadSurfaces';
 
+const DEFAULT_MENU_MAX_HEIGHT = 480;
+const POPUP_OFFSET: [number, number] = [0, 8];
 const styles = cssMap({
-	menu: {
+	popup: {
 		backgroundColor: token('elevation.surface.overlay'),
 		appearance: 'none',
 		border: 'none',
-		borderRadius: token('radius.large'),
 		boxSizing: 'border-box',
-		boxShadow: token('elevation.shadow.overlay'),
-		overflow: 'hidden',
 		paddingBlockStart: 0,
 		paddingBlockEnd: 0,
+		borderRadius: token('radius.large'),
+		boxShadow: token('elevation.shadow.overlay'),
+		overflow: 'hidden',
 		width: '320px',
 	},
 });
-const DEFAULT_MENU_MAX_HEIGHT = 480;
-const MENU_WIDTH = 320;
-const POPUP_OFFSET = [0, 8];
+
 const EMPTY_COMPONENTS: RegisterComponent[] = [];
 const subscribeToNothing = () => () => {};
+const noOp = () => {};
 type Props = {
 	anchorElement: HTMLElement;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
@@ -83,310 +66,155 @@ type Props = {
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	query: string;
+	registeredMenuKey: string;
 	reopenQuery?: string;
 	setQuery: (query: string) => void;
-	surface: TypeAheadSurface;
 	triggerHandler: TypeAheadHandler;
 };
 
-export const RegisteredTypeAheadMenu = ({
-	anchorElement,
-	api,
-	cancel,
-	editorView,
-	forceFocus,
-	maxHeight = DEFAULT_MENU_MAX_HEIGHT,
-	onClose,
-	onUndoRedo,
-	popupsBoundariesElement,
-	popupsMountPoint,
-	popupsScrollableElement,
-	query,
-	reopenQuery,
-	setQuery,
-	surface,
-	triggerHandler,
-}: Props): React.JSX.Element => {
-	const menuHeight = useMenuPopupSizing({
-		target: anchorElement,
-		boundariesElement: popupsBoundariesElement,
-		scrollableElement: popupsScrollableElement,
-		maxHeight,
+export const RegisteredTypeAheadMenu = (props: Props): React.JSX.Element => {
+	const { api, registeredMenuKey, query, editorView, onClose, triggerHandler, popupsMountPoint } =
+		props;
+	const rootComponent = useMemo(
+		() => ({ key: registeredMenuKey, type: 'menu' as const }),
+		[registeredMenuKey],
+	);
+	const [menuInteraction, setMenuInteraction] = useState<RegisteredMenuInteraction>();
+	const registerInteraction = useCallback((interaction: RegisteredMenuInteraction) => {
+		setMenuInteraction(interaction);
+		return () => setMenuInteraction((current) => (current === interaction ? undefined : current));
+	}, []);
+	const maxHeight = useMenuPopupSizing({
+		target: props.anchorElement,
+		boundariesElement: props.popupsBoundariesElement,
+		scrollableElement: props.popupsScrollableElement,
+		maxHeight: props.maxHeight ?? DEFAULT_MENU_MAX_HEIGHT,
 		offset: POPUP_OFFSET[1],
 	});
-	const { formatMessage } = useIntl();
-	const generatedId = useId();
-	const listId = `${surface.listIdPrefix}-${generatedId}`;
-	const menuRef = useRef<HTMLDivElement>(null);
-	const [typeAheadSurfaceContext] = useState<TypeAheadSurfaceContext>(() => ({
-		menuOpenId: Symbol('type-ahead-menu-open'),
-	}));
-	const surfaceContext = useMemo(
-		() => createSurfaceContext(TYPE_AHEAD_SURFACE_CONTEXT, typeAheadSurfaceContext),
-		[typeAheadSurfaceContext],
+	const cancelMenu = useCallback(
+		(params: Parameters<Props['cancel']>[0]) => {
+			menuInteraction?.onClose?.();
+			props.cancel(params);
+		},
+		[menuInteraction, props.cancel],
 	);
-	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-	const selectedItemIndexRef = useRef(selectedItemIndex);
+	const [menuOpenId] = useState(() => Symbol('type-ahead-menu-open'));
+	const surfaceContext = useMemo(
+		() => createRegisteredMenuSurfaceContext({ menuOpenId, surface: 'typeahead' }),
+		[menuOpenId],
+	);
 	const getComponents = useCallback(() => {
-		const components = api?.uiControlRegistry?.actions.getComponents(surface.root.key);
+		const components = api?.uiControlRegistry?.actions.getComponents(rootComponent.key);
 		return components?.length ? components : EMPTY_COMPONENTS;
-	}, [api, surface.root.key]);
+	}, [api, rootComponent.key]);
 	const components = useSyncExternalStore(
 		api?.uiControlRegistry?.actions.subscribe ?? subscribeToNothing,
 		getComponents,
 		getComponents,
 	);
-	const hasSectionOverflowItems = useMemo(
-		() => components.some(({ key }) => isSectionOverflowItemKey(key)),
-		[components],
-	);
-	const menuModel = useMemo(
+	const root = useMemo(
 		() =>
-			getQuickInsertMenuModel({
-				components,
-				formatMessage,
-				getItemRank: triggerHandler.getRegisteredItemRank,
-				query,
-				rootComponent: surface.root,
-				selectCategoryItems: hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
-				surfaceContext,
-			}),
-		[
-			components,
-			formatMessage,
-			hasSectionOverflowItems,
-			query,
-			surfaceContext,
-			surface.root,
-			triggerHandler.getRegisteredItemRank,
-		],
-	);
-	const rows = useMemo(() => getQuickInsertMenuRows(menuModel), [menuModel]);
-	const searchResultCount = useMemo(
-		() =>
-			menuModel.sections.reduce(
-				(count, section) =>
-					count +
-					section.filter(({ key, type }) => type === 'menu-item' && !isSectionOverflowItemKey(key))
-						.length,
-				0,
+			components.find(
+				({ key, type, parents }) =>
+					key === rootComponent.key && type === rootComponent.type && !parents?.length,
 			),
-		[menuModel.sections],
+		[components, rootComponent],
 	);
-	const flushSearchAnalytics = useQuickInsertSearchAnalytics({
-		fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
-		query,
-		resultCount: searchResultCount,
-		surface: 'typeahead',
-	});
-	const closeMenu = useCallback(() => {
-		flushSearchAnalytics();
-		onClose();
-	}, [flushSearchAnalytics, onClose]);
-	const [previewActivation, setPreviewActivation] = useState<
-		| {
-				itemKey: string;
-				menuModel: typeof menuModel;
-				source: 'keyboard' | 'pointer';
-		  }
-		| undefined
-	>();
-	const activePreviewItemKey =
-		previewActivation?.menuModel === menuModel ? previewActivation.itemKey : undefined;
-	const selectableRowIndexes = useMemo(
-		() =>
-			rows.flatMap((registration, rowIndex) =>
-				registration.type === 'menu-item' ? [rowIndex] : [],
-			),
-		[rows],
+	const Root = root?.isHidden?.({ surfaceContext }) ? undefined : root?.component;
+	// Interaction updates should not recreate the registered component's own props.
+	const menu = useMemo(() => Root && <Root>{null}</Root>, [Root]);
+	const { isOffline } = useSharedPluginStateWithSelector(
+		api,
+		['connectivity'],
+		({ connectivityState }) => ({
+			isOffline: isOfflineMode(connectivityState?.mode),
+		}),
 	);
-	const selectableRowKeys = selectableRowIndexes.map((index) => rows[index]?.key).join(',');
-	const selectableItemCount = selectableRowIndexes.length + (menuModel.footer ? 1 : 0);
-	useLayoutEffect(() => {
-		const initialItemIndex = selectableItemCount > 0 ? 0 : -1;
-		selectedItemIndexRef.current = initialItemIndex;
-		setSelectedItemIndex(initialItemIndex);
-	}, [query, selectableItemCount, selectableRowKeys]);
-	useLayoutEffect(() => {
-		setPreviewActivation(undefined);
-	}, [menuModel, query]);
-
-	const selectActiveItem = useCallback(
-		(_mode: SelectItemMode) => {
-			const rowIndex = selectableRowIndexes[selectedItemIndex];
-			const selectedId =
-				rowIndex !== undefined
-					? getTypeAheadItemId(listId, rowIndex)
-					: menuModel.footer && selectedItemIndex === selectableRowIndexes.length
-						? getTypeAheadGlobalViewMoreId(listId)
-						: undefined;
-
-			if (selectedId) {
-				menuRef.current?.ownerDocument.getElementById(selectedId)?.click();
-			}
-		},
-		[listId, menuModel.footer, selectableRowIndexes, selectedItemIndex],
-	);
-	const setKeyboardPreview = useCallback(
-		(itemIndex: number) => {
-			const rowIndex = selectableRowIndexes[itemIndex];
-			const registration = rowIndex === undefined ? undefined : rows[rowIndex];
-
-			setPreviewActivation(
-				registration?.type === 'menu-item'
-					? { itemKey: registration.key, menuModel, source: 'keyboard' }
-					: undefined,
+	const select = useCallback(
+		(selectItem: RegisteredMenuSelection) => {
+			onClose();
+			queueMicrotask(() =>
+				performTypeAheadSelection(editorView)({ handler: triggerHandler, query, selectItem }),
 			);
 		},
-		[menuModel, rows, selectableRowIndexes],
+		[editorView, onClose, query, triggerHandler],
 	);
-	const selectNextItem = useCallback(() => {
-		const currentIndex = selectedItemIndexRef.current;
-		const nextIndex =
-			selectableItemCount === 0
-				? -1
-				: currentIndex < 0 || currentIndex === selectableItemCount - 1
-					? 0
-					: currentIndex + 1;
-		selectedItemIndexRef.current = nextIndex;
-		setSelectedItemIndex(nextIndex);
-		setKeyboardPreview(nextIndex);
-	}, [selectableItemCount, setKeyboardPreview]);
-	const selectPreviousItem = useCallback(() => {
-		const currentIndex = selectedItemIndexRef.current;
-		const previousIndex =
-			selectableItemCount === 0
-				? -1
-				: currentIndex <= 0
-					? selectableItemCount - 1
-					: currentIndex - 1;
-		selectedItemIndexRef.current = previousIndex;
-		setSelectedItemIndex(previousIndex);
-		setKeyboardPreview(previousIndex);
-	}, [selectableItemCount, setKeyboardPreview]);
-	const onItemHover = useCallback(
-		(itemIndex: number, itemKey?: string) => {
-			selectedItemIndexRef.current = itemIndex;
-			setSelectedItemIndex(itemIndex);
-			setPreviewActivation((current) => {
-				if (
-					current?.itemKey === itemKey &&
-					current?.menuModel === menuModel &&
-					current?.source === 'pointer'
-				) {
-					return current;
-				}
-
-				return itemKey ? { itemKey, menuModel, source: 'pointer' } : undefined;
-			});
-		},
-		[menuModel],
-	);
-	const onItemLeave = useCallback((itemKey: string) => {
-		setPreviewActivation((current) =>
-			current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
-		);
-	}, []);
-	const onItemVisibilityChange = useCallback((itemKey: string, isVisible: boolean) => {
-		if (!isVisible) {
-			setPreviewActivation((current) =>
-				current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
-			);
-		}
-	}, []);
-	const typeAheadContextValue = useMemo(
+	const registeredMenu = useMemo<RegisteredMenuContextValue>(
 		() => ({
-			activePreviewItemKey,
-			api,
+			components,
+			onClose,
+			maxHeight,
+			registerInteraction,
 			editorView,
-			inputMethod: surface.inputMethod,
-			menuOpenId: typeAheadSurfaceContext.menuOpenId,
-			onClose: closeMenu,
-			popupsMountPoint,
+			getItemRank: triggerHandler.getRegisteredItemRank,
+			isOffline,
+			menuOpenId,
+			portalMountPoint: popupsMountPoint,
+			rootComponent,
 			query,
+			select,
 			surfaceContext,
-			triggerHandler,
 		}),
 		[
-			activePreviewItemKey,
-			api,
+			onClose,
+			maxHeight,
+			registerInteraction,
+			components,
 			editorView,
-			closeMenu,
+			triggerHandler.getRegisteredItemRank,
+			isOffline,
+			menuOpenId,
 			popupsMountPoint,
+			rootComponent,
 			query,
-			surface.inputMethod,
+			select,
 			surfaceContext,
-			triggerHandler,
-			typeAheadSurfaceContext,
 		],
 	);
-	const noOp = useCallback(() => {}, []);
-	const SurfaceProvider = surface.Provider;
-
 	return (
-		<React.Fragment>
+		<RegisteredMenuContext.Provider value={registeredMenu}>
 			<InputQuery
-				activeDescendantId={
-					selectableRowIndexes[selectedItemIndex] !== undefined
-						? getTypeAheadItemId(listId, selectableRowIndexes[selectedItemIndex])
-						: menuModel.footer && selectedItemIndex === selectableRowIndexes.length
-							? getTypeAheadGlobalViewMoreId(listId)
-							: undefined
-				}
-				cancel={cancel}
+				menuInteraction={menuInteraction}
+				cancel={cancelMenu}
 				editorView={editorView}
-				forceFocus={forceFocus}
-				listId={listId}
-				onItemSelect={selectActiveItem}
-				onQueryChange={setQuery}
+				forceFocus={props.forceFocus}
+				onItemSelect={noOp}
+				onQueryChange={props.setQuery}
 				onQueryFocus={noOp}
-				onUndoRedo={onUndoRedo}
-				optionCount={selectableItemCount}
-				reopenQuery={reopenQuery}
-				selectNextItem={selectNextItem}
-				selectPreviousItem={selectPreviousItem}
+				onUndoRedo={props.onUndoRedo}
+				optionCount={0}
+				reopenQuery={props.reopenQuery}
+				selectNextItem={noOp}
+				selectPreviousItem={noOp}
 				shouldKeepOpenOnRegisteredMenu={true}
 				triggerQueryPrefix={triggerHandler.trigger}
 			/>
-			<Popup
-				ariaLabel={null}
-				boundariesElement={popupsBoundariesElement}
-				fitHeight={menuHeight}
-				fitWidth={MENU_WIDTH}
-				mountTo={popupsMountPoint}
-				offset={POPUP_OFFSET}
-				preventOverflow={true}
-				scrollableElement={popupsScrollableElement}
-				target={anchorElement}
-				zIndex={akEditorFloatingDialogZIndex}
-			>
-				<div
-					ref={menuRef}
-					css={styles.menu}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Parent overlays use this class to restore pointer interaction.
-					className="fabric-editor-typeahead"
-					data-registered-type-ahead-menu=""
-					data-testid="registered-type-ahead-menu"
+			{Root && (
+				<Popup
+					zIndex={akEditorFloatingDialogZIndex}
+					target={props.anchorElement}
+					mountTo={popupsMountPoint}
+					boundariesElement={props.popupsBoundariesElement}
+					scrollableElement={props.popupsScrollableElement}
+					fitHeight={maxHeight}
+					fitWidth={320}
+					offset={POPUP_OFFSET}
+					ariaLabel={null}
+					preventOverflow
 				>
-					<TypeAheadProvider value={typeAheadContextValue}>
-						<SurfaceProvider>
-							<TypeAheadMenuRenderer
-								Item={surface.Item}
-								listLabel={surface.listLabel}
-								listId={listId}
-								maxHeight={Math.max(0, menuHeight)}
-								model={menuModel}
-								query={query}
-								hasScrollPadding={true}
-								onItemHover={onItemHover}
-								onItemLeave={onItemLeave}
-								onItemVisibilityChange={onItemVisibilityChange}
-								selectedItemIndex={selectedItemIndex}
-							/>
-						</SurfaceProvider>
-					</TypeAheadProvider>
-				</div>
-			</Popup>
-		</React.Fragment>
+					<div
+						// Legacy host integrations also use this popup selector.
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Preserve the typeahead popup selector.
+						className="fabric-editor-typeahead"
+						data-registered-type-ahead-menu=""
+						data-testid="registered-type-ahead-menu"
+						hidden={!menuInteraction}
+						css={styles.popup}
+					>
+						{menu}
+					</div>
+				</Popup>
+			)}
+		</RegisteredMenuContext.Provider>
 	);
 };

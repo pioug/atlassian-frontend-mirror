@@ -140,7 +140,13 @@ const Example = () => {
 		<MediaClientProvider clientConfig={mediaClientConfig}>
 			{useMediaImageInputs.map((input, index) => {
 				const results = imageState.get(`${index}-${input.identifier.id}`);
-				return <ImageComponent mediaImageInput={input} onLoadResults={results?.onLoadResults} />;
+				return (
+					<ImageComponent
+						key={`${index}-${input.identifier.id}`}
+						mediaImageInput={input}
+						onLoadResults={results?.onLoadResults}
+					/>
+				);
 			})}
 		</MediaClientProvider>
 	);

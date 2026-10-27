@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 153.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 152.2.6
+
+### Patch Changes
+
+- [`b3d3cec87b96b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d3cec87b96b) -
+  Remove the `platform_forge_inline_bodied_macro` feature gate and keep its enabled behavior. The
+  separate inline-bodied layout switch continues to control layout support.
+
 ## 152.2.5
 
 ### Patch Changes

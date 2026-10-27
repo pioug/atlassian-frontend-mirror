@@ -139,8 +139,7 @@
 		"react-dom": "^19.2.0",
 		"swagger-typescript-api": "root:*",
 		"ts-morph": "root:*",
-		"ts-node": "root:*",
-		"wait-for-expect": "root:*"
+		"ts-node": "root:*"
 	},
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {

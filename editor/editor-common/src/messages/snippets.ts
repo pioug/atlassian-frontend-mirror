@@ -18,7 +18,7 @@ export const templateGalleryMessages: Record<string, MessageDescriptor> = define
 	},
 	templateGalleryDescription: {
 		id: 'editor-plugin-snippets.snippetsPlugin.templateGalleryDescription',
-		defaultMessage: 'Create, discover, & insert block templates',
+		defaultMessage: 'Create and reuse block templates',
 		description: 'Description for the block template gallery quick insert item',
 	},
 	templateGalleryTitle: {

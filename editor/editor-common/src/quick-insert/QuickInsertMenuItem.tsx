@@ -4,7 +4,8 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { INPUT_METHOD } from '../analytics';
-import type { TypeAheadInsert } from '../types';
+import type { InsertContentCallback } from '../insert';
+import { REGISTERED_MENU_SURFACE_CONTEXT } from '../registered-menu/RegisteredMenuSurfaceContext';
 import { CompactQuickInsertMenuItem } from './CompactQuickInsertMenuItem';
 import { ElementBrowserQuickInsertMenuItem } from './ElementBrowserQuickInsertMenuItem';
 import type { QuickInsertPreview } from './preview';
@@ -12,7 +13,7 @@ import { useQuickInsertContext } from './useQuickInsertContext';
 
 export type OnSelectContext = {
 	editorView: EditorView;
-	insert: TypeAheadInsert;
+	insert: InsertContentCallback;
 	source:
 		| INPUT_METHOD.ELEMENT_BROWSER
 		| INPUT_METHOD.INSERT_MENU
@@ -62,7 +63,8 @@ export const QuickInsertMenuItem = ({
 	shouldWrapIcon,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
-	const { surface } = useQuickInsertContext();
+	const { surfaceContext } = useQuickInsertContext();
+	const surface = surfaceContext?.get(REGISTERED_MENU_SURFACE_CONTEXT)?.surface;
 
 	return surface === 'element-browser' ? (
 		<ElementBrowserQuickInsertMenuItem

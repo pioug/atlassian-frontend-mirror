@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { act } from 'react';
 
+import { waitFor } from '@testing-library/react';
 import { hydrateRoot } from 'react-dom/client';
-import waitForExpect from 'wait-for-expect';
 
 import { ssr } from '@atlaskit/ssr';
 
@@ -9,23 +9,31 @@ import Example from '../../examples/00-basic';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
-afterEach(() => {
+let root: ReturnType<typeof hydrateRoot> | undefined;
+
+afterEach(async () => {
+	await act(async () => root?.unmount());
+	root = undefined;
 	jest.resetAllMocks();
 });
 
-// Skipped: Test is not compatible with React 18 and has problems to run locally
-// https://product-fabric.atlassian.net/browse/CXP-3818
-test.skip('should ssr then hydrate example component correctly', async () => {
+test('should ssr then hydrate example component correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(Example);
 
-	await waitForExpect(() => {
-		hydrateRoot(elem, <Example />);
-		// ignore warnings caused by emotion's server-side rendering approach
+	await act(async () => {
+		root = hydrateRoot(elem, <Example />);
+	});
+	await waitFor(() => {
+		// Ignore Emotion style-tag warnings and React 18 server layout-effect warnings.
 		// @ts-ignore
 		// eslint-disable-next-line no-console
 		const mockCalls = console.error.mock.calls.filter(
 			([f, s]: string[]) =>
+				!(
+					typeof f === 'string' &&
+					f.startsWith('Warning: useLayoutEffect does nothing on the server,')
+				) &&
 				!(
 					f === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && s === 'style'
 				),

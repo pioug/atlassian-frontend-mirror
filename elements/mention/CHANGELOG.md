@@ -1,5 +1,25 @@
 # @atlaskit/mention
 
+## 30.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.5.0
+
+### Minor Changes
+
+- [`6467bc826c20f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6467bc826c20f) -
+  Preserve mention userType in rendered HTML, including profile-card and disabled mentions, so
+  copying from published pages into an editor retains the type behind
+  platform_mention_preserve_user_type. Adds optional userType props to Mention and ResourcedMention,
+  restricted to DEFAULT, SPECIAL, or APP, so existing callers remain compatible.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.4.1
 
 ### Patch Changes

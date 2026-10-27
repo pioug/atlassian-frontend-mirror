@@ -1,33 +1,32 @@
-import React, { useCallback, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { getDocument } from '@atlaskit/browser-apis';
-import { cssMap } from '@atlaskit/css';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { cssMap, jsx } from '@atlaskit/css';
+import { insertSelectedItem } from '@atlaskit/editor-common/insert';
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
+import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
-import {
-	getQuickInsertMenuModel,
-	getQuickInsertMenuRows,
-	selectQuickInsertCategoryItems,
-} from '@atlaskit/editor-common/quick-insert/registered-menu-model';
-import { useQuickInsertSearchAnalytics } from '@atlaskit/editor-common/quick-insert/use-search-analytics';
-import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
-import { TYPE_AHEAD_SURFACE_CONTEXT } from '@atlaskit/editor-common/type-ahead-surface-context';
-import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/type-ahead/item-rank';
-import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
+import type {
+	RegisteredMenuContextValue,
+	RegisteredMenuInteraction,
+	RegisteredMenuSelection,
+} from '@atlaskit/editor-common/registered-menu';
+import { RegisteredMenuContext } from '@atlaskit/editor-common/registered-menu/context';
+import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/registered-menu/surface-context';
+import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messages';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { createSurfaceContext } from '@atlaskit/editor-ui-control-model/create-surface-context';
-import type { RegisterComponent, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
-import { RegisteredInsertMenuList } from './RegisteredInsertMenuList';
-
 const DEFAULT_MENU_MAX_HEIGHT = 520;
-
+const SEARCH_HEIGHT = 64;
 const styles = cssMap({
 	menu: {
 		backgroundColor: token('elevation.surface.overlay'),
@@ -38,6 +37,7 @@ const styles = cssMap({
 		overflow: 'hidden',
 		width: '350px',
 	},
+	hidden: { display: 'none' },
 	search: {
 		flexShrink: 0,
 		paddingBlockStart: token('space.150'),
@@ -49,274 +49,144 @@ const styles = cssMap({
 type Props = {
 	components: RegisterComponent[];
 	editorView: EditorView;
-	emptyStateHandler?: EmptyStateHandler;
-	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
-	getItemRank?: RegisteredItemRankResolver;
 	isOffline: boolean;
 	maxHeight?: number;
 	onClose: () => void;
 	onSelect: () => void;
 };
 
-export const RegisteredInsertMenu = ({
-	components,
-	emptyStateHandler,
-	fireAnalyticsEvent,
-	getItemRank,
-	editorView,
-	isOffline,
-	maxHeight = DEFAULT_MENU_MAX_HEIGHT,
-	onClose,
-	onSelect,
-}: Props): React.JSX.Element => {
-	const menuStyle = { maxHeight };
+export const RegisteredInsertMenu = (props: Props): React.JSX.Element => {
+	const { components, editorView, isOffline, onSelect } = props;
 	const { formatMessage } = useIntl();
-	const listId = useId();
+	const [interaction, setInteraction] = useState<RegisteredMenuInteraction>();
+	const registerInteraction = useCallback((next: RegisteredMenuInteraction) => {
+		setInteraction(next);
+		return () => setInteraction((current) => (current === next ? undefined : current));
+	}, []);
+	const searchRef = useRef<HTMLInputElement>(null);
+	const hasInteraction = Boolean(interaction);
+	useLayoutEffect(() => {
+		if (hasInteraction) {
+			searchRef.current?.focus({ preventScroll: true });
+		}
+	}, [hasInteraction]);
+	const maxHeight = props.maxHeight ?? DEFAULT_MENU_MAX_HEIGHT;
+	const menuStyle = useMemo(() => ({ maxHeight }), [maxHeight]);
 	const [menuOpenId] = useState(() => Symbol('registered-insert-menu-open'));
 	const [query, setQuery] = useState('');
-	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-	const selectedItemIndexRef = useRef(selectedItemIndex);
-	const [renderedItems, setRenderedItems] = useState({ startIndex: -1, stopIndex: -1 });
-	const searchRef = useRef<HTMLInputElement>(null);
-	useLayoutEffect(() => {
-		// Popup positions on the next frame; focusing must not scroll to its initial location.
-		searchRef.current?.focus({ preventScroll: true });
-	}, []);
 	const surfaceContext = useMemo(
-		() => createSurfaceContext(TYPE_AHEAD_SURFACE_CONTEXT, { menuOpenId }),
+		() => createRegisteredMenuSurfaceContext({ menuOpenId, surface: 'toolbar' }),
 		[menuOpenId],
 	);
-	const hasSectionOverflowItems = useMemo(
-		() => components.some(({ key }) => isSectionOverflowItemKey(key)),
+	const Root = useMemo(
+		() =>
+			components.find(
+				({ key, type, parents }) => key === MENU.key && type === MENU.type && !parents?.length,
+			)?.component,
 		[components],
 	);
-	const model = useMemo(
-		() =>
-			getQuickInsertMenuModel({
-				components,
-				formatMessage,
-				getItemRank,
-				query,
-				rootComponent: MENU,
-				selectCategoryItems: hasSectionOverflowItems ? selectQuickInsertCategoryItems : undefined,
-				surfaceContext,
-			}),
-		[components, formatMessage, getItemRank, hasSectionOverflowItems, query, surfaceContext],
-	);
-	const [previewActivation, setPreviewActivation] = useState<
-		| {
-				itemKey: string;
-				model: typeof model;
-				source: 'keyboard' | 'pointer';
-		  }
-		| undefined
-	>();
-	const activePreviewItemKey =
-		previewActivation?.model === model ? previewActivation.itemKey : undefined;
-	const searchResultCount = useMemo(
-		() =>
-			model.sections.reduce(
-				(count, section) =>
-					count +
-					section.filter(({ key, type }) => type === 'menu-item' && !isSectionOverflowItemKey(key))
-						.length,
-				0,
-			),
-		[model.sections],
-	);
-	const flushSearchAnalytics = useQuickInsertSearchAnalytics({
-		fireAnalyticsEvent,
-		query,
-		resultCount: searchResultCount,
-		surface: 'toolbar',
-	});
-	const closeWithAnalytics = useCallback(() => {
-		flushSearchAnalytics();
-		onClose();
-	}, [flushSearchAnalytics, onClose]);
-	const selectWithAnalytics = useCallback(() => {
-		flushSearchAnalytics();
-		onSelect();
-	}, [flushSearchAnalytics, onSelect]);
-	const selectableItems = useMemo(
-		() =>
-			getQuickInsertMenuRows(model).filter(
-				(row): row is RegisterMenuItem => row.type === 'menu-item',
-			),
-		[model],
-	);
-	const itemCount = selectableItems.length + (model.footer ? 1 : 0);
-	const selectableItemKeys = useMemo(
-		() =>
-			[...selectableItems, ...(model.footer ? [model.footer] : [])].map(({ key }) => key).join(','),
-		[model.footer, selectableItems],
-	);
-	useLayoutEffect(() => {
-		const initialItemIndex = itemCount > 0 ? 0 : -1;
-		selectedItemIndexRef.current = initialItemIndex;
-		setSelectedItemIndex(initialItemIndex);
-	}, [itemCount, query, selectableItemKeys]);
-	useLayoutEffect(() => {
-		setPreviewActivation(undefined);
-	}, [model, query]);
-	const isActiveItemMounted =
-		selectedItemIndex >= 0 &&
-		selectedItemIndex < itemCount &&
-		((selectedItemIndex >= renderedItems.startIndex &&
-			selectedItemIndex <= renderedItems.stopIndex) ||
-			(Boolean(model.footer) && selectedItemIndex === itemCount - 1));
-	const activeItemId = `${listId}-${selectedItemIndex}`;
-	const setKeyboardPreview = useCallback(
-		(itemIndex: number) => {
-			const item = selectableItems[itemIndex];
-			setPreviewActivation(item ? { itemKey: item.key, model, source: 'keyboard' } : undefined);
-		},
-		[model, selectableItems],
-	);
-	const selectNextItem = useCallback(() => {
-		const currentIndex = selectedItemIndexRef.current;
-		const nextIndex = itemCount === 0 ? -1 : currentIndex < 0 ? 0 : (currentIndex + 1) % itemCount;
-		selectedItemIndexRef.current = nextIndex;
-		setSelectedItemIndex(nextIndex);
-		setKeyboardPreview(nextIndex);
-	}, [itemCount, setKeyboardPreview]);
-	const selectPreviousItem = useCallback(() => {
-		const currentIndex = selectedItemIndexRef.current;
-		const previousIndex =
-			itemCount === 0 ? -1 : currentIndex <= 0 ? itemCount - 1 : currentIndex - 1;
-		selectedItemIndexRef.current = previousIndex;
-		setSelectedItemIndex(previousIndex);
-		setKeyboardPreview(previousIndex);
-	}, [itemCount, setKeyboardPreview]);
-	const onItemHover = useCallback(
-		(itemIndex: number, itemKey?: string) => {
-			selectedItemIndexRef.current = itemIndex;
-			setSelectedItemIndex(itemIndex);
-			setPreviewActivation((current) => {
-				if (
-					current?.itemKey === itemKey &&
-					current?.model === model &&
-					current?.source === 'pointer'
-				) {
-					return current;
+	// Interaction updates should not recreate the registered component's own props.
+	const menu = useMemo(() => Root && <Root>{null}</Root>, [Root]);
+	const select = useCallback(
+		(selection: RegisteredMenuSelection) => {
+			onSelect();
+			queueMicrotask(() => {
+				const { state } = editorView;
+				const insert: InsertContentCallback = (content, options = {}) =>
+					insertSelectedItem(content, options)(state, state.tr, state.selection.head);
+				const transaction = selection(insert);
+				if (transaction) {
+					editorView.dispatch(transaction);
 				}
-
-				return itemKey ? { itemKey, model, source: 'pointer' } : undefined;
 			});
 		},
-		[model],
+		[editorView, onSelect],
 	);
-	const onItemFocus = useCallback(
-		(itemIndex: number, itemKey?: string) => {
-			selectedItemIndexRef.current = itemIndex;
-			setSelectedItemIndex(itemIndex);
-			setPreviewActivation((current) => {
-				if (current?.itemKey === itemKey && current?.model === model) {
-					return current;
-				}
-
-				return itemKey ? { itemKey, model, source: 'keyboard' } : undefined;
-			});
-		},
-		[model],
+	const registeredMenu = useMemo<RegisteredMenuContextValue>(
+		() => ({
+			components,
+			onClose: props.onClose,
+			maxHeight: Math.max(0, maxHeight - SEARCH_HEIGHT),
+			registerInteraction,
+			editorView,
+			isOffline,
+			menuOpenId,
+			rootComponent: MENU,
+			query,
+			select,
+			surfaceContext,
+		}),
+		[
+			components,
+			props.onClose,
+			maxHeight,
+			registerInteraction,
+			editorView,
+			isOffline,
+			menuOpenId,
+			query,
+			select,
+			surfaceContext,
+		],
 	);
-	const onItemLeave = useCallback((itemKey: string) => {
-		setPreviewActivation((current) =>
-			current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
-		);
-	}, []);
-	const onItemBlur = useCallback((itemKey: string) => {
-		setPreviewActivation((current) => (current?.itemKey === itemKey ? undefined : current));
-	}, []);
-	const onItemVisibilityChange = useCallback((itemKey: string, isVisible: boolean) => {
-		if (!isVisible) {
-			setPreviewActivation((current) =>
-				current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
-			);
-		}
-	}, []);
-	const selectActiveItem = useCallback(() => {
-		if (isActiveItemMounted) {
-			getDocument()?.getElementById(activeItemId)?.click();
-		}
-	}, [activeItemId, isActiveItemMounted]);
-	const onQueryChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(event.currentTarget.value);
-	}, []);
+	const onQueryChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.currentTarget.value),
+		[],
+	);
 	const onKeyDown = useCallback(
 		(event: React.KeyboardEvent) => {
 			if (event.key === 'Escape') {
 				event.preventDefault();
-				closeWithAnalytics();
+				interaction?.onClose?.();
+				props.onClose();
 				return;
 			}
-
-			// The search field owns the composite's arrow-key and Enter behaviour. Other
-			// focusable controls, including consumer-provided empty-state content, need
-			// to retain their native keyboard behaviour.
-			if (event.target !== searchRef.current) {
+			// Some IME key events report 229 without setting isComposing. Let the input finish
+			// composing text before handling menu navigation or selection.
+			if (
+				event.target !== searchRef.current ||
+				event.nativeEvent.isComposing ||
+				event.keyCode === 229
+			) {
 				return;
 			}
-
-			switch (event.key) {
-				case 'ArrowDown':
-					event.preventDefault();
-					selectNextItem();
-					break;
-				case 'ArrowUp':
-					event.preventDefault();
-					selectPreviousItem();
-					break;
-				case 'Enter':
-					event.preventDefault();
-					selectActiveItem();
-					break;
+			if (interaction?.onKeyDown(event.nativeEvent)) {
+				event.preventDefault();
 			}
 		},
-		[closeWithAnalytics, selectActiveItem, selectNextItem, selectPreviousItem],
+		[interaction, props.onClose],
 	);
-
 	return (
-		<Box
-			data-keyboard-navigation-independent=""
-			testId="registered-insert-menu"
-			onKeyDownCapture={onKeyDown}
-			xcss={styles.menu}
-			style={menuStyle}
-		>
-			<Box xcss={styles.search}>
-				<Textfield
-					aria-activedescendant={isActiveItemMounted ? activeItemId : undefined}
-					aria-controls={listId}
-					aria-expanded="true"
-					placeholder="Search"
-					ref={searchRef}
-					role="combobox"
-					value={query}
-					onChange={onQueryChange}
-				/>
-			</Box>
-			<RegisteredInsertMenuList
-				editorView={editorView}
-				emptyStateHandler={emptyStateHandler}
-				isOffline={isOffline}
-				listId={listId}
-				listLabel={formatMessage(messages.insertMenu)}
-				maxHeight={maxHeight}
-				menuOpenId={menuOpenId}
-				model={model}
-				onClose={selectWithAnalytics}
-				onItemFocus={onItemFocus}
-				onItemHover={onItemHover}
-				onItemBlur={onItemBlur}
-				onItemLeave={onItemLeave}
-				onItemVisibilityChange={onItemVisibilityChange}
-				onRenderedItemsChange={setRenderedItems}
-				query={query}
-				selectedItemIndex={selectedItemIndex}
-				surfaceContext={surfaceContext}
-				activePreviewItemKey={activePreviewItemKey}
-			/>
-		</Box>
+		<RegisteredMenuContext.Provider value={registeredMenu}>
+			{Root && (
+				<div
+					data-registered-insert-menu-root=""
+					onKeyDownCapture={onKeyDown}
+					data-keyboard-navigation-independent=""
+					data-testid="registered-insert-menu"
+					css={[styles.menu, !interaction && styles.hidden]}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- The popup supplies the available height at runtime.
+					style={menuStyle}
+				>
+					<Box xcss={styles.search}>
+						<Textfield
+							aria-label={
+								interaction?.label || formatMessage(toolbarInsertBlockMessages.insertMenu)
+							}
+							aria-activedescendant={interaction?.activeDescendantId}
+							aria-controls={interaction?.listId}
+							aria-expanded={interaction?.expanded ?? false}
+							aria-autocomplete="list"
+							placeholder={formatMessage(typeAheadListMessages.quickInsertInputPlaceholderLabel)}
+							ref={searchRef}
+							role="combobox"
+							value={query}
+							onChange={onQueryChange}
+						/>
+					</Box>
+					{menu}
+				</div>
+			)}
+		</RegisteredMenuContext.Provider>
 	);
 };

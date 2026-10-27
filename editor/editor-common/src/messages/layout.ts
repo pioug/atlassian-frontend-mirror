@@ -156,13 +156,13 @@ export const toolbarMessages: {
 	},
 	singleColumnAdvancedLayout: {
 		id: 'fabric.editor.singleColumns',
-		defaultMessage: '1 Column layout',
+		defaultMessage: '1 column layout',
 		description:
 			'Label for the toolbar button that applies a single-column layout to the selected content in the advanced layout options.',
 	},
 	twoColumnsAdvancedLayout: {
 		id: 'fabric.editor.twoColumns',
-		defaultMessage: '2 Column layout',
+		defaultMessage: '2 column layout',
 		description:
 			'Label for the advanced layout toolbar button that applies a two equal-width columns layout.',
 	},
@@ -173,18 +173,18 @@ export const toolbarMessages: {
 	},
 	threeColumnsAdvancedLayout: {
 		id: 'fabric.editor.threeColumns',
-		defaultMessage: '3 Column layout',
+		defaultMessage: '3 column layout',
 		description: 'Layout with three columns of equal width',
 	},
 	fourColumns: {
 		id: 'fabric.editor.fourColumns',
-		defaultMessage: '4 Column layout',
+		defaultMessage: '4 column layout',
 		description:
 			'Label for the advanced layout toolbar button that applies a four equal-width columns layout.',
 	},
 	fiveColumns: {
 		id: 'fabric.editor.fiveColumns',
-		defaultMessage: '5 Column layout',
+		defaultMessage: '5 column layout',
 		description:
 			'Label for the advanced layout toolbar button that applies a five equal-width columns layout.',
 	},

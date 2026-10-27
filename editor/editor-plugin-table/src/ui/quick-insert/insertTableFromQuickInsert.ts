@@ -5,12 +5,12 @@ import {
 	EVENT_TYPE,
 	type INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics/types/enums';
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -26,7 +26,7 @@ type InsertTableFromQuickInsertParams = {
 		| INPUT_METHOD.INSERT_MENU
 		| INPUT_METHOD.QUICK_INSERT
 		| INPUT_METHOD.TOOLBAR;
-	insert: TypeAheadInsert;
+	insert: InsertContentCallback;
 	isTableSelectorEnabled: boolean | undefined;
 	options: TablePluginOptions;
 	state: EditorState;

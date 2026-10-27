@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 134.0.3
+
+### Patch Changes
+
+- [`f2e219b3ca00d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2e219b3ca00d) -
+  Rank slash command search results with matcher priority groups while retaining the current
+  ordering for items without a group. Recommended results for audited search terms, including Jira,
+  receive fixed scores in group 0 under platform_editor_slash_command. The Element Browser applies
+  the same priority groups to its search results. Menu item matchers now require the item's key in
+  their context; callers must pass the registration key.
+- Updated dependencies
+
+## 134.0.2
+
+### Patch Changes
+
+- [`6467bc826c20f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6467bc826c20f) -
+  Preserve mention userType in rendered HTML, including profile-card and disabled mentions, so
+  copying from published pages into an editor retains the type behind
+  platform_mention_preserve_user_type. Adds optional userType props to Mention and ResourcedMention,
+  restricted to DEFAULT, SPECIAL, or APP, so existing callers remain compatible.
+- Updated dependencies
+
+## 134.0.1
+
+### Patch Changes
+
+- [`f0deddc15426a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0deddc15426a) -
+  [ux] Update slash command titles to sentence case and refresh descriptions.
+- Updated dependencies
+
+## 134.0.0
+
+### Major Changes
+
+- [`7e91f3141329d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e91f3141329d) -
+  Decouple Quick Insert menu rendering and interaction from typeahead under the existing
+  `platform_editor_slash_command` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.7.2
 
 ### Patch Changes

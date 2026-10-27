@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 42.0.1
+
+### Patch Changes
+
+- [`ea9ea48be9c3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea9ea48be9c3e) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
+## 42.0.0
+
+### Patch Changes
+
+- [`7e91f3141329d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e91f3141329d) -
+  Decouple Quick Insert menu rendering and interaction from typeahead under the existing
+  `platform_editor_slash_command` experiment.
+- Updated dependencies
+
+## 41.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 41.0.4
 
 ### Patch Changes

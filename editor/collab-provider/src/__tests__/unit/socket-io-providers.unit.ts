@@ -1,8 +1,28 @@
+import { EventEmitter } from 'events';
+
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
 import { createSocketIOSocket, WEBSOCKET_CONNECT_TIMEOUT_MS } from '../../socket-io-provider';
 import type { InitAndAuthData } from '../../types';
+
+// Every test opens a real connection to localhost. Close it, so it does not outlive the Jest environment.
+const mockManagers: any[] = [];
+jest.mock('socket.io-client', () => {
+	const actual = jest.requireActual('socket.io-client');
+	return {
+		...actual,
+		io: (...args: any[]) => {
+			const socket = actual.io(...args);
+			mockManagers.push(socket.io);
+			return socket;
+		},
+	};
+});
+afterEach(() => {
+	mockManagers.splice(0).forEach((manager) => manager._close());
+});
 
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';
@@ -45,6 +65,15 @@ describe('Socket io provider', () => {
 				expect((socket as any).io.opts.tryAllTransports).toBe(false);
 			});
 
+			it('not evaluate the restore after upgrade FG when the websocket first FG is off', () => {
+				failGate('platform_editor_presence_ws_first_with_fallback');
+				jest.mocked(fg).mockClear();
+				createSocketIOSocket(url, undefined, undefined, true);
+
+				expect(fg).toHaveBeenCalledWith('platform_editor_presence_ws_first_with_fallback');
+				expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_restore_after_upgrade');
+			});
+
 			it('use only websocket transport for collab editing on GCP and FG on', () => {
 				passGate('collab_edit_via_websocket_only_for_gcp');
 				const socket = createSocketIOSocket(gcpUrl);
@@ -76,8 +105,11 @@ describe('Socket io provider', () => {
 
 		describe('Presence polling fallback', () => {
 			const analyticsHelper = { sendActionEvent: jest.fn() };
-			const createPresenceSocket = () => {
+			const createPresenceSocket = (restoreAfterUpgrade = true) => {
 				passGate('platform_editor_presence_ws_first_with_fallback');
+				(restoreAfterUpgrade ? passGate : failGate)(
+					'platform_editor_presence_ws_restore_after_upgrade',
+				);
 				const socket = createSocketIOSocket(
 					url,
 					undefined,
@@ -90,8 +122,16 @@ describe('Socket io provider', () => {
 				jest.spyOn(socket, 'connect').mockReturnValue(socket);
 				return socket as any;
 			};
-			const transportError = () =>
-				Object.assign(new Error('websocket error'), { type: 'TransportError' });
+			// The manager emits `open` when its engine has the server handshake on `transportName`
+			const openEngine = (socket: any, transportName: string) => {
+				const { engine } = socket.io;
+				socket.io.engine = Object.assign(new EventEmitter(), {
+					transport: { name: transportName },
+					write: jest.fn(),
+					close: () => engine.close(),
+				});
+				socket.io.emitReserved('open');
+			};
 
 			beforeEach(() => {
 				jest.useFakeTimers();
@@ -101,49 +141,112 @@ describe('Socket io provider', () => {
 				jest.useRealTimers();
 			});
 
-			it('switch to polling first on a websocket transport error', () => {
+			describe('restore after upgrade FG off', () => {
+				const transportError = () =>
+					Object.assign(new Error('websocket error'), { type: 'TransportError' });
+
+				it('switch to polling first on a websocket transport error', () => {
+					const socket = createPresenceSocket(false);
+					socket.emitReserved('connect_error', transportError());
+
+					expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+					expect(socket.disconnect).toHaveBeenCalled();
+					expect(socket.connect).toHaveBeenCalled();
+					expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith('pollingFallback', 'INFO', {
+						url,
+						reason: 'websocket error',
+					});
+				});
+
+				it('keep websocket first when the server rejects the connection', () => {
+					const socket = createPresenceSocket(false);
+					socket.emitReserved(
+						'connect_error',
+						Object.assign(new Error('No permission'), { data: { status: 401 } }),
+					);
+					jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+					socket.emitReserved('connect_error', transportError());
+
+					expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+					expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
+				});
+
+				it('stay polling first after the upgrade from polling succeeds', () => {
+					const socket = createPresenceSocket(false);
+					socket.emitReserved('connect_error', transportError());
+					openEngine(socket, 'polling');
+					socket.io.engine.emit('upgrade', { name: 'websocket' });
+
+					expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+				});
+
+				it('fall back only once', () => {
+					const socket = createPresenceSocket(false);
+					socket.emitReserved('connect_error', transportError());
+					socket.emitReserved('connect_error', transportError());
+					jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+					expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
+				});
+			});
+
+			it('switch to polling first when the connection does not open in time', () => {
 				const socket = createPresenceSocket();
-				socket.emitReserved('connect_error', transportError());
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
 
 				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
 				expect(socket.disconnect).toHaveBeenCalled();
 				expect(socket.connect).toHaveBeenCalled();
 				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith('pollingFallback', 'INFO', {
 					url,
-					reason: 'websocket error',
-				});
-			});
-
-			it('switch to polling first when websocket does not connect in time', () => {
-				const socket = createPresenceSocket();
-				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
-
-				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
-				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith('pollingFallback', 'INFO', {
-					url,
 					reason: 'timeout',
 				});
 			});
 
-			it('keep websocket first when the server rejects the connection', () => {
+			it('keep websocket first when connect errors come from polling or the network', () => {
 				const socket = createPresenceSocket();
 				socket.emitReserved(
 					'connect_error',
-					Object.assign(new Error('No permission'), { data: { status: 401 } }),
+					Object.assign(new Error('xhr poll error'), { type: 'TransportError' }),
 				);
-				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
-				socket.emitReserved('connect_error', transportError());
+				socket.emitReserved('connect_error', new Error('timeout'));
 
 				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
 				expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
 			});
 
-			it('fall back only once', () => {
+			it('keep websocket first once websocket opened, even if the auth token is slow', () => {
 				const socket = createPresenceSocket();
-				socket.emitReserved('connect_error', transportError());
-				socket.emitReserved('connect_error', transportError());
+				openEngine(socket, 'websocket');
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+				socket.io.emitReserved('reconnect_attempt', 1);
 				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
 
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
+			});
+
+			it('go back to websocket first after the upgrade from polling succeeds', () => {
+				const socket = createPresenceSocket();
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+				openEngine(socket, 'polling');
+				socket.io.engine.emit('upgrade', { name: 'websocket' });
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.io.opts.tryAllTransports).toBe(true);
+				socket.io.emitReserved('reconnect_attempt', 1);
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
+			});
+
+			it('stay polling first while the upgrade to websocket fails', () => {
+				const socket = createPresenceSocket();
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+				openEngine(socket, 'polling');
+				socket.io.emitReserved('reconnect_attempt', 1);
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
 				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
 			});
 		});

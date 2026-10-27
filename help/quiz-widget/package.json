@@ -49,7 +49,6 @@
 		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"wait-for-expect": "root:*"
+		"react-dom": "^19.0.0"
 	}
 }

@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, type RenderOptions, screen, waitFor } from '@testing-library/react';
+import {
+	fireEvent,
+	render,
+	type RenderOptions,
+	screen,
+	waitFor,
+	within,
+} from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
@@ -14,7 +21,7 @@ import {
 	type UseValidateAqlTextState,
 } from '../../../../hooks/useValidateAqlText';
 import { type ObjectSchema } from '../../../../types/assets/types';
-import { AssetsSearchContainer, type InitialSearchData } from '../index';
+import { AssetsSearchContainer, type InitialSearchData, type SearchContainerProps } from '../index';
 
 jest.mock('../../../../hooks/useValidateAqlText');
 
@@ -42,10 +49,22 @@ describe('AssetsSearchContainer', () => {
 		id: '1',
 		name: 'schemaOne',
 	};
+	const otherSchema: ObjectSchema = { id: '2', name: 'Customer Assets' };
 	const workspaceId = 'workspaceId';
 	const mockOnSearch = jest.fn();
 	const mockOnCancel = jest.fn();
-	const renderAssetsSearchContainer = async (initialSearchData: InitialSearchData) => {
+
+	const selectSchema = async (name: string) => {
+		const objectSchemaSelect = await screen.findByTestId(objectSchemaSelectTestId);
+		// Open the menu via the PopupSelect trigger button. Query by role rather than
+		// `children[0]`, since Compiled may inject a <style> tag as the first child.
+		fireEvent.click(within(objectSchemaSelect).getByRole('button'));
+		fireEvent.click((await screen.findAllByText(name))[0]);
+	};
+	const renderAssetsSearchContainer = async (
+		initialSearchData: InitialSearchData,
+		props?: Partial<SearchContainerProps>,
+	) => {
 		let renderFunction = render;
 		asMock(useValidateAqlText).mockReturnValue(getUseValidateAqlTextDefaultHookState);
 		const renderComponent = () =>
@@ -56,6 +75,7 @@ describe('AssetsSearchContainer', () => {
 					initialSearchData={initialSearchData}
 					workspaceId={workspaceId}
 					onCancel={mockOnCancel}
+					{...props}
 				/>,
 				{ wrapper: AssetsSearchContainerWrapper },
 			);
@@ -145,14 +165,6 @@ describe('AssetsSearchContainer', () => {
 
 	describe('searching the selected schema by default', () => {
 		const aqlInputTestId = 'assets-datasource-modal--aql-search-input';
-		const otherSchema: ObjectSchema = { id: '2', name: 'Customer Assets' };
-
-		const selectSchema = async (name: string) => {
-			const objectSchemaSelect = await screen.findByTestId(objectSchemaSelectTestId);
-			// Open Menu, needs to find the button element to perform click correctly
-			fireEvent.click(objectSchemaSelect.children[0]);
-			fireEvent.click((await screen.findAllByText(name))[0]);
-		};
 
 		it('should fill in the AQL and search when a schema is selected with an empty query', async () => {
 			passGate('platform_lp_sllv_assets_default_schema_aql');
@@ -223,6 +235,99 @@ describe('AssetsSearchContainer', () => {
 
 			expect(screen.getByTestId(aqlInputTestId)).toHaveValue('');
 			expect(mockOnSearch).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('table UI uplift header layout (astral_assets_macro_table_ui_uplift)', () => {
+		const configPopupTriggerName = 'Configure table';
+		const closeButtonName = 'Close Modal';
+		const insertObjectsLabel = 'Insert objects from:';
+		const modalTitleText = 'Assets table macro configuration';
+		const modalTitle = <h1>{modalTitleText}</h1>;
+
+		describe('when the gate is on', () => {
+			beforeEach(() => {
+				passGate('astral_assets_macro_table_ui_uplift');
+			});
+
+			it('should render the modal title, "Insert objects from" label, schema select, config popup trigger and close button', async () => {
+				await renderAssetsSearchContainer(
+					{ aql: undefined, objectSchema, objectSchemas: [objectSchema] },
+					{ modalTitle },
+				);
+
+				expect(screen.getByText(modalTitleText)).toBeInTheDocument();
+				expect(screen.getByText(insertObjectsLabel)).toBeInTheDocument();
+				expect(screen.getByTestId(objectSchemaSelectTestId)).toHaveTextContent(objectSchema.name);
+				expect(screen.getByRole('button', { name: configPopupTriggerName })).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: closeButtonName })).toBeInTheDocument();
+			});
+
+			it('should render the "Insert objects from" label immediately before the schema select', async () => {
+				await renderAssetsSearchContainer({
+					aql: undefined,
+					objectSchema,
+					objectSchemas: [objectSchema],
+				});
+
+				const label = screen.getByText(insertObjectsLabel);
+				const objectSchemaSelect = screen.getByTestId(objectSchemaSelectTestId);
+				expect(
+					label.compareDocumentPosition(objectSchemaSelect) & Node.DOCUMENT_POSITION_FOLLOWING,
+				).toBeTruthy();
+			});
+
+			it('should open the config popup when the trigger is clicked', async () => {
+				await renderAssetsSearchContainer({
+					aql: undefined,
+					objectSchema,
+					objectSchemas: [objectSchema],
+				});
+
+				fireEvent.click(screen.getByRole('button', { name: configPopupTriggerName }));
+
+				expect(
+					await screen.findByRole('dialog', { name: configPopupTriggerName }),
+				).toBeInTheDocument();
+			});
+
+			it('should call onCancel when the close button is clicked', async () => {
+				await renderAssetsSearchContainer({
+					aql: undefined,
+					objectSchema,
+					objectSchemas: [objectSchema],
+				});
+
+				fireEvent.click(screen.getByRole('button', { name: closeButtonName }));
+
+				expect(mockOnCancel).toHaveBeenCalledTimes(1);
+			});
+
+			it('should still wire onSchemaChange so selecting a schema searches by default', async () => {
+				passGate('platform_lp_sllv_assets_default_schema_aql');
+				await renderAssetsSearchContainer({
+					aql: undefined,
+					objectSchema: undefined,
+					objectSchemas: [objectSchema, otherSchema],
+				});
+
+				await selectSchema(otherSchema.name);
+
+				await waitFor(() => {
+					expect(mockOnSearch).toHaveBeenCalledWith(
+						'objectSchema = "Customer Assets"',
+						otherSchema.id,
+					);
+				});
+			});
+
+			it('should capture and report a11y violations', async () => {
+				const { container } = await renderAssetsSearchContainer(
+					{ aql: validAqlQuery, objectSchema, objectSchemas: [objectSchema] },
+					{ modalTitle },
+				);
+				await expect(container).toBeAccessible();
+			});
 		});
 	});
 

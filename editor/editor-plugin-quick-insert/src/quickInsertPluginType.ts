@@ -1,7 +1,7 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
-import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/type-ahead/item-rank';
+import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/registered-menu/item-rank';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {

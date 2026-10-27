@@ -1,5 +1,17 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.7.0
+
+### Minor Changes
+
+- [`04cd77dc540a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04cd77dc540a0) -
+  Add typed rovoAgent trigger analytics behind `rovo_agent_inline_triggers`, with component-owned
+  view events, required attributes, and successful mutation events.
+
+  The trigger modal entrypoint now requires `touchPoint`. Callers must pass their origin explicitly,
+  such as `agent-profile` or `agent-editor-triggers`; the shared profile/editor integrations are
+  updated.
+
 ## 6.6.1
 
 ### Patch Changes

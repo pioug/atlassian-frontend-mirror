@@ -1,5 +1,23 @@
 # @atlaskit/teams-public
 
+## 3.6.4
+
+### Patch Changes
+
+- [`6ec6b021e071d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ec6b021e071d) -
+  Clean up `workforce_optimization_team_modal_update`, keeping the enabled workforce optimization
+  warning and team disconnection disclaimers.
+- Updated dependencies
+
+## 3.6.3
+
+### Patch Changes
+
+- [`bec63ed72168c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bec63ed72168c) -
+  [A11Y-34675] Add descriptive aria-label to Show more/less team links button behind feature gate
+  teams_a11y_20261019
+- Updated dependencies
+
 ## 3.6.2
 
 ### Patch Changes

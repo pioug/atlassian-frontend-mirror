@@ -8,7 +8,6 @@ import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { getReactionSummary } from '../MockReactionsClient';
 import { DefaultReactions } from '../shared/constants';
@@ -213,20 +212,8 @@ describe('ReactionSummaryView', () => {
 		});
 	});
 
-	describe('platform_a11y_fixes_reading_order gate', () => {
-		it('renders the summary popup in a portal when the gate is OFF', async () => {
-			failGate('platform_a11y_fixes_reading_order');
-			const { container } = renderComponent();
-			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
-			await userEvent.click(reactionSummaryButton);
-
-			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
-			expect(summaryViewPopup).toBeInTheDocument();
-			expect(container).not.toContainElement(summaryViewPopup);
-		});
-
-		it('renders the summary popup inline when the gate is ON', async () => {
-			passGate('platform_a11y_fixes_reading_order');
+	describe('summary popup rendering', () => {
+		it('renders the summary popup inline', async () => {
 			const { container } = renderComponent();
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(reactionSummaryButton);

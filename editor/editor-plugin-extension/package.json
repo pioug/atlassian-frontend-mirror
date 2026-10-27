@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "32.0.4",
+	"version": "33.0.1",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,9 +103,6 @@
 	},
 	"platform-feature-flags": {
 		"cc_maui_annotations_on_extensions": {
-			"type": "boolean"
-		},
-		"platform_forge_inline_bodied_macro": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_object_sidebar_injection": {

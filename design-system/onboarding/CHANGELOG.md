@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 15.4.7
+
+### Patch Changes
+
+- [`8ffc46c5e6d6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ffc46c5e6d6b) -
+  Cleanup `feature_gate` `scroll-lock-replacement`. Spotlight target box measurements are now always
+  deferred with `setTimeout(0)` and the target is hidden while its width is 0, to avoid content
+  shifting and target flashing.
+
 ## 15.4.6
 
 ### Patch Changes

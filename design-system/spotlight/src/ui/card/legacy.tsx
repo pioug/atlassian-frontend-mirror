@@ -124,7 +124,7 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			card.setRef(cardRef);
 		}, [card]);
 
-		const content = fg('platform_spotlight_card_fit_content_anchor') ? (
+		const content = (
 			<div css={styles.root} data-testid={testId} ref={ref}>
 				<div css={styles.container}>
 					<Caret placement={placement || card.placement} />
@@ -136,17 +136,6 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 						{children}
 					</Box>
 				</div>
-			</div>
-		) : (
-			<div css={styles.container} data-testid={testId} ref={ref}>
-				<Caret placement={placement || card.placement} />
-				<Box
-					ref={cardRef}
-					backgroundColor="color.background.neutral.bold"
-					xcss={cx(styles.card, placementStyles[placement || card.placement])}
-				>
-					{children}
-				</Box>
 			</div>
 		);
 

@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import EmojiPicker from '@atlaskit/emoji/emoji-picker';
 import type { OnEmojiEvent, PickerSize, EmojiProvider } from '@atlaskit/emoji/types';
@@ -604,7 +604,6 @@ export interface PopperWrapperProps {
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX.Element => {
 	const { triggerRef, settings, isOpen, onClose, children, popperModifiers, zIndex } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
-	const { formatMessage } = useIntl();
 	/**
 	 * add focus lock to popup
 	 */
@@ -631,13 +630,8 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX
 				return (
 					<div
 						role="dialog"
-						aria-label={
-							fg('platform_a11y_fixes_reading_order')
-								? undefined
-								: formatMessage(messages.popperWrapperLabel)
-						}
-						aria-modal={fg('platform_a11y_fixes_reading_order') ? 'false' : undefined}
-						aria-labelledby={fg('platform_a11y_fixes_reading_order') ? PICKER_LABEL_ID : undefined}
+						aria-modal="false"
+						aria-labelledby={PICKER_LABEL_ID}
 						id={PICKER_CONTROL_ID}
 						data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
 						style={{
@@ -659,13 +653,11 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX
 						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
 						tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}
 					>
-						{fg('platform_a11y_fixes_reading_order') ? (
-							<div css={visuallyHiddenStyle}>
-								<Heading as="h2" size="small" id={PICKER_LABEL_ID}>
-									<FormattedMessage {...messages.popperWrapperLabel} />
-								</Heading>
-							</div>
-						) : null}
+						<div css={visuallyHiddenStyle}>
+							<Heading as="h2" size="small" id={PICKER_LABEL_ID}>
+								<FormattedMessage {...messages.popperWrapperLabel} />
+							</Heading>
+						</div>
 						<RepositionOnUpdate update={update} settings={settings}>
 							<div css={[popupStyle]}>{children}</div>
 						</RepositionOnUpdate>

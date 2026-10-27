@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "3.5.81",
+	"version": "3.5.82",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,8 +40,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"wait-for-expect": "root:*"
+		"react-dom": "^19.2.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0 || ^19.2.0",

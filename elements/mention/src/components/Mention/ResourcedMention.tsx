@@ -5,7 +5,7 @@ import type { MentionProvider } from '../../api/MentionResource';
 import { isPromise } from '../../is-promise';
 import { type MentionEventHandler, type MentionNameDetails, MentionNameStatus } from '../../types';
 import debug from '../../util/logger';
-import Mention, { UNKNOWN_USER_ID } from './';
+import Mention, { type OwnProps, UNKNOWN_USER_ID } from './';
 
 export interface Props {
 	accessLevel?: string;
@@ -24,6 +24,7 @@ export interface Props {
 	renderAvatarSlot?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
+	userType?: OwnProps['userType'];
 }
 
 export interface State {
@@ -132,6 +133,7 @@ export default class ResourcedMention extends React.PureComponent<Props, State> 
 				avatarUrl={props.avatarUrl}
 				isAvatarImagePreShaped={props.isAvatarImagePreShaped}
 				localId={props.localId}
+				userType={props.userType}
 				onClick={props.onClick}
 				onMouseEnter={props.onMouseEnter}
 				onMouseLeave={props.onMouseLeave}

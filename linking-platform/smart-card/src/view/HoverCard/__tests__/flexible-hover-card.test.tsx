@@ -18,6 +18,7 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorat
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent } from '@atlassian/testing-library/testing-library/react';
 
+import { closeOpenEmbedModal } from '../../../__tests__/__utils__/unit-helpers';
 import { ActionName, ElementName } from '../../../constants';
 import { Card, type CardAppearance } from '../../Card';
 import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
@@ -52,7 +53,8 @@ describe('hover card over flexible smart links', () => {
 		jest.restoreAllMocks();
 	});
 
-	afterEach(() => {
+	afterEach(async () => {
+		await closeOpenEmbedModal();
 		jest.useRealTimers();
 	});
 

@@ -72,6 +72,13 @@ export function LayoutAreaSizingProvider({
 		return bind(inlineChatQuery, { type: 'change', listener: dismissOlderOverlay });
 	}, [chatPanelMode, lastOpenedOverlay, sideNavMode]);
 
+	const splitters = useRef(new Set<HTMLElement>());
+	const registerSplitter = useCallback((element: HTMLElement) => {
+		splitters.current.add(element);
+		return () => {
+			splitters.current.delete(element);
+		};
+	}, []);
 	const mainMinWidth = useRef<LayoutWidthBound>(defaultMainMinWidth);
 	const loadRef = useRef<() => void>(() => {});
 	const ready = useRef(false);
@@ -119,8 +126,14 @@ export function LayoutAreaSizingProvider({
 		};
 		loadRef.current = load;
 		const loadForSplitter = (event: Event) => {
-			if (event.target instanceof Element && event.target.closest('[data-panel-splitter]')) {
-				load();
+			if (!(event.target instanceof Node)) {
+				return;
+			}
+			for (const splitter of splitters.current) {
+				if (splitter.contains(event.target)) {
+					load();
+					return;
+				}
 			}
 		};
 		const unbindRoot = bindAll(root, [
@@ -176,6 +189,7 @@ export function LayoutAreaSizingProvider({
 	const value = useMemo<LayoutAreaSizingContextValue>(
 		() => ({
 			prepareResize,
+			registerSplitter,
 			registerArea: (area, config) => {
 				if (area !== 'panel' && config.isOpen && !configs.current[area]?.isOpen) {
 					setLastOpenedOverlay(area);
@@ -202,7 +216,7 @@ export function LayoutAreaSizingProvider({
 			completeResize: (area, mode, width) =>
 				dispatch((runtime) => runtime.completeResize(area, mode, width)),
 		}),
-		[dispatch, prepareResize],
+		[dispatch, prepareResize, registerSplitter],
 	);
 	const SideNavStateProvider = layoutAreaStateContexts['side-nav'].Provider;
 	const PanelStateProvider = layoutAreaStateContexts.panel.Provider;

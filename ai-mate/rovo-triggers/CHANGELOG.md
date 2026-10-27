@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 12.9.0
+
+### Minor Changes
+
+- [`b7d81309995df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7d81309995df) -
+  Add a conversation-read Rovo trigger payload so a publisher can mark a conversation read without
+  opening chat. The event does not replace the latest queued chat action. The new session card
+  publishes it when the actions flyout opens.
+
 ## 12.8.0
 
 ### Minor Changes

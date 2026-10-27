@@ -526,6 +526,17 @@ export type EditorAgentChangedPayload = PayloadCore<
 	}
 >;
 
+/**
+ * Marks a Rovo conversation read without opening chat. The publisher persists `readStatus`;
+ * subscribers only update the in-memory conversation.
+ */
+export type ConversationReadPayload = PayloadCore<
+	'conversation-read',
+	{
+		channelId: string;
+	}
+> & { openChat: false };
+
 export type ChatOpenPayload = PayloadCore<
 	'chat-open',
 	{
@@ -969,6 +980,7 @@ export type Payload =
 	| ChatDraftPayload
 	| ChatSmartLink3PPostAuthLaunchPayload
 	| EditorContextPayload
+	| ConversationReadPayload
 	| ChatOpenPayload
 	| OpenBrowseAgentPayload
 	| SmartlinksSubscriptionChangedPayload

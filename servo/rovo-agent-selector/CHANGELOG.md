@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-selector
 
+## 3.3.0
+
+### Minor Changes
+
+- [`a146ad8faed02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a146ad8faed02) -
+  Share the selector agent fields with create and publish mutations behind
+  `hubs_management_rovo_agent_creation_fix`. Export its Relay provider for consuming products and
+  preserve the previous selector data path when the gate is disabled.
+
 ## 3.2.1
 
 ### Patch Changes

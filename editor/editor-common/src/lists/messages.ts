@@ -30,12 +30,12 @@ export const messages: {
 } = defineMessages({
 	unorderedList: {
 		id: 'fabric.editor.unorderedList',
-		defaultMessage: 'Bullet list',
+		defaultMessage: 'Bulleted list',
 		description: 'A list with bullets. Also known as an “unordered” list',
 	},
 	unorderedListDescription: {
 		id: 'fabric.editor.unorderedList.description',
-		defaultMessage: 'Create an unordered list',
+		defaultMessage: 'Organize items with bullets',
 		description:
 			'The text is shown as a description for the bullet list option in the quick insert menu when the user searches for list formatting options.',
 	},
@@ -47,7 +47,7 @@ export const messages: {
 	},
 	orderedListDescription: {
 		id: 'fabric.editor.orderedList.description',
-		defaultMessage: 'Create an ordered list',
+		defaultMessage: 'Organize items with numbers',
 		description:
 			'The text is shown as a description for the numbered list option in the quick insert menu when the user searches for list formatting options.',
 	},

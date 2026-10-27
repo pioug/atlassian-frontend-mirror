@@ -209,7 +209,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.050',
 					introduced: '20.7.0',
 					description:
-						'Use for the smallest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			xsmall: {
@@ -219,7 +219,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.100',
 					introduced: '20.7.0',
 					description:
-						'Use for extra-small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			small: {
@@ -229,7 +229,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.150',
 					introduced: '20.7.0',
 					description:
-						'Use for small equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			medium: {
@@ -239,7 +239,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.200',
 					introduced: '20.7.0',
 					description:
-						'Use for medium equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			large: {
@@ -249,7 +249,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.250',
 					introduced: '20.7.0',
 					description:
-						'Use for large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			xlarge: {
@@ -259,7 +259,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.300',
 					introduced: '20.7.0',
 					description:
-						'Use for extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			xxlarge: {
@@ -269,7 +269,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.400',
 					introduced: '20.7.0',
 					description:
-						'Use for extra-extra-large equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 			'3xlarge': {
@@ -279,7 +279,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 					replacement: 'space.600',
 					introduced: '20.7.0',
 					description:
-						'Use for the largest equal padding between a surface and its content on all sides. Do not use for gaps, margins, dimensions, or directional padding.',
+						'Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},
 			},
 		},

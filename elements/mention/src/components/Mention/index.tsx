@@ -50,6 +50,7 @@ export type OwnProps = {
 	renderAvatarSlot?: boolean;
 	ssrPlaceholderId?: string;
 	text: string;
+	userType?: 'DEFAULT' | 'SPECIAL' | 'APP';
 };
 
 export type Props = OwnProps & WithAnalyticsEventsProps;

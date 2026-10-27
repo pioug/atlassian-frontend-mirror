@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-extension
 
+## 33.0.1
+
+### Patch Changes
+
+- [`ea9ea48be9c3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea9ea48be9c3e) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.5
+
+### Patch Changes
+
+- [`b3d3cec87b96b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3d3cec87b96b) -
+  Remove the `platform_forge_inline_bodied_macro` feature gate and keep its enabled behavior. The
+  separate inline-bodied layout switch continues to control layout support.
+- Updated dependencies
+
 ## 32.0.4
 
 ### Patch Changes

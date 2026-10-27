@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-emoji
 
+## 31.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.0
+
+### Patch Changes
+
+- [`7e91f3141329d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e91f3141329d) -
+  Decouple Quick Insert menu rendering and interaction from typeahead under the existing
+  `platform_editor_slash_command` experiment.
+- Updated dependencies
+
 ## 30.0.4
 
 ### Patch Changes

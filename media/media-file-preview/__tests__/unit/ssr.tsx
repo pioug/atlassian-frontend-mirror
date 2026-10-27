@@ -1,33 +1,16 @@
 import React from 'react';
 
-import { hydrateRoot } from 'react-dom/client';
-import waitForExpect from 'wait-for-expect';
-
-import { ssr } from '@atlaskit/ssr';
+import { hydrateWithSsr } from '@atlassian/ssr-tests/ssr-tests';
 
 import Example from '../../examples/00-use-media-image';
 
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
+test('should ssr then hydrate example component correctly', async () => {
+	const consoleError = jest.spyOn(console, 'error');
+	// Keep the calls because the helper restores its console spy before returning.
+	const consoleErrors = consoleError.mock.calls;
+	const result = await hydrateWithSsr(<Example />);
 
-afterEach(() => {
-	jest.resetAllMocks();
-});
-
-test.skip('should ssr then hydrate example component correctly', async () => {
-	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(Example);
-
-	await waitForExpect(() => {
-		hydrateRoot(elem, <Example />);
-		// ignore warnings caused by emotion's server-side rendering approach
-		// @ts-ignore
-		// eslint-disable-next-line no-console
-		const mockCalls = console.error.mock.calls.filter(
-			([f, s]: string[]) =>
-				!(
-					f === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && s === 'style'
-				),
-		);
-		expect(mockCalls.length).toBe(0);
-	});
+	expect(result.collatedErrors).toEqual([]);
+	// The helper's collector currently ignores recoverable errors passed as Error objects.
+	expect(consoleErrors.filter(([error]) => error instanceof Error)).toEqual([]);
 });

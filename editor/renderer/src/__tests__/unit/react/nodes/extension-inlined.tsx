@@ -73,7 +73,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 		it('joins top-level text without UI Kit styling', async () => {
 			passGate('platform_forge_inline_bodied_layout_switch');
-			passGate('platform_forge_inline_bodied_macro');
 			const { container } = renderCustomUI(false, true);
 			const wrapper = screen.getByTestId('extension--wrapper');
 			expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
@@ -84,7 +83,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 
 		it('keeps nested Custom UI macros as blocks', () => {
 			passGate('platform_forge_inline_bodied_layout_switch');
-			passGate('platform_forge_inline_bodied_macro');
 			renderCustomUI(true, true);
 			const wrapper = screen.getByTestId('extension--wrapper');
 			expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
@@ -217,9 +215,8 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			mockExpEnabled('platform_editor_remove_important_in_render_ext');
 		});
 
-		describe('platform_forge_inline_bodied_macro enabled', () => {
+		describe('inline-bodied presentation', () => {
 			it('marks a top-level native Forge bodied macro with data-forge-inline', () => {
-				passGate('platform_forge_inline_bodied_macro');
 				const { getByTestId } = render(
 					<BodiedExtension {...baseProps} shouldDisplayExtensionAsInline={() => true}>
 						<p>Inline extension content</p>
@@ -233,7 +230,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			});
 
 			it('marks a non-Forge inline-bodied extension as migrated, not native', () => {
-				passGate('platform_forge_inline_bodied_macro');
 				const { getByTestId } = render(
 					<BodiedExtension
 						{...baseProps}
@@ -255,7 +251,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			// carries the output-type marker but never the Forge marker. It receives only
 			// the migrated line-flow fix, not the native nested-renderer styling.
 			it('marks a macro carrying only the output-type marker as migrated', () => {
-				passGate('platform_forge_inline_bodied_macro');
 				const { getByTestId } = render(
 					<BodiedExtension
 						{...baseProps}
@@ -272,7 +267,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 				expect(wrapper).toHaveAttribute('data-migrated-inline', 'true');
 			});
 
-			// Same as above — a bodyless extension short-circuits before the gate.
+			// A bodyless extension does not receive inline-bodied styling.
 			it('does not mark a bodyless Forge extension', () => {
 				const { getContent, ...propsWithoutContent } = baseProps;
 				const { getByTestId } = render(
@@ -286,7 +281,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			});
 
 			it('leaves a nested Forge bodied macro as a block, because sibling marking is top-level only', () => {
-				passGate('platform_forge_inline_bodied_macro');
 				const { getByTestId } = render(
 					<BodiedExtension
 						{...baseProps}
@@ -300,54 +294,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 				const wrapper = getByTestId('extension--wrapper');
 				expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
 				expect(wrapper).not.toHaveAttribute('data-forge-inline');
-			});
-		});
-
-		describe('platform_forge_inline_bodied_macro disabled', () => {
-			beforeEach(() => {
-				failGate('platform_forge_inline_bodied_macro');
-			});
-
-			it('does not mark a top-level native Forge bodied macro, gate off', () => {
-				const { getByTestId } = render(
-					<BodiedExtension {...baseProps} shouldDisplayExtensionAsInline={() => true}>
-						<p>Inline extension content</p>
-					</BodiedExtension>,
-				);
-
-				const wrapper = getByTestId('extension--wrapper');
-				// The pre-existing inline treatment is unchanged by the gate.
-				expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-				expect(wrapper).not.toHaveAttribute('data-forge-inline');
-			});
-
-			it('still inlines a nested Forge bodied macro, i.e. the guard is gated', () => {
-				const { getByTestId } = render(
-					<BodiedExtension
-						{...baseProps}
-						path={nestedPath}
-						shouldDisplayExtensionAsInline={() => true}
-					>
-						<p>Inline extension content</p>
-					</BodiedExtension>,
-				);
-
-				const wrapper = getByTestId('extension--wrapper');
-				expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
-			});
-
-			it('does not mark migrated inline-bodied macros when the gate is off', () => {
-				const { getByTestId } = render(
-					<BodiedExtension
-						{...baseProps}
-						parameters={{ guestParams: { atlassianMacroOutputType: 'INLINE' } }}
-						shouldDisplayExtensionAsInline={() => true}
-					>
-						<p>Inline extension content</p>
-					</BodiedExtension>,
-				);
-
-				expect(getByTestId('extension--wrapper')).not.toHaveAttribute('data-migrated-inline');
 			});
 		});
 	});

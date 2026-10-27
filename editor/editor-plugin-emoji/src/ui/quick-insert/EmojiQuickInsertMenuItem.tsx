@@ -2,13 +2,13 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
 import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
-import type { TypeAheadInsert } from '@atlaskit/editor-common/types/type-ahead';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 
@@ -19,7 +19,7 @@ const previewImageUrls = {
 export const EmojiQuickInsertMenuItem = ({
 	selectEmojiFromQuickInsert,
 }: {
-	selectEmojiFromQuickInsert: (insert: TypeAheadInsert) => Transaction;
+	selectEmojiFromQuickInsert: (insert: InsertContentCallback) => Transaction;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const preview = useMemo(

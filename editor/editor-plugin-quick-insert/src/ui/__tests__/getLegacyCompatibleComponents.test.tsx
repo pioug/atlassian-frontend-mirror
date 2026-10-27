@@ -104,7 +104,7 @@ describe('getLegacyCompatibleComponents', () => {
 			'provider-keyword',
 			'Ctrl+Alt+P',
 		]) {
-			expect(match?.({ formatMessage, query })).not.toBeNull();
+			expect(match?.({ formatMessage, itemKey: components[0].key, query })).not.toBeNull();
 		}
 	});
 
@@ -122,7 +122,9 @@ describe('getLegacyCompatibleComponents', () => {
 		const derived = components.find(({ key }) => key === 'quick-insert-provider-derived');
 		const explicit = components.find(({ key }) => key === 'quick-insert-provider-explicit');
 
-		expect(derived?.match?.({ formatMessage, query: 'derived-keyword' })).not.toBeNull();
+		expect(
+			derived?.match?.({ formatMessage, itemKey: derived.key, query: 'derived-keyword' }),
+		).not.toBeNull();
 		expect(explicit?.match).toBe(explicitMatch);
 	});
 });

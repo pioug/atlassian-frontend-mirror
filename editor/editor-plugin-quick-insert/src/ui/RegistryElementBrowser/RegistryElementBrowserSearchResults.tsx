@@ -9,12 +9,13 @@ import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
-import { QuickInsertEmptyState } from '@atlaskit/editor-common/quick-insert/empty-state';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { token } from '@atlaskit/tokens';
 
+import { QuickInsertEmptyState } from '../registered-menu/QuickInsertEmptyState';
 // oxlint-disable-next-line eslint/no-redeclare
 import type { RegistryElementBrowserItem } from './model';
 
@@ -31,6 +32,7 @@ type Props = {
 	resultsId: string;
 	section?: string;
 	selectedKey?: string;
+	surfaceContext: SurfaceContext;
 };
 
 const resultsGridStyles = css({
@@ -69,12 +71,14 @@ const RegistryElementBrowserItem = ({
 	isSelected,
 	item,
 	onSelect,
+	surfaceContext,
 }: {
 	editorView: EditorView;
 	isOffline: boolean;
 	isSelected: boolean;
 	item: RegistryElementBrowserItem;
 	onSelect: (key: string, handler: QuickInsertSelectionHandler) => void;
+	surfaceContext: SurfaceContext;
 }): React.JSX.Element | null => {
 	const { component: Component, key } = item.registration;
 	const contextValue = useMemo(
@@ -87,9 +91,9 @@ const RegistryElementBrowserItem = ({
 				isSelected,
 			},
 			select: (handler: QuickInsertSelectionHandler) => onSelect(key, handler),
-			surface: 'element-browser' as const,
+			surfaceContext,
 		}),
-		[editorView, isOffline, isSelected, item.description, key, onSelect],
+		[editorView, isOffline, isSelected, item.description, key, onSelect, surfaceContext],
 	);
 
 	if (!Component) {
@@ -98,7 +102,9 @@ const RegistryElementBrowserItem = ({
 
 	return (
 		<QuickInsertProvider value={contextValue}>
-			{React.createElement(Component, undefined, null)}
+			<Component parents={item.registration.parents} surfaceContext={surfaceContext}>
+				{null}
+			</Component>
 		</QuickInsertProvider>
 	);
 };
@@ -114,6 +120,7 @@ export const RegistryElementBrowserSearchResults = ({
 	resultsId,
 	section,
 	selectedKey,
+	surfaceContext,
 	onKeyDown,
 	onSelect,
 }: Props): React.JSX.Element => {
@@ -163,6 +170,7 @@ export const RegistryElementBrowserSearchResults = ({
 							item={item}
 							key={item.registration.key}
 							onSelect={onSelect}
+							surfaceContext={surfaceContext}
 						/>
 					))}
 				</div>

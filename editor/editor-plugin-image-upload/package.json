@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-image-upload",
-	"version": "29.0.0",
+	"version": "30.0.0",
 	"description": "Image upload plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,6 @@
 	"devDependencies": {
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"wait-for-expect": "root:*"
+		"react-dom": "^19.2.0"
 	}
 }

@@ -1,5 +1,19 @@
 # @atlaskit/form
 
+## 18.3.1
+
+### Patch Changes
+
+- [`bd00bdc3babfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd00bdc3babfa) -
+  Fixing types
+
+## 18.3.0
+
+### Minor Changes
+
+- [`d3fab0b905562`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3fab0b905562) -
+  Add configurable form message icon labels.
+
 ## 18.2.1
 
 ### Patch Changes

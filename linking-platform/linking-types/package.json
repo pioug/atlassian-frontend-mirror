@@ -52,7 +52,6 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
-		"react-dom": "root:*",
-		"wait-for-expect": "root:*"
+		"react-dom": "root:*"
 	}
 }

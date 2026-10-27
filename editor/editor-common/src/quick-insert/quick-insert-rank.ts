@@ -1,6 +1,6 @@
+import type { RegisteredItemRankResolver } from '../registered-menu/item-rank';
 import { isMenuFooterSectionKey } from '../type-ahead/isMenuFooterSectionKey';
 import { isSectionOverflowItemKey } from '../type-ahead/isSectionOverflowItemKey';
-import type { RegisteredItemRankResolver } from '../type-ahead/item-rank';
 import { RECOMMENDED_SECTION } from './keys';
 
 /** Recommendations and navigation controls retain their policy-defined order. */

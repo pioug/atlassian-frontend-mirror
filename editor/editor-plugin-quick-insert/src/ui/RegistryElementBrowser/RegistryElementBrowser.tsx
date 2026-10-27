@@ -14,7 +14,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
-import { useQuickInsertSearchAnalytics } from '@atlaskit/editor-common/quick-insert/use-search-analytics';
+import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/registered-menu/surface-context';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
@@ -32,6 +32,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
+import { useQuickInsertSearchAnalytics } from '../registered-menu/useQuickInsertSearchAnalytics';
 import {
 	createRegistryElementBrowserModel,
 	getInitialRegistryElementBrowserSection,
@@ -129,6 +130,21 @@ export const RegistryElementBrowser = ({
 	onSelect,
 }: Props): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
+	const [session, setSession] = useState(() => ({ isOpen, menuOpenId: Symbol('element-browser') }));
+	if (session.isOpen !== isOpen) {
+		setSession({
+			isOpen,
+			menuOpenId: isOpen ? Symbol('element-browser') : session.menuOpenId,
+		});
+	}
+	const surfaceContext = useMemo(
+		() =>
+			createRegisteredMenuSurfaceContext({
+				menuOpenId: session.menuOpenId,
+				surface: 'element-browser',
+			}),
+		[session.menuOpenId],
+	);
 	const [browserState, setBrowserState] = useState<BrowserState>({
 		query: '',
 		section: defaultSection,
@@ -138,6 +154,7 @@ export const RegistryElementBrowser = ({
 	const browserModel = useMemo(() => {
 		const model = createRegistryElementBrowserModel(components, {
 			footerKey: getMenuFooterSectionKey(MENU.key),
+			surfaceContext,
 			overflowKeys: new Set(
 				components
 					.filter((component) => component.type === 'menu-section')
@@ -158,7 +175,7 @@ export const RegistryElementBrowser = ({
 				section: effectiveSection,
 			}),
 		};
-	}, [components, formatMessage, query, section]);
+	}, [components, formatMessage, query, section, surfaceContext]);
 	const { model, effectiveSection, items } = browserModel;
 	const visibleItems =
 		items.length === 0 && !isLoading && query.trim().length > 0
@@ -481,6 +498,7 @@ export const RegistryElementBrowser = ({
 								fallbackItems={model.fallbackItems}
 								query={query}
 								resultsId={resultsId}
+								surfaceContext={surfaceContext}
 								section={effectiveSection}
 								selectedKey={selectedKey}
 								onKeyDown={onKeyDown}

@@ -217,6 +217,7 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 			id,
 			accessLevel,
 			localId,
+			userType,
 			disabledTooltip,
 			isAvatarImagePreShaped,
 			renderAvatarSlot,
@@ -334,6 +335,7 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 				<span
 					id={localId}
 					data-mention-id={id}
+					data-user-type={fg('platform_mention_preserve_user_type') ? userType : undefined}
 					data-local-id={localId}
 					data-access-level={accessLevel}
 					spellCheck={false}

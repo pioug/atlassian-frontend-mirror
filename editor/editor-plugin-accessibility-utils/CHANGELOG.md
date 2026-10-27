@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 30.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.4
 
 ### Patch Changes

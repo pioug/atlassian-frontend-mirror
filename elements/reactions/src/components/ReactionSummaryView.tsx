@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import EmojiPicker from '@atlaskit/emoji/emoji-picker';
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled/box';
@@ -374,8 +373,8 @@ export const ReactionSummaryView = ({
 			}
 			isOpen={isSummaryPopupOpen || isEmojiPickerOpen}
 			onClose={handlePopupClose}
-			shouldRenderToParent={fg('platform_a11y_fixes_reading_order')}
-			strategy={fg('platform_a11y_fixes_reading_order') ? 'absolute' : undefined}
+			shouldRenderToParent
+			strategy="absolute"
 			trigger={(triggerProps) => (
 				<ReactionSummaryButton
 					{...triggerProps}

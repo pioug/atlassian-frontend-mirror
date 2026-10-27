@@ -36,8 +36,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
-		"typescript": "root:*",
-		"wait-for-expect": "root:*"
+		"typescript": "root:*"
 	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",

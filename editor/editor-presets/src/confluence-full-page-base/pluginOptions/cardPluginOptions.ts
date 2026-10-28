@@ -25,6 +25,7 @@ interface Props {
 		linkPicker: LinkPickerOptions | undefined;
 		onClickCallback: OnClickCallback | undefined;
 		smartCardContext: CardContext | undefined;
+		trackPastedInlineLinks?: CardPluginOptions['trackPastedInlineLinks'];
 	};
 	providers: {
 		cardProvider: Promise<CardProvider> | undefined;
@@ -47,6 +48,7 @@ declare global {
 export function cardPluginOptions({ options, providers }: Props): CardPluginOptions {
 	return {
 		smartCardContext: options.smartCardContext,
+		trackPastedInlineLinks: options.trackPastedInlineLinks,
 		// From confluence/next/packages/full-page-editor/src/FullPageEditorComponent.tsx `CARD_OPTIONS =`
 		allowDatasource: true,
 		// END SECTION

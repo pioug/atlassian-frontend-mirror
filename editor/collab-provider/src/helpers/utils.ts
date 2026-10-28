@@ -1,5 +1,6 @@
 import scrubAdf from '@atlaskit/adf-utils/scrub-adf';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
 import type {
 	BatchAttrsStepPM,
 	InlineCommentAddNodeMarkStepPM,
@@ -21,8 +22,7 @@ import { sendableSteps } from '@atlaskit/prosemirror-collab';
 import { CustomError } from '../errors/custom-errors';
 import type { ProductInformation } from '../types';
 
-// eslint-disable-next-line require-unicode-regexp
-const GCP_TENANT_PATTERN = /^.*-cdp-\w+\.jira-dev\.com$/;
+const GCP_STAGING_TENANT_PATTERN = /^.*-cdp-\w+\.jira-dev\.com$/u;
 
 export const createLogger =
 	(prefix: string, color: string = 'blue') =>
@@ -401,15 +401,30 @@ export async function toObfuscatedSteps(steps: readonly ProseMirrorStep[]): Prom
 }
 
 /**
- * Copied from confluence/next/packages/graphql/src/utils/gcpDomainUtils.ts
- * Checks if the current domain is a GCP tenant matching the pattern: .*-cdp-{cdp-id}\.jira-dev\.com
- * @param {string | undefined} hostname optional hostname to evaluate
- * @returns {boolean} true if the domain matches the GCP tenant pattern
+ * Keep all three checks: AWS-served Bifrost responses can overwrite the shared
+ * detector's cookie to AWS even for a GCP tenant (https://hello.atlassian.net/browse/EDGE-10729).
+ * The Edge cookie covers that case; the shared detector also supports SSR, and
+ * the hostname check covers missing or unreliable cloud-provider cookies in staging.
+ * Any GCP signal is sufficient; an AWS value must not veto the remaining checks.
  */
 export function isGCPtenant(hostname?: string): boolean {
-	if (!hostname) {
-		return false;
+	let edgeProvider: string | undefined;
+	try {
+		edgeProvider =
+			typeof document === 'undefined'
+				? undefined
+				: document.cookie
+						.split(';')
+						.map((cookie) => cookie.trim())
+						.find((cookie) => cookie.startsWith('Atl-Ctx-Cloud-Service-Provider='))
+						?.split('=')[1];
+	} catch {
+		// Cookie access can be unavailable; continue with the shared detector and staging fallback.
 	}
 
-	return GCP_TENANT_PATTERN.test(hostname);
+	return (
+		edgeProvider === 'GCP' ||
+		isGoogleCloudPlatform() ||
+		Boolean(hostname && GCP_STAGING_TENANT_PATTERN.test(hostname))
+	);
 }

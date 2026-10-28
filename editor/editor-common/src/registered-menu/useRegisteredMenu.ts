@@ -6,7 +6,6 @@ import type {
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
 
-import { getRegisteredMenuRows } from './getRegisteredMenuRows';
 import type { RegisteredMenuModel } from './types';
 import { useRegisteredMenuSelection } from './useRegisteredMenuSelection';
 
@@ -21,6 +20,16 @@ type Options = {
 	model: RegisteredMenuModel;
 	resetKey?: string | number | symbol;
 };
+
+const getSelectableItemIdentity = (
+	item: RegisterMenuItem,
+	scope: { sectionKey: string; type: 'section' } | { type: 'fallback' } | { type: 'footer' },
+): string =>
+	JSON.stringify([
+		scope.type,
+		scope.type === 'section' ? scope.sectionKey : undefined,
+		getComponentIdentity(item),
+	]);
 
 export type RegisteredMenuState = {
 	activeItemKey?: string;
@@ -45,18 +54,28 @@ export type RegisteredMenuState = {
  */
 export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuState => {
 	const { rows, selectableItems, selectableItemIdentities } = useMemo(() => {
-		const rows = getRegisteredMenuRows(model);
+		const rows: Array<RegisterMenuItem | RegisterMenuSection> = [];
 		const selectableItems: RegisterMenuItem[] = [];
 		const selectableItemIdentities: string[] = [];
-		rows.forEach((row) => {
-			if (row.type === 'menu-item') {
-				selectableItems.push(row);
-				selectableItemIdentities.push(getComponentIdentity(row));
-			}
+		const appendItem = (
+			item: RegisterMenuItem,
+			scope: { sectionKey: string; type: 'section' } | { type: 'fallback' },
+		) => {
+			rows.push(item);
+			selectableItems.push(item);
+			// A shared item key in another section is a different selection target.
+			selectableItemIdentities.push(getSelectableItemIdentity(item, scope));
+		};
+		model.sections.forEach(([section, ...items]) => {
+			rows.push(section);
+			items.forEach((item) =>
+				appendItem(item, { sectionKey: getComponentIdentity(section), type: 'section' }),
+			);
 		});
+		model.fallbackItems.forEach((item) => appendItem(item, { type: 'fallback' }));
 		// The footer participates in navigation but is rendered outside the scrolling rows.
 		if (model.footer) {
-			selectableItemIdentities.push(getComponentIdentity(model.footer));
+			selectableItemIdentities.push(getSelectableItemIdentity(model.footer, { type: 'footer' }));
 		}
 		return { rows, selectableItems, selectableItemIdentities };
 	}, [model]);

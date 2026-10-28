@@ -1,3 +1,6 @@
+import * as renderedResultTracking from '@atlaskit/editor-common/rendered-result-tracker';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 const mockCard = jest.fn();
 const mockCardSync = jest.fn();
 
@@ -32,6 +35,7 @@ import React from 'react';
 
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
 import Loadable from 'react-loadable';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema/annotation';
@@ -398,7 +402,11 @@ describe('Media', () => {
 			});
 		});
 
-		it('media node with dataConsumer mark - fires a rendered track event with infographicType and renderer context on mount', () => {
+		it.each([
+			{ sources: ['remix:infographic:charlie'] },
+			{ sources: ['other:source', 'remix:infographic:charlie'] },
+		])('reports the Remix source on mount with tracking disabled: $sources', ({ sources }) => {
+			mockExpDisabled('platform_maui_retention_analytics');
 			const fireAnalyticsEvent = jest.fn();
 			const onMediaRenderEvent = jest.fn();
 			renderWithIntl(
@@ -406,7 +414,7 @@ describe('Media', () => {
 					type={mediaNode.attrs.type as MediaType}
 					id={mediaNode.attrs.id}
 					collection={mediaNode.attrs.collection}
-					marks={[dataConsumerMark]}
+					marks={[{ type: 'dataConsumer', attrs: { sources } }]}
 					isLinkMark={() => false}
 					isBorderMark={() => false}
 					fireAnalyticsEvent={fireAnalyticsEvent}
@@ -433,6 +441,212 @@ describe('Media', () => {
 				mediaInstance: expect.any(Object),
 				type: 'mounted',
 			});
+		});
+
+		it('preserves existing events with an idle tracker for a bare remix source', () => {
+			// Remix writes a bare `remix` source when it has no subtype.
+			const source = 'remix';
+			mockExpEnabled('platform_maui_retention_analytics');
+			const createTracker = jest.spyOn(renderedResultTracking, 'createRenderedResultTracker');
+			const fireAnalyticsEvent = jest.fn();
+			try {
+				renderWithIntl(
+					<Media
+						type="file"
+						id="a"
+						marks={[{ type: 'dataConsumer', attrs: { sources: [source] } }]}
+						isLinkMark={() => false}
+						isBorderMark={() => false}
+						isDrafting={false}
+						fireAnalyticsEvent={fireAnalyticsEvent}
+					/>,
+				);
+				expect(fireAnalyticsEvent).toHaveBeenCalledTimes(1);
+				expect(fireAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'rendered',
+					actionSubject: 'media',
+					actionSubjectId: 'a',
+					eventType: 'track',
+					attributes: { infographicType: source, pageMode: 'view', mediaId: 'a' },
+				});
+				expect(createTracker).toHaveBeenCalledTimes(1);
+			} finally {
+				createTracker.mockRestore();
+			}
+		});
+
+		it('preserves mount timing and ignores replacement media when retention analytics is disabled', () => {
+			mockExpDisabled('platform_maui_retention_analytics');
+			const createTracker = jest.spyOn(renderedResultTracking, 'createRenderedResultTracker');
+			const fireAnalyticsEvent = jest.fn();
+			const media = (id: string) => (
+				<Media
+					type="file"
+					id={id}
+					marks={[dataConsumerMark]}
+					isLinkMark={() => false}
+					isBorderMark={() => false}
+					isDrafting={false}
+					fireAnalyticsEvent={fireAnalyticsEvent}
+				/>
+			);
+			try {
+				const { rerender } = renderWithIntl(media('a'));
+				expect(fireAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'rendered',
+					actionSubject: 'media',
+					actionSubjectId: 'a',
+					eventType: 'track',
+					attributes: {
+						infographicType: 'remix:infographic:charlie',
+						pageMode: 'view',
+						mediaId: 'a',
+					},
+				});
+				rerender(<IntlProvider locale="en">{media('b')}</IntlProvider>);
+				expect(fireAnalyticsEvent).toHaveBeenCalledTimes(1);
+				expect(createTracker).not.toHaveBeenCalled();
+			} finally {
+				createTracker.mockRestore();
+			}
+		});
+
+		it.each([
+			{ sources: ['remix:infographic:charlie'], initiallyOrdinary: false },
+			{ sources: ['remix:image:image'], initiallyOrdinary: false },
+			{ sources: ['other:source', 'remix:image:image'], initiallyOrdinary: false },
+			{ sources: ['other:source', 'remix:image:image'], initiallyOrdinary: true },
+		])(
+			'tracks readiness and attribution for $sources, initially ordinary: $initiallyOrdinary',
+			async ({ sources, initiallyOrdinary }) => {
+				const source = sources[sources.length - 1];
+				mockExpEnabled('platform_maui_retention_analytics');
+				const originalObserver = global.IntersectionObserver;
+				let callback: IntersectionObserverCallback = () => {};
+				const observe = jest.fn();
+				global.IntersectionObserver = jest.fn((handler, options) => {
+					const isResultTracker = Array.isArray(options?.threshold);
+					if (isResultTracker) callback = handler;
+					return {
+						observe: isResultTracker ? observe : jest.fn(),
+						disconnect: jest.fn(),
+						unobserve: jest.fn(),
+						takeRecords: () => [],
+					};
+				}) as unknown as typeof IntersectionObserver;
+				const visibility = jest
+					.spyOn(document, 'visibilityState', 'get')
+					.mockReturnValue('visible');
+				const fireAnalyticsEvent = jest.fn();
+				const onMediaRenderEvent = jest.fn();
+				const media = (id: string, mediaSources = sources) => (
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<Media
+							type="file"
+							id={id}
+							collection={mediaNode.attrs.collection}
+							marks={[{ type: 'dataConsumer', attrs: { sources: mediaSources } }]}
+							isLinkMark={() => false}
+							isBorderMark={() => false}
+							isDrafting={false}
+							providers={providerFactory}
+							fireAnalyticsEvent={fireAnalyticsEvent}
+							onMediaRenderEvent={onMediaRenderEvent}
+						/>
+					</MediaClientProvider>
+				);
+				try {
+					const { rerender, unmount } = renderWithIntl(
+						media('a', initiallyOrdinary ? ['other:source'] : sources),
+					);
+					await waitFor(() => expect(mockCard).toHaveBeenCalled());
+					act(() => mockCard.mock.lastCall?.[0].onPreviewRender('a'));
+					if (initiallyOrdinary) {
+						fireAnalyticsEvent.mockClear();
+						rerender(<IntlProvider locale="en">{media('a')}</IntlProvider>);
+					}
+					expect(fireAnalyticsEvent).not.toHaveBeenCalled();
+					act(() =>
+						callback(
+							[
+								{
+									target: observe.mock.calls[0][0],
+									isIntersecting: true,
+									intersectionRatio: 0.001,
+								} as IntersectionObserverEntry,
+							],
+							{} as IntersectionObserver,
+						),
+					);
+					expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							attributes: {
+								infographicType: source,
+								mediaId: 'a',
+								pageMode: 'view',
+							},
+						}),
+					);
+					rerender(<IntlProvider locale="en">{media('b')}</IntlProvider>);
+					await waitFor(() => expect(mockCard.mock.lastCall?.[0].identifier.id).toBe('b'));
+					act(() =>
+						callback(
+							[
+								{
+									target: observe.mock.lastCall?.[0],
+									isIntersecting: true,
+									intersectionRatio: 0.001,
+								} as IntersectionObserverEntry,
+							],
+							{} as IntersectionObserver,
+						),
+					);
+					act(() => mockCard.mock.lastCall?.[0].onPreviewRender('a'));
+					expect(fireAnalyticsEvent).toHaveBeenCalledTimes(1);
+					act(() => mockCard.mock.lastCall?.[0].onPreviewRender('b'));
+					expect(fireAnalyticsEvent).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							attributes: {
+								infographicType: source,
+								mediaId: 'b',
+								pageMode: 'view',
+							},
+						}),
+					);
+					act(() => document.dispatchEvent(new Event('visibilitychange')));
+					expect(fireAnalyticsEvent).toHaveBeenCalledTimes(2);
+					expect(onMediaRenderEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							type: 'mounted',
+							dataConsumerSource: source,
+						}),
+					);
+					unmount();
+				} finally {
+					global.IntersectionObserver = originalObserver;
+					visibility.mockRestore();
+				}
+			},
+		);
+
+		it.each([
+			{ sources: ['remix:infographic:charlie'] },
+			{ sources: ['other:source', 'remix:infographic:charlie'] },
+		])('does not fire on mount for Remix sources $sources', ({ sources }) => {
+			mockExpEnabled('platform_maui_retention_analytics');
+			const fireAnalyticsEvent = jest.fn();
+			renderWithIntl(
+				<Media
+					type="file"
+					id="result-1"
+					marks={[{ type: 'dataConsumer', attrs: { sources } }]}
+					isLinkMark={() => false}
+					isBorderMark={() => false}
+					isDrafting={false}
+					fireAnalyticsEvent={fireAnalyticsEvent}
+				/>,
+			);
+			expect(fireAnalyticsEvent).not.toHaveBeenCalled();
 		});
 
 		it('media node without dataConsumer mark - does not fire a rendered event on mount', () => {

@@ -6,7 +6,7 @@ import { isSSR } from '@atlaskit/editor-common/is-ssr';
 
 import type EditorActions from '../../actions';
 import type { ToolbarInnerProps } from './toolbar-types';
-import { ToolbarComponentsWrapperCompiled } from './ToolbarComponentsWrapper-compiled';
+import { ToolbarComponentsWrapper } from './ToolbarComponentsWrapper';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -43,7 +43,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		}
 
 		return (
-			<ToolbarComponentsWrapperCompiled data-vc="toolbar-inner">
+			<ToolbarComponentsWrapper data-vc="toolbar-inner">
 				{items.map((component, key) => {
 					const element = component({
 						editorView,
@@ -67,7 +67,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 					// oxlint-disable-next-line react/no-array-index-key
 					return element && React.cloneElement(element, { key });
 				})}
-			</ToolbarComponentsWrapperCompiled>
+			</ToolbarComponentsWrapper>
 		);
 	}
 }

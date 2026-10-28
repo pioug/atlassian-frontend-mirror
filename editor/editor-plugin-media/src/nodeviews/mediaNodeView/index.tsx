@@ -31,6 +31,7 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles/constants';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { hasAIGeneratingDecoration } from '../../pm-plugins/ai-generating-decoration';
@@ -284,6 +285,9 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		}: MediaNodeWithPluginStateComponentProps): React.JSX.Element => {
 			const getPos = this.getPos as getPosHandlerNode;
 			const { mediaOptions } = this.reactComponentProps;
+			const sources: string[] | undefined = this.node.marks.find(
+				(mark) => mark.type.name === 'dataConsumer',
+			)?.attrs.sources;
 
 			const attrs = this.getAttrs();
 			const url = attrs.type === 'external' ? attrs.url : '';
@@ -327,6 +331,12 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 					syncProvider={mediaOptions.syncProvider}
 					contextIdentifierProvider={contextIdentifierProvider}
 					mediaOptions={mediaOptions}
+					// Remix media has no dedicated configuration entry point, so configure deferral
+					// here until one exists.
+					deferRenderedEventUntilVisible={
+						sources?.some((source) => source.startsWith('remix:')) === true &&
+						isExperimentEnabled('platform_maui_retention_analytics')
+					}
 					onExternalImageLoaded={this.onExternalImageLoaded}
 					isViewOnly={
 						this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()

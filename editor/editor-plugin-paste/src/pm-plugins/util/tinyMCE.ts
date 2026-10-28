@@ -128,10 +128,14 @@ const fillIncompleteRowWithEmptyCells = (
  * headers exist.
  */
 export const tryReconstructTableRows = (doc: Document): string => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line prefer-const
-	let { cellCount, thCount, mergedCellCount, hasThAfterTd, hasIncompleteRow } =
-		getTableElementsInfo(doc);
+	const {
+		cellCount: initialCellCount,
+		thCount,
+		mergedCellCount,
+		hasThAfterTd,
+		hasIncompleteRow,
+	} = getTableElementsInfo(doc);
+	let cellCount = initialCellCount;
 
 	if (mergedCellCount || hasThAfterTd) {
 		// bail out to avoid handling more complex table structures

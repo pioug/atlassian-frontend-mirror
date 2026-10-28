@@ -258,8 +258,10 @@ describe('EmojiResource', () => {
 			expect(resource.getActiveLoaders()).toEqual(0);
 		});
 
-		it('rewrites provider, single emoji and optimistic image urls when stargate path flag is enabled', () => {
-			jest.mocked(fg).mockReturnValue(true);
+		it('rewrites provider, single emoji and optimistic image urls when migration flag is enabled', () => {
+			jest
+				.mocked(fg)
+				.mockImplementation((flag) => flag === 'migrate-remaining-emoji-provider-integrations');
 			const config: EmojiResourceConfig = {
 				...defaultApiConfig,
 				providers: [
@@ -291,14 +293,27 @@ describe('EmojiResource', () => {
 			);
 		});
 
-		it('does not rewrite urls when stargate path flag is disabled', () => {
-			jest.mocked(fg).mockReturnValue(false);
+		it('rewrites relative provider urls when both path flags are enabled', () => {
+			jest.mocked(fg).mockReturnValue(true);
+			const resource = new EmojiResource({
+				...defaultApiConfig,
+				providers: [{ url: 'gateway/api/emoji/standard' }],
+			});
+
+			expect(resource.emojiProviderConfig.providers[0].url).toEqual(
+				'gateway/api/elements/emoji/standard',
+			);
+		});
+
+		it('rewrites only URLs with a leading slash when only the old flag is enabled', () => {
+			jest.mocked(fg).mockImplementation((flag) => flag === 'use-elements-stargate-emoji-path');
 			const config: EmojiResourceConfig = {
 				...defaultApiConfig,
 				providers: [
 					{
 						url: 'https://example.com/gateway/api/emoji/site',
 					},
+					{ url: 'gateway/api/emoji/standard' },
 				],
 				singleEmojiApi: {
 					getUrl: (emojiId: EmojiId) =>
@@ -314,14 +329,24 @@ describe('EmojiResource', () => {
 			const emojiId = { id: 'abc', shortName: ':abc:' };
 
 			expect(resource.emojiProviderConfig.providers[0].url).toEqual(
-				'https://example.com/gateway/api/emoji/site',
+				'https://example.com/gateway/api/elements/emoji/site',
 			);
+			expect(resource.emojiProviderConfig.providers[1].url).toEqual('gateway/api/emoji/standard');
 			expect(resource.emojiProviderConfig.singleEmojiApi?.getUrl(emojiId)).toEqual(
-				'https://example.com/gateway/api/emoji/single/abc',
+				'https://example.com/gateway/api/elements/emoji/single/abc',
 			);
 			expect(resource.emojiProviderConfig.optimisticImageApi?.getUrl(emojiId)).toEqual(
-				'https://example.com/gateway/api/emoji/image/abc',
+				'https://example.com/gateway/api/elements/emoji/image/abc',
 			);
+		});
+
+		it('does not rewrite URLs when both path flags are disabled', () => {
+			const resource = new EmojiResource({
+				...defaultApiConfig,
+				providers: [{ url: '/gateway/api/emoji/standard' }],
+			});
+
+			expect(resource.emojiProviderConfig.providers[0].url).toEqual('/gateway/api/emoji/standard');
 		});
 
 		it('adds teamoji 26 query parameter to atlassian provider urls when refresh experiment is enabled', () => {

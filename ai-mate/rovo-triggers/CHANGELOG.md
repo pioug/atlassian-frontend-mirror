@@ -1,5 +1,28 @@
 # @atlaskit/rovo-triggers
 
+## 12.11.0
+
+### Minor Changes
+
+- [`862f76edf0c3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/862f76edf0c3b) -
+  Add the `agent-editor` topic and the `agent-editor-open-trigger` payload, which ask the agent
+  editor to open the agent trigger modal on the create or edit screen.
+
+## 12.10.0
+
+### Minor Changes
+
+- [`90b859d37ecf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90b859d37ecf4) -
+  Add an opt-in search-results return banner for embedded chat through aboveChatInput, behind
+  rovo_search_chat_convergence_instrumentation. Preserve conversation-specific search context,
+  support the slot in mini-modal chat, and retain journey attribution on banner interactions.
+  Dismiss the banner and close the sidebar or floaty when the user follows its link to the original
+  search results. Omit the redundant actionSubjectId from the banner's dismissal event.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.9.0
 
 ### Minor Changes

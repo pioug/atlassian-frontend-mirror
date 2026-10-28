@@ -60,7 +60,7 @@ export const modalMessages: {
 	},
 	tablePreviewText: {
 		id: 'linkDataSource.assets.configmodal.tablePreviewText',
-		description: 'Text for the table preview',
+		description: 'Heading above the table preview in the Assets configuration modal',
 		defaultMessage: 'Table preview',
 	},
 });

@@ -1,4 +1,6 @@
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+
+import { reconcileRegisteredMenuSelection } from './reconcileRegisteredMenuSelection';
 
 type Options = {
 	identities: readonly string[];
@@ -13,8 +15,9 @@ type RegisteredMenuSelectionState = {
 };
 
 /**
- * Resets keyboard selection when the ordered items or reset key changes.
- * The caller chooses the key, for example a search term or the current category.
+ * Keeps selection on the same item as items reorder. If that item disappears,
+ * keeps the previous index within the remaining items. A changed reset key
+ * selects the first item instead.
  */
 export const useRegisteredMenuSelection = ({
 	identities,
@@ -22,7 +25,7 @@ export const useRegisteredMenuSelection = ({
 }: Options): RegisteredMenuSelectionState => {
 	const [selectedIndex, setSelectedIndex] = useState(() => (identities.length > 0 ? 0 : -1));
 	const selectedIndexRef = useRef(selectedIndex);
-	const identitySignature = useMemo(() => JSON.stringify(identities), [identities]);
+	const previousRef = useRef({ identities, resetKey });
 	const itemCount = identities.length;
 
 	const select = useCallback((index: number) => {
@@ -31,8 +34,17 @@ export const useRegisteredMenuSelection = ({
 	}, []);
 
 	useLayoutEffect(() => {
-		select(itemCount > 0 ? 0 : -1);
-	}, [identitySignature, itemCount, resetKey, select]);
+		const previous = previousRef.current;
+		previousRef.current = { identities, resetKey };
+		select(
+			reconcileRegisteredMenuSelection({
+				nextIdentities: identities,
+				previousIdentities: previous.identities,
+				previousIndex: selectedIndexRef.current,
+				reset: previous.resetKey !== resetKey,
+			}),
+		);
+	}, [identities, resetKey, select]);
 
 	const selectNext = useCallback(() => {
 		const currentIndex = selectedIndexRef.current;

@@ -18,8 +18,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
 import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
-import { FullPageEditorWrapperCompiled } from './FullPage-compiled';
 import { FullPageContentArea } from './FullPageContentArea';
+import { FullPageEditorWrapper } from './FullPageEditorWrapper';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { FullPageToolbar } from './FullPageToolbar';
 import { FullPageToolbarNext } from './FullPageToolbarNext';
@@ -171,7 +171,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 			onSSRMeasure={props.onSSRMeasure}
 		>
 			<ContextPanelWidthProvider>
-				<FullPageEditorWrapperCompiled
+				<FullPageEditorWrapper
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="akEditor"
 					ref={wrapperElementRef}
@@ -262,7 +262,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 						contentMode={props.contentMode}
 						UNSAFE_containLayout={props.UNSAFE_containLayout}
 					/>
-				</FullPageEditorWrapperCompiled>
+				</FullPageEditorWrapper>
 			</ContextPanelWidthProvider>
 		</SSRRenderMeasure>
 	);

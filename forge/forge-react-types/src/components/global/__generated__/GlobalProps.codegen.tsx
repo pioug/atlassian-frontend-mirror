@@ -3,10 +3,10 @@
  *
  * Generated prop types for Global component - Global
  *
- * @codegen <<SignedSource::f8a62a104b0debe096eec647654232cd>>
+ * @codegen <<SignedSource::872374574483b4e213f998a4e6e94a2a>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::3217debf5ba68e84ca5ef7cdbf6ebb43>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global.tsx <<SignedSource::b4211eca9dac23a616225ac8e136d31e>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::ceafcbb0ae1d61a2ac66f44a0d3090fa>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/Global.tsx <<SignedSource::1ab47224b739d6e25fb9aea0b9d59e39>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -14,7 +14,7 @@ import type React from 'react';
 
 export type GlobalProps = {
 	/**
-	 * Accepts CreateButton, HelpLink, Sidebar and Main components as children.
+	 * Accepts CreateButton, HelpButton, Sidebar and Main components as children.
 	 */
 	children?: React.ReactElement | React.ReactElement[];
 	/**

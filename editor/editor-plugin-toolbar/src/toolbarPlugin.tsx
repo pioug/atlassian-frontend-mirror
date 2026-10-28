@@ -290,6 +290,12 @@ export const toolbarPlugin: ToolbarPlugin = ({
 										if (mouseState.isMouseDown) {
 											return;
 										}
+										if (
+											editorToolbarPluginKey.getState(view.state)?.shouldShowToolbar &&
+											isExperimentEnabled('platform_editor_improve_inp')
+										) {
+											return;
+										}
 										view.dispatch(
 											view.state.tr.setMeta(editorToolbarPluginKey, { shouldShowToolbar: true }),
 										);

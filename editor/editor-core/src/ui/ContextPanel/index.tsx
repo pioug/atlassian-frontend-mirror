@@ -19,7 +19,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
-import { ContextPanelContentCompiled, ContextPanelWrapperCompiled } from './index-compiled';
+import { ContextPanelContent, ContextPanelWrapper } from './ContextPanelWrappers';
 
 export type Props = {
 	children?: React.ReactElement;
@@ -153,7 +153,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 					broadcastWidth(contextPanelWidth);
 
 					return (
-						<ContextPanelWrapperCompiled
+						<ContextPanelWrapper
 							customWidth={this.props.customWidth}
 							visible={visible}
 							data-testid="context-panel-panel"
@@ -162,7 +162,7 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 							aria-modal="false"
 							role="dialog"
 						>
-							<ContextPanelContentCompiled
+							<ContextPanelContent
 								customWidth={this.props.customWidth}
 								visible={visible}
 								hasPadding={hasPadding}
@@ -173,8 +173,8 @@ class SwappableContentAreaInner extends React.PureComponent<SwappableContentArea
 								aria-label={this.props.intl?.formatMessage(contextPanelMessages.panelContentLabel)}
 							>
 								{this.showPluginContent() || this.showProvidedContent(userVisible)}
-							</ContextPanelContentCompiled>
-						</ContextPanelWrapperCompiled>
+							</ContextPanelContent>
+						</ContextPanelWrapper>
 					);
 				}}
 			</ContextPanelConsumer>

@@ -658,13 +658,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-06
-	confluence_live_doc_table_sort_bugfix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-30
 	platform_editor_use_html_plus_parser: {
 		defaultValue: boolean;
@@ -1533,14 +1526,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_table_menu_updates',
 			jira: 'platform_editor_table_menu_updates',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-06
-	confluence_live_doc_table_sort_bugfix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_live_doc_table_sort_bugfix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

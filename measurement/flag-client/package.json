@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag-client",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Browser-safe JavaScript client for reading server-evaluated feature flags from the Feature Flag Platform.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { ChromeCollapsedCompiled } from './ChromeCollapsed-compiled';
+import { ChromeCollapsed as ChromeCollapsedInput } from './ChromeCollapsed';
 import { messages } from './messages';
 
 export interface Props {
@@ -14,7 +14,7 @@ export interface Props {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Object> {
+class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, object> {
 	private input?: HTMLElement;
 
 	private focusHandler = (evt: React.FocusEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Objec
 			this.props.text || this.props.intl.formatMessage(messages.chromeCollapsedPlaceholder);
 
 		return (
-			<ChromeCollapsedCompiled
+			<ChromeCollapsedInput
 				data-testid="chrome-collapsed"
 				ref={this.handleInputRef}
 				onFocus={this.focusHandler}

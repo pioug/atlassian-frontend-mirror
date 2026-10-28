@@ -1,16 +1,8856 @@
-import type React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+// oxlint-disable-next-line typescript-eslint/triple-slash-reference
+/// <reference path="../../types/compiled-shims.d.ts" />
 
+// Because we migrated with using cssMapScope API for non atomic css, so these atomic css related eslint suppression no longer needs to be fixed.
+/* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
+import React from 'react';
+
+import { css, cssMapScoped, jsx, keyframes } from '@compiled/react';
+
+// eslint-disable-next-line import/order
+import { getBrowserInfo } from '@atlaskit/editor-common/browser';
+import type { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles/annotation';
+import type { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles/code-block';
+import type { expandClassNames } from '@atlaskit/editor-common/styles/expand';
+import type { richMediaClassName } from '@atlaskit/editor-common/styles/media-single';
+// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
+// TODO: add back tableSharedStyle when migrate table styles
+// import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
+import type { PanelSharedCssClassName } from '@atlaskit/editor-common/styles/panel';
+import type { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles/smart-card';
+import type {
+	BodiedSyncBlockSharedCssClassName,
+	SyncBlockSharedCssClassName,
+	SyncBlockLabelSharedCssClassName,
+	SyncBlockStateCssClassName,
+} from '@atlaskit/editor-common/styles/sync-block';
+import type {
+	tableCellBorderWidth,
+	tableCellMinWidth,
+	tableMarginTop,
+} from '@atlaskit/editor-common/styles/table';
+import type { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles/task-decision';
+import { tableCellBackgroundColorVariablesForCompiled as tableCellBackgroundColorVariables } from '@atlaskit/editor-common/table-cell-background-for-compiled';
+import type {
+	EditorAppearance,
+	EditorContentMode,
+} from '@atlaskit/editor-common/types/editor-appearance';
+import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import {
-	EditorContentContainerCompiled,
-	type EditorContentContainerProps,
-} from './EditorContentContainer-compiled';
+	akEditorFullPageDefaultFontSize,
+	type akEditorFullPageDenseFontSize,
+	akEditorGutterPaddingDynamic,
+	type akEditorShadowZIndex,
+	type akEditorSwoopCubicBezier,
+	type akEditorTableNumberColumnWidth,
+} from '@atlaskit/editor-shared-styles/constants';
+import { overflowShadowForCompiled as overflowShadow } from '@atlaskit/editor-shared-styles/overflow-shadow-for-compiled';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+
+import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
+
+// = akEditorDefaultLayoutWidth * breakoutWideScaleRatio = 1010.8 ~ 1011 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is > 1329px.
+const akEditorCalculatedWideLayoutWidth = 1011;
+// from breakoutConsts.calcWideWidth, layoutMaxWidth * breakoutConsts.wideScaleRatio = 904.8 ~ 905 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is <= 1266px.
+const akEditorCalculatedWideLayoutWidthSmallViewport = 905;
+const akEditorGutterPadding = 32;
+const akEditorDefaultLayoutWidth = 760;
+const akEditorFullWidthLayoutWidth = 1800;
+const tableOverflowShadowWidthWide = 32;
+// The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
+const akEditorBreakpointForSmallDevice = `1266px`;
+
+const akEditorGutterPaddingReduced = 24;
+const akEditorFullPageNarrowBreakout = 600;
+const akEditorUltraWideLayoutWidth = 4000;
+// Matches the legacy comment `less-margin` check: WidthProvider width (the editor's border box)
+// below akEditorMobileBreakoutPoint (720). This content area's content box is that width minus
+// the 2 x 1px editor border and 2 x 20px padding.
+const akEditorCommentLessMarginBreakout = 720 - 2 - 40;
+const commentLessMarginContainerQuery = `@container (width < ${akEditorCommentLessMarginBreakout}px)`;
+// Layout responsiveness breakpoints — chosen to align editor layout responsiveness with the renderer.
+// Applied to the editor-area container query (max-width) for layout sections.
+const akEditorLayoutFullWidthBreakpoint = 724;
+const akEditorLayoutFixedWidthBreakpoint = 788;
+const akEditorLayoutResizedBreakpoint = 820;
+
+// Originally copied from packages/editor/editor-core/src/ui/Appearance/Comment/Comment.tsx
+const CommentEditorMargin = 14;
+const GRID_GUTTER = 12;
+
+const blockNodesVerticalMargin = '0.75rem';
+const fontSize14px = `${14 / 16}rem`;
+const scaledBlockNodesVerticalMargin = '0.75em';
+// emoji constants — values inlined from packages/elements/emoji/src/util/constants.ts
+// If you need to update these values, please also update packages/elements/emoji/src/util/constants.ts
+const defaultEmojiHeight = 20;
+const defaultDenseEmojiHeight = 16.25;
+const scaledEmojiHeightH1 = 28;
+const scaledEmojiHeightH2 = 26;
+const scaledEmojiHeightH3 = 24;
+const scaledEmojiHeightH4 = 22;
+const denseEmojiHeightH1 = 24.25;
+const denseEmojiHeightH2 = 22.25;
+const denseEmojiHeightH3 = 20.25;
+const denseEmojiHeightH4 = 18.25;
+
+const emojiSelectionStyles = css({
+	borderRadius: token('radius.xsmall'),
+});
+
+const gutterDangerOverlay = css({
+	'&::after': {
+		height: '100%',
+		content: "''",
+		position: 'absolute',
+		left: 0,
+		top: 0,
+		width: '24px',
+		backgroundColor: token('color.blanket.danger'),
+	},
+});
+
+const blanketSelectionStyles = css({
+	position: 'relative',
+	// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
+	// in Safari. Looks like it's caused by user-select: all in the emoji element
+	WebkitUserSelect: 'text',
+	'&::before': {
+		position: 'absolute',
+		content: "''",
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
+		width: '100%',
+		pointerEvents: 'none',
+		zIndex: 12,
+		backgroundColor: token('color.blanket.selected'),
+	},
+});
+// copied from packages/editor/editor-shared-styles/src/consts/consts.ts
+const akEditorLineHeight = 1.714;
+const listsStylesSafariFixMultiSelector = `
+	.ProseMirror:not(.blockCardView-content-wrap) > li > p:first-child,
+	.ProseMirror:not(.blockCardView-content-wrap) > li > .code-block:first-child,
+	.ProseMirror:not(.blockCardView-content-wrap) > li > .ProseMirror-gapcursor:first-child + .code-block`;
+
+const editorAreaNonSmallDeviceContainerQuery = `@container editor-area (width >= ${akEditorBreakpointForSmallDevice})`;
+const editorAreaNarrowPageContainerQuery = `@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`;
+const editorAreaLayoutFullWidthMaxWidthContainerQuery = `@container editor-area (max-width: ${akEditorLayoutFullWidthBreakpoint}px)`;
+const editorAreaLayoutFixedWidthMaxWidthContainerQuery = `@container editor-area (max-width: ${akEditorLayoutFixedWidthBreakpoint}px)`;
+const editorAreaLayoutResizedMaxWidthContainerQuery = `@container editor-area (max-width: ${akEditorLayoutResizedBreakpoint}px)`;
+
+const placeholderFadeInKeyframes = keyframes({
+	from: {
+		opacity: 0,
+	},
+	to: {
+		opacity: 1,
+	},
+});
+
+const fadeIn = keyframes({
+	from: {
+		opacity: 0,
+		transform: 'translateY(16px)',
+	},
+	to: {
+		opacity: 1,
+		transform: 'translateY(0)',
+	},
+});
+
+const inlineStartShadow = keyframes({
+	'0%': {
+		opacity: 0,
+	},
+	'0.0001%, 100%': {
+		opacity: 1,
+	},
+});
+
+const inlineEndShadow = keyframes({
+	'0%, 99.9999%': {
+		opacity: 1,
+	},
+	'100%': {
+		opacity: 0,
+	},
+});
+
+const hideNativeBrowserTextSelectionStyles = css({
+	'&::selection,*::selection': {
+		backgroundColor: 'transparent',
+	},
+	'&::-moz-selection,*::-moz-selection': {
+		backgroundColor: 'transparent',
+	},
+});
+
+const boxShadowSelectionStyles = css({
+	boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+	borderColor: 'transparent',
+});
+
+const dangerBorderStyles = css({
+	boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+});
+
+const backgroundSelectionStyles = css({
+	backgroundColor: token('color.background.selected'),
+});
+
+const dangerBackgroundStyles = css({
+	backgroundColor: token('color.background.danger'),
+});
+
+const mentionsSelectedColor = css({
+	color: token('color.text.subtle'),
+});
+const fixVerticalAlignmentSelector = `
+	&:first-of-type + ul,
+	&:first-of-type + span + ul,
+	&:first-of-type + ol,
+	&:first-of-type + span + ol,
+	&:first-of-type + pre,
+	&:first-of-type + span + pre,
+	&:first-of-type + blockquote,
+	&:first-of-type + span + blockquote
+`;
+
+const gapCursorTwoImagesSideBySideFixSelector = `
+  .ProseMirror-gapcursor[layout="wrap-left"] + span + [layout="wrap-left"],
+  .ProseMirror-gapcursor[layout="wrap-right"] + span + [layout="wrap-right"],
+  .ProseMirror-gapcursor + [layout="wrap-left"] + [layout="wrap-right"],
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"],
+  .ProseMirror-gapcursor + [layout="wrap-right"] + [layout="wrap-left"],
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"],
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"],
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span [layout="wrap-right"],
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"],
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"],
+  [layout="wrap-left"] + .ProseMirror-gapcursor`;
+
+const gapCursorMarginFixSelector = `
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] > div,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"] > div,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] > div,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + [layout="wrap-left"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + [layout="wrap-right"] > div,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"] > div`;
+
+const gapCursorFloatLeftFixSelector = `
+  [layout="wrap-left"] + .ProseMirror-gapcursor,
+  [layout="wrap-right"] + .ProseMirror-gapcursor`;
+
+const gapCursorAfterPseudoSelector = `
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"]::after,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"]::after,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"]::after,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"]::after,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"]::after,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"]::after`;
+
+const gapCursorMarginDeepChildrenFixSelector = `
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + span + *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + span + *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"] + *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"] + *,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"] + *,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"] + *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + * > *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + [layout="wrap-right"] + span + * > *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + * > *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + [layout="wrap-left"] + span + * > *,
+  [layout="wrap-left"] + .ProseMirror-gapcursor + span + [layout="wrap-right"] + * > *,
+  [layout="wrap-right"] + .ProseMirror-gapcursor + span + [layout="wrap-left"] + * > *,
+  .ProseMirror-gapcursor + [layout="wrap-left"] + span + [layout="wrap-right"] + * > *,
+  .ProseMirror-gapcursor + [layout="wrap-right"] + span + [layout="wrap-left"] + * > *,
+  .ProseMirror-widget:not([data-blocks-decoration-container="true"]):not([data-blocks-drag-handle-container="true"]):not([data-blocks-quick-insert-container="true"]) + .ProseMirror-gapcursor + *,
+  .ProseMirror-widget:not([data-blocks-decoration-container="true"]):not([data-blocks-drag-handle-container="true"]):not([data-blocks-quick-insert-container="true"]) + .ProseMirror-gapcursor + span + *`;
+
+const gapCursorBlink = keyframes({
+	'from, to': {
+		opacity: 0,
+	},
+	'50%': {
+		opacity: 1,
+	},
+});
+
+const pulseIn = keyframes({
+	'0%, 100%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+	'10%': {
+		transform: 'scaleX(1.4)',
+		opacity: 1,
+	},
+	'15%, 85%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+});
+
+const pulseOut = keyframes({
+	'0%, 90%, 100%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'10%, 80%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
+const pulseInDuringTr = keyframes({
+	'0%, 95%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'100%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
+const pulseOutDuringTr = keyframes({
+	'100%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'0%, 90%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
+// Agent edit shimmer: skeleton-loader sweep across the agent-authored range.
+const agentShimmer = keyframes({
+	from: { backgroundPosition: '200% 0' },
+	to: { backgroundPosition: '-200% 0' },
+});
+
+// Agent edit purple "just edited" highlight: eases the background and underline in, holds, then eases
+// them back out over the highlight's lifetime (duration set inline per-decoration to match removal).
+const agentEditHighlight = keyframes({
+	'0%': { backgroundColor: 'transparent', borderBottomColor: 'transparent' },
+	'12%': {
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		borderBottomColor: token('color.border.accent.purple'),
+	},
+	'88%': {
+		backgroundColor: token('color.background.accent.purple.subtlest'),
+		borderBottomColor: token('color.border.accent.purple'),
+	},
+	'100%': { backgroundColor: 'transparent', borderBottomColor: 'transparent' },
+});
+
+const syncBlockCreationLoadingKeyframes = keyframes({
+	from: { '--angle': '0deg' },
+	to: { '--angle': '360deg' },
+});
+
+const mentionRunShimmer = keyframes({
+	from: { backgroundPosition: '200% 0' },
+	to: { backgroundPosition: '-200% 0' },
+});
 
 /**
- * This module exposes the Compiled implementation as the entry point so consumers keep
- * importing from `./EditorContentContainer`.
+ * aiPanelStyles
+ * was imported from packages/editor/editor-core/src/ui/ContentStyles/ai-panels.ts
+ */
+const rotationAnimation = keyframes({
+	'0%': {
+		'--panel-gradient-angle': '0deg',
+	},
+	'100%': {
+		'--panel-gradient-angle': '360deg',
+	},
+});
+
+const rotationAnimationFirefox = keyframes({
+	'0%': {
+		'--panel-gradient-angle': '0deg',
+		backgroundPosition: '100%',
+	},
+	'100%': {
+		'--panel-gradient-angle': '360deg',
+		backgroundPosition: '-100%',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderBaseBackgroundFirefox = `linear-gradient(90deg, #0065FF 0%, #0469FF 12%, #BF63F3 24%, #FFA900 48%, #BF63F3 64%, #0469FF 80%, #0065FF 100%)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderBaseBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), #0065FF 0%, #0469FF 20%, #BF63F3 50%, #FFA900 56%, #0065FF 100%)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderDarkBackgroundFirefox = `linear-gradient(90deg, #0065FF80 0%, #0469FF80 12%, #BF63F380 24%, #FFA90080 48%, #BF63F380 64%, #0469FF80 80%, #0065FF80 100%)`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+const prismBorderDarkBackground = `conic-gradient(from var(--panel-gradient-angle, 270deg), #0065FF80 0%, #0469FF80 20%, #BF63F380 50%, #FFA90080 56%, #0065FF80 100%)`;
+
+const borderSelectionStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	border: `1px solid ${token('color.border.selected')}`,
+
+	// Fixes ED-15246: Trello card is visible through a border of a table border
+	'&::after': {
+		height: '100%',
+		content: "'\\00a0'",
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		background: token('color.border.selected'),
+		position: 'absolute',
+		right: -1,
+		top: 0,
+		bottom: 0,
+		width: 1,
+		border: 'none',
+		display: 'inline-block',
+	},
+});
+
+const overflowShadowStyles = css({
+	backgroundImage: `
+		linear-gradient(
+			to right,
+			${token('color.background.neutral')} ${token('space.300')},
+			transparent ${token('space.300')}
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.surface.raised')} ${token('space.300')},
+			transparent ${token('space.300')}
+		),
+		linear-gradient(
+			to left,
+			${token('color.background.neutral')} ${token('space.100')},
+			transparent ${token('space.100')}
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.surface.raised')} ${token('space.100')},
+			transparent ${token('space.100')}
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.shadow.overflow.spread')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		),
+		linear-gradient(
+			to left,
+			${token('elevation.shadow.overflow.perimeter')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.shadow.overflow.spread')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		),
+		linear-gradient(
+			to right,
+			${token('elevation.shadow.overflow.perimeter')} 0,
+			${token('utility.UNSAFE.transparent')}  ${token('space.100')}
+		)
+	`,
+});
+
+/**
+ * editorContentStyles contains the Compiled CSS styles migrated from EditorContentContainer/styles.
+ * Validate style changes with local VR and integration tests.
+ *
+ * If you are not sure, please contact #proj-cc-editor-full-compiled-css-migration
+ */
+// eslint-disable-next-line @atlaskit/design-system/no-css-map-scoped
+const editorContentStyles = cssMapScoped({
+	aiPanelBaseFirefoxStyles: {
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			'&::before, &::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				background: prismBorderBaseBackgroundFirefox,
+				backgroundSize: '200%',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'div[extensionType="com.atlassian.ai-blocks"]:has(.streaming)': {
+			'.extension-container': {
+				'&::before, &::after': {
+					animationName: rotationAnimationFirefox,
+					animationDuration: '1s',
+					animationDirection: 'normal',
+				},
+			},
+		},
+	},
+	aiPanelBaseStyles: {
+		'@property --panel-gradient-angle': {
+			syntax: "'<angle>'",
+			initialValue: '270deg',
+			inherits: 'false',
+		},
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			/* This hides the label for the extension */
+			'.extension-label': {
+				display: 'none',
+			},
+			/* This styles the ai panel correctly when its just sitting on the page and there
+		is no user interaction */
+			'.extension-container': {
+				position: 'relative',
+				boxShadow: 'none',
+				overflow: 'unset',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				backgroundColor: `${token('elevation.surface')} !important`,
+				// prismBorderBaseStyles
+				'&::before, &::after': {
+					content: "''",
+					position: 'absolute',
+					zIndex: -1,
+					width: `calc(100% + 2px)`,
+					height: `calc(100% + 2px)`,
+					top: `-1px`,
+					left: `-1px`,
+					borderRadius: `calc(${token('radius.small', '3px')} + 1px)`,
+					transform: 'translate3d(0, 0, 0)',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					background: prismBorderBaseBackground,
+				},
+				'&.with-hover-border': {
+					'&::before, &::after': {
+						//prismBorderHoverStyles
+						// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
+						background: token('color.border.input'),
+					},
+				},
+				'& .with-margin-styles': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					backgroundColor: `${token('elevation.surface')} !important`,
+					borderRadius: token('radius.small', '3px'),
+				},
+			},
+		},
+
+		/* This styles the ai panel correctly when its streaming */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'div[extensionType="com.atlassian.ai-blocks"]:has(.streaming)': {
+			'.extension-container': {
+				'&::before, &::after': {
+					// prismBorderAnimationStyles
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					animationName: rotationAnimation,
+					animationDuration: '2s',
+					animationTimingFunction: 'linear',
+					animationIterationCount: 'infinite',
+					'@media (prefers-reduced-motion)': {
+						animation: 'none',
+					},
+				},
+			},
+		},
+
+		/* This styles the ai panel correctly when a user is hovering over the delete button in the floating panel */
+		'div[extensionType="com.atlassian.ai-blocks"].danger': {
+			'.extension-container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+			},
+		},
+
+		/* This removes the margin from the action list when inside an ai panel */
+		'div[extensiontype="com.atlassian.ai-blocks"][extensionkey="ai-action-items-block:aiActionItemsBodiedExtension"]':
+			{
+				'div[data-node-type="actionList"]': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					margin: '0 !important',
+				},
+			},
+	},
+	aiPanelDarkFirefoxStyles: {
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			'.extension-container': {
+				'&::before, &::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					background: prismBorderDarkBackgroundFirefox,
+					backgroundSize: '200%',
+				},
+			},
+		},
+	},
+	aiPanelDarkStyles: {
+		'div[extensionType="com.atlassian.ai-blocks"]': {
+			'.extension-container': {
+				'&::before, &::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					background: prismBorderDarkBackground,
+				},
+			},
+		},
+	},
+	alignMultipleWrappedImageInLayoutStyles: {
+		'.ProseMirror [data-layout-section] [data-layout-column] > div': {
+			// apply marginTop to wrapped mediaSingle that has preceding wrapped mediaSingle (even when there's gap cursor in between them)
+			// Given the first wrapped mediaSingle in layout has 0 marginTop, this is needed to make sure fellow wrapped mediaSingle align with it horizontally
+			'.mediaSingleView-content-wrap[layout^=wrap] + .mediaSingleView-content-wrap[layout^=wrap], .mediaSingleView-content-wrap[layout^=wrap] + .ProseMirror-gapcursor + .mediaSingleView-content-wrap[layout^=wrap]':
+				{
+					'.rich-media-item': {
+						marginTop: 0,
+					},
+				},
+
+			// Due to the above rule, wrapped mediaSingle (not the first node in layout) that are followed by wrapped mediaSingle should also have 0 marginTop
+			// so it's aligned with the following wrapped mediaSingle
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'.mediaSingleView-content-wrap[layout^=wrap]:has( + .mediaSingleView-content-wrap[layout^=wrap])':
+				{
+					'.rich-media-item': {
+						marginTop: 0,
+					},
+				},
+		},
+	},
+	annotationStyles: {
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-annotation-blur' satisfies typeof AnnotationSharedClassNames.blur}, .${'ak-editor-annotation-focus' satisfies typeof AnnotationSharedClassNames.focus}, .${'ak-editor-annotation-draft' satisfies typeof AnnotationSharedClassNames.draft}, .${'ak-editor-annotation-hover' satisfies typeof AnnotationSharedClassNames.hover}`]:
+				{
+					borderBottom: '2px solid transparent',
+					cursor: 'pointer',
+					padding: '1px 0 2px',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:has(.card), &:has([data-inline-card])': {
+						padding: '5px 0 3px 0',
+					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:has(.date-lozenger-container)': {
+						paddingTop: token('space.025'),
+					},
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${'ak-editor-annotation-focus' satisfies typeof AnnotationSharedClassNames.focus}`]: {
+				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
+				background: token('color.background.accent.yellow.subtlest.pressed'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.raised'),
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${'ak-editor-annotation-draft' satisfies typeof AnnotationSharedClassNames.draft}`]: {
+				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
+				background: token('color.background.accent.yellow.subtlest.pressed'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.raised'),
+				cursor: 'initial',
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${'ak-editor-annotation-blur' satisfies typeof AnnotationSharedClassNames.blur}`]: {
+				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
+				background: token('color.background.accent.yellow.subtlest'),
+				borderBottomColor: token('color.border.accent.yellow'),
+			},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${'ak-editor-annotation-hover' satisfies typeof AnnotationSharedClassNames.hover}`]: {
+				// eslint-disable-next-line @atlaskit/platform/expand-background-shorthand
+				background: token('color.background.accent.yellow.subtlest.hovered'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.raised'),
+			},
+		},
+	},
+	backgroundColorStyles: {
+		'.fabric-background-color-mark': {
+			backgroundColor: 'var(--custom-palette-color, inherit)',
+			borderRadius: token('radius.xsmall'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			paddingTop: 1,
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			paddingBottom: 2,
+			boxDecorationBreak: 'clone',
+		},
+
+		// Don't show text highlight styling when there is an inline comment
+		'.fabric-background-color-mark .ak-editor-annotation': {
+			backgroundColor: 'unset',
+		},
+	},
+	// Don't show text highlight styling when there is a hyperlink.
+	// Conditionally applied when the highlight-on-links experiment is off.
+	highlightLinksUnsetStyles: {
+		'a .fabric-background-color-mark': {
+			backgroundColor: 'unset',
+		},
+	},
+	baseStyles: {
+		'--ak-editor--default-gutter-padding': `${akEditorGutterPadding}px`,
+		'--ak-editor--default-layout-width': `${akEditorDefaultLayoutWidth}px`,
+		'--ak-editor--resizer-handle-spacing': `12px`,
+		'--ak-editor--full-width-layout-width': `${akEditorFullWidthLayoutWidth}px`,
+		/* calculate editor line length, 100cqw is the editor container width */
+		'--ak-editor--line-length':
+			'min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--default-layout-width))',
+		'--ak-editor--max-width-layout-width': `${akEditorUltraWideLayoutWidth}px`,
+		'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
+		'--ak-editor--breakout-full-page-guttering-padding':
+			'calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding))',
+
+		'--ak-editor--breakout-fallback-width':
+			'calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))',
+		'--ak-editor--breakout-min-width': '100%',
+
+		'.fabric-editor--full-width-mode': {
+			'--ak-editor--line-length':
+				'min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--full-width-layout-width))',
+			/* in full width appearances it's not possible to rely on cqw because it doesn't account for the page scrollbar, which depends on users system settings */
+			'--ak-editor--breakout-fallback-width': '100%',
+			'--ak-editor--breakout-min-width': '0px',
+		},
+
+		'.ProseMirror': {
+			'--ak-editor-max-container-width': 'calc(100cqw - var(--ak-editor--large-gutter-padding))',
+			outline: 'none',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+
+		/* We can't allow nodes that are inside other nodes to bleed from the parent container */
+		'.ProseMirror > div[data-prosemirror-node-block] [data-prosemirror-node-block]': {
+			'--ak-editor-max-container-width': '100%',
+		},
+
+		/* container editor-area is defined in platform/packages/editor/editor-core/src/ui/Appearance/FullPage/FullPageContentArea.tsx */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[editorAreaNonSmallDeviceContainerQuery]: {
+			'.ProseMirror': {
+				'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
+			},
+		},
+	},
+	baseStylesMaxContainerWidthFixes: {
+		'.ProseMirror': {
+			'--ak-editor-max-container-width': 'calc(100cqw - var(--ak-editor--large-gutter-padding)*2)',
+		},
+	},
+	blockMarksStyles: {
+		// We need to remove margin-top from first item
+		// inside doc, tableCell, tableHeader, blockquote, etc.
+		//
+		// - For nested block marks apart from those with indentation mark.
+		// - Do not remove the margin top for nodes inside indentation marks.
+		// - Do not remove the margin top for nodes inside alignment marks.
+		// - Do not remove the margin top for nodes inside font size marks.
+		//- If first element inside a block node has alignment or font size mark, then remove the margin-top.
+		//- If first document element has indentation mark remove margin-top.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+		'*:not(.fabric-editor-block-mark) >, *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-of-type:not(.fabric-editor-indentation-mark):not(.fabric-editor-alignment):not(.fabric-editor-font-size), .fabric-editor-alignment:first-of-type:first-child, .fabric-editor-font-size:first-of-type:first-child, .ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'p, h1, h2, h3, h4, h5, h6, .heading-wrapper': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:first-child:not(style), style:first-child + *': {
+						marginTop: 0,
+					},
+				},
+			},
+	},
+	extensionWithBreakoutStyles: {
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="extension"]), &:has([data-prosemirror-node-name="bodiedExtension"]), &:has([data-prosemirror-node-name="multiBodiedExtension"])':
+				{
+					margin: `${blockNodesVerticalMargin} 0`,
+				},
+		},
+	},
+	blockquoteDangerStyles: {
+		'.ProseMirror blockquote.danger': {
+			backgroundColor: token('color.background.danger'),
+			borderLeftColor: token('color.border.danger'),
+		},
+	},
+	blockquoteSelectedNodeStyles: {
+		'.ProseMirror blockquote.ak-editor-selected-node': {
+			background: token('color.background.accent.blue.subtler'),
+			borderLeftColor: token('color.border.selected'),
+			WebkitUserSelect: 'text',
+
+			'&::selection, *::selection': {
+				backgroundColor: 'transparent',
+			},
+
+			'&::-moz-selection, *::-moz-selection': {
+				backgroundColor: 'transparent',
+			},
+		},
+	},
+	blocktypeStyles: {
+		'.ProseMirror': {
+			// Block Quote Shared Styles
+			'& blockquote': {
+				boxSizing: 'border-box',
+				color: 'inherit',
+				width: '100%',
+				display: 'inline-block',
+
+				// These 2 styles are needed to avoid Confluence's batch.css overrides that expand blockquote with extra padding after SSR.
+				paddingTop: 0,
+				paddingBottom: 0,
+
+				paddingLeft: token('space.200'),
+				borderLeftWidth: token('border.width.selected'),
+				borderLeftStyle: 'solid',
+				borderLeftColor: token('color.border'),
+				margin: '0.75rem 0 0 0', // From https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
+				marginRight: 0,
+				// '[dir="rtl"] &' moved to <style> tag injection at bottom of component
+				// (ampersand on the right is broken in Compiled CSS)
+				'&:first-child': {
+					marginTop: 0,
+				},
+				'&::before': {
+					content: "''",
+				},
+				'&::after': {
+					content: 'none',
+				},
+				'& p': {
+					display: 'block',
+				},
+				'& table, & table:last-child': {
+					display: 'inline-table',
+				},
+				// Workaround for overriding the inline-block display on last child of a blockquote set in CSS reset.
+				'> .code-block:last-child, >.mediaSingleView-content-wrap:last-child, >.mediaGroupView-content-wrap:last-child':
+					{
+						display: 'block',
+					},
+				'> .extensionView-content-wrap:last-child': {
+					display: 'block',
+				},
+			},
+			// Headings Shared Styles -> Heading With Alignment Styles
+			// Override marginTop: 0 with default margin found in headingsSharedStyles for first heading in alignment block that is not the first child
+			'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
+				'> h1:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.667em',
+				},
+				'> h2:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.8em',
+				},
+				'> h3:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '2em',
+				},
+				'> h4:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.357em',
+				},
+				'> h5:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.667em',
+				},
+				'> h6:first-child': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '1.455em',
+				},
+			},
+			// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
+			'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
+				{
+					'> :is(h1, h2, h3, h4, h5, h6):first-child': {
+						marginTop: '0',
+					},
+				},
+		},
+	},
+	headingScrollMarginStyles: {
+		'.ProseMirror': {
+			'& :is(h1, h2, h3, h4, h5, h6)': {
+				scrollMarginTop: token('space.300'),
+			},
+		},
+	},
+	// RTL blockquote padding fix — moved from nested 'blockquote' in blocktypeStyles
+	// because '[dir="rtl"] &' (ampersand on the right) is broken when nested in Compiled CSS.
+	// At the root level of a cssMap variant, '&' is correctly substituted.
+	// DO NOT, change this to `[dir="rtl"] .ProseMirror blockquote` because it will break, it needs the right &
+	blocktypeStylesRtlBlockquote: {
+		'[dir="rtl"] &': {
+			'.ProseMirror blockquote': {
+				paddingLeft: 0,
+				paddingRight: token('space.200'),
+			},
+		},
+	},
+	blocktypeStylesNestedDnd: {
+		'.ak-editor-content-area.appearance-full-page .ProseMirror blockquote': {
+			paddingLeft: token('space.250'),
+		},
+		// Don't want extra padding for inline editor (nested)
+		'.ak-editor-content-area .ak-editor-content-area .ProseMirror blockquote': {
+			paddingLeft: token('space.200'),
+		},
+	},
+	blocktypeStyles_fg_platform_editor_typography_ugc: {
+		'.ProseMirror': {
+			'& h1': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h1)',
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.45833em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h2': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h2)',
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.4em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h3': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h3)',
+				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.31249em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h4': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h4)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.25em',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h5': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h5)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.45833em',
+				textTransform: 'none',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+			'& h6': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-heading-h6)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginTop: '1.59091em',
+				textTransform: 'none',
+				'& strong': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
+				},
+			},
+		},
+	},
+	codeBlockStyles: {
+		'.ProseMirror': {
+			[`.${'code-content--wrapped' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} > .${'code-block-content-wrapper' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
+				{
+					marginRight: token('space.100'),
+
+					code: {
+						display: 'block',
+						wordBreak: 'break-word',
+						whiteSpace: 'pre-wrap',
+					},
+				},
+
+			[`.${'code-block-content-wrapper' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} > .${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]:
+				{
+					display: 'flex',
+					flex: 1,
+
+					code: {
+						flexGrow: 1,
+						whiteSpace: 'pre',
+					},
+				},
+
+			[`.${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+				position: 'relative',
+				backgroundColor: token('elevation.surface.raised'),
+				borderRadius: token('radius.small', '3px'),
+				margin: `${blockNodesVerticalMargin} 0 0 0`,
+				fontFamily: token('font.family.code'),
+				minWidth: 48,
+				cursor: 'pointer',
+				clear: 'both',
+				// This is necessary to allow for arrow key navigation in/out of code blocks in Firefox.
+				whiteSpace: 'normal',
+
+				'.code-block-gutter-pseudo-element::before': {
+					content: 'attr(data-label)',
+				},
+
+				[`.${'code-block--start' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_START}`]: {
+					position: 'absolute',
+					visibility: 'hidden',
+					height: '1.5rem',
+					top: 0,
+					left: 0,
+				},
+
+				[`.${'code-block--end' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_END}`]: {
+					position: 'absolute',
+					visibility: 'hidden',
+					height: '1.5rem',
+					bottom: 0,
+					right: 0,
+				},
+
+				[`.${'code-block-content-wrapper' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}`]:
+					{
+						...overflowShadowStyles,
+						position: 'relative',
+						backgroundColor: token('color.background.neutral'),
+						display: 'flex',
+						borderRadius: token('radius.small', '3px'),
+						width: '100%',
+						counterReset: 'line',
+						overflowX: 'auto',
+						backgroundRepeat: 'no-repeat',
+						backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
+						backgroundSize: `${token('space.300')} 100%,
+							${token('space.300')} 100%,
+							${token('space.100')} 100%,
+							${token('space.100')} 100%,
+							${token('space.100')} 100%,
+							1px 100%,
+							${token('space.100')} 100%,
+							1px 100%`,
+						backgroundPosition: `0 0,
+								0 0,
+							100% 0,
+							100% 0,
+							100% 0,
+							100% 0,
+								0 0,
+								0 0`,
+						// Be careful if refactoring this; it is needed to keep arrow key navigation in Firefox consistent with other browsers.
+						overflowY: 'hidden',
+					},
+
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]:
+					{
+						backgroundColor: token('color.background.neutral'),
+						position: 'relative',
+						width: 'var(--lineNumberGutterWidth, 2rem)',
+						padding: token('space.100'),
+						flexShrink: 0,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						boxSizing: 'content-box',
+					},
+
+				// This is a fix of marker of list item with code block.
+				// The list item marker in Chrome is aligned by the baseline of the text,
+				// that's why we need to add a text (content: "1") to the line number gutter to align
+				// the list item marker with the text.
+				// Without it, the list item marker will be aligned by the bottom of the code block. */
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}::before`]:
+					{
+						content: "'1'",
+						visibility: 'hidden',
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5rem',
+					},
+
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					code: {
+						tabSize: 4,
+						cursor: 'text',
+						color: token('color.text'),
+						borderRadius: token('radius.small', '3px'),
+						margin: token('space.100'),
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5rem',
+					},
+				},
+
+				[`.${'code-content__line-number--wrapped' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET}`]:
+					{
+						pointerEvents: 'none',
+						userSelect: 'none',
+						width: 'var(--lineNumberGutterWidth, 2rem)',
+						left: 0,
+						position: 'absolute',
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: fontSize14px,
+						padding: `0px ${token('space.100')}`,
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5rem',
+						textAlign: 'right',
+						color: token('color.text.subtlest'),
+						boxSizing: 'content-box',
+					},
+			},
+
+			li: {
+				// if same list item has multiple code blocks we need top margin for all but first
+				'> .code-block': {
+					margin: `${blockNodesVerticalMargin} 0 0 0`,
+				},
+				'> .code-block:first-child, > .ProseMirror-gapcursor:first-child + .code-block': {
+					marginTop: 0,
+				},
+
+				'> div:last-of-type.code-block, > pre:last-of-type.code-block': {
+					marginBottom: blockNodesVerticalMargin,
+				},
+			},
+
+			'.code-block.ak-editor-selected-node:not(.danger)': {
+				...boxShadowSelectionStyles,
+				...blanketSelectionStyles,
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			// Danger when top level node
+			'.danger.code-block': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]:
+					{
+						backgroundColor: token('color.background.danger'),
+						color: token('color.text.danger'),
+						...gutterDangerOverlay,
+					},
+
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					backgroundColor: token('color.blanket.danger'),
+				},
+			},
+
+			// Danger when nested node
+			'.danger .code-block': {
+				[`.${'line-number-gutter' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}`]:
+					{
+						backgroundColor: token('color.background.danger'),
+						color: token('color.text.danger'),
+						...gutterDangerOverlay,
+					},
+
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					backgroundColor: token('color.blanket.danger'),
+				},
+			},
+		},
+	},
+	codeBlockStylesWithEmUnits: {
+		'.ProseMirror': {
+			[`.${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
+				'.code-block-gutter-pseudo-element::before': {
+					display: 'flow',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					lineHeight: '1.5em',
+				},
+
+				[`.${'code-content' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
+					code: {
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						fontSize: '0.875em',
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+						lineHeight: '1.5em',
+					},
+				},
+			},
+		},
+	},
+	codeMarkStyles: {
+		'.code': {
+			'--ds--code--bg-color': token('color.background.neutral'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			display: 'inline',
+			padding: '2px 0.5ch',
+			backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
+			borderRadius: token('radius.small', '3px'),
+			borderStyle: 'none',
+			boxDecorationBreak: 'clone',
+			color: token('color.text'),
+			fontFamily: token('font.family.code'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: '0.875em',
+			fontWeight: token('font.weight.regular'),
+			overflow: 'unset',
+			overflowWrap: 'break-word',
+			whiteSpace: 'pre-wrap',
+		},
+	},
+	commentEditorStyles: {
+		flexGrow: 1,
+		overflowX: 'clip',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '24px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.ProseMirror': {
+			marginTop: token('space.150'),
+			marginRight: token('space.150'),
+			marginBottom: token('space.150'),
+			marginLeft: token('space.150'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.gridParent': {
+			marginLeft: token('space.025'),
+			marginRight: token('space.025'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			width: `calc(100% + ${CommentEditorMargin - GRID_GUTTER}px)`,
+		},
+		paddingTop: token('space.250'),
+		paddingRight: token('space.250'),
+		paddingBottom: token('space.250'),
+		paddingLeft: token('space.250'),
+	},
+	// Replaces the JS-driven `less-margin` class so the margin is right on first paint.
+	commentLessMarginStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[commentLessMarginContainerQuery]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'.ProseMirror': {
+				marginTop: token('space.150'),
+				marginRight: token('space.100'),
+				marginBottom: token('space.100'),
+				marginLeft: token('space.100'),
+			},
+		},
+	},
+	// Establishes a container-query context on the content area for non-full-page
+	// appearances so `cqw`-based content sizing (native embeds, media) resolves against the
+	// sidebar-aware editor width instead of the viewport.
+	nonFullPageContainerTypeStyles: {
+		containerType: 'inline-size',
+	},
+	cursorStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor)': {
+			caretColor: 'transparent',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor': {
+			display: 'none',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror:has(.ProseMirror-hide-cursor)': {
+			caretColor: 'transparent',
+		},
+	},
+	dangerDateStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.dateView-content-wrap.ak-editor-selected-node.danger .date-lozenger-container > span': {
+			...dangerBorderStyles,
+		},
+	},
+	dangerRuleStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror hr.ak-editor-selected-node.danger': {
+			backgroundColor: token('color.border.danger'),
+		},
+	},
+	numberedHeadingsStyles: {
+		'.ProseMirror [data-heading-number]::before': {
+			content: 'attr(data-heading-number) "."',
+			marginInlineEnd: token('space.100'),
+			userSelect: 'none',
+		},
+	},
+	ruleWithAttrsStyles: {
+		'.ProseMirror hr[data-color]': {
+			backgroundColor: 'var(--custom-palette-color)',
+		},
+		'.ProseMirror hr[data-style="dashed"]': {
+			maskImage: 'linear-gradient(to right, black 0, black 4px, transparent 4px, transparent 10px)',
+			maskRepeat: 'repeat-x',
+			maskSize: '10px 100%',
+		},
+		'.ProseMirror hr[data-style="dotted"]': {
+			maskImage: 'radial-gradient(circle at center, black 1px, transparent 1.1px)',
+			maskPosition: 'center',
+			maskRepeat: 'repeat-x',
+			maskSize: '6px 2px',
+		},
+		'.ProseMirror hr[data-style="sketch"]': {
+			height: `calc(2px + ${token('space.050')} + ${token('space.050')})`,
+			maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 233 7'%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' d='M0.00161171 1.0107C6.6387 1 9.94061 5.16958 16.6371 5.16958C23.3336 5.16958 26.5761 1.00913 33.2726 1.0107C39.3797 1.01213 42.4198 4.22998 48.5219 4.47643C55.9487 4.77638 59.8075 0.780687 67.2368 1.0107C73.6051 1.20786 76.8081 4.42122 83.1792 4.47643C89.815 4.53393 93.1788 1.06378 99.8147 1.0107C106.716 0.95549 110.244 4.6564 117.143 4.47643C123.248 4.31717 126.289 1.21517 132.393 1.0107C139.555 0.770735 143.25 4.64894 150.414 4.47643C156.784 4.32307 159.986 1.06591 166.357 1.0107C172.993 0.953195 176.356 4.47655 182.992 4.47643C189.628 4.47632 192.992 1.01007 199.628 1.01007C206.264 1.01007 209.627 4.47632 216.263 4.47643C222.899 4.47655 226.263 1.0107 232.899 1.0107'/%3E%3C/svg%3E")`,
+			maskPosition: 'center',
+			maskRepeat: 'repeat-x',
+			maskSize: '233px 7px',
+			paddingTop: 0,
+			paddingBottom: 0,
+		},
+		'.ProseMirror hr[data-style="fade"]': {
+			maskImage:
+				'linear-gradient(to right, transparent 0%, black 27.4%, black 74%, transparent 100%)',
+			maskRepeat: 'no-repeat',
+			maskSize: '100% 100%',
+		},
+		'.ProseMirror hr[data-weight="1"]': {
+			height: '1px',
+		},
+		'.ProseMirror hr[data-weight="3"]': {
+			height: '3px',
+		},
+		// dotted strokes
+		'.ProseMirror hr[data-style="dotted"][data-weight="1"]': {
+			maskImage: 'radial-gradient(circle at center, black 0.5px, transparent 0.6px)',
+			maskSize: '6px 1px',
+		},
+		'.ProseMirror hr[data-style="dotted"][data-weight="3"]': {
+			maskImage: 'radial-gradient(circle at center, black 1.5px, transparent 1.6px)',
+			maskSize: '6px 3px',
+		},
+		// sketch strokes
+		'.ProseMirror hr[data-style="sketch"][data-weight="1"]': {
+			height: `calc(1px + ${token('space.050')} + ${token('space.050')})`,
+			maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 233 7'%3E%3Cpath fill='none' stroke='%23000' stroke-width='1' d='M0.00161171 1.0107C6.6387 1 9.94061 5.16958 16.6371 5.16958C23.3336 5.16958 26.5761 1.00913 33.2726 1.0107C39.3797 1.01213 42.4198 4.22998 48.5219 4.47643C55.9487 4.77638 59.8075 0.780687 67.2368 1.0107C73.6051 1.20786 76.8081 4.42122 83.1792 4.47643C89.815 4.53393 93.1788 1.06378 99.8147 1.0107C106.716 0.95549 110.244 4.6564 117.143 4.47643C123.248 4.31717 126.289 1.21517 132.393 1.0107C139.555 0.770735 143.25 4.64894 150.414 4.47643C156.784 4.32307 159.986 1.06591 166.357 1.0107C172.993 0.953195 176.356 4.47655 182.992 4.47643C189.628 4.47632 192.992 1.01007 199.628 1.01007C206.264 1.01007 209.627 4.47632 216.263 4.47643C222.899 4.47655 226.263 1.0107 232.899 1.0107'/%3E%3C/svg%3E")`,
+		},
+		'.ProseMirror hr[data-style="sketch"][data-weight="3"]': {
+			height: `calc(3px + ${token('space.050')} + ${token('space.050')})`,
+			maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -1 233 8'%3E%3Cpath fill='none' stroke='%23000' stroke-width='3' d='M0.00161171 1.0107C6.6387 1 9.94061 5.16958 16.6371 5.16958C23.3336 5.16958 26.5761 1.00913 33.2726 1.0107C39.3797 1.01213 42.4198 4.22998 48.5219 4.47643C55.9487 4.77638 59.8075 0.780687 67.2368 1.0107C73.6051 1.20786 76.8081 4.42122 83.1792 4.47643C89.815 4.53393 93.1788 1.06378 99.8147 1.0107C106.716 0.95549 110.244 4.6564 117.143 4.47643C123.248 4.31717 126.289 1.21517 132.393 1.0107C139.555 0.770735 143.25 4.64894 150.414 4.47643C156.784 4.32307 159.986 1.06591 166.357 1.0107C172.993 0.953195 176.356 4.47655 182.992 4.47643C189.628 4.47632 192.992 1.01007 199.628 1.01007C206.264 1.01007 209.627 4.47632 216.263 4.47643C222.899 4.47655 226.263 1.0107 232.899 1.0107'/%3E%3C/svg%3E")`,
+			maskSize: '233px 8px',
+		},
+	},
+	dateStyles: {
+		// Show diff: date attr change highlight. Keep this with date node styles so the highlight
+		// follows the date node view instead of living in shared smart-card diff styles.
+		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		'.show-diff-atomic-inline-changed-date': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			outlineOffset: '1px',
+			borderRadius: token('radius.medium'),
+		},
+		'.show-diff-atomic-inline-changed-date.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.date-lozenger-container span': {
+			whiteSpace: 'unset',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.dateView-content-wrap': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'.date-lozenger-container': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 'initial',
+				cursor: 'pointer',
+			},
+
+			'&.ak-editor-selected-node': {
+				'.date-lozenger-container > span': {
+					...boxShadowSelectionStyles,
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+		},
+
+		'.danger': {
+			'.dateView-content-wrap.ak-editor-selected-node .date-lozenger-container > span': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+			},
+		},
+	},
+	dateVanillaStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		"[data-prosemirror-node-name='date'] .date-lozenger-container span": {
+			backgroundColor: token('color.background.neutral'),
+			color: token('color.text'),
+			borderRadius: token('radius.small'),
+			paddingTop: token('space.025'),
+			paddingRight: token('space.050'),
+			paddingBottom: token('space.025'),
+			paddingLeft: token('space.050'),
+			margin: '0 1px',
+			position: 'relative',
+			transitionProperty: 'background',
+			transitionDuration: '0.3s',
+			whiteSpace: 'nowrap',
+			cursor: 'unset',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		"[data-prosemirror-node-name='date'] .date-lozenger-container span:hover": {
+			backgroundColor: token('color.background.neutral.hovered'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		"[data-prosemirror-node-name='date'] .date-lozenger-container span.date-node-color-red": {
+			backgroundColor: token('color.background.accent.red.subtlest'),
+			color: token('color.text.accent.red'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		"[data-prosemirror-node-name='date'] .date-lozenger-container span.date-node-color-red:hover": {
+			backgroundColor: token('color.background.accent.red.subtler'),
+		},
+	},
+	decisionDangerStyles: {
+		".ak-editor-selected-node.danger > [data-decision-wrapper], ol[data-node-type='decisionList'].ak-editor-selected-node.danger":
+			{
+				...dangerBackgroundStyles,
+				...dangerBorderStyles,
+			},
+	},
+	decisionIconWithVisualRefresh: {
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span >  svg[data-icon-source="legacy"]':
+			{
+				display: 'none',
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+			{
+				boxSizing: 'border-box',
+				paddingInlineEnd: 'var(--ds--button--new-icon-padding-end, 0)',
+				paddingInlineStart: 'var(--ds--button--new-icon-padding-start, 0)',
+				'@media screen and (forced-colors: active)': {
+					color: 'canvastext',
+					filter: 'grayscale(1)',
+				},
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				width: token('space.300'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				height: token('space.300'),
+			},
+	},
+	decisionStyles: {
+		".ak-editor-selected-node > [data-decision-wrapper], ol[data-node-type='decisionList'].ak-editor-selected-node":
+			{
+				borderRadius: token('radius.small'),
+				...boxShadowSelectionStyles,
+				...blanketSelectionStyles,
+				...hideNativeBrowserTextSelectionStyles,
+			},
+		'.danger': {
+			'.decisionItemView-content-wrap.ak-editor-selected-node > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.blanket.danger'),
+				'&::after': {
+					content: 'none', // reset the Blanket selection style
+				},
+			},
+		},
+		'[data-prosemirror-node-name="decisionItem"]': {
+			listStyleType: 'none',
+		},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper]': {
+			cursor: 'pointer',
+			display: 'flex',
+			flexDirection: 'row',
+			margin: `${token('space.100')} 0 0 0`,
+			padding: token('space.100'),
+			paddingLeft: token('space.150'),
+			borderRadius: token('radius.small'),
+			backgroundColor: token('color.background.neutral'),
+			position: 'relative',
+		},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"]':
+			{
+				flex: '0 0 16px',
+				height: '16px',
+				width: '16px',
+				margin: `${token('space.050')} ${token('space.150')} 0 0`,
+				color: token('color.icon.subtle'),
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+			},
+		'[data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="icon"]':
+			{
+				color: token('color.icon.success'),
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span':
+			{
+				display: 'inline-block',
+				flexShrink: 0,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography -- Mirroring icon styles
+				lineHeight: 1,
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="icon"] > span > svg':
+			{
+				overflow: 'hidden',
+				pointerEvents: 'none',
+				color: 'currentColor',
+				verticalAlign: 'bottom',
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="placeholder"]':
+			{
+				margin: `0 0 0 calc(${token('space.100')} * 3.5)`,
+				position: 'absolute',
+				color: token('color.text.subtlest'),
+				pointerEvents: 'none',
+				textOverflow: 'ellipsis',
+				overflow: 'hidden',
+				whiteSpace: 'nowrap',
+				maxWidth: 'calc(100% - 50px)',
+			},
+		'[data-prosemirror-node-name="decisionItem"]:not(:has([data-empty]):not(:has([data-type-ahead]))) > [data-decision-wrapper] > [data-component="placeholder"]':
+			{
+				display: 'none',
+			},
+		'[data-prosemirror-node-name="decisionItem"] > [data-decision-wrapper] > [data-component="content"]':
+			{
+				margin: 0,
+				wordWrap: 'break-word',
+				minWidth: 0,
+				flex: '1 1 auto',
+			},
+	},
+	diffListStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'li[data-testid="show-diff-changed-decoration-node"]::marker': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			color: 'var(--diff-decoration-marker-color)',
+		},
+		// Apply opacity to this item's content without dimming its nested lists.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'li[data-testid="show-diff-changed-decoration-node"] > :not(ul, ol)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			opacity: 'var(--diff-decoration-content-opacity)',
+		},
+	},
+	// Move this into `smartCardStyles` below when cleaning up editor_controls_patch_15
+	editorControlsSmartCardStyles: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		'.inlineCardView-content-wrap': {
+			'[data-inlinecard-button-overlay="icon-wrapper-line-height"] span': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 0,
+			},
+		},
+	},
+	editorGutterPaddingBaseStyles: {
+		'--ak-editor--large-gutter-padding': '72px',
+	},
+	editorLargeGutterPuddingReducedBaseStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[editorAreaNarrowPageContainerQuery]: {
+			'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingReduced}px`,
+		},
+	},
+	editorUGCTokensRefreshed: {
+		'--editor-font-ugc-token-heading-h1':
+			'normal 600 1.71429em/1.16667 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h2':
+			'normal 600 1.42857em/1.2 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h3':
+			'normal 600 1.14286em/1.25 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h4':
+			'normal 600 1em/1.14286 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h5':
+			'normal 600 0.857143em/1.33333 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-heading-h6':
+			'normal 600 0.785714em/1.45455 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-body':
+			'normal 400 1em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+		'--editor-font-ugc-token-weight-heading-bold': '700',
+	},
+	editorUGCSmallText: {
+		'--editor-font-ugc-token-body-small':
+			'normal 400 0.875em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	},
+	embedCardStyles: {
+		'.ProseMirror': {
+			".embedCardView-content-wrap[layout^='wrap-']": {
+				maxWidth: '100%',
+				position: 'relative',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				zIndex: 2,
+			},
+
+			".embedCardView-content-wrap[layout='wrap-left']": {
+				float: 'left',
+			},
+
+			".embedCardView-content-wrap[layout='wrap-right']": {
+				float: 'right',
+			},
+
+			".embedCardView-content-wrap[layout='wrap-right'] + .embedCardView-content-wrap[layout='wrap-left']":
+				{
+					clear: 'both',
+				},
+		},
+	},
+	// Emoji node view styles
+	emojiDangerStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .ak-editor-selected-node.danger': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...dangerBorderStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...dangerBackgroundStyles,
+			},
+		},
+	},
+	// Emoji node view styles
+	emojiStyles: {
+		// Keep the emoji attribute change highlight with emoji node styles.
+		// Apply the highlight to sprite and image emoji renderers.
+		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		'.show-diff-atomic-inline-changed-emoji': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				outlineOffset: '1px',
+				borderRadius: token('radius.xsmall'),
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .emojiView-content-wrap': {
+			display: 'inline-block',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			background: 'no-repeat transparent',
+			display: 'inline-block',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			height: `${defaultEmojiHeight}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			maxHeight: `${defaultEmojiHeight}px`,
+			cursor: 'pointer',
+			verticalAlign: 'middle',
+			userSelect: 'all',
+		},
+	},
+	emojiSelectionStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .ak-editor-selected-node': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...emojiSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...blanketSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...hideNativeBrowserTextSelectionStyles,
+			},
+		},
+	},
+	directEmojiSelectionStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror .ak-editor-selected-node[data-emoji-id]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...emojiSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...blanketSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
+				...hideNativeBrowserTextSelectionStyles,
+			},
+		},
+	},
+	emojiDenseStyles: {
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			width: `${defaultDenseEmojiHeight}px`,
+			height: `${defaultDenseEmojiHeight}px`,
+			maxHeight: `${defaultDenseEmojiHeight}px`,
+			img: {
+				width: '100%',
+				height: '100%',
+				objectFit: 'contain',
+			},
+		},
+		// Scale panel icon in dense mode
+		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			height: token('space.250'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			width: token('space.250'),
+		},
+	},
+	expandStyles: {
+		'.ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
+			{
+				marginLeft: token('space.negative.150'),
+				marginRight: token('space.negative.150'),
+			},
+	},
+	/**
+	 * Base expand styles, always applied.
+	 */
+	expandStylesBase: {
+		'.ak-editor-expand__icon > div': {
+			display: 'flex',
+		},
+		'.ak-editor-expand': {
+			// sharedExpandStyles.containerStyles({ expanded: false, focused: false })(),
+			borderWidth: token('border.width'),
+			borderStyle: 'solid',
+			borderColor: 'transparent',
+			borderRadius: token('radius.small', '4px'),
+			minHeight: '25px',
+			background: token('color.background.neutral.subtle'),
+			margin: `${token('space.050')} 0 0`,
+			transitionProperty: 'background, border-color',
+			transitionDuration: '0.3s, 0.3s',
+			transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1), cubic-bezier(0.15, 1, 0.3, 1)',
+			cursor: 'pointer',
+			boxSizing: 'border-box',
+			padding: token('space.100'),
+			'td > :not(style):first-child, td > style:first-child + *': {
+				marginTop: 0,
+			},
+
+			'.ak-editor-expand__icon-container svg': {
+				color: token('color.icon.subtle'),
+				transform: 'rotate(90deg)',
+			},
+
+			'&.ak-editor-selected-node:not(.danger)': {
+				// SelectionStyle.Blanket
+				position: 'relative',
+				// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
+				// in Safari. Looks like it's caused by user-select: all in the emoji element
+				WebkitUserSelect: 'text',
+				'&::before': {
+					position: 'absolute',
+					content: "''",
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					width: '100%',
+					pointerEvents: 'none',
+					zIndex: 12, // akEditorStickyheaderZIndex (11) + 1
+					backgroundColor: token('color.blanket.selected'),
+				},
+
+				// SelectionStyle.Border (common case)
+				border: `${token('border.width')} solid ${token('color.border.selected')}`,
+
+				// hideNativeBrowserTextSelectionStyles
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+
+			'&.danger': {
+				background: token('color.background.danger'),
+				borderColor: token('color.border.danger'),
+			},
+		},
+
+		'.ak-editor-expand__content': {
+			// sharedExpandStyles.contentStyles({ expanded: false, focused: false })(),
+			paddingTop: token('space.0', '0px'),
+			paddingRight: token('space.100', '8px'),
+			paddingLeft: token('space.300', '24px'),
+			marginLeft: token('space.050', '4px'),
+			display: 'flow-root',
+			/* The follow rules inside @supports block are added as a part of ED-8893
+			The fix is targeting mobile bridge on iOS 12 or below,
+			We should consider remove this fix when we no longer support iOS 12 */
+			'@supports not (display: flow-root)': {
+				width: '100%',
+				boxSizing: 'border-box',
+			},
+			'.expand-content-wrapper, .nestedExpand-content-wrapper': {
+				/* We visually hide the content here to preserve the content during copy+paste */
+				/* Do not add text nowrap here because inline comment navigation depends on the location of the text */
+				width: '100%',
+				display: 'block',
+				height: 0,
+				overflow: 'hidden',
+				clip: 'rect(1px, 1px, 1px, 1px)',
+				userSelect: 'none',
+			},
+
+			cursor: 'text',
+
+			'&.ak-editor-expand__content--collapsed': {
+				display: 'none',
+			},
+		},
+
+		'.ak-editor-expand__title-input': {
+			// sharedExpandStyles.titleInputStyles(),
+			outline: 'none',
+			border: 'none',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'calc(14rem / 16)', // relativeFontSizeToBase16(14),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 1.714,
+			fontWeight: token('font.weight.regular'),
+			color: token('color.text.subtlest'),
+			background: 'transparent',
+			display: 'flex',
+			flex: 1,
+			padding: `0 0 0 ${token('space.050', '4px')}`,
+			width: '100%',
+			'&::placeholder': {
+				opacity: 1,
+				color: token('color.text.subtlest'),
+			},
+		},
+
+		'.ak-editor-expand__title-container': {
+			// sharedExpandStyles.titleContainerStyles(),
+			padding: 0,
+			display: 'flex',
+			// Omitting alignItems: 'flex-start' as it would be overridden
+			background: 'none',
+			border: 'none',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'calc(14rem / 16)', // relativeFontSizeToBase16(14),
+			width: '100%',
+			color: token('color.text.subtle'),
+			// Omitting overflow: 'hidden' as it would be overridden
+			cursor: 'pointer',
+			'&:focus': {
+				outline: 0,
+			},
+
+			alignItems: 'center',
+			overflow: 'visible',
+		},
+
+		'.ak-editor-expand__icon-button': {
+			appearance: 'none',
+			width: token('space.300', '24px'),
+			height: token('space.300', '24px'),
+			border: 'none',
+			borderRadius: token('radius.small', '4px'),
+			background: token('color.background.neutral.subtle'),
+			padding: 0,
+			margin: 0,
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			cursor: 'pointer',
+
+			'&:disabled': {
+				cursor: 'not-allowed',
+			},
+
+			'&:focus-visible': {
+				outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+				outlineOffset: token('space.025', '2px'),
+			},
+
+			'&:hover:not(:disabled)': {
+				background: token('color.background.neutral.subtle.hovered'),
+			},
+
+			'.ak-editor-expand__icon-svg': {
+				color: token('color.icon.subtle'),
+				transform: 'rotate(0deg)',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				transition: `transform 0.2s ${'cubic-bezier(0.15, 1, 0.3, 1)' satisfies typeof akEditorSwoopCubicBezier};`,
+			},
+		},
+
+		'.ak-editor-expand__expanded': {
+			background: token('color.background.neutral.subtle'),
+			borderColor: token('color.border'),
+
+			'.ak-editor-expand__content': {
+				paddingTop: token('space.100', '8px'),
+			},
+
+			'.ak-editor-expand__icon-button': {
+				'.ak-editor-expand__icon-svg': {
+					transform: 'rotate(90deg)',
+				},
+			},
+		},
+
+		'.ak-editor-expand__input-container': {
+			width: '100%',
+		},
+
+		'.ak-editor-expand:not(.ak-editor-expand__expanded)': {
+			'.ak-editor-expand__content': {
+				position: 'absolute',
+				height: '1px',
+				width: '1px',
+				overflow: 'hidden',
+				clip: 'rect(1px, 1px, 1px, 1px)',
+				whiteSpace: 'nowrap',
+			},
+
+			'.ak-editor-expand__icon-container svg': {
+				color: token('color.icon.subtle'),
+				transform: 'rotate(0deg)',
+			},
+
+			'&:not(.ak-editor-selected-node):not(.danger)': {
+				background: 'transparent',
+				borderColor: 'transparent',
+
+				'&:hover': {
+					borderColor: token('color.border'),
+					background: token('color.background.neutral.subtle'),
+				},
+			},
+		},
+	},
+	expandStylesMixin_chromeless_expand_fix: {
+		'.ProseMirror > .ak-editor-expand': {
+			marginLeft: 0,
+			marginRight: 0,
+		},
+	},
+	expandStylesMixinNestedDnd: {
+		'.ak-editor-content-area.appearance-full-page .ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
+			{
+				marginLeft: token('space.negative.250'),
+				marginRight: token('space.negative.250'),
+			},
+
+		'.ak-editor-expand__expanded': {
+			'.ak-editor-expand__content': {
+				// firstNodeWithNotMarginTop
+				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+					marginTop: 0,
+				},
+				'> div.ak-editor-expand[data-node-type="nestedExpand"]': {
+					marginTop: token('space.050'),
+				},
+			},
+		},
+	},
+	expandStylesMixin_fg_platform_visual_refresh_icons: {
+		'.ak-editor-expand__title-input': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: 1,
+			fontFamily: token('font.family.body'),
+		},
+	},
+	expandDenseStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__title-input': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ak-editor-expand__title-container': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-unsafe-values
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+	},
+	extensionStyles: {
+		'.multiBodiedExtensionView-content-wrap': {
+			'&.danger > span > .multiBodiedExtension--container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+				{
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					boxShadow: 'none',
+				},
+
+			'&.danger > span > .with-danger-overlay': {
+				backgroundColor: 'transparent',
+				'.multiBodiedExtension--overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			'&:not(.danger).ak-editor-selected-node': {
+				'& > span > .multiBodiedExtension--container': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...blanketSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'.multiBodiedExtension--container': {
+				width: '100%',
+				maxWidth: '100%', // ensure width can't go over 100%
+			},
+		},
+
+		'.inlineExtensionView-content-wrap': {
+			'&.danger > span > .extension-container': {
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+
+			'&.danger > span > .with-danger-overlay': {
+				/* If the macro turned used to red before, not setting the background to be transparent will cause the
+		danger state to have two layers of red which we don't want. */
+				backgroundColor: 'transparent',
+				'.extension-overlay': {
+					// ...dangerOverlayStyles
+					opacity: 0.3,
+					backgroundColor: token('color.background.danger.hovered'),
+				},
+			},
+
+			'&:not(.danger).ak-editor-selected-node': {
+				'& > span > .extension-container': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* Start of bodied extension edit toggle styles */
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+				opacity: 1,
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+				{
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					boxShadow: 'none',
+				},
+		},
+
+		/* This is referenced in the toDOM of a bodied extension and is used to put
+	label content into the bodied extension.
+	We do this so that we don't serialise the label (which causes the label to be
+	copied to the clipboard causing copy-paste issues). */
+		'.bodied-extension-to-dom-label::after': {
+			content: 'attr(data-bodied-extension-label)',
+		},
+
+		'.extensionView-content-wrap, .multiBodiedExtensionView-content-wrap, .bodiedExtensionView-content-wrap':
+			{
+				margin: `0.75rem 0`,
+
+				'&:first-of-type': {
+					marginTop: 0,
+				},
+
+				'&:last-of-type': {
+					marginBottom: 0,
+				},
+
+				'&:not(.danger).ak-editor-selected-node': {
+					'& > span > .extension-container': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...boxShadowSelectionStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+						...hideNativeBrowserTextSelectionStyles,
+					},
+				},
+
+				'&.danger > span > .extension-container': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: token('color.background.danger'),
+				},
+
+				// ...extensionLabelStyles
+				'&.danger > span > div > .extension-label': {
+					backgroundColor: token('color.background.accent.red.subtler'),
+					color: token('color.text.danger'),
+					opacity: 1,
+					boxShadow: 'none',
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+					backgroundColor: token('color.background.selected'),
+					color: token('color.text.selected'),
+					opacity: 1,
+					boxShadow: 'none',
+				},
+				/* Targets the icon for bodied macro styling in button label */
+				'&.danger > span > div > .extension-label > span': {
+					display: 'inline',
+				},
+				/** Targets legacy content header in LCM extension */
+				'&.danger > span > .legacy-content-header': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: `${token('color.background.danger')}`,
+
+					'& .status-lozenge-span > span': {
+						backgroundColor: `${token('color.background.accent.red.subtle.hovered')}`,
+					},
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+					display: 'inline',
+				},
+				/* Start of bodied extension edit toggle styles */
+				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
+					opacity: 1,
+				},
+				'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
+					opacity: 1,
+				},
+				/* In view mode of the bodied macro, we never want to show the extension label */
+				'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+					opacity: 0,
+				},
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label':
+					{
+						opacity: 0,
+					},
+				/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+				'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+					{
+						boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+					},
+				'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+					{
+						boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					},
+				'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
+					{
+						backgroundColor: token('color.background.accent.red.subtler'),
+						color: token('color.text.danger'),
+						boxShadow: 'none',
+					},
+
+				'&.danger > span > .with-danger-overlay': {
+					backgroundColor: 'transparent',
+					'.extension-overlay': {
+						// ...dangerOverlayStyles
+						opacity: 0.3,
+						backgroundColor: token('color.background.danger.hovered'),
+					},
+				},
+
+				'&.inline': {
+					// wordWrap: 'break-all' was previously used here, but break-all is not a valid CSS property of word-wrap.
+					// It was probably intended to be word-break: break-all, however I'm omitting it here for consistency with previous actual behavior.
+				},
+			},
+
+		'.extensionView-content-wrap .extension-container': {
+			overflow: 'hidden',
+
+			/* Don't hide overflow for editors inside extensions. */
+			'&:has(.extension-editable-area)': {
+				overflow: 'visible',
+			},
+		},
+
+		'.bodiedExtensionView-content-wrap .extensionView-content-wrap .extension-container': {
+			width: '100%',
+			maxWidth: '100%', // ensure width can't go over 100%
+		},
+
+		"[data-mark-type='fragment']": {
+			'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+				margin: '0.75rem 0',
+			},
+
+			"& > [data-mark-type='dataConsumer']": {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					margin: '0.75rem 0',
+				},
+			},
+
+			'&:first-child': {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					marginTop: 0,
+				},
+				"& > [data-mark-type='dataConsumer']": {
+					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+						marginTop: 0,
+					},
+				},
+			},
+
+			'&:nth-last-of-type(-n + 2):not(:first-of-type)': {
+				'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+					marginBottom: 0,
+				},
+
+				"& > [data-mark-type='dataConsumer']": {
+					'& > .extensionView-content-wrap, & > .bodiedExtensionView-content-wrap': {
+						marginBottom: 0,
+					},
+				},
+			},
+		},
+	},
+	// Dense content mode extensions styling fix - addresses EDITOR-1992
+	// When cleaning up the experiment, move this logic into the base styles above
+	// Used when (contentMode === 'compact')
+	extensionStylesDense: {
+		// Table of Contents Macro
+		'.extension-container [data-macro-name="toc"] * :not(.status-lozenge-span *)': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 'var(--ak-editor-base-font-size)',
+		},
+		// Excerpt Include Macro
+		'.extension-container .ak-excerpt-include :not([data-inline-card-lozenge] *, code, .status-lozenge-span *, .code-block *)':
+			{
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'var(--ak-editor-base-font-size)',
+			},
+	},
+	extensionDiffStyles: {
+		'.show-diff-changed-decoration-node > span .extension-container': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-decoration-marker-color)`,
+		},
+	},
+	// Bodied extension layout shift fix.
+	bodiedExtensionLayoutShiftFix: {
+		'.bodiedExtensionView-content-wrap': {
+			'.bodiedExtension-content-outer-wrapper': {
+				margin: '23px -1px -1px -1px', // Reserve space for lozenge (24px) then subtract 1px to account for the border of the inner wrapper preventing layoutshift
+			},
+			'.bodiedExtension-content-inner-wrapper': {
+				margin: `0 ${token('space.negative.250')}`,
+				padding: `${token('space.200')} ${token('space.250')}`,
+				border: `${token('border.width')} solid ${token('color.border')}`,
+				borderRadius: token('radius.small', '3px'),
+			},
+			'.extension-container': {
+				// Remove styling when Prosemirror moves content inside
+
+				'.bodiedExtension-content-outer-wrapper': {
+					margin: '0',
+				},
+				'.bodiedExtension-content-inner-wrapper': {
+					margin: 0,
+					padding: 0,
+					border: 'none',
+					borderRadius: 0,
+				},
+			},
+		},
+	},
+	findReplaceStyles: {
+		// text - inactive match - light mode
+		'.search-match-text': {
+			borderRadius: token('space.050'),
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.border.accent.magenta')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+		`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.subtler')} !important`,
+			color: token('color.text'),
+		},
+
+		// text - active match - light mode
+		'.search-match-text.selected-search-match': {
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+		`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.subtlest.pressed')} !important`,
+		},
+
+		// text - inactive match - dark mode
+		'.search-match-text.search-match-dark': {
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+		`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.bolder.pressed')} !important`,
+			color: token('color.text.inverse'),
+		},
+
+		// text - active match - dark mode
+		'.search-match-text.selected-search-match.search-match-dark': {
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
+		`,
+			// we need to use !important here as we need to override inline selection styles
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			backgroundColor: `${token('color.background.accent.magenta.bolder.hovered')} !important`,
+		},
+
+		// block node - inactive match - light mode - without node selection
+		'.search-match-block': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.border.accent.magenta')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
+			0px 0px 0px 5px ${token('color.border.accent.magenta')}
+			`,
+				},
+		},
+
+		// block node - active match - light mode - without node selection
+		'.search-match-block.search-match-block-selected': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
+				},
+		},
+
+		// block node - inactive match - light mode - with node selection
+		'.search-match-block.ak-editor-selected-node': {
+			'.loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.border.accent.magenta')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtler')},
+			0px 0px 0px 5px ${token('color.border.accent.magenta')}
+			`,
+				},
+		},
+
+		// block node - active match - light mode - with node selection
+		'.search-match-block.search-match-block-selected.ak-editor-selected-node': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.subtlest.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
+				},
+		},
+
+		// block node - inactive match - dark mode - without node selection
+		'.search-match-block.search-match-dark': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
+				},
+		},
+
+		// block node - active match - dark mode - without node selection
+		'.search-match-block.search-match-block-selected.search-match-dark': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
+				},
+		},
+
+		// block node - inactive match - dark mode - with node selection
+		'.search-match-block.search-match-dark.ak-editor-selected-node': {
+			'.loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.pressed')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
+				},
+		},
+
+		// block node - active match - dark mode - with node selection
+		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-selected-node': {
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
+			inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+			inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')},
+			0 0 0 1px ${token('color.border.selected')}
+			`,
+			},
+			'.loader-wrapper>a, .hover-card-trigger-wrapper>a, .lozenge-wrapper, .editor-mention-primitive, .date-lozenger-container>span':
+				{
+					boxShadow: `
+			0 0 0 1px ${token('color.border.selected')},
+			0px 0px 0px 4px ${token('color.background.accent.magenta.bolder.hovered')},
+			0px 0px 0px 5px ${token('color.background.accent.magenta.bolder')}
+			`,
+				},
+		},
+
+		// expand title - inactive match - light mode
+		'.search-match-expand-title > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				borderRadius: token('space.050'),
+				boxShadow: `
+		inset 0 0 0 1px ${token('color.border.accent.magenta')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}
+		`,
+				backgroundColor: token('color.background.accent.magenta.subtler'),
+				'.ak-editor-expand__title-input': {
+					color: token('color.text'),
+				},
+			},
+
+		// expand title - active match - light mode
+		'.search-match-expand-title.selected-search-match > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}
+		`,
+				backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+			},
+
+		// expand title - inactive match - dark mode
+		'.search-match-expand-title.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}
+		`,
+				backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+				'.ak-editor-expand__title-input': {
+					color: token('color.text.inverse'),
+				},
+			},
+
+		// expand title - active match - dark mode
+		'.search-match-expand-title.selected-search-match.search-match-dark > .ak-editor-expand__title-container > .ak-editor-expand__input-container':
+			{
+				boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.hovered')}
+		`,
+				backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+			},
+	},
+	findReplaceStylesWithCodeblockColorContrastFix: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.code-block .search-match-text.selected-search-match': {
+			span: {
+				// we need to use !important here as we need to override inline selection styles
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				color: `${token('color.text')} !important`,
+			},
+		},
+	},
+	findReplaceStylesWithRefSyncBlock: {
+		// sync block (reference) - inactive match - light mode - without node selection
+		'.search-match-block.ak-editor-sync-block': {
+			borderRadius: token('space.050'),
+			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token(
+				'color.background.accent.magenta.subtler',
+			)}`,
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+		},
+		// sync block (reference) - active match - light mode - without node selection
+		'.search-match-block.search-match-block-selected.ak-editor-sync-block': {
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder.hovered',
+			)}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}`,
+			backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+		},
+		// sync block (reference) - inactive match - light mode - with node selection
+		'.search-match-block.ak-editor-sync-block.ak-editor-selected-node': {
+			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token(
+				'color.background.accent.magenta.subtler',
+			)}, 0 0 0 1px ${token('color.border.selected')}`,
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+		},
+		// sync block (reference) - active match - light mode - with node selection
+		'.search-match-block.search-match-block-selected.ak-editor-sync-block.ak-editor-selected-node':
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+				backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
+			},
+		// sync block (reference) - inactive match - dark mode - without node selection
+		'.search-match-block.search-match-dark.ak-editor-sync-block': {
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder',
+			)}, inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+		},
+		// sync block (reference) - active match - dark mode - without node selection
+		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block': {
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder',
+			)}, inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+		},
+		// sync block (reference) - inactive match - dark mode - with node selection
+		'.search-match-block.search-match-dark.ak-editor-sync-block.ak-editor-selected-node': {
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder',
+			)}, inset 0 0 0 5px ${token(
+				'color.background.accent.magenta.bolder.pressed',
+			)}, 0 0 0 1px ${token('color.border.selected')}`,
+			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
+		},
+		// sync block (reference) - active match - dark mode - with node selection
+		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block.ak-editor-selected-node':
+			{
+				boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+				backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
+			},
+	},
+	firstBlockNodeStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
+			[`> .${'ak-editor-panel' satisfies typeof PanelSharedCssClassName.prefix}, > .${'code-block' satisfies typeof CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}, > .${'blockCardView-content-wrap' satisfies typeof SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}, > div[data-task-list-local-id], > div[data-layout-section], > .${'ak-editor-expand' satisfies typeof expandClassNames.prefix}`]:
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&:first-child': {
+						marginTop: 0,
+					},
+				},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+			'> hr:first-child, > .ProseMirror-widget:first-child + hr': {
+				marginTop: 0,
+			},
+		},
+	},
+	// A leading ProseMirror widget (e.g. `ProseMirror-hide-cursor` when the editor is not editable)
+	// renders as the first child, so the `:first-child` margin resets no longer match the first real
+	// node. This zeroes its top margin in all editor content containers, including the Jira chromeless
+	// editor where block controls are not loaded.
+	firstNodeWidgetFixStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+			'> .ProseMirror-widget:first-child + .ProseMirror-gapcursor + *:not([data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"]), > .ProseMirror-widget:first-child + *:not([data-layout-section="true"], [data-prosemirror-node-name="bodiedSyncBlock"])':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					marginTop: '0 !important',
+				},
+			// Reach through a `.fabric-editor-font-size` wrapper to zero the inner node's margin, since
+			// the margin lives on the child, not the wrapper.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-selectors
+			'> .ProseMirror-widget:first-child + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child, > .ProseMirror-widget:first-child + .ProseMirror-widget + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child, > .ProseMirror-widget:first-child + .ProseMirror-gapcursor + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					marginTop: '0 !important',
+				},
+		},
+	},
+	firstCodeBlockWithNoMargin: {
+		'.ProseMirror': {
+			'.ak-editor-panel__content': {
+				'> .code-block:first-child, > .ProseMirror-widget:first-child + .code-block, > .ProseMirror-widget:first-child + .ProseMirror-widget + .code-block':
+					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-space,@atlaskit/ui-styling-standard/no-important-styles
+						margin: '0!important',
+					},
+			},
+		},
+	},
+	firstFloatingToolbarButtonStyles: {
+		'button.first-floating-toolbar-button:focus': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			outline: `2px solid ${token('color.border.focused')}`,
+		},
+	},
+	firstWrappedMediaStyles: {
+		'.ProseMirror': {
+			// Remove gap between first wrapped mediaSingle and its fellow wrapped mediaSingle
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"& [layout^='wrap-']:has(+ [layout^='wrap-']), & [layout^='wrap-']:has(+ .ProseMirror-gapcursor + [layout^='wrap-'])":
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`& .${'rich-media-item' satisfies typeof richMediaClassName}`]: {
+						marginLeft: 0,
+						marginRight: 0,
+					},
+				},
+		},
+	},
+	fontSizeStyles: {
+		'.ProseMirror': {
+			'.fabric-editor-font-size': {
+				"&[data-font-size='small']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					font: 'var(--editor-font-ugc-token-body-small)',
+				},
+			},
+
+			// Apply font-size to the ::marker pseudo-element of list items that have a font-size mark.
+			// Targeting ::marker directly avoids setting font on the <li> itself, which would cascade
+			// into nested lists and compound the sizing at each nesting level.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"li:has(> .fabric-editor-font-size[data-font-size='small'])::marker": {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				font: 'var(--editor-font-ugc-token-body-small)',
+			},
+
+			// For blockTaskItem nodes: propagate font-size to the task container so the
+			// checkbox and layout align with the content size. Reset on the inner mark to avoid
+			// double-applying.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			"[data-prosemirror-node-name='blockTaskItem']:has(.fabric-editor-font-size[data-font-size='small'])":
+				{
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+					font: 'var(--editor-font-ugc-token-body-small)',
+
+					// Reset the inner block mark so the font value is not applied twice
+					'.fabric-editor-font-size': {
+						font: 'inherit',
+					},
+				},
+		},
+	},
+	fullPageEditorStyles: {
+		flexGrow: 1,
+		height: '100%',
+		overflowY: 'scroll',
+		position: 'relative',
+		display: 'flex',
+		flexDirection: 'column',
+		scrollBehavior: 'smooth',
+	},
+	gapCursorStyles: {
+		'.ProseMirror': {
+			'.ProseMirror-gapcursor': {
+				display: 'none',
+				pointerEvents: 'none',
+				position: 'relative',
+
+				'& span': {
+					caretColor: 'transparent',
+					position: 'absolute',
+					height: '100%',
+					width: '100%',
+					display: 'block',
+				},
+
+				'& span::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					animationName: gapCursorBlink,
+					animationDuration: `1s`,
+					animationTimingFunction: `step-start`,
+					animationIterationCount: `infinite`,
+					borderLeft: '1px solid',
+					content: "''",
+					display: 'block',
+					position: 'absolute',
+					top: 0,
+					height: '100%',
+				},
+				'&.-left span::after': {
+					left: token('space.negative.050'),
+				},
+				'&.-right span::after': {
+					right: token('space.negative.050'),
+				},
+				'& span[layout="full-width"], & span[layout="wide"], & span[layout="fixed-width"]': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: '50%',
+					transform: 'translateX(-50%)',
+				},
+				'&[layout="wrap-right"]': {
+					float: 'right',
+				},
+
+				/* fix vertical alignment of gap cursor */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				[fixVerticalAlignmentSelector]: {
+					marginTop: 0,
+				},
+			},
+			'&.ProseMirror-focused .ProseMirror-gapcursor': {
+				display: 'block',
+				borderColor: 'transparent',
+			},
+		},
+
+		/* This hack below is for two images aligned side by side */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorTwoImagesSideBySideFixSelector]: {
+			clear: 'none',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorMarginFixSelector]: {
+			marginRight: 0,
+			marginLeft: 0,
+			marginBottom: 0,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorFloatLeftFixSelector]: {
+			float: 'left',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorAfterPseudoSelector]: {
+			visibility: 'hidden',
+			display: 'block',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: 0,
+			content: "' '",
+			clear: 'both',
+			height: 0,
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[gapCursorMarginDeepChildrenFixSelector]: {
+			marginTop: 0,
+		},
+	},
+	gapCursorStylesVisibilityFix: {
+		// Hide native caret when gap cursor widget is present (no class toggle = no VC90 mutation)
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:has(.ProseMirror-gapcursor)': {
+				caretColor: 'transparent',
+			},
+		},
+	},
+	gridStyles: {
+		'.gridParent': {
+			width: `calc(100% + 24px)`,
+			marginLeft: token('space.negative.150'),
+			marginRight: token('space.negative.150'),
+			transform: 'scale(1)',
+			zIndex: 2,
+		},
+
+		'.gridContainer': {
+			position: 'fixed',
+			height: '100vh',
+			width: '100%',
+			pointerEvents: 'none',
+		},
+
+		'.gridLine': {
+			borderLeft: `${token('border.width')} solid ${token('color.border')}`,
+			display: 'inline-block',
+			boxSizing: 'border-box',
+			height: '100%',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginLeft: '-1px',
+			transitionProperty: 'border-color',
+			transitionDuration: '0.15s',
+			transitionTimingFunction: 'linear',
+			zIndex: 0,
+		},
+
+		'.highlight': {
+			borderLeft: `1px solid ${token('color.border.focused')}`,
+		},
+	},
+	hideCursorWhenHideSelectionStyles: {
+		// Hide cursor when hide selection styles are applied
+		// https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24
+		'.ProseMirror-hideselection': {
+			caretColor: 'transparent',
+		},
+	},
+	scopedHideCursorStyles: {
+		// Suppress native carets within selected nodes and table cells without
+		// changing the inherited caret color across the entire editor.
+		'.ProseMirror .ProseMirror-selectednode, .ProseMirror .ak-editor-selected-node, .ProseMirror .selectedCell':
+			{
+				caretColor: 'transparent',
+			},
+		// Code-block selection can leave a native caret in a neighbouring text block.
+		// Fall back to root suppression only while ProseMirror hides the selection.
+		// This retains whole-editor caret-color inheritance changes for code blocks.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror.ProseMirror-hideselection:has(.code-block.ProseMirror-selectednode), .ProseMirror.ProseMirror-hideselection:has(.code-block.ak-editor-selected-node)':
+			{
+				caretColor: 'transparent',
+			},
+	},
+	hideSelectionStyles: {
+		// Hide selection styles for ProseMirror editor
+		'.ProseMirror-hideselection': {
+			'*::selection': {
+				background: 'transparent',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'*::-moz-selection': {
+				background: 'transparent',
+			},
+		},
+	},
+	scopedHideSelectionStyles: {
+		// Keep highlight invalidation within selected subtrees instead of depending on
+		// ProseMirror-hideselection on the editor root. Include the node itself for
+		// inline/leaf node views, and selectedCell for CellSelection's DOM range.
+		// ak-editor-selected-node also covers preserved block selections.
+		'.ProseMirror .ProseMirror-selectednode, .ProseMirror .ak-editor-selected-node, .ProseMirror .selectedCell':
+			{
+				'&::selection, & *::selection': {
+					background: 'transparent',
+				},
+				'&::-moz-selection, & *::-moz-selection': {
+					background: 'transparent',
+				},
+			},
+	},
+	hyperLinkFloatingToolbarStyles: {
+		'.hyperlink-floating-toolbar': {
+			padding: 0,
+		},
+	},
+	indentationStyles: {
+		'.ProseMirror': {
+			'.fabric-editor-indentation-mark': {
+				"&[data-level='1']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 30,
+				},
+
+				"&[data-level='2']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 60,
+				},
+
+				"&[data-level='3']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 90,
+				},
+
+				"&[data-level='4']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 120,
+				},
+
+				"&[data-level='5']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 150,
+				},
+
+				"&[data-level='6']": {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: 180,
+				},
+			},
+		},
+	},
+	InlineNodeViewSharedStyles: {
+		'.ProseMirror': {
+			'.inlineNodeView': {
+				display: 'inline',
+				userSelect: 'all',
+				whiteSpace: 'nowrap',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'& > *:not(.zeroWidthSpaceContainer)': {
+					whiteSpace: 'pre-wrap',
+				},
+				'& > .assistive': {
+					userSelect: 'none',
+				},
+			},
+			'&.ua-safari': {
+				'.inlineNodeView': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+					'&::selection, *::selection': {
+						background: 'transparent',
+					},
+				},
+			},
+			'&.ua-chrome .inlineNodeView > span': {
+				userSelect: 'none',
+			},
+			'.inlineNodeViewAddZeroWidthSpace': {
+				'&::after': {
+					content: "'\u200b'", // ZERO_WIDTH_SPACE
+				},
+			},
+		},
+	},
+	/**
+	 * Base styles for layout
+	 */
+	layoutBaseStyles: {
+		'.ProseMirror': {
+			'[data-layout-section]': {
+				margin: `${token('space.100')} -12px 0`,
+				transition: 'border-color 0.3s cubic-bezier(0.15, 1, 0.3, 1)',
+				cursor: 'pointer',
+
+				// Inner cursor located 26px from left
+				'[data-layout-column]': {
+					flex: 1,
+					position: 'relative',
+					minWidth: 0,
+					/* disable 4 borders when in view mode and advanced layouts is on */
+					border: `${token('border.width')} solid ${token('color.border')}`,
+					borderRadius: token('radius.small'),
+					padding: token('space.150'),
+					boxSizing: 'border-box',
+					'> div': {
+						'.pm-table-container': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							width: '100% !important',
+						},
+						'> .embedCardView-content-wrap:first-of-type .rich-media-item': {
+							marginTop: 0,
+						},
+						'> .mediaSingleView-content-wrap:first-of-type .rich-media-item': {
+							marginTop: 0,
+						},
+						'> .ProseMirror-gapcursor.-right:first-child + .mediaSingleView-content-wrap .rich-media-item, > style:first-child + .ProseMirror-gapcursor.-right + .mediaSingleView-content-wrap .rich-media-item, > .ProseMirror-gapcursor.-right:first-of-type + .embedCardView-content-wrap .rich-media-item':
+							{
+								marginTop: 0,
+							},
+						'> .ProseMirror-gapcursor:first-child + span + .mediaSingleView-content-wrap .rich-media-item, > style:first-child + .ProseMirror-gapcursor + span + .mediaSingleView-content-wrap .rich-media-item':
+							{
+								marginTop: 0,
+							},
+						// Prevent first DecisionWrapper's margin-top: 8px from shifting decisions down and shrinking layout's node selectable area (leniency margin)
+						"> [data-node-type='decisionList']": {
+							'li:first-of-type [data-decision-wrapper]': {
+								marginTop: 0,
+							},
+						},
+					},
+
+					// Make the 'content' fill the entire height of the layout column to allow click handler of layout section nodeview to target only data-layout-column
+					'[data-layout-content]': {
+						height: '100%',
+						cursor: 'text',
+
+						'.mediaGroupView-content-wrap': {
+							clear: 'both',
+						},
+					},
+
+					// Keep the editable content wrapper stretched so blank column space remains a text hit area.
+					// Apply vertical alignment to the wrapper contents rather than shrinking the wrapper itself.
+					'&[data-valign="middle"] > [data-layout-content], &[data-valign="bottom"] > [data-layout-content]':
+						{
+							display: 'flex',
+							flexDirection: 'column',
+						},
+
+					'&[data-valign="middle"] > [data-layout-content]': {
+						justifyContent: 'center',
+					},
+
+					'&[data-valign="bottom"] > [data-layout-content]': {
+						justifyContent: 'flex-end',
+					},
+				},
+			},
+		},
+
+		// hide separator when element is dragging on top of a layout column
+		'[data-blocks-drop-target-container] ~ [data-layout-column] > [data-layout-content]::before': {
+			display: 'none',
+		},
+
+		'.fabric-editor--full-width-mode .ProseMirror': {
+			'[data-layout-section]': {
+				'.pm-table-container': {
+					margin: '0 2px',
+				},
+			},
+		},
+	},
+	/**
+	 * Base styles overrides for layout columns when advanced layouts experiment is on
+	 */
+	layoutBaseStylesAdvanced: {
+		'.ProseMirror [data-layout-section] [data-layout-column]': {
+			border: 0,
+		},
+	},
+	/**
+	 * Spacing overrides for nested drag-and-drop, excluding layouts inside bodied sync blocks
+	 */
+	layoutBaseStylesNestedDndExcludingBodiedSync: {
+		// Apply -20px margin to all sections
+		'.ProseMirror [data-layout-section]': {
+			margin: `${token('space.100')} -20px 0`,
+		},
+
+		// Reset to default margin when inside bodied sync block
+		'.ProseMirror [data-prosemirror-node-name="bodiedSyncBlock"] [data-layout-section]': {
+			margin: `${token('space.100')} -12px 0`,
+		},
+
+		'.ProseMirror [data-layout-section] [data-layout-column]': {
+			padding: '12px 20px',
+		},
+	},
+	/**
+	 * Styles for the column resize divider widget DOM elements.
+	 * Mirrors the pm-breakout-resize-handle-* pattern from resizerStyles.ts.
+	 * Applied only when advanced_layouts experiment is on.
+	 */
+	layoutColumnDividerStyles: {
+		'.layout-column-divider': {
+			// Negative margin removes the applied 'gap' from the parent's flex box
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginInline: '-15px 0px',
+			flexShrink: 0,
+			boxSizing: 'content-box',
+			cursor: 'col-resize',
+			position: 'relative',
+			zIndex: 2,
+			alignSelf: 'stretch',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+
+			'&:hover .layout-column-divider-rail': {
+				background: token('color.background.selected'),
+			},
+
+			'&:hover .layout-column-divider-thumb': {
+				background: token('color.border.focused'),
+			},
+		},
+
+		// Rail and thumb styles intentionally mirror the breakout resize handle
+		// (see .pm-breakout-resize-handle-rail and .pm-breakout-resize-handle-thumb in resizerStyles.ts).
+		// If updating these styles, consider keeping both in sync.
+		'.layout-column-divider-rail': {
+			width: 7,
+			height: '100%',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			borderRadius: token('radius.small'),
+			transition: 'background-color 0.2s',
+			pointerEvents: 'none',
+		},
+
+		'.layout-column-divider-thumb': {
+			minWidth: 3,
+			height: 'clamp(27px, calc(100% - 32px), 96px)',
+			background: token('color.border'),
+			borderRadius: token('radius.medium'),
+			pointerEvents: 'none',
+			position: 'sticky',
+			top: token('space.150'),
+			bottom: token('space.150'),
+		},
+	},
+	/**
+	 * Override divider marginInline for nested drag-and-drop,
+	 * since the layout section/column spacing changes.
+	 */
+	layoutColumnDividerStylesNestedDnD: {
+		'.layout-column-divider': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginInline: '0 -7px',
+		},
+	},
+	/*
+	 * marginTop fixes for nested drag-and-drop
+	 */
+	layoutColumnMartinTopFixes: {
+		'.ProseMirror [data-layout-section] [data-layout-column] > div': {
+			'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+				marginTop: 0,
+			},
+		},
+	},
+	/**
+	 * Layout column resize styles
+	 */
+	layoutColumnResizeStyles: {
+		'.ProseMirror [data-layout-section]': {
+			'> [data-layout-column][style*="--column-width"]': {
+				// Also ensure flex-grow and flex-shrink are reset when using custom width
+				flex: 'var(--column-resize-flex, 1)',
+				// Support CSS custom property for smooth resizing during drag
+				// When --column-resize-width is set, use it; otherwise fall back to the original flex-basis
+				// Using attribute selector for higher specificity than inline styles
+				flexBasis: 'var(--column-resize-width, var(--column-width))',
+			},
+		},
+	},
+	/**
+	 * Responsive styles for layout columns when advanced layouts experiment is on
+	 */
+	layoutColumnResponsiveStyles: {
+		'.ProseMirror [data-layout-section]': {
+			display: 'flex',
+			flexDirection: 'row',
+			gap: token('space.100'),
+
+			'& > *': {
+				flex: 1,
+				minWidth: 0,
+			},
+
+			'& > .unsupportedBlockView-content-wrap': {
+				minWidth: 'initial',
+			},
+		},
+
+		// Ignored via go/DSP-18766
+		'.layout-section-container': {
+			containerType: 'inline-size',
+			containerName: 'layout-area',
+		},
+	},
+	/**
+	 * Layout columns styles when advanced layouts experiment is on
+	 */
+	layoutColumnStylesAdvanced: {
+		'.ProseMirror [data-layout-section]': {
+			'> [data-layout-column]': {
+				margin: '0 4px',
+			},
+
+			'> [data-layout-column]:first-of-type': {
+				marginLeft: 0,
+			},
+
+			'> [data-layout-column]:last-of-type': {
+				marginRight: 0,
+			},
+
+			'@media screen and (max-width: 1024px)': {
+				'[data-layout-column] + [data-layout-column]': {
+					margin: 0,
+				},
+			},
+
+			'> [data-layout-column].ak-editor-selected-node:not(.danger)': {
+				...blanketSelectionStyles,
+				...hideNativeBrowserTextSelectionStyles,
+				// layout column selection shorter after layout border has been removed
+				'::before': {
+					width: 'calc(100% - 8px)',
+					left: 4,
+					borderRadius: token('radius.small', '3px'),
+				},
+			},
+		},
+	},
+	/**
+	 * Layout columns styles when advanced layouts experiment is off
+	 */
+	layoutColumnStylesNotAdvanced: {
+		'.ProseMirror [data-layout-section]': {
+			'[data-layout-column] + [data-layout-column]': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginLeft: 8,
+			},
+
+			'@media screen and (max-width: 1024px)': {
+				'[data-layout-column] + [data-layout-column]': {
+					marginLeft: 0,
+				},
+			},
+		},
+	},
+	/**
+	 * Base responsive styles for layout
+	 */
+	// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
+	layoutResponsiveBaseStyles: {
+		// chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer
+		// not resized layout in full-width editor
+		'.fabric-editor--full-width-mode .ProseMirror > .layoutSectionView-content-wrap': {
+			'[data-layout-section]': {
+				[editorAreaLayoutFullWidthMaxWidthContainerQuery]: {
+					flexDirection: 'column',
+				},
+			},
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutFullWidthMaxWidthContainerQuery]: {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'[data-layout-content]::before': {
+							content: "''",
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+							borderTop: `1px solid ${token('color.border')}`,
+							position: 'absolute',
+							width: 'calc(100% - 32px)',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginTop: -13,
+							// clear styles for column separator
+							borderLeft: 'unset',
+							marginLeft: 'unset',
+							height: 'unset',
+						},
+					},
+				},
+			},
+		},
+		// not resized layout in fixed-width editor
+		'.ak-editor-content-area:not(.fabric-editor--full-width-mode) .ProseMirror > .layoutSectionView-content-wrap':
+			{
+				'[data-layout-section]': {
+					[editorAreaLayoutFixedWidthMaxWidthContainerQuery]: {
+						flexDirection: 'column',
+					},
+				},
+				'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+					'[data-layout-column]:not(:first-of-type)': {
+						[editorAreaLayoutFixedWidthMaxWidthContainerQuery]: {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+							'[data-layout-content]::before': {
+								content: "''",
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+								borderTop: `1px solid ${token('color.border')}`,
+								position: 'absolute',
+								width: 'calc(100% - 32px)',
+								// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+								marginTop: -13,
+								// clear styles for column separator
+								borderLeft: 'unset',
+								marginLeft: 'unset',
+								height: 'unset',
+							},
+						},
+					},
+				},
+			},
+		// resized layout in full/fixed-width editor
+		'.ProseMirror .fabric-editor-breakout-mark .layoutSectionView-content-wrap': {
+			'[data-layout-section]': {
+				[editorAreaLayoutResizedMaxWidthContainerQuery]: {
+					flexDirection: 'column',
+				},
+			},
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutResizedMaxWidthContainerQuery]: {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'[data-layout-content]::before': {
+							content: "''",
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+							borderTop: `1px solid ${token('color.border')}`,
+							position: 'absolute',
+							width: 'calc(100% - 32px)',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginTop: -13,
+							// clear styles for column separator
+							borderLeft: 'unset',
+							marginLeft: 'unset',
+							height: 'unset',
+						},
+					},
+				},
+			},
+		},
+	},
+	/**
+	 * Responsive styles for layout in view mode
+	 */
+	layoutResponsiveStylesForView: {
+		// chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer
+		// not resized layout in full-width editor
+		'.fabric-editor--full-width-mode .ProseMirror > .layoutSectionView-content-wrap': {
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutFullWidthMaxWidthContainerQuery]: {
+						'[data-layout-content]::before': {
+							borderTop: 0,
+						},
+					},
+				},
+			},
+		},
+
+		// not resized layout in fixed-width editor
+		'.ak-editor-content-area:not(.fabric-editor--full-width-mode) .ProseMirror > .layoutSectionView-content-wrap':
+			{
+				'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+					'[data-layout-column]:not(:first-of-type)': {
+						[editorAreaLayoutFixedWidthMaxWidthContainerQuery]: {
+							'[data-layout-content]::before': {
+								borderTop: 0,
+							},
+						},
+					},
+				},
+			},
+
+		// resized layout in full/fixed-width editor
+		'.ProseMirror .fabric-editor-breakout-mark .layoutSectionView-content-wrap': {
+			'&.selected, &:hover, &.selected.danger, &.ak-editor-selected-node:not(.danger)': {
+				'[data-layout-column]:not(:first-of-type)': {
+					[editorAreaLayoutResizedMaxWidthContainerQuery]: {
+						'[data-layout-content]::before': {
+							borderTop: 0,
+						},
+					},
+				},
+			},
+		},
+	},
+	/**
+	 * Layout section styles when advanced layouts experiment is on
+	 */
+	layoutDragHandleWrapperStylesLegacy: {
+		// Legacy tooltips are portalled, so flattening every div does not affect their surface.
+		'.ProseMirror .layout-section-container [data-layout-section] > .ProseMirror-widget[data-blocks-drag-handle-container] div':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'contents !important',
+			},
+	},
+	layoutDragHandleWrapperStylesTopLayer: {
+		// Top-layer tooltips render their popover next to the trigger, so flatten only the direct
+		// child trigger wrapper. Otherwise it becomes a flex item and adds a section `gap`.
+		'.ProseMirror .layout-section-container [data-layout-section] > .ProseMirror-widget[data-blocks-drag-handle-container] > div:not([popover])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'contents !important',
+			},
+	},
+	layoutSectionStylesAdvanced: {
+		'.ProseMirror .layout-section-container [data-layout-section]': {
+			'> .ProseMirror-widget': {
+				flex: 'none',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'contents !important',
+
+				'&[data-blocks-drop-target-container]': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					display: 'block !important',
+					margin: token('space.negative.050'),
+
+					'[data-drop-target-for-element]': {
+						position: 'absolute',
+					},
+				},
+
+				// Column resize divider: always in DOM, hidden via opacity by default
+				'&.layout-column-divider': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					display: 'block !important',
+					flex: 'none',
+					opacity: 0,
+					transition: 'opacity 0.2s',
+				},
+
+				'& + [data-layout-column]': {
+					margin: 0,
+				},
+			},
+
+			'> [data-layout-column]': {
+				margin: 0,
+			},
+		},
+
+		// On hover: fade in drag divider and hide the 1px separator
+		'.ProseMirror .layoutSectionView-content-wrap:hover .layout-section-container [data-layout-section]':
+			{
+				'> .ProseMirror-widget.layout-column-divider': {
+					opacity: 1,
+				},
+				'> .ProseMirror-widget.layout-column-divider ~ [data-layout-column] [data-layout-content]::before':
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						display: 'none !important',
+					},
+			},
+	},
+	/**
+	 * Layout section styles when advanced layouts experiment is off
+	 */
+	layoutSectionStylesNotAdvanced: {
+		// Ignored via go/DSP-18766
+		'.ProseMirror [data-layout-section]': {
+			position: 'relative',
+			display: 'flex',
+			flexDirection: 'row',
+
+			// Ignored via go/DSP-18766
+			'& > *': {
+				flex: 1,
+				minWidth: 0,
+			},
+
+			// Ignored via go/DSP-18766
+			'& > .unsupportedBlockView-content-wrap': {
+				minWidth: 'initial',
+			},
+
+			'& > .layout-column-divider': {
+				flex: 'none',
+			},
+
+			// Ignored via go/DSP-18766
+			'@media screen and (max-width: 1024px)': {
+				flexDirection: 'column',
+			},
+		},
+	},
+	/**
+	 * Selected styles for layout when advanced layouts experiment is on
+	 */
+	layoutSelectedStylesAdvanced: {
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				"&.selected, [data-empty-layout='true'], &:hover, &.selected.danger [data-layout-section], &.ak-editor-selected-node:not(.danger) [data-layout-section]":
+					{
+						'[data-layout-column]:not(:first-of-type) [data-layout-content]::before': {
+							content: "''",
+							borderLeft: `1px solid ${token('color.border')}`,
+							position: 'absolute',
+							height: 'calc(100% - 24px)',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							marginLeft: -25,
+						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'[data-layout-column]:is([data-valign="middle"], [data-valign="bottom"]):not(:first-of-type) [data-layout-content]::before':
+							{
+								top: token('space.150'),
+							},
+					},
+
+				'&.selected.danger [data-layout-section]': {
+					backgroundColor: token('color.background.danger'),
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					borderRadius: token('radius.small'),
+				},
+
+				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+					borderRadius: token('radius.small'),
+					backgroundColor: token('color.background.selected'),
+					'[data-layout-column]': {
+						...blanketSelectionStyles,
+						...hideNativeBrowserTextSelectionStyles,
+						border: 0,
+						'::before': {
+							backgroundColor: 'transparent',
+						},
+					},
+				},
+			},
+		},
+	},
+	// Fix for layoutSelectedStylesAdvanced that addresses an issue where the delete indicator
+	// sometimes doesn't appear when inside a synced block.
+	// Separated as a distinct style to allow feature-gating without affecting module-level styles.
+	// This prevents style inconsistencies before the feature flag is initialized.
+	layoutSelectedStylesAdvancedFix: {
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				'&.selected.danger [data-layout-section]': {
+					boxShadow: `inset 0 0 0 1px ${token('color.border.danger')}`,
+				},
+
+				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
+					boxShadow: `inset 0 0 0 1px ${token('color.border.selected')}`,
+				},
+			},
+		},
+	},
+	/**
+	 * Layout in view mode styles for selected state when advanced layouts experiment is on.
+	 */
+	layoutSelectedStylesForViewAdvanced: {
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				"&.selected, [data-empty-layout='true'], &:hover, &.selected.danger [data-layout-section], &.ak-editor-selected-node:not(.danger) [data-layout-section]":
+					{
+						'[data-layout-column]:not(:first-of-type) [data-layout-content]::before': {
+							borderLeft: 0,
+						},
+					},
+
+				'&.selected.danger [data-layout-section]': {
+					boxShadow: `0 0 0 0 ${token('color.border.danger')}`,
+				},
+
+				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
+					boxShadow: `0 0 0 0 ${token('color.border.selected')}`,
+				},
+			},
+		},
+	},
+	/**
+	 * Layout in view mode styles for selected state when advanced layouts experiment is off.
+	 */
+	layoutSelectedStylesForViewNotAdvanced: {
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				'&.selected [data-layout-column], &:hover [data-layout-column]': {
+					border: 0,
+				},
+			},
+		},
+	},
+	/**
+	 * Selected styles for layout when advanced layouts experiment is off
+	 */
+	// TODO: DSP-4441 - Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+	//       This is because the default state already uses the same token and, as such, the hover style won't change anything.
+	//       https://product-fabric.atlassian.net/browse/DSP-4441
+	layoutSelectedStylesNotAdvanced: {
+		'.ProseMirror': {
+			'[data-layout-section], .layoutSectionView-content-wrap': {
+				// Shows the border when cursor is inside a layout
+				'&.selected [data-layout-column], &:hover [data-layout-column]': {
+					border: `1px solid ${token('color.border')}`,
+				},
+
+				'&.selected.danger [data-layout-column]': {
+					backgroundColor: token('color.background.danger'),
+					borderColor: token('color.border.danger'),
+				},
+
+				'&.ak-editor-selected-node:not(.danger)': {
+					'[data-layout-column]': {
+						...borderSelectionStyles,
+						...blanketSelectionStyles,
+						...hideNativeBrowserTextSelectionStyles,
+						'::after': {
+							backgroundColor: 'transparent',
+						},
+					},
+				},
+			},
+		},
+	},
+	/*
+	 * Layout in view mode styles, overrides over layout base styles
+	 */
+	layoutStylesForView: {
+		'.ProseMirror': {
+			'[data-layout-section]': {
+				cursor: 'default',
+
+				'[data-layout-column]': {
+					border: 0,
+				},
+			},
+		},
+	},
+	linkingVisualRefreshV1Styles: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		'.blockCardView-content-wrap:not(.datasourceView-content-wrap)': {
+			// EDM-11991: Fix list plugin adding padding to ADS AvatarGroup
+			'ul, ol': {
+				paddingLeft: 'inherit',
+			},
+		},
+	},
+	linkStyles: {
+		'.ProseMirror a.blockLink': {
+			display: 'block',
+		},
+		'.ProseMirror a[data-prosemirror-mark-name="link"]': {
+			textDecoration: 'underline',
+		},
+		'.ProseMirror a[data-prosemirror-mark-name="link"]:hover': {
+			textDecoration: 'none',
+		},
+	},
+	listDangerStyles: {
+		// only apply danger styles to the outermost list to avoid nested danger styles for lists within lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *).danger':
+			{
+				background: token('color.background.danger'),
+			},
+	},
+	listItemHiddenMarkerStyles: {
+		'.ProseMirror': {
+			// Hide markers and remove spacing for wrapper list items (items containing only nested lists)
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'li:has(> ul:only-child), li:has(> ol:only-child)': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				listStyleType: 'none !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginBottom: '0 !important',
+			},
+			// Remove margin from nested lists inside wrapper list items to avoid double spacing
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'li:has(> ul:only-child) > ul, li:has(> ol:only-child) > ol': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+			},
+			// Remove top margin from nested taskLists not preceded by a sibling taskItem.
+			// The base rule (tasksAndDecisionsStyles) sets margin-top on all nested taskLists,
+			// but with flexible indentation a taskList can be the first child with no taskItem above.
+			'div[data-task-list-local-id] > div[data-task-list-local-id]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: '0 !important',
+			},
+			// Restore margin when a nested taskList follows a taskItem
+			'div[data-task-local-id] + div[data-task-list-local-id]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				marginTop: `${token('space.050')} !important`,
+			},
+		},
+	},
+	listSelectedNodeStyles: {
+		// only apply selected styles to the outermost list to avoid nested selection styles for lists within lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *)':
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+	},
+	listSelectedNodeStylesWithHighlightInheritance: {
+		// only apply selected styles to the outermost list to avoid nested selection styles for lists within lists
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(ul, ol, div[data-node-type="actionList"]):not(:is(ul, ol, div[data-node-type="actionList"]) *).ak-editor-selected-node:not(.ak-editor-selected-node *)':
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+
+				'&::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+	},
+	listsStyles: {
+		'& .ProseMirror': {
+			/* =============== INDENTATION SPACING ========= */
+
+			// Skips top-layer surfaces. See top-layer/notes/decisions/top-layer-unsafe-selectors.md
+			'& ul:not(:where([popover], dialog, & :is([popover], dialog) *)), & ol:not(:where([popover], dialog, & :is([popover], dialog) *))':
+				{
+					boxSizing: 'border-box',
+					paddingLeft: `var(--ed--list--item-counter--padding, 24px)`,
+				},
+
+			// Firefox does not handle empty block element inside li tag.
+			// If there is not block element inside li tag,	then firefox sets inherited height to li
+			// However, if there is any block element and if it's empty	(or has empty inline element) then
+			// firefox sets li tag height to zero.
+			//
+			// More details at
+			// https://product-fabric.atlassian.net/wiki/spaces/~455502413/pages/3149365890/ED-14110+Investigation
+			'&.ua-firefox': {
+				'ul, ol': {
+					'li p:empty, li p > span:empty': {
+						display: 'inline-block',
+					},
+				},
+			},
+
+			'.ak-ol, .ak-ul': {
+				// Ensures list item content adheres to the list's margin instead
+				// of filling the entire block row. This is important to allow
+				// clicking interactive elements which are floated next to a list.
+				//
+				// For some history and context on this block, see PRs related to tickets.:
+				// @see ED-6551 - original issue.
+				// @see ED-7015 - follow up issue.
+				// @see ED-7447 - flow-root change.
+				//
+				// @see https://css-tricks.com/display-flow-root/
+				//
+				// For older browsers the do not support flow-root. */
+				// stylelint-disable declaration-block-no-duplicate-properties */
+				display: 'flow-root',
+				/* stylelint-enable declaration-block-no-duplicate-properties */
+			},
+
+			/* =============== INDENTATION AESTHETICS ========= */
+
+			// We support nested lists up to six levels deep.
+
+			/*  ======== LEGACY LISTS ======== */
+			'ul, ul ul ul ul': {
+				listStyleType: 'disc',
+			},
+			'ul ul, ul ul ul ul ul': {
+				listStyleType: 'circle',
+			},
+			'ul ul ul, ul ul ul ul ul ul': {
+				listStyleType: 'square',
+			},
+			'ol, ol ol ol ol': {
+				listStyleType: 'decimal',
+			},
+			'ol ol, ol ol ol ol ol': {
+				listStyleType: 'lower-alpha',
+			},
+			'ol ol ol, ol ol ol ol ol ol': {
+				listStyleType: 'lower-roman',
+			},
+
+			/* ======== PREDICTABLE LISTS ======== */
+			"ol[data-indent-level='1'], ol[data-indent-level='4']": {
+				listStyleType: 'decimal',
+			},
+			"ol[data-indent-level='2'], ol[data-indent-level='5']": {
+				listStyleType: 'lower-alpha',
+			},
+			"ol[data-indent-level='3'], ol[data-indent-level='6']": {
+				listStyleType: 'lower-roman',
+			},
+			"ul[data-indent-level='1'], ul[data-indent-level='4']": {
+				listStyleType: 'disc',
+			},
+			"ul[data-indent-level='2'], ul[data-indent-level='5']": {
+				listStyleType: 'circle',
+			},
+			"ul[data-indent-level='3'], ul[data-indent-level='6']": {
+				listStyleType: 'square',
+			},
+
+			/* ======== PREDICTABLE LISTS WITHOUT DECORATIONS ======== */
+
+			/*
+			 * Equivalent of the `data-indent-level` rules above, expressed purely in CSS so the list
+			 * plugin does not have to emit an indentation decoration for every list on every
+			 * keystroke. `:is(ul, ol)` counts list ancestors of either type, which a plain `ul ul`
+			 * chain cannot do, and `:not([data-indent-level])` keeps these rules inert while the
+			 * decoration is still emitted. See styles/list.ts for the full explanation.
+			 */
+			'& ul:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) ul:not([data-indent-level])':
+				{
+					listStyleType: 'disc',
+				},
+			'& :is(ul, ol) ul:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ul:not([data-indent-level])':
+				{
+					listStyleType: 'circle',
+				},
+			'& :is(ul, ol) :is(ul, ol) ul:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ul:not([data-indent-level])':
+				{
+					listStyleType: 'square',
+				},
+			'& ol:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) ol:not([data-indent-level])':
+				{
+					listStyleType: 'decimal',
+				},
+			'& :is(ul, ol) ol:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ol:not([data-indent-level])':
+				{
+					listStyleType: 'lower-alpha',
+				},
+			'& :is(ul, ol) :is(ul, ol) ol:not([data-indent-level]), & :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) :is(ul, ol) ol:not([data-indent-level])':
+				{
+					listStyleType: 'lower-roman',
+				},
+
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			li: {
+				position: 'relative',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'& > p:not(:first-child)': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					margin: `${token('space.050')} 0 0 0`,
+				},
+				/* In SSR the above rule will apply to all p tags because first-child would be a style tag.
+				The following rule resets the first p tag back to its original margin
+				defined in packages/editor/editor-common/src/styles/shared/paragraph.ts */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'& > style:first-child + p': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					marginTop: blockNodesVerticalMargin,
+				},
+			},
+		},
+	},
+	listsStylesMarginLayoutShiftFix: {
+		// These styles are to fix a layout shift issue that occurs when aui-reset.less CSS is applied post-hydration.
+		// It overrides the design system bundle.css list margins, which in turn causes the lists to shift vertically.
+		'.ProseMirror': {
+			// Root lists: 12px top margin (design system value), except first content child. Uses :not(:nth-child(1 of ...)) to exclude first content lists.
+			// A more complex selector is used here to ensure this style is not applied to block quotes and panels, as they do not have a margin-top property already, and this will incorrectly add a margin-top to them.
+			// This is unlike tables and expands, which do have a margin-top property already, and this style would not change their top margin, even without the :not(:nth-child(1 of ...)) selector.
+			// This targeted approach reduces the blast radius of the fix. Instead of modifying numerous existing styles, we add this single selector until the issue with bundle.css & aui-reset.less is fixed.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+			'ul:not(li > ul):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))), ol:not(li > ol):not(:nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)))':
+				{
+					marginTop: `var(--ds-space-150, 12px)`,
+				},
+
+			// Nested lists: 4px top margin (design system value)
+			// Applies to both OL and UL nested inside list items
+			'li > ol, li > ul': {
+				marginTop: `var(--ds-space-050, 4px)`,
+			},
+		},
+	},
+	listsStylesSafariFix: {
+		/* This prevents https://product-fabric.atlassian.net/browse/ED-20924 */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror:not(.blockCardView-content-wrap) > li::before': {
+			content: '" "',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			lineHeight: akEditorLineHeight,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		[listsStylesSafariFixMultiSelector]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginTop: `-${akEditorLineHeight}em !important`,
+		},
+	},
+	listsDenseStyles: {
+		'.ProseMirror': {
+			// Adjacent list items
+			'li + li': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+			},
+			// Nested lists directly under an li (unordered and ordered)
+			'li > ul, li > ol, .ak-ul li > ul, .ak-ul li > ol, .ak-ol li > ul, .ak-ol li > ol': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+			},
+		},
+	},
+	maxModeReizeFixStyles: {
+		'.fabric-editor--max-width-mode': {
+			'--ak-editor--line-length':
+				'min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--max-width-layout-width))',
+			/* in max width appearances it's not possible to rely on cqw because it doesn't account for the page scrollbar, which depends on users system settings */
+			'--ak-editor--breakout-fallback-width': '100%',
+			'--ak-editor--breakout-min-width': '0px',
+		},
+	},
+	mediaAlignmentStyles: {
+		'.fabric-editor-block-mark[class^="fabric-editor-align"]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			clear: 'none',
+		},
+		'.fabric-editor-align-end': {
+			textAlign: 'right',
+		},
+		'.fabric-editor-align-start': {
+			textAlign: 'left',
+		},
+		'.fabric-editor-align-center': {
+			textAlign: 'center',
+		},
+		'.fabric-editor--full-width-mode': {
+			'.pm-table-container': {
+				'.code-block, .extension-container, .multiBodiedExtension--container': {
+					maxWidth: '100%',
+				},
+			},
+		},
+	},
+	// Styles for VanillaCaptionNodeView — applied unconditionally in all content modes.
+	// Matches CaptionComponent's captionWrapperStyle and placeholderStyle.
+	// These must NOT be inside mediaCaptionStyles (compact-only) or mediaStyles.
+	vanillaCaptionStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'[data-media-caption]': {
+				marginTop: token('space.100'),
+				position: 'relative',
+			},
+			// contentDOM inside the vanilla caption — needs explicit text-align and color.
+			// Uses a unique class to avoid collision with React CaptionNodeView's caption-wrapper.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.captionView-content-wrap': {
+				textAlign: 'center',
+				color: token('color.text.subtle'),
+			},
+		},
+	},
+	mediaCaptionStyles: {
+		'.mediaSingleView-content-wrap': {
+			'span#caption-placeholder': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 'var(--ak-editor-base-font-size)',
+			},
+		},
+	},
+	mediaDangerStyles: {
+		'.ProseMirror': {
+			'.mediaInlineView-content-wrap.ak-editor-selected-node.danger': {
+				' .media-inline-image-wrapper': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...dangerBorderStyles,
+				},
+				'>span> span[role="button"]': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...dangerBorderStyles,
+				},
+			},
+
+			'.mediaGroupView-content-wrap.danger #newFileExperienceWrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...dangerBorderStyles,
+			},
+		},
+	},
+	mediaGroupStyles: {
+		'.mediaGroupView-content-wrap ul': {
+			padding: 0,
+		},
+	},
+	mediaStyles: {
+		'.ProseMirror': {
+			'li .rich-media-item': {
+				margin: 0,
+			},
+
+			'&.ua-chrome li > .mediaSingleView-content-wrap::before': {
+				content: "''",
+				display: 'block',
+				height: 0,
+			},
+
+			'&.ua-firefox': {
+				'.mediaSingleView-content-wrap': {
+					userSelect: 'none',
+				},
+				'.captionView-content-wrap': {
+					userSelect: 'text',
+				},
+			},
+
+			".mediaSingleView-content-wrap[layout^='wrap-']": {
+				position: 'relative',
+				zIndex: 2,
+				maxWidth: '100%',
+				clear: 'inherit',
+			},
+
+			".mediaSingleView-content-wrap[layout='center']": {
+				clear: 'both',
+			},
+
+			'table .rich-media-item': {
+				marginTop: token('space.150'),
+				marginBottom: token('space.150'),
+				clear: 'both',
+
+				'&.image-wrap-left[data-layout], &.image-wrap-right[data-layout]': {
+					clear: 'none',
+
+					'&:first-child': {
+						marginTop: token('space.150'),
+					},
+				},
+			},
+
+			'.rich-media-item.image-wrap-right + .rich-media-item.image-wrap-left': {
+				clear: 'both',
+			},
+
+			'.rich-media-item.image-wrap-left + .rich-media-item.image-wrap-right, .rich-media-item.image-wrap-right + .rich-media-item.image-wrap-left, .rich-media-item.image-wrap-left + .rich-media-item.image-wrap-left, .rich-media-item.image-wrap-right + .rich-media-item.image-wrap-right':
+				{
+					marginRight: 0,
+					marginLeft: 0,
+				},
+
+			'@media all and (max-width: 410px)': {
+				"div.mediaSingleView-content-wrap[layout='wrap-left'], div.mediaSingleView-content-wrap[data-layout='wrap-left'], div.mediaSingleView-content-wrap[layout='wrap-right'], div.mediaSingleView-content-wrap[data-layout='wrap-right']":
+					{
+						float: 'none',
+						overflow: 'auto',
+						margin: `${token('space.150')} 0`,
+					},
+			},
+
+			"& [layout='full-width'] .rich-media-item, & [layout='wide'] .rich-media-item": {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				marginLeft: '50%',
+				transform: 'translateX(-50%)',
+			},
+
+			".media-extended-resize-experience[layout^='wrap-']": {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				overflow: 'visible !important',
+			},
+
+			"& [layout^='wrap-'] + [layout^='wrap-']": {
+				clear: 'none',
+
+				"& + p, & + div[class^='fabric-editor-align'], & + ul, & + ol, & + h1, & + h2, & + h3, & + h4, & + h5, & + h6":
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						clear: 'both !important' as 'both',
+					},
+
+				'& .rich-media-item': {
+					marginLeft: 0,
+					marginRight: 0,
+				},
+			},
+
+			'.media-inline-image-wrapper': {
+				height: 22,
+				transform: 'translateY(-2px)',
+			},
+
+			h1: {
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
+					{
+						height: 36,
+						transform: 'translateY(-3px)',
+					},
+			},
+
+			h2: {
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
+					{
+						height: 31,
+						transform: 'translateY(-3px)',
+					},
+			},
+
+			h3: {
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
+					{
+						height: 25,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			h4: {
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
+					{
+						height: 23,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			h5: {
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
+					{
+						height: 20,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			h6: {
+				"> .mediaInlineView-content-wrap > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .mediaInlineView-content-wrap > .media-inline-image-wrapper, > .media-inline-image-wrapper, > :is(a, span[data-mark-type='border']) .media-inline-image-wrapper":
+					{
+						height: 18,
+						transform: 'translateY(-2px)',
+					},
+			},
+
+			".mediaSingleView-content-wrap[layout='wrap-left']": {
+				float: 'left',
+			},
+
+			".mediaSingleView-content-wrap[layout='wrap-right']": {
+				float: 'right',
+			},
+
+			".mediaSingleView-content-wrap[layout='wrap-right'] + .mediaSingleView-content-wrap[layout='wrap-left']":
+				{
+					clear: 'both',
+				},
+
+			'& > .mediaSingleView-content-wrap': {
+				'.richMedia-resize-handle-right': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginRight: '-12px',
+				},
+				'.richMedia-resize-handle-left': {
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginLeft: '-12px',
+				},
+			},
+		},
+
+		'.pm-alt-text-alt-text-floating-toolbar': {
+			padding: 0,
+		},
+
+		'.richMedia-resize-handle-right, .richMedia-resize-handle-left': {
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'center',
+		},
+
+		'.richMedia-resize-handle-right': {
+			alignItems: 'flex-end',
+			paddingRight: token('space.150'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginRight: '-4px',
+		},
+
+		'.richMedia-resize-handle-left': {
+			alignItems: 'flex-start',
+			paddingLeft: token('space.150'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginLeft: '-4px',
+		},
+
+		'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+			content: "' '",
+			display: 'flex',
+			width: 3,
+			height: 64,
+			borderRadius: token('radius.medium'),
+		},
+
+		'.rich-media-item:hover .richMedia-resize-handle-left::after, .rich-media-item:hover .richMedia-resize-handle-right::after':
+			{
+				background: token('color.border'),
+			},
+
+		'.ak-editor-selected-node .richMedia-resize-handle-right::after, .ak-editor-selected-node .richMedia-resize-handle-left::after, .rich-media-item .richMedia-resize-handle-right:hover::after, .rich-media-item .richMedia-resize-handle-left:hover::after, .rich-media-item.is-resizing .richMedia-resize-handle-right::after, .rich-media-item.is-resizing .richMedia-resize-handle-left::after':
+			{
+				background: token('color.border.focused'),
+			},
+
+		'.__resizable_base__': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			left: 'unset !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'auto !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			height: 'auto !important',
+		},
+
+		'.danger > div > div > .media-card-frame, .danger > span > a': {
+			backgroundColor: token('color.background.danger'),
+			boxShadow: `0px 0px 0px 2px, ${token('color.border.danger')}`,
+			transition: 'background-color 0s, box-shadow 0s',
+		},
+
+		'.danger': {
+			'.rich-media-item .media-file-card-view::after': {
+				border: `1px solid ${token('color.border.danger')}`,
+			},
+
+			'.rich-media-item .media-card-inline-player::after': {
+				border: `1px solid ${token('color.border.danger')}`,
+			},
+
+			'.rich-media-item .new-file-experience-wrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+			},
+
+			'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				background: `${token('color.icon.danger')} !important`,
+			},
+
+			'.resizer-handle-thumb': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				background: `${token('color.icon.danger')} !important`,
+			},
+
+			'div div .media-card-frame, .inlineCardView-content-wrap > span > a': {
+				backgroundColor: `${token('color.blanket.danger')}`,
+				transition: `background-color 0s`,
+			},
+
+			'div div .media-card-frame::after': {
+				boxShadow: 'none',
+			},
+		},
+
+		'.warning': {
+			'.rich-media-item .media-file-card-view::after': {
+				border: `1px solid ${token('color.border.warning')}`,
+			},
+
+			'.rich-media-item .media-card-inline-player::after': {
+				border: `1px solid ${token('color.border.warning')}`,
+			},
+
+			'.rich-media-item .new-file-experience-wrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				boxShadow: `0 0 0 1px ${token('color.border.warning')} !important`,
+			},
+
+			'.resizer-handle-thumb': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				background: `${token('color.icon.warning')} !important`,
+			},
+		},
+
+		'.media-filmstrip-list-item': {
+			cursor: 'pointer',
+		},
+
+		'.mediaGroupView-content-wrap.ak-editor-selected-node #newFileExperienceWrapper': {
+			boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+		},
+
+		'.ak-editor-no-interaction #newFileExperienceWrapper': {
+			boxShadow: 'none',
+		},
+	},
+	mentionDangerStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node:not(.search-match-block).danger': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					...dangerBorderStyles,
+					...dangerBackgroundStyles,
+				},
+		},
+	},
+	mentionAvatarNoWrapStyles: {
+		// Override the shared inline-node pre-wrap reset for the whole mention pill.
+		'.ProseMirror .mentionView-content-wrap.inlineNodeView > .editor-mention-primitive-with-avatar':
+			{
+				whiteSpace: 'nowrap',
+			},
+	},
+	mentionNodeStyles: {
+		'.mentionNodeViewAddZeroWidthSpace': {
+			'&::after': {
+				content: "'\\200B'",
+			},
+		},
+
+		// Show diff: mention attr change highlight. Keep this with mention node styles so the
+		// highlight targets the mention primitive's rounded shape.
+		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		'.show-diff-atomic-inline-changed-mention': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-mention.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		'.show-diff-atomic-inline-changed-mention .editor-mention-primitive': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+		},
+
+		'.editor-mention-primitive': {
+			display: 'inline',
+			borderRadius: token('radius.full'),
+			cursor: 'pointer',
+			padding: '1px 0.3em 1px 0.23em',
+			// To match `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx` implementation
+			// we match the line height exactly
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			lineHeight: '1.714',
+			fontWeight: token('font.weight.regular'),
+			wordBreak: 'break-word',
+			background: token('color.background.neutral'),
+			border: '1px solid transparent',
+			color: token('color.text.subtle'),
+
+			'&:hover': {
+				background: token('color.background.neutral.hovered'),
+			},
+			'&:active': {
+				background: token('color.background.neutral.pressed'),
+			},
+		},
+
+		'.editor-mention-primitive-with-avatar': {
+			padding: '1px 0.3em 1px 0.23em',
+		},
+
+		'.editor-mention-avatar': {
+			display: 'inline-flex',
+			// Track the inherited mention text size so avatars remain proportional in headings.
+			width: '1em',
+			height: '1em',
+			alignItems: 'center',
+			justifyContent: 'center',
+			flexShrink: 0,
+			marginInlineEnd: token('space.050'),
+			overflow: 'hidden',
+			borderRadius: token('radius.full'),
+			verticalAlign: '-0.125em',
+		},
+
+		'.editor-mention-avatar-fallback': {
+			verticalAlign: '0.05em',
+		},
+
+		'.editor-mention-avatar-agent': {
+			borderRadius: 0,
+			clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%)',
+		},
+
+		'.editor-mention-avatar-agent-hexagon-ui-fix': {
+			clipPath: `polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)`,
+		},
+
+		'.editor-mention-avatar-image': {
+			display: 'block',
+			width: '100%',
+			height: '100%',
+			objectFit: 'cover',
+		},
+
+		'.editor-mention-primitive.mention-restricted': {
+			background: 'transparent',
+			border: `1px solid ${token('color.border.bold')}`,
+			color: token('color.text'),
+
+			'&:hover': {
+				background: 'transparent',
+			},
+			'&:active': {
+				background: 'transparent',
+			},
+		},
+
+		'.editor-mention-primitive.mention-self': {
+			background: token('color.background.brand.bold'),
+			border: '1px solid transparent',
+			color: token('color.text.inverse'),
+
+			'&:hover': {
+				background: token('color.background.brand.bold.hovered'),
+			},
+			'&:active': {
+				background: token('color.background.brand.bold.pressed'),
+			},
+		},
+
+		// Disabled variant — mirrors `MentionType.DISABLED` in
+		// `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx`.
+		// Hover / active states are intentionally flat: a disabled chip should
+		// not respond to mouse interaction. The chip is still keyboard-focusable
+		// (see `MentionNodeView.setClassList`) so the focus ring is still
+		// allowed to render via `:focus-visible`.
+		'.editor-mention-primitive.mention-disabled': {
+			background: token('color.background.disabled'),
+			border: '1px solid transparent',
+			color: token('color.text.disabled'),
+			cursor: 'default',
+
+			'&:hover': {
+				background: token('color.background.disabled'),
+			},
+			'&:active': {
+				background: token('color.background.disabled'),
+			},
+		},
+
+		// Agent mention run-state styles. The 'analysing' state changes the chip/text to a shimmer, other
+		// states will still render the default chip/text.
+		'.agent-mention-analysing-state .editor-mention-primitive': {
+			// Light mode variant
+			backgroundImage: `linear-gradient(90deg, #EBEBEB 35%, ${token('elevation.surface.hovered')} 45%, ${token('elevation.surface.hovered')} 55%, #EBEBEB 65%)`,
+			backgroundSize: '200% 100%',
+			animationName: mentionRunShimmer,
+			animationDuration: '2.5s',
+			animationIterationCount: 'infinite',
+			animationTimingFunction: 'linear',
+			'@media (prefers-reduced-motion: reduce)': {
+				animation: 'none',
+			},
+		},
+
+		'.agent-mention-analysing-state .editor-mention-text': {
+			backgroundImage: `linear-gradient(90deg, ${token('color.text')} 35%, ${token('color.text.subtle')} 45%, ${token('color.background.accent.gray.subtler.hovered')} 50%, ${token('color.text.subtle')} 55%, ${token('color.text')} 65%)`,
+			backgroundSize: '200% 100%',
+			WebkitBackgroundClip: 'text',
+			backgroundClip: 'text',
+			WebkitTextFillColor: 'transparent',
+			color: 'transparent',
+			animationName: mentionRunShimmer,
+			animationDuration: '2.5s',
+			animationIterationCount: 'infinite',
+			animationTimingFunction: 'linear',
+		},
+	},
+
+	// Dark mode override for the agent mention pill shimmer
+	agentMentionShimmerDarkMode: {
+		'.agent-mention-analysing-state .editor-mention-primitive': {
+			backgroundImage: `linear-gradient(90deg, ${token('elevation.surface.pressed')} 35%, ${token('elevation.surface.raised')} 45%, ${token('elevation.surface.raised')} 55%, ${token('elevation.surface.pressed')} 65%)`,
+		},
+	},
+	mentionsSelectionStyles: {
+		'.danger': {
+			'.editor-mention-primitive': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				backgroundColor: token('color.background.danger'),
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					...backgroundSelectionStyles,
+					...hideNativeBrowserTextSelectionStyles,
+					...mentionsSelectedColor,
+					// Explicitly override hover/active states to prevent mentionNodeStyles hover
+					// from winning over the selection background in Compiled's atomic CSS (source order issue)
+					'&:hover, &:active': {
+						...backgroundSelectionStyles,
+					},
+				},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ak-editor-selected-node:not(.search-match-block)': {
+			'> .editor-mention-primitive, > .editor-mention-primitive.mention-self, > .editor-mention-primitive.mention-restricted':
+				{
+					...boxShadowSelectionStyles,
+				},
+		},
+	},
+	mentionsStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.mentionView-content-wrap': {
+			// TODO: ED-28075 - refactor selection styles to unblock Compiled CSS migration
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'&.ak-editor-selected-node [data-mention-id] > span': {
+				...boxShadowSelectionStyles,
+				...backgroundSelectionStyles,
+				...mentionsSelectedColor,
+			},
+		},
+		'.danger': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'.mentionView-content-wrap.ak-editor-selected-node': {
+				'> span > span > span': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					backgroundColor: token('color.background.danger'),
+				},
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'.mentionView-content-wrap > span > span > span': {
+				backgroundColor: token('color.background.neutral'),
+				color: token('color.text.subtle'),
+			},
+		},
+	},
+	nestedPanelBorderStylesMixin: {
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				// Support nested panel
+				'.ak-editor-panel__content .ak-editor-panel': {
+					border: `1px solid ${token('color.border')}`,
+				},
+			},
+		},
+	},
+	nestedPanelDangerStyles: {
+		'.ProseMirror': {
+			/* Danger when nested node */
+			'.danger .ak-editor-panel': {
+				'&[data-panel-type="info"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="info"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="note"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="note"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="success"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="success"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="warning"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="warning"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+				'&[data-panel-type="error"]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon[data-panel-type="error"]': {
+						color: `${token('color.icon.danger')}`,
+					},
+				},
+			},
+		},
+	},
+	panelStyles: {
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				cursor: 'pointer',
+
+				/* Danger when top level node */
+				'&.danger': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					backgroundColor: `${token('color.background.danger')} !important`,
+
+					'.ak-editor-panel__icon': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+						color: `${token('color.icon.danger')} !important`,
+					},
+				},
+
+				// panelSharedStyles()
+				// panelSharedStylesWithoutPrefix()
+				borderRadius: token('radius.small', '3px'),
+				margin: `${token('space.150')} 0 0`,
+				paddingTop: token('space.100'),
+				paddingRight: token('space.200'),
+				paddingBottom: token('space.100'),
+				paddingLeft: token('space.100'),
+				minWidth: '48px',
+				display: 'flex',
+				position: 'relative',
+				alignItems: 'normal',
+				wordBreak: 'break-word',
+
+				// mainDynamicStyles(PanelType.INFO)
+				// > getPanelTypeBackground(PanelType.INFO)
+				backgroundColor: token('color.background.accent.blue.subtlest'),
+				color: 'inherit',
+
+				'.ak-editor-panel__icon': {
+					flexShrink: 0,
+					height: token('space.300'),
+					width: token('space.300'),
+					boxSizing: 'content-box',
+					paddingRight: token('space.100'),
+					textAlign: 'center',
+					userSelect: 'none',
+					MozUserSelect: 'none',
+					WebkitUserSelect: 'none',
+					msUserSelect: 'none',
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+					marginTop: '0.1em',
+
+					'> span': {
+						verticalAlign: 'middle',
+						display: 'inline-flex',
+					},
+
+					'.emoji-common-emoji-sprite': {
+						verticalAlign: '-2px', // -(8*3-20)/2 [px]
+					},
+
+					'.emoji-common-emoji-image': {
+						verticalAlign: '-3px', // panelEmojiSpriteVerticalAlignment - 1 [px]
+
+						/* Vertical align only works for inline-block elements in Firefox */
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'@-moz-document url-prefix()': {
+							img: {
+								display: 'inline-block',
+							},
+						},
+					},
+				},
+
+				'.ak-editor-panel__content': {
+					margin: `${token('space.025')} 0 ${token('space.025')}`,
+					flex: '1 0 0',
+					/*
+					https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
+					The default value for min-width is auto, which is computed to zero.
+					When an element is a flex item, the value of min-width doesnâ€™t compute to zero.
+					The minimum size of a flex item is equal to the size of its contents.
+				*/
+					minWidth: 0,
+				},
+
+				'&[data-panel-type="note"]': {
+					// mainDynamicStyles(PanelType.NOTE)
+					backgroundColor: token('color.background.accent.purple.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="tip"]': {
+					// mainDynamicStyles(PanelType.TIP)
+					backgroundColor: token('color.background.accent.green.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="warning"]': {
+					// mainDynamicStyles(PanelType.WARNING)
+					backgroundColor: token('color.background.accent.yellow.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="error"]': {
+					// mainDynamicStyles(PanelType.ERROR)
+					backgroundColor: token('color.background.accent.red.subtlest'),
+					color: 'inherit',
+				},
+				'&[data-panel-type="success"]': {
+					// mainDynamicStyles(PanelType.SUCCESS)
+					backgroundColor: token('color.background.accent.green.subtlest'),
+					color: 'inherit',
+				},
+			},
+
+			'.ak-editor-panel__content': {
+				cursor: 'text',
+			},
+
+			/* Danger when nested node */
+			'.danger .ak-editor-panel': {
+				'&[data-panel-type]': {
+					backgroundColor: token('color.blanket.danger'),
+
+					'.ak-editor-panel__icon': {
+						color: token('color.icon.danger'),
+					},
+				},
+			},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ak-editor-panel.ak-editor-selected-node:not(.danger)': {
+			// getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket]),
+			// SelectionStyle.BoxShadow
+			boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+			borderColor: 'transparent',
+			// SelectionStyle.Blanket
+			position: 'relative',
+			// Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
+			// in Safari. Looks like it's caused by user-select: all in the emoji element
+			WebkitUserSelect: 'text',
+			'&::before': {
+				position: 'absolute',
+				content: '""',
+				left: 0,
+				right: 0,
+				top: 0,
+				bottom: 0,
+				width: '100%',
+				pointerEvents: 'none',
+				zIndex: 12, // akEditorSmallZIndex
+				backgroundColor: token('color.blanket.selected'),
+			},
+			// hideNativeSelectionStyles
+			'&::selection, *::selection': {
+				backgroundColor: 'transparent',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-moz-selection, *::-moz-selection': {
+				backgroundColor: 'transparent',
+			},
+		},
+	},
+	panelStylesMixin: {
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				'&[data-panel-type="info"]': {
+					// getIconStyles(PanelType.INFO),
+					'.ak-editor-panel__icon[data-panel-type="info"]': {
+						color: token('color.icon.information'),
+					},
+				},
+				'&[data-panel-type="note"]': {
+					// getIconStyles(PanelType.NOTE),
+					'.ak-editor-panel__icon[data-panel-type="note"]': {
+						color: token('color.icon.discovery'),
+					},
+				},
+				'&[data-panel-type="tip"]': {
+					// getIconStyles(PanelType.TIP),
+					'.ak-editor-panel__icon[data-panel-type="tip"]': {
+						color: token('color.icon.success'),
+					},
+				},
+				'&[data-panel-type="warning"]': {
+					// getIconStyles(PanelType.WARNING),
+					'.ak-editor-panel__icon[data-panel-type="warning"]': {
+						color: token('color.icon.warning'),
+					},
+				},
+				'&[data-panel-type="error"]': {
+					// getIconStyles(PanelType.ERROR),
+					'.ak-editor-panel__icon[data-panel-type="error"]': {
+						color: token('color.icon.danger'),
+					},
+				},
+				'&[data-panel-type="success"]': {
+					// getIconStyles(PanelType.SUCCESS),
+					'.ak-editor-panel__icon[data-panel-type="success"]': {
+						color: token('color.icon.success'),
+					},
+				},
+			},
+		},
+	},
+	panelStylesMixinNestedDnd: {
+		'.ProseMirror': {
+			'.ak-editor-panel': {
+				'&.ak-editor-panel__no-icon': {
+					paddingRight: token('space.150'),
+					paddingLeft: token('space.150'),
+				},
+			},
+		},
+		'.ak-editor-content-area.appearance-full-page .ProseMirror': {
+			'.ak-editor-panel .ak-editor-panel__icon': {
+				paddingRight: token('space.150'),
+			},
+			'.ak-editor-panel.ak-editor-panel__no-icon': {
+				paddingLeft: token('space.250'),
+				paddingRight: token('space.250'),
+			},
+		},
+		/* Don't want extra padding for inline editor (nested) */
+		'.ak-editor-content-area .ak-editor-content-area .ProseMirror': {
+			'.ak-editor-panel .ak-editor-panel__icon': {
+				paddingRight: token('space.100'),
+			},
+			'.ak-editor-panel.ak-editor-panel__no-icon': {
+				paddingRight: token('space.150'),
+				paddingLeft: token('space.150'),
+			},
+		},
+	},
+	panelViewStyles: {
+		'.panelView-content-wrap': {
+			boxSizing: 'border-box',
+		},
+	},
+	paragraphStylesUGCRefreshed: {
+		'.ProseMirror p': {
+			// The `editor.font.body` token is used for the UGC typography theme.
+			// We don't use `editorUGCToken('editor.font.body')` here because we want to build this styles statically.
+			// See platform/packages/editor/editor-common/src/ugc-tokens/get-editor-ugc-token.tsx
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			font: 'normal 400 1em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+			marginTop: blockNodesVerticalMargin,
+			marginBottom: 0,
+		},
+	},
+	paragraphStylesWithScaledMargin: {
+		'.ProseMirror p': {
+			// The `editor.font.body` token is used for the UGC typography theme.
+			// We don't use `editorUGCToken('editor.font.body')` here because we want to build this styles statically.
+			// See platform/packages/editor/editor-common/src/ugc-tokens/get-editor-ugc-token.tsx
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			font: 'normal 400 1em/1.714 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+			marginTop: scaledBlockNodesVerticalMargin,
+			marginBottom: 0,
+		},
+	},
+	placeholderOverflowStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror p:has(.placeholder-decoration-hide-overflow)': {
+			overflow: 'hidden',
+			whiteSpace: 'nowrap',
+			textOverflow: 'ellipsis',
+		},
+	},
+	placeholderStyles: {
+		'.ProseMirror .placeholder-decoration': {
+			color: token('color.text.subtlest'),
+			width: '100%',
+			pointerEvents: 'none',
+			userSelect: 'none',
+			'.placeholder-android': {
+				pointerEvents: 'none',
+				outline: 'none',
+				userSelect: 'none',
+				position: 'absolute',
+			},
+		},
+		'.ProseMirror .placeholder-decoration-fade-in': {
+			animationName: placeholderFadeInKeyframes,
+			animationDuration: `300ms`,
+			animationTimingFunction: `ease-out`,
+			animationFillMode: `forwards`,
+		},
+	},
+	placeholderTextStyles: {
+		'.ProseMirror span[data-placeholder]': {
+			color: token('color.text.subtlest'),
+			display: 'inline',
+		},
+		'.ProseMirror span.pm-placeholder': {
+			display: 'inline',
+			color: token('color.text.subtlest'),
+		},
+		'.ProseMirror span.pm-placeholder__text': {
+			display: 'inline',
+			color: token('color.text.subtlest'),
+		},
+		'.ProseMirror span.pm-placeholder.ak-editor-selected-node': {
+			...backgroundSelectionStyles,
+			...hideNativeBrowserTextSelectionStyles,
+		},
+		'.ProseMirror span.pm-placeholder__text[data-placeholder]::after': {
+			color: token('color.text.subtlest'),
+			cursor: 'text',
+			content: 'attr(data-placeholder)',
+			display: 'inline',
+		},
+		'.ProseMirror': {
+			'.ProseMirror-fake-text-cursor': {
+				display: 'inline',
+				pointerEvents: 'none',
+				position: 'relative',
+			},
+			'.ProseMirror-fake-text-cursor::after': {
+				content: '""',
+				display: 'inline',
+				top: 0,
+				position: 'absolute',
+				borderRight: `1px solid ${token('color.border')}`,
+			},
+			'.ProseMirror-fake-text-selection': {
+				display: 'inline',
+				pointerEvents: 'none',
+				position: 'relative',
+				// Follow the system highlight colour to match native text selection
+				backgroundColor: 'Highlight',
+				// We should also match the text colour to the system highlight text colour.
+				// That way if the system highlight background is dark, the text will still be readable.
+				color: 'HighlightText',
+			},
+		},
+	},
+	pragmaticResizerStyles: {
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
+				{
+					'> .pm-breakout-resize-handle-container--left': {
+						left: '-25px',
+					},
+					'> .pm-breakout-resize-handle-container--right': {
+						right: '-25px',
+					},
+				},
+			'&:has([data-prosemirror-node-name="expand"])': {
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 4px)',
+				},
+			},
+			'&:has([data-prosemirror-node-name="layoutSection"])': {
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 8px)',
+				},
+			},
+			'&:has(.first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: '100%',
+				},
+			},
+		},
+		'.pm-breakout-resize-handle-container': {
+			position: 'relative',
+			alignSelf: 'end',
+			gridRow: 1,
+			gridColumn: 1,
+			height: '100%',
+			width: 7,
+		},
+		'.pm-breakout-resize-handle-container--left': {
+			justifySelf: 'start',
+		},
+		'.pm-breakout-resize-handle-container--right': {
+			justifySelf: 'end',
+		},
+		'.pm-breakout-resize-handle-rail': {
+			position: 'relative',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			height: '100%',
+			cursor: 'col-resize',
+			borderRadius: token('radius.small'),
+			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
+			zIndex: 2,
+			opacity: 0,
+			'&:hover': {
+				background: token('color.background.selected'),
+				'.pm-breakout-resize-handle-thumb': {
+					background: token('color.border.focused'),
+				},
+			},
+		},
+		// Positions the vanilla resize tooltip at the pointer's Y, set by `pragmatic-resizer.tsx`.
+		// Inert until `platform_editor_use_vanilla_components` — nothing carries this class on control.
+		'.pm-breakout-resize-tooltip-anchor': {
+			position: 'absolute',
+			left: 0,
+			right: 0,
+			height: 0,
+			pointerEvents: 'none',
+			top: 'var(--pm-breakout-resize-tooltip-anchor-top, 0)',
+		},
+		'.pm-breakout-resize-handle-container--active': {
+			background: token('color.background.selected'),
+			'.pm-breakout-resize-handle-thumb': {
+				background: token('color.border.focused'),
+			},
+		},
+		'.pm-breakout-resize-handle-hit-box': {
+			position: 'absolute',
+			top: 0,
+			bottom: 0,
+			left: -20,
+			right: -20,
+			zIndex: 0,
+		},
+		'.pm-breakout-resize-handle-thumb': {
+			minWidth: 3,
+			height: 'clamp(27px, calc(100% - 32px), 96px)',
+			background: token('color.border'),
+			borderRadius: token('radius.medium'),
+			position: 'sticky',
+			top: token('space.150'),
+			bottom: token('space.150'),
+		},
+	},
+	pragmaticResizerStylesCodeBlockSyncedBlockPatch: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="codeBlock"])': {
+				'> .pm-breakout-resize-handle-container--left': {
+					left: '-5px',
+				},
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-5px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(.first-node-in-document.first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: '100%',
+				},
+			},
+		},
+	},
+	pragmaticResizerStylesForTooltip: {
+		'.pm-breakout-resize-handle-rail-wrapper': {
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+			height: '100%',
+			cursor: 'col-resize',
+			borderRadius: token('radius.small'),
+			zIndex: 2,
+			// Tooltip element. Guard skips top-layer elements (eg tooltip, modal); `:where()` keeps
+			// specificity unchanged.
+			'[role="presentation"]:not(:where([popover], dialog, [popover] *, dialog *))': {
+				height: '100%',
+				width: '100%',
+			},
+			'.pm-breakout-resize-handle-rail-inside-tooltip': {
+				height: '100%',
+			},
+		},
+	},
+	pragmaticResizerStylesSyncedBlock: {
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="syncBlock"]), &:has([data-prosemirror-node-name="bodiedSyncBlock"])':
+				{
+					'> .pm-breakout-resize-handle-container--left': {
+						left: '-24px',
+					},
+					'> .pm-breakout-resize-handle-container--right': {
+						right: '-24px',
+					},
+					'> .pm-breakout-resize-handle-container': {
+						height: 'calc(100% - 12px)',
+					},
+				},
+		},
+	},
+	pragmaticResizerStylesWithReducedEditorGutter: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+		'@container editor-area (max-width: 600px)': {
+			'.fabric-editor-breakout-mark': {
+				'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
+					{
+						'> .pm-breakout-resize-handle-container': {
+							opacity: 0,
+							visibility: 'hidden',
+						},
+					},
+				'&:has([data-prosemirror-node-name="layoutSection"])': {
+					'.resizer-item': {
+						willChange: 'width',
+						'&:hover, &.display-handle': {
+							'& > .resizer-handle-wrapper > .resizer-handle': {
+								visibility: 'hidden',
+								opacity: 0,
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+	pragmaticResizerStylesPanelAndRule: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel_c1"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					alignSelf: 'center',
+					height: '40px',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"].first-node-in-document)':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						transform: 'translateY(-14px)',
+					},
+				},
+		},
+	},
+	pragmaticResizerStylesPanelAndRuleJsdomFix: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="panel"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="panel_c1"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="rule"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					alignSelf: 'center',
+					height: '40px',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="rule"].first-node-in-document)':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						transform: 'translateY(-14px)',
+					},
+				},
+		},
+	},
+	pragmaticResizerStylesExtensions: {
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="extension"]), &:has([data-prosemirror-node-name="bodiedExtension"]), &:has([data-prosemirror-node-name="multiBodiedExtension"])':
+				{
+					'> .pm-breakout-resize-handle-container--right': {
+						right: '-25px',
+					},
+				},
+		},
+	},
+	// Hides the resize handles for node types that aren't resizable. Direct-child selectors only:
+	// a descendant `:has()` would also match a resizable node that merely contains one of these,
+	// such as a layoutSection wrapping a panel.
+	pragmaticResizerStylesHiddenForPanelAndRule: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel_c1"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						display: 'none',
+					},
+				},
+		},
+	},
+	pragmaticResizerStylesHiddenForExtensions: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="extension"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="bodiedExtension"]), &:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="multiBodiedExtension"])':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						display: 'none',
+					},
+				},
+		},
+	},
+	pragmaticStylesLayoutFirstNodeResizeHandleFix: {
+		'.fabric-editor-breakout-mark': {
+			'&:has([data-prosemirror-node-name="layoutSection"].first-node-in-document)': {
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 8px)',
+				},
+			},
+		},
+	},
+	resizerStyles: {
+		'.resizer-item': {
+			willChange: 'width',
+			'&:hover, &.display-handle': {
+				'& > .resizer-handle-wrapper > .resizer-handle': {
+					visibility: 'visible',
+					opacity: 1,
+				},
+			},
+			'&.is-resizing': {
+				'& .resizer-handle-thumb': {
+					background: token('color.border.focused'),
+				},
+			},
+			'&.resizer-handle-danger': {
+				'& .resizer-handle-thumb': {
+					transition: 'none',
+					background: token('color.icon.danger'),
+				},
+			},
+		},
+		'.resizer-handle': {
+			display: 'flex',
+			visibility: 'hidden',
+			opacity: 0,
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center',
+			width: 7,
+			transition: 'visibility 0.2s, opacity 0.2s',
+			// Targets the div added by the tooltip. Guard skips top-layer elements (eg tooltip, modal);
+			// `:where()` keeps specificity unchanged.
+			"& div[role='presentation']:not(:where([popover], dialog, [popover] *, dialog *))": {
+				width: '100%',
+				height: '100%',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				marginTop: token('space.negative.200'),
+				whiteSpace: 'normal',
+			},
+			'&.left': {
+				alignItems: 'flex-start',
+			},
+			'&.right': {
+				alignItems: 'flex-end',
+			},
+			'&.small': {
+				'& .resizer-handle-thumb': {
+					height: 43,
+				},
+			},
+			'&.medium': {
+				'& .resizer-handle-thumb': {
+					height: 64,
+				},
+			},
+			'&.large': {
+				'& .resizer-handle-thumb': {
+					height: 96,
+				},
+			},
+			'&.clamped': {
+				'& .resizer-handle-thumb': {
+					height: 'clamp(43px, calc(100% - 32px), 96px)',
+				},
+			},
+			'&.sticky': {
+				'& .resizer-handle-thumb': {
+					position: 'sticky',
+					top: token('space.150'),
+					bottom: token('space.150'),
+				},
+			},
+			'&:hover': {
+				'& .resizer-handle-thumb': {
+					background: token('color.border.focused'),
+				},
+				'& .resizer-handle-track': {
+					visibility: 'visible',
+					opacity: 0.5,
+				},
+			},
+		},
+		'.resizer-handle-thumb': {
+			content: "' '",
+			display: 'flex',
+			width: 3,
+			margin: `0 ${token('space.025')}`,
+			height: 64,
+			transition: 'background-color 0.2s',
+			borderRadius: token('radius.medium'),
+			border: 0,
+			padding: 0,
+			zIndex: 2,
+			outline: 'none',
+			minHeight: 24,
+			background: token('color.border'),
+			'&:hover': {
+				cursor: 'col-resize',
+			},
+			'&:focus': {
+				background: token('color.border.selected'),
+				'&::after': {
+					content: "''",
+					position: 'absolute',
+					top: token('space.negative.050'),
+					right: token('space.negative.050'),
+					bottom: token('space.negative.050'),
+					left: token('space.negative.050'),
+					border: `${token('border.width.selected')} solid ${token('color.border.focused')}`,
+					borderRadius: 'inherit',
+					zIndex: -1,
+				},
+			},
+		},
+		'.resizer-handle-track': {
+			visibility: 'hidden',
+			position: 'absolute',
+			width: 7,
+			height: 'calc(100% - 40px)',
+			borderRadius: token('radius.small'),
+			opacity: 0,
+			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
+			'&.none': {
+				background: 'none',
+			},
+			'&.shadow': {
+				background: token('color.background.selected'),
+			},
+			'&.full-height': {
+				background: token('color.background.selected'),
+				height: '100%',
+				minHeight: 36,
+			},
+		},
+		'.ak-editor-selected-node': {
+			'& .resizer-handle-thumb': {
+				background: token('color.border.focused'),
+			},
+		},
+		'.ak-editor-no-interaction .ak-editor-selected-node .resizer-handle:not(:hover) .resizer-handle-thumb':
+			{
+				background: token('color.border'),
+			},
+		'.resizer-hover-zone': {
+			position: 'relative',
+			display: 'flow-root',
+			width: '100%',
+			'&.resizer-is-extended': {
+				padding: `0 ${token('space.150')}`,
+				left: token('space.negative.150'),
+			},
+		},
+		'table .resizer-hover-zone, table .resizer-hover-zone.resizer-is-extended': {
+			padding: 'unset',
+			left: 'unset',
+		},
+	},
+	/**
+	 * Bottom-handle styles for the vertical-resize feature shipped under the
+	 * `databases-native-embeds-v2` experiment
+	 */
+	resizerBottomHandleStyles: {
+		'.resizer-handle.bottom': {
+			flexDirection: 'row',
+			alignItems: 'flex-end',
+			width: '100%',
+			height: 7,
+			'& .resizer-handle-thumb': {
+				width: 64,
+				height: 3,
+				minWidth: 24,
+				minHeight: 0,
+				marginTop: token('space.025'),
+				marginRight: 0,
+				marginBottom: token('space.025'),
+				marginLeft: 0,
+				'&:hover': {
+					cursor: 'row-resize',
+				},
+			},
+			'& .resizer-handle-track': {
+				width: 'calc(100% - 40px)',
+				height: 7,
+			},
+			'& .resizer-handle-track.full-height': {
+				width: '100%',
+				height: 7,
+				minWidth: 36,
+				minHeight: 0,
+			},
+		},
+		'.resizer-handle.small.bottom .resizer-handle-thumb': {
+			width: 43,
+			height: 3,
+		},
+		'.resizer-handle.medium.bottom .resizer-handle-thumb': {
+			width: 64,
+			height: 3,
+		},
+		'.resizer-handle.large.bottom .resizer-handle-thumb': {
+			width: 96,
+			height: 3,
+		},
+		'.resizer-handle.clamped.bottom .resizer-handle-thumb': {
+			width: 'clamp(43px, calc(100% - 32px), 96px)',
+			height: 3,
+		},
+	},
+	ruleStyles: {
+		'.ProseMirror hr': {
+			border: 'none',
+			backgroundColor: token('color.border'),
+			height: '2px',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-shape
+			borderRadius: '1px', // this should use token('radius.full') but cannot since the element has padding which increases its height beyond 2px
+			cursor: 'pointer',
+			// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
+			padding: `${token('space.050')} 0`,
+			// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
+			margin: `${token('space.300')} 0`,
+			backgroundClip: 'content-box',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ProseMirror hr.ak-editor-selected-node': {
+			outline: 'none',
+			backgroundColor: token('color.border.selected'),
+		},
+	},
+	scaledEmojiStyles: {
+		// Show diff: emoji attr change highlight. Keep this with scaled emoji node styles too,
+		// because scaled emoji styles replace the base emoji style bucket when enabled.
+		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		'.show-diff-atomic-inline-changed-emoji': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				outlineOffset: '1px',
+				borderRadius: token('radius.xsmall'),
+			},
+
+		'.ProseMirror .emojiView-content-wrap': {
+			display: 'inline-block',
+		},
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			background: 'no-repeat transparent',
+			display: 'inline-block',
+			height: `${defaultEmojiHeight}px`,
+			minHeight: `${defaultEmojiHeight}px`,
+			minWidth: `${defaultEmojiHeight}px`,
+			maxHeight: `${scaledEmojiHeightH1}px`,
+			maxWidth: `${scaledEmojiHeightH1}px`,
+			cursor: 'pointer',
+			verticalAlign: 'middle',
+			userSelect: 'all',
+		},
+		'.ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH1}px`,
+				width: `${scaledEmojiHeightH1}px`,
+			},
+		'.ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH2}px`,
+				width: `${scaledEmojiHeightH2}px`,
+			},
+		'.ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH3}px`,
+				width: `${scaledEmojiHeightH3}px`,
+			},
+		'.ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-placeholder)':
+			{
+				height: `${scaledEmojiHeightH4}px`,
+				width: `${scaledEmojiHeightH4}px`,
+			},
+		'.ProseMirror :is(h5, h6, p) .emoji-common-placeholder': {
+			height: `${defaultEmojiHeight}px`,
+			width: `${defaultEmojiHeight}px`,
+		},
+	},
+	scaledEmojiDenseStyles: {
+		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			width: defaultDenseEmojiHeight,
+			height: defaultDenseEmojiHeight,
+			minHeight: defaultDenseEmojiHeight,
+			minWidth: defaultDenseEmojiHeight,
+			maxHeight: `${denseEmojiHeightH1}px`,
+			maxWidth: `${denseEmojiHeightH1}px`,
+			img: {
+				width: '100%',
+				height: '100%',
+				objectFit: 'contain',
+			},
+		},
+		// Scale panel icon in dense mode
+		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
+			height: token('space.250'),
+			width: token('space.250'),
+		},
+		'.ProseMirror h1 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH1}px`,
+			width: `${denseEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH2}px`,
+			width: `${denseEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH3}px`,
+			width: `${denseEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
+			height: `${denseEmojiHeightH4}px`,
+			width: `${denseEmojiHeightH4}px`,
+		},
+		'.ProseMirror h1 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH1}px`,
+			width: `${denseEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH2}px`,
+			width: `${denseEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH3}px`,
+			width: `${denseEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 .emoji-common-placeholder': {
+			height: `${denseEmojiHeightH4}px`,
+			width: `${denseEmojiHeightH4}px`,
+		},
+		'.ProseMirror :is(h5, h6, p) .emoji-common-placeholder': {
+			height: `${defaultDenseEmojiHeight}px`,
+			width: `${defaultDenseEmojiHeight}px`,
+		},
+	},
+	scrollbarStyles: {
+		msOverflowStyle: '-ms-autohiding-scrollbar',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&::-webkit-scrollbar-corner': {
+			display: 'none',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&::-webkit-scrollbar-thumb': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			backgroundColor: token('color.background.neutral.subtle'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:hover::-webkit-scrollbar-thumb': {
+			backgroundColor: token('color.background.neutral.bold'),
+			borderRadius: token('radius.large'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&::-webkit-scrollbar-thumb:hover': {
+			backgroundColor: token('color.background.neutral.bold.hovered'),
+		},
+	},
+	selectedNodeStyles: {
+		'.ProseMirror-selectednode': {
+			outline: 'none',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror-selectednode:empty': {
+			outline: `2px solid ${token('color.border.focused')}`,
+		},
+	},
+	selectionToolbarAnimationStyles: {
+		"[aria-label='Selection toolbar']": {
+			animationName: fadeIn,
+			animationDuration: `0.2s`,
+			animationTimingFunction: `cubic-bezier(0.6, 0, 0, 1)`,
+		},
+	},
+	shadowStyles: {
+		'.ProseMirror': {
+			'& .right-shadow::before, .right-shadow::after, .left-shadow::before, .left-shadow::after': {
+				display: 'none',
+				position: 'absolute',
+				pointerEvents: 'none',
+				zIndex: 2,
+				width: 8,
+				content: "''",
+				height: 'calc(100%)',
+			},
+
+			'& .right-shadow, .left-shadow': {
+				position: 'relative',
+			},
+
+			'& .left-shadow::before': {
+				background: `linear-gradient(to left, transparent 0, ${token(
+					'elevation.shadow.overflow.spread',
+				)} 140% ), linear-gradient( to right, ${token(
+					'elevation.shadow.overflow.perimeter',
+				)} 0px, transparent 1px)`,
+				top: 0,
+				left: 0,
+				display: 'block',
+			},
+
+			'& .right-shadow::after': {
+				background: `linear-gradient(to right, transparent 0, ${token(
+					'elevation.shadow.overflow.spread',
+				)} 140% ), linear-gradient( to left, ${token(
+					'elevation.shadow.overflow.perimeter',
+				)} 0px, transparent 1px)`,
+				right: 0,
+				top: 0,
+				display: 'block',
+			},
+
+			'& .sentinel-left': {
+				height: '100%',
+				width: 0,
+				minWidth: 0,
+			},
+
+			'& .sentinel-right': {
+				height: '100%',
+				width: 0,
+				minWidth: 0,
+			},
+		},
+	},
+	// CSS scroll-driven extension overflow shadows.
+	// Keep this condition in sync with isCssScrollTimelineSupported in editor-common.
+	extensionScrollInlineShadowStyles: {
+		'@supports (animation-timeline: --test-timeline) and (scroll-timeline-name: --test-timeline) and (timeline-scope: --test-timeline) and (animation-range: 0% 101%)':
+			{
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)': {
+					timelineScope: '--editor-extension-inline-scroll',
+				},
+				'.ProseMirror .extension-scroll-inline-shadow': {
+					scrollTimelineName: '--editor-extension-inline-scroll',
+					scrollTimelineAxis: 'inline',
+				},
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::before, .ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::after':
+					{
+						content: "''",
+						position: 'absolute',
+						zIndex: 2 satisfies typeof akEditorShadowZIndex,
+						top: 0,
+						bottom: 0,
+						width: 8,
+						opacity: 0,
+						pointerEvents: 'none',
+						animationDuration: '1ms',
+						animationTimingFunction: 'linear',
+						animationTimeline: '--editor-extension-inline-scroll',
+					},
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::before': {
+					left: 0,
+					backgroundImage: `linear-gradient(
+						to left,
+						transparent 0,
+						${token('elevation.shadow.overflow.spread')} 140%
+					),
+					linear-gradient(
+						to right,
+						${token('elevation.shadow.overflow.perimeter')} 0,
+						transparent 1px
+					)`,
+					animationName: inlineStartShadow,
+					// Keep the start shadow visible at the endpoint without retaining a stale fill state.
+					animationRange: '0% 101%',
+				},
+				'.ProseMirror .extension-container:has(> .extension-scroll-inline-shadow)::after': {
+					right: 0,
+					backgroundImage: `linear-gradient(
+						to right,
+						transparent 0,
+						${token('elevation.shadow.overflow.spread')} 140%
+					),
+					linear-gradient(
+						to left,
+						${token('elevation.shadow.overflow.perimeter')} 0,
+						transparent 1px
+					)`,
+					animationName: inlineEndShadow,
+				},
+			},
+	},
+	// Two rule sets, one per cohort of `platform_editor_show_diff_color_scheme_refactor`. Their base
+	// classes are disjoint — `wrapBlockNodeView` emits `-node`/`-node-traditional` when the gate is
+	// off and `-node-vars` when it is on — so only one set can ever match an element.
+	//
+	// The OFF set is the pre-refactor CSS, kept verbatim: that cohort emits no custom properties, so
+	// the tokens in its `var()` fallbacks are the live values. Delete it at experiment cleanup.
+	//
+	// The ON set reads the `--diff-delete-*` properties the factory emits inline, with no `var()`
+	// fallback — `wrapBlockNodeView` sets the class and the properties in the same step. The
+	// fallbacks it does keep are the ones standard leaves unset on purpose.
+	showDiffDeletedNodeStyles: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.embedCardView-content-wrap': {
+			// --- OFF cohort: pre-refactor rules, restored verbatim ---
+			'&.show-diff-deleted-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-traditional .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .loader-wrapper > div::after':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 4px var(--diff-delete-color-new, ${token('color.background.accent.red.subtlest')})`,
+					borderColor: 'transparent',
+				},
+			'&.show-diff-deleted-node-traditional.show-diff-deleted-active .loader-wrapper > div::after':
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
+					borderColor: 'transparent',
+				},
+			'&.show-diff-deleted-node.show-diff-deleted-active .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node .loader-wrapper': {
+				opacity: 0.8,
+			},
+
+			// --- ON cohort. Red in both schemes here, unlike standard's gray `deleteColor` — hence
+			// its own `deletedMediaRingColor` role rather than `--diff-delete-color`.
+			'&.show-diff-deleted-node-vars .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px var(--diff-delete-media-ring-color)`,
+				borderColor: 'transparent',
+			},
+			// Only schemes with a resting ring get `-outline-new`, so this is traditional-only in practice.
+			'&.show-diff-deleted-node-vars.show-diff-deleted-outline-new .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-new)`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-vars.show-diff-deleted-active .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-active)`,
+				borderColor: 'transparent',
+			},
+			'&.show-diff-deleted-node-vars .loader-wrapper': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				opacity: `var(--diff-delete-opacity, 0.8)`,
+			},
+		},
+		// --- OFF cohort: pre-refactor rules, restored verbatim ---
+		'.show-diff-deleted-node .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
+				borderRadius: token('radius.small'),
+				opacity: 0.8,
+			},
+		},
+		'.show-diff-deleted-node-traditional .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-delete-color, ${token('color.border.accent.red')})`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-new, ${token('color.background.accent.red.subtlest')})`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
+				borderRadius: token('radius.small'),
+				opacity: 0.8,
+			},
+		},
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
+			textDecoration: 'line-through',
+		},
+		// Longhands, not the `text-decoration` shorthand: the shorthand resets
+		// `text-decoration-color`, and Compiled does not guarantee it lands before the longhand.
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
+			textDecorationColor: `var(--diff-delete-text-decoration-color, ${token('color.border.accent.red')})`,
+			textDecorationLine: 'line-through',
+		},
+		// Longhands, for the same reason as the blockquote rule above.
+		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
+			textDecorationColor: `var(--diff-delete-text-decoration-color, ${token('color.border.accent.red')})`,
+			textDecorationLine: 'line-through',
+		},
+
+		// --- ON cohort ---
+		// `--diff-delete-ring-width` is unset for standard (1px); traditional tracks the inherited
+		// marker ring width.
+		'.show-diff-deleted-node-vars .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 var(--diff-delete-ring-width, 1px) var(--diff-delete-media-ring-color)`,
+				borderRadius: token('radius.small'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				opacity: `var(--diff-delete-opacity, 0.8)`,
+			},
+		},
+		'.show-diff-deleted-node-vars.show-diff-deleted-outline-new .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-new)`,
+				borderRadius: token('radius.small'),
+			},
+		},
+		'.show-diff-deleted-node-vars.show-diff-deleted-active .media-card-wrapper': {
+			'& > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 4px var(--diff-delete-color-active)`,
+				borderRadius: token('radius.small'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				opacity: `var(--diff-delete-opacity, 0.8)`,
+			},
+		},
+		// Both schemes strike deleted blockquotes; only the colour differs. The variable is emitted
+		// for `stateful` (traditional) only, so standard falls through to `currentColor` — what it
+		// painted before. Longhands, not the shorthand, which would reset the colour.
+		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-vars': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			textDecorationColor: `var(--diff-delete-text-decoration-color, currentColor)`,
+			textDecorationLine: 'line-through',
+		},
+		// Standard draws no strike on deleted embedCards, so the line itself is scheme-driven:
+		// `--diff-delete-embed-strike-line` is `line-through` for traditional, `none` for standard.
+		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-vars': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			textDecorationColor: `var(--diff-delete-text-decoration-color, currentColor)`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			textDecorationLine: `var(--diff-delete-embed-strike-line)`,
+		},
+	},
+	smartCardDiffStyles: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.embedCardView-content-wrap': {
+			'&[data-testid="show-diff-changed-decoration-node"] .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-decoration-marker-color)`,
+				borderColor: 'transparent',
+			},
+		},
+	},
+	smartCardStylesWithSearchMatch: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker'
+		// DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap'
+		'.inlineCardView-content-wrap': {
+			maxWidth: 'calc(100% - 20px)',
+			verticalAlign: 'top',
+			wordBreak: 'break-all',
+
+			'.card-with-comment': {
+				background: token('color.background.accent.yellow.subtler'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+				boxShadow: token('elevation.shadow.overlay'),
+			},
+
+			'.card': {
+				paddingLeft: token('space.025'),
+				paddingRight: token('space.025'),
+				paddingTop: token('space.100'),
+				paddingBottom: token('space.100'),
+				marginBottom: token('space.negative.100'),
+
+				'.loader-wrapper > a:focus': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block) .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'.loader-wrapper > a': {
+				// EDM-1717: box-shadow Safari fix start
+				zIndex: 1,
+				position: 'relative',
+			},
+
+			'&.danger': {
+				'.loader-wrapper > a': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// EDM-1717: box-shadow Safari fix start
+					zIndex: 2,
+					// EDM-1717: box-shadow Safari fix end
+				},
+			},
+		},
+
+		'.blockCardView-content-wrap': {
+			display: 'block',
+			margin: '0.75rem 0 0',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			maxWidth: `${8 * 95}px`,
+
+			'&.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+
+				borderRadius: token('radius.large', '8px'),
+			},
+
+			'&.danger': {
+				'.loader-wrapper > div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+				},
+			},
+		},
+
+		'.datasourceView-content-wrap.blockCardView-content-wrap': {
+			maxWidth: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+
+			'.datasourceView-content-inner-wrap': {
+				cursor: 'pointer',
+				backgroundColor: token('color.background.neutral.subtle'),
+				borderRadius: token('radius.large', '8px'),
+				border: `1px solid ${token('color.border')}`,
+				overflow: 'hidden',
+			},
+
+			'&.ak-editor-selected-node': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+
+					'input::selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+
+					'input::-moz-selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+				},
+			},
+
+			'&.danger': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				'&::after': {
+					transition: 'box-shadow 0s',
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block) .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'&.danger': {
+				'.media-card-frame::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					background: `${token('color.background.danger')} !important`,
+				},
+
+				'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+					background: token('color.border.danger'),
+				},
+			},
+		},
+
+		'.card-floating-toolbar--link-picker': {
+			padding: 0,
+		},
+	},
+	smartCardStylesWithSearchMatchAndBlockMenuDangerStyles: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.INLINE_CARD_CONTAINER = 'inlineCardView-content-wrap'
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.DATASOURCE_CONTAINER = 'datasourceView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker'
+		// DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inner-wrap'
+		'.inlineCardView-content-wrap': {
+			maxWidth: 'calc(100% - 20px)',
+			verticalAlign: 'top',
+			wordBreak: 'break-all',
+
+			'.card-with-comment': {
+				background: token('color.background.accent.yellow.subtler'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
+				boxShadow: token('elevation.shadow.overlay'),
+			},
+
+			'.card': {
+				paddingLeft: token('space.025'),
+				paddingRight: token('space.025'),
+				paddingTop: token('space.100'),
+				paddingBottom: token('space.100'),
+				marginBottom: token('space.negative.100'),
+
+				'.loader-wrapper > a:focus': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block):not(.danger) .loader-wrapper > a': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'.loader-wrapper > a': {
+				// EDM-1717: box-shadow Safari fix start
+				zIndex: 1,
+				position: 'relative',
+			},
+
+			'&.danger': {
+				'.loader-wrapper > a': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+					// EDM-1717: box-shadow Safari fix start
+					zIndex: 2,
+					// EDM-1717: box-shadow Safari fix end
+				},
+			},
+		},
+
+		'.blockCardView-content-wrap': {
+			display: 'block',
+			margin: '0.75rem 0 0',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			maxWidth: `${8 * 95}px`,
+
+			'&.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+
+				borderRadius: token('radius.large', '8px'),
+			},
+
+			'&.danger': {
+				'.loader-wrapper > div': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+				},
+			},
+		},
+
+		'.datasourceView-content-wrap.blockCardView-content-wrap': {
+			maxWidth: '100%',
+			display: 'flex',
+			justifyContent: 'center',
+
+			'.datasourceView-content-inner-wrap': {
+				cursor: 'pointer',
+				backgroundColor: token('color.background.neutral.subtle'),
+				borderRadius: token('radius.large', '8px'),
+				border: `1px solid ${token('color.border')}`,
+				overflow: 'hidden',
+			},
+
+			'&.ak-editor-selected-node': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...boxShadowSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+					...hideNativeBrowserTextSelectionStyles,
+
+					'input::selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+
+					'input::-moz-selection': {
+						backgroundColor: token('color.background.selected.hovered'),
+					},
+				},
+			},
+
+			'&.danger': {
+				'.datasourceView-content-inner-wrap': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				'&::after': {
+					transition: 'box-shadow 0s',
+				},
+			},
+
+			'&.ak-editor-selected-node .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+			},
+
+			'&.ak-editor-selected-node:not(.search-match-block) .loader-wrapper > div::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+			},
+
+			'&.danger': {
+				'.media-card-frame::after': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					boxShadow: `0 0 0 1px ${token('color.border.danger')} !important`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values
+					background: `${token('color.background.danger')} !important`,
+				},
+
+				'.richMedia-resize-handle-right::after, .richMedia-resize-handle-left::after': {
+					background: token('color.border.danger'),
+				},
+			},
+		},
+
+		'.card-floating-toolbar--link-picker': {
+			padding: 0,
+		},
+	},
+	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		// Uses editorAreaNarrowPageContainerQuery = `@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`
+		[editorAreaNarrowPageContainerQuery]: {
+			'.embedCardView-content-wrap': {
+				marginTop: token('space.150'),
+			},
+
+			'.embedCardView-content-wrap.ak-editor-selected-node .loader-wrapper > div': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...boxShadowSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				borderRadius: token('radius.large', '8px'),
+			},
+		},
+	},
+	smartLinksInLivePagesStyles: {
+		// Shared class names are inlined here because CSS selectors must be static.
+		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
+		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
+		'.blockCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				cursor: 'pointer',
+
+				a: {
+					cursor: 'auto',
+				},
+			},
+		},
+
+		'.embedCardView-content-wrap': {
+			'.loader-wrapper > div': {
+				a: {
+					cursor: 'auto',
+				},
+			},
+		},
+	},
+	syncBlockFirstNodeStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror > .fabric-editor-breakout-mark:first-child': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			[`.${'ak-editor-sync-block' satisfies typeof SyncBlockSharedCssClassName.prefix}, .${'ak-editor-bodied-sync-block' satisfies typeof BodiedSyncBlockSharedCssClassName.prefix}`]:
+				{
+					marginTop: 0,
+				},
+		},
+	},
+	syncBlockTextSelectionStyles: {
+		'.ak-editor-sync-block__renderer': {
+			// Show text cursor to indicate content is selectable
+			cursor: 'text',
+			// Remove browser focus outline on the contentEditable renderer wrapper
+			outline: 'none',
+			// Hide the blinking insertion caret. contentEditable="true" is set on
+			// the renderer to enable text selection, but the content is read-only.
+			caretColor: 'transparent',
+			// Override cursor: pointer set by the editor's layout styles on
+			// [data-layout-section] elements rendered inside the sync block content.
+			'[data-layout-section]': {
+				cursor: 'text',
+			},
+		},
+		// Suppress ProseMirror's selected-node box-shadow and backgroundColor on emojis inside
+		// the contentEditable renderer wrapper.
+		'.ProseMirror .ak-editor-selected-node .ak-editor-sync-block__renderer': {
+			'span[data-emoji-id], span[data-emoji-id] span': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				boxShadow: 'none !important',
+				'&::before': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+					backgroundColor: 'transparent !important',
+				},
+			},
+		},
+	},
+	// Activation-only synced block styles. Interactive elements show a pointer
+	// cursor, and border labels can show longer reference titles while remaining
+	// constrained in narrow blocks.
+	syncBlockInteractiveCursorStyles: {
+		// cssMap requires its immediate property keys to be static strings.
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+				{
+					'a[href], button, [role="button"], [role="link"]': {
+						cursor: 'pointer',
+					},
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+				{
+					maxWidth: `min(300px, calc(100% - ${token('space.300')}))`,
+				},
+		},
+	},
+	syncBlockOverflowStyles: {
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-bodied-sync-block__content' satisfies typeof BodiedSyncBlockSharedCssClassName.content}`]:
+				{
+					// Contain floated elements (wrap-left/wrap-right) within synced block borders
+					// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+					display: 'flow-root',
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+				{
+					// Contain floated elements (wrap-left/wrap-right) within synced block borders
+					// Use display: flow-root to create a block formatting context without clipping other content e.g. telepointers
+					display: 'flow-root',
+				},
+		},
+	},
+	syncBlockStyles: {
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-sync-block' satisfies typeof SyncBlockSharedCssClassName.prefix}, .${'ak-editor-bodied-sync-block' satisfies typeof BodiedSyncBlockSharedCssClassName.prefix}`]:
+				{
+					marginRight: `-19px`,
+					marginLeft: `-19px`,
+				},
+		},
+	},
+	syncBlockSelectedStyles: {
+		'--ak-editor-sync-block-selected-border-color': token('color.border.selected'),
+		'--ak-editor-sync-block-selected-label-background-color': token('elevation.surface.hovered'),
+	},
+	syncBlockStylesBase: {
+		'@property --angle': {
+			syntax: '"<angle>"',
+			initialValue: '0deg',
+			inherits: 'false',
+		},
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-sync-block' satisfies typeof SyncBlockSharedCssClassName.prefix}, .${'ak-editor-bodied-sync-block' satisfies typeof BodiedSyncBlockSharedCssClassName.prefix}`]:
+				{
+					position: 'relative',
+					cursor: 'pointer',
+					borderRadius: token('radius.small', '3px'),
+					marginBottom: 0,
+					marginTop: token('space.075'),
+					paddingBlock: token('space.150'),
+					color: 'inherit',
+
+					/* Hover state */
+					'&:hover': {
+						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+						boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+						transition: 'box-shadow 200ms ease-in',
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								opacity: 1,
+								visibility: 'visible',
+								transition: 'opacity 200ms ease-in, visibility 200ms ease-in',
+							},
+					},
+
+					/* Selection state when cursor inside sync block */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'ak-editor-bodied-sync-block__selection_inside' satisfies typeof BodiedSyncBlockSharedCssClassName.selectionInside}`]:
+						{
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									opacity: 1,
+									visibility: 'visible',
+								},
+						},
+
+					/* Node selection state */
+					'&.ak-editor-selected-node': {
+						boxShadow: `0 0 0 1px var(--ak-editor-sync-block-selected-border-color, ${token(
+							'color.border.focused',
+						)})`,
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								opacity: 1,
+								visibility: 'visible',
+								backgroundColor: `var(--ak-editor-sync-block-selected-label-background-color, ${token(
+									'color.background.selected',
+								)})`,
+								top: '-14px',
+								paddingBottom: token('space.050'),
+								paddingTop: token('space.050'),
+								'> span': {
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+									color: `${token('color.text.selected')} !important`,
+								},
+							},
+					},
+
+					/* Danger state */
+					'&.danger': {
+						boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+
+						'.ak-editor-panel__icon': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							color: `${token('color.icon.danger')} !important`,
+						},
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								backgroundColor: token('color.background.danger'),
+								top: '-14px',
+								paddingBottom: token('space.050'),
+								paddingTop: token('space.050'),
+								'> span': {
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+									color: `${token('color.text.danger')} !important`,
+								},
+							},
+					},
+
+					/* Node disabled state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'disabled' satisfies typeof SyncBlockStateCssClassName.disabledClassName}`]: {
+						backgroundColor: token('color.background.disabled'),
+						boxShadow: `0 0 0 1px ${token('color.border.disabled')}`,
+						userSelect: 'none',
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								backgroundColor: token('elevation.surface'),
+
+								'&::before': {
+									border: 'none',
+								},
+							},
+					},
+
+					/* Creation loading state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'creation-loading' satisfies typeof SyncBlockStateCssClassName.creationLoadingClassName}`]:
+						{
+							animationName: syncBlockCreationLoadingKeyframes,
+							animationDuration: '2s',
+							animationTimingFunction: 'linear',
+							animationIterationCount: 'infinite',
+							border: '1px solid transparent',
+							background: `linear-gradient(${token('elevation.surface')}, ${token(
+								'elevation.surface',
+							)}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token(
+								'color.background.accent.purple.subtlest.pressed',
+							)}, #3279E0, #1868DB) border-box`,
+							backgroundClip: 'padding-box, border-box',
+
+							boxShadow: 'none',
+							transition: 'box-shadow 200ms ease-in',
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									display: 'none',
+								},
+						},
+
+					/* Error state */
+					/* In error state sync block should have disabled background colour */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`:has(.${'ak-editor-sync-block__error_state' satisfies typeof SyncBlockSharedCssClassName.error})`]:
+						{
+							backgroundColor: token('color.background.disabled'),
+						},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`:has(.${'ak-editor-sync-block__loading_state' satisfies typeof SyncBlockSharedCssClassName.loading})`]:
+						{
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									opacity: 0,
+									visibility: 'hidden',
+								},
+						},
+
+					/* Live doc view mode state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'view-mode' satisfies typeof SyncBlockStateCssClassName.viewModeClassName}`]: {
+						boxShadow: 'none',
+						backgroundColor: 'unset',
+
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+						[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+							{
+								opacity: 0,
+								visibility: 'hidden',
+							},
+					},
+
+					/* Dragging state */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`&.${'user-is-dragging' satisfies typeof SyncBlockStateCssClassName.draggingClassName}`]:
+						{
+							boxShadow: `0 0 0 1px ${token('color.border')}`,
+
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+							[`.${'ak-editor-sync-block__label' satisfies typeof SyncBlockLabelSharedCssClassName.labelClassName}`]:
+								{
+									opacity: 1,
+									visibility: 'visible',
+								},
+						},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${'ak-editor-bodied-sync-block__content' satisfies typeof BodiedSyncBlockSharedCssClassName.content}`]:
+						{
+							paddingTop: 0,
+							paddingBottom: 0,
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingLeft: '19px',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingRight: '18px',
+							cursor: 'text',
+						},
+
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+					[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+						{
+							paddingTop: 0,
+							paddingBottom: 0,
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingLeft: '19px',
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+							paddingRight: '18px',
+						},
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-bodied-sync-block__content' satisfies typeof BodiedSyncBlockSharedCssClassName.content}`]:
+				{
+					// First child node that has drag handle widget next to it is overridden with marginTop: 0, see globalStyles in editor-plugin-block-controls/src/ui/global-styles.tsx
+					// Hence we set marginTop: 0 when by default to avoid flickering when hovering on and off the first node
+					'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+						marginTop: 0,
+					},
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			[`.${'ak-editor-sync-block__renderer' satisfies typeof SyncBlockSharedCssClassName.renderer}`]:
+				{
+					// First child node in bodiedSyncBlock is overridden with marginTop: 0, hence apply the same style to syncBlock for consistency
+					'.ak-renderer-document > :first-child': {
+						marginTop: 0,
+					},
+				},
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		'.ak-editor-sync-block__label': {
+			borderRadius: token('radius.small', '3px'),
+			position: 'absolute',
+			gap: token('space.050'),
+			justifyContent: 'center',
+			alignItems: 'center',
+			display: 'flex',
+			opacity: 0,
+			visibility: 'hidden',
+			boxShadow: 'none',
+			zIndex: 1,
+
+			paddingLeft: token('space.100'),
+			paddingRight: token('space.100'),
+
+			top: '-10px',
+			right: token('space.150'),
+			backgroundColor: token('elevation.surface'),
+			maxWidth: '140px',
+		},
+	},
+
+	// SSR-safe table cell background color overrides. The actual palette values are
+	// provided via CSS variables derived from tableBackgroundColorNames +
+	// hexToEditorBackgroundPaletteColor in editor-common. These rules need !important
+	// to override the inline background colors emitted from ADF attrs.
+	tableCellBackgroundColorOverrides: {
+		'td[colorname="white" i], th[colorname="white" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-white) !important',
+		},
+		'td[colorname="light blue" i], th[colorname="light blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-blue) !important',
+		},
+		'td[colorname="light teal" i], th[colorname="light teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-teal) !important',
+		},
+		'td[colorname="light green" i], th[colorname="light green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-green) !important',
+		},
+		'td[colorname="light yellow" i], th[colorname="light yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-yellow) !important',
+		},
+		'td[colorname="light red" i], th[colorname="light red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-red) !important',
+		},
+		'td[colorname="light purple" i], th[colorname="light purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-purple) !important',
+		},
+		'td[colorname="light gray" i], th[colorname="light gray" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-gray) !important',
+		},
+		'td[colorname="blue" i], th[colorname="blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-blue) !important',
+		},
+		'td[colorname="teal" i], th[colorname="teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-teal) !important',
+		},
+		'td[colorname="green" i], th[colorname="green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-green) !important',
+		},
+		'td[colorname="yellow" i], th[colorname="yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-yellow) !important',
+		},
+		'td[colorname="red" i], th[colorname="red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-red) !important',
+		},
+		'td[colorname="purple" i], th[colorname="purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-purple) !important',
+		},
+		'td[colorname="gray" i], th[colorname="gray" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-gray) !important',
+		},
+		'td[colorname="dark blue" i], th[colorname="dark blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-blue) !important',
+		},
+		'td[colorname="dark teal" i], th[colorname="dark teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-teal) !important',
+		},
+		'td[colorname="dark green" i], th[colorname="dark green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-green) !important',
+		},
+		'td[colorname="dark yellow" i], th[colorname="dark yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-yellow) !important',
+		},
+		'td[colorname="dark red" i], th[colorname="dark red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-red) !important',
+		},
+		'td[colorname="dark purple" i], th[colorname="dark purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-purple) !important',
+		},
+
+		'td[colorname="subtle lime" i], th[colorname="subtle lime" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-subtle-lime) !important',
+		},
+		'td[colorname="subtle orange" i], th[colorname="subtle orange" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-subtle-orange) !important',
+		},
+		'td[colorname="subtle magenta" i], th[colorname="subtle magenta" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-subtle-magenta) !important',
+		},
+		'td[colorname="lime" i], th[colorname="lime" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-lime) !important',
+		},
+		'td[colorname="orange" i], th[colorname="orange" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-orange) !important',
+		},
+		'td[colorname="magenta" i], th[colorname="magenta" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-magenta) !important',
+		},
+		'td[colorname="bold gray" i], th[colorname="bold gray" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-gray) !important',
+		},
+		'td[colorname="bold blue" i], th[colorname="bold blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-blue) !important',
+		},
+		'td[colorname="bold teal" i], th[colorname="bold teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-teal) !important',
+		},
+		'td[colorname="bold green" i], th[colorname="bold green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-green) !important',
+		},
+		'td[colorname="bold lime" i], th[colorname="bold lime" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-lime) !important',
+		},
+		'td[colorname="bold yellow" i], th[colorname="bold yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-yellow) !important',
+		},
+		'td[colorname="bold orange" i], th[colorname="bold orange" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-orange) !important',
+		},
+		'td[colorname="bold red" i], th[colorname="bold red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-red) !important',
+		},
+		'td[colorname="bold magenta" i], th[colorname="bold magenta" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-magenta) !important',
+		},
+		'td[colorname="bold purple" i], th[colorname="bold purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-bold-purple) !important',
+		},
+	},
+	tableCommentEditorStyles: {
+		'.ProseMirror .pm-table-wrapper > table': {
+			marginLeft: 0,
+			marginRight: 0,
+			// scrollbarStyles
+			msOverflowStyle: '-ms-autohiding-scrollbar',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-webkit-scrollbar-corner': {
+				display: 'none',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-webkit-scrollbar-thumb': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				backgroundColor: token('color.background.neutral.subtle'),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:hover::-webkit-scrollbar-thumb': {
+				backgroundColor: token('color.background.neutral.bold'),
+				borderRadius: token('radius.large'),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&::-webkit-scrollbar-thumb:hover': {
+				backgroundColor: token('color.background.neutral.bold.hovered'),
+			},
+		},
+	},
+	tableContainerStyles: {
+		/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper': {
+			maxWidth: '100%',
+			overflowX: 'auto',
+			// Ensure the wrapper doesn't grow beyond its container
+			width: '100%',
+			boxSizing: 'border-box',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper.pm-table-wrapper-no-overflow': {
+			overflowX: 'visible',
+		},
+
+		/* Fix for HOT-119925: Ensure table elements are responsive and don't overflow */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table': {
+			maxWidth: '100%',
+			width: '100%',
+			tableLayout: 'fixed',
+			// Ensure tables can be scrolled horizontally if needed
+			minWidth: 'auto',
+		},
+	},
+	// SSR-safe foreground overflow shadows driven by the table wrapper's horizontal scroll timeline.
+	// The overlays are siblings of the scrollport, so they stay anchored to its edges without
+	// modifying table-cell surfaces or interaction overlays.
+	tableScrollInlineShadowStyles: {
+		'.ProseMirror .pm-table-container:has(> .pm-table-scroll-inline-shadow)': {
+			timelineScope: '--editor-table-inline-scroll',
+		},
+		'.ProseMirror .pm-table-scroll-inline-shadow': {
+			scrollTimelineName: '--editor-table-inline-scroll',
+			scrollTimelineAxis: 'inline',
+		},
+		'.ProseMirror .pm-table-container > [data-table-overflow-shadow]': {
+			position: 'absolute',
+			zIndex: 2 satisfies typeof akEditorShadowZIndex,
+			top: 24 satisfies typeof tableMarginTop,
+			bottom: 0,
+			width: tableOverflowShadowWidthWide,
+			opacity: 0,
+			pointerEvents: 'none',
+			animationDuration: '1ms',
+			animationFillMode: 'both',
+			animationTimingFunction: 'linear',
+			animationTimeline: '--editor-table-inline-scroll',
+		},
+		".ProseMirror .pm-table-container > [data-table-overflow-shadow='start']": {
+			left: 0,
+			backgroundImage: `linear-gradient(
+				to left,
+				transparent 0,
+				${token('elevation.shadow.overflow.spread')} 140%
+			),
+			linear-gradient(
+				to right,
+				${token('elevation.shadow.overflow.perimeter')} 0,
+				transparent 1px
+			)`,
+			animationName: inlineStartShadow,
+		},
+		".ProseMirror .pm-table-container[data-number-column='true'] > [data-table-overflow-shadow='start']":
+			{
+				left: (42 satisfies typeof akEditorTableNumberColumnWidth) - 1,
+			},
+		".ProseMirror .pm-table-container > [data-table-overflow-shadow='end']": {
+			right: 0,
+			backgroundImage: `linear-gradient(
+				to right,
+				transparent 0,
+				${token('elevation.shadow.overflow.spread')} 140%
+			),
+			linear-gradient(
+				to left,
+				${token('elevation.shadow.overflow.perimeter')} 0,
+				transparent 1px
+			)`,
+			animationName: inlineEndShadow,
+		},
+	},
+	tableContentModeStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.pm-table-resizer-container:has(table[data-initial-width-mode="content"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			'--ak-editor-table-width': 'max-content',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.resizer-item:has(table[data-initial-width-mode="content"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+		},
+
+		// Reset the extended hover zone padding for content-mode tables so it doesn't
+		// inflate the max-content width of parent elements (resizer-container, wrapper).
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.resizer-item:has(table[data-initial-width-mode="content"]) > .resizer-hover-zone.resizer-is-extended':
+			{
+				padding: 'unset',
+				left: 'unset',
+			},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
+			tableLayout: 'auto',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+		},
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"] > colgroup > col': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'unset !important',
+		},
+	},
+	tableContentModeExtensionContainmentStyles: {
+		// Inline-size containment hides extension content from a fit-to-content table's intrinsic width.
+		'.ProseMirror table[data-initial-width-mode="content"] .extension-overflow-wrapper': {
+			containerType: 'normal',
+		},
+	},
+	tableContentModeNestedTableStyles: {
+		// Reset the base `margin-right: -1px` (ED-16212) that clips content-mode tables by 1px.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
+			maxWidth: 'none',
+			marginRight: 0,
+		},
+
+		// Let the resizer/wrapper chain grow to content width before the max-width cap.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.resizer-item:has(table[data-initial-width-mode="content"]), .pm-table-container:has(> .pm-table-wrapper > table[data-initial-width-mode="content"]), .pm-table-wrapper:has(> table[data-initial-width-mode="content"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'max-content !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				maxWidth: 'var(--ak-editor-table-max-width) !important',
+			},
+
+		// Nested content-mode table: size to content, reset base max-width and margin.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper > table':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'max-content !important',
+				maxWidth: 'none',
+				marginRight: 0,
+			},
+
+		// Stop nested table col widths from constraining parent table measurement.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper > table > colgroup > col':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'unset !important',
+			},
+
+		// Let the nested table container/wrapper grow to content width before the cap.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container, .ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'max-content !important',
+				maxWidth: 'none',
+				overflowX: 'visible',
+			},
+	},
+	tableEmptyRowStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.pm-table-cell-content-wrap, .pm-table-header-content-wrap': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'p:empty': {
+					/* add a minimum height to empty table rows in SSR */
+					minHeight: '1.714em',
+				},
+			},
+		},
+	},
+
+	// SSR-safe rounded corners for the outermost table cells. Mirrors tableRoundedCornerStyles in
+	// ./styles/tableStyles.ts. See EDITOR-7600. The data-reaches-* attributes are emitted during SSR,
+	// but the corner-radius CSS previously lived only in the table plugin's client-only <Global> styles,
+	// so corners rendered square on the server. Gated (at application site) by
+	// platform_editor_table_q4_loveability.
+	tableRoundedCornerStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-top][data-reaches-left], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-top][data-reaches-left]':
+			{
+				borderTopLeftRadius: token('radius.xlarge'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-top][data-reaches-right], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-top][data-reaches-right]':
+			{
+				borderTopRightRadius: token('radius.xlarge'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-bottom][data-reaches-left], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-bottom][data-reaches-left]':
+			{
+				borderBottomLeftRadius: token('radius.xlarge'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-bottom][data-reaches-right], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-bottom][data-reaches-right]':
+			{
+				borderBottomRightRadius: token('radius.xlarge'),
+			},
+	},
+	tableLayoutFixes: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.pm-table-header-content-wrap :not(.fabric-editor-alignment), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'p:first-of-type': {
+					marginTop: 0,
+				},
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-table-cell-content-wrap .mediaGroupView-content-wrap': {
+			clear: 'both',
+		},
+	},
+	tableLayoutFixesWithFontSize: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.pm-table-header-content-wrap :not(.fabric-editor-alignment, .fabric-editor-font-size), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'p:first-of-type': {
+					marginTop: 0,
+				},
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-table-cell-content-wrap .mediaGroupView-content-wrap': {
+			clear: 'both',
+		},
+	},
+	// It was from "import { tableSharedStyle } from '@atlaskit/editor-common/styles';"
+	tableSharedStyle: {
+		'.pm-table-container': {
+			position: 'relative',
+			margin: `0 auto ${token('space.200')}`,
+			boxSizing: 'border-box',
+			/**
+			 * Fix block top alignment inside table cells.
+			 */
+			'.decisionItemView-content-wrap:first-of-type > div': {
+				marginTop: 0,
+			},
+			'.pm-table-right-border, .pm-table-left-border': {
+				display: 'block',
+				width: '1px',
+				height: `calc(100% - ${token('space.300')})`,
+				background: token('color.background.accent.gray.subtler'),
+				position: 'absolute',
+				top: token('space.300'),
+			},
+		},
+		'.pm-table-container[data-number-column="true"]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			paddingLeft: `${(42 satisfies typeof akEditorTableNumberColumnWidth) - 1}px`,
+			clear: 'both',
+		},
+		'.pm-table-resizer-container': {
+			willChange: 'width, margin-left',
+		},
+		'.pm-table-resizer-container table': {
+			willChange: 'width',
+		},
+		'.pm-table-wrapper > table': {
+			margin: `${token('space.300')} 0 0 0`,
+		},
+		'.pm-table-container > table, .pm-table-sticky-wrapper > table': {
+			margin: `${token('space.300')} ${token('space.100')} 0 0`,
+		},
+		/* avoid applying styles to nested tables (possible via extensions) */
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			borderCollapse: 'collapse',
+			tableLayout: 'fixed',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			fontSize: '1em',
+			width: '100%',
+
+			'&[data-autosize="true"]': {
+				tableLayout: 'auto',
+			},
+
+			'& *': {
+				boxSizing: 'border-box',
+			},
+			'& hr': {
+				boxSizing: 'content-box',
+			},
+			'& tbody': {
+				borderBottom: 'none',
+			},
+			'& th td': {
+				backgroundColor: `${token('color.background.neutral.subtle')}`,
+			},
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+				minWidth: `${48 satisfies typeof tableCellMinWidth}px`,
+				fontWeight: token('font.weight.regular'),
+				verticalAlign: 'top',
+				border: `1px solid ${token('color.background.accent.gray.subtler')}`,
+				borderRightWidth: 0,
+				borderBottomWidth: 0,
+				padding: token('space.100'),
+				// it was from firstNodeWithNotMarginTop, and because the nested drag-and-drop styles are permanent
+				'> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span))': {
+					marginTop: 0,
+				},
+				'th p:not(:first-of-type), td p:not(:first-of-type)': {
+					marginTop: token('space.150'),
+				},
+			},
+			/* Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected */
+			'& > tbody > tr > td': {
+				backgroundColor: token('elevation.surface'),
+			},
+			'& th': {
+				backgroundColor: token('color.background.accent.gray.subtlest'),
+				textAlign: 'left',
+				/* only apply this styling to codeblocks in default background headercells */
+				/* TODO this needs to be overhauled as it relies on unsafe selectors */
+				// platform_editor_native_anchor_with_dnd experiment is in tidying phase, so didn't consider the styles when it's off
+				'&:not(.danger)': {
+					'.code-block:not(.danger)': {
+						backgroundColor: token('elevation.surface.raised'),
+						':not(.ak-editor-selected-node)': {
+							boxShadow: `0px 0px 0px 1px ${token('color.border')}`,
+						},
+						'.code-block-content-wrapper': {
+							backgroundImage: 'var(--ak-editor--table-overflow-shadow)',
+							backgroundColor: token('color.background.neutral'),
+						},
+						'.line-number-gutter': {
+							backgroundColor: token('color.background.neutral'),
+						},
+						/* this is only relevant to the element taken care of by renderer */
+						'> [data-ds--code--code-block]': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							backgroundImage: 'var(--ak-editor--table-overflow-shadow) !important',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+							backgroundColor: `${token('color.background.neutral')}!important`,
+							/* selector lives inside @atlaskit/code */
+							'--ds--code--line-number-bg-color': token('color.background.neutral'),
+						},
+					},
+				},
+			},
+		},
+	},
+	tableSharedStyleBackgroundClipFix: {
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				backgroundClip: 'padding-box',
+			},
+		},
+	},
+	tableSharedStyle_with_platform_editor_table_q4_loveability: {
+		'.pm-table-container': {
+			'.pm-table-right-border, .pm-table-left-border': {
+				display: 'none',
+			},
+		},
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			border: `${1 satisfies typeof tableCellBorderWidth}px solid transparent`,
+			position: 'relative',
+			'&::after': {
+				content: "''",
+				position: 'absolute',
+				inset: '-0.5px',
+				border: `${1 satisfies typeof tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+				borderRadius: token('radius.xlarge'),
+				pointerEvents: 'none',
+				zIndex: 1,
+			},
+
+			/* Let the wrapper overlay own the outer table perimeter.
+				data-reaches-* attributes are set by the TableCell node view. */
+			'& > tbody > tr > th[data-reaches-top], & > tbody > tr > td[data-reaches-top]': {
+				borderTopColor: 'transparent',
+			},
+
+			'& > tbody > tr > th[data-reaches-left], & > tbody > tr > td[data-reaches-left]': {
+				borderLeftColor: 'transparent',
+			},
+
+			'& > tbody > tr > td[data-reaches-left]::after': {
+				borderLeftColor: 'transparent',
+			},
+
+			'& > tbody > tr > th[data-reaches-bottom]::after, & > tbody > tr > td[data-reaches-bottom]::after':
+				{
+					borderBottomColor: 'transparent',
+				},
+
+			/* The rounded-table overlay owns transparent perimeter borders.
+			   Paint edge cell backgrounds into that reserved border area so coloured
+			   first/last rows do not show the page background through 1px seams. */
+			'& > tbody > tr > th[data-reaches-top], & > tbody > tr > td[data-reaches-top], & > tbody > tr > th[data-reaches-bottom], & > tbody > tr > td[data-reaches-bottom]':
+				{
+					backgroundClip: 'border-box',
+				},
+		},
+		/* When the number column is enabled, the left visual edge belongs to the number column.
+		Remove the left border-radius and left border from the table's ::after overlay
+		so it doesn't double-up or round where the number column already provides that edge. */
+		'.pm-table-container[data-number-column="true"]': {
+			'> .pm-table-wrapper > table::after, > .pm-table-sticky-wrapper > table::after': {
+				borderTopLeftRadius: 0,
+				borderBottomLeftRadius: 0,
+				borderLeftColor: 'transparent',
+			},
+		},
+	},
+	tableSharedStyle_without_platform_editor_table_q4_loveability: {
+		'.pm-table-container': {
+			'.pm-table-right-border, .pm-table-left-border': {
+				display: 'block',
+
+				width: 1,
+				height: `calc(100% - ${token('space.300')})`,
+				background: token('color.background.accent.gray.subtler'),
+				position: 'absolute',
+				top: token('space.300'),
+			},
+
+			'.pm-table-right-border': {
+				right: 0,
+			},
+			'.pm-table-left-border': {
+				left: 0,
+			},
+			'.pm-table-left-border[data-with-numbered-table="true"]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+				left: `${(42 satisfies typeof akEditorTableNumberColumnWidth) - 1}px`,
+			},
+		},
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			border: `${1 satisfies typeof tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
+			borderLeftColor: 'transparent',
+			borderRightColor: 'transparent',
+		},
+	},
+	tableSharedStyle_with_platform_editor_table_menu_updates: {
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				'&[data-valign="middle"]': {
+					verticalAlign: 'middle',
+				},
+				'&[data-valign="bottom"]': {
+					verticalAlign: 'bottom',
+				},
+			},
+		},
+	},
+	/* support panel nested in table, only when platform_editor_bordered_panel_nested_in_table fg is on */
+	tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table: {
+		'.pm-table-wrapper .ak-editor-panel': {
+			borderWidth: token('border.width'),
+			borderStyle: 'solid',
+			borderColor: token('color.border'),
+		},
+	},
+	taskItemCheckboxStyles: {
+		/**
+		 * Background
+		 */
+		'--local-background': token('color.background.input'),
+		'--local-background-active': token('color.background.input.pressed'),
+		'--local-background-checked': token('color.background.selected.bold'),
+		'--local-background-checked-hover': token('color.background.selected.bold.hovered'),
+		'--local-background-disabled': token('color.background.disabled'),
+		'--local-background-hover': token('color.background.input.hovered'),
+		/**
+		 * Border
+		 */
+		'--local-border': token('color.border.input'),
+		'--local-border-active': token('color.border'),
+		'--local-border-checked': token('color.background.selected.bold'),
+		'--local-border-checked-hover': token('color.background.selected.bold.hovered'),
+		'--local-border-checked-invalid': token('color.border.danger'),
+		'--local-border-disabled': token('color.background.disabled'),
+		'--local-border-focus': token('color.border.focused'),
+		'--local-border-hover': token('color.border.input'),
+		'--local-border-invalid': token('color.border.danger'),
+		/**
+		 * Tick
+		 */
+		'--local-tick-active': token('color.icon.inverse'),
+		'--local-tick-checked': token('color.icon.inverse'),
+		'--local-tick-disabled': token('color.icon.disabled'),
+		'--local-tick-rest': 'transparent',
+
+		'[data-prosemirror-node-name="taskItem"] .task-item-checkbox-wrap, [data-prosemirror-node-name="blockTaskItem"] .task-item-checkbox-wrap':
+			{
+				flex: '0 0 24px',
+				width: '24px',
+				height: '24px',
+				position: 'relative',
+				alignSelf: 'start',
+				"& > input[type='checkbox']": {
+					opacity: 0,
+					width: '100%',
+					height: '100%',
+					zIndex: 1,
+					cursor: 'pointer',
+					outline: 'none',
+					margin: 0,
+					position: 'absolute',
+					'&[disabled]': {
+						cursor: 'default',
+					},
+					'& + svg': {
+						'--checkbox-background-color': 'var(--local-background)',
+						'--checkbox-border-color': 'var(--local-border)',
+						'--checkbox-tick-color': 'var(--local-tick-rest)',
+						color: 'var(--checkbox-background-color)',
+						fill: 'var(--checkbox-tick-color)',
+						transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
+						boxSizing: 'border-box',
+						display: 'inline',
+						position: 'absolute',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						'rect:first-of-type': {
+							stroke: 'var(--checkbox-border-color)',
+							strokeWidth: token('border.width'),
+							transition: 'stroke 0.2s ease-in-out',
+						},
+					},
+					'&:focus + svg, &:checked:focus + svg': {
+						borderRadius: token('radius.small', '0.25rem'),
+						outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
+						outlineOffset: token('space.negative.025'),
+					},
+					'&:hover + svg': {
+						'--checkbox-background-color': 'var(--local-background-hover)',
+						'--checkbox-border-color': 'var(--local-border-hover)',
+					},
+					'&:checked:hover + svg': {
+						'--checkbox-background-color': 'var(--local-background-checked-hover)',
+						'--checkbox-border-color': 'var(--local-border-checked-hover)',
+					},
+					'&:checked + svg': {
+						'--checkbox-background-color': 'var(--local-background-checked)',
+						'--checkbox-border-color': 'var(--local-border-checked)',
+						'--checkbox-tick-color': 'var(--local-tick-checked)',
+					},
+					'&:active + svg': {
+						'--checkbox-background-color': 'var(--local-background-active)',
+						'--checkbox-border-color': 'var(--local-border-active)',
+					},
+					'&:checked:active + svg': {
+						'--checkbox-background-color': 'var(--local-background-active)',
+						'--checkbox-border-color': 'var(--local-border-active)',
+						'--checkbox-tick-color': 'var(--local-tick-active)',
+					},
+					'&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg':
+						{
+							'--checkbox-background-color': 'var(--local-background-disabled)',
+							'--checkbox-border-color': 'var(--local-border-disabled)',
+							cursor: 'not-allowed',
+							pointerEvents: 'none',
+						},
+					'&:disabled:checked + svg': {
+						'--checkbox-tick-color': 'var(--local-tick-disabled)',
+					},
+				},
+			},
+	},
+	taskItemStylesWithBlockTaskItem: {
+		'[data-prosemirror-node-name="taskItem"], [data-prosemirror-node-name="blockTaskItem"]': {
+			listStyle: 'none',
+		},
+		'[data-prosemirror-node-name="taskItem"] [data-component="task-item-main"], [data-prosemirror-node-name="blockTaskItem"] [data-component="task-item-main"]':
+			{
+				display: 'flex',
+				flexDirection: 'row',
+				position: 'relative',
+			},
+		'[data-prosemirror-node-name="taskItem"] [data-component="placeholder"], [data-prosemirror-node-name="blockTaskItem"] [data-component="placeholder"]':
+			{
+				position: 'absolute',
+				color: token('color.text.subtlest'),
+				margin: `0 0 0 calc(${token('space.100')} * 3)`,
+				pointerEvents: 'none',
+				textOverflow: 'ellipsis',
+				overflow: 'hidden',
+				whiteSpace: 'nowrap',
+				maxWidth: 'calc(100% - 50px)',
+				display: 'none',
+			},
+		"[data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder'], [data-prosemirror-node-name='blockTaskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
+			{
+				display: 'block',
+			},
+		'[data-prosemirror-node-name="taskItem"] [data-component="content"], [data-prosemirror-node-name="blockTaskItem"] [data-component="content"]':
+			{
+				margin: 0,
+				wordWrap: 'break-word',
+				minWidth: 0,
+				flex: '1 1 auto',
+			},
+	},
+	tasksAndDecisionsStyles: {
+		'.ProseMirror': {
+			'.taskItemView-content-wrap, .decisionItemView-content-wrap': {
+				position: 'relative',
+				minWidth: 48,
+			},
+			'.decisionItemView-content-wrap': {
+				marginTop: 0,
+			},
+			'.taskItemView-content-wrap': {
+				"span[contenteditable='false']": {
+					height: `${akEditorLineHeight}em`,
+				},
+			},
+			'.task-item': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: akEditorLineHeight,
+			},
+		},
+		'div[data-task-local-id]': {
+			"span[contenteditable='false']": {
+				height: `${akEditorLineHeight}em`,
+			},
+			"span[contenteditable='false'] + div": {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: `${akEditorLineHeight}em`,
+			},
+		},
+		'div[data-task-list-local-id]': {
+			margin: `${token('space.150')} 0 0 0`,
+			// If task item is not first in the list then set margin top to 4px.
+			'div + div': {
+				marginTop: token('space.050'),
+			},
+		},
+		// If task list is not first in the document then set margin top to 4px.
+		'div[data-task-list-local-id] div[data-task-list-local-id]': {
+			marginTop: token('space.050'),
+			marginLeft: token('space.300'),
+		},
+		// When action list is inside panel
+		'.ak-editor-panel__content': {
+			'> div[data-task-list-local-id]:first-child': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				margin: '0 !important',
+			},
+		},
+	},
+	tasksAndDecisionsDenseStyles: {
+		'.ProseMirror': {
+			// Task lists
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			['[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER]:
+				{
+					// Task lists: container top margin
+					marginTop: `max(0px, calc(10px + (var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (2 / 3)))`,
+				},
+
+			// Task lists: sibling items and nested lists
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${'[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} > * + *`]:
+				{
+					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[`${'[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER} ${'[data-node-type="actionList"]' satisfies typeof TaskDecisionSharedCssClassName.TASK_LIST_CONTAINER}, .${'taskItemView-content-wrap' satisfies typeof TaskDecisionSharedCssClassName.TASK_CONTAINER} .${'taskItemView-content-wrap' satisfies typeof TaskDecisionSharedCssClassName.TASK_CONTAINER}`]:
+				{
+					marginTop: `max(0px, calc((var(--ak-editor-base-font-size, ${16 satisfies typeof akEditorFullPageDefaultFontSize}px) - ${13 satisfies typeof akEditorFullPageDenseFontSize}px) * (4 / 3)))`,
+				},
+		},
+	},
+	statusDangerStyles: {
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node.danger .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
+			},
+		},
+	},
+	statusStyles: {
+		// Show diff: status attr change highlight. Keep this with status node styles so the highlight
+		// targets the lozenge shape rather than the decoration wrapper.
+		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
+		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
+		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		'.show-diff-atomic-inline-changed-status': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-status.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		'.show-diff-atomic-inline-changed-status .status-lozenge-span > span, .show-diff-atomic-inline-changed-status .lozenge-wrapper':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+			},
+
+		'.pm-table-cell-content-wrap, .pm-table-header-content-wrap, [data-layout-section]': {
+			'.statusView-content-wrap': {
+				maxWidth: '100%',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 0,
+
+				'& > span': {
+					width: '100%',
+				},
+			},
+		},
+		'.statusView-content-wrap': {
+			'& > span': {
+				cursor: 'pointer',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 0, // Prevent responsive layouts increasing height of container.
+			},
+		},
+		'.danger': {
+			'.status-lozenge-span > span': {
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				backgroundColor: 'rgba(255, 189, 173, 0.5)', // akEditorDeleteBackgroundWithOpacity
+			},
+			'.statusView-content-wrap.ak-editor-selected-node': {
+				'.status-lozenge-span > span': {
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+			maxWidth: '100%',
+			paddingInline: token('space.050'),
+			display: 'inline-flex',
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+			borderRadius: token('radius.small', '3px'),
+			blockSize: 'min-content',
+			position: 'static',
+			overflow: 'hidden',
+			boxSizing: 'border-box',
+			appearance: 'none',
+			border: 'none',
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			font: `normal ${token('font.weight.bold')} 11px/16px ${token('font.family.body')}`,
+			overflow: 'hidden',
+			textOverflow: 'ellipsis',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			textTransform: 'uppercase',
+			whiteSpace: 'nowrap',
+			maxWidth: `calc(200px - ${token('space.100')})`,
+		},
+	},
+	statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: {
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			color: '#292A2E',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#DDDEE1',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#D8A0F7',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#8FB8F6',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#F9C84E',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#FD9891',
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: '#B3DF72',
+		},
+	},
+	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match: {
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				// getSelectionStyles([SelectionStyle.BoxShadow]);
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				borderColor: 'transparent',
+				// hideNativeBrowserTextSelectionStyles
+				'&::selection, & *::selection': {
+					backgroundColor: 'transparent',
+				},
+				'&::-moz-selection, & *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+		},
+
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+			color: token('color.text.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-wrapper': {
+			backgroundColor: token('color.background.discovery'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.discovery'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-wrapper': {
+			backgroundColor: token('color.background.information'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.information'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-wrapper': {
+			backgroundColor: token('color.background.warning'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.warning'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-wrapper': {
+			backgroundColor: token('color.background.danger'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.danger'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-wrapper': {
+			backgroundColor: token('color.background.success'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.success'),
+		},
+	},
+	// Show diff: strike a deleted status or emoji. `line-through` from an ancestor is not drawn into an
+	// atomic inline-level box — it paints behind the lozenge's `display: inline-flex` background and
+	// skips an emoji's image or sprite — so redraw it here (EDITOR-9123). The class sits on the *same*
+	// element as the attribute — ProseMirror puts an atomic node's inline decoration on the node's own
+	// DOM. An emoji node view clears its inline styles once its data loads, dropping the decoration's
+	// colour and strike variable, but keeps the class, so this line still draws, from its fallback.
+	// Applied only under `platform_editor_ai_show_diff_patch_2`, so the gate-off stylesheet is
+	// unchanged.
+	deletedStatusStrikeStyles: {
+		'.show-diff-deleted-inline-node[data-prosemirror-node-name="status"]': {
+			// The deleted decoration sets this inline too; repeated for the pre-refactor cohort.
+			position: 'relative',
+			'&::after': {
+				content: '""',
+				position: 'absolute',
+				top: '50%',
+				insetInlineStart: 0,
+				insetInlineEnd: 0,
+				// The whole shorthand comes from the plugin, so this line stays identical to the one the
+				// deleted-content widget draws — including its 2px active weight — without restating it.
+				borderTop: `var(--show-diff-deleted-inline-node-strike, ${token('border.width')} solid ${token('color.text.subtlest')})`,
+				pointerEvents: 'none',
+			},
+		},
+		'.show-diff-deleted-inline-node[data-prosemirror-node-name="emoji"]': {
+			// The deleted decoration sets this inline too; repeated for the pre-refactor cohort.
+			position: 'relative',
+			'&::after': {
+				content: '""',
+				position: 'absolute',
+				top: '50%',
+				insetInlineStart: 0,
+				insetInlineEnd: 0,
+				// The whole shorthand comes from the plugin, so this line stays identical to the one the
+				// deleted-content widget draws — including its 2px active weight — without restating it.
+				borderTop: `var(--show-diff-deleted-inline-node-strike, ${token('border.width')} solid ${token('color.text.subtlest')})`,
+				pointerEvents: 'none',
+			},
+		},
+	},
+	// Show diff: under `platform_editor_ai_show_diff_patch_2`, date and emoji atomic inline changes get
+	// the same 2px `box-shadow` ring as mention and status instead of an outline. A date's outline sat
+	// on its inline wrapper, whose zero-width spacers and font-metric line box kept it off the pill, so
+	// the ring moves to the pill. Composed after the date and emoji rules it overrides.
+	atomicInlineChangedBoxShadowStyles: {
+		'.show-diff-atomic-inline-changed-date': {
+			outline: 'none',
+		},
+		'.show-diff-atomic-inline-changed-date .date-lozenger-container > span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+			{
+				outline: 'none',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				boxShadow: `0 0 0 2px var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
+			},
+	},
+	statusStylesTeam26: {
+		'[data-prosemirror-node-name="status"] .lozenge-wrapper': {
+			paddingBlockStart: token('space.025'),
+			paddingBlockEnd: token('space.025'),
+			paddingInlineStart: token('space.050'),
+			paddingInlineEnd: token('space.050'),
+			alignItems: 'center',
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+			borderRadius: token('radius.small', '4px'),
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			height: '1.25rem',
+			border: `solid ${token('border.width')} transparent`,
+		},
+
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+			textTransform: 'none',
+			font: token('font.body.small'),
+		},
+
+		/* Border, background and text colors
+		 * These colors are copied from @atlaskit/lozenge
+		 * Border tokens supply the appropriate light and dark color values.
+		 */
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.neutral'),
+			borderColor: token('color.border'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
+			color: token('color.text'),
+		},
+
+		/* Find and Replace Styles */
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+			},
+		},
+
+		'.danger': {
+			'.statusView-content-wrap:not(.search-match-block).ak-editor-selected-node .status-lozenge-span > span':
+				{
+					boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
+				},
+		},
+	},
+	// Trim the status text to cap height so the capitals are centred rather than the 16px line box,
+	// which sits ~1px high at fractional zoom on 1x displays because Chrome rounds the font ascent
+	// and half-leading down to whole device pixels. Clip horizontally only so descenders and
+	// accents outside the cap-height box are not cut off.
+	statusStylesTeam26TextTrim: {
+		'[data-prosemirror-node-name="status"] .lozenge-text': {
+			textBox: 'trim-both cap alphabetic',
+			overflow: 'clip visible',
+		},
+	},
+	// Pre-experiment semantic mapping for every named colour except neutral. Replaced
+	// by statusStylesNamedAccent when platform_editor_update_status_colors is on, and
+	// deleted wholesale when that experiment is cleaned up.
+	statusStylesNamedSemantic: {
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.discovery.subtler'),
+			borderColor: token('color.border.discovery.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.discovery.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.information.subtler'),
+			borderColor: token('color.border.information.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.information.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.danger.subtler'),
+			borderColor: token('color.border.danger.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.danger.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.warning.subtler'),
+			borderColor: token('color.border.warning.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.warning.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.success.subtler'),
+			borderColor: token('color.border.success.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.success.bolder'),
+		},
+	},
+	// Accent mapping for every named colour except neutral, when
+	// platform_editor_update_status_colors is on. yellow/green map to the orange/lime
+	// accents, whose tokens are byte-identical to warning/success in both themes.
+	statusStylesNamedAccent: {
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.blue.subtler'),
+			borderColor: token('color.border.accent.blue.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.accent.blue.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.purple.subtler'),
+			borderColor: token('color.border.accent.purple.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.accent.purple.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.red.subtler'),
+			borderColor: token('color.border.accent.red.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.accent.red.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.orange.subtler'),
+			borderColor: token('color.border.accent.orange.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.accent.orange.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.lime.subtler'),
+			borderColor: token('color.border.accent.lime.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.accent.lime.bolder'),
+		},
+	},
+	// Hex IDs the 10-color picker persists (hues that cannot use a named colour).
+	// Always applied.
+	statusStylesHexAccent: {
+		'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.teal.subtler'),
+			borderColor: token('color.border.accent.teal.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] .lozenge-text': {
+			color: token('color.text.accent.teal.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#ABF5D1"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.green.subtler'),
+			borderColor: token('color.border.accent.green.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#ABF5D1"] .lozenge-text': {
+			color: token('color.text.accent.green.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#D3F1A7"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.lime.subtler'),
+			borderColor: token('color.border.accent.lime.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#D3F1A7"] .lozenge-text': {
+			color: token('color.text.accent.lime.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FFF0B3"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.yellow.subtler'),
+			borderColor: token('color.border.accent.yellow.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FFF0B3"] .lozenge-text': {
+			color: token('color.text.accent.yellow.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FCE4A6"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.orange.subtler'),
+			borderColor: token('color.border.accent.orange.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FCE4A6"] .lozenge-text': {
+			color: token('color.text.accent.orange.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FDD0EC"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+			borderColor: token('color.border.accent.magenta.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FDD0EC"] .lozenge-text': {
+			color: token('color.text.accent.magenta.bolder'),
+		},
+	},
+	telepointerColorAndCommonStyle: {
+		'.ProseMirror .telepointer': {
+			position: 'relative',
+			transitionProperty: 'opacity',
+			transitionDuration: '200ms',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&.telepointer-selection:not(.inlineNodeView)': {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: 1.2,
+				pointerEvents: 'none',
+				userSelect: 'none',
+			},
+			'&.telepointer-dim': {
+				opacity: 0.2,
+			},
+			'&.color-0': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.red.bolder'),
+			},
+			'&.color-1': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.blue.bolder'),
+			},
+			'&.color-2': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.green.bolder'),
+			},
+			'&.color-3': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.yellow.bolder'),
+			},
+			'&.color-4': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.purple.bolder'),
+			},
+			'&.color-5': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.magenta.bolder'),
+			},
+			'&.color-6': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.teal.bolder'),
+			},
+			'&.color-7': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.orange.bolder'),
+			},
+			'&.color-8': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.lime.bolder'),
+			},
+			'&.color-9': {
+				'--telepointer-participant-text-color': token('color.text.inverse'),
+				'--telepointer-participant-bg-color': token('color.background.accent.gray.bolder'),
+			},
+			'&.color-10': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.blue.subtle'),
+			},
+			'&.color-11': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.red.subtle'),
+			},
+			'&.color-12': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.orange.subtle'),
+			},
+			'&.color-13': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.yellow.subtle'),
+			},
+			'&.color-14': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.green.subtle'),
+			},
+			'&.color-15': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.teal.subtle'),
+			},
+			'&.color-16': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.purple.subtle'),
+			},
+			'&.color-17': {
+				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
+				'--telepointer-participant-bg-color': token('color.background.accent.magenta.subtle'),
+			},
+			// light mode defaults — applied unconditionally; dark mode overrides via
+			// telepointerColorAndCommonStyleDarkMode variant keyed on colorMode
+			'--telepointer-participant-background-first-stop': '-850000%',
+			'--telepointer-participant-background-second-stop': '150000%',
+			'&[class*="color-"]': {
+				background:
+					'linear-gradient(to bottom, var(--telepointer-participant-bg-color) var(--telepointer-participant-background-first-stop), transparent var(--telepointer-participant-background-second-stop))',
+				'&::after': {
+					backgroundColor: 'var(--telepointer-participant-bg-color)',
+					color: 'var(--telepointer-participant-text-color)',
+					borderColor: 'var(--telepointer-participant-bg-color)',
+				},
+			},
+		},
+	},
+	// Dark mode overrides for telepointer background gradient stops.
+	// Split out from telepointerColorAndCommonStyle because 'html[data-color-mode=dark] &'
+	// (ampersand on the right) is broken in Compiled CSS. Uses colorMode prop instead.
+	telepointerColorAndCommonStyleDarkMode: {
+		'.ProseMirror .telepointer': {
+			'--telepointer-participant-background-first-stop': '-800000%',
+			'--telepointer-participant-background-second-stop': '200000%',
+		},
+	},
+	// Agent-edit shimmer (CCI-18033): its own entry so it's easy to find and remove if the approach
+	// changes. Mirror of `styles/agentShimmerStyles.ts`.
+	agentShimmerStyles: {
+		// Skeleton-loader bar over the agent-authored range (text hidden, grey skeleton with a moving
+		// highlight), plus a Rovo AI telepointer/cursor at the end of the range.
+		'.ProseMirror .collab-agent-shimmer': {
+			animationDuration: '1.25s',
+			animationIterationCount: 'infinite',
+			animationName: agentShimmer,
+			animationTimingFunction: 'linear',
+			backgroundColor: token('color.skeleton'),
+			backgroundImage: `linear-gradient(90deg, ${token('color.skeleton')} 0%, ${token('color.skeleton.subtle')} 50%, ${token('color.skeleton')} 100%)`,
+			backgroundSize: '200% 100%',
+			borderRadius: token('radius.xsmall'),
+			boxDecorationBreak: 'clone',
+			color: 'transparent',
+			caretColor: 'transparent',
+		},
+		// Purple "just edited" highlight shown over the range after the skeleton clears — same colours as
+		// the editor AI "improve writing" in-editor highlight, but eased in and out via
+		// `agentEditHighlight` (plain class so no unsafe `:not()` selector is needed; any annotation
+		// overlap is momentary). The underline keeps its width with a transparent colour so the fade
+		// causes no layout shift; `animation-duration` is set inline per-decoration, with this fallback.
+		'.ProseMirror .collab-agent-edit-highlight': {
+			animationName: agentEditHighlight,
+			animationTimingFunction: 'ease-in-out',
+			animationFillMode: 'both',
+			animationDuration: '2000ms',
+			borderBottom: `${token('border.width')} dashed transparent`,
+		},
+		'.ProseMirror .ai-in-editor-telepointer': {
+			position: 'relative',
+			zIndex: 1,
+			'& > .ai-in-editor-telepointer-label': {
+				position: 'absolute',
+				boxSizing: 'border-box',
+				display: 'flex',
+				flexDirection: 'row',
+				justifyContent: 'center',
+				alignItems: 'center',
+				padding: token('space.025'),
+				gap: token('space.075'),
+				height: 16,
+				top: token('space.0'),
+				left: token('space.0'),
+				borderRadius: `0 ${token('space.050')} ${token('space.050')} 0`,
+				border: `${token('border.width')} solid transparent`,
+				background: `linear-gradient(${token('color.text')}, ${token('color.text')}) padding-box, conic-gradient(from 270deg at 50% 50%, #1868db 0deg, #1868db 115deg, #fca700 115deg, #fca700 180deg, #bf63f3 180deg, #bf63f3 310deg, #82b536 310deg, #82b536 359.96deg, #1868db 360deg) border-box`,
+				fontFamily: token('font.family.body'),
+				fontWeight: token('font.weight.semibold'),
+				// Match the AI in-editor telepointer label's fixed 10px/9px sizing (no exact typography token).
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 10,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: '9px',
+				textAlign: 'center',
+				whiteSpace: 'pre',
+				color: token('color.text.inverse'),
+			},
+			'&::after': {
+				content: "''",
+				position: 'absolute',
+				width: 1,
+				height: 24,
+				top: token('space.0'),
+				left: token('space.0'),
+				background: token('color.border.brand'),
+			},
+		},
+	},
+	telepointerStyle: {
+		'.ProseMirror .telepointer': {
+			'&.telepointer-selection-badge': {
+				'.telepointer-initial, .telepointer-fullname': {
+					position: 'absolute',
+					display: 'block',
+					userSelect: 'none',
+					whiteSpace: 'pre',
+					top: -14,
+					left: 0,
+					font: token('font.body.small'),
+					paddingLeft: token('space.050'),
+					paddingRight: token('space.050'),
+					borderRadius: `0 ${token('radius.xsmall')} ${token('radius.xsmall')} 0`,
+				},
+				'.telepointer-initial': {
+					opacity: 1,
+					transitionProperty: 'opacity',
+					transitionDuration: '0.15s',
+					transitionTimingFunction: 'ease-out',
+				},
+				'.telepointer-fullname': {
+					opacity: 0,
+					transform: 'scaleX(0)',
+					transformOrigin: 'top left',
+					transitionProperty: 'transform, opacity',
+					transitionDuration: '0.15s, 0.15s',
+					transitionTimingFunction: 'ease-out, ease-out',
+				},
+			},
+			'&.telepointer-pulse-animate': {
+				'.telepointer-initial': {
+					animationName: pulseOut,
+					animationDuration: `2.5s`,
+					animationTimingFunction: `ease-in-out`,
+				},
+				'.telepointer-fullname': {
+					animationName: pulseIn,
+					animationDuration: `2.5s`,
+					animationTimingFunction: `ease-in-out`,
+				},
+			},
+			'&.telepointer-pulse-during-tr': {
+				'.telepointer-initial': {
+					animationName: pulseOutDuringTr,
+					animationDuration: `7500ms`,
+					animationTimingFunction: `ease-in-out`,
+				},
+				'.telepointer-fullname': {
+					animationName: pulseInDuringTr,
+					animationDuration: `7500ms`,
+					animationTimingFunction: `ease-in-out`,
+				},
+			},
+			'&:hover': {
+				'.telepointer-initial': {
+					opacity: 0,
+					transitionDelay: '150ms',
+				},
+				'.telepointer-fullname': {
+					transform: 'scaleX(1)',
+					opacity: 1,
+					zIndex: 1,
+				},
+			},
+		},
+	},
+	textColorStyles: {
+		'.fabric-text-color-mark': {
+			color: 'var(--custom-palette-color, inherit)',
+		},
+
+		'a .fabric-text-color-mark': {
+			color: 'unset',
+		},
+	},
+	textDangerStyles: {
+		// Apply styles if isRootText && isOuterMostSelectedNode && .danger
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *).danger':
+			{
+				background: token('color.background.danger'),
+				boxShadow: `0 -4px 0 ${token('color.background.danger')}, 0 4px 0 ${token(
+					'color.background.danger',
+				)}`,
+			},
+	},
+	textHighlightPaddingStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.fabric-background-color-mark:has(.background-color-padding-left)': {
+			paddingLeft: token('space.025'),
+			marginLeft: token('space.negative.025'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.fabric-background-color-mark:has(.background-color-padding-right)': {
+			paddingRight: token('space.025'),
+			marginRight: token('space.negative.025'),
+		},
+	},
+	textHighlightStyle: {
+		'.text-highlight': {
+			backgroundColor: token('color.background.accent.blue.subtlest'),
+			borderBottom: `2px solid ${token('color.background.accent.blue.subtler')}`,
+		},
+	},
+	textSelectedNodeStyles: {
+		// Apply styles if isRootText && isOuterMostSelectedNode
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *)':
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+				boxShadow: `0 -4px 0 ${token('color.background.accent.blue.subtler')}, 0 4px 0 ${token(
+					'color.background.accent.blue.subtler',
+				)}`,
+
+				'&::selection, *::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection, *::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+	},
+	textSelectedNodeStylesWithHighlightInheritance: {
+		// Apply styles if isRootText && isOuterMostSelectedNode
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		'.ProseMirror :is(p, h1, h2, h3, h4, h5, h6):not(:is(ul, ol, div[data-node-type="actionList"]) :is(p, h1, h2, h3, h4, h5, h6)).ak-editor-selected-node:not(.ak-editor-selected-node *)':
+			{
+				background: token('color.background.accent.blue.subtler'),
+				WebkitUserSelect: 'text',
+				boxShadow: `0 -4px 0 ${token('color.background.accent.blue.subtler')}, 0 4px 0 ${token(
+					'color.background.accent.blue.subtler',
+				)}`,
+
+				'&::selection': {
+					backgroundColor: 'transparent',
+				},
+
+				'&::-moz-selection': {
+					backgroundColor: 'transparent',
+				},
+			},
+	},
+	unsupportedStyles: {
+		'.unsupportedBlockView-content-wrap > div, .unsupportedInlineView-content-wrap > span:nth-of-type(2)':
+			{
+				cursor: 'pointer',
+			},
+
+		'.ak-editor-selected-node': {
+			'&.unsupportedBlockView-content-wrap > div, &.unsupportedInlineView-content-wrap > span:nth-of-type(2)':
+				{
+					...backgroundSelectionStyles,
+					...borderSelectionStyles,
+					...hideNativeBrowserTextSelectionStyles,
+				},
+		},
+
+		'.danger': {
+			'.ak-editor-selected-node': {
+				'&.unsupportedBlockView-content-wrap > div, &.unsupportedInlineView-content-wrap > span:nth-of-type(2)':
+					{
+						border: `1px solid ${token('color.border.danger')}`,
+						backgroundColor: token('color.blanket.danger'),
+					},
+			},
+		},
+	},
+	/**
+	 * Default look for tooltips created by `VanillaTooltip` (`editor-common/vanilla-tooltip`).
+	 * Opt in with `VANILLA_TOOLTIP_DEFAULT_CLASS`. Spelt out here because the selector has to stay
+	 * statically analysable, so rename in step with that constant.
+	 *
+	 * The tooltip is a `[popover]`: the browser paints it in the top layer but leaves it in the
+	 * DOM, so this descendant selector still matches. `VanillaTooltip` sets `opacity`,
+	 * `visibility` and `transition` inline for the show/hide animation;
+	 */
+	vanillaTooltipDefaultStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.ak-editor-vanilla-tooltip-default': {
+				boxSizing: 'border-box',
+				maxWidth: '240px',
+				backgroundColor: token('color.background.neutral.bold'),
+				border: 'none',
+				borderRadius: token('radius.small', '3px'),
+				color: token('color.text.inverse'),
+				font: token('font.body.small'),
+				fontFamily: token('font.family.body'),
+				insetBlockStart: token('space.0', '0px'),
+				insetInlineStart: token('space.0', '0px'),
+				overflowWrap: 'break-word',
+				paddingBlock: token('space.050', '4px'),
+				paddingInline: token('space.075', '6px'),
+				whiteSpace: 'normal',
+			},
+		},
+	},
+	/**
+	 * Fade-and-rise for the contributor tags `editor-plugin-show-diff` draws above a change, plus the
+	 * hidden state it starts from — an inline `opacity` would outrank this rule, so both ends live
+	 * here.
+	 *
+	 * Keyed on the literals the plugin writes (`CONTRIBUTOR_TAG_CLASS`,
+	 * `CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE`), because cssMap keys must be static — rename in step.
+	 *
+	 * Gated behind `confluence_ncs_step_diffing_version_history`, where the tags render.
+	 */
+	contributorTagStyles: {
+		'.ProseMirror': {
+			'.ak-editor-diff-contributor-tag': {
+				opacity: 0,
+				// Deliberately not transitioned: a tag mid-fade must not be a hit target.
+				pointerEvents: 'none',
+				// Starts low, so the tag reads as unfurling out of the change: the part that hangs over
+				// the highlight is clipped by the tag's root, so what is seen is its bottom edge held on
+				// the change while the rest rises out of it. A transform, so nothing around it reflows.
+				transform: 'translateY(4px)',
+				transitionProperty: 'opacity, transform',
+				transitionDuration: '500ms',
+				// The exit curve; the revealed state below swaps in the entrance curve. The fallback is
+				// required — motion custom properties only exist under
+				// `html[data-theme~="motion:motion"]`, and one unresolved `var()` drops the whole
+				// declaration.
+				transitionTimingFunction: token(
+					'motion.easing.in.practical',
+					'cubic-bezier(0.6, 0, 0.8, 0.6)',
+				),
+				// Covers both directions, because the revealed state declares no duration of its own —
+				// one there would outrank this by specificity.
+				'@media (prefers-reduced-motion: reduce)': {
+					transitionDuration: '0s',
+				},
+			},
+			/**
+			 * Drawn *inward*: the root's `overflow: clip`, which the reveal's `translateY` spill relies
+			 * on, removes exactly the band an outline paints in. A negative offset of the ring's own
+			 * width lays it just inside, where nothing can cut it.
+			 *
+			 * `color.border.inverse`, not `color.border.focused`: against the accent `bolder` fills the
+			 * focused blue measures 1.0–1.5:1, under the 3:1 WCAG 1.4.11 asks of a focus indicator.
+			 * Inverse clears 4.5:1 on all ten, which is why the label is `color.text.inverse` too.
+			 */
+			'.ak-editor-diff-contributor-tag:focus-visible': {
+				outline: `${token('border.width.focused')} solid ${token('color.border.inverse')}`,
+				outlineOffset: `calc(-1 * ${token('border.width.focused')})`,
+			},
+			'.ak-editor-diff-contributor-tag[data-revealed]': {
+				opacity: 1,
+				pointerEvents: 'auto',
+				transform: 'translateY(0)',
+				// The entrance curve, and deliberately nothing else: a duration here would outrank the
+				// reduced-motion opt-out above.
+				transitionTimingFunction: token(
+					'motion.easing.out.practical',
+					'cubic-bezier(0.4, 1, 0.6, 1)',
+				),
+				/**
+				 * Start values for the first reveal, which would otherwise snap: ProseMirror attaches a
+				 * widget's host only after `toDOM` returns. Both properties, or the first reveal rises
+				 * without fading. Progressive enhancement — browsers without it snap that first reveal
+				 * and fade every one after.
+				 *
+				 * Must stay nested here with bare declarations: as a top-level key `collapseAtRule` folds
+				 * the selector into the prelude (`@starting-style .ProseMirror {…}`), which every browser
+				 * silently discards.
+				 */
+				'@starting-style': {
+					opacity: 0,
+					transform: 'translateY(4px)',
+				},
+			},
+		},
+	},
+	// Styles for VanillaUnsupportedBlockNodeView — gated behind platform_editor_vanilla_node_views_phase1.
+	// The `unsupported-*-vanilla-*` class names are produced by `VanillaUnsupportedCssClassName` in
+	// editor-plugin-unsupported-content/src/nodeviews/unsupported-block-node-view.ts. They are hardcoded
+	// here because cssMap keys must be statically defined — keep both in sync when renaming.
+	vanillaUnsupportedStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.unsupported-block-vanilla-inner': {
+				alignItems: 'center',
+				background: token('color.background.disabled'),
+				border: `${token('border.width')} dashed ${token('color.border.disabled')}`,
+				borderRadius: token('radius.small', '3px'),
+				boxSizing: 'border-box',
+				cursor: 'pointer',
+				display: 'flex',
+				font: token('font.body'),
+				margin: `${token('space.100')} 0`,
+				minHeight: '24px',
+				minWidth: '120px',
+				padding: token('space.150'),
+				textAlign: 'center',
+				justifyContent: 'center',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.unsupported-inline-vanilla-inner': {
+				alignItems: 'center',
+				background: token('color.background.disabled'),
+				border: `${token('border.width')} dashed ${token('color.border.disabled')}`,
+				borderRadius: token('radius.small', '3px'),
+				boxSizing: 'border-box',
+				cursor: 'default',
+				display: 'inline-flex',
+				font: token('font.body'),
+				margin: `0 ${token('space.025')}`,
+				minHeight: '24px',
+				padding: `0 ${token('space.100')}`,
+				verticalAlign: 'middle',
+				whiteSpace: 'nowrap',
+			},
+			// Icon span
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.unsupported-vanilla-icon': {
+				padding: token('space.050', '4px'),
+				display: 'inline-flex',
+				alignItems: 'center',
+			},
+		},
+	},
+	whitespaceStyles: {
+		'.ProseMirror': {
+			wordWrap: 'break-word',
+			whiteSpace: 'pre-wrap',
+		},
+	},
+});
+
+const isFirefox: boolean =
+	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+export type EditorContentContainerProps = {
+	appearance?: EditorAppearance;
+	children?: React.ReactNode;
+	className?: string;
+	contentMode?: EditorContentMode;
+	featureFlags?: FeatureFlags;
+	isScrollable?: boolean;
+	/**
+	 * When true, nodes maintain their standard width without negative margins
+	 * For when the drag handle is visible and the editor has limited space.
+	 */
+	useStandardNodeWidth?: boolean;
+	viewMode?: 'view' | 'edit';
+};
+
+/**
+ * EditorContentStyles is a wrapper component that applies styles to its children
+ * based on the provided feature flags, view mode, and other props.
+ * It uses Compiled for styling and supports scrollable content.
+ *
+ * This will be used in near future to replace the current editor content styles from index.tsx
  */
 const EditorContentContainer: React.ForwardRefExoticComponent<
 	EditorContentContainerProps & React.RefAttributes<HTMLDivElement>
-> = EditorContentContainerCompiled;
+> = React.forwardRef<HTMLDivElement, EditorContentContainerProps>((props, ref) => {
+	const {
+		className,
+		children,
+		viewMode,
+		isScrollable,
+		appearance,
+		contentMode,
+		useStandardNodeWidth,
+	} = props;
+	const { colorMode } = useThemeObserver();
+
+	const isFullPage =
+		appearance === 'full-page' || appearance === 'full-width' || appearance === 'max';
+	const isComment = appearance === 'comment';
+	const isChromeless = appearance === 'chromeless';
+
+	const baseFontSize = getBaseFontSize(appearance, contentMode);
+	const isDense = !!baseFontSize && baseFontSize !== akEditorFullPageDefaultFontSize;
+
+	const tableOverflowShadow = overflowShadow({
+		leftCoverWidth: token('space.300'),
+	});
+
+	// Under the static-CSS experiment, --ak-editor-base-font-size is set earlier on the
+	// root div in editor-internal.tsx and inherited via the CSS cascade — do not set it here.
+	// For the legacy font-size path, derive it from the editor theme.
+	const style = React.useMemo(
+		() => ({
+			'--ak-editor--table-overflow-shadow': tableOverflowShadow,
+			...tableCellBackgroundColorVariables,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+			...(!editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+				exposure: true,
+			}) && {
+				'--ak-editor--large-gutter-padding': `${akEditorGutterPaddingDynamic()}px`,
+			}),
+		}),
+		[tableOverflowShadow],
+	);
+
+	const browser = getBrowserInfo();
+	const isImproveInpEnabled = isExperimentEnabled('platform_editor_improve_inp');
+	// Highlight inheritance shipped in Chromium 134. Keep explicit descendant rules for
+	// other engines and older versions; supporting ::selection alone is not sufficient.
+	const isSelectionHighlightInheritanceActive =
+		browser.chrome_version >= 134 && isImproveInpEnabled;
+
+	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
+	const isUpdateStatusColorsEnabled =
+		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
+		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
+	const isStatusStylesTeam26 = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+
+	return (
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className || undefined}
+			ref={ref}
+			css={[
+				editorContentStyles.baseStyles,
+				editorContentStyles.maxModeReizeFixStyles,
+				editorContentStyles.baseStylesMaxContainerWidthFixes,
+				editorContentStyles.editorGutterPaddingBaseStyles,
+				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+					exposure: true,
+				}) && editorContentStyles.editorLargeGutterPuddingReducedBaseStyles,
+				editorContentStyles.whitespaceStyles,
+				editorContentStyles.indentationStyles,
+				editorContentStyles.fontSizeStyles,
+				editorContentStyles.shadowStyles,
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+					editorContentStyles.extensionScrollInlineShadowStyles,
+				editorContentStyles.InlineNodeViewSharedStyles,
+				isImproveInpEnabled
+					? editorContentStyles.scopedHideSelectionStyles
+					: editorContentStyles.hideSelectionStyles,
+				isImproveInpEnabled
+					? editorContentStyles.scopedHideCursorStyles
+					: editorContentStyles.hideCursorWhenHideSelectionStyles,
+				editorContentStyles.selectedNodeStyles,
+				editorContentStyles.cursorStyles,
+				editorContentStyles.firstFloatingToolbarButtonStyles,
+				editorContentStyles.placeholderTextStyles,
+				editorContentStyles.placeholderStyles,
+				editorExperiment('platform_editor_controls', 'variant1') &&
+					editorContentStyles.placeholderOverflowStyles,
+				editorContentStyles.codeBlockStyles,
+				contentMode === 'compact' && editorContentStyles.codeBlockStylesWithEmUnits,
+				editorContentStyles.editorUGCTokensRefreshed,
+				editorContentStyles.editorUGCSmallText,
+				editorContentStyles.blocktypeStyles,
+				editorContentStyles.blocktypeStylesRtlBlockquote,
+				isFloatingTocEnabled && editorContentStyles.headingScrollMarginStyles,
+				editorContentStyles.blockquoteSelectedNodeStyles,
+				isSelectionHighlightInheritanceActive
+					? editorContentStyles.listSelectedNodeStylesWithHighlightInheritance
+					: editorContentStyles.listSelectedNodeStyles,
+				isSelectionHighlightInheritanceActive
+					? editorContentStyles.textSelectedNodeStylesWithHighlightInheritance
+					: editorContentStyles.textSelectedNodeStyles,
+				editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc,
+				editorContentStyles.blocktypeStylesNestedDnd,
+				editorContentStyles.codeMarkStyles,
+				editorContentStyles.textColorStyles,
+				editorContentStyles.backgroundColorStyles,
+				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+					editorContentStyles.highlightLinksUnsetStyles,
+				editorContentStyles.textHighlightPaddingStyles,
+				editorContentStyles.listsStyles,
+				editorContentStyles.listItemHiddenMarkerStyles,
+				editorContentStyles.diffListStyles,
+				// Condense vertical spacing between list items when content mode dense is active
+				contentMode === 'compact' && isDense && editorContentStyles.listsDenseStyles,
+				isFullPage && editorContentStyles.listsStylesMarginLayoutShiftFix,
+				editorContentStyles.ruleStyles,
+				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
+					editorContentStyles.ruleWithAttrsStyles,
+				isExperimentEnabled('platform_editor_numbered_headings') &&
+					editorContentStyles.numberedHeadingsStyles,
+				editorContentStyles.smartCardDiffStyles,
+				editorContentStyles.showDiffDeletedNodeStyles,
+				editorContentStyles.mediaStyles,
+				isExperimentEnabled('platform_editor_vanilla_node_views_phase1') &&
+					editorContentStyles.vanillaCaptionStyles,
+				contentMode === 'compact' && editorContentStyles.mediaCaptionStyles,
+				editorContentStyles.firstWrappedMediaStyles,
+				editorContentStyles.telepointerStyle,
+				/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
+				editorContentStyles.telepointerColorAndCommonStyle,
+				colorMode === 'dark' && editorContentStyles.telepointerColorAndCommonStyleDarkMode,
+				// Agent-edit shimmer styles only apply when the experiment is on; no-exposure because this
+				// render path is hot and the real exposure is logged where an agent edit actually lands.
+				expValEqualsNoExposure('platform_editor_agent_be_streaming', 'isEnabled', true) &&
+					editorContentStyles.agentShimmerStyles,
+				editorContentStyles.gapCursorStyles,
+				editorContentStyles.gapCursorStylesVisibilityFix,
+				editorContentStyles.panelStyles,
+				editorContentStyles.nestedPanelBorderStylesMixin,
+				editorContentStyles.panelStylesMixinNestedDnd,
+				editorContentStyles.panelStylesMixin,
+				editorContentStyles.mentionsStyles,
+				editorContentStyles.tasksAndDecisionsStyles,
+				// condense vertical spacing between tasks/decisions items when content mode dense is active
+				contentMode === 'compact' && isDense && editorContentStyles.tasksAndDecisionsDenseStyles,
+				editorContentStyles.gridStyles,
+				editorContentStyles.blockMarksStyles,
+				editorContentStyles.dateStyles,
+				editorContentStyles.extensionStyles,
+				fg('platform_editor_lovability_resize_exts_gracefully') &&
+					editorContentStyles.extensionWithBreakoutStyles,
+				contentMode === 'compact' && editorContentStyles.extensionStylesDense,
+				editorContentStyles.bodiedExtensionLayoutShiftFix,
+				editorContentStyles.extensionDiffStyles,
+				editorContentStyles.expandStylesBase,
+				// Apply expand delta styles conditionally based on useStandardNodeWidth (negative margins or not)
+				!useStandardNodeWidth && editorContentStyles.expandStyles,
+				contentMode === 'compact' && isDense && editorContentStyles.expandDenseStyles,
+				editorContentStyles.expandStylesMixinNestedDnd,
+				editorContentStyles.expandStylesMixin_fg_platform_visual_refresh_icons,
+				isChromeless && editorContentStyles.expandStylesMixin_chromeless_expand_fix,
+				editorContentStyles.findReplaceStyles,
+				editorContentStyles.findReplaceStylesWithCodeblockColorContrastFix,
+				editorContentStyles.findReplaceStylesWithRefSyncBlock,
+				editorContentStyles.textHighlightStyle,
+				editorContentStyles.decisionStyles,
+				editorContentStyles.taskItemStylesWithBlockTaskItem,
+				editorContentStyles.taskItemCheckboxStyles,
+				editorContentStyles.decisionIconWithVisualRefresh,
+				editorContentStyles.statusStyles,
+				isStatusStylesTeam26
+					? editorContentStyles.statusStylesTeam26
+					: fg('platform-component-visual-refresh')
+						? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
+						: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
+				isStatusStylesTeam26 &&
+					isExperimentEnabled('platform_status_lozenge_fractional_zoom_fix') &&
+					editorContentStyles.statusStylesTeam26TextTrim,
+				isStatusStylesTeam26 &&
+					isUpdateStatusColorsEnabled &&
+					editorContentStyles.statusStylesNamedAccent,
+				isStatusStylesTeam26 &&
+					!isUpdateStatusColorsEnabled &&
+					editorContentStyles.statusStylesNamedSemantic,
+				editorContentStyles.statusStylesHexAccent,
+				fg('platform_editor_ai_show_diff_patch_2') && editorContentStyles.deletedStatusStrikeStyles,
+				editorContentStyles.annotationStyles,
+				editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
+				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
+					editorContentStyles.smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
+				editorContentStyles.editorControlsSmartCardStyles,
+				editorContentStyles.embedCardStyles,
+				editorContentStyles.unsupportedStyles,
+				editorContentStyles.vanillaTooltipDefaultStyles,
+				fg('confluence_ncs_step_diffing_version_history') &&
+					editorContentStyles.contributorTagStyles,
+				isExperimentEnabled('platform_editor_vanilla_node_views_phase1') &&
+					editorContentStyles.vanillaUnsupportedStyles,
+				editorContentStyles.resizerStyles,
+				expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true) &&
+					expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
+					editorContentStyles.resizerBottomHandleStyles,
+				editorContentStyles.layoutBaseStyles,
+				editorContentStyles.alignMultipleWrappedImageInLayoutStyles,
+				editorContentStyles.syncBlockStylesBase,
+				fg('platform-dst-tokens-finesse') && editorContentStyles.syncBlockSelectedStyles,
+				// Apply sync block delta styles conditionally based on useStandardNodeWidth (negative margins or not)
+				!useStandardNodeWidth && editorContentStyles.syncBlockStyles,
+				editorContentStyles.syncBlockOverflowStyles,
+				editorContentStyles.syncBlockFirstNodeStyles,
+				editorContentStyles.syncBlockTextSelectionStyles,
+				editorContentStyles.syncBlockInteractiveCursorStyles,
+				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutBaseStylesAdvanced,
+				editorExperiment('advanced_layouts', true)
+					? editorContentStyles.layoutSectionStylesAdvanced
+					: editorContentStyles.layoutSectionStylesNotAdvanced,
+				editorExperiment('advanced_layouts', true) &&
+					!fg('platform-dst-top-layer-tooltip') &&
+					editorContentStyles.layoutDragHandleWrapperStylesLegacy,
+				editorExperiment('advanced_layouts', true) &&
+					fg('platform-dst-top-layer-tooltip') &&
+					editorContentStyles.layoutDragHandleWrapperStylesTopLayer,
+				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutColumnDividerStyles,
+				editorExperiment('advanced_layouts', true) &&
+					editorContentStyles.layoutColumnDividerStylesNestedDnD,
+				editorExperiment('advanced_layouts', true)
+					? editorContentStyles.layoutColumnStylesAdvanced
+					: editorContentStyles.layoutColumnStylesNotAdvanced,
+				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutColumnResizeStyles,
+				editorExperiment('advanced_layouts', true)
+					? editorContentStyles.layoutSelectedStylesAdvanced
+					: editorContentStyles.layoutSelectedStylesNotAdvanced,
+				editorContentStyles.layoutSelectedStylesAdvancedFix,
+				editorExperiment('advanced_layouts', true) &&
+					editorContentStyles.layoutColumnResponsiveStyles,
+				editorExperiment('advanced_layouts', true) &&
+					editorContentStyles.layoutResponsiveBaseStyles,
+				editorContentStyles.layoutBaseStylesNestedDndExcludingBodiedSync,
+				editorContentStyles.layoutColumnMartinTopFixes,
+				editorContentStyles.smartLinksInLivePagesStyles,
+				editorContentStyles.linkingVisualRefreshV1Styles,
+				editorContentStyles.dateVanillaStyles,
+				contentMode === 'compact'
+					? editorContentStyles.paragraphStylesWithScaledMargin
+					: editorContentStyles.paragraphStylesUGCRefreshed,
+				editorContentStyles.linkStyles,
+				browser.safari && editorContentStyles.listsStylesSafariFix,
+				editorContentStyles.pragmaticResizerStylesSyncedBlock,
+				editorContentStyles.pragmaticResizerStyles,
+				expValEqualsNoExposure(
+					'platform_editor_lovability_resize_dividers_panels',
+					'isEnabled',
+					true,
+				) &&
+					isExperimentEnabled('platform_editor_resizer_selector_jsdom_fix') &&
+					editorContentStyles.pragmaticResizerStylesPanelAndRuleJsdomFix,
+				expValEqualsNoExposure(
+					'platform_editor_lovability_resize_dividers_panels',
+					'isEnabled',
+					true,
+				) &&
+					!isExperimentEnabled('platform_editor_resizer_selector_jsdom_fix') &&
+					editorContentStyles.pragmaticResizerStylesPanelAndRule,
+				isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
+					editorContentStyles.pragmaticResizerStylesExtensions,
+				editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
+				// Mirrors the two conditions above, inverted: the handles now exist for every breakout
+				// mark, so they must be hidden where resizing isn't supported.
+				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
+					!expValEqualsNoExposure(
+						'platform_editor_lovability_resize_dividers_panels',
+						'isEnabled',
+						true,
+					) &&
+					editorContentStyles.pragmaticResizerStylesHiddenForPanelAndRule,
+				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
+					!isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
+					editorContentStyles.pragmaticResizerStylesHiddenForExtensions,
+				editorExperiment('advanced_layouts', true) &&
+					editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,
+				editorContentStyles.pragmaticResizerStylesForTooltip,
+				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
+					editorContentStyles.pragmaticResizerStylesWithReducedEditorGutter,
+				editorContentStyles.aiPanelBaseStyles,
+				isFirefox && editorContentStyles.aiPanelBaseFirefoxStyles,
+				colorMode === 'dark' && editorContentStyles.aiPanelDarkStyles,
+				colorMode === 'dark' && isFirefox && editorContentStyles.aiPanelDarkFirefoxStyles,
+				viewMode === 'view' && editorContentStyles.layoutStylesForView,
+				viewMode === 'view' &&
+					editorExperiment('advanced_layouts', true) &&
+					editorContentStyles.layoutSelectedStylesForViewAdvanced,
+				viewMode === 'view' &&
+					editorExperiment('advanced_layouts', false) &&
+					editorContentStyles.layoutSelectedStylesForViewNotAdvanced,
+				viewMode === 'view' &&
+					editorExperiment('advanced_layouts', true) &&
+					editorContentStyles.layoutResponsiveStylesForView,
+				isComment && editorContentStyles.commentEditorStyles,
+				isComment && editorContentStyles.tableCommentEditorStyles,
+				(isComment || isChromeless) && editorContentStyles.nonFullPageContainerTypeStyles,
+				isComment &&
+					(fg('platform_editor_comment_margin_cq') ||
+						isExperimentEnabled('work_item_modernization')) &&
+					editorContentStyles.commentLessMarginStyles,
+				isFullPage && editorContentStyles.fullPageEditorStyles,
+				isFullPage && editorContentStyles.scrollbarStyles,
+				editorContentStyles.firstCodeBlockWithNoMargin,
+				editorContentStyles.firstBlockNodeStyles,
+				editorContentStyles.firstNodeWidgetFixStyles,
+				editorContentStyles.mentionNodeStyles,
+				isExperimentEnabled('platform_editor_mention_avatar_nowrap') &&
+					editorContentStyles.mentionAvatarNoWrapStyles,
+				colorMode === 'dark' && editorContentStyles.agentMentionShimmerDarkMode,
+				editorContentStyles.mentionsSelectionStyles,
+				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
+					? editorContentStyles.scaledEmojiStyles
+					: editorContentStyles.emojiStyles,
+				isFloatingTocEnabled
+					? editorContentStyles.directEmojiSelectionStyles
+					: editorContentStyles.emojiSelectionStyles,
+				contentMode === 'compact' &&
+					isDense &&
+					expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
+					editorContentStyles.scaledEmojiDenseStyles,
+				contentMode === 'compact' &&
+					isDense &&
+					!expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
+					editorContentStyles.emojiDenseStyles,
+				editorContentStyles.panelViewStyles,
+				editorContentStyles.mediaGroupStyles,
+				editorContentStyles.mediaAlignmentStyles,
+				editorContentStyles.tableLayoutFixesWithFontSize,
+				editorContentStyles.tableContainerStyles,
+				editorContentStyles.tableSharedStyle,
+				isExperimentEnabled('platform_editor_table_css_overflow_shadow') &&
+					editorContentStyles.tableScrollInlineShadowStyles,
+				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
+				(browser.gecko || browser.ie || (browser.mac && browser.chrome)) &&
+					editorContentStyles.tableSharedStyleBackgroundClipFix,
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? editorContentStyles.tableSharedStyle_with_platform_editor_table_q4_loveability
+					: editorContentStyles.tableSharedStyle_without_platform_editor_table_q4_loveability,
+				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) &&
+					editorContentStyles.tableSharedStyle_with_platform_editor_table_menu_updates,
+				fg('platform_editor_bordered_panel_nested_in_table') &&
+					editorContentStyles.tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table,
+				editorContentStyles.tableEmptyRowStyles,
+				// SSR-safe rounded corners. Gated to match the table plugin migration that drops
+				// roundedTableCellCornerStyles() from the client-only <Global> styles.
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					editorContentStyles.tableRoundedCornerStyles,
+				editorContentStyles.tableContentModeStyles,
+				editorContentStyles.tableContentModeExtensionContainmentStyles,
+				editorContentStyles.tableContentModeNestedTableStyles,
+				editorContentStyles.tableCellBackgroundColorOverrides,
+				editorContentStyles.hyperLinkFloatingToolbarStyles,
+				editorContentStyles.selectionToolbarAnimationStyles,
+				editorContentStyles.blockquoteDangerStyles,
+				editorContentStyles.textDangerStyles,
+				editorContentStyles.listDangerStyles,
+				editorContentStyles.dangerDateStyles,
+				editorContentStyles.emojiDangerStyles,
+				editorContentStyles.mentionDangerStyles,
+				editorContentStyles.decisionDangerStyles,
+				editorContentStyles.statusDangerStyles,
+				fg('platform_editor_ai_show_diff_patch_2') &&
+					editorContentStyles.atomicInlineChangedBoxShadowStyles,
+				editorContentStyles.dangerRuleStyles,
+				editorContentStyles.mediaDangerStyles,
+				editorContentStyles.nestedPanelDangerStyles,
+			]}
+			data-editor-scroll-container={isScrollable ? 'true' : undefined}
+			data-testid="editor-content-container"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={style as React.CSSProperties}
+			tabIndex={isScrollable ? 0 : undefined}
+			role={isScrollable ? 'region' : undefined}
+		>
+			{children}
+		</div>
+	);
+});
 
 export default EditorContentContainer;

@@ -285,24 +285,32 @@ const generateComponentPropTypeCode = (
 	const sourceDependencyTypeNames = getExportedTypeNames(sourceFilePath, project).filter(
 		(name) => name !== interfaceName && !allPropsNames.includes(name),
 	);
-	const referencedSourceTypes = sourceDependencyTypeNames.filter((name) =>
-		new RegExp(`\\b${name}\\b`).test(generatedCode),
-	);
 	const inlinedTypeLines: string[] = [];
-	if (referencedSourceTypes.length > 0) {
+	if (sourceDependencyTypeNames.length > 0) {
 		let sourceFile = project.getSourceFile(sourceFilePath);
 		if (!sourceFile) {
 			sourceFile = project.addSourceFileAtPath(sourceFilePath);
 		}
-		for (const name of referencedSourceTypes) {
-			const iface = sourceFile.getInterface(name);
-			if (iface) {
-				inlinedTypeLines.push(iface.getText());
-				continue;
-			}
-			const alias = sourceFile.getTypeAlias(name);
-			if (alias) {
-				inlinedTypeLines.push(alias.getText());
+		const getDeclarationText = (name: string): string | undefined =>
+			sourceFile?.getInterface(name)?.getText() ?? sourceFile?.getTypeAlias(name)?.getText();
+
+		// Follow references transitively (e.g. Props -> Section -> Item) so every inlined
+		// declaration's own references are also inlined.
+		const referencedSourceTypes = new Set<string>();
+		let pendingText = generatedCode;
+		while (pendingText) {
+			const newlyReferenced = sourceDependencyTypeNames.filter(
+				(name) => !referencedSourceTypes.has(name) && new RegExp(`\\b${name}\\b`).test(pendingText),
+			);
+			newlyReferenced.forEach((name) => referencedSourceTypes.add(name));
+			pendingText = newlyReferenced.map((name) => getDeclarationText(name) ?? '').join('\n');
+		}
+
+		// Emit in source declaration order so dependencies read top-down as authored.
+		for (const name of sourceDependencyTypeNames) {
+			const text = referencedSourceTypes.has(name) ? getDeclarationText(name) : undefined;
+			if (text) {
+				inlinedTypeLines.push(text);
 			}
 		}
 	}

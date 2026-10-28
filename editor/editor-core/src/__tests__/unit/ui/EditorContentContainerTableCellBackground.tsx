@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { tableBackgroundColorNameByHex } from '@atlaskit/adf-schema/tableNodes';
-import { tableCellBackgroundColorVariablesForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
+import { tableCellBackgroundColorVariablesForCompiled as tableCellBackgroundColorVariables } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
-import EditorContentContainerCompiled from '../../../ui/EditorContentContainer/EditorContentContainer';
+import EditorContentContainer from '../../../ui/EditorContentContainer/EditorContentContainer';
 
 /**
  * `tableCellBackgroundColorOverrides` hand-maintains one rule per table cell background colour.
@@ -36,7 +36,7 @@ describe('editor table cell background colour selectors', () => {
 	 * and the declaration, and reports every drift at once.
 	 */
 	const emittedRules = (): string[] => {
-		render(<EditorContentContainerCompiled />);
+		render(<EditorContentContainer />);
 
 		return Array.from(document.styleSheets)
 			.flatMap((sheet) => Array.from(sheet.cssRules))
@@ -74,7 +74,7 @@ describe('editor table cell background colour selectors', () => {
 		// built, so a rule can name a property that is never emitted. That is the HOT-305120
 		// failure mode, and the assertion above cannot see it: both sides derive from the same
 		// palette, so they agree while the property behind the name does not exist.
-		const defined = Object.keys(tableCellBackgroundColorVariablesForCompiled);
+		const defined = Object.keys(tableCellBackgroundColorVariables);
 		const referenced = emittedRules().flatMap((rule) =>
 			Array.from(rule.matchAll(/var\((--[a-z-]+)\)/gu), ([, name]) => name),
 		);

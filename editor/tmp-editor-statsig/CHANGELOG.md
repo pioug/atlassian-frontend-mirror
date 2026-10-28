@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 248.0.0
+
+### Major Changes
+
+- [`ada3de6988596`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ada3de6988596) -
+  Clean up the shipped `confluence_live_doc_table_sort_bugfix` experiment: the renderer table sort
+  button now always sits above header content so its whole body is clickable in live docs.
+
 ## 247.0.0
 
 ### Major Changes

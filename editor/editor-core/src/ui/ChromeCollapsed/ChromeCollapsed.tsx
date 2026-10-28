@@ -36,7 +36,7 @@ const inputCompiledStyles = cssMap({
 	},
 });
 
-export const ChromeCollapsedCompiled: React.ForwardRefExoticComponent<
+export const ChromeCollapsed: React.ForwardRefExoticComponent<
 	InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<HTMLInputElement>
 > = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
 	// eslint-disable-next-line react/jsx-props-no-spreading

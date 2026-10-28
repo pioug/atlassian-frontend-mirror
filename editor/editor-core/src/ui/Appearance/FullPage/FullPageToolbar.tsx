@@ -37,12 +37,12 @@ import {
 	MainToolbarForSecondChildWrapper,
 } from './CustomToolbarWrapper';
 import { MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT } from './MainToolbar';
-import {
-	CustomToolbarWrapperCompiled,
-	MainToolbarIconBeforeCompiled,
-	NonCustomToolbarWrapperCompiled,
-} from './MainToolbar-compiled';
 import { MainToolbarWrapper } from './MainToolbarWrapper';
+import {
+	CustomToolbarWrapper,
+	MainToolbarIconBefore,
+	NonCustomToolbarWrapper,
+} from './MainToolbarWrappers';
 
 export type ToolbarEditorPlugins = [
 	OptionalPlugin<AnalyticsPlugin>,
@@ -95,10 +95,8 @@ export const EditorToolbar: React.MemoExoticComponent<
 	const popupsMountPoint = hasToolbarPortal ? undefined : props.popupsMountPoint;
 
 	const nonCustomToolbar = (
-		<NonCustomToolbarWrapperCompiled>
-			{props.beforeIcon && (
-				<MainToolbarIconBeforeCompiled>{props.beforeIcon}</MainToolbarIconBeforeCompiled>
-			)}
+		<NonCustomToolbarWrapper>
+			{props.beforeIcon && <MainToolbarIconBefore>{props.beforeIcon}</MainToolbarIconBefore>}
 			<Toolbar
 				editorView={props.editorView}
 				editorActions={props.editorActions}
@@ -115,11 +113,11 @@ export const EditorToolbar: React.MemoExoticComponent<
 				hasMinWidth={props.hasMinWidth}
 				twoLineEditorToolbar={twoLineEditorToolbar}
 			/>
-		</NonCustomToolbarWrapperCompiled>
+		</NonCustomToolbarWrapper>
 	);
 
 	const customToolbar = (
-		<CustomToolbarWrapperCompiled>
+		<CustomToolbarWrapper>
 			{!!props.customPrimaryToolbarComponents &&
 			'before' in props.customPrimaryToolbarComponents ? (
 				<BeforePrimaryToolbarWrapper
@@ -141,7 +139,7 @@ export const EditorToolbar: React.MemoExoticComponent<
 			{!!props.customPrimaryToolbarComponents && 'after' in props.customPrimaryToolbarComponents
 				? props.customPrimaryToolbarComponents.after
 				: props.customPrimaryToolbarComponents}
-		</CustomToolbarWrapperCompiled>
+		</CustomToolbarWrapper>
 	);
 
 	useEffect(() => {

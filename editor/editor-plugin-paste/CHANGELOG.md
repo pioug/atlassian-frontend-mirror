@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 31.0.3
+
+### Patch Changes
+
+- [`4cdaf1f75d6ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cdaf1f75d6ad) -
+  Use const for stable local bindings
+- Updated dependencies
+
+## 31.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.1
 
 ### Patch Changes

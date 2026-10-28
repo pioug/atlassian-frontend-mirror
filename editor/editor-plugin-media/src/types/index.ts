@@ -67,6 +67,10 @@ export interface MediaPluginOptions {
 	allowDropzoneDropLine?: boolean;
 	allowImageEditing?: boolean;
 	allowImagePreview?: boolean;
+	/**
+	 * Shows the Expand toolbar button for video media.
+	 */
+	allowVideoPreview?: boolean;
 	allowLazyLoading?: boolean;
 	allowLinking?: boolean;
 	allowMarkingUploadsAsIncomplete?: boolean;
@@ -238,6 +242,7 @@ export type MediaFloatingToolbarOptions = {
 	allowCommentsOnMedia?: boolean;
 	allowImageEditing?: boolean;
 	allowImagePreview?: boolean;
+	allowVideoPreview?: boolean;
 	allowLinking?: boolean;
 	allowMediaInline?: boolean;
 	allowMediaInlineImages?: boolean;

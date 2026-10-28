@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-media
 
+## 32.1.0
+
+### Minor Changes
+
+- [`6344f531f7d03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6344f531f7d03) -
+  [ux] Show the Expand toolbar button for videos, so they open in the Media Viewer like images.
+  Confluence enables it with the `cc_comments_media_viewer_sidebar` experiment and the
+  `cc_comments_inset_media_viewer` feature gate.
+
+  `@atlaskit/editor-plugin-media` adds an `allowVideoPreview` option, the video counterpart of
+  `allowImagePreview`. It shows the Expand toolbar button for videos and defaults off.
+
+  `@atlaskit/editor-presets` sets `allowVideoPreview` in the Confluence base full-page preset when
+  both the `cc_comments_media_viewer_sidebar` experiment and the `cc_comments_inset_media_viewer`
+  feature gate are on.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.2
+
+### Patch Changes
+
+- [`800e9d2b92528`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800e9d2b92528) -
+  Add viewport-aware rendered events for MAUI embeds and Remix media behind
+  `platform_maui_retention_analytics`, deduplicated per result within each tracker.
+
+  Native embeds opt in through `uiConfig.deferRenderedEventUntilVisible` and can provide
+  `getRenderedResultId` for analytics attribution. Other embeds retain existing timing.
+
+  Media tracking preserves preview readiness across replacements and observes only eligible Remix
+  media. Analytics prefer the matching Remix source regardless of tracking eligibility.
+
+- Updated dependencies
+
 ## 32.0.1
 
 ### Patch Changes

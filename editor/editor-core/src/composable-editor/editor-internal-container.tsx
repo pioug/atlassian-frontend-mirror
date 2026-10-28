@@ -14,7 +14,7 @@ const editorContainerCompiledStyles = cssMap({
 	},
 });
 
-export const EditorInternalContainerCompiled = ({
+export const EditorInternalContainer = ({
 	children,
 	fontSize,
 }: {

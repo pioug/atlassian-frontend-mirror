@@ -36,7 +36,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -380,7 +379,7 @@ export const BlockControlsSurfaceDragHandle = ({
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop -- Pragmatic DnD owns this native drag source.
 			onDrop={(event) => event.stopPropagation()}
 			data-editor-block-ctrl-drag-handle
-			data-blocks-drag-handle={fg('confluence_remix_button_right_side_block_fg') || undefined}
+			data-blocks-drag-handle
 			data-testid="block-controls-surface-drag-handle"
 		>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop -- Mirrors the legacy Chrome drag-start forwarding workaround. */}

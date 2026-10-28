@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl';
 import {
 	ASK_ROVO_MENU_ITEM,
 	MENU,
+	RECOMMENDED_SECTION,
 	SEARCH_RESULTS_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import type {
@@ -55,6 +56,12 @@ type MatchedItem = {
 	sourceIndex: number;
 };
 
+type ContentSection = {
+	items: RegisterMenuItem[];
+	section: RegisterMenuSection;
+	viewMoreItem?: RegisterMenuItem;
+};
+
 const getParentRank = (component: RegisterComponent, parentKey: string): number =>
 	component.parents?.find((parent) => parent.key === parentKey)?.rank ?? Number.MAX_SAFE_INTEGER;
 
@@ -75,96 +82,129 @@ const compareSearchResults = (a: MatchedItem, b: MatchedItem): number =>
 const comparePrioritizedSearchResults = (a: MatchedItem, b: MatchedItem): number =>
 	(b.priorityGroup ?? 0) - (a.priorityGroup ?? 0) || compareSearchResults(a, b);
 
-const getSearchResults = (matches: MatchedItem[]): RegisterMenuItem[] => {
+const getSearchResults = (matches: MatchedItem[]): MatchedItem[] => {
 	const topMatches = Array.from(matches)
 		.sort(compareSearchResults)
 		.slice(0, SEARCH_TOP_MATCH_LIMIT);
 	const topMatchIdentities = new Set(topMatches.map(({ identity }) => identity));
-	const tailMatches = matches.filter(({ identity }) => !topMatchIdentities.has(identity));
 
-	return [...topMatches, ...tailMatches].map(({ item }) => item);
+	return [...topMatches, ...matches.filter(({ identity }) => !topMatchIdentities.has(identity))];
 };
 
-const getRenderedMenuItems = (
-	section: RegisterMenuSection,
-	childrenMap: ChildrenMap,
-	surfaceContext?: SurfaceContext,
-): RegisterMenuItem[] =>
-	(childrenMap.get(getComponentIdentity(section)) ?? []).filter(
-		(child): child is RegisterMenuItem =>
-			child.type === 'menu-item' && willComponentRender(child, childrenMap, surfaceContext),
-	);
-
-const buildBrowseSections = ({
+/** Recommended uses resolved items rather than registered children. */
+const readMenuSections = ({
 	childrenMap,
-	contentSections,
-	selectCategoryItems,
+	recommendedItems = [],
+	sections,
 	surfaceContext,
 }: {
 	childrenMap: ChildrenMap;
-	contentSections: RegisterMenuSection[];
-	selectCategoryItems?: QuickInsertCategoryItemSelectionPolicy;
+	recommendedItems?: RegisterMenuItem[];
+	sections: RegisterComponent[];
 	surfaceContext?: SurfaceContext;
+}): ContentSection[] => {
+	const renderedSections: ContentSection[] = [];
+	for (const section of sections) {
+		if (section.type !== 'menu-section') {
+			continue;
+		}
+		if (surfaceContext ? section.isHidden?.({ surfaceContext }) : section.isHidden?.()) {
+			continue;
+		}
+		if (section.key === RECOMMENDED_SECTION.key) {
+			renderedSections.push({ section, items: recommendedItems });
+			continue;
+		}
+		const children = childrenMap.get(getComponentIdentity(section)) ?? [];
+		const items: RegisterMenuItem[] = [];
+		let viewMoreItem: RegisterMenuItem | undefined;
+		for (const child of children) {
+			if (child.type !== 'menu-item' || !willComponentRender(child, childrenMap, surfaceContext)) {
+				continue;
+			}
+			if (isSectionOverflowItemKey(child.key)) {
+				viewMoreItem ??= child;
+			} else {
+				items.push(child);
+			}
+		}
+		// Empty registrations are visible leaves; containers need a visible child.
+		if (children.length === 0 || items.length > 0 || viewMoreItem) {
+			renderedSections.push({ section, items, viewMoreItem });
+		}
+	}
+	return renderedSections;
+};
+
+const getOwnerSectionKey = (
+	item: RegisterMenuItem,
+	isRecommendedItem: (item: RegisterMenuItem) => boolean,
+): string | undefined => (isRecommendedItem(item) ? RECOMMENDED_SECTION.key : item.parents[0]?.key);
+
+const buildBrowseSections = ({
+	contentSections,
+	isRecommendedItem,
+	selectCategoryItems,
+}: {
+	contentSections: ContentSection[];
+	isRecommendedItem: (item: RegisterMenuItem) => boolean;
+	selectCategoryItems?: QuickInsertCategoryItemSelectionPolicy;
 }): QuickInsertMenuContent => {
 	const sections: RegisteredMenuSection[] = [];
 
-	for (const section of contentSections) {
-		const children = getRenderedMenuItems(section, childrenMap, surfaceContext);
-		const overflowItems = children.filter((child) => isSectionOverflowItemKey(child.key));
-		const viewMoreItem = overflowItems[overflowItems.length - 1];
-		const items = children.filter((child) => !isSectionOverflowItemKey(child.key));
-
-		if (items.length === 0) {
+	for (const { items, section, viewMoreItem } of contentSections) {
+		const ownedItems = items.filter(
+			(item) => getOwnerSectionKey(item, isRecommendedItem) === section.key,
+		);
+		if (ownedItems.length === 0) {
 			continue;
 		}
-
 		const selectedItems =
-			viewMoreItem !== undefined && selectCategoryItems !== undefined
-				? selectCategoryItems(items)
-				: items;
-		if (selectedItems.length < items.length && viewMoreItem !== undefined) {
-			sections.push([section, ...selectedItems, viewMoreItem]);
-		} else {
-			sections.push([section, ...selectedItems]);
-		}
+			viewMoreItem && selectCategoryItems ? selectCategoryItems(ownedItems) : ownedItems;
+		sections.push([
+			section,
+			...selectedItems,
+			...(viewMoreItem && selectedItems.length < ownedItems.length ? [viewMoreItem] : []),
+		]);
 	}
 
 	return { fallbackItems: [], sections };
 };
 
 const buildSearchSections = ({
-	childrenMap,
 	components,
 	contentSections,
 	formatMessage,
+	isRecommendedItem,
 	query,
 	root,
-	surfaceContext,
 }: {
-	childrenMap: ChildrenMap;
 	components: RegisterComponent[];
-	contentSections: RegisterMenuSection[];
+	contentSections: ContentSection[];
 	formatMessage: IntlShape['formatMessage'];
+	isRecommendedItem: (item: RegisterMenuItem) => boolean;
 	query: string;
 	root: RegisterComponent;
-	surfaceContext?: SurfaceContext;
 }): QuickInsertMenuContent => {
-	const matches = new Map<string, MatchedItem>();
 	const sourceIndexByComponent = new Map(components.map((component, index) => [component, index]));
+	const matches = new Map<string, MatchedItem>();
+	let fallbackItem: RegisterMenuItem | undefined;
 
-	for (const section of contentSections) {
-		for (const item of getRenderedMenuItems(section, childrenMap, surfaceContext)) {
-			if (isSectionOverflowItemKey(item.key)) {
-				continue;
+	for (const { items, section } of contentSections) {
+		const sectionRank = getParentRank(section, root.key);
+		for (const item of items) {
+			if (item.key === ASK_ROVO_MENU_ITEM.key) {
+				fallbackItem ??= item;
 			}
-
 			const match = item.match?.({ formatMessage, itemKey: item.key, query });
-			if (item.match && match === null) {
+			if (
+				(item.match && match === null) ||
+				getOwnerSectionKey(item, isRecommendedItem) !== section.key
+			) {
 				continue;
 			}
-
 			const candidate: MatchedItem = {
-				identity: `${item.type}:${item.key}`,
+				identity: getComponentIdentity(item),
 				item,
 				itemRank: getParentRank(item, section.key),
 				priorityGroup:
@@ -172,8 +212,8 @@ const buildSearchSections = ({
 						? match.priorityGroup
 						: undefined,
 				score: Math.min(1, Math.max(0, match?.score ?? 0)),
+				sectionRank,
 				sourceIndex: sourceIndexByComponent.get(item) ?? Number.MAX_SAFE_INTEGER,
-				sectionRank: getParentRank(section, root.key),
 			};
 			const existing = matches.get(candidate.identity);
 			if (!existing || compareMatchedItems(candidate, existing) < 0) {
@@ -191,26 +231,26 @@ const buildSearchSections = ({
 	);
 	const orderedSearchResults = [
 		...prioritizedMatches.sort(comparePrioritizedSearchResults).map(({ item }) => item),
-		...getSearchResults(unprioritizedMatches),
+		...getSearchResults(unprioritizedMatches).map(({ item }) => item),
 	];
 	if (orderedSearchResults.length > 0) {
 		return { fallbackItems: [], sections: [[SEARCH_RESULTS_HEADING, ...orderedSearchResults]] };
 	}
-
-	const fallbackItem = contentSections
-		.flatMap((section) => childrenMap.get(getComponentIdentity(section)) ?? [])
-		.find(
-			(component): component is RegisterMenuItem =>
-				component.type === ASK_ROVO_MENU_ITEM.type &&
-				component.key === ASK_ROVO_MENU_ITEM.key &&
-				willComponentRender(component, childrenMap, surfaceContext),
-		);
 
 	return {
 		fallbackItems: fallbackItem ? [fallbackItem] : [],
 		sections: [],
 	};
 };
+
+/**
+ * Resolves the Recommended items for a browse. Receives the unranked components so a resolver
+ * can look recommendations up by their registered keys.
+ */
+export type RecommendedItemsResolver = (params: {
+	components: RegisterComponent[];
+	surfaceContext?: SurfaceContext;
+}) => RegisterMenuItem[];
 
 /**
  * Builds the registered quick-insert menu model. An empty query browses every
@@ -220,6 +260,7 @@ export const getQuickInsertMenuModel = ({
 	components,
 	formatMessage,
 	getItemRank,
+	getRecommendedItems,
 	query,
 	rootComponent,
 	selectCategoryItems,
@@ -228,6 +269,8 @@ export const getQuickInsertMenuModel = ({
 	components: RegisterComponent[];
 	formatMessage: IntlShape['formatMessage'];
 	getItemRank?: RegisteredItemRankResolver;
+	/** Fills Recommended when browsing. Search never shows Recommended. */
+	getRecommendedItems?: RecommendedItemsResolver;
 	query: string;
 	rootComponent: SurfaceIdentifier;
 	selectCategoryItems?: QuickInsertCategoryItemSelectionPolicy;
@@ -239,32 +282,44 @@ export const getQuickInsertMenuModel = ({
 		root,
 		topLevelChildren = [],
 	} = resolveSurface(rankedComponents, rootComponent);
-	if (!root || !willComponentRender(root, childrenMap, surfaceContext)) {
+	if (!root || (surfaceContext ? root.isHidden?.({ surfaceContext }) : root.isHidden?.())) {
 		return { fallbackItems: [], footer: undefined, root: undefined, sections: [] };
 	}
 
-	const renderedSections = topLevelChildren.filter(
-		(section): section is RegisterMenuSection =>
-			section.type === 'menu-section' && willComponentRender(section, childrenMap, surfaceContext),
+	const isBrowse = query === '';
+	const renderedSections = readMenuSections({
+		sections: topLevelChildren,
+		childrenMap,
+		surfaceContext,
+		recommendedItems: isBrowse ? getRecommendedItems?.({ components, surfaceContext }) : undefined,
+	});
+	if (topLevelChildren.length > 0 && renderedSections.length === 0) {
+		return { fallbackItems: [], footer: undefined, root: undefined, sections: [] };
+	}
+	const footerSection = renderedSections.find(({ section }) => isMenuFooterSectionKey(section.key));
+	const contentSections = renderedSections.filter(
+		({ section }) =>
+			!isMenuFooterSectionKey(section.key) && (isBrowse || section.key !== RECOMMENDED_SECTION.key),
 	);
-	const footerSection = renderedSections.find(({ key }) => isMenuFooterSectionKey(key));
-	const contentSections = renderedSections.filter(({ key }) => !isMenuFooterSectionKey(key));
+	const recommendedIdentities = new Set(
+		contentSections
+			.find(({ section }) => section.key === RECOMMENDED_SECTION.key)
+			?.items.map(getComponentIdentity),
+	);
+	const isRecommendedItem = (item: RegisterMenuItem) =>
+		recommendedIdentities.has(getComponentIdentity(item));
 
-	const content =
-		query === ''
-			? buildBrowseSections({ childrenMap, contentSections, selectCategoryItems, surfaceContext })
-			: buildSearchSections({
-					childrenMap,
-					components: rankedComponents,
-					contentSections,
-					formatMessage,
-					query,
-					root,
-					surfaceContext,
-				});
-	const footer = footerSection
-		? getRenderedMenuItems(footerSection, childrenMap, surfaceContext)[0]
-		: undefined;
+	const content = isBrowse
+		? buildBrowseSections({ contentSections, isRecommendedItem, selectCategoryItems })
+		: buildSearchSections({
+				components: rankedComponents,
+				contentSections,
+				formatMessage,
+				isRecommendedItem,
+				query,
+				root,
+			});
+	const footer = footerSection?.items[0];
 
 	return { ...content, footer, root };
 };

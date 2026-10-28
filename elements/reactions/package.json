@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "37.1.3",
+	"version": "37.1.5",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -151,9 +151,6 @@
 			"type": "boolean"
 		},
 		"a11y_reactions_reading_order": {
-			"type": "boolean"
-		},
-		"platform_reactions_a11y_group_added_reactions": {
 			"type": "boolean"
 		},
 		"platform_teamoji_26_refresh_emoji_picker_user_id": {

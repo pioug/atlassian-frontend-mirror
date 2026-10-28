@@ -16,15 +16,15 @@ const toolbarComponentsWrapperCompiledStyles = cssMap({
 	},
 });
 
-interface ToolbarComponentsWrapperCompiledProps {
+interface ToolbarComponentsWrapperProps {
 	children?: ReactNode;
 	'data-vc'?: string;
 }
 
-export const ToolbarComponentsWrapperCompiled = ({
+export const ToolbarComponentsWrapper = ({
 	children,
 	'data-vc': dataVc,
-}: ToolbarComponentsWrapperCompiledProps): JSX.Element => (
+}: ToolbarComponentsWrapperProps): JSX.Element => (
 	<div css={toolbarComponentsWrapperCompiledStyles.root} data-vc={dataVc}>
 		{children}
 	</div>

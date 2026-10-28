@@ -13,7 +13,7 @@ const clickWrapperCompiledStyles = cssMap({
 	},
 });
 
-export const ClickAreaBlockContainerCompiled = ({
+export const ClickAreaBlockContainer = ({
 	children,
 	...rest
 }: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (

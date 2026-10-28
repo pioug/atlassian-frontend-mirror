@@ -518,6 +518,9 @@
 			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../search/search-client/tsconfig.app.json"
 		},
 		{

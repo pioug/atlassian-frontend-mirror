@@ -1,5 +1,20 @@
 # @atlaskit/collab-provider
 
+## 39.0.4
+
+### Patch Changes
+
+- [`750248fa12247`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/750248fa12247) -
+  GCP collaboration connects with WebSocket first and polling fallback behind
+  platform_editor_gcp_collab_ws_first. Detect GCP using the Edge cookie, the shared cloud detector,
+  or the staging hostname.
+
+## 39.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.0.2
 
 ### Patch Changes

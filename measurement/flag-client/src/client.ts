@@ -13,15 +13,19 @@ import {
 	type ExposureIdentity,
 	type InitializationStatus,
 } from './exposure/attribution';
+import { createExposureClock, type ExposureClock } from './exposure/clock';
 import { exposureIdentifiersKey, exposureIdentityKey } from './exposure/deduplication';
-import { createExposureEnvironment, type ExposureEnvironment } from './exposure/environment';
-import { createExposureLogger, NOOP_EXPOSURE_LOGGER, type ExposureLogger } from './exposure/logger';
-import {
-	attributionIdentifiers,
-	mapExposureRecord,
-	type ExposureMappingInput,
-} from './exposure/mapper';
+import { loadExposureDelivery, type ExposureDelivery } from './exposure/delivery-loader';
+import { attributionIdentifiers } from './exposure/identifiers';
+import type { ExposureDeliveryOptions } from './exposure/logger';
+import type { ExposureMappingInput } from './exposure/mapper';
 import { resolveExposureLogging } from './exposure/options';
+import {
+	BufferingExposureSink,
+	deliveringSink,
+	NOOP_EXPOSURE_SINK,
+	type ExposureSink,
+} from './exposure/sink';
 import { capturePayload } from './payload-capture';
 import {
 	isRecord,
@@ -149,11 +153,18 @@ export class FlagClient {
 
 	private readonly retained: RetainedState;
 
-	/** Exposure telemetry, or the no-op logger when exposure logging is disabled. */
-	private readonly exposureLogger: ExposureLogger;
+	/**
+	 * Where reads send their exposures: the delivery subsystem once it has loaded, a buffer that
+	 * replays into it until then, or the no-op sink when exposure logging is disabled.
+	 */
+	private exposureSink: ExposureSink;
 
-	/** The host environment of an enabled logger, used for exposure timestamps; `null` when disabled. */
-	private readonly exposureEnvironment: ExposureEnvironment | null;
+	/**
+	 * The clock an enabled client stamps its exposures with, and the flag that it logs at all; `null`
+	 * when exposure logging is disabled. The rest of the host environment belongs to the delivery
+	 * subsystem and is constructed with it.
+	 */
+	private readonly exposureClock: ExposureClock | null;
 
 	/** Exposure resource identity, resolved once from the construction options. */
 	private readonly exposureIdentity: ExposureIdentity;
@@ -181,20 +192,63 @@ export class FlagClient {
 			});
 		}
 
-		let environment: ExposureEnvironment | null = null;
-		let logger: ExposureLogger = NOOP_EXPOSURE_LOGGER;
+		let clock: ExposureClock | null = null;
+		let sink: ExposureSink = NOOP_EXPOSURE_SINK;
 		if (exposureLogging.enabled) {
 			try {
-				environment = createExposureEnvironment();
-				logger = createExposureLogger(exposureLogging.delivery, environment);
+				clock = createExposureClock();
+				sink = this.openSink(exposureLogging.delivery);
 			} catch {
 				// Construction never throws, so a host that cannot run exposure delivery logs nothing.
-				environment = null;
-				logger = NOOP_EXPOSURE_LOGGER;
+				clock = null;
+				sink = NOOP_EXPOSURE_SINK;
 			}
 		}
-		this.exposureEnvironment = environment;
-		this.exposureLogger = logger;
+		this.exposureClock = clock;
+		this.exposureSink = sink;
+	}
+
+	/**
+	 * The sink for an enabled client.
+	 *
+	 * The delivery subsystem is loaded on demand, so it is normally still arriving while the first
+	 * flags are read. Until it arrives those exposures are buffered and then replayed into it, so a
+	 * read on the critical path logs the same exposure an eagerly loaded subsystem would have logged.
+	 * A subsystem that fails to load leaves the client logging nothing, as a host that cannot run
+	 * delivery does.
+	 */
+	private openSink(options: ExposureDeliveryOptions): ExposureSink {
+		const delivery = loadExposureDelivery();
+		if (!isPending(delivery)) {
+			return deliveringSink(
+				delivery.createExposureLogger(options, delivery.createExposureEnvironment()),
+				delivery,
+			);
+		}
+
+		const buffer = new BufferingExposureSink();
+		// These callbacks run in a later microtask than the constructor, so the assignment below never
+		// races the one the constructor makes from this method's return value.
+		void delivery.then(
+			(loaded) => {
+				let sink: ExposureSink;
+				try {
+					sink = deliveringSink(
+						loaded.createExposureLogger(options, loaded.createExposureEnvironment()),
+						loaded,
+					);
+				} catch {
+					this.exposureSink = NOOP_EXPOSURE_SINK;
+					return;
+				}
+				buffer.replayInto(sink);
+				this.exposureSink = sink;
+			},
+			() => {
+				this.exposureSink = NOOP_EXPOSURE_SINK;
+			},
+		);
+		return buffer;
 	}
 
 	/**
@@ -250,7 +304,7 @@ export class FlagClient {
 
 		this.initialized = { payload: acquisition.payload };
 		this.currentUser = replacementUser;
-		this.exposureLogger.endDeduplicationWindows();
+		this.exposureSink.endDeduplicationWindows();
 		return { replaced: true };
 	}
 
@@ -313,7 +367,7 @@ export class FlagClient {
 	 * nothing when exposure logging is disabled and never throws.
 	 */
 	logExposure<T>(details: EvaluationDetails<T>): void {
-		if (this.exposureEnvironment === null) return;
+		if (this.exposureClock === null) return;
 		try {
 			const metadata: unknown = (details as Partial<EvaluationDetails<T>> | null | undefined)
 				?.metadata;
@@ -348,7 +402,7 @@ export class FlagClient {
 		retainContext: boolean,
 	): EvaluationDetails<T> {
 		const outcome = evaluate(this.evaluationState(), flagKey, safeDefaultValue);
-		if (this.exposureEnvironment !== null) {
+		if (this.exposureClock !== null) {
 			try {
 				const record = options?.disableExposureLogging !== true;
 				// A suppressed value read neither records nor retains, so it builds no context.
@@ -370,8 +424,8 @@ export class FlagClient {
 		context: ExposureContext,
 		manual: boolean,
 	): void {
-		const environment = this.exposureEnvironment;
-		if (environment === null) return;
+		const clock = this.exposureClock;
+		if (clock === null) return;
 		const { flagKey, variationId, ruleId, matchReason } = details.metadata;
 		const identityKey = exposureIdentityKey({
 			flagKey,
@@ -380,15 +434,13 @@ export class FlagClient {
 			matchReason,
 			identifiersKey: this.identifiersKey(context),
 		});
-		this.exposureLogger.log(identityKey, () =>
-			mapExposureRecord({
-				...context,
-				details,
-				identity: this.exposureIdentity,
-				manual,
-				epochMillis: environment.now(),
-			}),
-		);
+		this.exposureSink.log(identityKey, {
+			...context,
+			details,
+			identity: this.exposureIdentity,
+			manual,
+			epochMillis: clock.now(),
+		});
 	}
 
 	/** The identifier part of the deduplication identity, recomputed only when its source changes. */
@@ -588,6 +640,13 @@ function copyExposureLogging(value: ExposureLoggingOptions): ExposureLoggingOpti
 		// A throwing getter or a revoked proxy is reported as an unsupported `exposureLogging`.
 		return null as unknown as ExposureLoggingOptions;
 	}
+}
+
+/** Whether the exposure delivery subsystem is still loading. */
+function isPending(
+	delivery: ExposureDelivery | Promise<ExposureDelivery>,
+): delivery is Promise<ExposureDelivery> {
+	return typeof (delivery as Partial<Promise<ExposureDelivery>>).then === 'function';
 }
 
 /** The global `window` location origin, or `null` when it is absent, unreadable, or opaque. */

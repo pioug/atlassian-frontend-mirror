@@ -56,7 +56,7 @@ export interface Props {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class WithFlashCompiled extends React.Component<Props> {
+export class WithFlash extends React.Component<Props> {
 	private toggle = false;
 
 	render(): React.JSX.Element {

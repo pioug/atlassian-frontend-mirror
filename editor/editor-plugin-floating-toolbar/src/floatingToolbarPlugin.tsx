@@ -31,7 +31,10 @@ import type {
 	FloatingToolbarHandler,
 	FloatingToolbarOverflowDropdown,
 } from '@atlaskit/editor-common/types/floating-toolbar';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type {
+	ExtractInjectionAPI,
+	ExtractPluginSharedState,
+} from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
 import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
 import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
@@ -40,6 +43,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
@@ -178,6 +182,49 @@ function filterUndefined<T>(x?: T): x is T {
 }
 
 export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
+	let editorView: EditorView | undefined;
+	let sharedStateCache:
+		| WeakMap<EditorState, ExtractPluginSharedState<FloatingToolbarPlugin>>
+		| undefined;
+	const getSharedState = (
+		editorState: EditorState | undefined,
+	): ExtractPluginSharedState<FloatingToolbarPlugin> => {
+		if (!editorState) {
+			return undefined;
+		}
+
+		const memoizePreviousState = isExperimentEnabled('platform_editor_improve_inp');
+		if (memoizePreviousState) {
+			// Current-state reads remain live: handlers can depend on mutable values
+			// outside EditorState. Only historical reads may reuse a computed result.
+			if (editorView && editorState !== editorView.state) {
+				const cached = sharedStateCache?.get(editorState);
+				if (cached) {
+					return cached;
+				}
+			}
+		} else {
+			sharedStateCache = undefined;
+		}
+
+		const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
+
+		const configWithNodeInfo =
+			interactionState !== 'hasNotHadInteraction'
+				? (pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined)
+				: undefined;
+
+		const sharedState = {
+			configWithNodeInfo,
+			floatingToolbarData: dataPluginKey.getState(editorState),
+		};
+		if (memoizePreviousState && editorView) {
+			sharedStateCache ??= new WeakMap();
+			sharedStateCache.set(editorState, sharedState);
+		}
+		return sharedState;
+	};
+
 	return {
 		name: 'floatingToolbar',
 
@@ -204,6 +251,25 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 				},
 			];
 
+			if (isExperimentEnabled('platform_editor_improve_inp')) {
+				plugins.push({
+					name: 'floatingToolbarSharedStateCache',
+					plugin: () =>
+						new SafePlugin({
+							view: (view) => {
+								editorView = view;
+								sharedStateCache = undefined;
+								return {
+									destroy: () => {
+										editorView = undefined;
+										sharedStateCache = undefined;
+									},
+								};
+							},
+						}),
+				});
+			}
+
 			return plugins;
 		},
 
@@ -215,23 +281,7 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 				copyNode(nodeType, api?.analytics?.actions, inputMethod),
 		},
 
-		getSharedState(editorState) {
-			if (!editorState) {
-				return undefined;
-			}
-
-			const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
-
-			const configWithNodeInfo =
-				interactionState !== 'hasNotHadInteraction'
-					? (pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined)
-					: undefined;
-
-			return {
-				configWithNodeInfo,
-				floatingToolbarData: dataPluginKey.getState(editorState),
-			};
-		},
+		getSharedState,
 
 		contentComponent({
 			popupsMountPoint,

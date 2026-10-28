@@ -26,7 +26,7 @@ export function createSocketIOSocket(
 	let socketIOOptions = SOCKET_IO_OPTIONS;
 	// Default: polling first, with WebSocket upgrade fallback
 	let transports: string[] = ['polling', 'websocket'];
-	let presenceWebSocketFirst = false;
+	let webSocketFirst = false;
 
 	// Determine transport strategy based on connection type and tenant.
 	// https://socket.io/docs/v4/client-options/#transports
@@ -51,13 +51,15 @@ export function createSocketIOSocket(
 			socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
 			if (fg('platform_editor_presence_ws_first_with_fallback')) {
 				transports = ['websocket', 'polling'];
-				presenceWebSocketFirst = true;
+				webSocketFirst = true;
 			}
 			break;
 
 		case 'gcp-collab':
-			// GCP: use WebSocket for all collab editing as well
-			if (fg('collab_edit_via_websocket_only_for_gcp')) {
+			if (fg('platform_editor_gcp_collab_ws_first')) {
+				transports = ['websocket', 'polling'];
+				webSocketFirst = true;
+			} else if (fg('collab_edit_via_websocket_only_for_gcp')) {
 				transports = ['websocket'];
 			}
 			break;
@@ -81,19 +83,24 @@ export function createSocketIOSocket(
 		withCredentials: true,
 		transports,
 		// When WebSocket is rejected while opening, try polling in the same attempt
-		tryAllTransports: presenceWebSocketFirst,
+		tryAllTransports: webSocketFirst,
 		path: path ? `${path}/socket.io` : `/${pathname.split('/')[1]}/socket.io`,
 		auth,
 		extraHeaders,
 		query: {
 			sourceId: documentAri?.split('/')[1],
 			// Browsers cannot send extraHeaders on a WebSocket handshake, so the BE reads these from the query too
-			...(presenceWebSocketFirst ? extraHeaders : {}),
+			...(webSocketFirst ? extraHeaders : {}),
 		},
 	});
 
-	if (presenceWebSocketFirst) {
-		addPollingFallback(client, url, analyticsHelper);
+	if (webSocketFirst) {
+		addPollingFallback(
+			client,
+			url,
+			isPresenceOnly ? fg('platform_editor_presence_ws_restore_after_upgrade') : true,
+			analyticsHelper,
+		);
 	}
 
 	return client;
@@ -108,11 +115,16 @@ export const WEBSOCKET_CONNECT_TIMEOUT_MS = 8000;
  * or fails at the transport level. A server rejection (error with `data`) proves WebSocket works, so it never
  * triggers the fallback. Once switched, all reconnects of this socket use polling-first.
  *
- * With `platform_editor_presence_ws_restore_after_upgrade`, the fallback is no longer sticky and errors no longer
+ * With `restoreAfterUpgrade`, the fallback is no longer sticky and errors no longer
  * trigger it. Errors that reach `connect_error` mean polling failed too (network down), or WebSocket already opened.
  * Once WebSocket carries data, on open or after an upgrade from polling, go back to WebSocket-first.
  */
-function addPollingFallback(client: Socket, url: string, analyticsHelper?: AnalyticsHelper) {
+function addPollingFallback(
+	client: Socket,
+	url: string,
+	restoreAfterUpgrade: boolean,
+	analyticsHelper?: AnalyticsHelper,
+) {
 	let timer: ReturnType<typeof setTimeout> | undefined;
 	let webSocketWorks = false;
 	const isWebSocketFirst = () => !webSocketWorks && client.io.opts.transports?.[0] === 'websocket';
@@ -148,7 +160,7 @@ function addPollingFallback(client: Socket, url: string, analyticsHelper?: Analy
 	startTimer();
 	client.io.on('reconnect_attempt', startTimer);
 
-	if (fg('platform_editor_presence_ws_restore_after_upgrade')) {
+	if (restoreAfterUpgrade) {
 		// The engine opens when the server handshake arrives, so the auth token fetch is not timed
 		client.io.on('open', () => {
 			clearTimeout(timer);

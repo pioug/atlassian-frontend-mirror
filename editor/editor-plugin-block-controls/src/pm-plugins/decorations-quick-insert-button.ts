@@ -9,7 +9,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { ACTIVE_QUICK_INSERT_ATTR } from '../ui/consts';
@@ -109,9 +108,7 @@ export const quickInsertButtonDecoration = ({
 			element.style.clear = 'unset';
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
-			if (fg('confluence_remix_button_right_side_block_fg')) {
-				element.setAttribute('data-blocks-quick-insert-button', 'true');
-			}
+			element.setAttribute('data-blocks-quick-insert-button', 'true');
 			element.setAttribute('data-testid', 'block-ctrl-quick-insert-button');
 			nodeViewPortalProviderAPI.render(
 				() =>

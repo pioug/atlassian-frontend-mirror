@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 27.0.3
+
+### Patch Changes
+
+- [`9d6e1bd578152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d6e1bd578152) -
+  Reduce redundant toolbar focus dispatches behind platform_editor_improve_inp
+
+## 27.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.1
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 73.1.4
+
+### Patch Changes
+
+- [`7d53c27c745c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d53c27c745c7) -
+  Route remaining emoji provider integrations through the Reactions service with
+  migrate-remaining-emoji-provider-integrations and support relative gateway URLs
+
+## 73.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.1.2
 
 ### Patch Changes

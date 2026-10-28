@@ -4,9 +4,7 @@ import { expandPlugin as legacyExpandPlugin } from './legacyExpand/plugin';
 import { expandPlugin as singlePlayerExpandPlugin } from './singlePlayerExpand/plugin';
 import type { ExpandPlugin } from './types';
 
-// Ignored via go/ees005
-// eslint-disable-next-line prefer-const
-export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
+export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 	if (options?.__livePage) {
 		return singlePlayerExpandPlugin({ config: options, api });
 	} else {

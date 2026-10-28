@@ -43,6 +43,7 @@ import type { OpenElementBrowserOptions, QuickInsertPlugin } from './quickInsert
 import { getBlockControlQuickInsertComponents } from './ui/block-control-quick-insert';
 import { getLegacyCompatibleComponents } from './ui/getLegacyCompatibleComponents';
 import { getQuickInsertComponents } from './ui/getQuickInsertComponents';
+import { createRecommendedItemsResolver } from './ui/getRecommendedComponents';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { RegistryElementBrowserContainer } from './ui/RegistryElementBrowser';
 import { getQuickInsertSuggestions, withLayoutQuickInsertPrioritySorting } from './ui/search';
@@ -65,6 +66,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 	);
 
 	const getItemRank = createQuickInsertRankResolver(options?.getItemRank);
+	const getRecommendedItems = createRecommendedItemsResolver({
+		isRecommendedItem: options?.isRecommendedItem,
+		maxRecommendedItems: options?.maxRecommendedItems,
+	});
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
 		registeredMenuKey: isExperimentEnabled('platform_editor_slash_command') ? MENU.key : undefined,
@@ -115,8 +120,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 			getQuickInsertComponents({
 				api,
 				getItemRank,
-				isRecommendedItem: options?.isRecommendedItem,
-				maxRecommendedItems: options?.maxRecommendedItems,
+				getRecommendedItems,
 				emptyStateHandler: options?.emptyStateHandler,
 				fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 				includeElementBrowserItems: options?.enableElementBrowser === true,

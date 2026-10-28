@@ -20,7 +20,10 @@ import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messag
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import MenuGroup from '@atlaskit/menu/menu-group';
 
-import { getQuickInsertMenuModel } from './get-quick-insert-menu-model';
+import {
+	getQuickInsertMenuModel,
+	type RecommendedItemsResolver,
+} from './get-quick-insert-menu-model';
 import { getQuickInsertMenuItemId } from './getQuickInsertMenuItemId';
 import { RegisteredQuickInsertMenuItem } from './RegisteredQuickInsertMenuItem';
 import { selectQuickInsertCategoryItems } from './selectQuickInsertCategoryItems';
@@ -34,6 +37,7 @@ type Props = {
 	emptyStateHandler?: EmptyStateHandler;
 	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
 	getItemRank?: RegisteredItemRankResolver;
+	getRecommendedItems?: RecommendedItemsResolver;
 };
 
 type RenderedItems = { startIndex: number; stopIndex: number };
@@ -44,6 +48,7 @@ const QuickInsertMenuRoot = ({
 	emptyStateHandler,
 	fireAnalyticsEvent,
 	getItemRank,
+	getRecommendedItems,
 }: React.PropsWithChildren<Props>): React.JSX.Element | null => {
 	const registeredMenu = useRegisteredMenuContext();
 	const { query = '', select: selectFromHost, surfaceContext } = registeredMenu;
@@ -59,6 +64,7 @@ const QuickInsertMenuRoot = ({
 				components,
 				formatMessage,
 				getItemRank: runtimeItemRank ?? getItemRank,
+				getRecommendedItems,
 				query,
 				rootComponent,
 				selectCategoryItems: components.some(({ key }) => isSectionOverflowItemKey(key))
@@ -66,7 +72,16 @@ const QuickInsertMenuRoot = ({
 					: undefined,
 				surfaceContext,
 			}),
-		[components, formatMessage, getItemRank, query, rootComponent, runtimeItemRank, surfaceContext],
+		[
+			components,
+			formatMessage,
+			getItemRank,
+			getRecommendedItems,
+			query,
+			rootComponent,
+			runtimeItemRank,
+			surfaceContext,
+		],
 	);
 	const resultCount = useMemo(
 		() =>

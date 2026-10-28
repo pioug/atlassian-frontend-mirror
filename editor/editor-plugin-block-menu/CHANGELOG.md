@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 29.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.2
+
+### Patch Changes
+
+- [`18fdc5aa80389`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18fdc5aa80389) -
+  Remove unused feature gate registrations and leftover names from past gate cleanups. No behaviour
+  change.
+- Updated dependencies
+
 ## 29.0.1
 
 ### Patch Changes

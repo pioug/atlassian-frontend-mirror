@@ -3,7 +3,11 @@
  */
 
 import { FlagClient } from '../client';
-import { setExposureEnvironmentFactory } from '../exposure/environment';
+import { setExposureClockFactory } from '../exposure/clock';
+import { setExposureDelivery } from '../exposure/delivery-loader';
+import { createExposureEnvironment, setExposureEnvironmentFactory } from '../exposure/environment';
+import { createExposureLogger } from '../exposure/logger';
+import { mapExposureRecord } from '../exposure/mapper';
 import type {
 	BulkEvaluationPayload,
 	EvaluationDetails,
@@ -88,9 +92,17 @@ beforeEach(() => {
 	environment = new FakeExposureEnvironment();
 	factory = jest.fn(() => environment);
 	setExposureEnvironmentFactory(factory);
+	// The clock shares the fake environment's time source, so a read's timestamp and the logger's
+	// deduplication windows agree.
+	setExposureClockFactory(() => environment);
+	// Supply the delivery subsystem so construction stays synchronous here; the on-demand load and
+	// the buffering it implies are covered in exposure-delivery-loading.test.ts.
+	setExposureDelivery({ createExposureEnvironment, createExposureLogger, mapExposureRecord });
 });
 
 afterEach(() => {
+	setExposureDelivery();
+	setExposureClockFactory();
 	setExposureEnvironmentFactory();
 	unstubAllGlobals();
 	jest.restoreAllMocks();

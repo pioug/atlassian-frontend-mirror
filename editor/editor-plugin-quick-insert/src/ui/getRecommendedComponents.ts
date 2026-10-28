@@ -5,38 +5,30 @@ import {
 	type IsRecommendedItem,
 	type IsRecommendedItemResult,
 } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
-import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
-import { REGISTERED_MENU_SURFACE_CONTEXT } from '@atlaskit/editor-common/registered-menu/surface-context';
 import { isMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-is-menu-footer-section-key';
 import { isSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-is-section-overflow-item-key';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type {
 	RegisterComponent,
 	RegisterMenuItem,
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
-import type { QuickInsertPlugin } from '../quickInsertPluginType';
+import type { RecommendedItemsResolver } from './registered-menu/get-quick-insert-menu-model';
 
 export const MAX_RECOMMENDED_ITEMS = 5;
-export const RECOMMENDED_SLOT_KEY_PREFIX = 'quick-insert-recommended-slot-';
-
-export const isRecommendedSlotKey = (key: string): boolean =>
-	key.startsWith(RECOMMENDED_SLOT_KEY_PREFIX);
 
 const isRecommendationCandidate = (component: RegisterComponent): component is RegisterMenuItem =>
 	component.type === 'menu-item' &&
-	!isRecommendedSlotKey(component.key) &&
 	!isSectionOverflowItemKey(component.key) &&
 	!component.parents.some((parent) => isMenuFooterSectionKey(parent.key));
 
-/** Normalises a consumer-supplied limit to the number of available recommended slots. */
+/** Normalises a consumer-supplied limit to the supported number of recommended items. */
 export const resolveMaxRecommendedItems = (maxRecommendedItems?: number): number => {
 	if (maxRecommendedItems === undefined || !Number.isFinite(maxRecommendedItems)) {
 		return MAX_RECOMMENDED_ITEMS;
 	}
 	if (maxRecommendedItems > MAX_RECOMMENDED_ITEMS) {
-		void logException(new Error('Quick Insert maxRecommendedItems exceeds the available slots'), {
+		void logException(new Error('Quick Insert maxRecommendedItems exceeds the supported maximum'), {
 			location: 'editor-plugin-quick-insert/getRecommendedComponents',
 		});
 	}
@@ -83,40 +75,24 @@ export const getRecommendedComponents = ({
 		.map(({ component }) => component);
 };
 
-/** Keeps only the current menu-open recommendation snapshot. */
-type RecommendedSnapshotCache = {
-	getSnapshot: (surfaceContext?: SurfaceContext) => RegisterMenuItem[];
-};
-
-export const createRecommendedSnapshotCache = ({
-	api,
-	isRecommendedItem,
-	maxRecommendedItems,
-}: {
-	api: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
-	isRecommendedItem?: IsRecommendedItem;
-	maxRecommendedItems?: number;
-}): RecommendedSnapshotCache => {
-	let snapshot: { id: symbol; items: RegisterMenuItem[] } | undefined;
-
-	const getSnapshot = (surfaceContext?: SurfaceContext): RegisterMenuItem[] => {
-		const menuOpenId = surfaceContext?.get(REGISTERED_MENU_SURFACE_CONTEXT)?.menuOpenId;
-		if (!surfaceContext || !menuOpenId) {
-			return [];
-		}
-		if (snapshot?.id !== menuOpenId) {
-			snapshot = {
-				id: menuOpenId,
-				items: getRecommendedComponents({
-					components: api?.uiControlRegistry?.actions.getComponents(MENU.key) ?? [],
+/**
+ * Resolves the Recommended section for a browse-mode menu. Callers memoise per components array,
+ * so the resolver itself keeps no state.
+ */
+export const createRecommendedItemsResolver =
+	({
+		isRecommendedItem,
+		maxRecommendedItems,
+	}: {
+		isRecommendedItem?: IsRecommendedItem;
+		maxRecommendedItems?: number;
+	}): RecommendedItemsResolver =>
+	({ components, surfaceContext }) =>
+		surfaceContext
+			? getRecommendedComponents({
+					components,
 					context: surfaceContext,
 					isRecommendedItem,
 					maxRecommendedItems,
-				}),
-			};
-		}
-		return snapshot.items;
-	};
-
-	return { getSnapshot };
-};
+				})
+			: [];

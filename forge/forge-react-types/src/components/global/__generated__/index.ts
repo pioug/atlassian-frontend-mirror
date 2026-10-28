@@ -3,9 +3,9 @@
  *
  * Index file for generated Global component prop types
  *
- * @codegen <<SignedSource::98f0a696768e2036651a04194cb23198>>
+ * @codegen <<SignedSource::5d1e4fc784208a886b9d43563dfc84a7>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::5ff0fb0e52f7acf5bd5c867bda1c333e>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::ceafcbb0ae1d61a2ac66f44a0d3090fa>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -22,6 +22,7 @@ export type { MenuSpacerProps, TMenuSpacer } from './MenuSpacerProps.codegen';
 export type { CreateButtonProps, TCreateButton } from './CreateButtonProps.codegen';
 export type { CreateMenuItemProps, TCreateMenuItem } from './CreateMenuItemProps.codegen';
 export type { FlyOutMenuItemProps, TFlyOutMenuItem } from './FlyOutMenuItemProps.codegen';
+export type { HelpButtonProps, THelpButton } from './HelpButtonProps.codegen';
 export type { HelpLinkProps, THelpLink } from './HelpLinkProps.codegen';
 export type { PersonalSettingsProps, TPersonalSettings } from './PersonalSettingsProps.codegen';
 export type { PersonalSettingsItemProps, TPersonalSettingsItem } from './PersonalSettingsItemProps.codegen';

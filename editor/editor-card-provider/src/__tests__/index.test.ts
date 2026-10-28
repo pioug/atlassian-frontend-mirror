@@ -1274,7 +1274,7 @@ describe('providers > editor', () => {
 			expect(adf).toEqual(expectedEmbedAdf(url));
 		});
 
-		it('should use embed appearance for team calendar smart link when FF is on', async () => {
+		it('should keep the normal inline appearance for team calendar smart links', async () => {
 			setBooleanFeatureFlagResolver(() => true);
 			const provider = new EditorCardProvider();
 			mockFetch.mockResolvedValueOnce({
@@ -1291,7 +1291,7 @@ describe('providers > editor', () => {
 			const url =
 				'https://jdog.jira-dev.com/wiki/spaces/kb/calendars/1bb45655-f521-4379-8353-59b423abfffb';
 			const adf = await provider.resolve(url, 'inline', false, true);
-			expect(adf).toEqual(expectedEmbedAdf(url));
+			expect(adf).toEqual(expectedInlineAdf(url));
 		});
 
 		it('should return block card if unauthenticated and restricted 3P link is inserted', async () => {

@@ -12,7 +12,7 @@ import type { CallbackPayload } from '@atlaskit/node-data-provider/node-data-pro
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { EditorCardProvider } from '../../provider';
+import { EditorCardProvider, isInternalUrl } from '../../provider';
 import type { SmartCardLocalCacheClient } from '../../smart-card-local-cache-client';
 
 jest.spyOn(CardClient.prototype, 'fetchData').mockRejectedValue({});
@@ -561,6 +561,13 @@ describe('EditorCardProvider', () => {
 		new EditorCardProvider(undefined, undefined, undefined, undefined, customCardClient);
 
 		expect(customCardClient.setProduct).not.toHaveBeenCalled();
+	});
+
+	it('continues to classify calendar links as internal URLs', () => {
+		const url =
+			'https://hello.atlassian.net/wiki/spaces/TEAM/calendars/220add0a-9ec1-480b-9a7c-fd6558a65686';
+
+		expect(isInternalUrl(url)).toBe(true);
 	});
 
 	describe('getHardCodedAppearance - AVP Visualization URLs', () => {

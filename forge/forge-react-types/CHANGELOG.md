@@ -1,5 +1,22 @@
 # @atlaskit/forge-react-types
 
+## 2.13.0
+
+### Minor Changes
+
+- [`43e633137b80a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43e633137b80a) -
+  Add optional icon and iconDark props to ExpandableMenuItem, FlyOutMenuItem and
+  SearchableFlyoutMenuItems (including each searchable item). They accept the same values as
+  LinkMenuItem's icon (a UI Kit glyph or an image source); when omitted, no icon is shown.
+- [`92d0515f8e4a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92d0515f8e4a9) -
+  Add `Global.HelpButton` component with an `onClick` prop and an optional `isSelected` prop, for
+  showing help content inside the app. `Global.HelpLink` is deprecated in favour of `HelpButton`. If
+  both are provided, `HelpButton` is rendered and `HelpLink` is ignored.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.0
 
 ### Minor Changes

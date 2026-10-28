@@ -30,10 +30,15 @@ import { MediaBorderGapFiller } from '@atlaskit/editor-common/MediaSingle/styled
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import {
+	createRenderedResultTracker,
+	type RenderedResultTracker,
+} from '@atlaskit/editor-common/rendered-result-tracker';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette/border';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
@@ -51,6 +56,7 @@ export type MediaProps = MediaCardProps & {
 	allowAltTextOnImages?: boolean;
 	allowAnnotationsDraftMode?: boolean;
 	children?: React.ReactNode;
+	deferRenderedEventUntilVisible?: boolean;
 	enableDownloadButton?: boolean;
 	eventHandlers?: EventHandlers;
 	featureFlags?: MediaFeatureFlags;
@@ -315,18 +321,37 @@ const CommentBadgeWrapper = ({
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class Media extends PureComponent<MediaProps, object> {
 	private readonly mediaInstance = {};
+	private readonly renderedTracker?: RenderedResultTracker;
+	private mediaElement: HTMLDivElement | null = null;
+
+	private setMediaElement = (element: HTMLDivElement | null): void => {
+		this.mediaElement = element;
+		this.updateRenderedTracking();
+	};
+
+	private updateRenderedTracking = (): void => {
+		this.renderedTracker?.setResult(this.props.id ?? '');
+		this.renderedTracker?.observe(
+			this.props.deferRenderedEventUntilVisible ? this.mediaElement : null,
+		);
+	};
 
 	constructor(props: MediaProps) {
 		super(props);
+		if (isExperimentEnabled('platform_maui_retention_analytics')) {
+			this.renderedTracker = createRenderedResultTracker({
+				onRendered: this.fireRenderedEvent,
+			});
+			this.renderedTracker.setResult(props.id ?? '');
+		}
 		this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
 	}
 	private handleMediaLinkClickFn;
 
-	private getDataConsumerMark = (): DataConsumerDefinition | undefined =>
-		getDataConsumerMark(this.props.marks);
-
-	private getDataConsumerSource = (props: MediaProps = this.props): string | undefined =>
-		getDataConsumerMark(props.marks)?.attrs.sources?.[0];
+	private getDataConsumerSource = (props: MediaProps = this.props): string | undefined => {
+		const sources = getDataConsumerMark(props.marks)?.attrs.sources;
+		return sources?.find((source) => source.startsWith('remix:')) ?? sources?.[0];
+	};
 
 	private emitMediaRenderEvent = (
 		event: MediaRenderEventPayload,
@@ -342,8 +367,13 @@ class Media extends PureComponent<MediaProps, object> {
 
 	componentDidMount(): void {
 		this.emitMediaRenderEvent({ type: 'mounted' });
-		const dataConsumerMark = this.getDataConsumerMark();
-		const infographicType = dataConsumerMark?.attrs.sources?.[0];
+		if (!this.props.deferRenderedEventUntilVisible) {
+			this.fireRenderedEvent();
+		}
+	}
+
+	private fireRenderedEvent = (): void => {
+		const infographicType = this.getDataConsumerSource();
 		if (infographicType && this.props.fireAnalyticsEvent) {
 			this.props.fireAnalyticsEvent({
 				action: ACTION.RENDERED,
@@ -357,9 +387,10 @@ class Media extends PureComponent<MediaProps, object> {
 				},
 			});
 		}
-	}
+	};
 
 	componentDidUpdate(prevProps: MediaProps): void {
+		this.updateRenderedTracking();
 		if (
 			prevProps.id !== this.props.id ||
 			this.getDataConsumerSource(prevProps) !== this.getDataConsumerSource() ||
@@ -371,10 +402,13 @@ class Media extends PureComponent<MediaProps, object> {
 	}
 
 	componentWillUnmount(): void {
+		this.renderedTracker?.destroy();
 		this.emitMediaRenderEvent({ type: 'unmounted' });
 	}
 
 	private onPreviewRender = (renderedMediaId: string): void => {
+		this.updateRenderedTracking();
+		this.renderedTracker?.ready(renderedMediaId);
 		this.props.onPreviewRender?.(renderedMediaId);
 		this.emitMediaRenderEvent({ renderedMediaId, type: 'preview-rendered' });
 	};
@@ -408,8 +442,6 @@ class Media extends PureComponent<MediaProps, object> {
 			| BorderMarkDefinition
 			| undefined;
 
-		const dataConsumerMark = this.getDataConsumerMark();
-
 		const linkMark = this.props.marks.find(this.props.isLinkMark) as LinkDefinition | undefined;
 
 		const linkHref = linkMark?.attrs.href;
@@ -431,7 +463,7 @@ class Media extends PureComponent<MediaProps, object> {
 									border: !!borderMark,
 									// Only defined for remix-generated media (i.e. media nodes with a dataConsumer mark).
 									// Format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
-									remixSource: dataConsumerMark?.attrs.sources?.[0],
+									remixSource: this.getDataConsumerSource(),
 								},
 							}}
 						>
@@ -460,6 +492,9 @@ class Media extends PureComponent<MediaProps, object> {
 								)}
 							</MediaBadges>
 							<MediaCard
+								mediaElementRef={
+									this.props.deferRenderedEventUntilVisible ? this.setMediaElement : undefined
+								}
 								contextIdentifierProvider={contextIdentifierProvider}
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
@@ -474,7 +509,9 @@ class Media extends PureComponent<MediaProps, object> {
 									this.props.onMediaRenderEvent || this.props.onError ? this.onError : undefined
 								}
 								onPreviewRender={
-									this.props.onMediaRenderEvent || this.props.onPreviewRender
+									this.props.onMediaRenderEvent ||
+									this.props.onPreviewRender ||
+									this.props.deferRenderedEventUntilVisible
 										? this.onPreviewRender
 										: undefined
 								}
@@ -574,6 +611,11 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>): jsx.JSX
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
+			deferRenderedEventUntilVisible={
+				getDataConsumerMark(props.marks)?.attrs.sources?.some((source) =>
+					source.startsWith('remix:'),
+				) === true && isExperimentEnabled('platform_maui_retention_analytics')
+			}
 			dataAttributes={dataAttributesWithDraftAnnotation}
 			isDrafting={shouldApplyDraftAnnotation}
 		/>

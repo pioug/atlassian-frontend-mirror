@@ -2,8 +2,8 @@ import React from 'react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui-toolbar';
 
-import { FixedToolbarCompiled } from './FixedToolbar-compiled';
-import { StickyToolbarCompiled } from './StickyToolbar-compiled';
+import { FixedToolbar } from './FixedToolbar';
+import { StickyToolbar } from './StickyToolbar';
 
 /**
  * ED-15802: Scenarios when a sticky bar is used:
@@ -46,7 +46,7 @@ export const MainToolbar = ({
 }: MainToolbarProps): React.JSX.Element => {
 	if (useStickyToolbar) {
 		return (
-			<StickyToolbarCompiled
+			<StickyToolbar
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getStickyParameters(useStickyToolbar)}
@@ -55,16 +55,16 @@ export const MainToolbar = ({
 				isNewToolbarEnabled={isNewToolbarEnabled}
 			>
 				{children}
-			</StickyToolbarCompiled>
+			</StickyToolbar>
 		);
 	}
 	return (
-		<FixedToolbarCompiled
+		<FixedToolbar
 			isEditorModernisationEnabled={isEditorModernisationEnabled}
 			twoLineEditorToolbar={twoLineEditorToolbar}
 			isNewToolbarEnabled={isNewToolbarEnabled}
 		>
 			{children}
-		</FixedToolbarCompiled>
+		</FixedToolbar>
 	);
 };

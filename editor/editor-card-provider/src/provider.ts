@@ -508,11 +508,6 @@ export class EditorCardProvider
 
 		const isJiraSummaryEvaluated = isJiraSummary(url);
 
-		let isConfluenceTeamCalendarsEvaluated;
-		if (fg('tc_smart_link_embed_view')) {
-			isConfluenceTeamCalendarsEvaluated = isConfluenceTeamCalendars(url);
-		}
-
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -536,7 +531,6 @@ export class EditorCardProvider
 			isJiraFormEvaluated ||
 			isJiraSummaryEvaluated ||
 			isCustomer360LandingPage(url) ||
-			isConfluenceTeamCalendarsEvaluated ||
 			isJiraIssueNavigator(url) ||
 			isAvpVisualizationView(url) ||
 			(isArtifactsShareView(url) && fg('platform_forge_ui_artifact_confluence_integration'))

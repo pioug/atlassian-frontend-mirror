@@ -4,6 +4,7 @@ import BasicDarkVrExample from '../basic-dark.vr.ap';
 import BasicLightVrExample from '../basic-light.vr.ap';
 import CustomThemeEditorialBriefExample from '../custom-theme-editorial-brief.wb.ap';
 import CustomThemeJiraBoardExample from '../custom-theme-jira-board.wb.ap';
+import CustomThemeSpacingExample from '../custom-theme-spacing.wb.ap';
 import LinkReactResourceRouterExample from '../link-react-resource-router';
 import SubTreeThemingOutsideAppProviderVrExample from '../sub-tree-theming-outside-app-provider.vr.ap';
 import SubTreeThemingVrExample from '../sub-tree-theming.vr.ap';
@@ -20,3 +21,4 @@ export const CustomThemeJiraBoard: WorkbenchExample<typeof CustomThemeJiraBoardE
 	CustomThemeJiraBoardExample,
 );
 export const CustomThemeEditorialBrief: WorkbenchExample = wb(CustomThemeEditorialBriefExample);
+export const CustomThemeSpacing: WorkbenchExample = wb(CustomThemeSpacingExample);

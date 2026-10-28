@@ -151,9 +151,13 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		[],
 	);
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line prefer-const
-	let { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, type } = media.props;
+	const {
+		width: initialWidth = DEFAULT_WIDTH,
+		height: initialHeight = DEFAULT_HEIGHT,
+		type,
+	} = media.props;
+	let width = initialWidth;
+	let height = initialHeight;
 
 	if (type === 'external') {
 		const { width: stateWidth, height: stateHeight } = externalImageDimensions;

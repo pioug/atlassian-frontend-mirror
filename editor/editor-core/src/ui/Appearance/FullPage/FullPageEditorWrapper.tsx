@@ -22,7 +22,7 @@ interface FullPageEditorWrapperProps {
 	style?: React.CSSProperties;
 }
 
-export const FullPageEditorWrapperCompiled: React.ForwardRefExoticComponent<
+export const FullPageEditorWrapper: React.ForwardRefExoticComponent<
 	FullPageEditorWrapperProps & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, FullPageEditorWrapperProps>(
 	({ children, className, style }, ref) => (

@@ -3869,6 +3869,42 @@ events:
   - userProfilePreview failed (request):
       type: operational
       description: fired when the user profile preview data request fails
+  - userProfilePreview shown (persisted):
+      type: ui
+      description: fired when a persisted person card renders its core profile in Confluence
+      attributes:
+        renderStatus:
+          type: string
+          description: complete or degraded based on optional profile datasets
+        collaboratorsFailed:
+          type: boolean
+          description: whether collaborator data failed to load
+        recentWorkFailed:
+          type: boolean
+          description: whether recent work data failed to load
+        reportingLinesFailed:
+          type: boolean
+          description: whether reporting lines data failed to load
+  - userProfilePreview degraded (persisted):
+      type: operational
+      description: fired when optional data fails after a persisted person card has rendered
+      attributes:
+        collaboratorsFailed:
+          type: boolean
+          description: whether collaborator data failed to load
+        recentWorkFailed:
+          type: boolean
+          description: whether recent work data failed to load
+        reportingLinesFailed:
+          type: boolean
+          description: whether reporting lines data failed to load
+  - userProfilePreview failed (persisted):
+      type: operational
+      description: fired when a persisted person card cannot render its core profile
+      attributes:
+        reason:
+          type: string
+          description: bounded validation, viewer context, or core profile failure reason
   - userProfilePreview clicked (thirdPartyMessage):
       type: ui
       description:

@@ -693,11 +693,7 @@ export const apply = (
 				);
 				decorations = decorations.remove(old);
 			}
-			if (
-				rightSideControlsEnabled &&
-				isViewMode &&
-				fg('confluence_remix_button_right_side_block_fg')
-			) {
+			if (rightSideControlsEnabled && isViewMode) {
 				for (const factory of nodeDecorationRegistry) {
 					if (factory.showInViewMode) {
 						const old = decorations.find(
@@ -963,11 +959,7 @@ export const apply = (
 					decorations = decorations.add(newState.doc, [dec]);
 				}
 			}
-		} else if (
-			isViewMode &&
-			rightSideControlsEnabled &&
-			fg('confluence_remix_button_right_side_block_fg')
-		) {
+		} else if (isViewMode && rightSideControlsEnabled) {
 			// Remove view-mode right-side decorations when no active node
 			for (const factory of nodeDecorationRegistry) {
 				if (factory.showInViewMode) {
@@ -1304,11 +1296,9 @@ export const createPlugin = (
 
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 				if (isDisabled) {
-					const remixRightSideEnabled =
-						rightSideControlsEnabled && fg('confluence_remix_button_right_side_block_fg');
 					// Hide decorations when disabled, except in view mode when right-side controls are enabled
 					if (
-						!remixRightSideEnabled ||
+						!rightSideControlsEnabled ||
 						api?.editorViewMode?.sharedState.currentState()?.mode !== 'view'
 					) {
 						return;

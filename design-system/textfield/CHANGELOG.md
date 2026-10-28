@@ -1,5 +1,13 @@
 # @atlaskit/textfield
 
+## 10.3.0
+
+### Minor Changes
+
+- [`6fb2bb116779a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb2bb116779a) -
+  Replace redundant compact data-attribute selectors with atomic styles behind the
+  platform-textfield-atomic-styles feature gate.
+
 ## 10.2.6
 
 ### Patch Changes

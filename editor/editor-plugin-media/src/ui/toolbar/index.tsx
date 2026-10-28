@@ -363,6 +363,7 @@ const generateMediaSingleFloatingToolbar = (
 		allowMediaInlineImages,
 		allowImageEditing,
 		allowImagePreview,
+		allowVideoPreview,
 		isViewOnly,
 		allowPixelResizing,
 		onCommentButtonMount,
@@ -737,10 +738,10 @@ const generateMediaSingleFloatingToolbar = (
 				}
 			}
 			// Preview Support
-			if (allowImagePreview) {
+			if (allowImagePreview || allowVideoPreview) {
 				const selectedMediaSingleNode = getSelectedMediaSingle(state);
 				const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
-				if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+				if (isVideo(mediaNode?.attrs?.__fileMimeType) ? allowVideoPreview : allowImagePreview) {
 					toolbarButtons.push(
 						{
 							id: 'editor.media.viewer',
@@ -834,10 +835,10 @@ const generateMediaSingleFloatingToolbar = (
 		return items;
 	} else {
 		// Preview Support
-		if (allowAdvancedToolBarOptions && allowImagePreview) {
+		if (allowAdvancedToolBarOptions && (allowImagePreview || allowVideoPreview)) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
-			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+			if (isVideo(mediaNode?.attrs?.__fileMimeType) ? allowVideoPreview : allowImagePreview) {
 				toolbarButtons.push(
 					{
 						id: 'editor.media.viewer',

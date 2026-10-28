@@ -104,17 +104,5 @@
 		"./utils": "./src/utils/index.ts",
 		"./utils/preview-panel": "./src/utils/preview-panel-utils.ts"
 	},
-	"platform-feature-flags": {
-		"cc-units-ga": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"linking_platform_site_picker_api_unit_compliant": {
-			"type": "boolean"
-		},
-		"platform_lp_sllv_display_name_fallback": {
-			"type": "boolean"
-		}
-	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/bb313f46-0a0e-4e79-b6f0-d524f5b510ba"
 }

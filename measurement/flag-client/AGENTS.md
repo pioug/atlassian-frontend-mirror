@@ -69,6 +69,43 @@ They are intentional, so don't treat them as drift from the specs:
 - The package has no browser-smoke, module-load-smoke, or type-writing build scripts. AFM builds and
   publishes it.
 
+## Exposure delivery is loaded on demand
+
+This client is loaded on the critical path of products whose initial page load time is a core
+metric, and exposure delivery is the larger half of it. So the delivery subsystem is behind a
+dynamic import and must stay there.
+
+- **`src/exposure/delivery.ts` is the only runtime edge into it.** Everything reachable from that
+  module — `logger.ts`, `mapper.ts`, `otlp.ts`, `persistence.ts`, `environment.ts` — is in the
+  loaded-on-demand chunk. Nothing on the read path may import any of them for a value; `import type`
+  is fine, because types are erased. A single value import from `client.ts`, `sink.ts`,
+  `delivery-loader.ts`, `clock.ts`, `identifiers.ts`, `attribution.ts`, `options.ts`, or
+  `deduplication.ts` silently pulls the whole subsystem back onto the critical path and undoes this.
+- **Reads happen before the subsystem arrives.** `BufferingExposureSink` in `src/exposure/sink.ts`
+  holds those exposures, with the timestamp and state their read observed, and replays them in order
+  once it has loaded.
+- **`clock.ts` is the only host capability a read needs.** A buffered exposure must carry the time
+  its own read observed, so the client stamps `epochMillis` from `createExposureClock()`. The rest
+  of `ExposureEnvironment` — storage, `fetch`, timers, page lifecycle — is only ever called by the
+  logger, so it is constructed inside the chunk and must stay there. Do not reach for
+  `createExposureEnvironment` from the read path to get the time.
+- **Deduplication runs on replay**, against the real logger's windows, so a window starts when the
+  exposure is queued rather than when it was read. Which exposures survive is unchanged.
+- **Known gap, accepted.** The chunk is requested as the client is constructed, so it downloads
+  concurrently rather than on the critical path, and the gap lasts one fetch of an already-warm
+  file. A page discarded inside it loses the buffered exposures, which an eagerly loaded subsystem
+  would have persisted on `visibilitychange`. That is accepted as unlikely rather than fixed. Do not
+  defer the request to the first exposure or the first flush: that would widen this gap for no gain,
+  since the download already stays off the critical path.
+- `setExposureDelivery` in `src/exposure/delivery-loader.ts` is a test seam, like
+  `setExposureEnvironmentFactory`. Supplying the module keeps construction synchronous, which is how
+  `exposure-client.test.ts` stays synchronous; supplying a promise drives the buffering path, which
+  `exposure-delivery-loading.test.ts` covers. Neither is exported from the package entry point.
+- `setExposureClockFactory` in `src/exposure/clock.ts` is a third seam. Point it at the same fake
+  the environment factory returns (`setExposureClockFactory(() => environment)`), so a read's
+  timestamp and the logger's deduplication windows share one clock; a test that sets only one of the
+  two will see timestamps drift from the windows.
+
 ## Consumers
 
 `@atlaskit/feature-gate-js-client` wraps this client alongside Statsig. This package is published to

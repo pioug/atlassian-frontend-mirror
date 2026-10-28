@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::dac7354c8bc9b9131d5f742dd2bf662d>>
+ * @codegen <<SignedSource::330780767c1649dec46de2c2e150e59c>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1670,6 +1670,20 @@ export type SubTeamPickerUpdatedAttributesType = {
 };
 export type UserProfilePreviewSucceededRequestAttributesType = undefined;
 export type UserProfilePreviewFailedRequestAttributesType = undefined;
+export type UserProfilePreviewShownPersistedAttributesType = {
+	renderStatus: string;
+	collaboratorsFailed: boolean;
+	recentWorkFailed: boolean;
+	reportingLinesFailed: boolean;
+};
+export type UserProfilePreviewDegradedPersistedAttributesType = {
+	collaboratorsFailed: boolean;
+	recentWorkFailed: boolean;
+	reportingLinesFailed: boolean;
+};
+export type UserProfilePreviewFailedPersistedAttributesType = {
+	reason: string;
+};
 export type UserProfilePreviewClickedThirdPartyMessageAttributesType = {
 	integration: string;
 	isAuxClick?: boolean | null;
@@ -2875,6 +2889,15 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the user profile preview data request fails */
 	'operational.userProfilePreview.failed.request': UserProfilePreviewFailedRequestAttributesType;
+	/**
+	 * fired when a persisted person card renders its core profile in Confluence */
+	'ui.userProfilePreview.shown.persisted': UserProfilePreviewShownPersistedAttributesType;
+	/**
+	 * fired when optional data fails after a persisted person card has rendered */
+	'operational.userProfilePreview.degraded.persisted': UserProfilePreviewDegradedPersistedAttributesType;
+	/**
+	 * fired when a persisted person card cannot render its core profile */
+	'operational.userProfilePreview.failed.persisted': UserProfilePreviewFailedPersistedAttributesType;
 	/**
 	 * fired when the third-party messaging integration button is clicked on the user profile preview */
 	'ui.userProfilePreview.clicked.thirdPartyMessage': UserProfilePreviewClickedThirdPartyMessageAttributesType;

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 31.0.3
+
+### Patch Changes
+
+- [`49c506ac95bb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49c506ac95bb6) -
+  Remove the fully rolled-out `confluence_remix_button_right_side_block_fg` gate; keep right-side
+  Remix controls enabled when their existing MAUI experiment and product configuration allow them.
+- Updated dependencies
+
+## 31.0.2
+
+### Patch Changes
+
+- [`18fdc5aa80389`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18fdc5aa80389) -
+  Remove unused feature gate registrations and leftover names from past gate cleanups. No behaviour
+  change.
+
 ## 31.0.1
 
 ### Patch Changes

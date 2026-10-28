@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 37.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.1.4
+
+### Patch Changes
+
+- [`80803f34eaee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80803f34eaee3) -
+  Cleanup `feature_gate` `platform_reactions_a11y_group_added_reactions`. Added reaction controls
+  are now always grouped with an accessible name.
+
 ## 37.1.3
 
 ### Patch Changes

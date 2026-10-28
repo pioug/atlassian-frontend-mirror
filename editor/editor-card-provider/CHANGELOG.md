@@ -1,5 +1,14 @@
 # @atlaskit/editor-card-provider
 
+## 8.2.4
+
+### Patch Changes
+
+- [`79a38d8b31efc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79a38d8b31efc) -
+  Retire the unused Team Calendars embed-by-default gate while preserving normal link appearance and
+  internal URL detection.
+- Updated dependencies
+
 ## 8.2.3
 
 ### Patch Changes

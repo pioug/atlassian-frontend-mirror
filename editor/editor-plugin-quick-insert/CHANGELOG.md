@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.3
+
+### Patch Changes
+
+- [`9e0f075939161`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e0f075939161) -
+  Deduplicate registered Quick Insert items across recommended, search, and browse views, while
+  preserving selection identity and registration context when `platform_editor_slash_command` is
+  enabled.
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.1
 
 ### Patch Changes

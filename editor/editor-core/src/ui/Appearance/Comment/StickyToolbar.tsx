@@ -94,7 +94,7 @@ const stickyToolbarCompiledStyles = cssMap({
 	},
 });
 
-type StickyToolbarCompiledProps = {
+type StickyToolbarProps = {
 	children?: ReactNode;
 	externalToolbarRef?: RefObject<HTMLElement>;
 	isEditorModernisationEnabled?: boolean;
@@ -103,7 +103,7 @@ type StickyToolbarCompiledProps = {
 	twoLineEditorToolbar?: boolean;
 };
 
-export const StickyToolbarCompiled = (props: StickyToolbarCompiledProps): React.JSX.Element => {
+export const StickyToolbar = (props: StickyToolbarProps): React.JSX.Element => {
 	const [top, setTop] = useState(0);
 
 	// ED-15802: if externalToolbarRef is passed in, set top to externalToolbarRef?.current?.clientHeight

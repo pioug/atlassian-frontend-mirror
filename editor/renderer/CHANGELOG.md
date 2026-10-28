@@ -1,5 +1,46 @@
 # @atlaskit/renderer
 
+## 153.0.5
+
+### Patch Changes
+
+- [`4cdaf1f75d6ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cdaf1f75d6ad) -
+  Use const for stable local bindings
+- Updated dependencies
+
+## 153.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.0.3
+
+### Patch Changes
+
+- [`800e9d2b92528`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800e9d2b92528) -
+  Add viewport-aware rendered events for MAUI embeds and Remix media behind
+  `platform_maui_retention_analytics`, deduplicated per result within each tracker.
+
+  Native embeds opt in through `uiConfig.deferRenderedEventUntilVisible` and can provide
+  `getRenderedResultId` for analytics attribution. Other embeds retain existing timing.
+
+  Media tracking preserves preview readiness across replacements and observes only eligible Remix
+  media. Analytics prefer the matching Remix source regardless of tracking eligibility.
+
+- Updated dependencies
+
+## 153.0.2
+
+### Patch Changes
+
+- [`8c836aa200b92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c836aa200b92) -
+  Keep top-level expands inside the content width on comment surfaces (Jira description and
+  comments) behind platform_editor_expand_standard_width_fix or the work_item_modernization
+  experiment: the renderer drops the -12px gutter offset for comment appearance, and the editor
+  applies the block menu useStandardNodeWidth config without the platform_editor_controls
+  experiment, including chromeless.
+
 ## 153.0.1
 
 ### Patch Changes

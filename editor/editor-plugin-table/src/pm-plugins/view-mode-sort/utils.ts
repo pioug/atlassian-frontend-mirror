@@ -83,9 +83,8 @@ export const toggleSort = (view: EditorView, event: Event, pluginState: TableSor
 		return;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line prefer-const
-	let { index, direction, order: oldOrder } = pluginState?.[tableId] || {};
+	const { index, direction: initialDirection, order: oldOrder } = pluginState?.[tableId] || {};
+	let direction = initialDirection;
 
 	// Unsort if there was already a sort
 	if (direction !== SortOrder.NO_ORDER && oldOrder !== undefined) {

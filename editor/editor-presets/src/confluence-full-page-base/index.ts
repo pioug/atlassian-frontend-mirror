@@ -93,7 +93,6 @@ import { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-inten
 import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin';
 import { widthPlugin } from '@atlaskit/editor-plugin-width/width-plugin';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { agentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension/agentManagedExtensionPlugin';
 
@@ -351,9 +350,7 @@ export function confluenceFullPageBasePreset(
 			blockControlsPlugin,
 			{
 				onBlockHandleClick: pluginOptions.blockControls?.onBlockHandleClick,
-				rightSideControlsEnabled:
-					fg('confluence_remix_button_right_side_block_fg') &&
-					expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true),
+				rightSideControlsEnabled: expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true),
 			},
 		])
 		.add(highlightPlugin)

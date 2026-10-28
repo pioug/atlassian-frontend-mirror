@@ -3,6 +3,7 @@ id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-35
 name: '@atlaskit/report-error'
 ownerId: ari:cloud:identity::team/og-6f328752-b58d-4afa-9a4c-19b6b1196e58 # Dev Infra - App Framework
 labels:
+  - minor-changes-require-review
   - platform-code
   - platform-afm
 typeId: OTHER

@@ -7,7 +7,7 @@ import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-exper
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
-import { EditorContentContainerCompiled } from '../../../ui/EditorContentContainer/EditorContentContainer-compiled';
+import EditorContentContainer from '../../../ui/EditorContentContainer/EditorContentContainer';
 
 jest.mock('@atlaskit/editor-common/browser', () => ({
 	getBrowserInfo: jest.fn(),
@@ -39,9 +39,9 @@ const getActiveSelectedNodeSelectors = (): string[] => {
 
 const renderContainer = () =>
 	render(
-		<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+		<EditorContentContainer appearance="full-page" viewMode="edit">
 			<p>Text with nested formatting</p>
-		</EditorContentContainerCompiled>,
+		</EditorContentContainer>,
 	);
 
 describe('selected-node highlight inheritance', () => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "73.1.2",
+	"version": "73.1.4",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -175,6 +175,9 @@
 			"type": "boolean"
 		},
 		"use-elements-stargate-emoji-path": {
+			"type": "boolean"
+		},
+		"migrate-remaining-emoji-provider-integrations": {
 			"type": "boolean"
 		},
 		"platform_teamoji_26_refresh_emoji_picker_user_id": {

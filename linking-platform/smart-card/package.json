@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.10.1",
+	"version": "46.10.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -266,97 +266,6 @@
 		"./snippet-block": "./src/view/FlexibleCard/components/blocks/snippet-block/SnippetBlock.tsx",
 		"./title-block": "./src/view/FlexibleCard/components/blocks/title-block/TitleBlock.tsx",
 		"./use-fire3-p-workflows-click-event": "./src/view/SmartLinkEvents/useFire3PWorkflowsClickEvent.tsx"
-	},
-	"platform-feature-flags": {
-		"platform-dst-top-layer": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"billplat_jira_list_dropdown_top_layer": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_sl_one_click_chat_spotlight_v2_fg": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"confluence_ep_shim_macro_links_v2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_bandicoots-smartlink-unresolved-error-key": {
-			"type": "boolean"
-		},
-		"platform_avp_smartlink_embed_product_context": {
-			"type": "boolean"
-		},
-		"platform-smart-card-shift-key": {
-			"type": "boolean"
-		},
-		"confluence-issue-terminology-refresh": {
-			"type": "boolean"
-		},
-		"platform_editor_content_mode_button_mvp": {
-			"type": "boolean"
-		},
-		"product-terminology-refresh": {
-			"type": "boolean"
-		},
-		"jfp-magma-platform-lozenge-jump-fix": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_preauth_better_hovercard_killswitch": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_preauth_update_cta_fg": {
-			"type": "boolean"
-		},
-		"platform_lp_use_generator_icon_for_provider": {
-			"type": "boolean"
-		},
-		"platform_lp_non_bold_large_sl_icon": {
-			"type": "boolean"
-		},
-		"platform-dst-lozenge-tag-badge-visual-uplifts": {
-			"type": "boolean"
-		},
-		"smart-card-inline-resolved-view-refactor": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_auth_rovo_embed_footer_kill_switch": {
-			"type": "boolean"
-		},
-		"social-proof-3p-unauth-block-fg": {
-			"type": "boolean"
-		},
-		"platform_sl_inline_social_proof_hydration_fix": {
-			"type": "boolean"
-		},
-		"platform_sl_incoming_outgoing_tenant_info_killswitch": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_post_auth_chat_open_fg": {
-			"type": "boolean"
-		},
-		"platform_sl_click_inside_iframe": {
-			"type": "boolean"
-		},
-		"platform_smartlink_inline_resolve_optimization": {
-			"type": "boolean"
-		},
-		"dfo_issue_view_remote_data_srr_group": {
-			"type": "boolean"
-		},
-		"preview_panel_unit_check": {
-			"type": "boolean"
-		},
-		"nike_r19_render_unmount": {
-			"type": "boolean"
-		},
-		"platform_dst_modal-dialog-use-modal-title": {
-			"type": "boolean",
-			"referenceOnly": true
-		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/f74ef1bc-7240-4aac-9dc8-9dc43b502089"
 }

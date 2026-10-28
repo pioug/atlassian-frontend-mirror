@@ -13,15 +13,15 @@ const toolbarSizeDetectorWrapperCompiledStyles = cssMap({
 	},
 });
 
-interface ToolbarSizeDetectorWrapperCompiledProps {
+interface ToolbarSizeDetectorWrapperProps {
 	children?: ReactNode;
 	style?: CSSProperties;
 }
 
-export const ToolbarSizeDetectorWrapperCompiled = ({
+export const ToolbarSizeDetectorWrapper = ({
 	children,
 	style,
-}: ToolbarSizeDetectorWrapperCompiledProps): JSX.Element => (
+}: ToolbarSizeDetectorWrapperProps): JSX.Element => (
 	<div css={toolbarSizeDetectorWrapperCompiledStyles.root} style={style}>
 		{children}
 	</div>

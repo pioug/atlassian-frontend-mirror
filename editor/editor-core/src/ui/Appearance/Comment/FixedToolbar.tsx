@@ -83,14 +83,14 @@ const fixedToolbarCompiledStyles = cssMap({
 	},
 });
 
-type FixedToolbarCompiledProps = {
+type FixedToolbarProps = {
 	children?: ReactNode;
 	isEditorModernisationEnabled?: boolean;
 	isNewToolbarEnabled?: boolean;
 	twoLineEditorToolbar?: boolean;
 };
 
-export const FixedToolbarCompiled = (props: FixedToolbarCompiledProps): React.JSX.Element => (
+export const FixedToolbar = (props: FixedToolbarProps): React.JSX.Element => (
 	// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 	<div
 		css={[

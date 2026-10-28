@@ -73,6 +73,7 @@ export interface MediaCardProps {
 	id?: string;
 	imageStatus?: ImageStatus;
 	localId?: string;
+	mediaElementRef?: React.Ref<HTMLDivElement>;
 	/** Extensions for the media viewer (e.g. comment button in header). */
 	mediaViewerExtensions?: MediaViewerExtensions;
 	/**
@@ -309,9 +310,14 @@ export class MediaCardView extends Component<
 		const Card = enableSyncMediaCard ? CardSync : CardAsync;
 
 		return (
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			<div {...dataAttributes} data-node-type="media" data-local-id={localId}>
+			<div
+				ref={this.props.mediaElementRef}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...dataAttributes}
+				data-node-type="media"
+				data-local-id={localId}
+			>
 				<Card
 					// TODO: MPT-315 - clean up after we move mediaClientConfig into FileIdentifier
 					// context is not really used when the type is external and we want to render the component asap
@@ -434,6 +440,7 @@ export class MediaCardView extends Component<
 
 		return (
 			<div
+				ref={this.props.mediaElementRef}
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getClipboardAttrs({

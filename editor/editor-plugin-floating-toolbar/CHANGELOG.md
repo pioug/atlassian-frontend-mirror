@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 32.0.3
+
+### Patch Changes
+
+- [`946472ca53135`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/946472ca53135) -
+  Behind platform_editor_improve_inp, memoize historical floating-toolbar shared-state reads inside
+  getSharedState. Keep current editor-state reads fresh, avoid adding public plugin APIs, and
+  release cached results when the editor view is destroyed.
+- Updated dependencies
+
+## 32.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.1
 
 ### Patch Changes

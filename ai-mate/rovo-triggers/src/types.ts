@@ -26,6 +26,7 @@ export const Topics = {
 	ROVO_REMIX: 'rovo-remix',
 	ROVO_SKILLS: 'rovo-skills',
 	AVP: 'avp',
+	AGENT_EDITOR: 'agent-editor',
 } as const;
 export type Topic = (typeof Topics)[keyof typeof Topics];
 
@@ -162,6 +163,11 @@ export type ChatCreationContextParams = {
 	additionalContext?: Record<string, SerializableCreationContextValue>;
 };
 
+export type SearchResultsReturnContext = {
+	searchResultsUrl: string;
+	searchQuery: string;
+};
+
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
 	{
@@ -196,6 +202,7 @@ export type ChatNewPayload = PayloadCore<
 		sourceId?: string;
 		/** Correlates a Quick Find journey with the Chat activity it launches. */
 		rovoJourneyId?: string;
+		searchResultsReturn?: SearchResultsReturnContext;
 		minionAlias?: string;
 		requestedSkills?: string[];
 		// Skip creating a seeded conversation in the BE with auto-generated name
@@ -970,8 +977,14 @@ export type AgentEditorOpenToolsPayload = PayloadCore<
 	{ agentId: string; cloudId: string }
 > & { openChat: false };
 
+export type AgentEditorOpenTriggerPayload = PayloadCore<
+	'agent-editor-open-trigger',
+	{ agentId: string; automationRuleId?: string; cloudId: string }
+> & { openChat: false; consumeOnce: true };
+
 export type Payload =
 	| AgentEditorOpenToolsPayload
+	| AgentEditorOpenTriggerPayload
 	| MessageSendPayload
 	| ChatClosePayload
 	| CloseInContextAifcModalPayload

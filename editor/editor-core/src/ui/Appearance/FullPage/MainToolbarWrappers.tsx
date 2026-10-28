@@ -17,7 +17,7 @@ const nonCustomToolbarWrapperCompiledStyles = cssMap({
 	},
 });
 
-export const NonCustomToolbarWrapperCompiled = ({
+export const NonCustomToolbarWrapper = ({
 	children,
 }: {
 	children: React.ReactNode;
@@ -31,7 +31,7 @@ const customToolbarWrapperCompiledStyles = cssMap({
 });
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const CustomToolbarWrapperCompiled = ({
+export const CustomToolbarWrapper = ({
 	children,
 }: {
 	children: React.ReactNode;
@@ -54,7 +54,7 @@ const mainToolbarIconBeforeCompiledStyles = cssMap({
 });
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const MainToolbarIconBeforeCompiled = ({
+export const MainToolbarIconBefore = ({
 	children,
 }: {
 	children: React.ReactNode;

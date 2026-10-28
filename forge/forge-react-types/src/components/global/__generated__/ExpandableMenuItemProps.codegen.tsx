@@ -3,20 +3,32 @@
  *
  * Generated prop types for Global component - ExpandableMenuItem
  *
- * @codegen <<SignedSource::09e0613c4b37badae43e16f5950d2dd8>>
+ * @codegen <<SignedSource::cc8be437ce3ccbecc3fe629a4bee9292>>
  * @codegenCommand afm workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/ExpandableMenuItem.tsx <<SignedSource::42e91b3439f22096ddac998355428c7e>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::956ce4482c6294788d7a91427e49339f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/ExpandableMenuItem.tsx <<SignedSource::31e2e7f5d512a6a368a8e10da573d921>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import type React from 'react';
+import type { IconProps } from '../../__generated__/IconProps.codegen';
 
 export type ExpandableMenuItemProps = {
 	/**
 	 * The display label for the expandable menu item.
 	 */
 	label: string;
+	/**
+	 * The icon to display before the label. Accepts either a UI Kit icon glyph name, or an image source:
+	 * a local app asset, a hosted URL (its host must be declared in `permissions.external.images` in the
+	 * app manifest), a data URI, or a root-relative path. If omitted, no icon is shown.
+	 */
+	icon?: IconProps['glyph'] | string;
+	/**
+	 * The icon to display instead of `icon` when dark mode is selected. Accepts the same values as `icon`
+	 * and follows the same rules. If omitted, `icon` is also used in dark mode.
+	 */
+	iconDark?: IconProps['glyph'] | string;
 	/**
 	 * Accepts LinkMenuItem and ExpandableMenuItem components.
 	 * Nesting is supported up to 3 levels deep

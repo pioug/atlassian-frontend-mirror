@@ -48,8 +48,7 @@ const map = cssMap({ plain: { selectors: { '& div': { '--x': '1' } } } });
 
 - Cause: `afm-tools/crates/ap_compiled_css/src/oxc_transform/style_lowering/mod.rs:388-485` has no
   selectors merge.
-- A correct port to copy:
-  `platform/crates/swc-compiled-plugin/src/css_map/process_selectors.rs:119-291`.
+- A correct port to copy is available in the compiled CSS implementation.
 - Exposure: 11 production files and 25 blocks in Jira, WAC and Post Office. None is broken in a
   production build, because production does not build with `ap`. Anything built with `ap`, such as a
   VR snapshot, renders them unstyled.

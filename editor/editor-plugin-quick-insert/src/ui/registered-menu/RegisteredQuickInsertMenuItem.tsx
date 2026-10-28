@@ -24,10 +24,14 @@ export const RegisteredQuickInsertMenuItem = ({
 		}),
 		[editorView, isOffline, popupsMountPoint, select, surfaceContext, isActive, id, isSelected],
 	);
-	const Component = registration.component ?? React.Fragment;
+	const Component = registration.component;
 	return (
 		<QuickInsertProvider value={value}>
-			<Component>{null}</Component>
+			{Component ? (
+				<Component parents={registration.parents} surfaceContext={surfaceContext}>
+					{null}
+				</Component>
+			) : null}
 		</QuickInsertProvider>
 	);
 };

@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 241.0.5
+
+### Patch Changes
+
+- [`c6c19ca9d900a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6c19ca9d900a) -
+  Remove the -compiled suffix from editor-core implementation filenames and component names, and
+  update their imports, including replacing the EditorContentContainer forwarding wrapper.
+
+## 241.0.4
+
+### Patch Changes
+
+- [`c79a2b331ff7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c79a2b331ff7d) -
+  Under platform_editor_improve_inp, scope native caret suppression to selected nodes and table
+  cells, with root suppression retained for hidden code-block selections to prevent stray carets in
+  neighbouring text blocks.
+- Updated dependencies
+
+## 241.0.3
+
+### Patch Changes
+
+- [`8c836aa200b92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c836aa200b92) -
+  Keep top-level expands inside the content width on comment surfaces (Jira description and
+  comments) behind platform_editor_expand_standard_width_fix or the work_item_modernization
+  experiment: the renderer drops the -12px gutter offset for comment appearance, and the editor
+  applies the block menu useStandardNodeWidth config without the platform_editor_controls
+  experiment, including chromeless.
+- Updated dependencies
+
 ## 241.0.2
 
 ### Patch Changes

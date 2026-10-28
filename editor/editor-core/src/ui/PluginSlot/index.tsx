@@ -17,7 +17,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type EditorActions from '../../actions';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { MountPluginHooks } from './mount-plugin-hooks';
-import { PluginsComponentsWrapperCompiled } from './PluginSlot-compiled';
+import { PluginsComponentsWrapper } from './PluginSlot';
 
 export interface Props {
 	appearance?: EditorAppearance;
@@ -120,7 +120,7 @@ const PluginSlot = ({
 				containerElement={containerElement}
 				wrapperElement={wrapperElement}
 			/>
-			<PluginsComponentsWrapperCompiled data-testid="plugins-components-wrapper">
+			<PluginsComponentsWrapper data-testid="plugins-components-wrapper">
 				{/**
 				 * Why don't we do this as:
 				 * ```tsx
@@ -184,7 +184,7 @@ const PluginSlot = ({
 					});
 					return element && React.cloneElement(element, props);
 				})}
-			</PluginsComponentsWrapperCompiled>
+			</PluginsComponentsWrapper>
 		</ErrorBoundary>
 	);
 };

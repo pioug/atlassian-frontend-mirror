@@ -111,9 +111,8 @@ export class PluginState {
 	}
 
 	apply(tr: ReadonlyTransaction): PluginState {
-		// Ignored via go/ees005
-		// eslint-disable-next-line prefer-const
-		let { participants, sid, isReady } = this;
+		let { participants, sid } = this;
+		const { isReady } = this;
 
 		const presenceData = tr.getMeta('presence') as CollabEventPresenceData;
 		const telepointerData = tr.getMeta('telepointer') as CollabTelepointerPayload;

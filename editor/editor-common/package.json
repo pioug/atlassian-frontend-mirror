@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "134.0.3",
+	"version": "134.1.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -154,6 +154,7 @@
 		"./registered-menu/rows": "./src/registered-menu/getRegisteredMenuRows.ts",
 		"./registered-menu": "./src/registered-menu/types.ts",
 		"./react-node-view": "./src/react-node-view/index.tsx",
+		"./rendered-result-tracker": "./src/utils/rendered-result-tracker.ts",
 		"./resizer": "./src/resizer/index.ts",
 		"./safe-plugin": "./src/safe-plugin/index.ts",
 		"./selection": "./src/selection/index.ts",

@@ -42,6 +42,13 @@ for (const enabled of [false, true]) {
 		for (const kind of ['panel', 'cell', 'gapcursor'] as const) {
 			const selectedTextCount = kind === 'gapcursor' ? 0 : kind === 'panel' ? 1 : 2;
 			const selectionType = kind === 'panel' ? 'node' : kind;
+			// Treatment scopes panel/cell caret suppression to the selected subtree.
+			// Control and the dedicated gap-cursor rules still suppress at the root.
+			const hasScopedCaret = enabled && kind !== 'gapcursor';
+			const caretSelector = hasScopedCaret
+				? '.ProseMirror .selectedCell strong, .ProseMirror .ak-editor-selected-node strong'
+				: '.ProseMirror';
+			const expectedCaretCount = hasScopedCaret ? selectedTextCount : 1;
 
 			test(`suppresses ${kind} selection and restores text highlighting`, async ({
 				editor,
@@ -78,9 +85,17 @@ for (const enabled of [false, true]) {
 				expect(selection.type).toBe(selectionType);
 				const root = editor.page.locator('.ProseMirror');
 				await expect(root).toHaveClass(/ProseMirror-hideselection/u);
-				await expect(root).toHaveCSS('caret-color', 'rgba(0, 0, 0, 0)');
 				const selected = root.locator('.selectedCell strong, .ak-editor-selected-node strong');
 				await expect(selected).toHaveCount(selectedTextCount);
+				const caretTargets = editor.page.locator(caretSelector);
+				await expect(caretTargets).toHaveCount(expectedCaretCount);
+				await expect
+					.poll(() =>
+						caretTargets.evaluateAll((elements) =>
+							elements.map((el) => getComputedStyle(el).caretColor),
+						),
+					)
+					.toEqual(Array(expectedCaretCount).fill('rgba(0, 0, 0, 0)'));
 				await expect
 					.poll(() =>
 						selected.evaluateAll((elements) =>

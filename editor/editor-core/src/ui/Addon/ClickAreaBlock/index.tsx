@@ -3,7 +3,7 @@ import React from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clickAreaClickHandler } from '../click-area-helper';
-import { ClickAreaBlockContainerCompiled } from './clickAreaBlock-compiled';
+import { ClickAreaBlockContainer } from './clickAreaBlock';
 
 export interface Props {
 	children?: React.ReactNode;
@@ -30,7 +30,7 @@ export const ClickAreaBlock = ({
 	);
 
 	return (
-		<ClickAreaBlockContainerCompiled
+		<ClickAreaBlockContainer
 			data-editor-click-wrapper
 			data-testid="click-wrapper"
 			onMouseDown={handleMouseDown}
@@ -39,7 +39,7 @@ export const ClickAreaBlock = ({
 			role="presentation"
 		>
 			{children}
-		</ClickAreaBlockContainerCompiled>
+		</ClickAreaBlockContainer>
 	);
 };
 

@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 2.5.0
+
+### Minor Changes
+
+- [`14b611710aa3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b611710aa3b) -
+  Track persisted person cards shown in Confluence, distinguish partial profile data failures from
+  core profile failures, and attribute existing profile interactions to the Confluence page context.
+
 ## 2.4.4
 
 ### Patch Changes

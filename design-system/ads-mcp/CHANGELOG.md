@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 1.11.7
+
+### Patch Changes
+
+- [`d3100c1dd0a33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3100c1dd0a33) -
+  Use authored elevation guidance for surface selection, interaction states, drag restoration,
+  scroll boundaries, and nested overlay layering. Improve foundation retrieval for container
+  surfaces and popups inside modals.
+
 ## 1.11.6
 
 ### Patch Changes

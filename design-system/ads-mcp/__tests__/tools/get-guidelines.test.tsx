@@ -13,6 +13,14 @@ const guidelineWithKeyword = (keyword: string): string => {
 };
 
 describe('ads_get_guidelines tool', () => {
+	it.each(['elevation', 'card shadow', 'container surface', 'drag surface', 'popup inside modal'])(
+		'retrieves elevation guidance for %s',
+		async (query) => {
+			const result = await getGuidelinesTool({ terms: [query], limit: 1 });
+			expect(result.content).toEqual([{ type: 'text', text: guidelineWithKeyword('elevation') }]);
+		},
+	);
+
 	it('returns all guidelines in Markdown format when no search terms provided', async () => {
 		const result = await getGuidelinesTool({});
 		expect(result.content).toHaveLength(1);

@@ -513,6 +513,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						allowAltTextOnImages: options && options.allowAltTextOnImages,
 						allowImageEditing: !!api?.mediaEditing && options && options.allowImageEditing,
 						allowImagePreview: options && options.allowImagePreview,
+						allowVideoPreview: options && options.allowVideoPreview,
 						altTextValidator: options && options.altTextValidator,
 						fullWidthEnabled: options && options.fullWidthEnabled,
 						allowMediaInlineImages: options && options.allowMediaInlineImages,

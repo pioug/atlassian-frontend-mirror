@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "24.0.1",
+	"version": "24.2.0",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -132,6 +132,9 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
+		"cc_comments_inset_media_viewer": {
+			"type": "boolean"
+		},
 		"platform_editor_comments_api_manager": {
 			"type": "boolean"
 		},
@@ -142,9 +145,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_aifc_streaming": {
-			"type": "boolean"
-		},
-		"confluence_remix_button_right_side_block_fg": {
 			"type": "boolean"
 		}
 	},

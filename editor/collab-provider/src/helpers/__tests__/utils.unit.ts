@@ -7,6 +7,7 @@
 */
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
@@ -25,6 +26,10 @@ import {
 	normalizeAgentId,
 } from '../utils';
 import step from './__fixtures__/clean-step-for-empty-doc.json';
+
+jest.mock('@atlaskit/atlassian-context/cloud-provider', () => ({
+	isGoogleCloudPlatform: jest.fn(),
+}));
 
 jest.mock<typeof import('@atlaskit/prosemirror-collab')>('@atlaskit/prosemirror-collab', () => {
 	const originPC = jest.requireActual<typeof import('@atlaskit/prosemirror-collab')>(
@@ -117,31 +122,59 @@ describe('Utils unit tests', () => {
 		});
 	});
 
-	it('isGCPtenant returns true for tenant with GCP naming convention', () => {
-		const hostname = 'test-tenant-cdp-bb0.jira-dev.com';
-		const result = isGCPtenant(hostname);
+	describe('isGCPtenant', () => {
+		afterEach(() => {
+			jest.restoreAllMocks();
+		});
 
-		expect(result).toBe(true);
-	});
+		it.each([
+			{ cookies: 'Atl-Ctx-Cloud-Service-Provider=GCP', bifrostGcp: false, expected: true },
+			{ cookies: 'Atl-Ctx-Cloud-Service-Provider=GCP', bifrostGcp: true, expected: true },
+			{ cookies: 'Atl-Ctx-Cloud-Service-Provider=AWS', bifrostGcp: true, expected: true },
+			{ cookies: 'Atl-Ctx-Cloud-Service-Provider=AWS', bifrostGcp: false, expected: false },
+			{ cookies: '', bifrostGcp: true, expected: true },
+			{ cookies: '', bifrostGcp: false, expected: false },
+			{ cookies: 'Atl-Ctx-Cloud-Service-Provider=unknown', bifrostGcp: true, expected: true },
+			{ cookies: 'Atl-Ctx-Cloud-Service-Provider=unknown', bifrostGcp: false, expected: false },
+			{
+				cookies: 'unrelated=value; Atl-Ctx-Cloud-Service-Provider=GCP; another=value',
+				bifrostGcp: false,
+				expected: true,
+			},
+			{ cookies: 'Bifrost-Atl-Ctx-Cloud-Service-Provider=GCP', bifrostGcp: false, expected: false },
+		])(
+			'returns $expected for "$cookies" with Bifrost GCP=$bifrostGcp',
+			({ cookies, bifrostGcp, expected }) => {
+				jest.spyOn(document, 'cookie', 'get').mockReturnValue(cookies);
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(bifrostGcp);
 
-	it('isGCPtenant returns false for tenant without GCP naming convention', () => {
-		const hostname = 'test-tenant-gcp.jira-dev.com';
-		const result = isGCPtenant(hostname);
+				expect(isGCPtenant()).toBe(expected);
+			},
+		);
 
-		expect(result).toBe(false);
-	});
+		it('falls back to the shared detector when cookie access throws', () => {
+			jest.spyOn(document, 'cookie', 'get').mockImplementation(() => {
+				throw new Error('Cookie access unavailable');
+			});
+			jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
 
-	it('isGCPtenant returns false for empty hostname', () => {
-		const hostname = '';
-		const result = isGCPtenant(hostname);
+			expect(isGCPtenant()).toBe(true);
+		});
 
-		expect(result).toBe(false);
-	});
+		it('retains the GCP staging hostname fallback when cloud cookies are unavailable', () => {
+			jest.spyOn(document, 'cookie', 'get').mockReturnValue('');
+			jest.mocked(isGoogleCloudPlatform).mockReturnValue(false);
 
-	it('isGCPtenant returns false for undefined hostname', () => {
-		const hostname = undefined;
-		const result = isGCPtenant(hostname);
+			expect(isGCPtenant('test-tenant-cdp-bb0.jira-dev.com')).toBe(true);
+			expect(isGCPtenant('test-tenant-gcp.jira-dev.com')).toBe(false);
+			expect(isGCPtenant('tenant.atlassian.net')).toBe(false);
+		});
 
-		expect(result).toBe(false);
+		it('recognizes a GCP staging hostname even when the Edge cookie says AWS', () => {
+			jest.spyOn(document, 'cookie', 'get').mockReturnValue('Atl-Ctx-Cloud-Service-Provider=AWS');
+			jest.mocked(isGoogleCloudPlatform).mockReturnValue(false);
+
+			expect(isGCPtenant('test-tenant-cdp-bb0.jira-dev.com')).toBe(true);
+		});
 	});
 });

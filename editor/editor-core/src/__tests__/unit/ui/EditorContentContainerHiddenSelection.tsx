@@ -7,7 +7,7 @@ import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enable
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
-import { EditorContentContainerCompiled } from '../../../ui/EditorContentContainer/EditorContentContainer-compiled';
+import EditorContentContainer from '../../../ui/EditorContentContainer/EditorContentContainer';
 
 jest.mock('@atlaskit/editor-common/browser', () => ({
 	getBrowserInfo: jest.fn(),
@@ -41,7 +41,7 @@ const withoutHighlightPseudo = (selector: string, pseudo: string): string =>
 
 const renderSelection = () =>
 	render(
-		<EditorContentContainerCompiled appearance="full-page" viewMode="edit">
+		<EditorContentContainer appearance="full-page" viewMode="edit">
 			<div className="ProseMirror ProseMirror-hideselection" data-testid="editor">
 				<div className="ProseMirror-selectednode" data-testid="pm-node">
 					<span data-testid="pm-child">Node view text</span>
@@ -65,7 +65,7 @@ const renderSelection = () =>
 				</p>
 				<div className="ProseMirror-gapcursor" data-testid="gap-cursor" />
 			</div>
-		</EditorContentContainerCompiled>,
+		</EditorContentContainer>,
 	);
 
 describe('hidden native selection highlighting', () => {

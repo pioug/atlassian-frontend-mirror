@@ -10,7 +10,7 @@ import { useElementWidth } from './hooks';
 import { Toolbar } from './Toolbar';
 import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
 import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
-import { ToolbarSizeDetectorWrapperCompiled } from './ToolbarSizeDetectorWrapper-compiled';
+import { ToolbarSizeDetectorWrapper } from './ToolbarSizeDetectorWrapper';
 
 export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): React.JSX.Element => {
 	const ref = React.useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): Re
 	const wrapperStyle = useMemo(() => ({ minWidth: minWidthValue }), [minWidthValue]);
 
 	return (
-		<ToolbarSizeDetectorWrapperCompiled
+		<ToolbarSizeDetectorWrapper
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- minWidth is computed dynamically from props.hasMinWidth, props.appearance, props.twoLineEditorToolbar, and the platform_editor_preview_panel_responsiveness experiment, so it cannot be expressed as a static css value.
 			style={wrapperStyle}
 		>
@@ -73,6 +73,6 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): Re
 			) : (
 				<div ref={ref} />
 			)}
-		</ToolbarSizeDetectorWrapperCompiled>
+		</ToolbarSizeDetectorWrapper>
 	);
 };

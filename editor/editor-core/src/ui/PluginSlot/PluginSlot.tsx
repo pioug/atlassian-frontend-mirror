@@ -12,7 +12,7 @@ const pluginsComponentsWrapperCompiledStyles = cssMap({
 	},
 });
 
-export const PluginsComponentsWrapperCompiled = ({
+export const PluginsComponentsWrapper = ({
 	children,
 	...rest
 }: HTMLAttributes<HTMLDivElement>): React.JSX.Element => (

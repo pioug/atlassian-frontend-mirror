@@ -25,7 +25,7 @@ import EditorContext from '../ui/EditorContext';
 import { IntlProviderIfMissingWrapper } from '../ui/IntlProviderIfMissingWrapper/IntlProviderIfMissingWrapper';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
-import { EditorInternalContainerCompiled } from './editor-internal-compiled';
+import { EditorInternalContainer } from './editor-internal-container';
 import { getBaseFontSize } from './utils/getBaseFontSize';
 
 interface InternalProps {
@@ -107,7 +107,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
-					<EditorInternalContainerCompiled fontSize={fontSize}>
+					<EditorInternalContainer fontSize={fontSize}>
 						<EditorContext editorActions={editorActions}>
 							<IntlProviderIfMissingWrapper>
 								<Fragment>
@@ -183,7 +183,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 								</Fragment>
 							</IntlProviderIfMissingWrapper>
 						</EditorContext>
-					</EditorInternalContainerCompiled>
+					</EditorInternalContainer>
 				</ErrorBoundary>
 			</Fragment>
 		);

@@ -1,5 +1,36 @@
 # @atlaskit/editor-presets
 
+## 24.2.0
+
+### Minor Changes
+
+- [`41ae695feb7b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41ae695feb7b2) -
+  Pass the optional `trackPastedInlineLinks` setting through the Confluence full-page base preset to
+  the card plugin. Existing consumers remain opted out.
+
+## 24.1.0
+
+### Minor Changes
+
+- [`6344f531f7d03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6344f531f7d03) -
+  [ux] Show the Expand toolbar button for videos, so they open in the Media Viewer like images.
+  Confluence enables it with the `cc_comments_media_viewer_sidebar` experiment and the
+  `cc_comments_inset_media_viewer` feature gate.
+
+  `@atlaskit/editor-plugin-media` adds an `allowVideoPreview` option, the video counterpart of
+  `allowImagePreview`. It shows the Expand toolbar button for videos and defaults off.
+
+  `@atlaskit/editor-presets` sets `allowVideoPreview` in the Confluence base full-page preset when
+  both the `cc_comments_media_viewer_sidebar` experiment and the `cc_comments_inset_media_viewer`
+  feature gate are on.
+
+### Patch Changes
+
+- [`49c506ac95bb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49c506ac95bb6) -
+  Remove the fully rolled-out `confluence_remix_button_right_side_block_fg` gate; keep right-side
+  Remix controls enabled when their existing MAUI experiment and product configuration allow them.
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

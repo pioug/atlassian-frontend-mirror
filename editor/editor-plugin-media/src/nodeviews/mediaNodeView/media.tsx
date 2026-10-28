@@ -9,6 +9,10 @@ import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
+import {
+	createRenderedResultTracker,
+	type RenderedResultTracker,
+} from '@atlaskit/editor-common/rendered-result-tracker';
 import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { setNodeSelection, setTextSelection } from '@atlaskit/editor-common/utils';
@@ -30,6 +34,7 @@ import {
 	preloadMediaViewer,
 	type MediaViewerPreloadEventPayload,
 } from '@atlaskit/media-viewer/preload';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -53,6 +58,7 @@ export const FILE_WIDTH = 156;
 export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 	api?: ExtractInjectionAPI<MediaNextEditorPluginType>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	deferRenderedEventUntilVisible?: boolean;
 	getPos: ProsemirrorGetPosHandler;
 	isAIGenerating?: boolean;
 	isLoading?: boolean;
@@ -85,6 +91,21 @@ interface MediaNodeState {
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	private readonly mediaInstance = {};
+	private readonly renderedTracker?: RenderedResultTracker;
+	private mediaElement: HTMLDivElement | null = null;
+
+	private setMediaElement = (element: HTMLDivElement | null): void => {
+		this.mediaElement = element;
+		this.updateRenderedTracking();
+	};
+
+	private updateRenderedTracking = (): void => {
+		this.renderedTracker?.setResult(this.props.node.attrs.id);
+		// Observe only when render event is deferred; observing null disconnects any existing observer
+		this.renderedTracker?.observe(
+			this.props.deferRenderedEventUntilVisible ? this.mediaElement : null,
+		);
+	};
 	private mediaPluginState: MediaPluginState | undefined;
 
 	state: MediaNodeState = {};
@@ -95,6 +116,12 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		super(props);
 		const { view, syncProvider } = this.props;
 		this.mediaPluginState = mediaStateKey.getState(view.state);
+		if (isExperimentEnabled('platform_maui_retention_analytics')) {
+			this.renderedTracker = createRenderedResultTracker({
+				onRendered: this.fireRenderedEvent,
+			});
+			this.renderedTracker.setResult(props.node.attrs.id);
+		}
 
 		// Initialize state from syncProvider (available on both server and client for SSR)
 		if (syncProvider) {
@@ -129,6 +156,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.syncProvider !== nextProps.syncProvider ||
 			this.getDataConsumerSource() !== this.getDataConsumerSource(nextProps) ||
 			this.props.mediaOptions?.onMediaRenderEvent !== nextProps.mediaOptions?.onMediaRenderEvent ||
+			this.props.deferRenderedEventUntilVisible !== nextProps.deferRenderedEventUntilVisible ||
 			this.state.previewRenderedFileId !== nextState.previewRenderedFileId ||
 			this.state.failedFileId !== nextState.failedFileId ||
 			hasNewViewMediaClientConfig ||
@@ -139,11 +167,14 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		return false;
 	}
 
-	private getDataConsumerMark = () =>
-		this.props.node.marks.find((m) => m.type.name === 'dataConsumer');
+	private getDataConsumerMark = (props: MediaNodeProps = this.props) =>
+		props.node.marks.find((mark) => mark.type.name === 'dataConsumer');
 
-	private getDataConsumerSource = (props: MediaNodeProps = this.props): string | undefined =>
-		props.node.marks.find((mark) => mark.type.name === 'dataConsumer')?.attrs.sources?.[0];
+	private getDataConsumerSource = (props: MediaNodeProps = this.props): string | undefined => {
+		const sources: string[] | undefined = this.getDataConsumerMark(props)?.attrs.sources;
+		// Prefer remix source if present
+		return sources?.find((source) => source.startsWith('remix:')) ?? sources?.[0];
+	};
 
 	private emitMediaRenderEvent = (
 		event: MediaRenderEventPayload,
@@ -161,9 +192,21 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		this.handleNewNode(this.props);
 		this.emitMediaRenderEvent({ type: 'mounted' });
 
+		if (!this.props.deferRenderedEventUntilVisible) {
+			this.fireRenderedEvent();
+		}
+
+		const { contextIdentifierProvider } = this.props;
+		this.setState({
+			contextIdentifierProvider: await contextIdentifierProvider,
+		});
+
+		await this.setViewMediaClientConfig();
+	}
+
+	private fireRenderedEvent = (): void => {
 		const { node, pluginInjectionApi } = this.props;
-		const dataConsumerMark = this.getDataConsumerMark();
-		const infographicType = dataConsumerMark?.attrs.sources?.[0];
+		const infographicType = this.getDataConsumerSource();
 		if (infographicType) {
 			pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent({
 				action: ACTION.RENDERED,
@@ -177,16 +220,10 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				},
 			});
 		}
-
-		const { contextIdentifierProvider } = this.props;
-		this.setState({
-			contextIdentifierProvider: await contextIdentifierProvider,
-		});
-
-		await this.setViewMediaClientConfig();
-	}
+	};
 
 	componentWillUnmount(): void {
+		this.renderedTracker?.destroy();
 		const { node } = this.props;
 		this.emitMediaRenderEvent({ type: 'unmounted' });
 		this.mediaPluginState?.handleMediaNodeUnmount(node);
@@ -196,6 +233,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	}
 
 	componentDidUpdate(prevProps: Readonly<MediaNodeProps>): void {
+		this.updateRenderedTracking();
 		if (
 			prevProps.node.attrs.id !== this.props.node.attrs.id ||
 			this.getDataConsumerSource(prevProps) !== this.getDataConsumerSource() ||
@@ -438,6 +476,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	};
 
 	private onPreviewRender = (fileId: string) => {
+		this.updateRenderedTracking();
+		this.renderedTracker?.ready(fileId);
 		this.emitMediaRenderEvent({ renderedMediaId: fileId, type: 'preview-rendered' });
 		// Only tracked where the reveal uses it. Every media card in every editor calls this,
 		// and the extra render it would otherwise trigger is not free.
@@ -490,7 +530,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props;
 
 		const borderMark = node.marks.find((m) => m.type.name === 'border');
-		const dataConsumerMark = this.getDataConsumerMark();
 
 		const { viewMediaClientConfig, viewAndUploadMediaClientConfig, contextIdentifierProvider } =
 			this.state;
@@ -520,6 +559,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 					mediaKey={id}
 				>
 					<MediaCardWrapper
+						mediaElementRef={this.setMediaElement}
 						dimensions={originalDimensions}
 						borderWidth={borderMark?.attrs.size}
 						selected={selected}
@@ -570,6 +610,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				mediaKey={id}
 			>
 				<MediaCardWrapper
+					mediaElementRef={this.setMediaElement}
 					dimensions={originalDimensions}
 					onContextMenu={this.selectMediaSingle}
 					onFocus={this.warmMediaViewer}
@@ -582,9 +623,9 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						data={{
 							[MEDIA_CONTEXT]: {
 								border: !!borderMark,
-								// Only defined for remix-generated media (i.e. media nodes with a dataConsumer mark).
-								// Format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
-								remixSource: dataConsumerMark?.attrs.sources?.[0],
+								// Defined for media with a dataConsumer mark; prefers a Remix source when present.
+								// Remix format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
+								remixSource: this.getDataConsumerSource(),
 							},
 						}}
 					>

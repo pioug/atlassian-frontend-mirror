@@ -81,17 +81,5 @@
 		"react": "root:*",
 		"react-dom": "root:*"
 	},
-	"platform-feature-flags": {
-		"confluence_ep_shim_macro_links_v2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_smartlink_inline_resolve_optimization": {
-			"type": "boolean"
-		},
-		"preview_panel_unit_check": {
-			"type": "boolean"
-		}
-	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/186ef24b-75c6-4a0c-aaa3-4185737ea168"
 }

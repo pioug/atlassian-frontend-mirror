@@ -93,7 +93,7 @@ const classifyRightMarginPosition = (view: EditorView, event: MouseEvent): Right
 
 /**
  * Process hover position and set left/right side. Only invoked when right-side controls are
- * enabled (confluence_remix_button_right_side_block_fg); handleMouseMove returns early otherwise.
+ * enabled; handleMouseMove returns early otherwise.
  */
 const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockControlsPlugin>) => {
 	const event = pendingByView.get(view);
@@ -215,7 +215,7 @@ export const handleMouseMove = (
 		stopEditing(view);
 	}
 
-	// Only track hover side when right-side controls are enabled (single source: confluence_remix_button_right_side_block_fg via config)
+	// Only track hover side when right-side controls are enabled.
 	if (!rightSideControlsEnabled) {
 		return false;
 	}

@@ -8,6 +8,7 @@ import {
 	type ExposureIdentity,
 	type InitializationStatus,
 } from './attribution';
+import { attributionIdentifiers, isNonEmptyString } from './identifiers';
 import {
 	boolValue,
 	doubleValue,
@@ -173,18 +174,6 @@ export function mapExposureRecord(input: ExposureMappingInput): ExposureRecord {
 }
 
 /**
- * The nonempty identifiers of the attribution context, which a record carries as
- * `atl.identifiers.*`.
- */
-export function attributionIdentifiers(
-	input: Pick<ExposureMappingInput, 'requestContext' | 'user'>,
-): [name: string, value: string][] {
-	return Object.entries((input.requestContext ?? input.user).identifiers).filter(
-		(entry): entry is [string, string] => entry[0] !== '' && isNonEmptyString(entry[1]),
-	);
-}
-
-/**
  * The message for an error reason. Fixed text contains only client-owned values; a payload message
  * is used only for the reasons whose payload reports the failure itself.
  */
@@ -202,8 +191,4 @@ function errorReasonMessage(
 		if (message !== undefined) return message;
 	}
 	return `FFP evaluation failed: ${reason}`;
-}
-
-function isNonEmptyString(value: unknown): value is string {
-	return typeof value === 'string' && value !== '';
 }

@@ -1,11 +1,16 @@
 import { EventEmitter } from 'events';
 
+import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
 import { createSocketIOSocket, WEBSOCKET_CONNECT_TIMEOUT_MS } from '../../socket-io-provider';
 import type { InitAndAuthData } from '../../types';
+
+jest.mock('@atlaskit/atlassian-context/cloud-provider', () => ({
+	isGoogleCloudPlatform: jest.fn(),
+}));
 
 // Every test opens a real connection to localhost. Close it, so it does not outlive the Jest environment.
 const mockManagers: any[] = [];
@@ -22,6 +27,7 @@ jest.mock('socket.io-client', () => {
 });
 afterEach(() => {
 	mockManagers.splice(0).forEach((manager) => manager._close());
+	jest.restoreAllMocks();
 });
 
 describe('Socket io provider', () => {
@@ -30,6 +36,10 @@ describe('Socket io provider', () => {
 	const presenceUrl = 'http://localhost:8080/collab-presence-confluence/sessionId/123';
 	const presencePath = '/ncs-presence/mock-cloud-id/mock-activation-id/confluence';
 	const editPath = '/ncs/mock-cloud-id/mock-activation-id/confluence';
+
+	beforeEach(() => {
+		jest.mocked(isGoogleCloudPlatform).mockReturnValue(false);
+	});
 
 	describe('Socket io client path', () => {
 		it('return io with correct path for ccollab', () => {
@@ -75,6 +85,8 @@ describe('Socket io provider', () => {
 			});
 
 			it('use only websocket transport for collab editing on GCP and FG on', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				failGate('platform_editor_gcp_collab_ws_first');
 				passGate('collab_edit_via_websocket_only_for_gcp');
 				const socket = createSocketIOSocket(gcpUrl);
 
@@ -82,13 +94,91 @@ describe('Socket io provider', () => {
 			});
 
 			it('use polling and websocket transports for collab editing on GCP and FG off', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				failGate('platform_editor_gcp_collab_ws_first');
 				failGate('collab_edit_via_websocket_only_for_gcp');
 				const socket = createSocketIOSocket(gcpUrl);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 
+			it.each(['edge', 'bifrost'])(
+				'use websocket first for GCP editing detected through %s',
+				(provider) => {
+					jest
+						.spyOn(document, 'cookie', 'get')
+						.mockReturnValue(provider === 'edge' ? 'Atl-Ctx-Cloud-Service-Provider=GCP' : '');
+					jest.mocked(isGoogleCloudPlatform).mockReturnValue(provider === 'bifrost');
+					passGate('platform_editor_gcp_collab_ws_first');
+					jest.mocked(fg).mockClear();
+					const socket = createSocketIOSocket(url, undefined, { product: 'confluence' });
+
+					expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+					expect(socket.io.opts.tryAllTransports).toBe(true);
+					expect(socket.io.opts.query).toMatchObject({
+						'x-product': 'confluence',
+						'x-subproduct': 'none',
+						'x-client-platform': 'web',
+					});
+					expect(socket.io.opts.reconnectionDelay).toBe(SOCKET_IO_OPTIONS.RECONNECTION_DELAY);
+					expect(socket.io.opts.randomizationFactor).toBe(SOCKET_IO_OPTIONS.RANDOMIZATION_FACTOR);
+					expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_first_with_fallback');
+					expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_restore_after_upgrade');
+				},
+			);
+
+			it('prefer the GCP websocket first gate over the websocket only gate', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				passGate('platform_editor_gcp_collab_ws_first');
+				jest.mocked(fg).mockClear();
+				const socket = createSocketIOSocket(url);
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.io.opts.tryAllTransports).toBe(true);
+				expect(fg).not.toHaveBeenCalledWith('collab_edit_via_websocket_only_for_gcp');
+			});
+
+			it('use websocket first for GCP staging when cloud cookies are unavailable', () => {
+				jest.spyOn(document, 'cookie', 'get').mockReturnValue('');
+				passGate('platform_editor_gcp_collab_ws_first');
+				const socket = createSocketIOSocket(gcpUrl);
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.io.opts.tryAllTransports).toBe(true);
+			});
+
+			it('keep polling first without evaluating the GCP gate for AWS tenants', () => {
+				jest.spyOn(document, 'cookie', 'get').mockReturnValue('Atl-Ctx-Cloud-Service-Provider=AWS');
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(false);
+				const socket = createSocketIOSocket(url);
+
+				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+				expect(socket.io.opts.tryAllTransports).toBe(false);
+			});
+
+			it('use websocket first when the shared detector reports GCP despite an AWS Edge cookie', () => {
+				jest.spyOn(document, 'cookie', 'get').mockReturnValue('Atl-Ctx-Cloud-Service-Provider=AWS');
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				passGate('platform_editor_gcp_collab_ws_first');
+				const socket = createSocketIOSocket(url);
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.io.opts.tryAllTransports).toBe(true);
+			});
+
+			it('keep presence controlled by its own gate without evaluating the GCP gate', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				failGate('platform_editor_presence_ws_first_with_fallback');
+				jest.mocked(fg).mockClear();
+				const socket = createSocketIOSocket(url, undefined, undefined, true);
+
+				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+				expect(socket.io.opts.tryAllTransports).toBe(false);
+				expect(fg).not.toHaveBeenCalledWith('platform_editor_gcp_collab_ws_first');
+			});
+
 			it('use websocket first for presence on GCP and FG on', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
 				passGate('platform_editor_presence_ws_first_with_fallback');
 				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
@@ -96,6 +186,7 @@ describe('Socket io provider', () => {
 			});
 
 			it('use polling and websocket transports for presence on GCP and FG off', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
 				failGate('platform_editor_presence_ws_first_with_fallback');
 				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
@@ -103,18 +194,24 @@ describe('Socket io provider', () => {
 			});
 		});
 
-		describe('Presence polling fallback', () => {
+		describe.each(['presence', 'gcp-collab'] as const)('%s polling fallback', (connectionCase) => {
+			const isPresenceOnly = connectionCase === 'presence';
 			const analyticsHelper = { sendActionEvent: jest.fn() };
-			const createPresenceSocket = (restoreAfterUpgrade = true) => {
-				passGate('platform_editor_presence_ws_first_with_fallback');
-				(restoreAfterUpgrade ? passGate : failGate)(
-					'platform_editor_presence_ws_restore_after_upgrade',
-				);
+			const createWebSocketFirstSocket = (restoreAfterUpgrade = true) => {
+				if (isPresenceOnly) {
+					passGate('platform_editor_presence_ws_first_with_fallback');
+					(restoreAfterUpgrade ? passGate : failGate)(
+						'platform_editor_presence_ws_restore_after_upgrade',
+					);
+				} else {
+					jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+					passGate('platform_editor_gcp_collab_ws_first');
+				}
 				const socket = createSocketIOSocket(
 					url,
 					undefined,
 					undefined,
-					true,
+					isPresenceOnly,
 					analyticsHelper as any,
 				);
 				// Stop the real connection attempt, so only the events emitted below drive the fallback
@@ -141,57 +238,63 @@ describe('Socket io provider', () => {
 				jest.useRealTimers();
 			});
 
-			describe('restore after upgrade FG off', () => {
-				const transportError = () =>
-					Object.assign(new Error('websocket error'), { type: 'TransportError' });
+			if (isPresenceOnly) {
+				describe('restore after upgrade FG off', () => {
+					const transportError = () =>
+						Object.assign(new Error('websocket error'), { type: 'TransportError' });
 
-				it('switch to polling first on a websocket transport error', () => {
-					const socket = createPresenceSocket(false);
-					socket.emitReserved('connect_error', transportError());
+					it('switch to polling first on a websocket transport error', () => {
+						const socket = createWebSocketFirstSocket(false);
+						socket.emitReserved('connect_error', transportError());
 
-					expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
-					expect(socket.disconnect).toHaveBeenCalled();
-					expect(socket.connect).toHaveBeenCalled();
-					expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith('pollingFallback', 'INFO', {
-						url,
-						reason: 'websocket error',
+						expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+						expect(socket.disconnect).toHaveBeenCalled();
+						expect(socket.connect).toHaveBeenCalled();
+						expect(analyticsHelper.sendActionEvent).toHaveBeenCalledWith(
+							'pollingFallback',
+							'INFO',
+							{
+								url,
+								reason: 'websocket error',
+							},
+						);
+					});
+
+					it('keep websocket first when the server rejects the connection', () => {
+						const socket = createWebSocketFirstSocket(false);
+						socket.emitReserved(
+							'connect_error',
+							Object.assign(new Error('No permission'), { data: { status: 401 } }),
+						);
+						jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+						socket.emitReserved('connect_error', transportError());
+
+						expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+						expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
+					});
+
+					it('stay polling first after the upgrade from polling succeeds', () => {
+						const socket = createWebSocketFirstSocket(false);
+						socket.emitReserved('connect_error', transportError());
+						openEngine(socket, 'polling');
+						socket.io.engine.emit('upgrade', { name: 'websocket' });
+
+						expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
+					});
+
+					it('fall back only once', () => {
+						const socket = createWebSocketFirstSocket(false);
+						socket.emitReserved('connect_error', transportError());
+						socket.emitReserved('connect_error', transportError());
+						jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+						expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
 					});
 				});
-
-				it('keep websocket first when the server rejects the connection', () => {
-					const socket = createPresenceSocket(false);
-					socket.emitReserved(
-						'connect_error',
-						Object.assign(new Error('No permission'), { data: { status: 401 } }),
-					);
-					jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
-					socket.emitReserved('connect_error', transportError());
-
-					expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
-					expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
-				});
-
-				it('stay polling first after the upgrade from polling succeeds', () => {
-					const socket = createPresenceSocket(false);
-					socket.emitReserved('connect_error', transportError());
-					openEngine(socket, 'polling');
-					socket.io.engine.emit('upgrade', { name: 'websocket' });
-
-					expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
-				});
-
-				it('fall back only once', () => {
-					const socket = createPresenceSocket(false);
-					socket.emitReserved('connect_error', transportError());
-					socket.emitReserved('connect_error', transportError());
-					jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
-
-					expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
-				});
-			});
+			}
 
 			it('switch to polling first when the connection does not open in time', () => {
-				const socket = createPresenceSocket();
+				const socket = createWebSocketFirstSocket();
 				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
 
 				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
@@ -204,7 +307,7 @@ describe('Socket io provider', () => {
 			});
 
 			it('keep websocket first when connect errors come from polling or the network', () => {
-				const socket = createPresenceSocket();
+				const socket = createWebSocketFirstSocket();
 				socket.emitReserved(
 					'connect_error',
 					Object.assign(new Error('xhr poll error'), { type: 'TransportError' }),
@@ -216,7 +319,7 @@ describe('Socket io provider', () => {
 			});
 
 			it('keep websocket first once websocket opened, even if the auth token is slow', () => {
-				const socket = createPresenceSocket();
+				const socket = createWebSocketFirstSocket();
 				openEngine(socket, 'websocket');
 				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
 				socket.io.emitReserved('reconnect_attempt', 1);
@@ -227,7 +330,7 @@ describe('Socket io provider', () => {
 			});
 
 			it('go back to websocket first after the upgrade from polling succeeds', () => {
-				const socket = createPresenceSocket();
+				const socket = createWebSocketFirstSocket();
 				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
 				openEngine(socket, 'polling');
 				socket.io.engine.emit('upgrade', { name: 'websocket' });
@@ -240,7 +343,7 @@ describe('Socket io provider', () => {
 			});
 
 			it('stay polling first while the upgrade to websocket fails', () => {
-				const socket = createPresenceSocket();
+				const socket = createWebSocketFirstSocket();
 				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
 				openEngine(socket, 'polling');
 				socket.io.emitReserved('reconnect_attempt', 1);
@@ -248,6 +351,30 @@ describe('Socket io provider', () => {
 
 				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
 				expect(analyticsHelper.sendActionEvent).toHaveBeenCalledTimes(1);
+			});
+
+			it('does not fall back while the browser is offline', () => {
+				jest.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+				const socket = createWebSocketFirstSocket();
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.disconnect).not.toHaveBeenCalled();
+				expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
+			});
+
+			it('does not fall back when authentication is rejected after websocket opens', () => {
+				const socket = createWebSocketFirstSocket();
+				openEngine(socket, 'websocket');
+				socket.emitReserved(
+					'connect_error',
+					Object.assign(new Error('No permission'), { data: { status: 401 } }),
+				);
+				jest.advanceTimersByTime(WEBSOCKET_CONNECT_TIMEOUT_MS);
+
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.disconnect).not.toHaveBeenCalled();
+				expect(analyticsHelper.sendActionEvent).not.toHaveBeenCalled();
 			});
 		});
 

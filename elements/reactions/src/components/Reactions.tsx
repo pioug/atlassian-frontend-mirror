@@ -867,7 +867,7 @@ export const Reactions: React.MemoExoticComponent<
 									}
 								/>
 							</div>
-						) : reactions.length > 0 && fg('platform_reactions_a11y_group_added_reactions') ? (
+						) : reactions.length > 0 ? (
 							renderReactionGroup()
 						) : fg('jfp_a11y_team_comment_actions_semantic') ? (
 							<ul css={[listContainerStyles, listMarginResetStyles]}>

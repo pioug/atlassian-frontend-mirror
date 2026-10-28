@@ -38,9 +38,7 @@ import { expandKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 
-// Ignored via go/ees005
-// eslint-disable-next-line prefer-const
-export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
+export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 	api?.blockMenu?.actions.registerBlockMenuComponents([
 		{

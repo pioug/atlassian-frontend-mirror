@@ -10,7 +10,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
@@ -133,9 +132,7 @@ export const dragHandleDecoration = ({
 			const element = document.createElement('span');
 			// inline decoration causes focus issues when refocusing Editor into first line
 			element.style.display = 'block';
-			if (fg('confluence_remix_button_right_side_block_fg')) {
-				element.setAttribute('data-blocks-decorator-widget', 'true');
-			}
+			element.setAttribute('data-blocks-decorator-widget', 'true');
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			element.setAttribute('data-blocks-drag-handle-key', key);

@@ -171,11 +171,7 @@ export const handleMouseOver = (
 	// except in view mode when right-side controls are enabled (show controls on block hover)
 	const rightSideControlsEnabled =
 		api?.blockControls?.sharedState.currentState()?.rightSideControlsEnabled ?? false;
-	if (
-		editorDisabled &&
-		(!isViewMode ||
-			!(rightSideControlsEnabled && fg('confluence_remix_button_right_side_block_fg')))
-	) {
+	if (editorDisabled && (!isViewMode || !rightSideControlsEnabled)) {
 		return false;
 	}
 
@@ -224,11 +220,7 @@ export const handleMouseOver = (
 
 	// When hovering over the right-edge button (rendered in a portal outside the block), resolve the
 	// block from the container's anchor so activeNode stays set and the button remains visible.
-	if (
-		!rootElement &&
-		rightSideControlsEnabled &&
-		fg('confluence_remix_button_right_side_block_fg')
-	) {
+	if (!rootElement && rightSideControlsEnabled) {
 		const rightEdgeContainer = target?.closest('[data-blocks-right-edge-button-container]');
 		if (rightEdgeContainer) {
 			const anchor = rightEdgeContainer.getAttribute('data-blocks-right-edge-button-anchor');

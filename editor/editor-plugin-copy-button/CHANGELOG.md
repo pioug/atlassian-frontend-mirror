@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.1
 
 ### Patch Changes

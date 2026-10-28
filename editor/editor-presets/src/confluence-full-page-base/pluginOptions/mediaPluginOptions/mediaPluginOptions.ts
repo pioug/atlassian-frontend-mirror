@@ -2,6 +2,8 @@ import type { IntlShape } from 'react-intl';
 
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import type { MediaPluginOptions } from '@atlaskit/editor-plugin-media/types';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { FullPageEditorAppearance } from '../../types';
 import { i18n } from './i18n';
@@ -60,6 +62,9 @@ export function mediaPluginOptions({ intl, options, providers }: Props): MediaPl
 		allowRemoteDimensionsFetch: true,
 		allowMarkingUploadsAsIncomplete: false,
 		allowImagePreview: true,
+		allowVideoPreview:
+			UNSAFE_expValNoExposure('cc_comments_media_viewer_sidebar', 'isEnabled', false) &&
+			fg('cc_comments_inset_media_viewer'),
 		fullWidthEnabled: options.editorAppearance === 'full-width',
 		createCommentExperience: options.createCommentExperience,
 		editorAppearance: options.editorAppearance,

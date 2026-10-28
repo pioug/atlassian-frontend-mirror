@@ -314,6 +314,54 @@ const inputStyle = css({
 	},
 });
 
+const atomicInputStyle = css({
+	boxSizing: 'border-box',
+	width: '100%',
+	minWidth: '0',
+	backgroundColor: 'transparent',
+	border: 0,
+	color: 'inherit',
+	cursor: 'inherit',
+	font: token('font.body'),
+	outline: 'none',
+	paddingInlineEnd: token('space.075'),
+	paddingInlineStart: token('space.075'),
+
+	'&:invalid': {
+		boxShadow: 'none',
+	},
+	'&:placeholder-shown': {
+		textOverflow: 'ellipsis',
+	},
+	'&::placeholder': {
+		color: token('color.text.subtlest'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (pointer: coarse) and (max-width: 30rem)': {
+		font: token('font.body.large'),
+	},
+});
+
+// The bounded CSS API does not support this pointer media query; preserve the input's mobile sizing.
+const atomicInputSpacing = cssMap({
+	compact: {
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		'@media (pointer: coarse) and (max-width: 30rem)': {
+			paddingBlockEnd: token('space.025'),
+			paddingBlockStart: token('space.025'),
+		},
+	},
+	default: {
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		'@media (pointer: coarse) and (max-width: 30rem)': {
+			paddingBlockEnd: token('space.075'),
+			paddingBlockStart: token('space.075'),
+		},
+	},
+});
+
 const finessePlaceholderStyle = css({
 	'&::placeholder': { color: token('color.text.subtle') },
 });
@@ -455,14 +503,16 @@ const Textfield: React.ForwardRefExoticComponent<
 				aria-invalid={isInvalid ? isInvalid : undefined}
 				// TODO: When removing legacy theming fix this.
 				css={[
-					inputStyle,
+					fg('platform-textfield-atomic-styles') ? atomicInputStyle : inputStyle,
 					fg('platform-dst-tokens-finesse') && finessePlaceholderStyle,
 					isMonospaced && inputMonospacedStyle,
-					isCompact && inputCompactStyle,
+					!fg('platform-textfield-atomic-styles') && isCompact && inputCompactStyle,
+					fg('platform-textfield-atomic-styles') &&
+						atomicInputSpacing[isCompact ? 'compact' : 'default'],
 					isDisabled && inputDisabledStyle,
 					isDisabled && inputMediaDisabled,
 				]}
-				data-compact={isCompact ? isCompact : undefined}
+				data-compact={isCompact && !fg('platform-textfield-atomic-styles') ? isCompact : undefined}
 				data-ds--text-field--input
 				data-monospaced={isMonospaced ? isMonospaced : undefined}
 				data-testid={testId}

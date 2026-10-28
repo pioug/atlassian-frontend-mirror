@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "31.0.1",
+	"version": "31.0.3",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -95,9 +95,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_maui_jira_updates": {
-			"type": "boolean"
-		},
-		"confluence_remix_button_right_side_block_fg": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_reliable_anchor_patch_1": {

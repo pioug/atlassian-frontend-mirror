@@ -45,11 +45,6 @@
 		"./loader-fallback": "./src/entry-points/loader-fallback.tsx",
 		"./types": "./src/entry-points/types.ts"
 	},
-	"platform-feature-flags": {
-		"platform_navx_fix_nested_footer_landmark": {
-			"type": "boolean"
-		}
-	},
 	"scripts": {
 		"codegen-analytics": "ts-analytics-codegen --command='afm workspace @atlaskit/link-picker codegen-analytics'"
 	},

@@ -170,9 +170,13 @@ export class EmojiResource
 
 	constructor(config: EmojiResourceConfig) {
 		super();
+		const migrateRemainingEmojiProviders = fg('migrate-remaining-emoji-provider-integrations');
 		const rewriteEmojiGatewayPath = (url: string): string =>
-			url.replace('/gateway/api/emoji', '/gateway/api/elements/emoji');
-		const stargateEmojiPathEnabled = fg('use-elements-stargate-emoji-path');
+			migrateRemainingEmojiProviders
+				? url.replace('gateway/api/emoji', 'gateway/api/elements/emoji')
+				: url.replace('/gateway/api/emoji', '/gateway/api/elements/emoji');
+		const stargateEmojiPathEnabled =
+			fg('use-elements-stargate-emoji-path') || migrateRemainingEmojiProviders;
 		const teamoji26RefreshEmojiPickerEnabled = isTeamoji26RefreshEmojiPickerEnabled();
 		const singleEmojiApi = config.singleEmojiApi;
 		const optimisticImageApi = config.optimisticImageApi;

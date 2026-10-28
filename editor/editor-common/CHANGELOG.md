@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 134.1.2
+
+### Patch Changes
+
+- [`9e0f075939161`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e0f075939161) -
+  Deduplicate registered Quick Insert items across recommended, search, and browse views, while
+  preserving selection identity and registration context when `platform_editor_slash_command` is
+  enabled.
+- Updated dependencies
+
+## 134.1.1
+
+### Patch Changes
+
+- [`ada3de6988596`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ada3de6988596) -
+  Clean up the shipped `confluence_live_doc_table_sort_bugfix` experiment: the renderer table sort
+  button now always sits above header content so its whole body is clickable in live docs.
+- Updated dependencies
+
+## 134.1.0
+
+### Minor Changes
+
+- [`800e9d2b92528`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800e9d2b92528) -
+  Add viewport-aware rendered events for MAUI embeds and Remix media behind
+  `platform_maui_retention_analytics`, deduplicated per result within each tracker.
+
+  Native embeds opt in through `uiConfig.deferRenderedEventUntilVisible` and can provide
+  `getRenderedResultId` for analytics attribution. Other embeds retain existing timing.
+
+  Media tracking preserves preview readiness across replacements and observes only eligible Remix
+  media. Analytics prefer the matching Remix source regardless of tracking eligibility.
+
 ## 134.0.3
 
 ### Patch Changes

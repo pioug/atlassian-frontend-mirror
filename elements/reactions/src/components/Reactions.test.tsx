@@ -384,9 +384,8 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(popper).toHaveStyle({ zIndex: 700 });
 	});
 
-	describe('platform_reactions_a11y_group_added_reactions feature gate', () => {
-		it('groups only added reaction controls with an accessible name when the gate is on', async () => {
-			passGate('platform_reactions_a11y_group_added_reactions');
+	describe('added reactions group', () => {
+		it('groups only added reaction controls with an accessible name', async () => {
 			renderReactions();
 
 			const group = await screen.findByRole('group', {
@@ -398,7 +397,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		it('preserves list semantics inside the group when the list gate is on', async () => {
-			passGate('platform_reactions_a11y_group_added_reactions');
 			passGate('jfp_a11y_team_comment_actions_semantic');
 			renderReactions({ noWrap: true });
 
@@ -412,7 +410,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		it('groups reaction controls without list semantics when the list gate is off', async () => {
-			passGate('platform_reactions_a11y_group_added_reactions');
 			failGate('jfp_a11y_team_comment_actions_semantic');
 			renderReactions({ noWrap: true });
 
@@ -446,16 +443,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			renderReactions({ summaryViewEnabled: true, summaryViewThreshold: 1 });
 
 			await screen.findByTestId(RENDER_REACTIONS_SUMMARY_TESTID);
-			expect(
-				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
-			).not.toBeInTheDocument();
-		});
-
-		it('does not add group semantics when the gate is off', async () => {
-			failGate('platform_reactions_a11y_group_added_reactions');
-			renderReactions();
-
-			await screen.findAllByTestId(RENDER_REACTION_TESTID);
 			expect(
 				screen.queryByRole('group', { name: messages.addedReaction.defaultMessage }),
 			).not.toBeInTheDocument();
@@ -593,11 +580,6 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		describe('with quick reactions, as on Jira For You', () => {
-			beforeEach(() => {
-				// Grouping added reactions renders them in a different element than the zero count quick reactions
-				passGate('platform_reactions_a11y_group_added_reactions');
-			});
-
 			it('keeps focus on a quick reaction when its only count is removed', async () => {
 				passGate('platform_a11y_reactions_removal_focus');
 				renderWithIntl(

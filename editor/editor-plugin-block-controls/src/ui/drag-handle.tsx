@@ -1301,7 +1301,7 @@ export const DragHandle = ({
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			onDrop={handleOnDrop}
 			data-editor-block-ctrl-drag-handle
-			data-blocks-drag-handle={fg('confluence_remix_button_right_side_block_fg') || undefined}
+			data-blocks-drag-handle
 			data-testid="block-ctrl-drag-handle"
 			aria-label={dragHandleAriaLabel}
 			onBlur={() => {

@@ -69,7 +69,7 @@ export interface ContextPanelContentProps extends HTMLAttributes<HTMLDivElement>
 	visible: boolean;
 }
 
-export const ContextPanelWrapperCompiled = ({
+export const ContextPanelWrapper = ({
 	children,
 	customWidth,
 	visible,
@@ -94,7 +94,7 @@ export const ContextPanelWrapperCompiled = ({
 };
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const ContextPanelContentCompiled = ({
+export const ContextPanelContent = ({
 	children,
 	customWidth,
 	visible,

@@ -3,7 +3,6 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
-import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 import {
 	BLOCK_TEMPLATES_SECTION,
 	CREATE_SECTION,
@@ -28,17 +27,12 @@ import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import type { IsHiddenOptions, RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
 import type { QuickInsertPlugin } from '../quickInsertPluginType';
-import {
-	createRecommendedSnapshotCache,
-	MAX_RECOMMENDED_ITEMS,
-	RECOMMENDED_SLOT_KEY_PREFIX,
-} from './getRecommendedComponents';
 import { QuickInsertMenuFooterItem } from './QuickInsertMenuFooterItem';
-import { QuickInsertRecommendedSlot } from './QuickInsertRecommendedSlot';
 import { QuickInsertSectionOverflowMenuItem } from './QuickInsertSectionOverflowMenuItem';
+import type { RecommendedItemsResolver } from './registered-menu/get-quick-insert-menu-model';
 import QuickInsertMenuRoot from './registered-menu/QuickInsertMenuRoot';
 import { QuickInsertMenuSection } from './registered-menu/QuickInsertMenuSection';
 
@@ -72,62 +66,31 @@ type Params = {
 	emptyStateHandler?: EmptyStateHandler;
 	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
 	getItemRank?: RegisteredItemRankResolver;
+	getRecommendedItems?: RecommendedItemsResolver;
 	includeElementBrowserItems: boolean;
-	isRecommendedItem?: IsRecommendedItem;
-	maxRecommendedItems?: number;
 };
 
 export const getQuickInsertComponents = ({
 	api,
 	includeElementBrowserItems,
-	isRecommendedItem,
-	maxRecommendedItems,
 	getItemRank,
+	getRecommendedItems,
 	emptyStateHandler,
 	fireAnalyticsEvent,
 }: Params): RegisterComponent[] => {
-	const recommendedSnapshot = createRecommendedSnapshotCache({
-		api,
-		isRecommendedItem,
-		maxRecommendedItems,
-	});
-	const recommendedSlots: RegisterComponent[] = Array.from(
-		{ length: MAX_RECOMMENDED_ITEMS },
-		(_, index) => ({
-			key: `${RECOMMENDED_SLOT_KEY_PREFIX}${index}`,
-			type: 'menu-item',
-			parents: [{ key: RECOMMENDED_SECTION.key, type: RECOMMENDED_SECTION.type, rank: index }],
-			match: () => null,
-			isHidden: ({ surfaceContext } = {}) =>
-				!recommendedSnapshot.getSnapshot(surfaceContext)[index],
-			component: ({ children, parents, surfaceContext }) => (
-				<QuickInsertRecommendedSlot
-					parents={parents}
-					surfaceContext={surfaceContext}
-					index={index}
-					getSnapshot={recommendedSnapshot.getSnapshot}
-				>
-					{children}
-				</QuickInsertRecommendedSlot>
-			),
-		}),
-	);
-
 	return [
 		{
 			key: MENU.key,
 			type: MENU.type,
-			component: ({ children }) => (
+			component: () => (
 				<QuickInsertMenuRoot
 					getItemRank={getItemRank}
+					getRecommendedItems={getRecommendedItems}
 					emptyStateHandler={emptyStateHandler}
 					fireAnalyticsEvent={fireAnalyticsEvent}
-				>
-					{children}
-				</QuickInsertMenuRoot>
+				/>
 			),
 		},
-		...recommendedSlots,
 		...categories.flatMap(({ message, section }) => [
 			{
 				key: section.key,
@@ -140,11 +103,6 @@ export const getQuickInsertComponents = ({
 					},
 				],
 				component: createSectionComponent(message),
-				isHidden:
-					section.key === RECOMMENDED_SECTION.key
-						? ({ surfaceContext }: IsHiddenOptions = {}) =>
-								recommendedSnapshot.getSnapshot(surfaceContext).length === 0
-						: undefined,
 			},
 			...(includeElementBrowserItems && section.key !== RECOMMENDED_SECTION.key
 				? [

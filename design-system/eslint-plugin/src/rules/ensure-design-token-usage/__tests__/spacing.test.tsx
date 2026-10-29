@@ -472,11 +472,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:8em>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<NaN:8em>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:12rem>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<NaN:12rem>>",
 				},
 			],
 		},
@@ -504,7 +504,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -517,7 +517,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:1em>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<NaN:1em>>",
 				},
 			],
 		},
@@ -533,7 +533,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -555,19 +555,19 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:40>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<margin:40>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<gap:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<gap:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<marginBottom:80>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<marginBottom:80>>",
 				},
 			],
 		},
@@ -585,7 +585,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -601,7 +601,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -619,15 +619,15 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 			],
 		},
@@ -646,19 +646,19 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 				{
 					message:
-						'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
+						'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
 				},
 			],
 		},
@@ -674,11 +674,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:12>>",
 				},
 			],
 		},
@@ -694,11 +694,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:12>>",
 				},
 			],
 		},
@@ -711,11 +711,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:NaN>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:NaN>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:12>>",
 				},
 			],
 		},
@@ -731,11 +731,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:12>>",
 				},
 			],
 		},
@@ -750,11 +750,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -770,7 +770,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -786,7 +786,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 			],
 		},
@@ -802,7 +802,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:-8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:-8>>",
 				},
 			],
 		},
@@ -814,15 +814,15 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:16>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:24>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -834,15 +834,15 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:16>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:24>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -854,19 +854,19 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:12>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<margin:4>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<gap:2>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<gap:2>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -877,23 +877,23 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:12>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:12>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:10>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:10>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:9>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:9>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -930,7 +930,7 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:4>>",
 				},
 			],
 		},
@@ -963,11 +963,11 @@ export const spacingTests: Tests = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:100vh>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<NaN:100vh>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:90vw>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<NaN:90vw>>",
 				},
 			],
 		},
@@ -992,11 +992,11 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingLeft:16>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1021,11 +1021,11 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingLeft:16>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1050,11 +1050,11 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:16>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1079,11 +1079,11 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:16>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1104,23 +1104,23 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:4>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:16>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:16>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:4>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1139,11 +1139,11 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1162,23 +1162,23 @@ styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingInline:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingInline:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingInline:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingInline:16>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingBlock:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingBlock:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingBlock:16>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingBlock:16>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1198,11 +1198,11 @@ styled(Flex)\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},
@@ -1222,15 +1222,15 @@ const someStyles = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:4>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:2>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<margin:2>>",
 				},
 			],
 		},
@@ -1254,15 +1254,15 @@ const someStyles = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:4>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:2>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<margin:2>>",
 				},
 			],
 		},
@@ -1286,15 +1286,15 @@ const someStyles = {
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<padding:4>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<margin:2>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<margin:2>>",
 				},
 			],
 		},
@@ -1352,19 +1352,19 @@ export const StickyWrapper = styled.div\`
 			errors: [
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingLeft:8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingLeft:8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<marginLeft:-8>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<marginLeft:-8>>",
 				},
 				{
 					message:
-						'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<paddingTop:1>>',
+						"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<paddingTop:1>>",
 				},
 				{
 					message:
-						'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+						'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 				},
 			],
 		},

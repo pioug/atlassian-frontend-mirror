@@ -1,5 +1,25 @@
 # @atlaskit/reactions
 
+## 37.2.0
+
+### Minor Changes
+
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.1.6
+
+### Patch Changes
+
+- [`d4b310c8f9c92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b310c8f9c92) -
+  Behind platform-dst-top-layer, the reaction summary pins on click, as before.
+- Updated dependencies
+
 ## 37.1.5
 
 ### Patch Changes

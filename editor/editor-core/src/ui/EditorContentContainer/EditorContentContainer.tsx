@@ -5160,41 +5160,6 @@ const editorContentStyles = cssMapScoped({
 	},
 	pragmaticResizerStylesPanelAndRule: {
 		'.fabric-editor-breakout-mark': {
-			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel"])': {
-				'> .pm-breakout-resize-handle-container--right': {
-					right: '-4px',
-				},
-				'> .pm-breakout-resize-handle-container': {
-					height: 'calc(100% - 12px)',
-				},
-			},
-			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel_c1"])': {
-				'> .pm-breakout-resize-handle-container--right': {
-					right: '-4px',
-				},
-				'> .pm-breakout-resize-handle-container': {
-					height: 'calc(100% - 12px)',
-				},
-			},
-			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])': {
-				'> .pm-breakout-resize-handle-container--right': {
-					right: '-4px',
-				},
-				'> .pm-breakout-resize-handle-container': {
-					alignSelf: 'center',
-					height: '40px',
-				},
-			},
-			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"].first-node-in-document)':
-				{
-					'> .pm-breakout-resize-handle-container': {
-						transform: 'translateY(-14px)',
-					},
-				},
-		},
-	},
-	pragmaticResizerStylesPanelAndRuleJsdomFix: {
-		'.fabric-editor-breakout-mark': {
 			'&:has(> .fabric-editor-breakout-mark-dom > *[data-prosemirror-node-name="panel"])': {
 				'> .pm-breakout-resize-handle-container--right': {
 					right: '-4px',
@@ -8723,16 +8688,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					'platform_editor_lovability_resize_dividers_panels',
 					'isEnabled',
 					true,
-				) &&
-					isExperimentEnabled('platform_editor_resizer_selector_jsdom_fix') &&
-					editorContentStyles.pragmaticResizerStylesPanelAndRuleJsdomFix,
-				expValEqualsNoExposure(
-					'platform_editor_lovability_resize_dividers_panels',
-					'isEnabled',
-					true,
-				) &&
-					!isExperimentEnabled('platform_editor_resizer_selector_jsdom_fix') &&
-					editorContentStyles.pragmaticResizerStylesPanelAndRule,
+				) && editorContentStyles.pragmaticResizerStylesPanelAndRule,
 				isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
 					editorContentStyles.pragmaticResizerStylesExtensions,
 				editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,

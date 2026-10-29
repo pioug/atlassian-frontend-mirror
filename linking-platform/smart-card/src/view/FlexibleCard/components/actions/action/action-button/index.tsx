@@ -13,6 +13,7 @@ import LinkIconButton from '@atlaskit/button/icon/link';
 import LinkButton from '@atlaskit/button/link';
 import LoadingButton from '@atlaskit/button/loading-button';
 import type { IconProp } from '@atlaskit/button/variants/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -115,6 +116,7 @@ const ActionButtonRefresh = forwardRef(
 		ref: React.Ref<HTMLElement>,
 	) => {
 		const iconOnly = !content;
+		const isPreviewA11yLabelEnabled = fg('platform_smart_link_preview_a11y_label');
 
 		const context = useFlexibleUiContext();
 		const { product } = useRovoConfig();
@@ -137,6 +139,11 @@ const ActionButtonRefresh = forwardRef(
 			const icon = iconBefore || iconAfter;
 			const iconFn = icon ? ((() => icon) as IconProp) : undefined;
 			if (iconOnly && iconFn) {
+				const label = isPreviewA11yLabelEnabled ? (ariaLabel ?? tooltipMessage) : tooltipMessage;
+				const tooltip = isPreviewA11yLabelEnabled
+					? { ...tooltipOptions, content: tooltipMessage }
+					: tooltipOptions;
+
 				if (isLinkButton && iconFn) {
 					return (
 						<LinkIconButton
@@ -145,11 +152,11 @@ const ActionButtonRefresh = forwardRef(
 							href={href}
 							isDisabled={isDisabled}
 							isTooltipDisabled={false}
-							label={tooltipMessage}
+							label={label}
 							onClick={onButtonClick(onClick)}
 							spacing={spacing}
 							testId={testId}
-							tooltip={tooltipOptions}
+							tooltip={tooltip}
 						/>
 					);
 				}
@@ -161,11 +168,11 @@ const ActionButtonRefresh = forwardRef(
 						isDisabled={isDisabled}
 						isLoading={isLoading}
 						isTooltipDisabled={false}
-						label={tooltipMessage}
+						label={label}
 						onClick={onButtonClick(onClick)}
 						spacing={spacing}
 						testId={testId}
-						tooltip={tooltipOptions}
+						tooltip={tooltip}
 					/>
 				);
 			}
@@ -220,6 +227,7 @@ const ActionButtonRefresh = forwardRef(
 			iconOnly,
 			isDisabled,
 			isLoading,
+			isPreviewA11yLabelEnabled,
 			onButtonClick,
 			onClick,
 			size,

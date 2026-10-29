@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 3.0.3
+
+### Patch Changes
+
+- [`64ee18b2949bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64ee18b2949bf) -
+  Give styling rule diagnostics concrete migration and recovery steps, and replace stale Emotion
+  guidance with Compiled examples.
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

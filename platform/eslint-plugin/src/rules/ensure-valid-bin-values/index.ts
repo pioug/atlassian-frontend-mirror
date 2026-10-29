@@ -44,7 +44,8 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			invalidBinValue: `Invalid bin value. Ensure that the value points to a file and not a directory.`,
+			invalidBinValue:
+				'Set each package.json bin entry to an existing file relative to this package, not a directory. Check the filename and casing; if the entry is generated, run its owning build command before retrying.',
 		},
 	},
 	create(context) {

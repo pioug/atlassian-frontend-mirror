@@ -9,7 +9,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate popover example correctly', async () => {
-	const examplePath = require.resolve('../../examples/119-testing-simple-light-dismiss');
+	const examplePath = require.resolve('../../examples/119-testing-manual-light-dismiss');
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;

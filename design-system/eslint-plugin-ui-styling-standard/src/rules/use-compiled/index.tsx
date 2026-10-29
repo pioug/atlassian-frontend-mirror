@@ -69,7 +69,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			'use-compiled': `Use '@atlaskit/css' or '@compiled/react' instead of '{{importSource}}'`,
+			'use-compiled':
+				"Migrate '{{importSource}}' styling to @atlaskit/css or @compiled/react, updating imports and usages together. Verify the component rather than mixing styling engines on it.",
 		},
 		schema,
 	},

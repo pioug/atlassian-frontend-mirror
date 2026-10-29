@@ -16,17 +16,17 @@ const IMPORT_SOURCES = new Set([
 const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
-			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/no-alias/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/feature-gating/no-alias/README.md',
 			description:
 				'Disallow aliasing of feature flag utils to ensure feature flag usage is statically analyzable',
 		},
 		messages: {
 			noSpecifierAlias:
-				'Do not alias feature flag utils. Feature flag usage should be statically analyzable',
+				'Remove the as alias from this feature-flag import and update its call sites to the original exported name, so static flag analysis can recognize it.',
 			noNamespaceSpecifier:
-				'Destructure feature flag utils from import. Feature flag usage should be statically analyzable',
+				'Replace this namespace import with named feature-flag imports, for example import { fg } from the same supported module, and update namespace member calls to those names.',
 			noReassignment:
-				'Do not reassign feature flag utils. Feature flag usage should be statically analyzable',
+				'Remove this extra variable alias and call the originally imported feature-flag utility directly at its use sites, preserving the static flag name.',
 		},
 	},
 	create(context) {

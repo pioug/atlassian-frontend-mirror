@@ -33,7 +33,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			hrefRequired:
-				'A valid `href` will be required in future releases on LinkItem. This may be able to be replaced by a ButtonItem.',
+				'Give LinkItem an href when it navigates to a destination. For an in-place action, use ButtonItem with its action handler instead; preserve the accessible name.',
 		},
 	},
 	create(context) {

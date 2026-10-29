@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-save-on-enter",
-	"version": "30.0.0",
+	"version": "30.0.1",
 	"description": "Save-on-enter plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,7 +26,6 @@
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/link": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-bidi-warning",
-	"version": "30.0.0",
+	"version": "30.0.1",
 	"description": "Code bidi warning plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,6 @@
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"uuid": "root:*"
 	},
@@ -37,7 +36,6 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	}

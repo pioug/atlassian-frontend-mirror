@@ -29,7 +29,7 @@ ruleTester.run('no-html-heading', rule, {
 			errors: [
 				{
 					message:
-						'This <h2> should be replaced with a heading component from the Atlassian Design System. ADS headings include ensure accessible implementations and provide access to ADS styling features like design tokens.',
+						'Replace <h2> with Heading from @atlaskit/heading/heading. Preserve the semantic h1-h6 level with as, and choose size separately for the intended visual hierarchy.',
 				},
 			],
 		},

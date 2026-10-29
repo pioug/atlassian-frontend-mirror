@@ -133,15 +133,14 @@ UNSAFE_overrideExperiment('platform_editor_show_diff_color_scheme_refactor', {
 
 const EXAMPLE_USER_ID = '70121:ba36f99a-cdb4-453d-8f80-fd8186963f3e';
 const OFFLINE_USER_ID = 'offline-example-user';
-// A first-party `agentType` with no profile of its own, so the plugin presents it as "Rovo".
+// Agent account IDs match the profiles supplied below.
 const ROVO_AGENT_ID = '712020:e2807db6-b795-41c5-8f0a-272bae594861';
 const STEP_ATTRIBUTIONS: DiffStepAttribution[] = [
 	{ userId: EXAMPLE_USER_ID },
-	{ userId: EXAMPLE_USER_ID, agentType: 'claude', agentId: '' },
-	{ userId: EXAMPLE_USER_ID, agentType: 'chatgpt', agentId: '' },
+	{ userId: EXAMPLE_USER_ID, agentId: 'claude-account' },
+	{ userId: EXAMPLE_USER_ID, agentId: 'chatgpt-account' },
 	{
 		userId: EXAMPLE_USER_ID,
-		agentType: 'convo-ai',
 		agentId: ROVO_AGENT_ID,
 	},
 	{ userId: OFFLINE_USER_ID, wasOffline: true },
@@ -171,17 +170,13 @@ const SINGLE_COLOR_ATTRIBUTIONS = Object.fromEntries(
 	Object.entries(SINGLE_COLOR_USER_IDS).map(([colorScheme, userId]) => [colorScheme, { userId }]),
 ) as Record<AdsAccentColor, DiffStepAttribution>;
 
-/**
- * What a host hands over: identities, not resolved contributors. The plugin drops every tag if any
- * user actor is unnamed, so every `userId` used above needs an entry here.
- *
- * Agent profiles are deliberately absent: `convo-ai` resolves to Rovo, while `claude` resolves
- * to the Claude name and logo even with an empty `agentId`. `chatgpt` resolves to the ChatGPT
- * name and logo the same way.
- */
+/** Account profiles supply names, avatars, and optional agent branding. */
 const EXAMPLE_CONTRIBUTOR_PROFILES: readonly DiffContributorProfile[] = [
 	{ accountId: EXAMPLE_USER_ID, name: 'Priya Sharma' },
 	{ accountId: OFFLINE_USER_ID, name: 'Dana Whitfield' },
+	{ accountId: 'claude-account', agentBrand: 'claude', name: 'Claude' },
+	{ accountId: 'chatgpt-account', agentBrand: 'chatgpt', name: 'ChatGPT' },
+	{ accountId: ROVO_AGENT_ID, agentBrand: 'rovo', name: 'Rovo' },
 	// One per participant colour, so the single-colour modes can name their contributors too.
 	...Object.entries(SINGLE_COLOR_USER_IDS).map(([colorScheme, accountId]) => ({
 		accountId,

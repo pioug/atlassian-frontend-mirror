@@ -43,10 +43,10 @@
 			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/toggle/afm-products/tsconfig.json"
+			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
+			"path": "../../../design-system/toggle/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"

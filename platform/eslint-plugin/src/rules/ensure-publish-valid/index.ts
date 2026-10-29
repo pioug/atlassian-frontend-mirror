@@ -30,9 +30,9 @@ const rule: Rule.RuleModule = {
 		],
 		messages: {
 			publishConfigRequired:
-				'@atlaskit prefix is public! You have to specify a `publishConfig`, (package {{packageName}}) see https://go.atlassian.com/package-namespace',
+				'Package {{packageName}} uses the public @atlaskit namespace. Add the intended npm publishConfig, following https://go.atlassian.com/package-namespace; verify the package is meant to be public before changing publication settings.',
 			noPrivate:
-				'setting private to true prevents publishing, your package prefix implies you want to publish! (package {{packageName}}) see https://go.atlassian.com/package-namespace',
+				'Package {{packageName}} uses the public @atlaskit namespace but is private. If it is intended for npm publication, remove private: true and configure publishing; if it must remain internal, keep it private and use the appropriate internal namespace. See https://go.atlassian.com/package-namespace.',
 		},
 	},
 	create(context) {

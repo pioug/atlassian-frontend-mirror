@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
-import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 
 import { getStyleProps } from '../get-style-props';
 import { MenuPortalCloseContext } from '../internal/menu-portal-close-context';
@@ -105,7 +105,7 @@ export function MenuPortalTopLayer<
 		[closeSelect],
 	);
 
-	useSimpleLightDismiss({
+	useManualLightDismiss({
 		popoverRef,
 		additionalInsideElementRefs,
 		isOpen: isAnchored,

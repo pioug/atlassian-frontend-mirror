@@ -19,7 +19,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			useSimpleForm: 'The simplified form implementation can be used here.',
+			useSimpleForm:
+				'Convert this render-prop Form to plain JSX children so @atlaskit/form supplies the HTML form. Apply the offered conversion suggestion when available; otherwise preserve custom attributes and handlers using platform/packages/design-system/eslint-plugin/src/rules/use-simple-form/README.md.',
 		},
 	},
 	create(context) {
@@ -95,68 +96,135 @@ const rule: Rule.RuleModule = createLintRule({
 					return;
 				}
 
+				// A suggestion must preserve the handlers, attribute values and binding scope.
+				const htmlAttributes = renderPropBody.openingElement.attributes;
+				const binding =
+					isNodeOfType(formPropsProp, 'Property') && isNodeOfType(formPropsProp.value, 'Identifier')
+						? formPropsProp.value
+						: undefined;
+				const spreads = htmlAttributes.filter((attr) => isNodeOfType(attr, 'JSXSpreadAttribute'));
+				const suppliedSpread =
+					spreads.length === 1 &&
+					binding &&
+					isNodeOfType(spreads[0].argument, 'Identifier') &&
+					spreads[0].argument.name === binding.name
+						? spreads[0]
+						: undefined;
+				const bindingVariable =
+					binding &&
+					sourceCode
+						.getDeclaredVariables(renderPropExpression)
+						.find((variable) => variable.name === binding.name);
+				const onlyUsedForSpread =
+					suppliedSpread &&
+					bindingVariable &&
+					bindingVariable.references.every(
+						(reference) => reference.identifier === suppliedSpread.argument,
+					);
+				const outerNames = attributes.flatMap((attr) =>
+					isNodeOfType(attr, 'JSXAttribute') && isNodeOfType(attr.name, 'JSXIdentifier')
+						? [attr.name.name]
+						: [],
+				);
+				const inheritedNames: Record<string, string> = {
+					'aria-label': 'label',
+					'aria-labelledby': 'labelId',
+					className: 'xcss',
+					'data-testid': 'testId',
+					autoComplete: 'autocomplete',
+				};
+				const unsafeAttribute = htmlAttributes.some((attr) => {
+					if (!isNodeOfType(attr, 'JSXAttribute') || !isNodeOfType(attr.name, 'JSXIdentifier')) {
+						return !isNodeOfType(attr, 'JSXSpreadAttribute');
+					}
+					const name = attr.name.name;
+					return (
+						['onSubmit', 'onKeyDown', 'ref', 'label', 'labelId', 'xcss'].includes(name) ||
+						outerNames.includes(name) ||
+						outerNames.includes(inheritedNames[name])
+					);
+				});
+				const canSuggest =
+					onlyUsedForSpread &&
+					!unsafeAttribute &&
+					!outerNames.includes('formProps') &&
+					!attributes.some((attr) => isNodeOfType(attr, 'JSXSpreadAttribute')) &&
+					node.children.every(
+						(child) =>
+							child === renderProps ||
+							(isNodeOfType(child, 'JSXText') && child.value.trim() === ''),
+					);
+
 				context.report({
 					node: node,
 					messageId: 'useSimpleForm',
-					suggest: [
-						{
-							desc: convertForm,
-							fix: (fixer) => {
-								const fixes: Rule.Fix[] = [];
+					suggest: canSuggest
+						? [
+								{
+									desc: convertForm,
+									fix: (fixer) => {
+										const fixes: Rule.Fix[] = [];
 
-								// add each attribute in the HTML form inside to the AK form
-								const attrs: Record<string, JSXAttribute[]> = { topLevel: [], formProps: [] };
-								const htmlFormAttributes = renderPropBody.openingElement.attributes;
-								htmlFormAttributes.forEach((attr) => {
-									if (
-										isNodeOfType(attr, 'JSXAttribute') &&
-										isNodeOfType(attr.name, 'JSXIdentifier')
-									) {
-										if (topLevelAttributeNames.includes(attr.name.name)) {
-											attrs.topLevel.push(attr);
-										} else {
-											attrs.formProps.push(attr);
+										// add each attribute in the HTML form inside to the AK form
+										const attrs: Record<string, JSXAttribute[]> = { topLevel: [], formProps: [] };
+										const htmlFormAttributes = renderPropBody.openingElement.attributes;
+										htmlFormAttributes.forEach((attr) => {
+											if (
+												isNodeOfType(attr, 'JSXAttribute') &&
+												isNodeOfType(attr.name, 'JSXIdentifier')
+											) {
+												if (topLevelAttributeNames.includes(attr.name.name)) {
+													attrs.topLevel.push(attr);
+												} else {
+													attrs.formProps.push(attr);
+												}
+											}
+										});
+										attrs.topLevel.forEach((attr) => {
+											fixes.push(fixer.insertTextAfter(lastProp, ` ${sourceCode.getText(attr)}`));
+										});
+										if (attrs.formProps.length > 0) {
+											const formPropsText = attrs.formProps
+												.map((attr) => {
+													const value = !attr.value
+														? 'true'
+														: isNodeOfType(attr.value, 'Literal')
+															? JSON.stringify(attr.value.value)
+															: isNodeOfType(attr.value, 'JSXExpressionContainer')
+																? isNodeOfType(attr.value.expression, 'SequenceExpression')
+																	? `(${sourceCode.getText(attr.value.expression)})`
+																	: sourceCode.getText(attr.value.expression)
+																: sourceCode.getText(attr.value);
+													return `'${sourceCode.getText(attr.name)}': ${value}`;
+												})
+												.join(',\n');
+											fixes.push(
+												fixer.insertTextAfter(lastProp, ` formProps={{\n${formPropsText}\n}} `),
+											);
 										}
-									}
-								});
-								attrs.topLevel.forEach((attr) => {
-									fixes.push(fixer.insertTextAfter(lastProp, ` ${sourceCode.getText(attr)}`));
-								});
-								if (attrs.formProps.length > 0) {
-									const formPropsText = attrs.formProps
-										.map((attr) => {
-											return sourceCode
-												.getText(attr)
-												.replace(/^([^=]*)/, "'$1'")
-												.replace('=', ': ');
-										})
-										.join(',\n');
-									fixes.push(
-										fixer.insertTextAfter(lastProp, ` formProps={{\n${formPropsText}\n}} `),
-									);
-								}
 
-								// remove the body of the AK form
-								fixes.push(fixer.remove(renderProps));
+										// remove the body of the AK form
+										fixes.push(fixer.remove(renderProps));
 
-								// Get all children text of HTML form to be added to AK form
-								let childrenText = '<>';
-								renderPropBody.children.forEach((child) => {
-									// Doing `as any` because it doesn't like spread props. I
-									// added a test that verifies that this does indeed work,
-									// though, so it's fine.
-									childrenText += sourceCode.getText(child as any);
-								});
-								childrenText += '</>';
+										// Get all children text of HTML form to be added to AK form
+										let childrenText = '<>';
+										renderPropBody.children.forEach((child) => {
+											// Doing `as any` because it doesn't like spread props. I
+											// added a test that verifies that this does indeed work,
+											// though, so it's fine.
+											childrenText += sourceCode.getText(child as any);
+										});
+										childrenText += '</>';
 
-								// Add the children of the HTML form to the children of the AK form
-								node.closingElement &&
-									fixes.push(fixer.insertTextBefore(node.closingElement, childrenText));
+										// Add the children of the HTML form to the children of the AK form
+										node.closingElement &&
+											fixes.push(fixer.insertTextBefore(node.closingElement, childrenText));
 
-								return fixes;
-							},
-						},
-					],
+										return fixes;
+									},
+								},
+							]
+						: [],
 				});
 			},
 		};

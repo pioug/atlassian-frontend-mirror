@@ -3,7 +3,7 @@ import outdent from 'outdent';
 import type { Tests } from '../../__tests__/utils/_types';
 
 const error =
-	'@atlaskit/onboarding is deprecated in favor of @atlaskit/spotlight. Please migrate your spotlight experiences accordingly.';
+	'Migrate @atlaskit/onboarding experiences to the composable @atlaskit/spotlight entrypoints. Follow platform/packages/design-system/spotlight/examples/single-step.tsx for provider, target, content and dismissal wiring.';
 
 const valid: string[] = [
 	outdent`

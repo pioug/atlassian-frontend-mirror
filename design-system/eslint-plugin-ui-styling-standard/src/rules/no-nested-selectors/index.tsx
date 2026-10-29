@@ -69,7 +69,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 		},
 		messages: {
 			'no-nested-selectors':
-				'Please avoid setting styles for child elements or elements that require context from other elements.',
+				'Apply local styles directly to the child element instead of selecting it through a parent or external context; pass explicit props for conditional variants.',
 		},
 		type: 'problem',
 		schema: {

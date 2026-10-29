@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 4.12.8
+
+### Patch Changes
+
+- [`d4b310c8f9c92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b310c8f9c92) -
+  Behind platform-dst-top-layer, an Escape while a tooltip or other layer inside the menu or
+  spotlight is open closes that layer first, and an Escape during IME composition is ignored.
+- Updated dependencies
+
 ## 4.12.7
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::16ec4101443a261472c81553a5161eea>>
+ * @codegen <<SignedSource::2f43da3dc48f093c5f14e25a6cb60b31>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -45,99 +45,99 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"grid" | "stack"',
+				type: '"grid" | "stack" | undefined',
 				description:
 					'Indicates the layout of the avatar group.\nAvatars will either be overlapped in a stack, or\nlaid out in an even grid formation.\nDefaults to "stack".',
 				defaultValue: '"stack"',
 			},
 			{
 				name: 'avatar',
-				type: 'AvatarComponent | React.ElementType<AvatarProps, keyof React.JSX.IntrinsicElements>',
+				type: 'AvatarComponent | React.ElementType<AvatarProps, keyof React.JSX.IntrinsicElements> | undefined',
 				description: 'Component used to render each avatar.',
 				defaultValue: 'Avatar',
 			},
 			{
 				name: 'borderColor',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Typically the background color that the avatar is presented on.\nAccepts any color argument that the CSS border-color property accepts.',
 			},
 			{
 				name: 'boundariesElement',
-				type: '"viewport" | "window" | "scrollParent"',
+				type: '"viewport" | "window" | "scrollParent" | undefined',
 				description: 'Element the overflow popup should be attached to.\nDefaults to "viewport".',
 			},
 			{
 				name: 'data',
-				type: '(AvatarPropTypes & { name: string; key?: string | number; })[]',
+				type: '(AvatarPropTypes & { name: string; key?: string | number | undefined; })[]',
 				description:
 					"An array of avatar prop data, that are spread onto each `avatar` component.\n\nFor further usage information on AvatarPropTypes, the supported props for `avatar`, refer to [Avatar's prop documentation](https://atlassian.design/components/avatar/code).",
 				isRequired: true,
 			},
 			{
 				name: 'isTooltipDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Disables tooltips.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Text to be used as aria-label for the list of avatars.\nScreen reader announcement with default label, which is `avatar group`, is `list, avatar group, X items`.\n\nThe label should describe the `AvatarGroup`\'s entities, for instance:\n- `label="team members"`, screen reader announcement would be `list team members, X items`\n- `label="reviewers"` screen reader announcement would be `list reviewers, X items`\n\nWhen there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.',
 				defaultValue: '"avatar group"',
 			},
 			{
 				name: 'maxCount',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The maximum number of avatars allowed in the list.\nDefaults to 5 when displayed as a stack,\nand 11 when displayed as a grid.',
 			},
 			{
 				name: 'moreIndicatorLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Text to be used as aria-label for the more indicator.\nIf provided, this will be used exactly as-is for the aria-label.\nIf not provided, but an `aria-label` is provided via `showMoreButtonProps`, that will be used instead.\nIf neither is provided, the aria-label will default to "N more people" where N is the number of people that are not visible (e.g. "5 more people").',
 			},
 			{
 				name: 'onAvatarClick',
-				type: '(event: React.MouseEvent<Element, MouseEvent>, analyticsEvent: AnalyticsEvent, index: number) => void',
+				type: 'onAvatarClickHandler | undefined',
 				description:
 					'Handle the click event on the avatar item.\nNote that if an onClick prop is provided as part of avatar data, it will take precedence over onAvatarClick.',
 			},
 			{
 				name: 'onMoreClick',
-				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
+				type: 'React.MouseEventHandler<Element> | undefined',
 				description:
 					'Take control of the click event on the more indicator.\nThis will cancel the default dropdown behavior.',
 			},
 			{
 				name: 'overrides',
-				type: 'AvatarGroupOverrides',
+				type: 'AvatarGroupOverrides | undefined',
 				description: 'Custom overrides for the composed components.',
 			},
 			{
 				name: 'shouldPopupRenderToParent',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: "Determines whether the 'show more' popup has `shouldRenderToParent` applied.",
 				defaultValue: 'false',
 			},
 			{
 				name: 'showMoreButtonProps',
-				type: '{ defaultChecked?: boolean; defaultValue?: string | number | readonly string[]; suppressContentEditableWarning?: boolean; suppressHydrationWarning?: boolean; accessKey?: string; autoCapitalize?: (string & {}) | ... 5 more ... | "characters"; ... 257 more ...; onTransitionEndCapture?: React.TransitionEventHandler<......',
+				type: 'Partial<React.HTMLAttributes<HTMLElement>> | undefined',
 				description:
 					'Provide additional props to the MoreButton.\nExample use cases: altering tab order by providing tabIndex;\nadding onClick behaviour without losing the default dropdown',
 				defaultValue: '{}',
 			},
 			{
 				name: 'size',
-				type: '"small" | "medium" | "large" | "xlarge" | "xxlarge"',
+				type: 'AvatarGroupSize | undefined',
 				description:
 					'Defines the size of the avatar.\nDefaults to "medium".\n\nNote: The "xxsmall" (16px), legacy "xsmall", and "UNSAFE_xsmall" (20px) sizes that exist on Avatar are not supported here because elements such as the more indicator cannot be displayed in an accessible manner at those sizes.',
 				defaultValue: '"medium"',
 			},
 			{
 				name: 'tooltipPosition',
-				type: '"top" | "bottom"',
+				type: '"top" | "bottom" | undefined',
 				description:
 					'Where the tooltip should appear relative to its target.\nDefaults to tooltip position "bottom".',
 				defaultValue: '"bottom"',
@@ -192,109 +192,112 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"circle" | "square" | "hexagon"',
+				type: 'AppearanceType | undefined',
 				description:
 					"Indicates the shape of the avatar. Most avatars are circular, but square avatars\ncan be used for 'container' objects.",
 			},
 			{
 				name: 'aria-controls',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Identifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
 			},
 			{
 				name: 'aria-expanded',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Announces to assistive technology whether the popup is currently open or closed.',
 			},
 			{
 				name: 'aria-haspopup',
-				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree"',
-				description: 'Informs assistive technology that this element triggers a popup.',
+				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree" | undefined',
+				description:
+					'Informs assistive technology that this element triggers a popup.\nWith `platform-dst-top-layer`, it is not set when the popup has no `role`.',
 			},
 			{
 				name: 'as',
-				type: 'keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>',
+				type: 'keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement>> | undefined',
 				description:
 					'Replace the wrapping element. This accepts the name of a html tag which will\nbe used to wrap the element.',
 			},
 			{
 				name: 'borderColor',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Used to override the default border color around the avatar body.\nAccepts any color argument that the border-color CSS property accepts.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Supply a custom avatar component instead of the default.',
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Provides a url for avatars being used as a link.',
 			},
 			{
 				name: 'imgLoading',
-				type: '"lazy" | "eager"',
+				type: '"lazy" | "eager" | undefined',
 				description: 'Defines the loading behaviour of the avatar image. Default value is eager.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Change the style to indicate the avatar is disabled.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Used to provide custom content to screen readers.\nStatus or presence is not added to the label by default if it passed as nodes.\nIf status or presence is passed as a string, the default content format is "John Smith (online)".',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Provides alt text for the avatar image.',
 			},
 			{
 				name: 'onClick',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				type: 'AvatarClickEventHandler | undefined',
 				description: 'Handler to be called on click.',
 			},
 			{
 				name: 'presence',
-				type: '(string & {}) | Presence | Omit<ReactNode, string>',
+				type: '(string & {}) | Presence | Omit<ReactNode, string> | null | undefined',
 				description:
 					"Indicates a user's online status by showing a small icon on the avatar.\nRefer to presence values on the presence component.\nAlternatively accepts any React element. For best results, it is recommended to\nuse square content with height and width of 100%.",
 			},
 			{
 				name: 'size',
-				type: '"small" | "xxsmall" | "UNSAFE_xsmall" | "medium" | "large" | "xlarge" | "xxlarge"',
+				type: 'SizeType | undefined',
+				description:
+					"Defines the size of the avatar. Default value is `medium`.\n\nAvailable sizes (in pixels): `xxsmall` (16), `small` (24), `medium` (32),\n`large` (40), `xlarge` (96), `xxlarge` (128).\n\nThe `xsmall` size is deprecated. Use `xxsmall` for 16px avatars.\n\nThe `UNSAFE_xsmall` (20px) size is an unsafe, transitional value and is\nintentionally not documented for general use — see `SizeType`.\n\nThis can also be controlled by the `size` property of the\n`AvatarContext` export from this package. If no prop is given when the\n`size` is set via this context, the context's value will be used.",
 			},
 			{
 				name: 'src',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'A url to load an image from (this can also be a base64 encoded image).',
 			},
 			{
 				name: 'stackIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'The index of where this avatar is in the group `stack`.',
 			},
 			{
 				name: 'status',
-				type: '(string & {}) | Omit<ReactNode, string> | Status',
+				type: '(string & {}) | Omit<ReactNode, string> | Status | null | undefined',
 				description:
 					'Indicates contextual information by showing a small icon on the avatar.\nRefer to status values on the Status component.',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Assign specific tabIndex order to the underlying node.',
 			},
 			{
 				name: 'target',
-				type: '"_blank" | "_self" | "_top" | "_parent"',
+				type: '"_blank" | "_self" | "_top" | "_parent" | undefined',
 				description: 'Pass target down to the anchor, if href is provided.',
 			},
 		],
@@ -324,7 +327,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 			},
 		],
 	},
@@ -360,55 +363,55 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'avatar',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Slot to place an avatar element. Use @atlaskit/avatar.',
 				isRequired: true,
 			},
 			{
 				name: 'backgroundColor',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Change background color.',
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'URL for avatars being used as a link.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Disable the item from being interactive.',
 			},
 			{
 				name: 'isTruncationDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'By default, overflowing text is truncated if it exceeds the container width. Use this prop to disable this.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Used to provide better content to screen readers when using presence/status. Rather\nthan a screen reader speaking "online, approved, John Smith", passing in an label\nallows a custom message like "John Smith (approved and online)".',
 			},
 			{
 				name: 'onClick',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>, analyticsEvent?: UIAnalyticsEvent) => void',
+				type: 'AvatarClickEventHandler | undefined',
 				description: 'Handler to be called on click.',
 			},
 			{
 				name: 'primaryText',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'PrimaryText text.',
 			},
 			{
 				name: 'secondaryText',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'SecondaryText text.',
 			},
 			{
 				name: 'target',
-				type: '"_blank" | "_self" | "_top" | "_parent"',
+				type: '"_blank" | "_self" | "_top" | "_parent" | undefined',
 				description: 'Pass target down to the anchor, if href is provided.',
 			},
 		],
@@ -444,19 +447,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'borderColor',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Used to override the default border color of the presence indicator.\nAccepts any color argument that the border-color CSS property accepts.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Content to use as a custom presence indicator (usually not required if\nconsuming Presence separate to Avatar).',
 			},
 			{
 				name: 'presence',
-				type: '"online" | "busy" | "focus" | "offline"',
+				type: 'Presence | undefined',
 				description: 'The type of presence indicator to show.',
 			},
 		],
@@ -490,24 +493,24 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"circle" | "square" | "hexagon"',
+				type: 'AppearanceType | undefined',
 				description:
 					'Indicates the shape of the avatar skeleton. Most avatars are circular, but square avatars can be used for container objects.',
 				defaultValue: '"circle"',
 			},
 			{
 				name: 'color',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Color of the skeleton. By default, it will inherit the current text color.',
 			},
 			{
 				name: 'size',
-				type: '"small" | "xxsmall" | "xsmall" | "UNSAFE_xsmall" | "medium" | "large" | "xlarge" | "xxlarge"',
+				type: 'SizeType | undefined',
 				description: 'Defines the size of the avatar skeleton.',
 			},
 			{
 				name: 'weight',
-				type: '"strong" | "normal"',
+				type: '"strong" | "normal" | undefined',
 				description:
 					'Defines the opacity of the avatar skeleton. Use `weight="normal"` for the default opacity, or `weight="strong"` for a bolder opacity.',
 			},
@@ -543,19 +546,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'borderColor',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Override the default border color of the status indicator. This accepts\nany color argument that the CSS property `border-color` accepts.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Content to use as a custom status indicator. Not needed if consuming\n`Status` separate to `Avatar`.',
 			},
 			{
 				name: 'status',
-				type: '"approved" | "declined" | "locked" | "warning"',
+				type: 'Status | undefined',
 				description: 'The type of status indicator to show.',
 			},
 		],
@@ -613,18 +616,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "informationBold" | "successBold" | "dangerBold" | "warningBold" | "discoveryBold"',
+				type: '"warning" | "added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "informationBold" | ... 4 more ... | undefined',
 				description: 'Affects the visual style of the badge.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'The value displayed within the badge. A `ReactNode` can be provided for\ncustom-formatted numbers, however, badge should only be used in cases where you want to represent\na number.\nUse a [lozenge](/packages/design-system/lozenge) for non-numeric information.',
 			},
 			{
 				name: 'max',
-				type: 'number | false',
+				type: 'number | false | undefined',
 				description:
 					'The maximum value to display. Defaults to `99`. If the value is 100, and max is 50, "50+" will be displayed.\nThis value should be greater than 0. If set to `false` the original value will be displayed regardless of\nwhether it is larger than the default maximum value.',
 			},
@@ -670,18 +673,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "error" | "announcement"',
+				type: 'Appearance | undefined',
 				description: 'Visual style to be used for the banner',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Content to be shown next to the icon. Typically text content but can contain links.',
 			},
 			{
 				name: 'icon',
-				type: 'ReactElement<any, string | JSXElementConstructor<any>>',
+				type: 'ReactElement<any, string | JSXElementConstructor<any>> | undefined',
 				description:
 					'Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/design-system/icon)',
 			},
@@ -720,22 +723,22 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The children to be rendered within the blanket.',
 			},
 			{
 				name: 'isTinted',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the blanket has a tinted background color.',
 			},
 			{
 				name: 'onBlanketClicked',
-				type: '(event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Handler function to be called when the blanket is clicked.',
 			},
 			{
 				name: 'shouldAllowClickThrough',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Whether mouse events can pass through the blanket. If `true`, `onBlanketClicked` will not be called.',
 			},
@@ -777,23 +780,23 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The items to be included inside the Breadcrumbs wrapper.',
 			},
 			{
 				name: 'ellipsisLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Text to be used as an accessible label for the ellipsis button that reveals\ncollapsed breadcrumb items in a popup.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Text to be used as label of navigation region that wraps the breadcrumbs.',
 			},
 			{
 				name: 'size',
-				type: '"small" | "medium"',
+				type: '"small" | "medium" | undefined',
 				description:
 					"The size variant of the breadcrumbs. Use `'small'` for a compact presentation\nwith smaller text (`font.body.small`) and smaller icons.",
 				defaultValue: "'medium'",
@@ -829,46 +832,46 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: '_overflowRef',
-				type: '(el: HTMLLIElement) => void',
+				type: '((el: HTMLLIElement | null) => void) | undefined',
 			},
 			{
 				name: 'aria-current',
-				type: 'boolean | "page"',
+				type: 'boolean | "page" | undefined',
 			},
 			{
 				name: 'aria-label',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible label applied to the interactive breadcrumb control.',
 			},
 			{
 				name: 'aria-labelledby',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible labelling relationship applied to the interactive breadcrumb control.',
 			},
 			{
 				name: 'elemBefore',
-				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				type: 'ReactChild | undefined',
 				description: 'An element to display before the breadcrumb.',
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The url or path which the breadcrumb should act as a link to.',
 			},
 			{
 				name: 'onClick',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				type: '((event: MouseEvent<Element, globalThis.MouseEvent>) => void) | undefined',
 				description: 'Handler to be called on click. *',
 			},
 			{
 				name: 'onTooltipShown',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: "A function to be called when a truncated breadcrumb item's tooltip is shown.",
 			},
 			{
 				name: 'target',
-				type: '"" | "_blank" | "_self" | "_top" | "_parent"',
+				type: '"" | "_blank" | "_self" | "_top" | "_parent" | undefined',
 			},
 			{
 				name: 'text',
@@ -878,12 +881,12 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Advisory text applied to the interactive breadcrumb control.',
 			},
 			{
 				name: 'truncationWidth',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The maximum width in pixels that an item can have before it is truncated.\nIf this is not set, truncation will only occur when it cannot fit alone on a\nline. If there is no truncationWidth, tooltips are not provided on truncation.',
 			},
@@ -918,18 +921,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The buttons to render inside the button group.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Refers to an `aria-label` attribute. Sets an accessible name for the button group wrapper to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID referenced by the button group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group-button title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
 			},
@@ -978,69 +981,69 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "default" | "primary" | "discovery" | "danger" | "rovo" | "subtle"',
+				type: 'ButtonAppearance | undefined',
 				description: 'The button style variation.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the button to autofocus on mount.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Text content to be rendered in the button.',
 				isRequired: true,
 			},
 			{
 				name: 'iconAfter',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'IconProp | undefined',
 				description: "Places an icon within the button, after the button's text.",
 			},
 			{
 				name: 'iconBefore',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'IconProp | undefined',
 				description: "Places an icon within the button, before the button's text.",
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Disable the button to prevent user interaction.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Conditionally show a spinner over the top of a button',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Indicates that the button is selected.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLButtonElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLButtonElement> | undefined',
 				description: 'Handler called on blur.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLButtonElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLButtonElement> | undefined',
 				description: 'Handler called on focus.',
 			},
 			{
 				name: 'shouldFitContainer',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Option to fit button width to its parent width.',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'ButtonSpacing | undefined',
 				description: 'Controls the amount of padding in the button.',
 			},
 		],
@@ -1074,12 +1077,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary" | "discovery" | "rovo" | "subtle"',
+				type: '"default" | "primary" | "discovery" | "rovo" | "subtle" | undefined',
 				description: 'The button style variation.\nThe button style variation.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the button to autofocus on mount.',
 			},
 			{
@@ -1090,60 +1093,60 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Disable the button to prevent user interaction.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Conditionally show a spinner over the top of a button',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Indicates that the button is selected.',
 			},
 			{
 				name: 'isTooltipDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Prevents a tooltip with the label text from showing. Use sparingly, as most icon-only buttons benefit from a tooltip or some other text clarifying the action.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Provide an accessible label, often used by screen readers.',
 				isRequired: true,
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLButtonElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLButtonElement> | undefined',
 				description: 'Handler called on blur.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLButtonElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLButtonElement> | undefined',
 				description: 'Handler called on focus.',
 			},
 			{
 				name: 'shape',
-				type: '"circle" | "default"',
+				type: '"circle" | "default" | undefined',
 				description: 'Set the shape of the icon, defaults to square with rounded corners.',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'IconButtonSpacing | undefined',
 				description: 'Controls the amount of padding in the button.',
 			},
 			{
 				name: 'tooltip',
-				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: ReactNode | (({ update }: { update?: () => void; }) => ReactNode); component?: ComponentType<TooltipPrimitiveProps> | ForwardRefExoticComponent<...>; ... 16 more ...; shouldRenderToParent?: boolean; }',
+				type: 'Partial<Omit<TooltipProps, "children">> | undefined',
 				description: 'Props passed down to the Tooltip component.',
 			},
 		],
@@ -1176,17 +1179,17 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary" | "discovery" | "rovo" | "subtle"',
+				type: 'IconButtonAppearance | undefined',
 				description: 'The button style variation.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the button to autofocus on mount.',
 			},
 			{
 				name: 'href',
-				type: 'string | RouterLinkConfig',
+				type: '(string | RouterLinkConfig) & (string | RouterLinkConfig | undefined)',
 				description:
 					'Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.\nURL to navigate to.',
 				isRequired: true,
@@ -1199,61 +1202,61 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Disable the button to prevent user interaction.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Indicates that the button is selected.',
 			},
 			{
 				name: 'isTooltipDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Prevents a tooltip with the label text from showing. Use sparingly, as most icon-only buttons benefit from a tooltip or some other text clarifying the action.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Provide an accessible label, often used by screen readers.',
 				isRequired: true,
 			},
 			{
 				name: 'newWindowLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Override the default text used to announce that the link opens in a new window.\nThis should be localized when the product is displayed in a non-English locale.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLAnchorElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLAnchorElement> | undefined',
 				description: 'Handler called on blur.\nHandler called on blur.',
 			},
 			{
 				name: 'onClick',
-				type: '((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) & ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void)',
+				type: '(((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) & ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void)) | undefined',
 				description:
 					'Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).\nHandler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLAnchorElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLAnchorElement> | undefined',
 				description: 'Handler called on focus.\nHandler called on focus.',
 			},
 			{
 				name: 'shape',
-				type: '"circle" | "default"',
+				type: '"circle" | "default" | undefined',
 				description: 'Set the shape of the icon, defaults to square with rounded corners.',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'IconButtonSpacing | undefined',
 				description: 'Controls the amount of padding in the button.',
 			},
 			{
 				name: 'tooltip',
-				type: '{ testId?: string; analyticsContext?: Record<string, any>; content?: React.ReactNode | (({ update }: { update?: () => void; }) => React.ReactNode); component?: React.ComponentType<TooltipPrimitiveProps> | React.ForwardRefExoticComponent<...>; ... 16 more ...; shouldRenderToParent?: boolean; }',
+				type: 'Partial<Omit<TooltipProps, "children">> | undefined',
 				description: 'Props passed down to the Tooltip component.',
 			},
 		],
@@ -1287,17 +1290,17 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "default" | "primary" | "discovery" | "danger" | "rovo" | "subtle"',
+				type: 'LinkButtonAppearance | undefined',
 				description: 'The button style variation.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the button to autofocus on mount.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Text content to be rendered in the button.',
 				isRequired: true,
 			},
@@ -1310,48 +1313,48 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'iconAfter',
-				type: 'React.ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | React.FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'IconProp | undefined',
 				description: "Places an icon within the button, after the button's text.",
 			},
 			{
 				name: 'iconBefore',
-				type: 'React.ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | React.FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'IconProp | undefined',
 				description: "Places an icon within the button, before the button's text.",
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Disable the button to prevent user interaction.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Indicates that the button is selected.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLAnchorElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLAnchorElement> | undefined',
 				description: 'Handler called on blur.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLAnchorElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLAnchorElement> | undefined',
 				description: 'Handler called on focus.',
 			},
 			{
 				name: 'shouldFitContainer',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Option to fit button width to its parent width.',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'ButtonSpacing | undefined',
 				description: 'Controls the amount of padding in the button.',
 			},
 		],
@@ -1386,27 +1389,27 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary"',
+				type: 'SplitButtonAppearance | undefined',
 				description:
 					'The style variation for child buttons. Will override any appearance set on a child button.',
 				defaultValue: '"default"',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Only two children are allowed.\nFirst child is the primary action, second child is the secondary action.\nThe assumption is that for both children trees there is a button reading the context.',
 				isRequired: true,
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether all child buttons should be disabled.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'SplitButtonSpacing | undefined',
 				description: 'Controls the amount of padding in the child buttons.',
 				defaultValue: '"default"',
 			},
@@ -1447,149 +1450,149 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'day',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The number of the day currently focused. Places border around the date. Enter `0` to highlight no date.',
 			},
 			{
 				name: 'defaultDay',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the default value for `day`.',
 			},
 			{
 				name: 'defaultMonth',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the default value for `month`.',
 			},
 			{
 				name: 'defaultPreviouslySelected',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description: 'Sets the default value for `previouslySelected`.',
 			},
 			{
 				name: 'defaultSelected',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description: 'Sets the default value for `selected`.',
 			},
 			{
 				name: 'defaultYear',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the default value for `year`.',
 			},
 			{
 				name: 'disabled',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description:
 					"Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates provided are greyed out and not selectable.",
 			},
 			{
 				name: 'disabledDateFilter',
-				type: '(date: string) => boolean',
+				type: '((date: string) => boolean) | undefined',
 				description:
 					"A filter function that takes a date string in the format 'YYYY-MM-DD' and returns true if that date should be disabled.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The accessible label for the calendar.',
 				defaultValue: "'calendar'",
 			},
 			{
 				name: 'locale',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'BCP 47 language tag (e.g. `ja-JP`) that ensures dates are in the official format for the locale.',
 			},
 			{
 				name: 'maxDate',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The latest enabled date. All dates in the future after this date will be disabled.',
 			},
 			{
 				name: 'minDate',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The earliest enabled date. All dates in the past before this date will be disabled.',
 			},
 			{
 				name: 'month',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'The number of the month (from 1 to 12) which the calendar should be on.',
 			},
 			{
 				name: 'nextMonthLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The aria-label attribute associated with the next month arrow, to describe it to assistive technology.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<Element, Element>) => void',
+				type: 'FocusEventHandler<Element> | undefined',
 				description: 'Function which is called when the calendar is no longer focused.',
 			},
 			{
 				name: 'onChange',
-				type: '(event: ChangeEvent, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: ChangeEvent, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Called when the calendar is navigated. This can be triggered by the keyboard, or by clicking the navigational buttons.\nThe 'interface' property indicates the the direction the calendar was navigated whereas the 'iso' property is a string of the format YYYY-MM-DD.",
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<Element, Element>) => void',
+				type: 'FocusEventHandler<Element> | undefined',
 				description:
 					'Called when the calendar receives focus. This could be called from a mouse event on the container, or by tabbing into it.',
 			},
 			{
 				name: 'onSelect',
-				type: '(event: SelectEvent, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: SelectEvent, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Function called when a day is clicked on. Calls with an object that has\na day, month and year property as numbers, representing the date just clicked.\nIt also has an 'iso' property, which is a string of the selected date in the\nformat YYYY-MM-DD.",
 			},
 			{
 				name: 'previouslySelected',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description:
 					"Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates\nprovided are given a background color.",
 			},
 			{
 				name: 'previousMonthLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The aria-label attribute associated with the previous month arrow, to describe it to assistive technology.',
 			},
 			{
 				name: 'selected',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description:
 					"Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates\nprovided are given a background color.",
 			},
 			{
 				name: 'shouldSetFocusOnCurrentDay',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'This allows the calendar to automatically set the focus to the current day.\nThe default is false.',
 			},
 			{
 				name: 'tabIndex',
-				type: '0 | -1',
+				type: 'TabIndex | undefined',
 				description:
 					'Indicates if the calendar can be focused by keyboard or only\nprogrammatically. Defaults to "0".',
 			},
 			{
 				name: 'today',
-				type: 'string',
+				type: 'string | undefined',
 				description: "Value of current day, as a string in the format 'YYYY-MM-DD'.",
 			},
 			{
 				name: 'weekStartDay',
-				type: '0 | 1 | 2 | 3 | 4 | 5 | 6',
+				type: 'WeekDay | undefined',
 				description:
 					'Start day of the week for the calendar. The mapping between numbers and days of the week is as follows:\n- `0` Sunday\n- `1` Monday\n- `2` Tuesday\n- `3` Wednesday\n- `4` Thursday\n- `5` Friday\n- `6` Saturday\n\nDefaults to the first day of the week for the given `locale`.',
 			},
 			{
 				name: 'year',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Year to display the calendar for.',
 			},
 		],
@@ -1634,67 +1637,67 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'defaultChecked',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the checkbox begins as checked or unchecked.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The ID assigned to the input.',
 			},
 			{
 				name: 'isChecked',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the checkbox is checked or unchecked.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the checkbox is disabled. Don’t use a disabled checkbox if it needs to remain in the tab order for assistive technologies.',
 			},
 			{
 				name: 'isIndeterminate',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the checkbox is indeterminate. This only affects the\nstyle and does not modify the isChecked property.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Marks the field as invalid. Changes style of unchecked component.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Marks the field as required & changes the label style.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				type: 'ReactChild | undefined',
 				description:
 					'The label to be displayed to the right of the checkbox. The label is part\nof the clickable element to select the checkbox.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The name of the submitted field in a checkbox.',
 			},
 			{
 				name: 'onChange',
-				type: '(e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'Function that is called whenever the state of the checkbox changes. It will\nbe called with an object containing the react synthetic event. Use `currentTarget` to get value, name and checked.',
 			},
 			{
 				name: 'value',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'The value to be used in the checkbox input. This is the value that will be returned on form submission.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"alignItems", DesignTokenStyles, ""> & {} & XCSSPseudo<"alignItems", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"alignItems", DesignTokenStyles, ""> & {} & XCSSPseudo<"alignItems", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; }) | null | undefined',
 				description:
 					'Bounded style API. Defining allowed styles through this prop will be supported for future component\niterations. Any styles that are not allowed by this API will result in type and land blocking violations.',
 			},
@@ -1731,24 +1734,24 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Content to be rendered in the inline code block.',
 			},
 			{
 				name: 'codeBidiWarningLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Label for the bidi warning tooltip.\n\nDefaults to `Bidirectional characters change the order that text is rendered.\nThis could be used to obscure malicious code.`',
 			},
 			{
 				name: 'hasBidiWarnings',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When set to `false`, disables code decorating with bidi warnings. Defaults to `true`.',
 			},
 			{
 				name: 'isBidiWarningTooltipEnabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether to render tooltip with the warning or not. Intended to be\ndisabled when used in a mobile view, such as in the editor via mobile\nbridge, where the tooltip could end up being cut off or otherwise not work\nas expected. Defaults to `true`.',
 			},
@@ -1785,68 +1788,68 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'codeBidiWarningLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Label for the bidi warning tooltip.',
 				defaultValue:
 					"'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.'",
 			},
 			{
 				name: 'firstLineNumber',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the number of the first line, if showLineNumbers is set to true.',
 				defaultValue: '1',
 			},
 			{
 				name: 'hasBidiWarnings',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'When set to `false`, disables code decorating with bidi warnings.',
 				defaultValue: 'true',
 			},
 			{
 				name: 'highlight',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Comma delimited lines to highlight.\n\nExample uses:\n- To highlight one line `highlight="3"`\n- To highlight a group of lines `highlight="1-5"`\n- To highlight multiple groups `highlight="1-5,7,10,15-20"`',
 			},
 			{
 				name: 'highlightedEndText',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Screen reader text for the end of a highlighted line.',
 			},
 			{
 				name: 'highlightedStartText',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Screen reader text for the start of a highlighted line.',
 			},
 			{
 				name: 'isBidiWarningTooltipEnabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether to render tooltip with the warning or not.\nIntended to be disabled when used in a mobile view, such as in the editor via mobile bridge,\nwhere the tooltip could end up being cut off or otherwise not work as expected.',
 				defaultValue: 'true',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Text used to describe that the content of the code block is scrollable.\nSet only if the code block is scrollable. Defaults to 'Scrollable content'.",
 			},
 			{
 				name: 'language',
-				type: '"html" | "ruby" | "text" | "as" | "css" | "plaintext" | "d" | "r" | "PHP" | "php" | "php3" | "php4" | "php5" | "Java" | "java" | "CSharp" | "csharp" | "c#" | "Python" | "python" | "py" | ... 232 more ... | "markdown"',
+				type: 'SupportedLanguages | undefined',
 				description:
 					'Language reference designed to be populated from `SUPPORTED_LANGUAGES` in\n`design-system/code`. Run against language grammars from PrismJS (full list\navailable at [PrismJS documentation](https://prismjs.com/#supported-languages)).\n\nWhen set to "text" will not perform highlighting. If unsupported language\nprovided - code will be treated as "text" with no highlighting.',
 				defaultValue: "'text'",
 			},
 			{
 				name: 'shouldShowLineNumbers',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether to display code line numbers or not.',
 				defaultValue: 'true',
 			},
 			{
 				name: 'shouldWrapLongLines',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether long lines will create a horizontally scrolling container.\nWhen set to `true`, these lines will visually wrap instead.',
 				defaultValue: 'false',
@@ -1893,120 +1896,120 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'actions',
-				type: 'React.ReactNode[]',
+				type: 'React.ReactNode[] | undefined',
 				description:
 					'A list of `CommentAction` items rendered as a row of buttons below the content.',
 				defaultValue: '[]',
 			},
 			{
 				name: 'afterContent',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: "Content that is rendered after the comment's content.",
 			},
 			{
 				name: 'author',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'A `CommentAuthor` element containing the name of the author.',
 			},
 			{
 				name: 'avatar',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: "The element to display as the avatar. It's best to use `@atlaskit/avatar`.",
 				isRequired: true,
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Provide nested comments as children.',
 			},
 			{
 				name: 'content',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The main content for the comment.',
 			},
 			{
 				name: 'edited',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'A `CommentEdited` element which displays next to the time. Indicates whether the comment has been edited.',
 			},
 			{
 				name: 'errorActions',
-				type: 'React.ReactNode[]',
+				type: 'React.ReactNode[] | undefined',
 				description:
 					'A list of `CommentAction` items rendered with a warning icon instead of the actions.',
 				defaultValue: '[]',
 			},
 			{
 				name: 'errorIconLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Text to show in the error icon label.',
 				defaultValue: '""',
 			},
 			{
 				name: 'headingLevel',
-				type: '"1" | "3" | "2" | "4" | "5" | "6"',
+				type: '"1" | "3" | "2" | "4" | "5" | "6" | undefined',
 				description:
 					'Use this to set the semantic heading level of the comment. The default comment heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels.',
 				defaultValue: '"3"',
 			},
 			{
 				name: 'highlighted',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether this comment should be highlighted.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'An ID to be applied to the comment.',
 			},
 			{
 				name: 'isError',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Indicates whether the component is in an error state. Hides actions and time.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isSaving',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Enables "optimistic saving" mode which removes actions and displays text from the `savingText` prop.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'restrictedTo',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Text for the "restricted to" label. This will display in the top items, before the main content.',
 				defaultValue: '""',
 			},
 			{
 				name: 'savingText',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Text to show when in "optimistic saving" mode.',
 				defaultValue: '"Sending..."',
 			},
 			{
 				name: 'shouldHeaderWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Controls if the comment header should wrap.',
 			},
 			{
 				name: 'shouldRenderNestedCommentsInline',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Controls if nested comments are rendered at the same depth as the parent comment.',
 			},
 			{
 				name: 'time',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'A `CommentTime` element containing the time to display.',
 			},
 			{
 				name: 'type',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The type of comment. This will be rendered in a lozenge at the top of the comment, before the main content.',
 			},
@@ -2044,27 +2047,27 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "danger" | "neutral"',
+				type: 'DateLabelAppearance | undefined',
 				description:
 					'Controls the visual style of the date label.\n- `neutral` — default grey border style\n- `warning` — orange border, used for upcoming/near-due dates\n- `danger` — red border, used for overdue dates',
 				defaultValue: '"neutral"',
 			},
 			{
 				name: 'hasIconBefore',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true`, an icon is displayed before the label text.\nThe icon shown depends on the `appearance`:\n- `neutral` → CalendarIcon\n- `warning` → ClockIcon\n- `danger` → WarningOutlineIcon',
 				defaultValue: 'true',
 			},
 			{
 				name: 'iconLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The accessible label for the icon. This is passed to the icon's `label` prop\nand is read by screen readers to convey the icon's meaning.\n\nDefaults to a contextual string based on the `appearance`:\n- `neutral` → `'Calendar'`\n- `warning` → `'Warning'`\n- `danger` → `'Danger'`\n\nSet to `''` to mark the icon as decorative (when the label text alone is sufficient).",
 			},
 			{
 				name: 'isSpacious',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true`, increases the padding and height of the date label for use in\nmore spacious layouts (e.g. forms or detail views). Sets the height to 32px\nand increases horizontal padding.',
 				defaultValue: 'false',
@@ -2077,7 +2080,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					"The maximum width of the date label. Accepts a number (treated as px) or\na string (e.g. `'50%'`). When the label text exceeds this width it will be\ntruncated with an ellipsis.",
 				defaultValue: '180',
@@ -2112,63 +2115,63 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "danger" | "neutral"',
+				type: 'DateLabelDropdownTriggerAppearance | undefined',
 				description:
 					'Controls the visual style of the trigger.\n- `neutral` — default grey border style\n- `warning` — orange border, used for upcoming/near-due dates\n- `danger` — red border, used for overdue dates',
 				defaultValue: '"neutral"',
 			},
 			{
 				name: 'aria-controls',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Identifies the popup element that this trigger controls.\nShould match the `id` of the popup content for screen readers.',
 			},
 			{
 				name: 'aria-expanded',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Announces to assistive technology whether the popup is currently open.',
 			},
 			{
 				name: 'aria-haspopup',
-				type: 'boolean | "dialog"',
+				type: 'boolean | "dialog" | undefined',
 				description: 'Informs assistive technology that this element triggers a popup.',
 			},
 			{
 				name: 'aria-label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Defines a string value that labels the trigger element for assistive technology.\nIf not provided, the `label` text is used as the accessible name.',
 			},
 			{
 				name: 'hasIconBefore',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true`, an icon is displayed before the label text.\nThe icon shown depends on the `appearance`:\n- `neutral` → CalendarIcon\n- `warning` → ClockIcon\n- `danger` → WarningOutlineIcon',
 				defaultValue: 'true',
 			},
 			{
 				name: 'iconLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The accessible label for the leading icon. This is passed to the icon's `label` prop\nand is read by screen readers to convey the icon's meaning.\n\nDefaults to a contextual string based on the `appearance`:\n- `neutral` → `'Calendar'`\n- `warning` → `'Warning'`\n- `danger` → `'Danger'`\n\nSet to `''` to mark the icon as decorative (when the label text alone is sufficient).",
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true`, a spinner replaces the chevron icon and the trigger becomes non-interactive,\nindicating that an async operation is in progress (for example, saving a date selection).',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true`, renders the trigger in a selected/active state using the pressed\nbackground colour for the current appearance. Use this when the associated\ndropdown is open or the date has been chosen.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isSpacious',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true`, increases the padding and height of the trigger to 32px\nand uses the body font size for more spacious layouts.',
 				defaultValue: 'false',
@@ -2182,14 +2185,14 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					"The maximum width of the trigger. Accepts a number (treated as px) or\na string (e.g. `'50%'`). Label text exceeding this width is truncated with an ellipsis.",
 				defaultValue: '200',
 			},
 			{
 				name: 'onClick',
-				type: '(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void',
+				type: 'React.MouseEventHandler<HTMLButtonElement> | undefined',
 				description: 'Callback fired when the trigger button is clicked.',
 			},
 		],
@@ -2228,192 +2231,192 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'aria-describedby',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Used to associate accessible descriptions to the date picker.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the picker to autofocus on mount.',
 			},
 			{
 				name: 'calendarLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The aria-label attribute associated with the calendar.',
 				defaultValue: "'calendar'",
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
 			},
 			{
 				name: 'dateFormat',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Format the date with a string that is accepted by [date-fns's format\nfunction](https://date-fns.org/v1.29.0/docs/format). When set, the default\nparser also uses this format (via date-fns) so displayed labels re-parse.\nWithout `dateFormat`, parsing falls back to the locale. A custom\n`parseInputValue` overrides this default.\n\nNote that though we are using `date-fns` version 2, we use [the tokens from\n`date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the\nhood.",
 			},
 			{
 				name: 'defaultValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The default for `value`.',
 			},
 			{
 				name: 'disabled',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description:
 					'An array of ISO dates that should be disabled on the calendar. This does not affect what users can type into the picker.',
 			},
 			{
 				name: 'disabledDateFilter',
-				type: '(date: string) => boolean',
+				type: '((date: string) => boolean) | undefined',
 				description:
 					'A filter function for disabling dates on the calendar. This does not affect what users can type into the picker.\n\nThe function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.',
 			},
 			{
 				name: 'formatDisplayLabel',
-				type: '(value: string, dateFormat: string) => string',
+				type: '((value: string, dateFormat: string) => string) | undefined',
 				description:
 					"A function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.\n\nNote that this does not affect how the input is parsed. Use `dateFormat` for\ndefault parsing of the display format, or `parseInputValue` for a custom parser.",
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the id of the field.\nAssociates a `<label></label>` with the field.',
 			},
 			{
 				name: 'inputLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The name of the input, used when `shouldShowCalendarButton` is true. See `shouldShowCalendarButton` description for more details.',
 				defaultValue: "'Date picker'",
 			},
 			{
 				name: 'inputLabelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The ID of the label for the input, used when `shouldShowCalendarButton` is\ntrue. See `shouldShowCalendarButton` description for more details.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the picker is disabled.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the picker has an invalid value.',
 			},
 			{
 				name: 'isOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the picker is open.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the field as required.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible name for the Date Picker Select, rendered as `aria-label`. This will override any other method of providing a label.',
 			},
 			{
 				name: 'locale',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Locale used to format the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
 			},
 			{
 				name: 'maxDate',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.',
 			},
 			{
 				name: 'minDate',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The name of the field.',
 			},
 			{
 				name: 'nextMonthLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The aria-label attribute associated with the next-month arrow.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Called when the field is blurred.',
 			},
 			{
 				name: 'onChange',
-				type: '(value: string) => void',
+				type: '((value: string) => void) | undefined',
 				description:
 					'Called when the value changes. The only argument is an ISO time or empty string.',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Called when the field is focused.',
 			},
 			{
 				name: 'openCalendarLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The label associated with the button to open the calendar, rendered via the\n`shouldShowCalendarButton` prop. If a `label` prop is provided, this\ncalendar button label will be prefixed by the value of `label`. If no\n`label` prop is provided, this prefix should be manually added. For\nexample,\n\n```tsx\n<label id="label" htmlFor="datepicker">Desired Appointment Date</label>\n<DatePicker\n\tid="datepicker"\n\tshouldShowCalendarButton\n\tinputLabel="Desired Appointment Date"\n\topenCalendarLabel="open calendar"\n/>\n```',
 				defaultValue: "'open calendar'",
 			},
 			{
 				name: 'parseInputValue',
-				type: '(date: string, dateFormat: string) => Date',
+				type: '((date: string, dateFormat: string) => Date) | undefined',
 				description:
 					'A function for parsing input characters and transforming them into a Date object.\nOverrides the default parser. By default, when `dateFormat` is set the input is\nparsed with that format via date-fns; otherwise the date string is parsed based\noff the locale. Note that this does not affect how the resulting value is\ndisplayed in the input. Use the `dateFormat` or `formatDisplayLabel` prop to\nhandle how the value is displayed.',
 			},
 			{
 				name: 'placeholder',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Placeholder text displayed in input.',
 			},
 			{
 				name: 'previousMonthLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The aria-label attribute associated with the previous-month arrow.',
 			},
 			{
 				name: 'selectProps',
-				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "aria-label" | "placeholder" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; } & { ...; }',
+				type: '(Omit<SelectProps<OptionType, false>, "aria-describedby" | "aria-label" | "placeholder" | "inputId"> & { \'aria-describedby\'?: undefined; \'aria-label\'?: undefined; inputId?: undefined; placeholder?: undefined; } & { ...; }) | undefined',
 				description: '',
 			},
 			{
 				name: 'shouldShowCalendarButton',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Provides a functional calendar button that opens the calendar picker that\nlives on the right side of the date picker.\n\nThe accessible name for this button is caculated using either the `label`,\n`inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`\nprop.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'Spacing | undefined',
 				description:
 					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize * 5`.',
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The ISO time used as the input value.',
 			},
 			{
 				name: 'weekStartDay',
-				type: '0 | 1 | 2 | 3 | 4 | 5 | 6',
+				type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined',
 				description:
 					'Start day of the week for the calendar.\n- `0` sunday (default value)\n- `1` monday\n- `2` tuesday\n- `3` wednesday\n- `4` thursday\n- `5` friday\n- `6` saturday',
 			},
@@ -2451,98 +2454,98 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'aria-describedby',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Used to associate accessible descriptions to both the date and time\npicker. If you want to associate individual accessible descriptions, this\nshould be done through the `aria-describedby` props on the\n`datePickerProps` and `timePickerProps`.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the picker to autofocus on mount.',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
 			},
 			{
 				name: 'datePickerProps',
-				type: 'DatePickerBaseProps',
+				type: 'DatePickerBaseProps | undefined',
 				description: 'Props applied to the `DatePicker`.',
 			},
 			{
 				name: 'defaultValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The default for `value`.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the id of the field.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the field is disabled.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the picker has an invalid value.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the field as required.',
 			},
 			{
 				name: 'locale',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The name of the field.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Called when the field is blurred.',
 			},
 			{
 				name: 'onChange',
-				type: '(value: string) => void',
+				type: '((value: string) => void) | undefined',
 				description:
 					'Called when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string.',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Called when the field is focused.',
 			},
 			{
 				name: 'parseValue',
-				type: '(dateTimeValue: string, date: string, time: string, timezone: string) => { dateValue: string; timeValue: string; zoneValue: string; }',
+				type: '((dateTimeValue: string, date: string, time: string, timezone: string) => { dateValue: string; timeValue: string; zoneValue: string; }) | undefined',
 				description:
 					'Function used to parse datetime values into their date, time and timezone sub-values. *',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'Spacing | undefined',
 				description:
 					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize() * 5`.',
 			},
 			{
 				name: 'timePickerProps',
-				type: 'TimePickerBaseProps',
+				type: 'TimePickerBaseProps | undefined',
 				description: 'Props applied to the `TimePicker`.',
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The ISO time that should be used as the input value.',
 			},
 		],
@@ -2579,148 +2582,148 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'aria-describedby',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Used to associate accessible descriptions to the time picker.',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the picker to autofocus on mount.',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Set the `aria-label` for the clear button.\nAdd the word "Clear" at the beginning of the clearControlLabel.\nFor instance, for a field to set an appointment, use "Clear appointment date and time".',
 			},
 			{
 				name: 'defaultValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The default for `value`.',
 			},
 			{
 				name: 'formatDisplayLabel',
-				type: '(time: string, timeFormat: string) => string',
+				type: '((time: string, timeFormat: string) => string) | undefined',
 				description:
 					'A function for formatting the displayed time value in the input. By default\nparses with an internal time parser, and formats using the [date-fns format\nfunction]((https://date-fns.org/v1.29.0/docs/format)).\n\nNote that this does not affect how the input is parsed. This must be done\nusing the `parseInputValue` prop.',
 			},
 			{
 				name: 'hideIcon',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hides icon for dropdown indicator.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the id of the field.\nAssociates a `<label></label>` with the field.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the field is disabled.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the picker has an invalid value.',
 			},
 			{
 				name: 'isOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if the dropdown is open. Will be `false` if not provided.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the field as required.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible name for the Time Picker Select, rendered as `aria-label`. This will override any other method of providing a label.',
 			},
 			{
 				name: 'locale',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Locale used to format the time. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The name of the field.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLElement> | undefined',
 				description: 'Called when the field is blurred.',
 			},
 			{
 				name: 'onChange',
-				type: '(value: string) => void',
+				type: '((value: string) => void) | undefined',
 				description:
 					'Called when the value changes. The only argument is an ISO time or empty string.',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLElement> | undefined',
 				description: 'Called when the field is focused.',
 			},
 			{
 				name: 'openTimeLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The accessible label for the button that opens the time picker. When `label` is provided,\nit is prefixed to this label.',
 				defaultValue: "'Open time picker'",
 			},
 			{
 				name: 'parseInputValue',
-				type: '(time: string, timeFormat: string) => string | Date',
+				type: '((time: string, timeFormat: string) => string | Date) | undefined',
 				description:
 					'A function for parsing input characters and transforming them into either a\nstring or a Date object. By default parses the string based off the locale.\nNote that this does not affect how the resulting value is displayed in the\ninput. To handle this, use either the `timeFormat` or `formatDisplayLabel`\nprop.',
 			},
 			{
 				name: 'placeholder',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Placeholder text displayed in input.',
 			},
 			{
 				name: 'selectProps',
-				type: 'Omit<SelectProps<OptionType, false>, "aria-describedby" | "aria-label" | "placeholder" | "inputId"> & { \'aria-describedby\'?: never; \'aria-label\'?: never; inputId?: never; placeholder?: never; }',
+				type: 'DateTimePickerSelectProps | undefined',
 			},
 			{
 				name: 'shouldShowTimeButton',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Provides a functional clock button that opens the time picker. When enabled, focusing the\ninput with the keyboard does not open the menu; use this button, click the input, or type to\nopen it instead.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: 'Spacing | undefined',
 				description:
 					'The spacing for the select control.\n\nCompact is `gridSize() * 4`, default is `gridSize * 5`.',
 			},
 			{
 				name: 'timeFormat',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Format the time with a string that is accepted by [date-fns's format\nfunction](https://date-fns.org/v1.29.0/docs/format). **This does not affect\nhow the input is parsed.** This must be done using the `parseInputValue`\nprop.\n\nNote that though we are using `date-fns` version 2, we use [the tokens from\n`date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the\nhood.",
 			},
 			{
 				name: 'timeIsEditable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set if users can edit the input, allowing them to add custom times.',
 			},
 			{
 				name: 'times',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description: 'The times shown in the dropdown.',
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The ISO time that should be used as the input value.',
 			},
 		],
@@ -2753,100 +2756,100 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'aria-haspopup',
-				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree"',
+				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree" | undefined',
 				description:
 					'An optional boolean value used to indicate if the dropdown item has popup or not.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 				isRequired: true,
 			},
 			{
 				name: 'component',
-				type: 'ComponentClass<PropsWithChildren<CustomItemComponentProps>, any> | FunctionComponent<PropsWithChildren<CustomItemComponentProps>>',
+				type: 'ComponentType<PropsWithChildren<CustomItemComponentProps>> | undefined',
 				description:
 					'Custom component to render as an item.\nShould be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.',
 			},
 			{
 				name: 'description',
-				type: 'string | global.JSX.Element',
+				type: 'string | global.JSX.Element | undefined',
 				description:
 					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
 			},
 			{
 				name: 'elemAfter',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render after the item text.\nGenerally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'elemBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render before the item text.\nGenerally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Link to another page.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Makes the element appear disabled. This will remove interactivity and the item won't appear in the focus order.",
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Makes the element appear selected.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void',
+				type: '((e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void) | undefined',
 				description: 'Event that is triggered when the element is clicked.',
 			},
 			{
 				name: 'rel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The relationship of the linked URL as space-separated link types.\nGenerally you\'ll want to set this to "noopener noreferrer" when `target` is "_blank".',
 			},
 			{
 				name: 'returnFocusRef',
-				type: 'RefObject<HTMLElement>',
+				type: 'RefObject<HTMLElement> | undefined',
 				description:
 					'If ref is passed, focus returns to that specific ref element after dropdown item clicked.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'An optional string value that specifies the role of the dropdown item.\nUse this to indicate whether the item is\nor presentational (e.g., \'presentation\') for accessibility purposes.\nIf not specified, it defaults to role="menuitem".',
 			},
 			{
 				name: 'shouldDescriptionWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu.',
 			},
 			{
 				name: 'shouldTitleWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu.',
 			},
 			{
 				name: 'target',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Where to display the linked URL,\nsee [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Adds a title attribute to the root item element.',
 			},
 		],
@@ -2875,48 +2878,48 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
 				isRequired: true,
 			},
 			{
 				name: 'hasSeparator',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Use this to render a border at the top of the section.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Unique identifier for the element.',
 			},
 			{
 				name: 'isList',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
 			},
 			{
 				name: 'isScrollable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Provide an accessible label for the section via `aria-label` for assistive technology.',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
 			},
@@ -2946,18 +2949,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 				isRequired: true,
 			},
 			{
 				name: 'defaultSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the checkbox begins selected.',
 			},
 			{
 				name: 'description',
-				type: 'string | JSX.Element',
+				type: 'string | JSX.Element | undefined',
 				description:
 					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
 			},
@@ -2969,36 +2972,36 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Makes the checkbox appear disabled as well as removing interactivity.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the checkbox is checked or unchecked.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void',
+				type: '((e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined',
 				description: 'Event that is triggered when the checkbox is clicked.',
 			},
 			{
 				name: 'shouldDescriptionWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true` the description of the item will wrap multiple lines if it's long enough.",
 				defaultValue: 'true',
 			},
 			{
 				name: 'shouldTitleWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true` the title of the item will wrap multiple lines if it's long enough.",
 				defaultValue: 'true',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Adds a title attribute to the root item element.',
 			},
 		],
@@ -3022,14 +3025,14 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
 				isRequired: true,
 			},
 			{
 				name: 'hasSeparator',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Use this to render a border at the top of the section.',
 			},
 			{
@@ -3040,31 +3043,31 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isList',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
 			},
 			{
 				name: 'isScrollable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Provide an accessible label for the section via `aria-label` for assistive technology.',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
 			},
@@ -3094,18 +3097,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 				isRequired: true,
 			},
 			{
 				name: 'defaultSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the checkbox begins selected.',
 			},
 			{
 				name: 'description',
-				type: 'string | JSX.Element',
+				type: 'string | JSX.Element | undefined',
 				description:
 					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
 			},
@@ -3117,36 +3120,36 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Makes the checkbox appear disabled as well as removing interactivity.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the checkbox is checked or unchecked.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void',
+				type: '((e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined',
 				description: 'Event that is triggered when the checkbox is clicked.',
 			},
 			{
 				name: 'shouldDescriptionWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true` the description of the item will wrap multiple lines if it's long enough.",
 				defaultValue: 'true',
 			},
 			{
 				name: 'shouldTitleWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true` the title of the item will wrap multiple lines if it's long enough.",
 				defaultValue: 'true',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Adds a title attribute to the root item element.',
 			},
 		],
@@ -3170,14 +3173,14 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
 				isRequired: true,
 			},
 			{
 				name: 'hasSeparator',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Use this to render a border at the top of the section.',
 			},
 			{
@@ -3187,31 +3190,31 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isList',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
 			},
 			{
 				name: 'isScrollable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Provide an accessible label for the section via `aria-label` for assistive technology.',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
 			},
@@ -3258,90 +3261,90 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "tall"',
+				type: '"default" | "tall" | undefined',
 				description:
 					"Controls the appearance of the menu.\nThe default menu will scroll after its height exceeds the pre-defined amount.\nThe tall menu won't scroll until the height exceeds the height of the viewport.",
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock\nwhich traps the focus within the menu. The first item gets focus automatically\nif the menu is triggered using the keyboard.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Content that will be rendered inside the layer element. Should typically be\n`DropdownItemGroup` or `DropdownItem`, or the checkbox and radio variants of those.',
 			},
 			{
 				name: 'defaultOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Controls the initial open state of the dropdown. If provided, the component is considered to be controlled\nwhich means that the user is responsible for managing the open and close state of the menu.\nUsing `defaultOpen` may cause accessiblity issues because it will automatically shift focus to the first menu item; which can be disorienting.\nOnly use this if action on the menu is required to proceed.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'If true, a spinner is rendered instead of the items.',
 			},
 			{
 				name: 'isOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Controls the open state of the dropdown.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Provide an accessible label via `aria-label` for assistive technology.',
 			},
 			{
 				name: 'menuLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Provide an accessible label for the menu element for assistive technology.',
 			},
 			{
 				name: 'onOpenChange',
-				type: '(args: OnOpenChangeArgs) => void',
+				type: '((args: OnOpenChangeArgs) => void) | undefined',
 				description:
 					'Called when the menu should be open/closed. Receives an object with `isOpen` state.\n\nIf the dropdown was closed programatically, the `event` parameter will be `null`.',
 			},
 			{
 				name: 'placement',
-				type: '"auto" | "auto-start" | "auto-end" | "top" | "bottom" | "right" | "left" | "top-start" | "top-end" | "bottom-start" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end"',
+				type: 'Placement | undefined',
 				description: 'Position of the menu.',
 			},
 			{
 				name: 'returnFocusRef',
-				type: 'React.RefObject<HTMLElement>',
+				type: 'React.RefObject<HTMLElement> | undefined',
 				description:
 					'If ref is passed, focus returns to that specific ref element after dropdown dismissed.',
 			},
 			{
 				name: 'shouldFitContainer',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
 			},
 			{
 				name: 'shouldIgnoreCloseEvent',
-				type: '(event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => boolean',
+				type: '((event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => boolean) | undefined',
 				description:
 					'Allows consumers to ignore specific close events, for example when an external overlay\nshould be treated as part of the dropdown interaction.',
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "cozy"',
+				type: 'SpacingMode | undefined',
 				description: 'Controls the spacing density of the menu.',
 			},
 			{
 				name: 'statusLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Text to be used as status for assistive technologies. Defaults to "Loading".',
 			},
 			{
 				name: 'trigger',
-				type: 'string | ((triggerButtonProps: CustomTriggerProps<T>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>)',
+				type: 'string | ((triggerButtonProps: CustomTriggerProps<T>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>) | undefined',
 				description:
 					'Content that triggers the dropdown menu to open and close. Use with\n`triggerType` to get a button trigger. To customize the trigger element,\nprovide a function to this prop. You can find\n[examples for custom triggers](https://atlassian.design/components/dropdown-menu/examples#custom-triggers)\nin our documentation.',
 			},
@@ -3376,143 +3379,143 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'caption',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Caption for the table styled as a heading. This appears before the table header, and is announced when people who use assistive technology land on the table.\nIf you don’t want the caption to appear on the page but do want it to be available for assistive technology, surround the caption with `<VisuallyHidden>`.',
 			},
 			{
 				name: 'defaultPage',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'When the table is initially rendered, use this to set which page number is shown by default.\nIn most circumstances, people will expect this to be page `1`.',
 			},
 			{
 				name: 'defaultSortKey',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Sets which column the rows should be sorted by when the table is initially rendered.\nCorresponds to the `key`'s defined in the `head` prop.",
 			},
 			{
 				name: 'defaultSortOrder',
-				type: '"ASC" | "DESC"',
+				type: 'SortOrderType | undefined',
 				description:
 					'Default column sort order used when initially rendering.\nDefaults to `"ASC"`.',
 			},
 			{
 				name: 'emptyView',
-				type: 'ReactElement<any, string | JSXElementConstructor<any>>',
+				type: 'ReactElement<any, string | JSXElementConstructor<any>> | undefined',
 				description: 'Shown when the table has no content.',
 			},
 			{
 				name: 'head',
-				type: 'HeadType',
+				type: 'HeadType | undefined',
 				description:
 					'Cells to be placed in the head of the table. Never put controls, like links and buttons in the table header.\nEach element in the head creates a new column.',
 			},
 			{
 				name: 'highlightedRowIndex',
-				type: 'number | number[]',
+				type: 'number | number[] | undefined',
 				description:
 					'Use this to set if the row will be highlighted. Never use highlighted rows to indicate that a person has selected or focused on the row.',
 			},
 			{
 				name: 'isFixedSize',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Use this to force columns to use their initial width regardless of the size of the content that loads in.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Displays a loading spinner overlaid on top of the current page.',
 			},
 			{
 				name: 'isRankable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Use this to enable drag and drop sorting of table rows.',
 			},
 			{
 				name: 'isRankingDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Disables being able to drop rows on the table.\nWe recommend using `isRankable` instead of this prop, and it will be deprecated in a future release.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'If you don’t use a caption, then you’ll need to use label to describe the table for assistive technologies.\nAvoid using both at the same time as they may conflict.\nRather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira work items table".',
 			},
 			{
 				name: 'loadingLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Use this to set a label for assistive technology that describes the loading state.\nThe default label is "Loading table". You can customize this to be more specific to your table, for example “Loading work items table”.',
 			},
 			{
 				name: 'loadingSpinnerSize',
-				type: '"small" | "large"',
+				type: 'LoadingSpinnerSizeType | undefined',
 				description:
 					'Configuration of the loading spinner shown when `isLoading` is true.\nDefaults to `"large"` when a page has more than two rows, else `"small"`.',
 			},
 			{
 				name: 'onPageRowsUpdate',
-				type: '(pageRows: RowType[]) => void',
+				type: '((pageRows: RowType[]) => void) | undefined',
 				description: 'A callback that happens when the rows displayed on a page have changed.',
 			},
 			{
 				name: 'onRankEnd',
-				type: '(rankEnd: RankEnd) => void',
+				type: '((rankEnd: RankEnd) => void) | undefined',
 				description: 'A callback that happens when a drop of a row has completed.',
 			},
 			{
 				name: 'onRankStart',
-				type: '(rankStart: RankStart) => void',
+				type: '((rankStart: RankStart) => void) | undefined',
 				description: 'A callback that happens when a drag of a row has started.',
 			},
 			{
 				name: 'onSetPage',
-				type: '(page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				type: '((page: number, UIAnalyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
 				description: 'A callback that happens when the table page has changed.',
 			},
 			{
 				name: 'onSort',
-				type: '(data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				type: '((data: any, UIAnalyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
 				description:
 					'A callback that happens when a column heading has been sorted. Use this to provide custom sorting.',
 			},
 			{
 				name: 'page',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Page the table should show.',
 			},
 			{
 				name: 'paginationi18n',
-				type: 'I18nShape',
+				type: 'I18nShape | undefined',
 				description:
 					'Labels for the previous and next buttons used in pagination.\nDefaults to `"Previous"` and `"Next"`.',
 			},
 			{
 				name: 'rows',
-				type: 'RowType[]',
+				type: 'RowType[] | undefined',
 				description:
 					"Rows to be placed in the table.\nEach row contains cells which should map to the ones defined in the head.\nRows accept standard HTML <tr> props in addition to those listed below.\nEnsure each cell has a unique `key` per column - this is used for both React's reconciliation of lists and column sorting.",
 			},
 			{
 				name: 'rowsPerPage',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Use this to control how many rows should be displayed per page. If the number of rows exceed one page, this will enable pagination.',
 			},
 			{
 				name: 'sortKey',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Column key that the rows should be sorted by.\nCorresponds to the `key`'s defined in the `head` prop.",
 			},
 			{
 				name: 'sortOrder',
-				type: '"ASC" | "DESC"',
+				type: 'SortOrderType | undefined',
 				description: 'Column sort order.',
 			},
 		],
@@ -3535,110 +3538,110 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'caption',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Caption for the table styled as a heading. This appears before the table header, and is announced when people who use assistive technology land on the table.\nIf you don’t want the caption to appear on the page but do want it to be available for assistive technology, surround the caption with `<VisuallyHidden>`.',
 			},
 			{
 				name: 'emptyView',
-				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined',
 				description: 'Shown when the table has no content.',
 			},
 			{
 				name: 'head',
-				type: 'HeadType',
+				type: 'HeadType | undefined',
 				description:
 					'Cells to be placed in the head of the table.\nEach element in the head creates a new column.',
 			},
 			{
 				name: 'highlightedRowIndex',
-				type: 'number | number[]',
+				type: 'number | number[] | undefined',
 				description:
 					'Use this to set which rows will be highlighted. Never use highlighted rows to indicate that a person has selected or focused on the row.',
 			},
 			{
 				name: 'isFixedSize',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Use this to force columns to use their initial width regardless of the size of the content that loads in.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Displays a loading spinner overlaid on top of the current page.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isRankable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Use this to enable drag and drop sorting of table rows.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isRankingDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Disables being able to drop rows on the table.\nWe recommend using `isRankable` instead of this prop, and it will be deprecated in a future release.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'If you don’t use a caption, then you’ll need to use label to describe the table for assistive technologies.\nAvoid using both at the same time as they may conflict.\nRather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira work items table".',
 			},
 			{
 				name: 'loadingLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible name for loading states spinner. Can be used for internationalization. Default is "Loading table".',
 			},
 			{
 				name: 'loadingSpinnerSize',
-				type: '"small" | "large"',
+				type: 'LoadingSpinnerSizeType | undefined',
 				description:
 					'Sets the size of the loading spinner when `isLoading` is true.\nDefaults to `"large"` when a page has more than two rows, otherwise it will be `"small"`.',
 			},
 			{
 				name: 'onPageRowsUpdate',
-				type: '(pageRows: RowType[]) => void',
+				type: '((pageRows: RowType[]) => void) | undefined',
 				description: 'A callback that happens when the rows displayed on a page have changed.',
 			},
 			{
 				name: 'onRankEnd',
-				type: '(rankEnd: RankEnd, uiAnalyticsEvent?: UIAnalyticsEvent) => void',
+				type: '((rankEnd: RankEnd, uiAnalyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
 				description: 'A callback that happens when a drop of a row has completed.',
 			},
 			{
 				name: 'onRankStart',
-				type: '(rankStart: RankStart) => void',
+				type: '((rankStart: RankStart) => void) | undefined',
 				description: 'A callback that happens when a drag of a row has started.',
 				defaultValue: 'noop',
 			},
 			{
 				name: 'onSetPage',
-				type: '(page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				type: '((page: number, UIAnalyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
 				description:
 					'A callback that happens when the table page has changed.\nUse this when you want to control the pagination of the table.',
 				defaultValue: 'noop',
 			},
 			{
 				name: 'onSort',
-				type: '(data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				type: '((data: any, UIAnalyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
 				description:
 					'A callback that happens when a column heading has been sorted. Use this to provide custom sorting for the table.',
 			},
 			{
 				name: 'page',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Page the table should show. Set by default to 1, so that it's never undefined.",
 				defaultValue: '1',
 			},
 			{
 				name: 'paginationi18n',
-				type: 'I18nShape',
+				type: 'I18nShape | undefined',
 				description:
 					'Labels for the pagination wrapper, previous and next buttons used in pagination.\nDefaults to `"Page"`, `"Pagination"`, `"Previous"` and `"Next"`.',
 				defaultValue:
@@ -3646,30 +3649,30 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'rows',
-				type: 'RowType[]',
+				type: 'RowType[] | undefined',
 				description:
 					'Rows to be placed in the table.\nEach row contains cells which should map to the ones defined in the head.\n\nEnsure each cell has a unique `key` per column - this is used for both Reacts reconcilation of lists and column sorting.',
 			},
 			{
 				name: 'rowsPerPage',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Controls how many rows should be displayed per page.',
 				defaultValue: 'Infinity',
 			},
 			{
 				name: 'sortKey',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Column key that the rows should be sorted by.\nCorresponds to the `key`'s defined in the `head` prop.",
 			},
 			{
 				name: 'sortOrder',
-				type: '"ASC" | "DESC"',
+				type: 'SortOrderType | undefined',
 				description: 'Column sort order.',
 			},
 			{
 				name: 'totalRows',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Total number of rows, in case of paginated data.',
 			},
 		],
@@ -3715,13 +3718,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'buttonGroupLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible name for the action buttons group of empty state. Can be used for internationalization. Default is "Button group".',
 			},
 			{
 				name: 'description',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The main block of text that holds additional supporting information.',
 			},
 			{
@@ -3732,80 +3735,80 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'headingLevel',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The value used to set the heading level of the header element.\nMust be in the range of 1 to 6. Defaults to 4.',
 				defaultValue: '4',
 			},
 			{
 				name: 'headingSize',
-				type: '"xsmall" | "medium"',
+				type: '"xsmall" | "medium" | undefined',
 				description:
 					'The keyword used to set the visual appearance of the header element.\nDefaults to "medium". "xsmall" can be used for empty states in smaller contexts such as popups.',
 				defaultValue: '"medium"',
 			},
 			{
 				name: 'imageHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Height of the image that is rendered in EmptyState component.\nUseful when you want image to be of exact height to stop it bouncing around when loading in.\nOnly set `height` if you want the image to resize down on smaller devices.',
 			},
 			{
 				name: 'imageUrl',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The url of image that will be shown above the title, fed directly into the `src` prop of an <img> element.\nNote, this image will be constrained by the `maxWidth` and `maxHeight` props.',
 			},
 			{
 				name: 'imageWidth',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Width of the image that is rendered in EmptyState component.\nUseful when you want image to be of exact width to stop it bouncing around when loading in.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Used to indicate a loading state. Will show a spinner next to the action buttons when true.',
 			},
 			{
 				name: 'maxImageHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height (in pixels) of the image, default value is 160.',
 				defaultValue: '160',
 			},
 			{
 				name: 'maxImageWidth',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum width (in pixels) of the image, default value is 160.',
 				defaultValue: '160',
 			},
 			{
 				name: 'primaryAction',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Primary action button for the page, usually it will be something like "Create" (or "Retry" for error pages).',
 			},
 			{
 				name: 'renderImage',
-				type: '(props: RenderImageProps) => React.ReactNode',
+				type: '((props: RenderImageProps) => React.ReactNode) | undefined',
 				description:
 					'An alternative API to supply an image using a render prop. Only rendered if no `imageUrl` is supplied.',
 			},
 			{
 				name: 'secondaryAction',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Secondary action button for the page.',
 			},
 			{
 				name: 'tertiaryAction',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Button with link to some external resource like documentation or tutorial, it will be opened in a new tab.',
 			},
 			{
 				name: 'width',
-				type: '"narrow" | "wide"',
+				type: 'Width | undefined',
 				description: 'Controls how much horizontal space the component fills. Defaults to "wide".',
 			},
 		],
@@ -3855,42 +3858,42 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'actions',
-				type: 'ActionType[]',
+				type: 'ActionsType | undefined',
 				description:
 					"Array of clickable actions to be shown at the bottom of the flag. For flags where appearance\nis 'normal', actions will be shown as links. For all other appearance values, actions will\nshown as buttons.\nIf href is passed the action will be shown as a link with the passed href prop.",
 			},
 			{
 				name: 'appearance',
-				type: '"warning" | "success" | "error" | "normal" | "info"',
+				type: 'AppearanceTypes | undefined',
 				description:
 					"Makes the flag appearance bold. Setting this to anything other than 'normal' hides the\ndismiss button.",
 			},
 			{
 				name: 'autoDismissSeconds',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Duration in seconds before flag gets auto dismissed.\nDefault is 8 seconds. For a11y reasons 8s is also a strongly-suggested minimum.\nOnly applies to auto-dismissable flags.',
 			},
 			{
 				name: 'delayAnnouncement',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Milliseconds to delay the screen reader announcement due to announcement conflict.',
 			},
 			{
 				name: 'description',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The secondary content shown below the flag title.',
 			},
 			{
 				name: 'headingLevel',
-				type: '1 | 2 | 3 | 4 | 5 | 6',
+				type: '1 | 2 | 3 | 4 | 5 | 6 | undefined',
 				description:
 					'Specifies the heading level in the document structure.\nIf not specified, the default is `2`.',
 			},
 			{
 				name: 'icon',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'The icon displayed in the top-left of the flag. Should be an instance of `@atlaskit/icon`.\nYour icon will receive the appropriate default color, which you can override by setting\nthe `color` prop on the icon to your preferred icon color.\nIf no icon is provided, a default icon will be used based on the appearance prop.',
 			},
@@ -3902,39 +3905,39 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'linkComponent',
-				type: 'React.ComponentClass<CustomThemeButtonProps, any> | React.FunctionComponent<CustomThemeButtonProps>',
+				type: 'React.ComponentType<CustomThemeButtonProps> | undefined',
 				description:
 					'A link component that is passed down to the `@atlaskit/button` used by actions,\nto allow custom routers to be used. See the\n[button with router](https://atlaskit.atlassian.com/packages/design-system/button/example/ButtonWithRouter)\nexample of what this component should look like.',
 			},
 			{
 				name: 'onBlur',
-				type: '(e: React.FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: React.FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Standard onBlur event, applied to Flag by AutoDismissFlag.',
 			},
 			{
 				name: 'onDismissed',
-				type: '(id: string | number, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((id: string | number, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Handler which will be called when a Flag's dismiss button is clicked.\nReceives the id of the dismissed Flag as a parameter.",
 			},
 			{
 				name: 'onFocus',
-				type: '(e: React.FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: React.FocusEvent<HTMLElement, Element>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Standard onFocus event, applied to Flag by AutoDismissFlag.',
 			},
 			{
 				name: 'onMouseOut',
-				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
+				type: 'React.MouseEventHandler<Element> | undefined',
 				description: 'Standard onMouseOut event, applied to Flag by AutoDismissFlag.',
 			},
 			{
 				name: 'onMouseOver',
-				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
+				type: 'React.MouseEventHandler<Element> | undefined',
 				description: 'Standard onMouseOver event, applied to Flag by AutoDismissFlag.',
 			},
 			{
 				name: 'title',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The bold text shown at the top of the flag.',
 				isRequired: true,
 			},
@@ -3959,45 +3962,45 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'currentValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Current value of the input field',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID of the associated input for accessibility.\nNot needed if the character counter is used within CharacterCounterField.\nWhen provided, the character counter will have an ID of `${inputId}-character-counter`\nwhich should be referenced in the input's `aria-describedby` attribute.\nIf not provided, will attempt to use InputId context from Form.",
 			},
 			{
 				name: 'maxCharacters',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum number of characters allowed (optional)',
 			},
 			{
 				name: 'minCharacters',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum number of characters required (optional)',
 			},
 			{
 				name: 'overMaximumMessage',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Optional custom message to display when character limit is exceeded',
 			},
 			{
 				name: 'shouldShowAsError',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Whether to style violations as errors (red text + icon).\nBy default, violations are automatically styled as errors.\n\nIn forms, set this to false to suppress error styling when\nthe form hasn't flagged an error yet (e.g., field not touched).\n\n// Standalone: smart default (violations = errors)\n<CharacterCounter currentValue={value} maxCharacters={100} />\n\n// Form: align with final-form error state\n<CharacterCounter\n  currentValue={value}\n  maxCharacters={100}\n  shouldShowAsError={isCharacterCountViolation}\n/>",
 				defaultValue: 'true',
 			},
 			{
 				name: 'underMaximumMessage',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Optional custom message to display when character limit is not exceeded',
 			},
 			{
 				name: 'underMinimumMessage',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Optional custom message to display when minimum character requirement is not met',
 			},
@@ -4022,61 +4025,61 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; error?: string; valid: boolean; meta: Meta; }) => ReactNode',
+				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; error?: string | undefined; valid: boolean; meta: Meta; }) => ReactNode',
 				description:
 					'The input component to render. Use a render function that receives `fieldProps`, `error`, `valid`, and `meta` state.\nSpread `fieldProps` onto your input element (such as `TextField` or `TextArea`).',
 				isRequired: true,
 			},
 			{
 				name: 'defaultValue',
-				type: 'FieldValue | ((currentDefaultValue?: FieldValue) => FieldValue)',
+				type: 'FieldValue | ((currentDefaultValue?: FieldValue | undefined) => FieldValue) | undefined',
 				description:
 					'Sets the default value of the field. If a function is provided, it is called with the current default value of the field.',
 			},
 			{
 				name: 'elementAfterLabel',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Element displayed after the label, and after the red asterisk if field is required.',
 			},
 			{
 				name: 'helperMessage',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Helper text displayed above the input to provide additional context or instructions.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Passed to the ID attribute of the field. This is randomly generated if it is not specified.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is required for submission. Required fields are marked with a red asterisk.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Label displayed above the form field.',
 			},
 			{
 				name: 'maxCharacters',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Maximum number of characters allowed. When exceeded, the field displays an error message or the message provided by `overMaximumMessage`.',
 			},
 			{
 				name: 'minCharacters',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Minimum number of characters required. When not met, the character counter displays an error message or the message provided by `underMinimumMessage`.',
 			},
@@ -4089,25 +4092,25 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'overMaximumMessage',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Custom message displayed when input exceeds the maximum character limit. Use this to provide context-specific guidance or localized messages. Overrides the default "X characters too many" message.',
 			},
 			{
 				name: 'underMaximumMessage',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Custom message displayed when input is under the maximum limit. Use this to provide context-specific guidance or localized messages. Overrides the default "X characters remaining" message.',
 			},
 			{
 				name: 'underMinimumMessage',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Custom message displayed when input is under the minimum requirement. Use this to guide users on how much more they need to type. Overrides the default "Minimum of X characters required" message.',
 			},
 			{
 				name: 'validate',
-				type: '(value: FieldValue, formState: Object, fieldState: Meta) => string | void | Promise<string | void>',
+				type: '((value: FieldValue | undefined, formState: object, fieldState: Meta) => string | void | Promise<string | void>) | undefined',
 				description:
 					'Checks whether the field input is valid. This is usually used to display a message relevant to the current value using `ErrorMessage`, `HelperMessage` or `ValidMessage`.',
 			},
@@ -4131,32 +4134,32 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: '(args: { fieldProps: CheckboxFieldProps; error?: string; valid: boolean; meta: Meta; }) => React.ReactNode',
+				type: '(args: { fieldProps: CheckboxFieldProps; error?: string | undefined; valid: boolean; meta: Meta; }) => React.ReactNode',
 				description:
 					'Content to render in the checkbox field. This is a function that is called with information about the field.',
 				isRequired: true,
 			},
 			{
 				name: 'defaultIsChecked',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets the default state of the checkbox as checked.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is required for submission. Required fields are marked with a red asterisk.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Label displayed beside the checkbox.',
 			},
 			{
@@ -4168,7 +4171,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The value of the checkbox. This is the value used in the form state when the checkbox is checked.',
 			},
@@ -4193,9 +4196,15 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The content of the message',
 				isRequired: true,
+			},
+			{
+				name: 'iconLabel',
+				type: 'string | undefined',
+				description:
+					'Accessible label for the status icon. Use your internationalization library to provide a localized string.',
 			},
 		],
 	},
@@ -4224,61 +4233,61 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; error?: string; valid: boolean; meta: Meta; }) => React.ReactNode',
+				type: '((args: { fieldProps: FieldProps<FieldValue, Element>; error?: string | undefined; valid: boolean; meta: Meta; }) => React.ReactNode) | undefined',
 				description:
 					'Content to render in the field. This is a function that is called with props for the field component and other information about the field. This cannot be used at the same time as the `component` prop, as the `children` prop will be ignored.',
 			},
 			{
 				name: 'component',
-				type: '(args: { fieldProps: FieldProps<FieldValue, Element>; }) => React.ReactNode',
+				type: '((args: { fieldProps: FieldProps<FieldValue, Element>; }) => React.ReactNode) | undefined',
 				description:
 					'Content to render in the field. This will be rendered with the `*Message` props. This cannot be used at the same time as the `children` prop, as the `children` prop will be ignored.',
 			},
 			{
 				name: 'defaultValue',
-				type: 'FieldValue | ((currentDefaultValue?: FieldValue) => FieldValue)',
+				type: 'FieldValue | ((currentDefaultValue?: FieldValue | undefined) => FieldValue) | undefined',
 				description:
 					'Sets the default value of the field. If a function is provided, it is called with the current default value of the field.',
 			},
 			{
 				name: 'elementAfterLabel',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Element displayed after the label, and after the red asterisk if field is required.',
 			},
 			{
 				name: 'errorMessage',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Renders an `ErrorMessage` with the provided content when using the `component` prop.',
 			},
 			{
 				name: 'helperMessage',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Renders a `HelperMessage` with the provided content when using the `component` prop.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Passed to the ID attribute of the field. This is randomly generated if it is not specified.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is required for submission. Required fields are marked with a red asterisk.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Label displayed above the form field.',
 			},
 			{
@@ -4290,19 +4299,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'transform',
-				type: '(event: FieldValue | React.FormEvent<Element>, current: FieldValue) => FieldValue',
+				type: '((event: FieldValue | React.FormEvent<Element>, current: FieldValue) => FieldValue) | undefined',
 				description:
 					'Access the current field value and transform it to return a different field value.',
 			},
 			{
 				name: 'validate',
-				type: '(value: FieldValue, formState: Object, fieldState: Meta) => string | void | Promise<string | void>',
+				type: '((value: FieldValue | undefined, formState: object, fieldState: Meta) => string | void | Promise<string | void>) | undefined',
 				description:
 					'Checks whether the field input is valid. This is usually used to display a message relevant to the current value using `ErrorMessage`, `HelperMessage` or `ValidMessage`.',
 			},
 			{
 				name: 'validMessage',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Renders a `ValidMessage` with the provided content when using the `component` prop.',
 			},
@@ -4327,13 +4336,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Content to render in the fieldset.',
 				isRequired: true,
 			},
 			{
 				name: 'legend',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Label describing the contents of the fieldset.',
 			},
 		],
@@ -4377,7 +4386,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'autocomplete',
-				type: '"off" | "on"',
+				type: '"off" | "on" | undefined',
 				description:
 					"Indicates whether the value of the form's controls can be automatically completed by the browser. It is `on` by default.",
 			},
@@ -4389,55 +4398,65 @@ export const components: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'errorMessageLabel',
+				type: 'string | undefined',
+				description: 'Accessible label for error status icons rendered by form messages.',
+			},
+			{
 				name: 'formProps',
-				type: '{ [x: string]: any; } & ExcludeReservedFormProps',
+				type: '({ [x: string]: any; } & ExcludeReservedFormProps) | undefined',
 				description:
 					'When `Form` renders JSX children directly and not using a function to\nspread `formProps` manually, the properties in this `formProps` prop will\nbe spread on an internally rendered  HTML `form` element.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: '`id` attribute applied to the `form` element.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets the form and its fields as disabled. Users cannot edit or focus on the fields.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible name to be applied to the form element. Maps to the `aria-label` attribute.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'ID of the element that has the accessible name to be applied to the form element. Maps to the `aria-labelledby` attribute.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: '`name` attribute applied to the `form` element.',
 			},
 			{
 				name: 'noValidate',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Indicates if the inputs within the form will bypass HTML5 constraint\nvalidation when submitted. This is not recommended to be used because it\ncan cause experiences to be inaccessible. It is `false` by default but will\nbe set to `true` in the future to increase accessibility, so it is **not recommended**.',
 			},
 			{
 				name: 'onSubmit',
-				type: '(values: FormValues, form: FormApi<FormValues>, callback?: (errors?: Record<string, string>) => void) => void | Object | Promise<...>',
+				type: '(values: FormValues, form: FormApi<FormValues>, callback?: ((errors?: Record<string, string> | undefined) => void) | undefined) => void | ... 1 more ... | Promise<...>',
 				description:
 					'Event handler called when the form is submitted. Fields must be free of validation errors.',
 				isRequired: true,
 			},
 			{
+				name: 'validMessageLabel',
+				type: 'string | undefined',
+				description: 'Accessible label for valid status icons rendered by form messages.',
+			},
+			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -4469,14 +4488,14 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'align',
-				type: '"end" | "start"',
+				type: 'Align | undefined',
 				description:
 					'Sets the alignment of the footer contents. This is often a button. This should be left-aligned in single-page forms, flags, cards, and section messages.',
 				defaultValue: '"end"',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Content to render in the footer of the form.',
 			},
 		],
@@ -4504,17 +4523,17 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Child content to render in the form below the title and description.',
 			},
 			{
 				name: 'description',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Description or subtitle of the form.',
 			},
 			{
 				name: 'title',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Title of the form. This is a header.',
 			},
 		],
@@ -4538,17 +4557,17 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Content or components to render after the description.',
 			},
 			{
 				name: 'description',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Description of the contents of the section.',
 			},
 			{
 				name: 'title',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Title of the form section.',
 			},
 		],
@@ -4572,7 +4591,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The content of the message',
 				isRequired: true,
 			},
@@ -4597,7 +4616,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				isRequired: true,
 			},
 			{
@@ -4607,7 +4626,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 			},
 		],
 	},
@@ -4630,7 +4649,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				isRequired: true,
 			},
 		],
@@ -4648,12 +4667,12 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['form', 'message', 'wrapper'],
 		category: 'form',
 		examples: [
-			'import { ErrorMessage } from \'@atlaskit/form/error-message\';\nimport { HelperMessage } from \'@atlaskit/form/helper-message\';\nimport { MessageWrapper } from \'@atlaskit/form/message-wrapper\';\nimport { ValidMessage } from \'@atlaskit/form/valid-message\';\nimport Link from \'@atlaskit/link/link\';\nimport Lozenge from \'@atlaskit/lozenge/lozenge\';\nexport default function MessagesExample(): React.JSX.Element {\n\treturn (\n\t\t<div>\n\t\t\t{\n\t\t\t<div  style={{ width: \'max-content\' }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper">This is a help message.</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error">This is an error message.</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid">This is a success message.</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t\t{\n\t\t\t<div  style={{ maxWidth: 240 }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper--long">\n\t\t\t\t\t\tThis is a help message, but it\'s really really really long.\n\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error--long">\n\t\t\t\t\t\tThis is an error message, but it\'s really really really long.\n\t\t\t\t\t</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid--long">\n\t\t\t\t\t\tThis is a validation message, but it\'s really really really long.\n\t\t\t\t\t</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t\t{\n\t\t\t<div  style={{ maxWidth: 240 }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper--long">\n\t\t\t\t\t\tThis message contains <strong>strong</strong> text.\n\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error--long">\n\t\t\t\t\t\tThis message contains a link to{\' \'}\n\t\t\t\t\t\t<Link href="http://www.atlassian.com">the Atlassian website</Link>.\n\t\t\t\t\t</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid--long">\n\t\t\t\t\t\tThis message contains a <Lozenge appearance="success">success</Lozenge> lozenge.\n\t\t\t\t\t</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t</div>\n\t);\n}',
+			'import { ErrorMessage } from \'@atlaskit/form/error-message\';\nimport { HelperMessage } from \'@atlaskit/form/helper-message\';\nimport { MessageWrapper } from \'@atlaskit/form/message-wrapper\';\nimport { ValidMessage } from \'@atlaskit/form/valid-message\';\nimport Link from \'@atlaskit/link/link\';\nimport Lozenge from \'@atlaskit/lozenge/new/lozenge\';\nexport default function MessagesExample(): React.JSX.Element {\n\treturn (\n\t\t<div>\n\t\t\t{\n\t\t\t<div  style={{ width: \'max-content\' }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper">This is a help message.</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error">This is an error message.</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid">This is a success message.</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t\t{\n\t\t\t<div  style={{ maxWidth: 240 }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper--long">\n\t\t\t\t\t\tThis is a help message, but it\'s really really really long.\n\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error--long">\n\t\t\t\t\t\tThis is an error message, but it\'s really really really long.\n\t\t\t\t\t</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid--long">\n\t\t\t\t\t\tThis is a validation message, but it\'s really really really long.\n\t\t\t\t\t</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t\t{\n\t\t\t<div  style={{ maxWidth: 240 }}>\n\t\t\t\t<MessageWrapper>\n\t\t\t\t\t<HelperMessage testId="helper--long">\n\t\t\t\t\t\tThis message contains <strong>strong</strong> text.\n\t\t\t\t\t</HelperMessage>\n\t\t\t\t\t<ErrorMessage testId="error--long">\n\t\t\t\t\t\tThis message contains a link to{\' \'}\n\t\t\t\t\t\t<Link href="http://www.atlassian.com">the Atlassian website</Link>.\n\t\t\t\t\t</ErrorMessage>\n\t\t\t\t\t<ValidMessage testId="valid--long">\n\t\t\t\t\t\tThis message contains a <Lozenge appearance="success">success</Lozenge> lozenge.\n\t\t\t\t\t</ValidMessage>\n\t\t\t\t</MessageWrapper>\n\t\t\t</div>\n\t\t</div>\n\t);\n}',
 		],
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The content of the message',
 				isRequired: true,
 			},
@@ -4677,33 +4696,33 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: '(args: { fieldProps: RangeProps; error?: string; meta: Meta; }) => React.ReactNode',
+				type: '(args: { fieldProps: RangeProps; error?: string | undefined; meta: Meta; }) => React.ReactNode',
 				description:
 					'Content to render in the range field. This function is called with props for the field component and other information about the field.',
 				isRequired: true,
 			},
 			{
 				name: 'defaultValue',
-				type: 'number | ((currentDefaultValue?: number) => number)',
+				type: 'number | ((currentDefaultValue?: number | undefined) => number)',
 				description:
 					'Sets the default value of the field. If a function is provided, it is called with the current default value of the field.',
 				isRequired: true,
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Value passed to the `id` attribute of the field. This is randomly generated if it is not specified.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Displays a label above the range field and identifies the form fields.',
 			},
 			{
@@ -4752,9 +4771,15 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The content of the message',
 				isRequired: true,
+			},
+			{
+				name: 'iconLabel',
+				type: 'string | undefined',
+				description:
+					'Accessible label for the status icon. Use your internationalization library to provide a localized string.',
 			},
 		],
 	},
@@ -4805,25 +4830,25 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span"',
+				type: '"div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | undefined',
 				description:
 					'Allows the component to be rendered as the specified HTML element, overriding a default element set by the `size` prop.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The text of the heading.',
 				isRequired: true,
 			},
 			{
 				name: 'color',
-				type: '"color.text" | "color.text.inverse" | "color.text.warning.inverse"',
+				type: 'HeadingColor | undefined',
 				description:
 					'Token representing text color with a built-in fallback value.\nWill apply inverse text color automatically if placed within a Box with bold background color.\nDefaults to `color.text`.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Unique identifier for the heading HTML element.',
 			},
 			{
@@ -4858,13 +4883,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Semantic hierarchy of content below the heading context.',
 				isRequired: true,
 			},
 			{
 				name: 'value',
-				type: '0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9',
+				type: 'HeadingLevel | undefined',
 				description:
 					'Optional - only apply this value if the intent is to reset the heading context outside the normal content flow, for example inside a `section`.',
 			},
@@ -4903,7 +4928,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'color',
-				type: '"currentColor" | "var(--ds-link-pressed)" | "var(--ds-link-visited-pressed)" | "var(--ds-text)" | "var(--ds-text-accent-lime)" | "var(--ds-text-accent-lime-bolder)" | ... 74 more ... | "var(--ds-rovo-icon-purple)"',
+				type: '"currentColor" | "var(--ds-link-pressed)" | "var(--ds-link-visited-pressed)" | "var(--ds-text)" | "var(--ds-text-accent-lime)" | "var(--ds-text-accent-lime-bolder)" | ... 75 more ... | undefined',
 				description:
 					"Color for the icon. Supports any icon or text design token, or 'currentColor' to inherit the current text color.\nDefaults to `currentColor`, inheriting the current text color.",
 			},
@@ -4916,16 +4941,16 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Display name of the icon.',
 			},
 			{
 				name: 'shouldRecommendSmallIcon',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'size',
-				type: 'IconSize | ((iconName: string) => IconSize)',
+				type: 'IconSize | ((iconName: string) => IconSize) | undefined',
 				description:
 					"There are two icon sizes available:\n- `medium` - 16px. (default).\n- `small` - 12px.\n\nAlternatively a function can be passed to determine the size\nbased on the icon's name, which can be useful for dynamic rendering.",
 			},
@@ -4980,7 +5005,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"small" | "xsmall" | "medium" | "large" | "xlarge"',
+				type: 'IconTileSize | undefined',
 				description:
 					'Size of the tile. Defaults to `medium`.\n\nAvailable sizes: `xsmall`, `small`, `medium`, `large`, `xlarge`.',
 			},
@@ -5017,7 +5042,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'srcDark',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Image URL to use for dark mode. This overrides `src` when the user\nhas selected dark mode either in the app or on their operating system.',
 			},
@@ -5057,12 +5082,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'cancelButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessibility label for the cancel action button.',
 			},
 			{
 				name: 'confirmButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessibility label for the confirm action button, which saves the field value into `editValue`.',
 			},
@@ -5075,13 +5100,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'editButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessibility label for button, which is used to enter `editView` from keyboard.',
 			},
 			{
 				name: 'editLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Append 'edit' to the end of the button label (`editButtonLabel`)which allows\nusers of assistive technologies to understand the purpose of the button",
 			},
@@ -5094,35 +5119,35 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'hideActionButtons',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the confirm and cancel action buttons are displayed in the bottom right of the field.',
 			},
 			{
 				name: 'isEditing',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the component shows the `readView` or the `editView`. This is used to manage the state of the input in stateless inline edit.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Determines whether the input value can be confirmed as empty.',
 			},
 			{
 				name: 'keepEditViewOpenOnBlur',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets the view when the element blurs and loses focus (this can happen when a user clicks away).\nWhen set to true, inline edit stays in `editView` when blurred.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Label above the input field that communicates what value should be entered.',
 			},
 			{
 				name: 'onCancel',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description:
 					'Exits `editView` and switches back to `readView`. This is called when the cancel action button (x) is clicked.',
 			},
@@ -5135,7 +5160,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onEdit',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handler called when readView is clicked.',
 			},
 			{
@@ -5147,19 +5172,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'readViewFitContainerWidth',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Determines whether the `readView` has 100% width within its container, or whether it fits the content.',
 			},
 			{
 				name: 'startWithEditViewOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Determines whether it begins in `editView` or `readView`. When set to true, `isEditing` begins as true and the inline edit\nstarts in `editView`.',
 			},
 			{
 				name: 'validate',
-				type: '(value: any, formState: {}, fieldState: {}) => string | void | Promise<string | void>',
+				type: '((value: any, formState: {}, fieldState: {}) => string | void | Promise<string | void>) | undefined',
 				description:
 					'Displays an inline dialog with a message when the field input is invalid. This is handled by `react-final-form`.',
 			},
@@ -5195,12 +5220,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'cancelButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessibility label for the cancel action button.',
 			},
 			{
 				name: 'confirmButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessibility label for the confirm action button, which saves the field value into `editValue`.',
 			},
@@ -5213,47 +5238,47 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'editButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessibility label for button, which is used to enter `editView` from keyboard.',
 			},
 			{
 				name: 'editLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Append 'edit' to the end of the button label (`editButtonLabel`)which allows\nusers of assistive technologies to understand the purpose of the button",
 			},
 			{
 				name: 'hideActionButtons',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the confirm and cancel action buttons are displayed in the bottom right of the field.',
 			},
 			{
 				name: 'isCompact',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets height of the text field to compact. The top and bottom padding is decreased.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Determines whether the input value can be confirmed as empty.',
 			},
 			{
 				name: 'keepEditViewOpenOnBlur',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets the view when the element blurs and loses focus (this can happen when a user clicks away).\nWhen set to true, inline edit stays in `editView` when blurred.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Label above the input field that communicates what value should be entered.',
 			},
 			{
 				name: 'onCancel',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description:
 					'Exits `editView` and switches back to `readView`. This is called when the cancel action button (x) is clicked.',
 			},
@@ -5272,19 +5297,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'readViewFitContainerWidth',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Determines whether the `readView` has 100% width within its container, or whether it fits the content.',
 			},
 			{
 				name: 'startWithEditViewOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Determines whether it begins in `editView` or `readView`. When set to true, `isEditing` begins as true and the inline edit\nstarts in `editView`.',
 			},
 			{
 				name: 'validate',
-				type: '(value: any, formState: {}, fieldState: {}) => string | void | Promise<string | void>',
+				type: '((value: any, formState: {}, fieldState: {}) => string | void | Promise<string | void>) | undefined',
 				description:
 					'Displays an inline dialog with a message when the field input is invalid. This is handled by `react-final-form`.',
 			},
@@ -5330,76 +5355,47 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "error" | "info" | "connectivity" | "confirmation"',
+				type: 'IconAppearance | undefined',
 				description:
 					'Set the icon to be used before the title. Options are: connectivity,\nconfirmation, info, warning, and error.',
 				defaultValue: '"connectivity"',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The elements to be displayed by the popup.',
 			},
 			{
 				name: 'iconLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Text to be used as the label for the button icon. You must use this to provide information for people who use assistive technology when there is no title and/or secondaryText.',
 			},
 			{
 				name: 'placement',
-				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				type: 'PopupPlacement | undefined',
 				description:
 					'The placement to be passed to the popup. Determines where around\nthe text the dialog is displayed.',
 				defaultValue: '"bottom-start"',
 			},
 			{
 				name: 'secondaryText',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Text to display second.',
 				defaultValue: '""',
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "spacious"',
+				type: 'IconSpacing | undefined',
 				description:
 					'The spacing of the underlying icon button. Options are: spacious and compact.',
 				defaultValue: '"spacious"',
 			},
 			{
 				name: 'title',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Text to display first, bolded for emphasis.',
 				defaultValue: '""',
-			},
-		],
-	},
-	{
-		name: 'Layering',
-		package: '@atlaskit/layering',
-		description:
-			'Registers its subtree as a layer in the layering tree. When `isDisabled` is false, this layer participates in topmost-layer tracking; sibling hooks like `useCloseOnEscapePress` only fire on the layer that is actually on top.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Wrap the root of any layered surface (modal, popup, drawer, spotlight) in `<Layering>` so dismissal hooks can tell which layer is on top.',
-			'Leave `isDisabled` at its default while the layer is mounted but inactive (for example, a modal that is open but covered by a nested popup). The disabled layer stops claiming the top spot until it becomes active again.',
-		],
-		accessibilityGuidelines: [
-			'Layering does not render any DOM itself — it is purely a context provider. Keep the underlying surface accessible (focus trap, aria attributes, restore focus on close) using the host component, not this wrapper.',
-		],
-		keywords: ['layering', 'layer', 'modal', 'popup', 'drawer', 'spotlight', 'top-layer'],
-		category: 'layering',
-		examples: [],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-				isRequired: true,
-			},
-			{
-				name: 'isDisabled',
-				type: 'boolean',
-				defaultValue: 'true',
 			},
 		],
 	},
@@ -5439,13 +5435,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "inverse" | "subtle"',
+				type: '"default" | "inverse" | "subtle" | undefined',
 				description:
 					'The appearance of the link. Defaults to `default`. A `subtle` appearance will render the link with a lighter color and no underline in resting state. Use `inverse` when rendering on bold backgrounds to ensure that the link is easily visible.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 			},
 			{
 				name: 'href',
@@ -5456,13 +5452,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'newWindowLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Override the default text to signify that a link opens in a new window.\nThis is appended to the `aria-label` attribute when the `target` prop is set to `_blank`.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.",
 			},
@@ -5493,20 +5489,20 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"neutral" | "inverse" | "brand"',
+				type: 'Appearance | undefined',
 				description:
 					'Choice of logo appearance between 3 brand-approved color combinations that will be hooked up to design tokens and theming.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Accessible text to be used for screen readers (it's optional since the default props provide a label that matches the logo).",
 				defaultValue: '"Atlassian"',
 			},
 			{
 				name: 'size',
-				type: '"small" | "xxsmall" | "xsmall" | "medium" | "large" | "xlarge"',
+				type: 'Size | undefined',
 				description: 'The size of the icon. Defaults to "medium".',
 				defaultValue: 'defaultLogoParams.size',
 			},
@@ -5547,49 +5543,49 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
 		category: 'status-indicators',
 		examples: [
-			'import Lozenge from \'@atlaskit/lozenge/lozenge\';\nconst _default_1: React.JSX.Element[] = [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];\nexport default _default_1;',
+			'import Lozenge from \'@atlaskit/lozenge/new/lozenge\';\nconst _default_1: React.JSX.Element[] = [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];\nexport default _default_1;',
 		],
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor | undefined',
 				description:
 					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
 				defaultValue: '"neutral"',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.',
 			},
 			{
 				name: 'iconBefore',
-				type: 'React.ComponentClass<Omit<NewIconProps, "spacing">, any> | React.FunctionComponent<Omit<NewIconProps, "spacing">>',
+				type: 'IconProp | undefined',
 				description: 'Icon to display before the text content. Should be an ADS icon component.',
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'max-width of lozenge container. Default to 200px.',
 				defaultValue: '200',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "spacious"',
+				type: 'LozengeSpacing | undefined',
 				description:
 					'Controls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.',
 				defaultValue: '"default"',
 			},
 			{
 				name: 'trailingMetric',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Numeric metric displayed at the end of the lozenge as a badge.\nTrailing metric is not supported for accent lozenges.',
 			},
 			{
 				name: 'trailingMetricAppearance',
-				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new"',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new" | undefined',
 				description:
 					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
 			},
@@ -5623,85 +5619,85 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor | undefined',
 				description:
 					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
 			},
 			{
 				name: 'aria-controls',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Identifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.\nIdentifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
 			},
 			{
 				name: 'aria-expanded',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Announces to assistive technology whether the popup is currently open or closed.\nAnnounces to assistive technology whether the popup is currently open or closed.',
 			},
 			{
 				name: 'aria-haspopup',
-				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree"',
+				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree" | undefined',
 				description:
-					'Informs assistive technology that this element triggers a popup.\nInforms assistive technology that this element triggers a popup.',
+					'Informs assistive technology that this element triggers a popup.\nWith `platform-dst-top-layer`, it is not set when the popup has no `role`.\nInforms assistive technology that this element triggers a popup.\nWith `platform-dst-top-layer`, it is not set when the popup has no `role`.',
 			},
 			{
 				name: 'aria-label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Defines a string value that labels the trigger element for assistive technology.\nDefines a string value that labels the trigger element for assistive technology.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.\nElements to be rendered inside the lozenge. This should ideally be just a word or two.',
 			},
 			{
 				name: 'iconBefore',
-				type: 'ComponentClass<Omit<NewIconProps, "spacing">, any> | FunctionComponent<Omit<NewIconProps, "spacing">>',
+				type: 'IconProp | undefined',
 				description:
 					'Icon to display before the text content. Should be an ADS icon component.\nIcon to display before the text content. Should be an ADS icon component.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Whether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.\nWhether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Whether the dropdown is currently selected/open.\nWhether the dropdown is currently selected/open.',
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'max-width of lozenge container. Default to 200px.\nmax-width of lozenge container. Default to 200px.',
 			},
 			{
 				name: 'onClick',
-				type: '(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.\nCallback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "spacious"',
+				type: 'LozengeSpacing | undefined',
 				description:
 					'Controls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.\nControls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.',
 			},
 			{
 				name: 'trailingMetric',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Numeric metric displayed at the end of the lozenge as a badge.\nTrailing metric is not supported for accent lozenges.',
 			},
 			{
 				name: 'trailingMetricAppearance',
-				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new"',
+				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new" | undefined',
 				description:
 					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
 			},
@@ -5730,67 +5726,67 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 			},
 			{
 				name: 'description',
-				type: 'string | global.JSX.Element',
+				type: 'string | global.JSX.Element | undefined',
 				description:
 					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
 			},
 			{
 				name: 'iconAfter',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'iconBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Unique identifier for the element.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Makes the element appear selected.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void',
+				type: '((e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void) | undefined',
 				description: "Event that's triggered when the element is clicked.",
 			},
 			{
 				name: 'onMouseDown',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				type: 'MouseEventHandler<Element> | undefined',
 				description: "Event that's triggered when the element has been pressed.",
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Use this to override the accessibility role for the element.',
 			},
 			{
 				name: 'shouldDescriptionWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
 			},
 			{
 				name: 'shouldTitleWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
 			},
@@ -5818,63 +5814,63 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 			},
 			{
 				name: 'component',
-				type: 'React.ComponentClass<React.PropsWithChildren<TComponentProps>, any> | React.FunctionComponent<React.PropsWithChildren<TComponentProps>>',
+				type: 'React.ComponentType<React.PropsWithChildren<TComponentProps>> | undefined',
 				description:
 					'Custom component to render as an item. This can be both a functional component or a class component.\n\nWill return `null` if no component is defined.\n\nProps passed to `CustomItem` will be passed down to this component. If the props for `component` have TypeScript types,\nCustomItem will extend them, providing type safety for your custom item.\n\nE.g. `<CustomItem to="/link" component={RouterLink} />`.\n\n__NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.',
 			},
 			{
 				name: 'description',
-				type: 'string | JSX.Element',
+				type: 'string | JSX.Element | undefined',
 				description:
 					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
 			},
 			{
 				name: 'iconAfter',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'iconBefore',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Makes the element appear selected.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => void',
+				type: '((e: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => void) | undefined',
 				description: "Event that's triggered when the element is clicked.",
 			},
 			{
 				name: 'onMouseDown',
-				type: '(event: React.MouseEvent<Element, MouseEvent>) => void',
+				type: 'MouseEventHandler<Element> | undefined',
 				description: "Event that's triggered when the element has been pressed.",
 			},
 			{
 				name: 'shouldDescriptionWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
 			},
 			{
 				name: 'shouldTitleWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
 			},
@@ -5899,19 +5895,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The text of the heading.',
 				isRequired: true,
 			},
 			{
 				name: 'headingLevel',
-				type: '1 | 2 | 3 | 4 | 5 | 6',
+				type: '1 | 2 | 3 | 4 | 5 | 6 | undefined',
 				description:
 					'Specifies the heading level in the document structure.\nIf not specified, the default is `h2`.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'A unique identifier that can be referenced in the `labelledby` prop of a\nsection to allow assistive technology to announce the name of groups.',
 			},
@@ -5937,79 +5933,79 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 			},
 			{
 				name: 'description',
-				type: 'string | global.JSX.Element',
+				type: 'string | global.JSX.Element | undefined',
 				description:
 					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Link to another page.',
 			},
 			{
 				name: 'iconAfter',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'iconBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
 			},
 			{
 				name: 'isSelected',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Makes the element appear selected.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void',
+				type: '((e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void) | undefined',
 				description: "Event that's triggered when the element is clicked.",
 			},
 			{
 				name: 'onMouseDown',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>) => void',
+				type: 'MouseEventHandler<Element> | undefined',
 				description: "Event that's triggered when the element has been pressed.",
 			},
 			{
 				name: 'rel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The relationship of the linked URL as space-separated link types.\nGenerally you\'ll want to set this to "noopener noreferrer" when `target` is "_blank".',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Use this to override the accessibility role for the element.',
 			},
 			{
 				name: 'shouldDescriptionWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
 			},
 			{
 				name: 'shouldTitleWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
 			},
 			{
 				name: 'target',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Where to display the linked URL,\nsee [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.',
 			},
@@ -6049,56 +6045,56 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children of the menu group.\nThis should generally be `Section` components.',
 				isRequired: true,
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Used this to tell assistive technologies that the menu group is loading.',
 			},
 			{
 				name: 'maxHeight',
-				type: 'string | number',
+				type: 'Dimension | undefined',
 				description:
 					"Use this to constrain the menu group's height to a specific value.\nThis must be set if you want to have scrollable sections.",
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'Dimension | undefined',
 				description: "Use this to constrain the menu group's maximum width to a specific value.",
 			},
 			{
 				name: 'menuLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Provide an accessible label via `aria-label` for the menu element for assistive technology.',
 			},
 			{
 				name: 'minHeight',
-				type: 'string | number',
+				type: 'Dimension | undefined',
 				description: "Use this to constrain the menu group's minimum height to a specific value.",
 			},
 			{
 				name: 'minWidth',
-				type: 'string | number',
+				type: 'Dimension | undefined',
 				description: "Use this to constrain the menu group's minimum width to a specific value.",
 			},
 			{
 				name: 'onClick',
-				type: '(event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void',
+				type: '((event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined',
 				description:
 					'Handler called when clicking on this element,\nor any children elements.\nUseful when needing to stop propagation of child events.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Use this to override the accessibility role for the element.',
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "cozy"',
+				type: 'SpacingMode | undefined',
 				description: 'Configure the density of the menu group content.',
 				defaultValue: '"cozy"',
 			},
@@ -6123,48 +6119,48 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
 				isRequired: true,
 			},
 			{
 				name: 'hasSeparator',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Use this to render a border at the top of the section.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Unique identifier for the element.',
 			},
 			{
 				name: 'isList',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
 			},
 			{
 				name: 'isScrollable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Provide an accessible label for the section via `aria-label` for assistive technology.',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
 			},
@@ -6184,20 +6180,20 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'isShimmering',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Causes to the skeleton to have a slight horizontal shimmer.\nOnly use this when you want to bring more attention to the loading content.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'width',
-				type: 'string | number',
+				type: 'Dimension | undefined',
 				description:
 					"Width of the skeleton heading item.\nYou usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.",
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description: 'Bounded style overrides.',
 			},
 		],
@@ -6219,31 +6215,31 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'hasAvatar',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Renders a skeleton circle in the `iconBefore` location.\nTakes priority over `hasIcon`.',
 			},
 			{
 				name: 'hasIcon',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Renders a skeleton square in the `iconBefore` location.',
 			},
 			{
 				name: 'isShimmering',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Causes to the skeleton to have a slight horizontal shimmer.\nOnly use this when you want to bring more attention to the loading content.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'width',
-				type: 'string | number',
+				type: 'Dimension | undefined',
 				description:
 					"Width of the skeleton item.\nYou usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.",
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"minHeight" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"minHeight" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description: 'Bounded style overrides.',
 			},
 		],
@@ -6298,84 +6294,84 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'autoFocus',
-				type: 'RefObject<HTMLElement>',
+				type: 'RefObject<HTMLElement | null | undefined> | undefined',
 				description:
 					'Pass an element `ref` to focus on a specific element on load.  Default\nbehavior is focus is moved to the first interactive element inside the\nmodal dialog.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Contents of the modal dialog.',
 			},
 			{
 				name: 'focusLockAllowlist',
-				type: '(element: HTMLElement) => boolean',
+				type: '((element: HTMLElement) => boolean) | undefined',
 				description:
 					'Callback function which lets you allowlist nodes so they can be interacted with outside of the focus lock.\nReturn `true` if focus lock should handle element, `false` if not.',
 			},
 			{
 				name: 'height',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'Height of the modal dialog.\nWhen unset the modal dialog will grow to fill the viewport and then start overflowing its contents.',
 			},
 			{
 				name: 'isBlanketHidden',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Will remove the blanket tinted background color.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The label of the modal dialog that is announced to users of assistive\ntechnology. This should only be used if there is no modal title being\nassociated to your modal, either via using the modal title component or the\n`titleId` prop within the `useModal` context.',
 			},
 			{
 				name: 'onClose',
-				type: '(e: KeyboardOrMouseEvent, analyticEvent: UIAnalyticsEvent) => void',
+				type: 'OnCloseHandler | undefined',
 				description: 'Callback function called when the modal dialog is requesting to be closed.',
 			},
 			{
 				name: 'onCloseComplete',
-				type: '(element: HTMLElement) => void',
+				type: 'OnCloseCompleteHandler | undefined',
 				description: 'Callback function called when the modal dialog has finished closing.',
 			},
 			{
 				name: 'onOpenComplete',
-				type: '(node: HTMLElement, isAppearing: boolean) => void',
+				type: 'OnOpenCompleteHandler | undefined',
 				description: 'Callback function called when the modal dialog has finished opening.',
 			},
 			{
 				name: 'onStackChange',
-				type: '(stackIndex: number) => void',
+				type: 'OnStackChangeHandler | undefined',
 				description: 'Callback function called when the modal changes position in the stack.',
 			},
 			{
 				name: 'shouldCloseOnOverlayClick',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Calls `onClose` when clicking the blanket behind the modal dialog.',
 			},
 			{
 				name: 'shouldReturnFocus',
-				type: 'boolean | RefObject<HTMLElement>',
+				type: 'boolean | RefObject<HTMLElement> | undefined',
 				description:
 					'ReturnFocus controls what happens when the user exits\nfocus lock mode. If true, focus returns to the element that had focus before focus lock\nwas activated. If false, focus remains where it was when the FocusLock was deactivated.\nIf ref is passed, focus returns to that specific ref element.',
 			},
 			{
 				name: 'shouldScrollInViewport',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Will set the scroll boundary to the viewport.\nIf set to false, the scroll boundary is set to the modal dialog body.',
 			},
 			{
 				name: 'stackIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"The stackIndex is a reference to the position (index) of the calling dialog in a modal dialog stack.\nNew modals added to the stack receive the highest stack index of 0. As more modals are added to the stack, their index is dynamically increased according to their new position.\nDon't alter the modal stack position using `stackIndex` in implementations of third-party libraries (e.g. AUI modal), it may lead to unpredictable bugs, especially if the third party library has its own focus lock.\nAdditionally, each modal in the stack gets a vertical offset based on `stackIndex` value.",
 			},
 			{
 				name: 'width',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'Width of the modal dialog.\nThe recommended way to specify modal width is using named size options.',
 			},
@@ -6405,12 +6401,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The accessible name to give to the close button.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLButtonElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLButtonElement> | undefined',
 				description: 'The `onBlur` handler for the close button.',
 			},
 			{
@@ -6440,13 +6436,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children of modal dialog footer.',
 				isRequired: true,
 			},
 			{
 				name: 'hasInlinePadding',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Determines whether inline padding will be applied. Defaults to true.',
 			},
 		],
@@ -6474,7 +6470,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children of modal dialog footer.',
 			},
 		],
@@ -6500,12 +6496,17 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children of modal dialog header.',
 			},
 			{
+				name: 'closeButtonLabel',
+				type: 'string | undefined',
+				description: 'The accessible name for the close button when `hasCloseButton` is true.',
+			},
+			{
 				name: 'hasCloseButton',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Shows a close button at the end of the header.',
 				defaultValue: 'false',
 			},
@@ -6530,18 +6531,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"warning" | "danger"',
+				type: 'Appearance | undefined',
 				description:
 					'Appearance of the modal that changes the color of the primary action and adds an icon to the title.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children of modal dialog header.',
 			},
 			{
 				name: 'isMultiline',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When `true` will allow the title to span multiple lines.\nDefaults to `true`.',
 			},
@@ -6565,7 +6566,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Children can be any valid react node.\nEither a single element,\nmultiple elements,\nor multiple elements in an array.',
 			},
@@ -6600,40 +6601,45 @@ export const components: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'action',
+				type: '"enter" | "exit" | undefined',
+				description: 'The action to perform on the motion.',
+			},
+			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Children to be animated.',
 				isRequired: true,
 			},
 			{
 				name: 'enteringAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 41 more ... | "var(--ds-tab-indicator-exit-right)"',
+				type: 'Motion | undefined',
 				description: 'Motion token for the entering animation.',
 			},
 			{
 				name: 'enteringAnimationXcss',
-				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; }) | null | undefined',
 				description: 'CSS properties to apply to the entering animation.',
 			},
 			{
 				name: 'exitingAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 41 more ... | "var(--ds-tab-indicator-exit-right)"',
+				type: 'Motion | undefined',
 				description: 'Motion token for the exiting animation.',
 			},
 			{
 				name: 'exitingAnimationXcss',
-				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; }) | null | undefined',
 				description: 'CSS properties to apply to the exiting animation.',
 			},
 			{
 				name: 'onFinish',
-				type: '(state: Transition) => void',
+				type: '((state: Transition) => void) | undefined',
 				description:
 					'Will callback when the motion has finished in the particular direction.\nIf it finished entering direction will be `entering`.\nAnd vice versa for `exiting`.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", object, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", object, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description: 'CSS properties to apply to the motion container.',
 			},
 		],
@@ -6659,20 +6665,54 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appear',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'When initially mounting if set to `true` all child motions will animate in.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Children can be any valid react node.\nEither a single element,\nmultiple elements,\nor multiple elements in an array.',
 			},
 			{
 				name: 'exitThenEnter',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When elements are exiting will exit all elements first and then mount the new ones.\nDefaults to `false`.',
+			},
+		],
+	},
+	{
+		name: 'MotionPresenceBoundary',
+		package: '@atlaskit/motion',
+		description:
+			"Separates a container's motion presence lifecycle from its descendants. Use it inside an animated overlay or container so motion-aware content does not inherit the container's presence state or contribute to its exit completion, while nested ExitingPersistence boundaries continue to manage their own items.",
+		status: 'early-access',
+		usageGuidelines: [
+			'Place MotionPresenceBoundary inside the component that owns the container animation and wrap the container content',
+			"Use it when motion-aware descendants should not inherit an enclosing popup, modal, drawer, flag, or other container's presence state or exit completion callback",
+			'Do not use it to disable descendant motion — explicit Motion components and nested ExitingPersistence boundaries retain their own lifecycle',
+			'MotionPresenceBoundary does not render a DOM element, so it does not affect layout or semantics',
+		],
+		keywords: [
+			'motion',
+			'animation',
+			'presence',
+			'boundary',
+			'container',
+			'overlay',
+			'nested',
+			'exit',
+		],
+		category: 'animation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { Fragment, useId, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport Tag from '@atlaskit/tag/removable-tag';\nimport Toggle from '@atlaskit/toggle/toggle';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tpreview: {\n\t\tminHeight: '160px',\n\t\tmaxWidth: '320px',\n\t},\n\tpanel: {\n\t\tmarginBlockStart: token('space.100'),\n\t\tpaddingBlockStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t\tpaddingBlockEnd: token('space.200'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tbackgroundColor: token('elevation.surface.overlay'),\n\t\tborderRadius: token('radius.medium'),\n\t\tboxShadow: token('elevation.shadow.overlay'),\n\t},\n});\nexport default function MotionPresenceBoundaryExample(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [hasBoundary, setHasBoundary] = useState(true);\n\tconst toggleId = useId();\n\tconst panelId = useId();\n\tconst Boundary = hasBoundary ? MotionPresenceBoundary : Fragment;\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Inline space=\"space.100\" alignBlock=\"center\">\n\t\t\t\t<Toggle\n\t\t\t\t\tid={toggleId}\n\t\t\t\t\tisChecked={hasBoundary}\n\t\t\t\t\tonChange={(event) => {\n\t\t\t\t\t\tsetHasBoundary(event.target.checked);\n\t\t\t\t\t\tsetIsOpen(false);\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t\t<label htmlFor={toggleId}>Use MotionPresenceBoundary</label>\n\t\t\t</Inline>\n\t\t\t<Text>\n\t\t\t\t{hasBoundary\n\t\t\t\t\t? 'The tag moves with the dropdown, without its own entry or exit animation.'\n\t\t\t\t\t: 'The tag inherits the dropdown’s presence and runs its own entry and exit animations.'}\n\t\t\t</Text>\n\t\t\t<div css={styles.preview}>\n\t\t\t\t<Button\n\t\t\t\t\taria-expanded={isOpen}\n\t\t\t\t\taria-controls={isOpen ? panelId : undefined}\n\t\t\t\t\tonClick={() => setIsOpen((open) => !open)}\n\t\t\t\t\tonKeyDown={(event) => {\n\t\t\t\t\t\tif (event.key === 'Escape') {\n\t\t\t\t\t\t\tsetIsOpen(false);\n\t\t\t\t\t\t}\n\t\t\t\t\t}}\n\t\t\t\t>\n\t\t\t\t\t{isOpen ? 'Close dropdown' : 'Open dropdown'}\n\t\t\t\t</Button>\n\t\t\t\t<ExitingPersistence key={hasBoundary ? 'with-boundary' : 'without-boundary'} appear>\n\t\t\t\t\t{isOpen && (\n\t\t\t\t\t\t<Motion\n\t\t\t\t\t\t\tkey=\"dropdown\"\n\t\t\t\t\t\t\tenteringAnimation={token('motion.popup.enter.bottom')}\n\t\t\t\t\t\t\texitingAnimation={token('motion.popup.exit.bottom')}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<div id={panelId} css={styles.panel}>\n\t\t\t\t\t\t\t\t<Boundary>\n\t\t\t\t\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t\t\t\t\t<Text weight=\"bold\">Labels</Text>\n\t\t\t\t\t\t\t\t\t\t<Inline>\n\t\t\t\t\t\t\t\t\t\t\t<Tag text=\"Design system\" isRemovable={false} />\n\t\t\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t\t\t</Stack>\n\t\t\t\t\t\t\t\t</Boundary>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</Motion>\n\t\t\t\t\t)}\n\t\t\t\t</ExitingPersistence>\n\t\t\t</div>\n\t\t</Stack>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				isRequired: true,
 			},
 		],
 	},
@@ -6705,20 +6745,20 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'column',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Index of the column.\nUseful if you want to have columns inside separate containers.\nStarts from `0`.',
 			},
 			{
 				name: 'columns',
-				type: 'number | "responsive"',
+				type: 'number | "responsive" | undefined',
 				description:
 					'Number of columns the children elements will be displayed over. Use\n`"responsive"` to have it calculate dynamically on the client side.\n\n__NOTE:__ This has a big caveat that the elements will be invisible until\nthe client side Javascript executes. If you have a fixed grid or list, set\nthis to a specific number. Defaults to `"responsive"`.',
 				defaultValue: '"responsive"',
 			},
 			{
 				name: 'delayStep',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Delay in ms.\nHow long each element group will be staggered.\nThis will be multipled by the column and row of the element.\nDefaults to `50`.',
 				defaultValue: '50',
@@ -6741,37 +6781,37 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'The content of the layout area.\nShould include `TopNavStart`, `TopNavMiddle`, and `TopNavEnd`.',
 				isRequired: true,
 			},
 			{
 				name: 'customTheme',
-				type: '{ backgroundColor: string | RGB; highlightColor: string | RGB; }',
+				type: 'CustomTheme | undefined',
 				description:
 					'Custom theme for the top navigation. This is a port of Nav 3 functionality, and not recommended for new usage,\nas it does not align with our future vision.',
 			},
 			{
 				name: 'height',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Not intended for long term use. This is added to support the migration to the new page layout.\nWe may replace this prop in a future release.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The `id` attribute of the slot. Used to connect the layout slot's skip link to the layout element.\nIf not provided, a unique ID will be generated.",
 			},
 			{
 				name: 'skipLinkLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: "The label for this slot's skip link. Defaults to the slot's `label` value.",
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"backgroundColor", DesignTokenStyles, ""> & {} & XCSSPseudo<"backgroundColor", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"backgroundColor", DesignTokenStyles, ""> & {} & XCSSPseudo<"backgroundColor", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; }) | null | undefined',
 				description: 'Bounded style overrides.',
 			},
 		],
@@ -6792,14 +6832,14 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The label for the object.\n\nIf the object is decorative, this can be set to an empty string.\nIf not provided, will default to a human-readable version of the icon name.',
 				defaultValue: '"Story"',
 			},
 			{
 				name: 'size',
-				type: '"small" | "medium"',
+				type: 'ObjectSize | undefined',
 				description: 'The size of the object.\n\n- `small`: 12px\n- `medium`: 16px\n-',
 			},
 		],
@@ -6817,20 +6857,20 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'isBold',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Whether the object tile should be bold in appearance.\n\nDefaults to `false`.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The label for the object tile.\n\nIf the object tile is decorative, this can be set to an empty string.\nIf not provided, will default to a human-readable version of the icon name.',
 				defaultValue: '"Whiteboard"',
 			},
 			{
 				name: 'size',
-				type: '"small" | "xsmall" | "medium" | "large" | "xlarge"',
+				type: 'ObjectTileSize | undefined',
 				description:
 					'The size of the tile.\n\nIf you need a smaller size, use a standard Object component instead –\nwhich is available in `12px` or `16px` sizes.\n\n- `xsmall`: 20px\n- `small`: 24px\n- `medium`: 32px\n- `large`: 40px\n- `xlarge`: 48px',
 			},
@@ -6870,47 +6910,47 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'actions',
-				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined',
 				description: 'Contents of the action bar to be rendered next to the page title.',
 			},
 			{
 				name: 'bottomBar',
-				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined',
 				description:
 					'Contents of the action bar to be rendered next to the page title. Typically a button group.',
 			},
 			{
 				name: 'breadcrumbs',
-				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>> | undefined',
 				description: 'Page breadcrumbs to be rendered above the title.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'Contents of the bottom bar to be rendered below the page title. Typically contains a search bar and/or filters.',
 			},
 			{
 				name: 'disableTitleStyles',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Content of the page title. The text wraps by default.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Used as the ID of the inner h1 tag. This is exposed so the header text can be used as label of other elements by aria-labelledby.',
 			},
 			{
 				name: 'innerRef',
-				type: '(element: HTMLElement) => void',
+				type: '((element: HTMLElement) => void) | undefined',
 				description:
 					'Returns the inner ref to the DOM element of the title. This is exposed so the focus can be set.',
 			},
 			{
 				name: 'truncateTitle',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Prevent the title from wrapping across lines. Avoid using this wherever possible, as truncation can make page headings inaccessible.',
 				defaultValue: 'false',
@@ -6951,49 +6991,49 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'components',
-				type: '{ Page?: React.ElementType<any, keyof React.JSX.IntrinsicElements>; Previous?: React.ElementType<any, keyof React.JSX.IntrinsicElements>; Next?: React.ElementType<...>; }',
+				type: '{ Page?: React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined; Previous?: React.ElementType<any, keyof React.JSX.IntrinsicElements> | undefined; Next?: React.ElementType<...> | undefined; } | undefined',
 				description: 'Replace the built-in page, previous, next and/ or ellipsis component',
 			},
 			{
 				name: 'defaultSelectedIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Index of the page to be selected by default.',
 			},
 			{
 				name: 'getPageLabel',
-				type: '(page: T, pageIndex: number) => string | number',
+				type: '((page: T, pageIndex: number) => string | number) | undefined',
 				description:
 					'Helper function to get text displayed on the page button. This is helpful in scenarios when page the page passed in is an object.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the Paginator is disabled',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The aria-label for the pagination nav wrapper.\nThe default value is "pagination".',
 			},
 			{
 				name: 'max',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum number of pages to be displayed in the pagination.',
 			},
 			{
 				name: 'nextLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The aria-label for the next button.\nThe default value is "next".',
 			},
 			{
 				name: 'onChange',
-				type: '(event: React.SyntheticEvent<Element, Event>, page: T, analyticsEvent?: UIAnalyticsEvent) => void',
+				type: '((event: React.SyntheticEvent<Element, Event>, page: T, analyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
 				description: 'The onChange handler which is called when the page is changed.',
 			},
 			{
 				name: 'pageLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The aria-label for the individual page numbers.\nThe default value is "page".\nThe page number is automatically appended to the pageLabel.\nFor Example, pageLabel="página" will render aria-label="página 1"\nas the label for page 1.',
 			},
@@ -7005,18 +7045,18 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'previousLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The aria-label for the previous button.\nThe default value is "previous".',
 			},
 			{
 				name: 'renderEllipsis',
-				type: '(arg: { key: string; from: number; to: number; }) => React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				type: '((arg: { key: string; from: number; to: number; }) => React.ReactElement<any, string | React.JSXElementConstructor<any>>) | undefined',
 				description:
 					'The react Node returned from the function is rendered instead of the default ellipsis node.',
 			},
 			{
 				name: 'selectedIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Index of the selected page. This will make this pagination controlled.',
 			},
 		],
@@ -7055,40 +7095,40 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: '(childrenProps: PopperChildrenProps) => React.ReactNode',
+				type: '((childrenProps: PopperChildrenProps) => React.ReactNode) | undefined',
 				description:
 					"Returns the element to be positioned.\n\nOn the top-layer code path this must be ONE element: it is rendered into a\nflex-row host so the viewport cap can reach it, and a fragment's children\nwould become side-by-side flex items. See `children` on `Popover` in\n`@atlaskit/top-layer`.",
 			},
 			{
 				name: 'modifiers',
-				type: 'readonly Modifier<CustomModifiers, object>[]',
+				type: 'readonly Modifier<CustomModifiers, object>[] | undefined',
 				description: 'Additional modifiers and modifier overwrites.',
 			},
 			{
 				name: 'offset',
-				type: '[number, number]',
+				type: 'Offset | undefined',
 				description:
 					'Distance the popup should be offset from the reference in the format of [along, away] (units in px).\nDefaults to [0, 8] - which means the popup will be 8px away from the edge of the reference specified\nby the `placement` prop.',
 			},
 			{
 				name: 'placement',
-				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				type: 'Placement | undefined',
 				description: 'Which side of the Reference to show on.',
 			},
 			{
 				name: 'referenceElement',
-				type: 'HTMLElement | VirtualElement',
+				type: 'HTMLElement | VirtualElement | undefined',
 				description: 'Replacement reference element to position popper relative to.',
 			},
 			{
 				name: 'shouldFitViewport',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Determines if the popper will have a `max-width` and `max-height` set to\nconstrain it to the viewport.',
 			},
 			{
 				name: 'strategy',
-				type: '"fixed" | "absolute"',
+				type: 'PositioningStrategy | undefined',
 				description: "Placement strategy used. Can be 'fixed' or 'absolute'",
 			},
 		],
@@ -7115,6 +7155,12 @@ export const components: ComponentMcpPayload[] = [
 			'Use clear trigger labels',
 			'Ensure keyboard navigation support',
 			'Provide escape key dismissal',
+			'Use DropdownMenu whenever possible. A Popup with role="menu" is not a blessed, production-ready menu pattern.',
+			'When a complex interaction requires a Popup with role="menu", implement the menu behavior: give each action the appropriate menu-item role and move focus to a menu item when the menu opens.',
+			'Support Arrow Up, Arrow Down, Home, and End navigation for a Popup with role="menu".',
+			'Return focus to the trigger when an action or Escape closes a Popup with role="menu", while preserving each menu item\'s native Enter and Space activation behavior.',
+			'Validate the complete menu interaction with the assistive technologies and browser environments that the product supports.',
+			'Refer to the WAI-ARIA menu role (https://www.w3.org/TR/wai-aria-1.0/roles#menu) and ARIA Authoring Practices menu and menubar pattern (https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) for the complete role and interaction requirements.',
 		],
 		designSource: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
@@ -7127,25 +7173,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "UNSAFE_modal-below-sm"',
+				type: '"default" | "UNSAFE_modal-below-sm" | undefined',
 				description:
 					'The "default" appearance is used for standard popups.\nThe "UNSAFE_modal-below-sm" appearance makes the popup appear as a modal when the viewport is smaller than "sm".',
 			},
 			{
-				name: 'autoFocus',
-				type: 'boolean',
-				description:
-					'This controls whether the popup takes focus when opening.\nThis changes the `popupComponent` component tabIndex to `null`.\nThe default is `true`.',
-			},
-			{
 				name: 'content',
-				type: '(props: ContentProps) => ReactNode',
+				type: '(props: ContentProps) => React.ReactNode',
 				description: 'Render props for content that is displayed inside the popup.',
 				isRequired: true,
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'ID that is assigned to the popup container element.',
 			},
 			{
@@ -7157,134 +7197,93 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Refers to an `aria-label` attribute. Sets an accessible name for the popup to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
 			},
 			{
+				name: 'mode',
+				type: '"auto" | "manual" | undefined',
+				description:
+					'How the popup dismisses when `platform-dst-top-layer` is enabled. Default `"auto"`.\n\n- `"auto"`: the browser light-dismisses it. A press outside it (including on the trigger) or\n  Escape closes it.\n- `"manual"`: the browser never light-dismisses it, so a press on the trigger does not close\n  it. With `onClose`, Popup calls it on a press outside the popup and the trigger, or on\n  Escape. Without `onClose`, only `isOpen` closes it.\n\n**Warning:** a `"manual"` popup is outside the browser\'s auto popover stack. Opening another\nauto popover (a menu, popup or tooltip) does not close it, it closes no other popover, and a\nnested auto popover opened from outside it does not treat it as an ancestor. Use `"manual"`\nonly when a press on the trigger must not close the popup (for example a hover popup that pins\non click, or a search field that keeps its results open), or when it must stay open until a\nstate change (for example a field error).\n\nNo effect when the flag is disabled: the legacy popup already ignores presses on the trigger\nand closes only through `onClose`.',
+			},
+			{
 				name: 'modifiers',
-				type: 'Partial<Partial<Modifier<string, object>>>[]',
+				type: 'Partial<Partial<Modifier<string, object>>>[] | undefined',
 				description:
 					'Additional modifiers and modifier overwrites.\nfor more details - https://popper.js.org/docs/v1/#modifiers',
 			},
 			{
 				name: 'onClose',
-				type: '(event: Event | MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>, currentLevel?: any) => void',
+				type: '((event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element> | null, currentLevel?: any) => void) | undefined',
 				description:
 					"Handler that is called when the popup wants to close itself.\nThis can happen when:\n- the user clicks away from the popup\n- the user presses the escape key\n- the popup is closed programatically. In this case, the `event` argument will be `null`.\n\nYou'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.",
 			},
 			{
 				name: 'placement',
-				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				type: 'Placement | undefined',
 				description:
 					'Placement of where the popup should be displayed relative to the trigger element.\nThe default is `"auto"`.',
 			},
 			{
 				name: 'popupComponent',
-				type: 'ComponentType<PopupComponentProps> | ForwardRefExoticComponent<PopupComponentProps & RefAttributes<HTMLDivElement>>',
+				type: 'ComponentType<PopupComponentProps> | React.ForwardRefExoticComponent<PopupComponentProps & React.RefAttributes<HTMLDivElement>> | undefined',
 				description:
 					'The element that is shown when `isOpen` prop is `true`.\nThe result of the `content` prop will be placed as children here.\nThe default is an element with an elevation of `e200` with _no padding_.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description:
-					'Use this to set the accessibility role for the popup.\nWe strongly recommend using only `menu` or `dialog`.\nMust be used along with `label` or `titleId`.',
+					'Use this to set the accessibility role for the popup.\nWe strongly recommend using only `menu` or `dialog`.\nMust be used along with `label` or `titleId`.\n\nOnly `role="dialog"` and `role="alertdialog"` (as literal types) give `content`\nthe `setInitialFocusRef` setter.',
 			},
 			{
 				name: 'shouldFitContainer',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"This fits the popup width to its parent's width.\nWhen set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.\nThe popup will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the popup width to its parent's width.\nWhen set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.\nThe popup will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
 			},
 			{
 				name: 'shouldFitViewport',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Determines if the popup will have a `max-width` and `max-height` set to\nconstrain it to the viewport.',
 			},
 			{
 				name: 'shouldIgnoreCloseEvent',
-				type: '(event: Event | MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => boolean',
+				type: '((event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => boolean) | undefined',
 				description:
 					'Allows consumers to ignore specific close events, for example when an external overlay\nshould be treated as part of the popup interaction.',
 			},
 			{
 				name: 'shouldReturnFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'This determines whether the popup trigger will be focused when the popup content closes.\nThe default is `true`.',
 			},
 			{
 				name: 'shouldUseCaptureOnOutsideClick',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'This controls if the event which handles clicks outside the popup is be bound with\n `capture: true`.',
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Id referenced by the popup `aria-labelledby` attribute.\nUsage of either this, or the `label` attribute is strongly recommended.',
 			},
 			{
 				name: 'trigger',
-				type: '(props: TriggerProps) => ReactNode',
+				type: '(props: TriggerProps) => React.ReactNode',
 				description:
 					'Render props used to anchor the popup to your content.\nMake this an interactive element,\nsuch as an `@atlaskit/button` component.',
 				isRequired: true,
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"width" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "padding" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"width" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "padding" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description: 'Bounded style overrides.',
-			},
-		],
-	},
-	{
-		name: 'Portal',
-		package: '@atlaskit/portal',
-		description: 'A component for rendering content outside the normal DOM hierarchy.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for rendering content outside normal DOM',
-			'Consider z-index and positioning',
-			'Handle focus management appropriately',
-			'Use for modals and overlays',
-		],
-		contentGuidelines: [
-			'Ensure portaled content is accessible',
-			'Consider content context and purpose',
-			'Use appropriate portal placement',
-		],
-		accessibilityGuidelines: [
-			'Ensure proper focus management',
-			'Consider screen reader accessibility',
-			'Use appropriate ARIA attributes',
-			'Handle keyboard navigation',
-		],
-		keywords: ['portal', 'render', 'dom', 'mount', 'teleport'],
-		category: 'utility',
-		examples: [
-			"import Portal from '@atlaskit/portal/portal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Portal>\n\t\t\t<div>This content is rendered in a portal</div>\n\t\t</Portal>\n\t\t<Portal zIndex={1000}>\n\t\t\t<div>This content has a custom z-index</div>\n\t\t</Portal>\n\t</>\n);\nexport default Examples;",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
-				isRequired: true,
-			},
-			{
-				name: 'mountStrategy',
-				type: '"effect" | "layoutEffect"',
-				description:
-					'Specify the mount strategy: useEffect or useLayoutEffect.\nNote: UseLayoutEffect can lead to performance issues and is discouraged.',
-				defaultValue: '"effect"',
-			},
-			{
-				name: 'zIndex',
-				type: 'string | number',
-				defaultValue: '0',
 			},
 		],
 	},
@@ -7319,7 +7318,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the Anchor.',
 			},
 			{
@@ -7331,19 +7330,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'newWindowLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Override the default text to signify that a link opens in a new window.\nThis is appended to the `aria-label` attribute when the `target` prop is set to `_blank`.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.",
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7374,33 +7373,33 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'all',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200"',
+				type: 'BleedSpaceToken | undefined',
 				description: 'Bleed along both axis.',
 			},
 			{
 				name: 'block',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200"',
+				type: 'BleedSpaceToken | undefined',
 				description: 'Bleed along the block axis',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the Flex.',
 				isRequired: true,
 			},
 			{
 				name: 'inline',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200"',
+				type: 'BleedSpaceToken | undefined',
 				description: 'Bleed along the inline axis.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7431,19 +7430,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"object" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | "cite" | ... 98 more ... | "set"',
+				type: 'T | undefined',
 				description:
 					"The DOM element to render as the Box.\n- This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more\n- This cannot be a `'a'` (use the `Anchor` primitive instead)\n- This cannot be a `'button'` (use the `Anchor` primitive instead)",
 				defaultValue: "'div'",
 			},
 			{
 				name: 'backgroundColor',
-				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 223 more ... | "elevation.surface.raised.pressed"',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 224 more ... | undefined',
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 485 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					"Apply a subset of permitted styles powered by Atlassian Design System design tokens.\nIt's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.",
 			},
@@ -7473,58 +7472,58 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignItems',
-				type: '"center" | "baseline" | "end" | "start" | "stretch"',
+				type: 'AlignItems | undefined',
 				description: 'Used to align children along the cross axis.',
 			},
 			{
 				name: 'as',
-				type: '"div" | "dl" | "li" | "ol" | "span" | "ul"',
+				type: '"div" | "dl" | "li" | "ol" | "span" | "ul" | undefined',
 				description: 'The DOM element to render as the Flex. Defaults to `div`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the Flex.',
 				isRequired: true,
 			},
 			{
 				name: 'columnGap',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'direction',
-				type: '"row" | "column"',
+				type: 'Direction | undefined',
 				description: 'Represents the flex direction property of CSS flexbox.',
 			},
 			{
 				name: 'gap',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'justifyContent',
-				type: '"center" | "end" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch"',
+				type: 'JustifyContent | undefined',
 				description: 'Used to align children along the main axis.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
 				name: 'rowGap',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'wrap',
-				type: '"nowrap" | "wrap"',
+				type: 'Wrap | undefined',
 				description: 'Represents the flex wrap property of CSS flexbox.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7570,23 +7569,23 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'as',
-				type: '"symbol" | "object" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "canvas" | "caption" | "center" | ... 156 more ... | "view"',
+				type: 'T | undefined',
 				description: 'The DOM element to render as the Focusable element.',
 				defaultValue: "'button'",
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 			},
 			{
 				name: 'isInset',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Controls whether the focus ring should be applied around or within the composed element.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7616,65 +7615,65 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignContent',
-				type: '"center" | "end" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch"',
+				type: 'AlignContent | undefined',
 				description: 'Used to align the grid along the block axis.',
 			},
 			{
 				name: 'alignItems',
-				type: '"center" | "baseline" | "end" | "start" | "stretch"',
+				type: 'AlignItems | undefined',
 				description: 'Used to align children along the block axis.',
 			},
 			{
 				name: 'as',
-				type: '"div" | "ol" | "span" | "ul"',
+				type: '"div" | "ol" | "span" | "ul" | undefined',
 				description: 'The DOM element to render as the Flex. Defaults to `div`.',
 			},
 			{
 				name: 'autoFlow',
-				type: '"row" | "column" | "dense" | "row dense" | "column dense"',
+				type: 'AutoFlow | undefined',
 				description:
 					'Specifies how auto-placed items get flowed into the grid. CSS `grid-auto-flow`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Elements to be rendered inside the grid. Required as a grid without children should not be a grid.',
 				isRequired: true,
 			},
 			{
 				name: 'columnGap',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each column.',
 			},
 			{
 				name: 'gap',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each child across both axes.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'HTML id attrubute.',
 			},
 			{
 				name: 'justifyContent',
-				type: '"center" | "end" | "start" | "space-around" | "space-between" | "space-evenly" | "stretch"',
+				type: 'JustifyContent | undefined',
 				description: 'Used to align children along the inline axis.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
 				name: 'rowGap',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each row.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7704,66 +7703,66 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignBlock',
-				type: '"center" | "baseline" | "end" | "start" | "stretch"',
+				type: 'AlignBlock | undefined',
 				description: 'Used to align children along the block axis (typically vertical).',
 			},
 			{
 				name: 'alignInline',
-				type: '"center" | "end" | "start" | "stretch"',
+				type: 'AlignInline | undefined',
 				description: 'Used to align children along the inline axis (typically horizontal).',
 			},
 			{
 				name: 'as',
-				type: '"div" | "dl" | "li" | "ol" | "span" | "ul"',
+				type: '"div" | "dl" | "li" | "ol" | "span" | "ul" | undefined',
 				description: 'The DOM element to render as the Inline. Defaults to `div`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the Inline.',
 				isRequired: true,
 			},
 			{
 				name: 'grow',
-				type: '"fill" | "hug"',
+				type: 'Grow | undefined',
 				description: 'Used to set whether the container should grow to fill the available space.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
 				name: 'rowSpace',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description:
 					'Represents the space between rows when content wraps.\nUsed to override the `space` value in between rows.',
 			},
 			{
 				name: 'separator',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Renders a separator string between each child. Avoid using `separator="•"` when `as="ul" | "ol" | "dl"` to preserve proper list semantics.',
 			},
 			{
 				name: 'shouldWrap',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Used to set whether children are forced onto one line or will wrap onto multiple lines.',
 			},
 			{
 				name: 'space',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'spread',
-				type: 'string',
+				type: '"space-between" | undefined',
 				description: 'Used to distribute the children along the main axis.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7793,29 +7792,29 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'align',
-				type: '"center" | "end" | "start"',
+				type: 'TextAlign | undefined',
 				description: 'Text alignment.',
 			},
 			{
 				name: 'as',
-				type: '"div" | "span"',
+				type: '"div" | "span" | undefined',
 				description: 'HTML tag to be rendered. Defaults to `span`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements rendered within the Text element.',
 				isRequired: true,
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
@@ -7857,18 +7856,18 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the button is disabled.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.",
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7899,48 +7898,48 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignBlock',
-				type: '"center" | "end" | "start" | "stretch"',
+				type: '"center" | "end" | "start" | "stretch" | undefined',
 				description: 'Used to align children along the block axis (typically vertical).',
 			},
 			{
 				name: 'alignInline',
-				type: '"center" | "end" | "start" | "stretch"',
+				type: 'AlignInline | undefined',
 				description: 'Used to align children along the inline axis (typically horizontal).',
 			},
 			{
 				name: 'as',
-				type: '"div" | "dl" | "ol" | "span" | "ul"',
+				type: '"div" | "dl" | "ol" | "span" | "ul" | undefined',
 				description: 'The DOM element to render as the Stack. Defaults to `div`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the Stack.',
 				isRequired: true,
 			},
 			{
 				name: 'grow',
-				type: '"fill" | "hug"',
+				type: 'Grow | undefined',
 				description: 'Used to set whether the container should grow to fill the available space.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
 				name: 'space',
-				type: '"space.025" | "space.050" | "space.100" | "space.150" | "space.200" | "space.0" | "space.075" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000"',
+				type: 'GapToken | undefined',
 				description: 'Represents the space between each child.',
 			},
 			{
 				name: 'spread',
-				type: 'string',
+				type: '"space-between" | undefined',
 				description: 'Used to distribute the children along the main axis.',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; })',
+				type: 'false | (XCSSValue<"appearance" | "grid" | "clipPath" | "filter" | "marker" | "mask" | "borderColor" | "translate" | "content" | "color" | "top" | "bottom" | "right" | "left" | "backgroundColor" | ... 486 more ... | "glyphOrientationVertical", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
 				description:
 					'Apply a subset of permitted styles powered by Atlassian Design System design tokens.',
 			},
@@ -7970,57 +7969,57 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'align',
-				type: '"center" | "end" | "start"',
+				type: 'TextAlign | undefined',
 				description: 'Text alignment.',
 			},
 			{
 				name: 'as',
-				type: '"em" | "p" | "span" | "strong"',
+				type: '"em" | "p" | "span" | "strong" | undefined',
 				description: 'HTML tag to be rendered. Defaults to `span`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements rendered within the Text element.',
 				isRequired: true,
 			},
 			{
 				name: 'color',
-				type: '"inherit" | TextColor',
+				type: '"inherit" | TextColor | undefined',
 				description:
 					'Token representing text color with a built-in fallback value.\nWill apply inverse text color automatically if placed within a Box with bold background color.\nDefaults to `color.text` if not nested in other Text components.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).',
 			},
 			{
 				name: 'maxLines',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The number of lines to limit the provided text to. Text will be truncated with an ellipsis.\n\nWhen `maxLines={1}`, `wordBreak` defaults to `break-all` to match the behaviour of `text-overflow: ellipsis`.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Accessible role.',
 			},
 			{
 				name: 'size',
-				type: '"small" | "medium" | "large"',
+				type: 'FontSize | undefined',
 				description: 'Text size.',
 			},
 			{
 				name: 'weight',
-				type: '"medium" | "bold" | "regular" | "semibold"',
+				type: 'FontWeight | undefined',
 				description:
 					'The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).',
 			},
 			{
 				name: 'xcss',
-				type: 'false | (XCSSValue<"fontVariantNumeric" | "overflowWrap" | "textDecorationLine", DesignTokenStyles, ""> & {} & XCSSPseudo<"fontVariantNumeric" | "overflowWrap" | "textDecorationLine", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"fontVariantNumeric" | "overflowWrap" | "textDecorationLine", DesignTokenStyles, ""> & {} & XCSSPseudo<"fontVariantNumeric" | "overflowWrap" | "textDecorationLine", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; }) | null | undefined',
 				description: 'Bounded style overrides.',
 			},
 		],
@@ -8061,25 +8060,25 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "success" | "inverse"',
+				type: '"default" | "success" | "inverse" | undefined',
 				description: 'The visual style of the progress bar.',
 				defaultValue: '"default"',
 			},
 			{
 				name: 'ariaLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This is the descriptive label that's associated with the progress bar.\nAlways include useful information on the current state of the progress bar so that people who use assistive technology can understand what the current state of the progress bar is.",
 			},
 			{
 				name: 'isIndeterminate',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Shows the progress bar in an indeterminate state when `true`.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'value',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the value of the progress bar, between `0` and `1` inclusive.',
 				defaultValue: '0',
 			},
@@ -8109,19 +8108,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'ariaLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This is the descriptive label that's associated with the progress bar.\nAlways include useful information on the current state of the progress bar so that people who use assistive technology can understand what the current state of the progress bar is.",
 			},
 			{
 				name: 'isIndeterminate',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Shows the progress bar in an indeterminate state when `true`.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'value',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the value of the progress bar, between `0` and `1` inclusive.',
 				defaultValue: '0',
 			},
@@ -8151,19 +8150,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'ariaLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This is the descriptive label that's associated with the progress bar.\nAlways include useful information on the current state of the progress bar so that people who use assistive technology can understand what the current state of the progress bar is.",
 			},
 			{
 				name: 'isIndeterminate',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Shows the progress bar in an indeterminate state when `true`.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'value',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the value of the progress bar, between `0` and `1` inclusive.',
 				defaultValue: '0',
 			},
@@ -8203,32 +8202,32 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary" | "help" | "inverted"',
+				type: 'DotsAppearance | undefined',
 				description: 'Sets the color of the indicators.',
 				defaultValue: '"default"',
 			},
 			{
 				name: 'ariaControls',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'If interaction is enabled, use `ariaControls` to tell assistive technology what elements are controlled by the progress indicator.',
 				defaultValue: '"panel"',
 			},
 			{
 				name: 'ariaLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.',
 				defaultValue: '"tab"',
 			},
 			{
 				name: 'getAriaLabel',
-				type: '(index: number) => string',
+				type: '((index: number) => string) | undefined',
 				description: 'Returns the accessible label for each selectable indicator.',
 			},
 			{
 				name: 'onSelect',
-				type: '(eventData: { event: React.MouseEvent<HTMLButtonElement, MouseEvent>; index: number; }, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((eventData: { event: React.MouseEvent<HTMLButtonElement, MouseEvent>; index: number; }, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Function called when an indicator is selected.',
 			},
 			{
@@ -8239,13 +8238,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"large" | "default"',
+				type: 'Size | undefined',
 				description: 'Sets the width and height of each indicator.',
 				defaultValue: '"default"',
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "cozy" | "comfortable"',
+				type: 'Spacing | undefined',
 				description: 'Specifies how much of a gutter there is between indicators.',
 			},
 			{
@@ -8290,7 +8289,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'animated',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Turns off transition animations if set to false.',
 				defaultValue: 'true',
 			},
@@ -8303,14 +8302,14 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Use this to provide an aria-label for the overall progress tracker, so that people who use assistive technology get an overview of the tracker\'s purpose. For example, "Sign up progress".',
 				defaultValue: '"Progress"',
 			},
 			{
 				name: 'spacing',
-				type: '"compact" | "cozy" | "comfortable"',
+				type: 'Spacing | undefined',
 				description: 'Sets the amount of spacing between the steps.',
 				defaultValue: '"cozy"',
 			},
@@ -8353,50 +8352,50 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'ariaLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The `aria-label` attribute associated with the radio element.',
 			},
 			{
 				name: 'isChecked',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set the field as checked.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Makes a `Radio` field unselectable when true. Overridden by `isDisabled` prop of `RadioGroup`.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Marks this as an invalid field.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Marks this as a required field.',
 			},
 			{
 				name: 'label',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The label value for the input rendered to the DOM.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the `aria-labelledby` attribute. It sets an accessible name for\nthe radio, for people who use assistive technology. Use of a visible label\nis highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'onChange',
-				type: '(e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'`onChange` event handler, passed into the props of each `Radio` Component instantiated within `RadioGroup`.',
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Field value.',
 			},
 		],
@@ -8436,48 +8435,48 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'defaultValue',
-				type: 'string',
+				type: 'string | null | undefined',
 				description: 'Sets the initial selected value on the `RadioGroup`.',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets the disabled state of all `Radio` elements in the group. Overrides the `isDisabled` setting of all child `Radio` items.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets the invalid state of all `Radio` elements in the group.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets the required state of all `Radio` elements in the group.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the `aria-labelledby` attribute. It sets an accessible name for\nthe radio, for people who use assistive technology. Use of a visible label\nis highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the `name` prop on each of the `Radio` elements in the group.',
 			},
 			{
 				name: 'onChange',
-				type: '(e: React.ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: React.ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Function that gets after each change event.',
 			},
 			{
 				name: 'onInvalid',
-				type: '(event: React.SyntheticEvent<any, Event>) => void',
+				type: '((event: React.SyntheticEvent<any, Event>) => void) | undefined',
 				description: 'Function that gets fired after each invalid event.',
 			},
 			{
@@ -8489,7 +8488,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | null | undefined',
 				description: 'Once set, controls the selected value on the `RadioGroup`.',
 			},
 		],
@@ -8525,37 +8524,37 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'defaultValue',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the default value if range is not set.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the field range is disabled.',
 			},
 			{
 				name: 'max',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the maximum value of the range.',
 			},
 			{
 				name: 'min',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the minimum value of the range.',
 			},
 			{
 				name: 'onChange',
-				type: '(value: number) => void',
+				type: '((value: number) => void) | undefined',
 				description: 'Hook to be invoked on change of the range.',
 			},
 			{
 				name: 'step',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the step value for the range.',
 			},
 			{
 				name: 'value',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Sets the value of the range.',
 			},
 		],
@@ -8606,48 +8605,48 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'actions',
-				type: 'ReactElement<any, string | JSXElementConstructor<any>> | ReactElement<SectionMessageActionProps, string | JSXElementConstructor<...>>[]',
+				type: 'ReactElement<any, string | JSXElementConstructor<any>> | ReactElement<SectionMessageActionProps, string | JSXElementConstructor<...>>[] | undefined',
 				description:
 					'Actions for the user to take after reading the section message. Accepts a ReactElement\nor an array of one or more SectionMessageAction React elements, which are applied as link buttons.\nMiddle dots are automatically added between multiple link buttons, so no elements\nshould be present between multiple actions.\n\nIn general, avoid using more than two actions.',
 			},
 			{
 				name: 'appearance',
-				type: '"warning" | "discovery" | "success" | "information" | "error"',
+				type: 'Appearance | undefined',
 				description: 'The appearance styling to use for the section message.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'The main content of the section message. This accepts a react node, although\nwe recommend that this should be a paragraph.',
 				isRequired: true,
 			},
 			{
 				name: 'headingLevel',
-				type: '"h1" | "h2" | "h3" | "h4" | "h5" | "h6"',
+				type: 'HeadingElements | undefined',
 				description:
 					"Allows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.\n\nAllows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.",
 			},
 			{
 				name: 'icon',
-				type: '"symbol" | "object" | "a" | "abbr" | "address" | "area" | "article" | "aside" | "audio" | "b" | "base" | "bdi" | "bdo" | "big" | "blockquote" | "body" | "br" | "button" | "canvas" | ... 159 more ... | ComponentType<...>',
+				type: 'ElementType<any, keyof JSX.IntrinsicElements> | undefined',
 				description:
 					'An Icon component to be rendered instead of the default icon for the component.\nThis should only be an `@atlaskit/icon` icon. You can check out [this example](/packages/design-system/section-message/example/custom-icon)\nto see how to provide this icon.',
 			},
 			{
 				name: 'isDismissible',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Displays a dismiss button, that allows the user to dismiss the message.\nIt will be removed from the DOM immediately and will not be re-rendered.\nIt does not handle persistence of the dismissed state across page reloads or remounts.',
 			},
 			{
 				name: 'onDismiss',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'A callback function that is called when the user dismisses the message.',
 			},
 			{
 				name: 'title',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The heading of the section message.\n\nThe heading of the section message.',
 			},
 		],
@@ -8671,7 +8670,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly React.RefObject<HTMLElement>[]',
+				type: 'readonly React.RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
@@ -8683,17 +8682,17 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
@@ -8705,28 +8704,28 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<Option, IsMulti, GroupBase<Option>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Close the select menu when the user selects an option',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: React.ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: React.ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				type: 'Partial<SelectComponents<Option, IsMulti, GroupBase<Option>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
@@ -8738,11 +8737,11 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultOptions',
@@ -8752,22 +8751,22 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'defaultValue',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<Option>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
@@ -8778,13 +8777,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<Option>) => React.ReactNode',
+				type: '((group: GroupBase<Option>) => React.ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode)',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
@@ -8795,86 +8794,86 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: Option) => string',
+				type: 'GetOptionLabel<Option> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: Option) => string',
+				type: 'GetOptionValue<Option> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select invalid',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'IsMulti | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether to enable search functionality',
 			},
 			{
@@ -8885,19 +8884,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
@@ -8908,71 +8907,71 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"inline" | "popup"',
+				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode)',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				type: '((newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onClickPreventDefault',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'onCreateOption',
@@ -8982,74 +8981,74 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				type: 'React.KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (Option | GroupBase<Option>)[]',
+				type: 'OptionsOrGroups<Option, GroupBase<Option>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'value',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -9069,328 +9068,328 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly React.RefObject<HTMLElement>[]',
+				type: 'readonly React.RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<OptionT, true, GroupBase<OptionT>>) => string; container?: (props: ContainerProps<OptionT, true, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<OptionT, true, GroupBase<OptionT>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Close the select menu when the user selects an option',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: React.ComponentType<OptionProps<OptionT, true, GroupBase<OptionT>>>; Group?: React.ComponentType<GroupProps<OptionT, true, GroupBase<OptionT>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				type: 'Partial<SelectComponents<OptionT, true, GroupBase<OptionT>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultValue',
-				type: 'OptionT | MultiValue<OptionT>',
+				type: 'PropsValue<OptionT> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<OptionT>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<OptionT>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<OptionT>) => React.ReactNode',
+				type: '((group: GroupBase<OptionT>) => React.ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '(data: OptionT, formatOptionLabelMeta: FormatOptionLabelMeta<OptionT>) => React.ReactNode',
+				type: '((data: OptionT, formatOptionLabelMeta: FormatOptionLabelMeta<OptionT>) => React.ReactNode) | undefined',
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: OptionT) => string',
+				type: 'GetOptionLabel<OptionT> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: OptionT) => string',
+				type: 'GetOptionValue<OptionT> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select invalid',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'true | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: OptionT, selectValue: Options<OptionT>) => boolean',
+				type: '((option: OptionT, selectValue: Options<OptionT>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: OptionT, selectValue: Options<OptionT>) => boolean',
+				type: '((option: OptionT, selectValue: Options<OptionT>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether to enable search functionality',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"inline" | "popup"',
+				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: MultiValue<OptionT>, actionMeta: ActionMeta<OptionT>) => void',
+				type: '((newValue: MultiValue<OptionT>, actionMeta: ActionMeta<OptionT>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onClickPreventDefault',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				type: 'React.KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (OptionT | GroupBase<OptionT>)[]',
+				type: 'OptionsOrGroups<OptionT, GroupBase<OptionT>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'value',
-				type: 'OptionT | MultiValue<OptionT>',
+				type: 'PropsValue<OptionT> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -9412,328 +9411,328 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly React.RefObject<HTMLElement>[]',
+				type: 'readonly React.RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<Country, false, GroupBase<Country>>) => string; container?: (props: ContainerProps<Country, false, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<Country, false, GroupBase<Country>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Close the select menu when the user selects an option',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: React.ComponentType<OptionProps<Country, false, GroupBase<Country>>>; Group?: React.ComponentType<GroupProps<Country, false, GroupBase<Country>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				type: 'Partial<SelectComponents<Country, false, GroupBase<Country>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultValue',
-				type: 'Country | MultiValue<Country>',
+				type: 'PropsValue<Country> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<Country>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<Country>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<Country>) => React.ReactNode',
+				type: '((group: GroupBase<Country>) => React.ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '(data: Country, formatOptionLabelMeta: FormatOptionLabelMeta<Country>) => React.ReactNode',
+				type: '((data: Country, formatOptionLabelMeta: FormatOptionLabelMeta<Country>) => React.ReactNode) | undefined',
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: Country) => string',
+				type: 'GetOptionLabel<Country> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: Country) => string',
+				type: 'GetOptionValue<Country> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select invalid',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'false | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: Country, selectValue: Options<Country>) => boolean',
+				type: '((option: Country, selectValue: Options<Country>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: Country, selectValue: Options<Country>) => boolean',
+				type: '((option: Country, selectValue: Options<Country>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether to enable search functionality',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"inline" | "popup"',
+				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: Country, actionMeta: ActionMeta<Country>) => void',
+				type: '((newValue: SingleValue<Country>, actionMeta: ActionMeta<Country>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onClickPreventDefault',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				type: 'React.KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (Country | GroupBase<Country>)[]',
+				type: 'OptionsOrGroups<Country, GroupBase<Country>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'value',
-				type: 'Country | MultiValue<Country>',
+				type: 'PropsValue<Country> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -9756,7 +9755,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly React.RefObject<HTMLElement>[]',
+				type: 'readonly React.RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
@@ -9768,17 +9767,17 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
@@ -9790,28 +9789,28 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<Option, IsMulti, GroupBase<Option>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Close the select menu when the user selects an option',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: React.ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: React.ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				type: 'Partial<SelectComponents<Option, IsMulti, GroupBase<Option>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
@@ -9823,11 +9822,11 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultOptions',
@@ -9837,22 +9836,22 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'defaultValue',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<Option>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
@@ -9863,13 +9862,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<Option>) => React.ReactNode',
+				type: '((group: GroupBase<Option>) => React.ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode)',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
@@ -9880,86 +9879,86 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: Option) => string',
+				type: 'GetOptionLabel<Option> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: Option) => string',
+				type: 'GetOptionValue<Option> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select invalid',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'IsMulti | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether to enable search functionality',
 			},
 			{
@@ -9970,19 +9969,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
@@ -9993,71 +9992,71 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"inline" | "popup"',
+				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode)',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				type: '((newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onClickPreventDefault',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'onCreateOption',
@@ -10067,74 +10066,74 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				type: 'React.KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (Option | GroupBase<Option>)[]',
+				type: 'OptionsOrGroups<Option, GroupBase<Option>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'value',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -10178,7 +10177,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly React.RefObject<HTMLElement>[]',
+				type: 'readonly React.RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
@@ -10190,17 +10189,17 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
@@ -10212,28 +10211,28 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<Option, IsMulti, GroupBase<Option>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Close the select menu when the user selects an option',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: React.ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: React.ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: React.ComponentType<...>; }',
+				type: 'Partial<SelectComponents<Option, IsMulti, GroupBase<Option>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
@@ -10245,11 +10244,11 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultOptions',
@@ -10259,22 +10258,22 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'defaultValue',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<Option>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
@@ -10285,13 +10284,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<Option>) => React.ReactNode',
+				type: '((group: GroupBase<Option>) => React.ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode)',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
@@ -10302,86 +10301,86 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: Option) => string',
+				type: 'GetOptionLabel<Option> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: Option) => string',
+				type: 'GetOptionValue<Option> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select invalid',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'IsMulti | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether to enable search functionality',
 			},
 			{
@@ -10392,19 +10391,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => React.ReactNode',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
@@ -10415,71 +10414,71 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"inline" | "popup"',
+				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode)',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				type: '((newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onClickPreventDefault',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'onCreateOption',
@@ -10489,74 +10488,74 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onFocus',
-				type: '(event: React.FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: React.KeyboardEvent<HTMLDivElement>) => void',
+				type: 'React.KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: WheelEvent | TouchEvent) => void',
+				type: '((event: WheelEvent | TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (Option | GroupBase<Option>)[]',
+				type: 'OptionsOrGroups<Option, GroupBase<Option>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'value',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -10580,376 +10579,376 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly RefObject<HTMLElement>[]',
+				type: 'readonly RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>) => string; container?: (props: ContainerProps<Option, IsMulti, GroupBase<...>>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<Option, IsMulti, GroupBase<Option>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Defines whether the menu should close when selected. The default is `true`.',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: ComponentType<OptionProps<Option, IsMulti, GroupBase<Option>>>; Group?: ComponentType<GroupProps<Option, IsMulti, GroupBase<...>>>; ... 19 more ...; ValueContainer?: ComponentType<...>; }',
+				type: 'Partial<SelectComponents<Option, IsMulti, GroupBase<Option>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultValue',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<Option>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<Option>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'footer',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'The footer content shown at the bottom of the popup, underneath the select options.',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<Option>) => ReactNode',
+				type: '((group: GroupBase<Option>) => ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '(data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: Option) => string',
+				type: 'GetOptionLabel<Option> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: Option) => string',
+				type: 'GetOptionValue<Option> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is in an error state.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'IsMulti | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: Option, selectValue: Options<Option>) => boolean',
+				type: '((option: Option, selectValue: Options<Option>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If `false`, renders a select with no search field. If `true`, renders a search field in the select when the\nnumber of options exceeds the `searchThreshold`. The default is `true`.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This gives an accessible name to the input for people who use assistive technology.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => ReactNode',
+				type: '((obj: { inputValue: string; }) => ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'maxMenuWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'The maximum width for the popup menu. Can be a number, representing the width in pixels,\nor a string containing a CSS length datatype.',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'minMenuWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'The maximum width for the popup menu. Can be a number, representing the width in pixels,\nor a string containing a CSS length datatype.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '(obj: { inputValue: string; }) => ReactNode',
+				type: '((obj: { inputValue: string; }) => ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void',
+				type: '((newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: KeyboardEvent<HTMLDivElement>) => void',
+				type: 'KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				type: '((event: globalThis.WheelEvent | globalThis.TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				type: '((event: globalThis.WheelEvent | globalThis.TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (Option | GroupBase<Option>)[]',
+				type: 'OptionsOrGroups<Option, GroupBase<Option>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'popperProps',
-				type: '{ strategy?: PositioningStrategy; placement?: Placement; innerRef?: Ref<any>; modifiers?: readonly Modifier<Modifiers, object>[]; referenceElement?: HTMLElement | VirtualElement; onFirstUpdate?: (state: Partial<...>) => void; }',
+				type: 'PopperPropsNoChildren<Modifiers> | undefined',
 				description:
 					'The props passed down to React Popper.\n\nUse these to override the default positioning strategy, behaviour and placement used by this library.\nFor more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).',
 			},
 			{
 				name: 'searchThreshold',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The maximum number of options the select can contain without rendering the search field. The default is `5`.',
 			},
 			{
 				name: 'shouldCloseMenuOnTab',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Defines whether the menu should be closed by pressing the Tab key. The default is `true`.',
 			},
 			{
 				name: 'shouldKeepInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If `true`, the input value will be kept when an option is selected. The default is `false`.',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description: 'Use this to set whether the component uses compact or standard spacing.',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'target',
-				type: '(options: PopupSelectTriggerProps & { isOpen: boolean; }) => ReactNode',
+				type: '((options: PopupSelectTriggerProps & { isOpen: boolean; }) => ReactNode) | undefined',
 				description:
 					'Render props used to anchor the popup to your content.\n\nMake this an interactive element, such as an @atlaskit/button component.\n\nThe provided render props in `options` are detailed below:\n- `isOpen`: The current state of the popup.\n\t\tUse this to change the appearance of your target based on the state of your component\n- `ref`: Pass this ref to the element the Popup should be attached to\n- `onKeyDown`: Pass this keydown handler to the element to allow keyboard users to access the element.\n- `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to\n\t\tensure your experience is accessible',
 			},
 			{
 				name: 'value',
-				type: 'Option | MultiValue<Option>',
+				type: 'PropsValue<Option> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -10969,328 +10968,328 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'additionalInsideElementRefs',
-				type: 'readonly RefObject<HTMLElement>[]',
+				type: 'readonly RefObject<HTMLElement | null>[] | undefined',
 				description:
 					'Element refs outside the menu that should be treated as inside its light-dismiss boundary.\nOnly used by the top-layer menu implementation.',
 			},
 			{
 				name: 'appearance',
-				type: '"none" | "default" | "subtle"',
+				type: '"default" | "subtle" | "none" | undefined',
 			},
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Focus the control when it is mounted. There are very few cases that this should be used, and using incorrectly may violate accessibility guidelines.',
 			},
 			{
 				name: 'blurInputOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Remove focus from the input when the user selects an option (handy for dismissing the keyboard on touch devices)',
 			},
 			{
 				name: 'classNamePrefix',
-				type: 'string',
+				type: 'string | null | undefined',
 				description:
 					'If provided, all inner components will be given a prefixed className attribute.\n\nThis is useful when styling via CSS classes instead of the Styles API approach.',
 			},
 			{
 				name: 'classNames',
-				type: '{ clearIndicator?: (props: ClearIndicatorProps<OptionType, false, GroupBase<OptionType>>) => string; container?: (props: ContainerProps<...>) => string; ... 18 more ...; valueContainer?: (props: ValueContainerProps<...>) => string; }',
+				type: 'ClassNamesConfig<OptionType, false, GroupBase<OptionType>> | undefined',
 				description: 'Provide classNames based on state for each inner component',
 			},
 			{
 				name: 'clearControlLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Set the `aria-label` for the clear icon button.',
 			},
 			{
 				name: 'closeMenuOnSelect',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Close the select menu when the user selects an option',
 			},
 			{
 				name: 'components',
-				type: '{ Option?: ComponentType<OptionProps<OptionType, false, GroupBase<OptionType>>>; Group?: ComponentType<GroupProps<OptionType, false, GroupBase<...>>>; ... 19 more ...; ValueContainer?: ComponentType<...>; }',
+				type: 'Partial<SelectComponents<OptionType, false, GroupBase<OptionType>>> | undefined',
 				description:
 					'This complex object includes all the compositional components that are used\nin `react-select`. If you wish to overwrite a component, pass in an object\nwith the appropriate namespace. If you wish to restyle a component, we recommend\nusing this prop with the `xcss` prop.',
 			},
 			{
 				name: 'defaultInputValue',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'defaultMenuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'defaultValue',
-				type: 'OptionType | MultiValue<OptionType>',
+				type: 'PropsValue<OptionType> | undefined',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"This sets the aria-describedby attribute. It sets an accessible description for the select, for people who use assistive technology. Use '<HelperMessage>' from '@atlaskit/form' is preferred.",
 			},
 			{
 				name: 'filterOption',
-				type: '(option: FilterOptionOption<OptionType>, inputValue: string) => boolean',
+				type: '((option: FilterOptionOption<OptionType>, inputValue: string) => boolean) | null | undefined',
 				description: 'Custom method to filter whether an option should be displayed in the menu',
 			},
 			{
 				name: 'form',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Sets the form attribute on the input',
 			},
 			{
 				name: 'formatGroupLabel',
-				type: '(group: GroupBase<OptionType>) => ReactNode',
+				type: '((group: GroupBase<OptionType>) => ReactNode) | undefined',
 				description:
 					'Formats group labels in the menu as React components\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '(data: OptionType, formatOptionLabelMeta: FormatOptionLabelMeta<OptionType>) => ReactNode',
+				type: '((data: OptionType, formatOptionLabelMeta: FormatOptionLabelMeta<OptionType>) => ReactNode) | undefined',
 			},
 			{
 				name: 'getOptionLabel',
-				type: '(option: OptionType) => string',
+				type: 'GetOptionLabel<OptionType> | undefined',
 				description:
 					'Resolves option data to a string to be displayed as the label by components\n\nNote: Failure to resolve to a string type can interfere with filtering and\nscreen reader support.',
 			},
 			{
 				name: 'getOptionValue',
-				type: '(option: OptionType) => string',
+				type: 'GetOptionValue<OptionType> | undefined',
 				description:
 					'Resolves option data to a string to compare options and specify value attributes',
 			},
 			{
 				name: 'hideSelectedOptions',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Hide the selected option from the menu',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id to set on the SelectContainer component.',
 			},
 			{
 				name: 'inputId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The id of the search input',
 			},
 			{
 				name: 'inputValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the search input',
 			},
 			{
 				name: 'instanceId',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Define an id prefix for the select components e.g. {your-id}-value',
 			},
 			{
 				name: 'isClearable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select value clearable',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select disabled',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select invalid',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
-				type: 'boolean',
+				type: 'false | undefined',
 				description: 'Support multiple selected options',
 			},
 			{
 				name: 'isOptionDisabled',
-				type: '(option: OptionType, selectValue: Options<OptionType>) => boolean',
+				type: '((option: OptionType, selectValue: Options<OptionType>) => boolean) | undefined',
 				description:
 					'Override the built-in logic to detect whether an option is disabled\n\nAn example can be found in the [Replacing builtins](https://react-select.com/advanced#replacing-builtins) documentation.',
 			},
 			{
 				name: 'isOptionSelected',
-				type: '(option: OptionType, selectValue: Options<OptionType>) => boolean',
+				type: '((option: OptionType, selectValue: Options<OptionType>) => boolean) | undefined',
 				description: 'Override the built-in logic to detect whether an option is selected',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'This prop indicates if the component is required.',
 			},
 			{
 				name: 'isSearchable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether to enable search functionality',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-label attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'labelId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This sets the aria-labelledby attribute. It sets an accessible name for the select, for people who use assistive technology. Use of a visible label is highly recommended for greater accessibility support.',
 			},
 			{
 				name: 'loadingMessage',
-				type: '(obj: { inputValue: string; }) => ReactNode',
+				type: '((obj: { inputValue: string; }) => ReactNode) | undefined',
 				description: 'Async: Text to display when loading options',
 			},
 			{
 				name: 'maxMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Maximum height of the menu before scrolling',
 			},
 			{
 				name: 'menuIsOpen',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu is open',
 			},
 			{
 				name: 'menuPlacement',
-				type: '"auto" | "top" | "bottom"',
+				type: 'MenuPlacement | undefined',
 				description:
 					"Default placement of the menu in relation to the control. 'auto' will flip\nwhen there isn't enough space below the control.",
 			},
 			{
 				name: 'menuPortalTarget',
-				type: 'HTMLElement',
+				type: 'HTMLElement | null | undefined',
 				description:
 					'Whether the menu should use a portal, and where it should attach\n\nAn example can be found in the [Portaling](https://react-select.com/advanced#portaling) documentation',
 			},
 			{
 				name: 'menuPosition',
-				type: '"fixed" | "absolute"',
+				type: 'MenuPosition | undefined',
 				description:
 					'The CSS position value of the menu, when "fixed" extra layout management is required',
 			},
 			{
 				name: 'menuRenderMode',
-				type: '"inline" | "popup"',
+				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode keeps the menu open and renders it within the parent layout.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the menu should be scrolled into view when it opens',
 			},
 			{
 				name: 'minMenuHeight',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Minimum height of the menu before flipping',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the HTML Input (optional - without this, no input will be rendered)',
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '(obj: { inputValue: string; }) => ReactNode',
+				type: '((obj: { inputValue: string; }) => ReactNode) | undefined',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle blur events on the control',
 			},
 			{
 				name: 'onChange',
-				type: '(newValue: OptionType, actionMeta: ActionMeta<OptionType>) => void',
+				type: '((newValue: SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) => void) | undefined',
 				description: 'Handle change events on the select',
 			},
 			{
 				name: 'onClickPreventDefault',
-				type: 'boolean',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLInputElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLInputElement> | undefined',
 				description: 'Handle focus events on the control',
 			},
 			{
 				name: 'onInputChange',
-				type: '(newValue: string, actionMeta: InputActionMeta) => void',
+				type: '((newValue: string, actionMeta: InputActionMeta) => void) | undefined',
 				description: 'Handle change events on the input',
 			},
 			{
 				name: 'onKeyDown',
-				type: '(event: KeyboardEvent<HTMLDivElement>) => void',
+				type: 'KeyboardEventHandler<HTMLDivElement> | undefined',
 				description: 'Handle key down events on the select',
 			},
 			{
 				name: 'onMenuClose',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu closing',
 			},
 			{
 				name: 'onMenuOpen',
-				type: '() => void',
+				type: '(() => void) | undefined',
 				description: 'Handle the menu opening',
 			},
 			{
 				name: 'onMenuScrollToBottom',
-				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				type: '((event: globalThis.WheelEvent | globalThis.TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the bottom of the menu',
 			},
 			{
 				name: 'onMenuScrollToTop',
-				type: '(event: globalThis.WheelEvent | globalThis.TouchEvent) => void',
+				type: '((event: globalThis.WheelEvent | globalThis.TouchEvent) => void) | undefined',
 				description: 'Fired when the user scrolls to the top of the menu',
 			},
 			{
 				name: 'options',
-				type: 'readonly (OptionType | GroupBase<OptionType>)[]',
+				type: 'OptionsOrGroups<OptionType, GroupBase<OptionType>> | undefined',
 				description: 'Array of options that populate the select menu',
 			},
 			{
 				name: 'pageSize',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'Number of options to jump in menu when page{up|down} keys are used',
 			},
 			{
 				name: 'placeholder',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
 			},
 			{
 				name: 'shouldPreventEscapePropagation',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
-				type: '"default" | "compact"',
+				type: '"default" | "compact" | undefined',
 				description:
 					'This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5',
 			},
 			{
 				name: 'tabIndex',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.",
 			},
 			{
 				name: 'value',
-				type: 'OptionType | MultiValue<OptionType>',
+				type: 'PropsValue<OptionType> | undefined',
 				description: 'The value of the select; reflected by the selected option',
 			},
 		],
@@ -11330,19 +11329,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'borderRadius',
-				type: '0 | "0" | "var(--ds-radius-xsmall)" | "var(--ds-radius-small)" | "var(--ds-radius-medium)" | "var(--ds-radius-large)" | "var(--ds-radius-xlarge)" | "var(--ds-radius-xxlarge)" | "var(--ds-radius-full)" | "var(--ds-radius-tile)"',
+				type: '0 | "0" | "var(--ds-radius-xsmall)" | "var(--ds-radius-small)" | "var(--ds-radius-medium)" | "var(--ds-radius-large)" | "var(--ds-radius-xlarge)" | "var(--ds-radius-xxlarge)" | "var(--ds-radius-full)" | "var(--ds-radius-tile)" | undefined',
 				description: "Controls the border radius, or rounding of the skeleton's corners.",
 				defaultValue: '"var(--ds-radius-small)"',
 			},
 			{
 				name: 'color',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Overrides the default color of skeleton, and overrides the default shimmering start color if ShimmeringEndColor also provided.',
 			},
 			{
 				name: 'groupName',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Applied as a data-attribute. Use this to target groups of skeletons with the same name (e.g. for applying custom styles)\n```\ngroupName="my-skeleton" -> <div data-my-skeleton>\n```',
 			},
@@ -11354,13 +11353,13 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isShimmering',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Enables the shimmering animation.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'ShimmeringEndColor',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Overrides the default shimmering ending color of skeleton.',
 			},
 			{
@@ -11404,25 +11403,25 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"inherit" | "invert"',
+				type: 'Appearance | undefined',
 				description:
 					'You can use this to invert the current theme.\nThis is useful when you are displaying a spinner on a background that is not the same background color scheme as the main content.',
 			},
 			{
 				name: 'delay',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Delay the intro animation of `Spinner`.\nThis is not to be used to avoid quick flickering of `Spinner`.\n`Spinner` will automatically fade in and takes ~200ms to become partially visible.\nThis prop can be helpful for **long delays** such as `500-1000ms` for when you want to not\nshow a `Spinner` until some longer period of time has elapsed.',
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Describes what the spinner is doing for assistive technologies. For example, "loading", "submitting", or "processing".',
 			},
 			{
 				name: 'size',
-				type: 'number | PresetSize',
+				type: 'Size | undefined',
 				description:
 					'Size of the spinner. The available sizes are `xsmall`, `small`, `medium`, `large`, and `xlarge`. For most use cases, we recommend `medium`.',
 			},
@@ -11442,7 +11441,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the `SpotlightActions`.',
 			},
 		],
@@ -11460,7 +11459,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Textual content is required for all spotlights.\nIt should be brief and direct to quickly elaborate on the value.',
 				isRequired: true,
@@ -11491,12 +11490,12 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the `SpotlightCard`.',
 			},
 			{
 				name: 'placement',
-				type: '"top-start" | "top-end" | "bottom-start" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end" | "top-center" | "bottom-center"',
+				type: 'Placement | undefined',
 				description:
 					'The position in relation to the target the content should be shown at. Overrides `PopoverContent.placement`',
 			},
@@ -11520,14 +11519,14 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'autoFocus',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Specifies whether the dismiss button should be focused when the spotlight is rendered.\nFor spotlights that are triggered by user-action, this should be `true`. In the event that\na spotlight is rendered on page load, without explicit user interaction, this should be `false`.',
 				defaultValue: 'true',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'The action to take when the button is clicked.',
 			},
 		],
@@ -11546,7 +11545,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the `SpotlightFooter`.',
 			},
 		],
@@ -11565,7 +11564,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Elements to be rendered inside the `SpotlightHeader`.',
 			},
 		],
@@ -11584,7 +11583,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'A brief and direct title to clearly communicate the intent.',
 				isRequired: true,
 			},
@@ -11604,13 +11603,13 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'back',
-				type: '(event: BackEvent) => void',
+				type: '((event: BackEvent) => void) | undefined',
 				description:
 					'Invoked when the user clicks `SpotlightSecondaryAction`. If an `onClick` handler is provided to `SpotlightSecondaryAction`\nthen that takes precedence, and `back` will be ignored.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					"The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.\n\nPass ONE element. On the top-layer code path it is rendered into a flex-row\nhost so the viewport cap can reach it, and a fragment's children would become\nside-by-side flex items. See `children` on `Popover` in `@atlaskit/top-layer`.",
 				isRequired: true,
@@ -11624,29 +11623,29 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'done',
-				type: '(event: DoneEvent) => void',
+				type: '((event: DoneEvent) => void) | undefined',
 				description:
 					'Invoked when the user clicks `SpotlightPrimaryAction`.\nIf an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,\nand `done` will be ignored.\n\nIf `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.',
 			},
 			{
 				name: 'isVisible',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Controls whether or not `PopoverContent` is visible. Defaults to `true`.',
 			},
 			{
 				name: 'motion',
-				type: 'React.ComponentClass<{ children: React.ReactNode; }, any> | React.FunctionComponent<{ children: React.ReactNode; }>',
+				type: 'React.ComponentType<{ children: React.ReactNode; }> | null | undefined',
 				description: 'The motion to be applied to the `SpotlightCard`.',
 			},
 			{
 				name: 'next',
-				type: '(event: NextEvent) => void',
+				type: '((event: NextEvent) => void) | undefined',
 				description:
 					'Invoked when the user clicks `SpotlightPrimaryAction` in a tour.\nIf an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,\nand `next` will be ignored.\n\nIf `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.',
 			},
 			{
 				name: 'offset',
-				type: '[number, number]',
+				type: 'Offset | undefined',
 				description:
 					'Distance the spotlight should be offset from the target in the format of [along, away] (units in px).\nDefaults to [0, 2] - which means the spotlight will be 2px away from the edge of the target specified\nby the `placement` prop.',
 			},
@@ -11658,7 +11657,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'shouldDismissOnClickOutside',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Controls whether the 'dismiss' action is invoked when the user clicks outside the content. Defaults to `true`.",
 			},
@@ -11679,7 +11678,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'The to be rendered in `PopoverProvider`. This is intended to be `PopoverContent`, and `PopoverTarget`.',
 				isRequired: true,
@@ -11701,7 +11700,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'The content to be rendered in `PopoverTarget`. This is intended to be the element you want to point the spotlight at.',
 				isRequired: true,
@@ -11723,28 +11722,28 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children content, used when composing a table tree from internal components',
 			},
 			{
 				name: 'columnIndex',
-				type: 'number',
+				type: 'number | undefined',
 			},
 			{
 				name: 'indentLevel',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Sets the indent level for the cell. Each indent level adds `25px` to the left padding.',
 			},
 			{
 				name: 'singleLine',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the cell contents should wrap or display on a single line and be truncated. For accessibility reasons, wrapping the content is strongly recommended.',
 			},
 			{
 				name: 'width',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'The width of the header item. Takes a string, or a number representing the width in pixels.',
 			},
@@ -11763,28 +11762,28 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The contents of the header.',
 			},
 			{
 				name: 'columnIndex',
-				type: 'number',
+				type: 'number | undefined',
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'onClick',
-				type: '() => void',
+				type: '(() => void) | undefined',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 			},
 			{
 				name: 'width',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'Width of the header item. Takes a string, or a number representing the width in pixels.',
 			},
@@ -11825,84 +11824,84 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Children contained in the row. Should be one or more cell components.',
 			},
 			{
 				name: 'collapseLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This is the accessible name for the collapse chevron button, used to tell assistive technology what the button is for.',
 			},
 			{
 				name: 'data',
-				type: '{ id: string; }',
+				type: 'Item | undefined',
 				description:
 					"Data to render. Passed down by `item` and passed into `onExpand` and `onCollapse` callbacks.\nThis is normally set by the parent `item` component, and doesn't need to be configured.",
 			},
 			{
 				name: 'depth',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"The depth used for rendering an indent.\nThis is normally set by parent `item` component, and doesn't need to be configured.",
 			},
 			{
 				name: 'expandLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This is the accessible name for the expand chevron button, used to tell assistive technology what the button is for.',
 			},
 			{
 				name: 'hasChildren',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the row has children.',
 			},
 			{
 				name: 'isDefaultExpanded',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets the default expanded state of the row.',
 			},
 			{
 				name: 'isExpanded',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Controls the expanded state of the row.',
 			},
 			{
 				name: 'itemId',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'ID for the row item.',
 			},
 			{
 				name: 'items',
-				type: 'Item[]',
+				type: 'Item[] | null | undefined',
 				description:
 					'The data used to render the row and descendants. Pass down from `children` render prop.\n\n    In addition to these props, any other data can be added to the object, and it will\n    be provided as props when rendering each cell.',
 			},
 			{
 				name: 'mainColumnForExpandCollapseLabel',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'Adds detail to the expand and collapse row button\'s aria label by appending the value from the given column. If you don\'t set this prop, the aria label will read out "Expand `itemId` row".\n\n    Should be a string when we pass data via `items` property in the table tree. The value should be one of the property `columns` names in the table tree.\n\n    Should be a number  when we pass data via the `Rows` component as children in the table tree.',
 			},
 			{
 				name: 'onCollapse',
-				type: '(data: Item, analytics?: UIAnalyticsEvent) => void | Promise<void>',
+				type: '((data: Item, analytics?: UIAnalyticsEvent | undefined) => void | Promise<void>) | undefined',
 				description: 'Callback called when the row collapses.',
 			},
 			{
 				name: 'onExpand',
-				type: '(data: Item, analytics?: UIAnalyticsEvent) => void | Promise<void>',
+				type: '((data: Item, analytics?: UIAnalyticsEvent | undefined) => void | Promise<void>) | undefined',
 				description: 'Callback called when the row expands.',
 			},
 			{
 				name: 'renderChildren',
-				type: '() => React.ReactNode',
+				type: '(() => React.ReactNode) | undefined',
 				description:
 					"Children to render under the row.\nThis is normally set by the parent item component, and doesn't need to be configured.",
 			},
 			{
 				name: 'shouldExpandOnClick',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.\n\n    If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.',
 			},
@@ -11924,20 +11923,20 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'items',
-				type: 'T[]',
+				type: 'T[] | undefined',
 				description:
 					'The data used to render the set of rows. Will be passed down via the `children` render prop.\n\nIn addition to these props, any other data can be added to the object, and it will\nbe provided as props when rendering each cell.',
 			},
 			{
 				name: 'loadingLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This is an accessible name for the loading state\'s spinner.\nThe default text is "Loading".',
 				defaultValue: '"Loading"',
 			},
 			{
 				name: 'render',
-				type: '(args: T & { children?: T[]; content?: Content; }) => React.ReactElement<RowProps<T>, string | React.JSXElementConstructor<any>>',
+				type: '(args: T & { children?: T[] | undefined; content?: Content | undefined; }) => React.ReactElement<RowProps<T>, string | React.JSXElementConstructor<any>> | null',
 				description:
 					'Render function for child rows. Render props will contain an item from the\n`items` prop above.',
 				isRequired: true,
@@ -11958,53 +11957,53 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					"The contents of the table.\nUse this when composing `Cell`, `Header`, `Headers`, `Row`, and `Rows` components.\nFor basic usage, it's simpler to specify table contents with the `items` prop instead.",
 			},
 			{
 				name: 'columns',
-				type: 'React.ElementType<any, keyof React.JSX.IntrinsicElements>[]',
+				type: 'React.ElementType<any, keyof React.JSX.IntrinsicElements>[] | undefined',
 				description:
 					"Each column component is used to render the cells in that column.\nA cell's `content` value, specified in the data passed to `items`, is provided as props.",
 			},
 			{
 				name: 'columnWidths',
-				type: 'ColumnWidth[]',
+				type: 'ColumnWidth[] | undefined',
 				description: 'The widths of the columns in the table.',
 			},
 			{
 				name: 'headers',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description: 'The header text of the columns of the table.',
 			},
 			{
 				name: 'items',
-				type: 'Item[]',
+				type: 'Item[] | null | undefined',
 				description:
 					"The data used to render the table. If you're creating a basic table, use this prop instead of composing cell, header, headers, row, and rows components.\n\n    In addition to the `items` props, any other data can be added, and it will\n    be provided as props when rendering each cell.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This is an `aria-label` attribute. Use the label to describe the table for assistive technologies.\nUsage of either this, or the `labelId` attribute is strongly recommended.',
 			},
 			{
 				name: 'mainColumnForExpandCollapseLabel',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					'The value used to extend the expand or collapse button label in cases where `row` has child rows.\nIt should be a string when we pass data via the `items` property, the value should be one of the `columns` names.\nIt should be a number when we pass data via the `rows` component as children in the table tree.',
 			},
 			{
 				name: 'referencedLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'This is an `aria-labelledby` attribute. Pass an ID for the element which should define an accessible name for the table.\nUsage of either this, or the `label` attribute is strongly recommended.',
 			},
 			{
 				name: 'shouldExpandOnClick',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.\n\n    If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.\n\n    If you aren't using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.",
 			},
@@ -12048,14 +12047,14 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					"The children of Tabs. The first child should be a `TabList` filled with `Tab`'s.\nSubsequent children should be `TabPanel`'s. There should be a `Tab` for each `TabPanel`.\nIf you want to customize `Tab` or `TabPanel`, refer to the examples in the documentation.",
 				isRequired: true,
 			},
 			{
 				name: 'defaultSelected',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'The index of the tab that will be selected by default when the component mounts.\nIf not set the first tab will be displayed by default.',
 			},
@@ -12068,19 +12067,19 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onChange',
-				type: '(index: number, analyticsEvent: UIAnalyticsEvent) => void',
+				type: 'OnChangeCallback | undefined',
 				description:
 					'A callback function which will be fired when a changed. It will be passed\nthe index of the selected tab and a `UIAnalyticsEvent`.',
 			},
 			{
 				name: 'selected',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					"The selected tab's index. If this prop is set the component behaves as a\ncontrolled component. It will be up to you to listen to `onChange`.",
 			},
 			{
 				name: 'shouldUnmountTabPanelOnChange',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Tabs by default leaves `TabPanel`'s mounted on the page after they have been selected.\nIf you would like to unmount a `TabPanel` when it is not selected, set this prop to\nbe true.",
 			},
@@ -12117,25 +12116,25 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'alignment',
-				type: '"end" | "start"',
+				type: 'Alignment | undefined',
 				description:
 					'Sets whether the tags should be aligned to the start or the end of the component.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Tags to render within the tag group.',
 				isRequired: true,
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Refers to an `aria-label` attribute. Sets an accessible name for the tags group wrapper to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
 			},
 			{
 				name: 'titleId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"ID referenced by the tag group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group-button title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
 			},
@@ -12179,61 +12178,61 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'hasMargin',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.\nWhen false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.\nWhen false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.",
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'URI or path. If provided, the tag will be a link.\nURI or path. If provided, the tag will be a link.\nURI or path. If provided, the tag will be a link.',
 			},
 			{
 				name: 'isRemovable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Flag to indicate if a tag is removable. Defaults to true.\nFlag to indicate if a tag is removable. Defaults to true.\nFlag to indicate if a tag is removable. Defaults to true.',
 			},
 			{
 				name: 'isVerified',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'isVerified is not allowed for user tags.\nWhether this entity is verified. Shows a blue verified icon after the text.\nisVerified is not allowed for agent tags.',
 			},
 			{
 				name: 'linkComponent',
-				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+				type: 'ComponentType<any> | undefined',
 				description:
 					'A link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.\nA link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.\nA link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.',
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					"Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').\nMaximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').\nMaximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
 			},
 			{
 				name: 'onAfterRemoveAction',
-				type: '(text: string) => void',
+				type: '((text: string) => void) | undefined',
 				description:
 					'Handler to be called after tag is removed.\nHandler to be called after tag is removed.\nHandler to be called after tag is removed.',
 			},
 			{
 				name: 'onBeforeRemoveAction',
-				type: '() => boolean',
+				type: '(() => boolean) | undefined',
 				description:
 					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
 			},
 			{
 				name: 'onClick',
-				type: '(e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					'Handler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.\nHandler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.\nHandler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.',
 			},
 			{
 				name: 'removeButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Text rendered as the aria-label for remove button.\nText rendered as the aria-label for remove button.\nText rendered as the aria-label for remove button.',
 			},
@@ -12279,79 +12278,79 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "rounded"',
+				type: 'AppearanceType | undefined',
 				description: 'Set whether tags are rounded.',
 			},
 			{
 				name: 'color',
-				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 6 more ... | undefined',
 				description: 'The color theme to apply. This sets both the background and text color.',
 			},
 			{
 				name: 'elemBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The component to be rendered before the tag.',
 			},
 			{
 				name: 'hasMargin',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'URI or path. If provided, the tag will be a link.',
 			},
 			{
 				name: 'isRemovable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Flag to indicate if a tag is removable.',
 			},
 			{
 				name: 'linkComponent',
-				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+				type: 'ComponentType<any> | undefined',
 				description:
 					'A link component to be used instead of our standard anchor.\nThe styling of our link item will be applied to the link that is passed in.',
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
 			},
 			{
 				name: 'onAfterRemoveAction',
-				type: '(text: string) => void',
+				type: '((text: string) => void) | undefined',
 				description:
 					"Handler to be called after tag is removed. Called with the string 'Post\nRemoval Hook'.",
 			},
 			{
 				name: 'onBeforeRemoveAction',
-				type: '() => boolean',
+				type: '(() => boolean) | undefined',
 				description:
 					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
 			},
 			{
 				name: 'removeButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Text rendered as the aria-label for remove button.',
 			},
 			{
 				name: 'swatchBefore',
-				type: 'boolean | TagSwatchBeforeTokenName',
+				type: 'boolean | TagSwatchBeforeTokenName | undefined',
 				description:
 					"Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'swatchBeforeLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible label for the tag\'s leading color swatch.\nPaired with `role="img"` to convey the visual meaning of the swatch\n(e.g. `swatchBeforeLabel="Epic"` for an epic color swatch).',
 			},
 			{
 				name: 'swatchBeforeRole',
-				type: '"grid" | "article" | "button" | "dialog" | "figure" | "form" | "img" | "link" | "main" | "menu" | "menuitem" | "option" | "search" | "table" | "switch" | "listbox" | "tree" | "status" | ... 51 more ... | "treeitem"',
+				type: 'AriaRole | undefined',
 				description:
 					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
 			},
@@ -12401,79 +12400,79 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "rounded"',
+				type: 'AppearanceType | undefined',
 				description: 'Set whether tags are rounded.',
 			},
 			{
 				name: 'color',
-				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 5 more ... | "yellowLight"',
+				type: '"blue" | "gray" | "green" | "grey" | "lime" | "magenta" | "orange" | "purple" | "red" | "teal" | "yellow" | "standard" | "limeLight" | "orangeLight" | "magentaLight" | "greenLight" | ... 6 more ... | undefined',
 				description: 'The color theme to apply. This sets both the background and text color.',
 			},
 			{
 				name: 'elemBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The component to be rendered before the tag.',
 			},
 			{
 				name: 'hasMargin',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.",
 			},
 			{
 				name: 'href',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'URI or path. If provided, the tag will be a link.',
 			},
 			{
 				name: 'isRemovable',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Flag to indicate if a tag is removable.',
 			},
 			{
 				name: 'linkComponent',
-				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+				type: 'ComponentType<any> | undefined',
 				description:
 					'A link component to be used instead of our standard anchor.\nThe styling of our link item will be applied to the link that is passed in.',
 			},
 			{
 				name: 'maxWidth',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description:
 					"Maximum width of the tag text. When exceeded, text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
 			},
 			{
 				name: 'onAfterRemoveAction',
-				type: '(text: string) => void',
+				type: '((text: string) => void) | undefined',
 				description:
 					"Handler to be called after tag is removed. Called with the string 'Post\nRemoval Hook'.",
 			},
 			{
 				name: 'onBeforeRemoveAction',
-				type: '() => boolean',
+				type: '(() => boolean) | undefined',
 				description:
 					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
 			},
 			{
 				name: 'removeButtonLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Text rendered as the aria-label for remove button.',
 			},
 			{
 				name: 'swatchBefore',
-				type: 'boolean | TagSwatchBeforeTokenName',
+				type: 'boolean | TagSwatchBeforeTokenName | undefined',
 				description:
 					"Leading color swatch (12×12px), rendered before `elemBefore`.\n- `true`: uses `color.background.accent.<color>.subtle` for swatch color\n- Pass a design token (e.g. `token('color.background.accent.red.subtle')`)",
 			},
 			{
 				name: 'swatchBeforeLabel',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Accessible label for the tag\'s leading color swatch.\nPaired with `role="img"` to convey the visual meaning of the swatch\n(e.g. `swatchBeforeLabel="Epic"` for an epic color swatch).',
 			},
 			{
 				name: 'swatchBeforeRole',
-				type: '"grid" | "article" | "button" | "dialog" | "figure" | "form" | "img" | "link" | "main" | "menu" | "menuitem" | "option" | "search" | "table" | "switch" | "listbox" | "tree" | "status" | ... 51 more ... | "treeitem"',
+				type: 'AriaRole | undefined',
 				description:
 					'The WAI-ARIA role applied to the tag\'s color swatch element.\nUse when the swatch conveys meaning through color alone (e.g. `role="img"`).',
 			},
@@ -12522,91 +12521,91 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"none" | "subtle" | "standard"',
+				type: '"subtle" | "none" | "standard" | undefined',
 				description:
 					"Controls the appearance of the field.\nSubtle shows styling on hover.\nNone prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions.",
 			},
 			{
 				name: 'defaultValue',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The default value of the text area.',
 			},
 			{
 				name: 'isCompact',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the field should expand to fill available horizontal space.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets the field as uneditable, with a changed hover state, and prevents it from showing in the focus order.\nWherever possible, prefer using validation and error messaging over disabled fields for a more accessible experience.',
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets styling to indicate that the input is invalid.',
 			},
 			{
 				name: 'isMonospaced',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets the content text value to monospace.',
 			},
 			{
 				name: 'isReadOnly',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'If true, prevents the value of the input from being edited.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets whether the field is required for form that the field is part of.',
 			},
 			{
 				name: 'maxHeight',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The maximum height of the text area.',
 			},
 			{
 				name: 'minimumRows',
-				type: 'number',
+				type: 'number | undefined',
 				description: 'The minimum number of rows of text to display.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the input form control.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLTextAreaElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLTextAreaElement> | undefined',
 				description: 'Handler to be called when the input is blurred.',
 			},
 			{
 				name: 'onChange',
-				type: '(event: ChangeEvent<HTMLTextAreaElement>) => void',
+				type: 'ChangeEventHandler<HTMLTextAreaElement> | undefined',
 				description: 'Handler to be called when the input changes.',
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLTextAreaElement, Element>) => void',
+				type: 'FocusEventHandler<HTMLTextAreaElement> | undefined',
 				description: 'Handler to be called when the input is focused.',
 			},
 			{
 				name: 'placeholder',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"The placeholder text within the text area. Don't use placeholder text to provide instructions as it disappears on data entry.",
 			},
 			{
 				name: 'resize',
-				type: '"auto" | "none" | "horizontal" | "vertical" | "smart"',
+				type: '"auto" | "none" | "horizontal" | "vertical" | "smart" | undefined',
 				description:
 					'Enables resizing of the text area. The default setting is `smart`.\nAuto enables resizing in both directions.\nHorizontal enables resizing only along the X axis.\nVertical enables resizing only along the Y axis.\nSmart vertically grows and shrinks the text area automatically to wrap your input text.\nNone explicitly disallows resizing of the text area.',
 			},
 			{
 				name: 'spellCheck',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Enables native spell check on the `textarea` element.',
 			},
 			{
@@ -12617,7 +12616,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'The value of the text area.',
 			},
 		],
@@ -12659,75 +12658,75 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"none" | "subtle" | "standard"',
+				type: 'Appearance | undefined',
 				description:
 					"Controls the appearance of the field.\nSubtle shows styling on hover.\nNone prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions.",
 			},
 			{
 				name: 'elemAfterInput',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Element after input in text field.',
 			},
 			{
 				name: 'elemBeforeInput',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Element before input in text field.',
 			},
 			{
 				name: 'isCompact',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Applies compact styling, making the field smaller.',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"Sets the field as to appear disabled,\npeople will not be able to interact with the text field and it won't appear in the focus order.\nWherever possible, prefer using validation and error messaging over disabled fields for a more accessible experience.",
 			},
 			{
 				name: 'isInvalid',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Changes the text field to have a border indicating that its value is invalid.',
 			},
 			{
 				name: 'isMonospaced',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Sets content text value to appear monospaced.',
 			},
 			{
 				name: 'isReadOnly',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'If true, prevents the value of the input from being edited.',
 			},
 			{
 				name: 'isRequired',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Set required for form that the field is part of.',
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Name of the input element.',
 			},
 			{
 				name: 'onChange',
-				type: '(event: FormEvent<HTMLInputElement>) => void',
+				type: 'FormEventHandler<HTMLInputElement> | undefined',
 				description: 'Handler called when the inputs value changes.',
 			},
 			{
 				name: 'onMouseDown',
-				type: '(event: MouseEvent<HTMLElement, globalThis.MouseEvent>) => void',
+				type: 'MouseEventHandler<HTMLElement> | undefined',
 				description: 'Handler called when the mouse down event is triggered on the input element.',
 			},
 			{
 				name: 'placeholder',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Placeholder text to display in the text field whenever it is empty.',
 			},
 			{
 				name: 'width',
-				type: 'string | number',
+				type: 'string | number | undefined',
 				description: 'Sets maximum width of input.',
 			},
 		],
@@ -12749,23 +12748,23 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'backgroundColor',
-				type: '"black" | "white" | "transparent" | "color.background.accent.lime.subtlest" | "color.background.accent.lime.subtler" | "color.background.accent.lime.subtle" | "color.background.accent.lime.bolder" | ... 51 more ... | "color.background.information.bold"',
+				type: 'TileBackgroundColor | undefined',
 				description:
 					'The background color of the tile.\n\nAccepts design tokens representing background color.\nDefaults to `color.background.neutral`.',
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The asset to be displayed inside the tile.\nThis should represent a noun.',
 			},
 			{
 				name: 'hasBorder',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description: 'Whether the tile has a border.\n\nDefaults to `false`.',
 			},
 			{
 				name: 'isInset',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Whether the tile applies internal inset / padding. Used to provide appropriate spacing for assets when needed. Defaults to `true`.',
 			},
@@ -12778,7 +12777,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'size',
-				type: '"small" | "xxsmall" | "xsmall" | "medium" | "large" | "xlarge"',
+				type: 'TileSize | undefined',
 				description:
 					'The size of the tile.\n\n- `xxsmall`: 16px\n- `xsmall`: 20px\n- `small`: 24px\n- `medium`: 32px\n- `large`: 40px\n- `xlarge`: 48px',
 			},
@@ -12820,74 +12819,74 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'defaultChecked',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets whether the toggle is initially checked or not.\nAfter the initial interaction, whether the component is checked or not is\ncontrolled by the component.',
 			},
 			{
 				name: 'descriptionId',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Use this when you need to provide an extended description about how the toggle works using aria-describedby.\n\nIt's important to use this prop if the meaning of the toggle with the only a label would be unclear to people who use assistive technology.",
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'Use a pairing label with your toggle using `id` and `htmlFor` props to set the relationship.\nFor more information see [labels on MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label).',
 			},
 			{
 				name: 'isChecked',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'If defined, it takes precedence over defaultChecked, and the toggle acts\nas a controlled component.\n\nYou can provide a onChange function to be notified of checked value changes',
 			},
 			{
 				name: 'isDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Sets if the toggle is disabled or not. This prevents any interaction.\nDisabled toggles will not appear in the tab order for assistive technology.',
 			},
 			{
 				name: 'isLoading',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					"If defined, it displays a spinner within the toggle.\nThis prop is useful when the toggle's state is being fetched or updated asynchronously.",
 			},
 			{
 				name: 'label',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					"Text value which will be associated with toggle input using aria-labelledby attribute.\n\nUse only when you can't use a visible label for the toggle.",
 			},
 			{
 				name: 'name',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Descriptive name for the value property, to be submitted in a form.',
 			},
 			{
 				name: 'onBlur',
-				type: '(event: FocusEvent<HTMLInputElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: FocusEvent<HTMLInputElement, Element>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Handler to be called when toggle is unfocused.',
 			},
 			{
 				name: 'onChange',
-				type: '(event: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: "Handler to be called when native 'change' event happens internally.",
 			},
 			{
 				name: 'onFocus',
-				type: '(event: FocusEvent<HTMLInputElement, Element>, analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((event: FocusEvent<HTMLInputElement, Element>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description: 'Handler to be called when toggle is focused.',
 			},
 			{
 				name: 'size',
-				type: '"large" | "regular"',
+				type: 'Size | undefined',
 				description: 'Toggle size.',
 			},
 			{
 				name: 'value',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'Value to be submitted in a form.',
 			},
 		],
@@ -12932,7 +12931,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'canAppear',
-				type: '() => boolean',
+				type: '(() => boolean) | undefined',
 				description:
 					'Whether or not the tooltip can be displayed. Once a tooltip\nis scheduled to be displayed, or is already displayed, it will\ncontinue to be shown.\n\n@description\n\n`canAppear()` is called in response to user events, and\nnot during the rendering of components.',
 			},
@@ -12945,102 +12944,102 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'component',
-				type: 'React.ComponentType<TooltipPrimitiveProps> | React.ForwardRefExoticComponent<Omit<TooltipPrimitiveProps, "ref"> & React.RefAttributes<HTMLDivElement>>',
+				type: 'React.ComponentType<TooltipPrimitiveProps> | React.ForwardRefExoticComponent<Omit<TooltipPrimitiveProps, "ref"> & React.RefAttributes<HTMLDivElement>> | undefined',
 				description:
 					'Extend `TooltipPrimitive` to create your own tooltip and pass it as component.\n\nBuild it on `TooltipPrimitive` and forward the `ref`. With `platform-dst-top-layer-tooltip`\non, the tooltip\'s top-layer host carries `role="tooltip"` and `TooltipPrimitive` defaults to\n`role="presentation"`, so:\n- don\'t set `role="tooltip"` on your own element, or the tooltip gets two tooltip roles\n- don\'t hide the content (for example `display: none`), or the host has a tooltip role with\n  no visible name. To hide the tooltip, don\'t pass `content`.',
 			},
 			{
 				name: 'content',
-				type: 'React.ReactNode | (({ update }: { update?: () => void; }) => React.ReactNode)',
+				type: 'React.ReactNode | (({ update }: { update?: (() => void) | undefined; }) => React.ReactNode)',
 				description:
 					'The content of the tooltip. It can be either a:\n1. `ReactNode`\n2. Function which returns a `ReactNode`\nThe benefit of the second approach is that it allows you to consume the `update` render prop.\nThis `update` function can be called to manually recalculate the position of the tooltip.\n\nThis content will be rendered into two places:\n1. Into the tooltip\n2. Into a hidden element for screen readers (unless `isScreenReaderAnnouncementDisabled` is set to `true`)',
 				isRequired: true,
 			},
 			{
 				name: 'delay',
-				type: 'number',
+				type: 'number | undefined',
 				description:
 					'Time in milliseconds to wait before showing and hiding the tooltip. Defaults to 300.',
 				defaultValue: '300',
 			},
 			{
 				name: 'hasNewContentOnTriggerClick',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Set this when a press on the trigger changes `content`, for example "Copy"\nto "Copied!". The tooltip then stays open when the trigger is pressed, so\nthe new content is visible.\n\nOnly has an effect with `platform-dst-top-layer-tooltip`. Without the gate\nthe tooltip already stays open on a press. With the gate, a press normally\ncloses the tooltip until the pointer re-enters the trigger.\n\nThe tooltip still closes on pointer leave, blur, scroll and Escape.\n\nDo not use it with the deprecated `hideTooltipOnClick` or\n`hideTooltipOnMouseDown`. If you set one of them, it wins and this prop has\nno effect.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'ignoreTooltipPointerEvents',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'Adds `pointer-events: none` to the tooltip itself. Setting this to true will also prevent the tooltip from persisting when hovered.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'isScreenReaderAnnouncementDisabled',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'By default tooltip content will be duplicated into a hidden element so\nit can be read out by a screen reader. Sometimes this is not ideal as\nit can result in the same content be announced twice. For those situations,\nyou can leverage this prop to disable the duplicate hidden text.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'mousePosition',
-				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				type: 'Placement | undefined',
 				description:
 					'Where the tooltip should appear relative to the mouse pointer.\nOnly use this when the `position` prop is set to `"mouse"`, `"mouse-y"`, or `"mouse-x"`.\nWhen interacting with the target element using a keyboard, it will use this position against the target element instead.',
 				defaultValue: '"bottom"',
 			},
 			{
 				name: 'onHide',
-				type: '(analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Function to be called when the tooltip will be hidden. It's called after the\ndelay, when the tooltip begins to animate out.",
 				defaultValue: 'noop',
 			},
 			{
 				name: 'onShow',
-				type: '(analyticsEvent: UIAnalyticsEvent) => void',
+				type: '((analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
 					"Function to be called when the tooltip will be shown. It's called when the\ntooltip begins to animate in.",
 				defaultValue: 'noop',
 			},
 			{
 				name: 'position',
-				type: 'Placement | PositionMouseOptions',
+				type: 'PositionType | undefined',
 				description:
 					'Where the tooltip should appear relative to its target.\nIf set to `"mouse"`, the tooltip will display next to the mouse pointer instead.\nIf set to `"mouse-y"`, the tooltip will use the mouse Y coordinate but the target X coordinate.\nIf set to `"mouse-x"`, the tooltip will use the mouse X coordinate but the target Y coordinate.\nMake sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.',
 				defaultValue: '"bottom"',
 			},
 			{
 				name: 'shortcut',
-				type: 'string[]',
+				type: 'string[] | undefined',
 				description:
 					'Display a keyboard shortcut in the tooltip.\n\nKeys will be displayed as individual keyboard key segments after the tooltip content.',
 			},
 			{
 				name: 'shouldAlwaysFadeIn',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When set to true, the tooltip will always use the fade-in animation\nand never use the show-immediate behavior, even when another tooltip\nis already visible.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'shouldRenderToParent',
-				type: 'boolean',
+				type: 'boolean | undefined',
 				description:
 					'When enabled, the tooltip will be rendered as a sibling to the trigger element instead of being portaled to the document body.\n\nThis is an experimental prop and may be removed at any time. It is not yet intended for public use.',
 				defaultValue: 'false',
 			},
 			{
 				name: 'strategy',
-				type: '"fixed" | "absolute"',
+				type: '"fixed" | "absolute" | undefined',
 				description: 'Use this to define the strategy of popper.',
 				defaultValue: '"fixed"',
 			},
 			{
 				name: 'tag',
-				type: 'keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement> & { ref: React.Ref<HTMLElement>; }> | React.ForwardRefExoticComponent<...>',
+				type: 'keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement> & { ref: React.Ref<HTMLElement>; }> | React.ForwardRefExoticComponent<...> | undefined',
 				description:
 					'Replace the wrapping element. This accepts the name of a html tag which will\nbe used to wrap the element.\nIf you provide a component, it needs to support a ref prop which is used by popper for positioning.',
 			},
@@ -13076,19 +13075,19 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'The element or elements that should be hidden.',
 				isRequired: true,
 			},
 			{
 				name: 'id',
-				type: 'string',
+				type: 'string | undefined',
 				description:
 					'An id may be appropriate for this component if used in conjunction with `aria-describedby`\non a paired element.',
 			},
 			{
 				name: 'role',
-				type: 'string',
+				type: 'string | undefined',
 				description: 'An ARIA role attribute to aid screen readers.',
 			},
 		],

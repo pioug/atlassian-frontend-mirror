@@ -54,28 +54,24 @@
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/node-data-provider": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/task-decision": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*",
 		"graphql-ws": "root:*",
 		"lodash": "root:*",
-		"raf-schd": "root:*",
-		"uuid": "root:*"
+		"raf-schd": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "26.0.2",
+	"version": "26.0.3",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

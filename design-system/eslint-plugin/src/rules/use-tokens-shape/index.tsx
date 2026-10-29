@@ -16,7 +16,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			noRawShapeValues:
-				'The use of shape tokens is preferred over the direct application of border radius and border width properties.',
+				'Replace raw radius/border-width values with token() from @atlaskit/tokens, choosing radius.* or the border.width family for the intended shape.',
 		},
 	},
 	create(context) {

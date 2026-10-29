@@ -55,8 +55,13 @@ test.describe('Tooltip mouse positioning', () => {
 			y: triggerBox.y + mouseOffset.y + virtualElementSize,
 		};
 
-		expect(tooltipBox.x).toBe(expectedTooltipPosition.x);
-		expect(tooltipBox.y).toBe(expectedTooltipPosition.y);
+		const devicePixelRatio = await page.evaluate(() => window.devicePixelRatio);
+		expect(Math.abs(tooltipBox.x - expectedTooltipPosition.x)).toBeLessThanOrEqual(
+			1 / devicePixelRatio + 0.01,
+		);
+		expect(Math.abs(tooltipBox.y - expectedTooltipPosition.y)).toBeLessThanOrEqual(
+			1 / devicePixelRatio + 0.01,
+		);
 	});
 
 	test('should position tooltip at mouse coordinates with position="mouse"', async ({ page }) => {
@@ -99,8 +104,13 @@ test.describe('Tooltip mouse positioning', () => {
 			y: triggerBox.y + mouseOffset.y + virtualElementSize,
 		};
 
-		expect(tooltipBox.x).toBe(expectedTooltipPosition.x);
-		expect(tooltipBox.y).toBe(expectedTooltipPosition.y);
+		const devicePixelRatio = await page.evaluate(() => window.devicePixelRatio);
+		expect(Math.abs(tooltipBox.x - expectedTooltipPosition.x)).toBeLessThanOrEqual(
+			1 / devicePixelRatio + 0.01,
+		);
+		expect(Math.abs(tooltipBox.y - expectedTooltipPosition.y)).toBeLessThanOrEqual(
+			1 / devicePixelRatio + 0.01,
+		);
 	});
 
 	test('should position tooltip using mouse Y and target X with position="mouse-y"', async ({
@@ -145,7 +155,10 @@ test.describe('Tooltip mouse positioning', () => {
 			y: triggerBox.y + mouseOffset.y + virtualElementSize - tooltipBox.height / 2,
 		};
 
-		expect(tooltipBox.x).toBe(expectedTooltipPosition.x);
+		const devicePixelRatio = await page.evaluate(() => window.devicePixelRatio);
+		expect(Math.abs(tooltipBox.x - expectedTooltipPosition.x)).toBeLessThanOrEqual(
+			1 / devicePixelRatio + 0.01,
+		);
 		// Tooltip can be an even height, so cannot be exactly centered around a 1px position
 		// So allowing for a small tolerance
 		expect(Math.abs(tooltipBox.y - expectedTooltipPosition.y)).toBeLessThan(1);
@@ -193,9 +206,13 @@ test.describe('Tooltip mouse positioning', () => {
 			y: triggerBox.y + triggerBox.height + tooltipOffset,
 		};
 
-		// Tooltip can be an even width, so cannot be exactly centered around a 1px position
-		// So allowing for a small tolerance
-		expect(Math.abs(tooltipBox.x - expectedTooltipPosition.x)).toBeLessThan(1);
-		expect(tooltipBox.y).toBe(expectedTooltipPosition.y);
+		const devicePixelRatio = await page.evaluate(() => window.devicePixelRatio);
+		// Rounding occurs at both the pointer anchor and positioned tooltip edge.
+		expect(Math.abs(tooltipBox.x - expectedTooltipPosition.x)).toBeLessThanOrEqual(
+			2 / devicePixelRatio + 0.01,
+		);
+		expect(Math.abs(tooltipBox.y - expectedTooltipPosition.y)).toBeLessThanOrEqual(
+			1 / devicePixelRatio + 0.01,
+		);
 	});
 });

@@ -1,5 +1,19 @@
 # @atlaskit/top-layer
 
+## 7.0.0
+
+### Major Changes
+
+- [`d4b310c8f9c92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b310c8f9c92) -
+  Light dismiss for `popover="manual"` elements and page surfaces now matches the browser.
+  - `useSimpleLightDismiss` is removed. Use `useManualLightDismiss` from
+    `@atlaskit/top-layer/use-manual-light-dismiss` with the same options. For an element that is not
+    in the top layer (a drawer or a side panel), pass `mode: 'page-surface'`.
+  - An outside press dismisses when it ends outside, as native light dismiss does.
+  - One Escape closes one layer, the topmost first, as with native close watchers. `Dialog`,
+    `useManualLightDismiss` and `useCloseOnUnclaimedEscape` share this rule.
+    `useCloseOnUnclaimedEscape` gains a `surfaceRef` option.
+
 ## 6.7.0
 
 ### Minor Changes

@@ -16,9 +16,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	social_proof_3p_unauth_block_exp: {
 		isEnabled: true,
 	},
-	platform_sl_embed_preauth_teaser_exp: {
-		isEnabled: true,
-	},
 };
 
 const enabledGates = [

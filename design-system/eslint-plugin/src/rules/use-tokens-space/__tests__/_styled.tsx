@@ -3,7 +3,7 @@ import outdent from 'outdent';
 import type { Tests } from '../../__tests__/utils/_types';
 
 const error =
-	'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.';
+	"Replace raw spacing with an appropriate space.* token from @atlaskit/tokens, for example token('space.100'), or use a compiled layout primitive's gap/padding API.";
 
 const valid = [
 	outdent`

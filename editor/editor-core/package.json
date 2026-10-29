@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "241.0.5",
+	"version": "242.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -67,11 +67,9 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/link": "workspace:^",
-		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
@@ -84,11 +82,9 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@types/react-loadable": "root:*",
-		"@types/rison": "root:*",
 		"classnames": "root:*",
 		"lodash": "root:*",
 		"memoize-one": "root:*",
-		"prop-types": "root:*",
 		"react-loadable": "root:*",
 		"react-loosely-lazy": "root:*",
 		"react-transition-group": "root:*",
@@ -130,7 +126,6 @@
 		"@atlaskit/editor-plugin-hyperlink": "workspace:^",
 		"@atlaskit/editor-plugin-insert-block": "workspace:^",
 		"@atlaskit/editor-plugin-layout": "workspace:^",
-		"@atlaskit/editor-plugin-limited-mode": "workspace:^",
 		"@atlaskit/editor-plugin-list": "workspace:^",
 		"@atlaskit/editor-plugin-media": "workspace:^",
 		"@atlaskit/editor-plugin-media-insert": "workspace:^",
@@ -163,7 +158,6 @@
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
-		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -186,7 +180,6 @@
 		"@atlassian/user-profile-card": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/diff": "root:*",
-		"@types/is-number": "root:*",
 		"@types/react-transition-group": "root:*",
 		"diff": "root:*",
 		"jscodeshift": "root:*",
@@ -334,7 +327,6 @@
 		"./use-preset": "./src/use-preset.ts",
 		"./use-preset-context": "./src/entry-points/use-preset-context.tsx",
 		"./version-wrapper": "./src/entry-points/version-wrapper.ts",
-		"./WithEditorActions": "./src/entry-points/WithEditorActions.tsx",
-		"./WithHelpTrigger": "./src/entry-points/WithHelpTrigger.tsx"
+		"./WithEditorActions": "./src/entry-points/WithEditorActions.tsx"
 	}
 }

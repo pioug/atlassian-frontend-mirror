@@ -33,7 +33,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'local-cx-xcss':
-				'The cx function should only be declared inside the xcss prop to simplify tracking styles that are applied to a jsx element.',
+				'Call cx() directly inside the xcss prop, for example xcss={cx(styles.base, active && styles.active)}, instead of storing its result elsewhere.',
 		},
 		type: 'problem',
 	},

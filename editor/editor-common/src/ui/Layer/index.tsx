@@ -257,8 +257,10 @@ const popperInteropModifiers: Modifier<TPopperInteropModifierName>[] = [
 ];
 
 function usePopperInteropModifiers({
+	isContentShown,
 	onPositioned,
 }: {
+	isContentShown: boolean;
 	onPositioned: () => void;
 }): Modifier<TPopperInteropModifierName>[] {
 	const onPositionedRef = useRef(onPositioned);
@@ -266,6 +268,16 @@ function usePopperInteropModifiers({
 	useLayoutEffect(() => {
 		onPositionedRef.current = onPositioned;
 	}, [onPositioned]);
+
+	// On the top-layer path `@atlaskit/popper` ignores `modifiers`: CSS Anchor Positioning places
+	// the content when it mounts. So report the first position once the content is shown.
+	useLayoutEffect(() => {
+		if (!fg('platform-dst-top-layer') || !isContentShown || hasPositionedRef.current) {
+			return;
+		}
+		hasPositionedRef.current = true;
+		onPositionedRef.current();
+	}, [isContentShown]);
 
 	return useMemo(
 		() => [
@@ -298,7 +310,8 @@ function PopperInterop({
 }: TPopperInteropProps): ReactNode {
 	const targetRef = useRef<HTMLDivElement>(null);
 	const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
-	const modifiers = usePopperInteropModifiers({ onPositioned });
+	const isContentShown = Boolean(content && referenceElement);
+	const modifiers = usePopperInteropModifiers({ isContentShown, onPositioned });
 	// Popper v2 compares the offset prop by reference, so memoise to avoid re-running positioning every render.
 	const parsedOffset = useMemo(() => parseOffset({ offset }), [offset]);
 

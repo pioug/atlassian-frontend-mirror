@@ -1233,9 +1233,9 @@ const ruleMeta: Rule.RuleMetaData = {
 	],
 	messages: {
 		barrelEntryMock:
-			"jest.mock('{{path}}') is mocking a barrel file entry point. Split into separate mocks for each source file using package.json exports.",
+			'Replace jest.mock({{path}}) with separate mocks for the specific package.json exports used by the code under test. Preserve each mocked implementation and update import paths together.',
 		barrelEntryRequireActual:
-			"jest.requireActual('{{path}}') references a barrel file entry point. Use a specific package.json export path instead.",
+			"Change jest.requireActual({{path}}) to the specific package.json export for the implementation needed by this mock; preserve the mock's remaining behavior.",
 	},
 };
 

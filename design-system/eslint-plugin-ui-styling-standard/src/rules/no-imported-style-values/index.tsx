@@ -141,7 +141,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-imported-style-values':
-				'Styles should not be imported to use in css, cssMap, styled, keyframes or xcss calls. All styles should be defined and used in the same file instead.',
+				'Declare and use these styles in the same file. Share a component across files instead of importing css, cssMap, styled, keyframes or xcss values.',
 		},
 		type: 'problem',
 		schema,

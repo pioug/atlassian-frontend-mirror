@@ -1,5 +1,6 @@
 import type { Change } from 'prosemirror-changeset';
 
+import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -86,40 +87,18 @@ const getAvailableColor = (
 		: (PARTICIPANT_COLOR_SCHEMES.find(isAssignable) ?? hashedColor);
 };
 
-/**
- * Normalise the attribution identity once so a valid lookup key always has a valid participant
- * colour seed. `userId` is primary; `agentId`, or `agentType` as its fallback, separates shared
- * users. The colour seed matches collaboration: the user ID for a human and the agent ID for an
- * agent. The agent-type fallback includes the user so different users' agents do not collapse onto
- * one colour when NCS omits an agent ID.
- */
+/** Account IDs supply both the lookup key and participant colour seed. */
 const getAttributionIdentity = (
 	attribution: DiffStepAttribution | undefined,
 ): AttributionIdentity | undefined => {
 	const userId = attribution?.userId?.trim();
 	const agentId = attribution?.agentId?.trim();
-	const agentType = attribution?.agentType?.trim();
+	const colorSeed = agentId || userId;
 
-	let colorSeed: string;
-	if (agentId) {
-		colorSeed = agentId;
-	} else if (agentType) {
-		colorSeed = userId ? `user:${userId}|agent:type:${agentType}` : `agent:type:${agentType}`;
-	} else if (userId) {
-		colorSeed = userId;
-	} else {
-		return undefined;
-	}
-
-	const agentIdentity = agentId || (agentType ? `type:${agentType}` : '');
-
-	return {
-		colorSeed,
-		key: `user:${userId ?? ''}|agent:${agentIdentity}`,
-	};
+	return colorSeed ? { colorSeed, key: `user:${userId ?? ''}|agent:${agentId ?? ''}` } : undefined;
 };
 
-/** `userId` is primary; `agentId`, or `agentType` as its fallback, separates shared users. */
+/** `userId` is primary; `agentId` separates agents sharing that user. */
 export const getAttributionKey = (
 	attribution: DiffStepAttribution | undefined,
 ): string | undefined => getAttributionIdentity(attribution)?.key;
@@ -129,14 +108,6 @@ const isDiffAgentBrand = (
 ): agentBrand is DiffAgentBrand =>
 	agentBrand !== undefined && DIFF_AGENT_BRANDS.has(agentBrand as DiffAgentBrand);
 
-/** Prefers the resolved branded profile over the raw attribution agent type. */
-const getAgentBrandForColor = (
-	attribution: DiffStepAttribution | undefined,
-	contributors: ResolvedDiffContributors | undefined,
-): string | undefined => {
-	const agentBrand = contributors?.[getAttributionKey(attribution) ?? '']?.agentKind;
-	return isDiffAgentBrand(agentBrand) ? agentBrand : attribution?.agentType;
-};
 /**
  * Public contributor list to internal key-addressed record. A contributor whose attribution carries
  * no identity is dropped, since it could never match a step. Later entries win.
@@ -200,12 +171,24 @@ const getAttributionParticipantColor = (
 	attribution: DiffStepAttribution | undefined,
 	identity: AttributionIdentity,
 	contributors: ResolvedDiffContributors | undefined,
-): ReturnType<typeof getParticipantColor> =>
-	getParticipantColor(
+): ReturnType<typeof getParticipantColor> => {
+	const contributor = contributors?.[identity.key];
+	const brand = isDiffAgentBrand(contributor?.agentKind) ? contributor?.agentKind : undefined;
+	const agentName =
+		brand ??
+		getThirdPartyAgentColor({
+			agentNamedId: attribution?.agentNamedId,
+			agentName: contributor?.name,
+		})?.name ??
+		(attribution?.agentId?.trim() ? contributor?.name || 'Agent' : undefined);
+
+	return getParticipantColor(
 		identity.colorSeed,
-		getAgentBrandForColor(attribution, contributors),
-		attribution?.agentNamedId,
+		agentName,
+		// Keep an explicitly resolved brand consistent with the contributor's icon.
+		brand ? undefined : attribution?.agentNamedId,
 	);
+};
 
 export const createAttributionColorMap = (
 	stepAttributions: Array<DiffStepAttribution | undefined>,

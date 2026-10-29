@@ -18,12 +18,34 @@ type EvalAttributesBase = {
 	actionSubjectId?: string;
 };
 
+type BatchEvaluationDatasetSource = 'csvUpload' | 'liveConversations';
+
+type BatchEvaluationDatasetCreateFailedReason =
+	| 'recordingDisabled'
+	| 'noReviewPermission'
+	| 'noRecordedConversations'
+	| 'noOpeningMessages'
+	| 'other';
+
 export type EvaluationEventPayload =
 	| ({
 			// Dataset created - https://data-portal.internal.atlassian.com/analytics/registry/95585
 			actionSubject: 'batchEvaluationDataset';
 			action: 'created';
-			attributes: { totalQuestions: number };
+			attributes: {
+				totalQuestions: number;
+				datasetSource?: BatchEvaluationDatasetSource;
+				datasetType?: string;
+			};
+	  } & EvalAttributesBase)
+	| ({
+			// Dataset creation failed or blocked - https://data-portal.internal.atlassian.com/analytics/registry/113715
+			actionSubject: 'batchEvaluationDataset';
+			action: 'createFailed';
+			attributes: {
+				datasetSource: BatchEvaluationDatasetSource;
+				reason: BatchEvaluationDatasetCreateFailedReason;
+			};
 	  } & EvalAttributesBase)
 	| ({
 			// Job created - https://data-portal.internal.atlassian.com/analytics/registry/95438

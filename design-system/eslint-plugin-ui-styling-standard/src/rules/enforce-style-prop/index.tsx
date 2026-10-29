@@ -236,7 +236,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'enforce-style-prop':
-				'Avoid adding static values to the style prop. Use the css prop for static styles instead.',
+				'Move static style values into module-scoped cssMap() or css() declarations and apply them with css or xcss; keep only runtime values in style.',
 		},
 		type: 'problem',
 	},

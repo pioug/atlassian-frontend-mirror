@@ -1,5 +1,17 @@
 # @atlaskit/css-reset
 
+## 8.4.7
+
+### Patch Changes
+
+- [`b90ae8abf3ba9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b90ae8abf3ba9) -
+  Behind the `platform_dst_scrollbar_harmonisation` feature gate: the harmonised scrollbar treatment
+  now uses a transparent track on every surface, set once on the root and inherited. This replaces
+  the per-element `var()` rule, which made every element's style depend on inherited custom
+  properties. The `platform_dst_scrollbar_harmonisation_transparent` gate's attribute
+  (`data-scrollbar-harmonisation-transparent`) no longer changes the output. Elements that set their
+  own `scrollbar-color` now keep it.
+
 ## 8.4.6
 
 ### Patch Changes

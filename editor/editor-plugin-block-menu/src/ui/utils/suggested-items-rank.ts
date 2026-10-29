@@ -69,8 +69,6 @@ export const BLOCK_MENU_NODE_TYPES: {
 	TABLE: 'table',
 };
 
-export type BlockMenuNodeType = (typeof BLOCK_MENU_NODE_TYPES)[keyof typeof BLOCK_MENU_NODE_TYPES];
-
 export type SuggestedItemsRankMap = {
 	[nodeType: string]: {
 		[menuItemKey: string]: number;

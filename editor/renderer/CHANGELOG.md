@@ -1,5 +1,46 @@
 # @atlaskit/renderer
 
+## 153.1.0
+
+### Minor Changes
+
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`b8ac7a24c7645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8ac7a24c7645) -
+  Clean up experiment `platform_editor_a11y_codeblock_copy_name`
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- Updated dependencies
+
+## 153.0.8
+
+### Patch Changes
+
+- [`0bb1cf8464099`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bb1cf8464099) -
+  Fix table border overlay overflow behind platform_editor_table_border_overflow_fix
+- Updated dependencies
+
+## 153.0.7
+
+### Patch Changes
+
+- [`55f011a1eafc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55f011a1eafc7) -
+  Remove `platform_forge_inline_bodied_layout_switch` and retain support for inline-bodied macro
+  layouts permanently.
+- Updated dependencies
+
+## 153.0.6
+
+### Patch Changes
+
+- [`f77206bee9f86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f77206bee9f86) -
+  Preserve the native Aura Table Filter body height until its Forge ready event, behind the
+  independent cc_aura_table_filter_cls experiment.
+
 ## 153.0.5
 
 ### Patch Changes

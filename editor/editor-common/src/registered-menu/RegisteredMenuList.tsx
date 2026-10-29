@@ -13,7 +13,7 @@ import { ActiveMenuItemKeyContext } from './ActiveMenuItemKeyContext';
 import { MeasuredRow } from './MeasuredRow';
 import { RegisteredMenuListItemRow } from './RegisteredMenuListItemRow';
 import type { RegisteredMenuListItemIdParams } from './RegisteredMenuListItemRow';
-import type { RegisteredMenuItemProps } from './types';
+import type { RegisteredMenuItemProps, RegisteredMenuSelectionSource } from './types';
 import { useMenuListHeight } from './useMenuListHeight';
 
 const ESTIMATED_ROW_HEIGHT = 44;
@@ -38,6 +38,8 @@ export type RegisteredMenuListProps = {
 	scrollResetKey?: string | number | symbol;
 	scrollTo?: 'selected' | 'top-on-reset';
 	selectedItemIndex: number;
+	/** Whether the keyboard or the pointer made the current selection. */
+	selectionSource?: RegisteredMenuSelectionSource;
 	tabIndex?: number | null;
 	width: number;
 };
@@ -64,6 +66,7 @@ export const RegisteredMenuList = ({
 	hasScrollPadding = false,
 	lastRowPadding = 'none',
 	scrollTo = 'selected',
+	selectionSource = 'keyboard',
 }: RegisteredMenuListProps): React.JSX.Element | null => {
 	const listRef = useRef<List | null>(null);
 	const cache = useMemo(
@@ -105,6 +108,8 @@ export const RegisteredMenuList = ({
 		listRef.current?.recomputeRowHeights();
 	}, [cache, rowKeySignature]);
 
+	// Only keyboard selections scroll into view; pointer selections leave the scroll position alone.
+	const scrollToSelectedItem = selectionSource === 'keyboard';
 	const previousResetKeyRef = useRef(scrollResetKey);
 	useLayoutEffect(() => {
 		if (scrollTo === 'top-on-reset' && previousResetKeyRef.current !== scrollResetKey) {
@@ -113,10 +118,10 @@ export const RegisteredMenuList = ({
 			return;
 		}
 		previousResetKeyRef.current = scrollResetKey;
-		if (selectedRowIndex >= 0) {
+		if (scrollToSelectedItem && selectedRowIndex >= 0) {
 			listRef.current?.scrollToRow(selectedRowIndex);
 		}
-	}, [scrollResetKey, rowKeySignature, scrollTo, selectedRowIndex]);
+	}, [scrollResetKey, rowKeySignature, scrollTo, scrollToSelectedItem, selectedRowIndex]);
 
 	const handleRowsRendered = useCallback<NonNullable<ListProps['onRowsRendered']>>(
 		({ overscanStartIndex, overscanStopIndex, startIndex, stopIndex }) => {
@@ -239,7 +244,9 @@ export const RegisteredMenuList = ({
 				rowHeight={cache.rowHeight}
 				rowRenderer={renderRow}
 				scrollToAlignment="auto"
-				scrollToIndex={scrollTo === 'selected' ? selectedRowIndex : undefined}
+				scrollToIndex={
+					scrollTo === 'selected' && scrollToSelectedItem ? selectedRowIndex : undefined
+				}
 				tabIndex={tabIndex}
 				width={width}
 			/>

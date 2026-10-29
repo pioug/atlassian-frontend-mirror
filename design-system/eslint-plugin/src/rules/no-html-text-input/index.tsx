@@ -15,7 +15,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlTextInput: `This <{{ name }}> should be replaced with a textfield component from the Atlassian Design System. ADS components include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlTextInput:
+				'Replace <{{ name }}> with Textfield from @atlaskit/textfield/text-field. Preserve type, name, id, value and handlers, and associate its visible label with the same id.',
 		},
 	},
 	create(context) {

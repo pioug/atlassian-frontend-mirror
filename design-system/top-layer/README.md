@@ -118,10 +118,12 @@ if (hasOpenDialogOrPopover({ within: event.currentTarget })) {
   (one that is not in the top layer, for example a side panel) on Escape. The browser closes
   top-layer surfaces on Escape itself, but a page surface also receives that Escape. The hook
   ignores a claimed Escape: when `event.defaultPrevented` is `true`, when `event.repeat` is `true`,
-  when an open dialog or popover is inside the target, or when `shouldClose` returns `false`. It
-  listens on `document`, or on `targetRef` when you pass one. The `targetRef` element must be
-  mounted when `isEnabled` becomes `true`. Do not use the hook for a `Popover` or a `Dialog`: they
-  already close on Escape.
+  when another Escape owner is above the surface (an open layer that closes on Escape, or a marked
+  page surface; see the Escape stack in `notes/decisions/manual-light-dismiss-escape-stacking.md`),
+  or when `shouldClose` returns `false`. Pass `surfaceRef` to name the surface element: a layer
+  around it is below it. It listens on `document`, or on `targetRef` when you pass one (then only
+  while focus is inside it). The `targetRef` element must be mounted when `isEnabled` becomes
+  `true`. Do not use the hook for a `Popover` or a `Dialog`: they already close on Escape.
 - `hasOpenDialogOrPopover({ within, type })` returns `true` when an open `<dialog>`, or an open
   `Popover` that has an `onClose`, is inside `within` (default: `document`). Tooltips and popovers
   without `onClose` never count. `type: 'modal'` counts only modal dialogs. Call it at event time: a

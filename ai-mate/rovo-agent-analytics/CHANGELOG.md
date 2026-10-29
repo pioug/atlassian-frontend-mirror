@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.7.1
+
+### Patch Changes
+
+- [`f930217402348`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f930217402348) -
+  Batch evaluation analytics: add optional `datasetSource` and `datasetType` attributes to
+  `batchEvaluationDataset created`, and add a `batchEvaluationDataset createFailed` event with
+  `datasetSource` and `reason`.
+
 ## 6.7.0
 
 ### Minor Changes

@@ -97,24 +97,25 @@ Limits:
    so one press undoes one thing, as with native `<dialog>`. Legacy ModalDialog and Drawer ignore
    `defaultPrevented` and close anyway. We keep legacy as it is; the difference goes away when the
    flag rolls out.
-2. `Dialog` checks that the Escape is meant for this open dialog:
-   - Focus is in this dialog: on `event.composedPath()`, the first `<dialog>` or open `auto` or
-     `hint` popover is this dialog. A nested dialog takes its own Escape. With focus in an open
-     `auto` or `hint` popover, `Dialog` does not take the Escape: the popover light-dismisses. A
-     `manual` popover does not take Escape, so `Dialog` takes it, as a native modal `<dialog>`
-     would. ADS manual popovers that close on Escape (`useSimpleLightDismiss`) call
-     `preventDefault()` first, so `Dialog` does not take that Escape.
-   - Focus is on `<body>` (the focused element was removed, or `blur()`), and focus was last in this
-     dialog. Only the top modal can hold focus, so that dialog is the top modal. Each `Dialog`
-     records this on `focusin`, because removing the focused element fires no event in Firefox and
-     WebKit. This matches legacy ModalDialog and Drawer: one ask per key press, no forced close. See
-     [`../follow-ups/dialog-escape-with-focus-on-body.md`](../follow-ups/dialog-escape-with-focus-on-body.md).
-     A click on content that cannot take focus moves focus to the `<dialog>`, not to `<body>`.
-   - An open child `auto` or `hint` popover takes the Escape first, also with focus outside it (for
-     example on its trigger). If `Dialog` canceled the `keydown`, the browser would not close the
-     popover. `Dialog` checks in the capture phase, before the popover closes.
-   - An IME composition is skipped. During the exit (the native dialog is closed) `Dialog` does
-     nothing.
+2. `Dialog` checks that the Escape is meant for this open dialog, in the capture phase, while every
+   layer is still open. It uses the same stack as `useManualLightDismiss` and page surfaces
+   (`hasEscapeOwnerAbove`, see
+   [`manual-light-dismiss-escape-stacking.md`](./manual-light-dismiss-escape-stacking.md)). The
+   dialog takes the Escape unless an owner is above it:
+   - an open layer inside it that takes Escape: a nested dialog, an `auto` or `hint` popover (also
+     with focus outside it, for example on its trigger: if `Dialog` canceled the `keydown`, the
+     browser would not close the popover), or a `manual` popover with `useManualLightDismiss`;
+   - a page surface inside it;
+   - a layer that opened after it, outside it (for example a modal `<dialog>` above it).
+
+   A `manual` popover without the hook, or a `<dialog>` that does not close on Escape, does not take
+   Escape, so `Dialog` takes it, as a native modal `<dialog>` would. Focus does not decide: only the
+   top modal can hold focus, and open order already finds it, also with focus on `<body>` (the
+   focused element was removed, or `blur()`). This replaced a focus-based rule (2026-10-28); see
+   [`../follow-ups/dialog-escape-with-focus-on-body.md`](../follow-ups/dialog-escape-with-focus-on-body.md).
+   An IME composition is skipped. During the exit (the native dialog is closed) `Dialog` does
+   nothing.
+
 3. `Dialog` calls **`event.preventDefault()`**. This stops the browser's close request. With
    `closedby="none"`, the request would skip this dialog and go to the next close watcher in its
    group (for example a parent `auto` popover, which would close). In browsers without `closedby`,
@@ -133,10 +134,9 @@ close request, which goes past the dialog.
 ## Other close requests
 
 A close request with no Escape `keydown` that `Dialog` takes goes past the dialog. Examples: the
-Android back button, an Escape that an inner handler stopped with `stopPropagation()`, and an Escape
-with focus on `<body>` after it was last outside the dialog. The dialog's close watcher is turned
-off (`closedby="none"`), so the browser fires no `cancel` and does not close it. `Dialog` does not
-ask.
+Android back button, and an Escape that an inner handler stopped with `stopPropagation()`. The
+dialog's close watcher is turned off (`closedby="none"`), so the browser fires no `cancel` and does
+not close it. `Dialog` does not ask.
 
 On Android, back then does what it does with no dialog: a history traversal. Three things to know:
 
@@ -245,6 +245,10 @@ button). See `../goals/accessibility-criteria.md`.
    **`onClose({ reason: 'overlay-click' })`** in `flushSync`. Otherwise the click is ignored. The
    `open` check skips clicks during the exit, so one dismissal calls `onClose` once.
 4. The consumer sets **`isOpen={false}`**, as for Escape.
+
+The same backdrop press also closes the open auto popovers in the dialog (the browser does that), so
+one press closes both. See
+[outside-press-closes-every-layer.md](./outside-press-closes-every-layer.md).
 
 ### Why not native light dismiss
 

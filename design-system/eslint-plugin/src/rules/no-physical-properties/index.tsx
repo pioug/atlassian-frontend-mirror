@@ -15,7 +15,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			noPhysicalProperties:
-				'Physical properties are not allowed in `css` and `cssMap` functions as they do not support different reading modes. Use a logical property instead.',
+				'Replace {{property}} with {{replacement}} to support different reading modes.',
 			noPhysicalValues: 'Physical values are not allowed in `css` and `cssMap` functions.',
 		},
 	},
@@ -38,6 +38,10 @@ const rule: Rule.RuleModule = createLintRule({
 						context.report({
 							node: key,
 							messageId: 'noPhysicalProperties',
+							data: {
+								property: key.name,
+								replacement: physicalLogicalMap[key.name as keyof typeof physicalLogicalMap],
+							},
 							fix: (fixer) => {
 								const logicalProperty =
 									physicalLogicalMap[key.name as keyof typeof physicalLogicalMap];
@@ -64,6 +68,10 @@ const rule: Rule.RuleModule = createLintRule({
 						context.report({
 							node: key,
 							messageId: 'noPhysicalProperties',
+							data: {
+								property: key.name,
+								replacement: physicalLogicalMap[key.name as keyof typeof physicalLogicalMap],
+							},
 							fix: (fixer) => {
 								const logicalProperty =
 									physicalLogicalMap[key.name as keyof typeof physicalLogicalMap];

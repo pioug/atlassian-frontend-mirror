@@ -5,6 +5,7 @@ export {
 	GATEWAY_BASE_URL,
 	ResponseError,
 	EXPERIMENT_VALUES_API_VERSION,
+	EVAL_FLAGS_API_VERSION,
 } from './Fetcher';
 export type {
 	FetcherOptions,

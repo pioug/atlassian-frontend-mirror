@@ -221,8 +221,7 @@ export const renderExtension = (
 	const isInlineBodiedLayoutEnabled =
 		node?.extensionType === FORGE_EXTENSION_TYPE &&
 		node?.type === 'bodiedExtension' &&
-		node?.parameters?.layout === 'inline-bodied' &&
-		fg('platform_forge_inline_bodied_layout_switch');
+		node?.parameters?.layout === 'inline-bodied';
 	/**
 	 * The pass that marks the sibling textblocks around an inline extension resolves their
 	 * positions without a depth term, so it only ever matches at the top level. Inlining a nested

@@ -19,12 +19,13 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			missingLabelProp:
-				'Missing accessible name. If there is no visible content to associate use `label` prop, otherwise pass id of element to `titleId` prop to be associated as label.',
-			labelPropShouldHaveContents: 'Define string that labels the interactive element.',
+				'Give TagGroup an accessible name: set titleId to the id of its visible heading, or set label to a concise description of the group of tags when no heading exists.',
+			labelPropShouldHaveContents:
+				'Replace the empty TagGroup label with text describing the group of tags; if a visible heading already provides that name, use titleId to reference its id instead.',
 			titleIdShouldHaveValue:
-				'`titleId` should reference the id of element that define accessible name.',
+				'Set TagGroup.titleId to the non-empty id of a rendered element containing its accessible name; ensure that element exists while the group of tags is displayed.',
 			noBothPropsUsage:
-				'Do not include both `titleId` and `label` properties. Use `titleId` if the label text is available in the DOM to reference it, otherwise use `label` to provide accessible name explicitly.',
+				'Keep one naming prop on TagGroup: titleId when referencing a visible heading, otherwise label. Remove the other prop without deleting the intended accessible name.',
 		},
 		hasSuggestions: true,
 	},

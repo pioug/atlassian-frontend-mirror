@@ -110,13 +110,16 @@ With the following options turned on:
 - stylesPlacement = 'top'
 
 ```js
-const borderStyles = cssMap({
-  'solid': '1px solid';
-  'none': '0px';
-})
+import { cssMap } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
-function Button({ children }) {
-  return <button css={borderStyles[solid]}>{children}</button>;
+const borderStyles = cssMap({
+	solid: { borderStyle: 'solid', borderWidth: token('border.width') },
+	none: { borderStyle: 'none' },
+});
+
+function Button({ children, isSolid }) {
+	return <button css={borderStyles[isSolid ? 'solid' : 'none']}>{children}</button>;
 }
 ```
 

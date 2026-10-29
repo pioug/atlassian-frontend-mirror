@@ -630,7 +630,7 @@ describe('FlyoutMenuItem', () => {
 			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
 		});
 
-		it('should remove the content from the document when isOpen is updated to false after the initial render', () => {
+		it('should remove the content from the document when isOpen is updated to false after the initial render', async () => {
 			const { rerender } = render(
 				<FlyoutMenuItem isDefaultOpen>
 					<FlyoutMenuItemTrigger>Trigger</FlyoutMenuItemTrigger>
@@ -651,9 +651,10 @@ describe('FlyoutMenuItem', () => {
 					</FlyoutMenuItemContent>
 				</FlyoutMenuItem>,
 			);
-			// Now, the content should disappear from the document
+			// Now, the content should disappear from the document.
+			// The top-layer flyout stays mounted until its exit animation ends.
 			expect(screen.getByRole('button', { name: 'Trigger' })).toBeVisible();
-			expect(screen.queryByText('Item 1')).not.toBeInTheDocument();
+			await waitFor(() => expect(screen.queryByText('Item 1')).not.toBeInTheDocument());
 		});
 	});
 

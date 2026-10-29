@@ -21,11 +21,11 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			noPlaceholder:
-				'Placeholders should not be used. Use separate information to help users associated using `aria-describedby` instead.',
+				"Remove placeholder from this input and put its instructions in persistent helper text. Give the helper an id and include that id in the input's aria-describedby, preserving any existing described-by ids and label.",
 			noPlaceholderOnSimpleField:
-				'Placeholders should not be used. Use the `helperMessage` prop instead.',
+				"Remove placeholder from this input and move its instructions to the containing Field's helperMessage prop; keep the input's accessible label.",
 			noPlaceholderOnComplexField:
-				'Placeholders should not be used. Use the `HelperMessage` component instead.',
+				'Remove placeholder from this input and render its instructions in HelperMessage from @atlaskit/form within the same Field. Keep the supplied fieldProps spread on the input so its aria-describedby references the generated helper id.',
 		},
 	},
 

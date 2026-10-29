@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
-import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 
 import { SpotlightContext } from '../../controllers/context';
 import type { DismissEvent } from '../../types';
@@ -74,7 +74,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 		isOpen: isVisible,
 	});
 
-	useSimpleLightDismiss({
+	useManualLightDismiss({
 		popoverRef,
 		isOpen: isVisible,
 		onClose: ({ reason }) => {

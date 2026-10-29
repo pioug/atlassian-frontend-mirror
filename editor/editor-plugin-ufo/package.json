@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-ufo",
-	"version": "30.0.2",
+	"version": "30.0.3",
 	"description": "Ufo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,7 +27,6 @@
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

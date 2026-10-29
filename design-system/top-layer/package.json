@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/top-layer",
-	"version": "6.7.0",
+	"version": "7.0.0",
 	"description": "Low-level layering primitives based on popover and dialog",
 	"homepage": "https://atlassian.design/components/top-layer",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -63,7 +63,7 @@
 		"./use-anchored-popover-at-point": "./src/internal/use-anchored-popover-at-point.tsx",
 		"./use-arrow-navigation/use-arrow-navigation": "./src/use-arrow-navigation/use-arrow-navigation.tsx",
 		"./use-popover-id": "./src/entry-points/use-popover-id.tsx",
-		"./use-simple-light-dismiss": "./src/use-simple-light-dismiss/index.tsx",
+		"./use-manual-light-dismiss": "./src/use-manual-light-dismiss/index.tsx",
 		"./dialog": "./src/dialog/index.tsx",
 		"./placement-map": "./src/entry-points/placement-map.tsx",
 		"./popover": "./src/popover/index.tsx",
@@ -78,7 +78,8 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*",
-		"raf-schd": "root:*"
+		"raf-schd": "root:*",
+		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0 || ^19.0.0",
@@ -103,8 +104,7 @@
 		"@testing-library/jest-dom": "root:*",
 		"@types/raf-schd": "root:*",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"tiny-invariant": "root:*"
+		"react-dom": "^19.0.0"
 	},
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

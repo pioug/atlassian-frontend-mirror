@@ -1,5 +1,12 @@
 # @atlaskit/custom-steps
 
+## 1.1.2
+
+### Patch Changes
+
+- [`3f50cfd9e444d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f50cfd9e444d) -
+  Delete unreachable internal source files
+
 ## 1.1.1
 
 ### Patch Changes

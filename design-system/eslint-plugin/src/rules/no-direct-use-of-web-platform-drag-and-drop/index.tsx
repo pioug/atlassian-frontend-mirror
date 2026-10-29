@@ -18,7 +18,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			usePragmaticDnd:
-				'Please use Pragmatic drag and drop, which makes web platform drag and drop safe and easy to work with.',
+				'Replace native drag/drop handlers with the matching @atlaskit/pragmatic-drag-and-drop adapter, such as adapter/element-adapter for in-page elements or adapter/drop-target-for-external for files. Follow https://atlassian.design/components/pragmatic-drag-and-drop for event and cleanup migration.',
 		},
 	},
 	create(context) {

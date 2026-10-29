@@ -15,7 +15,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlCheckbox: `This <{{ name }}> should be replaced with a checkbox component from the Atlassian Design System. ADS components include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlCheckbox:
+				'Replace <{{ name }}> with Checkbox from @atlaskit/checkbox/checkbox. Map checked and disabled to isChecked and isDisabled, and preserve its label, name, value and change behavior.',
 		},
 	},
 	create(context) {

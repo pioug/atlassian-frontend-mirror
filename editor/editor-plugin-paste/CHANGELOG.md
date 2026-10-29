@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 31.0.4
+
+### Patch Changes
+
+- [`4cbba92673860`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cbba92673860) -
+  Preserve legacy content macros on paste when the dynamic config
+  `platform_editor_legacy_content_macro_insert_config` is enabled.
+- Updated dependencies
+
 ## 31.0.3
 
 ### Patch Changes

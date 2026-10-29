@@ -9,9 +9,6 @@ import { RestrictedCapitalisation } from './linters/restricted-capitalisation';
 import { RestrictedProperty } from './linters/restricted-property';
 import { WrappedTokenValue } from './linters/wrapped-token-value';
 
-const typescriptErrorMessage =
-	'There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway.';
-
 const rule: Rule.RuleModule = createLintRule({
 	meta: {
 		name: 'use-latest-xcss-syntax-typography',
@@ -45,10 +42,14 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noRestrictedTypographyProperties: `Don't set '{{ property }}' on xcss as it allows invalid combinations of typography tokens. ${typescriptErrorMessage}`,
-			noRestrictedTypographyPropertiesHeading: `Don't set '{{ property }}' on xcss in combination with 'font' heading tokens. ${typescriptErrorMessage}`,
-			noRestrictedCapitalisation: `Avoid using ALL CAPS as it reduces readability and is bad for accessibility.`,
-			noWrappedTokenTypographyValues: `Don't wrap typography tokens in xcss. ${typescriptErrorMessage}`,
+			noRestrictedTypographyProperties:
+				'Use Text or Heading with the appropriate size instead of setting {{ property }} in legacy xcss(). Their supported props and complete font.* tokens keep typography consistent.',
+			noRestrictedTypographyPropertiesHeading:
+				'Remove the {{ property }} override from this legacy xcss() heading style. Choose Heading size or a complete font.heading.* token instead of overriding one part of the heading typography.',
+			noRestrictedCapitalisation:
+				'Remove textTransform: uppercase from this style and use sentence case in the authored text. Preserve required casing for product names and acronyms.',
+			noWrappedTokenTypographyValues:
+				"Inside legacy xcss(), pass a bare typography token name, for example font: 'font.heading.medium', rather than token('font.heading.medium'). Compiled cssMap() uses token() calls instead.",
 		},
 	},
 	create(context) {

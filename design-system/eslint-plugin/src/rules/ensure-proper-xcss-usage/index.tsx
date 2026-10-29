@@ -21,9 +21,9 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			missingCssMapKey:
-				'xcss prop should use a specific key from cssMap (e.g., {{identifier}}.root) instead of the entire cssMap object.',
+				'Pass an existing named variant from {{identifier}} to xcss, such as {{identifier}}.root when that key is defined; do not pass the entire cssMap object.',
 			noXcssWithCompiled:
-				'Cannot use `xcss()` function with `@atlaskit/primitives/compiled`. Use `cssMap()` from `@atlaskit/css or `@compiled/react` instead.',
+				'Compiled primitives cannot consume legacy xcss() objects. Migrate to cssMap({ root: { ... } }) from @atlaskit/css, convert token-name values to token() calls, and pass the selected variant with xcss={styles.root}.',
 		},
 	},
 

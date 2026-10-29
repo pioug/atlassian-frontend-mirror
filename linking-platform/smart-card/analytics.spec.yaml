@@ -325,8 +325,8 @@ events:
   - modal opened (preAuthValueProposition):
       type: ui
       description: >
-        Fired when the pre-auth value proposition modal is shown after an eligible
-        unauthorized Smart Link is created or converted.
+        Fired when the pre-auth value proposition modal is shown after an eligible unauthorized
+        Smart Link is created or converted.
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext]
 
@@ -782,43 +782,6 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
-  - button clicked (carouselNext):
-      type: ui
-      description: >
-        Fires when a user clicks the "See next" button in a smart link carousel view. Used to
-        measure engagement depth — how many users navigate past the first benefit slide.
-      attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
-        display:
-          required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'url']
-          description: The card display type from which the carousel is rendered.
-        slideId:
-          required: true
-          type: string
-          description: >
-            Stable semantic identifier for the slide (e.g. 'smart-link-benefit',
-            'rovo-search-benefit'). Used instead of slideIndex so analytics remain accurate if slide
-            order changes.
-  - button clicked (carouselConnect):
-      type: ui
-      description: >
-        Fires when a user clicks the connect account button from within a smart link carousel view.
-        Captures which benefit slide the user was viewing when they decided to connect, enabling
-        measurement of which slide is most persuasive.
-      attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
-        display:
-          required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview', 'url']
-          description: The card display type from which the carousel is rendered.
-        slideId:
-          required: true
-          type: string
-          description: >
-            Stable semantic identifier for the slide (e.g. 'smart-link-benefit',
-            'rovo-search-benefit'). Used instead of slideIndex so analytics remain accurate if slide
-            order changes.
   - smartLink clicked (tryAnotherAccount):
       type: ui
       description:

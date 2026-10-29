@@ -22,12 +22,6 @@ const INNER_CONTENT_NODE_TYPES = new Set([
 	'table',
 ]);
 
-export type SurfaceAnchorDecorationSpec = {
-	anchorName: string;
-	nodeType: string;
-	type: typeof TYPE_SURFACE_ANCHOR_DEC;
-};
-
 export type SurfaceAnchorDecorationResult = {
 	anchors: ReadonlyMap<number, string>;
 	decorations: DecorationSet;

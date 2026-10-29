@@ -13,6 +13,25 @@ tester.run('no-physical-properties', rule, {
 		{ code: `const styles = cssMap({ danger: { textAlign: 'start' } })` },
 	],
 	invalid: [
+		{
+			code: "css({ marginLeft: '8px' })",
+			output: "css({ marginInlineStart: '8px' })",
+			errors: [
+				{
+					message: 'Replace marginLeft with marginInlineStart to support different reading modes.',
+				},
+			],
+		},
+		{
+			code: "cssMap({ root: { borderTopWidth: '1px' } })",
+			output: "cssMap({ root: { borderBlockStartWidth: '1px' } })",
+			errors: [
+				{
+					message:
+						'Replace borderTopWidth with borderBlockStartWidth to support different reading modes.',
+				},
+			],
+		},
 		...['css', 'xcss'].flatMap((style) => [
 			{
 				code: `

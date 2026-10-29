@@ -53,8 +53,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			preferPrimitivesText: `This element can be replaced with a "Text" primitive. See ${textDocsUrl} for additional guidance.`,
-			preferPrimitivesStackedText: `These paragraphs can be replaced with a "Text" and "Stack" primitives. See ${textDocsUrl} for additional guidance.`,
+			preferPrimitivesText: `Use named Text from @atlaskit/primitives/compiled/text with the appropriate size. Preserve paragraph semantics with as="p" where applicable; see ${textDocsUrl}.`,
+			preferPrimitivesStackedText: `Use compiled Text for each paragraph inside a compiled Stack, with space set to a matching space.* token. Preserve paragraph semantics with Text as="p" and choose spacing that retains the intended layout; see ${textDocsUrl}.`,
 		},
 	},
 	create(context) {

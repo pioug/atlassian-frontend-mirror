@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { getAutoConvertPatternsFromModule } from './getAutoConvertPatternsFromModule';
 import type {
 	ExtensionAutoConvertHandler,
@@ -48,7 +50,14 @@ export default class DefaultExtensionProvider<
 		await Promise.allSettled(preloadCalls);
 	}
 
+	/**
+	 * Synchronously returns an extension from the manifests loaded by `preload`. Returns undefined when
+	 * the extension is not preloaded, so callers can fall back to the asynchronous `getExtension`.
+	 */
 	getPreloadedExtension(type: ExtensionType, key: ExtensionKey): ExtensionManifest<T> | undefined {
+		if (fg('platform_editor_preloaded_extension_not_found')) {
+			return this.findExtensionInManifests(this.manifestsCache, type, key);
+		}
 		if (!this.manifestsCache) {
 			return;
 		}
@@ -59,12 +68,20 @@ export default class DefaultExtensionProvider<
 		return this.getExtensionFromManifest(await this.manifestsPromise, type, key);
 	}
 
+	private findExtensionInManifests(
+		manifests: ExtensionManifest<T>[],
+		type: ExtensionType,
+		key: ExtensionKey,
+	): ExtensionManifest<T> | undefined {
+		return manifests.find((manifest) => manifest.type === type && manifest.key === key);
+	}
+
 	private getExtensionFromManifest(
 		manifests: ExtensionManifest<T>[],
 		type: ExtensionType,
 		key: ExtensionKey,
 	) {
-		const extension = manifests.find((manifest) => manifest.type === type && manifest.key === key);
+		const extension = this.findExtensionInManifests(manifests, type, key);
 		if (!extension) {
 			throw new Error(`Extension with type "${type}" and key "${key}" not found!`);
 		}

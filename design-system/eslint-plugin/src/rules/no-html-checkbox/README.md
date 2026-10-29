@@ -22,7 +22,7 @@ This rule marks code as violations when it finds native HTML checkbox elements.
 ### Correct
 
 ```jsx
-import { Checkbox } from '@atlaskit/checkbox';
+import Checkbox from '@atlaskit/checkbox/checkbox';
 
 <Checkbox value="remember-me" label="Remember me" name="remember-me" />;
 ```

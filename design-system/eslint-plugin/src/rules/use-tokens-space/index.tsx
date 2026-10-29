@@ -16,7 +16,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			noRawSpacingValues:
-				'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.',
+				"Replace raw spacing with an appropriate space.* token from @atlaskit/tokens, for example token('space.100'), or use a compiled layout primitive's gap/padding API.",
 		},
 	},
 	create(context) {

@@ -29,16 +29,11 @@ This rule marks code as violations when it finds native HTML radio elements.
 ### Correct
 
 ```jsx
-import { ErrorMessage, Field } from '@atlaskit/form';
-import { RadioGroup } from '@atlaskit/radio';
-import { type OptionsPropType } from '@atlaskit/radio/types';
+import { Fieldset } from '@atlaskit/form/fieldset';
+import Radio from '@atlaskit/radio/radio';
 
-const options: OptionsPropType = [
-	{ name: 'contact', value: 'email', label: 'Email' },
-	{ name: 'contact', value: 'phone', label: 'Phone' },
-];
-
-<Field label="Preferred contact method" name="contact" defaultValue="email">
-	{({ fieldProps }) => <RadioGroup {...fieldProps} options={options} />}
-</Field>;
+<Fieldset legend="Preferred contact method">
+	<Radio name="contact" value="email" label="Email" defaultChecked />
+	<Radio name="contact" value="phone" label="Phone" />
+</Fieldset>;
 ```

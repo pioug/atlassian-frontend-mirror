@@ -1861,11 +1861,7 @@ export function removeSegment(labelStack: LabelStack): void {
 	const segmentInfo = segmentCache.get(key);
 
 	if (segmentInfo) {
-		if (fg('platform_ufo_fix_stale_segment_cache')) {
-			segmentCache.delete(key);
-		} else {
-			segmentCache.delete(JSON.stringify(labelStack));
-		}
+		segmentCache.delete(key);
 
 		const cacheKey = stringifyLabelStackFully(labelStack);
 		segmentUnmountCache.set(cacheKey, (segmentUnmountCache.get(cacheKey) || 0) + 1);

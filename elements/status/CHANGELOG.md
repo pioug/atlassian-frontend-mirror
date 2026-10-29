@@ -1,5 +1,13 @@
 # @atlaskit/status
 
+## 5.15.0
+
+### Minor Changes
+
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 5.14.3
 
 ### Patch Changes

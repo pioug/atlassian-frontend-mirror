@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-guideline
 
+## 30.0.1
+
+### Patch Changes
+
+- [`3f50cfd9e444d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f50cfd9e444d) -
+  Delete unreachable internal source files
+
 ## 30.0.0
 
 ### Patch Changes

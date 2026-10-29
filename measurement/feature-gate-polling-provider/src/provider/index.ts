@@ -1,4 +1,7 @@
-import Fetcher, { EXPERIMENT_VALUES_API_VERSION } from '@atlaskit/feature-gate-fetcher/Fetcher';
+import Fetcher, {
+	EVAL_FLAGS_API_VERSION,
+	EXPERIMENT_VALUES_API_VERSION,
+} from '@atlaskit/feature-gate-fetcher/Fetcher';
 import type {
 	FetcherOptions,
 	FrontendClientSdkKeyResponse,
@@ -23,6 +26,14 @@ import { cloneObject, createHash, getFrontendExperimentsResult } from './utils';
 export type { ProviderOptions } from './types';
 
 export const DATABASE_PURGE_TIMEOUT = 10000;
+
+/**
+ * Prefix of the profile hash, which keys the cached values and names the broadcast channel. Values
+ * fetched with `includeFfpFlags` come from another endpoint, so they get their own prefix and are
+ * never served without it, or the other way around.
+ */
+const getProfileHashPrefix = (includeFfpFlags: boolean | undefined): string =>
+	includeFfpFlags ? `evalFlags.${EVAL_FLAGS_API_VERSION}.statsig` : EXPERIMENT_VALUES_API_VERSION;
 
 export default class PollingProvider implements Provider {
 	private readonly providerOptions: ProviderOptions;
@@ -219,7 +230,7 @@ export default class PollingProvider implements Provider {
 		const hashedProfile = await createHash(JSON.stringify(rulesetProfile));
 
 		return {
-			profileHash: EXPERIMENT_VALUES_API_VERSION + '.' + hashedProfile,
+			profileHash: getProfileHashPrefix(this.providerOptions.includeFfpFlags) + '.' + hashedProfile,
 			rulesetProfile,
 		};
 	}
@@ -243,7 +254,7 @@ export default class PollingProvider implements Provider {
 		rulesetProfile: RulesetProfile,
 	): Promise<FrontendExperimentsResponse> {
 		const { identifiers, customAttributes, environment, targetApp, perimeter } = rulesetProfile;
-		const { apiKey, initialFetchTimeout, useGatewayURL } = this.providerOptions;
+		const { apiKey, initialFetchTimeout, useGatewayURL, includeFfpFlags } = this.providerOptions;
 
 		const fetcherOptions: FetcherOptions = {
 			environment,
@@ -252,6 +263,7 @@ export default class PollingProvider implements Provider {
 			apiKey,
 			fetchTimeoutMs: initialFetchTimeout,
 			useGatewayURL,
+			includeFfpFlags,
 		};
 
 		return await Fetcher.fetchExperimentValues(

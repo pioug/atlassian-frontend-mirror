@@ -1,5 +1,11 @@
 # @atlassian/navigation-system
 
+## 11.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.1
 
 ### Patch Changes

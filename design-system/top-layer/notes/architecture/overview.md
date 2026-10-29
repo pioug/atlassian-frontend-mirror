@@ -138,9 +138,11 @@ Arrow key navigation for composite widgets (menus, listboxes). Consumers wire th
 components — top-layer does not bake in menu keyboard behavior (see
 [decisions/menu-keyboard.md](../decisions/menu-keyboard.md)).
 
-### `useSimpleLightDismiss`
+### `useManualLightDismiss`
 
-Light dismiss handler for manual popovers that need click-outside and Escape key behavior.
+Light dismiss handler for manual popovers that need click-outside and Escape key behavior. It
+replaces `useSimpleLightDismiss`, which was removed. Its Escape rules are shared with `Dialog` and
+`useCloseOnUnclaimedEscape` (`src/internal/escape-ownership/`).
 
 ---
 
@@ -212,7 +214,7 @@ re-export shims. Use the per-export subpaths below.
 | `@atlaskit/top-layer/use-anchored-popover-at-point`                | Anchor positioning at a point                       |
 | `@atlaskit/top-layer/resolve-placement`                            | `TPlacementOptions` and `resolvePlacement`          |
 | `@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation`    | Arrow key navigation hook for composite widgets     |
-| `@atlaskit/top-layer/use-simple-light-dismiss`                     | Light dismiss for manual popovers                   |
+| `@atlaskit/top-layer/use-manual-light-dismiss`                     | Light dismiss for manual popovers                   |
 | `@atlaskit/top-layer/placement-map/index`                          | Legacy placement string conversion                  |
 | `@atlaskit/top-layer/dialog-scroll-lock`                           | Background scroll prevention for modals             |
 | `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`      | Whether an open layer exists                        |

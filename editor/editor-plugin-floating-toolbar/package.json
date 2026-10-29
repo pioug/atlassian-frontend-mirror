@@ -67,9 +67,6 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
-		"@testing-library/dom": "root:*",
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"

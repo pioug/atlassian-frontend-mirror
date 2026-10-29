@@ -132,7 +132,7 @@ const rule: Rule.RuleModule = createLintRule({
 			// noWidthQueries:
 			// 	'Media queries that target min-width or max-width are not allowed. Use the media object provided by the Atlassian Design System instead. https://staging.atlassian.design/components/primitives/responsive/breakpoints/examples',
 			noNestedStyles:
-				'Nested styles are not allowed as they can change unexpectedly when child markup changes and result in duplicates when extracting to CSS.',
+				'Apply local style declarations directly to each child element instead of selecting children through parent styles; use explicit props for conditional variants.',
 			noDirectNestedStyles: `Styles applied with data attributes are not allowed, split them into discrete CSS declarations and apply them conditionally with JavaScript.
 
 \`\`\`

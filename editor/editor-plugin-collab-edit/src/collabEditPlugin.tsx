@@ -199,9 +199,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				// Analytics steps are filtered first so they cannot break up an otherwise adjacent
 				// run of streaming frames.
 				const filtered = filterAnalyticsSteps(steps);
-				const transformed = fg('platform_editor_ai_collapse_streaming_steps')
-					? collapseStreamingSteps(filtered)
-					: filtered;
+				const transformed = collapseStreamingSteps(filtered);
 
 				return mergeUnconfirmedSteps(transformed, api);
 			};
@@ -279,13 +277,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			// `props.transactions` is what `applyTransaction` produced: the dispatched transaction
 			// followed by everything `appendTransaction` added. Streaming frames are built in an
 			// appendTransaction, so their hold metadata is never on `originalTransaction`.
-			// Evaluated once and used for both the observation and the send decision. If the gate
-			// is turned off mid-stream, an already-active hold must stop applying immediately
-			// rather than persisting until the backstop expires and blocking every send.
-			const collapseStreamingStepsEnabled = fg('platform_editor_ai_collapse_streaming_steps');
-			if (collapseStreamingStepsEnabled) {
-				props.transactions.forEach((transaction) => sendHold.observe(transaction));
-			}
+			props.transactions.forEach((transaction) => sendHold.observe(transaction));
 
 			const addErrorAnalytics = addSynchronyErrorAnalytics(
 				props.newEditorState,
@@ -306,7 +298,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					useNativePlugin: options.useNativePlugin ?? false,
 					hideTelecursorOnLoad: !isEmptyDoc && (options.hideTelecursorOnLoad ?? false),
 					viewMode,
-					isSendHeld: collapseStreamingStepsEnabled && sendHold.isHeld(),
+					isSendHeld: sendHold.isHeld(),
 				}),
 				addErrorAnalytics,
 			);

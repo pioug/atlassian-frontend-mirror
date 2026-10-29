@@ -4,6 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import type {
 	RegisteredMenuItemProps,
 	RegisteredMenuModel,
+	RegisteredMenuSelectionSource,
 } from '@atlaskit/editor-common/registered-menu';
 import { RegisteredMenuList } from '@atlaskit/editor-common/registered-menu/list';
 import type {
@@ -46,6 +47,7 @@ type Props = {
 	query?: string;
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
 	selectedItemIndex: number;
+	selectionSource?: RegisteredMenuSelectionSource;
 };
 
 export const TypeAheadQuickInsertMenu = ({
@@ -65,6 +67,7 @@ export const TypeAheadQuickInsertMenu = ({
 	onRenderedItemsChange,
 	query = '',
 	selectedItemIndex,
+	selectionSource,
 	hasScrollPadding = false,
 }: Props): React.JSX.Element | null => {
 	const footerItemIndex = itemCount - 1;
@@ -105,6 +108,7 @@ export const TypeAheadQuickInsertMenu = ({
 					getItemId={getItemId}
 					activeItemKey={activeItemKey}
 					selectedItemIndex={selectedItemIndex}
+					selectionSource={selectionSource}
 					scrollResetKey={query}
 					hasScrollPadding={hasScrollPadding}
 					scrollTo="top-on-reset"

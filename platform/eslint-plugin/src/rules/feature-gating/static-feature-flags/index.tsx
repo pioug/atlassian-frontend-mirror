@@ -45,13 +45,13 @@ const rule: Rule.RuleModule = {
 	meta: {
 		type: 'problem',
 		docs: {
-			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/static-feature-flags/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/feature-gating/static-feature-flags/README.md',
 			description: 'Ensure feature flags or gates are static string literals',
 		},
 		fixable: 'code',
 		messages: {
 			FFLiteral:
-				'Use static string literal for `featureFlagName`. See https://team.atlassian.com/project/ATLAS-46997/about',
+				'Replace featureFlagName with its static string literal at this call site so flag cleanup tooling can identify it. Keep the same flag name; see platform/packages/platform/eslint-plugin/src/rules/feature-gating/static-feature-flags/README.md.',
 		},
 	},
 	create(context) {

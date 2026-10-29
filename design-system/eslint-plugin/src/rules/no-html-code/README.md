@@ -17,7 +17,7 @@ This rule marks code as violations when it finds native HTML code elements.
 ### Correct
 
 ```jsx
-import { Code } from '@atlaskit/code';
+import Code from '@atlaskit/code/code';
 
 <Code>yarn changeset</Code>;
 ```

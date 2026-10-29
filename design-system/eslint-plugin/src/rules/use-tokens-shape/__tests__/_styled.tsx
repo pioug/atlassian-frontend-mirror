@@ -3,7 +3,7 @@ import outdent from 'outdent';
 import type { Tests } from '../../__tests__/utils/_types';
 
 const error =
-	'The use of shape tokens is preferred over the direct application of border radius and border width properties.';
+	'Replace raw radius/border-width values with token() from @atlaskit/tokens, choosing radius.* or the border.width family for the intended shape.';
 
 const valid = [
 	outdent`

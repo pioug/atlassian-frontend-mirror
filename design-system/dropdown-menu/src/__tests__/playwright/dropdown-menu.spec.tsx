@@ -173,10 +173,12 @@ test.describe('Nested keyboard navigation', () => {
 
 		// Should close a nested dropdown level 2 and focus on the nested dropdown level 1 first element
 		await page.getByTestId(getTriggerTestId(3)).press('Shift+Tab');
+		await expect(page.getByTestId(getContentTestId(2))).toBeHidden();
 		await expect(page.getByTestId(getTriggerTestId(2))).toBeFocused();
 
 		// Should close a nested dropdown level 1 and focus on the nested dropdown level 0 first element
 		await page.getByTestId(getTriggerTestId(2)).press('Shift+Tab');
+		await expect(page.getByTestId(getContentTestId(1))).toBeHidden();
 		await expect(page.getByTestId(getTriggerTestId(1))).toBeFocused();
 
 		// Should close a nested dropdown and focus on trigger
@@ -426,7 +428,7 @@ test.describe('Returns focus to trigger', () => {
 			const menu = page.getByTestId('dropdown--content');
 			await expect(menu).toBeVisible();
 
-			page.click('body');
+			await page.click('body');
 			await expect(menu).toBeHidden();
 			await expect(trigger).toBeFocused();
 		});

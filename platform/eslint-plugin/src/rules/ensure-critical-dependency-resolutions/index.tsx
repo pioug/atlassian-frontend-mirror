@@ -124,9 +124,8 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			invalidPackageResolution: `Make sure the resolutions for the following packages match major and minor version ranges ${JSON.stringify(
-				DESIRED_PKG_VERSIONS,
-			)}`,
+			invalidPackageResolution:
+				'Set this package.json resolutions["{{packageName}}"] to an exact or ~ version within: {{allowedVersions}}. Keep protected versions aligned with AFM root policy, then regenerate the affected product lockfile through afm install.',
 		},
 	},
 	create(context) {
@@ -161,6 +160,7 @@ const rule: Rule.RuleModule = {
 							return context.report({
 								node,
 								messageId: 'invalidPackageResolution',
+								data: { packageName: key, allowedVersions: values.join(', ') },
 							});
 						}
 					}

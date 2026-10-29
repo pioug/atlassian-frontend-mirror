@@ -240,6 +240,125 @@ const appearanceStyles = cssMap({
 	},
 });
 
+const atomicBaseStyles = css({
+	display: 'block',
+	boxSizing: 'border-box',
+	width: '100%',
+	minWidth: '0px',
+	maxWidth: '100%',
+	margin: 0,
+	position: 'relative',
+	flex: '1 1 100%',
+
+	borderRadius: token('radius.medium'),
+	borderWidth: token('border.width'),
+	boxShadow: 'none',
+	color: token('color.text'),
+	font: token('font.body'),
+	outline: 'none',
+	overflow: 'auto',
+	wordWrap: 'break-word',
+	'&:disabled': {
+		color: token('color.text.disabled'),
+		cursor: 'not-allowed',
+		// Safari puts on some difficult to remove styles, mainly for disabled inputs
+		// but we want full control so need to override them in all cases
+		WebkitOpacity: '1',
+		WebkitTextFillColor: 'unset',
+	},
+
+	// placeholder styles
+	'&::placeholder': {
+		color: token('color.text.subtlest'),
+	},
+	'&:disabled::placeholder': {
+		color: token('color.text.disabled'),
+	},
+});
+
+const atomicAppearanceStyles = cssMap({
+	standard: {
+		borderStyle: 'solid',
+		backgroundColor: token('color.background.input'),
+		borderColor: token('color.border.input'),
+		'&:focus': {
+			backgroundColor: token('color.background.input.pressed'),
+			borderColor: token('color.border.focused'),
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
+		},
+		// Only standard appearance gets disabled background and border colors.
+		'&:disabled': {
+			backgroundColor: token('color.background.disabled'),
+			borderColor: token('color.border.disabled'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:hover:not(:read-only):not(:focus)': {
+			backgroundColor: token('color.background.input.hovered'),
+			borderColor: token('color.border.input'),
+		},
+	},
+	subtle: {
+		borderStyle: 'solid',
+		backgroundColor: 'transparent',
+		borderColor: 'transparent',
+		'&:focus': {
+			backgroundColor: token('color.background.input.pressed'),
+			borderColor: token('color.border.focused'),
+			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:hover:not(:read-only):not(:focus)': {
+			backgroundColor: token('color.background.input.hovered'),
+			borderColor: token('color.border.input'),
+		},
+	},
+	none: {
+		borderStyle: 'none',
+		backgroundColor: 'transparent',
+		borderColor: 'transparent',
+		'&:focus': {
+			backgroundColor: 'transparent',
+			borderColor: 'transparent',
+			boxShadow: `inset 0 0 0 ${token('border.width')} transparent`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:hover:not(:read-only):not(:focus)': {
+			backgroundColor: 'transparent',
+			borderColor: 'transparent',
+		},
+	},
+});
+
+const atomicInlinePaddingStyles = cssMap({
+	bordered: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- Preserve padding inside the existing 1px border.
+		paddingInlineStart: '7px',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- Preserve padding inside the existing 1px border.
+		paddingInlineEnd: '7px',
+	},
+	borderless: {
+		paddingInlineStart: token('space.075'),
+		paddingInlineEnd: token('space.075'),
+	},
+});
+
+const atomicInvalidStyles = css({
+	backgroundColor: token('color.background.input'),
+	borderColor: token('color.border.danger'),
+	boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
+	'&:focus': {
+		backgroundColor: token('color.background.input.pressed'),
+		borderColor: token('color.border.focused'),
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Only interactive, unfocused inputs respond to hover.
+	'&:hover:not(:read-only):not(:focus)': {
+		backgroundColor: token('color.background.input.hovered'),
+		borderColor: token('color.border.danger'),
+		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
+	},
+});
+
 // iOS Safari automatically zooms into form inputs on focus when the font size is less than 16px.
 // To prevent this zoom behaviour on touch devices with small viewports, the textarea uses font.body (default),
 // and font.body.large (16px) for touch devices (pointer: coarse) with screens narrower than 30rem.
@@ -260,6 +379,18 @@ const fontStyles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			fontFamily: `${token('font.family.code')} !important`,
 		},
+	},
+});
+
+// Density padding is selected directly from React props.
+const atomicDensityStyles = cssMap({
+	compact: {
+		paddingBlockStart: token('space.025'),
+		paddingBlockEnd: token('space.025'),
+	},
+	default: {
+		paddingBlockStart: token('space.075'),
+		paddingBlockEnd: token('space.075'),
 	},
 });
 
@@ -364,8 +495,8 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 	);
 
 	const controlProps = {
-		'data-invalid': isInvalid ? isInvalid : undefined,
-		'data-compact': isCompact ? isCompact : undefined,
+		'data-invalid': fg('platform-textarea-atomic-styles') ? undefined : isInvalid || undefined,
+		'data-compact': fg('platform-textarea-atomic-styles') ? undefined : isCompact || undefined,
 		'data-testid': testId ? testId : undefined,
 	};
 
@@ -395,17 +526,33 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 			onFocus={onFocusWithAnalytics}
 			rows={minimumRows}
 			css={[
-				baseStyles,
+				fg('platform-textarea-atomic-styles') ? atomicBaseStyles : baseStyles,
 				!isInputMotionEnabled && inputMotionStyles.legacy,
 				isInputMotionEnabled && isInteractive && inputMotionStyles.base,
 				fg('platform-dst-tokens-finesse') && finessePlaceholderStyles,
-				appearanceStyles[appearance],
+				fg('platform-textarea-atomic-styles')
+					? atomicAppearanceStyles[appearance]
+					: appearanceStyles[appearance],
+				fg('platform-textarea-atomic-styles') &&
+					atomicInlinePaddingStyles[appearance === 'none' ? 'borderless' : 'bordered'],
+				fg('platform-textarea-atomic-styles') && isInvalid && atomicInvalidStyles,
 				fontStyles[isMonospaced ? 'monospace' : 'default'],
+				fg('platform-textarea-atomic-styles') &&
+					atomicDensityStyles[isCompact ? 'compact' : 'default'],
 				resizeStyles[resize],
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				compactMinHeightStyles,
+				!fg('platform-textarea-atomic-styles') && compactMinHeightStyles,
 			]}
 			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography -- Runtime density must override the mobile font shorthand, which sorts after atomic longhands.
+				...(fg('platform-textarea-atomic-styles') &&
+					!style?.font && {
+						lineHeight: isCompact ? lineHeightCompact / 14 : lineHeightBase / 14,
+					}),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Minimum row height is calculated from runtime props.
+				...(fg('platform-textarea-atomic-styles') && {
+					minHeight: `${(isCompact ? lineHeightCompact : lineHeightBase) * minimumRows + (isCompact ? compactVerticalPadding : verticalPadding) * 2 + borderHeight * 2}px`,
+				}),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				...style,
 				maxHeight,

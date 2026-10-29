@@ -13,7 +13,6 @@ import { injectIntl } from 'react-intl';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -26,9 +25,7 @@ type Props = {
 };
 
 const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
-	const copyCodeToClipboardMessage = isExperimentEnabled('platform_editor_a11y_codeblock_copy_name')
-		? codeBlockButtonMessages.copyCodeSnippetToClipboard
-		: codeBlockButtonMessages.copyCodeToClipboard;
+	const copyCodeToClipboardMessage = codeBlockButtonMessages.copyCodeSnippetToClipboard;
 	const [tooltip, setTooltip] = useState<string>(intl.formatMessage(copyCodeToClipboardMessage));
 	const [className, setClassName] = useState<string>('copy-to-clipboard');
 	const onMouseLeave = () => {

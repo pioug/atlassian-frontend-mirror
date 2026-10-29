@@ -24,6 +24,9 @@
 	"references": [
 		{
 			"path": "../../../uip/atlassian-context/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../flag-client/afm-products/tsconfig.json"
 		}
 	]
 }

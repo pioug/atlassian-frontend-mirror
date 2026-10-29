@@ -135,39 +135,43 @@ const rule: Rule.RuleModule = createLintRuleWithTypedConfig({
 			 * Selector messages
 			 */
 			'no-ambiguous-pseudos':
-				'Pseudo-classes and pseudo-elements without a leading selector are ambiguous. Use a more explicit selector.',
+				'Prefix the pseudo-selector with & when it targets this element (for example &:hover); apply descendant styles directly to the child instead.',
 
-			'no-increased-specificity': 'Do not chain the nesting selector.',
+			'no-increased-specificity':
+				'Replace chained nesting selectors such as && with one & selector, then resolve competing styles through local composition.',
 
-			'no-restricted-pseudos': 'The {{pseudo}} pseudo is not allowed.',
+			'no-restricted-pseudos':
+				'The {{pseudo}} pseudo-selector is unsupported. Use an allowed local pseudo such as &:hover, or pass explicit state as a prop and select a local cssMap variant.',
 
 			'no-legacy-pseudo-element-syntax':
-				'Use a double colon for pseudo-elements. The single colon syntax is not supported for all pseudo-elements.',
+				'Use a double colon for pseudo-elements, for example &::before or &::after, instead of the legacy single-colon syntax.',
 
 			'no-unparsable-selectors':
-				"The selector '{{selectorText}}' could not be parsed and is likely an authoring mistake. If you think this is an error reach out in #help-ui-styling-standard.",
+				"The selector '{{selectorText}}' could not be parsed. Correct its CSS syntax; if it is valid, report the selector and reproduction to #help-ui-styling-standard.",
 
 			'no-selectors-object':
-				'Do not use the selectors object. Both nested and advanced selectors should be avoided.',
+				'Move selectors out of the selectors object into supported local style keys; apply child styles directly to each child element.',
 
 			/**
 			 * At-rule messages
 			 */
 			'no-keyframes-at-rules':
-				'Use the CSS-in-JS `keyframes` API instead of `@keyframes` at-rules.',
+				'Replace the @keyframes at-rule with keyframes() from @compiled/react and reference its result through animationName.',
 
-			'no-restricted-at-rules': '{{atRule}} at-rule is not allowed.',
+			'no-restricted-at-rules':
+				'{{atRule}} is unsupported. Use a supported @media, @supports or @property rule; for runtime conditions select a local style variant in JavaScript.',
 
-			'no-grouped-at-rules': 'Do not group at-rules. Write flattened at-rules instead.',
+			'no-grouped-at-rules':
+				'Flatten grouped at-rules into complete keys, for example "@media (min-width: 48rem)" instead of an "@media" object containing conditions.',
 
 			'no-noncanonical-media-query':
-				'Use the exact media query represented by the imported @atlaskit/css/at-rules type.',
+				'Match the literal query to its imported @atlaskit/css/at-rules type, including the exact breakpoint, units and comparison operator.',
 
 			/**
 			 * Suggestion messages
 			 */
 			'insert-nesting-selector':
-				'Insert a nesting selector `&` to target the element itself. This is usually the intended behavior.',
+				'Insert & before this pseudo-selector to target the element itself, for example &:hover.',
 		},
 
 		schema: {

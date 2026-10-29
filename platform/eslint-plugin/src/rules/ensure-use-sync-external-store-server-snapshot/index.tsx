@@ -11,13 +11,8 @@ const rule: Rule.RuleModule = {
 			recommended: true,
 		},
 		messages: {
-			missingServerSnapshot: `'${FUNCTION_NAME}' must be called with a third argument (getServerSnapshot). Without it, React will throw during server-side rendering.
-
-If your component relies on browser-only APIs (e.g. localStorage, WebRTC, WebGL) and must not render on the server, pass \`() => null\` (or another stable fallback) as the third argument — this is the correct way to opt out of SSR, not an omission.
-
-Prefer higher-level APIs that wrap ${FUNCTION_NAME} where available, as they handle SSR concerns for you.
-
-See the React docs for usage guidance: https://react.dev/reference/react/useSyncExternalStore`,
+			missingServerSnapshot:
+				"Pass getServerSnapshot as useSyncExternalStore's third argument. It must return the same initial snapshot during SSR and client hydration; a stable fallback is valid only if the component handles it and its type matches the snapshot. Returning null does not opt the component out of SSR. See https://react.dev/reference/react/useSyncExternalStore.",
 		},
 	},
 	create(context) {

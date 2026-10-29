@@ -45,11 +45,11 @@ const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
 			description: 'Disallow getWillShowNav4 or isVisualRefreshEnabled usage at module level',
-			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/no-module-level-eval-nav4/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/feature-gating/no-module-level-eval-nav4/README.md',
 		},
 		messages: {
 			noModuleLevelEval:
-				'Do not evaluate getWillShowNav4 or isVisualRefreshEnabled at module level. This causes complications with SSR. If feature flagging components in `jira` use `componentWithCondition` from `@atlassian/jira-feature-flagging-utils`.',
+				'Move this navigation flag evaluation into the function or component that consumes it, rather than computing it during module import. For Jira component selection, follow the componentWithCondition example in platform/packages/platform/eslint-plugin/src/rules/feature-gating/no-module-level-eval-nav4/README.md.',
 		},
 	},
 	create(context) {

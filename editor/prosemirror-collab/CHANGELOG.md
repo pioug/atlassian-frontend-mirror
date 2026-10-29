@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-collab
 
+## 1.1.83
+
+### Patch Changes
+
+- [`fc6a743d65633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc6a743d65633) -
+  Remove unused @atlaskit/platform-feature-flags and @atlaskit/tmp-editor-statsig dependencies
+
 ## 1.1.82
 
 ### Patch Changes

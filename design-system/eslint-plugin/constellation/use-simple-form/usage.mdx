@@ -1,74 +1,36 @@
 # use-simple-form
 
-Simple form implementations should be used when extended features or complex implementations are not
-necessary.
+Use Form's plain JSX children when the render function only spreads `formProps` onto an HTML form.
+Apply the **Convert form to simple form** editor suggestion when offered; ESLint's `--fix` does not
+apply suggestions.
 
-## Examples
+The suggestion preserves string, expression and boolean HTML attributes. It is withheld for custom
+spreads, references to the removed `formProps` binding, conflicting outer props, and native
+handlers, refs or styling/naming props whose meaning differs on Form. The diagnostic still requires
+review: move safe attributes to Form's supported props or `formProps` object and preserve custom
+behavior before removing the render function. Consult
+`platform/packages/design-system/form/src/form.tsx` for the current API.
 
-This rule marks code as a violation when it finds Design System form components that don’t use
-render props or only use the `formProps` render prop.
-
-### Incorrect
+## Incorrect
 
 ```jsx
-import { Field, Form } from '@atlaskit/form';
+import Form from '@atlaskit/form';
 
-<Form
-	onSubmit={() => {
-		/* ... */
-	}}
->
+<Form onSubmit={submit}>
 	{({ formProps }) => (
-		<form {...formProps}>
-			<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
+		<form {...formProps} name="profile" data-owner={owner}>
+			<p>Profile settings</p>
 		</form>
-		)}
+	)}
 </Form>;
 ```
 
-```jsx
-import { Field, Form } from '@atlaskit/form';
-
-<Form
-	onSubmit={() => {
-		/* ... */
-	}}
->
-	{({ formProps }) => (
-		<form {...formProps} name="form" data-testid="testId" data-foo="bar">
-			<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
-		</form>
-		)}
-</Form>;
-```
-
-### Correct
+## Correct
 
 ```jsx
-import { Field, Form } from '@atlaskit/form';
+import Form from '@atlaskit/form';
 
-<Form
-	onSubmit={() => {
-		/* ... */
-	}}
->
-	<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
-</Form>;
-```
-
-```jsx
-import { Field, Form } from '@atlaskit/form';
-
-<Form
-	onSubmit={() => {
-		/* ... */
-	}}
-	name="form"
-	testId="testId"
-	formProps={{
-		'data-foo': "bar"
-	}}
->
-	<Field name="username" component={({fieldProps}) => <input {...fieldProps} />}>
+<Form onSubmit={submit} name="profile" formProps={{ 'data-owner': owner }}>
+	<p>Profile settings</p>
 </Form>;
 ```

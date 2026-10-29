@@ -16,7 +16,8 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			unexpectedTaggedTemplate: 'Unexpected `css` tagged template expression',
+			unexpectedTaggedTemplate:
+				'Replace the css template literal with an object-form css() or cssMap() declaration; migrate properties and interpolations to static local styles or runtime style values.',
 		},
 		schema: noTaggedTemplateExpressionRuleSchema,
 	},

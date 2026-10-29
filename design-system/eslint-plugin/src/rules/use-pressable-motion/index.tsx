@@ -184,11 +184,13 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			missingPressableMotion:
-				'An interactive element changes colour properties without the matching semantic motion token.',
+				'Add semantic transition tokens from @atlaskit/tokens: motion.button.hovered and motion.button.pressed for buttons, or motion.listitem.hovered and motion.listitem.pressed for list items. Select the family matching the surface.',
 			missingPressableMotionManual:
-				'An interactive element changes colour properties without the matching semantic motion token. Update the existing transition manually.',
-			useButtonMotion: 'Add button motion tokens for hover and pressed states.',
-			useListItemMotion: 'Add list-item motion tokens for hover and pressed states.',
+				'Update the existing transition manually with the matching motion.button.* or motion.listitem.* hovered/pressed tokens from @atlaskit/tokens, preserving its other transitions; choose the family for this surface. No autofix is available.',
+			useButtonMotion:
+				"Add token('motion.button.hovered') to the base transition and token('motion.button.pressed') to the active transition.",
+			useListItemMotion:
+				"Add token('motion.listitem.hovered') to the base transition and token('motion.listitem.pressed') to the active transition.",
 		},
 	},
 

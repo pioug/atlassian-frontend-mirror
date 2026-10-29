@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
 
+import { getScope } from '../util/context-compat';
 import { skipForExampleFiles, skipForTestFiles } from '../util/file-exclusions';
 
 const rule: Rule.RuleModule = {
@@ -12,12 +13,11 @@ const rule: Rule.RuleModule = {
 		},
 		messages: {
 			useGetDocument:
-				'Use getDocument from @atlaskit/browser-apis instead of direct document usage',
+				'Import getDocument from @atlaskit/browser-apis and replace direct document access with getDocument(); handle its possibly null result in environments without a DOM.',
 		},
 		schema: [],
 	},
 	create(context) {
-		let hasGetDocumentImport = false;
 		const filename = context.filename;
 
 		// Skip test files
@@ -38,21 +38,21 @@ const rule: Rule.RuleModule = {
 		}
 
 		return {
-			ImportDeclaration(node) {
-				if (
-					node.source.value === '@atlaskit/browser-apis' &&
-					node.specifiers.some(
-						(specifier) =>
-							specifier.type === 'ImportSpecifier' &&
-							specifier.imported.type === 'Identifier' &&
-							specifier.imported.name === 'getDocument',
-					)
-				) {
-					hasGetDocumentImport = true;
-				}
-			},
 			Identifier(node) {
-				if (node.name === 'document' && !hasGetDocumentImport) {
+				if (node.name === 'document') {
+					// Only the global DOM binding is restricted; caller-supplied document models are valid.
+					let scope = getScope(context, node);
+					while (scope) {
+						const binding = scope.set.get('document');
+						if (binding?.defs.length) {
+							return;
+						}
+						if (!scope.upper) {
+							break;
+						}
+						scope = scope.upper;
+					}
+
 					const parent = node.parent;
 
 					// Skip if 'document' is used as a property key in an object literal

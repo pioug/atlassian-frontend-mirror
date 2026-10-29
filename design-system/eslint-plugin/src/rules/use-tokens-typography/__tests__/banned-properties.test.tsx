@@ -28,8 +28,8 @@ export const typographyTests: Tests = {
 					letterSpacing: 0.002
 				})`,
 			errors: [
-				'Do not use `lineHeight`. Typography tokens automatically specify `lineHeight` alongside font size and font weight.',
-				'Do not use `letterSpacing`. Typography tokens automatically specify `letterSpacing` alongside font size and font weight.',
+				'Remove the separate lineHeight override. Select the intended typography through Text/Heading or a complete font.body or font.heading.* token so its metrics stay consistent.',
+				'Remove the separate letterSpacing override. Select the intended typography through Text/Heading or a complete font.body or font.heading.* token so its metrics stay consistent.',
 			],
 		},
 	],

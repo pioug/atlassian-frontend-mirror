@@ -21,8 +21,14 @@ This rule marks code as violations when it finds native HTML range elements.
 ### Correct
 
 ```jsx
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 
-<label for="volume">Volume</label>
-<Range id="volume" step={1} min={0} max={10} />
+export default function Example() {
+	return (
+		<>
+			<label htmlFor="volume">Volume</label>
+			<Range id="volume" step={1} min={0} max={10} />
+		</>
+	);
+}
 ```

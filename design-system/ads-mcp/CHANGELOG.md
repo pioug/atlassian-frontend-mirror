@@ -1,5 +1,28 @@
 # @atlaskit/ads-mcp
 
+## 1.11.10
+
+### Patch Changes
+
+- [`625e2996f6095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/625e2996f6095) -
+  Preserve nullable component prop types in generated catalogs.
+
+## 1.11.9
+
+### Patch Changes
+
+- [`125cfa0d955ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/125cfa0d955ab) -
+  Use shared authored radius guidance across ADS skill, MCP and Platform CLI, and align border
+  lookup instructions with the ADS retrieval order.
+
+## 1.11.8
+
+### Patch Changes
+
+- [`317d9ef9c4e11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/317d9ef9c4e11) -
+  Use authored border guidance for ADS foundation queries, including width and color pairings,
+  component-owned focus treatments, and verification guidance.
+
 ## 1.11.7
 
 ### Patch Changes

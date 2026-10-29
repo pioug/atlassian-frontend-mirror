@@ -18,7 +18,8 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			invalidPrivateDependency: `Published package has private dependency '{{ pkgName }}'. To resolve this error, remove the private dependency or set this package to private.`,
+			invalidPrivateDependency:
+				'Published package depends on private package {{ pkgName }}, which consumers cannot install. Replace the dependency with a publishable API or resolve its publication with the owner; make this package private only if it is intended to stop being published.',
 		},
 	},
 	create(context) {

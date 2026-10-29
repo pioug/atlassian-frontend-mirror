@@ -27,7 +27,6 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -277,9 +276,7 @@ export const getToolbarConfig = (
 						title: formatMessage(
 							codeBlockState.contentCopied
 								? codeBlockButtonMessages.copiedCodeToClipboard
-								: isExperimentEnabled('platform_editor_a11y_codeblock_copy_name')
-									? codeBlockButtonMessages.copyCodeSnippetToClipboard
-									: codeBlockButtonMessages.copyCodeToClipboard,
+								: codeBlockButtonMessages.copyCodeSnippetToClipboard,
 						),
 						onMouseEnter: provideVisualFeedbackForCopyButton,
 						// note: resetCopiedState contains logic that also removes the
@@ -311,11 +308,7 @@ export const getToolbarConfig = (
 
 			if (allowCopyToClipboard) {
 				overflowMenuOptions.unshift({
-					title: formatMessage(
-						isExperimentEnabled('platform_editor_a11y_codeblock_copy_name')
-							? codeBlockButtonMessages.copyCodeSnippetToClipboard
-							: commonMessages.copyToClipboard,
-					),
+					title: formatMessage(codeBlockButtonMessages.copyCodeSnippetToClipboard),
 					onClick: copyContentToClipboardWithAnalytics(editorAnalyticsAPI),
 					icon: CopyIcon({ label: '' }),
 					onMouseEnter: provideVisualFeedbackForCopyButton,

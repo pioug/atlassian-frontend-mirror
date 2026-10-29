@@ -10,7 +10,8 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			atlassianTeamRequired: 'The atlassian.team property is required',
+			atlassianTeamRequired:
+				'Add atlassian.team to this package.json using the responsible team name from platform/teams.json; check neighboring owned packages if you need to identify the team.',
 		},
 	},
 	create(context) {

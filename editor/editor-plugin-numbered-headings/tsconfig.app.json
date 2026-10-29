@@ -43,6 +43,9 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -71,6 +74,9 @@
 		},
 		{
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/toggle/tsconfig.app.json"

@@ -1,5 +1,23 @@
 # @atlaskit/eslint-plugin-platform
 
+## 5.0.3
+
+### Patch Changes
+
+- [`c332e81b035ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c332e81b035ab) -
+  Give package, import and feature-gate diagnostics concrete recovery instructions. Identify the
+  critical dependency that needs a resolution, preserve compact manifests when fixing duplicate
+  dependencies, avoid crashes on incomplete feature-flag test calls, and distinguish global DOM
+  access from caller-supplied document values.
+
+## 5.0.2
+
+### Patch Changes
+
+- [`324dda9c5be4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/324dda9c5be4d) -
+  Clarify that CommonJS UUID imports require manual migration instead of promising an unavailable
+  autofix.
+
 ## 5.0.1
 
 ### Patch Changes

@@ -8,7 +8,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { token } from '@atlaskit/tokens';
 
 export const ACTIVE_DRAG_HANDLE_ATTR = 'data-active-drag-handle';
 export const ACTIVE_QUICK_INSERT_ATTR = 'data-active-quick-insert';
@@ -200,47 +199,6 @@ export const topPositionAdjustment = (nodeType: string, layout?: string): number
 			return 0;
 	}
 };
-
-export const dropTargetMarginMap: { [key: number]: string } = {
-	[-24]: token('space.negative.300'),
-	[-20]: token('space.negative.250'),
-	[-16]: token('space.negative.200'),
-	[-12]: token('space.negative.150'),
-	[-8]: token('space.negative.100'),
-	[-6]: token('space.negative.075'),
-	[-4]: token('space.negative.050'),
-	[-2]: token('space.negative.025'),
-	0: token('space.0'),
-	2: token('space.025'),
-	4: token('space.050'),
-	6: token('space.075'),
-	8: token('space.100'),
-	12: token('space.150'),
-	16: token('space.200'),
-	20: token('space.250'),
-	24: token('space.300'),
-};
-
-/**
- * This document serves as a quick reference map for correlating various space matches
- * to the table provided above.
- * For instance, the number 1 will correspond to \{0: token('space.0', '0')\}.
- */
-export const spaceLookupMap: {
-	[k: string]: string;
-} = Object.fromEntries(
-	// 49 = -24 -> 0 -> 24 totaling 49 entries.
-	Array.from({ length: 49 }, (_, index) => {
-		const currKeyValue = index - 24;
-		const keyValues: number[] = Object.keys(dropTargetMarginMap).map(Number);
-
-		const value = keyValues.reduce((acc, curr) => {
-			return Math.abs(currKeyValue - curr) < Math.abs(currKeyValue - acc) ? curr : acc;
-		}, 1000);
-
-		return [currKeyValue, dropTargetMarginMap[value]];
-	}),
-);
 
 export const spacingBetweenNodesForPreview: { [key: string]: { bottom: string; top: string } } = {
 	paragraph: { top: '0.75rem', bottom: '0' },

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-numbered-headings
 
+## 3.0.1
+
+### Patch Changes
+
+- [`5bed7e76ae587`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bed7e76ae587) -
+  [ux] EDITOR-9766: Vertically centre the numbered headings toggle in the text styles menu.
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- Updated dependencies
+
 ## 3.0.0
 
 ### Patch Changes

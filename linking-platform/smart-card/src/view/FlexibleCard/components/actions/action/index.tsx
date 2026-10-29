@@ -73,6 +73,7 @@ const Action = ({
 	if (isDropdownItem) {
 		return (
 			<ActionDropdownItem
+				ariaLabel={ariaLabel}
 				content={content}
 				iconAfter={iconAfter}
 				iconBefore={iconBefore}

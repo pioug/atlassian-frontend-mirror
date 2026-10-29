@@ -32,7 +32,7 @@
 		"116-testing-manual-coexistence.tsx",
 		"117-testing-popover-scroll.tsx",
 		"118-testing-popover-rapid-toggle.tsx",
-		"119-testing-simple-light-dismiss.tsx",
+		"119-testing-manual-light-dismiss.tsx",
 		"120-testing-manual-popover-a11y.tsx",
 		"121-testing-popover-dialog-focus-trap.tsx",
 		"122-testing-popup-focus-restore.tsx",

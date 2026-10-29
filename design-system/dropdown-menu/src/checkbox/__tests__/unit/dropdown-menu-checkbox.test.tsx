@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import DropdownMenu from '../../../dropdown-menu';
 import DropdownItemCheckbox from '../../dropdown-item-checkbox';
@@ -160,7 +160,8 @@ describe('DropdownMenu with checkbox as item', () => {
 			// close the dropdown menu
 			fireEvent.click(trigger);
 
-			expect(screen.queryByText('Sydney')).not.toBeInTheDocument();
+			// The top-layer menu stays mounted until its exit animation ends.
+			await waitFor(() => expect(screen.queryByText('Sydney')).not.toBeInTheDocument());
 			expect(screen.queryByText('Melbourne')).not.toBeInTheDocument();
 
 			// click to reopen the dropdown menu

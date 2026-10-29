@@ -24,11 +24,16 @@ This rule marks code as violations when it finds native HTML text input elements
 ### Correct
 
 ```jsx
-import Textfield from '@atlaskit/range';
+import Textfield from '@atlaskit/textfield/text-field';
 
-<label for="full-name">Full Name</label>
-<Textfield name="full-name" id="full-name" />
-
-<label for="nickname">Nickname</label>
-<Textfield name="nickname" id="nickname" />
+export default function Example() {
+	return (
+		<>
+			<label htmlFor="full-name">Full Name</label>
+			<Textfield name="full-name" id="full-name" />
+			<label htmlFor="nickname">Nickname</label>
+			<Textfield name="nickname" id="nickname" />
+		</>
+	);
+}
 ```

@@ -75,3 +75,6 @@ customFields:
   - name: Required Reviewer Approvals
     type: number
     value: 1
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:identity::team/72f106a3-12dc-4883-ae1d-85623ffee537 # Rovo Growth - Smartlinks - Trusted Reviewers

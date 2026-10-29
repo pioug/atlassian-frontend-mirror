@@ -15,7 +15,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			useMessageWrapper: `All ADS form messaging components within a field should be wrapped by the \`MessageWrapper\` component from the form package. Consider also using the [simplified field implementation](https://atlassian.design/components/form/examples#simple-implementation-1) to handle styling and accessible messaging directly.`,
+			useMessageWrapper:
+				"Import MessageWrapper from @atlaskit/form and wrap the field's HelperMessage, ErrorMessage and ValidMessage elements in it; preserve their ids and the input's aria-describedby associations. For the component prop API, see https://atlassian.design/components/form/examples#simple-implementation-1.",
 		},
 	},
 	create(context) {

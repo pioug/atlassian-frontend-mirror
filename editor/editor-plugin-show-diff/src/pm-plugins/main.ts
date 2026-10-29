@@ -90,6 +90,7 @@ export type ShowDiffPluginState = {
 	 * and then reset this flag.
 	 */
 	scrollIntoView?: boolean;
+	showContributorTags?: boolean;
 	showIndicators?: boolean;
 	/**
 	 * Optional overrides for the `smart` diffType density thresholds. Set via SHOW_DIFF

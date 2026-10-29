@@ -16,7 +16,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			['use-spotlight-package']:
-				'@atlaskit/onboarding is deprecated in favor of @atlaskit/spotlight. Please migrate your spotlight experiences accordingly.',
+				'Migrate @atlaskit/onboarding experiences to the composable @atlaskit/spotlight entrypoints. Follow platform/packages/design-system/spotlight/examples/single-step.tsx for provider, target, content and dismissal wiring.',
 		},
 	},
 	create(context) {

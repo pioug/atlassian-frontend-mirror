@@ -293,7 +293,12 @@ tester.run('no-unsafe-design-token-usage', rule, {
 		},
 		{
 			code: `token('dont-exist');`,
-			errors: [{ message: 'The token "dont-exist" does not exist.' }],
+			errors: [
+				{
+					message:
+						'The token "dont-exist" does not exist. Choose an existing semantic token from @atlaskit/tokens/token-names or https://atlassian.design/components/tokens/all-tokens and replace the invalid name.',
+				},
+			],
 		},
 		{
 			options: [{ shouldEnforceFallbacks: true }],

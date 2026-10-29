@@ -83,12 +83,24 @@ export interface BaseClientOptions extends FeatureGateOptions {
  * @property {string} apiKey - The API key for the client.
  * @property {fetchTimeoutMs} fetchTimeoutMs - The timeout for the fetch request in milliseconds. Defaults to 5000.
  * @property {boolean} useGatewayURL - Whether to use the gateway URL. Defaults to false.
+ * @property {boolean} includeFfpFlags - Whether to include flags served by the Feature Flag Platform. Defaults to false.
  */
 export interface ClientOptions extends BaseClientOptions {
 	apiKey: string;
 	fetchTimeoutMs?: number;
 	useGatewayURL?: boolean;
 	isolationContextId?: string;
+	/**
+	 * Whether to include flags served by the Feature Flag Platform (FFP). Defaults to `false`.
+	 *
+	 * When `true`, values are fetched from the Feature Flag Service `/api/v1/evalFlags` endpoint,
+	 * which assigns each flag to either Statsig or FFP. FFP values are not used yet, so a flag the
+	 * service assigns to FFP returns its default. Only enable this for a `targetApp` with no flags in
+	 * FFP.
+	 *
+	 * Pass the same value to `updateUser`, which takes its fetch options separately.
+	 */
+	includeFfpFlags?: boolean;
 }
 
 export interface FromValuesClientOptions extends BaseClientOptions {

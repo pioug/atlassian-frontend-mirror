@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "24.2.0",
+	"version": "24.2.1",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -122,7 +122,6 @@
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
-		"@atlassian/ari": "root:*",
 		"@atlassian/editor-plugin-agent-managed-extension": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

@@ -14,13 +14,6 @@ export {
 	default as EditorContext,
 } from './ui/EditorContext';
 export { default as WithEditorActions } from './ui/WithEditorActions';
-// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
-/**
- * @deprecated
- * DO NOT USE THIS WILL BE REMOVED SOON AND IS UNSAFE.
- * Please use the the openHelp action via the editorAPI from the `@atlaskit/editor-plugin-help-dialog` plugin.
- */
-export { default as WithHelpTrigger } from './ui/WithHelpTrigger';
 export { default as CollapsedEditor } from './ui/CollapsedEditor';
 export { ToolbarPortalContextProvider, useToolbarPortal } from './ui/Toolbar/ToolbarPortal';
 export { default as ToolbarHelp } from './ui/ToolbarHelp';

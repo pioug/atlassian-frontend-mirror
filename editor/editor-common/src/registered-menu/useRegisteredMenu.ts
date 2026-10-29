@@ -6,7 +6,7 @@ import type {
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
 
-import type { RegisteredMenuModel } from './types';
+import type { RegisteredMenuModel, RegisteredMenuSelectionSource } from './types';
 import { useRegisteredMenuSelection } from './useRegisteredMenuSelection';
 
 type ItemActivation = {
@@ -39,9 +39,11 @@ export type RegisteredMenuState = {
 	onItemLeave: (itemKey: string) => void;
 	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
-	select: (index: number) => void;
+	select: (index: number, source: RegisteredMenuSelectionSource) => void;
 	selectableItems: RegisterMenuItem[];
 	selectedItemIndex: number;
+	/** Whether the keyboard or the pointer made the current selection. */
+	selectionSource: RegisteredMenuSelectionSource;
 	selectNext: () => void;
 	selectPrevious: () => void;
 };
@@ -80,7 +82,7 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		return { rows, selectableItems, selectableItemIdentities };
 	}, [model]);
 	const selection = useRegisteredMenuSelection({ identities: selectableItemIdentities, resetKey });
-	const { selectedIndex: selectedItemIndex, select } = selection;
+	const { selectedIndex: selectedItemIndex, selectionSource, select } = selection;
 	const [activation, setItemActivation] = useState<ItemActivation | undefined>();
 	const activeItemKey =
 		activation?.model === model && activation.resetKey === resetKey
@@ -108,7 +110,7 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 	}, [selection.selectPrevious, activateKeyboardItem]);
 	const onItemHover = useCallback(
 		(index: number, itemKey?: string) => {
-			select(index);
+			select(index, 'pointer');
 			setItemActivation((current) => {
 				if (
 					itemKey &&
@@ -126,7 +128,11 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 	);
 	const onItemFocus = useCallback(
 		(index: number, itemKey?: string) => {
-			select(index);
+			// A press focuses the item the pointer already selected. Scrolling it then would move it before the click lands.
+			select(
+				index,
+				index === selectedItemIndex && selectionSource === 'pointer' ? 'pointer' : 'keyboard',
+			);
 			setItemActivation((current) => {
 				if (
 					itemKey &&
@@ -139,7 +145,7 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 				return itemKey ? { itemKey, model, resetKey, source: 'keyboard' } : undefined;
 			});
 		},
-		[model, resetKey, select],
+		[model, resetKey, select, selectedItemIndex, selectionSource],
 	);
 	const onItemLeave = useCallback((itemKey: string) => {
 		setItemActivation((current) =>
@@ -161,6 +167,7 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		rows,
 		selectableItems,
 		selectedItemIndex,
+		selectionSource,
 		select,
 		selectNext,
 		selectPrevious,

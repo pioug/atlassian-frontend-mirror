@@ -10,7 +10,6 @@ import {
 	layoutColumn,
 	layoutSection,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import ReactSerializer from '../../../../react';
 
@@ -27,7 +26,6 @@ function getDocChildNodes(document: PMNode): PMNode[] {
 
 describe('ReactSerializer - getChildNodes integration with inline bodied extension marking', () => {
 	it('joins top-level Custom UI neighbours without marking nested neighbours', () => {
-		passGate('platform_forge_inline_bodied_layout_switch');
 		const macro = () =>
 			bodiedExtension({
 				extensionType: 'com.atlassian.ecosystem',

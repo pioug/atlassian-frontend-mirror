@@ -16,7 +16,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlImage: `This <{{ name }}> should be replaced with the image component from the Atlassian Design System. ADS images ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlImage:
+				'Replace <{{ name }}> with Image from @atlaskit/image/image. Preserve its source, dimensions and meaningful alt text; retain alt="" when the image is decorative.',
 		},
 	},
 	create(context) {

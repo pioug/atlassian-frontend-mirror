@@ -11,7 +11,8 @@ const rule: Rule.RuleModule = {
 		},
 		fixable: 'code',
 		messages: {
-			unexpectedDuplicateDependency: 'Unexpected duplicate dependency {{name}}',
+			unexpectedDuplicateDependency:
+				'{{name}} appears in both dependencies and devDependencies. Keep the runtime dependency and remove its duplicate devDependencies entry; the autofix performs this removal.',
 		},
 	},
 	create(context) {
@@ -38,34 +39,27 @@ const rule: Rule.RuleModule = {
 								// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
 								const sourceCode = context.sourceCode ?? context.getSourceCode();
 								const property = node.parent;
-								const isLastLine = sourceCode.getTokenAfter(property)?.value === '}';
-								const end = property.loc.end;
+								const nextToken = sourceCode.getTokenAfter(property);
+								const previousToken = sourceCode.getTokenBefore(property);
+								let [start, end] = property.range;
 
-								if (!isLastLine) {
-									return fixer.removeRange([
-										sourceCode.getIndexFromLoc({
-											line: property.loc.start.line,
-											column: 0,
-										}),
-										sourceCode.getIndexFromLoc({
-											line: end.line + 1,
-											column: 0,
-										}),
-									]);
+								if (nextToken?.value === ',') {
+									end = nextToken.range[1];
+									const lineStart = sourceCode.text.lastIndexOf('\n', start - 1) + 1;
+									const lineEnd = sourceCode.text.indexOf('\n', end);
+									if (
+										lineEnd !== -1 &&
+										sourceCode.text.slice(lineStart, start).trim() === '' &&
+										sourceCode.text.slice(end, lineEnd).trim() === ''
+									) {
+										start = lineStart;
+										end = lineEnd + 1;
+									}
+								} else if (previousToken?.value === ',') {
+									start = previousToken.range[0];
 								}
 
-								const previousToken = sourceCode.getTokenBefore(property)!;
-
-								return fixer.removeRange([
-									sourceCode.getIndexFromLoc({
-										line: previousToken.loc.end.line,
-										column: previousToken.loc.end.column - 1,
-									}),
-									sourceCode.getIndexFromLoc({
-										line: end.line,
-										column: end.column,
-									}),
-								]);
+								return fixer.removeRange([start, end]);
 							},
 							messageId: 'unexpectedDuplicateDependency',
 							node,

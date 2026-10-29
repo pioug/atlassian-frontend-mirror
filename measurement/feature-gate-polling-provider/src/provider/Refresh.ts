@@ -165,7 +165,7 @@ export default class Refresh {
 		const fetchedRulesetProfile = this.rulesetProfile;
 
 		const { environment, targetApp, perimeter } = this.rulesetProfile;
-		const { apiKey, useGatewayURL } = this.providerOptions;
+		const { apiKey, useGatewayURL, includeFfpFlags } = this.providerOptions;
 
 		// validate the polling interval is not too short based on the environment
 		this.pollingConfig.interval = getValidatedPollingInterval(
@@ -182,6 +182,7 @@ export default class Refresh {
 			perimeter,
 			apiKey,
 			useGatewayURL,
+			includeFfpFlags,
 		};
 
 		if (this.isFetchRequired()) {

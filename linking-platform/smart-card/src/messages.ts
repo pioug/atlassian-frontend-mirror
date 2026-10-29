@@ -71,15 +71,6 @@ export type MessageKey =
 	| 'connect_link_account_card'
 	| 'connect_link_account_card_name'
 	| 'connect_link_account_card_description'
-	| 'connect_link_account_embed_carousel_button_next'
-	| 'connect_link_account_embed_carousel_dot_label'
-	| 'connect_link_account_embed_carousel_dot_row_label'
-	| 'connect_link_account_embed_carousel_sl_description'
-	| 'connect_link_account_embed_carousel_sl_title'
-	| 'connect_link_account_embed_carousel_rovo_description'
-	| 'connect_link_account_embed_carousel_rovo_title'
-	| 'connect_link_account_embed_carousel_rovochat_description'
-	| 'connect_link_account_embed_carousel_rovochat_title'
 	| 'connect_link_account_success_flag_description'
 	| 'connect_link_account_success_flag_title'
 	| 'connect_link_account_success_flag_title_default'
@@ -137,8 +128,11 @@ export type MessageKey =
 	| 'owned_by_override'
 	| 'preview_description'
 	| 'preview_improved'
+	| 'preview_with_title'
 	| 'preview_modal'
+	| 'preview_modal_with_title'
 	| 'preview_panel'
+	| 'preview_panel_with_title'
 	| 'preview_close'
 	| 'preview_max_size'
 	| 'preview_min_size'
@@ -423,76 +417,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'To show a preview of this link, connect your {context} account.',
 		description:
 			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in byline.',
-	},
-	connect_link_account_embed_carousel_dot_label: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_dot_label.non-final',
-		defaultMessage: 'Go to slide {index} of {total}',
-		description:
-			'Accessible label for a dot indicator button in the teaser carousel, describing which slide it navigates to',
-	},
-	connect_link_account_embed_carousel_dot_row_label: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_dot_row_label.non-final',
-		defaultMessage: 'Slides',
-		description: 'Accessible label for the group of dot indicator buttons in the teaser carousel',
-	},
-	connect_link_account_embed_carousel_button_next: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_button_next.non-final',
-		defaultMessage: 'Next',
-		description:
-			'A button to view next teaser on benefit of connecting account on Smart Link embed',
-	},
-	connect_link_account_embed_carousel_sl_description: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_sl_description.non-final',
-		defaultMessage: `Embed live previews of {context, select,
-				Google {Google Docs, Sheets, and Slides}
-				other {{context}}} {product, select,
-				BITBUCKET {right inside Bitbucket}
-				CONFLUENCE {right inside Confluence and Jira}
-				JIRA {right inside Confluence and Jira}
-				TRELLO {right inside Trello}
-				other {across Atlassian}}.`,
-		description:
-			'A description on a teaser slide 1 on benefit of connecting account on Smart Link embed.' +
-			' Example Google+CONFLUENCE: Embed live previews of Google Docs, Sheets, and Slides right inside Confluence and Jira.' +
-			' Example Google+TRELLO: Embed live previews of Google Docs, Sheets, and Slides right inside Trello.' +
-			' Example other+TRELLO: Embed live previews of Figma right inside Trello.' +
-			' Example other+other: Embed live previews of Figma across Atlassian.',
-	},
-	connect_link_account_embed_carousel_sl_title: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_sl_title.non-final',
-		defaultMessage: 'Turn smart links into rich previews',
-		description: 'A title on a teaser slide 1 on benefit of connecting account on Smart Link embed',
-	},
-	connect_link_account_embed_carousel_rovo_title: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_rovo_title.non-final',
-		defaultMessage: 'Find everything in one search',
-		description: 'A title on a teaser slide 2 on benefit of connecting account on Smart Link embed',
-	},
-	connect_link_account_embed_carousel_rovo_description: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_rovo_description.non-final',
-		defaultMessage: `Access {context} files alongside your work in {product, select,
-				BITBUCKET {Bitbucket}
-				CONFLUENCE {Confluence and Jira}
-				JIRA {Confluence and Jira}
-				TRELLO {Trello}
-				other {Atlassian}}. We'll always respect your {context} permissions.`,
-		description:
-			'A description on a teaser slide 2 on benefit of connecting account on Smart Link embed.' +
-			" Example Figma+JIRA: Access Figma files alongside your work in Confluence and Jira. We'll always respect your Figma permissions." +
-			" Example Figma+BITBUCKET: Access Figma files alongside your work in Bitbucket. We'll always respect your Figma permissions." +
-			" Example Figma+other: Access Figma files alongside your work in Atlassian. We'll always respect your Figma permissions.",
-	},
-	connect_link_account_embed_carousel_rovochat_title: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_rovochat_title.non-final',
-		defaultMessage: 'Get help from Rovo',
-		description: 'A title on a teaser slide 3 on benefit of connecting account on Smart Link embed',
-	},
-	connect_link_account_embed_carousel_rovochat_description: {
-		id: 'fabric.linking.connect_link_account_embed_carousel_rovochat_description.non-final',
-		defaultMessage:
-			'Rovo uses your {context} content to answer questions, summarise docs, and draft updates using the work you’ve already done.',
-		description:
-			'A description on a teaser slide 3 on benefit of connecting account on Smart Link embed',
 	},
 	connect_link_account_success_flag_description: {
 		id: 'fabric.linking.connect_link_account_success_flag_description',
@@ -810,17 +734,35 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Open preview',
 		description: 'Click to view a richer view of your content, without needing to navigate to it.',
 	},
+	preview_with_title: {
+		id: 'smart-card.preview_with_title.ai-non-final',
+		defaultMessage: 'Open preview for {title}',
+		description:
+			'Accessible label for the smart link preview action. Opens a preview of the linked content. The {title} placeholder is the title of the linked resource, or its URL when no title is available.',
+	},
 	preview_modal: {
 		id: 'fabric.linking.preview_modal',
 		defaultMessage: 'Open preview modal',
 		description:
 			'Button used to view a modal view of your content without needing to navigate to it.',
 	},
+	preview_modal_with_title: {
+		id: 'smart-card.preview_modal_with_title.ai-non-final',
+		defaultMessage: 'Open preview modal for {title}',
+		description:
+			'Accessible label for the smart link action that opens a preview modal. The {title} placeholder is the title of the linked resource, or its URL when no title is available.',
+	},
 	preview_panel: {
 		id: 'fabric.linking.preview_panel',
 		defaultMessage: 'Open preview panel',
 		description:
 			'Button used to view a side panel view of your content without needing to navigate to it.',
+	},
+	preview_panel_with_title: {
+		id: 'smart-card.preview_panel_with_title.ai-non-final',
+		defaultMessage: 'Open preview panel for {title}',
+		description:
+			'Accessible label for the smart link action that opens a preview side panel. The {title} placeholder is the title of the linked resource, or its URL when no title is available.',
 	},
 	preview_close: {
 		id: 'fabric.linking.preview_close',

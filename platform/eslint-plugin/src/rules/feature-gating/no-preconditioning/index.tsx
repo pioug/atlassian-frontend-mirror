@@ -69,13 +69,13 @@ const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
 			description: 'Inform on how to use gates and experiments in logical expressions',
-			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/no-preconditioning/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/feature-gating/no-preconditioning/README.md',
 		},
 		messages: {
 			useConfig:
-				'Do not precondition gates or experiments with another gate. Configure this in Statsig instead to reduce unnecessary code, simplify cleanup and to ensure accurate exposures in Statsig.',
+				'Configure this gate precondition in Statsig, then remove the redundant JavaScript gate combination while preserving the intended targeting. Follow platform/packages/platform/eslint-plugin/src/rules/feature-gating/no-preconditioning/README.md before changing exposure behavior.',
 			incorrectExposure:
-				'Evaluate gates or experiments at the end of your logical expression to ensure exposure is tracked correctly.',
+				'Move the gate or experiment check to the final boolean condition, for example isEligible && fg("gate"), so ineligible paths do not record an exposure. Preserve short-circuit behavior and other side effects.',
 		},
 	},
 	create(context) {

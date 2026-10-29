@@ -12,7 +12,7 @@ const rule: Rule.RuleModule = {
 		type: 'problem',
 		messages: {
 			onlyObjectExpression:
-				'Only object literals allowed in the storybook decorator! See http://go/pff-eslint for more details',
+				'Pass a static object literal directly to withPlatformFeatureGates, for example withPlatformFeatureGates({ my_gate: true }), instead of passing a variable or function result.',
 		},
 	},
 	create(context) {

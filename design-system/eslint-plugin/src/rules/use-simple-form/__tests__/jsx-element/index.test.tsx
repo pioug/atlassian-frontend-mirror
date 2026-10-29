@@ -111,18 +111,22 @@ ruleTester.run('use-simple-form', rule, {
 			errors: [
 				{
 					messageId: 'useSimpleForm',
-					suggestions: [
-						{
-							desc: convertForm,
-							output: linesOnly`
+					suggestions: ['onSubmit', 'onKeyDown', 'ref', 'label', 'labelId', 'xcss'].includes(
+						attrName,
+					)
+						? []
+						: [
+								{
+									desc: convertForm,
+									output: linesOnly`
 								// Form with top level attrs
 								import Form from '@atlaskit/form';
 								<Form ${attrName}="foo">
 
 								<><p>inside</p></></Form>
 							`,
-						},
-					],
+								},
+							],
 				},
 			],
 		})),

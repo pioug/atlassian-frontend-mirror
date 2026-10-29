@@ -50,7 +50,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['progress'], ['ProgressTracker', 'ProgressIndicator']],
 
 	// Animation & motion
-	[['motion'], ['Motion', 'ExitingPersistence']],
+	[['motion'], ['Motion', 'MotionPresenceBoundary']],
 
 	// Feedback
 	[['spinner'], ['Spinner', 'Skeleton']],

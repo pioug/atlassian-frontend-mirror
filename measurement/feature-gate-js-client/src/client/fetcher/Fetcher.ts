@@ -11,6 +11,7 @@ import {
 import { CLIENT_VERSION } from '../version';
 import { ResponseError } from './errors';
 import {
+	type EvalFlagsResponse,
 	type FrontendClientSdkKeyResponse,
 	type FrontendExperimentsRequest,
 	type FrontendExperimentsResponse,
@@ -39,9 +40,28 @@ export type FetcherOptions = Pick<
 	| 'targetApp'
 	| 'perimeter'
 	| 'isolationContextId'
+	| 'includeFfpFlags'
 >;
 
 type Method = 'GET' | 'POST';
+
+/**
+ * The Statsig section of an `/api/v1/evalFlags` response. Throws when the service does not report
+ * Statsig as `OK`, as `/api/v2/frontend/experimentValues` returned a 5xx when it had no values.
+ */
+const getStatsigSection = (response: EvalFlagsResponse | null): FrontendExperimentsResponse => {
+	const status = response?.status?.statsig;
+	const statsig = response?.statsig;
+	if (
+		status !== 'OK' ||
+		!statsig ||
+		typeof statsig.experimentValues !== 'object' ||
+		statsig.experimentValues === null
+	) {
+		throw new Error(`Statsig values are unavailable, status: ${JSON.stringify(status)}`);
+	}
+	return statsig;
+};
 
 export default class Fetcher {
 	static async fetchClientSdk(
@@ -59,6 +79,11 @@ export default class Fetcher {
 		}
 	}
 
+	/**
+	 * Fetches the Statsig values for a user. With `includeFfpFlags`, they are the Statsig section of
+	 * the Feature Flag Service `/api/v1/evalFlags` response, and the rest of the response is ignored;
+	 * otherwise they come from `/api/v2/frontend/experimentValues`.
+	 */
 	static async fetchExperimentValues(
 		fetcherOptions: FetcherOptions,
 		identifiers: Identifiers,
@@ -71,6 +96,15 @@ export default class Fetcher {
 		};
 
 		try {
+			if (fetcherOptions.includeFfpFlags) {
+				const response: EvalFlagsResponse | null = await this.fetchRequest(
+					'/api/v1/evalFlags',
+					'POST',
+					fetcherOptions,
+					requestBody,
+				);
+				return getStatsigSection(response);
+			}
 			return await this.fetchRequest(
 				'/api/v2/frontend/experimentValues',
 				'POST',

@@ -53,7 +53,7 @@ const rule: Rule.RuleModule = {
 		],
 		messages: {
 			internalDependencyInPublicPackage:
-				"Public package '{{packageName}}' declares a dependency on internal package '{{dependency}}' in {{field}}. External consumers cannot resolve internal packages from the public npm registry. Remove the dependency or make the package internal.",
+				'Public package {{packageName}} depends on internal package {{dependency}} in {{field}}, which npm consumers cannot install. Replace that usage with a public API or arrange publication of the dependency; change this package to internal only if that matches its intended consumers.',
 		},
 	},
 	create(context) {

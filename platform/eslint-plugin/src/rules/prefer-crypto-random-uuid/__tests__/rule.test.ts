@@ -110,21 +110,23 @@ tester.run('prefer-crypto-random-uuid', rule, {
 				{ messageId: 'preferCryptoRandomUUID' },
 			],
 		},
-		{
-			name: 'require uuid/v4 (no autofix for require)',
+		...['v1', 'v4'].map((version) => ({
+			name: `require uuid/${version} needs manual migration`,
 			code: outdent`
-				const uuid = require('uuid/v4');
+				const uuid = require('uuid/${version}');
 				const id = uuid();
 			`,
-			errors: [{ messageId: 'preferCryptoRandomUUID' }],
-		},
+			output: null,
+			errors: [{ messageId: 'preferCryptoRandomUUIDManual' }],
+		})),
 		{
 			name: 'require uuid (no autofix for require)',
 			code: outdent`
 				const { v4 } = require('uuid');
 				const id = v4();
 			`,
-			errors: [{ messageId: 'preferCryptoRandomUUID' }],
+			output: null,
+			errors: [{ messageId: 'preferCryptoRandomUUIDManual' }],
 		},
 		{
 			name: 'complex code with other imports',

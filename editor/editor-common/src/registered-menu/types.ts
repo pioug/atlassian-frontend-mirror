@@ -13,6 +13,9 @@ import type { RegisteredItemRankResolver } from './item-rank';
 
 export type RegisteredMenuSection = [RegisterMenuSection, ...RegisterMenuItem[]];
 
+/** Whether the keyboard or the pointer made the current menu selection. */
+export type RegisteredMenuSelectionSource = 'keyboard' | 'pointer';
+
 export type RegisteredMenuModel = {
 	fallbackItems: RegisterMenuItem[];
 	footer: RegisterMenuItem | undefined;
@@ -59,8 +62,8 @@ export type RegisteredMenuContextValue = {
 	onClose: () => void;
 	/** Mount point for auxiliary portals such as item previews. The host owns the menu popup. */
 	portalMountPoint?: HTMLElement;
-	registerInteraction: (interaction: RegisteredMenuInteraction) => () => void;
 	query?: string;
+	registerInteraction: (interaction: RegisteredMenuInteraction) => () => void;
 	rootComponent: SurfaceIdentifier;
 	select?: (selection: RegisteredMenuSelection) => void;
 	surfaceContext: SurfaceContext;

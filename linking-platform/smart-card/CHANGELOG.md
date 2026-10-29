@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 46.10.3
+
+### Patch Changes
+
+- [`8b154e90bc483`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b154e90bc483) -
+  Cleanup experiment `platform_sl_embed_preauth_teaser_exp` and retain the standard Embed Card
+  unauthorized view.
+- [`5dbf2faf3ad04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dbf2faf3ad04) -
+  Adds the resource title to Smart Link preview action accessible names across button and dropdown
+  presentations, behind platform_smart_link_preview_a11y_label.
+- Updated dependencies
+
 ## 46.10.2
 
 ### Patch Changes

@@ -24,8 +24,10 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			'no-global-styles': 'Global styles are not allowed.',
-			'no-css-modules': 'Importing CSS files is not allowed.',
+			'no-global-styles':
+				'Move global declarations into local cssMap() or css() styles on their owning elements. Use @atlaskit/css-reset only for the supported global reset.',
+			'no-css-modules':
+				'Replace the CSS-file import with local cssMap() or css() declarations from @atlaskit/css and apply them on the owning elements; preserve the imported styles during migration.',
 		},
 		type: 'problem',
 	},

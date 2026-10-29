@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "153.0.5",
+	"version": "153.1.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -66,13 +66,11 @@
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
-		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/status": "workspace:^",
 		"@atlaskit/task-decision": "workspace:^",
-		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -135,18 +133,13 @@
 		"@testing-library/user-event": "root:*",
 		"@types/react-loadable": "root:*",
 		"ajv": "root:*",
-		"jsdom": "root:*",
-		"mockdate": "root:*",
-		"puppeteer": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*",
 		"react-live-clock": "root:*",
 		"react-magnetic-di": "root:*",
 		"react-moment": "root:*",
-		"rxjs": "root:*",
-		"sinon": "root:*",
-		"worker-plugin": "root:*"
+		"sinon": "root:*"
 	},
 	"platform-feature-flags": {
 		"confluence_forge_early_render_reserve_height": {
@@ -212,10 +205,6 @@
 		},
 		"platform_nested_table_style_override_2": {
 			"type": "boolean"
-		},
-		"platform_forge_inline_bodied_layout_switch": {
-			"type": "boolean",
-			"referenceOnly": true
 		}
 	},
 	"exports": {

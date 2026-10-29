@@ -17,13 +17,15 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			missingAccessibleName:
-				'Missing accessible name. Either specify `heading` or if there is a requirement to reference another element in the DOM as accessible name, use `titleId`. Otherwise, use `label` to explicitly provide the accessible name.',
-			labelPropShouldHaveContent: 'The Spotlight component requires a non-empty label.',
-			headingPropShouldHaveContent: 'The Spotlight component requires a non-empty heading.',
+				'Give Spotlight an accessible name using its visible heading text, titleId referencing an existing heading id, or label when no visible heading exists. Supply only the naming prop appropriate for this spotlight.',
+			labelPropShouldHaveContent:
+				"Replace Spotlight's empty label with a concise description of the spotlight; if it has a visible heading, name it with heading or titleId instead.",
+			headingPropShouldHaveContent:
+				"Replace Spotlight's empty heading with the visible title of this spotlight, or use one non-empty titleId or label when no visible heading is intended.",
 			titleIdShouldHaveValue:
-				'`titleId` should reference the id of the element that defines accessible name.',
+				'Set Spotlight.titleId to the non-empty id of a rendered element containing its accessible name; ensure that element exists while the spotlight is displayed.',
 			noCombinedPropsUsage:
-				'Avoid using `heading`, `titleId` and `label` properties simultaneously. If the `heading` value is not specified or there is a requirement to reference another element in the DOM as accessible name, use `titleId`. Otherwise, use `label` to explicitly provide the accessible name.',
+				'Keep one Spotlight naming prop: heading for its visible title, titleId for an existing heading element, or label when no visible title exists. Remove the competing props without losing the intended accessible name.',
 		},
 		hasSuggestions: true,
 	},

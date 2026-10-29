@@ -1,5 +1,14 @@
 # @atlaskit/editor-toolbar-model
 
+## 1.2.116
+
+### Patch Changes
+
+- [`fc6a743d65633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc6a743d65633) -
+  Remove unused @atlaskit/platform-feature-flags and @atlaskit/tmp-editor-statsig dependencies
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+
 ## 1.2.115
 
 ### Patch Changes

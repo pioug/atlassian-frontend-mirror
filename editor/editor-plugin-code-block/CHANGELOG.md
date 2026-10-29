@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-code-block
 
+## 32.0.3
+
+### Patch Changes
+
+- [`b8ac7a24c7645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8ac7a24c7645) -
+  Clean up experiment `platform_editor_a11y_codeblock_copy_name`
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- Updated dependencies
+
 ## 32.0.2
 
 ### Patch Changes

@@ -74,13 +74,7 @@
 			"path": "../../../design-system/icon-lab/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"

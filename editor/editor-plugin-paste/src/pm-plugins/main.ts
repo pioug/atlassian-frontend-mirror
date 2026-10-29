@@ -46,6 +46,7 @@ import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils/h
 import { insm } from '@atlaskit/insm/api';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common/clientIdCache';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { dynamicConfigBooleanValue } from '@atlaskit/tmp-editor-statsig/dynamic-config-boolean-value';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -276,7 +277,11 @@ export function createPlugin(
 				}
 
 				// Strip Legacy Content Macro (LCM) extensions on paste
-				if (!fg('platform_editor_legacy_content_macro_insert')) {
+				const preserveLegacyContentMacroOnPaste = dynamicConfigBooleanValue(
+					'platform_editor_legacy_content_macro_insert_config',
+					false,
+				);
+				if (!preserveLegacyContentMacroOnPaste) {
 					slice = transformSliceToRemoveLegacyContentMacro(slice, schema);
 				}
 

@@ -10,7 +10,6 @@ import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-f
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererCssClassName } from '../../../../consts';
 import ReactSerializer from '../../../../react';
@@ -72,7 +71,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			);
 
 		it('joins top-level text without UI Kit styling', async () => {
-			passGate('platform_forge_inline_bodied_layout_switch');
 			const { container } = renderCustomUI(false, true);
 			const wrapper = screen.getByTestId('extension--wrapper');
 			expect(wrapper).toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
@@ -82,7 +80,6 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 		});
 
 		it('keeps nested Custom UI macros as blocks', () => {
-			passGate('platform_forge_inline_bodied_layout_switch');
 			renderCustomUI(true, true);
 			const wrapper = screen.getByTestId('extension--wrapper');
 			expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
@@ -90,8 +87,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			expect(wrapper).not.toHaveAttribute('data-migrated-inline');
 		});
 
-		it('keeps saved Custom UI metadata inert when the layout switch is off', () => {
-			failGate('platform_forge_inline_bodied_layout_switch');
+		it('keeps Custom UI macros as blocks when the inline predicate returns false', () => {
 			renderCustomUI(false, false);
 			const wrapper = screen.getByTestId('extension--wrapper');
 			expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);

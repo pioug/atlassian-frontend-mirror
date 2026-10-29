@@ -50,13 +50,15 @@ const validateUsage = (
 const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
-			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/prefer-fg/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/feature-gating/prefer-fg/README.md',
 			description: 'Keep usages of boolean feature flags consistent',
 		},
 		fixable: 'code',
 		messages: {
-			preferFG: 'Use `fg` instead for boolean feature flags',
-			autoFixImports: 'Use `fg` instead for boolean feature flags',
+			preferFG:
+				'Replace getBooleanFF(name) with fg(name) from the same supported platform feature-flag module and update the import. Apply the autofix to migrate the call and import together.',
+			autoFixImports:
+				'Add fg to this feature-flag import and remove getBooleanFF when all of its references have migrated. Apply the autofix to update the import alongside the flagged calls.',
 		},
 	},
 	create(context) {

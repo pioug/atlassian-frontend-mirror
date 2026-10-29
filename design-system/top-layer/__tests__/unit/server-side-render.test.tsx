@@ -1,12 +1,14 @@
 /**
  * @jest-environment node
  */
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { renderToString } from 'react-dom/server';
 
 import { Dialog } from '../../src/dialog';
+import { useCloseOnUnclaimedEscape } from '../../src/page-surface/use-close-on-unclaimed-escape';
 import { Popover } from '../../src/popover';
+import { useManualLightDismiss } from '../../src/use-manual-light-dismiss';
 
 /**
  * The `node` environment has no DOM globals, as in a real server render.
@@ -61,6 +63,35 @@ describe('top-layer on the server', () => {
 		);
 
 		expect(html).toContain('<dialog');
+		expect(consoleMessages).toEqual([]);
+	});
+
+	it('renders an open manual popover and page surface with the Escape hooks', () => {
+		function ManualPopoverAndSurface() {
+			const popoverRef = useRef<HTMLDivElement>(null);
+			const surfaceRef = useRef<HTMLDivElement>(null);
+			useManualLightDismiss({ popoverRef, isOpen: true, onClose: () => {} });
+			useManualLightDismiss({
+				popoverRef: surfaceRef,
+				mode: 'page-surface',
+				isOpen: true,
+				onClose: () => {},
+			});
+			useCloseOnUnclaimedEscape({ isEnabled: true, onClose: () => {}, surfaceRef });
+			return (
+				<>
+					<Popover ref={popoverRef} isOpen mode="manual" role="dialog" label="Popover">
+						<div>Popover content</div>
+					</Popover>
+					<div ref={surfaceRef}>Surface content</div>
+				</>
+			);
+		}
+
+		const { html, consoleMessages } = renderOnServer(<ManualPopoverAndSurface />);
+
+		expect(html).toContain('Popover content');
+		expect(html).toContain('Surface content');
 		expect(consoleMessages).toEqual([]);
 	});
 });

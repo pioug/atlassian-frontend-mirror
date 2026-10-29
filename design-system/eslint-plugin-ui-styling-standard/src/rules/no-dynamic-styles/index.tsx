@@ -33,7 +33,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		schema,
 		messages: {
 			'no-dynamic-styles':
-				'Dynamic styles are not allowed. Instead use the style prop to apply styles derived from component props.',
+				'Declare static variants with cssMap() and select the variant in JSX; pass values known only at runtime through the style prop.',
 		},
 		type: 'problem',
 	},

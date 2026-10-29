@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-collapse",
-	"version": "16.0.1",
+	"version": "16.0.2",
 	"description": "BlockCollapse plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -28,7 +28,6 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

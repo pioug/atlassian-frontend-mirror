@@ -135,7 +135,7 @@ const rule: Rule.RuleModule = {
 		docs: {
 			description:
 				'Ensure feature flags/gates and experiments are inlined so that they can be statically analyzable.',
-			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/inline-usage/README.md',
+			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/feature-gating/inline-usage/README.md',
 		},
 		schema: [
 			{
@@ -144,7 +144,7 @@ const rule: Rule.RuleModule = {
 		],
 		messages: {
 			inlineUsage:
-				'Do not export or wrap feature flags/gates and experiments usages. Inline calls at the callsite to ensure it is statically analyzable.',
+				'Remove this wrapper around a gate or experiment call and evaluate the supported API directly where its result is consumed. Preserve the literal gate name and evaluation timing; see platform/packages/platform/eslint-plugin/src/rules/feature-gating/inline-usage/README.md.',
 		},
 	},
 	create(context) {

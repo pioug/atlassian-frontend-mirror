@@ -18,7 +18,9 @@ const experimentValuesResponse = Fetcher.fetchExperimentValues(
 		environment: FeatureGateEnvironment.development,
 		targetApp: 'targetApp',
 		perimeter: PerimeterType.COMMERCIAL,
-		apiKey: 'apiKey'
+		apiKey: 'apiKey',
+		// Optional, defaults to false: fetch from /api/v1/evalFlags and return only its Statsig section
+		includeFfpFlags: false,
 	},
 	// Identifiers
 	identifiers: {

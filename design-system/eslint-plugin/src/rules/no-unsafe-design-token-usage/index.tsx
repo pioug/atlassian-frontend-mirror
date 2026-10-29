@@ -51,22 +51,15 @@ token('{{tokenKey}}');
 token('color.background.blanket');
 \`\`\`
 `,
-			invalidToken: 'The token "{{name}}" does not exist.',
+			invalidToken:
+				'The token "{{name}}" does not exist. Choose an existing semantic token from @atlaskit/tokens/token-names or https://atlassian.design/components/tokens/all-tokens and replace the invalid name.',
 			tokenRemoved: 'The token "{{name}}" is removed in favour of "{{replacement}}".',
 			tokenIsExperimental:
 				'The token "{{name}}" is experimental and should not be used directly at this time. It should be replaced by "{{replacement}}".',
-			tokenFallbackEnforced: `Token function requires a fallback, preferably something that best matches the light/default theme in case tokens aren't present.
-
-\`\`\`
-token('color.background.blanket', N500A);
-\`\`\`
-      `,
-			tokenFallbackRestricted: `Token function must not use a fallback.
-
-\`\`\`
-token('color.background.blanket');
-\`\`\`
-      `,
+			tokenFallbackEnforced:
+				"This configuration requires a fallback argument. Add the token's light-theme default as the second argument; use the rule's fix when available.",
+			tokenFallbackRestricted:
+				"Remove the second argument from token() for this configuration, for example token('color.background.blanket'); retain the token name.",
 		},
 		schema: [
 			{

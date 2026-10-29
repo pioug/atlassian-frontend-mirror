@@ -12,7 +12,10 @@ export type PollingConfig = {
 	maxInstantRetryTimes: number;
 };
 
-export type ProviderOptions = Pick<FetcherOptions, 'apiKey' | 'useGatewayURL'> & {
+export type ProviderOptions = Pick<
+	FetcherOptions,
+	'apiKey' | 'useGatewayURL' | 'includeFfpFlags'
+> & {
 	initialFetchTimeout?: number;
 	pollingInterval?: number;
 };

@@ -18,7 +18,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRuleWithTypedConfig({
 		},
 		messages: {
 			'no-important-styles':
-				'Important style declarations are disallowed. Refactor so the `!important` flag is not needed.',
+				'Remove !important and apply the intended style directly to the owning element; resolve conflicting declarations through local style composition.',
 		},
 		type: 'problem',
 		schema: {

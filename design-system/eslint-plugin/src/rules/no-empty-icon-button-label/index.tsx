@@ -86,7 +86,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			emptyLabel:
-				'The `label` prop is the only accessible name for an icon-only button, so it must not be empty.',
+				'Set this icon-only button\'s label to non-empty text describing its action, such as label="Close dialog". Preserve distinguishing context when several buttons perform similar actions.',
 		},
 	},
 

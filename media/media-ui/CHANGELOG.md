@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 31.6.0
+
+### Minor Changes
+
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 31.5.0
 
 ### Minor Changes

@@ -22,7 +22,7 @@ import { createPopoverCloseEvent } from '../../src/popover/create-close-event';
 import { Popover } from '../../src/popover/popover';
 import { isAtCurrentMenuLevel } from '../../src/use-arrow-navigation/is-at-current-menu-level';
 import { useArrowNavigation } from '../../src/use-arrow-navigation/use-arrow-navigation';
-import { useSimpleLightDismiss } from '../../src/use-simple-light-dismiss';
+import { useManualLightDismiss } from '../../src/use-manual-light-dismiss';
 
 function noop() {}
 
@@ -181,8 +181,17 @@ describe('React 19 readiness (top-layer)', () => {
 
 		function LightDismissHarness({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
 			const popoverRef = useRef<HTMLDivElement>(null);
-			useSimpleLightDismiss({ popoverRef, isOpen, onClose });
-			return <div ref={popoverRef}>manual content</div>;
+			useManualLightDismiss({ popoverRef, isOpen, onClose });
+			return (
+				<div
+					ref={popoverRef}
+					// @ts-expect-error -- popover attribute not yet in React types
+					// eslint-disable-next-line react/no-unknown-property -- popover attribute not yet in React types
+					popover="manual"
+				>
+					manual content
+				</div>
+			);
 		}
 
 		it('runs useAnchoredPopover in StrictMode', () => {
@@ -306,18 +315,27 @@ describe('React 19 readiness (top-layer)', () => {
 			)).toPassStrictMode();
 		});
 
-		it('useSimpleLightDismiss passes strict mode', async () => {
-			function SimpleDismissStrictHarness() {
+		it('useManualLightDismiss passes strict mode', async () => {
+			function ManualDismissStrictHarness() {
 				const popoverRef = useRef<HTMLDivElement>(null);
-				useSimpleLightDismiss({
+				useManualLightDismiss({
 					popoverRef,
 					isOpen: true,
 					onClose: noop,
 				});
-				return <div ref={popoverRef}>strict popover</div>;
+				return (
+					<div
+						ref={popoverRef}
+						// @ts-expect-error -- popover attribute not yet in React types
+						// eslint-disable-next-line react/no-unknown-property -- popover attribute not yet in React types
+						popover="manual"
+					>
+						strict popover
+					</div>
+				);
 			}
 
-			await expect(() => <SimpleDismissStrictHarness />).toPassStrictMode();
+			await expect(() => <ManualDismissStrictHarness />).toPassStrictMode();
 		});
 
 		it('useAnchoredPopover passes strict mode', async () => {
@@ -665,12 +683,18 @@ describe('React 19 readiness (top-layer)', () => {
 		});
 	});
 
-	describe('useSimpleLightDismiss core behaviors', () => {
+	describe('useManualLightDismiss core behaviors', () => {
 		function LightDismissHarness({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
 			const popoverRef = useRef<HTMLDivElement>(null);
-			useSimpleLightDismiss({ popoverRef, isOpen, onClose });
+			useManualLightDismiss({ popoverRef, isOpen, onClose });
 			return (
-				<div ref={popoverRef} data-testid="manual-popover">
+				<div
+					ref={popoverRef}
+					// @ts-expect-error -- popover attribute not yet in React types
+					// eslint-disable-next-line react/no-unknown-property -- popover attribute not yet in React types
+					popover="manual"
+					data-testid="manual-popover"
+				>
 					manual content
 				</div>
 			);
@@ -696,6 +720,9 @@ describe('React 19 readiness (top-layer)', () => {
 			);
 
 			const outside = screen.getByTestId('outside');
+			// A press: the pointer goes down and comes back up outside.
+			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
 			outside.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
@@ -705,6 +732,8 @@ describe('React 19 readiness (top-layer)', () => {
 			render(<LightDismissHarness isOpen={true} onClose={onClose} />);
 
 			const popover = screen.getByTestId('manual-popover');
+			popover.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+			popover.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
 			popover.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 			expect(onClose).not.toHaveBeenCalled();
 		});

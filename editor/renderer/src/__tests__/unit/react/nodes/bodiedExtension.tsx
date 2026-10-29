@@ -10,6 +10,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/exten
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
+import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 
 import { Renderer } from '../../../../entry-points/renderer-default';
 import ReactSerializer from '../../../../react';
@@ -180,6 +181,61 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			fragmentLocalId,
 		});
 	});
+
+	it.each([false, true])('reserves the Aura body only in treatment (%s)', (isEnabled) => {
+		mockExp('cc_aura_table_filter_cls', { isEnabled });
+		const handlers: ExtensionHandlers = {
+			'com.atlassian.ecosystem': () => <button>Filter table</button>,
+		};
+		render(
+			<BodiedExtension
+				providers={providerFactory}
+				serializer={serializer}
+				extensionHandlers={handlers}
+				rendererContext={rendererContext}
+				extensionType="com.atlassian.ecosystem"
+				extensionKey="7be6519f-6039-4662-a5a4-2e38f785dc0a/f9fff7f6-4e74-44eb-9de4-f0be57852570/static/table-filter"
+				localId="table"
+				startPos={1}
+			>
+				<p>Native table body</p>
+			</BodiedExtension>,
+		);
+		expect(screen.getByRole('button', { name: 'Filter table' })).toBeInTheDocument();
+		if (isEnabled) {
+			expect(screen.getByText('Native table body').parentElement).toHaveAttribute(
+				'aria-hidden',
+				'true',
+			);
+		} else {
+			expect(screen.queryByText('Native table body')).not.toBeInTheDocument();
+		}
+	});
+
+	it.each([
+		'unknown-app/production/static/table-filter',
+		'7be6519f-6039-4662-a5a4-2e38f785dc0a/f9fff7f6-4e74-44eb-9de4-f0be57852570/static/other-macro',
+	])(
+		'does not reserve the body for an extension outside the static allowlist (%s)',
+		(extensionKey) => {
+			render(
+				<BodiedExtension
+					providers={providerFactory}
+					serializer={serializer}
+					extensionHandlers={{ 'com.atlassian.ecosystem': () => <button>Other app</button> }}
+					rendererContext={rendererContext}
+					extensionType="com.atlassian.ecosystem"
+					extensionKey={extensionKey}
+					localId="other"
+					startPos={1}
+				>
+					<p>Native body</p>
+				</BodiedExtension>,
+			);
+			expect(screen.getByRole('button', { name: 'Other app' })).toBeInTheDocument();
+			expect(screen.queryByText('Native body')).not.toBeInTheDocument();
+		},
+	);
 
 	describe('extension providers', () => {
 		const ExtensionHandlerFromProvider = ({ node }: any) => (

@@ -29,7 +29,7 @@ ruleTester.run('no-html-anchor', rule, {
 			errors: [
 				{
 					message:
-						'This <img> should be replaced with the image component from the Atlassian Design System. ADS images ensure accessible implementations, and provide access to ADS styling features like design tokens.',
+						'Replace <img> with Image from @atlaskit/image/image. Preserve its source, dimensions and meaningful alt text; retain alt="" when the image is decorative.',
 				},
 			],
 		},

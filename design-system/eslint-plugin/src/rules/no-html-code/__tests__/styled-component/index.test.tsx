@@ -29,7 +29,7 @@ ruleTester.run('no-html-code', rule, {
 			errors: [
 				{
 					message:
-						'This <code> should be replaced with the code component from the Atlassian Design System. The ADS code component ensures accessible implementations and consistent ADS styling.',
+						'Replace <code> with Code from @atlaskit/code/code for inline code. Preserve the code text; use CodeBlock for a multi-line code block rather than changing its semantics.',
 				},
 			],
 		},

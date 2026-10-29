@@ -15,7 +15,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlRange: `This <{{ name }}> should be replaced with a range component from the Atlassian Design System. ADS components include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlRange:
+				'Replace <{{ name }}> with Range from @atlaskit/range/range. Preserve min, max, step and the label association; adapt onChange to receive the numeric value rather than a native event.',
 		},
 	},
 	create(context) {

@@ -31,9 +31,9 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		hasSuggestions: true,
 		messages: {
 			unneededLabelPropContents:
-				'Label prop should be an empty string to prevent duplicate screen reader announcements. Learn more here: http://go/adsc/icon/usage#accessibility-guidelines.',
+				'Set this decorative icon\'s label to "" because its containing control already provides the accessible name; keep that control\'s meaningful text or label.',
 			missingLabelProp:
-				'Missing label prop. If there is no supplementary text the label should describe what the icon is, else it should be an empty string. Learn more here: http://go/adsc/icon/usage#accessibility-guidelines.',
+				'Add label to this icon: use label="" when the surrounding control already has a meaningful accessible name; otherwise describe the icon\'s meaning or action. See platform/packages/design-system/eslint-plugin/src/rules/icon-label/README.md.',
 			labelPropShouldHaveContents:
 				'Icon should have a meaningful label describing what the action is. Learn more here: http://go/adsc/icon/usage#accessibility-guidelines.',
 		},

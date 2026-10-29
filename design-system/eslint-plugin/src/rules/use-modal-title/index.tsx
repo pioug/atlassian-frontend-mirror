@@ -20,7 +20,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			modalHeaderMissingModalTitle: '`ModalHeader` should include `ModalTitle`.',
+			modalHeaderMissingModalTitle:
+				"Add ModalTitle from @atlaskit/modal-dialog inside ModalHeader and give it the dialog's visible title, so the dialog has an accessible name.",
 		},
 	},
 

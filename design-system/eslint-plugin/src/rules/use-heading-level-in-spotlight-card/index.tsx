@@ -4,7 +4,7 @@ import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 import { createLintRule } from '../utils/create-lint-rule';
 
 export const headingLevelRequiredSuggestionText =
-	'Add a `headingLevel` that is of a contextually relevant level.';
+	'Set SpotlightCard.headingLevel to the semantic heading level matching its place in the page outline, for example headingLevel={2} below the page heading; do not choose the level for visual size.';
 const ONBOARDING_PACKAGE = '@atlaskit/onboarding';
 const SPOTLIGHT_CARD_IMPORT_SOURCE = '@atlaskit/onboarding/spotlight-card';
 

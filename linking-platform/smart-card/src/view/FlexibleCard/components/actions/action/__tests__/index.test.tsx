@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -153,9 +154,85 @@ describe('Action', () => {
 				runTest({ removeBlockRestriction });
 			},
 		);
+
+		describe.each([
+			{ role: 'button', href: undefined },
+			{ role: 'link', href: 'https://www.link-url.com' },
+		])('refreshed icon-only $role', ({ role, href }) => {
+			const tooltipMessage = 'Open preview';
+			const ariaLabel = 'Open preview for the project guide';
+			const icon = <svg aria-hidden="true" />;
+
+			it('uses the accessible name and keeps the tooltip text', async () => {
+				passGate('platform_smart_link_preview_a11y_label');
+				setup({ icon, href, tooltipMessage, ariaLabel }, { hideLegacyButton: true });
+
+				const element = screen.getByRole(role, { name: ariaLabel });
+				expect(element).toHaveAccessibleName(ariaLabel);
+				await user.hover(element);
+
+				expect(await screen.findByRole('tooltip')).toHaveTextContent(tooltipMessage);
+				expect(screen.getByRole('tooltip')).not.toHaveTextContent(ariaLabel);
+			});
+
+			it('keeps the tooltip as its accessible name when the gate is off', () => {
+				failGate('platform_smart_link_preview_a11y_label');
+				setup({ icon, href, tooltipMessage, ariaLabel }, { hideLegacyButton: true });
+
+				expect(screen.getByRole(role, { name: tooltipMessage })).toHaveAccessibleName(
+					tooltipMessage,
+				);
+			});
+
+			it('uses the tooltip when no accessible name is supplied', () => {
+				passGate('platform_smart_link_preview_a11y_label');
+				setup({ icon, href, tooltipMessage }, { hideLegacyButton: true });
+
+				expect(screen.getByRole(role, { name: tooltipMessage })).toHaveAccessibleName(
+					tooltipMessage,
+				);
+			});
+		});
 	});
 
 	describe('as dropdown item', () => {
+		describe.each<Partial<ActionProps>>([{ as: 'dropdown-item' }, { asDropDownItem: true }])(
+			'with presentation props %p',
+			(props) => {
+				it('uses the supplied accessible name', () => {
+					passGate('platform_smart_link_preview_a11y_label');
+					render(
+						<Action
+							{...props}
+							onClick={() => {}}
+							content="Open preview"
+							ariaLabel="Open preview for the project guide"
+						/>,
+					);
+
+					expect(
+						screen.getByRole('menuitem', { name: 'Open preview for the project guide' }),
+					).toHaveAccessibleName('Open preview for the project guide');
+				});
+
+				it('keeps its content as the accessible name when the gate is off', () => {
+					failGate('platform_smart_link_preview_a11y_label');
+					render(
+						<Action
+							{...props}
+							onClick={() => {}}
+							content="Open preview"
+							ariaLabel="Open preview for the project guide"
+						/>,
+					);
+
+					expect(screen.getByRole('menuitem', { name: 'Open preview' })).toHaveAccessibleName(
+						'Open preview',
+					);
+				});
+			},
+		);
+
 		it('should capture and report a11y violations', async () => {
 			const text = 'spaghetti';
 			const { container } = render(

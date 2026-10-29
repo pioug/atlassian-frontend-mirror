@@ -19,7 +19,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			useCxFunc: `Use the cx function when combining styles in the xcss prop.`,
+			useCxFunc:
+				'Import cx from @atlaskit/css and combine Compiled variants with xcss={cx(styles.base, condition && styles.active)}. Migrate legacy xcss() objects to cssMap() first; they are not valid cx() arguments.',
 		},
 	},
 	create(context: Rule.RuleContext) {

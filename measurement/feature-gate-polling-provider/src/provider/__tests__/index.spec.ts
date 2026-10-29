@@ -229,6 +229,56 @@ describe('PollingProvider', () => {
 				useGatewayURL: true,
 			});
 		});
+
+		describe('with includeFfpFlags', () => {
+			const evalFlagsProviderOptions: ProviderOptions = {
+				...providerOptions,
+				includeFfpFlags: true,
+			};
+
+			test('keys the values by a profile hash with its own prefix', async () => {
+				const evalFlagsProvider = new PollingProvider(evalFlagsProviderOptions);
+
+				await evalFlagsProvider.setProfile(
+					mockClientOptions,
+					mockIdentifiers,
+					mockCustomAttributes,
+				);
+
+				expect(evalFlagsProvider['currentProfileHash']).toBe(
+					'evalFlags.v1.statsig.8e3c96eb13880fc945411b9300db02903a32b62d9af731c8c6b37207f2201289',
+				);
+			});
+
+			test('passes includeFfpFlags to the fetcher', async () => {
+				const evalFlagsProvider = new PollingProvider(evalFlagsProviderOptions);
+				evalFlagsProvider.setApplyUpdateCallback(mockApplyUpdate);
+				evalFlagsProvider.setClientVersion(mockClientVersion);
+				await evalFlagsProvider.setProfile(
+					mockClientOptions,
+					mockIdentifiers,
+					mockCustomAttributes,
+				);
+
+				await expect(evalFlagsProvider.getExperimentValues()).resolves.toStrictEqual(
+					expectedExperimentValuesResult,
+				);
+				expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+					mockClientVersion,
+					{
+						apiKey: '123',
+						environment: 'development',
+						perimeter: 'commercial',
+						fetchTimeoutMs: 15,
+						targetApp: 'targetApp_web',
+						useGatewayURL: true,
+						includeFfpFlags: true,
+					},
+					mockIdentifiers,
+					mockCustomAttributes,
+				);
+			});
+		});
 	});
 
 	describe('getExperimentValues', function () {

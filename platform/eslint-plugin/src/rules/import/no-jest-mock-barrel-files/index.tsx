@@ -1149,7 +1149,7 @@ const ruleMeta: Rule.RuleMetaData = {
 	fixable: 'code',
 	messages: {
 		barrelMock:
-			"jest.mock('{{path}}') is mocking a barrel file. This should be split into separate mocks for each source file to improve performance. Use auto-fix to resolve.",
+			'Split jest.mock({{path}}) into mocks for the source entrypoints actually imported by the code under test, preserving their implementations. Apply the autofix when offered, then rerun the affected unit test.',
 	},
 };
 

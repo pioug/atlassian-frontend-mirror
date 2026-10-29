@@ -1,7 +1,10 @@
 # Follow-up: Escape with focus on `<body>` in an open Dialog
 
-**Status:** Done. With focus on `<body>`, the `Dialog` that focus was last in takes the Escape. It
-matches legacy ModalDialog and Drawer: one ask per key press, no forced close, in every browser.
+**Status:** Done, then superseded (2026-10-28). With focus on `<body>`, the top `Dialog` takes the
+Escape. It matches legacy ModalDialog and Drawer: one ask per key press, no forced close, in every
+browser. `Dialog` now finds the top layer by open order (`hasEscapeOwnerAbove`, see
+[`../decisions/manual-light-dismiss-escape-stacking.md`](../decisions/manual-light-dismiss-escape-stacking.md)),
+so it no longer records focus. The focus record below is history.
 
 ## What we did
 

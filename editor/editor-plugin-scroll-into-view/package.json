@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-scroll-into-view",
-	"version": "30.0.0",
+	"version": "30.0.1",
 	"description": "Scroll-into-view plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -26,7 +26,6 @@
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/link": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@babel/runtime": "root:*"
@@ -37,7 +36,6 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},

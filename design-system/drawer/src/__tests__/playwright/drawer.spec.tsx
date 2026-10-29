@@ -8,11 +8,19 @@ test.describe('Drawer with Fixed Contents', () => {
 			'drawer-with-fixed-contents',
 			{ 'react-18-mode': 'modern' },
 		);
-		await page.getByTestId('dropdown--trigger').click();
+		const dropdownTrigger = page.getByTestId('dropdown--trigger');
+		await dropdownTrigger.click();
 		const dropDownMenu = page.getByTestId('dropdown--content');
-		const dropDownMenuBox = await dropDownMenu.boundingBox();
-		expect(dropDownMenuBox?.x).toBeGreaterThanOrEqual(100);
-		expect(dropDownMenuBox?.y).toBeGreaterThanOrEqual(200);
+		await expect(dropDownMenu).toBeVisible();
+		const dropdownTriggerBox = await dropdownTrigger.evaluate((element) =>
+			element.getBoundingClientRect(),
+		);
+		const dropDownMenuBox = await dropDownMenu.evaluate((element) =>
+			element.getBoundingClientRect(),
+		);
+
+		expect(dropDownMenuBox.x).toBeGreaterThanOrEqual(dropdownTriggerBox.x);
+		expect(dropDownMenuBox.y).toBeGreaterThan(dropdownTriggerBox.y);
 	});
 });
 

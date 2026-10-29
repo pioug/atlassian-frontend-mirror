@@ -53,7 +53,7 @@ jest.mock('@manypkg/get-packages', () => ({
 }));
 
 const getErrorMessage = (pkgName: string) =>
-	`Published package has private dependency '${pkgName}'. To resolve this error, remove the private dependency or set this package to private.`;
+	`Published package depends on private package ${pkgName}, which consumers cannot install. Replace the dependency with a publishable API or resolve its publication with the owner; make this package private only if it is intended to stop being published.`;
 
 describe('test ensure-no-private-dependencies', () => {
 	tester.run('ensure-no-private-dependencies', rule, {
@@ -141,15 +141,15 @@ describe('test ensure-no-private-dependencies', () => {
 				errors: [
 					{
 						message:
-							"Published package has private dependency '@af/private-pkg'. To resolve this error, remove the private dependency or set this package to private.",
+							'Published package depends on private package @af/private-pkg, which consumers cannot install. Replace the dependency with a publishable API or resolve its publication with the owner; make this package private only if it is intended to stop being published.',
 					},
 					{
 						message:
-							"Published package has private dependency '@atlassian/private-pkg'. To resolve this error, remove the private dependency or set this package to private.",
+							'Published package depends on private package @atlassian/private-pkg, which consumers cannot install. Replace the dependency with a publishable API or resolve its publication with the owner; make this package private only if it is intended to stop being published.',
 					},
 					{
 						message:
-							"Published package has private dependency '@atlassiansox/private-pkg'. To resolve this error, remove the private dependency or set this package to private.",
+							'Published package depends on private package @atlassiansox/private-pkg, which consumers cannot install. Replace the dependency with a publishable API or resolve its publication with the owner; make this package private only if it is intended to stop being published.',
 					},
 				],
 			},

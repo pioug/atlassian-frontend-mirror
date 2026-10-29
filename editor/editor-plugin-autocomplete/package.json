@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-autocomplete",
-	"version": "24.0.0",
+	"version": "24.0.1",
 	"description": "Client-side text autocomplete plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,9 +27,7 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@babel/runtime": "root:*",
-		"@mlc-ai/web-llm": "root:*",
-		"compromise": "root:*",
-		"wink-nlp": "root:*"
+		"@mlc-ai/web-llm": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",

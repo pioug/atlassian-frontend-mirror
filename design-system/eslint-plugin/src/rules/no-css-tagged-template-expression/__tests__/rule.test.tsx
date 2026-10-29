@@ -3,7 +3,9 @@ import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
-const errors = ['Unexpected `css` tagged template expression'];
+const errors = [
+	'Replace the css template literal with an object-form css() or cssMap() declaration; migrate properties and interpolations to static local styles or runtime style values.',
+];
 
 const createInvalidTestCasesForImport = (importName: string) => [
 	{
@@ -483,7 +485,9 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: "var(--my-var)"
         });
       `,
-		errors: ['Unexpected `css` tagged template expression'],
+		errors: [
+			'Replace the css template literal with an object-form css() or cssMap() declaration; migrate properties and interpolations to static local styles or runtime style values.',
+		],
 	},
 	{
 		filename: 'content-property.ts',
@@ -505,7 +509,9 @@ const createInvalidTestCasesForImport = (importName: string) => [
           content: "'\\"'"
         });
       `,
-		errors: ['Unexpected `css` tagged template expression'],
+		errors: [
+			'Replace the css template literal with an object-form css() or cssMap() declaration; migrate properties and interpolations to static local styles or runtime style values.',
+		],
 	},
 	{
 		filename: 'invalid-interpolated-property.tsx',
@@ -518,7 +524,9 @@ const createInvalidTestCasesForImport = (importName: string) => [
         }
       \`;
     `,
-		errors: ['Unexpected `css` tagged template expression'],
+		errors: [
+			'Replace the css template literal with an object-form css() or cssMap() declaration; migrate properties and interpolations to static local styles or runtime style values.',
+		],
 	},
 ];
 

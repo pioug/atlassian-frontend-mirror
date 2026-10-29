@@ -540,7 +540,9 @@ const calculateDiffDecorationsInner = ({
 	const { tr } = state;
 	let steppedDoc = originalDoc;
 	const attributionColoringEnabled = isAttributionColoringEnabled(stepAttributions);
-	const showContributorTags = isContributorTagsEnabled(stepAttributions, contributors);
+	const showContributorTags =
+		pluginState.showContributorTags !== false &&
+		isContributorTagsEnabled(stepAttributions, contributors);
 	// Tags need the attributed changeset even on diffs with too few actors to be worth colouring.
 	const attributedChangesetEnabled = attributionColoringEnabled || showContributorTags;
 

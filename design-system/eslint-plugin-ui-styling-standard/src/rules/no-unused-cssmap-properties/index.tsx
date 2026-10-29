@@ -82,7 +82,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			'unused-property': 'The "{{propertyName}}" style is defined but never used.',
+			'unused-property':
+				'The "{{propertyName}}" style is never used. Remove it from cssMap, or apply it to the intended element if the style is still required.',
 		},
 		type: 'problem',
 	},

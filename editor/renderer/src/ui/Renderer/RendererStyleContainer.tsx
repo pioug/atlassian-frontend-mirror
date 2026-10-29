@@ -2449,6 +2449,16 @@ const roundedTableOuterBorderOverlayStyles = css({
 		},
 });
 
+const roundedTableOuterBorderOverlayOverflowFixStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
+	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
+		'&::after': {
+			inset: 0,
+		},
+	},
+});
+
 const tableContentModeScopedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(> table[data-initial-width-mode="content"]),
@@ -3542,6 +3552,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				tableSharedStyle,
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 					roundedTableOuterBorderOverlayStyles,
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					isExperimentEnabled('platform_editor_table_border_overflow_fix') &&
+					roundedTableOuterBorderOverlayOverflowFixStyles,
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 					roundedTableRemixBlockHighlightStyles,
 				tableContentModeScopedStyles,

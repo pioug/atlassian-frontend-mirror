@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 29.0.0
+
+### Major Changes
+
+- [`9094e731e3560`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9094e731e3560) -
+  Remove `agentType` from `DiffStepAttribution`. Agent identity now requires `agentId`; names and
+  avatars come from `contributorProfiles` matched by account ID. Branding uses an explicit profile
+  `agentBrand`, a known `agentNamedId`, or the profile name. Contributor avatars always use the
+  account's `avatarUrl`, including Claude and ChatGPT. Missing or failed agent images use the
+  generic agent icon instead of bundled brand SVGs. Migrate callers using `agentType` to supply the
+  agent account ID and its profile, including `agentBrand` when explicit branding is required.
+  Agents without a profile or known named brand use the generic external-agent label. Attribution
+  colours and tags remain controlled by `confluence_ncs_step_diffing_version_history` and
+  `platform_editor_show_diff_color_scheme_refactor`.
+
+  Suggestion diffs supply account profiles and resolved vendor brands while keeping contributor tags
+  hidden with `showContributorTags: false`. Other attributed callers retain the existing default tag
+  visibility.
+
+  Suggested edits retain legacy `agentType` as a branding fallback when the display name does not
+  identify a known brand. The suggestions adapter resolves this using `@atlaskit/agent-color` before
+  calling show-diff; known names take precedence.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.3
 
 ### Patch Changes

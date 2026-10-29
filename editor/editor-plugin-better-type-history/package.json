@@ -34,8 +34,6 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "workspace:^",
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	}

@@ -303,7 +303,7 @@ const ruleMeta: Rule.RuleMetaData = {
 	fixable: 'code',
 	messages: {
 		barrelImport:
-			"Import from barrel file '{{path}}' should be split into more specific imports. Use auto-fix to resolve.",
+			'Split the barrel import {{path}} into direct imports from the files that define its symbols. Apply the autofix when offered; keep type-only imports as types.',
 	},
 };
 

@@ -38,12 +38,12 @@ const ruleMeta: {
 		readonly severity: 'error';
 	};
 	readonly messages: {
-		readonly noRawRadiusValues: 'The use of shape tokens is preferred over the direct application of border properties.\n\n@meta <<{{payload}}>>';
-		readonly noRawSpacingValues: 'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<{{payload}}>>';
-		readonly autofixesPossible: 'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens';
-		readonly noCalcUsage: 'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.';
-		readonly hardCodedColor: 'Colors can be sourced from the global theme using the token function.';
-		readonly legacyElevation: 'Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.';
+		readonly noRawRadiusValues: 'Replace the raw radius or border width with a matching radius.* token or the border.width token family using token() from @atlaskit/tokens.\n\n@meta <<{{payload}}>>';
+		readonly noRawSpacingValues: "Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<{{payload}}>>";
+		readonly autofixesPossible: 'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.';
+		readonly noCalcUsage: 'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.';
+		readonly hardCodedColor: "Import token from @atlaskit/tokens and replace the raw colour with a semantic token call, such as token('color.text') for default text; choose the token for the element's purpose.";
+		readonly legacyElevation: "Replace legacy elevation helpers with the matching elevation.surface.* backgroundColor and elevation.shadow.* boxShadow tokens from @atlaskit/tokens; choose the surface's intended elevation.";
 	};
 } = {
 	name: 'ensure-design-token-usage',
@@ -80,15 +80,17 @@ const ruleMeta: {
 	},
 	messages: {
 		noRawRadiusValues:
-			'The use of shape tokens is preferred over the direct application of border properties.\n\n@meta <<{{payload}}>>',
+			'Replace the raw radius or border width with a matching radius.* token or the border.width token family using token() from @atlaskit/tokens.\n\n@meta <<{{payload}}>>',
 		noRawSpacingValues:
-			'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<{{payload}}>>',
+			"Replace raw spacing with a semantic space.* token using token() from @atlaskit/tokens, or use a compiled layout primitive's spacing API.\n\n@meta <<{{payload}}>>",
 		autofixesPossible:
-			'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
+			'Apply the offered spacing suggestion to replace mapped values with tokens, then check that the chosen spacing preserves the layout.',
 		noCalcUsage:
-			'The use of space tokens is preferred over using the CSS calc function. If using a value that is not aligned to the spacing scale, consider aligning to the scale and using tokens instead.',
-		hardCodedColor: `Colors can be sourced from the global theme using the token function.`,
-		legacyElevation: `Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.`,
+			'Replace this spacing calc() with an appropriate space.* token from @atlaskit/tokens; select a supported scale value that preserves the intended layout.',
+		hardCodedColor:
+			"Import token from @atlaskit/tokens and replace the raw colour with a semantic token call, such as token('color.text') for default text; choose the token for the element's purpose.",
+		legacyElevation:
+			"Replace legacy elevation helpers with the matching elevation.surface.* backgroundColor and elevation.shadow.* boxShadow tokens from @atlaskit/tokens; choose the surface's intended elevation.",
 	},
 } as const satisfies LintRuleMeta;
 

@@ -2,12 +2,14 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { cssMap } from '@atlaskit/css';
 // eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
 // eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-item';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import Toggle from '@atlaskit/toggle/toggle';
 
 import type { InternalNumberedHeadingsPlugin } from '../numberedHeadingsPluginType';
@@ -18,19 +20,27 @@ type NumberedHeadingsMenuItemProps = {
 	api?: ExtractInjectionAPI<InternalNumberedHeadingsPlugin>;
 };
 
+const styles = cssMap({
+	// Toggle renders an inline-block label; a flex wrapper drops the inline line box (and its
+	// descender space) so the toggle centres against the menu item text.
+	toggleWrapper: {
+		display: 'flex',
+	},
+});
+
 /**
  * `inert` keeps the Toggle out of the tab order and the accessibility tree, so the menu item's
  * `menuitemcheckbox` role and `aria-checked` are the only announcement. It's set imperatively
  * because the React 18 DOM types don't include the attribute.
  */
-const makeInert = (element: HTMLSpanElement | null) => {
+const makeInert = (element: HTMLElement | null) => {
 	element?.setAttribute('inert', '');
 };
 
 const DecorativeToggle = ({ isChecked }: { isChecked: boolean }) => (
-	<span ref={makeInert}>
+	<Box as="span" ref={makeInert} xcss={styles.toggleWrapper}>
 		<Toggle isChecked={isChecked} />
-	</span>
+	</Box>
 );
 
 export const NumberedHeadingsMenuItem = ({

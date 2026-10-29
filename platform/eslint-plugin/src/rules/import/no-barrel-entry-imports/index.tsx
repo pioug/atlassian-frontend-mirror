@@ -115,7 +115,7 @@ const ruleMeta: Rule.RuleMetaData = {
 	],
 	messages: {
 		barrelEntryImport:
-			"Importing from barrel file '{{path}}' is not allowed. Import directly from the source file using a more specific package.json export instead.",
+			"Replace the barrel entrypoint {{path}} with the specific package.json exports entry for the symbol you need. Check the source package's exports map and update each imported symbol; add an owned export if the intended public API is missing.",
 	},
 };
 

@@ -145,15 +145,20 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 			/>,
 		);
 		expect(selectRef.current.controlRef).not.toBe(oldControl);
-		expect(removeListener).not.toHaveBeenCalledWith('click', expect.any(Function), {
+		expect(removeListener).not.toHaveBeenCalledWith('pointerup', expect.any(Function), {
 			capture: true,
 		});
 		const popover = getOnlyPopover();
 		await flushPopoverScheduling();
+		fireEvent.pointerDown(screen.getByTestId(`${TEST_ID}-select--input`));
+		fireEvent.pointerUp(screen.getByTestId(`${TEST_ID}-select--input`));
 		fireEvent.click(screen.getByTestId(`${TEST_ID}-select--input`));
 		await flushPopoverScheduling();
 		expect(popover.matches(':popover-open')).toBe(true);
 		expect(onMenuClose).not.toHaveBeenCalled();
+		// A press outside: the pointer goes down and comes back up outside.
+		fireEvent.pointerDown(document.body);
+		fireEvent.pointerUp(document.body);
 		fireEvent.click(document.body);
 		expect(onMenuClose).toHaveBeenCalledTimes(1);
 	});
@@ -177,7 +182,9 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 			);
 		}
 
-		expect(removeListener).toHaveBeenCalledWith('click', expect.any(Function), { capture: true });
+		expect(removeListener).toHaveBeenCalledWith('pointerup', expect.any(Function), {
+			capture: true,
+		});
 		expect(removeListener).toHaveBeenCalledWith('keydown', expect.any(Function), undefined);
 	});
 

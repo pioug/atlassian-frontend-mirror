@@ -1,5 +1,12 @@
 # @atlaskit/json-schema-generator
 
+## 4.1.1
+
+### Patch Changes
+
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+
 ## 4.1.0
 
 ### Minor Changes

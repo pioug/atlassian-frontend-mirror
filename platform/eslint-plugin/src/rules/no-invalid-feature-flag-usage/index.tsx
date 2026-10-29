@@ -55,11 +55,13 @@ const rule: Rule.RuleModule = {
 		type: 'problem',
 		messages: {
 			onlyInlineIf:
-				"Only call feature flags as part of an expression, don't assign to a variable! See http://go/pff-eslint for more details",
+				'Use the feature-flag call directly in the consuming conditional expression instead of assigning its result to a variable. Keep the check inside a function; see platform/packages/platform/eslint-plugin/src/rules/no-invalid-feature-flag-usage/README.md.',
 			onlyStringLiteral:
-				"Only get feature flags by string literal, don't use variables! See http://go/pff-eslint for more details",
-			multipleFlagCheckInExpression: `Only check one flag per expression! See http://go/pff-eslint for more details`,
-			noModuleScope: `Don't use platform feature flags in module scope! See http://go/pff-eslint for more details`,
+				'Pass the flag name as a static string literal directly to getBooleanFF, rather than a variable or computed expression, so flag analysis can identify it.',
+			multipleFlagCheckInExpression:
+				'Keep one feature-flag check per conditional expression. Split independent conditions into nested branches, preserving short-circuit behavior; see platform/packages/platform/eslint-plugin/src/rules/no-invalid-feature-flag-usage/README.md.',
+			noModuleScope:
+				'Move this feature-flag-dependent computation into the function or component that consumes it. Export the function or component rather than a result computed while the module loads.',
 		},
 	},
 	create(context) {

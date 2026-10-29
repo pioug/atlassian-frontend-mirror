@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 31.0.4
+
+### Patch Changes
+
+- [`ffa18bdae0ee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffa18bdae0ee3) -
+  Clean up feature gate `platform_editor_ai_collapse_streaming_steps`
+- Updated dependencies
+
 ## 31.0.3
 
 ### Patch Changes

@@ -34,7 +34,7 @@ PopoverContent → Popper (offset, strategy, placement) → div (role="dialog", 
 ```
 PopoverProvider → SpotlightContextProvider only
 PopoverTarget → div ref={targetRef}
-PopoverContent → Popover (popover="manual", role="dialog", triggerRef, placement via fromLegacyPlacement, offset) + useSimpleLightDismiss → children (SpotlightCard etc.)
+PopoverContent → Popover (popover="manual", role="dialog", triggerRef, placement via fromLegacyPlacement, offset) + useManualLightDismiss → children (SpotlightCard etc.)
 ```
 
 ### What was replaced
@@ -43,7 +43,7 @@ PopoverContent → Popover (popover="manual", role="dialog", triggerRef, placeme
 | --------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `@atlaskit/popper` (Manager, Reference, Popper)                 | `popover="manual"` + CSS Anchor Positioning via `useAnchoredPopover`        |
 | z-index (`zIndex: 700`)                                         | Top layer insertion order                                                   |
-| `useOnEscape` / `useOnClickOutside`                             | `useSimpleLightDismiss` from `@atlaskit/top-layer/use-simple-light-dismiss` |
+| `useOnEscape` / `useOnClickOutside`                             | `useManualLightDismiss` from `@atlaskit/top-layer/use-manual-light-dismiss` |
 | Popper placement map (Spotlight → Popper top/right/bottom/left) | `fromLegacyPlacement(placement)` from `@atlaskit/top-layer/placement-map`   |
 
 ### Direct `Popover` approach
@@ -54,7 +54,7 @@ which would conflict with spotlight's programmatic show/hide. So `PopoverContent
 directly with `mode="manual"` and `useAnchoredPopover`: it passes the trigger ref from context (set
 by `PopoverTarget`) as `anchorRef`, `placement` (from `fromLegacyPlacement(placement)`),
 `role="dialog"`, `labelledBy={heading.id}`. Light dismiss (Escape and click-outside) is handled by
-`useSimpleLightDismiss` from `@atlaskit/top-layer/use-simple-light-dismiss`, which provides
+`useManualLightDismiss` from `@atlaskit/top-layer/use-manual-light-dismiss`, which provides
 standalone dismiss behavior without participating in the browser's `popover="auto"` stack. This
 allows multiple spotlights to coexist without mutual exclusion.
 
@@ -81,7 +81,7 @@ the trigger.
 
 ### `shouldDismissOnClickOutside` respected when flag is on
 
-When the `platform-dst-top-layer` flag is on, `useSimpleLightDismiss` provides dismiss events with a
+When the `platform-dst-top-layer` flag is on, `useManualLightDismiss` provides dismiss events with a
 `{ reason }` argument (`'escape'` or `'light-dismiss'`). Spotlight gates dismiss by reason:
 
 - **Escape** always dismisses (matching legacy behavior).
@@ -179,7 +179,7 @@ unchanged.
 
 - Renders popover with `role="dialog"` when `isVisible` is true
 - Renders nothing when `isVisible` is false
-- Calls `dismiss` on Escape key via `useSimpleLightDismiss`; asserts synthetic `KeyboardEvent` with
+- Calls `dismiss` on Escape key via `useManualLightDismiss`; asserts synthetic `KeyboardEvent` with
   `key: 'Escape'`
 - Uses `aria-labelledby` from heading id
 - Does not use portal (popover is in DOM near provider)
@@ -208,7 +208,7 @@ path is unchanged when the flag is off.
 | 1.3.1 Info and Relationships | ✗    | **Gap:** Spotlight uses `Popover` directly (not `Popup.Trigger`), so `aria-controls` is not wired from the target element to the spotlight popover. No programmatic trigger-to-spotlight relationship is exposed. Decision (2026-03-17 audit): This is a consumer-level concern — each standalone consumer owns their trigger lifecycle and should wire `aria-controls` in their own migration code. |
 | 1.3.2 Meaningful Sequence    | ✓    | `spotlight.spec.tsx` — no portal; popover stays next to trigger in DOM                                                                                                                                                                                                                                                                                                                               |
 | 2.1.1 Keyboard               | ✗    | **Gap:** No spotlight-specific browser test for keyboard interaction (e.g. activating spotlight actions via keyboard). Spotlight is typically shown programmatically, not via keyboard trigger.                                                                                                                                                                                                      |
-| 2.1.2 No Keyboard Trap       | ✓    | `spotlight.spec.tsx` — Escape dismisses spotlight; `useSimpleLightDismiss` handles light dismiss (runs with `featureFlag: 'platform-dst-top-layer'`)                                                                                                                                                                                                                                                 |
+| 2.1.2 No Keyboard Trap       | ✓    | `spotlight.spec.tsx` — Escape dismisses spotlight; `useManualLightDismiss` handles light dismiss (runs with `featureFlag: 'platform-dst-top-layer'`)                                                                                                                                                                                                                                                 |
 | 2.4.3 Focus Order            | ✓    | `spotlight.spec.tsx` — focus return to trigger on dismiss                                                                                                                                                                                                                                                                                                                                            |
 | 2.4.7 Focus Visible          | ✗    | **Gap:** No spotlight-specific browser test for focus indicator visibility on interactive elements within the spotlight card.                                                                                                                                                                                                                                                                        |
 | 2.4.11 Focus Not Obscured    | ✓    | `spotlight.spec.tsx` — top-layer content not obscured; `popover="manual"` renders in browser's top layer                                                                                                                                                                                                                                                                                             |
@@ -300,7 +300,7 @@ the top-layer migration. They exist in both the legacy and top-layer paths:
   - When flag is ON: Renders `Popover` directly from `@atlaskit/top-layer` with CSS Anchor
     Positioning
   - When flag is OFF: Renders Popper with legacy placement/offset/strategy (legacy)
-  - Legacy `useOnEscape` and `useOnClickOutside` hooks gated (replaced by `useSimpleLightDismiss` on
+  - Legacy `useOnEscape` and `useOnClickOutside` hooks gated (replaced by `useManualLightDismiss` on
     flag-on path)
 
 ### Residual risks (flag off)

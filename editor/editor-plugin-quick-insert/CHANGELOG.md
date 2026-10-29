@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.4
+
+### Patch Changes
+
+- [`fc6a743d65633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc6a743d65633) -
+  Remove unused @atlaskit/platform-feature-flags and @atlaskit/tmp-editor-statsig dependencies
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- [`b199ccfabf69b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b199ccfabf69b) -
+  EDITOR-9784: Under the platform_editor_slash_command experiment, the quick insert registered menus
+  pass the menu's selection source to RegisteredMenuList, so hovering an item no longer scrolls a
+  partially clipped item into view.
+- Updated dependencies
+
 ## 30.0.3
 
 ### Patch Changes

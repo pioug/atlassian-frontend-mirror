@@ -13,7 +13,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			path: "The '{{importSource}}' import is restricted from being used. Please use Pragmatic drag and drop: our performance focused drag and drop library that can be used to power any experience for any techstack. See https://staging.atlassian.design/components/pragmatic-drag-and-drop/. {{customMessage}}",
+			path: 'Replace the unsupported {{importSource}} library with @atlaskit/pragmatic-drag-and-drop, choosing the adapter for the drag source and migrating handlers and cleanup. Follow https://atlassian.design/components/pragmatic-drag-and-drop. {{customMessage}}',
 		},
 	},
 	create(context) {

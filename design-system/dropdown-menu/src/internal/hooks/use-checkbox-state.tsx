@@ -1,5 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { CheckboxGroupContext } from '../context/checkbox-group-context';
 import { SelectionStoreContext } from '../context/selection-store-context';
 
@@ -33,12 +35,17 @@ const useCheckboxState = ({
 
 	const setLocalState = useCallback(
 		(newValue: SetStateCallback): void => {
-			const nextValue = newValue(persistedIsSelected);
+			// With `platform-dst-top-layer`, read the store when the callback runs, not the value
+			// from render time. The first render writes the default to the store during render, so
+			// a value captured in that render is still `undefined`.
+			const nextValue = newValue(
+				fg('platform-dst-top-layer') ? getItemState(groupId, id) : persistedIsSelected,
+			);
 
 			setLocalIsSelected(nextValue);
 			setItemState(groupId, id, nextValue);
 		},
-		[setItemState, persistedIsSelected, groupId, id],
+		[setItemState, getItemState, persistedIsSelected, groupId, id],
 	);
 
 	// Checkbox is controlled - do nothing!

@@ -59,6 +59,8 @@ jest.mock('@atlaskit/top-layer/popover/popover', () => {
 						role,
 						'aria-labelledby': labelledBy,
 						'data-testid': testId,
+						// A real `Popover` renders a `[popover]` element; `useManualLightDismiss` requires it.
+						popover: mode ?? 'auto',
 						'data-popover-mode': mode,
 						'data-popover-open': String(isOpen),
 					},
@@ -205,6 +207,9 @@ describe('PopoverContent', () => {
 				</PopoverProvider>,
 			);
 
+			// A press outside: the pointer goes down and comes back up outside.
+			fireEvent.pointerDown(document.body);
+			fireEvent.pointerUp(document.body);
 			fireEvent.click(document.body);
 			expect(mockDismiss).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
 
@@ -228,6 +233,9 @@ describe('PopoverContent', () => {
 				</PopoverProvider>,
 			);
 
+			// A press outside: the pointer goes down and comes back up outside.
+			fireEvent.pointerDown(document.body);
+			fireEvent.pointerUp(document.body);
 			fireEvent.click(document.body);
 			expect(mockDismiss).not.toHaveBeenCalled();
 		});
@@ -252,6 +260,8 @@ describe('PopoverContent', () => {
 				</PopoverProvider>,
 			);
 
+			fireEvent.pointerDown(screen.getByTestId('spotlight-popover-content'));
+			fireEvent.pointerUp(screen.getByTestId('spotlight-popover-content'));
 			fireEvent.click(screen.getByTestId('spotlight-popover-content'));
 
 			expect(mockDismiss).not.toHaveBeenCalled();

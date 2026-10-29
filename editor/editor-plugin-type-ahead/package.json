@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-type-ahead",
-	"version": "31.0.2",
+	"version": "31.0.3",
 	"description": "Type-ahead plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,9 +38,7 @@
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-ui-control-model": "workspace:^",
-		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
-		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/insm": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/menu": "workspace:^",
@@ -54,7 +52,6 @@
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
-		"lodash": "root:*",
 		"raf-schd": "root:*",
 		"react-virtualized": "root:*",
 		"uuid": "root:*",
@@ -67,8 +64,6 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
-		"@atlassian/testing-library": "workspace:^",
-		"@testing-library/react": "root:*",
 		"@types/react-virtualized": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",

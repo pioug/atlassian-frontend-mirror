@@ -5,14 +5,6 @@ import { createLintRule } from '../utils/create-lint-rule';
 import { FORM_PACKAGE, getFormImportLocalNames } from '../utils/get-form-import-local-names';
 import { isImportFromPackage } from '../utils/is-import-from-package';
 
-const specialFieldsByImport: Record<string, Record<string, string | undefined>> = {
-	'@atlaskit/checkbox': { component: 'Checkbox', field: 'CheckboxField', local: undefined },
-	'@atlaskit/range': { component: 'Range', field: 'RangeField', local: undefined },
-	'@atlaskit/toggle': { component: 'Toggle', field: 'CheckboxField', local: undefined },
-};
-
-const specialFieldPackages = Object.keys(specialFieldsByImport);
-
 export const useCheckboxFieldMessage = 'Convert Field to CheckboxField';
 export const useRangeFieldMessage = 'Convert Field to RangeField';
 
@@ -29,12 +21,23 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			useCheckboxField: 'Checkbox components should use the `CheckboxField` component',
-			useRangeField: 'Range components should use the `RangeField` component',
-			useCheckboxFieldForToggle: 'Toggle components should use the `CheckboxField` component',
+			useCheckboxField:
+				'Replace this Field with CheckboxField from @atlaskit/form, keeping its name, validation and render-prop wiring for the Checkbox. Apply the offered conversion suggestion when available.',
+			useRangeField:
+				'Replace this Field with RangeField from @atlaskit/form, keeping its name, validation and render-prop wiring for the Range. Apply the offered conversion suggestion when available.',
+			useCheckboxFieldForToggle:
+				'Wrap this Toggle in CheckboxField from @atlaskit/form instead of Field, preserving its name, validation and render-prop wiring. Apply the offered conversion suggestion when available.',
 		},
 	},
 	create(context) {
+		const specialFieldsByImport: Record<string, Record<string, string | undefined>> = {
+			'@atlaskit/checkbox': { component: 'Checkbox', field: 'CheckboxField', local: undefined },
+			'@atlaskit/range': { component: 'Range', field: 'RangeField', local: undefined },
+			'@atlaskit/toggle': { component: 'Toggle', field: 'CheckboxField', local: undefined },
+		};
+
+		const specialFieldPackages = Object.keys(specialFieldsByImport);
+
 		let fieldImport: Identifier;
 		let fieldImportSource: string | undefined;
 		const allPackages: ImportDeclaration[] = [];

@@ -7,7 +7,8 @@ This indirection:
 - promotes exported styles
 - can complicate refactoring
 
-Use the `css` API instead. It has better performance and clarity.
+Use module-scoped `cssMap()` or `css()` from `@atlaskit/css` instead, and apply styles directly to
+the element. Keep runtime-only values in the `style` prop.
 
 ## Examples
 
@@ -55,26 +56,30 @@ export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))`
 ### Correct
 
 ```tsx
-import { css, jsx } from '@emotion/react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-const styles = css({ color: token('color.text.subtlest') });
+const styles = cssMap({
+	root: { color: token('color.text.subtlest') },
+});
 
-const Component = ({ children }) => {
-	return <div css={styles}>{children}</div>;
-};
+const Component = ({ children }) => <div css={styles.root}>{children}</div>;
 ```
 
 ```tsx
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { token } from '@atlaskit/tokens';
 
-const styles = xcss({
-	color: 'color.text.subtlest',
+const styles = cssMap({
+	root: { color: token('color.text.subtlest') },
 });
 
-const Component = ({ children }) => {
-	return <Box xcss={styles}>{children}</Box>;
-};
+const Component = ({ children }) => <Box xcss={styles.root}>{children}</Box>;
 ```
 
 ## FAQ

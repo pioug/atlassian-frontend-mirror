@@ -61,7 +61,9 @@ test('Content should be visible only on the focused tab', async ({ page }) => {
 
 	// Use arrow keys to navigate to tab 4
 	await page.keyboard.press('ArrowRight');
+	await expect(page.locator(tab2).first()).toHaveAttribute('aria-selected', 'true');
 	await page.keyboard.press('ArrowRight');
+	await expect(page.locator(tab3).first()).toHaveAttribute('aria-selected', 'true');
 	await page.keyboard.press('ArrowRight');
 
 	// Wait for tab 4 to be focused and ensure it's selected

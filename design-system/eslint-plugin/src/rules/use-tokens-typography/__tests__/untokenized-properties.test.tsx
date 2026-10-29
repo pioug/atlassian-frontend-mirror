@@ -55,7 +55,9 @@ export const typographyTests: Tests = {
 				const styles = css({
 					font: 'bold 36px Helvetica, Arial',
 				})`,
-			errors: ['Use typography tokens for `font`.'],
+			errors: [
+				'Replace the raw font value with the matching font.* token using token() from @atlaskit/tokens; font.body and font.heading.* tokens belong on the CSS font property.',
+			],
 		},
 	],
 };

@@ -1,5 +1,19 @@
 # @atlaskit/dropdown-menu
 
+## 21.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.3
+
+### Patch Changes
+
+- [`96fcf7d06fe72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96fcf7d06fe72) -
+  Fixed an uncontrolled `DropdownItemCheckbox` with `defaultSelected` that did not uncheck on the
+  first click when the top layer is on.
+
 ## 21.0.2
 
 ### Patch Changes

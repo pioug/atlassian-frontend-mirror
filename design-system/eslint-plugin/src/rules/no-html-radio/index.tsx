@@ -15,7 +15,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlRadio: `This <{{ name }}> should be replaced with a radio component from the Atlassian Design System. ADS components include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlRadio:
+				'Replace <{{ name }}> with Radio from @atlaskit/radio/radio. Map checked and disabled to isChecked and isDisabled, and preserve the group name, value, label and change behavior.',
 		},
 	},
 	create(context) {

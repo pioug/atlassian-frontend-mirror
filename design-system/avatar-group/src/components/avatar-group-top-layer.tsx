@@ -14,32 +14,11 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
-import AvatarGroupItem from './avatar-group-item';
-import {
-	type AvatarGroupOverrides,
-	type AvatarProps,
-	type DeepRequired,
-	type onAvatarClickHandler,
-} from './types';
+import AvatarGroupItem, { type AvatarGroupItemProps } from './avatar-group-item';
+import { getOverrides } from './get-overrides';
+import { type AvatarGroupOverrides, type AvatarProps, type onAvatarClickHandler } from './types';
 
 const topLayerPlacement = fromLegacyPlacement({ legacy: 'bottom-end' });
-
-function getOverrides(overrides?: AvatarGroupOverrides): DeepRequired<AvatarGroupOverrides> {
-	return {
-		AvatarGroupItem: {
-			render: (Component, props, index) => <Component key={index} {...props} />,
-			...overrides?.AvatarGroupItem,
-		},
-		Avatar: {
-			render: (Component, props, index) => <Component key={index} {...props} />,
-			...overrides?.Avatar,
-		},
-		MoreIndicator: {
-			render: (Component, props) => <Component {...props} />,
-			...overrides?.MoreIndicator,
-		},
-	};
-}
 
 type TMoreDropdownTopLayerProps = {
 	isOpen: boolean;
@@ -47,6 +26,10 @@ type TMoreDropdownTopLayerProps = {
 	isTriggeredUsingKeyboard: boolean;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	data: Array<AvatarProps>;
+	/**
+	 * Component used to render each avatar in the menu. Same as the `avatar` prop of `AvatarGroup`.
+	 */
+	avatarComponent?: AvatarGroupItemProps['avatarComponent'];
 	max: number;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	overrides?: AvatarGroupOverrides;
@@ -90,6 +73,7 @@ export function MoreDropdownTopLayer({
 	onClose,
 	isTriggeredUsingKeyboard: _isTriggeredUsingKeyboard,
 	data,
+	avatarComponent,
 	max,
 	overrides,
 	onAvatarClick,
@@ -110,6 +94,9 @@ export function MoreDropdownTopLayer({
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const menuRef = useRef<HTMLDivElement>(null);
 	const overflowMenuTestId = testId ? `${testId}--overflow-menu` : undefined;
+	// Pass `overrides.Avatar` to each item, like the legacy menu does. Before, the menu ignored it.
+	const { AvatarGroupItem: avatarGroupItemOverrides, Avatar: avatarOverrides } =
+		getOverrides(overrides);
 
 	const popoverId = usePopoverId();
 
@@ -177,15 +164,19 @@ export function MoreDropdownTopLayer({
 				testId={overflowMenuTestId ? `${overflowMenuTestId}--content` : undefined}
 			>
 				<PopoverSurface>
-					<div ref={menuRef}>
+					{/* Same `--overflow-menu` test id as the legacy menu, so consumer tests find it on both paths. */}
+					<div ref={menuRef} data-testid={overflowMenuTestId}>
 						<MenuGroup minWidth={250} maxHeight={300}>
 							<Section titleId={labelId} testId={testId ? `${testId}--section` : undefined}>
 								{data.slice(max).map((avatar, index) =>
-									getOverrides(overrides).AvatarGroupItem.render(
+									avatarGroupItemOverrides.render(
 										AvatarGroupItem,
 										{
 											avatar,
+											// Use the consumer's `avatar` component, like the legacy menu. Before, it fell back to `Avatar`.
+											avatarComponent,
 											onAvatarClick,
+											avatarOverrides,
 											testId: testId ? `${testId}--avatar-group-item-${index + max}` : undefined,
 											index: index + max,
 											role: 'menuitem',

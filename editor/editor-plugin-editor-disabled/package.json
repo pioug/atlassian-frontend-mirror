@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-disabled",
-	"version": "30.0.0",
+	"version": "30.0.1",
 	"description": "Editor disabled plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"raf-schd": "root:*"
 	},
@@ -35,8 +34,6 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
-		"raf-stub": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	}

@@ -3,7 +3,7 @@ to external files. Pragmatic drag and drop is a performance optimised drag and d
 has been designed to power any drag and drop experience on any tech stack. Please avoid using
 alternative drag and drop libraries as it will lead to poorer performance, increased maintenance
 costs, (likely) worse accessibility and fragmented user experiences. See
-https://staging.atlassian.design/components/pragmatic-drag-and-drop/
+https://atlassian.design/components/pragmatic-drag-and-drop/
 
 ## Examples
 

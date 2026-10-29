@@ -139,7 +139,7 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
 				allowWrapCodeBlock: true,
 			});
 
-			expect(getByRole('button', { name: 'Copy as text' })).not.toHaveAttribute('aria-haspopup');
+			expect(getByRole('button', { name: 'Copy code text' })).not.toHaveAttribute('aria-haspopup');
 			expect(getByRole('button', { name: 'Turn on wrap' })).not.toHaveAttribute('aria-haspopup');
 		});
 
@@ -150,7 +150,7 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
 				allowWrapCodeBlock: true,
 			});
 
-			expect(getByRole('button', { name: 'Copy as text' })).toHaveAttribute(
+			expect(getByRole('button', { name: 'Copy code text' })).toHaveAttribute(
 				'aria-haspopup',
 				'true',
 			);

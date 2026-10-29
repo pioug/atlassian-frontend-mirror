@@ -32,11 +32,11 @@ This rule marks code as violations when it finds native HTML anchor elements.
 ### Correct
 
 ```jsx
-import Anchor from '@atlaskit/primitives/anchor';
+import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 
 <Anchor href="/">Hello, World!</Anchor>;
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 <Link href="/">Hello, World!</Link>;
 

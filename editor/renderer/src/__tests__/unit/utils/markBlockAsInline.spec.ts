@@ -1,7 +1,6 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { doc, p, bodiedExtension, h1 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { markBlockAsInline } from '../../../react/utils/markBlockAsInline';
 
@@ -34,7 +33,6 @@ describe('Custom UI inline-bodied paragraph composition', () => {
 	});
 
 	it('does not join neighbours of nested Custom UI macros', () => {
-		passGate('platform_forge_inline_bodied_layout_switch');
 		const onMark = jest.fn();
 		const shouldDisplayExtensionAsInline = jest.fn().mockReturnValue(true);
 		markBlockAsInline({
@@ -46,19 +44,6 @@ describe('Custom UI inline-bodied paragraph composition', () => {
 		});
 		expect(onMark).not.toHaveBeenCalled();
 		expect(shouldDisplayExtensionAsInline).not.toHaveBeenCalled();
-	});
-
-	it('preserves existing nested composition when the layout gate is off', () => {
-		failGate('platform_forge_inline_bodied_layout_switch');
-		const onMark = jest.fn();
-		markBlockAsInline({
-			nodes: getChildNodes(document),
-			onMark,
-			parentPos: 1,
-			isTopLevel: false,
-			shouldDisplayExtensionAsInline: () => true,
-		});
-		expect(onMark).toHaveBeenCalledTimes(2);
 	});
 });
 

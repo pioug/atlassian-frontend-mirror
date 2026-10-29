@@ -25,7 +25,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"rope-sequence": "1.3.4"
 	},
@@ -33,11 +32,10 @@
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
-		"@testing-library/react": "root:*",
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/prosemirror-history",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"description": "Fork of the prosemirror-history plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

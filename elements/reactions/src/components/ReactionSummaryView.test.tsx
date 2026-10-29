@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
@@ -8,6 +8,7 @@ import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { getReactionSummary } from '../MockReactionsClient';
 import { DefaultReactions } from '../shared/constants';
@@ -33,7 +34,14 @@ const reactions: ReactionSummary[] = [
 	getReactionSummary(DefaultReactions[3].shortName, 10, true),
 ];
 
-describe('ReactionSummaryView', () => {
+describe.each([
+	['on', passGate],
+	['off', failGate],
+])('ReactionSummaryView (platform-dst-top-layer %s)', (_, setGate) => {
+	beforeEach(() => {
+		setGate('platform-dst-top-layer');
+	});
+
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -174,8 +182,10 @@ describe('ReactionSummaryView', () => {
 		const list = summaryViewPopup.querySelector('ul');
 
 		expect(list).toBeInTheDocument();
-		expect(list?.children).toHaveLength(reactions.length);
-		expect(Array.from(list?.children ?? []).every((item) => item.tagName === 'LI')).toBe(true);
+		// Compiled may inject a runtime <style> into the list in jsdom.
+		const items = Array.from(list?.children ?? []).filter((item) => item.tagName !== 'STYLE');
+		expect(items).toHaveLength(reactions.length);
+		expect(items.every((item) => item.tagName === 'LI')).toBe(true);
 		expect(list?.querySelectorAll('li li')).toHaveLength(0);
 	});
 
@@ -344,6 +354,52 @@ describe('ReactionSummaryView', () => {
 			expect(screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).not.toBeInTheDocument();
 
 			await expect(document.body).toBeAccessible();
+		});
+
+		it('should pin the hover preview on click, keep it open after leave and close it on a second click', async () => {
+			// No delay, so a leave that does not pin closes the preview at once.
+			renderComponent({
+				hoverableSummaryView: true,
+				hoverableSummaryViewDelay: 0,
+				allowSelectFromSummaryView: true,
+			});
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.hover(reactionSummaryButton);
+			expect(await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).toBeInTheDocument();
+
+			await userEvent.click(reactionSummaryButton);
+			await userEvent.unhover(reactionSummaryButton);
+			expect(screen.getByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).toBeInTheDocument();
+
+			await userEvent.click(reactionSummaryButton);
+			expect(screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).not.toBeInTheDocument();
+		});
+
+		it('should close a pinned summary on Escape', async () => {
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.click(reactionSummaryButton);
+			expect(await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).toBeInTheDocument();
+
+			await userEvent.keyboard('{Escape}');
+			await waitFor(() =>
+				expect(screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).not.toBeInTheDocument(),
+			);
+		});
+
+		it('should close a pinned summary on a click outside', async () => {
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.click(reactionSummaryButton);
+			expect(await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).toBeInTheDocument();
+
+			await userEvent.click(document.body);
+			await waitFor(() =>
+				expect(screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).not.toBeInTheDocument(),
+			);
 		});
 	});
 });

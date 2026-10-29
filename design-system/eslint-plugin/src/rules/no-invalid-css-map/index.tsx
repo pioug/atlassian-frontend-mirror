@@ -90,15 +90,18 @@ const noInvalidCssMapRule: Rule.RuleModule = createLintRule({
 			},
 		},
 		messages: {
-			mustBeTopLevelScope: 'cssMap must only be used in the top-most scope of the module.',
+			mustBeTopLevelScope:
+				'Move this cssMap() declaration to module scope, outside components and callbacks; select its static variants when rendering.',
 			noNonStaticallyEvaluable:
-				'Cannot statically evaluate the value of this variable. Values used in the cssMap function call should have a value evaluable at build time.',
-			noExportedCssMap: 'cssMap usages cannot be exported.',
+				'Replace this cssMap value with a local build-time constant or literal. Use a static variant lookup for finite choices, or the style prop for runtime-only values.',
+			noExportedCssMap:
+				'Remove the cssMap export and keep its declaration beside its usage. Export a component if styling must be shared across files.',
 			noInlineFunctions:
-				'Cannot use functions as values in cssMap - values must only be statically evaluable values (e.g. strings, numbers).',
+				'Replace the function inside cssMap with static variants selected in JSX, or pass runtime-only values through the style prop.',
 			noFunctionCalls:
-				'Cannot call external functions in cssMap - values must only be statically evaluable values (e.g. strings, numbers).',
-			noSpreadElement: 'Cannot use the spread operator in cssMap.',
+				'Replace this function call inside cssMap with a build-time literal or an allowed token() call. Pass runtime-only values through the style prop.',
+			noSpreadElement:
+				'Declare cssMap variant properties directly. Compose local variants where they are applied with css={[a, b]} or xcss={cx(a, b)} instead of spreading styles.',
 		},
 		schema: [
 			{

@@ -1,5 +1,19 @@
 # @atlaskit/feature-gate-fetcher
 
+## 1.1.0
+
+### Minor Changes
+
+- [`198a031bebf7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/198a031bebf7c) -
+  Add an `includeFfpFlags` option, off by default, to `initialize`, `updateUser` and the provider
+  options. Set it to `true` to fetch flag values from the Feature Flag Service `/api/v1/evalFlags`
+  endpoint instead of `/api/v2/frontend/experimentValues`. Feature Flag Platform flags are not
+  served yet, so only enable it for apps with no flags in the Feature Flag Platform.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

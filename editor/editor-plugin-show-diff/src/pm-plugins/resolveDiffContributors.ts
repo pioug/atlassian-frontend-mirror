@@ -11,12 +11,6 @@ import type {
 } from '../showDiffPluginType';
 import { getAttributionKey } from './decorations/colorSchemes/attributions';
 
-/** A brand name, so a literal rather than a translated message. */
-const ROVO_AGENT_NAME = 'Rovo';
-
-/** `agentType` values that render as "Rovo" rather than as a generic external agent. */
-const ROVO_AGENT_TYPES: ReadonlySet<string> = new Set(['convo-ai', 'rovo_chat']);
-
 type ResolvedIdentity = Omit<DiffContributor, 'attribution' | 'connectedTo'>;
 
 /** `@atlaskit/agent-color` brands show-diff renders with a dedicated presentation. */
@@ -36,35 +30,6 @@ const SHOW_DIFF_AGENT_BRANDS: Readonly<Partial<Record<AgentBrandColorScheme, Dif
 	'agent-brand-antigravity': 'antigravity',
 	'agent-brand-copilot': 'copilot',
 };
-
-/**
- * Brands that prefer the account's real avatar over their fixed glyph when the invoking profile
- * has one. Brands with a fixed glyph (Claude, ChatGPT, Amplitude, Cortex, Databricks, Gemini, Manus,
- * Slack) intentionally keep it always (see `AGENT_KIND_ICONS` in `contributorAvatarRenderer.ts`).
- */
-const AVATAR_ELIGIBLE_BRANDS: ReadonlySet<DiffAgentBrand> = new Set([
-	'antigravity',
-	'copilot',
-	'figma',
-	'lovable',
-	'replit',
-	'rovo',
-]);
-
-/** Known external agent types emitted by Confluence's agent identification service that carry
- * no `@atlaskit/agent-color` brand — a generic labelled fallback. */
-const EXTERNAL_AGENT_NAMES: Readonly<Record<string, string>> = {
-	vscode: 'VS Code',
-	hermes: 'Hermes',
-	runlayer: 'Runlayer',
-	zed: 'Zed',
-	ampcode: 'Ampcode',
-	devin_cli: 'Devin CLI',
-	pi_agent: 'Pi Agent',
-};
-
-const hasAgentIdentity = (attribution: DiffStepAttribution): boolean =>
-	Boolean(attribution.agentId?.trim() || attribution.agentType?.trim());
 
 const toProfilesByAccountId = (
 	profiles: readonly DiffContributorProfile[] | undefined,
@@ -91,47 +56,31 @@ const resolveUser = (
 	return profile ? { avatarUrl: profile.avatarUrl, kind: 'user', name: profile.name } : undefined;
 };
 
-/** Resolve branding or a profile first, then a known type name or the external-agent fallback. */
+/** Resolve branding from named metadata or the account profile. */
 const resolveAgent = (
 	attribution: DiffStepAttribution,
 	profilesByAccountId: Map<string, DiffContributorProfile>,
 ): ResolvedIdentity => {
-	const agentType = attribution.agentType?.trim().toLowerCase();
-	// `agentType` may be a named id (e.g. `mcp_lovable_agent`) or a display name (e.g. `lovable`).
-	const brand = agentType
-		? getThirdPartyAgentColor({ agentNamedId: agentType, agentName: agentType })
-		: undefined;
-	const diffBrand = brand ? SHOW_DIFF_AGENT_BRANDS[brand.scheme] : undefined;
-
 	const agentId = attribution.agentId?.trim();
 	const agentProfile = agentId ? profilesByAccountId.get(agentId) : undefined;
 
-	if (diffBrand && brand) {
+	const brand = getThirdPartyAgentColor({
+		agentNamedId: attribution.agentNamedId,
+		agentName: agentProfile?.name,
+	});
+	const agentBrand =
+		agentProfile?.agentBrand ?? (brand ? SHOW_DIFF_AGENT_BRANDS[brand.scheme] : undefined);
+
+	if (agentProfile || agentBrand) {
 		return {
-			agentKind: diffBrand,
+			...(agentBrand ? { agentKind: agentBrand } : {}),
+			avatarUrl: agentProfile?.avatarUrl,
 			kind: 'agent',
-			name: brand.name,
-			...(AVATAR_ELIGIBLE_BRANDS.has(diffBrand) && agentProfile?.avatarUrl
-				? { avatarUrl: agentProfile.avatarUrl }
-				: {}),
+			name: agentProfile?.name ?? brand?.name ?? '',
 		};
 	}
 
-	if (agentProfile) {
-		return {
-			...(agentProfile.agentBrand ? { agentKind: agentProfile.agentBrand } : {}),
-			avatarUrl: agentProfile.avatarUrl,
-			kind: 'agent',
-			name: agentProfile.name,
-		};
-	}
-
-	// Unknown types keep an empty name for the tag's localised "External agent" label.
-	if (agentType && ROVO_AGENT_TYPES.has(agentType)) {
-		return { agentKind: 'rovo', kind: 'agent', name: ROVO_AGENT_NAME };
-	}
-	const externalName = agentType ? EXTERNAL_AGENT_NAMES[agentType] : undefined;
-	return { agentKind: 'external', kind: 'agent', name: externalName ?? '' };
+	return { agentKind: 'external', kind: 'agent', name: '' };
 };
 
 /**
@@ -163,7 +112,7 @@ export const resolveDiffContributors = <TStep>(
 
 		const userId = stepAttribution.userId?.trim();
 
-		if (hasAgentIdentity(stepAttribution)) {
+		if (stepAttribution.agentId?.trim()) {
 			const agent = resolveAgent(stepAttribution, profilesByAccountId);
 
 			if (!userId) {

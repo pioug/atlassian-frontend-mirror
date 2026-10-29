@@ -13,6 +13,8 @@ const EXPECTED_VALUES_PRD_URL = `https://api.atlassian.com/flags/api/v2/frontend
 const EXPECTED_VALUES_STG_URL = `https://api.stg.atlassian.com/flags/api/v2/frontend/experimentValues`;
 const EXPECTED_VALUES_DEV_URL = `https://api.dev.atlassian.com/flags/api/v2/frontend/experimentValues`;
 const EXPECTED_VALUES_GATEWAY_URL = `/gateway/api/flags/api/v2/frontend/experimentValues`;
+const EXPECTED_EVAL_FLAGS_STG_URL = `https://api.stg.atlassian.com/flags/api/v1/evalFlags`;
+const EXPECTED_EVAL_FLAGS_GATEWAY_URL = `/gateway/api/flags/api/v1/evalFlags`;
 
 const EXPECTED_KEY_PRD_URL = `https://api.atlassian.com/flags/api/v2/frontend/clientSdkKey/${TARGET_APP}`;
 const EXPECTED_KEY_STG_URL = `https://api.stg.atlassian.com/flags/api/v2/frontend/clientSdkKey/${TARGET_APP}`;
@@ -390,6 +392,95 @@ describe('Fetcher', () => {
 			);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_GATEWAY_URL);
+		});
+
+		describe('with includeFfpFlags', () => {
+			const evalFlagsFetcherOptions: FetcherOptions = {
+				...defaultFetcherOptions,
+				includeFfpFlags: true,
+			};
+
+			const evalFlagsResponseBody = {
+				statsig: defaultExperimentsResponseBody,
+				ffp: { flags: { 'ffp-flag': { value: true } } },
+				status: { statsig: 'OK', ffp: 'OK' },
+			};
+
+			test('returns the Statsig section of the evalFlags response', async () => {
+				fetchMock.mockResponseOnce(JSON.stringify(evalFlagsResponseBody), { status: 200 });
+
+				const response = await Fetcher.fetchExperimentValues(
+					evalFlagsFetcherOptions,
+					{ atlassianAccountId: 'account-abc' },
+					{ attribute: 'value' },
+				);
+
+				expect(response).toEqual(defaultExperimentsResponseBody);
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+				expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_STG_URL);
+				expect(fetchMock.mock.calls[0][1]?.method).toEqual('POST');
+				expect(JSON.parse(fetchMock.mock.calls[0][1]?.body as string)).toEqual({
+					identifiers: { atlassianAccountId: 'account-abc' },
+					customAttributes: { attribute: 'value' },
+					targetApp: TARGET_APP,
+				});
+			});
+
+			test('uses gateway URL if specified', async () => {
+				fetchMock.mockResponseOnce(JSON.stringify(evalFlagsResponseBody));
+
+				await Fetcher.fetchExperimentValues(
+					{ ...evalFlagsFetcherOptions, useGatewayURL: true },
+					{ atlassianAccountId: 'account-abc' },
+				);
+
+				expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_GATEWAY_URL);
+			});
+
+			test('calls experimentValues when false', async () => {
+				fetchMock.mockResponseOnce(JSON.stringify(defaultExperimentsResponseBody));
+
+				await Fetcher.fetchExperimentValues(
+					{ ...defaultFetcherOptions, includeFfpFlags: false },
+					{ atlassianAccountId: 'account-abc' },
+				);
+
+				expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_STG_URL);
+			});
+
+			test.each([
+				['UNAVAILABLE', { statsig: {}, status: { statsig: 'UNAVAILABLE', ffp: 'OK' } }],
+				['DISABLED', { status: { statsig: 'DISABLED', ffp: 'OK' } }],
+				['missing', { statsig: defaultExperimentsResponseBody }],
+			])('rejects when the Statsig status is %s', async (_status, body) => {
+				fetchMock.mockResponseOnce(JSON.stringify(body), { status: 200 });
+
+				const promise = Fetcher.fetchExperimentValues(evalFlagsFetcherOptions, {
+					atlassianAccountId: 'account-abc',
+				});
+
+				await expect(promise).rejects.toThrow('Statsig values are unavailable');
+			});
+
+			test('rejects when the Statsig section has no experiment values', async () => {
+				fetchMock.mockResponseOnce(JSON.stringify({ statsig: {}, status: { statsig: 'OK' } }));
+
+				const promise = Fetcher.fetchExperimentValues(evalFlagsFetcherOptions, {
+					atlassianAccountId: 'account-abc',
+				});
+
+				await expect(promise).rejects.toThrow('Statsig values are unavailable');
+			});
+
+			test('returns response error on failure', async () => {
+				fetchMock.mockResponseOnce('something went wrong', { status: 500 });
+
+				const promise = Fetcher.fetchExperimentValues(evalFlagsFetcherOptions, {
+					atlassianAccountId: 'account-abc',
+				});
+
+				await expect(promise).rejects.toBeInstanceOf(ResponseError);
+			});
 		});
 	});
 });

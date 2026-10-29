@@ -1,149 +1,56 @@
 # no-placeholder
 
-Placeholders are inherently inaccessible and should not be used. Instead, information about the type
-or formatting of a value should be included in a helper message that is associated to the input.
-This can be done natively in Atlaskit forms using the form's field and messaging components, like
-[this example](https://atlassian.design/components/form/examples#building-a-form) in our form's
-documentation.
+Move input instructions out of `placeholder` into persistent helper text. Keep the input's visible
+label and existing `aria-describedby` associations. Search fields can use a placeholder when they
+also have an icon and an accessible label; see the rule options before changing a search experience.
 
-An exception to this rule is that placeholder text can be used in search fields if it’s accompanied
-by an icon and accessible label. This ensures that people using assistive technologies understand
-what type of field it is.
-
-## Examples
-
-This rule will find violations for when a placeholder is used on an input element.
-
-### Incorrect
+## Incorrect
 
 ```jsx
-<input id="name" name="username" type="text" placeholder="FooBarBaz" />
-                                             ^^^^^^^^^^^ `placeholder` prop should not be used
+<input name="username" placeholder="At least eight characters" />
 ```
 
+## Correct
+
+For a native input, give the helper an id and reference it alongside any existing description ids:
+
 ```jsx
+<>
+	<label htmlFor="username">Username</label>
+	<input id="username" name="username" aria-describedby="username-help" />
+	<p id="username-help">Use at least eight characters.</p>
+</>
+```
+
+For Field's `component` API, use `helperMessage` and preserve the supplied `fieldProps`:
+
+```jsx
+import { Field } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-<Textfield placeholder="FooBarBaz">
-           ^^^^^^^^^^^ `placeholder` prop should not be used
+<Field
+	name="username"
+	label="Username"
+	component={({ fieldProps }) => <Textfield {...fieldProps} />}
+	helperMessage="Use at least eight characters."
+/>;
 ```
 
-```jsx
-import Form, { Field, FormFooter } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
-
-export default function Example(): React.JSX.Element {
-  return (
-    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-      <Field label="Comments" name="comments">
-        {({ fieldProps }) => (
-          <Textfield
-            placeholder="Include any thoughts you have about the above blog post."
-            ^^^^^^^^^^^ `placeholder` prop should not be used
-            {...fieldProps}
-          />
-        )}
-      </Field>
-      <FormFooter>
-        <Button type="submit" appearance="primary">
-          Submit
-        </Button>
-      </FormFooter>
-    </Form>
-  );
-}
-```
+For the render-prop API, keep HelperMessage within its Field context so its generated helper id
+matches the input's supplied description ids. Keep MessageWrapper around the messages:
 
 ```jsx
-import Form, { Field, FormFooter } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
-
-export default function Example(): React.JSX.Element {
-  return (
-    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-      <Field
-        label="Comments"
-        name="comments"
-        component={({ fieldProps }) => (
-          <Textfield
-            placeholder="Include any thoughts you have about the above blog post."
-            ^^^^^^^^^^^ `placeholder` prop should not be used
-            {...fieldProps}
-          />
-        )}
-      />
-      <FormFooter>
-        <Button type="submit" appearance="primary">
-          Submit
-        </Button>
-      </FormFooter>
-    </Form>
-  );
-}
-```
-
-### Correct
-
-```jsx
-<input id="name" name="username" type="text" aria-describedby="name__helper" />
-<p id="name__helper">Usernames should be over 8 characters and include upper- and lower-case characters. For example, "FooBarBaz"</p>
-```
-
-```jsx
+import { Field, HelperMessage, MessageWrapper } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
-<Textfield id="name" name="username" aria-describedby="name__helper" />
-<p id="name__helper">Usernames should be over 8 characters and include upper- and lower-case characters. For example, "FooBarBaz"</p>
-```
-
-```jsx
-import Form, { Field, FormFooter, HelperMessage, MessageWrapper } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
-
-export default function Example(): React.JSX.Element {
-  return (
-    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-      <Field label="Comments" name="comments">
-        {({ fieldProps }) => (
-          <Fragment>
-            <Textfield {...fieldProps} />
-            <MessageWrapper>
-              <HelperMessage>Include any thoughts you have about the above blog post.</HelperMessage>
-            </MessageWrapper>
-          </Fragment>
-        )}
-      </Field>
-      <FormFooter>
-        <Button type="submit" appearance="primary">
-          Submit
-        </Button>
-      </FormFooter>
-    </Form>
-  );
-}
-```
-
-```jsx
-import Form, { Field, FormFooter } from '@atlaskit/form';
-import Textarea from '@atlaskit/textarea';
-
-export default function Example(): React.JSX.Element {
-  return (
-    <Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>
-      <Field
-        label="Comments"
-        name="comments"
-        component={({ fieldProps }) => (
-          <Textfield {...fieldProps} />
-        )}
-        helperMessage="Include any thoughts you have about the above blog post."
-      />
-      <FormFooter>
-        <Button type="submit" appearance="primary">
-          Submit
-        </Button>
-      </FormFooter>
-    </Form>
-  );
-}
+<Field name="username" label="Username">
+	{({ fieldProps }) => (
+		<>
+			<Textfield {...fieldProps} />
+			<MessageWrapper>
+				<HelperMessage>Use at least eight characters.</HelperMessage>
+			</MessageWrapper>
+		</>
+	)}
+</Field>;
 ```

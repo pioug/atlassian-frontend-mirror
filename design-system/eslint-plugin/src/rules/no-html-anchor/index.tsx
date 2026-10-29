@@ -16,7 +16,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlAnchor: `This <{{ name }}> should be replaced with a link component from the Atlassian Design System, such as the "Link" or "LinkButton" component when suitable. For custom links use the "Anchor" primitive. ADS links include event tracking, automatic router configuration, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlAnchor:
+				'Replace <{{ name }}> with Link from @atlaskit/link/link, or named Anchor from @atlaskit/primitives/compiled/anchor for a custom link. Preserve href, navigation behavior and link text.',
 		},
 	},
 	create(context) {

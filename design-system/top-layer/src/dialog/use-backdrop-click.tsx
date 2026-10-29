@@ -9,6 +9,9 @@ import { bindAll } from 'bind-event-listener';
  * dismiss, the press and the release must both be on the backdrop. Browsers retarget
  * `::backdrop` events to the `<dialog>`, so the target is the dialog itself.
  *
+ * The browser closes the open auto popovers in the dialog on the same press, so one backdrop press
+ * closes both, as `closedby="any"` does. See `notes/decisions/outside-press-closes-every-layer.md`.
+ *
  * Ignored:
  * - A drag from the content to the backdrop, or from the backdrop to the content.
  * - A click with no press (for example a synthetic `click()`).

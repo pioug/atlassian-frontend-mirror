@@ -35,10 +35,10 @@ test.describe('Resize', () => {
 		const textArea = page.locator(selector);
 		const defaultHeight = await getOffsetHeight(textArea);
 
-		textArea.fill(docsText);
+		await textArea.fill(docsText);
 		await expect(textArea).toHaveHeight(defaultHeight);
 
-		textArea.clear();
+		await textArea.clear();
 		await expect(textArea).toHaveHeight(defaultHeight);
 	});
 
@@ -50,10 +50,11 @@ test.describe('Resize', () => {
 		const textArea = page.locator(selector);
 		const defaultHeight = await getOffsetHeight(textArea);
 
-		textArea.fill(docsText);
+		await textArea.fill(docsText);
+		expect(await textArea.evaluate((element) => element.scrollHeight)).toBeGreaterThan(0);
 		expect(await getOffsetHeight(textArea)).toBeGreaterThan(defaultHeight);
 
-		textArea.clear();
+		await textArea.clear();
 		await expect(textArea).toHaveHeight(defaultHeight);
 
 		// ---- Value prop change
@@ -61,7 +62,7 @@ test.describe('Resize', () => {
 		await page.click('[data-testid="insertTextButton"]');
 		expect(await getOffsetHeight(textArea)).toBeGreaterThan(defaultHeight);
 
-		textArea.clear();
+		await textArea.clear();
 		await expect(textArea).toHaveHeight(defaultHeight);
 	});
 });

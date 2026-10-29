@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 29.0.5
+
+### Patch Changes
+
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- Updated dependencies
+
+## 29.0.4
+
+### Patch Changes
+
+- [`c5b599e3bc90a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5b599e3bc90a) -
+  Remove unused internal code and replace loose plugin state return types with PluginState. No
+  behaviour change.
+- Updated dependencies
+
 ## 29.0.3
 
 ### Patch Changes

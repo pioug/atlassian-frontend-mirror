@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "5.0.1",
+	"version": "5.0.3",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Loop Experiences",
@@ -52,7 +52,9 @@
 		"@types/eslint": "root:*",
 		"eslint": "root:*",
 		"find-up": "root:*",
-		"outdent": "root:*"
+		"outdent": "root:*",
+		"react": "root:*",
+		"react-dom": "root:*"
 	},
 	"peerDependencies": {
 		"find-up": "^4 || ^5"

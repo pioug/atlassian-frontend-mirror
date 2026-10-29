@@ -391,6 +391,30 @@ describe('Refresh', () => {
 			);
 		});
 
+		test('passes includeFfpFlags to fetcher', () => {
+			refresh = new Refresh(
+				{ apiKey: 'mock-api-key', includeFfpFlags: true },
+				mockOnFeatureGateUpdate,
+			);
+			refresh.setClientVersion('mock-client-version');
+			refresh.updateProfile(mockProfileHash, mockRulesetProfile);
+
+			(refresh as any).fetchAndReschedule();
+
+			expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+				'mock-client-version',
+				{
+					apiKey: 'mock-api-key',
+					environment: mockRulesetProfile.environment,
+					perimeter: mockRulesetProfile.perimeter,
+					targetApp: mockRulesetProfile.targetApp,
+					includeFfpFlags: true,
+				},
+				mockIdentifiers,
+				mockCustomAttributes,
+			);
+		});
+
 		test('handles success resp from fetcher', async () => {
 			(refresh as any).failureCount = 1;
 			const scheduleSpy = jest.spyOn(Refresh.prototype as any, 'schedule');

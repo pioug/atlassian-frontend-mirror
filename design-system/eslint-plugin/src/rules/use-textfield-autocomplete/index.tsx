@@ -35,9 +35,9 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			missingAutocomplete:
-				'Textfield with type="email", "tel", or "url" should have an appropriate autocomplete value to comply with WCAG 2.2 SC 1.3.5 (Identify Input Purpose).',
+				'Add the React autoComplete prop to this Textfield: use "email" for type="email", "tel" for type="tel", or "url" for type="url" when that is the input\'s purpose. Use a more specific HTML autocomplete token when needed.',
 			noAutocompleteOff:
-				'Textfield with type="email", "tel", or "url" should not have autocomplete="off". Set it to an appropriate autocomplete value to comply with WCAG 2.2 SC 1.3.5 (Identify Input Purpose).',
+				'Replace autoComplete="off" on this Textfield with the token matching its purpose, such as "email", "tel" or "url"; use the React prop spelling autoComplete.',
 		},
 	},
 

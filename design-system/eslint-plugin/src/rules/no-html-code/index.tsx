@@ -16,7 +16,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlCode: `This <{{ name }}> should be replaced with the code component from the Atlassian Design System. The ADS code component ensures accessible implementations and consistent ADS styling.`,
+			noHtmlCode:
+				'Replace <{{ name }}> with Code from @atlaskit/code/code for inline code. Preserve the code text; use CodeBlock for a multi-line code block rather than changing its semantics.',
 		},
 	},
 	create(context) {

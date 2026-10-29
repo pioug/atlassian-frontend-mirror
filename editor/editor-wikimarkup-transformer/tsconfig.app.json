@@ -27,8 +27,6 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./example-helpers/**/*",
-		"./src/parser/error.ts",
-		"./src/parser/tokenize/file-link.ts",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",

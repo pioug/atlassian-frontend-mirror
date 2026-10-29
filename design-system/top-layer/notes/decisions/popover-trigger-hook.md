@@ -61,7 +61,7 @@ useAnchoredPopover({
 | `@atlaskit/select`          | None       | Preserves legacy `'aria-haspopup': 'true'` for compatibility, so the hook's main ARIA value would be bypassed.                                                                  |
 | `@atlaskit/datetime-picker` | None       | React Select owns the trigger lifecycle and open state. The top-layer menus are `mode="manual"` and always open while mounted, with external trigger refs.                      |
 | `@atlaskit/tooltip`         | None       | Tooltip triggers use `aria-describedby`, hover/mouse lifecycle, and sometimes point anchoring. This is intentionally outside `getAriaForTrigger`.                               |
-| `@atlaskit/spotlight`       | None       | Programmatic/manual lifecycle with context-owned target refs and `useSimpleLightDismiss`.                                                                                       |
+| `@atlaskit/spotlight`       | None       | Programmatic/manual lifecycle with context-owned target refs and `useManualLightDismiss`.                                                                                       |
 | `@atlaskit/flag`            | None       | Triggerless manual popover used only for top-layer stacking.                                                                                                                    |
 
 ---

@@ -5,7 +5,7 @@ import { createLintRule } from '../utils/create-lint-rule';
 import { isImportFromPackage } from '../utils/is-import-from-package';
 
 export const headingLevelRequiredSuggestionText =
-	'Add a `headingLevel` that is of a contextually relevant level.';
+	'Set SectionMessage.headingLevel to the semantic heading level matching its place in the page outline, for example headingLevel={2} below the page heading; do not choose the level for visual size.';
 const SECTION_MESSAGE_PACKAGE = '@atlaskit/section-message';
 
 const rule: Rule.RuleModule = createLintRule({

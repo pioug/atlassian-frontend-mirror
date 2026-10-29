@@ -9,10 +9,10 @@ Select menu, Popper or Spotlight inside the dialog first. Revisit if that is rep
 A close request (Escape, Android back) goes to the topmost close watcher. Modal dialogs and `auto`
 and `hint` popovers have one. `manual` popovers do not, so a close request skips them.
 
-ADS `manual` popovers that can be dismissed use `useSimpleLightDismiss`: the Select menu
+ADS `manual` popovers that can be dismissed use `useManualLightDismiss`: the Select menu
 (`react-select/src/components/menu-portal-top-layer.tsx`), Popper top-layer and Spotlight.
 
-- **Escape:** `useSimpleLightDismiss` listens on `document` and calls `preventDefault()`. `Dialog`
+- **Escape:** `useManualLightDismiss` listens on `document` and calls `preventDefault()`. `Dialog`
   listens later, on `window`, sees `defaultPrevented` and does nothing. The browser makes no close
   request. So Escape closes the menu, and the dialog is not asked. This works today.
 - **Android back:** there is no key event. The dialog has `closedby="none"`, so the close request
@@ -24,7 +24,7 @@ The user expects back to close the menu first, as Escape does.
 
 ## Proposal
 
-1. `useSimpleLightDismiss` adds each open layer to a small module-level list, with its element and
+1. `useManualLightDismiss` adds each open layer to a small module-level list, with its element and
    its dismiss function. It removes the layer when it closes or unmounts.
 2. On a close request, `Dialog` would need a signal. With `closedby="none"` there is no `cancel`, so
    this needs another hook (for example the Navigation API), which has its own user-activation rule.
@@ -34,7 +34,7 @@ Result: back would behave like Escape. It would close the innermost ADS layer fi
 ## Limits
 
 - Layers from another copy of `@atlaskit/top-layer` are not in the list.
-- Raw `manual` popovers that do not use `useSimpleLightDismiss` are not in the list.
+- Raw `manual` popovers that do not use `useManualLightDismiss` are not in the list.
 
 ## Tests
 
@@ -75,6 +75,6 @@ A native page has the same behaviour: a tooltip and a popover in one group close
 - `closedby="closerequest"` while a child popover is open. The dialog refuses once. The next request
   with no user activation is forced, and the parent popover closes.
 - Put the dialog in its own group. Not possible: a new group needs user activation.
-- If a consumer needs a fix: the parent layer uses `popover="manual"` with `useSimpleLightDismiss`
+- If a consumer needs a fix: the parent layer uses `popover="manual"` with `useManualLightDismiss`
   (no close watcher, so nothing in the group closes it), or the consumer renders the dialog so that
   closing the popover does not unmount it.

@@ -56,9 +56,6 @@
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{

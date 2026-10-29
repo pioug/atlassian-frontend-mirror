@@ -4,6 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import type {
 	RegisteredMenuModel,
 	RegisteredMenuItemProps,
+	RegisteredMenuSelectionSource,
 } from '@atlaskit/editor-common/registered-menu';
 import { RegisteredMenuList } from '@atlaskit/editor-common/registered-menu/list';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
@@ -57,6 +58,7 @@ type Props = {
 	query: string;
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
 	selectedItemIndex: number;
+	selectionSource?: RegisteredMenuSelectionSource;
 };
 
 export const ToolbarQuickInsertMenu = ({
@@ -77,6 +79,7 @@ export const ToolbarQuickInsertMenu = ({
 	onRenderedItemsChange,
 	query,
 	selectedItemIndex,
+	selectionSource,
 }: Props): React.JSX.Element | null => {
 	const footerItemIndex = itemCount - 1;
 	const footerItemId = getQuickInsertMenuItemId(listId, footerItemIndex);
@@ -129,6 +132,7 @@ export const ToolbarQuickInsertMenu = ({
 							getItemId={getItemId}
 							activeItemKey={activePreviewItemKey}
 							selectedItemIndex={selectedItemIndex}
+							selectionSource={selectionSource}
 							scrollResetKey={query}
 							onItemHover={onItemHover}
 							onItemFocus={onItemFocus}

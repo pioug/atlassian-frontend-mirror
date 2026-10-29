@@ -11,7 +11,8 @@ const rule: Rule.RuleModule = {
 		},
 		hasSuggestions: false,
 		messages: {
-			prePostInstallScriptsNotAllowed: 'pre/post install scripts not allowed in package.json',
+			prePostInstallScriptsNotAllowed:
+				'Remove preinstall/postinstall from this package.json. Move the setup work into an explicit build or development script that callers run deliberately; published package installs must not rely on these lifecycle scripts.',
 		},
 	},
 	create(context) {

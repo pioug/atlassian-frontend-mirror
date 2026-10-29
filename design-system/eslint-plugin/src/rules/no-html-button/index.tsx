@@ -15,7 +15,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlButton: `This {{ name }} should be replaced with a button component from the Atlassian Design System, such as the "Button" component when suitable. For custom buttons use the "Pressable" primitive. ADS buttons include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlButton:
+				'Replace this {{ name }} with Button from @atlaskit/button/default/button, or named Pressable from @atlaskit/primitives/compiled/pressable for a custom button. Preserve its intended type, handlers and accessible name.',
 		},
 	},
 	create(context) {

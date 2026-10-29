@@ -16,7 +16,8 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			unexpectedTaggedTemplate: 'Unexpected `keyframes` tagged template expression',
+			unexpectedTaggedTemplate:
+				'Replace the keyframes template with keyframes({ from: {...}, to: {...} }) from @compiled/react, preserving each animation step.',
 		},
 		schema: noTaggedTemplateExpressionRuleSchema,
 	},

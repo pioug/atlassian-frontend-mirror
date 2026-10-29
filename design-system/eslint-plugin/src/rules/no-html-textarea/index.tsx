@@ -16,7 +16,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			noHtmlTextarea: `This <{{ name }}> should be replaced with a textarea component from the Atlassian Design System. ADS components include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.`,
+			noHtmlTextarea:
+				'Replace <{{ name }}> with Textarea from @atlaskit/textarea/text-area. Preserve the field name, value, change handler and label association; use the supported sizing props for its intended height.',
 		},
 	},
 	create(context) {

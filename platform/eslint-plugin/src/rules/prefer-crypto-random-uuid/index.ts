@@ -13,6 +13,8 @@ const rule: Rule.RuleModule = {
 		messages: {
 			preferCryptoRandomUUID:
 				'Use crypto.randomUUID() instead of the uuid library. Run `eslint --fix` to auto-migrate.',
+			preferCryptoRandomUUIDManual:
+				'This CommonJS uuid import cannot be auto-fixed. For random v4 IDs, replace its call sites with crypto.randomUUID() and remove the require; review v1-specific semantics before migrating.',
 		},
 	},
 	create(context) {
@@ -74,7 +76,7 @@ const rule: Rule.RuleModule = {
 					if (typeof arg === 'string' && (arg === 'uuid' || /^uuid\/v[14]$/.test(arg))) {
 						context.report({
 							node,
-							messageId: 'preferCryptoRandomUUID',
+							messageId: 'preferCryptoRandomUUIDManual',
 							// require() needs manual refactoring
 						});
 					}

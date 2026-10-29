@@ -59,6 +59,8 @@ jest.mock('@atlaskit/top-layer/popover/popover', () => {
 						role,
 						'aria-labelledby': labelledBy,
 						'data-testid': testId,
+						// A real `Popover` renders a `[popover]` element; `useManualLightDismiss` requires it.
+						popover: mode ?? 'auto',
 						'data-popover-mode': mode,
 						'data-popover-open': String(isOpen),
 					},

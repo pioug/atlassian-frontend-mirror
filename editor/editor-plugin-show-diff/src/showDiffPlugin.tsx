@@ -24,10 +24,11 @@ const normalizeShowDiffParams = (params: ShowDiffParams | undefined) => {
 		return params ? { ...params, stepAttributions: [], contributors: undefined } : params;
 	}
 
-	const { stepsWithAttribution, contributorProfiles, ...rest } = params;
+	const { stepsWithAttribution, contributorProfiles, showContributorTags = true, ...rest } = params;
 
 	return {
 		...rest,
+		showContributorTags,
 		// Resolve at boundary to keep contributor model and attribution format internal.
 		contributors: areAttributionColorGatesEnabled()
 			? resolveContributors(resolveDiffContributors(stepsWithAttribution, contributorProfiles))

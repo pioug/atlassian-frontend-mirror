@@ -21,7 +21,9 @@ This rule marks code as violations when it finds native HTML heading elements.
 ### Correct
 
 ```jsx
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 
-<Heading as="h1">Hello, World!</Heading>;
+<Heading size="large" as="h1">
+	Hello, World!
+</Heading>;
 ```

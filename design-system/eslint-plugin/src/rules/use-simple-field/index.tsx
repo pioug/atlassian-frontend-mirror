@@ -18,7 +18,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			useSimpleField: 'The simplified field implementation can be used here.',
+			useSimpleField:
+				'Move this Field render function from children to the component prop, preserving its fieldProps wiring. Apply the offered Convert field to simple field suggestion; see platform/packages/design-system/eslint-plugin/src/rules/use-simple-field/README.md.',
 		},
 	},
 	create(context) {

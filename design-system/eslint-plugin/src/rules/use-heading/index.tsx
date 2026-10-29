@@ -33,7 +33,7 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'warn',
 		},
 		messages: {
-			preferHeading: `This element can be replaced with a "Heading" component. See ${docsUrl} for additional guidance.`,
+			preferHeading: `Use Heading from @atlaskit/heading/heading, choosing size for appearance and as for the intended h1-h6 semantics. See ${docsUrl} for supported props.`,
 		},
 	},
 	create(context) {

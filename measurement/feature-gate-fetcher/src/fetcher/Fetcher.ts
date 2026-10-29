@@ -7,6 +7,7 @@ import {
 
 import { ResponseError } from './errors';
 import {
+	type EvalFlagsResponse,
 	type FetcherOptions,
 	type FrontendClientSdkKeyResponse,
 	type FrontendExperimentsRequest,
@@ -31,8 +32,27 @@ export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
 
 export const GATEWAY_BASE_URL = '/gateway/api/flags';
 export const EXPERIMENT_VALUES_API_VERSION = 'v2';
+export const EVAL_FLAGS_API_VERSION = 'v1';
 
 type Method = 'GET' | 'POST';
+
+/**
+ * The Statsig section of an `/api/v1/evalFlags` response. Throws when the service does not report
+ * Statsig as `OK`, as `/api/v2/frontend/experimentValues` returned a 5xx when it had no values.
+ */
+const getStatsigSection = (response: EvalFlagsResponse | null): FrontendExperimentsResponse => {
+	const status = response?.status?.statsig;
+	const statsig = response?.statsig;
+	if (
+		status !== 'OK' ||
+		!statsig ||
+		typeof statsig.experimentValues !== 'object' ||
+		statsig.experimentValues === null
+	) {
+		throw new Error(`Statsig values are unavailable, status: ${JSON.stringify(status)}`);
+	}
+	return statsig;
+};
 
 export default class Fetcher {
 	static async fetchClientSdkKey(
@@ -51,6 +71,11 @@ export default class Fetcher {
 		}
 	}
 
+	/**
+	 * Fetches the Statsig values for a user. With `includeFfpFlags`, they are the Statsig section of
+	 * the Feature Flag Service `/api/v1/evalFlags` response, and the rest of the response is ignored;
+	 * otherwise they come from `/api/v2/frontend/experimentValues`.
+	 */
 	static async fetchExperimentValues(
 		clientVersion: string,
 		fetcherOptions: FetcherOptions,
@@ -64,6 +89,16 @@ export default class Fetcher {
 		};
 
 		try {
+			if (fetcherOptions.includeFfpFlags) {
+				const response: EvalFlagsResponse | null = await this.fetchRequest(
+					clientVersion,
+					`/api/${EVAL_FLAGS_API_VERSION}/evalFlags`,
+					'POST',
+					fetcherOptions,
+					requestBody,
+				);
+				return getStatsigSection(response);
+			}
 			return await this.fetchRequest(
 				clientVersion,
 				`/api/${EXPERIMENT_VALUES_API_VERSION}/frontend/experimentValues`,

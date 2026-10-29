@@ -29,7 +29,7 @@ ruleTester.run('no-html-select', rule, {
 			errors: [
 				{
 					message:
-						'This <select> should be replaced with the select component from the Atlassian Design System. ADS select components have event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.',
+						'Replace <select> with Select from @atlaskit/select/default. Convert option children to the options prop, adapt value/onChange to option objects, and associate the label through inputId.',
 				},
 			],
 		},

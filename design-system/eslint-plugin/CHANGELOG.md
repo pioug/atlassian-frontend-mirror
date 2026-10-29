@@ -1,5 +1,29 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.14.3
+
+### Patch Changes
+
+- [`273ea844c338a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/273ea844c338a) -
+  Name supported component APIs, preserve migration context, and repair invalid recovery examples.
+
+## 16.14.2
+
+### Patch Changes
+
+- [`f330c2e06642a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f330c2e06642a) -
+  Give form and accessibility diagnostics concrete recovery instructions. Keep field aliases
+  isolated between files and avoid unsafe form conversion suggestions that drop attributes or change
+  handlers.
+
+## 16.14.1
+
+### Patch Changes
+
+- [`18a7e3c634123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18a7e3c634123) -
+  Make token and static styling failures actionable, report exact logical-property replacements, and
+  repair invalid recovery examples.
+
 ## 16.14.0
 
 ### Minor Changes

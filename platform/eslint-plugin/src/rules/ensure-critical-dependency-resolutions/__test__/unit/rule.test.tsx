@@ -189,6 +189,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
 				errors: [
 					{
 						messageId: 'invalidPackageResolution',
+						data: { packageName: 'typescript', allowedVersions: '5.4, 5.9' },
 					},
 				],
 			},

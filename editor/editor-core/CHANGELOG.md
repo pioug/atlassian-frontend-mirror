@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 242.0.0
+
+### Major Changes
+
+- [`700dc7971d381`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/700dc7971d381) -
+  Remove the deprecated `WithHelpTrigger` component and its `@atlaskit/editor-core/WithHelpTrigger`
+  entry point. Use the `openHelp` action from `@atlaskit/editor-plugin-help-dialog` via the editor
+  API instead.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 241.1.0
+
+### Minor Changes
+
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- Updated dependencies
+
+## 241.0.6
+
+### Patch Changes
+
+- [`57663eb368be2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57663eb368be2) -
+  Clean up experiment `platform_editor_resizer_selector_jsdom_fix`
+- Updated dependencies
+
 ## 241.0.5
 
 ### Patch Changes

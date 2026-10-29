@@ -12,15 +12,15 @@ const rule: Rule.RuleModule = {
 		fixable: 'code',
 		messages: {
 			onlyInlineFeatureFlag:
-				'Only pass in feature flag as string literal, please replace {{identifierName}} with its value.',
+				'This legacy runner requires a literal flag-name string instead of {{identifierName}}. Prefer migrating to passGate/failGate from @atlassian/feature-flags-test-utils/mock-gates, preserving enabled and disabled cases.',
 			onlyInlineTestFunction:
-				'Only pass in test functions/cases in an inline manner. Test functions/cases should be passed in directly, instead of as variables. Please replace {{identifierName}} with its own definition.',
+				'This legacy runner requires an inline arrow callback instead of {{identifierName}}. Prefer migrating to passGate/failGate from @atlassian/feature-flags-test-utils/mock-gates, preserving enabled and disabled cases.',
 			passDownExistingFeatureFlagParam:
-				'An argument symbolising existing FFs needs to be passed down as param when calling nested test runner. See examples in the package which declares this function.',
+				'Apply the autofix to declare outer overrides and pass that same identifier as the nested legacy runner’s fourth argument. Prefer migrating to passGate/failGate from @atlassian/feature-flags-test-utils/mock-gates, preserving enabled and disabled cases.',
 			passDownExistingFeatureFlagArgument:
-				'An argument symbolising existing FFs needs to be passed in as argument when calling nested test runner. See examples in the package which declares this function.',
+				'Apply the autofix to pass the enclosing overrides parameter as the nested legacy runner’s fourth argument. Prefer migrating to passGate/failGate from @atlassian/feature-flags-test-utils/mock-gates, preserving enabled and disabled cases.',
 			passDownExistingFeatureFlagNamesMatch:
-				'Argument names not matching when passing down existing feature flags. See examples in the package which declares this function.',
+				'Apply the autofix to reuse the enclosing callback’s exact overrides parameter name; do not create a separate overrides object. Prefer migrating to passGate/failGate from @atlassian/feature-flags-test-utils/mock-gates, preserving enabled and disabled cases.',
 		},
 	},
 	create(context) {

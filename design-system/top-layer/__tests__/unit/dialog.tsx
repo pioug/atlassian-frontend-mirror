@@ -471,6 +471,45 @@ describe('Dialog primitive', () => {
 
 			expect(onClose).toHaveBeenCalledTimes(calls);
 		});
+
+		// As native light dismiss, a press closes every layer it is outside, not only the top one
+		// (Escape closes one layer per press). Same as `closedby="any"` in Chrome and Firefox.
+		it('closes an auto popover in the dialog and asks to close the dialog on one backdrop press', async () => {
+			const onClose = jest.fn();
+			render(
+				<Dialog onClose={onClose} isOpen={true} label="Test dialog">
+					<div data-testid="popover">Popover</div>
+				</Dialog>,
+			);
+			const dialogEl = screen.getByRole('dialog', { hidden: true });
+			const popover = screen.getByTestId('popover');
+			popover.setAttribute('popover', 'auto');
+			act(() => popover.showPopover());
+
+			await userEvent.click(dialogEl);
+
+			expect(popover.matches(':popover-open')).toBe(false);
+			expect(onClose).toHaveBeenCalledTimes(1);
+			expect(onClose).toHaveBeenCalledWith({ reason: 'overlay-click' });
+		});
+
+		it('closes only the auto popover on a press in the dialog content', async () => {
+			const onClose = jest.fn();
+			render(
+				<Dialog onClose={onClose} isOpen={true} label="Test dialog">
+					<button type="button">Inside</button>
+					<div data-testid="popover">Popover</div>
+				</Dialog>,
+			);
+			const popover = screen.getByTestId('popover');
+			popover.setAttribute('popover', 'auto');
+			act(() => popover.showPopover());
+
+			await userEvent.click(screen.getByRole('button', { name: 'Inside', hidden: true }));
+
+			expect(popover.matches(':popover-open')).toBe(false);
+			expect(onClose).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('when the consumer keeps isOpen true', () => {
@@ -932,23 +971,6 @@ describe('Dialog primitive', () => {
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 
-		it('lets an open child popover in a shadow root take the Escape when focus is in the popover', () => {
-			const { onClose, dialogEl } = renderOpenDialog();
-			const host = document.createElement('div');
-			dialogEl.appendChild(host);
-			const popover = document.createElement('div');
-			const button = document.createElement('button');
-			popover.appendChild(button);
-			host.attachShadow({ mode: 'open' }).appendChild(popover);
-			openPopover(popover, 'auto');
-
-			const event = pressEscape(button);
-
-			expect(event.defaultPrevented).toBe(false);
-			expect(onClose).not.toHaveBeenCalled();
-			host.remove();
-		});
-
 		it('takes an Escape from inside a shadow root in the dialog', () => {
 			const { onClose, dialogEl } = renderOpenDialog();
 			const host = document.createElement('div');
@@ -1011,7 +1033,7 @@ describe('Dialog primitive', () => {
 			expect(onClose).not.toHaveBeenCalled();
 		});
 
-		it('takes an Escape on the body when focus was last in the dialog (the focused element was removed)', () => {
+		it('takes an Escape on the body when it is the top dialog (the focused element was removed)', () => {
 			const { onClose, button } = renderOpenDialog();
 			button.focus();
 			button.remove();
@@ -1035,34 +1057,7 @@ describe('Dialog primitive', () => {
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 
-		it('takes an Escape on the body when the dialog is in a shadow root and focus was last in it', () => {
-			const host = document.createElement('div');
-			document.body.appendChild(host);
-			const container = document.createElement('div');
-			host.attachShadow({ mode: 'open' }).appendChild(container);
-			const onClose = jest.fn();
-			const { unmount } = render(
-				<Dialog onClose={onClose} isOpen={true} label="Test dialog">
-					<button type="button">Inside</button>
-				</Dialog>,
-				{ container },
-			);
-			// eslint-disable-next-line testing-library/no-node-access -- the button is in a shadow root
-			const button = container.querySelector('button');
-			invariant(button, 'Expected the button');
-			// At `window`, this `focusin` is retargeted to the shadow host.
-			button.focus();
-			button.blur();
-
-			const event = pressEscape(document.body);
-
-			expect(event.defaultPrevented).toBe(true);
-			expect(onClose).toHaveBeenCalledTimes(1);
-			unmount();
-			host.remove();
-		});
-
-		it('gives an Escape on the body only to the nested dialog that focus was last in', () => {
+		it('gives an Escape on the body only to the nested dialog, which is above the outer one', () => {
 			const outerOnClose = jest.fn();
 			const innerOnClose = jest.fn();
 			render(
@@ -1140,16 +1135,80 @@ describe('Dialog primitive', () => {
 					</PlainDialog>
 				</>,
 			);
-
+			const plainDialog = screen.getByRole('dialog', { name: 'Plain', hidden: true });
 			const topButton = screen.getByRole('button', { name: 'Top button', hidden: true });
 			topButton.focus();
-			const events = [pressEscape(topButton)];
-			// Focus was last in the `<dialog>` above, so an Escape on the body is not for this dialog.
-			topButton.remove();
-			events.push(pressEscape(document.body));
 
-			expect(events.some((event) => event.defaultPrevented)).toBe(false);
+			const event = pressEscape(topButton);
+
+			// The `<dialog>` above closes on Escape, so the browser closes it.
+			expect(event.defaultPrevented).toBe(false);
 			expect(onClose).not.toHaveBeenCalled();
+			expect(plainDialog).not.toHaveAttribute('open');
+		});
+
+		it('does not take an Escape on the body while a modal `<dialog>` above it is open, then takes the next one', () => {
+			const onClose = jest.fn();
+			render(
+				<>
+					<Dialog onClose={onClose} isOpen={true} label="Test dialog">
+						<p>Content</p>
+					</Dialog>
+					<PlainDialog>
+						<button type="button">Top button</button>
+					</PlainDialog>
+				</>,
+			);
+			const plainDialog = screen.getByRole('dialog', { name: 'Plain', hidden: true });
+			const topButton = screen.getByRole('button', { name: 'Top button', hidden: true });
+			topButton.focus();
+			// Removing the focused element moves focus to the body.
+			topButton.remove();
+
+			const first = pressEscape(document.body);
+
+			expect(first.defaultPrevented).toBe(false);
+			expect(onClose).not.toHaveBeenCalled();
+			expect(plainDialog).not.toHaveAttribute('open');
+
+			// This dialog is the top modal again, so it takes the next Escape, as a native modal does.
+			const second = pressEscape(document.body);
+
+			expect(second.defaultPrevented).toBe(true);
+			expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+		});
+
+		it('lets an auto popover that opens after it, outside it, take the Escape first', () => {
+			const onClose = jest.fn();
+			render(
+				<Dialog onClose={onClose} isOpen={true} label="Test dialog">
+					<button type="button">Inside</button>
+				</Dialog>,
+			);
+			const button = screen.getByRole('button', { name: 'Inside', hidden: true });
+			act(() => {
+				button.focus();
+			});
+			// For example, code opens a popover above the dialog.
+			const popover = document.createElement('div');
+			popover.setAttribute('popover', 'auto');
+			document.body.append(popover);
+			act(() => {
+				popover.showPopover();
+			});
+
+			const first = pressEscape(button);
+
+			// The browser closes the popover, so the dialog must not cancel the keydown.
+			expect(first.defaultPrevented).toBe(false);
+			expect(onClose).not.toHaveBeenCalled();
+			expect(popover.matches(':popover-open')).toBe(false);
+
+			const second = pressEscape(button);
+
+			expect(second.defaultPrevented).toBe(true);
+			expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+			popover.remove();
 		});
 
 		it('does not take an Escape during the exit', async () => {
@@ -1193,7 +1252,7 @@ describe('Dialog primitive', () => {
 		});
 	});
 
-	it('only asks the dialog that Escape targets when dialogs are nested', () => {
+	it('only asks the inner dialog when dialogs are nested', () => {
 		const outerOnClose = jest.fn();
 		const innerOnClose = jest.fn();
 		render(

@@ -32,7 +32,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-array-arguments':
-				"Don't pass multiple value in an array. Pass them as multiple arguments instead.",
+				'Pass style objects as separate arguments instead of wrapping arguments in an array; delete an empty array argument.',
 		},
 		type: 'problem',
 		fixable: 'code',

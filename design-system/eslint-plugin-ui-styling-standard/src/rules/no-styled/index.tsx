@@ -14,7 +14,8 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			'no-styled': "Avoid usages of styled, eg. styled.div, styled('div'), styled(Component), etc.",
+			'no-styled':
+				'Replace styled with module-scoped cssMap() or css() from @atlaskit/css and apply styles on the element; pass runtime-only values through style.',
 		},
 		type: 'problem',
 	},

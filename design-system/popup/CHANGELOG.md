@@ -1,5 +1,16 @@
 # @atlaskit/popup
 
+## 10.1.0
+
+### Minor Changes
+
+- [`d4b310c8f9c92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b310c8f9c92) -
+  Add `mode="manual"` for popups that a trigger press must not close.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

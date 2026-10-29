@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 10.3.0
+
+### Minor Changes
+
+- [`1ded1118417a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ded1118417a7) -
+  Replace data-attribute styling selectors with atomic-friendly styles behind the
+  platform-textarea-atomic-styles feature gate.
+
 ## 10.2.7
 
 ### Patch Changes

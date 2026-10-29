@@ -21,7 +21,7 @@ This rule marks code as violations when it finds native HTML image elements.
 ### Correct
 
 ```jsx
-import Image from '@atlaskit/image';
+import Image from '@atlaskit/image/image';
 
 <Image src="foo.jpg" alt="The word 'foo' written on a white background." />;
 ```

@@ -1,5 +1,18 @@
 # @atlaskit/avatar-group
 
+## 14.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.7
+
+### Patch Changes
+
+- [`96fcf7d06fe72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96fcf7d06fe72) -
+  Fixed the overflow menu ignoring avatar overrides when the top layer is on.
+
 ## 14.4.6
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::3a2fe9a9152f31ebddcf3fa6102ec30b>>
+ * @codegen <<SignedSource::da24ff0a969fd3e1eb26ee7bbd3c0b61>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2228,7 +2228,8 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		usageGuidelines: [
 			'Use when an empty surface is worse than yesterday’s suggestions; status is stale when a refresh failed.',
 			'maxAgeMs can only keep an entry past its expiry; a value shorter than the time left to expiry has no effect.',
-			'Call removePrompt once a suggestion is used, so no surface offers it again before the entry regenerates.',
+			'Call removePrompt once a suggestion is used, so no surface offers it again. Removing the last one asks for new suggestions, which show on the next mount; after a failed request the page does not ask again until it reloads.',
+			'The hook reads the shared entry when it mounts. A surface that stays mounted can call readStoredPromptsOfTheDay as it opens to see changes made since.',
 		],
 		keywords: ['rovo', 'prompt of the day', 'suggestions', 'cache', 'fallback', 'stale'],
 		category: 'rovo',
@@ -2821,7 +2822,7 @@ export const atlaskitHooks: HookMcpPayload[] = [
 	{
 		name: 'useAvailableConfigsByTier',
 		description:
-			'Public hook `useAvailableConfigsByTier` exported by `@atlassian/studio-agent-profile/agent-reasoning/use-available-configs-by-tier`.',
+			'Public hook `useAvailableConfigsByTier` exported by `@atlassian/studio-browse-kit/agent-reasoning/use-available-configs-by-tier`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -2829,13 +2830,13 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 	},
 	{
 		name: 'useVisibleExecutionTierOptions',
 		description:
-			'Public hook `useVisibleExecutionTierOptions` exported by `@atlassian/studio-agent-profile/agent-reasoning/use-visible-execution-tier-options`.',
+			'Public hook `useVisibleExecutionTierOptions` exported by `@atlassian/studio-browse-kit/agent-reasoning/use-visible-execution-tier-options`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -2843,7 +2844,7 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 	},
 ];

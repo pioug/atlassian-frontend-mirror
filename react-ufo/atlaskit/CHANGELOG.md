@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.3.1
+
+### Patch Changes
+
+- [`04622a17c6b76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04622a17c6b76) -
+  Make the stale segment cache fix permanent by removing the fully rolled-out feature gate.
+  Unmounted segments are always removed using the same cache key used to store them, preventing them
+  from appearing in later interactions.
+
 ## 8.3.0
 
 ### Minor Changes

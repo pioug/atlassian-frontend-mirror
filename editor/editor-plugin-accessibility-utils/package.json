@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-accessibility-utils",
-	"version": "30.0.2",
+	"version": "30.0.3",
 	"description": "Accessibility utils for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,7 +25,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -35,7 +34,6 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},

@@ -18,6 +18,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import type { MentionProvider } from '@atlaskit/mention/types';
+// eslint-disable-next-line no-restricted-imports -- the test harness restores URL experiment overrides inside the loaded entry before mounting the renderer
+import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
@@ -34,6 +36,65 @@ import Sidebar from './NavigationNext';
 import { document as defaultDoc } from './story-data';
 
 const rootMap = new WeakMap<Element, Root>();
+
+const WORKBENCH_EXPERIMENT_PREFIX = 'exp--';
+
+const isPrimitiveExperimentParameter = (value: unknown): boolean =>
+	value === null ||
+	typeof value === 'boolean' ||
+	typeof value === 'number' ||
+	typeof value === 'string';
+
+const isExperimentParameters = (value: unknown): value is Record<string, unknown> => {
+	if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+		return false;
+	}
+
+	return Object.values(value).every(
+		(param) =>
+			isPrimitiveExperimentParameter(param) ||
+			(typeof param === 'object' &&
+				param !== null &&
+				!Array.isArray(param) &&
+				Object.values(param).every(isPrimitiveExperimentParameter)),
+	);
+};
+
+function readWorkbenchExperimentOverrides(): Record<string, Record<string, unknown>> {
+	const overrides: Record<string, Record<string, unknown>> = {};
+	const params = new URLSearchParams(window.location.search);
+	const legacyOverrides = params.get('platformExperimentOverrides');
+	if (legacyOverrides) {
+		try {
+			const parsed: unknown = JSON.parse(legacyOverrides);
+			if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+				for (const [name, values] of Object.entries(parsed)) {
+					if (isExperimentParameters(values)) {
+						overrides[name] = values;
+					}
+				}
+			}
+		} catch {
+			// Ignore malformed preview parameters and keep the test harness defaults.
+		}
+	}
+
+	params.forEach((value, key) => {
+		if (!key.startsWith(WORKBENCH_EXPERIMENT_PREFIX)) {
+			return;
+		}
+		try {
+			const parsed: unknown = JSON.parse(value);
+			if (isExperimentParameters(parsed) && key.length > WORKBENCH_EXPERIMENT_PREFIX.length) {
+				overrides[key.slice(WORKBENCH_EXPERIMENT_PREFIX.length)] = parsed;
+			}
+		} catch {
+			// Ignore malformed preview parameters and keep the test harness defaults.
+		}
+	});
+
+	return overrides;
+}
 
 function getOrCreateRoot(container: Element): Root {
 	const existing = rootMap.get(container);
@@ -172,6 +233,11 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 		}
 
 		setupEditorExperiments('test', editorExperiments || {});
+		// AP's viewer and loaded renderer entry have separate experiment stores.
+		// Restore explicit URL overrides in this entry without clearing other values.
+		for (const [name, params] of Object.entries(readWorkbenchExperimentOverrides())) {
+			UNSAFE_overrideExperiment(name, params);
+		}
 
 		if (props && props.mockInlineComments) {
 			mockAnnotationProps(props);

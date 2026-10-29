@@ -35,7 +35,6 @@
 	},
 	"devDependencies": {
 		"@atlassian/experiment-test-utils": "workspace:^",
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	}

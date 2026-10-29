@@ -73,7 +73,7 @@ const rule: Rule.RuleModule = {
 		fixable: 'code',
 		messages: {
 			invalidPeerDevDependency:
-				'Peer dependencies must be duplicated in devDependencies: {{relationships}}',
+				'Add or update these exact devDependencies while preserving peerDependencies: {{relationships}}. Apply the autofix, then run afm install for the affected product if its lockfile needs regeneration.',
 		},
 	},
 	create(context) {

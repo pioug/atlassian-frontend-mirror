@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 134.2.0
+
+### Minor Changes
+
+- [`b199ccfabf69b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b199ccfabf69b) -
+  EDITOR-9784: Under the platform_editor_slash_command experiment, hovering a registered menu item,
+  such as in the slash command menu, no longer scrolls a partially clipped item into view.
+  useRegisteredMenu now returns selectionSource ('keyboard' or 'pointer', exported as
+  RegisteredMenuSelectionSource from @atlaskit/editor-common/registered-menu), and
+  RegisteredMenuList accepts a selectionSource prop and only scrolls keyboard selections into view.
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+- [`4fad2b7cfe580`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fad2b7cfe580) -
+  Behind platform_editor_preloaded_extension_not_found,
+  DefaultExtensionProvider.getPreloadedExtension returns undefined for extensions that are not
+  preloaded instead of throwing during render
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.1.3
+
+### Patch Changes
+
+- [`96fcf7d06fe72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96fcf7d06fe72) -
+  Fixed `Layer` not calling `onPositioned` when the top layer is on.
+- Updated dependencies
+
 ## 134.1.2
 
 ### Patch Changes

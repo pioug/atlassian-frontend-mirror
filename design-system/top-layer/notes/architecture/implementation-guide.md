@@ -224,8 +224,8 @@ src/
 │   ├── popup-surface.tsx              # PopupSurface (styled wrapper)
 │   ├── index.tsx                      # Compound export: Popup.Trigger, Popup.Content, etc.
 │   └── types.tsx                      # TPopupProps, TPopupContentProps, TPopupTriggerProps, etc.
-├── use-simple-light-dismiss/
-│   └── index.tsx                      # useSimpleLightDismiss() hook
+├── use-manual-light-dismiss/
+│   └── index.tsx                      # useManualLightDismiss() hook
 └── entry-points/
     ├── animations.tsx
     ├── arrow.tsx
@@ -237,7 +237,7 @@ src/
     ├── popover.tsx
     ├── popup.tsx
     ├── popup-surface.tsx
-    └── use-simple-light-dismiss.tsx
+    └── use-manual-light-dismiss.tsx
 ```
 
 ---
@@ -261,7 +261,7 @@ consumers always import from sub-paths:
 	"./focus": "./src/entry-points/focus.tsx",
 	"./use-anchored-popover": "./src/internal/use-anchored-popover.tsx",
 	"./use-anchored-popover-at-point": "./src/internal/use-anchored-popover-at-point.tsx",
-	"./use-simple-light-dismiss": "./src/entry-points/use-simple-light-dismiss.tsx"
+	"./use-manual-light-dismiss": "./src/entry-points/use-manual-light-dismiss.tsx"
 }
 ```
 
@@ -1193,16 +1193,18 @@ still applies: a press on a trigger outside the popover hides the whole hint sta
 
 ### `popover="manual"` (No Native Dismiss)
 
-No native light dismiss at all. Use `useSimpleLightDismiss` for basic Escape + click-outside
+No native light dismiss at all. Use `useManualLightDismiss` for basic Escape + outside-press
 behavior.
 
-### `useSimpleLightDismiss` Hook
+### `useManualLightDismiss` Hook
 
-Provides standalone light-dismiss for `popover="manual"` elements:
+Provides standalone light-dismiss for `popover="manual"` elements. It replaces
+`useSimpleLightDismiss`, which was removed.
 
 ```typescript
-useSimpleLightDismiss({
+useManualLightDismiss({
   popoverRef: RefObject<HTMLElement | null>,
+  additionalInsideElementRefs?: readonly RefObject<HTMLElement | null>[],
   isOpen: boolean,
   onClose: (args: { reason: TPopoverCloseReason }) => void,
 });
@@ -1210,14 +1212,31 @@ useSimpleLightDismiss({
 
 **Behavior:**
 
-- Binds `keydown` on `document` for Escape
-- Binds `click` on `document` for click-outside (checks `el.contains(event.target)`)
+- `mode: 'popover'` (default) for a `[popover]` element; the hook throws for any other element.
+  `mode: 'page-surface'` for an element that is not in the top layer (a drawer or a side panel): its
+  Escape follows `useCloseOnUnclaimedEscape`, and it is not marked as a layer.
+- Binds `pointerdown`, `pointerup` and `pointercancel` (capture) on `document` for an outside press.
+  As native light dismiss, a press that starts and ends outside `popoverRef` and
+  `additionalInsideElementRefs` (for example the trigger) dismisses at `pointerup`. A drag across
+  the boundary, a touch scroll, and a keyboard or programmatic `click()` do not dismiss.
+- With `mode: 'popover'`, binds `keydown` on `document` for Escape. It uses the shared Escape rules
+  in `src/internal/escape-ownership/`, as `Dialog` and `useCloseOnUnclaimedEscape` do:
+  - It ignores an Escape that is `defaultPrevented` or that comes during IME composition.
+  - It ignores an Escape while an open layer that takes Escape is inside the popover (a dialog, an
+    `auto` or `hint` popover, or a manual popover with this hook).
+  - It ignores an Escape while a layer that opened after the popover, outside it and not around it,
+    is open and takes Escape (for example a hover tooltip, a `Dialog` opened by a keyboard shortcut,
+    or another manual popover with this hook). It records them with a `beforetoggle` listener. See
+    [manual-light-dismiss-escape-stacking.md](../decisions/manual-light-dismiss-escape-stacking.md).
+  - Otherwise it calls `preventDefault()`, so an ancestor `Dialog` or auto popover does not also
+    close, and asks to close once per key press (`event.repeat` is ignored).
+- Marks the open popover with `data-top-layer-takes-escape`, so other layers know it takes Escape.
 - Listeners only active when `isOpen` is `true`
 - Uses stable ref for `onClose` to avoid re-binding on renders
 
-**Important limitation:** No stacking awareness. If multiple manual popovers are open, a single
-Escape or outside click dismisses ALL of them simultaneously. For stacked dismiss, use
-`popover="auto"` instead.
+**Important limitation:** outside presses are not stacked. If several manual popovers with this hook
+are open, one press outside all of them dismisses all of them. Escape closes the newest first. For
+stacked press dismiss, use `popover="auto"` instead.
 
 ---
 

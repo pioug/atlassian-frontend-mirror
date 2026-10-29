@@ -310,6 +310,7 @@ export const ReactionSummaryView = ({
 	]);
 	return (
 		<Popup
+			mode="manual"
 			placement={placement}
 			content={({ update: recalculatePopupPosition }) =>
 				isEmojiPickerOpen ? (

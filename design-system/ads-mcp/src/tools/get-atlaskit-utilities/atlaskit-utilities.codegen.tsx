@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::d900c06f9360952a9b2ed832828f7896>>
+ * @codegen <<SignedSource::a15adab022737be881e06c0695fe6bf7>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1640,6 +1640,65 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'function',
 	},
 	{
+		name: 'AgentSessionStatusCategory',
+		description: 'The three shared display categories for agent session status.',
+		status: 'early-access',
+		keywords: ['agent session', 'status category', 'needs input', 'working', 'finished'],
+		category: 'ai',
+		package: '@atlassian/agent-session-status',
+		examples: [],
+		kind: 'type',
+		definition: "'needs-input' | 'working' | 'finished'",
+	},
+	{
+		name: 'getAgentSessionStatusCategory',
+		description:
+			'Classifies a raw backend agent session status as needs input, working, finished, or no category.',
+		status: 'early-access',
+		keywords: ['agent session', 'status mapping', 'backend state', 'classification'],
+		category: 'ai',
+		package: '@atlassian/agent-session-status',
+		examples: [
+			'import { IntlProvider } from \'react-intl\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { AgentSessionStatusIcon } from \'@atlassian/agent-session-status/status-icon\';\n/**\n * Displays every agent session indicator alongside its visible label.\n */\nfunction StatusCategoryExamples(): React.JSX.Element {\n\treturn (\n\t\t<Stack space="space.150">\n\t\t\t<Text size="medium" weight="semibold">\n\t\t\t\tAgent session indicators\n\t\t\t</Text>\n\t\t\t<Stack space="space.100">\n\t\t\t\t<Inline alignBlock="center" space="space.100">\n\t\t\t\t\t<AgentSessionStatusIcon status="INPUT_REQUIRED" />\n\t\t\t\t\t<Text size="small">Needs input</Text>\n\t\t\t\t</Inline>\n\t\t\t\t<Inline alignBlock="center" space="space.100">\n\t\t\t\t\t<AgentSessionStatusIcon status="WORKING" />\n\t\t\t\t\t<Text size="small">Working</Text>\n\t\t\t\t</Inline>\n\t\t\t\t<Inline alignBlock="center" space="space.100">\n\t\t\t\t\t<AgentSessionStatusIcon status="COMPLETED" />\n\t\t\t\t\t<Text size="small">Finished</Text>\n\t\t\t\t</Inline>\n\t\t\t\t<Inline alignBlock="center" space="space.100">\n\t\t\t\t\t<AgentSessionStatusIcon status={null} sessionType="team" />\n\t\t\t\t\t<Text size="small">Team session</Text>\n\t\t\t\t</Inline>\n\t\t\t</Stack>\n\t\t</Stack>\n\t);\n}\n/**\n * Provides the internationalization context required by the status indicator showcase.\n */\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<StatusCategoryExamples />\n\t\t</IntlProvider>\n\t);\n}',
+		],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'status',
+				type: 'string | null | undefined',
+				description: 'Raw backend session status.',
+			},
+		],
+		returns: {
+			type: 'AgentSessionStatusCategory | null',
+			description: 'The shared display category, or null when the status is not categorized.',
+		},
+		signature: '(status: string | null | undefined) => AgentSessionStatusCategory | null',
+	},
+	{
+		name: 'getAgentSessionStatusCategoryMessage',
+		description:
+			'Returns the canonical localized message descriptor for an agent session status category.',
+		status: 'early-access',
+		keywords: ['agent session', 'status terminology', 'message descriptor', 'localization'],
+		category: 'ai',
+		package: '@atlassian/agent-session-status',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'category',
+				type: 'AgentSessionStatusCategory',
+				description: 'Shared agent session status category.',
+			},
+		],
+		returns: {
+			type: 'MessageDescriptor',
+			description: 'The canonical localized descriptor for Needs input, Working, or Finished.',
+		},
+		signature: '(category: AgentSessionStatusCategory) => MessageDescriptor',
+	},
+	{
 		name: 'agentSkillsListEntrypoint',
 		description: 'Relay EntryPoint that preloads and renders skills for one Rovo agent.',
 		status: 'general-availability',
@@ -2494,17 +2553,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		package: '@atlassian/conversation-assistant-blank-object-experience',
 		examples: [],
 		kind: 'constant',
-	},
-	{
-		name: 'BlankObjectExperienceModalProps',
-		description:
-			'Public type `BlankObjectExperienceModalProps` from `@atlassian/conversation-assistant-blank-object-experience/blank-object-experience-modal/types`.',
-		status: 'general-availability',
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		package: '@atlassian/conversation-assistant-blank-object-experience',
-		examples: [],
-		kind: 'type',
 	},
 	{
 		name: 'BlankObjectExperienceSideModalProps',
@@ -3480,7 +3528,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			'Derives MCI and AI-adoption eligibility attributes from a confirmed Rovo action key.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Spread the result into aiResult actioned analytics after the caller checks the feature gate.',
+			'Spread the result into aiResult actioned analytics. No feature-gate check is required.',
 		],
 		keywords: ['rovo', 'jsm', 'analytics', 'action', 'eligibility'],
 		category: 'rovo',
@@ -3493,9 +3541,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		description:
 			'Derives MCI and AI-adoption eligibility attributes from invoked skills, plugins, and agent configuration.',
 		status: 'general-availability',
-		usageGuidelines: [
-			'Spread the result into turn analytics after the caller checks the feature gate.',
-		],
+		usageGuidelines: ['Spread the result into turn analytics. No feature-gate check is required.'],
 		keywords: ['rovo', 'jsm', 'analytics', 'skills', 'plugins'],
 		category: 'rovo',
 		package: '@atlassian/conversation-assistant-jsm-mci-kr',
@@ -6261,7 +6307,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		status: 'general-availability',
 		usageGuidelines: [
 			'Use to connect a widget instance to its Rovo Assistance Service product and site context.',
-			'Avoid the deprecated displaySubmitFlag, orgId, and workspaceId fields in new integrations.',
 		],
 		keywords: ['chat', 'widget', 'configuration'],
 		category: 'chat',
@@ -6269,7 +6314,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition:
-			'{ widgetId: string; gatewayOrigin?: string; assistanceServiceConfig?: { baseUrl?: string; credentials?: RequestCredentials; headers?: Record<string, string> }; siteId: string; product: AssistanceServiceProduct; experienceId?: string; conversationContext?: Record<string, unknown>; userId?: string; displaySubmitFlag?: boolean; orgId?: string; workspaceId?: string }',
+			'{ widgetId: string; gatewayOrigin?: string; assistanceServiceConfig?: { baseUrl?: string; credentials?: RequestCredentials; headers?: Record<string, string> }; siteId: string; product: AssistanceServiceProduct; experienceId?: string; conversationContext?: Record<string, unknown> }',
 	},
 	{
 		name: 'ConversationAssistantConfig',
@@ -6788,18 +6833,15 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 	},
 	{
 		name: 'CSMEmbed',
-		description: 'Atlassian-internal controller for an embedded CSM widget instance.',
+		description: 'Deprecated compatibility alias for the internal CSMInlineWidget controller.',
 		status: 'general-availability',
-		usageGuidelines: [
-			'Use only in Atlassian integrations that receive an instance from CSMSDK.embeddableWidget.',
-		],
-		keywords: ['rovo', 'csm', 'embedded widget', 'controller'],
+		usageGuidelines: ['Prefer CSMInlineWidget for legacy instance types.'],
+		keywords: ['rovo', 'csm', 'embedded widget', 'deprecated'],
 		category: 'rovo',
 		package: '@atlassian/customer-service-management-widget-sdk-types',
 		examples: [],
 		kind: 'type',
-		definition:
-			'{ createNewConversation: (params?: CreateNewConversationParams) => void; getCurrentConversation: () => Promise<Conversation | null>; on(event: string, cb: (...args: any[]) => void): void; getConversation(options: { conversationId: string }): Promise<Conversation | null> }',
+		definition: 'CSMInlineWidget',
 	},
 	{
 		name: 'CSMError',
@@ -6829,13 +6871,30 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			"'auth_failed' | 'authenticate_fn_exception' | 'access_denied' | 'ai_feature_toggle_off' | 'widget_not_found' | 'csm_not_activated' | 'widget_enablement' | 'config_fetch_failed' | 'iframe_load_failed' | 'invalid_config' | 'sdk_init_exception' | 'waf_blocked' | 'unknown'",
 	},
 	{
+		name: 'CSMInlineWidget',
+		description: 'Internal controller returned by the legacy embeddableWidget API.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use only with the legacy embeddableWidget API; inlineWidget exposes no instance methods.',
+		],
+		keywords: ['rovo', 'csm', 'embedded widget', 'controller'],
+		category: 'rovo',
+		package: '@atlassian/customer-service-management-widget-sdk-types',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ createNewConversation: (params?: CreateNewConversationParams) => void; getCurrentConversation: () => Promise<Conversation | null>; on(event: string, cb: (...args: any[]) => void): void; getConversation(options: { conversationId: string }): Promise<Conversation | null> }',
+	},
+	{
 		name: 'CSMSDK',
 		description:
 			'Callable SDK contract for command dispatch and floating or embedded widget creation.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Use widget for the supported floating experience.',
-			'Use embeddableWidget only for Atlassian-owned inline integrations.',
+			'Use inlineWidget to create an inline widget; embeddableWidget remains as a deprecated method for existing integrations.',
+			'inlineWidget returns void and exposes no instance methods, userId, or debug callback.',
+			'Each inline load starts a new conversation without reading or changing legacy saved conversations.',
 		],
 		keywords: ['rovo', 'csm', 'sdk', 'widget'],
 		category: 'rovo',
@@ -6843,7 +6902,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition:
-			'{ (...args: SDKCommandArgs): void; widget: (config: FloatingWidgetConfig) => Promise<CSMError | void>; embeddableWidget: (target: HTMLElement, config: WidgetConfig, options?: { debug?: (message: string) => void }) => Promise<CSMEmbed | CSMError> }',
+			'{ (...args: SDKCommandArgs): void; widget: (config: FloatingWidgetConfig) => Promise<CSMError | void>; inlineWidget: (config: InlineWidgetConfig) => void; embeddableWidget: (target: HTMLElement, config: WidgetConfig, options?: { debug?: (message: string) => void }) => Promise<CSMInlineWidget | CSMError> }',
 	},
 	{
 		name: 'CSMSDKQueue',
@@ -6896,6 +6955,22 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 		definition:
 			"WidgetConfig & { renderTarget?: HTMLElement | null; launcher?: { renderTarget: HTMLElement } | 'none' }",
+	},
+	{
+		name: 'InlineWidgetConfig',
+		description: 'Configuration for launching an inline CSM widget.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Provide cloudId and renderTarget.',
+			'Use only with inlineWidget. siteId, userId, and debug callbacks are unsupported.',
+		],
+		keywords: ['rovo', 'csm', 'inline widget', 'configuration'],
+		category: 'rovo',
+		package: '@atlassian/customer-service-management-widget-sdk-types',
+		examples: [],
+		kind: 'type',
+		definition:
+			"Omit<WidgetConfig, 'siteId' | 'cloudId' | 'userId'> & { cloudId: string; renderTarget: HTMLElement }",
 	},
 	{
 		name: 'UpdateCommandPayload',
@@ -9798,6 +9873,21 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'function',
 	},
 	{
+		name: 'useCreditsState',
+		description:
+			'Hook that reads the provider-owned credits state. Fails open when no CreditsProvider is mounted: it returns the empty state ({ bannerState: null, bannerStateChange: null }) and logs a console error once per mounted consumer instead of throwing.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Mount one CreditsProvider above every useCreditsState consumer and CreditsBanner.',
+			'Without a CreditsProvider the hook does not throw. It returns the empty state and logs a console error.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/rovo-credits',
+		examples: [],
+		kind: 'function',
+	},
+	{
 		name: 'RovoExperienceAPIState',
 		description: 'Internal experience state exposed by the package store entry point.',
 		status: 'general-availability',
@@ -11094,6 +11184,21 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			'Treat null as unavailable and avoid retry loops that would bypass the account-scoped cache policy.',
 		],
 		keywords: ['rovo', 'prompt of the day', 'suggestions', 'request'],
+		category: 'rovo',
+		package: '@atlassian/rovo-prompt-of-the-day',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'refreshPromptOfTheDay',
+		description:
+			'Asks for a new generation of prompt suggestions, skipping any cached answer, and returns null instead of rejecting when they cannot be shown.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Joins a request that is already open instead of starting a second one.',
+			'Use only when the cached suggestions are known to be used up; every call asks the service for a new generation.',
+		],
+		keywords: ['rovo', 'prompt of the day', 'suggestions', 'request', 'refresh'],
 		category: 'rovo',
 		package: '@atlassian/rovo-prompt-of-the-day',
 		examples: [],
@@ -12983,126 +13088,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 	},
 	{
-		name: 'ClaudeLogo',
-		description:
-			'Public utility `ClaudeLogo` exported by `@atlassian/studio-agent-profile/agent-reasoning/logos/claude-logo`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'EXECUTION_TIER_OPTIONS',
-		description:
-			'Public utility `EXECUTION_TIER_OPTIONS` exported by `@atlassian/studio-agent-profile/agent-reasoning/execution-tier-options`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'constant',
-	},
-	{
-		name: 'ExecutionTierOption',
-		description:
-			'Public utility `ExecutionTierOption` exported by `@atlassian/studio-agent-profile/agent-reasoning/types`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'type',
-	},
-	{
-		name: 'getModelProvider',
-		description:
-			'Public utility `getModelProvider` exported by `@atlassian/studio-agent-profile/agent-reasoning/get-model-provider`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'getModelProviderLogo',
-		description:
-			'Public utility `getModelProviderLogo` exported by `@atlassian/studio-agent-profile/agent-reasoning/get-model-provider-logo`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'getReasoningModelOptions',
-		description:
-			'Public utility `getReasoningModelOptions` exported by `@atlassian/studio-agent-profile/agent-reasoning/get-model-options`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'type',
-	},
-	{
-		name: 'getStatusLozengeConfig',
-		description:
-			'Public utility `getStatusLozengeConfig` exported by `@atlassian/studio-agent-profile/agent-reasoning/get-status-lozenge-config`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'type',
-	},
-	{
-		name: 'GoogleGeminiLogo',
-		description:
-			'Public utility `GoogleGeminiLogo` exported by `@atlassian/studio-agent-profile/agent-reasoning/logos/google-gemini-logo`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'function',
-	},
-	{
 		name: 'KnowledgeConfigurationLayoutProps',
 		description:
 			'Public utility `KnowledgeConfigurationLayoutProps` exported by `@atlassian/studio-agent-profile/agent-knowledge-sources/types`.',
@@ -13256,36 +13241,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		name: 'messages',
 		description:
 			'Public utility `messages` exported by `@atlassian/studio-agent-profile/ui/agent-profile/messages`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'ModelProvider',
-		description:
-			'Public utility `ModelProvider` exported by `@atlassian/studio-agent-profile/agent-reasoning/get-model-provider`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Import from this explicit public entrypoint rather than a source-internal path.',
-			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
-		],
-		keywords: ['studio', 'rovo', 'agent'],
-		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'OpenAILogo',
-		description:
-			'Public utility `OpenAILogo` exported by `@atlassian/studio-agent-profile/agent-reasoning/logos/openai-logo`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -13463,9 +13418,9 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 	},
 	{
-		name: 'ReasoningExecutionConfig',
+		name: 'ClaudeLogo',
 		description:
-			'Public utility `ReasoningExecutionConfig` exported by `@atlassian/studio-agent-profile/agent-reasoning/types`.',
+			'Public utility `ClaudeLogo` exported by `@atlassian/studio-browse-kit/agent-reasoning/logos/claude-logo`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -13473,14 +13428,164 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'EXECUTION_TIER_OPTIONS',
+		description:
+			'Public utility `EXECUTION_TIER_OPTIONS` exported by `@atlassian/studio-browse-kit/agent-reasoning/execution-tier-options`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'constant',
+	},
+	{
+		name: 'ExecutionTierOption',
+		description:
+			'Public utility `ExecutionTierOption` exported by `@atlassian/studio-browse-kit/agent-reasoning/types`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'type',
+	},
+	{
+		name: 'getModelProvider',
+		description:
+			'Public utility `getModelProvider` exported by `@atlassian/studio-browse-kit/agent-reasoning/get-model-provider`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'getModelProviderLogo',
+		description:
+			'Public utility `getModelProviderLogo` exported by `@atlassian/studio-browse-kit/agent-reasoning/get-model-provider-logo`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'getReasoningModelOptions',
+		description:
+			'Public utility `getReasoningModelOptions` exported by `@atlassian/studio-browse-kit/agent-reasoning/get-model-options`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'type',
+	},
+	{
+		name: 'getStatusLozengeConfig',
+		description:
+			'Public utility `getStatusLozengeConfig` exported by `@atlassian/studio-browse-kit/agent-reasoning/get-status-lozenge-config`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'type',
+	},
+	{
+		name: 'GoogleGeminiLogo',
+		description:
+			'Public utility `GoogleGeminiLogo` exported by `@atlassian/studio-browse-kit/agent-reasoning/logos/google-gemini-logo`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'ModelProvider',
+		description:
+			'Public utility `ModelProvider` exported by `@atlassian/studio-browse-kit/agent-reasoning/get-model-provider`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'OpenAILogo',
+		description:
+			'Public utility `OpenAILogo` exported by `@atlassian/studio-browse-kit/agent-reasoning/logos/openai-logo`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'ReasoningExecutionConfig',
+		description:
+			'Public utility `ReasoningExecutionConfig` exported by `@atlassian/studio-browse-kit/agent-reasoning/types`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Import from this explicit public entrypoint rather than a source-internal path.',
+			'Keep host lifecycle, permissions, and network orchestration at the integration boundary.',
+		],
+		keywords: ['studio', 'rovo', 'agent'],
+		category: 'studio',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 		kind: 'type',
 	},
 	{
 		name: 'ReasoningExecutionTier',
 		description:
-			'Public utility `ReasoningExecutionTier` exported by `@atlassian/studio-agent-profile/agent-reasoning/types`.',
+			'Public utility `ReasoningExecutionTier` exported by `@atlassian/studio-browse-kit/agent-reasoning/types`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -13488,14 +13593,14 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 		kind: 'type',
 	},
 	{
 		name: 'ReasoningModelConfig',
 		description:
-			'Public utility `ReasoningModelConfig` exported by `@atlassian/studio-agent-profile/agent-reasoning/types`.',
+			'Public utility `ReasoningModelConfig` exported by `@atlassian/studio-browse-kit/agent-reasoning/types`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -13503,14 +13608,14 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 		kind: 'type',
 	},
 	{
 		name: 'ReasoningModelOption',
 		description:
-			'Public utility `ReasoningModelOption` exported by `@atlassian/studio-agent-profile/agent-reasoning/types`.',
+			'Public utility `ReasoningModelOption` exported by `@atlassian/studio-browse-kit/agent-reasoning/types`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -13518,14 +13623,14 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 		kind: 'type',
 	},
 	{
 		name: 'ReasoningTierConfig',
 		description:
-			'Public utility `ReasoningTierConfig` exported by `@atlassian/studio-agent-profile/agent-reasoning/types`.',
+			'Public utility `ReasoningTierConfig` exported by `@atlassian/studio-browse-kit/agent-reasoning/types`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -13533,7 +13638,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		],
 		keywords: ['studio', 'rovo', 'agent'],
 		category: 'studio',
-		package: '@atlassian/studio-agent-profile',
+		package: '@atlassian/studio-browse-kit',
 		examples: [],
 		kind: 'type',
 	},

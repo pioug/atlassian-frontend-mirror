@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "30.0.3",
+	"version": "30.0.4",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,6 @@
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
@@ -58,10 +57,6 @@
 		"raf-schd": "root:*"
 	},
 	"devDependencies": {
-		"@testing-library/react": "root:*",
-		"@testing-library/user-event": "root:*",
-		"mockdate": "root:*",
-		"raf-stub": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"

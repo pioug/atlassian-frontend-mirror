@@ -16,7 +16,8 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			unexpectedTaggedTemplate: 'Unexpected `styled` tagged template expression',
+			unexpectedTaggedTemplate:
+				'Replace the styled template with local cssMap() or css() styles from @atlaskit/css applied to the rendered element; keep runtime-only values in style.',
 		},
 		schema: noTaggedTemplateExpressionRuleSchema,
 	},

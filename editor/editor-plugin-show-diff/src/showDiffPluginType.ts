@@ -32,14 +32,12 @@ export type DiffType = 'inline' | 'block' | 'step' | 'smart';
  * Attribution for a ProseMirror step.
  *
  * `userId` is the primary actor identity. `agentId` distinguishes multiple agents (or an agent
- * from its user) when they share that user ID, with `agentType` used as a fallback when `agentId`
- * is empty. `agentNamedId` carries a stable external configuration reference for presentation
- * overrides. `wasOffline` preserves additional provenance without affecting identity.
+ * from its user) when they share that user ID. `agentNamedId` carries a stable external
+ * configuration reference for presentation overrides. `wasOffline` preserves additional provenance without affecting identity.
  */
 export type DiffStepAttribution = {
 	agentId?: string;
 	agentNamedId?: string;
-	agentType?: string;
 	userId?: string;
 	wasOffline?: boolean;
 };
@@ -297,13 +295,16 @@ type PMDiffParamsWithAttribution = Omit<PMDiffParams, 'steps'> & {
 	/**
 	 * Identities for the accounts named by the attributed steps. Omitted profiles disable
 	 * contributor tags without disabling attribution colours. An explicit empty array permits agent fallback tags. When supplied, and the contributor-tag
-	 * gate is on, every attributed change the plugin can credit to one of them renders a tag.
+	 * gate is on, every attributed change the plugin can credit to one of them renders a tag
+	 * unless `showContributorTags` is false.
 	 * Complete entries only: a caller looking identities up (e.g. against a user directory) filters
 	 * out the ones it could not resolve rather than passing partial entries through. Omitting an
 	 * account is meaningful — a user the plugin cannot name drops every tag, while an agent falls
 	 * back to its own presentation.
 	 */
 	contributorProfiles?: readonly DiffContributorProfile[];
+	/** Set false to use profile colours without rendering contributor tags. Defaults to true. */
+	showContributorTags?: boolean;
 	steps?: never;
 	stepsWithAttribution: Array<StepWithAttribution<Step>>;
 };

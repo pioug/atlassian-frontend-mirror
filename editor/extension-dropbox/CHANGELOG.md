@@ -1,5 +1,13 @@
 # @atlaskit/editor-extension-dropbox
 
+## 28.0.4
+
+### Patch Changes
+
+- [`fc6a743d65633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc6a743d65633) -
+  Remove unused @atlaskit/platform-feature-flags and @atlaskit/tmp-editor-statsig dependencies
+- Updated dependencies
+
 ## 28.0.3
 
 ### Patch Changes

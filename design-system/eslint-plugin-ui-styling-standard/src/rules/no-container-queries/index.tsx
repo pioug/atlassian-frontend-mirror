@@ -165,15 +165,15 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-container-queries':
-				'@container queries must use a named container declared in the same file and a width/height-based condition.',
+				'Use a named container declared in this file and a width/height condition; type the static query key with satisfies and the default Container import from @atlaskit/css/at-rules/container.',
 			'no-container-style-queries':
-				'Style queries are not allowed. Use a width/height-based @container query instead.',
+				'Replace the style query with an explicit prop and local cssMap variant, or use a width/height-based query when size is the intended condition.',
 			'no-unbound-container-queries':
-				'Container queries must include a container name, for example @container card (min-width: 30rem).',
+				'Name the container in the same file and reference it in the query, for example containerName: "card" with "@container card (min-width: 30rem)".',
 			'no-mismatched-container-name':
-				'The @container name must match a containerName declared in the same file.',
+				'Use the same container name in this @container query and the containerName declaration in this file; rename the mismatched declaration or query.',
 			'no-non-dimension-container-queries':
-				'Container queries must be dimension-based (width or height); style and other feature queries are not allowed.',
+				'Use a width/height condition for this named local container. Represent other conditions as explicit props selecting local styles.',
 		},
 		type: 'problem',
 		schema,

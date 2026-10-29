@@ -1,5 +1,13 @@
 # @atlassian/anonymous-assets
 
+## 2.12.0
+
+### Minor Changes
+
+- [`6dfebc2196fe9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dfebc2196fe9) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 2.11.0
 
 ### Minor Changes

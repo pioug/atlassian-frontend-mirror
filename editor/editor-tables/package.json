@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-tables",
-	"version": "3.2.65",
+	"version": "3.2.66",
 	"description": "A package that contains common classes and utility functions for editor tables",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,6 @@
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {

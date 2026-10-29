@@ -43,7 +43,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-exported-styles':
-				'Styles from css, cssMap, keyframes, styled and xcss should not be exported. All styles should be defined and used in the same file instead.',
+				'Keep css, cssMap, keyframes, styled and xcss declarations in the file that uses them. Export a component to share its styling instead of exporting style values.',
 		},
 		type: 'problem',
 		schema,

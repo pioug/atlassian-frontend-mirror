@@ -26,9 +26,9 @@ This rule marks code as violations when it finds native HTML select elements.
 ### Correct
 
 ```jsx
-import Select from '@atlaskit/select';
+import Select from '@atlaskit/select/default';
 
-export const cities: OptionsType = [
+const cities = [
 	{ label: 'Adelaide', value: 'adelaide', extra: 'extra' },
 	{ label: 'Brisbane', value: 'brisbane' },
 	{ label: 'Canberra', value: 'canberra' },
@@ -39,5 +39,12 @@ export const cities: OptionsType = [
 	{ label: 'Sydney', value: 'sydney' },
 ];
 
-<Select inputId="city-select" options={cities} />
+export default function Example() {
+	return (
+		<>
+			<label htmlFor="city-select">City</label>
+			<Select name="cities" inputId="city-select" options={cities} defaultValue={cities[0]} />
+		</>
+	);
+}
 ```

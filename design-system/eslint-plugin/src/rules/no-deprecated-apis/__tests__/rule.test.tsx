@@ -6,6 +6,10 @@ import hasNamedSpecifiers from './__fixtures__/has-named-specifiers.json';
 tester.run(name, rule, {
 	valid: [
 		{
+			name: 'Heading size and semantics use separate supported props',
+			code: `import Title from '@atlaskit/heading/heading'; <Title size="large" as="h2" />;`,
+		},
+		{
 			name: 'cssFn 1',
 			code: `
 				import { SomeElement } from 'some-other-library';
@@ -75,6 +79,22 @@ tester.run(name, rule, {
 	],
 
 	invalid: [
+		{
+			name: 'Aliased Heading reports its import and a local migration route',
+			code: `import Title from '@atlaskit/heading/heading'; <Title level="h700" />;`,
+			errors: [
+				{
+					messageId: noDeprecatedJSXAttributeMessageId,
+					data: {
+						propName: 'level',
+						componentName: 'Title',
+						importSource: '@atlaskit/heading/heading',
+						migrationHint:
+							'Replace level with size using platform/packages/design-system/heading/examples/constellation/heading-migration.tsx (h700 becomes large); set as separately to preserve heading semantics.',
+					},
+				},
+			],
+		},
 		{
 			name: 'ButtonItem 1',
 			code: `

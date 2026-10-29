@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::9cd75b85ebe2e335394c0d7f99ba9cb1>>
+ * @codegen <<SignedSource::7fd705fd40f738dda4aca53c5070ac66>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -358,14 +358,6 @@ export type ButtonClickedConnectAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId?: string | null;
 };
-export type ButtonClickedCarouselNextAttributesType = {
-	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	slideId: string;
-};
-export type ButtonClickedCarouselConnectAttributesType = {
-	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
-	slideId: string;
-};
 export type SmartLinkClickedTryAnotherAccountAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | 'url';
 	definitionId?: string | null;
@@ -569,14 +561,6 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user clicks on the authentication call to action with no current authenticated account. (i.e. Connect to Preview). */
 	'ui.button.clicked.connectAccount': ButtonClickedConnectAccountAttributesType;
-	/**
-	 * Fires when a user clicks the "See next" button in a smart link carousel view. Used to measure engagement depth — how many users navigate past the first benefit slide.
-	 *  */
-	'ui.button.clicked.carouselNext': ButtonClickedCarouselNextAttributesType;
-	/**
-	 * Fires when a user clicks the connect account button from within a smart link carousel view. Captures which benefit slide the user was viewing when they decided to connect, enabling measurement of which slide is most persuasive.
-	 *  */
-	'ui.button.clicked.carouselConnect': ButtonClickedCarouselConnectAttributesType;
 	/**
 	 * fires an event that represents when a user clicks on the authentication call to action with a forbidden authenticated account. (i.e. Try another account). */
 	'ui.smartLink.clicked.tryAnotherAccount': SmartLinkClickedTryAnotherAccountAttributesType;

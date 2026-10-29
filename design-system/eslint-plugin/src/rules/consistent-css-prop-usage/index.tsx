@@ -630,12 +630,18 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		fixable: 'code',
 		messages: {
-			cssAtTopOfModule: `Create styles at the top of the module scope using the respective css function.`,
-			cssAtBottomOfModule: `Create styles at the bottom of the module scope using the respective css function.`,
-			cssObjectTypeOnly: `Create styles using objects passed to a css function call, e.g. \`css({ textAlign: 'center'; })\`.`,
-			cssInModule: `Imported styles should not be used; instead define in the module, import a component, or use a design token.`,
-			cssArrayStylesOnly: `Compose styles with an array on the css prop instead of using object spread.`,
-			noMemberExpressions: `Styles should be a regular variable (e.g. 'buttonStyles'), not a member of an object (e.g. 'myObject.styles').`,
+			cssAtTopOfModule:
+				'Move this style declaration out of JSX to a module-scoped constant near the top of the file, wrapping it in the configured css function; reference that constant in the prop.',
+			cssAtBottomOfModule:
+				'Move this style declaration out of JSX to a module-scoped constant at the bottom of the file, wrapping it in the configured css function; reference that constant in the prop.',
+			cssObjectTypeOnly:
+				"Pass a style object to the configured css function, for example const styles = css({ textAlign: 'center' }); then use css={styles}.",
+			cssInModule:
+				'Define these styles in the file that applies them. Share a component across files instead of importing style values; use design tokens for shared visual values.',
+			cssArrayStylesOnly:
+				'Compose local styles directly on the css prop, for example css={[baseStyles, activeStyles]}, instead of spreading style objects.',
+			noMemberExpressions:
+				'Move this style value to a standalone local constant such as buttonStyles and reference it in the css prop; avoid myObject.styles.',
 		},
 		schema: [
 			{

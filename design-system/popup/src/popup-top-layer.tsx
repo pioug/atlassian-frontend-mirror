@@ -29,6 +29,7 @@ import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-clos
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { getPopupAxisSizes } from './internal/get-popup-axis-sizes';
@@ -45,6 +46,32 @@ import {
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
+
+type TModeProps =
+	| { mode: 'auto'; onClose: (args: { reason: TPopoverCloseReason }) => void }
+	| { mode: 'manual'; onClose?: (args: { reason: TPopoverCloseReason }) => void };
+
+/**
+ * `Popover` props for `mode`. A manual popover gets `onClose` only when the consumer gave one, so
+ * without it `requestClosePopovers()` cannot close the popup.
+ */
+function getModeProps({
+	isManual,
+	hasOnClose,
+	handleOnClose,
+}: {
+	isManual: boolean;
+	hasOnClose: boolean;
+	handleOnClose: (args: { reason: TPopoverCloseReason }) => void;
+}): TModeProps {
+	if (!isManual) {
+		return { mode: 'auto', onClose: handleOnClose };
+	}
+	if (!hasOnClose) {
+		return { mode: 'manual' };
+	}
+	return { mode: 'manual', onClose: handleOnClose };
+}
 
 /**
  * Top-layer implementation of Popup.
@@ -63,7 +90,8 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	testId,
 	trigger,
 	content,
-	onClose = noop,
+	onClose: providedOnClose,
+	mode = 'auto',
 	placement = 'auto',
 	fallbackPlacements: _fallbackPlacements,
 	shouldFlip: _shouldFlip = true,
@@ -120,6 +148,7 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	appearance: _appearance,
 }: DialogPopupProps | PopupProps) {
+	const onClose = providedOnClose ?? noop;
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -173,6 +202,39 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 		},
 		[onClose],
 	);
+
+	/**
+	 * Manual mode: the browser never light-dismisses the popover, so a press on the trigger does not
+	 * close it. With `onClose`, an outside press or Escape calls it, as on an auto popup. The trigger
+	 * is exempt.
+	 */
+	const isManual = mode === 'manual';
+	const triggerRefs = useMemo(() => [triggerRef], []);
+	const handleManualLightDismiss = useCallback(
+		({ reason }: { reason: TPopoverCloseReason }) => {
+			if (reason !== 'light-dismiss') {
+				handleOnClose({ reason });
+				return;
+			}
+			// Native light dismiss does not restore focus, but the consumer's programmatic close does
+			// when focus is inside the popover. The press usually moved focus out already. If not (for
+			// example an outside `mousedown` called `preventDefault()`), blur first, as an auto light
+			// dismiss would.
+			const popover = popoverRef.current;
+			const activeElement = popover?.ownerDocument.activeElement;
+			if (activeElement instanceof HTMLElement && popover?.contains(activeElement)) {
+				activeElement.blur();
+			}
+			handleOnClose({ reason });
+		},
+		[handleOnClose],
+	);
+	useManualLightDismiss({
+		isOpen: isOpen && isManual && Boolean(providedOnClose),
+		popoverRef,
+		additionalInsideElementRefs: triggerRefs,
+		onClose: handleManualLightDismiss,
+	});
 
 	// Content render-prop bridge.
 	// Legacy content() receives { isOpen, update, setInitialFocusRef, onClose }.
@@ -232,7 +294,7 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 				id={resolvedPopoverId}
 				{...roleProps}
 				isOpen={isOpen}
-				onClose={handleOnClose}
+				{...getModeProps({ isManual, hasOnClose: Boolean(providedOnClose), handleOnClose })}
 				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--container`}

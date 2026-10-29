@@ -1,16 +1,5 @@
+import { isModalDialog } from '../internal/escape-ownership/is-modal-dialog';
 import { getOpenClosablePopovers } from '../internal/get-open-closable-popovers';
-
-function isModalDialog({ element }: { element: Element }): boolean {
-	if (!(element instanceof HTMLDialogElement) || !element.open) {
-		return false;
-	}
-	// Some DOM implementations throw for unsupported pseudo-classes.
-	try {
-		return element.matches(':modal');
-	} catch {
-		return false;
-	}
-}
 
 /**
  * Returns `true` when an open `<dialog>`, or an open `Popover` that has an
@@ -20,6 +9,13 @@ function isModalDialog({ element }: { element: Element }): boolean {
  * Top-layer surfaces render inline, so a surface opened from inside an
  * element is a DOM descendant of that element. That makes `within` the
  * replacement for open layer observer namespaces.
+ *
+ * It answers "is a closable layer open?" (for example to hold a flyout open, pause grid keyboard
+ * navigation, or call `requestClosePopovers()`), not "which layer takes this Escape?". That rule
+ * (in `Dialog`, `useManualLightDismiss` and `useCloseOnUnclaimedEscape`) also counts tooltips, auto
+ * popovers without `onClose` and manual popovers with `useManualLightDismiss` (for example
+ * Spotlight), and skips a non-modal `<dialog>` without `closedby`. For a page surface that closes
+ * on Escape, use `useCloseOnUnclaimedEscape`.
  *
  * Call it at event time. A `keydown` listener still sees a popover that the
  * same Escape press is about to close. A `Dialog` can close during the Escape

@@ -1,7 +1,6 @@
 import type { ExtensionParams } from '@atlaskit/editor-common/extensions/extension-handler';
 import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export function markBlockAsInline({
 	nodes,
@@ -25,8 +24,7 @@ export function markBlockAsInline({
 			!isTopLevel &&
 			node?.type.name === 'bodiedExtension' &&
 			node.attrs?.extensionType === 'com.atlassian.ecosystem' &&
-			node.attrs?.parameters?.layout === 'inline-bodied' &&
-			fg('platform_forge_inline_bodied_layout_switch')
+			node.attrs?.parameters?.layout === 'inline-bodied'
 		) {
 			return false;
 		}

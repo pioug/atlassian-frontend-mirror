@@ -60,15 +60,19 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			noRawTypographyValues:
-				'Typography primitives or tokens should be used instead of hard-coded values.',
+				"Use Text or Heading for semantic text, or replace the font-size/line-height combination with font: token('font.body') or an appropriate font.heading.* token from @atlaskit/tokens.",
 			noFontSizeTypographyToken:
-				'Using tokens with the `fontSize` property is invalid. Any `font.heading` or `font.body` tokens must use the CSS `font` property.',
-			noRawFontWeightValues: 'Font weight tokens should be used instead of hard-coded values.',
-			noRawFontFamilyValues: 'Font family tokens should be used instead of hard-coded values.',
-			noUntokenizedProperties: 'Use typography tokens for `{{property}}`.',
+				'Move this font.body or font.heading.* token from fontSize to the CSS font property; these tokens provide the complete font declaration.',
+			noRawFontWeightValues:
+				"Replace the raw fontWeight with the matching font.weight.* token using token() from @atlaskit/tokens, or use the Text primitive's weight prop when appropriate.",
+			noRawFontFamilyValues:
+				'Replace the raw fontFamily with the matching font.family.* token using token() from @atlaskit/tokens; use a text primitive when it provides the intended typography.',
+			noUntokenizedProperties:
+				'Replace the raw {{property}} value with the matching font.* token using token() from @atlaskit/tokens; font.body and font.heading.* tokens belong on the CSS font property.',
 			noBannedProperties:
-				'Do not use `{{property}}`. Typography tokens automatically specify `{{property}}` alongside font size and font weight.',
-			noRestrictedCapitalisation: `Avoid using ALL CAPS as it reduces readability and is bad for accessibility.`,
+				'Remove the separate {{property}} override. Select the intended typography through Text/Heading or a complete font.body or font.heading.* token so its metrics stay consistent.',
+			noRestrictedCapitalisation:
+				"Remove textTransform: 'uppercase' and keep the text's intended casing; forcing all caps reduces readability.",
 		},
 		schema: ruleSchema,
 	},

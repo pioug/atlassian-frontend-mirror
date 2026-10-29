@@ -15,7 +15,7 @@ const getDepthOfNestedRunner = (node: SimpleCallExpression & Rule.NodeParentExte
 		while (nodeCount > 0) {
 			let currentNode = queue.shift() as typeof node;
 			if (
-				currentNode.arguments[1].type === 'ArrowFunctionExpression' &&
+				currentNode.arguments[1]?.type === 'ArrowFunctionExpression' &&
 				currentNode.arguments[1].body.type === 'CallExpression' &&
 				currentNode.arguments[1].body.callee.type === 'Identifier' &&
 				currentNode.arguments[1].body.callee.name === TEST_RUNNER_IDENTIFIER
@@ -51,7 +51,7 @@ const rule: Rule.RuleModule = {
 		type: 'problem',
 		messages: {
 			tooManyNestedTestRunner:
-				'{{nestedTestRunner}} test runners are nested. Feature flags may need a clean-up',
+				'This legacy runner has {{nestedTestRunner}} nested levels (limit four). Migrate to passGate/failGate from @atlassian/feature-flags-test-utils/mock-gates while preserving supported gate combinations.',
 		},
 	},
 	create(context) {

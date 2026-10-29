@@ -20,7 +20,7 @@ roadmap):
 | `@atlaskit/tooltip`         | `Popover` + `useAnchoredPopover`                           |
 | `@atlaskit/modal-dialog`    | `Dialog` + `DialogScrollLock` + `createCloseEvent`         |
 | `@atlaskit/flag`            | `Popover` (`manual`) for stacking                          |
-| `@atlaskit/spotlight`       | `Popover` + `useAnchoredPopover` + `useSimpleLightDismiss` |
+| `@atlaskit/spotlight`       | `Popover` + `useAnchoredPopover` + `useManualLightDismiss` |
 | `@atlaskit/select`          | `Popover` for `PopupSelect`                                |
 | `@atlaskit/datetime-picker` | `Popover` for calendar / menu surfaces                     |
 | `@atlaskit/inline-dialog`   | `Popover` + `useAnchoredPopover`                           |
@@ -95,6 +95,12 @@ Architectural decisions, design rationale, and decision logs.
   surface rendered inline in its host stays out of the top layer; only its Escape and Tab handling
   changes, so nested top-layer layers own their keys first (Rovo mini-modal navigation; the keyboard
   fix is #512050)
+- **[manual-light-dismiss-escape-stacking.md](./decisions/manual-light-dismiss-escape-stacking.md)**
+  — Decision: `useManualLightDismiss` lets a layer that opens above it, outside it, take Escape
+  first; tracked with `beforetoggle` open order. Browser evidence and what counts as a layer above
+- **[outside-press-closes-every-layer.md](./decisions/outside-press-closes-every-layer.md)**:
+  Decision: one outside press closes every open layer it is outside; Escape closes one layer per
+  press. Who handles the press for each layer, with browser evidence
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
 - **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an
@@ -179,9 +185,9 @@ actually happened.
   content: stated in the `PopupComponentProps` docblock, unenforced, and broken by six in-tree
   containers
 - **[follow-ups/dialog-escape-with-focus-on-body.md](./follow-ups/dialog-escape-with-focus-on-body.md)**
-  — done: with focus on `<body>` (the focused element was removed), the Dialog that focus was last
-  in takes the Escape, as legacy does. Why it records on `focusin`, measurements, and the options we
-  did not use
+  — done, then superseded: with focus on `<body>` (the focused element was removed), the top Dialog
+  takes the Escape, as legacy does. Dialog now finds it by open order; the `focusin` record,
+  measurements, and the options we did not use are history
 - **[follow-ups/dialog-closedby.md](./follow-ups/dialog-closedby.md)** — should Dialog set the
   native `closedby` attribute? Done: always `closedby="none"`, with a `cancel` fallback for browsers
   without it (Safari 27). Support table, the WebKit flag, and the options we did not choose
@@ -198,6 +204,9 @@ actually happened.
 - **[follow-ups/tooltip-triggers-discarding-render-prop-props.md](./follow-ups/tooltip-triggers-discarding-render-prop-props.md)**
   — 14 consumer call sites whose trigger drops the whole tooltip render-prop object, so the tooltip
   never renders on either side of the flag (as distinct from the ref-only drops, which were fixed)
+- **[follow-ups/tooltip-new-content-on-trigger-click-chrome-dismiss-timing.md](./follow-ups/tooltip-new-content-on-trigger-click-chrome-dismiss-timing.md)**
+  — Chromium's `LightDismissFromClick` can close a `hasNewContentOnTriggerClick` tooltip after its
+  re-show
 
 ### Reports
 

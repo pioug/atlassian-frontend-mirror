@@ -40,7 +40,6 @@ import type {
 	ActiveDropTargetNode,
 	BlockControlsMeta,
 	BlockControlsPlugin,
-	MultiSelectDnD,
 	NodeDecorationFactory,
 	PluginState,
 } from '../blockControlsPluginType';
@@ -242,47 +241,7 @@ export const apply = (
 	resizeObserverWidth?: ResizeObserver,
 	pragmaticCleanup?: (() => void) | null,
 	limitedModeTeardown?: { done: boolean },
-):
-	| PluginState
-	| {
-			activeDropTargetNode: ActiveDropTargetNode | undefined;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			activeNode: any;
-			blockMenuOptions:
-				| {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveDown: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveUp: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						openedViaKeyboard: any;
-				  }
-				| undefined;
-			decorations: DecorationSet;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorHeight: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthLeft: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthRight: any;
-			isDocSizeLimitEnabled: boolean | null;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isDragging: any;
-			isMenuOpen: boolean | undefined;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isPMDragging: any;
-			isResizerResizing: boolean;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isSelectedViaDragHandle: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			lastDragCancelled: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerBy: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerByNode: any;
-			multiSelectDnD: MultiSelectDnD | undefined;
-			surfaceNodePositions: number[];
-	  } => {
+): PluginState => {
 	let {
 		activeNode,
 		decorations,
@@ -1112,10 +1071,7 @@ export const apply = (
 				? meta?.isSelectedViaDragHandle
 				: isSelectedViaDragHandle;
 	} else {
-		isSelectedViaDragHandle =
-			meta?.isSelectedViaDragHandle !== undefined &&
-			flags.toolbarFlagsEnabled &&
-			meta?.isSelectedViaDragHandle;
+		isSelectedViaDragHandle = false;
 	}
 
 	return {
@@ -1160,48 +1116,7 @@ export const createPlugin = (
 	nodeDecorationRegistry: NodeDecorationFactory[],
 	rightSideControlsEnabled = false,
 	quickInsertButtonEnabled = true,
-): SafePlugin<
-	| PluginState
-	| {
-			activeDropTargetNode: ActiveDropTargetNode | undefined;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			activeNode: any;
-			blockMenuOptions:
-				| {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveDown: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						canMoveUp: any;
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						openedViaKeyboard: any;
-				  }
-				| undefined;
-			decorations: DecorationSet;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorHeight: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthLeft: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			editorWidthRight: any;
-			isDocSizeLimitEnabled: boolean | null;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isDragging: any;
-			isMenuOpen: boolean | undefined;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isPMDragging: any;
-			isResizerResizing: boolean;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			isSelectedViaDragHandle: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			lastDragCancelled: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerBy: any;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			menuTriggerByNode: any;
-			multiSelectDnD: MultiSelectDnD | undefined;
-			surfaceNodePositions: number[];
-	  }
-> => {
+): SafePlugin<PluginState> => {
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
 	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));

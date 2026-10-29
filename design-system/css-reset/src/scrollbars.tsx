@@ -5,23 +5,12 @@ import evaluateInner from './utils/evaluate-inner';
 const scrollbarStyles: string = evaluateInner`/*
  * Feature-gated harmonised scrollbar appearance.
  * Visibility and width remain browser managed.
+ *
+ * The track is transparent so it matches every surface, which lets the colours be set once on
+ * the root and inherited. A per-element var() would make every element's style depend on
+ * inherited custom properties.
  */
 :root[data-scrollbar-harmonisation] {
-  scrollbar-color: ${token('color.border.input', '#8C8F97')} ${token(
-		'utility.elevation.surface.current',
-		'#FFFFFF',
-	)};
-}
-
-:root[data-scrollbar-harmonisation] * {
-  scrollbar-color: ${token('color.border.input', '#8C8F97')} ${token(
-		'utility.elevation.surface.current',
-		'#FFFFFF',
-	)};
-}
-
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent],
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] * {
   scrollbar-color: ${token('color.border.input', '#8C8F97')} transparent;
 }
 
@@ -29,15 +18,8 @@ const scrollbarStyles: string = evaluateInner`/*
 :root[data-scrollbar-harmonisation]::-webkit-scrollbar-corner,
 :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-track,
 :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-corner {
-  background-color: ${token('utility.elevation.surface.current', '#FFFFFF')};
-  border: 0;
-}
-
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]::-webkit-scrollbar-track,
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]::-webkit-scrollbar-corner,
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-track,
-:root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-corner {
   background-color: transparent;
+  border: 0;
 }
 
 :root[data-scrollbar-harmonisation]::-webkit-scrollbar-thumb,
@@ -46,10 +28,7 @@ const scrollbarStyles: string = evaluateInner`/*
 }
 
 @media (forced-colors: active) {
-  :root[data-scrollbar-harmonisation],
-  :root[data-scrollbar-harmonisation] *,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent],
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] * {
+  :root[data-scrollbar-harmonisation] {
     scrollbar-color: auto;
   }
 
@@ -58,13 +37,7 @@ const scrollbarStyles: string = evaluateInner`/*
   :root[data-scrollbar-harmonisation]::-webkit-scrollbar-corner,
   :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-track,
   :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-thumb,
-  :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-corner,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]::-webkit-scrollbar-track,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]::-webkit-scrollbar-thumb,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent]::-webkit-scrollbar-corner,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-track,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-thumb,
-  :root[data-scrollbar-harmonisation][data-scrollbar-harmonisation-transparent] *::-webkit-scrollbar-corner {
+  :root[data-scrollbar-harmonisation] *::-webkit-scrollbar-corner {
     background-color: revert;
     border: revert;
   }

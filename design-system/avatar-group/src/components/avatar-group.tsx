@@ -347,6 +347,8 @@ const AvatarGroup = ({
 					onClose={onClose}
 					isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
 					data={resolvedData}
+					// The overflow menu must render the custom `avatar` component too, not the default `Avatar`.
+					avatarComponent={avatar}
 					max={max}
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={overrides}

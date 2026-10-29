@@ -12,7 +12,7 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-atlaskit-theme':
-				'Do not import `@atlaskit/theme`. Use `@atlaskit/tokens` or Atlassian Design System components instead.',
+				'Replace @atlaskit/theme imports with semantic token() values from @atlaskit/tokens or the matching ADS component; migrate each imported helper before removing the import.',
 		},
 		type: 'problem',
 	},

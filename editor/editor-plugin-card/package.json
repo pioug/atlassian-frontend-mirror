@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "36.0.2",
+	"version": "36.0.3",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,6 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/custom-steps": "workspace:^",
 		"@atlaskit/editor-card-provider": "workspace:^",
@@ -75,7 +74,6 @@
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
 		"lodash": "root:*",
-		"prop-types": "root:*",
 		"raf-schd": "root:*",
 		"uuid": "root:*"
 	},

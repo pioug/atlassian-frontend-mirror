@@ -21,8 +21,14 @@ This rule marks code as violations when it finds native HTML textarea elements.
 ### Correct
 
 ```jsx
-import Textarea from '@atlaskit/textarea';
+import Textarea from '@atlaskit/textarea/text-area';
 
-<label htmlFor="textarea">Share your feedback</label>
-<Textarea id="textarea" />
+export default function Example() {
+	return (
+		<>
+			<label htmlFor="textarea">Share your feedback</label>
+			<Textarea id="textarea" />
+		</>
+	);
+}
 ```

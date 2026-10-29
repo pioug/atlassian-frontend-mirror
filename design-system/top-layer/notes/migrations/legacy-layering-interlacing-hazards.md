@@ -429,7 +429,7 @@ is _outside_ the legacy layer's DOM subtree, so the handler may wrongly dismiss 
 (or, with `capture`, swallow the event before the top-layer surface sees it). This is an interlace
 you won't see in a screenshot — the stack looks right but dismissal misfires.
 
-**Fix** Prefer the browser's native light-dismiss (`popover="auto"`) / `useSimpleLightDismiss` for
+**Fix** Prefer the browser's native light-dismiss (`popover="auto"`) / `useManualLightDismiss` for
 migrated surfaces; scope legacy outside-click logic so it treats top-layer elements as "inside".
 
 ---

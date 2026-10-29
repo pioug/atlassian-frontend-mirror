@@ -44,7 +44,7 @@ import TestingPopoverAnimationExample from '../115-testing-popover-animation';
 import TestingManualCoexistenceExample from '../116-testing-manual-coexistence';
 import TestingPopoverScrollExample from '../117-testing-popover-scroll';
 import TestingPopoverRapidToggleExample from '../118-testing-popover-rapid-toggle';
-import TestingSimpleLightDismissExample from '../119-testing-simple-light-dismiss';
+import TestingManualLightDismissExample from '../119-testing-manual-light-dismiss';
 import TestingManualPopoverA11yExample from '../120-testing-manual-popover-a11y';
 import TestingPopoverDialogFocusTrapExample from '../121-testing-popover-dialog-focus-trap';
 import TestingPopupFocusRestoreExample from '../122-testing-popup-focus-restore';
@@ -107,7 +107,7 @@ export const TestingPopoverAnimation: WorkbenchExample = wb(TestingPopoverAnimat
 export const TestingManualCoexistence: WorkbenchExample = wb(TestingManualCoexistenceExample);
 export const TestingPopoverScroll: WorkbenchExample = wb(TestingPopoverScrollExample);
 export const TestingPopoverRapidToggle: WorkbenchExample = wb(TestingPopoverRapidToggleExample);
-export const TestingSimpleLightDismiss: WorkbenchExample = wb(TestingSimpleLightDismissExample);
+export const TestingManualLightDismiss: WorkbenchExample = wb(TestingManualLightDismissExample);
 export const TestingManualPopoverA11y: WorkbenchExample = wb(TestingManualPopoverA11yExample);
 export const TestingPopoverDialogFocusTrap: WorkbenchExample = wb(
 	TestingPopoverDialogFocusTrapExample,

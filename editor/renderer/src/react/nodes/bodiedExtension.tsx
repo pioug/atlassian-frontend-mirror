@@ -10,6 +10,7 @@ import type {
 import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import type { AnalyticsEventPayload } from '../../analytics/events';
@@ -21,6 +22,8 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import { renderExtension } from './extension';
+import ForgeBodiedExtensionHandoff from './ForgeBodiedExtensionHandoff';
+import { FORGE_BODIED_EXTENSION_HANDOFF_KEYS } from './forgeBodiedExtensionHandoffConfig';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
@@ -96,6 +99,35 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 						type="bodiedExtension"
 					>
 						{({ node, result }) => {
+							if (
+								localId &&
+								extensionType === 'com.atlassian.ecosystem' &&
+								FORGE_BODIED_EXTENSION_HANDOFF_KEYS.has(extensionKey) &&
+								!shouldDisplayExtensionAsInline?.(node) &&
+								expVal('cc_aura_table_filter_cls', 'isEnabled', false)
+							) {
+								return renderExtension(
+									<ForgeBodiedExtensionHandoff
+										key={localId}
+										localId={localId}
+										fallback={children}
+										result={React.isValidElement(result) ? result : null}
+									/>,
+									layout,
+									{
+										isTopLevel: path.length < 1,
+										rendererAppearance: props.rendererAppearance,
+										fireAnalyticsEvent,
+									},
+									removeOverflow,
+									parameters?.extensionId,
+									extensionViewportSizes,
+									undefined,
+									localId,
+									shouldDisplayExtensionAsInline,
+									node,
+								);
+							}
 							try {
 								if (result && React.isValidElement(result)) {
 									// Return the content directly if it's a valid JSX.Element

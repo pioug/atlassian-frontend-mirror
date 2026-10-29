@@ -5,33 +5,8 @@ import { BORDER_WIDTH } from '@atlaskit/avatar/constants/default';
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { token } from '@atlaskit/tokens';
 
-import type { DiffAgentBrand, TagContributor } from '../../showDiffPluginType';
-import { getContributorTagIcon, type ContributorTagIcon } from './contributorTagIcons';
-
-/**
- * Agent kinds with a custom contributor-tag icon, used as a fallback glyph when no `avatarUrl` is
- * available or its image fails to load (see `showContributorIcon`). Rovo/Figma/Lovable/Replit have
- * no entry here — they fall back to the generic `aiAgent` glyph. The declared type stays the wider
- * `TagContributor['agentKind']` so indexing below (with `'identified' | 'external'` in play too)
- * stays safely partial.
- */
-const AGENT_KIND_ICONS: Readonly<
-	Partial<Record<NonNullable<TagContributor['agentKind']>, ContributorTagIcon>>
-> = {
-	claude: 'claude',
-	chatgpt: 'chatgpt',
-} satisfies Partial<Record<DiffAgentBrand, ContributorTagIcon>>;
-
-/**
- * Brands that always render their fixed glyph, even when the contributor also carries an
- * `avatarUrl`. Rovo/Figma/Lovable/Replit are excluded here and use the real avatar when
- * `resolveDiffContributors` supplies one, falling back to the generic `aiAgent` glyph on load
- * failure.
- */
-const FIXED_GLYPH_AGENT_KINDS: ReadonlySet<NonNullable<TagContributor['agentKind']>> = new Set([
-	'claude',
-	'chatgpt',
-]);
+import type { TagContributor } from '../../showDiffPluginType';
+import { getContributorTagIcon } from './contributorTagIcons';
 
 /** The size `@atlaskit/avatar`'s `xxsmall` rendered at. */
 const AVATAR_SIZE = AVATAR_SIZES.xxsmall;
@@ -170,29 +145,19 @@ export const contributorAvatarRenderer = ({
 			return;
 		}
 
-		const icon = AGENT_KIND_ICONS[contributor.agentKind ?? 'external'] ?? 'aiAgent';
-		shape.appendChild(getContributorTagIcon(icon, doc));
+		shape.appendChild(getContributorTagIcon('aiAgent', doc));
 	};
 
 	if (contributor.avatarUrl) {
-		// Claude/ChatGPT always use their fixed glyph, even when the profile also has an avatar
-		// URL. Other agents (e.g. Rovo/Figma/Lovable/Replit/Slack) and users prefer the real avatar.
-		const usesFixedGlyph =
-			isAgent && FIXED_GLYPH_AGENT_KINDS.has(contributor.agentKind ?? 'external');
-
-		if (usesFixedGlyph) {
-			showContributorIcon();
-		} else {
-			image = doc.createElement('img');
-			image.alt = '';
-			image.decoding = 'async';
-			image.draggable = false;
-			image.loading = 'lazy';
-			image.setAttribute('style', imageStyle);
-			unbindImageError = bind(image, { type: 'error', listener: showContributorIcon });
-			shape.appendChild(image);
-			image.src = contributor.avatarUrl;
-		}
+		image = doc.createElement('img');
+		image.alt = '';
+		image.decoding = 'async';
+		image.draggable = false;
+		image.loading = 'lazy';
+		image.setAttribute('style', imageStyle);
+		unbindImageError = bind(image, { type: 'error', listener: showContributorIcon });
+		shape.appendChild(image);
+		image.src = contributor.avatarUrl;
 	} else {
 		showContributorIcon();
 	}

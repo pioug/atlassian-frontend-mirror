@@ -48,7 +48,7 @@ const noUnusedCssMapRule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			unusedCssMapStyle:
-				'Unused style "{{styleName}}" in cssMap. Consider removing it if not needed.',
+				'Remove the unused "{{styleName}}" variant from cssMap, or apply it to the intended element if it is still required.',
 		},
 		schema: [],
 		type: 'suggestion',

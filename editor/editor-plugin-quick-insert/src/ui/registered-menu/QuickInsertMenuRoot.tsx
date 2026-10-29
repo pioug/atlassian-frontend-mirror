@@ -131,8 +131,14 @@ const QuickInsertMenuRoot = ({
 			? typeAheadListMessages.quickInsertInputLabel
 			: toolbarInsertBlockMessages.insertMenu,
 	);
-	const { rows, selectableItems, selectedItemIndex, activeItemKey, ...listEvents } =
-		useRegisteredMenu({ model, resetKey: query });
+	const {
+		rows,
+		selectableItems,
+		selectedItemIndex,
+		activeItemKey,
+		selectionSource,
+		...listEvents
+	} = useRegisteredMenu({ model, resetKey: query });
 	const listId = useId();
 	const [renderedItems, setRenderedItems] = useState<RenderedItems>({
 		startIndex: -1,
@@ -239,6 +245,7 @@ const QuickInsertMenuRoot = ({
 							query={query}
 							rows={rows}
 							selectedItemIndex={selectedItemIndex}
+							selectionSource={selectionSource}
 						/>
 					) : (
 						<ToolbarQuickInsertMenu
@@ -259,6 +266,7 @@ const QuickInsertMenuRoot = ({
 							query={query}
 							rows={rows}
 							selectedItemIndex={selectedItemIndex}
+							selectionSource={selectionSource}
 						/>
 					)}
 				</MenuGroup>

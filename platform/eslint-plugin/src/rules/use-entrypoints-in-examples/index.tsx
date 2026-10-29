@@ -8,7 +8,7 @@ const rule: Rule.RuleModule = {
 		},
 		messages: {
 			useEntrypointsInExamples:
-				'Use the package entrypoints instead of importing from src. This ensures examples reflect public API.\n\nFor example, use `@atlaskit/button/default/button` instead of `../../src/default/button`',
+				'Replace this relative src import with the package.json exports entry pointing to that source, for example @atlaskit/button/default/button. Add a supported export when the example needs an API that has no entrypoint yet.',
 		},
 		type: 'problem',
 	},

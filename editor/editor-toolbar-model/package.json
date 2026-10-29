@@ -27,10 +27,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0 || ^19.2.0"
@@ -39,12 +37,11 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
-		"@testing-library/react": "root:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "1.2.115",
+	"version": "1.2.116",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

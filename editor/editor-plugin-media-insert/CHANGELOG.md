@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 48.0.3
+
+### Patch Changes
+
+- [`7efec208f3bb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7efec208f3bb4) -
+  Remove unused runtime dependencies
+- Updated dependencies
+
 ## 48.0.2
 
 ### Patch Changes

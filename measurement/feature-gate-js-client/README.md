@@ -63,6 +63,11 @@ try {
 			// Note that this option takes precendence over the environment and perimeter options in building the url.
 			// To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
 			useGatewayUrl: true,
+			// [Optional] Default is false
+			// Whether to include flags served by the Feature Flag Platform (FFP). When true, values are fetched from the
+			// feature-flag-service `/api/v1/evalFlags` endpoint instead of `/api/v2/frontend/experimentValues`.
+			// FFP values are not used yet, so only enable this for a targetApp with no flags in FFP.
+			includeFfpFlags: false,
 			// [Optional] Must be one of the strings from the exported enum PerimeterType.
 			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
 			// will disable all logging to Statsig in perimeters where it is prohibited..
@@ -121,6 +126,11 @@ try {
 			// Note that this option takes precendence over the environment and perimeter options in building the url.
 			// To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
 			useGatewayUrl: true,
+			// [Optional] Default is false
+			// Whether to include flags served by the Feature Flag Platform (FFP). When true, values are fetched from the
+			// feature-flag-service `/api/v1/evalFlags` endpoint instead of `/api/v2/frontend/experimentValues`.
+			// FFP values are not used yet, so only enable this for a targetApp with no flags in FFP.
+			includeFfpFlags: false,
 			// [Optional] Default is COMMERCIAL. Must be one of the values from the exported enum PerimeterType.
 			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
 			// will disable all logging to Statsig in perimeters where it is prohibited.

@@ -49,7 +49,8 @@ const rule: Rule.RuleModule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			noDeprecatedJSXAttributes: 'The JSX attribute {{propName}} has been deprecated.',
+			noDeprecatedJSXAttributes:
+				'The {{propName}} prop on {{componentName}} imported from {{importSource}} is deprecated. {{migrationHint}}',
 		},
 		schema: [
 			{
@@ -145,11 +146,20 @@ const rule: Rule.RuleModule = createLintRule({
 					}
 
 					// if we're here, there is a valid lint error.
+					const importSource = String(importNode.source.value);
+					const isHeadingLevel =
+						jsxAttributeName === 'level' &&
+						(importSource === '@atlaskit/heading' || importSource === '@atlaskit/heading/heading');
 					context.report({
 						node,
 						messageId: 'noDeprecatedJSXAttributes',
 						data: {
 							propName: jsxAttributeName,
+							componentName: jsxElementName,
+							importSource,
+							migrationHint: isHeadingLevel
+								? 'Replace level with size using platform/packages/design-system/heading/examples/constellation/heading-migration.tsx (h700 becomes large); set as separately to preserve heading semantics.'
+								: "Check this package's supported props and migration examples for its replacement API, preserving the component's behavior.",
 						},
 					});
 				});

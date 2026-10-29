@@ -1,5 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
 import { buildSegmentTree } from '../../create-payload/common/utils/build-segment-tree';
@@ -44,19 +42,7 @@ describe('segment cache lifecycle', () => {
 	const shell: LabelStack = [{ name: 'shell', segmentId: 'shell' }];
 	const home: LabelStack = [{ name: 'home', segmentId: 'home' }];
 
-	it('preserves legacy cache replay when the gate is disabled', () => {
-		failGate('platform_ufo_fix_stale_segment_cache');
-		metrics.addSegment(inbox);
-		const current = startInteraction('current');
-		metrics.removeSegment(inbox);
-
-		expect(current.knownSegments).toEqual([{ labelStack: inbox }]);
-		expect(startInteraction('next').knownSegments).toEqual([{ labelStack: inbox }]);
-		expect(metrics.segmentUnmountCache.get(stringifyLabelStackFully(inbox))).toBe(1);
-	});
-
 	it('excludes removed segments while recording mounted and destination segments', () => {
-		passGate('platform_ufo_fix_stale_segment_cache');
 		metrics.addSegment(inbox);
 		metrics.addSegment(shell);
 		metrics.removeSegment(inbox);
@@ -77,7 +63,6 @@ describe('segment cache lifecycle', () => {
 	});
 
 	it('removes nested stacks containing plain labels and distinct segment identities', () => {
-		passGate('platform_ufo_fix_stale_segment_cache');
 		const nested: LabelStack = [
 			{ name: 'shell', segmentId: 'shell' },
 			{ name: 'content' },
@@ -92,7 +77,6 @@ describe('segment cache lifecycle', () => {
 	});
 
 	it('does not accumulate identities over repeated mount and unmount cycles', () => {
-		passGate('platform_ufo_fix_stale_segment_cache');
 		for (let index = 0; index < 3; index++) {
 			const stack: LabelStack = [{ name: 'inbox', segmentId: `inbox-${index}` }];
 			metrics.addSegment(stack);
@@ -103,7 +87,6 @@ describe('segment cache lifecycle', () => {
 	});
 
 	it('notifies an active interaction when the same stack is mounted again', () => {
-		passGate('platform_ufo_fix_stale_segment_cache');
 		metrics.addSegment(inbox);
 		metrics.removeSegment(inbox);
 		const interaction = startInteraction('remount');
@@ -116,7 +99,6 @@ describe('segment cache lifecycle', () => {
 	});
 
 	it('counts each unmount once and ignores removal of an absent segment', () => {
-		passGate('platform_ufo_fix_stale_segment_cache');
 		const key = stringifyLabelStackFully(inbox);
 		metrics.removeSegment(inbox);
 		expect(metrics.segmentUnmountCache.has(key)).toBe(false);
@@ -130,7 +112,6 @@ describe('segment cache lifecycle', () => {
 	});
 
 	it('retains interaction history after unmount but excludes it from a later interaction', () => {
-		passGate('platform_ufo_fix_stale_segment_cache');
 		metrics.addSegment(inbox);
 		const current = startInteraction('current');
 		metrics.removeSegment(inbox);

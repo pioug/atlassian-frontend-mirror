@@ -89,6 +89,32 @@ describe('SingeFetchProvider', () => {
 			);
 		});
 
+		test('passes includeFfpFlags to the fetcher', async () => {
+			provider = new SingleFetchProvider({ ...providerOptions, includeFfpFlags: true });
+			provider.setClientVersion(mockClientVersion);
+			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
+
+			await expect(provider.getExperimentValues()).resolves.toStrictEqual({
+				experimentValues: mockExperimentValues,
+				customAttributesFromFetch: mockCustomAttributesFromFetch,
+				clientSdkKey: mockClientSdkKey,
+			});
+			expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+				mockClientVersion,
+				{
+					apiKey: '123',
+					environment: 'development',
+					perimeter: 'commercial',
+					fetchTimeoutMs: 12,
+					targetApp: 'targetApp_web',
+					useGatewayURL: true,
+					includeFfpFlags: true,
+				},
+				mockIdentifiers,
+				mockCustomAttributes,
+			);
+		});
+
 		test('error thrown when fetch rejects', async () => {
 			provider.setProfile(mockClientOptions, mockIdentifiers, mockCustomAttributes);
 

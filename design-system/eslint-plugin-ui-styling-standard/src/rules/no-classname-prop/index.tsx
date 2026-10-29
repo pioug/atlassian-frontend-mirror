@@ -20,7 +20,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			'no-classname-prop':
-				'Avoid `className` because it invites the use of unsafe global styles and is impossible to determine via local tooling.',
+				'Apply local styles through css instead of className. Use supported component props or its bounded xcss interface for component customization.',
 		},
 		type: 'problem',
 	},

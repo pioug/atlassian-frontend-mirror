@@ -31,11 +31,11 @@ const rule: Rule.RuleModule = createLintRule({
 		},
 		messages: {
 			noDeprecatedUsage:
-				'Using the export `{{local}}` from `{{import}}` as a mixin is discouraged. Please use `@atlaskit/visually-hidden` instead.',
+				'Replace the {{local}} mixin from {{import}} with a VisuallyHidden component from @atlaskit/visually-hidden around the same content, then remove the old mixin usage and import.',
 			noDeprecated:
-				'The export `{{local}}` from `{{import}}` is deprecated. Please use `@atlaskit/visually-hidden` instead.',
+				'Remove the deprecated {{local}} import from {{import}}. Where its styles are used to hide content visually, use a VisuallyHidden wrapper from @atlaskit/visually-hidden around that content instead.',
 			suggestion:
-				'This CSS closely matches the implementation of a visually hidden element. You should consider using the `@atlaskit/visually-hidden` component instead.',
+				'If these styles are intended to hide content only visually, wrap that content in VisuallyHidden from @atlaskit/visually-hidden instead. Keep the content available to assistive technology.',
 		},
 	},
 

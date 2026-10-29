@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-list
 
+## 32.0.4
+
+### Patch Changes
+
+- [`fc6a743d65633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc6a743d65633) -
+  Remove unused @atlaskit/platform-feature-flags and @atlaskit/tmp-editor-statsig dependencies
+- Updated dependencies
+
+## 32.0.3
+
+### Patch Changes
+
+- [`f212488e32f6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f212488e32f6a) -
+  Clean up experiment `platform_editor_list_join_strip_breakout`
+- Updated dependencies
+
 ## 32.0.2
 
 ### Patch Changes

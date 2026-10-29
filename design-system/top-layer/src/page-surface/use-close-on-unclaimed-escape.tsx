@@ -2,68 +2,112 @@ import { type RefObject, useEffect, useRef } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { hasOpenDialogOrPopover } from './has-open-dialog-or-popover';
+import { combine } from '../internal/combine';
+import { claimEscape } from '../internal/escape-ownership/claim-escape';
+import { getNearestContainingLayer } from '../internal/escape-ownership/get-nearest-containing-layer';
+import { getOpenLayersTakingEscape } from '../internal/escape-ownership/get-open-layers-taking-escape';
+import { hasEscapeOwnerAbove } from '../internal/escape-ownership/has-escape-owner-above';
+import { isEscapeToHandle } from '../internal/escape-ownership/is-escape-to-handle';
+import { pageSurfaceEscapeAttribute } from '../internal/escape-ownership/page-surface-escape-attribute';
+import { useStartOpenOrderTracking } from '../internal/escape-ownership/use-start-open-order-tracking';
+import { setAttribute } from '../internal/set-attribute';
 
 type TUseCloseOnUnclaimedEscapeOptions = {
 	/**
-	 * The listener is bound only while this is `true`. Pass the open state of the surface. A
-	 * missing value (for example from an unmocked feature gate in a test) binds no listener.
+	 * Listens only while `true`. Pass the open state of the surface. A missing value (for example
+	 * from an unmocked feature gate in a test) binds nothing.
 	 */
 	isEnabled: boolean;
 
 	/**
-	 * Called when Escape asks the surface to close. Set the surface to closed in response. The
-	 * hook does not hide anything itself.
+	 * Called when Escape asks the surface to close. Set it to closed in response; the hook hides
+	 * nothing itself.
 	 */
 	onClose: (args: { event: KeyboardEvent }) => void;
 
 	/**
-	 * Optional extra check. Return `false` to keep the surface open for this Escape (for
-	 * example while a text field has focus). It runs after the built-in checks, so it can keep
-	 * the surface open, but it cannot make it close.
+	 * Return `false` to keep the surface open for this Escape (for example while a text field has
+	 * focus). Runs after the built-in checks: it can keep the surface open, not make it close.
 	 */
 	shouldClose?: (args: { event: KeyboardEvent }) => boolean;
 
 	/**
-	 * Listen on this element instead of `document`. Escape then only closes the surface while
-	 * focus is inside the element, and only open dialogs and popovers inside the element keep it open.
+	 * Listen on this element instead of `document`. Escape then closes the surface only while focus
+	 * is inside it. The owners that keep it open are the same as without `targetRef`.
 	 *
-	 * The hook reads `targetRef.current` when `isEnabled` becomes `true`. The element must be
-	 * mounted at that time. If it is not, no listener is bound.
+	 * Read when `isEnabled` becomes `true`. If the element is not mounted then, nothing is bound.
 	 */
 	targetRef?: RefObject<HTMLElement | null>;
+
+	/**
+	 * The surface element, when it is not the `targetRef` element. Defaults to `targetRef`.
+	 *
+	 * A layer around the surface (for example a `Dialog` it is in) is below it, so it does not keep
+	 * the surface open: the surface takes the Escape with `preventDefault()`, and the layer stays
+	 * open. Without a surface element, every open layer keeps the surface open.
+	 */
+	surfaceRef?: RefObject<HTMLElement | null>;
 };
+
+/**
+ * `true` when `surface` is inside an open layer that takes Escape.
+ */
+function isInsideOpenLayer({ surface }: { surface: HTMLElement }): boolean {
+	return (
+		getNearestContainingLayer({
+			element: surface,
+			layers: getOpenLayersTakingEscape({ within: surface.ownerDocument }),
+		}) !== null
+	);
+}
+
+/**
+ * `true` when the document has an open layer that takes Escape, or a marked page surface.
+ */
+function hasAnyEscapeOwner({ ownerDocument }: { ownerDocument: Document }): boolean {
+	return (
+		getOpenLayersTakingEscape({ within: ownerDocument }).length > 0 ||
+		ownerDocument.querySelector(`[${pageSurfaceEscapeAttribute}]`) !== null
+	);
+}
 
 /**
  * Closes a page surface (for example a side panel) on Escape.
  *
- * Do not use it for a `Popover` or a `Dialog`. The browser and `Dialog` already close them on
- * Escape.
+ * Not for `Popover` or `Dialog`: the browser and `Dialog` already close them on Escape.
  *
- * The browser closes top-layer surfaces on Escape itself. A surface that is not in the top layer
- * needs its own `keydown` listener, and that listener also receives the Escape that closes an open
- * popover or dialog. This hook calls `onClose` only for an unclaimed Escape. An Escape is claimed
- * when:
+ * A surface outside the top layer needs its own `keydown` listener, which also hears the Escape
+ * that closes an open popover or dialog. So this hook calls `onClose` only for an unclaimed Escape.
+ * An Escape is claimed when:
  *
- * - `event.defaultPrevented` is `true`. Something already handled this Escape.
- * - `event.repeat` is `true`. A held key closes one surface per key press.
- * - An open dialog or popover is inside the target (`document` by default). See
- *   `hasOpenDialogOrPopover`. The browser closes it after the `keydown` event, so it is still open when this listener runs.
+ * - `event.defaultPrevented`: something already handled it.
+ * - IME composition is running: the Escape cancels the composition.
+ * - `event.repeat`: a held key closes one surface per key press.
+ * - An owner is above the surface (see `hasEscapeOwnerAbove`): an open layer that takes Escape (a
+ *   dialog that closes on Escape, an `auto` or `hint` popover such as a tooltip, or a `Dialog` or
+ *   `manual` popover with `useManualLightDismiss`), or a marked page surface. The surface ranks
+ *   just above its nearest containing layer (see `surfaceRef`). Outside every layer it is below
+ *   every layer. With no surface element it is the whole page, so every owner is above it. The
+ *   browser closes an `auto` or `hint` popover after the `keydown`, so it is still open here.
  * - `shouldClose` returns `false`.
  *
- * Every bound surface makes its own decision. Two open page surfaces both close on one Escape.
+ * Unrelated surfaces outside layers decide independently and can both close. A surface inside an
+ * open layer (for example a panel in a `Dialog`) takes the Escape with `preventDefault()`, even
+ * when `shouldClose` returns `false` or the key repeats.
  */
 export function useCloseOnUnclaimedEscape({
 	isEnabled,
 	onClose,
 	shouldClose,
 	targetRef,
-}: TUseCloseOnUnclaimedEscapeOptions): void {
-	// Keep the latest callbacks so the listener does not re-bind on every render.
+	surfaceRef,
+}: TUseCloseOnUnclaimedEscapeOptions): undefined {
+	// Latest callbacks, so the listener does not re-bind each render.
 	const onCloseRef = useRef(onClose);
 	onCloseRef.current = onClose;
 	const shouldCloseRef = useRef(shouldClose);
 	shouldCloseRef.current = shouldClose;
+	useStartOpenOrderTracking();
 
 	useEffect(() => {
 		if (!isEnabled) {
@@ -76,23 +120,53 @@ export function useCloseOnUnclaimedEscape({
 			return;
 		}
 
-		return bind(target, {
-			type: 'keydown',
-			listener(event: KeyboardEvent) {
-				if (event.key !== 'Escape' || event.defaultPrevented || event.repeat) {
-					return;
-				}
+		// A manual popover around the surface also listens on `document` and may run first. The mark
+		// tells it to leave the Escape to this surface. On an element target this listener runs first
+		// anyway.
+		const markedSurface = target instanceof HTMLElement ? null : (surfaceRef?.current ?? null);
 
-				if (hasOpenDialogOrPopover({ within: target })) {
-					return;
-				}
+		return combine(
+			markedSurface
+				? setAttribute({ element: markedSurface, name: pageSurfaceEscapeAttribute, value: '' })
+				: undefined,
+			// Target and phase matter. See the listener order in `claim-escape`.
+			bind(target, {
+				type: 'keydown',
+				listener(event: KeyboardEvent) {
+					if (!isEscapeToHandle({ event })) {
+						return;
+					}
 
-				if (shouldCloseRef.current && !shouldCloseRef.current({ event })) {
-					return;
-				}
+					const surface = surfaceRef?.current ?? (target instanceof HTMLElement ? target : null);
 
-				onCloseRef.current({ event });
-			},
-		});
-	}, [isEnabled, targetRef]);
+					if (surface) {
+						if (hasEscapeOwnerAbove({ element: surface })) {
+							return;
+						}
+					} else if (
+						hasAnyEscapeOwner({
+							ownerDocument: target instanceof Document ? target : target.ownerDocument,
+						})
+					) {
+						// No element: the surface is the whole page, so every owner is inside it, and above it.
+						return;
+					}
+
+					const isInsideLayer = surface && isInsideOpenLayer({ surface });
+					// `shouldClose` sees the event before it is claimed.
+					const shouldClose =
+						!event.repeat && (!shouldCloseRef.current || shouldCloseRef.current({ event }));
+					// Take the Escape even on a veto or repeat, so the layer around the surface stays open.
+					if (isInsideLayer) {
+						claimEscape({ event });
+					}
+					if (!shouldClose) {
+						return;
+					}
+
+					onCloseRef.current({ event });
+				},
+			}),
+		);
+	}, [isEnabled, surfaceRef, targetRef]);
 }

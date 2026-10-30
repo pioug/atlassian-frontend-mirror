@@ -83,6 +83,7 @@ import type { TableOptions } from './types';
 // Prevent unnecessary parentWidth updates when table is nested inside of a node that is nested itself.
 const NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MIN_THRESHOLD = 2;
 const NESTED_TABLE_IN_NESTED_PARENT_WIDTH_DIFF_MAX_THRESHOLD = 20;
+const MEASURED_COLUMN_WIDTH = /^[\d.]+px$/u;
 
 interface ComponentProps {
 	allowColumnResizing?: boolean;
@@ -464,13 +465,23 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const isFullWidthModeAndLineLengthChanged =
 			this.updateColGroupFromFullWidthChange && isLineLengthChanged;
 
+		const previousContainerWidth = this.containerWidth?.width;
+		const isFullPageEditor = !options?.isCommentEditor && !options?.isChromelessEditor;
+		const isContainerResized =
+			fg('platform_editor_table_scale_on_container_resize') &&
+			isFullPageEditor &&
+			!!previousContainerWidth &&
+			previousContainerWidth !== containerWidthValue &&
+			this.hasMeasuredColumnWidths();
+		const isWindowOrContainerResized = this.state.windowResized || isContainerResized;
+
 		const maybeScale =
 			isTableSquashed ||
 			isTableWidthChanged ||
 			(isTableResizedFullWidth && !options?.isCommentEditor) ||
 			isNumberColumnChanged ||
 			isNumberOfColumnsChanged ||
-			this.state.windowResized;
+			isWindowOrContainerResized;
 
 		if (force || maybeScale || isFullWidthModeAndLineLengthChanged) {
 			const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
@@ -480,7 +491,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			const isTableDisplayModeChanged = this.node.attrs.displayMode !== tableNode.attrs.displayMode;
 
 			const shouldUpdateColgroup = this.shouldUpdateColgroup({
-				isWindowResized: this.state.windowResized,
+				isWindowResized: isWindowOrContainerResized,
 				isWidthChanged,
 				isTableWidthChanged,
 				isColumnsDistributed,
@@ -1293,6 +1304,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			containerWidth || this.props.containerWidth.width,
 			options || this.props.options || {},
 		);
+
+	/**
+	 * Full-page tables scale with their container through CSS `calc()` column widths. Once a
+	 * colgroup has been rewritten with measured px widths (column resize, collab, column add or
+	 * delete, window resize), CSS can no longer scale it and the colgroup must be updated in JS.
+	 */
+	private hasMeasuredColumnWidths = (): boolean => {
+		const firstColumn = this.table?.querySelector<HTMLElement>(':scope > colgroup > col');
+		return !!firstColumn && MEASURED_COLUMN_WIDTH.test(firstColumn.style.width);
+	};
 
 	private shouldUpdateColgroup = (params: {
 		isColumnsDistributed: boolean;

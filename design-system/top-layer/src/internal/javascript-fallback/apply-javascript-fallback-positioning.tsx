@@ -1,13 +1,22 @@
 /**
- * The JavaScript positioning fallback: measured `position: fixed` coordinates for
- * browsers without CSS Anchor Positioning.
+ * **JavaScript positioning fallback**
  *
- * Best effort, degrading in that order: measured anchored position, then anchored
- * with unresolvable offsets treated as `0`, then centred in the viewport, and
- * always visible. The two hazards differ in kind: `new ResizeObserver` runs
- * synchronously in the layout effect, where a throw unmounts the React tree,
- * while `update` runs asynchronously, where the danger is an uncleared
- * `opacity: 0`.
+ * Writes measured `position: fixed` coordinates for browsers without CSS Anchor
+ * Positioning.
+ *
+ * Best effort. The popover is always visible, and the position degrades in this
+ * order:
+ *
+ * 1. Anchored, at the measured position.
+ * 2. Anchored, with unresolvable offsets treated as `0`.
+ * 3. Centred in the viewport.
+ *
+ * The two hazards differ in kind:
+ *
+ * - `new ResizeObserver` runs synchronously in the layout effect, where a throw
+ *   unmounts the React tree.
+ * - `updatePosition` runs asynchronously, where the danger is an `opacity: 0`
+ *   that is never cleared.
  */
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
@@ -19,10 +28,8 @@ import { computeFallbackPosition } from './anchor-positioning-fallback';
 import { resolveCssLengthToPixels } from './resolve-css-length-to-pixels';
 import { warnFallbackFailure } from './warn-fallback-failure';
 
-/**
- * Wrapped because jsdom throws on the unknown `:popover-open` selector.
- */
-function isPopoverOpen(popover: HTMLElement): boolean {
+// Wrapped because jsdom throws on the unknown `:popover-open` selector.
+function isPopoverOpen({ popover }: { popover: HTMLElement }): boolean {
 	try {
 		return popover.matches(':popover-open');
 	} catch {
@@ -31,14 +38,16 @@ function isPopoverOpen(popover: HTMLElement): boolean {
 }
 
 /**
- * Observes the popover until its first non-zero layout, then self-disconnects;
- * ongoing movement is handled by the scroll and resize listeners. The popover is
- * `display: none` until `showPopover()`, and some browsers fire `toggle` before
- * layout, so RAF-after-toggle is unreliable.
+ * Creates an observer that calls `onFirstLayout` at the first non-zero layout
+ * of the popover, then disconnects. The scroll and resize listeners handle
+ * movement after that. The popover is `display: none` until `showPopover()`,
+ * and some browsers fire `toggle` before layout, so a RAF after `toggle` is
+ * unreliable.
  *
- * `null` where `ResizeObserver` is missing (non-DOM jest environments). There is
- * then no measurement to wait for, so the caller positions immediately and must
- * not hide the popover, because no reveal would follow.
+ * Returns `null` when `ResizeObserver` is missing (non-DOM jest environments)
+ * or its constructor throws. There is then no measurement to wait for, so the
+ * caller positions immediately and must not hide the popover, because no
+ * reveal would follow.
  */
 function createFirstLayoutObserver({
 	popover,
@@ -65,9 +74,7 @@ function createFirstLayoutObserver({
 	}
 }
 
-/**
- * The consumer's offsets in pixels. See `resolvedOffsets` below.
- */
+// The placement offsets in pixels. See `resolvedOffsets` below.
 type TResolvedOffsets = {
 	gap: number;
 	crossAxisShift: number;
@@ -91,8 +98,9 @@ export function applyJavaScriptFallbackPositioning({
 	placement: TPlacement;
 	sizeStyles: TStyleDeclaration[];
 }): () => void {
-	// Already in the top layer via the `popover` attribute, so this only resets the
-	// UA defaults and writes measured `top` / `left`.
+	// The `popover` attribute already puts the popover in the top layer. Reset the
+	// UA `margin` and `inset` so that the measured `top` / `left` apply, and write
+	// the size styles.
 	const cleanupBaseStyles = setStyle({
 		element: popover,
 		styles: [
@@ -104,13 +112,13 @@ export function applyJavaScriptFallbackPositioning({
 
 	// The popover can be consumer-owned (`@atlaskit/popper`'s `createPopper`),
 	// so restore prior inline values rather than removing ours.
-	let undoPosition: (() => void) | undefined;
-	let undoHide: (() => void) | undefined;
+	let cleanupPositionStyles: (() => void) | undefined;
+	let cleanupHideStyles: (() => void) | undefined;
 
-	// Resolved once per open and per resize, reused across scrolls: resolving is a
-	// full style and layout flush, and a scroll cannot change what a CSS length
-	// resolves to. A resize can (viewport units), and so can a re-open (a token
-	// retargeted while closed).
+	// Resolved once per open and per resize, and reused across scrolls. Resolving
+	// is a full style and layout flush, and a scroll cannot change what a CSS
+	// length resolves to. A resize can (viewport units), and so can a re-open (a
+	// token retargeted while closed).
 	let resolvedOffsets: TResolvedOffsets | null = null;
 
 	function invalidateResolvedOffsets() {
@@ -121,8 +129,8 @@ export function applyJavaScriptFallbackPositioning({
 		if (resolvedOffsets) {
 			return resolvedOffsets;
 		}
-		// Probed INSIDE the popover: it is in the top layer, not the anchor's DOM
-		// tree, so anywhere else resolves a token against a different scope.
+		// Probe INSIDE the popover, so a length resolves against the popover's font
+		// size and custom-property scope, not the anchor's.
 		resolvedOffsets = {
 			gap: resolveCssLengthToPixels({ value: placement.offset.gap, container: popover }),
 			crossAxisShift: resolveCssLengthToPixels({
@@ -134,23 +142,26 @@ export function applyJavaScriptFallbackPositioning({
 	}
 
 	function reveal() {
-		undoHide?.();
-		undoHide = undefined;
+		cleanupHideStyles?.();
+		cleanupHideStyles = undefined;
 	}
 
 	function restorePosition() {
-		undoPosition?.();
-		undoPosition = undefined;
+		cleanupPositionStyles?.();
+		cleanupPositionStyles = undefined;
 	}
 
 	// `opacity: 0` not `visibility: hidden`: Firefox skips visibility-hidden
 	// elements during `<dialog>` initial-focus traversal.
 	function hideUntilPositioned() {
 		// Keep the first snapshot, else we capture our own `opacity: 0`.
-		if (undoHide) {
+		if (cleanupHideStyles) {
 			return;
 		}
-		undoHide = setStyle({ element: popover, styles: [{ property: 'opacity', value: '0' }] });
+		cleanupHideStyles = setStyle({
+			element: popover,
+			styles: [{ property: 'opacity', value: '0' }],
+		});
 	}
 
 	/**
@@ -160,7 +171,7 @@ export function applyJavaScriptFallbackPositioning({
 	 */
 	function centerInViewport() {
 		restorePosition();
-		undoPosition = setStyle({
+		cleanupPositionStyles = setStyle({
 			element: popover,
 			styles: [
 				{ property: 'inset', value: '0' },
@@ -169,15 +180,15 @@ export function applyJavaScriptFallbackPositioning({
 		});
 	}
 
-	function update() {
+	function updatePosition() {
 		try {
-			const triggerRect = anchor.getBoundingClientRect();
+			const anchorRect = anchor.getBoundingClientRect();
 			const viewport = { width: window.innerWidth, height: window.innerHeight };
 			const { gap, crossAxisShift } = getResolvedOffsets();
 
 			const { top, left } = computeFallbackPosition({
-				triggerRect,
-				popoverEl: popover,
+				anchorRect,
+				popover,
 				placement,
 				viewport,
 				gap,
@@ -187,8 +198,8 @@ export function applyJavaScriptFallbackPositioning({
 				},
 			});
 
-			// A non-finite coordinate serialises to a declaration the browser drops,
-			// landing the popover in the corner just as silently as a throw would.
+			// A non-finite coordinate serialises to a declaration the browser drops.
+			// That leaves the popover in the corner, as silently as a throw would.
 			if (!Number.isFinite(top) || !Number.isFinite(left)) {
 				centerInViewport();
 				return;
@@ -196,7 +207,7 @@ export function applyJavaScriptFallbackPositioning({
 
 			// Restore first so the snapshot stays the consumer's value.
 			restorePosition();
-			undoPosition = setStyle({
+			cleanupPositionStyles = setStyle({
 				element: popover,
 				styles: [
 					{ property: 'top', value: `${top}px` },
@@ -205,53 +216,56 @@ export function applyJavaScriptFallbackPositioning({
 			});
 		} catch (error) {
 			warnFallbackFailure({ error });
-			// Anchoring needs the trigger geometry we just failed to get, so the
-			// centred position is the only one left to degrade to.
+			// Anchored positioning failed, so the centred position is the only one left
+			// to degrade to.
 			try {
 				centerInViewport();
 			} catch {}
 		} finally {
-			// Unconditional. A popover in the wrong place is recoverable on the
-			// next scroll or resize; one left at `opacity: 0` is invisible forever.
+			// Always reveal. A popover in the wrong place recovers on the next scroll or
+			// resize. A popover left at `opacity: 0` stays invisible.
 			reveal();
 		}
 	}
 
-	function invalidateAndUpdate() {
+	function invalidateOffsetsAndUpdatePosition() {
 		invalidateResolvedOffsets();
-		update();
+		updatePosition();
 	}
 
-	// One update per animation frame. Scroll reuses the resolved offsets; resize
-	// re-resolves them.
-	const scheduledScrollUpdate = rafSchedule(update);
-	const scheduledResizeUpdate = rafSchedule(invalidateAndUpdate);
+	// One update per animation frame. Scroll reuses the resolved offsets. Resize
+	// resolves them again.
+	const scheduledScrollUpdate = rafSchedule(updatePosition);
+	const scheduledResizeUpdate = rafSchedule(invalidateOffsetsAndUpdatePosition);
 
-	const firstLayoutObserver = createFirstLayoutObserver({ popover, onFirstLayout: update });
+	const firstLayoutObserver = createFirstLayoutObserver({
+		popover,
+		onFirstLayout: updatePosition,
+	});
 
 	function positionOnNextLayout() {
 		// A token can have been retargeted while the popover was closed, so each
-		// open re-resolves the offsets.
+		// open resolves the offsets again.
 		invalidateResolvedOffsets();
 		// No observer means no measurement is coming: position now, and do not
 		// hide, because the reveal would never arrive.
 		if (!firstLayoutObserver) {
-			update();
+			updatePosition();
 			return;
 		}
 		hideUntilPositioned();
 		firstLayoutObserver.observe(popover);
 	}
 
-	// The popover can already be open when this runs, in which case the initial
-	// `toggle` has fired and the listener below would miss it.
-	if (isPopoverOpen(popover)) {
+	// The popover can already be open when this runs. Then the initial `toggle`
+	// has fired, and the listener below would miss it.
+	if (isPopoverOpen({ popover })) {
 		positionOnNextLayout();
 	}
 
 	return combine(
 		cleanupBaseStyles,
-		// Each open needs a fresh measurement, so hide and re-observe.
+		// Each open needs a fresh measurement, so hide and observe again.
 		bind(popover, {
 			type: 'toggle',
 			listener: (event: Event) => {

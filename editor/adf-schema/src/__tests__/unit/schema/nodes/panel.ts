@@ -445,7 +445,6 @@ describe('extendedPanelC1 factory wrappers', () => {
 				);
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const el = dom.body.firstChild as HTMLElement;
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
 				expect(attrs).not.toHaveProperty('panelIcon');
 				expect(attrs).not.toHaveProperty('panelColor');
@@ -464,7 +463,6 @@ describe('extendedPanelC1 factory wrappers', () => {
 				);
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const el = dom.body.firstChild as HTMLElement;
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
 				expect((attrs as { panelType: string }).panelType).toBe('custom');
 				expect((attrs as { panelIcon: string }).panelIcon).toBe(':smiley:');
@@ -490,7 +488,6 @@ describe('extendedPanelC1 factory wrappers', () => {
 			);
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const el = dom.body.firstChild as HTMLElement;
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
 			expect((attrs as { localId: string }).localId).toBeTruthy();
 			expect(typeof (attrs as { localId: string }).localId).toBe('string');
@@ -505,7 +502,6 @@ describe('extendedPanelC1 factory wrappers', () => {
 			);
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const el = dom.body.firstChild as HTMLElement;
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const attrs = (spec.parseDOM![0] as { getAttrs: (el: HTMLElement) => object }).getAttrs(el);
 			expect((attrs as { localId: string | undefined }).localId).toBeUndefined();
 		});

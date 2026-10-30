@@ -4,7 +4,6 @@ import { screen, render, act } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
 
 import MentionList from '../../../components/MentionList';

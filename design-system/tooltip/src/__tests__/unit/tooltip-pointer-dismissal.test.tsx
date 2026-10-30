@@ -74,7 +74,6 @@ function leaveAndReEnterTrigger() {
 	fireEvent.mouseOver(screen.getByTestId('trigger-label'), { relatedTarget: outside });
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip pointer dismissal (top-layer)', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
@@ -247,7 +246,6 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip pointer dismissal (top-laye
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off('platform-dst-top-layer-tooltip', 'Tooltip pointer dismissal (legacy)', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

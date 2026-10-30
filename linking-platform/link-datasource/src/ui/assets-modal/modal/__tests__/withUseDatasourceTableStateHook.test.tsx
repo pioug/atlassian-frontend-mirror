@@ -9,7 +9,6 @@ import type {
 	DatasourceDataResponse,
 	DatasourceResponseSchemaProperty,
 } from '@atlaskit/linking-types/datasource';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { useAssetsClient } from '../../../../hooks/useAssetsClient';
 import { useObjectSchemas } from '../../../../hooks/useObjectSchemas';
@@ -196,8 +195,6 @@ describe('AssetsConfigModal with the real useDatasourceTableState', () => {
 
 	describe('when the edited query reports none of the requested fields', () => {
 		it('should fall back to the defaults when the edited query also returns no items', async () => {
-			passGate('platform_lp_sllv_preserve_assets_columns');
-
 			const noResultsResponse = dataResponse({
 				properties: ['brandNewColumn', 'myId'],
 				defaultProperties: ['brandNewColumn'],
@@ -227,7 +224,6 @@ describe('AssetsConfigModal with the real useDatasourceTableState', () => {
 	});
 
 	it('should capture and report a11y violations', async () => {
-		// No gate forced: this only renders, so nothing here would read it
 		respondWith(originalSchemaResponse);
 
 		const { container } = await setup();
@@ -236,7 +232,6 @@ describe('AssetsConfigModal with the real useDatasourceTableState', () => {
 	});
 
 	it('should keep reported columns without refetching dropped columns', async () => {
-		passGate('platform_lp_sllv_preserve_assets_columns');
 		respondWith(originalSchemaResponse, partialOverlapResponse);
 
 		const { searchWithNewAql, insert } = await setup();

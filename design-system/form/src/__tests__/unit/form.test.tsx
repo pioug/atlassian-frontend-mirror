@@ -12,7 +12,6 @@ import Form from '../../form';
 
 const testId = 'test';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Form', () => {
 	const user = userEvent.setup();
 

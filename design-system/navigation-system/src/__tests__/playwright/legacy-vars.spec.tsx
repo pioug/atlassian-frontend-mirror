@@ -11,7 +11,9 @@ import { expect, type Locator, type Page, test } from '@af/integration-testing';
  * because `pragmatic-drag-and-drop` will schedule updates into frames.
  */
 async function waitForFrame(page: Page) {
-	await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+	await page.evaluate(
+		() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+	);
 }
 
 /**
@@ -53,8 +55,8 @@ async function dragByOffset({
 	 * Two mouse moves are required for reliable `dragover` dispatch.
 	 * https://playwright.dev/docs/input#dragging-manually
 	 */
-	await page.mouse.move(dragEndPosition.x, dragEndPosition.y);
-	await page.mouse.move(dragEndPosition.x, dragEndPosition.y);
+	await page.mouse.move(dragEndPosition.x, dragEndPosition.y, { steps: 5 });
+	await page.mouse.move(dragEndPosition.x, dragEndPosition.y, { steps: 5 });
 	/**
 	 * Waiting for a frame so Pragmatic drag and drop events are dispatched.
 	 */

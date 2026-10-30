@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
-/* eslint-disable compat/compat */
 
 import type {
 	TestType,

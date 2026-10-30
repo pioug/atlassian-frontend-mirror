@@ -295,7 +295,8 @@ const Content = React.forwardRef<
 	// Get useStandardNodeWidth from block menu plugin shared state
 	const useStandardNodeWidth =
 		fg('platform_editor_expand_standard_width_fix') ||
-		isExperimentEnabled('work_item_modernization')
+		isExperimentEnabled('work_item_modernization') ||
+		fg('wiv_modernization_cohort')
 			? (props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false)
 			: editorExperiment('platform_editor_controls', 'variant1') &&
 				(props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);

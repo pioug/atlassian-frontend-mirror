@@ -5,7 +5,4 @@ import AutomationModalHeaderOpen from '../../../examples/vr-automation-modal-hea
 snapshot(AutomationModalHeaderOpen, {
 	description: 'Smart card automation modal header title',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform_dst_modal-dialog-use-modal-title': [true, false],
-	},
 });

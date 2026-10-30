@@ -2,7 +2,6 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { render } from '@atlassian/testing-library/render';
 
 import { getMockArticleItemList } from '../../../../util/testing/mock';

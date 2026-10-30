@@ -20,7 +20,6 @@ import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-ge
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent, RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
-import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
@@ -28,7 +27,6 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -440,21 +438,12 @@ export const RegistryElementBrowser = ({
 				>
 					<ModalHeader>
 						<div css={headerContentStyles}>
-							{fg('platform_dst_modal-dialog-use-modal-title') ? (
-								<ModalTitle>
-									{formatMessage({
-										defaultMessage: 'Insert elements',
-										id: 'editor.quick-insert.title',
-									})}
-								</ModalTitle>
-							) : (
-								<Heading size="medium">
-									{formatMessage({
-										defaultMessage: 'Insert elements',
-										id: 'editor.quick-insert.title',
-									})}
-								</Heading>
-							)}
+							<ModalTitle>
+								{formatMessage({
+									defaultMessage: 'Insert elements',
+									id: 'editor.quick-insert.title',
+								})}
+							</ModalTitle>
 							<div css={headerSearchStyles}>
 								<Textfield
 									autoFocus

@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 21.0.5
+
+### Patch Changes
+
+- [`6ddbb4204f37f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ddbb4204f37f) -
+  [ux] Remove misleading `aria-current` from dropdown checkbox items while preserving `aria-checked`
+  (A11Y-30123).
+
 ## 21.0.4
 
 ### Patch Changes

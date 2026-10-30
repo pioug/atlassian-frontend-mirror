@@ -145,15 +145,16 @@ test.describe('Modal Dialog Scroll', () => {
 
 		// Open the modal
 		const open = page.getByTestId(openModalBtn);
+		const modal = page.getByTestId(modalDialog);
 		await expect(open).toBeVisible();
 		await open.click();
+		await expect(modal).toBeVisible();
 
-		// Click to the side of the modal.
-		// 60 is the size of the gutter, as defined in `packages/design-system/modal-dialog/src/internal/components/positioner.tsx`
-		await page.mouse.click(0, 60 * 2);
+		// Click the blanket itself rather than relying on a viewport coordinate outside the modal.
+		await page.getByTestId(`${modalDialog}--blanket`).click({ position: { x: 1, y: 1 } });
 
 		// Ensure it's been closed.
-		await expect(page.getByTestId(modalDialog)).toBeHidden();
+		await expect(modal).toBeHidden();
 	});
 
 	// Tests for accessibility properties only testable via integration tests

@@ -10,7 +10,6 @@ import { MainStickyHeader } from '../../main/main-sticky-header';
 
 const styles = cssMap({ bgColor: { backgroundColor: 'var(--ds-surface)' } });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('main sticky header', () => {
 	window.matchMedia = jest.fn().mockImplementation((query) => ({
 		media: query,

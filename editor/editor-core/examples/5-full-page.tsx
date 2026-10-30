@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { type JSX } from 'react';
 
 import { FullPageBase } from '@af/editor-examples-helpers/example-presets/FullPageBase';

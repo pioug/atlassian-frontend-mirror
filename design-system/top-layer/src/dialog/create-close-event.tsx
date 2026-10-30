@@ -3,12 +3,14 @@ import type { TDialogCloseReason } from './types';
 /**
  * Creates a synthetic DOM event from a `TDialogCloseReason`.
  *
- * Useful when bridging the Dialog primitive's `onClose({ reason })` callback
- * to a legacy API that expects a `KeyboardEvent` or `MouseEvent` - for example,
- * `@atlaskit/modal-dialog`'s `onClose(event, analyticsEvent)` contract.
+ * Useful when bridging the Dialog primitive's `onClose({ reason })` callback to a legacy API that
+ * expects a `KeyboardEvent` or `MouseEvent`, for example the `onClose(event, analyticsEvent)`
+ * contract of `@atlaskit/modal-dialog`.
  *
- * - `'escape'` → `KeyboardEvent('keydown', { key: 'Escape' })`
- * - `'overlay-click'` → `MouseEvent('click')`
+ * - `'escape'` → `KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' })`
+ * - `'overlay-click'` → `MouseEvent('click', { cancelable: true })`
+ *
+ * Both events bubble.
  *
  * @example
  * ```tsx

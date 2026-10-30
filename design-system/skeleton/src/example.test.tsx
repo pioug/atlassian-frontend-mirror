@@ -8,7 +8,6 @@ import SkeletonInteractionTracing from '../examples/constellation/skeleton-inter
 
 const INTERACTION_NAME = 'skeleton.example.content';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SkeletonInteractionTracing example', () => {
 	ffTest.on('platform-dst-skeleton-ufo-hold', 'when the Skeleton UFO hold gate is enabled', () => {
 		it('holds on mount and releases on unmount, logging each transition', () => {

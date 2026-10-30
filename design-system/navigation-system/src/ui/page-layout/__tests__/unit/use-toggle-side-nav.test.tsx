@@ -14,7 +14,6 @@ import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
 import { useSideNavRef } from '../../side-nav/use-side-nav-ref';
 import { useToggleSideNav } from '../../side-nav/use-toggle-side-nav';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useToggleSideNav', () => {
 	beforeEach(() => {
 		resetMatchMedia();

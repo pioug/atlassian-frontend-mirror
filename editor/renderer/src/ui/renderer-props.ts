@@ -12,11 +12,12 @@ import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provi
 import type { AnnotationProviders } from '@atlaskit/editor-common/types/annotation';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils/get-unsupported-content-level-data';
 import type { ADFStage } from '@atlaskit/editor-common/utils/validator';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
 import type { EmojiProviderLookupOrder } from '@atlaskit/emoji/types';
 
 import type { ReactSerializerInit, RendererContext, Serializer } from '../';
+import type { ScheduleExtensionHeightRemoval } from '../react/nodes/useNodeHeight';
 import type { TextHighlighter, ExtensionViewportSize } from '../react/types';
 import type { RenderOutputStat } from '../render-document';
 import type { MediaOptions } from '../types/mediaOptions';
@@ -169,6 +170,8 @@ export interface RendererProps {
 	 */
 	featureFlags?: { [featureFlag: string]: boolean } | Partial<RawObjectFeatureFlags>;
 	getExtensionHeight?: GetPMNodeHeight;
+	/** Optional fixed CSS height in pixels, used when scheduleExtensionHeightRemoval is supplied. */
+	getExtensionPresetHeight?: (node: Node) => number | undefined;
 	/**
 	 * Optional prefix to prepend to all generated heading IDs.
 	 * Used by nested renderers to namespace heading IDs and avoid collisions with the host page.
@@ -232,6 +235,8 @@ export interface RendererProps {
 	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	rendererContext?: RendererContext;
+	/** Activates temporary extension sizing and schedules each height/min-height expiry independently after hydration; return cleanup when scheduled. */
+	scheduleExtensionHeightRemoval?: ScheduleExtensionHeightRemoval;
 	schema?: Schema;
 	/**
 	 * Optional callback to scroll an element into view when using block links (#block-xxx).

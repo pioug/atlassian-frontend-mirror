@@ -115,7 +115,7 @@ describe('AssetsConfigModal', () => {
 
 			it('Should display the heading above the table when the status is resolved', () => {
 				const { getByRole, getByTestId } = setup({ status: 'resolved' });
-				expect(getByRole('heading', { name: headingName })).toBeInTheDocument();
+				expect(getByRole('heading', { level: 2, name: headingName })).toBeInTheDocument();
 				expect(getByTestId('asset-datasource-table')).toBeInTheDocument();
 			});
 

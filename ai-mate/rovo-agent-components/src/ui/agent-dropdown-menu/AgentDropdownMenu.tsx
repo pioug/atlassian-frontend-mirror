@@ -178,8 +178,7 @@ export const AgentDropdownMenu = ({
 	};
 
 	const isCreateAgentsEnabled = permissions?.isCreateEnabled;
-	const isDuplicateAgentEnabled =
-		!fg('agent_studio_can_duplicate_permission') || permissions?.isDuplicateEnabled;
+	const isDuplicateAgentEnabled = permissions?.isDuplicateEnabled;
 
 	return (
 		<DropdownMenu<HTMLButtonElement>

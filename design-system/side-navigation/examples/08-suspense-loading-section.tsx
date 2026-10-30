@@ -7,7 +7,6 @@ import ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';
 import RoadmapIcon from '@atlaskit/icon/core/roadmap';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
 import { LinkItem } from '@atlaskit/side-navigation/link-item';

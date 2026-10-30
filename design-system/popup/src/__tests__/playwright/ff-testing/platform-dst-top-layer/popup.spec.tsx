@@ -342,7 +342,6 @@ test.describe('Popup top-layer — WCAG 1.3.1 Info and Relationships', () => {
 		// the visible popup content.
 		await expect(trigger).toHaveAttribute('aria-controls', /.+/);
 		const ariaControlsValue = await trigger.getAttribute('aria-controls');
-		// eslint-disable-next-line playwright/prefer-web-first-assertions -- need the
 		// actual id string to build the locator below; the auto-waiting check
 		// above guarantees it is present.
 		await expect(page.locator(`#${ariaControlsValue}`)).toBeVisible();

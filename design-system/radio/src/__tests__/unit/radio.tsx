@@ -7,7 +7,6 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 
 import Radio from '../../radio';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe.each([false, true])('Radio (cross-fade: %s)', (enabled) => {
 	it('preserves accessible selection semantics', async () => {
 		const { container } = render(<Radio label="Selection" />);

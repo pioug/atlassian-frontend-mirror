@@ -15,16 +15,15 @@ import type { StrictXCSSProp } from '@atlaskit/css';
 export type TDialogCloseReason = 'escape' | 'overlay-click';
 
 /**
- * User interactions that are allowed to dismiss the dialog.
+ * User actions that can dismiss the dialog. See the `dismissedBy` prop.
  */
 export type TDialogDismissedBy = 'none' | 'escape' | 'escape-and-outside-click';
 
 /**
- * Props shared across `TDialogProps` variants.
+ * Props shared by both `TDialogProps` variants.
  *
- * The accessible-name requirement (one of `label` or `labelledBy`) is encoded
- * in the discriminated union below - WCAG 4.1.2 violations are caught at
- * compile time instead of in production audit reports.
+ * `TDialogProps` requires `label` or `labelledBy`, so a dialog without an accessible name
+ * (WCAG 4.1.2) is a type error, not a finding in an audit.
  */
 type TDialogBaseProps = {
 	children: ReactNode;
@@ -71,7 +70,7 @@ type TDialogBaseProps = {
 	 * Applied after built-in dialog and animation styles so consumers can own
 	 * static styling that must live in their package.
 	 */
-	// Not using `StrictXCSSProp` because it doesn't support `dvh` units for `height` which Drawer uses
+	// Not `StrictXCSSProp`: it does not support `dvh` units for `height`, which Drawer uses.
 	xcss?: XCSSProp<
 		| 'margin'
 		| 'height'
@@ -117,7 +116,7 @@ type TDialogBaseProps = {
 	 */
 	id?: string;
 	/**
-	 * When true, the `::backdrop` pseudo-element is rendered transparent.
+	 * When `true`, the `::backdrop` pseudo-element is transparent.
 	 *
 	 * Useful for stacked dialogs where only the foreground dialog should
 	 * show a visible backdrop, or when the consumer wants no overlay.
@@ -150,15 +149,13 @@ type TDialogBaseProps = {
 /**
  * Props for the `Dialog` primitive.
  *
- * Low-level modal dialog. Manages visibility, animation, Escape and backdrop
- * clicks. Has no visual opinions - no width, height,
- * background, border-radius, or layout. Consumers (e.g. `@atlaskit/modal-dialog`)
- * provide their own visual styling.
+ * Low-level modal dialog. Manages visibility, animation, Escape and backdrop clicks. It has no
+ * visual opinions: no width, height, background, border-radius or layout. Consumers (for example
+ * `@atlaskit/modal-dialog`) provide their own visual styling.
  *
- * Discriminated on the accessible-name source: at least one of `label`
- * (aria-label) or `labelledBy` (aria-labelledby) must be provided. This
- * enforces WCAG 4.1.2 at the type level - an unlabelled dialog landmark
- * is not constructible. Mirrors the pattern used by `TPopupContentProps`.
+ * Discriminated on the accessible-name source: provide `label` (`aria-label`), `labelledBy`
+ * (`aria-labelledby`), or both. This enforces WCAG 4.1.2 at the type level: an unlabelled dialog is
+ * a type error. `TPopoverProps` uses the same pattern.
  */
 export type TDialogProps = TDialogBaseProps &
 	(

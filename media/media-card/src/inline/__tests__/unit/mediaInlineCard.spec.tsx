@@ -1,3 +1,8 @@
+jest.mock('@atlaskit/media-viewer/media-viewer-loader', () => {
+	const actual = jest.requireActual('@atlaskit/media-viewer/media-viewer-loader');
+	return { __esModule: true, default: jest.fn(actual.default) };
+});
+
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
@@ -9,6 +14,9 @@ import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 // @ts-ignore - this is not a valid package entry point and cannot be resolved when using a modern Typescript 'moduleResolution' setting
 import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
@@ -85,6 +93,54 @@ describe('<MediaInlineCard />', () => {
 		const mediaViewer = await screen.findByTestId('media-viewer-popup');
 
 		expect(mediaViewer).toBeTruthy();
+	});
+
+	describe('reporting the Media Viewer item', () => {
+		const experimentName = 'cc_comments_media_viewer_sidebar';
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const onSelectedItemChange = jest.fn();
+		const mediaViewerExtensions = { onSelectedItemChange };
+
+		const openMediaViewer = async (user: ReturnType<typeof userEvent.setup>) => {
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard
+						identifier={identifier}
+						mediaClientConfig={dummyMediaClientConfig}
+						shouldOpenMediaViewer
+						mediaViewerExtensions={mediaViewerExtensions}
+					/>
+				</MockedMediaClientProvider>,
+			);
+			await user.click(await screen.findByTestId('media-inline-card-loaded-view'));
+			expect(await screen.findByTestId('media-viewer-popup')).toBeInTheDocument();
+		};
+
+		it('should pass its extensions to Media Viewer and report its item on open and null on close', async () => {
+			const user = userEvent.setup();
+			mockExpEnabled(experimentName);
+
+			// Opening the viewer hands it this card's extensions and reports this card's item.
+			await openMediaViewer(user);
+			expect(jest.mocked(MediaViewer).mock.lastCall?.[0].extensions).toBe(mediaViewerExtensions);
+			expect(onSelectedItemChange).toHaveBeenLastCalledWith(identifier);
+
+			// Closing it reports null.
+			await user.click(await screen.findByTestId('media-viewer-close-button'));
+			expect(onSelectedItemChange).toHaveBeenLastCalledWith(null);
+		});
+
+		it('should pass no extensions to Media Viewer when the experiment is off', async () => {
+			const user = userEvent.setup();
+			mockExpDisabled(experimentName);
+
+			await openMediaViewer(user);
+
+			// Without the experiment, the viewer gets no extensions and nothing is reported.
+			expect(jest.mocked(MediaViewer).mock.lastCall?.[0].extensions).toBeUndefined();
+			expect(onSelectedItemChange).not.toHaveBeenCalled();
+		});
 	});
 
 	it('should render MediaViewer when in error state and clicked', async () => {

@@ -369,6 +369,7 @@ snapshot(InlineCardResolvedIconVariations, {
 	description:
 		'inline card resolved icon variations (ResolvedClient iconTestUrls - extractIcon document / non-document paths)',
 	featureFlags: {
+		platform_sl_replace_react_loadable: true,
 		platform_sl_3p_preauth_better_hovercard_killswitch: true,
 		platform_sl_3p_preauth_better_hovercard: true,
 	},

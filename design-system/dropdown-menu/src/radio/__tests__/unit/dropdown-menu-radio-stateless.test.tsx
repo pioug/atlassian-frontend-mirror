@@ -73,7 +73,6 @@ describe('DropdownMenu with RadioGroup and Radio', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownItemRadio accessibility', () => {
 	it('should not have aria-current attribute when selected (A11Y-37930)', async () => {
 		render(<DropdownMenuWithRadio />);

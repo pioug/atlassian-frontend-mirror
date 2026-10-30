@@ -19,17 +19,18 @@
  *
  * Rules:
  *
- * - A listener that takes an Escape calls `claimEscape()`. Every listener checks
- *   `isEscapeToHandle()` first, so later listeners and the browser leave their layers open.
+ * - A listener that takes an Escape calls `claimEscape()`, and every listener checks
+ *   `isEscapeToHandle()` first. So later listeners and the browser leave their layers open.
+ * - An owner claims the Escape even when it declines to close.
  * - `defaultPrevented` only shows earlier listeners. A listener that runs before a layer above it
  *   must find that layer itself, with `hasEscapeOwnerAbove`:
  *   - `Dialog` asks in step 1, because the browser (step 6) closes `auto` and `hint` popovers.
  *   - A page surface on an element (step 2) runs before `manual` popovers (step 4), so it counts
  *     them too.
- *   - `document` listeners (step 4) run in bind order, not open order, so popovers, page surfaces
- *     and `Dialog` all ask. The later open is above, but a descendant is always above its ancestors.
- *     A marked page surface ranks just above its nearest containing layer. An owner claims the
- *     Escape even when it declines to close.
+ *   - `document` listeners (step 4) run in bind order, not open order, so `manual` popovers and
+ *     page surfaces there also ask.
+ * - `hasEscapeOwnerAbove` orders owners: the later open is above, but a descendant is always above
+ *   its ancestors. A marked page surface ranks just above its nearest containing layer.
  * - `stopPropagation()` before `document` (for example in a React handler) skips steps 4 and 5, not
  *   step 6: the browser closes the topmost `auto` or `hint` popover, and a `Dialog` stays open.
  *
@@ -40,9 +41,11 @@
 
 /**
  * Takes this Escape for a layer. `preventDefault()` stops ancestor layers and the browser from also
- * closing, so one press closes one layer (as a native close watcher), even if the layer stays open.
+ * closing, so one press acts on one layer, as with a native close watcher. This is true even when
+ * the layer stays open.
  *
- * Returns `false` for a held-key repeat: the layer still takes it, but closes once per key press.
+ * Returns `true` when the layer should ask to close. Returns `false` for a held-key repeat: the
+ * layer still takes the Escape, but asks to close once per key press.
  */
 export function claimEscape({ event }: { event: KeyboardEvent }): boolean {
 	event.preventDefault();

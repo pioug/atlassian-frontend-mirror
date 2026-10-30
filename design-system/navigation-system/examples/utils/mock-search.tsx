@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { useLegacySearchTheme } from '@atlaskit/navigation-system/theming/use-legacy-search-theme';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { SearchAnchor } from '@atlassian/search-dialog/search-anchor';
-// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports -- These components require theme context and must be imported from barrel
 import SearchInput from '@atlassian/search-dialog/search-input';
 import EnlargedSearchInput from '@atlassian/search-dialog/search-input-enlarged';
 import type { SearchTheme } from '@atlassian/search-dialog/theme';

@@ -21,14 +21,15 @@ const rule: Rule.RuleModule = createLintRule({
 		type: 'suggestion',
 		docs: {
 			description:
-				'Helps migrate Lozenge isBold prop, Badge appearance values, and SimpleTag/RemovableTag components as part of the Labelling System Phase 1 migration.',
+				'Migrates legacy Lozenge and Badge appearance values and guides SimpleTag/RemovableTag migrations to the supported Tag APIs.',
 			recommended: false,
 			severity: 'warn',
 		},
 		messages: {
-			updateAppearance: 'Update appearance value to new semantic value.',
+			updateAppearance:
+				'Replace Lozenge appearance="{{oldValue}}" with appearance="{{newValue}}"; apply the autofix.',
 			migrateTag:
-				'<SimpleTag> and <RemovableTag> components should migrate to the new <Tag> or <AvatarTag> component.',
+				'{{remedy}} {{reason}} See the lozenge-badge-tag-labelling-system-migration README in @atlaskit/eslint-plugin-design-system for examples.',
 			updateBadgeAppearance:
 				'Update Badge appearance value "{{oldValue}}" to new semantic value "{{newValue}}".',
 			dynamicBadgeAppearance:
@@ -52,17 +53,6 @@ const rule: Rule.RuleModule = createLintRule({
 		 * Maps local name to { type: 'SimpleTag' | 'RemovableTag' | 'Tag', source: string, node: ImportNode }
 		 */
 		const tagImports: Record<string, { type: string; source: string; node?: any }> = {};
-
-		/**
-		 * Tracks which tag imports need to migrate to Tag (default) or AvatarTag (named)
-		 * Maps local name to migration target: 'Tag' | 'AvatarTag'
-		 */
-		const tagMigrationTargets: Record<string, 'Tag' | 'AvatarTag'> = {};
-
-		/**
-		 * Tracks import declaration nodes that need to be updated
-		 */
-		const importDeclarationsToUpdate: Set<any> = new Set();
 
 		/**
 		 * Contains a map of imported Avatar components from @atlaskit/avatar.
@@ -293,137 +283,176 @@ const rule: Rule.RuleModule = createLintRule({
 			};
 		}
 
-		/**
-		 * Generate the replacement JSX element text for Tag migration
-		 * Handles both regular Tag and AvatarTag migrations for SimpleTag/RemovableTag.
-		 */
-		function generateTagReplacement(
+		// Only rewrite an isolated, statically understood plain Tag. Other uses retain
+		// diagnostics so the migration can account for their bindings and behavior.
+		function getPlainTagFix(
 			node: any,
-			options: {
-				isAvatarTag?: boolean;
-				isSimpleTag?: boolean;
-				preserveComponentName?: boolean;
-			} = {},
-		): string {
+			info: any,
+		): { reason: string; name?: string; text?: string; hasTextProp?: boolean } {
 			// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
 			const sourceCode = context.sourceCode ?? context.getSourceCode();
-			const attributes = node.openingElement.attributes;
-
-			// Build new attributes array
-			const newAttributes: string[] = [];
-
-			attributes.forEach((attr: any) => {
-				if (attr.type === 'JSXAttribute' && attr.name.type === 'JSXIdentifier') {
-					const attrName = attr.name.name;
-
-					if (attrName === 'isBold') {
-						// Skip isBold attribute
-						return;
-					}
-
-					if (attrName === 'appearance') {
-						// Delete appearance prop — not used in new Tag/AvatarTag API
-						return;
-					}
-
-					if (attrName === 'color') {
-						// For avatar tag, skip color prop; for regular tag, map color value
-						// Note: Lozenge doesn't have a color prop, but Tag/SimpleTag/RemovableTag do
-						if (options.isAvatarTag) {
-							return;
-						}
-						const stringValue = extractStringValue(attr.value);
-						if (stringValue && typeof stringValue === 'string') {
-							const mappedColor = mapTagColorValue(stringValue);
-							newAttributes.push(`color="${mappedColor}"`);
-						} else {
-							// If we can't extract the string value, keep as-is
-							const value = attr.value ? sourceCode.getText(attr.value) : '';
-							newAttributes.push(`color${value ? `=${value}` : ''}`);
-						}
-						return;
-					}
-
-					if (attrName === 'elemBefore') {
-						// For avatar tag, rename elemBefore to avatar and use render props
-						if (options.isAvatarTag) {
-							const elemBeforeValue = attr.value;
-							let avatarElement: any = null;
-
-							// Extract Avatar element from various formats
-							if (elemBeforeValue.type === 'JSXElement') {
-								avatarElement = elemBeforeValue;
-							} else if (elemBeforeValue.type === 'JSXExpressionContainer') {
-								const expr = elemBeforeValue.expression;
-								// Direct JSX element: {<Avatar ... />}
-								if (expr.type === 'JSXElement') {
-									avatarElement = expr;
-								}
-								// Arrow function: {() => <Avatar ... />}
-								else if (
-									expr.type === 'ArrowFunctionExpression' &&
-									expr.body.type === 'JSXElement'
-								) {
-									avatarElement = expr.body;
-								}
-							}
-
-							if (avatarElement) {
-								// Generate render props: avatar={(props) => <Avatar {...props} ... />}
-								const avatarElementText = sourceCode.getText(avatarElement);
-								const avatarComponentName =
-									avatarElement.openingElement.name.type === 'JSXIdentifier'
-										? avatarElement.openingElement.name.name
-										: 'Avatar';
-								// Add {...props} spread to the Avatar element attributes
-								const avatarWithProps = avatarElementText.replace(
-									new RegExp(`<${avatarComponentName}(\\s|/>)`),
-									`<${avatarComponentName} {...props}$1`,
-								);
-								newAttributes.push(`avatar={(props) => ${avatarWithProps}}`);
-							}
-							return;
-						}
-						// For regular tag, keep elemBefore as-is
-						newAttributes.push(sourceCode.getText(attr));
-						return;
-					}
-
-					// Keep all other attributes
-					newAttributes.push(sourceCode.getText(attr));
-				} else if (attr.type === 'JSXSpreadAttribute') {
-					// Keep spread attributes
-					newAttributes.push(sourceCode.getText(attr));
+			const declaration = info.node?.parent;
+			if (!declaration || declaration.specifiers.length !== 1) {
+				return { reason: 'Migrate the mixed import manually, preserving every remaining binding.' };
+			}
+			if (sourceCode.getCommentsInside(node).length > 0) {
+				return { reason: 'Preserve component comments while migrating manually.' };
+			}
+			if (sourceCode.getCommentsInside(declaration).length > 0) {
+				return { reason: 'Preserve the import comments while migrating manually.' };
+			}
+			if (
+				sourceCode.ast.body.some(
+					(statement: any) =>
+						statement.type === 'ImportDeclaration' &&
+						statement.source.value === '@atlaskit/tag/tag-new',
+				)
+			) {
+				return { reason: 'Reuse the existing tag-new import after checking its local binding.' };
+			}
+			const attrs = node.openingElement.attributes;
+			const supported = new Set([
+				'text',
+				'color',
+				'elemBefore',
+				'testId',
+				'href',
+				'removeButtonLabel',
+				'isRemovable',
+			]);
+			const seen = new Set<string>();
+			let text: string | undefined;
+			for (const attr of attrs) {
+				if (
+					attr.type !== 'JSXAttribute' ||
+					attr.name.type !== 'JSXIdentifier' ||
+					!supported.has(attr.name.name) ||
+					seen.has(attr.name.name)
+				) {
+					return {
+						reason:
+							'Review spread, duplicate, and unsupported props against TagNewProps before migrating.',
+					};
 				}
-			});
-
-			// Add isRemovable={false} for SimpleTag migrations
-			if (options.isSimpleTag) {
-				newAttributes.push('isRemovable={false}');
+				seen.add(attr.name.name);
+				const value = extractStringValue(attr.value);
+				if (attr.name.name === 'elemBefore') {
+					const elemBefore =
+						attr.value?.type === 'JSXExpressionContainer' ? attr.value.expression : attr.value;
+					if (
+						elemBefore?.type !== 'JSXElement' &&
+						elemBefore?.type !== 'JSXFragment' &&
+						!(elemBefore?.type === 'Literal' && typeof elemBefore.value === 'string')
+					) {
+						return {
+							reason:
+								'Pass through only a static ReactNode elemBefore; review callbacks and dynamic values manually.',
+						};
+					}
+				}
+				if (attr.name.name === 'text' && typeof value === 'string') {
+					text = value;
+				}
+				if (attr.name.name === 'isRemovable') {
+					const expression =
+						attr.value?.type === 'JSXExpressionContainer' ? attr.value.expression : attr.value;
+					if (
+						info.type === 'SimpleTag' ||
+						(attr.value &&
+							!(expression?.type === 'Literal' && typeof expression.value === 'boolean'))
+					) {
+						return {
+							reason: 'Set removability explicitly after reviewing the legacy component behavior.',
+						};
+					}
+				} else if (attr.name.name !== 'elemBefore' && typeof value !== 'string') {
+					return { reason: 'Check dynamic prop values against TagNewProps before migrating.' };
+				}
+				if (
+					attr.name.name === 'color' &&
+					!new Set([
+						'gray',
+						'blue',
+						'red',
+						'yellow',
+						'green',
+						'teal',
+						'purple',
+						'lime',
+						'orange',
+						'magenta',
+					]).has(mapTagColorValue(value as string))
+				) {
+					return { reason: 'Choose a supported NewTagColor before migrating.' };
+				}
+			}
+			if (node.children.length > 0) {
+				if (seen.has('text')) {
+					return { reason: 'Compare the text prop with its children before migrating.' };
+				}
+				const [child] = node.children;
+				if (
+					node.children.length !== 1 ||
+					child.type !== 'JSXText' ||
+					typeof child.value !== 'string' ||
+					child.value.length === 0 ||
+					child.value.trim() !== child.value
+				) {
+					return {
+						reason:
+							'Review children manually; only one plain text child can be copied to the new Tag text prop safely.',
+					};
+				}
+				text = child.value;
+			} else if (!seen.has('text')) {
+				return { reason: 'Supply the required text prop before migrating.' };
 			}
 
-			const attributesText = newAttributes.length > 0 ? ` ${newAttributes.join(' ')}` : '';
-			const children =
-				node.children.length > 0
-					? sourceCode
-							.getText()
-							.slice(
-								node.openingElement.range[1],
-								node.closingElement ? node.closingElement.range[0] : node.range[1],
-							)
-					: '';
-
-			const componentName = options.preserveComponentName
-				? node.openingElement.name.name
-				: options.isAvatarTag
-					? 'AvatarTag'
-					: 'Tag';
-
-			if (node.closingElement) {
-				return `<${componentName}${attributesText}>${children}</${componentName}>`;
-			} else {
-				return `<${componentName}${attributesText} />`;
+			const names = new Set<string>();
+			let otherUse = false;
+			const visit = (current: any) => {
+				if (current.type === 'Identifier' || current.type === 'JSXIdentifier') {
+					names.add(current.name);
+					if (
+						current.name === node.openingElement.name.name &&
+						!(
+							current.range[0] >= declaration.range[0] && current.range[1] <= declaration.range[1]
+						) &&
+						current !== node.openingElement.name &&
+						current !== node.closingElement?.name
+					) {
+						otherUse = true;
+					}
+				}
+				for (const key of sourceCode.visitorKeys[current.type] ?? []) {
+					const child = current[key];
+					if (Array.isArray(child)) {
+						child.forEach((item) => item && visit(item));
+					} else if (child) {
+						visit(child);
+					}
+				}
+			};
+			visit(sourceCode.ast);
+			if (otherUse) {
+				return {
+					reason:
+						'Migrate every use of this binding together; a single-site fix would break other references.',
+				};
 			}
+			names.delete(node.openingElement.name.name);
+			let name = 'Tag';
+			let suffix = 1;
+			while (names.has(name)) {
+				name = suffix === 1 ? 'MigratedTag' : `MigratedTag${suffix}`;
+				suffix++;
+			}
+			return {
+				reason: 'Apply the autofix for this isolated plain Tag.',
+				name,
+				text,
+				hasTextProp: seen.has('text'),
+			};
 		}
 
 		return {
@@ -454,7 +483,7 @@ const rule: Rule.RuleModule = createLintRule({
 							}
 						});
 					}
-					// Track Tag imports (SimpleTag, RemovableTag only - not the new Tag component)
+					// Track legacy Tag imports. The root default remains RemovableTag.
 					if (isImportFromPackage(moduleSource, '@atlaskit/tag')) {
 						node.specifiers.forEach((spec) => {
 							if (spec.type === 'ImportDefaultSpecifier') {
@@ -466,7 +495,6 @@ const rule: Rule.RuleModule = createLintRule({
 										source: moduleSource,
 										node: { ...spec, parent: node },
 									};
-									importDeclarationsToUpdate.add(node);
 								} else if (REMOVABLE_TAG_IMPORT_SOURCES.has(moduleSource)) {
 									// Default import from @atlaskit/tag/removable-tag or @atlaskit/tag is a RemovableTag
 									tagImports[spec.local.name] = {
@@ -474,7 +502,6 @@ const rule: Rule.RuleModule = createLintRule({
 										source: moduleSource,
 										node: { ...spec, parent: node },
 									};
-									importDeclarationsToUpdate.add(node);
 								}
 							} else if (spec.type === 'ImportSpecifier' && spec.imported.type === 'Identifier') {
 								const importName = spec.imported.name;
@@ -484,8 +511,6 @@ const rule: Rule.RuleModule = createLintRule({
 										source: moduleSource,
 										node: { ...spec, parent: node },
 									};
-									// Mark this import declaration for potential updates
-									importDeclarationsToUpdate.add(node);
 								} else if (importName === 'AvatarTag') {
 									// Track new AvatarTag component - it should not be migrated
 									newTagImports[spec.local.name] = moduleSource;
@@ -536,9 +561,9 @@ const rule: Rule.RuleModule = createLintRule({
 						color: colorProp,
 					} = attributesMap;
 
-					// For default import from @atlaskit/tag, check if it's already the new Tag
+					// Preserve the existing detection scope for root default imports.
 					if (tagImportInfo.type === 'RemovableTag' && tagImportInfo.source === '@atlaskit/tag') {
-						// If using avatar prop, it's already the new Tag
+						// Root avatar-prop consumers are outside this rule's existing migration scope.
 						if (avatarProp) {
 							return;
 						}
@@ -571,88 +596,46 @@ const rule: Rule.RuleModule = createLintRule({
 					const hasAvatarInElemBefore = elemBeforeProp
 						? getAvatarComponentName(elemBeforeProp) !== null
 						: false;
-					const migrationTarget = hasAvatarInElemBefore ? 'AvatarTag' : 'Tag';
-
-					// Record the migration target for this import
-					tagMigrationTargets[elementName] = migrationTarget;
-
-					// Migrate the JSX element
-					context.report({
-						node: node,
-						messageId: 'migrateTag',
-						fix: (fixer: any) => {
-							const fixes = [];
-
-							// Fix the JSX element
-							const replacement = generateTagReplacement(node, {
-								isAvatarTag: hasAvatarInElemBefore,
-								isSimpleTag: !hasAvatarInElemBefore && tagImportInfo.type === 'SimpleTag',
-							});
-							fixes.push(fixer.replaceText(node, replacement));
-
-							// Fix the import statement for named imports, subpath default imports, and main package default imports
-							const isSubpathImport =
-								tagImportInfo.node?.parent?.source?.value === '@atlaskit/tag/simple-tag' ||
-								tagImportInfo.node?.parent?.source?.value === '@atlaskit/tag/removable-tag';
-							const isMainPackageDefaultImport =
-								tagImportInfo.node?.parent?.source?.value === '@atlaskit/tag' &&
-								tagImportInfo.node?.type === 'ImportDefaultSpecifier';
-
-							if (
-								isSubpathImport ||
-								isMainPackageDefaultImport ||
-								(tagImportInfo.node?.parent?.source?.value === '@atlaskit/tag' &&
-									tagImportInfo.node?.type === 'ImportSpecifier')
-							) {
-								const importNode = tagImportInfo.node?.parent;
-								if (importNode) {
-									// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
-									const sourceCode = context.sourceCode ?? context.getSourceCode();
-									const mainModuleSource = '@atlaskit/tag';
-
-									// Get all other specifiers that are not SimpleTag or RemovableTag
-									// For subpath imports and main package default imports, exclude the default specifier itself
-									const otherSpecifiers = importNode.specifiers
-										.filter((spec: any) => {
-											// Skip default specifiers from subpath imports and main package - they're being replaced
-											if (
-												spec.type === 'ImportDefaultSpecifier' &&
-												(isSubpathImport || isMainPackageDefaultImport)
-											) {
-												return false;
-											}
-											if (spec.type === 'ImportSpecifier' && spec.imported.type === 'Identifier') {
-												const importName = spec.imported.name;
-												return importName !== 'SimpleTag' && importName !== 'RemovableTag';
-											}
-											return false;
-										})
-										.map((spec: any) => sourceCode.getText(spec));
-
-									let newImportText = '';
-
-									if (migrationTarget === 'Tag') {
-										if (otherSpecifiers.length > 0) {
-											newImportText = `import Tag, { ${otherSpecifiers.join(', ')} } from '${mainModuleSource}';`;
-										} else {
-											newImportText = `import Tag from '${mainModuleSource}';`;
-										}
-									} else if (migrationTarget === 'AvatarTag') {
-										if (otherSpecifiers.length > 0) {
-											newImportText = `import { AvatarTag, ${otherSpecifiers.join(', ')} } from '${mainModuleSource}';`;
-										} else {
-											newImportText = `import { AvatarTag } from '${mainModuleSource}';`;
-										}
-									}
-
-									if (newImportText) {
-										fixes.push(fixer.replaceText(importNode, newImportText));
-									}
-								}
+					const migration = hasAvatarInElemBefore
+						? {
+								reason:
+									'Choose type="user", "other", or "agent" from the represented entity; automatic inference is unsafe.',
 							}
-
-							return fixes.length === 1 ? fixes[0] : fixes;
+						: getPlainTagFix(node, tagImportInfo);
+					context.report({
+						node,
+						messageId: 'migrateTag',
+						data: {
+							remedy: hasAvatarInElemBefore
+								? "Import AvatarTag from '@atlaskit/tag/avatar-tag'; pass text, type, and avatar={(props) => <Avatar {...props} />}. Preserve non-removability for SimpleTag."
+								: "Import Tag from '@atlaskit/tag/tag-new'; pass text (string or string[]) and use isRemovable={false} for SimpleTag.",
+							reason: migration.reason,
 						},
+						fix:
+							'name' in migration && migration.name
+								? (fixer: any) => {
+										// @ts-ignore - Jira's ESLint v10 types expose sourceCode, platform still checks with ESLint v9.
+										const sourceCode = context.sourceCode ?? context.getSourceCode();
+										const attributes = node.openingElement.attributes.map((attr: any) =>
+											attr.name.name === 'color'
+												? `color="${mapTagColorValue(extractStringValue(attr.value) as string)}"`
+												: sourceCode.getText(attr),
+										);
+										if (tagImportInfo.type === 'SimpleTag') {
+											attributes.push('isRemovable={false}');
+										}
+										if (!migration.hasTextProp && migration.text !== undefined) {
+											attributes.push(`text=${JSON.stringify(migration.text)}`);
+										}
+										return [
+											fixer.replaceText(
+												tagImportInfo.node.parent,
+												`import ${migration.name} from '@atlaskit/tag/tag-new';`,
+											),
+											fixer.replaceText(node, `<${migration.name} ${attributes.join(' ')} />`),
+										];
+									}
+								: undefined,
 					});
 					return;
 				}
@@ -709,8 +692,7 @@ const rule: Rule.RuleModule = createLintRule({
 				const appearanceProp = attributesMap.appearance;
 
 				// Handle appearance prop value migration — always update to new semantic values.
-				// isBold is intentionally not flagged: users may still need it while the feature flag
-				// platform-dst-lozenge-tag-badge-visual-uplifts is OFF (subtle variant still rendered).
+				// isBold cleanup is outside this rule; check the installed Lozenge API separately.
 				if (appearanceProp) {
 					const stringValue = extractStringValue(appearanceProp.value);
 					if (stringValue && typeof stringValue === 'string') {
@@ -719,6 +701,7 @@ const rule: Rule.RuleModule = createLintRule({
 							context.report({
 								node: appearanceProp,
 								messageId: 'updateAppearance',
+								data: { oldValue: stringValue, newValue: mappedValue },
 								fix: createAppearanceFixer(appearanceProp.value, mappedValue),
 							});
 						}

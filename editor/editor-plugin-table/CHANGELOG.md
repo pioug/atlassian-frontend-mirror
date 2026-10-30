@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 42.2.0
+
+### Minor Changes
+
+- [`d0007ab586b5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0007ab586b5f) -
+  Behind the platform_editor_sticky_header_insert_column_exp experiment, keep the column insert
+  button visible when the table header row is sticky
+
+### Patch Changes
+
+- [`0e3b42ec20124`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e3b42ec20124) -
+  Reduce redundant table work caused by editor focus changes behind the
+  `platform_editor_improve_inp` experiment.
+
+## 42.1.0
+
+### Minor Changes
+
+- [`5eff440523b45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5eff440523b45) -
+  Rescale full-page tables with measured column widths when the editor container width changes
+  without a window resize (for example, a side panel opening), behind
+  platform_editor_table_scale_on_container_resize
+
 ## 42.0.3
 
 ### Patch Changes

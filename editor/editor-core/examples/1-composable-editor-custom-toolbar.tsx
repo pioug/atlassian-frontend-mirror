@@ -5,7 +5,6 @@
 import type { JSX } from 'react';
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { DevTools } from '@af/editor-examples-helpers/utils/DevTools';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
@@ -16,7 +15,6 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { useSharedPluginState } from '@atlaskit/editor-common/useSharedPluginState';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorActions } from '@atlaskit/editor-core/actions';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/EditorContext';

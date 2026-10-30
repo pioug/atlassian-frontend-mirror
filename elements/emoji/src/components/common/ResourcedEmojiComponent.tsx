@@ -23,8 +23,6 @@ import {
 import { hasUfoMarked } from '../../util/analytics/hasUfoMarked';
 import { sampledUfoRenderedEmoji } from '../../util/analytics/sampledUfoRenderedEmoji';
 import { defaultEmojiHeight } from '../../util/constants';
-import { isImageRepresentation } from '../../util/is-image-representation';
-import { isMediaRepresentation } from '../../util/is-media-representation';
 import { isPromise } from '../../util/is-promise';
 import Emoji from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
@@ -268,8 +266,8 @@ export const ResourcedEmojiComponent = ({
 				},
 			};
 		}
-		// extend prevention to all surfaces
-		if (optimisticImageURL && fg('platform_emoji_prevent_img_src_changing_all')) {
+		// Keep the optimistic representation stable when catalogue data arrives.
+		if (optimisticImageURL) {
 			return {
 				id,
 				shortName,
@@ -283,37 +281,6 @@ export const ResourcedEmojiComponent = ({
 					imagePath: optimisticImageURL,
 				},
 			};
-		}
-		if (optimisticImageURL) {
-			if (
-				emoji &&
-				(isImageRepresentation(emoji.representation) ||
-					isMediaRepresentation(emoji?.representation))
-			) {
-				const { width, height } = emoji.representation;
-				return {
-					...emoji,
-					representation: {
-						width,
-						height,
-						imagePath: optimisticImageURL,
-					},
-				};
-			} else {
-				return {
-					id,
-					shortName,
-					fallback,
-					type: '',
-					category: '',
-					representation: {
-						height: fitToHeight || defaultEmojiHeight,
-						width: fitToHeight || defaultEmojiHeight,
-						imagePath: optimisticImageURL,
-					},
-					searchable: true,
-				};
-			}
 		}
 
 		return emoji;

@@ -70,7 +70,8 @@ export default class Editor extends React.Component<AppearanceProps> {
 
 		const useStandardNodeWidth =
 			(fg('platform_editor_expand_standard_width_fix') ||
-				isExperimentEnabled('work_item_modernization')) &&
+				isExperimentEnabled('work_item_modernization') ||
+				fg('wiv_modernization_cohort')) &&
 			(this.props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
 
 		const containerRef = isExperimentEnabled('platform_editor_perf_lint_cleanup')

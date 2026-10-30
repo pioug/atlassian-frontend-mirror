@@ -67,7 +67,6 @@ const TestComponent = (props: {
 	/>
 );
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useResizing', () => {
 	beforeEach(() => {
 		(isReducedMotion as jest.Mock).mockReturnValue(false);

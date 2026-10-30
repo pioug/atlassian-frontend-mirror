@@ -7,8 +7,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { resolveSurface } from '@atlaskit/editor-ui-control-model/surface-renderer';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
+import { createSparseSurfacesViewWithLifecycle } from '../surface-lifecycle/sparse-surfaces-view-with-lifecycle';
 import { createSurfaceAnchorDecorations } from './decorations-surface-anchor';
 import { key as blockControlsKey } from './main';
 import { bindSparseGutterHover } from './sparse-gutter-hover';
@@ -27,7 +29,7 @@ const haveAnchorPositionsChanged = (
 ): boolean =>
 	positions.length !== anchors.size || positions.some((position) => !anchors.has(position));
 
-export const createSparseSurfacesView = ({
+const createLegacySparseSurfacesView = ({
 	api,
 	pluginKey,
 	view,
@@ -167,4 +169,14 @@ export const createSparseSurfacesView = ({
 			unsubscribers.forEach((unsubscribe) => unsubscribe?.());
 		},
 	};
+};
+
+export const createSparseSurfacesView = (
+	options: Parameters<typeof createLegacySparseSurfacesView>[0],
+): SparseSurfacesPluginView => {
+	if (isExperimentEnabled('platform_editor_block_controls_cls_fix')) {
+		return createSparseSurfacesViewWithLifecycle(options);
+	} else {
+		return createLegacySparseSurfacesView(options);
+	}
 };

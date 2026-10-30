@@ -1,7 +1,12 @@
 import { waitFor } from '@testing-library/react';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
-import { assetsContext, defaultAssetsMeta, setup } from './_utils';
+import {
+	assetsContext,
+	defaultAssetsMeta,
+	getDefaultDataSourceTableHookState,
+	setup,
+} from './_utils';
 
 const getButtonClickEventPayload = (actionSubjectId: 'insert' | 'cancel', attributes = {}) => ({
 	payload: {
@@ -98,7 +103,12 @@ describe('Analytics: AssetsConfigModal', () => {
 
 				it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "query updated" when user searched with a new query and then clicked the ${buttonName} button`, async () => {
 					const { searchWithNewAql, assertAnalyticsAfterButtonClick, clickSearchButton } =
-						await setup();
+						await setup({
+							datasourceTableHookState: {
+								...getDefaultDataSourceTableHookState(),
+								defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
+							},
+						});
 
 					searchWithNewAql('objectType = "test aql query"');
 					await clickSearchButton();

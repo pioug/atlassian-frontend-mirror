@@ -629,17 +629,14 @@ export default class Example extends React.Component<Props, State> {
 		return (
 			<form onSubmit={this.onJoin}>
 				Document name:
-				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input name="documentId" ref={this.handleRef} />
 				Collab url:
-				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input name="collabUrl" ref={this.handleRef} />
 				<label>
 					{' '}
 					Default to <b>{defaultCollabUrl}</b>
 				</label>
 				<label htmlFor="pmr-path">PMR path:</label>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					id="pmr-path"
 					name="path"

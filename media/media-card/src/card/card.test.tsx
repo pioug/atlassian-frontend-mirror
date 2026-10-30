@@ -55,6 +55,11 @@ jest.mock('../utils/ufoExperiences', () => {
 	};
 });
 
+jest.mock('@atlaskit/media-viewer/media-viewer-loader', () => {
+	const actual = jest.requireActual('@atlaskit/media-viewer/media-viewer-loader');
+	return { __esModule: true, default: jest.fn(actual.default) };
+});
+
 jest.mock('@atlaskit/react-ufo/get-active-trace', () => ({
 	...jest.requireActual('@atlaskit/react-ufo/get-active-trace'),
 	getActiveTrace: jest.fn(() => {
@@ -88,7 +93,10 @@ import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-it
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { sleep } from '@atlaskit/media-test-helpers/nextTick';
 import { tallImage } from '@atlaskit/media-test-helpers/tallImageURI';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import {
@@ -3915,6 +3923,71 @@ describe('Card ', () => {
 			const card = screen.getByTestId(cardTestId);
 			await user.click(card);
 			await expect(screen.findByTestId(mediaViewerTestId)).rejects.toThrow();
+		});
+
+		describe('reporting the Media Viewer item for an external image', () => {
+			const experimentName = 'cc_comments_media_viewer_sidebar';
+			const extIdentifier = {
+				mediaItemType: 'external-image',
+				dataURI: 'ext-uri',
+				name: 'ext',
+			} as const;
+			const onSelectedItemChange = jest.fn();
+			const mediaViewerExtensions = { onSelectedItemChange };
+
+			const openMediaViewer = async (user: ReturnType<typeof userEvent.setup>) => {
+				const { mediaApi } = createMockedMediaApi();
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={extIdentifier}
+							isLazy={false}
+							shouldOpenMediaViewer
+							mediaViewerExtensions={mediaViewerExtensions}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
+				fireEvent.load(img);
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				await user.click(screen.getByTestId(cardTestId));
+				expect(await screen.findByTestId(mediaViewerTestId)).toBeInTheDocument();
+			};
+
+			it('should pass its extensions to Media Viewer and report its item on open and null on close', async () => {
+				const user = userEvent.setup();
+				mockExpEnabled(experimentName);
+
+				// Opening the viewer hands it this card's extensions and reports this card's item.
+				await openMediaViewer(user);
+				expect(jest.mocked(MediaViewer).mock.lastCall?.[0].extensions).toBe(mediaViewerExtensions);
+				expect(onSelectedItemChange).toHaveBeenLastCalledWith(extIdentifier);
+
+				// Closing it reports null.
+				await user.click(await screen.findByTestId('media-viewer-close-button'));
+				expect(onSelectedItemChange).toHaveBeenLastCalledWith(null);
+			});
+
+			it('should pass no extensions to Media Viewer when the experiment is off', async () => {
+				const user = userEvent.setup();
+				mockExpDisabled(experimentName);
+
+				await openMediaViewer(user);
+
+				// Without the experiment, the viewer gets no extensions and nothing is reported.
+				expect(jest.mocked(MediaViewer).mock.lastCall?.[0].extensions).toBeUndefined();
+				expect(onSelectedItemChange).not.toHaveBeenCalled();
+			});
 		});
 	});
 

@@ -79,6 +79,8 @@ const DropdownItemCheckbox = ({
 				interactionName={interactionName}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
+				// Checked state is conveyed by aria-checked, not ButtonItem's aria-current (A11Y-30123).
+				aria-current={undefined}
 			>
 				{children}
 			</ButtonItem>

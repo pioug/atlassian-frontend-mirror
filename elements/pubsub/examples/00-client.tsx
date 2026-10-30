@@ -13,7 +13,6 @@ let clientConfig: { serviceConfig: PubSubClientConfig };
 let defaultApsUrl: string;
 let preferredApsTransport: APSTransportType;
 try {
-	// eslint-disable-next-line @repo/internal/import/no-unresolved
 	const localConfig = require('../local-config');
 	clientConfig = localConfig['default'];
 	if (!clientConfig) {
@@ -24,7 +23,6 @@ try {
 	defaultApsUrl = localConfig.apsParams.url;
 	preferredApsTransport = localConfig.apsParams.preferredTransport;
 } catch {
-	// eslint-disable-next-line @repo/internal/import/no-unresolved
 	const localConfig = require('../local-config-example');
 	clientConfig = localConfig['default'];
 	defaultApsUrl = localConfig.apsParams.url;

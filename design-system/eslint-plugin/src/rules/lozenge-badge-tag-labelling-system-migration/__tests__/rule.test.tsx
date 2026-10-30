@@ -61,21 +61,21 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			`,
 		},
 		{
-			name: 'Lozenge with isBold={true} is valid — isBold is kept while FF is off',
+			name: 'Lozenge with isBold={true} is outside this rule’s isBold cleanup scope',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge isBold={true} appearance="success">Bold lozenge</Lozenge>
 			`,
 		},
 		{
-			name: 'Lozenge with isBold={false} is valid — isBold is kept while FF is off',
+			name: 'Lozenge with isBold={false} is outside this rule’s isBold cleanup scope',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge isBold={false} appearance="success">Subtle lozenge</Lozenge>
 			`,
 		},
 		{
-			name: 'Lozenge with bare isBold is valid — isBold is kept while FF is off',
+			name: 'Lozenge with bare isBold is outside this rule’s isBold cleanup scope',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge isBold appearance="success">Bold lozenge</Lozenge>
@@ -238,6 +238,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			errors: [
 				{
 					messageId: 'updateAppearance',
+					data: { oldValue: 'default', newValue: 'neutral' },
 				},
 			],
 		},
@@ -633,14 +634,30 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// SimpleTag Test case 1: SimpleTag without elemBefore should migrate to Tag with isRemovable={false}
 		{
-			name: 'SimpleTag without elemBefore migrates to Tag with isRemovable={false}',
+			name: 'Autofixes SimpleTag with literal text to non-removable Tag',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				<SimpleTag>Hello</SimpleTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag isRemovable={false}>Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag isRemovable={false} text="Hello" />
+			`,
+			errors: [
+				{
+					messageId: 'migrateTag',
+				},
+			],
+		},
+		{
+			name: 'Autofixes static non-Avatar elemBefore with literal text',
+			code: `
+				import { SimpleTag } from '@atlaskit/tag';
+				<SimpleTag elemBefore={<Icon />}>Hello</SimpleTag>
+			`,
+			output: `
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag elemBefore={<Icon />} isRemovable={false} text="Hello" />
 			`,
 			errors: [
 				{
@@ -650,14 +667,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// SimpleTag Test case 2: SimpleTag with color should migrate and map color value
 		{
-			name: 'SimpleTag with color migrates and maps color value',
+			name: 'Autofixes SimpleTag literal text and legacy color',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				<SimpleTag color="blueLight">Hello</SimpleTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="blue" isRemovable={false}>Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="blue" isRemovable={false} text="Hello" />
 			`,
 			errors: [
 				{
@@ -667,17 +684,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// SimpleTag Test case 3: SimpleTag with Avatar elemBefore should migrate to AvatarTag
 		{
-			name: 'SimpleTag with Avatar elemBefore migrates to AvatarTag',
+			name: 'Reports manual migration: SimpleTag with Avatar elemBefore migrates to AvatarTag',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				import Avatar from '@atlaskit/avatar';
 				<SimpleTag elemBefore={<Avatar src="x"/>}>Hello</SimpleTag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} src="x"/>}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -686,17 +699,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// SimpleTag Test case 4: SimpleTag with render function Avatar should migrate to AvatarTag
 		{
-			name: 'SimpleTag with render function Avatar migrates to AvatarTag',
+			name: 'Reports manual migration: SimpleTag with render function Avatar migrates to AvatarTag',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				import Avatar from '@atlaskit/avatar';
 				<SimpleTag elemBefore={() => <Avatar />}>Hello</SimpleTag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -704,17 +713,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			],
 		},
 		{
-			name: 'SimpleTag with aliased avatar subpath import migrates to AvatarTag',
+			name: 'Reports manual migration: SimpleTag with aliased avatar subpath import migrates to AvatarTag',
 			code: `
 				import SimpleTag from '@atlaskit/tag/simple-tag';
 				import PersonAvatar from '@atlaskit/avatar/avatar';
 				<SimpleTag elemBefore={<PersonAvatar src="x" />}>Hello</SimpleTag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import PersonAvatar from '@atlaskit/avatar/avatar';
-				<AvatarTag avatar={(props) => <PersonAvatar {...props} src="x" />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -723,14 +728,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// RemovableTag Test case 1: RemovableTag from subpath without elemBefore should migrate to Tag
 		{
-			name: 'RemovableTag from subpath without elemBefore migrates to Tag',
+			name: 'Autofixes RemovableTag with literal text and legacy color',
 			code: `
 				import RemovableTag from '@atlaskit/tag/removable-tag';
 				<RemovableTag color="redLight">Hello</RemovableTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="red">Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="red" text="Hello" />
 			`,
 			errors: [
 				{
@@ -740,17 +745,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// RemovableTag Test case 2: RemovableTag from subpath with Avatar elemBefore should migrate to AvatarTag
 		{
-			name: 'RemovableTag from subpath with Avatar elemBefore migrates to AvatarTag',
+			name: 'Reports manual migration: RemovableTag from subpath with Avatar elemBefore migrates to AvatarTag',
 			code: `
 				import RemovableTag from '@atlaskit/tag/removable-tag';
 				import Avatar from '@atlaskit/avatar';
 				<RemovableTag elemBefore={<Avatar />}>Hello</RemovableTag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -759,14 +760,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Color mapping Test case 1: orangeLight should map to orange
 		{
-			name: 'color="orangeLight" maps to color="orange"',
+			name: 'Autofixes SimpleTag orangeLight color with literal text',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				<SimpleTag color="orangeLight">Hello</SimpleTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="orange" isRemovable={false}>Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="orange" isRemovable={false} text="Hello" />
 			`,
 			errors: [
 				{
@@ -776,14 +777,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Color mapping Test case 2: greyLight should map to gray
 		{
-			name: 'color="greyLight" maps to color="gray"',
+			name: 'Autofixes SimpleTag greyLight color with literal text',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				<SimpleTag color="greyLight">Hello</SimpleTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="gray" isRemovable={false}>Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="gray" isRemovable={false} text="Hello" />
 			`,
 			errors: [
 				{
@@ -793,14 +794,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Color mapping Test case 3: grey should map to gray
 		{
-			name: 'color="grey" maps to color="gray"',
+			name: 'Autofixes SimpleTag grey color with literal text',
 			code: `
 				import { SimpleTag } from '@atlaskit/tag';
 				<SimpleTag color="grey">Hello</SimpleTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="gray" isRemovable={false}>Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="gray" isRemovable={false} text="Hello" />
 			`,
 			errors: [
 				{
@@ -810,14 +811,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Color mapping Test case 3: grey should map to gray
 		{
-			name: 'migrate RemovableTag to Tag',
+			name: 'Autofixes RemovableTag with literal text',
 			code: `
 						import { RemovableTag } from '@atlaskit/tag';
 						<RemovableTag>Hello</RemovableTag>
 					`,
 			output: `
-						import Tag from '@atlaskit/tag';
-						<Tag>Hello</Tag>
+						import Tag from '@atlaskit/tag/tag-new';
+						<Tag text="Hello" />
 					`,
 			errors: [
 				{
@@ -826,14 +827,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			],
 		},
 		{
-			name: 'migrate SimpleTag to Tag',
+			name: 'Autofixes SimpleTag with literal text',
 			code: `
 						import { SimpleTag } from '@atlaskit/tag';
 						<SimpleTag>Hello</SimpleTag>
 					`,
 			output: `
-						import Tag from '@atlaskit/tag';
-						<Tag isRemovable={false}>Hello</Tag>
+						import Tag from '@atlaskit/tag/tag-new';
+						<Tag isRemovable={false} text="Hello" />
 					`,
 			errors: [
 				{
@@ -843,17 +844,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// SimpleTag with appearance should delete appearance prop for AvatarTag
 		{
-			name: 'SimpleTag with appearance migrates to AvatarTag and deletes appearance prop',
+			name: 'Reports manual migration: SimpleTag with appearance migrates to AvatarTag and deletes appearance prop',
 			code: `
 				import { SimpleTag, SimpleTagProps } from '@atlaskit/tag';
 				import Avatar from '@atlaskit/avatar';
 				<SimpleTag elemBefore={<Avatar src="x" />} appearance="default">Hello</SimpleTag>
 			`,
-			output: `
-				import { AvatarTag, SimpleTagProps } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} src="x" />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -862,14 +859,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Default Tag import from @atlaskit/tag (treated as RemovableTag)
 		{
-			name: 'Default Tag import from @atlaskit/tag migrates to Tag (RemovableTag)',
+			name: 'Autofixes default Tag import with literal text and legacy color',
 			code: `
 				import Tag from '@atlaskit/tag';
 				<Tag color="blueLight">Hello</Tag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="blue">Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="blue" text="Hello" />
 			`,
 			errors: [
 				{
@@ -878,15 +875,12 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			],
 		},
 		{
-			name: 'Default Tag import with appearance prop deletes appearance',
+			name: 'Reports manual migration: Default Tag import with appearance prop deletes appearance',
 			code: `
 				import Tag from '@atlaskit/tag';
 				<Tag appearance="default">Hello</Tag>
 			`,
-			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag>Hello</Tag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -894,17 +888,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			],
 		},
 		{
-			name: 'Default Tag import with Avatar migrates to AvatarTag',
+			name: 'Reports manual migration: Default Tag import with Avatar migrates to AvatarTag',
 			code: `
 				import Tag from '@atlaskit/tag';
 				import Avatar from '@atlaskit/avatar';
 				<Tag elemBefore={<Avatar src="x" />}>Hello</Tag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} src="x" />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -912,17 +902,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 			],
 		},
 		{
-			name: 'Default Tag import with Avatar and appearance deletes appearance',
+			name: 'Reports manual migration: Default Tag import with Avatar and appearance deletes appearance',
 			code: `
 				import Tag from '@atlaskit/tag';
 				import Avatar from '@atlaskit/avatar';
 				<Tag elemBefore={<Avatar src="x" />} appearance="success">Hello</Tag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} src="x" />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',
@@ -931,14 +917,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Subpath import test case 1: Default SimpleTag from subpath
 		{
-			name: 'Default SimpleTag from subpath migrates to Tag',
+			name: 'Autofixes SimpleTag subpath import with literal text and legacy color',
 			code: `
 				import SimpleTag from '@atlaskit/tag/simple-tag';
 				<SimpleTag color="blueLight">Hello</SimpleTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="blue" isRemovable={false}>Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="blue" isRemovable={false} text="Hello" />
 			`,
 			errors: [
 				{
@@ -948,14 +934,14 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Subpath import test case 2: Default RemovableTag from subpath
 		{
-			name: 'Default RemovableTag from subpath migrates to Tag',
+			name: 'Autofixes RemovableTag subpath import with literal text and legacy color',
 			code: `
 				import RemovableTag from '@atlaskit/tag/removable-tag';
 				<RemovableTag color="redLight">Hello</RemovableTag>
 			`,
 			output: `
-				import Tag from '@atlaskit/tag';
-				<Tag color="red">Hello</Tag>
+				import Tag from '@atlaskit/tag/tag-new';
+				<Tag color="red" text="Hello" />
 			`,
 			errors: [
 				{
@@ -965,17 +951,13 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 		// Subpath import test case 3: Default SimpleTag from subpath with Avatar
 		{
-			name: 'Default SimpleTag from subpath with Avatar migrates to AvatarTag',
+			name: 'Reports manual migration: Default SimpleTag from subpath with Avatar migrates to AvatarTag',
 			code: `
 				import SimpleTag from '@atlaskit/tag/simple-tag';
 				import Avatar from '@atlaskit/avatar';
 				<SimpleTag elemBefore={<Avatar src="x" />}>Hello</SimpleTag>
 			`,
-			output: `
-				import { AvatarTag } from '@atlaskit/tag';
-				import Avatar from '@atlaskit/avatar';
-				<AvatarTag avatar={(props) => <Avatar {...props} src="x" />}>Hello</AvatarTag>
-			`,
+			output: null,
 			errors: [
 				{
 					messageId: 'migrateTag',

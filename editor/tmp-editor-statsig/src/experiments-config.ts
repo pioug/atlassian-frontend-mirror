@@ -562,13 +562,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-04
-	platform_editor_rovobutton_smartlink_toolbar_exp: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-04
 	confluence_fe_renderer_inline_node_mark_color_fix: {
 		defaultValue: boolean;
 		param: string;
@@ -1390,14 +1383,6 @@ export const editorExperimentsConfig: {
 	platform_editor_remix_in_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remix_in_block_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-04
-	platform_editor_rovobutton_smartlink_toolbar_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_rovobutton_smartlink_toolbar_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

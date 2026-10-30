@@ -132,7 +132,7 @@ export const AssetsSearchContainer = (props: SearchContainerProps): JSX.Element 
 							)}
 						</FormRowContainer>
 						{fg('astral_assets_macro_table_ui_uplift') ? (
-							<Heading size="xsmall">
+							<Heading as="h2" size="xsmall">
 								<FormattedMessage {...modalMessages.filterObjectsText} />
 							</Heading>
 						) : null}

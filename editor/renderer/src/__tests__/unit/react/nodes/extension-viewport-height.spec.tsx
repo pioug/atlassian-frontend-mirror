@@ -13,13 +13,13 @@ const extensionId = 'ari:cloud:ecosystem::extension/test-app/test-environment/st
 
 const renderMacro = ({
 	viewportSize,
-	nodeHeight,
+	nodePresetMinHeight,
 	inline = false,
 	extensionViewportSizes = [{ extensionId, viewportSize }],
 }: {
 	extensionViewportSizes?: ExtensionViewportSize[];
 	inline?: boolean;
-	nodeHeight?: string;
+	nodePresetMinHeight?: string;
 	viewportSize?: string;
 } = {}) =>
 	renderExtension(
@@ -29,7 +29,7 @@ const renderMacro = ({
 		undefined,
 		extensionId,
 		extensionViewportSizes,
-		nodeHeight,
+		nodePresetMinHeight,
 		undefined,
 		() => inline,
 	);
@@ -55,9 +55,11 @@ describe('Extension viewport height', () => {
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe(height);
 	});
 
-	it.each(['0', '150', '150.5'])('preserves numeric Connect height %s', (nodeHeight) => {
-		render(renderMacro({ nodeHeight, extensionViewportSizes: [] }));
-		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe(`${nodeHeight}px`);
+	it.each(['0', '150', '150.5'])('preserves numeric Connect height %s', (nodePresetMinHeight) => {
+		render(renderMacro({ nodePresetMinHeight, extensionViewportSizes: [] }));
+		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe(
+			`${nodePresetMinHeight}px`,
+		);
 	});
 
 	it('keeps the reserved macro content accessible', async () => {
@@ -67,13 +69,13 @@ describe('Extension viewport height', () => {
 	});
 
 	it('prefers a stored node height over the Forge manifest height', () => {
-		render(renderMacro({ nodeHeight: '150', viewportSize: 'large' }));
+		render(renderMacro({ nodePresetMinHeight: '150', viewportSize: 'large' }));
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('150px');
 	});
 
 	it('preserves a node height that already includes pixels', () => {
 		passGate('confluence_forge_early_render_reserve_height');
-		render(renderMacro({ nodeHeight: '150px', viewportSize: 'large' }));
+		render(renderMacro({ nodePresetMinHeight: '150px', viewportSize: 'large' }));
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('150px');
 	});
 
@@ -124,7 +126,7 @@ describe('Extension viewport height controls', () => {
 	});
 
 	it('preserves numeric Connect heights independently of the correction gate', () => {
-		render(renderMacro({ nodeHeight: '150', extensionViewportSizes: [] }));
+		render(renderMacro({ nodePresetMinHeight: '150', extensionViewportSizes: [] }));
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('150px');
 	});
 });

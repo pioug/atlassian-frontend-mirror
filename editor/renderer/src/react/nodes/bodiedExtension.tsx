@@ -21,13 +21,15 @@ import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
 import type { RendererContext, ExtensionViewportSize } from '../types';
-import { renderExtension } from './extension';
+import { hasExtensionViewportSize, renderExtension } from './extension';
 import ForgeBodiedExtensionHandoff from './ForgeBodiedExtensionHandoff';
 import { FORGE_BODIED_EXTENSION_HANDOFF_KEYS } from './forgeBodiedExtensionHandoffConfig';
+import { useNodeHeight, type ScheduleExtensionHeightRemoval } from './useNodeHeight';
 
 interface Props {
 	extensionHandlers?: ExtensionHandlers;
 	extensionKey: string;
+	extensionNode?: PMNode;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
@@ -37,6 +39,8 @@ interface Props {
 	layout?: ExtensionLayout;
 	localId?: string;
 	marks?: PMMark[];
+	nodePresetHeight?: number;
+	nodePresetMinHeight?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	originalContent?: any;
@@ -47,6 +51,7 @@ interface Props {
 	providers: ProviderFactory;
 	rendererAppearance?: RendererAppearance;
 	rendererContext: RendererContext;
+	scheduleExtensionHeightRemoval?: ScheduleExtensionHeightRemoval;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	serializer: Serializer<any>;
@@ -54,7 +59,7 @@ interface Props {
 	startPos: number;
 }
 
-const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
+const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const {
 		children,
 		layout = 'default',
@@ -67,6 +72,12 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 		shouldDisplayExtensionAsInline,
 		fireAnalyticsEvent,
 	} = props;
+	const presetOptions = props.scheduleExtensionHeightRemoval
+		? { height: props.nodePresetHeight }
+		: {};
+	const presetMinHeight = props.scheduleExtensionHeightRemoval
+		? props.nodePresetMinHeight
+		: undefined;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const removeOverflow = React.Children.toArray(children)
 		// Ignored via go/ees005
@@ -135,6 +146,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										result,
 										layout,
 										{
+											...presetOptions,
 											isTopLevel: path.length < 1,
 											rendererAppearance: props.rendererAppearance,
 											fireAnalyticsEvent,
@@ -142,7 +154,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 										removeOverflow,
 										parameters?.extensionId,
 										extensionViewportSizes,
-										undefined,
+										presetMinHeight,
 										localId,
 										shouldDisplayExtensionAsInline,
 										node,
@@ -158,6 +170,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								children,
 								layout,
 								{
+									...presetOptions,
 									isTopLevel: path.length < 1,
 									rendererAppearance: props.rendererAppearance,
 									fireAnalyticsEvent,
@@ -165,7 +178,7 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 								removeOverflow,
 								parameters?.extensionId,
 								extensionViewportSizes,
-								undefined,
+								presetMinHeight,
 								localId,
 								shouldDisplayExtensionAsInline,
 								node,
@@ -176,6 +189,39 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Eleme
 			</AnnotationsPositionContext.Provider>
 		</ErrorBoundary>
 	);
+};
+
+const BodiedExtensionWithTemporarySizing = (props: React.PropsWithChildren<Props>) => {
+	const { presetMinHeight, presetHeight, hasExpired } = useNodeHeight({
+		nodePresetMinHeight: props.nodePresetMinHeight,
+		node: props.extensionNode,
+		scheduleRemoval: props.scheduleExtensionHeightRemoval,
+		nodePresetHeight: props.nodePresetHeight,
+		hasViewportSize: hasExtensionViewportSize(
+			props.parameters?.extensionId,
+			props.extensionViewportSizes,
+		),
+	});
+	return (
+		<BodiedExtensionContent
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			nodePresetMinHeight={presetMinHeight}
+			nodePresetHeight={presetHeight}
+			extensionViewportSizes={
+				hasExpired || presetHeight !== undefined ? undefined : props.extensionViewportSizes
+			}
+		/>
+	);
+};
+
+const BodiedExtension = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
+	if (props.scheduleExtensionHeightRemoval) {
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		return <BodiedExtensionWithTemporarySizing {...props} />;
+	}
+	// eslint-disable-next-line react/jsx-props-no-spreading
+	return <BodiedExtensionContent {...props} />;
 };
 
 export default BodiedExtension;

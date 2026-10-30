@@ -179,7 +179,6 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 							margin: '16px',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							padding: '16px',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							border: `${token('border.width')} solid #ccc`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							borderRadius: token('radius.small'),

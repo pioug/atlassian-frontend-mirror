@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ComponentType } from 'react';
 
 import Loadable from 'react-loadable';
 
@@ -13,6 +13,7 @@ import { transformSmartLinkSizeToIconTileSize } from '../../../../../common/ui/i
 import { IconType, SmartLinkSize } from '../../../../../constants';
 import { getLazyIcons } from '../../../../../utils/get-lazy-icons';
 import { isIconSizeLarge } from '../../../../../utils/is-icon-size-large';
+import { getLazyIconComponent } from '../../../../../utils/lazy-component';
 import { type AtlaskitIconProps } from './types';
 
 const getIconImportFn = (icon: IconType, size: SmartLinkSize): (() => Promise<any>) | undefined => {
@@ -21,6 +22,16 @@ const getIconImportFn = (icon: IconType, size: SmartLinkSize): (() => Promise<an
 		return item.large;
 	}
 	return item?.default;
+};
+
+// Only used when platform_sl_replace_react_loadable is on. Kept separate from getIconImportFn so
+// the gate-off path is unchanged.
+const getLazyIcon = (icon: IconType, size: SmartLinkSize): ComponentType<any> | undefined => {
+	const item = getLazyIcons()[icon];
+	if (isIconSizeLarge(size) && item?.large) {
+		return getLazyIconComponent(`${icon}:large`, item.large);
+	}
+	return item?.default ? getLazyIconComponent(`${icon}:default`, item.default) : undefined;
 };
 
 const importIcon = (importFn: () => Promise<any>): any => {
@@ -111,12 +122,20 @@ const AtlaskitIcon = ({
 		}
 	}
 
-	const importFn = getIconImportFn(icon, size);
-	if (!importFn) {
-		return null;
-	}
+	let ImportedIcon: any;
+	if (fg('platform_sl_replace_react_loadable')) {
+		ImportedIcon = getLazyIcon(icon, size);
+		if (!ImportedIcon) {
+			return null;
+		}
+	} else {
+		const importFn = getIconImportFn(icon, size);
+		if (!importFn) {
+			return null;
+		}
 
-	const ImportedIcon = importIcon(importFn);
+		ImportedIcon = importIcon(importFn);
+	}
 
 	if (isCoreIcon(icon)) {
 		let color;

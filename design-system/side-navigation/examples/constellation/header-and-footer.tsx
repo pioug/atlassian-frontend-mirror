@@ -3,7 +3,6 @@ import React from 'react';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import Link from '@atlaskit/link/link';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Footer } from '@atlaskit/side-navigation/footer';
 import { Header } from '@atlaskit/side-navigation/header';
 import { NavigationContent } from '@atlaskit/side-navigation/navigation-content';

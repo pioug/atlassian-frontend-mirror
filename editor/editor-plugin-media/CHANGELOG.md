@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 32.2.0
+
+### Minor Changes
+
+- [`afb0fcc5ed7a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afb0fcc5ed7a9) -
+  Media attribute hydration no longer adds an undo step, so one undo reverts a file display change
+  (behind platform_editor_media_hydration_skip_history)
+
 ## 32.1.0
 
 ### Minor Changes

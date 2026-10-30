@@ -6,7 +6,6 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 
 import {

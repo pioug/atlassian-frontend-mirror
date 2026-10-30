@@ -9,6 +9,7 @@ import { useIntl } from 'react-intl';
 import { cssMap, jsx } from '@atlaskit/css';
 import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
@@ -32,6 +33,10 @@ const styles = cssMap({
 	retryText: {
 		color: token('color.link'),
 		font: token('font.body'),
+	},
+	spacedRow: {
+		minHeight: '50px',
+		paddingBlock: token('space.075'),
 	},
 });
 
@@ -59,7 +64,10 @@ export const AgentMentionLoadErrorItem = ({
 	return (
 		<button
 			type="button"
-			css={styles.retryRow}
+			css={[
+				styles.retryRow,
+				isExperimentEnabled('platform_editor_mentions_email_search') && styles.spacedRow,
+			]}
 			tabIndex={-1}
 			onMouseDown={handleMouseDown}
 			onClick={handleClick}

@@ -92,10 +92,6 @@
 	"platform-feature-flags": {
 		"platform_editor_ease_of_use_metrics": {
 			"type": "boolean"
-		},
-		"platform_dst_modal-dialog-use-modal-title": {
-			"type": "boolean",
-			"referenceOnly": true
 		}
 	}
 }

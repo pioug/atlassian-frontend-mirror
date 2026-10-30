@@ -29,10 +29,8 @@ const rawValuesStyles = xcss({
 	// @ts-expect-error
 	backgroundColor: 'purple',
 	// @ts-expect-error
-	// eslint-disable-next-line @atlaskit/design-system/use-latest-xcss-syntax
 	padding: '8px',
 	// @ts-expect-error
-	// eslint-disable-next-line @atlaskit/design-system/use-latest-xcss-syntax
 	paddingInlineStart: '8px',
 
 	// things that can also be raw values (any string...)

@@ -5,7 +5,6 @@ import { screen } from '@atlassian/testing-library/screen';
 
 import { IsFhsEnabledProvider } from '../../is-fhs-enabled-provider';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('IsFhsEnabledProvider', () => {
 	it.each([[true], [false]])('should render its children when value is %s', (value) => {
 		render(

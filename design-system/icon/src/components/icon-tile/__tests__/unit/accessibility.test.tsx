@@ -8,7 +8,6 @@ import AddIcon from '../../../../../core/add';
 import type { IconTileAppearance } from '../../../../types';
 import IconTile from '../../index';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('IconTile Accessibility', () => {
 	describe('aXe audits', () => {
 		it('should not fail with default props', async () => {

@@ -12,8 +12,8 @@ export type TStyleDeclaration<TProperty extends string = string> = {
 };
 
 /**
- * Sets inline styles on an element and returns a cleanup function that
- * restores the prior inline values (so we do not stomp consumer styles).
+ * Sets inline styles on an element. Returns a cleanup function that restores the
+ * prior inline values, so consumer styles are not lost.
  */
 export function setStyle({
 	element,
@@ -22,9 +22,9 @@ export function setStyle({
 	element: HTMLElement;
 	styles: TStyleDeclaration[];
 }): () => void {
-	// Snapshot the prior inline value (NOT the computed style - we only want
-	// to restore values that the consumer/our previous run inlined). An empty
-	// string means "no inline value", in which case cleanup uses removeProperty.
+	// Snapshot the prior INLINE value, not the computed style: cleanup restores
+	// only what the consumer or an earlier run wrote inline. An empty string means
+	// there was no inline value, so cleanup removes the property.
 	const priorValues = styles.map(({ property }) => ({
 		property,
 		value: element.style.getPropertyValue(property),

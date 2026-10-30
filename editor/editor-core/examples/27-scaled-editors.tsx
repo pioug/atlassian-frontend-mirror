@@ -90,7 +90,6 @@ const editor = (
 );
 
 const ScaledEditorsExample = (): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<Box padding="space.250">
 		<InlineCommentEditor editor={editor} />
 	</Box>

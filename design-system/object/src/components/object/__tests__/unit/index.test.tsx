@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import PullRequestObject from '../../components/pull-request';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Object', () => {
 	it('should render with default props', () => {
 		render(<PullRequestObject testId="pullrequest-test" />);

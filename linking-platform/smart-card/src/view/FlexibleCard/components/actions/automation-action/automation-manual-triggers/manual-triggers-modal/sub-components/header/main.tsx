@@ -5,12 +5,9 @@
 import { defineMessages, useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading/heading';
 import AutomationIcon from '@atlaskit/icon/core/automation';
-import { useModal } from '@atlaskit/modal-dialog/hooks';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -50,7 +47,6 @@ export const AutomationModalHeader = ({
 	const { formatMessage } = useIntl();
 
 	const { initialised, rules } = useAutomationMenu();
-	const { titleId } = useModal();
 
 	const showDescription = initialised && rules.length > 0 && !!modalDescription;
 
@@ -70,13 +66,7 @@ export const AutomationModalHeader = ({
 							spacing="compact"
 						/>
 					</Box>
-					{fg('platform_dst_modal-dialog-use-modal-title') ? (
-						<ModalTitle>{modalTitle}</ModalTitle>
-					) : (
-						<Heading size="medium" id={titleId}>
-							{modalTitle}
-						</Heading>
-					)}
+					<ModalTitle>{modalTitle}</ModalTitle>
 				</Inline>
 				{showDescription && <Box xcss={styles.modalDescriptionStyle}>{modalDescription}</Box>}
 			</Stack>

@@ -1,25 +1,25 @@
 export const adfMediaSingle: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
-			width: null;
 			layout: string;
+			width: null;
 		};
 		content: {
-			type: string;
 			attrs: {
-				id: string;
-				type: string;
-				collection: string;
-				occurrenceKey: null;
 				alt: string;
-				width: number;
+				collection: string;
 				height: number;
+				id: string;
+				occurrenceKey: null;
+				type: string;
+				width: number;
 			};
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -48,67 +48,66 @@ export const adfMediaSingle: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const wrappedMediaInsideTable: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			layout: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				attrs: {
 					colwidth: number[];
 				};
 				content: (
 					| {
-							type: string;
 							attrs: {
-								width: number;
 								layout: string;
+								width: number;
 							};
 							content: {
-								type: string;
 								attrs: {
+									collection: string;
+									height: number;
 									id: string;
 									type: string;
-									collection: string;
 									width: number;
-									height: number;
 								};
+								type: string;
 							}[];
+							type: string;
 					  }
 					| {
-							type: string;
 							attrs: {
 								layout: string;
 								width?: undefined;
 							};
 							content: {
-								type: string;
 								attrs: {
+									collection: string;
+									height: number;
 									id: string;
 									type: string;
-									collection: string;
 									width: number;
-									height: number;
 								};
+								type: string;
 							}[];
+							type: string;
 					  }
 					| {
-							type: string;
-							content: never[];
 							attrs?: undefined;
+							content: never[];
+							type: string;
 					  }
 				)[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

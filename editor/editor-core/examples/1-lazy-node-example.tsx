@@ -7,7 +7,6 @@ import {
 	testOnlyIgnoreLazyNodeView,
 } from '@atlaskit/editor-common/lazy-node-view';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorActions } from '@atlaskit/editor-core/actions';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
@@ -73,7 +72,7 @@ const EditorWithNodeViewFallbacked = memo(
 		appearance,
 		onReady,
 	}: {
-		adf?: Object;
+		adf?: object;
 		appearance: EditorAppearance;
 		onReady: () => void;
 	}) => {
@@ -88,7 +87,6 @@ const EditorWithNodeViewFallbacked = memo(
 				testOnlyIgnoreLazyNodeView(view);
 
 				// This function runs inside a Docker VM with Chrome only
-				// eslint-disable-next-line compat/compat
 				window.requestIdleCallback(
 					() => {
 						onReady();
@@ -129,7 +127,7 @@ const EditorWithhRealNodeView = memo(
 		onDocChange,
 		adf,
 	}: {
-		adf?: Object;
+		adf?: object;
 		appearance: EditorAppearance;
 		onDocChange: (doc: PMNode) => void;
 		onReady: () => void;
@@ -147,7 +145,6 @@ const EditorWithhRealNodeView = memo(
 					const meta = tr.getMeta(lazyNodeViewDecorationPluginKey);
 					if (meta) {
 						// This function runs inside a Docker VM with Chrome only
-						// eslint-disable-next-line compat/compat
 						window.requestIdleCallback(
 							() => {
 								onReady();

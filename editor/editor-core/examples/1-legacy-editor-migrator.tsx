@@ -178,7 +178,6 @@ ${optimisedPresetAdds}
 
 function stripTabs(input: string): string {
 	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return input.replace(/\t/g, '  ').replace(/\n/g, ' ');

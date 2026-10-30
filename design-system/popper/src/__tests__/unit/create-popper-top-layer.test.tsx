@@ -112,7 +112,6 @@ afterEach(() => {
 
 // A positioning primitive has no accessible content of its own; the package's
 // a11y coverage lives in `accessibility.test.tsx`.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createPopperTopLayer - top layer promotion', () => {
 	it('lifts a plain element into the top layer as a manual popover', async () => {
 		const anchor = createAnchor();
@@ -237,7 +236,6 @@ describe('createPopperTopLayer - top layer promotion', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createPopperTopLayer - React lifecycle safety', () => {
 	it('does not warn when destroy runs from a React effect cleanup', async () => {
 		// The regression this guards: `root.unmount()` is synchronous, and React
@@ -290,7 +288,6 @@ describe('createPopperTopLayer - React lifecycle safety', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createPopperTopLayer - anchor positioning', () => {
 	it('wires the popper to the anchor via CSS Anchor Positioning', async () => {
 		const anchor = createAnchor();
@@ -382,7 +379,6 @@ describe('createPopperTopLayer - anchor positioning', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createPopperTopLayer - virtual reference', () => {
 	it('anchors a VirtualElement via the top-layer synthetic point anchor', async () => {
 		const surface = createSurface();
@@ -455,7 +451,6 @@ describe('createPopperTopLayer - virtual reference', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createPopperTopLayer - instance surface', () => {
 	it('exposes a popper-shaped state', async () => {
 		const anchor = createAnchor();

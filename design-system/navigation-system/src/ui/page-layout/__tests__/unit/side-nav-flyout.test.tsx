@@ -107,7 +107,6 @@ describe('side nav flyout', () => {
 		);
 	});
 
-	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	describe('small viewports', () => {
 		beforeEach(() => {
 			setMediaQuery('(min-width: 64rem)', { initial: false });

@@ -16,8 +16,7 @@ export type TPopoverSurfaceProps = {
 const styles = cssMap({
 	root: {
 		backgroundColor: token('elevation.surface.overlay'),
-		// Pairs the text colour with the overlay background, so the surface keeps its
-		// contrast wherever it is rendered.
+		// Pairs the text color with the overlay background, so the contrast holds wherever it renders.
 		color: token('color.text'),
 		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
@@ -28,14 +27,13 @@ const styles = cssMap({
 /**
  * Optional styled wrapper for popover content.
  *
- * Adds default visual styling (background, border-radius, box-shadow)
- * using design tokens.
+ * Adds the default overlay styles from design tokens: background, text color, border radius and
+ * box shadow. Content that overflows scrolls.
  *
- * Presentational primitive - `children`-only by design. This component
- * intentionally exposes no `style`, `className`, `xcss`, `id`, or `ref`
- * props. If you need any of those, render your own wrapper element inside
- * `Popover` instead. `PopoverSurface` is the no-config "give me the default
- * ADS overlay look" surface, nothing more.
+ * Presentational primitive, with only `children` by design. It has no `style`, `className`,
+ * `xcss`, `id` or `ref` props. If you need any of those, render your own wrapper element inside
+ * `Popover` instead. `PopoverSurface` gives the default ADS overlay look with no configuration,
+ * nothing more.
  */
 export function PopoverSurface({ children }: TPopoverSurfaceProps): ReactNode {
 	return <div css={styles.root}>{children}</div>;

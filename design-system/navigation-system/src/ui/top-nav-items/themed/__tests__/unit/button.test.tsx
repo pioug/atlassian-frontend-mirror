@@ -7,7 +7,6 @@ import { ThemedButton } from '../../themed-button';
 import { ThemedIconButton } from '../../themed-icon-button';
 import { ThemedLinkIconButton } from '../../themed-link-icon-button';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ThemedButton', () => {
 	it('should not pass through styles', () => {
 		render(

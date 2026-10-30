@@ -6,7 +6,6 @@ import { fireEvent, render } from '@atlassian/testing-library/testing-library/re
 
 import RemoveButton from '../../internal/removable/remove-button';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<RemoveButton />', () => {
 	beforeEach(() => {
 		skipA11yAudit();

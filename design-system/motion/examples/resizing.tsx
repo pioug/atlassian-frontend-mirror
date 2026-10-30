@@ -206,7 +206,6 @@ export default (): JSX.Element => {
 
 			<Centered>
 				<div data-testid="menu-both" {...resizingBothProps} css={styles.gridContainer}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
 					<div css={styles.gridInner} style={{ gridTemplateColumns: `repeat(${bothNum}, auto)` }}>
 						<StaggeredEntrance columns={bothNum}>
 							{Array(bothNum * bothNum)

@@ -105,7 +105,6 @@ function OverlayOrderFixture() {
 	);
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Side nav', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 	beforeAll(() => {

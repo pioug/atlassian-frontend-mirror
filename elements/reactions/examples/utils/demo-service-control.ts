@@ -1,7 +1,6 @@
 export const getReactionsConfig = (): any => {
 	let reactionsConfig;
 	try {
-		// eslint-disable-next-line @repo/internal/import/no-unresolved
 		reactionsConfig = require('../../local-config')['default'];
 		if (!reactionsConfig) {
 			throw new Error(

@@ -8728,7 +8728,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				(isComment || isChromeless) && editorContentStyles.nonFullPageContainerTypeStyles,
 				isComment &&
 					(fg('platform_editor_comment_margin_cq') ||
-						isExperimentEnabled('work_item_modernization')) &&
+						isExperimentEnabled('work_item_modernization') ||
+						fg('wiv_modernization_cohort')) &&
 					editorContentStyles.commentLessMarginStyles,
 				isFullPage && editorContentStyles.fullPageEditorStyles,
 				isFullPage && editorContentStyles.scrollbarStyles,

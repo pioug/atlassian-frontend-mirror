@@ -35,14 +35,11 @@ body,
 	color: var(--ds-text, #172b4d);
 	font: var(
 		--ds-font-body,
-		normal 400 14px/1.42857142857143 -apple-system,
+		normal 400 14px/1.42857142857143 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);
@@ -97,14 +94,11 @@ a:focus-visible {
 h1 {
 	font: var(
 		--ds-font-heading-xlarge,
-		600 2.0714285714285716em/1.103448275862069 -apple-system,
+		600 2.0714285714285716em/1.103448275862069 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);
@@ -114,14 +108,11 @@ h1 {
 h2 {
 	font: var(
 		--ds-font-heading-large,
-		500 1.7142857142857142em/1.1666666666666667 -apple-system,
+		500 1.7142857142857142em/1.1666666666666667 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);
@@ -131,14 +122,11 @@ h2 {
 h3 {
 	font: var(
 		--ds-font-heading-medium,
-		500 1.4285714285714286em/1.2 -apple-system,
+		500 1.4285714285714286em/1.2 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);
@@ -148,14 +136,11 @@ h3 {
 h4 {
 	font: var(
 		--ds-font-heading-small,
-		600 1.1428571428571428em/1.25 -apple-system,
+		600 1.1428571428571428em/1.25 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);
@@ -165,14 +150,11 @@ h4 {
 h5 {
 	font: var(
 		--ds-font-heading-xsmall,
-		600 1em/1.1428571428571428 -apple-system,
+		600 1em/1.1428571428571428 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);
@@ -182,14 +164,11 @@ h5 {
 h6 {
 	font: var(
 		--ds-font-heading-xxsmall,
-		600 0.8571428571428571em/1.3333333333333333 -apple-system,
+		600 0.8571428571428571em/1.3333333333333333 ui-sans-serif,
+		-apple-system,
 		BlinkMacSystemFont,
 		'Segoe UI',
-		'Roboto',
-		'Oxygen',
-		'Ubuntu',
-		'Fira Sans',
-		'Droid Sans',
+		Ubuntu,
 		'Helvetica Neue',
 		sans-serif
 	);

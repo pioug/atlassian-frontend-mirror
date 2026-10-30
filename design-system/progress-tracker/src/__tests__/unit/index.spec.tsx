@@ -131,7 +131,6 @@ const testNotAnimated = (progressTrackerStages: NodeListOf<HTMLLIElement> | HTML
 	});
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/progress-tracker', () => {
 	it('should render the component', () => {
 		render(<ProgressTracker items={items} testId="progress-tracker" />);

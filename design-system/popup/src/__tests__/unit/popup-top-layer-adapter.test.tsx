@@ -1,5 +1,3 @@
-/* eslint-disable testing-library/no-node-access */
-
 import React, { type Dispatch, forwardRef, type SetStateAction } from 'react';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';

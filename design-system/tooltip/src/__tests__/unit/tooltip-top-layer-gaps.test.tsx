@@ -35,7 +35,6 @@ function simulatePopoverClose(popoverEl: HTMLElement) {
 	});
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

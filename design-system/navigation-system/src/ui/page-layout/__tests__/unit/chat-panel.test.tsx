@@ -63,7 +63,6 @@ it.each([600, 300])('keeps overlay keyboard values and completion within a %ipx 
 			</Root>,
 		);
 		const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
-		// eslint-disable-next-line testing-library/prefer-user-event
 		fireEvent.focus(slider);
 		const maximum = width * 0.9;
 		expect(slider).toHaveAttribute('min', String(Math.min(320, maximum)));
@@ -133,7 +132,6 @@ it.each([false, true])(
 				getPropertyValue: (name: string) => getComputedStyle(element).getPropertyValue(name),
 			}));
 			const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
-			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.focus(slider);
 			const maximum = 960;
 			expect(slider).toHaveAttribute('max', String(maximum));

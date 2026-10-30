@@ -30,7 +30,6 @@ import { RangeField } from '../../range-field';
 import { RequiredAsterisk } from '../../required-asterisk';
 import { ValidMessage } from '../../valid-message';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('should pass axe accessibility testing', () => {
 	it('Form', async () => {
 		const { container } = render(<Form onSubmit={noop}>{null}</Form>);

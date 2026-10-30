@@ -10,7 +10,6 @@ import { type LinkComponentProps, type Stage } from '../../types';
 
 const defaultTestId = 'test';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/progress-tracker/stage', () => {
 	it('should render the component', () => {
 		const item: Stage = {

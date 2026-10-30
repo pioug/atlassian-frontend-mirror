@@ -3,7 +3,6 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import CustomerIcon from '@atlaskit/icon/core/person';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
 import { NavigationContent } from '@atlaskit/side-navigation/navigation-content';

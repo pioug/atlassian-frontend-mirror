@@ -8,7 +8,6 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import { List } from '../../../../components/list';
 import { Profile } from '../../profile';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Profile', () => {
 	it('should be accessible', async () => {
 		const { container } = render(

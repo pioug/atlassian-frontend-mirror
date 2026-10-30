@@ -43,6 +43,7 @@ export const stringifyType = (
 				return adfPlainText || '';
 			}
 		case 'link':
+		case 'objectReference':
 		default:
 			return '';
 	}

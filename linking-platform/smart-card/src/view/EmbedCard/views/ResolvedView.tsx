@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React from 'react';
+import React, { lazy } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import Loadable from 'react-loadable';
@@ -23,6 +23,7 @@ import useEmbedRovoActionsFooterExperiment from '../../../state/hooks/use-embed-
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { getPreviewUrlWithEmbedContext } from '../../../utils/get-preview-url-with-theme';
 import { isProfileType } from '../../../utils/is-profile-type';
+import { renderNothingOnLoadError, withSuspense } from '../../../utils/lazy-component';
 import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
 import { getRovoPostAuthPromptKeys } from '../../common/rovo-post-auth-prompts';
 import { ExpandedFrame } from '../components/ExpandedFrame';
@@ -39,6 +40,16 @@ const EmbedRovoActionsFooter = Loadable({
 	loading: () => null,
 });
 EmbedRovoActionsFooter.displayName = 'lazy(EmbedRovoActionsFooter)';
+
+// Inline module-scope lazy() so product SSR tooling can preload it before hydration.
+const LazyEmbedRovoActionsFooter = withSuspense(
+	lazy(() =>
+		import(
+			/* webpackChunkName: "smart-card-embed-rovo-actions-footer" */ '../components/rovo-actions-footer'
+		).catch(renderNothingOnLoadError),
+	),
+	'lazy(EmbedRovoActionsFooter)',
+);
 
 const styles = cssMap({
 	contentWithFooter: {
@@ -108,11 +119,19 @@ const EmbedFrameWithRovoFooter = ({
 	const footer = React.useMemo(
 		() =>
 			rovoActionData && prompts.length > 0 ? (
-				<EmbedRovoActionsFooter
-					actionData={rovoActionData}
-					prompts={prompts}
-					testId={`${testId}-rovo-actions-footer`}
-				/>
+				fg('platform_sl_replace_react_loadable') ? (
+					<LazyEmbedRovoActionsFooter
+						actionData={rovoActionData}
+						prompts={prompts}
+						testId={`${testId}-rovo-actions-footer`}
+					/>
+				) : (
+					<EmbedRovoActionsFooter
+						actionData={rovoActionData}
+						prompts={prompts}
+						testId={`${testId}-rovo-actions-footer`}
+					/>
+				)
 			) : undefined,
 		[prompts, rovoActionData, testId],
 	);

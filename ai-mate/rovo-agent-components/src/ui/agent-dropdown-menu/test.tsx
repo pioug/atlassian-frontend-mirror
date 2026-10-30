@@ -3,7 +3,6 @@ import React, { type ComponentPropsWithoutRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import { DiProvider, type Injectable } from 'react-magnetic-di';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -182,7 +181,6 @@ describe('AgentDropdownMenu', () => {
 		['denied', false],
 		['missing', undefined],
 	])('does not show duplicate agent option if duplicate permission is %s', async (_, permitted) => {
-		passGate('agent_studio_can_duplicate_permission');
 		const user = userEvent.setup();
 		renderComponent({
 			loadAgentPermissions: () =>
@@ -197,24 +195,6 @@ describe('AgentDropdownMenu', () => {
 		await user.click(moreActions());
 
 		expect(screen.queryByRole('menuitem', { name: 'Duplicate agent' })).toBeNull();
-	});
-
-	it('shows duplicate agent option when create permission is granted and duplicate permission enforcement is disabled', async () => {
-		failGate('agent_studio_can_duplicate_permission');
-		const user = userEvent.setup();
-		renderComponent({
-			loadAgentPermissions: () =>
-				Promise.resolve({
-					isCreateEnabled: true,
-					isDuplicateEnabled: false,
-					isEditEnabled: true,
-					isDeleteEnabled: true,
-				}),
-		});
-
-		await user.click(moreActions());
-
-		expect(screen.getByRole('menuitem', { name: 'Duplicate agent' })).toBeVisible();
 	});
 
 	it('does not show duplicate agent option if loading permissions fails', async () => {

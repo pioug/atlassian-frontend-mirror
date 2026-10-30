@@ -141,6 +141,9 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../user-picker/tsconfig.app.json"
+		},
+		{
 			"path": "../util-data-test/tsconfig.app.json"
 		},
 		{

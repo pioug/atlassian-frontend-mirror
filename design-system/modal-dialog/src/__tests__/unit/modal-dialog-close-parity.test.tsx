@@ -174,7 +174,6 @@ const combinations: Array<{
 	},
 ];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe.each([false, true])(
 	'ModalDialog onClose parity (platform-dst-top-layer=%s)',
 	(isTopLayer) => {

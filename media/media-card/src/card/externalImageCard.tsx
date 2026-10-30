@@ -10,6 +10,8 @@ import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { FileAttributes, MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import { getRandomTelemetryId } from '@atlaskit/media-common/helpers';
 import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { ImageLoadError } from '../ImageLoadError';
 import type { MediaCardError } from '../MediaCardError';
@@ -42,6 +44,8 @@ export interface ExternalImageCardProps extends SharedCardProps, CardEventProps 
 	readonly shouldOpenMediaViewer?: boolean;
 	// Media file list to display in Media Viewer.
 	readonly mediaViewerItems?: Identifier[];
+	// Extensions passed to the Media Viewer this card opens.
+	readonly mediaViewerExtensions?: MediaViewerExtensions;
 	// Retrieve auth based on a given context.
 	readonly contextId?: string;
 	// Disable tooltip for the card
@@ -68,6 +72,7 @@ export const ExternalImageCard = ({
 	titleBoxIcon,
 	shouldHideTooltip,
 	mediaViewerItems,
+	mediaViewerExtensions,
 	onClick,
 	onMouseEnter,
 	onFocus,
@@ -134,7 +139,19 @@ export const ExternalImageCard = ({
 	const [previewDidRender, setPreviewDidRender] = useState(false);
 	const [error, setError] = useState<MediaCardError | undefined>();
 
-	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
+	const [mediaViewerSelectedItem, setMediaViewerSelectedItemState] = useState<Identifier | null>(
+		null,
+	);
+	// Extension passing added as part of the comments-in-media-viewer work, so it follows that
+	// experiment to avoid shipping ungated changes.
+	const enabledMediaViewerExtensions =
+		mediaViewerExtensions && isExperimentEnabled('cc_comments_media_viewer_sidebar')
+			? mediaViewerExtensions
+			: undefined;
+	const setMediaViewerSelectedItem = (item: Identifier | null) => {
+		setMediaViewerSelectedItemState(item);
+		enabledMediaViewerExtensions?.onSelectedItemChange?.(item);
+	};
 
 	//----------------------------------------------------------------//
 	//---------------------- Analytics  ------------------------------//
@@ -230,6 +247,7 @@ export const ExternalImageCard = ({
 				}}
 				contextId={contextId}
 				featureFlags={featureFlags}
+				extensions={enabledMediaViewerExtensions}
 			/>,
 			document.body,
 		);

@@ -8,7 +8,6 @@ import { screen } from '@atlassian/testing-library/screen';
 import { DangerouslyHoistCssVarToDocumentRoot } from '../../dangerously-hoist-css-var-to-document-root';
 import { HoistCssVarToLocalGrid } from '../../hoist-css-var-to-local-grid';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('HoistCssVarToLocalGrid', () => {
 	it('should add the correct style rule', () => {
 		render(

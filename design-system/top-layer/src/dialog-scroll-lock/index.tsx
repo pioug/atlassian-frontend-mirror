@@ -3,10 +3,9 @@ import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 type TDialogScrollLockProps = {
 	/**
-	 * Whether the parent dialog is open. The scroll lock is applied while
-	 * `true` and released the moment this flips to `false`, regardless of
-	 * when (or whether) React unmounts this component. Pass the same
-	 * `isOpen` value you pass to the parent `Dialog`.
+	 * Whether the parent dialog is open. The scroll lock applies while `true`, and is released as
+	 * soon as this becomes `false`, whenever (or whether) React unmounts this component. Pass the
+	 * same `isOpen` value that you pass to the parent `Dialog`.
 	 */
 	isOpen: boolean;
 };
@@ -14,27 +13,24 @@ type TDialogScrollLockProps = {
 /**
  * __DialogScrollLock__
  *
- * Prevents background page scrolling while a dialog is open. Designed to be
- * rendered inside a `Dialog` and given the same `isOpen` value.
+ * Prevents background page scrolling while a dialog is open. Render it inside a `Dialog` and give
+ * it the same `isOpen` value.
  *
- * Native `<dialog>.showModal()` makes background content _inert_ (not
- * focusable/clickable), but does **not** prevent scroll events from reaching
- * the document body. This component fills that gap by setting
- * `overflow: hidden` on `document.body` while `isOpen` is `true`.
+ * Native `<dialog>.showModal()` makes background content _inert_ (not focusable or clickable), but
+ * does **not** prevent scroll events from reaching the document body. This component fills that
+ * gap: it sets `overflow: hidden` on `document.body` while `isOpen` is `true`.
  *
- * The lock is driven by `isOpen` rather than by mount/unmount so that release
- * happens synchronously in the same commit that flips `isOpen` to `false`.
- * Relying on unmount alone was racy: `Dialog` defers the unmount of its
- * children until the host element's close/toggle event fires, which can be
- * after a consumer or test observes the dialog as hidden, leading to a
- * stale `overflow: hidden` window.
+ * `isOpen` drives the lock, not mount and unmount, so the lock is released in the same commit that
+ * sets `isOpen` to `false`. Unmount alone was racy: `Dialog` unmounts its children only after the
+ * `close` or `toggle` event of the host element. That can be after a consumer or a test sees the
+ * dialog as hidden, so `overflow: hidden` stayed on for a short time.
  *
  * @example
  * ```tsx
- * import { Dialog } from '@atlaskit/top-layer/dialog';
+ * import { Dialog } from '@atlaskit/top-layer/dialog-content';
  * import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
  *
- * <Dialog isOpen={isOpen} onClose={onClose}>
+ * <Dialog isOpen={isOpen} onClose={onClose} label="Settings">
  *   <DialogScrollLock isOpen={isOpen} />
  *   {children}
  * </Dialog>

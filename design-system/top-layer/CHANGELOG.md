@@ -1,5 +1,35 @@
 # @atlaskit/top-layer
 
+## 7.0.1
+
+### Patch Changes
+
+- [`40c5d9bbd2458`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40c5d9bbd2458) -
+  Internal: clearer names and comments in the Escape ownership helpers and page surface utilities.
+  No behaviour change.
+- [`e5c287a1e1c0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5c287a1e1c0a) -
+  Internal: clearer names and comments in the anchored popover hooks, placement resolution and
+  placement map. No behaviour change.
+- [`e67336cf23135`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e67336cf23135) -
+  Internal: clearer names and comments in the focus management module. No behaviour change.
+- [`54c9fe881d31b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54c9fe881d31b) -
+  Internal: clearer names and comments in the popover module. No behaviour change.
+- [`56553906f13c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56553906f13c5) -
+  Internal: clearer names and comments in the testing utilities. No behaviour change.
+- [`11afe38a2daa6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11afe38a2daa6) -
+  Internal: clearer names and comments in arrow navigation, manual light dismiss and trigger ARIA.
+  No behaviour change.
+- [`cfc3dc78b631a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfc3dc78b631a) -
+  Internal: clearer names and comments in the dialog module. No behaviour change.
+- [`f2d6d73f04081`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2d6d73f04081) -
+  Internal: clearer comments in the anchored popover size and CSS helper modules. No behaviour
+  change.
+- [`d58c0cbb04513`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d58c0cbb04513) -
+  Internal: clearer names and comments in the animated visibility lifecycle hook and reduced motion
+  helper. No behaviour change.
+- [`c311070f21fc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c311070f21fc5) -
+  Internal: clearer names and comments in the JavaScript positioning fallback. No behaviour change.
+
 ## 7.0.0
 
 ### Major Changes

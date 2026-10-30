@@ -209,7 +209,6 @@ const mockReturnOptionsForAnalytics = mockReturnOptions.map(({ id, type }) => ({
 	type,
 }));
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('SmartUserPicker', () => {
 	let getUserRecommendationsMock = getUserRecommendations as jest.Mock;
 	let getUsersByIdMock = hydrateDefaultValues as jest.Mock;

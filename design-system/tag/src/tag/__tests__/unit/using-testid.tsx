@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { default as Tag } from '../../internal/removable';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tag should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		const testId = 'test-id';

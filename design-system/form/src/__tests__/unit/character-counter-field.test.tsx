@@ -12,7 +12,6 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import { CharacterCounterField } from '../../character-counter-field';
 import Form from '../../form';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CharacterCounterField', () => {
 	const user = userEvent.setup();
 

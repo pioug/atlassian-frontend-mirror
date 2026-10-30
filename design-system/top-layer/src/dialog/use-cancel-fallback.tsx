@@ -26,8 +26,9 @@ function isClosedBySupported(): boolean {
  *
  * In WebKit, `closedby` and the close-watcher rule ship together (one `CloseWatcherEnabled` flag),
  * so a browser without `closedby` has no forced close and every `cancel` here is cancelable.
- * If an engine sends a `cancel` that is not cancelable, the browser closes the dialog, and it runs
- * its normal close path (`onExitFinish` while `isOpen` is `true`).
+ * If an engine sends a `cancel` that is not cancelable, the browser closes the dialog. `Dialog`
+ * then handles it as any close that it did not ask about (see `reopenAfterUnaskedClose` in
+ * `dialog-content.tsx`).
  *
  * The check is a feature check, not a Safari check, so a browser starts to use the standard path
  * when it ships `closedby`. Delete this hook when every supported browser has `closedby`.

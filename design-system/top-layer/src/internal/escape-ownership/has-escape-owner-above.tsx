@@ -32,37 +32,41 @@ function getRank({
 }
 
 /**
- * `true` when `candidate` is above `owner`, as with native close watchers: the later open is above.
+ * `true` when `candidate` is above `element`, as with native close watchers: the later open is
+ * above.
+ *
  * A descendant is always above its ancestors. This fixes the open order when React opens the child
- * first (child effects run first), or when the ancestor opens again. A page surface takes the rank of its nearest
- * containing layer (see `getRank`), so there is no cycle: for example an older manual popover that
- * waits for a newer one, which waits for a page surface inside the older one.
+ * first (child effects run first), or when the ancestor opens again.
+ *
+ * A page surface ranks just above its nearest containing layer (see `getRank`). This prevents a
+ * cycle where an older manual popover waits for a newer one, the newer one waits for a page surface
+ * inside it, and that surface waits for the older popover.
  */
-function isOwnerAbove({
-	owner,
-	isOwnerLayer,
+function isCandidateAbove({
+	element,
+	isElementLayer,
 	candidate,
 	layers,
 }: {
-	owner: HTMLElement;
-	isOwnerLayer: boolean;
+	element: HTMLElement;
+	isElementLayer: boolean;
 	candidate: HTMLElement;
 	layers: HTMLElement[];
 }): boolean {
-	if (owner === candidate || candidate.contains(owner)) {
+	if (element === candidate || candidate.contains(element)) {
 		return false;
 	}
-	if (owner.contains(candidate)) {
+	if (element.contains(candidate)) {
 		return true;
 	}
 	return (
 		getRank({ element: candidate, layers, isLayer: layers.includes(candidate) }) >
-		getRank({ element: owner, layers, isLayer: isOwnerLayer })
+		getRank({ element, layers, isLayer: isElementLayer })
 	);
 }
 
 /**
- * `true` when an Escape owner is above `element` (see `isOwnerAbove`), so it takes the Escape
+ * `true` when an Escape owner is above `element` (see `isCandidateAbove`), so it takes the Escape
  * first. Pass `isLayer` for a `Dialog` or manual popover; otherwise `element` is a page surface.
  *
  * Candidates: every open layer that takes Escape and every marked page surface in the document,
@@ -86,6 +90,6 @@ export function hasEscapeOwnerAbove({
 		ownerDocument.querySelectorAll<HTMLElement>(`[${pageSurfaceEscapeAttribute}]`),
 	);
 	return [...layers, ...surfaces].some((candidate) =>
-		isOwnerAbove({ owner: element, isOwnerLayer: isLayer, candidate, layers }),
+		isCandidateAbove({ element, isElementLayer: isLayer, candidate, layers }),
 	);
 }

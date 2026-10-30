@@ -122,7 +122,8 @@ export const CommentEditorWithIntl: {
 	// Get useStandardNodeWidth from block menu plugin shared state
 	const useStandardNodeWidth =
 		fg('platform_editor_expand_standard_width_fix') ||
-		isExperimentEnabled('work_item_modernization')
+		isExperimentEnabled('work_item_modernization') ||
+		fg('wiv_modernization_cohort')
 			? (editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false)
 			: editorExperiment('platform_editor_controls', 'variant1') &&
 				(editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
@@ -335,7 +336,8 @@ export const CommentEditorWithIntl: {
 											'less-margin':
 												!(
 													fg('platform_editor_comment_margin_cq') ||
-													isExperimentEnabled('work_item_modernization')
+													isExperimentEnabled('work_item_modernization') ||
+													fg('wiv_modernization_cohort')
 												) && width < akEditorMobileBreakoutPoint,
 										})}
 										featureFlags={featureFlags}

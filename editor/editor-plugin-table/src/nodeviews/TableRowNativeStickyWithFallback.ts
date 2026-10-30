@@ -41,6 +41,7 @@ import {
 	tableControlsSpacing,
 	tableScrollbarOffset,
 } from '../ui/consts';
+import { FocusOnlyUpdateGuard } from './is-focus-only-change';
 import TableNodeView from './TableNodeViewBase';
 
 interface SentinelData {
@@ -205,6 +206,7 @@ export default class TableRowNativeStickyWithFallback
 	private editorScrollableElement?: HTMLElement | Window;
 	private colControlsOffset = 0;
 	private focused = false;
+	private readonly focusOnlyUpdateGuard = new FocusOnlyUpdateGuard();
 	private topPosEditorElement = 0;
 	private isLegacySticky: boolean;
 	private intersectionObserver?: IntersectionObserver;
@@ -388,6 +390,8 @@ export default class TableRowNativeStickyWithFallback
 	private onScrollEnd = () => this.refireIntersectionObservers();
 
 	private subscribe() {
+		this.focusOnlyUpdateGuard.reset();
+
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.editorScrollableElement = findOverflowScrollParent(this.view.dom as HTMLElement) || window;
@@ -470,6 +474,7 @@ export default class TableRowNativeStickyWithFallback
 	}
 
 	private unsubscribe() {
+		this.focusOnlyUpdateGuard.reset();
 		if (!this.listening) {
 			return;
 		}
@@ -952,12 +957,17 @@ export default class TableRowNativeStickyWithFallback
 	/* receive external events */
 
 	private onTablePluginState(state: TablePluginState) {
-		const tableRef = state.tableRef;
+		if (this.focusOnlyUpdateGuard.skipIfFocusOnly(state)) {
+			return;
+		}
 
+		const tableRef = state.tableRef;
 		const tree = getTree(this.dom);
 		if (!tree) {
 			return;
 		}
+
+		this.focusOnlyUpdateGuard.markProcessed(state);
 
 		// when header rows are toggled off - mark sentinels as unobserved
 		if (!state.isHeaderRowEnabled) {

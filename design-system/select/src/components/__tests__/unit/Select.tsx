@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/fs/filename-pattern-match */
 /* eslint-disable testing-library/no-container, testing-library/no-node-access */
 
 import React, { type ReactNode } from 'react';
@@ -36,7 +35,6 @@ const OPTIONS = [
 	{ label: '4', value: 'four' },
 ];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Select', () => {
 	beforeEach(() => {
 		skipA11yAudit();

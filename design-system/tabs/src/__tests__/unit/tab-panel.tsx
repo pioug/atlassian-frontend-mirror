@@ -15,7 +15,6 @@ import useTabPanel from '../../use-tab-panel';
 const CustomTabPanel = ({ children }: { children: ReactNode }) => {
 	const context = useTabPanel();
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<span {...context} onFocus={noop}>
 			{children}
 		</span>

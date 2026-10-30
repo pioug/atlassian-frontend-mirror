@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { default as SimpleTag } from '../../internal/simple';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<SimpleTag />', () => {
 	it('should render simple Tag with supplied text without any removable functionality', () => {
 		const text = 'Atlassian Design System';

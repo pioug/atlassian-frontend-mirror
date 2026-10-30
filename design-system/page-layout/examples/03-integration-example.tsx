@@ -7,17 +7,11 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AppSwitcher } from '@atlaskit/atlassian-navigation/app-switcher';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Create } from '@atlaskit/atlassian-navigation/create';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Help } from '@atlaskit/atlassian-navigation/help';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
 import Button from '@atlaskit/button/default/button';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
@@ -25,20 +19,13 @@ import { ConfluenceLogoCS as ConfluenceLogo } from '@atlaskit/logo/confluence/lo
 import ButtonItem from '@atlaskit/menu/button-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content } from '@atlaskit/page-layout/content';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { LeftSidebar } from '@atlaskit/page-layout/left-sidebar';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Main } from '@atlaskit/page-layout/main';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { PageLayout } from '@atlaskit/page-layout/page-layout';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { RightPanel } from '@atlaskit/page-layout/right-panel';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { TopNavigation } from '@atlaskit/page-layout/top-navigation';
 import { Popup } from '@atlaskit/popup/popup';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Header } from '@atlaskit/side-navigation/header';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
 import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';

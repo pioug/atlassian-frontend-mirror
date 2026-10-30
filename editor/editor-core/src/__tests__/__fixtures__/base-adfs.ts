@@ -1,15 +1,15 @@
 // This is used inside the type-ahead integration and playwright tests
 
 export const onlyOneChar: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			text: string;
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -26,17 +26,16 @@ export const onlyOneChar: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const spaceAtEnd: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			text: string;
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -53,17 +52,16 @@ export const spaceAtEnd: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const spaceBeforeText: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			text: string;
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -80,30 +78,29 @@ export const spaceBeforeText: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const textAndStatusAtFirstParagraph: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
-					text: string;
 					attrs?: undefined;
+					text: string;
+					type: string;
 			  }
 			| {
-					type: string;
 					attrs: {
-						text: string;
 						color: string;
 						localId: string;
 						style: string;
+						text: string;
 					};
 					text?: undefined;
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -142,55 +139,54 @@ export const textAndStatusAtFirstParagraph: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableWithPlaceholders: {
-	type: string;
 	content: {
-		type: string;
 		attrs: {
+			__autoSize: boolean;
 			isNumberColumnEnabled: boolean;
 			layout: string;
-			__autoSize: boolean;
 			localId: string;
 		};
 		content: {
-			type: string;
 			content: (
 				| {
-						type: string;
 						attrs: {
+							background: null;
 							colspan: number;
 							rowspan: number;
-							background: null;
 						};
 						content: {
-							type: string;
 							content: {
-								type: string;
 								text: string;
+								type: string;
 							}[];
+							type: string;
 						}[];
+						type: string;
 				  }
 				| {
-						type: string;
 						attrs: {
+							background: null;
 							colspan: number;
 							rowspan: number;
-							background: null;
 						};
 						content: {
-							type: string;
 							content: {
-								type: string;
 								attrs: {
 									text: string;
 								};
+								type: string;
 							}[];
+							type: string;
 						}[];
+						type: string;
 				  }
 			)[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
 } = {
 	type: 'doc',
 	content: [
@@ -254,27 +250,26 @@ export const tableWithPlaceholders: {
 };
 
 /** An info panel with empty paragraphs before and after */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const infoPanel: {
-	version: number;
-	type: string;
 	content: (
 		| {
-				type: string;
-				content: never[];
 				attrs?: undefined;
+				content: never[];
+				type: string;
 		  }
 		| {
-				type: string;
 				attrs: {
 					panelType: string;
 				};
 				content: {
-					type: string;
 					content: never[];
+					type: string;
 				}[];
+				type: string;
 		  }
 	)[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -302,26 +297,25 @@ export const infoPanel: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const numberedListDocument: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			order: number;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				content: {
-					type: string;
 					text: string;
+					type: string;
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -379,45 +373,44 @@ export const numberedListDocument: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const nestedNumberedListDocument: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			order: number;
 		};
 		content: {
-			type: string;
 			content: (
 				| {
-						type: string;
-						content: {
-							type: string;
-							text: string;
-						}[];
 						attrs?: undefined;
+						content: {
+							text: string;
+							type: string;
+						}[];
+						type: string;
 				  }
 				| {
-						type: string;
 						attrs: {
 							order: number;
 						};
 						content: {
-							type: string;
 							content: {
-								type: string;
 								content: {
-									type: string;
 									text: string;
+									type: string;
 								}[];
+								type: string;
 							}[];
+							type: string;
 						}[];
+						type: string;
 				  }
 			)[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -497,11 +490,10 @@ export const nestedNumberedListDocument: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const emptyAdf: {
-	version: number;
-	type: string;
 	content: never[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

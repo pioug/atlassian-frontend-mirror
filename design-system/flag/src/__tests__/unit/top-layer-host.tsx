@@ -28,11 +28,9 @@ const Consumer = () => {
 };
 
 function getHost(): HTMLElement | null {
-	// eslint-disable-next-line testing-library/no-node-access -- the host has no role; find it by its popover attribute
 	return document.querySelector<HTMLElement>('[popover]');
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('FlagGroup host', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

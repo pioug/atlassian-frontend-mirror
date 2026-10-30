@@ -11,7 +11,6 @@ import { screen } from '@atlassian/testing-library/screen';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
 import { useStaggeredEntrance } from '../../../entering/use-staggered-entrance';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<StaggeredEntrance />', () => {
 	const firstGroupDelay = '0ms';
 	const secondGroupDelay = '52ms';

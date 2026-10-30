@@ -122,6 +122,18 @@ export interface LinkType {
 	value: Link;
 }
 
+export interface ObjectReference {
+	// Optional avatar image for the referenced object. When omitted, a fallback avatar is shown.
+	avatarUrl?: string;
+	text: string;
+	url: string;
+}
+
+export interface ObjectReferenceType {
+	type: 'objectReference';
+	value: ObjectReference;
+}
+
 export interface Icon {
 	id?: string;
 	label?: string;
@@ -142,6 +154,7 @@ export type DatasourceType =
 	| IconType
 	| LinkType
 	| NumberType
+	| ObjectReferenceType
 	| RichTextType
 	| StatusType
 	| StringType

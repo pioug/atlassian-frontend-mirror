@@ -15,10 +15,18 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import {
+	BlockControlsSurfaceWithClsFix,
+	type BlockControlsSurfaceWrapperProps,
+} from '../surface-lifecycle/block-controls-surface-with-cls-fix';
 import { BlockControlsVisibilityProvider } from './block-controls-surface-components';
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
 import { useBlockControlsVisibility } from './visibility-container';
+
+const rightSurfaceHiddenWrapperStyles = css({
+	visibility: 'hidden',
+});
 
 const rightSurfaceOuterStyles = css({
 	position: 'absolute',
@@ -115,6 +123,46 @@ const BlockControlsRightSurfaceContent = ({
 	);
 };
 
+const BlockControlsRightSurfaceWrapper = ({
+	children,
+	placement,
+	source,
+	surfaceContext,
+}: BlockControlsSurfaceWrapperProps): React.JSX.Element => {
+	const blockControlsContext = surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT);
+	const isSticky = placement.isSticky;
+
+	return (
+		<div
+			css={[rightSurfaceOuterStyles, rightSurfaceHiddenWrapperStyles]}
+			data-editor-block-controls-surface
+			data-editor-block-controls-side="right"
+			data-testid={
+				source === 'stored'
+					? 'block-controls-right-surface-stored'
+					: source === 'active'
+						? 'block-controls-right-surface-active'
+						: 'block-controls-right-surface'
+			}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Placement is resolved per target node, from its runtime DOM geometry or from its CSS anchor.
+			style={placement.style}
+		>
+			<div
+				css={[
+					rightSurfaceRowStyles,
+					isSticky && rightSurfaceStickyStyles,
+					isSticky &&
+						blockControlsContext?.targetNode.type.name === 'table' &&
+						isExperimentEnabled('platform_editor_block_controls_sticky_header_fix') &&
+						rightSurfaceStickyTableHeaderStyles,
+				]}
+			>
+				{children}
+			</div>
+		</div>
+	);
+};
+
 /** Renders one right block-controls surface at a document position. */
 export const BlockControlsRightSurface = ({
 	api,
@@ -128,14 +176,29 @@ export const BlockControlsRightSurface = ({
 		return null;
 	}
 
-	return (
-		<BlockControlsRightSurfaceContent
-			api={api}
-			components={components}
-			forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-			placement={placement}
-			source={source}
-			surfaceContext={surfaceContext}
-		/>
-	);
+	if (isExperimentEnabled('platform_editor_block_controls_cls_fix')) {
+		return (
+			<BlockControlsSurfaceWithClsFix
+				side="right"
+				SurfaceWrapper={BlockControlsRightSurfaceWrapper}
+				api={api}
+				components={components}
+				forceVisibleOnMouseOut={forceVisibleOnMouseOut}
+				placement={placement}
+				source={source}
+				surfaceContext={surfaceContext}
+			/>
+		);
+	} else {
+		return (
+			<BlockControlsRightSurfaceContent
+				api={api}
+				components={components}
+				forceVisibleOnMouseOut={forceVisibleOnMouseOut}
+				placement={placement}
+				source={source}
+				surfaceContext={surfaceContext}
+			/>
+		);
+	}
 };

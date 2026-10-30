@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import DropdownMenu from '../../../dropdown-menu';
 import DropdownItemCheckbox from '../../dropdown-item-checkbox';
@@ -9,6 +10,49 @@ import DropdownItemCheckboxGroup from '../../dropdown-item-checkbox-group';
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with checkbox as item', () => {
 	describe('checkbox', () => {
+		it('conveys controlled selection without aria-current', () => {
+			const { rerender } = render(
+				<DropdownItemCheckbox id="pages" isSelected>
+					Pages
+				</DropdownItemCheckbox>,
+			);
+
+			const checkbox = screen.getByRole('menuitemcheckbox', { name: 'Pages' });
+			expect(checkbox).toBeChecked();
+			expect(checkbox).not.toHaveAttribute('aria-current');
+
+			rerender(
+				<DropdownItemCheckbox id="pages" isSelected={false}>
+					Pages
+				</DropdownItemCheckbox>,
+			);
+			expect(checkbox).not.toBeChecked();
+			expect(checkbox).not.toHaveAttribute('aria-current');
+		});
+
+		it('updates aria-checked without adding aria-current when toggled', async () => {
+			render(
+				<DropdownMenu trigger="Content">
+					<DropdownItemCheckboxGroup id="content">
+						<DropdownItemCheckbox id="pages">Pages</DropdownItemCheckbox>
+					</DropdownItemCheckboxGroup>
+				</DropdownMenu>,
+			);
+			await userEvent.click(screen.getByRole('button', { name: 'Content' }));
+
+			const checkbox = screen.getByRole('menuitemcheckbox', { name: 'Pages' });
+			expect(checkbox).not.toBeChecked();
+			expect(checkbox).not.toHaveAttribute('aria-current');
+
+			await userEvent.click(checkbox);
+			expect(checkbox).toBeChecked();
+			expect(checkbox).not.toHaveAttribute('aria-current');
+
+			await userEvent.click(checkbox);
+			expect(checkbox).not.toBeChecked();
+			expect(checkbox).not.toHaveAttribute('aria-current');
+		});
+
 		it('render checkbox on the dropdown menu', () => {
 			render(
 				<DropdownMenu trigger="Select cities">

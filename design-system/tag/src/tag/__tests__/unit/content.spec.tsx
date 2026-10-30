@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import Content from '../../internal/shared/content';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<Content />', () => {
 	describe('plain text content', () => {
 		it('should be a span', () => {

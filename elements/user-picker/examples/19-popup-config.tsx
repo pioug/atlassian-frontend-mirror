@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { PopupUserPicker } from '../src/components/PopupUserPicker';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MenuPlaceholder: StyledComponent<
 	{
 		as?: React.ElementType;
@@ -22,7 +22,7 @@ export const MenuPlaceholder: StyledComponent<
 	},
 	React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 > = styled.div((props) => ({
 	minWidth: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

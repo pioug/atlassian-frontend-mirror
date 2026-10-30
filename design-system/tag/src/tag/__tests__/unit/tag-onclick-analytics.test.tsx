@@ -38,7 +38,6 @@ afterAll(() => {
 	window.matchMedia = originalMatchMedia;
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagNew and AvatarTag onClick analytics', () => {
 	describe('TagNew onClick analytics', () => {
 		const testId = 'tag-new';

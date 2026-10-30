@@ -10,6 +10,9 @@ import HoverCard from '../../../examples/vr-hover-card-standalone/vr-hover-card-
 import HoverCardWithPreview from '../../../examples/vr-hover-card-standalone/vr-hover-card-with-image-preview.vr.ap';
 
 snapshot(HoverCard, {
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	description: 'standalone hover card default',
 	ignoredErrors: [
 		{
@@ -41,11 +44,16 @@ snapshot(HoverCardForSlackMessage, {
 	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(HoverCardConfluence, {
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	description: 'standalone hover card for Confluence',
 	ignoredErrors: [
 		{

@@ -27,7 +27,6 @@ const stickyHeader = css({
 	paddingLeft: token('space.100'),
 	marginLeft: token('space.negative.100'),
 	paddingTop: token('space.025'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	top: '-1px',
 	boxShadow: 'rgb(235, 236, 240) 0px 2px',
 });
@@ -40,7 +39,6 @@ const editorSide = css({
 	paddingBottom: token('space.400'),
 	paddingLeft: 'max(50% - 700px, 0px)',
 	width: 'calc(-12px + min(840px, 60%))',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	height: 'calc(100vh - 100px)',
 });
 

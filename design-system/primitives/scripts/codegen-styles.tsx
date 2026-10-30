@@ -3,7 +3,6 @@
 import { readdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { createPartialSignedArtifact } from '@atlassian/codegen/partial-signed-artifact';
 import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 

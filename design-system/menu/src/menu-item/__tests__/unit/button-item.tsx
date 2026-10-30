@@ -66,7 +66,6 @@ describe('<ButtonItem />', () => {
 		});
 
 		render(
-			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 			<ButtonItem css={hackStyles} testId="link">
 				Hello world
 			</ButtonItem>,

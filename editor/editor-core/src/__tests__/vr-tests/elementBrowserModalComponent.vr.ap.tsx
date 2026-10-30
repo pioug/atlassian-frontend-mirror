@@ -118,7 +118,6 @@ const ElementBrowserCompWithDisabled = () => {
 
 	return <ElementBrowserWithIntl getItems={getItems} />;
 };
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ElementBrowserModalWithDisabled = (): JSX.Element => (
 	<div css={hideEnterKey}>
 		<EditorContext>

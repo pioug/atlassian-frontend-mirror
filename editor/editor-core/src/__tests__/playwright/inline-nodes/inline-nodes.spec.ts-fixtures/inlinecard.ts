@@ -33,7 +33,6 @@ export const trailingSpacesWithInlineCard: ADFEntity = {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const noTrailingSpacesWithInlineCard: ADFEntity = {
 	version: 1,
 	type: 'doc',
@@ -64,7 +63,6 @@ export const noTrailingSpacesWithInlineCard: ADFEntity = {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multipleNodesAcrossLinesWithInlineCard: ADFEntity = {
 	version: 1,
 	type: 'doc',
@@ -149,7 +147,6 @@ export const multipleNodesAcrossLinesWithInlineCard: ADFEntity = {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multilineWithInlineCard: ADFEntity = {
 	version: 1,
 	type: 'doc',

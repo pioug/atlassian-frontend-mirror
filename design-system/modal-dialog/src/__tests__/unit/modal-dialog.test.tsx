@@ -78,7 +78,6 @@ const createModal = (props?: ModalDialogProps) => (
 	<ModalDialog label="Modal" testId={testId} onClose={noop} {...props} />
 );
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 // These suites cover the legacy (Portal and Blanket) markup. `modal-dialog-top-layer.test.tsx`
 // covers the top-layer path.
 ffTest.off('platform-dst-top-layer', '<ModalDialog />', () => {

@@ -20,7 +20,6 @@ import EditorContentContainer from '../../../ui/EditorContentContainer/EditorCon
  * `toHaveStyle`, because the rules are checked for existence rather than applied to an element -
  * nothing in this test renders a table cell for them to match.
  */
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('editor table cell background colour selectors', () => {
 	// Compiled drops the quotes around single-word attribute values, so the emitted selectors mix
 	// `td[colorname=blue i]` with `td[colorname="light blue" i]`.

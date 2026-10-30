@@ -43,7 +43,7 @@ export function useEscapeKeydown({
 			return;
 		}
 
-		let isOwn = false;
+		let shouldOwnEscapeRequest = false;
 		return combine(
 			// `closedby="none"` hides the dialog from other layers' checks. Mark it.
 			setAttribute({ element: dialog, name: manualEscapeLayerAttribute, value: '' }),
@@ -55,7 +55,8 @@ export function useEscapeKeydown({
 					type: 'keydown',
 					listener(event) {
 						if (event.key === 'Escape') {
-							isOwn = dialog.open && !hasEscapeOwnerAbove({ element: dialog, isLayer: true });
+							shouldOwnEscapeRequest =
+								dialog.open && !hasEscapeOwnerAbove({ element: dialog, isLayer: true });
 						}
 					},
 					options: { capture: true },
@@ -65,8 +66,8 @@ export function useEscapeKeydown({
 					type: 'keydown',
 					listener(event) {
 						// `defaultPrevented`: an inner handler took this Escape, so one press undoes one thing (as
-						// a native `<dialog>`). Legacy ModalDialog closes anyway; the flag changes that.
-						if (!isEscapeToHandle({ event }) || !isOwn || !dialog.open) {
+						// with a native `<dialog>`). Legacy ModalDialog closes anyway; the flag changes that.
+						if (!isEscapeToHandle({ event }) || !shouldOwnEscapeRequest || !dialog.open) {
 							return;
 						}
 						// `claimEscape()` stops the browser's close request. It would skip this `closedby="none"`

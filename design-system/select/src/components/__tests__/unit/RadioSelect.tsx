@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/fs/filename-pattern-match */
-
 import React from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -19,7 +17,6 @@ const OPTIONS = [
 	{ label: '4', value: 'four' },
 ];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Radio Select', () => {
 	it('removes the focused option indicator when Finesse is enabled', async () => {
 		passGate('platform-dst-tokens-finesse');

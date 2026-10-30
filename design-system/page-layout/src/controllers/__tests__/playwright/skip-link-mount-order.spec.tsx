@@ -54,6 +54,10 @@ const expectedOrder = [
 	'right-panel',
 ];
 
+async function expectLinkOrder(page: Parameters<typeof getLinkFragments>[0], order: string[]) {
+	await expect.poll(() => getLinkFragments(page)).toStrictEqual(order);
+}
+
 test('Links should have DOM order by default', async ({ page }) => {
 	await page.visitExample<typeof import('../../../../examples/00-customizable-page-layout.tsx')>(
 		'design-system',
@@ -61,8 +65,8 @@ test('Links should have DOM order by default', async ({ page }) => {
 		'customizable-page-layout',
 	);
 
-	const linkFragments = await getLinkFragments(page);
-	expect(linkFragments).toStrictEqual(expectedOrder);
+	await expect(page.locator(skipLink)).toHaveCount(expectedOrder.length);
+	await expectLinkOrder(page, expectedOrder);
 });
 
 test('Remounting the first slot (banner) should maintain its order', async ({ page }) => {
@@ -80,8 +84,7 @@ test('Remounting the first slot (banner) should maintain its order', async ({ pa
 	await page.locator(toggleBanner).first().click();
 	// Wait for DOM to stabilize after remounting by checking link count restored
 	await expect(page.locator(skipLink)).toHaveCount(expectedOrder.length, { timeout: 5000 });
-	linkFragments = await getLinkFragments(page);
-	expect(linkFragments).toStrictEqual(expectedOrder);
+	await expectLinkOrder(page, expectedOrder);
 });
 
 test('Remounting an arbitrary slot (left-sidebar) should maintain its order', async ({ page }) => {
@@ -99,8 +102,7 @@ test('Remounting an arbitrary slot (left-sidebar) should maintain its order', as
 	await page.locator(toggleLeftSidebar).first().click();
 	// Wait for DOM to stabilize after remounting by checking link count restored
 	await expect(page.locator(skipLink)).toHaveCount(expectedOrder.length, { timeout: 5000 });
-	linkFragments = await getLinkFragments(page);
-	expect(linkFragments).toStrictEqual(expectedOrder);
+	await expectLinkOrder(page, expectedOrder);
 });
 
 test('Remounting the last slot (right-panel) should maintain its order', async ({ page }) => {
@@ -118,8 +120,7 @@ test('Remounting the last slot (right-panel) should maintain its order', async (
 	await page.locator(toggleRightPanel).first().click();
 	// Wait for DOM to stabilize after remounting by checking link count restored
 	await expect(page.locator(skipLink)).toHaveCount(expectedOrder.length, { timeout: 5000 });
-	linkFragments = await getLinkFragments(page);
-	expect(linkFragments).toStrictEqual(expectedOrder);
+	await expectLinkOrder(page, expectedOrder);
 });
 
 test('Remounting many items randomly should maintain order', async ({ page }) => {
@@ -143,6 +144,5 @@ test('Remounting many items randomly should maintain order', async ({ page }) =>
 	await page.locator(toggleMain).first().click();
 	// Wait for DOM to stabilize after multiple remounting operations by checking link count restored
 	await expect(page.locator(skipLink)).toHaveCount(expectedOrder.length, { timeout: 5000 });
-	linkFragments = await getLinkFragments(page);
-	expect(linkFragments).toStrictEqual(expectedOrder);
+	await expectLinkOrder(page, expectedOrder);
 });

@@ -1,23 +1,23 @@
 export const adfDate: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					attrs: {
 						timestamp: string;
 					};
 					text?: undefined;
+					type: string;
 			  }
 			| {
-					type: string;
-					text: string;
 					attrs?: undefined;
+					text: string;
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -44,17 +44,16 @@ export const adfDate: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const emptyDocument: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			text: string;
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

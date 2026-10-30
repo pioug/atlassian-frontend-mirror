@@ -40,6 +40,7 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import { calcBreakoutWidthCss } from '../utils/breakout';
 import { ExtensionComments } from './extension-comments';
+import { useNodeHeight, type ScheduleExtensionHeightRemoval } from './useNodeHeight';
 
 interface Props {
 	allowAnnotations?: boolean;
@@ -64,6 +65,8 @@ interface Props {
 	localId?: string;
 	marks?: PMMark[];
 	nodeHeight?: string;
+	nodePresetHeight?: number;
+	nodePresetMinHeight?: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
@@ -71,6 +74,7 @@ interface Props {
 	providers: ProviderFactory;
 	rendererAppearance?: RendererAppearance;
 	rendererContext: RendererContext;
+	scheduleExtensionHeightRemoval?: ScheduleExtensionHeightRemoval;
 	shouldDisplayExtensionAsInline?: (extensionParams?: ExtensionParams<Parameters>) => boolean;
 	text?: string;
 }
@@ -80,6 +84,7 @@ type AllOrNone<T> = T | { [K in keyof T]?: never };
 type RenderExtensionOptions = {
 	dataAttributes?: Props['dataAttributes'];
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	height?: number;
 	isCommentTarget?: boolean;
 	isTopLevel?: boolean;
 	onBlur?: React.FocusEventHandler<HTMLDivElement>;
@@ -110,6 +115,17 @@ const macroHeights: ViewportSizeObjectType = {
 	large: '524px',
 	xlarge: '1048px',
 };
+
+export const hasExtensionViewportSize = (
+	extensionId?: string,
+	extensionViewportSizes?: ExtensionViewportSize[],
+): boolean =>
+	Boolean(
+		extensionId &&
+		extensionViewportSizes?.some(
+			(extension) => extension.extensionId === extensionId && Boolean(extension.viewportSize),
+		),
+	);
 
 const getViewportSize = (
 	extensionId?: string,
@@ -172,7 +188,7 @@ export const renderExtension = (
 	removeOverflow?: boolean,
 	extensionId?: string,
 	extensionViewportSizes?: ExtensionViewportSize[],
-	nodeHeight?: string,
+	nodePresetMinHeight?: string,
 	localId?: string,
 	shouldDisplayExtensionAsInline?: (extensionParams?: ExtensionParams<Parameters>) => boolean,
 	node?: ExtensionParams<Parameters>,
@@ -199,7 +215,7 @@ export const renderExtension = (
 	 * as the extension handler in CFE for legacy macros and Connect.
 	 */
 	const viewportSize = getViewportSize(extensionId, extensionViewportSizes);
-	const extensionHeight = nodeHeight || viewportSize;
+	const extensionHeight = nodePresetMinHeight || viewportSize;
 	// Forge manifest heights already include px; Connect node heights are numeric strings.
 	const extensionMinHeight =
 		extensionHeight?.endsWith('px') && fg('confluence_forge_early_render_reserve_height')
@@ -259,6 +275,8 @@ export const renderExtension = (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${inlineClassName} ${options.shadowClassNames} ${centerAlignClass}`}
 			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Runtime preset height is omitted from the legacy style object.
+				...(!isInline && options.height !== undefined ? { height: options.height } : {}),
 				width: isInline
 					? undefined
 					: (
@@ -465,6 +483,9 @@ const ExtensionContent = ({
 		localId,
 		isInsideOfInlineExtension,
 	} = props;
+	const presetOptions = props.scheduleExtensionHeightRemoval
+		? { height: props.nodePresetHeight }
+		: {};
 
 	return (
 		<ExtensionRenderer
@@ -489,6 +510,7 @@ const ExtensionContent = ({
 							</ExtensionComments>,
 							layout,
 							{
+								...presetOptions,
 								dataAttributes: props.dataAttributes,
 								isTopLevel: path.length < 1,
 								handleRef,
@@ -533,6 +555,7 @@ const ExtensionContent = ({
 					</ExtensionComments>,
 					layout,
 					{
+						...presetOptions,
 						dataAttributes: props.dataAttributes,
 						isTopLevel: path.length < 1,
 						handleRef,
@@ -555,7 +578,7 @@ const ExtensionContent = ({
 	);
 };
 
-const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) => {
+const ExtensionView = (props: React.PropsWithChildren<Props & OverflowShadowProps>) => {
 	// Keep annotation context subscriptions out of the gate-off render path.
 	if (fg('cc_maui_annotations_on_extensions')) {
 		// eslint-disable-next-line react/jsx-props-no-spreading
@@ -563,6 +586,41 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 	}
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <ExtensionContent {...props} />;
+};
+
+const ExtensionWithTemporarySizing = (
+	props: React.PropsWithChildren<Props & OverflowShadowProps>,
+) => {
+	const { presetMinHeight, presetHeight, hasExpired } = useNodeHeight({
+		nodePresetMinHeight: props.nodePresetMinHeight,
+		node: props.extensionNode,
+		scheduleRemoval: props.scheduleExtensionHeightRemoval,
+		nodePresetHeight: props.nodePresetHeight,
+		hasViewportSize: hasExtensionViewportSize(
+			props.parameters?.extensionId,
+			props.extensionViewportSizes,
+		),
+	});
+	return (
+		<ExtensionView
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			nodeHeight={presetMinHeight}
+			nodePresetHeight={presetHeight}
+			extensionViewportSizes={
+				hasExpired || presetHeight !== undefined ? undefined : props.extensionViewportSizes
+			}
+		/>
+	);
+};
+
+const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) => {
+	if (props.scheduleExtensionHeightRemoval) {
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		return <ExtensionWithTemporarySizing {...props} />;
+	}
+	// eslint-disable-next-line react/jsx-props-no-spreading
+	return <ExtensionView {...props} />;
 };
 
 const _default_1: React.ComponentClass<Props & OverflowShadowProps, OverflowShadowState> =

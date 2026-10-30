@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
+import { isNativeEmbedExtension } from '@atlaskit/editor-common/extensibility/native-embed';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import {
@@ -94,6 +95,19 @@ const addBreakoutToResizableNode = ({
 		const { expand } = newState.schema.nodes;
 		const breakoutMark = node.marks.find((mark) => mark.type === breakout);
 		const isExpand = node.type === expand;
+
+		if (isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1')) {
+			// native embeds own their resize functionality
+			// remove breakout marks added by any resizing normalization
+			if (isNativeEmbedExtension(node)) {
+				return {
+					updatedTr: breakoutMark
+						? newTr.setNodeMarkup(pos, node.type, node.attrs, breakout.removeFromSet(node.marks))
+						: newTr,
+					updatedDocChanged: !!breakoutMark,
+				};
+			}
+		}
 
 		if (!breakoutMark) {
 			const width = getInitialBreakoutWidth(node, isFullWidthEnabled, isMaxWidthEnabled);

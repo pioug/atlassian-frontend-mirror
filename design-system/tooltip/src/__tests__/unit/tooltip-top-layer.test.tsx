@@ -33,7 +33,6 @@ function simulatePopoverClose(popoverEl: HTMLElement) {
 	});
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () => {
 	let originalMatches: typeof HTMLElement.prototype.matches;
 
@@ -491,7 +490,6 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 						ref={ref}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={className}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						style={style}
 						placement={placement}
 						testId={testId}
@@ -829,7 +827,6 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off('platform-dst-top-layer-tooltip', 'Tooltip legacy role', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

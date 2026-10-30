@@ -1,5 +1,15 @@
 # @atlaskit/css-reset
 
+## 8.4.8
+
+### Patch Changes
+
+- [`e5b37e9db08c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5b37e9db08c6) -
+  Update the shared font-family fallback used by body, heading and `small` styles to
+  `ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif`,
+  matching the stack already used for `small` and `caption`. Fallbacks only apply when the tokens
+  theme CSS is not loaded. `build-css` now reproduces the committed CSS.
+
 ## 8.4.7
 
 ### Patch Changes

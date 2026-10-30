@@ -3,28 +3,27 @@
 /**
  * Patches `toBeVisible()` to understand popover and dialog visibility.
  *
- * jest-dom's `toBeVisible()` does not know about the Popover API. In real
- * browsers the UA stylesheet hides `[popover]` with `display: none`, but
- * jsdom has no such stylesheet - so closed popovers incorrectly appear visible.
+ * jest-dom's `toBeVisible()` does not know about the Popover API. In a browser, the user agent
+ * style sheet hides a closed `[popover]` with `display: none`. jsdom has no such rule, so a closed
+ * popover appears visible.
  *
  * Raw jest-dom results in jsdom:
  *
- *   closed popover / child  → true  (WRONG - should be false)
+ *   closed popover / child  → true  (wrong: a browser gives false)
  *   open popover / child    → true  (correct)
- *   closed dialog / child   → false (correct - jsdom natively hides <dialog>)
+ *   closed dialog / child   → false (correct: jsdom hides a closed <dialog>)
  *   open dialog / child     → true  (correct)
  *
  * The patch walks the element and its ancestors with jest-dom's own rules (`display`,
- * `visibility`, `opacity`, `hidden`, `<details>`), and adds the browser's UA rules for top-layer
- * hosts:
+ * `visibility`, `opacity`, `hidden`, `<details>`), and adds the browser's user agent rules for
+ * top-layer hosts:
  *   1. A closed popover or dialog hides its subtree.
  *   2. An open popover or dialog is not hidden by its own style. In jsdom that style can come from
  *      author CSS that a `:popover-open` rule (not supported in jsdom) would override, or from
  *      the JavaScript positioning fallback's inline `opacity: 0`, which a browser removes once
  *      the popover has a layout.
- *
- *   3. Above an open popover or modal dialog, an ancestor's `opacity` does not apply: a top-layer element is painted
- *      outside its ancestors' stacking contexts.
+ *   3. Above an open popover or modal dialog, an ancestor's `opacity` does not apply: a top-layer
+ *      element is painted outside the stacking contexts of its ancestors.
  *
  * Everything else still applies, as in a browser: an element hidden by its own style, or by an
  * ancestor below the host, is not visible. Above the host, `display: none`, `visibility` and
@@ -70,7 +69,7 @@ function isInTopLayer(element: Element): boolean {
 	}
 }
 
-function getTopLayerType(element: Element): string {
+function getTopLayerType(element: Element): 'popover' | 'dialog' {
 	return element.hasAttribute('popover') ? 'popover' : 'dialog';
 }
 
@@ -182,19 +181,19 @@ expect.extend({
 		if (!visibility.isVisible) {
 			// Only a closed top-layer host makes jsdom say "visible" when a browser would not.
 			const { closedHost } = visibility;
-			const type = closedHost ? getTopLayerType(closedHost) : 'top-layer element';
+			const hostType = closedHost ? getTopLayerType(closedHost) : 'top-layer element';
 			return {
 				pass: false,
-				message: () => `expected element to be visible, but it is inside a closed ${type}`,
+				message: () => `expected element to be visible, but it is inside a closed ${hostType}`,
 			};
 		}
 
 		// jsdom hides an open top-layer host with a style that a browser would not apply.
 		const openHost = getNearestOpenHost(element);
-		const type = openHost ? getTopLayerType(openHost) : 'top-layer element';
+		const hostType = openHost ? getTopLayerType(openHost) : 'top-layer element';
 		return {
 			pass: true,
-			message: () => `expected element not to be visible, but it is inside an open ${type}`,
+			message: () => `expected element not to be visible, but it is inside an open ${hostType}`,
 		};
 	},
 });

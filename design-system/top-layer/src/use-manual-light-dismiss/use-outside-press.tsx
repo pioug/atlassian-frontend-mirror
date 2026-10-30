@@ -7,8 +7,8 @@ function isInside({ ref, target }: { ref: RefObject<HTMLElement | null>; target:
 }
 
 /**
- * Calls `onOutsidePress` for a pointer press that starts and ends outside the element. Independent
- * of Escape ownership.
+ * Calls `onOutsidePress` for a pointer press that starts and ends outside `elementRef` and
+ * `additionalInsideElementRefs`. It does not use Escape ownership.
  *
  * Not stacked, as native light dismiss: one press closes every open layer it is outside. Escape
  * closes one layer per press. See `notes/decisions/outside-press-closes-every-layer.md`.
@@ -53,8 +53,8 @@ export function useOutsidePress({
 		 */
 		const press = { isStartedOutside: false };
 
-		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- light dismiss listens on the whole document
 		return bindAll(
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- light dismiss listens on the whole document
 			document,
 			[
 				{

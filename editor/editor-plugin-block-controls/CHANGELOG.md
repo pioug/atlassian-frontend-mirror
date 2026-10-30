@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 31.1.0
+
+### Minor Changes
+
+- [`9b715ec6d5cb4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b715ec6d5cb4) -
+  Reduce layout shift from registry block controls behind `platform_editor_block_controls_cls_fix`.
+  Controls keep their anchors until React has rendered their replacement, ignore hover from a
+  resting pointer until it moves, and no longer count their outer positioning box as a layout-shift
+  source.
+
+### Patch Changes
+
+- [`097410db2e9cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/097410db2e9cd) -
+  Let pointer events pass through nested block-controls left surfaces, so the table row insert
+  button stays clickable when a table is nested
+
 ## 31.0.5
 
 ### Patch Changes

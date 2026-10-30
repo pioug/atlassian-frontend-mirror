@@ -13,7 +13,6 @@ const styles = css({
 	paddingInlineStart: token('space.100'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 const _default_1: JSX.Element[] = [<div css={styles}>Styled content</div>];
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export default _default_1;

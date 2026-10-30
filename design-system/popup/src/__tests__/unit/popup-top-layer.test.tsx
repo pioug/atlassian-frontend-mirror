@@ -52,7 +52,6 @@ const styles = cssMap({
 
 // ── Tests ──
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => {
 	it('renders the trigger element', () => {
 		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
@@ -114,7 +113,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off('platform-dst-top-layer', 'Popup legacy: trigger aria-haspopup', () => {
 	it('sets aria-haspopup="true" when the popup has no role', () => {
 		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
@@ -124,7 +122,6 @@ ffTest.off('platform-dst-top-layer', 'Popup legacy: trigger aria-haspopup', () =
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => {
 	it('renders content when isOpen is true', () => {
 		render(
@@ -183,7 +180,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: onClose callback', () => {
 	it('passes onClose to the content render prop', () => {
 		const onClose = jest.fn();
@@ -198,7 +194,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: onClose callback', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: testId forwarding', () => {
 	it('applies testId to the content wrapper', () => {
 		render(
@@ -209,7 +204,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: testId forwarding', () => 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: xcss', () => {
 	it('applies xcss to the element wrapping the content', () => {
 		render(
@@ -230,7 +224,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: xcss', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: popupComponent', () => {
 	it('renders content inside a custom popupComponent', () => {
 		const CustomContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
@@ -281,7 +274,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: popupComponent', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attribute', () => {
 	it('does not apply a role when none is supplied (legacy `Popup` contract)', () => {
 		render(
@@ -367,7 +359,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 1.3.2 — DOM order (no portals)', () => {
 	it('renders content in DOM order (not portalled)', () => {
 		const { container } = render(
@@ -389,7 +380,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 1.3.2 — DOM order (
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () => {
 	it('passes width="trigger" to Popup.Content when shouldFitContainer is true', () => {
 		render(
@@ -415,7 +405,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () =>
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: offset conversion', () => {
 	it('accepts offset prop without error', () => {
 		expect(() =>
@@ -448,7 +437,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: offset conversion', () => 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitViewport', () => {
 	it('renders content with shouldFitViewport=true', () => {
 		render(
@@ -473,7 +461,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitViewport', () => 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldReturnFocus', () => {
 	it('accepts shouldReturnFocus=false without error', () => {
 		expect(() =>
@@ -502,7 +489,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldReturnFocus', () => 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog roles', () => {
 	it('applies label to listbox role', () => {
 		render(
@@ -542,7 +528,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog role
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted', () => {
 	it('accepts zIndex without error', () => {
 		expect(() =>

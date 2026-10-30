@@ -5,7 +5,7 @@ import { bindAll } from 'bind-event-listener';
 /**
  * Calls `onBackdropClick` for a click on the backdrop of the open dialog.
  *
- * The dialog has `closedby="none"`, so the browser does not light-dismiss it. As native light
+ * The dialog has `closedby="none"`, so the browser does not light-dismiss it. As with native light
  * dismiss, the press and the release must both be on the backdrop. Browsers retarget
  * `::backdrop` events to the `<dialog>`, so the target is the dialog itself.
  *

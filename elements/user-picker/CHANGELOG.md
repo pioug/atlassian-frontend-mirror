@@ -1,5 +1,25 @@
 # @atlaskit/user-picker
 
+## 14.5.0
+
+### Minor Changes
+
+- [`69008f6bdcb98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69008f6bdcb98) -
+  Adjust all mention picker rows and emoji results to use 6px vertical padding, 8px between rows,
+  and 2px between primary and secondary text behind platform_editor_mentions_email_search.
+
+  Center the avatar and text within the 50px selection row and reserve the 8px gap outside the
+  selection and focus backgrounds.
+
+  Share the presentational picker row between mentions and emoji through
+  `@atlaskit/user-picker/picker-item-content`.
+
+  Apply the same gated preview spacing to the emoji picker footer, and use 12px horizontal padding
+  and avatar-to-text spacing for both mentions and emoji.
+
+  Consolidate byline formatting within the email-search layout, keeping the original byline
+  components in the legacy path and subtext presentation internal to each layout.
+
 ## 14.4.0
 
 ### Minor Changes

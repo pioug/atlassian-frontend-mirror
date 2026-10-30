@@ -410,7 +410,6 @@ test.describe('Dialog - open and close', () => {
 		async function tabUntilCloseButtonFocused(maxAttempts: number): Promise<boolean> {
 			for (const _ of Array.from({ length: maxAttempts })) {
 				await page.keyboard.press('Tab');
-				// eslint-disable-next-line playwright/no-conditional-in-test -- searching for close button via tabbing
 				const hasAriaLabel = await page.evaluate(
 					() => document.activeElement?.getAttribute('aria-label') === 'Close',
 				);
@@ -845,7 +844,6 @@ test.describe('Dialog - ARIA', () => {
 
 		// Role: native <dialog> exposes role="dialog" implicitly (no explicit attr needed)
 		const role = await dialog.evaluate((element) => element.getAttribute('role'));
-		// eslint-disable-next-line playwright/no-conditional-in-test -- native dialog may or may not have explicit role attr
 		expect(role === null || role === 'dialog').toBe(true);
 
 		// Labelling: aria-labelledby must point to a visible heading

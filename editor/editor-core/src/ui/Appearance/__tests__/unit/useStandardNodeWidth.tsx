@@ -40,6 +40,7 @@ jest.mock('../../../EditorContentContainer/EditorContentContainer', () => {
 
 const GATE = 'platform_editor_expand_standard_width_fix';
 const WORK_ITEM_MODERNIZATION = 'work_item_modernization';
+const COHORT_GATE = 'wiv_modernization_cohort';
 
 const blockMenuAPI = (useStandardNodeWidth: boolean) =>
 	({
@@ -109,6 +110,15 @@ describe('useStandardNodeWidth', () => {
 
 			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'true');
 		});
+
+		it('uses the block menu value in the modernization cohort when the gate is off', () => {
+			failGate(GATE);
+			passGate(COHORT_GATE);
+			mockExpDisabled(WORK_ITEM_MODERNIZATION);
+			setupEditorExperiments('test', { platform_editor_controls: 'control' });
+
+			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'true');
+		});
 	});
 
 	describe('chromeless appearance', () => {
@@ -128,6 +138,14 @@ describe('useStandardNodeWidth', () => {
 		it('uses the block menu value in the work item modernization experiment when the gate is off', () => {
 			failGate(GATE);
 			mockExpEnabled(WORK_ITEM_MODERNIZATION);
+
+			expect(renderChromeless(true)).toHaveAttribute('data-use-standard-node-width', 'true');
+		});
+
+		it('uses the block menu value in the modernization cohort when the gate is off', () => {
+			failGate(GATE);
+			passGate(COHORT_GATE);
+			mockExpDisabled(WORK_ITEM_MODERNIZATION);
 
 			expect(renderChromeless(true)).toHaveAttribute('data-use-standard-node-width', 'true');
 		});

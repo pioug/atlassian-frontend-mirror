@@ -18,7 +18,6 @@ const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagNew component (UI uplift)', () => {
 	const testId = 'test-tag-new';
 
@@ -200,7 +199,7 @@ describe('TagNew component (UI uplift)', () => {
 			const tagText = screen.getByText('Motion tag');
 
 			// The animated tag sits inside a tag-sized wrapper so percentage widths resolve locally.
-			// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+			// eslint-disable-next-line testing-library/no-node-access
 			expect(container.firstElementChild).toContainElement(tag);
 			expect(tag).toContainElement(removeButton);
 			expect(tag).toHaveStyle({ animation: '' });

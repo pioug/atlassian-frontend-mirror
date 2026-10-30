@@ -135,7 +135,6 @@ const SpotlightDialogLabel = (props: SpotlightDialogLabelProps) => {
 	);
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Benefits Modal', () => {
 	it('should have an appriorate accessible label', () => {
 		render(<Modal heading="Experience the new Jira">How about some body text?</Modal>);
@@ -295,7 +294,6 @@ describe('<Spotlight />', () => {
 					</SpotlightManager>,
 				);
 
-				// eslint-disable-next-line testing-library/no-node-access -- comparing compiled class lists for pulse on/off
 				const cloneWithoutPulse = screen.getByTestId('spotlight--target').className;
 
 				rerender(
@@ -319,7 +317,6 @@ describe('<Spotlight />', () => {
 					</SpotlightManager>,
 				);
 
-				// eslint-disable-next-line testing-library/no-node-access -- comparing compiled class lists for pulse on/off
 				const cloneWithPulse = screen.getByTestId('spotlight--target').className;
 
 				// toHaveCompiledCss does not resolve pulse keyframes on portalled nodes in JSDOM;

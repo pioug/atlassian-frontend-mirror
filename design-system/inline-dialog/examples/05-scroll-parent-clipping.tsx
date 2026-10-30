@@ -33,7 +33,6 @@ export default class InlineDialogParentClippingExample extends Component<{}, Sta
 				</p>
 				<div
 					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						border: `${token('border.width.selected')} dashed grey`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						boxSizing: 'border-box',

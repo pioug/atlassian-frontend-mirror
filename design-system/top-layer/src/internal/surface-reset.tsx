@@ -1,5 +1,8 @@
 import type { CompiledStyles } from '@compiled/react';
 
+/**
+ * The source of truth for the surface reset: each property and the value that both copies set.
+ */
 type TSurfaceResetDeclarations = {
 	pointerEvents: 'auto';
 	whiteSpace: 'normal';
@@ -22,8 +25,8 @@ type TCompiledValue<TValue> = TValue extends `var(--ds-${string})` ? TValue : st
  * `dialog/dialog-content.tsx` (ADS forbids shared styles). Each copy checks
  * itself against this type. Change `TSurfaceResetDeclarations` first.
  *
- * Checks property names and the selector only: `cssMap` widens nested values to
- * `string`. The host specificity VR tests check the values.
+ * Checks the property names, the selector and token values only: `cssMap` widens other nested
+ * values to `string`. The host specificity VR tests check the values.
  */
 export type TBoostedSurfaceReset<TSelector extends string> = CompiledStyles<{
 	[TKey in TSelector]: {
@@ -33,8 +36,8 @@ export type TBoostedSurfaceReset<TSelector extends string> = CompiledStyles<{
 	};
 }>;
 
-type TIsIdentical<A, B> =
-	(<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false;
+type TIsIdentical<TActual, TExpected> =
+	(<T>() => T extends TActual ? 1 : 2) extends <T>() => T extends TExpected ? 1 : 2 ? true : false;
 
 /**
  * Identity, not assignability, so extra properties or a wrong selector fail.

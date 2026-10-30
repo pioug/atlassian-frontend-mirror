@@ -258,6 +258,7 @@ describe('AssetsSearchContainer', () => {
 
 				expect(screen.getByText(modalTitleText)).toBeInTheDocument();
 				expect(screen.getByText(insertObjectsLabel)).toBeInTheDocument();
+				expect(screen.getByRole('heading', { level: 2, name: 'Filter' })).toBeInTheDocument();
 				expect(screen.getByTestId(objectSchemaSelectTestId)).toHaveTextContent(objectSchema.name);
 				expect(screen.getByRole('button', { name: configPopupTriggerName })).toBeInTheDocument();
 				expect(screen.getByRole('button', { name: closeButtonName })).toBeInTheDocument();

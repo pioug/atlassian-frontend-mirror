@@ -467,7 +467,6 @@ function PlacementCell({
 
 	return (
 		<div>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic decoration values cannot use cssMap */}
 			<div
 				ref={triggerRef}
 				css={[styles.cellBox, styles.target]}
@@ -508,7 +507,6 @@ function PlacementCell({
 				placement={placement}
 				onClose={close}
 			>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic color */}
 				<div css={[styles.cellBox, styles.popoverContent]} style={{ backgroundColor: color }}>
 					<strong css={styles.popoverIdTag}>{id}:popup</strong>
 				</div>

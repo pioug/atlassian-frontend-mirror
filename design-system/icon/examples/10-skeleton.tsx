@@ -11,7 +11,7 @@ export default (): React.JSX.Element => (
 		<Skeleton size="xlarge" />
 
 		<p>Changing color via inheritance</p>
-		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={{ color: '#403294' }}>
 			<Skeleton size="small" />
 			<Skeleton size="medium" />

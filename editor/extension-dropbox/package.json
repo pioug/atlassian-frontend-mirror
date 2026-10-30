@@ -69,11 +69,5 @@
 		"@atlassian/workbench": "workspace:*",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"
-	},
-	"platform-feature-flags": {
-		"platform_dst_modal-dialog-use-modal-title": {
-			"type": "boolean",
-			"referenceOnly": true
-		}
 	}
 }

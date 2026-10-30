@@ -13,7 +13,6 @@ import ModalHeader from '../../modal-header';
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ModalHeader />', () => {
 	beforeEach(() => {
 		skipA11yAudit();

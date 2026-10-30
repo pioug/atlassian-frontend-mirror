@@ -1,5 +1,3 @@
-/* eslint-disable testing-library/no-node-access */
-
 import React, { type Dispatch, type SetStateAction } from 'react';
 
 import { bind } from 'bind-event-listener';
@@ -127,7 +125,6 @@ function CompositionalPopup({
 
 // With no role, the legacy path (flag off) and the top-layer path agree:
 // `autoFocus={false}` keeps focus where it was.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.both('platform-dst-top-layer', 'Popup: autoFocus={false} without a role', () => {
 	it('keeps focus on the trigger when the popup opens', async () => {
 		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
@@ -215,7 +212,6 @@ ffTest.both('platform-dst-top-layer', 'Popup: autoFocus={false} without a role',
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus', () => {
 	it('does not blur the trigger when the popup opens', async () => {
 		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
@@ -297,7 +293,6 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus'
 });
 
 // Role and focus go together: `autoFocus` has no effect on the top-layer path.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: focus follows role', () => {
 	it('moves focus into a dialog popup', async () => {
 		const { rerender } = render(<ClassicPopup isOpen={false} popupRole="dialog" />);

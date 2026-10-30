@@ -21,7 +21,12 @@ async function getBrowserTypeName(page: Page) {
  * because `pragmatic-drag-and-drop` will schedule updates into frames.
  */
 async function waitForFrame(page: Page) {
-	await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
+	await page.evaluate(
+		() =>
+			new Promise<void>((resolve) => {
+				requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+			}),
+	);
 }
 
 async function getLocatorWidth(locator: Locator): Promise<number> {
@@ -41,8 +46,8 @@ async function dragAndDrop({
 }) {
 	await locator.hover();
 	await page.mouse.down();
-	await page.mouse.move(target.x, target.y);
-	await page.mouse.move(target.x, target.y);
+	await page.mouse.move(target.x, target.y, { steps: 5 });
+	await page.mouse.move(target.x, target.y, { steps: 5 });
 	await waitForFrame(page);
 	await page.mouse.up();
 }
@@ -53,8 +58,8 @@ const steppedDrag = {
 		await page.mouse.down();
 	},
 	async moveTo({ page, target }: { page: Page; target: { x: number; y: number } }) {
-		await page.mouse.move(target.x, target.y);
-		await page.mouse.move(target.x, target.y);
+		await page.mouse.move(target.x, target.y, { steps: 5 });
+		await page.mouse.move(target.x, target.y, { steps: 5 });
 
 		await waitForFrame(page);
 	},

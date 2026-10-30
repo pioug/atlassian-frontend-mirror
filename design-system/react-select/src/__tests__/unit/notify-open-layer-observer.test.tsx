@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-node-access */
 // @ts-nocheck
 import React from 'react';
 
@@ -74,7 +73,6 @@ describe('Legacy NotifyOpenLayerObserver - flag OFF (still fires)', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Open layers - flag ON (found through the DOM, not the observer)', () => {
 	beforeEach(() => {
 		passGate('platform-dst-top-layer');

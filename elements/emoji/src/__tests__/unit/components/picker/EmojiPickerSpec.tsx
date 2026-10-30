@@ -8,7 +8,6 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import type { ServiceConfig } from '@atlaskit/util-service-support/types';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
@@ -1157,7 +1156,6 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
-					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
 						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
@@ -1209,7 +1207,6 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
-					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
 						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
@@ -1255,7 +1252,6 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
-					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
 						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>
@@ -1306,7 +1302,6 @@ describe('<EmojiPicker />', () => {
 				};
 
 				return (
-					// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 					<div onKeyDown={handleParentKeyDown} data-testid="parent">
 						{/* eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex, @atlassian/a11y/no-static-element-interactions */}
 						<div onKeyDown={suppressKeyPress} data-testid="emoji-picker-mock" tabIndex={0}>

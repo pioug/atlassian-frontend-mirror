@@ -25,6 +25,7 @@ import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -347,7 +348,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		}, [buttonItemRef, shouldUpdateFocus, lastInputMethodRef, isSafari]);
 
 		if (customRenderItem) {
-			return (
+			const customItem = (
 				<CustomItemComponentWrapper
 					itemIsDisabled={itemIsDisabled}
 					customRenderItem={customRenderItem}
@@ -358,6 +359,12 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 					insertSelectedItem={insertSelectedItem}
 					itemIndex={itemIndex}
 				/>
+			);
+			return isExperimentEnabled('platform_editor_mentions_email_search') &&
+				(item.mention || item.emoji) ? (
+				<Box paddingBlockEnd="space.100">{customItem}</Box>
+			) : (
+				customItem
 			);
 		}
 

@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import RemovableTag from '../../internal/removable';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<RemovableTag />', () => {
 	describe('removal indicator', () => {
 		it('should render a remove button', () => {

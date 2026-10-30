@@ -2,11 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 import EmojiTypeAhead from '../../components/typeahead/EmojiTypeAhead';

@@ -2,8 +2,11 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import extractFileFormatIcon from '../extractors/flexible/icon/extract-file-formatIcon';
 import { getLazyIcons } from './get-lazy-icons';
+import { getLazyIconComponent } from './lazy-component';
 
 type IconLabelMap = [(() => Promise<any>) | undefined];
 
@@ -36,6 +39,15 @@ export const getIconForFileType = (
 
 	if (!importCb) {
 		return;
+	}
+
+	if (fg('platform_sl_replace_react_loadable')) {
+		const iconType = extractFileFormatIcon(fileMimeType.toLowerCase())?.icon;
+		if (iconType) {
+			const LazyIcon = getLazyIconComponent(`${iconType}:default`, importCb);
+			const lazyLabel = (showIconLabel ?? true) ? icon[1] || '' : '';
+			return (<LazyIcon testId="document-file-format-icon" label={lazyLabel} />) as React.ReactNode;
+		}
 	}
 
 	const Icon = Loadable({

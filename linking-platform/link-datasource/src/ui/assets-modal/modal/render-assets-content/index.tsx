@@ -197,7 +197,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Elemen
 		return (
 			<Stack space="space.200">
 				{status !== 'empty' && (
-					<Heading size="xsmall">
+					<Heading as="h2" size="xsmall">
 						<FormattedMessage {...modalMessages.tablePreviewText} />
 					</Heading>
 				)}

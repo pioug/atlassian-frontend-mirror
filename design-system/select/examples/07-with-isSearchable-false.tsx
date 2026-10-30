@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/fs/filename-pattern-match */
-
 import React from 'react';
 
 import { Label } from '@atlaskit/form/label/default';

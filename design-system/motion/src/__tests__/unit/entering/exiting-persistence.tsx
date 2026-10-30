@@ -26,7 +26,6 @@ const Motion = ({ id, color, onRender }: { id: string; color?: string; onRender?
 
 jest.mock('../../../utils/is-reduced-motion');
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<ExitingPersistence />', () => {
 	beforeEach(() => {
 		(isReducedMotion as jest.Mock).mockReturnValue(false);

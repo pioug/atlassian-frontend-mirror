@@ -7,7 +7,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 // Platform jest tests must use passGate/failGate to set gate values; ffTest is
 // not permitted in this repo (see platform AGENTS.md feature-gate testing rules).
-// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { Drawer } from '../../drawer';
@@ -378,7 +377,6 @@ describe('Drawer top-layer rendering', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Drawer legacy rendering (flag off)', () => {
 	beforeEach(() => {
 		failGate('platform-dst-top-layer');

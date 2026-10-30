@@ -8,6 +8,7 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 } from '@atlaskit/editor-shared-styles/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -400,8 +401,28 @@ export const bindSparseGutterHover = ({
 			},
 			options: { passive: true },
 		});
-	const unbindMouseOver = bindMouseListener('mouseover', onMouseOver);
-	const unbindMouseMove = bindMouseListener('mousemove', onMouseMove);
+	let unbindMouseOver: () => void;
+	let unbindMouseMove: () => void;
+	if (isExperimentEnabled('platform_editor_block_controls_cls_fix')) {
+		// Match the legacy ignoreRestingPointerHover guard until the pointer first moves.
+		let pointerHasMoved = false;
+		unbindMouseOver = bindMouseListener('mouseover', (event) => {
+			if (!pointerHasMoved) {
+				return;
+			}
+			onMouseOver(event);
+		});
+		unbindMouseMove = bindMouseListener('mousemove', (event) => {
+			if (!pointerHasMoved) {
+				pointerHasMoved = true;
+				onMouseOver(event);
+			}
+			onMouseMove(event);
+		});
+	} else {
+		unbindMouseOver = bindMouseListener('mouseover', onMouseOver);
+		unbindMouseMove = bindMouseListener('mousemove', onMouseMove);
+	}
 
 	return () => {
 		unbindMouseOver();

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';
 import { Header } from '@atlaskit/side-navigation/header';
@@ -80,7 +79,7 @@ const BasicExample = (): React.JSX.Element => {
 								<NestingItem
 									id="1-1"
 									title="Item A-1"
-									// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+									// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 									overrides={{
 										GoBackItem: {
 											render: (props) => (

@@ -8,10 +8,12 @@ export function getNearestContainingLayer({
 	element: HTMLElement;
 	layers: HTMLElement[];
 }): HTMLElement | null {
-	const containing = layers.filter((layer) => layer !== element && layer.contains(element));
+	const containingLayers = layers.filter((layer) => layer !== element && layer.contains(element));
+	// The deepest containing layer contains no other containing layer.
 	return (
-		containing.find(
-			(layer) => !containing.some((other) => other !== layer && layer.contains(other)),
+		containingLayers.find(
+			(layer) =>
+				!containingLayers.some((otherLayer) => otherLayer !== layer && layer.contains(otherLayer)),
 		) ?? null
 	);
 }

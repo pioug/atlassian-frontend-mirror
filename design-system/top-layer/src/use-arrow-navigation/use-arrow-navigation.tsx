@@ -2,96 +2,114 @@ import { type RefObject, useCallback, useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { KEY_DOWN, KEY_END, KEY_HOME, KEY_TAB, KEY_UP } from '@atlaskit/ds-lib/keycodes';
+import {
+	KEY_DOWN,
+	KEY_END,
+	KEY_HOME,
+	KEY_LEFT,
+	KEY_RIGHT,
+	KEY_TAB,
+	KEY_UP,
+} from '@atlaskit/ds-lib/keycodes';
 
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
 import { type TFocusableFilter } from '../focus/types';
 
-const menuScope = '[role="menu"]';
+const menuSelector = '[role="menu"]';
 
 /**
- * Args for `useArrowNavigation`.
- *
- * Keyboard contract:
- * - `ArrowDown` / `ArrowUp` move within the current menu level.
- * - `Home` / `End` jump to first / last.
- * - `ArrowRight` / `ArrowLeft` opens / closes nested submenus.
- * - `Tab` / `Shift+Tab` dismiss the menu (matching the ARIA APG menu pattern,
- *   plus Radix UI / Headless UI / React Aria / Floating UI conventions).
- *   Symmetric in both directions: there is no special-case for the last
- *   item that lets Tab leave the menu without dismissing it.
- * - `Page Up` / `Page Down`: NOT handled - extend via your own listener if
- *   your menu needs page-style scrolling.
+ * Arguments for `useArrowNavigation`. See the hook for the keyboard contract.
  */
 export type TUseArrowNavigationArgs = {
 	/**
-	 * Ref to the container element that holds the focusable items.
+	 * Ref to the container element that holds the focusable items. The hook listens for `keydown`
+	 * on this element.
 	 */
 	containerRef: RefObject<HTMLElement | null>;
 
 	/**
-	 * Called when ArrowRight is pressed on a focused element with `aria-haspopup`.
+	 * Called on `ArrowRight` when the focused element has `aria-haspopup`.
 	 *
-	 * This follows the WAI-ARIA menu pattern: ArrowRight on a menu item that
-	 * controls a submenu should open that submenu. The consumer decides *how*
-	 * to open it (e.g. `trigger.click()`, imperative state update, etc.).
-	 *
-	 * Only fires when `filter` (if provided) confirms the focused element
-	 * belongs to the current menu level.
+	 * In the WAI-ARIA menu pattern, `ArrowRight` on an item that controls a submenu opens that
+	 * submenu. You decide how to open it (for example `trigger.click()` or a state update).
 	 */
 	onNestedOpen?: ({ trigger }: { trigger: HTMLElement }) => void;
 
 	/**
-	 * Called when ArrowLeft is pressed and the current menu is nested
-	 * (i.e. the container is inside another `role="menu"`).
+	 * Called on `ArrowLeft` when the container is inside another `role="menu"` (a submenu).
 	 *
-	 * This follows the WAI-ARIA menu pattern: ArrowLeft in a submenu
-	 * should close it and return to the parent menu. The consumer
-	 * decides *how* to close (e.g. calling their close handler).
+	 * In the WAI-ARIA menu pattern, `ArrowLeft` in a submenu closes it and returns to the parent
+	 * menu. You decide how to close it (for example with your close handler).
 	 */
 	onNestedClose?: () => void;
 
 	/**
-	 * Called when the user presses Tab to exit the menu.
+	 * Called on `Tab` and `Shift+Tab`. Close the menu in response.
 	 */
 	onClose: () => void;
 
 	/**
-	 * When false, the keydown listener is not attached.
-	 * Defaults to true.
+	 * When `false`, the hook does not listen for `keydown`. Default: `true`.
 	 */
 	isEnabled?: boolean;
 
 	/**
-	 * Optional filter to restrict which focusable elements are navigated.
-	 * When provided, only elements that pass the filter will be focused.
+	 * Restricts which focusable elements the keys move focus to.
 	 *
-	 * The filter is also used as a guard on the currently focused element:
-	 * if the focused element does not pass the filter, the handler bails out.
-	 * This prevents parent menu handlers from acting on events that belong
-	 * to a nested menu.
+	 * The hook also checks the focused element with it. When the focused element does not pass,
+	 * the hook ignores the key. This stops a parent menu from acting on keys that belong to a
+	 * nested menu.
 	 *
-	 * A common filter is `isAtCurrentMenuLevel` which excludes items inside
-	 * nested `role="menu"` sub-containers.
+	 * A common filter is `isAtCurrentMenuLevel`, which excludes items inside a nested `role="menu"`.
 	 */
 	filter?: TFocusableFilter;
 };
 
 /**
- * Provides arrow key navigation for menu containers.
+ * Whether the focused element belongs to this menu level, so the hook acts on the key. A nested
+ * menu handles its own keys.
+ */
+function isFocusedElementAtThisLevel({
+	focusedElement,
+	container,
+	filter,
+}: {
+	focusedElement: Element | null;
+	container: HTMLElement;
+	filter?: TFocusableFilter;
+}): boolean {
+	if (!(focusedElement instanceof HTMLElement)) {
+		return true;
+	}
+	if (filter) {
+		return filter(focusedElement, container);
+	}
+	if (container.getAttribute('role') !== 'menu') {
+		return true;
+	}
+	return focusedElement.closest(menuSelector) === container;
+}
+
+/**
+ * **Arrow key navigation for a menu container**
  *
- * Uses the focusable helpers from `@atlaskit/top-layer/focus` to manage
- * DOM-based focus movement within a container.
+ * Moves DOM focus between the focusable elements in `containerRef`. The keyboard contract follows
+ * the WAI-ARIA APG menu pattern:
  *
- * - **ArrowDown / ArrowUp**: Move focus to the next/previous item (wraps).
- * - **Home / End**: Move focus to the first/last item.
- * - **Tab**: Calls `onClose` to exit the menu.
+ * - `ArrowDown` / `ArrowUp`: focus the next / previous item. Wraps at both ends.
+ * - `Home` / `End`: focus the first / last item.
+ * - `ArrowRight`: on an item with `aria-haspopup`, calls `onNestedOpen`.
+ * - `ArrowLeft`: in a menu inside another `role="menu"`, calls `onNestedClose`.
+ * - `Tab` / `Shift+Tab`: calls `onClose`, as in Radix UI, Headless UI, React Aria and Floating UI.
+ *   There is no special case that lets `Tab` on the last item leave the menu open.
+ * - `Page Up` / `Page Down`: not handled. Add your own listener if your menu needs page scrolling.
  *
- * When a `filter` is provided, it is used both for scoping focusable
- * elements and as a guard to prevent parent menu handlers from acting
- * on events that belong to a nested menu.
+ * The hook acts on a key only when the focused element belongs to this menu level, so a parent
+ * menu does not act on keys that belong to a nested menu. With a `filter`, the filter decides.
+ * Without one, a `role="menu"` container acts only when the closest `role="menu"` of the focused
+ * element is the container.
  *
  * @example Basic usage
  * ```tsx
@@ -130,25 +148,9 @@ export function useArrowNavigation({
 				return;
 			}
 
-			// Guard: only handle the event if the currently focused element
-			// belongs to this menu level. The focused element's closest
-			// [role="menu"] must be this container (not a nested sub-menu).
-			// When no filter is provided, fall back to the closest-menu check
-			// if the container has role="menu".
-			const focused = container.ownerDocument.activeElement;
-			if (focused instanceof HTMLElement) {
-				if (filter) {
-					if (!filter(focused, container)) {
-						return;
-					}
-				}
-				if (
-					!filter &&
-					container.getAttribute('role') === 'menu' &&
-					focused.closest(menuScope) !== container
-				) {
-					return;
-				}
+			const focusedElement = container.ownerDocument.activeElement;
+			if (!isFocusedElementAtThisLevel({ focusedElement, container, filter })) {
+				return;
 			}
 
 			if (event.key === KEY_DOWN) {
@@ -184,27 +186,25 @@ export function useArrowNavigation({
 				return;
 			}
 
-			// ── Nested menu navigation (WAI-ARIA menu pattern) ──
-			// ArrowRight on a menuitem with aria-haspopup opens the submenu.
-			if (event.key === 'ArrowRight') {
+			// Nested menus (WAI-ARIA menu pattern): ArrowRight on an item with `aria-haspopup` opens
+			// its submenu.
+			if (event.key === KEY_RIGHT) {
 				if (
 					onNestedOpen &&
-					focused instanceof HTMLElement &&
-					focused.hasAttribute('aria-haspopup')
+					focusedElement instanceof HTMLElement &&
+					focusedElement.hasAttribute('aria-haspopup')
 				) {
 					event.preventDefault();
-					onNestedOpen({ trigger: focused });
+					onNestedOpen({ trigger: focusedElement });
 				}
 				return;
 			}
 
-			// ArrowLeft closes the current menu if it is nested inside a parent menu.
-			if (event.key === 'ArrowLeft') {
+			// ArrowLeft closes this menu only if it is a submenu.
+			if (event.key === KEY_LEFT) {
 				if (onNestedClose) {
-					// Only close if this container is inside another role="menu"
-					// (i.e. it is a submenu, not the top-level menu).
-					// Walk up from the parent to avoid matching the container itself.
-					const isNested = Boolean(container.parentElement?.closest(menuScope));
+					// Start from the parent, so `closest()` does not match the container itself.
+					const isNested = Boolean(container.parentElement?.closest(menuSelector));
 					if (isNested) {
 						event.preventDefault();
 						onNestedClose();

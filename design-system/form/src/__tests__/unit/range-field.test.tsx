@@ -11,7 +11,6 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import Form from '../../form';
 import { RangeField } from '../../range-field';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('RangeField', () => {
 	const user = userEvent.setup();
 

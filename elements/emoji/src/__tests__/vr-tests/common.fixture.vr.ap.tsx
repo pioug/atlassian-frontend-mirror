@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { testingEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 

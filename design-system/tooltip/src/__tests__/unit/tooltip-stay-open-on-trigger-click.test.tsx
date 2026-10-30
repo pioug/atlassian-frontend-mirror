@@ -64,7 +64,6 @@ function leaveTrigger() {
 	});
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer-tooltip', 'hasNewContentOnTriggerClick (top-layer)', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
@@ -203,7 +202,6 @@ ffTest.on('platform-dst-top-layer-tooltip', 'hasNewContentOnTriggerClick (top-la
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off('platform-dst-top-layer-tooltip', 'hasNewContentOnTriggerClick (legacy)', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

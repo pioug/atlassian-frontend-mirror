@@ -10,20 +10,21 @@ import {
 	type TRoleWithInitialFocus,
 } from '../internal/role-types';
 
+export type { TPlacementOptions };
+
 /**
  * The reason a popover was closed.
  *
- * - `'escape'`: The user pressed the Escape key.
- * - `'light-dismiss'`: The user clicked outside the popover (or the browser
- *   dismissed it for another auto-mode reason).
- * - `'programmatic'`: The popover was closed programmatically.
+ * - `'escape'`: the user pressed the Escape key.
+ * - `'light-dismiss'`: the user clicked outside the popover, or the browser dismissed it for
+ *   another light dismiss reason (for example, another `auto` popover opened).
+ * - `'programmatic'`: code asked the popover to close (`requestClosePopovers()`).
  */
 export type TPopoverCloseReason = 'escape' | 'light-dismiss' | 'programmatic';
 
 /**
- * `initialFocusRef` exists only for roles that move focus on open. Other
- * roles, and no role, keep focus where it is, so a custom target has no
- * meaning there.
+ * `initialFocusRef` exists only for roles that move focus on open. Other roles, and no role, keep
+ * focus where it is, so a custom target has no meaning there.
  */
 type TInitialFocusProps =
 	| {
@@ -50,45 +51,16 @@ type TInitialFocusProps =
 			initialFocusRef?: never;
 	  };
 
-/**
- * Props accepted by the Popover component internally. Flat, except that
- * `initialFocusRef` needs a role that moves focus (`TInitialFocusProps`).
- *
- * Used by wrappers like `PopupContent` that destructure props from a
- * discriminated union and re-pass the individual fields: TypeScript cannot
- * prove the fields still satisfy the union. ARIA correctness is enforced at
- * the `TPopupContentProps` boundary where consumers interact.
- */
-export type TPopoverForwardedProps = TPopoverBaseProps &
-	TInitialFocusProps & {
-		mode?: 'auto' | 'hint' | 'manual';
-		/**
-		 * Called when the popover asks to close. See `TPopoverProps` for each `reason`.
-		 *
-		 * Also makes the popover closable: only a popover with
-		 * `onClose` is counted by `hasOpenDialogOrPopover()` and asked to close by
-		 * `requestClosePopovers()` (`@atlaskit/top-layer/page-surface/request-close-popovers`).
-		 */
-		onClose?: (args: { reason: TPopoverCloseReason }) => void;
-		role?: TRoleRequiringAccessibleName | TRoleWithImplicitName;
-		label?: string;
-		// eslint-disable-next-line @repo/internal/react/consistent-props-definitions -- maps to aria-labelledby
-		labelledBy?: string;
-	};
-
-export type { TPlacementOptions };
-
 type TPopoverBaseProps = {
 	/**
-	 * Pass ONE element. The host is a flex row while open, so that a size cap can
-	 * reach it (see `useAnchoredPopover`); two element children become two flex
-	 * items SIDE BY SIDE at half width each. A fragment does not help - its children
-	 * are the flex items - which is why this is not expressible as a type. It
-	 * matters most where a consumer's render prop is handed through unwrapped, as
-	 * `@atlaskit/popper` and `@atlaskit/spotlight` do.
+	 * Pass ONE element. The host is a flex row while open, so that a size cap can reach it (see
+	 * `useAnchoredPopover`). Two element children become two flex items SIDE BY SIDE, at half
+	 * width each. A fragment does not help, because its children are the flex items. This is why
+	 * a type cannot express the rule. It matters most where a consumer's render prop is passed
+	 * through unwrapped, as `@atlaskit/popper` and `@atlaskit/spotlight` do.
 	 *
-	 * The host zeroes that element's `min-inline-size` and `min-block-size` so the
-	 * cap can shrink a non-scrolling child, at zero specificity, so a minimum the
+	 * The host sets that element's `min-inline-size` and `min-block-size` to zero, so the cap can
+	 * shrink a child that does not scroll. The rule has zero specificity, so a minimum that the
 	 * element sets itself wins. See the host styles in `popover.tsx`.
 	 */
 	children: ReactNode;
@@ -140,8 +112,7 @@ type TPopoverBaseProps = {
 	 *   Otherwise it hides visually without animation, while lifecycle settlement still
 	 *   waits for the native closed `toggle`.
 	 *
-	 * The consumer does not conditionally render the `Popover` - visibility is driven
-	 * by this prop.
+	 * Do not render the `Popover` conditionally. This prop drives its visibility.
 	 *
 	 * **Lifecycle observable to consumers:**
 	 *
@@ -154,7 +125,7 @@ type TPopoverBaseProps = {
 	 *   that read from the ref outside of `onEnterFinish` should gate the read on
 	 *   `isOpen` being `true`.
 	 *
-	 * **Important:** For `mode="auto"` popovers, the browser can dismiss the popover
+	 * **Important:** For `auto` and `hint` popovers, the browser can dismiss the popover
 	 * via light dismiss (Escape, click outside) independently of this prop. When that
 	 * happens, `onClose` is called and the consumer should respond by setting `isOpen`
 	 * to `false`. If `isOpen` remains `true` after a browser dismiss, the DOM and
@@ -164,9 +135,9 @@ type TPopoverBaseProps = {
 	/**
 	 * Placement hint for the default directional animation.
 	 *
-	 * When `shouldAnimate` is `true`, placement is used to set CSS custom
-	 * properties (like `--ds-popover-tx`, `--ds-popover-ty`) that control the
-	 * slide direction. Has no effect without `shouldAnimate`.
+	 * When `shouldAnimate` is `true`, placement sets the CSS custom properties
+	 * `--ds-popover-motion-enter` and `--ds-popover-motion-exit`, which control the slide
+	 * direction. Has no effect without `shouldAnimate`.
 	 *
 	 * This does NOT control positioning. Use `useAnchoredPopover` for that.
 	 */
@@ -175,7 +146,7 @@ type TPopoverBaseProps = {
 	 * Called after the entry animation completes (or immediately on open when
 	 * there is no animation or reduced motion is active).
 	 *
-	 * Use this for external lifecycle coordination - e.g. notifying a manager
+	 * Use this for external lifecycle coordination, for example to tell a manager
 	 * that the show sequence is finished.
 	 */
 	onEnterFinish?: () => void;
@@ -184,33 +155,62 @@ type TPopoverBaseProps = {
 	 * With no animation or reduced motion, this still waits for the browser's
 	 * task-queued `toggle` so focus restoration finishes against a mounted host.
 	 *
-	 * Use this for external lifecycle coordination, e.g. notifying a manager
-	 * that the hide sequence is finished, or firing an `onCloseComplete` callback.
+	 * Use this for external lifecycle coordination, for example to tell a manager
+	 * that the hide sequence is finished, or to call an `onCloseComplete` callback.
 	 */
 	onExitFinish?: () => void;
 };
 
 /**
+ * The props that `Popover` accepts. Flat, except that `initialFocusRef` needs a role that moves
+ * focus (`TInitialFocusProps`).
+ *
+ * Wrappers (for example `PopupContent` in `@atlaskit/popup`) destructure their props from a
+ * discriminated union and pass each field on. TypeScript cannot prove that the fields still
+ * satisfy the union, so `Popover` accepts this flat type. `TPopoverProps` is the strict type: it
+ * requires a `role`, and an accessible name for the roles that need one.
+ */
+export type TPopoverForwardedProps = TPopoverBaseProps &
+	TInitialFocusProps & {
+		/**
+		 * How the browser dismisses the popover. See `TPopoverProps` for each mode.
+		 */
+		mode?: 'auto' | 'hint' | 'manual';
+		/**
+		 * Called when the popover asks to close. See `TPopoverProps` for each `reason`.
+		 *
+		 * Also makes the popover closable: only a popover with
+		 * `onClose` is counted by `hasOpenDialogOrPopover()` and asked to close by
+		 * `requestClosePopovers()` (`@atlaskit/top-layer/page-surface/request-close-popovers`).
+		 */
+		onClose?: (args: { reason: TPopoverCloseReason }) => void;
+		role?: TRoleRequiringAccessibleName | TRoleWithImplicitName;
+		label?: string;
+		// eslint-disable-next-line @repo/internal/react/consistent-props-definitions -- maps to aria-labelledby
+		labelledBy?: string;
+	};
+
+/**
  * Unopinionated top-layer primitive.
  *
- * `Popover` manages only top-layer visibility and animation. It has no
- * knowledge of positioning. For anchor positioning and sizing, compose with the
- * `useAnchoredPopover` hook separately.
+ * `Popover` manages top-layer visibility, animation and focus. It has no knowledge of
+ * positioning. For anchor positioning and sizing, compose it with the `useAnchoredPopover` hook.
  *
- * Use `Popover` directly for custom trigger lifecycles (hover, timers,
- * external state) or trigger-less UI (flags, toasts). For the common
- * button-opens-content pattern, use the `Popup` compound instead.
+ * Use `Popover` directly for custom trigger lifecycles (hover, timers, external state) or
+ * trigger-less UI (flags, toasts). For the common pattern where a button opens content, use
+ * `Popup` from `@atlaskit/popup` instead.
  *
- * Dismiss behavior:
+ * Dismiss behavior (`mode`):
  * - `'auto'` (default): Escape to close, click-outside to close, focus restoration,
  *   automatic nesting, mutual exclusivity.
- * - `'hint'`: ephemeral UI (e.g. tooltips) that does not close other `auto`
+ * - `'hint'`: ephemeral UI (for example tooltips) that does not close other `auto`
  *   popovers. Falls back silently to `auto` semantics in browsers without
  *   `popover='hint'` support, meaning the hint will close any other `auto`
  *   popovers in those browsers. If cross-browser uniformity matters more
- *   than the no-close behaviour, pass `auto` explicitly.
- * - `'manual'`: no light dismiss. Consumer controls show/hide entirely. Only
- *   appropriate for persistent UI (e.g. flags, banners).
+ *   than the no-close behavior, pass `auto` explicitly.
+ * - `'manual'`: no light dismiss. The consumer controls show and hide. Use it for persistent UI
+ *   (for example flags and banners), or add light dismiss with `useManualLightDismiss`
+ *   (`@atlaskit/top-layer/use-manual-light-dismiss`).
  */
 export type TPopoverProps = TPopoverBaseProps &
 	TAriaRoleRequired &
@@ -245,8 +245,8 @@ export type TPopoverProps = TPopoverBaseProps &
 				 * closable: `requestClosePopovers()` cannot close it and
 				 * `hasOpenDialogOrPopover()` does not count it.
 				 *
-				 * Manual popovers have no light dismiss, so this is the only reason
-				 * they receive.
+				 * Manual popovers have no light dismiss, so `'programmatic'` is the only
+				 * reason they receive.
 				 */
 				onClose?: (args: { reason: TPopoverCloseReason }) => void;
 		  }

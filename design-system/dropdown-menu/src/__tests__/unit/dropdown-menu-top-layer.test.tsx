@@ -19,7 +19,6 @@ afterEach(() => {
 const testId = 'dropdown';
 const triggerText = 'Options';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	it('renders a trigger button by default', () => {
 		render(
@@ -201,7 +200,6 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 // Accessibility-focused tests
 // ────────────────────────────────────────────────────
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attributes', () => {
 	it('trigger has aria-controls referencing the content element', () => {
 		render(
@@ -313,7 +311,6 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click behavior', () => {
 	it('moves focus through menu items with ArrowDown', () => {
 		render(
@@ -398,7 +395,6 @@ ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click beh
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio persistence', () => {
 	it('checkbox items toggle checked state on click', () => {
 		render(
@@ -479,7 +475,6 @@ ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio pers
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	it('omits aria-busy when loading is initially undefined', () => {
 		const { rerender } = render(<DropdownMenu trigger={triggerText} isOpen />);
@@ -560,7 +555,6 @@ ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter', () => {
 	it('passes native event when trigger is clicked to open', () => {
 		const onOpenChange = jest.fn();
@@ -610,7 +604,6 @@ ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter',
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Trigger aria-label via label prop', () => {
 	it('renders aria-label on default trigger via label prop', () => {
 		render(
@@ -641,7 +634,6 @@ ffTest.on('platform-dst-top-layer', 'Trigger aria-label via label prop', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'WCAG 1.3.2 — DOM order (no portals)', () => {
 	it('menu content is rendered in the component tree, not portalled to body', () => {
 		const { container } = render(

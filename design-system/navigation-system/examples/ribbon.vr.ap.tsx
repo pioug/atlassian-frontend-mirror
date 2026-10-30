@@ -50,9 +50,9 @@ const UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC =
 const fixedHeaderStyles = cssMap({
 	root: {
 		position: 'fixed',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_STATIC,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC,
 		insetInlineEnd: 0,
 		height: 64,

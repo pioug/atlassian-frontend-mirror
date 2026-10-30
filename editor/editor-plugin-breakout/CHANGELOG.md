@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 30.0.3
+
+### Patch Changes
+
+- [`c6079b605fb46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6079b605fb46) -
+  [EDITOR-9916] exclude native embeds from breakout resizing, removing breakout marks behind
+  platform_editor_lovability_resize_exts_patch_1 to avoid duplicate resize handles
+
 ## 30.0.2
 
 ### Patch Changes

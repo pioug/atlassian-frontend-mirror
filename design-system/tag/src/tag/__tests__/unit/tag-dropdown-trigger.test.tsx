@@ -10,7 +10,6 @@ const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagDropdownTrigger', () => {
 	const testId = 'test-trigger';
 

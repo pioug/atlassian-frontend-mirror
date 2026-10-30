@@ -36,7 +36,6 @@ export function getDefaultInput(overrides: Partial<Input> = {}): Input {
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function appendToBody(...elements: Element[]): CleanupFn {
 	elements.forEach((element) => {
 		document.body.appendChild(element);
@@ -49,7 +48,6 @@ export function appendToBody(...elements: Element[]): CleanupFn {
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getEmptyHistory(input: Input = getDefaultInput()): DragLocationHistory {
 	const noWhere: DragLocation = {
 		input,
@@ -65,7 +63,6 @@ export function getEmptyHistory(input: Input = getDefaultInput()): DragLocationH
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getInitialHistory(
 	dropTargets: DropTargetRecord[],
 	input: Input = getDefaultInput(),
@@ -84,7 +81,6 @@ export function getInitialHistory(
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setBoundingClientRect(el: HTMLElement, rect: DOMRect): CleanupFn {
 	const original = el.getBoundingClientRect;
 
@@ -94,7 +90,6 @@ export function setBoundingClientRect(el: HTMLElement, rect: DOMRect): CleanupFn
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getRect(box: {
 	top: number;
 	bottom: number;
@@ -117,7 +112,6 @@ export function getRect(box: {
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getBubbleOrderedPath(path: Element[]): Element[] {
 	const last = path[path.length - 1];
 	// will happen if you pass in an empty array
@@ -132,7 +126,6 @@ export function getBubbleOrderedPath(path: Element[]): Element[] {
 	return getBubbleOrderedPath([...path, last.parentElement]);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setElementFromPointWithPath(path: Element[]): CleanupFn {
 	const originalElementFromPoint = document.elementFromPoint;
 	const originalElementsFromPoint = document.elementsFromPoint;
@@ -146,7 +139,6 @@ export function setElementFromPointWithPath(path: Element[]): CleanupFn {
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setElementFromPoint(element: Element | null): CleanupFn {
 	const path = element ? getBubbleOrderedPath([element]) : [];
 	return setElementFromPointWithPath(path);
@@ -156,7 +148,6 @@ export function setElementFromPoint(element: Element | null): CleanupFn {
  *
  * @example const [A, B, C, D, E] = getElements('div');
  */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getElements<TagName extends keyof HTMLElementTagNameMap>(
 	tagName: TagName,
 ): Iterable<HTMLElementTagNameMap[TagName]> {
@@ -179,7 +170,6 @@ export function getElements<TagName extends keyof HTMLElementTagNameMap>(
  *
  * @example const [child, parent, grandParent] = getBubbleOrderedTree();
  */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getBubbleOrderedTree(
 	tagName: keyof HTMLElementTagNameMap = 'div',
 ): Iterable<HTMLElement> {
@@ -206,7 +196,6 @@ export function getBubbleOrderedTree(
 }
 
 type SimpleItem = { data: string; type: NativeMediaType } | File;
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function addItemsToEvent({ event, items }: { event: DragEvent; items: SimpleItem[] }): void {
 	for (const item of items) {
 		if (item instanceof File) {
@@ -217,7 +206,6 @@ export function addItemsToEvent({ event, items }: { event: DragEvent; items: Sim
 	}
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const nativeDrag = {
 	startExternal({
 		items,
@@ -286,7 +274,6 @@ function isTextNode(node: Node): node is Text {
 	return node.nodeType === Node.TEXT_NODE;
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getFirstTextNode(element: Element): Text {
 	const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
 	const first = walker.firstChild();
@@ -295,7 +282,6 @@ export function getFirstTextNode(element: Element): Text {
 	return first;
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const assortedNativeMediaTypes: NativeMediaType[] = [
 	// common
 	'text/html',
@@ -318,7 +304,6 @@ function withDefaults(input?: Partial<Input>): Input {
 	};
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const userEvent = {
 	lift(target: HTMLElement, input?: Partial<Input>): void {
 		fireEvent.dragStart(target, withDefaults(input));
@@ -352,7 +337,6 @@ export const userEvent = {
 /**
  * Cleanup function to unbind all event listeners
  */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function reset(): void {
 	// cleanup any pending drags
 	fireEvent.dragEnd(window);
@@ -363,7 +347,6 @@ export function reset(): void {
 
 type TTarget = Element | Window | Document;
 type DispatchFn = (target: TTarget, input?: Partial<Input>) => void;
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const firePointer: {
 	down: DispatchFn;
 	up: DispatchFn;
@@ -394,12 +377,10 @@ export const firePointer: {
 	};
 })();
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function clearSelection(): void {
 	document.getSelection()?.empty();
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function select(element: HTMLElement): CleanupFn {
 	const selection = document.getSelection();
 	const range = new Range();

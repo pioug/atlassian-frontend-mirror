@@ -29,8 +29,8 @@ test('Left sidebar should be collapsed on click of grab area via keyboard', asyn
 
 	// Tab backwards into the ResizeControl
 	await page.webdriverCompatUtils.pressMultiple(['Shift', 'Tab', 'Shift']);
-	// TODO: fix assertion
-	// await expect(page.locator(resizeControl).first()).toBeFocused();
+	const control = page.locator(resizeControl).first();
+	await expect(control).toBeFocused();
 
 	// We've tabbed around a lot, everything is expanded, as expected…
 	await expect(page.locator(resizeControl).first()).toHaveAttribute('aria-expanded', 'true');
@@ -39,11 +39,7 @@ test('Left sidebar should be collapsed on click of grab area via keyboard', asyn
 	await page.keyboard.press('Enter');
 
 	// Left sidebar should now be collapsed:
-	// TODO: fix assertion
-	// await expect(page.locator(resizeControl).first()).toHaveAttribute(
-	//  'aria-expanded',
-	//     'false',
-	// );
+	await expect(control).toHaveAttribute('aria-expanded', 'false');
 
 	// Received:
 	// ARIA hidden element must not be focusable or contain focusable elements (aria-hidden-focus)

@@ -1,46 +1,46 @@
 export const connectedExtensionADF: {
-	version: number;
-	type: string;
 	content: (
 		| {
-				type: string;
-				content: {
-					type: string;
-					text: string;
-				}[];
 				attrs?: undefined;
+				content: {
+					text: string;
+					type: string;
+				}[];
 				marks?: undefined;
+				type: string;
 		  }
 		| {
-				type: string;
 				attrs: {
-					extensionType: string;
 					extensionKey: string;
-					parameters: {};
+					extensionType: string;
 					layout: string;
 					localId: string;
+					parameters: {};
 				};
+				content?: undefined;
 				marks: (
 					| {
-							type: string;
 							attrs: {
 								localId: string;
 								name: string;
 								sources?: undefined;
 							};
+							type: string;
 					  }
 					| {
-							type: string;
 							attrs: {
-								sources: string[];
 								localId?: undefined;
 								name?: undefined;
+								sources: string[];
 							};
+							type: string;
 					  }
 				)[];
-				content?: undefined;
+				type: string;
 		  }
 	)[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -127,27 +127,26 @@ export const connectedExtensionADF: {
 		},
 	],
 };
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const infoPanelADF: {
-	version: number;
-	type: string;
 	content: (
 		| {
-				type: string;
 				attrs: {
 					panelType: string;
 				};
 				content: {
-					type: string;
 					content: never[];
+					type: string;
 				}[];
+				type: string;
 		  }
 		| {
-				type: string;
-				content: never[];
 				attrs?: undefined;
+				content: never[];
+				type: string;
 		  }
 	)[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -170,22 +169,21 @@ export const infoPanelADF: {
 		},
 	],
 };
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const listWithCodeBlockADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			content: {
-				type: string;
 				attrs: {
 					language: string;
 				};
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

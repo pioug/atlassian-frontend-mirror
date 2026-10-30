@@ -6,116 +6,92 @@ import { getFirstFocusable } from '../focus/get-first-focusable';
 import { type TPhase } from './use-animated-visibility';
 
 /**
- * Determines the correct element to receive initial focus within a popover,
- * based on its ARIA role.
- *
- * Focus rules by role (per WAI-ARIA APG):
- * - `dialog` / `alertdialog`: first element with `[autofocus]`, or first focusable element
- * - `menu`: first menu item (`[role="menuitem|menuitemcheckbox|menuitemradio"]`)
- * - `listbox`: first selected option (`[aria-selected="true"]`), or first option (`[role="option"]`)
- * - `tooltip`: no focus movement (tooltips are informational)
- * - no role / other roles: no focus movement
- *
- * Note: React 18's `autoFocus` JSX prop does NOT set the HTML `autofocus`
- * attribute - it only calls `.focus()` imperatively during commit, which
- * has no effect on hidden popover content. Consumers must set the native
- * attribute via a ref callback (e.g. `node.setAttribute('autofocus', '')`).
- * React 19+ reflects the JSX prop as the HTML attribute automatically.
- *
- * Combobox pattern exception: if the popup is controlled by a focused
- * combobox-like trigger (its `aria-controls` references this popup),
- * focus stays on the textbox. This applies to `menu`, `listbox`, and to
- * `dialog` / `alertdialog` when the combobox is outside the dialog. See
- * `isComboboxControllingPopup`.
+ * `<input>` types that count as text-like. Other types (`button`, `checkbox`,
+ * `submit` and so on) do not. A missing `type` attribute means `text` (HTML
+ * spec), so `isTextboxLikeElement` maps it to `text` before the lookup.
  */
-
-/**
- * WAI-ARIA APG Combobox Pattern: when a combobox controls a popup (listbox,
- * grid, tree, menu, or dialog), DOM focus must remain on the textbox. Subsequent
- * navigation through popup items uses `aria-activedescendant` (or proxied
- * keyboard events), never DOM focus movement.
- *
- * Detects both variants in a single pass:
- * - In-popup combobox: the textbox lives inside the popup `container`
- *   (the popup is rendered as a child of the combobox wrapper).
- * - External combobox: the textbox is rendered OUTSIDE the popup
- *   (`react-select` pattern, where the listbox is portalled separately
- *   from the textbox).
- *
- * Acceptance criteria for the active element:
- * - Role / element-type filter: `role="combobox"`, `role="textbox"`,
- *   `TEXTAREA`, `contentEditable`, or `INPUT` of text-like type
- *   (`text`, `search`, `email`, `url`, `tel`, `password`, or
- *   unspecified). Non-text input types (`button`, `checkbox`, etc.)
- *   are rejected.
- * - Reference filter: `aria-controls` (or legacy `aria-owns`) IDREFS
- *   must resolve to an element that IS or CONTAINS the popup container.
- *
- * See: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
- */
-// `<input>` types treated as text-like for combobox detection.
-// Non-text input types (`button`, `checkbox`, `submit`, etc.) are rejected.
-// A missing `type` attribute defaults to `text` per the HTML spec, so we
-// normalize that case before lookup rather than including an empty string here.
 const TEXT_LIKE_INPUT_TYPES = new Set(['text', 'search', 'email', 'url', 'tel', 'password']);
 
-function isTextboxLikeElement(element: HTMLElement): boolean {
+/**
+ * Returns `true` for `role="combobox"`, `role="textbox"`, a `<textarea>`, a
+ * `contentEditable` element, or an `<input>` with a text-like `type`.
+ */
+function isTextboxLikeElement({ element }: { element: HTMLElement }): boolean {
 	const role = element.getAttribute('role');
 	if (role === 'combobox' || role === 'textbox') {
 		return true;
 	}
-	// `tagName` is uppercase for HTML elements but can be mixed-case for
-	// XML/SVG. Normalize once so downstream comparisons stay lowercase.
-	const tag = element.tagName.toLowerCase();
-	if (tag === 'textarea') {
+	// `tagName` is uppercase for HTML elements, but can be mixed case for XML
+	// and SVG elements.
+	const tagName = element.tagName.toLowerCase();
+	if (tagName === 'textarea') {
 		return true;
 	}
 	if (element.isContentEditable) {
 		return true;
 	}
-	if (tag === 'input') {
+	if (tagName === 'input') {
 		const type = (element.getAttribute('type') ?? 'text').toLowerCase();
 		return TEXT_LIKE_INPUT_TYPES.has(type);
 	}
 	return false;
 }
 
+/**
+ * Returns `true` when the focused element is a combobox that controls the
+ * popup.
+ *
+ * In the WAI-ARIA APG combobox pattern, DOM focus stays on the combobox while
+ * its popup (listbox, grid, tree, menu or dialog) is open. Navigation in the
+ * popup uses `aria-activedescendant` or keyboard events that the combobox
+ * passes on. It never moves DOM focus.
+ *
+ * The focused element must be textbox-like (see `isTextboxLikeElement`). One
+ * of its `aria-controls` IDs (or legacy `aria-owns` IDs, when there is no
+ * `aria-controls`) must reference the popup `container`, an element that
+ * contains it, or an element inside it. This finds the combobox in both
+ * layouts:
+ *
+ * - The combobox is inside the popup `container`.
+ * - The combobox is outside the popup `container`. For example, `react-select`
+ *   portals its listbox away from its input.
+ *
+ * See https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+ */
 function isComboboxControllingPopup({ container }: { container: HTMLElement }): boolean {
 	const ownerDocument = container.ownerDocument;
-	const active = ownerDocument.activeElement;
-	if (!(active instanceof HTMLElement)) {
+	const activeElement = ownerDocument.activeElement;
+	if (!(activeElement instanceof HTMLElement)) {
 		return false;
 	}
 
-	if (!isTextboxLikeElement(active)) {
+	if (!isTextboxLikeElement({ element: activeElement })) {
 		return false;
 	}
 
-	// Accept legacy `aria-owns` in addition to `aria-controls`.
-	// `aria-controls` / `aria-owns` are IDREFS (space-separated list of IDs)
-	// per the WAI-ARIA spec, so we must split and check membership rather
-	// than comparing with strict equality. A combobox that controls both
-	// this popup and another element (e.g. a results status region) must
-	// still be recognised as controlling this popup.
-	const idRefs = active.getAttribute('aria-controls') ?? active.getAttribute('aria-owns');
+	// `aria-controls` and `aria-owns` are IDREFS (a space-separated list of
+	// IDs), so check each ID. A combobox can control this popup and another
+	// element (for example a status region) at the same time.
+	const idRefs =
+		activeElement.getAttribute('aria-controls') ?? activeElement.getAttribute('aria-owns');
 	if (!idRefs) {
 		return false;
 	}
 
-	// Match if any referenced element IS, CONTAINS, or IS CONTAINED BY the
-	// popup container. The "contained by" case covers wrapper-style adopters
-	// like react-select, where the combobox input's `aria-controls` points at
-	// a listbox element that is a descendant of the Popover host (the
-	// listbox role lives on a child the wrapped library owns, not on the
-	// host we render).
+	// The "element inside the container" match is for wrappers such as
+	// `react-select`. Its input references a listbox that the wrapped library
+	// renders inside the Popover host. The `listbox` role is on that element,
+	// not on the host.
 	const referencedIds = idRefs.split(/\s+/).filter((id) => id !== '');
 	return referencedIds.some((id) => {
-		const referenced = ownerDocument.getElementById(id);
-		if (!referenced) {
+		const referencedElement = ownerDocument.getElementById(id);
+		if (!referencedElement) {
 			return false;
 		}
 		return (
-			referenced === container || referenced.contains(container) || container.contains(referenced)
+			referencedElement === container ||
+			referencedElement.contains(container) ||
+			container.contains(referencedElement)
 		);
 	});
 }
@@ -139,6 +115,32 @@ function getOverrideTarget({
 	return null;
 }
 
+/**
+ * Returns the element that takes focus when the popover opens, or `null` to
+ * leave focus where it is. The role defaults follow the WAI-ARIA APG:
+ *
+ * - `dialog` / `alertdialog`: the first `[autofocus]` element, or else the
+ *   first focusable element.
+ * - `menu`: the first focusable element (normally the first menu item).
+ * - `listbox`: the selected option (`[aria-selected="true"]`), or else the
+ *   first option, or else the first focusable element.
+ * - `tooltip`: no focus move. A tooltip is informational, so focus stays on
+ *   the trigger.
+ * - Other roles and no role: no focus move.
+ *
+ * For `dialog`, `alertdialog`, `menu` and `listbox`, an `initialFocusRef`
+ * target inside the popover comes before the role default.
+ *
+ * Combobox carve-out: when a focused combobox controls the popover, focus
+ * stays on the combobox (see `isComboboxControllingPopup`). For `dialog` and
+ * `alertdialog`, this applies only when the combobox is outside the dialog.
+ *
+ * React 18 note: the `autoFocus` JSX prop does not set the HTML `autofocus`
+ * attribute. It only calls `.focus()` during commit, which has no effect on
+ * hidden popover content. Consumers must set the attribute in a ref callback
+ * (for example `node.setAttribute('autofocus', '')`). React 19 and later set
+ * the attribute from the JSX prop.
+ */
 function getInitialFocusTarget({
 	container,
 	initialFocusRef,
@@ -149,12 +151,14 @@ function getInitialFocusTarget({
 	role: string | undefined;
 }): HTMLElement | null {
 	// In each role branch, the combobox carve-out decides whether focus moves.
-	// The override target, then the role default, decides where.
+	// The override target, then the role default, decides where. Each branch
+	// runs its own carve-out check, because the dialog branch adds a condition.
 	if (role === 'dialog' || role === 'alertdialog') {
-		// APG allows a combobox to control a dialog popup. Focus stays on the
-		// combobox only when it is OUTSIDE the dialog. A dialog that contains
-		// its own combobox still takes focus (see the comment below on why the
-		// carve-out is per-role).
+		// A combobox can control a dialog popup (APG). But a combobox inside the
+		// dialog must not stop the dialog from taking focus. For example, the
+		// `datetime-picker` dialog contains a `react-select`. Its input references
+		// a listbox inside the dialog, so `isComboboxControllingPopup` matches it.
+		// Focus stays on a combobox only when the combobox is outside the dialog.
 		if (
 			!container.contains(container.ownerDocument.activeElement) &&
 			isComboboxControllingPopup({ container })
@@ -165,21 +169,13 @@ function getInitialFocusTarget({
 		if (overrideTarget) {
 			return overrideTarget;
 		}
-		// Prefer element with the native HTML autofocus attribute.
-		const autofocusEl = container.querySelector<HTMLElement>('[autofocus]');
-		if (autofocusEl) {
-			return autofocusEl;
+		const autofocusElement = container.querySelector<HTMLElement>('[autofocus]');
+		if (autofocusElement) {
+			return autofocusElement;
 		}
-		// Fall back to first focusable element
 		return getFirstFocusable({ container });
 	}
 
-	// The combobox carve-out is kept role-specific rather than hoisted.
-	// Hoisting it over-matched on dialog popups that contain a nested
-	// combobox (e.g. datetime-picker's dialog hosts a react-select), where
-	// the active combobox's `aria-controls` falsely matched the container
-	// and suppressed the dialog's own focus contract. The dialog branch
-	// above therefore skips only for a combobox outside the dialog.
 	if (role === 'menu') {
 		if (isComboboxControllingPopup({ container })) {
 			return null;
@@ -188,19 +184,15 @@ function getInitialFocusTarget({
 		if (overrideTarget) {
 			return overrideTarget;
 		}
-		// Initial focus placement is the extent of what top-layer provides
-		// for menus. All subsequent keyboard navigation (arrow keys, Home/End,
-		// type-ahead, Enter/Space, submenu coordination) is the responsibility
-		// of the consumer component (e.g. dropdown-menu), because menu keyboard
-		// behavior varies by context (orientation, nesting, item type, control
-		// pattern). See: notes/decisions/menu-keyboard.md
+		// Top layer only sets the initial focus in a menu. The consumer (for
+		// example `dropdown-menu`) owns all other menu keyboard behavior (arrow
+		// keys, Home and End, type-ahead, Enter and Space, submenus), because it
+		// changes with orientation, nesting, item type and control pattern. See
+		// `notes/decisions/menu-keyboard.md`.
 		return getFirstFocusable({ container });
 	}
 
 	if (role === 'listbox') {
-		// ARIA Combobox Pattern: if a combobox-like textbox owns the popup
-		// (in-popup or external e.g. react-select), leave focus on the
-		// textbox - navigation is proxied through it.
 		if (isComboboxControllingPopup({ container })) {
 			return null;
 		}
@@ -208,13 +200,9 @@ function getInitialFocusTarget({
 		if (overrideTarget) {
 			return overrideTarget;
 		}
-		// Prefer the selected option, then fall back to the first option.
-		// We intentionally match by `[role="option"]` rather than by
-		// `getFirstFocusable`. The standard WAI-ARIA APG listbox pattern
-		// renders options with `tabindex="-1"` (managed via roving
-		// tabindex); `getFirstFocusable` excludes `tabindex="-1"` elements
-		// and would silently lose initial focus for spec-conformant
-		// listboxes. Options remain programmatically focusable.
+		// Match `[role="option"]`, not `getFirstFocusable`. APG listbox options
+		// use `tabindex="-1"` (roving tabindex), and `getFirstFocusable` skips
+		// those elements. Options can still take focus from script.
 		const selectedOption = container.querySelector<HTMLElement>(
 			'[role="option"][aria-selected="true"]',
 		);
@@ -225,77 +213,60 @@ function getInitialFocusTarget({
 		if (firstOption) {
 			return firstOption;
 		}
-		// Last resort for non-standard listboxes that render no options
-		// but do contain a focusable element (e.g. an empty-state action).
+		// A listbox with no options can still contain a focusable element, for
+		// example an empty-state action.
 		return getFirstFocusable({ container });
 	}
 
-	// tooltip, no role, or other roles: no focus movement
+	// `tooltip`, other roles and no role: no focus move.
 	return null;
 }
 
 /**
- * Moves focus into a popover element when it opens, based on its ARIA role.
+ * Moves focus into a popover when it opens. `getInitialFocusTarget` picks the
+ * target from the popover role.
  *
- * Follows the WAI-ARIA APG initial-focus patterns for each role. For the
- * roles that move focus, an `initialFocusRef` target inside the popover
- * comes first:
- * - `dialog` / `alertdialog` → focus first focusable (or `[autofocus]`)
- * - `menu` → focus first menu item
- * - `listbox` → focus selected or first option
- * - `tooltip` / no role → no focus movement (focus must remain on trigger;
- *   moving focus into the tooltip would dismiss it)
+ * `role` comes from the typed prop, not from the DOM attribute. The prop is the
+ * consumer contract, and a script can change the attribute.
  *
- * Role is taken from the typed `role` prop - this is the consumer's contract
- * and is not subject to drift from a directly-mutated DOM attribute.
+ * Always call this hook unconditionally. Focus moves when the phase changes to
+ * a visible phase from `closed` or `exiting`:
  *
- * Always call this hook unconditionally. Focus is moved on each transition
- * into a visible phase, the moment the host element first becomes visible
- * for that open intent:
+ * - `closed → entering` (open with animation). The host element has just
+ *   mounted, and the layout effect that calls `showPopover()` has run, so the
+ *   element is in the top layer. Focus moves before the entry animation ends,
+ *   because the WAI-ARIA APG expects focus on the new menu or dialog the
+ *   instant it opens.
+ * - `closed → open` (open without animation).
+ * - `exiting → entering`, or `exiting → open` without animation (reopen before
+ *   the exit ends). When the user closes the popover (Escape, close button,
+ *   light dismiss), the browser moves focus back to the trigger in
+ *   `hidePopover()`. A reopen before the exit ends does not pass through
+ *   `closed`. Without this case, the popover is visible again with focus
+ *   still on the trigger.
  *
- * - Animated path: on `closed → entering`. The host has just been mounted
- *   and the layout effect that calls `showPopover()` / `showModal()` has
- *   already run, so the element is in the top layer. We focus before the
- *   entry transition settles to match the WAI-ARIA APG expectation that
- *   focus lands on the new menu / dialog the instant it opens, not after
- *   the CSS finishes animating.
- * - Non-animated path: on `closed → open` (the entering phase is skipped).
- * - Reopen mid-exit: on `exiting → entering`. When a user dismisses the
- *   popup (Escape, close button, light dismiss) the browser natively
- *   restores focus to the trigger as part of `hidePopover()` /
- *   `<dialog>.close()`. If the consumer reopens before the exit transition
- *   has settled, the phase machine jumps `exiting → entering` without
- *   passing through `closed`, so without this branch the popup would be
- *   visible again with focus stranded on the trigger - a keyboard usability
- *   gap for menu/dialog/listbox roles.
+ * Other phase changes, such as `entering → open` and `open → exiting`, do not
+ * move focus.
  *
- * Note: there is a rare programmatic path where a consumer flips `isOpen`
- * false → true without any user-initiated close gesture and had moved focus
- * to a non-default target inside the popup. In that scenario this hook
- * re-focuses the role-appropriate default (e.g. first menu item) rather
- * than preserving the consumer-chosen target. This matches the documented
- * `closed → entering` behavior and is considered acceptable given how
- * abstract the scenario is. See `notes/architecture/focus.md`.
+ * Known limitation: a consumer moves focus to a different element in the
+ * popover, then sets `isOpen` to `false` and back to `true` from code, with no
+ * user close. This hook then focuses the role default again (for example the
+ * first menu item), as on `closed → entering`. The case is rare, so this is
+ * acceptable. See `notes/architecture/focus.md`.
  *
- * Pure `entering → exiting → entering` stutters where the popup never
- * reaches `closed` and the consumer toggles in the same frame are still
- * collapsed: the `prevPhase` ref guard rejects any transition whose
- * previous phase was not `closed` or `exiting`.
+ * Timing: the hook runs in a layout effect, so focus moves in the same task as
+ * the open, before the browser paints. Call it AFTER the layout effect that
+ * calls `showPopover()`: React runs a component's layout effects in source
+ * order, and a hidden popover cannot take focus.
  *
- * Runs in a layout effect, so focus lands in the same task as the open,
- * before the browser paints. Call it AFTER the layout effect that calls
- * `showPopover()`: React runs a component's layout effects in source order,
- * and a hidden popover cannot take focus.
+ * Set the `initialFocusRef` target before then: in a ref callback, in a
+ * child's layout effect, or during render. A child's `useEffect` runs later,
+ * so the hook does not see that target.
  *
- * An `initialFocusRef` target must be set by then: in a ref callback, a
- * child's layout effect, or during render. A child's `useEffect` runs later
- * and its target is missed.
- *
- * If a regression appears that needs a paint before focusing (e.g. browsers
- * that require a layout pass before `focus()` works on a freshly promoted
- * top-layer element), wrap the `focus()` call in a single
- * `requestAnimationFrame` here and re-add a same-element ref check inside
- * the RAF callback.
+ * If a browser needs a paint before `focus()` works on an element that just
+ * entered the top layer, wrap the `focus()` call in one
+ * `requestAnimationFrame`. In the callback, check again that `elementRef`
+ * still points at the same element.
  */
 export function useInitialFocus({
 	elementRef,
@@ -311,31 +282,21 @@ export function useInitialFocus({
 	 */
 	initialFocusRef?: RefObject<HTMLElement | null>;
 	/**
-	 * Current visibility phase from `useAnimatedVisibility`. Initial
-	 * focus is moved on the transition out of `'closed'`:
-	 *
-	 * - Animated path: fires on `closed → entering`, immediately after
-	 *   the host element mounts and `showPopover()` / `showModal()` has
-	 *   run in the preceding layout effect.
-	 * - Non-animated path: fires on `closed → open` (entering phase is
-	 *   skipped entirely when animation is disabled).
+	 * Current visibility phase from `useAnimatedVisibility`. Focus moves when
+	 * the phase changes from `'closed'` or `'exiting'` to a visible phase.
 	 */
 	phase: TPhase;
 	role: string | undefined;
 }): void {
-	// Track the previous phase so we only focus on transitions into a
-	// visible phase from either `'closed'` (fresh mount) or `'exiting'`
-	// (mid-exit reopen where the browser has already restored focus to
-	// the trigger). Pure `entering → exiting → entering` stutters where
-	// the consumer toggles in the same frame are still collapsed.
+	// Start at `'closed'`, so a popover that mounts open also takes focus.
 	const prevPhaseRef = useRef<TPhase>('closed');
 
 	useLayoutEffect(() => {
 		const prevPhase = prevPhaseRef.current;
 		prevPhaseRef.current = phase;
 
-		// Only focus on transitions into a visible phase from `'closed'`
-		// (fresh open) or `'exiting'` (mid-exit reopen).
+		// Move focus only when the popover is visible and the previous phase was
+		// `'closed'` (open) or `'exiting'` (reopen before the exit ends).
 		if (phase === 'closed') {
 			return;
 		}

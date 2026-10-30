@@ -100,7 +100,6 @@ describe('<LinkItem />', () => {
 		});
 
 		render(
-			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 			<LinkItem href="http://www.atlassian.com" css={hackStyles} testId="link">
 				Atlassian
 			</LinkItem>,
@@ -187,7 +186,7 @@ describe('<LinkItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @atlassian/a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target">
 					Atlassian
@@ -208,7 +207,7 @@ describe('<LinkItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @atlassian/a11y/no-static-element-interactions
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target" UNSAFE_isDraggable>
 					Atlassian

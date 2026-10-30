@@ -1,21 +1,20 @@
 import once from '@atlaskit/ds-lib/once';
 
 /**
- * Returns `true` when the user prefers reduced motion.
+ * Returns `true` when the user prefers reduced motion. Returns `false` when `window` or
+ * `matchMedia` is not available, for example during SSR.
  *
- * Safe for SSR (returns `false` when `window` is unavailable).
- *
- * The result is cached after the first call via `once`. This avoids
- * calling `matchMedia` on every render. The trade-off is that if a user
- * toggles the OS reduced-motion setting mid-session, the change will not
- * take effect until the next page load. This is acceptable because
- * toggling this system-level preference mid-session is extremely rare,
- * and a page refresh is a reasonable expectation for system accessibility
- * settings to take effect.
+ * `once` caches the first result, so `matchMedia` does not run on every render. The trade-off: if
+ * the user changes the OS setting during a session, the change takes effect on the next page load.
+ * This is acceptable because users rarely change this setting during a session, and a page refresh
+ * is a reasonable expectation for a system accessibility setting. See
+ * `notes/decisions/audit-decisions.md` (decision 8).
  */
-export const prefersReducedMotion = once((): boolean => {
-	if (typeof window === 'undefined' || !('matchMedia' in window)) {
-		return false;
-	}
-	return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}) as () => boolean;
+export const prefersReducedMotion: () => boolean = once(
+	function getPrefersReducedMotion(): boolean {
+		if (typeof window === 'undefined' || !('matchMedia' in window)) {
+			return false;
+		}
+		return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	},
+);

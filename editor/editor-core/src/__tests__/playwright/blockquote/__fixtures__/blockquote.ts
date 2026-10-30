@@ -1,13 +1,13 @@
 export const blockquoteAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			content: never[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -24,32 +24,31 @@ export const blockquoteAdf: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const blockquoteInsideTableAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			layout: string;
 			localId: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				attrs: {};
 				content: {
-					type: string;
 					content: {
-						type: string;
 						content: never[];
+						type: string;
 					}[];
+					type: string;
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -97,26 +96,25 @@ export const blockquoteInsideTableAdf: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const blockquoteInsideExpandAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			title: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				content: {
-					type: string;
 					text: string;
+					type: string;
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

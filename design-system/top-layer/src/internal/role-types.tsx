@@ -1,12 +1,12 @@
 /**
  * Roles that require an accessible name (`label` or `labelledBy`) per WCAG 4.1.2.
- * Without a name, assistive technology cannot identify these landmarks.
+ * Without a name, assistive technology cannot identify these layers.
  */
 export type TRoleRequiringAccessibleName = 'dialog' | 'alertdialog' | 'menu';
 
 /**
- * Roles where the accessible name is derived from content or provided externally
- * (e.g. a combobox labels its listbox, tooltip content IS the accessible name).
+ * Roles where the accessible name comes from the content or from another element
+ * (for example a combobox labels its listbox, and the content of a tooltip is its name).
  */
 export type TRoleWithImplicitName =
 	| 'tooltip'
@@ -24,12 +24,10 @@ export type TRoleWithImplicitName =
  */
 export type TRoleWithInitialFocus = 'dialog' | 'alertdialog' | 'menu' | 'listbox';
 
-// Shared ARIA role discrimination types
-//
-// These encode the WCAG 4.1.2 constraint: roles like `dialog`, `alertdialog`,
-// and `menu` MUST have an accessible name (either `label` or `labelledBy`).
-// TypeScript enforces this at compile time via discriminated unions.
-
+/**
+ * Name props for a role in `TRoleRequiringAccessibleName`. The union makes TypeScript require
+ * `label`, `labelledBy` or both, so the WCAG 4.1.2 rule is checked at compile time.
+ */
 type TAccessibleNameRequired =
 	| {
 			/**
@@ -48,6 +46,9 @@ type TAccessibleNameRequired =
 			labelledBy: string;
 	  };
 
+/**
+ * Name props for a role in `TRoleWithImplicitName`. Both are optional.
+ */
 type TAccessibleNameOptional = {
 	label?: string;
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions -- maps to aria-labelledby
@@ -55,10 +56,10 @@ type TAccessibleNameOptional = {
 };
 
 /**
- * ARIA role props where a role is always required.
+ * Role and name props where a role is always required. Used by `TPopoverProps`.
  *
- * Used by `TPopupContentProps`. Popup content must always declare
- * its role so assistive technology can identify the layer.
+ * A popover must always declare its role, so assistive technology can identify the layer. A role
+ * in `TRoleRequiringAccessibleName` also needs `label` or `labelledBy`.
  */
 export type TAriaRoleRequired =
 	| ({ role: TRoleRequiringAccessibleName } & TAccessibleNameRequired)

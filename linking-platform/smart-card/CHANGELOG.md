@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 46.11.0
+
+### Minor Changes
+
+- [`4b0ec5ed92261`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b0ec5ed92261) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+## 46.10.4
+
+### Patch Changes
+
+- [`12b24838d8278`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12b24838d8278) -
+  Replace react-loadable with React.lazy and Suspense for lazily loaded icons and the embed Rovo
+  actions footer, behind the feature gate platform_sl_replace_react_loadable, for React 19
+  compatibility. Loading and load-failure behaviour are unchanged: nothing renders while loading or
+  if the chunk fails to load.
+
+  Once the gate is fully rolled out, remove the react-loadable branches,
+  `components/importIcon.tsx`, the local `importIcon` in `get-icon-for-file-type.tsx`, the
+  `react-loadable` and `@types/react-loadable` dependencies, and the VR `ignoredErrors` entries for
+  react-loadable state update warnings.
+
+- Updated dependencies
+
 ## 46.10.3
 
 ### Patch Changes

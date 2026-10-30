@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import format from '@af/formatting/sync';
 import tokens from '@atlaskit/tokens/atlassian-typography';
 

@@ -1,5 +1,3 @@
-/* eslint-disable compat/compat */
-
 import {
 	cleanSquareHeatmap,
 	cloneArray,

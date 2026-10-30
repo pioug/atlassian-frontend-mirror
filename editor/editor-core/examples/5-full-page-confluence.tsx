@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
 import type { JSX } from 'react';
 import { useEffect, useState } from 'react';

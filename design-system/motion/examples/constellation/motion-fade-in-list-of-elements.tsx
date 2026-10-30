@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx

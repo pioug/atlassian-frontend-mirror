@@ -1,6 +1,6 @@
 /**
  * The CSS Anchor Positioning path: `position-anchor`, `position-area`,
- * `position-try-fallbacks` and the gap / shift margins, all declared on the
+ * `position-try-fallbacks` and the gap and shift margins, all declared on the
  * popover so the browser owns placement and flipping. The twin of
  * `../javascript-fallback/apply-javascript-fallback-positioning`.
  */
@@ -14,7 +14,9 @@ import { placementToPositionArea } from './placement-to-position-area';
 import { placementToTryFallbacks } from './placement-to-try-fallbacks';
 
 /**
- * Returns the cleanup.
+ * Writes the anchor positioning styles to the popover, and an `anchor-name` to
+ * the anchor when it has none. Returns a cleanup that restores the popover's
+ * previous inline styles. The `anchor-name` stays on the anchor.
  */
 export function applyAnchorPositioning({
 	anchor,
@@ -34,20 +36,20 @@ export function applyAnchorPositioning({
 	 */
 	isFitting: boolean;
 	/**
-	 * Written to the anchor when it does not already carry one.
+	 * Written to the anchor when it does not already carry an `anchor-name`.
 	 */
 	fallbackAnchorName: string;
 }): () => void {
-	// Reuse rather than mint: another popover may already be anchored to it, or a
+	// Reuse the existing name rather than write a new one: another popover may already be anchored to it, or a
 	// CONSUMER may have set it on their own element, as `post-office` does.
-	const existingAnchorName = getExistingAnchorName(anchor);
+	const existingAnchorName = getExistingAnchorName({ element: anchor });
 	const anchorName = existingAnchorName ?? fallbackAnchorName;
 
-	const gap = edgeMargin({
+	const gapMargin = edgeMargin({
 		placement,
 		offset: placement.offset.gap,
 	});
-	const crossAxisShift = crossAxisShiftMargins({
+	const shiftMargins = crossAxisShiftMargins({
 		placement,
 		crossAxisShiftCssValue: placement.offset.crossAxisShift.value,
 		direction: placement.offset.crossAxisShift.direction,
@@ -66,53 +68,46 @@ export function applyAnchorPositioning({
 		/**
 		 * **`position-visibility: always`**
 		 *
-		 * `position-visibility` is used to control the visibility of an anchored
-		 * popover based on the visibility of the element being anchored to (the target).
+		 * The initial value, `anchors-visible`, lets the browser hide the popover
+		 * when its anchor is fully clipped by an ancestor (for example a scroll
+		 * container) or is `visibility: hidden`. This hiding does not close the
+		 * popover: `:popover-open` still matches, but the popover is not painted and
+		 * gets no pointer input. Chrome also keeps it focusable and in the
+		 * accessibility tree, so keyboard and screen reader users can land inside a
+		 * surface they cannot see.
 		 *
-		 * Default `position-visibility` value: `anchors-visible` → hide the anchored
-		 * popover when the target is fully clipped by an ancestor (eg a scroll container)
-		 * or is `visibility:hidden`.
-		 * Sadly this "automatic hiding" does not actually "close" the popover,
-		 * so things like `:popover-open` are still active, even though the popover
-		 * is no longer painted and no longer receives pointer input. Chrome keeps it
-		 * focusable and in the accessibility tree, so keyboard and screen reader users
-		 * can still land inside a surface that is not painted.
-		 * Per-engine behaviour: `notes/decisions/position-visibility-always.md`.
+		 * The default is usually fine. It fails when:
+		 *  - The anchor is hidden on purpose (for example `position: absolute` moves
+		 *    it outside its parent's clip, or it is `visibility: hidden`).
+		 *  - The anchor scrolls out of its scroll container while the popover is
+		 *    open.
 		 *
-		 * Generally we have not run into issues with the default (`anchors-visible`)
-		 *
-		 * Exceptions:
-		 *  - Target is intentionally not visible (eg `position:absolute` moving it outside of
-		 *    its parent's "clipped boundary", or a `visibility:hidden` trigger)
-		 *  - A trigger is scrolled out of its scroll container while the popover is open.
-		 *
-		 * We are switching from `anchors-visible` → `always` _for now_ to force no
-		 * automatic hiding of the popover. There seems to be no compelling reason to use
-		 * the default value. If one arises in the future, we could look towards making
-		 *  this behaviour configurable.
+		 * `always` turns the automatic hiding off. There is no strong reason to keep
+		 * the default. If one comes up, this could become configurable. Per-engine
+		 * behaviour: `notes/decisions/position-visibility-always.md`.
 		 */
 		{ property: 'position-visibility', value: 'always' },
-		// Reset browser default popover positioning that conflicts
-		// with anchor positioning (UA: `inset: 0; margin: auto;`)
+		// Reset the UA popover styles (`inset: 0; margin: auto`), which conflict
+		// with anchor positioning.
 		{ property: 'margin', value: '0' },
 		{ property: 'inset', value: 'auto' },
-		gap,
+		gapMargin,
 		// When fitting, the shift margins come back COMPOSED with the reserved
 		// viewport padding, rather than being written twice.
 		...(isFitting
 			? getFitMarginDeclarations({
 					placement,
-					crossAxisShiftMargins: crossAxisShift,
+					crossAxisShiftMargins: shiftMargins,
 				})
-			: crossAxisShift),
+			: shiftMargins),
 		...sizeStyles,
 	];
 
-	// Anchor names are never cleaned up: multiple popovers can share an anchor,
-	// and even with reference counting an async React update could remove the name
+	// Anchor names are never removed: several popovers can share an anchor, and
+	// even with reference counting an async React update could remove the name
 	// while something else still uses it. See
-	// `notes/decisions/anchor-name-lifetime.md`. Only written when minted: a name
-	// from a stylesheet may be a list, which an inline copy of its first entry
+	// `notes/decisions/anchor-name-lifetime.md`. Only a new name is written: a
+	// name from a stylesheet may be a list, which an inline copy of its first entry
 	// would collapse.
 	if (existingAnchorName === null) {
 		anchor.style.setProperty('anchor-name', anchorName);

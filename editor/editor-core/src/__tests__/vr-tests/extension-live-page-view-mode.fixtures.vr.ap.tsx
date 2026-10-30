@@ -65,7 +65,6 @@ export function BlockExtensionWithSmartLink(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function BlockExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
@@ -79,7 +78,6 @@ export function BlockExtension(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function BodiedExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
@@ -91,7 +89,6 @@ export function BodiedExtension(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function EmptyBodiedExtension(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
@@ -103,7 +100,6 @@ export function EmptyBodiedExtension(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function BodiedExtensionWithSmartLink(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
@@ -117,7 +113,6 @@ export function BodiedExtensionWithSmartLink(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function InlineExtensionWithSmartLink(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (
@@ -131,7 +126,6 @@ export function InlineExtensionWithSmartLink(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function BodiedExtensionWithLayout(): React.JSX.Element {
 	const { preset } = usePreset(createPreset);
 	return (

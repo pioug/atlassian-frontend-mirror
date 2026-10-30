@@ -12,6 +12,8 @@ import {
  */
 type TPosition = { top: number; left: number };
 
+type TViewportSize = { width: number; height: number };
+
 /**
  * `TCrossAxisShiftOffset` with its CSS length already resolved to pixels. Only
  * this module needs the pixel form, because only this module does arithmetic.
@@ -22,15 +24,16 @@ type TResolvedCrossAxisShift = {
 };
 
 /**
- * Computes the base {top, left} position based on the primary edge,
- * flipping to the opposite side when there is not enough space.
+ * Returns the position on the placement `edge`, centred on the cross axis.
  *
- * `gap` is applied along the main axis between trigger and popover.
+ * Flips to the opposite edge when the popover does not fit and the opposite
+ * edge has more space. `gap` separates the anchor and the popover along the
+ * placement axis.
  */
 function computeEdgePosition({
 	axis,
 	edge,
-	triggerRect,
+	anchorRect,
 	popoverWidth,
 	popoverHeight,
 	viewport,
@@ -38,85 +41,86 @@ function computeEdgePosition({
 }: {
 	axis: TPlacementAxis;
 	edge: TPlacementEdge;
-	triggerRect: DOMRect;
+	anchorRect: DOMRect;
 	popoverWidth: number;
 	popoverHeight: number;
-	viewport: { width: number; height: number };
+	viewport: TViewportSize;
 	gap: number;
 }): TPosition {
 	if (axis === 'block' && edge === 'end') {
-		// Below trigger
-		const spaceBelow = viewport.height - triggerRect.bottom;
-		const spaceAbove = triggerRect.top;
+		// Below the anchor
+		const spaceBelow = viewport.height - anchorRect.bottom;
+		const spaceAbove = anchorRect.top;
 		const fitsBelow = spaceBelow >= popoverHeight + gap;
-		const useBelow = fitsBelow || spaceBelow >= spaceAbove;
+		const shouldPlaceBelow = fitsBelow || spaceBelow >= spaceAbove;
 		return {
-			top: useBelow ? triggerRect.bottom + gap : triggerRect.top - popoverHeight - gap,
-			left: triggerRect.left + triggerRect.width / 2 - popoverWidth / 2,
+			top: shouldPlaceBelow ? anchorRect.bottom + gap : anchorRect.top - popoverHeight - gap,
+			left: anchorRect.left + anchorRect.width / 2 - popoverWidth / 2,
 		};
 	}
 
 	if (axis === 'block' && edge === 'start') {
-		// Above trigger
-		const spaceAbove = triggerRect.top;
-		const spaceBelow = viewport.height - triggerRect.bottom;
+		// Above the anchor
+		const spaceAbove = anchorRect.top;
+		const spaceBelow = viewport.height - anchorRect.bottom;
 		const fitsAbove = spaceAbove >= popoverHeight + gap;
-		const useAbove = fitsAbove || spaceAbove >= spaceBelow;
+		const shouldPlaceAbove = fitsAbove || spaceAbove >= spaceBelow;
 		return {
-			top: useAbove ? triggerRect.top - popoverHeight - gap : triggerRect.bottom + gap,
-			left: triggerRect.left + triggerRect.width / 2 - popoverWidth / 2,
+			top: shouldPlaceAbove ? anchorRect.top - popoverHeight - gap : anchorRect.bottom + gap,
+			left: anchorRect.left + anchorRect.width / 2 - popoverWidth / 2,
 		};
 	}
 
 	if (axis === 'inline' && edge === 'end') {
-		// Right of trigger
-		const spaceRight = viewport.width - triggerRect.right;
-		const spaceLeft = triggerRect.left;
+		// Right of the anchor
+		const spaceRight = viewport.width - anchorRect.right;
+		const spaceLeft = anchorRect.left;
 		const fitsRight = spaceRight >= popoverWidth + gap;
-		const useRight = fitsRight || spaceRight >= spaceLeft;
+		const shouldPlaceRight = fitsRight || spaceRight >= spaceLeft;
 		return {
-			top: triggerRect.top + triggerRect.height / 2 - popoverHeight / 2,
-			left: useRight ? triggerRect.right + gap : triggerRect.left - popoverWidth - gap,
+			top: anchorRect.top + anchorRect.height / 2 - popoverHeight / 2,
+			left: shouldPlaceRight ? anchorRect.right + gap : anchorRect.left - popoverWidth - gap,
 		};
 	}
 
 	if (axis === 'inline' && edge === 'start') {
-		// Left of trigger
-		const spaceLeft = triggerRect.left;
-		const spaceRight = viewport.width - triggerRect.right;
+		// Left of the anchor
+		const spaceLeft = anchorRect.left;
+		const spaceRight = viewport.width - anchorRect.right;
 		const fitsLeft = spaceLeft >= popoverWidth + gap;
-		const useLeft = fitsLeft || spaceLeft >= spaceRight;
+		const shouldPlaceLeft = fitsLeft || spaceLeft >= spaceRight;
 		return {
-			top: triggerRect.top + triggerRect.height / 2 - popoverHeight / 2,
-			left: useLeft ? triggerRect.left - popoverWidth - gap : triggerRect.right + gap,
+			top: anchorRect.top + anchorRect.height / 2 - popoverHeight / 2,
+			left: shouldPlaceLeft ? anchorRect.left - popoverWidth - gap : anchorRect.right + gap,
 		};
 	}
 
-	// Unreachable for valid placements; defaults to below trigger
+	// Unreachable for a valid placement. Defaults to below the anchor.
 	return {
-		top: triggerRect.bottom + gap,
-		left: triggerRect.left + triggerRect.width / 2 - popoverWidth / 2,
+		top: anchorRect.bottom + gap,
+		left: anchorRect.left + anchorRect.width / 2 - popoverWidth / 2,
 	};
 }
 
 /**
- * Adjusts the base (centered) position for non-center alignments.
+ * Moves the centred position from `computeEdgePosition` along the cross axis
+ * for a non-centre `align`:
  *
- * `align: 'start'` → popover start edge at trigger start edge
- * `align: 'end'`   → popover end edge at trigger end edge
+ * - `'start'`: the popover start edge lines up with the anchor start edge.
+ * - `'end'`: the popover end edge lines up with the anchor end edge.
  */
 function applyAlignment({
 	position,
 	axis,
 	align,
-	triggerRect,
+	anchorRect,
 	popoverWidth,
 	popoverHeight,
 }: {
 	position: TPosition;
 	axis: TPlacementAxis;
 	align: TPlacementAlign;
-	triggerRect: DOMRect;
+	anchorRect: DOMRect;
 	popoverWidth: number;
 	popoverHeight: number;
 }): TPosition {
@@ -124,21 +128,19 @@ function applyAlignment({
 		return position;
 	}
 
+	// A block-axis placement has an inline (left and right) cross axis.
 	if (axis === 'block') {
-		// Block-axis placement → cross-axis is inline (left/right)
 		if (align === 'start') {
-			return { ...position, left: triggerRect.left };
+			return { ...position, left: anchorRect.left };
 		}
-		// align === 'end'
-		return { ...position, left: triggerRect.right - popoverWidth };
+		return { ...position, left: anchorRect.right - popoverWidth };
 	}
 
-	// Inline-axis placement → cross-axis is block (top/bottom)
+	// An inline-axis placement has a block (top and bottom) cross axis.
 	if (align === 'start') {
-		return { ...position, top: triggerRect.top };
+		return { ...position, top: anchorRect.top };
 	}
-	// align === 'end'
-	return { ...position, top: triggerRect.bottom - popoverHeight };
+	return { ...position, top: anchorRect.bottom - popoverHeight };
 }
 
 /**
@@ -165,7 +167,7 @@ function applyCrossAxisShift({
 	const directionSign = crossAxisShift.direction === 'forwards' ? 1 : -1;
 	const delta = crossAxisShift.value * directionSign;
 
-	// Cross-axis is the OPPOSITE of the placement axis.
+	// The cross axis is perpendicular to the placement axis.
 	if (axis === 'block') {
 		return { ...position, left: position.left + delta };
 	}
@@ -173,38 +175,37 @@ function applyCrossAxisShift({
 }
 
 /**
- * Computes the popover position from the trigger rect and viewport, flipping to
- * the side with more space when needed.
+ * Returns the viewport position of the popover from the anchor rect. Flips to
+ * the side with more space when needed, then clamps to the viewport.
  *
  * `gap` and `crossAxisShift` arrive already resolved to pixels (see
  * `resolveCssLengthToPixels`), so this stays purely numeric.
  */
 export function computeFallbackPosition({
-	triggerRect,
-	popoverEl,
+	anchorRect,
+	popover,
 	placement,
 	viewport,
 	gap,
 	crossAxisShift,
 }: {
-	triggerRect: DOMRect;
-	popoverEl: HTMLElement;
+	anchorRect: DOMRect;
+	popover: HTMLElement;
 	placement: TPlacement;
-	viewport: { width: number; height: number };
+	viewport: TViewportSize;
 	gap: number;
 	crossAxisShift: TResolvedCrossAxisShift;
 }): TPosition {
 	const { axis, edge, align } = placement;
 
-	// Measure popover dimensions. Callers must ensure the popover has
-	// laid out before calling this (it should not be `display: none`).
-	const popoverWidth = popoverEl.offsetWidth;
-	const popoverHeight = popoverEl.offsetHeight;
+	// The popover must have layout here (not `display: none`), or both sizes are `0`.
+	const popoverWidth = popover.offsetWidth;
+	const popoverHeight = popover.offsetHeight;
 
-	const basePosition = computeEdgePosition({
+	const edgePosition = computeEdgePosition({
 		axis,
 		edge,
-		triggerRect,
+		anchorRect,
 		popoverWidth,
 		popoverHeight,
 		viewport,
@@ -212,10 +213,10 @@ export function computeFallbackPosition({
 	});
 
 	const alignedPosition = applyAlignment({
-		position: basePosition,
+		position: edgePosition,
 		axis,
 		align,
-		triggerRect,
+		anchorRect,
 		popoverWidth,
 		popoverHeight,
 	});
@@ -226,7 +227,8 @@ export function computeFallbackPosition({
 		crossAxisShift,
 	});
 
-	// Clamp to viewport so the popover is never offscreen
+	// Clamp to the viewport. A popover larger than the viewport keeps its top-left
+	// corner on screen.
 	return {
 		top: Math.max(0, Math.min(shiftedPosition.top, viewport.height - popoverHeight)),
 		left: Math.max(0, Math.min(shiftedPosition.left, viewport.width - popoverWidth)),

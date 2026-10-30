@@ -11,7 +11,6 @@ import AsyncIcon from '@atlaskit/icon/core/clock';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Select from '@atlaskit/select/default';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
 import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';

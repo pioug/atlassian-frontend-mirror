@@ -70,6 +70,7 @@ import { default as TopNavigationCustomLogoVrExample } from '../top-navigation-c
 import { default as TopNavigationStressVrExample } from '../top-navigation-stress.vr.ap';
 import { default as TopNavigationThemedButtonsVrExample } from '../top-navigation-themed-buttons.vr.ap';
 import { default as TopNavigationThemingLoggedOutVrExample } from '../top-navigation-theming-logged-out.vr.ap';
+import { default as TopNavigationThemingSingleExample } from '../top-navigation-theming-single.vr.ap';
 import { default as TopNavigationThemingWithPickerVrExample } from '../top-navigation-theming-with-picker.vr.ap';
 import { default as TopNavigationThemingVrExample } from '../top-navigation-theming.vr.ap';
 import { default as TopNavigationVrExample } from '../top-navigation.vr.ap';
@@ -261,6 +262,9 @@ export const TopNavigationThemedButtonsVr: WorkbenchExample<
 export const TopNavigationThemingLoggedOutVr: WorkbenchExample<
 	typeof TopNavigationThemingLoggedOutVrExample
 > = wb(TopNavigationThemingLoggedOutVrExample);
+export const TopNavigationThemingSingle: WorkbenchExample<
+	typeof TopNavigationThemingSingleExample
+> = wb(TopNavigationThemingSingleExample);
 export const TopNavigationThemingWithPickerVr: WorkbenchExample<
 	typeof TopNavigationThemingWithPickerVrExample
 > = wb(TopNavigationThemingWithPickerVrExample);

@@ -34,6 +34,7 @@ import {
 } from '@atlaskit/editor-tables/utils/select-nodes';
 import { selectionCell } from '@atlaskit/editor-tables/utils/selection-cell';
 import { setCellAttrs } from '@atlaskit/editor-tables/utils/set-cell-attrs';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { WidthToWidest } from '../../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../../types';
@@ -85,11 +86,22 @@ const selectColumnWithMergedEdgeRows = (
 };
 
 export const setEditorFocus = (editorHasFocus: boolean): Command =>
-	createCommand({
-		type: 'SET_EDITOR_FOCUS',
-		data: {
-			editorHasFocus,
-		},
+	createCommand((state) => {
+		const pluginState = getPluginState(state);
+
+		if (
+			pluginState.editorHasFocus === editorHasFocus &&
+			isExperimentEnabled('platform_editor_improve_inp')
+		) {
+			return false;
+		}
+
+		return {
+			type: 'SET_EDITOR_FOCUS',
+			data: {
+				editorHasFocus,
+			},
+		};
 	});
 
 export const setTableRef = (ref?: HTMLTableElement): Command =>

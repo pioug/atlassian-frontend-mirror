@@ -36,7 +36,6 @@ afterEach(() => {
 
 // Covered by the dedicated `accessibility.test.tsx` in this folder; the
 // suite below exercises FF-on adapter wiring behaviour rather than a11y.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popper FF-on top-layer adapter', () => {
 	it('passes inert style / arrowProps.style and verbatim placement to children', () => {
 		passGate('platform-dst-top-layer');

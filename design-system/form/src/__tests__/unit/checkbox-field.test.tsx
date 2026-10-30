@@ -9,7 +9,6 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import { CheckboxField } from '../../checkbox-field';
 import Form from '../../form';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CheckboxField', () => {
 	const user = userEvent.setup();
 

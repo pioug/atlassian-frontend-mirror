@@ -119,7 +119,6 @@ export default function TestingPopoverFitAvailableSpace(): ReactNode {
 				ref={triggerRef}
 				css={styles.trigger}
 				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the offset is a test parameter, so it cannot be a static style
 					insetBlockStart: `${triggerBlockStart}px`,
 					insetInlineStart: `${triggerInlineStart}px`,
 				}}
@@ -150,7 +149,6 @@ export default function TestingPopoverFitAvailableSpace(): ReactNode {
 						<div
 							data-testid="popover-content"
 							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the content size is a test parameter, so it cannot be a static style
 								blockSize: `${contentBlockSize}px`,
 								inlineSize: `${contentInlineSize}px`,
 							}}
@@ -163,7 +161,6 @@ export default function TestingPopoverFitAvailableSpace(): ReactNode {
 						<div
 							data-testid="popover-content"
 							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the content size is a test parameter, so it cannot be a static style
 								blockSize: `${contentBlockSize}px`,
 								inlineSize: `${contentInlineSize}px`,
 							}}

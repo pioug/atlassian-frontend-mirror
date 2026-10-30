@@ -39,7 +39,6 @@ const RENDERED_POPUP_CLASS = 'popup-select__menu-list';
 const RENDERED_POPUP_SELECTOR = `.${RENDERED_POPUP_CLASS}`;
 const PORTALED_CONTAINER = document.body;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popup Select', () => {
 	beforeEach(() => {
 		jest.spyOn(global.window, 'addEventListener');
@@ -121,7 +120,6 @@ describe('Popup Select', () => {
 		const parentKeyDownHandler = jest.fn();
 
 		render(
-			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div onKeyDown={parentKeyDownHandler} role="presentation">
 				<PopupSelect
 					options={OPTIONS}
@@ -158,7 +156,6 @@ describe('Popup Select', () => {
 		const parentKeyDownHandler = jest.fn();
 
 		render(
-			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div onKeyDown={parentKeyDownHandler} role="presentation">
 				<PopupSelect
 					options={OPTIONS}

@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import IconNew from '../../icon-new';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/icon/base-new', () => {
 	describe('dangerouslySetGlyph prop', () => {
 		const id = 'customPath';

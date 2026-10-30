@@ -7,7 +7,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 import { default as RemovableTag } from '../../internal/removable';
 import { default as Tag } from '../../internal/simple';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Tag component accessibility', () => {
 	describe('Simple Tag', () => {
 		it('should not fail an aXe audit', async () => {

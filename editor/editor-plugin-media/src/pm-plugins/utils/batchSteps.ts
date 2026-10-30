@@ -4,6 +4,7 @@ import {
 } from '@atlaskit/adf-schema/steps/batch-attrs-step';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Applies a batch of attribute update steps to media nodes in the editor view.
@@ -36,5 +37,9 @@ export const batchStepsUpdate = (
 		return false;
 	}
 	tintDirtyTransaction(tr);
+	if (fg('platform_editor_media_hydration_skip_history')) {
+		// Attribute hydration is not a user edit, so it must not take an undo step.
+		tr.setMeta('addToHistory', false);
+	}
 	dispatch(tr);
 };

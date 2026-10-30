@@ -12,13 +12,16 @@ test('pointer events on top nav items', async ({ page }) => {
 
 	const log: string[] = [];
 	page.on('console', (msg) => log.push(msg.text()));
+	const expectLastLog = async (message: string) => {
+		await expect.poll(() => log.at(-1)).toBe(message);
+	};
 
 	await page.getByRole('button', { name: 'Switch apps' }).click();
-	expect(log.at(-1)).toEqual('app switcher clicked');
+	await expectLastLog('app switcher clicked');
 
 	await page.getByRole('button', { name: 'Create' }).click();
-	expect(log.at(-1)).toEqual('create button clicked');
+	await expectLastLog('create button clicked');
 
 	await page.getByRole('button', { name: 'Help' }).click();
-	expect(log.at(-1)).toEqual('help button clicked');
+	await expectLastLog('help button clicked');
 });

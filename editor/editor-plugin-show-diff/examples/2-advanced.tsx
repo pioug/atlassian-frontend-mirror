@@ -122,11 +122,9 @@ const COLOR_SCHEME_LABELS: Record<ColorSchemeMode, string> = {
 
 // This example intentionally enables attribution colours and contributor tags so they can be
 // exercised without a Confluence host application.
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver(
 	(flagKey) => flagKey === 'confluence_ncs_step_diffing_version_history',
 );
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 UNSAFE_overrideExperiment('platform_editor_show_diff_color_scheme_refactor', {
 	isEnabled: true,
 });

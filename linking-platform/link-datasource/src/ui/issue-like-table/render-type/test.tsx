@@ -108,6 +108,15 @@ describe('stringifyType', () => {
 		expect(result).toEqual('');
 	});
 
+	it('should return an empty string for ObjectReferenceType', () => {
+		const input: DatasourceType = {
+			type: 'objectReference',
+			value: { url: 'url', text: 'object text', avatarUrl: 'avatar url' },
+		};
+		const result = stringifyType(input, mockFormatMessage, mockFormatDate);
+		expect(result).toEqual('');
+	});
+
 	// Test for StatusType
 	it('should return the text of the status', () => {
 		const input: DatasourceType = {

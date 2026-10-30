@@ -7,7 +7,6 @@ import ExitingPersistence from '../../../entering/exiting-persistence';
 import SlideIn from '../../../entering/slide-in';
 import { easeIn, easeOut } from '../../../utils/curves';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<SlideIn />', () => {
 	it('should default to medium duration', () => {
 		render(

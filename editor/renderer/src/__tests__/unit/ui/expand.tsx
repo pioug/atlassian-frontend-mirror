@@ -153,6 +153,14 @@ describe('Expand', () => {
 			expect(sideMargins(renderTopLevelExpand('comment'))).toEqual(['0', '0']);
 		});
 
+		it('keeps a top-level expand inside the comment width in the modernization cohort', () => {
+			failGate(GATE);
+			passGate('wiv_modernization_cohort');
+			mockExpDisabled('work_item_modernization');
+
+			expect(sideMargins(renderTopLevelExpand('comment'))).toEqual(['0', '0']);
+		});
+
 		it('pulls a top-level expand into the full-page gutter when the gate is on', () => {
 			passGate(GATE);
 

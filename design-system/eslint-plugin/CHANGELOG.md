@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.14.4
+
+### Patch Changes
+
+- [`95e4e800d25fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95e4e800d25fd) -
+  Fix labelling migrations to import the supported Tag API, preserve bindings, and withhold unsafe
+  fixes when required text, entity type, or prop behavior needs manual review. Name exact Lozenge
+  appearance replacements and document current Tag and AvatarTag APIs.
+
 ## 16.14.3
 
 ### Patch Changes

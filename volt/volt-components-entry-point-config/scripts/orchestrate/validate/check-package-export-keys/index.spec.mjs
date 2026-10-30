@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/import/no-unresolved -- Node's built-in test module is valid at runtime. */
-
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';

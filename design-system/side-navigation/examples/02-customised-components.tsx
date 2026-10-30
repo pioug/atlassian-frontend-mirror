@@ -10,7 +10,6 @@ import { cssMap } from '@atlaskit/css';
 import NestIcon from '@atlaskit/icon/core/list-numbered';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { GoBackItem } from '@atlaskit/side-navigation/go-back-item';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
@@ -92,7 +91,7 @@ const CustomisedExample: () => JSX.Element = () => {
 					<NestIcon label="" />
 				</Flex>
 			}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
 				GoBackItem: {
 					render: (props) => <GoBackItem {...props}>Exit NestingItem 1-1</GoBackItem>,
@@ -113,7 +112,7 @@ const CustomisedExample: () => JSX.Element = () => {
 				</Flex>
 			}
 			css={customNestingItemStyles}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
 				GoBackItem: {
 					render: (props) => <GoBackItem {...props}>Exit NestingItem 1</GoBackItem>,
@@ -132,7 +131,7 @@ const CustomisedExample: () => JSX.Element = () => {
 					<SampleHeader />
 				</NavigationHeader>
 				<NestableNavigationContent
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={{
 						GoBackItem: {
 							render: (props) => <GoBackItem {...props}>Default Go Back</GoBackItem>,

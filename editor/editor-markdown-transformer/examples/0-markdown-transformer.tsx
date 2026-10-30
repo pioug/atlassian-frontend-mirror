@@ -7,10 +7,8 @@
 
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@compiled/react';
 
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports -- Example file, requires core
 import Editor from '@atlaskit/editor-core/editor';
 import { EditorContext } from '@atlaskit/editor-core/EditorContext';
 import { WithEditorActions } from '@atlaskit/editor-core/WithEditorActions';

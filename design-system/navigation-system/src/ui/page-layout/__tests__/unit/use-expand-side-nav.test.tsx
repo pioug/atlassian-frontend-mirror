@@ -10,7 +10,6 @@ import { SideNavVisibilityState } from '../../side-nav/side-nav-visibility-state
 import type { SideNavState, SideNavTrigger } from '../../side-nav/types';
 import { useExpandSideNav } from '../../side-nav/use-expand-side-nav';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useExpandSideNav', () => {
 	beforeEach(() => {
 		resetMatchMedia();

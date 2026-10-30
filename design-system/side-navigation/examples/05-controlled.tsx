@@ -16,7 +16,6 @@ import SettingsIcon from '@atlaskit/icon/core/settings';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Select from '@atlaskit/select/default';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
 import { LinkItem } from '@atlaskit/side-navigation/link-item';

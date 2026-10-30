@@ -49,6 +49,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/user-picker": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -163,5 +164,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.6.0"
+	"version": "30.7.0"
 }

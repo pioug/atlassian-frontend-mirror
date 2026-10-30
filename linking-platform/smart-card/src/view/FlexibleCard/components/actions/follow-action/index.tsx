@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { lazy, type ComponentType } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
+import { renderNothingOnLoadError, withSuspense } from '../../../../../utils/lazy-component';
 import { importIcon } from '../../importIcon';
 import ServerAction from '../action/server-action';
 import { type FollowActionProps } from './types';
@@ -25,7 +27,32 @@ const importIconMapper: {
 		})),
 };
 
+// Inline module-scope lazy() calls so product SSR tooling can preload them before hydration.
+const lazyIconMapper: {
+	[key: string]: ComponentType<any> | undefined;
+} = {
+	goal: withSuspense(
+		lazy(() =>
+			import(/* webpackChunkName: "glyphGoal" */ './goal-icon')
+				.then(({ GoalIcon }) => ({ default: GoalIcon }))
+				.catch(renderNothingOnLoadError),
+		),
+		'lazy(GoalIcon)',
+	),
+	projects: withSuspense(
+		lazy(() =>
+			import(/* webpackChunkName: "glyphProjects" */ './projects-icon')
+				.then(({ ProjectsIcon }) => ({ default: ProjectsIcon }))
+				.catch(renderNothingOnLoadError),
+		),
+		'lazy(ProjectsIcon)',
+	),
+};
+
 const getIcon = (stackIconType: string) => {
+	if (fg('platform_sl_replace_react_loadable')) {
+		return lazyIconMapper[stackIconType] ?? null;
+	}
 	const importFn = importIconMapper[stackIconType];
 	if (!importFn) {
 		return null;

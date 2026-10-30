@@ -1,5 +1,37 @@
 # @atlaskit/link-datasource
 
+## 7.10.0
+
+### Minor Changes
+
+- [`4b0ec5ed92261`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b0ec5ed92261) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.9.0
+
+### Minor Changes
+
+- [`cdcc836eb6f91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdcc836eb6f91) -
+  Add support for the new `objectReference` datasource type (`{ url, text?, avatarUrl? }`). Behind
+  `astral_assets_macro_table_ui_uplift` it renders as an `AvatarTag` with a Smart Link hover card
+  that opens in a new tab; when the gate is off it falls back to the existing link render type.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.8.2
+
+### Patch Changes
+
+- [`1a4bf8ba80113`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a4bf8ba80113) -
+  Remove the `platform_lp_sllv_preserve_assets_columns` feature gate and permanently preserve
+  selected Assets columns when editing AQL within the same object schema.
+
 ## 7.8.1
 
 ### Patch Changes

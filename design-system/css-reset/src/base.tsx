@@ -2,7 +2,7 @@ import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
 
-const fontFamily = `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
+const fontFamily = `ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif`;
 const codeFontFamily = `ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace`;
 
 /* TODO body line height should be 1.25rem */

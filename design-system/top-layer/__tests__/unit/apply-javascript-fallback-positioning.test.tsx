@@ -41,7 +41,7 @@ describe('applyJavaScriptFallbackPositioning()', () => {
 	}
 
 	// `raf-schd` throttles to one call per frame; running the frame synchronously
-	// keeps each dispatched event to exactly one `update`.
+	// keeps each dispatched event to exactly one `updatePosition`.
 	let requestAnimationFrameSpy: jest.SpyInstance;
 	beforeEach(() => {
 		requestAnimationFrameSpy = jest

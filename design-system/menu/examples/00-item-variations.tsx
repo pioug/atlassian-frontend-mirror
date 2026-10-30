@@ -160,7 +160,6 @@ const ItemVariants: () => JSX.Element = () => {
 				testId="item-link-selected"
 				href="//www.atlassian.com"
 				iconAfter={Star}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 				css={overrideStyles}
 				isSelected
 			>

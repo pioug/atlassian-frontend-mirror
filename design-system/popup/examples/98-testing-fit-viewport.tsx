@@ -113,7 +113,6 @@ export default function TestingPopupFitViewport(): JSX.Element {
 						{...triggerProps}
 						css={styles.trigger}
 						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the offset is a test parameter, so it cannot be a static style
 							insetBlockStart: `${triggerBlockStart}px`,
 						}}
 						type="button"
@@ -128,7 +127,6 @@ export default function TestingPopupFitViewport(): JSX.Element {
 						data-testid="fit-popup-body"
 						css={styles.body}
 						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the content height is a test parameter, so it cannot be a static style
 							blockSize: `${contentBlockSize}px`,
 						}}
 					>

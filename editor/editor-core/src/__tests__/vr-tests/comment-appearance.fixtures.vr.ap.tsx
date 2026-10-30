@@ -9,7 +9,6 @@ export const EmptyCommentEditor = (): React.JSX.Element => {
 	return <ComposableEditor preset={preset} appearance="comment" maxHeight={500} />;
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const CommentEditorTwoLineToolbar = (): React.JSX.Element => {
 	const { preset } = usePreset(() => createDefaultPreset({}));
 	return (

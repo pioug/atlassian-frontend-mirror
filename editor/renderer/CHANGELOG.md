@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 153.2.1
+
+### Patch Changes
+
+- [`e217b926e88f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e217b926e88f6) -
+  Enable standard node width and comment margin styles for the wiv_modernization_cohort gate, in
+  addition to platform_editor_expand_standard_width_fix, platform_editor_comment_margin_cq and the
+  work_item_modernization experiment
+- Updated dependencies
+
+## 153.2.0
+
+### Minor Changes
+
+- [`5af22a8293751`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5af22a8293751) -
+  Add optional host callbacks for temporary extension sizing: getExtensionPresetHeight supplies CSS
+  height in pixels alongside the existing getExtensionHeight min-height callback, and
+  scheduleExtensionHeightRemoval schedules expiry. Standard extension and bodied extension nodes
+  expire height and min-height independently, clean up timers, and prevent viewport fallback after
+  expiry.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 153.1.0
 
 ### Minor Changes

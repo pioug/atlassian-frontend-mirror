@@ -48,8 +48,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -68,8 +68,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -88,8 +88,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -108,8 +108,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -129,8 +129,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -149,8 +149,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -169,8 +169,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -189,8 +189,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -210,8 +210,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 100);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -229,8 +229,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(100, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -250,8 +250,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -269,8 +269,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(100, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -290,8 +290,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: 20,
@@ -309,8 +309,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: 0,
@@ -331,8 +331,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -350,8 +350,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -372,8 +372,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -391,8 +391,8 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const position = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
@@ -411,16 +411,16 @@ describe('anchor positioning fallback', () => {
 			const popoverEl = createMockPopoverElement(40, 30);
 
 			const baseline = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,
 				crossAxisShift: ZERO_CROSS_AXIS_SHIFT,
 			});
 			const shifted = computeFallbackPosition({
-				triggerRect,
-				popoverEl,
+				anchorRect: triggerRect,
+				popover: popoverEl,
 				placement,
 				viewport,
 				gap: DEFAULT_GAP_PX,

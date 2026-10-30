@@ -25,7 +25,6 @@ function DropdownWithReturnFocusRef({ shouldRenderToParent }: { shouldRenderToPa
 	return (
 		<Box xcss={styles.container}>
 			<Inline space="space.300">
-				{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 				<DropdownMenu
 					trigger="Actions"
 					onOpenChange={(e) => console.log('dropdown opened', e)}

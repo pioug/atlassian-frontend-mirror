@@ -3,9 +3,8 @@ import { token } from '@atlaskit/tokens';
 import { toCssLengthString } from './resolve-css-length';
 
 /**
- * Default gap between trigger and popover. Resolves to a design
- * token (`space.100`) so the value follows the design system's spacing
- * scale. Used when `placement.offset.gap` is not provided.
+ * The gap between the anchor and the popover when `placement.offset.gap` is not
+ * set. A design token (`space.100`), so it follows the spacing scale.
  */
 const DEFAULT_GAP = token('space.100', '8px');
 
@@ -17,23 +16,38 @@ const DEFAULT_GAP = token('space.100', '8px');
 export type TCrossAxisShiftDirection = 'forwards' | 'backwards';
 
 /**
- * Cross-axis shift. `value` is a CSS length string (consumer numbers are
- * normalized to `${n}px`).
+ * A resolved cross-axis shift. `value` is a CSS length string: a number from the
+ * consumer becomes `${n}px`.
  */
 export type TCrossAxisShiftOffset = {
 	value: string;
 	direction: TCrossAxisShiftDirection;
 };
 
+/**
+ * The logical axis along which the popover sits next to the anchor. In a
+ * horizontal writing mode, `'block'` is above or below the anchor and `'inline'`
+ * is beside it.
+ */
 export type TPlacementAxis = 'block' | 'inline';
+
+/**
+ * The side of the anchor, on the placement axis, that the popover sits on.
+ */
 export type TPlacementEdge = 'start' | 'end';
+
+/**
+ * How the popover lines up with the anchor on the cross axis. `'start'` lines up
+ * the start edges, `'end'` lines up the end edges, and `'center'` centres the
+ * popover on the anchor.
+ */
 export type TPlacementAlign = 'start' | 'center' | 'end';
 
 /**
- * Fully-resolved placement (internal). Use `resolvePlacement` for partial input.
- * `offset.gap`, `offset.crossAxisShift.value` and `minSize` are always CSS length
- * strings. `minSize` stays `undefined` when unset, so "not specified" and an
- * explicit `0` remain distinguishable.
+ * A fully resolved placement (internal). Use `resolvePlacement` to make one from
+ * `TPlacementOptions`. `offset.gap`, `offset.crossAxisShift.value` and `minSize`
+ * are always CSS length strings. `minSize` stays `undefined` when it is not set,
+ * so "not set" and an explicit `0` stay different.
  */
 export type TPlacement = {
 	axis: TPlacementAxis;
@@ -47,13 +61,8 @@ export type TPlacement = {
 };
 
 /**
- * Partial placement options. `offset.gap` and
- * `offset.crossAxisShift.value` accept either a number (pixels) or a
- * CSS length string (e.g. `token('space.100')`).
- *
- * The two offset axes are named for clarity at the call site:
- *   - `gap`     - distance away from the trigger along the placement axis
- *   - `crossAxisShift`  - nudge along the trigger edge (perpendicular to the placement axis)
+ * A partial placement. Every field is optional; `resolvePlacement` fills in the
+ * defaults.
  */
 export type TPlacementOptions = {
 	axis?: TPlacementAxis;
@@ -63,15 +72,23 @@ export type TPlacementOptions = {
 	 * The minimum size the popover keeps along the PLACEMENT axis. A number is
 	 * pixels; a string is any CSS length.
 	 *
-	 * Once EITHER axis asks for `'max-available'` the placement axis is floored
+	 * Once EITHER axis asks for `'max-available'`, the placement axis gets a floor
 	 * whether this is set or not, because a cap with no floor stops the popover
-	 * flipping to a roomier side. This always beats that default floor, and
-	 * composes with an anchor floor as `max(minSize, anchorSize)` - so `0` caps the
+	 * flipping to a roomier side. This value always beats that default floor, and
+	 * composes with an anchor floor as `max(minSize, anchorSize)`. So `0` caps the
 	 * popover without letting it move, but does not remove an anchor floor.
 	 */
 	minSize?: number | string;
 	offset?: {
+		/**
+		 * The distance from the anchor along the placement axis. A number is pixels;
+		 * a string is any CSS length (for example `token('space.100')`).
+		 */
 		gap?: number | string;
+		/**
+		 * A nudge along the anchor edge, on the cross axis (perpendicular to the
+		 * placement axis). `value` takes a number (pixels) or any CSS length.
+		 */
 		crossAxisShift?: {
 			value?: number | string;
 			direction?: TCrossAxisShiftDirection;
@@ -80,8 +97,8 @@ export type TPlacementOptions = {
 };
 
 /**
- * Resolves a partial placement to its fully-specified form. Number offsets
- * are normalized to `${n}px` strings.
+ * Resolves a partial placement to its full form. Number offsets become
+ * `${n}px` strings.
  *
  * Defaults: `axis: 'block'`, `edge: 'end'`, `align: 'center'`,
  * `offset.gap: token('space.100', '8px')`,
@@ -95,8 +112,8 @@ export function resolvePlacement({ placement }: { placement: TPlacementOptions }
 		axis: placement.axis ?? 'block',
 		edge: placement.edge ?? 'end',
 		align: placement.align ?? 'center',
-		// Not `??`: `undefined` must survive, so "not specified" stays
-		// distinguishable from an explicit `0`.
+		// No `??` default: `undefined` must survive, so "not set" stays different
+		// from an explicit `0`.
 		minSize:
 			placement.minSize === undefined ? undefined : toCssLengthString({ value: placement.minSize }),
 		offset: {

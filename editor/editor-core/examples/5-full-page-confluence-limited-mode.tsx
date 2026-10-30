@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
 import type { JSX } from 'react';
 import { Fragment, useCallback, useRef, useState } from 'react';
@@ -607,7 +606,6 @@ const ConfigCard = ({ stats }: { stats: DocStats & { enabled: boolean } }) => {
 			<div css={styles.barTrack}>
 				<div
 					css={[styles.barFill, overNodeCount ? styles.barFillOver : styles.barFillNormal]}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- width is a computed percentage of the node-count threshold
 					style={{ width: `${pct}%` }}
 				/>
 			</div>

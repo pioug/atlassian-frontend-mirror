@@ -1,5 +1,6 @@
 /**
- * Combine multiple cleanup functions into a single cleanup function.
+ * Combines cleanup functions into one cleanup function. It calls them in order and skips
+ * `undefined` entries.
  *
  * @example
  * ```ts
@@ -13,6 +14,6 @@
  */
 export function combine(...cleanupFns: ((() => void) | undefined)[]): () => void {
 	return function cleanup() {
-		cleanupFns.forEach((callback) => callback?.());
+		cleanupFns.forEach((cleanupFn) => cleanupFn?.());
 	};
 }

@@ -4,11 +4,13 @@ import React from 'react';
 
 import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/removable-tag';
 import type { TagColor } from '@atlaskit/tag/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
+import { PICKER_ITEM_HEIGHT } from '@atlaskit/user-picker/picker-item-content';
 
 import { isAgentMention } from '../../is-agent-mention';
 import { isRestricted } from '../../is-restricted';
@@ -22,18 +24,14 @@ import type {
 import { NoAccessLabel } from '../../util/i18n';
 import { leftClick } from '../../util/left-click';
 import AsyncLockCircleIcon from '../LockCircleIcon';
-import { MentionAvatar } from '../MentionAvatar';
-import MentionDescriptionByline from '../MentionDescriptionByline';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import AsyncNoAccessTooltip from '../NoAccessTooltip';
-import { renderHighlight } from './MentionHighlightHelpers';
+import { MentionItemLayoutNext } from './MentionItemLayout';
+import { MentionItemLayoutLegacy } from './MentionItemLayoutLegacy';
 import {
 	AccessSectionStyle,
-	AvatarStyle,
-	FullNameStyle,
 	InfoSectionStyle,
 	MentionItemStyle,
-	NameSectionStyle,
 	RowStyle as RowStyleLegacy,
 	RowStyleNext,
 	TimeStyle,
@@ -128,9 +126,11 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 	};
 
 	render(): React.JSX.Element {
-		const { mention, selected, forwardedRef, height } = this.props;
-		const { id, highlight, presence, name, mentionName, lozenge, accessLevel, isXProductUser } =
-			mention;
+		const { mention, selected, forwardedRef } = this.props;
+		const height = isExperimentEnabled('platform_editor_mentions_email_search')
+			? PICKER_ITEM_HEIGHT
+			: this.props.height;
+		const { id, presence, name, mentionName, lozenge, accessLevel, isXProductUser } = mention;
 
 		if (mention.isPlaceholder) {
 			return (
@@ -146,8 +146,6 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 		const { time } = presence || ({} as Presence);
 		const restricted = isRestricted(accessLevel);
 
-		const nameHighlights = highlight && highlight.name;
-
 		const xProductUserInfoIconColor = selected ? token('color.icon.selected') : token('color.icon');
 
 		let RowStyle = RowStyleLegacy;
@@ -160,6 +158,9 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 			isAgent = isAgentMention(mention);
 		}
 
+		const ItemLayout = isExperimentEnabled('platform_editor_mentions_email_search')
+			? MentionItemLayoutNext
+			: MentionItemLayoutLegacy;
 		return (
 			<MessagesIntlProvider>
 				<MentionItemStyle
@@ -176,14 +177,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 					data-selected={selected}
 					ref={forwardedRef}
 				>
-					<RowStyle>
-						<AvatarStyle restricted={restricted}>
-							<MentionAvatar selected={selected} mention={mention} />
-						</AvatarStyle>
-						<NameSectionStyle restricted={restricted}>
-							{renderHighlight(FullNameStyle, name, nameHighlights)}
-							<MentionDescriptionByline mention={mention} />
-						</NameSectionStyle>
+					<ItemLayout mention={mention} selected={selected} legacyRow={RowStyle}>
 						<InfoSectionStyle restricted={restricted}>
 							{fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 								? renderTag(lozenge)
@@ -206,7 +200,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 							</React.Suspense>
 						) : null}
 						{isXProductUser && <EditorPanelIcon color={xProductUserInfoIconColor} label={''} />}
-					</RowStyle>
+					</ItemLayout>
 				</MentionItemStyle>
 			</MessagesIntlProvider>
 		);

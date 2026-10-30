@@ -4,13 +4,9 @@ import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import noop from '@atlaskit/ds-lib/noop';
 import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
-// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
-// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { screen } from '@atlassian/testing-library/screen';
-// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
-// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { userEvent } from '@atlassian/testing-library/user-event';
 
 import ModalBody from '../../modal-body';
@@ -121,7 +117,6 @@ function ControlledModal({
 	);
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	beforeAll(() => {
 		// Emulate reduced motion to avoid animation timing issues

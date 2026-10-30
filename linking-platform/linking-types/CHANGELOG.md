@@ -1,5 +1,14 @@
 # @atlaskit/linking-types
 
+## 16.1.0
+
+### Minor Changes
+
+- [`cdcc836eb6f91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdcc836eb6f91) -
+  Add support for the new `objectReference` datasource type (`{ url, text?, avatarUrl? }`). Behind
+  `astral_assets_macro_table_ui_uplift` it renders as an `AvatarTag` with a Smart Link hover card
+  that opens in a new tab; when the gate is off it falls back to the existing link render type.
+
 ## 16.0.0
 
 ### Major Changes

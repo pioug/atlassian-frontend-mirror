@@ -34,10 +34,13 @@ function createOpenOrderTracker(): TOpenOrderTracker {
 				return;
 			}
 			isTracking = true;
-			// Never unbound: it must see every open for the life of the page.
-			// `beforetoggle`, not `toggle`: `beforetoggle` fires synchronously on open. `toggle` is
-			// task-queued, and in Chrome it can arrive after an Escape that follows the open.
-			// Capture, so an inner `stopPropagation()` cannot hide an open.
+			/**
+			 * - Never unbound: it must see every open for the life of the page.
+			 * - `beforetoggle`, not `toggle`: `beforetoggle` fires synchronously on open. `toggle` is
+			 *   task-queued, and in Chrome it can arrive after an Escape that follows the open.
+			 * - Capture: `beforetoggle` does not bubble, and an inner `stopPropagation()` cannot hide
+			 *   an open from a capture listener on `document`.
+			 */
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- open order is tracked for the whole document
 			bind(document, {
 				type: 'beforetoggle',

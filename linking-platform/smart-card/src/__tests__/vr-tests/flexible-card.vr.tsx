@@ -63,6 +63,7 @@ snapshot(FlexibleUiBlock, {
 		},
 	],
 	featureFlags: {
+		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -76,6 +77,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
+		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -98,6 +100,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
+		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -120,6 +123,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
+		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -133,6 +137,7 @@ snapshot(FlexibleUiBlockMetadata, {
 		},
 	],
 	featureFlags: {
+		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,

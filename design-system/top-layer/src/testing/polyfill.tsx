@@ -5,14 +5,15 @@
  * Popover API & HTMLDialogElement polyfills for jsdom.
  *
  * jsdom does not implement the Popover API or the HTMLDialogElement methods
- * (showModal, show, close). This polyfill provides faithful implementations,
- * including timing semantics validated against Chromium via Playwright.
+ * (showModal, show, close). This polyfill implements them as a browser does,
+ * including the event timing, which is checked against Chromium with Playwright.
  *
  * Behaviour:
- *  - beforetoggle: sync, cancelable on popover show and dialog show/showModal only. toggle: async
- *    task, never cancelable.
- *  - Rapid show/hide coalesces into one toggle event (originalOldState to finalNewState).
- *  - Dialog: showModal/show fire beforetoggle+toggle. close fires toggle then close event.
+ *  - beforetoggle: synchronous. Cancelable only on popover show and dialog show/showModal.
+ *    toggle: a later task, never cancelable.
+ *  - Rapid show/hide coalesces into one toggle event (first oldState to last newState).
+ *  - Dialog: showModal/show fire beforetoggle, then toggle. close fires beforetoggle, then toggle,
+ *    then the close event.
  *  - Dialog focus: showModal and show run the dialog focusing steps (focus moves into the
  *    dialog). close returns focus to the element that had it before, when the dialog was modal
  *    or focus is in it. Removing an open dialog from the document makes it non-modal and takes it
@@ -35,32 +36,29 @@
  *    rendering update. Not synchronously. With fake timers, use `jest.runOnlyPendingTimers()`.
  *  - Dialog `closedBy` IDL property, and Escape honours `closedby` (as a browser that supports
  *    it). Delete `HTMLDialogElement.prototype.closedBy` to model a browser without `closedby`.
- *  - Popover open state tracked via `data-popover-open` (no `:popover-open` in jsdom).
- *  - Auto popovers: maintain an open stack, perform light-dismiss on document mousedown
- *    outside the open chain, and dismiss the topmost on Escape.
+ *  - The popover open state is the `data-popover-open` attribute (jsdom has no `:popover-open`).
+ *  - Auto and hint popovers: each mode has an open stack. A press (pointer or mouse down and up)
+ *    outside the open chain light-dismisses them, and Escape dismisses the topmost one.
  *  - Escape: the dismissal is the keydown's default action. It runs when `dispatchEvent()`
  *    returns, after every keydown listener, unless one called `preventDefault()`. So the layer is
  *    closed (and a dialog's `cancel` has fired) right after `fireEvent.keyDown()`, as in a browser,
  *    where it runs in the same task. `toggle` and `close` are still later tasks. Unlike Chromium
  *    and Firefox, it also runs for untrusted events, so that tests can send Escape.
- *  - On open, removes any inline `opacity: 0` from the popover element, so the
- *    JavaScript positioning fallback's `ResizeObserver` reveal is not needed in
- *    jsdom, where its non-zero-layout guard can never pass.
+ *  - When the open `toggle` fires, removes the inline `opacity` of the popover (the JavaScript
+ *    positioning fallback sets `opacity: 0`). So the fallback's `ResizeObserver` reveal is not
+ *    needed in jsdom, where its non-zero layout check can never pass.
  *
- * Companion `toBeVisible` patch lives at `./to-be-visible`.
+ * The companion `toBeVisible` patch is in `./to-be-visible`.
  *
- * Importing this module has the side-effect of patching the relevant
- * prototypes. It is safe to import multiple times; each branch is guarded
- * to avoid overwriting native implementations or re-patching.
+ * Importing this module patches the prototypes as a side effect. It is safe to import more than
+ * once: each patch is guarded, so it does not replace a native implementation or patch twice.
  */
 
 import { bind } from 'bind-event-listener';
 
 type TToggleState = 'open' | 'closed';
 
-/**
- * e.g. `<div#my-id.class-a.class-b>`
- */
+// Describes an element for error messages, for example `<div#my-id.class-a.class-b>`.
 function describeElement({ element }: { element: Element }): string {
 	const tag = element.tagName ? element.tagName.toLowerCase() : 'unknown';
 	const id = element.id ? `#${element.id}` : '';
@@ -80,11 +78,11 @@ type TToggleEventInit = {
 
 function createToggleEvent({ type, oldState, newState, cancelable }: TToggleEventInit): Event {
 	if (typeof (globalThis as { ToggleEvent?: unknown }).ToggleEvent === 'function') {
-		// ToggleEvent is not in lib.dom.d.ts at the time of writing; cast to any for construction.
-		const ToggleEventCtor = (
+		// The package DOM types do not have `ToggleEvent`, so cast it to a constructor type.
+		const ToggleEventConstructor = (
 			globalThis as { ToggleEvent: new (type: string, init: object) => Event }
 		).ToggleEvent;
-		return new ToggleEventCtor(type, { oldState, newState, cancelable, bubbles: false });
+		return new ToggleEventConstructor(type, { oldState, newState, cancelable, bubbles: false });
 	}
 
 	const event = new Event(type, { cancelable, bubbles: false }) as Event & {
@@ -113,83 +111,84 @@ function oppositeState({ state }: { state: TToggleState }): TToggleState {
 	return 'open';
 }
 
-// Coalesces rapid show/hide into one toggle event per element.
-// Uses setTimeout (task) not Promise.resolve (microtask) to match browser timing.
+/**
+ * Coalesces rapid show/hide into one `toggle` event per element. The event is a task
+ * (`setTimeout`), not a microtask, so it fires after microtasks drain, as in a browser.
+ */
 function createToggleScheduler(): (args: { element: Element; newState: TToggleState }) => void {
-	const pending = new Map<Element, { oldState: TToggleState; newState: TToggleState }>();
+	const pendingToggles = new Map<Element, { oldState: TToggleState; newState: TToggleState }>();
 	return function schedule({ element, newState }) {
-		const existing = pending.get(element);
-		if (existing) {
-			// Coalesce: keep the original oldState, update newState
-			pending.set(element, { oldState: existing.oldState, newState });
+		const pendingToggle = pendingToggles.get(element);
+		if (pendingToggle) {
+			// Coalesce: keep the first oldState, update newState.
+			pendingToggles.set(element, { oldState: pendingToggle.oldState, newState });
 			return;
 		}
 
-		pending.set(element, { oldState: oppositeState({ state: newState }), newState });
+		pendingToggles.set(element, { oldState: oppositeState({ state: newState }), newState });
 
-		// Task queue (setTimeout): browser fires toggle after microtasks drain, not during
 		setTimeout(() => {
-			const entry = pending.get(element);
-			if (!entry) {
+			const toggle = pendingToggles.get(element);
+			if (!toggle) {
 				return;
 			}
-			pending.delete(element);
+			pendingToggles.delete(element);
 			fireToggleEvent({
 				element,
 				type: 'toggle',
-				oldState: entry.oldState,
-				newState: entry.newState,
+				oldState: toggle.oldState,
+				newState: toggle.newState,
 				cancelable: false,
 			});
 		}, 0);
 	};
 }
 
-// Like createToggleScheduler but also fires a close event as a separate task after toggle.
+// Like `createToggleScheduler`, and can also fire `close` as a separate task after `toggle`.
 function createDialogToggleScheduler(): (args: {
 	dialog: HTMLDialogElement;
 	newState: TToggleState;
 	shouldFireCloseEvent: boolean;
 }) => void {
-	const pending = new Map<
+	const pendingToggles = new Map<
 		HTMLDialogElement,
 		{ oldState: TToggleState; newState: TToggleState; shouldFireCloseEvent: boolean }
 	>();
 	return function schedule({ dialog, newState, shouldFireCloseEvent }) {
-		const existing = pending.get(dialog);
-		if (existing) {
-			// Coalesce: keep the original oldState, merge shouldFireCloseEvent
-			pending.set(dialog, {
-				oldState: existing.oldState,
+		const pendingToggle = pendingToggles.get(dialog);
+		if (pendingToggle) {
+			// Coalesce: keep the first oldState, and fire `close` if any request asked for it.
+			pendingToggles.set(dialog, {
+				oldState: pendingToggle.oldState,
 				newState,
-				shouldFireCloseEvent: existing.shouldFireCloseEvent || shouldFireCloseEvent,
+				shouldFireCloseEvent: pendingToggle.shouldFireCloseEvent || shouldFireCloseEvent,
 			});
 			return;
 		}
 
-		pending.set(dialog, {
+		pendingToggles.set(dialog, {
 			oldState: oppositeState({ state: newState }),
 			newState,
 			shouldFireCloseEvent,
 		});
 
-		// Browser fires toggle as a task, not synchronously or as a microtask
+		// A browser fires `toggle` as a task, not synchronously or as a microtask.
 		setTimeout(() => {
-			const entry = pending.get(dialog);
-			if (!entry) {
+			const toggle = pendingToggles.get(dialog);
+			if (!toggle) {
 				return;
 			}
-			pending.delete(dialog);
+			pendingToggles.delete(dialog);
 			fireToggleEvent({
 				element: dialog,
 				type: 'toggle',
-				oldState: entry.oldState,
-				newState: entry.newState,
+				oldState: toggle.oldState,
+				newState: toggle.newState,
 				cancelable: false,
 			});
 
-			if (entry.shouldFireCloseEvent) {
-				// Browser fires close as a separate task after toggle
+			if (toggle.shouldFireCloseEvent) {
+				// A browser fires `close` as a separate task after `toggle`.
 				setTimeout(() => {
 					dialog.dispatchEvent(new Event('close', { bubbles: false, cancelable: false }));
 				}, 0);
@@ -201,28 +200,34 @@ function createDialogToggleScheduler(): (args: {
 // Popover API
 // Spec: https://html.spec.whatwg.org/multipage/popover.html
 
-// `popover` attribute valid values (case-insensitive). Empty / "auto" -> "auto"; unknown -> "manual".
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#attr-popover
+/**
+ * The `popover` attribute states. Values are case-insensitive. An empty value or `auto` is
+ * `auto`, and an unknown value is `manual`.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#attr-popover
+ */
 type TPopoverMode = 'auto' | 'hint' | 'manual';
 
 function getPopoverMode({ element }: { element: HTMLElement }): TPopoverMode | null {
 	if (!element.hasAttribute('popover')) {
 		return null;
 	}
-	const raw = element.getAttribute('popover')?.toLowerCase();
-	if (!raw || raw === 'auto') {
+	const value = element.getAttribute('popover')?.toLowerCase();
+	if (!value || value === 'auto') {
 		return 'auto';
 	}
-	if (raw === 'hint') {
+	if (value === 'hint') {
 		return 'hint';
 	}
 	return 'manual';
 }
 
-// IDL property: `el.popover` reflects the popover content attribute. Setter
-// writes verbatim; getter canonicalises (unknown -> "manual", empty -> "auto").
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-popover
-type TPopoverProp = TPopoverMode | null;
+/**
+ * The `popover` IDL property reflects the `popover` attribute. The setter writes the value as
+ * is. The getter returns the mode, so an unknown value reads back as `manual`, but the attribute
+ * keeps the original string.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-popover
+ */
+type TPopoverPropertyValue = TPopoverMode | null;
 if (
 	typeof HTMLElement !== 'undefined' &&
 	!Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'popover')
@@ -230,40 +235,38 @@ if (
 	Object.defineProperty(HTMLElement.prototype, 'popover', {
 		configurable: true,
 		enumerable: true,
-		get(this: HTMLElement): TPopoverProp {
+		get(this: HTMLElement): TPopoverPropertyValue {
 			return getPopoverMode({ element: this });
 		},
-		set(this: HTMLElement, value: TPopoverProp) {
+		set(this: HTMLElement, value: TPopoverPropertyValue) {
 			if (value === null) {
 				this.removeAttribute('popover');
 				return;
 			}
-			// Per spec, the IDL setter writes the value verbatim; the getter then
-			// canonicalises (so setting an unknown value is reflected as "manual"
-			// only when read back, but the attribute keeps the raw string).
 			this.setAttribute('popover', String(value));
 		},
 	});
 }
 
-// Open auto popovers in open-order. Used for light-dismiss, Escape, and
-// hide-all-popovers-until on new auto opens.
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#showing-auto-popover-list
+/**
+ * The open auto popovers, in the order they opened.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#showing-auto-popover-list
+ */
 const openAutoStack: HTMLElement[] = [];
 
-// Open hint popovers in open-order. Hints have their own stack: hint closes
-// other hints, auto closes all hints, hint never closes autos.
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#showing-hint-popover-list
+/**
+ * The open hint popovers, in the order they opened. A hint popover closes other hint popovers,
+ * an auto popover closes all hint popovers, and a hint popover never closes an auto popover.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#showing-hint-popover-list
+ */
 const openHintStack: HTMLElement[] = [];
 
 function isPopoverOpen({ element }: { element: HTMLElement }): boolean {
 	return element.hasAttribute('data-popover-open');
 }
 
-// Stack lookup: returns the stack the element belongs to (or null for manual /
-// non-popovers). Used by hide-handlers to remove from the correct stack and by
-// dismissal logic to find the topmost relevant popover.
-function stackForMode({ mode }: { mode: TPopoverMode | null }): HTMLElement[] | null {
+// The open stack for a popover mode. Manual popovers have no stack.
+function getStackForMode({ mode }: { mode: TPopoverMode | null }): HTMLElement[] | null {
 	if (mode === 'auto') {
 		return openAutoStack;
 	}
@@ -273,9 +276,11 @@ function stackForMode({ mode }: { mode: TPopoverMode | null }): HTMLElement[] | 
 	return null;
 }
 
-// Polyfill-only. Real browsers reveal the popover on the first non-zero layout
-// their `ResizeObserver` reports; jsdom always reports 0, so that guard never
-// passes and the inline `opacity: 0` is cleared on the open toggle instead.
+/**
+ * Polyfill only. A browser reveals the popover on the first non-zero layout that its
+ * `ResizeObserver` reports. jsdom always reports 0, so that check never passes, and the polyfill
+ * clears the inline `opacity: 0` on the open `toggle` instead.
+ */
 function clearOpacityOnOpenToggle({ element }: { element: HTMLElement }) {
 	const unbind = bind(element, {
 		type: 'toggle',
@@ -290,24 +295,47 @@ function clearOpacityOnOpenToggle({ element }: { element: HTMLElement }) {
 	});
 }
 
-// Spec: "topmost popover ancestor" walks both DOM ancestry AND the invoker
-// chain (an invoker is a button whose `popovertarget` references an open
-// popover). When opening popover B from a button inside popover A, A is
-// considered B's ancestor and stays open. This walks ancestors of the target,
-// hopping through any invoker references discovered along the way.
-// Find a popover's invoker: an element with `popovertarget=<popover.id>`.
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-target-element
+// Walks the inclusive ancestors of `node` once each. Returns the first non-null `visit` result.
+function findInInclusiveAncestors<T>({
+	node,
+	visit,
+}: {
+	node: Node | null;
+	visit: ({ node }: { node: Node }) => T | null;
+}): T | null {
+	const seen = new Set<Node>();
+	function step(current: Node | null): T | null {
+		if (!current || seen.has(current)) {
+			return null;
+		}
+		seen.add(current);
+		const result = visit({ node: current });
+		if (result !== null) {
+			return result;
+		}
+		return step(current.parentNode);
+	}
+	return step(node);
+}
+
+/**
+ * Finds the invoker of a popover: an element with `popovertarget="<popover id>"`.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-target-element
+ */
 function findInvokerForPopover({ popover }: { popover: HTMLElement }): HTMLElement | null {
 	if (!popover.id || !popover.ownerDocument) {
 		return null;
 	}
-	const escaped = (typeof CSS !== 'undefined' && CSS.escape ? CSS.escape : String)(popover.id);
-	const selector = `[popovertarget="${escaped}"]`;
+	const escapedId = (typeof CSS !== 'undefined' && CSS.escape ? CSS.escape : String)(popover.id);
+	const selector = `[popovertarget="${escapedId}"]`;
 	return popover.ownerDocument.querySelector<HTMLElement>(selector);
 }
 
-// True if `candidate` is reachable from `start` via DOM ancestry plus invoker
-// hops. Spec: https://html.spec.whatwg.org/multipage/popover.html#topmost-popover-ancestor
+/**
+ * Whether `candidate` is reachable from `start` through inclusive ancestors and invokers. At an
+ * invoker, the walk also continues from the popover that it references.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#topmost-popover-ancestor
+ */
 function reachesViaAncestryOrInvoker({
 	start,
 	candidate,
@@ -315,13 +343,13 @@ function reachesViaAncestryOrInvoker({
 	start: Node;
 	candidate: HTMLElement;
 }): boolean {
-	const found = walkAncestorChain<true>({
-		start,
-		visitor: ({ node }) => {
+	const found = findInInclusiveAncestors<true>({
+		node: start,
+		visit: ({ node }) => {
 			if (node === candidate) {
 				return true;
 			}
-			// Hop into the invoked popover's chain when this node is an invoker.
+			// Continue in the ancestors of the invoked popover when this node is an invoker.
 			if (node instanceof HTMLElement) {
 				const popovertarget = node.getAttribute('popovertarget');
 				if (popovertarget && node.ownerDocument) {
@@ -339,8 +367,12 @@ function reachesViaAncestryOrInvoker({
 	return found === true;
 }
 
-// Is `candidate` an ancestor of `target` via DOM nesting OR invoker chain?
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#topmost-popover-ancestor
+/**
+ * Whether `candidate` is in the popover chain to `target`. The chain is the DOM ancestors plus
+ * invokers (elements whose `popovertarget` references a popover). So when a button in popover A
+ * opens popover B, A is an ancestor of B and stays open.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#topmost-popover-ancestor
+ */
 function isInChainTo({
 	candidate,
 	target,
@@ -354,8 +386,8 @@ function isInChainTo({
 	if (reachesViaAncestryOrInvoker({ start: target, candidate })) {
 		return true;
 	}
-	// If target is itself a popover, also walk its invoker's chain (a button
-	// elsewhere in the DOM that has `popovertarget=<target.id>`).
+	// When `target` is a popover, also walk the chain of its invoker, which can be anywhere in the
+	// DOM.
 	if (target instanceof HTMLElement && target.hasAttribute('popover')) {
 		const invoker = findInvokerForPopover({ popover: target });
 		if (invoker && reachesViaAncestryOrInvoker({ start: invoker, candidate })) {
@@ -365,15 +397,19 @@ function isInChainTo({
 	return false;
 }
 
-// Two-phase light-dismiss: pointerdown stores the nearest open popover for
-// the target; pointerup dismisses popovers that are not in that popover's
-// chain when the same target is hit. Drag-out / drag-in does not dismiss.
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#light-dismiss-open-popovers
-const pointerdownState: { target: HTMLElement | null } = { target: null };
+/**
+ * The popover pointerdown target. Light dismiss has two steps: `pointerdown` stores the nearest
+ * open popover of its target here. `pointerup` light-dismisses only when its target has the same
+ * nearest open popover, so a drag out of or into a popover does not dismiss.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#light-dismiss-open-popovers
+ */
+const popoverPointerdownTarget: { current: HTMLElement | null } = { current: null };
 
-// If `node` is an invoker for an open popover, return that popover.
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-target-element
-function invokedOpenPopover({ node }: { node: Node }): HTMLElement | null {
+/**
+ * If `node` is an invoker of an open popover, returns that popover.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-target-element
+ */
+function getInvokedOpenPopover({ node }: { node: Node }): HTMLElement | null {
 	if (!(node instanceof HTMLElement)) {
 		return null;
 	}
@@ -388,38 +424,19 @@ function invokedOpenPopover({ node }: { node: Node }): HTMLElement | null {
 	return referenced;
 }
 
-// Cycle-safe ancestor walker. Returns the first non-null `visitor` result.
-function walkAncestorChain<T>({
-	start,
-	visitor,
-}: {
-	start: Node | null;
-	visitor: ({ node }: { node: Node }) => T | null;
-}): T | null {
-	const seen = new Set<Node>();
-	function step(node: Node | null): T | null {
-		if (!node || seen.has(node)) {
-			return null;
-		}
-		seen.add(node);
-		const result = visitor({ node });
-		if (result !== null) {
-			return result;
-		}
-		return step(node.parentNode);
-	}
-	return step(start);
-}
-
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#nearest-inclusive-open-popover
-function nearestOpenPopover({ target }: { target: Node | null }): HTMLElement | null {
-	return walkAncestorChain({
-		start: target,
-		visitor: ({ node }) => {
+/**
+ * The nearest open popover of `target`: its first inclusive ancestor that is an open popover or
+ * invokes one. For an invoker, it is the invoked popover.
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#nearest-inclusive-open-popover
+ */
+function getNearestOpenPopover({ target }: { target: Node | null }): HTMLElement | null {
+	return findInInclusiveAncestors({
+		node: target,
+		visit: ({ node }) => {
 			if (node instanceof HTMLElement && isPopoverOpen({ element: node })) {
 				return node;
 			}
-			return invokedOpenPopover({ node });
+			return getInvokedOpenPopover({ node });
 		},
 	});
 }
@@ -462,29 +479,39 @@ function isShadowIncludingInclusiveAncestor({
 	);
 }
 
-/**
- * Polyfill state on an element: the "previously focused element", set by `show()`, `showModal()`
- * and `showPopover()`.
- * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#previously-focused-element
- */
+// Polyfill state on an element.
 type TPolyfillElement = HTMLElement & {
+	/**
+	 * The "previously focused element", set by `show()`, `showModal()` and `showPopover()`.
+	 * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#previously-focused-element
+	 */
 	_previouslyFocusedElement?: Element | null;
-	// Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-hiding
+	/**
+	 * True while the hide popover algorithm runs for this popover.
+	 * Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-hiding
+	 */
 	_isPopoverHiding?: boolean;
 };
 
-/**
- * Polyfill state on a `<dialog>`: the "is modal" flag, the request close state, and the "is
- * running cancel action" flag of its close watcher.
- * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#is-modal
- * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#enable-close-watcher-for-requestclose()
- * Spec: https://html.spec.whatwg.org/multipage/interaction.html#close-watcher-is-running-cancel-action
- */
+// Polyfill state on a `<dialog>`.
 type TPolyfillDialog = HTMLDialogElement &
 	TPolyfillElement & {
+		/**
+		 * The "is modal" flag.
+		 * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#is-modal
+		 */
 		_isModal?: boolean;
+		// The request close return value, set by `requestClose()`.
 		_requestCloseReturnValue?: string | null;
+		/**
+		 * The "enable close watcher for requestClose()" flag.
+		 * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#enable-close-watcher-for-requestclose()
+		 */
 		_enableCloseWatcherForRequestClose?: boolean;
+		/**
+		 * The "is running cancel action" flag of the dialog close watcher.
+		 * Spec: https://html.spec.whatwg.org/multipage/interaction.html#close-watcher-is-running-cancel-action
+		 */
 		_isRunningCancelAction?: boolean;
 	};
 
@@ -503,14 +530,14 @@ function removeModalDialog({ dialog }: { dialog: TPolyfillDialog }) {
 }
 
 /**
- * Represents one dialog or popover opening so queued Escape requests cannot close a later opening.
+ * One opening of a dialog or popover. Each opening is a new object, so an Escape cannot close a
+ * later opening of the same element (for example, one that a `cancel` listener opens).
  */
 type TEscapeLayer =
 	| { type: 'popover'; element: HTMLElement }
 	| { type: 'dialog'; element: TPolyfillDialog };
-/**
- * Tracks dialog and popover Escape targets in opening order.
- */
+
+// The dialog and popover Escape targets, in the order they opened.
 const escapeLayers: TEscapeLayer[] = [];
 
 /**
@@ -532,7 +559,8 @@ function registerEscapeLayer({ layer }: { layer: TEscapeLayer }) {
 }
 
 /**
- * Checks whether a tracked element is still connected and open, including direct DOM changes.
+ * Whether the element of a layer is still connected and open. It reads the DOM, so it also sees
+ * direct attribute changes.
  */
 function isEscapeLayerOpen({ layer }: { layer: TEscapeLayer }): boolean {
 	return (
@@ -551,11 +579,11 @@ function pruneClosedEscapeLayers() {
 }
 
 /**
- * **Dialog removing and insertion steps**
+ * **Removing and insertion steps**
  *
  * jsdom has no hook that runs when a node leaves or joins the document. The polyfill watches open
- * dialogs with a `MutationObserver`, and calls `takeRecords()` before it reads dialog state, so the
- * steps take effect at once, as in a browser.
+ * dialogs with a `MutationObserver`, and calls `takeRecords()` before it reads dialog or popover
+ * state, so the steps take effect at once, as in a browser.
  *
  * A removed dialog that keeps `open` stays watched until it closes, so inserting it again, even in
  * a later task, runs the insertion steps. The polyfill sees an insertion into the document, or
@@ -565,7 +593,7 @@ function pruneClosedEscapeLayers() {
  */
 const watchedDialogs = new Set<TPolyfillDialog>();
 const watchedPopovers = new Set<HTMLElement>();
-const dialogRemovalObserver: { current: MutationObserver | null } = { current: null };
+const removalObserver: { current: MutationObserver | null } = { current: null };
 
 /**
  * The popover removing steps: the hide popover algorithm with no focus return and no events. Set
@@ -601,8 +629,8 @@ function runDialogInsertionSteps({ dialog }: { dialog: TPolyfillDialog }) {
 
 function disconnectRemovalObserverWhenIdle() {
 	if (watchedDialogs.size === 0 && watchedPopovers.size === 0) {
-		dialogRemovalObserver.current?.disconnect();
-		dialogRemovalObserver.current = null;
+		removalObserver.current?.disconnect();
+		removalObserver.current = null;
 	}
 }
 
@@ -611,7 +639,7 @@ function stopWatchingDialog({ dialog }: { dialog: TPolyfillDialog }) {
 	disconnectRemovalObserverWhenIdle();
 }
 
-function processDialogMutations({ records }: { records: MutationRecord[] }) {
+function processRemovalRecords({ records }: { records: MutationRecord[] }) {
 	records.forEach((record) => {
 		record.removedNodes.forEach((removedNode) => {
 			watchedDialogs.forEach((dialog) => {
@@ -635,7 +663,7 @@ function processDialogMutations({ records }: { records: MutationRecord[] }) {
 			});
 		});
 	});
-	// A removed dialog that keeps `open` stays watched, so inserting it again runs the insertion steps.
+	// A removed dialog that keeps `open` stays watched, for the insertion steps.
 	watchedDialogs.forEach((dialog) => {
 		if (!dialog.hasAttribute('open')) {
 			stopWatchingDialog({ dialog });
@@ -653,15 +681,15 @@ function processDialogMutations({ records }: { records: MutationRecord[] }) {
  * Runs the dialog and popover removing steps, and the dialog insertion steps, for every pending
  * DOM change. Call it before reading dialog or popover state.
  */
-function flushDialogMutations() {
-	const observer = dialogRemovalObserver.current;
+function flushRemovalObserver() {
+	const observer = removalObserver.current;
 	if (!observer) {
 		return;
 	}
-	processDialogMutations({ records: observer.takeRecords() });
+	processRemovalRecords({ records: observer.takeRecords() });
 }
 
-// A `MutationObserver` does not see into shadow trees, so observe each root that holds the dialog.
+// A `MutationObserver` does not see into shadow trees, so observe each root that holds the node.
 function observeRootsOf({ observer, node }: { observer: MutationObserver; node: Node }) {
 	const root = node.getRootNode();
 	observer.observe(root, { childList: true, subtree: true });
@@ -672,9 +700,9 @@ function observeRootsOf({ observer, node }: { observer: MutationObserver; node: 
 
 function getRemovalObserver(): MutationObserver {
 	const observer =
-		dialogRemovalObserver.current ??
-		new MutationObserver((records) => processDialogMutations({ records }));
-	dialogRemovalObserver.current = observer;
+		removalObserver.current ??
+		new MutationObserver((records) => processRemovalRecords({ records }));
+	removalObserver.current = observer;
 	return observer;
 }
 
@@ -704,7 +732,7 @@ function getComputedClosedBy({
 }: {
 	dialog: TPolyfillDialog;
 }): 'any' | 'closerequest' | 'none' {
-	flushDialogMutations();
+	flushRemovalObserver();
 	const closedBy = dialog.getAttribute('closedby')?.toLowerCase();
 	if (closedBy === 'any' || closedBy === 'closerequest' || closedBy === 'none') {
 		return closedBy;
@@ -770,12 +798,12 @@ function findInFlatTreeAncestors<T>({
 	visit,
 }: {
 	node: Node | null;
-	visit: (candidate: Node) => T | null;
+	visit: ({ candidate }: { candidate: Node }) => T | null;
 }): T | null {
 	if (!node) {
 		return null;
 	}
-	const result = visit(node);
+	const result = visit({ candidate: node });
 	if (result !== null) {
 		return result;
 	}
@@ -790,7 +818,7 @@ function getBlockingModalDialog({ document }: { document: Document }): TPolyfill
 	if (modalDialogs.length === 0) {
 		return null;
 	}
-	flushDialogMutations();
+	flushRemovalObserver();
 	return (
 		modalDialogs.findLast(
 			(dialog) =>
@@ -814,7 +842,7 @@ function isInert({ node }: { node: Node }): boolean {
 		ownerDocument && node.isConnected ? getBlockingModalDialog({ document: ownerDocument }) : null;
 	const result = findInFlatTreeAncestors<'inert' | 'escapes-inertness'>({
 		node,
-		visit: (candidate) => {
+		visit: ({ candidate }) => {
 			if (candidate instanceof Element && candidate.hasAttribute('inert')) {
 				return 'inert';
 			}
@@ -840,7 +868,7 @@ function isInert({ node }: { node: Node }): boolean {
  * Spec: https://html.spec.whatwg.org/multipage/rendering.html#hidden-elements
  * Spec: https://html.spec.whatwg.org/multipage/rendering.html#the-dialog-element-2
  */
-function isNotRenderedRoot({
+function isHiddenByUserAgentStyles({
 	candidate,
 	isSelf,
 }: {
@@ -868,19 +896,19 @@ function isNotRenderedRoot({
  * Chrome there: Chrome focuses content in such a closed popover.
  */
 function isRendered({ element }: { element: Element }): boolean {
-	const notRenderedRoot = findInFlatTreeAncestors<Element>({
+	const hiddenInclusiveAncestor = findInFlatTreeAncestors<Element>({
 		node: element,
-		visit: (candidate) => {
+		visit: ({ candidate }) => {
 			if (
 				candidate instanceof Element &&
-				isNotRenderedRoot({ candidate, isSelf: candidate === element })
+				isHiddenByUserAgentStyles({ candidate, isSelf: candidate === element })
 			) {
 				return candidate;
 			}
 			return null;
 		},
 	});
-	return notRenderedRoot === null;
+	return hiddenInclusiveAncestor === null;
 }
 
 /**
@@ -1119,8 +1147,10 @@ if (
 	}
 }
 
-// Focuses the element if a browser would, and jsdom treats it as focusable. Returns whether it
-// took focus.
+/**
+ * Focuses the element if a browser would, and jsdom treats it as focusable. Returns whether it
+ * took focus.
+ */
 function tryFocus({ element }: { element: TFocusableElement }): boolean {
 	// A disconnected element is not a focusable area. jsdom still focuses an SVG `<a href>` there.
 	if (!element.isConnected || isFocusBlocked({ element })) {
@@ -1131,21 +1161,21 @@ function tryFocus({ element }: { element: TFocusableElement }): boolean {
 }
 
 /**
- * Walks the descendants of `root` in tree order (not into shadow trees) and stops at the first
- * one for which `visit` returns true.
+ * Walks the HTML, SVG and MathML descendants of `root` in tree order (not into shadow trees), and
+ * stops at the first one for which `visit` returns true. Returns whether `visit` returned true.
  */
 function someDescendant({
 	root,
 	visit,
 }: {
 	root: HTMLElement | ShadowRoot;
-	visit: (element: TFocusableElement) => boolean;
+	visit: ({ element }: { element: TFocusableElement }) => boolean;
 }): boolean {
 	const ownerDocument = root instanceof ShadowRoot ? root.host.ownerDocument : root.ownerDocument;
 	const walker = ownerDocument.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
 	let node = walker.nextNode();
 	while (node) {
-		if (isFocusableElementType(node as Element) && visit(node as TFocusableElement)) {
+		if (isFocusableElementType(node as Element) && visit({ element: node as TFocusableElement })) {
 			return true;
 		}
 		node = walker.nextNode();
@@ -1154,9 +1184,10 @@ function someDescendant({
 }
 
 /**
- * Get the focusable area for an element that is not itself a focusable area. Only the shadow host
- * case is modelled: a host whose shadow root delegates focus gives its focus delegate. jsdom does
- * not implement `delegatesFocus`, so this applies only where the environment reports it.
+ * Focuses the focusable area of an element that is not itself a focusable area, and returns
+ * whether it took focus. Only the shadow host case is modelled: a host whose shadow root delegates
+ * focus gives its focus delegate. jsdom does not implement `delegatesFocus`, so this applies only
+ * where the environment reports it.
  * Spec: https://html.spec.whatwg.org/multipage/interaction.html#get-the-focusable-area
  */
 function focusFocusableAreaFor({ element }: { element: Element }): boolean {
@@ -1180,7 +1211,7 @@ function focusAutofocusDelegate({
 }): boolean {
 	return someDescendant({
 		root: whereToLook,
-		visit: (element) =>
+		visit: ({ element }) =>
 			element.hasAttribute('autofocus') &&
 			(tryFocus({ element }) || focusFocusableAreaFor({ element })),
 	});
@@ -1206,7 +1237,7 @@ function focusDelegate({
 	const isDialog = focusTarget instanceof HTMLDialogElement;
 	return someDescendant({
 		root: whereToLook,
-		visit: (element) => {
+		visit: ({ element }) => {
 			const isCandidate = !isDialog || element.tabIndex >= 0;
 			if (isCandidate && tryFocus({ element })) {
 				return true;
@@ -1288,13 +1319,13 @@ function focusPreviouslyFocusedElement({ element }: { element: Element | null })
  * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#close-the-dialog
  */
 function restoreFocusOnClose({ dialog, wasModal }: { dialog: TPolyfillDialog; wasModal: boolean }) {
-	const element = dialog._previouslyFocusedElement ?? null;
+	const previouslyFocusedElement = dialog._previouslyFocusedElement ?? null;
 	dialog._previouslyFocusedElement = null;
-	if (element === null) {
+	if (previouslyFocusedElement === null) {
 		return;
 	}
 	if (wasModal || isFocusIn({ container: dialog })) {
-		focusPreviouslyFocusedElement({ element });
+		focusPreviouslyFocusedElement({ element: previouslyFocusedElement });
 	}
 }
 
@@ -1357,7 +1388,7 @@ function requestCloseDialogCloseWatcher({ dialog }: { dialog: TPolyfillDialog })
 	}
 	// Close the close watcher. The cancel handler can close or remove the dialog, or turn the
 	// close watcher off.
-	flushDialogMutations();
+	flushRemovalObserver();
 	if (!hasActiveCloseWatcher({ dialog }) || !isCloseWatcherEnabled({ dialog })) {
 		return;
 	}
@@ -1402,7 +1433,7 @@ function runEscapeDefaultAction(event: Event) {
 		return;
 	}
 	// Native close requests select from the layers remaining after keydown.
-	flushDialogMutations();
+	flushRemovalObserver();
 	pruneClosedEscapeLayers();
 	const layer = escapeLayers.findLast((candidate) => acceptsEscape({ layer: candidate }));
 	if (!layer) {
@@ -1416,9 +1447,9 @@ function runEscapeDefaultAction(event: Event) {
 	if (layer.element._isRunningCancelAction) {
 		return;
 	}
-	const allowed = runDialogCancelAction({ dialog: layer.element, canPreventClose: true });
-	// The cancel handler can close or reopen the dialog; only close the original opening.
-	if (allowed && escapeLayers.includes(layer) && isEscapeLayerOpen({ layer })) {
+	const shouldContinue = runDialogCancelAction({ dialog: layer.element, canPreventClose: true });
+	// The cancel handler can close or reopen the dialog. Only close the original opening.
+	if (shouldContinue && escapeLayers.includes(layer) && isEscapeLayerOpen({ layer })) {
 		// close() dispatches beforetoggle and queues toggle and close notifications.
 		layer.element.close();
 	}
@@ -1596,7 +1627,7 @@ function getTopmostPopoverAncestor({ element }: { element: Element }): HTMLEleme
 				popover !== element &&
 				findInFlatTreeAncestors<true>({
 					node: element,
-					visit: (candidate) => (candidate === popover ? true : null),
+					visit: ({ candidate }) => (candidate === popover ? true : null),
 				}) !== null,
 		) ?? null
 	);
@@ -1605,9 +1636,12 @@ function getTopmostPopoverAncestor({ element }: { element: Element }): HTMLEleme
 popoverRemovingSteps.run = ({ popover }) =>
 	hidePopoverElement({ element: popover, focusPreviousElement: false, fireEvents: false });
 
-// Hide every popover in `stack` that is not an ancestor of `target`. With a
-// null target, closes the entire stack. Light dismiss and opening a popover do not return focus (`focusPreviousElement` is false).
-// Spec: https://html.spec.whatwg.org/multipage/popover.html#hide-all-popovers-until
+/**
+ * Hides, top first, the popovers in `stack` that are above the topmost one in the chain to
+ * `target`. With a null target, hides the whole stack. Light dismiss and opening a popover use
+ * it, so focus does not return (`focusPreviousElement` is false).
+ * Spec: https://html.spec.whatwg.org/multipage/popover.html#hide-all-popovers-until
+ */
 function hidePopoversInStackNotInChainTo({
 	stack,
 	target,
@@ -1615,42 +1649,44 @@ function hidePopoversInStackNotInChainTo({
 	stack: HTMLElement[];
 	target: Node | null;
 }) {
-	const snapshot = stack.slice().reverse();
-	const stopIndex = snapshot.findIndex((popover) => isInChainTo({ candidate: popover, target }));
-	const toHide = stopIndex === -1 ? snapshot : snapshot.slice(0, stopIndex);
-	toHide.forEach((popover) =>
+	const topFirstStack = stack.slice().reverse();
+	const chainIndex = topFirstStack.findIndex((popover) =>
+		isInChainTo({ candidate: popover, target }),
+	);
+	const popoversToHide = chainIndex === -1 ? topFirstStack : topFirstStack.slice(0, chainIndex);
+	popoversToHide.forEach((popover) =>
 		hidePopoverElement({ element: popover, focusPreviousElement: false, fireEvents: true }),
 	);
 }
 
 function handleDocumentPointerdown(event: PointerEvent) {
-	flushDialogMutations();
+	flushRemovalObserver();
 	if (openAutoStack.length === 0 && openHintStack.length === 0) {
 		return;
 	}
 	const target = event.target instanceof Node ? event.target : null;
-	pointerdownState.target = nearestOpenPopover({ target });
+	popoverPointerdownTarget.current = getNearestOpenPopover({ target });
 }
 
 function handleDocumentPointerup(event: PointerEvent) {
-	flushDialogMutations();
+	flushRemovalObserver();
 	if (openAutoStack.length === 0 && openHintStack.length === 0) {
-		pointerdownState.target = null;
+		popoverPointerdownTarget.current = null;
 		return;
 	}
 	const target = event.target instanceof Node ? event.target : null;
-	const ancestor = nearestOpenPopover({ target });
-	const sameTarget = ancestor === pointerdownState.target;
-	pointerdownState.target = null;
+	const ancestor = getNearestOpenPopover({ target });
+	const sameTarget = ancestor === popoverPointerdownTarget.current;
+	popoverPointerdownTarget.current = null;
 	if (!sameTarget) {
-		// User pointerdowned inside a popover and released elsewhere (or vice
-		// versa). Treat as a drag and do not dismiss per spec.
+		// The press started and ended with different nearest open popovers: it is a drag. As in the
+		// spec, a drag does not dismiss.
 		return;
 	}
-	// Hints are dismissed first (they sit "above" autos for dismissal purposes
-	// even though they live in their own stack), then autos. When ancestor is a
-	// hint, autos are unaffected; when ancestor is an auto or null, hints close
-	// entirely (because no hint is the target's ancestor).
+	// Hint popovers are dismissed first (for dismissal they are above auto popovers, but they have
+	// their own stack), then auto popovers. When `ancestor` is a hint popover, auto popovers stay
+	// open. When `ancestor` is an auto popover or null, every hint popover closes, because no hint
+	// popover is an ancestor of the target.
 	const ancestorMode = ancestor ? getPopoverMode({ element: ancestor }) : null;
 	if (ancestorMode === 'hint') {
 		hidePopoversInStackNotInChainTo({ stack: openHintStack, target });
@@ -1661,9 +1697,8 @@ function handleDocumentPointerup(event: PointerEvent) {
 }
 
 if (typeof HTMLElement !== 'undefined') {
-	// jsdom throws `SyntaxError` on the `:popover-open` pseudo-class. Answer
-	// it from the polyfill's `data-popover-open` source of truth, answer `:modal`, and
-	// delegate every other selector to the original implementation.
+	// jsdom throws `SyntaxError` on `:popover-open`. The patch answers it from the
+	// `data-popover-open` attribute, answers `:modal`, and passes every other selector to jsdom.
 	// Spec: https://html.spec.whatwg.org/multipage/semantics-other.html#selector-popover-open
 	const originalMatches = Element.prototype.matches;
 	const matchesMarker = '__topLayerPolyfillMatches';
@@ -1674,7 +1709,7 @@ if (typeof HTMLElement !== 'undefined') {
 		const patchedMatches = function patchedMatches(this: Element, selector: string): boolean {
 			if (selector === ':popover-open') {
 				// A removed popover is hidden at once, as in a browser.
-				flushDialogMutations();
+				flushRemovalObserver();
 				return this.hasAttribute('data-popover-open');
 			}
 			// jsdom does not support `:modal` either.
@@ -1682,21 +1717,19 @@ if (typeof HTMLElement !== 'undefined') {
 				if (!(this instanceof HTMLDialogElement)) {
 					return false;
 				}
-				flushDialogMutations();
+				flushRemovalObserver();
 				return this.open && Boolean((this as TPolyfillDialog)._isModal);
 			}
 			return originalMatches.call(this, selector);
 		};
 		Object.defineProperty(patchedMatches, matchesMarker, { value: true });
-		// The DOM lib types `Element.prototype.matches` as a set of type-predicate
-		// overloads. This polyfill intentionally replaces it with a plain boolean
-		// implementation, so we cast to the original member type.
+		// The DOM types give `Element.prototype.matches` type predicate overloads. The patch
+		// returns a plain boolean, so cast it to the original member type.
 		Element.prototype.matches = patchedMatches as typeof Element.prototype.matches;
 	}
 
-	// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
 	if (!HTMLElement.prototype.showPopover) {
-		// Attribute changes hide an open popover synchronously, even when the new state has no popover.
+		// Changing or removing the `popover` attribute hides an open popover synchronously.
 		// Spec: https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute
 		const originalSetAttribute = HTMLElement.prototype.setAttribute;
 		HTMLElement.prototype.setAttribute = function setAttribute(name: string, value: string) {
@@ -1715,6 +1748,7 @@ if (typeof HTMLElement !== 'undefined') {
 			}
 		};
 
+		// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
 		HTMLElement.prototype.showPopover = function showPopover(this: HTMLElement) {
 			if (!this.hasAttribute('popover')) {
 				throw new DOMException(
@@ -1728,13 +1762,13 @@ if (typeof HTMLElement !== 'undefined') {
 					'InvalidStateError',
 				);
 			}
-			flushDialogMutations();
+			flushRemovalObserver();
 			// No-op: already showing.
 			if (isPopoverOpen({ element: this })) {
 				return;
 			}
 
-			// sync, cancelable on show only
+			// `beforetoggle` is synchronous. It is cancelable only on show.
 			const allowed = fireToggleEvent({
 				element: this,
 				type: 'beforetoggle',
@@ -1746,12 +1780,10 @@ if (typeof HTMLElement !== 'undefined') {
 				return;
 			}
 
-			// Spec-driven dismissal of popovers in other stacks before opening:
-			// - opening an `auto`: close all hints; close autos not in the new
-			//   popover's ancestor chain.
-			// - opening a `hint`:  close hints not in the new popover's chain;
-			//   leave autos alone.
-			// - opening a `manual`: leave both stacks untouched.
+			// Before the popover opens, it closes other popovers, as in the spec:
+			// - `auto`: close every hint popover, and the auto popovers that are not in its chain.
+			// - `hint`: close the hint popovers that are not in its chain. Auto popovers stay open.
+			// - `manual`: close nothing.
 			const mode = getPopoverMode({ element: this });
 			if (mode === 'auto') {
 				hidePopoversInStackNotInChainTo({ stack: openHintStack, target: null });
@@ -1777,7 +1809,7 @@ if (typeof HTMLElement !== 'undefined') {
 
 			this.setAttribute('data-popover-open', '');
 			watchPopoverForRemoval({ popover: this });
-			const stack = stackForMode({ mode });
+			const stack = getStackForMode({ mode });
 			if (stack && !stack.includes(this)) {
 				stack.push(this);
 				registerEscapeLayer({ layer: { type: 'popover', element: this } });
@@ -1800,7 +1832,7 @@ if (typeof HTMLElement !== 'undefined') {
 					'NotSupportedError',
 				);
 			}
-			flushDialogMutations();
+			flushRemovalObserver();
 			hidePopoverElement({ element: this, focusPreviousElement: true, fireEvents: true });
 		};
 	}
@@ -1825,21 +1857,23 @@ if (typeof HTMLElement !== 'undefined') {
 				this.showPopover();
 			}
 
-			// Return the actual resulting state, which differs from `force` when
-			// `beforetoggle` was preventDefaulted on show.
+			// Return the resulting state. It differs from `force` when a `beforetoggle` listener
+			// prevented the show.
 			return isPopoverOpen({ element: this });
 		};
 	}
 
-	// Document-level light-dismiss for `popover="auto"` and `popover="hint"`.
-	// Spec uses pointerdown + pointerup with same-target check; we also wire
-	// `mousedown` + `mouseup` because jsdom does not fire pointer events for
-	// fireEvent.click() / userEvent.click() in older jsdom versions.
-	type TLightDismissDoc = Document & { __atTopLayerLightDismiss?: boolean };
-	if (typeof document !== 'undefined' && !(document as TLightDismissDoc).__atTopLayerLightDismiss) {
-		(document as TLightDismissDoc).__atTopLayerLightDismiss = true;
+	// Light dismiss for `popover="auto"` and `popover="hint"`, on the document. The spec uses
+	// `pointerdown` and `pointerup` with a same target check. The polyfill also listens for
+	// `mousedown` and `mouseup`, because some test tools fire only mouse events.
+	type TLightDismissDocument = Document & { __atTopLayerLightDismiss?: boolean };
+	if (
+		typeof document !== 'undefined' &&
+		!(document as TLightDismissDocument).__atTopLayerLightDismiss
+	) {
+		(document as TLightDismissDocument).__atTopLayerLightDismiss = true;
 
-		// capture phase so application handlers cannot stop propagation before us
+		// The capture phase, so that an application listener cannot stop propagation first.
 		const pointerdownAdapter = (event: Event) => handleDocumentPointerdown(event as PointerEvent);
 		const pointerupAdapter = (event: Event) => handleDocumentPointerup(event as PointerEvent);
 
@@ -1853,9 +1887,8 @@ if (typeof HTMLElement !== 'undefined') {
 			listener: pointerupAdapter,
 			options: { capture: true },
 		});
-		// Fallback for environments / fireEvent paths that fire mouse events
-		// only. The same handlers work for MouseEvent because we only read
-		// `target`. PointerEvent extends MouseEvent so the runtime cast is safe.
+		// For tests that fire only mouse events. The handlers read only `target`, so a
+		// `MouseEvent` works too (`PointerEvent` extends `MouseEvent`).
 		bind(document, {
 			type: 'mousedown',
 			listener: pointerdownAdapter,
@@ -1888,14 +1921,17 @@ if (typeof HTMLElement !== 'undefined') {
 // Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element
 
 if (typeof HTMLDialogElement !== 'undefined') {
-	const proto = HTMLDialogElement.prototype as TPolyfillDialog & { _returnValue?: string };
+	const dialogPrototype = HTMLDialogElement.prototype as TPolyfillDialog & {
+		_returnValue?: string;
+	};
 
 	const scheduleDialogToggle = createDialogToggleScheduler();
-	const isShowModalPolyfilled = typeof proto.showModal !== 'function';
+	const isShowModalPolyfilled = typeof dialogPrototype.showModal !== 'function';
 
+	// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-showmodal
 	if (isShowModalPolyfilled) {
-		proto.showModal = function showModal(this: TPolyfillDialog) {
-			flushDialogMutations();
+		dialogPrototype.showModal = function showModal(this: TPolyfillDialog) {
+			flushRemovalObserver();
 			if (!this.isConnected) {
 				throw new DOMException(
 					`Failed to execute 'showModal' on 'HTMLDialogElement': ${describeElement({ element: this })} is not connected to the document. Ensure the element has been added to the DOM (e.g. via render() or document.body.appendChild()) before calling showModal().`,
@@ -1949,9 +1985,9 @@ if (typeof HTMLDialogElement !== 'undefined') {
 	}
 
 	// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-show
-	if (typeof proto.show !== 'function') {
-		proto.show = function show(this: TPolyfillDialog) {
-			flushDialogMutations();
+	if (typeof dialogPrototype.show !== 'function') {
+		dialogPrototype.show = function show(this: TPolyfillDialog) {
+			flushRemovalObserver();
 			if (this.hasAttribute('open')) {
 				// No-op: already open non-modally.
 				if (!this._isModal) {
@@ -1990,15 +2026,16 @@ if (typeof HTMLDialogElement !== 'undefined') {
 		};
 	}
 
-	if (typeof proto.close !== 'function') {
-		proto.close = function close(this: TPolyfillDialog, returnValue?: string) {
-			flushDialogMutations();
+	// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-close
+	if (typeof dialogPrototype.close !== 'function') {
+		dialogPrototype.close = function close(this: TPolyfillDialog, returnValue?: string) {
+			flushRemovalObserver();
 			// No-op: already closed.
 			if (!this.hasAttribute('open')) {
 				return;
 			}
 
-			// Sync beforetoggle (not cancelable); matches browser behavior.
+			// Synchronous and not cancelable, as in a browser.
 			fireToggleEvent({
 				element: this,
 				type: 'beforetoggle',
@@ -2011,7 +2048,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 				return;
 			}
 			// A beforetoggle listener can also remove the dialog, which makes it non-modal.
-			flushDialogMutations();
+			flushRemovalObserver();
 
 			this.removeAttribute('open');
 			unregisterEscapeLayer({ element: this });
@@ -2037,9 +2074,12 @@ if (typeof HTMLDialogElement !== 'undefined') {
 	 * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-requestclose
 	 * Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dialog-request-close
 	 */
-	if (typeof proto.requestClose !== 'function' && isShowModalPolyfilled) {
-		proto.requestClose = function requestClose(this: TPolyfillDialog, returnValue?: string) {
-			flushDialogMutations();
+	if (typeof dialogPrototype.requestClose !== 'function' && isShowModalPolyfilled) {
+		dialogPrototype.requestClose = function requestClose(
+			this: TPolyfillDialog,
+			returnValue?: string,
+		) {
+			flushRemovalObserver();
 			if (!this.hasAttribute('open') || !this.isConnected) {
 				return;
 			}
@@ -2053,8 +2093,8 @@ if (typeof HTMLDialogElement !== 'undefined') {
 	// `closedBy` reflects the `closedby` attribute; the getter returns the computed state.
 	// Configurable, so a test can delete it to model a browser without `closedby`.
 	// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-closedby
-	if (!('closedBy' in proto)) {
-		Object.defineProperty(proto, 'closedBy', {
+	if (!('closedBy' in dialogPrototype)) {
+		Object.defineProperty(dialogPrototype, 'closedBy', {
 			get(this: TPolyfillDialog) {
 				return getComputedClosedBy({ dialog: this });
 			},
@@ -2066,8 +2106,8 @@ if (typeof HTMLDialogElement !== 'undefined') {
 		});
 	}
 
-	if (!('returnValue' in proto)) {
-		Object.defineProperty(proto, 'returnValue', {
+	if (!('returnValue' in dialogPrototype)) {
+		Object.defineProperty(dialogPrototype, 'returnValue', {
 			get(this: { _returnValue?: string }) {
 				return this._returnValue === undefined ? '' : this._returnValue;
 			},

@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { Header } from '@atlaskit/side-navigation/header';
 import { LoadingItems } from '@atlaskit/side-navigation/loading-items';

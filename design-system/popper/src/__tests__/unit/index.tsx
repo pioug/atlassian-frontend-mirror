@@ -47,7 +47,6 @@ const virtualReferenceElement = new VirtualReference();
 const referenceElement = document.createElement('button');
 
 // These tests cover the legacy Popper.js path. `popper-top-layer.test.tsx` covers the top-layer path.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off('platform-dst-top-layer', 'Popper', () => {
 	it('should render Popper', async () => {
 		render(

@@ -187,12 +187,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	// newly selected ones - refetching for them, and throwing away the results just received. The
 	// re-render this schedules is discarded before commit, so the hook only ever sees the reconciled
 	// selection.
-	if (
-		fg('platform_lp_sllv_preserve_assets_columns') &&
-		hasPreservedColumns &&
-		status === 'resolved' &&
-		columns.length > 0
-	) {
+	if (hasPreservedColumns && status === 'resolved' && columns.length > 0) {
 		const availableKeys = new Set(columns.map(({ key }) => key));
 		const selectedKeys = visibleColumnKeys ?? [];
 		const retainedKeys = selectedKeys.filter((key) => availableKeys.has(key));
@@ -278,7 +273,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 
 	useEffect(() => {
 		// A preserved selection owns the columns, so restoring the saved or default ones would undo it
-		if (fg('platform_lp_sllv_preserve_assets_columns') && hasPreservedColumns) {
+		if (hasPreservedColumns) {
 			return;
 		}
 		const newVisibleColumnKeys =
@@ -292,12 +287,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 		// The response described none of the requested fields, so there is nothing valid to keep and
 		// no reported defaults to fall back to. Give up preserving and re-request the schema's own
 		// defaults. This one has to stay an effect because it issues a request.
-		if (
-			!fg('platform_lp_sllv_preserve_assets_columns') ||
-			!hasPreservedColumns ||
-			status !== 'resolved' ||
-			columns.length > 0
-		) {
+		if (!hasPreservedColumns || status !== 'resolved' || columns.length > 0) {
 			return;
 		}
 		setHasPreservedColumns(false);
@@ -415,9 +405,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 				// An empty selection has nothing worth preserving, and keeping it would stop the
 				// response's defaults from being adopted
 				const shouldPreserveColumns =
-					fg('platform_lp_sllv_preserve_assets_columns') &&
-					schemaId === searchSchemaId &&
-					(visibleColumnKeys ?? []).length > 0;
+					schemaId === searchSchemaId && (visibleColumnKeys ?? []).length > 0;
 				setHasPreservedColumns(shouldPreserveColumns);
 				setAql(searchAql);
 				setSchemaId(searchSchemaId);

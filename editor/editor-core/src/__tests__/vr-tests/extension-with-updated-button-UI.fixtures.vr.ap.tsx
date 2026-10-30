@@ -1,5 +1,3 @@
-/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-
 import React from 'react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';

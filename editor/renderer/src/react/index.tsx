@@ -49,6 +49,7 @@ import {
 	toReact,
 } from './nodes';
 import TextWrapperComponent from './nodes/text-wrapper';
+import type { ScheduleExtensionHeightRemoval } from './nodes/useNodeHeight';
 import {
 	getNestedUnderNodes,
 	insideBlockNode,
@@ -98,6 +99,7 @@ export interface ReactSerializerInit {
 	extensionViewportSizes?: ExtensionViewportSize[];
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	getExtensionHeight?: GetPMNodeHeight;
+	getExtensionPresetHeight?: (node: Node) => number | undefined;
 	headingIdPrefix?: string;
 	hideExtensionKeysWhilePending?: string[];
 	isInsideOfInlineExtension?: boolean;
@@ -111,6 +113,7 @@ export interface ReactSerializerInit {
 	onSetLinkTarget?: (url: string) => '_blank' | undefined;
 	portal?: HTMLElement;
 	providers?: ProviderFactory;
+	scheduleExtensionHeightRemoval?: ScheduleExtensionHeightRemoval;
 	shouldDisplayExtensionAsInline?: (extensionParams: ExtensionParams<Parameters>) => boolean;
 	shouldOpenMediaViewer?: boolean;
 	showHeadingNumbers?: boolean;
@@ -229,7 +232,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private smartLinks?: SmartLinksOptions;
 	private extensionViewportSizes?: ExtensionViewportSize[];
 	private hideExtensionKeysWhilePending?: string[];
+	private getExtensionPresetHeight?: (node: Node) => number | undefined;
 	private getExtensionHeight?: GetPMNodeHeight;
+	private scheduleExtensionHeightRemoval?: ScheduleExtensionHeightRemoval;
 	private allowAnnotations: boolean = false;
 	private allowSelectAllTrap?: boolean;
 	private nodeComponents?: NodeComponentsProps;
@@ -291,7 +296,9 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.smartLinks = init.smartLinks;
 		this.extensionViewportSizes = init.extensionViewportSizes;
 		this.hideExtensionKeysWhilePending = init.hideExtensionKeysWhilePending;
+		this.getExtensionPresetHeight = init.getExtensionPresetHeight;
 		this.getExtensionHeight = init.getExtensionHeight;
+		this.scheduleExtensionHeightRemoval = init.scheduleExtensionHeightRemoval;
 		this.allowSelectAllTrap = init.allowSelectAllTrap;
 		this.nodeComponents = init.nodeComponents;
 		this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
@@ -731,7 +738,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	}
 
 	private getExtensionProps(node: Node, path: Array<Node> = []) {
-		return {
+		const extensionProps = {
 			...this.getProps(node, path),
 			allowAnnotations: this.allowAnnotations,
 			allowAnnotationsDraftMode: this.surroundTextNodesWithTextWrapper,
@@ -740,6 +747,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			hideExtensionKeysWhilePending: this.hideExtensionKeysWhilePending,
 			nodeHeight: this.getExtensionHeight?.(node),
 			shouldDisplayExtensionAsInline: this.shouldDisplayExtensionAsInline,
+		};
+		if (!this.scheduleExtensionHeightRemoval) return extensionProps;
+		return {
+			...extensionProps,
+			nodePresetMinHeight: extensionProps.nodeHeight,
+			nodePresetHeight: this.getExtensionPresetHeight?.(node),
+			scheduleExtensionHeightRemoval: this.scheduleExtensionHeightRemoval,
 		};
 	}
 

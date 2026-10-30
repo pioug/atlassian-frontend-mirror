@@ -14,7 +14,6 @@ import AKModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -53,23 +52,17 @@ const spacingDivStyle = { width: '28px' };
 const headingStyle = xcss({ marginTop: 'space.100' });
 
 const Header = () => {
-	const { onClose, titleId } = useModal();
+	const { onClose } = useModal();
 	return (
 		<div css={bottomShadow}>
 			{/* This div is offsetting the button to the right */}
 			<div css={spacingDivStyle} />
 			<Box xcss={headingStyle}>
-				{fg('platform_dst_modal-dialog-use-modal-title') ? (
-					<ModalTitle>
-						<Heading size="xsmall" as="span">
-							Dropbox
-						</Heading>
-					</ModalTitle>
-				) : (
-					<Heading id={titleId} size="xsmall">
+				<ModalTitle>
+					<Heading size="xsmall" as="span">
 						Dropbox
 					</Heading>
-				)}
+				</ModalTitle>
 			</Box>
 			<div>
 				<CloseButton onClick={onClose} />

@@ -1,7 +1,9 @@
 import { warnFallbackFailure } from './warn-fallback-failure';
 
 /**
- * `null` when the environment cannot measure at all.
+ * Measures `value` as the computed `margin-left` of a hidden probe inside
+ * `container`. Returns `null` when the environment cannot measure, and `0` when
+ * the computed value is not a number.
  */
 function measureWithProbe({
 	value,
@@ -24,19 +26,19 @@ function measureWithProbe({
 	probe.style.height = '0';
 	probe.style.padding = '0';
 	probe.style.border = '0';
-	// `width` clamps negatives to 0; use `margin-left` instead so signs are
-	// preserved. `getComputedStyle` returns the resolved pixel value for
-	// margin-* properties even when the source was a token / calc / var.
+	// `margin-left`, not `width`, because `width` clamps a negative value to `0`.
+	// `getComputedStyle` returns the resolved pixel value of a margin, even when
+	// the source is a token, `calc()` or `var()`.
 	probe.style.marginLeft = value;
-	// Hidden from assistive tech and event targeting; defensive against
-	// `getElementsByTagName('div')` walks in consumer code.
+	// Hidden from assistive technology and from events. This also protects
+	// consumer code that walks the DOM (for example `getElementsByTagName('div')`).
 	probe.setAttribute('aria-hidden', 'true');
 	probe.setAttribute('inert', '');
 
 	try {
 		container.appendChild(probe);
-		const resolved = parseFloat(view.getComputedStyle(probe).marginLeft);
-		return Number.isFinite(resolved) ? resolved : 0;
+		const pixels = parseFloat(view.getComputedStyle(probe).marginLeft);
+		return Number.isFinite(pixels) ? pixels : 0;
 	} catch (error) {
 		warnFallbackFailure({ error });
 		return null;
@@ -50,12 +52,13 @@ function measureWithProbe({
 /**
  * Resolves a CSS length value to a pixel number using a hidden DOM probe.
  *
- * Used by the JS positioning fallback, where a consumer offset can be a number, a
- * `${n}px` string, a token, a `calc()` expression, a viewport unit, and so on.
- * Parsing arbitrary CSS in JS is fragile, and impossible for `calc(var(...))`
- * without a layout context, so the browser does the math instead. The probe is
- * appended to `container` so it inherits the popover's containing block, font
- * size and custom-property scope. Anything unmeasurable resolves to `0`.
+ * Used by the JavaScript positioning fallback, where a consumer offset can be a
+ * number, a `${n}px` string, a token, a `calc()` expression, a viewport unit,
+ * and so on. Parsing arbitrary CSS in JavaScript is fragile, and impossible for
+ * `calc(var(...))` without a layout context, so the browser does the math
+ * instead. The probe is appended to `container` so it inherits the popover's
+ * containing block, font size and custom-property scope. Anything unmeasurable
+ * resolves to `0`.
  *
  * Costs one synchronous style and layout flush per call that reaches the probe.
  * Deliberately NOT memoised: a token can be retargeted by an override on the
@@ -81,9 +84,9 @@ export function resolveCssLengthToPixels({
 
 	// Fast path: bare `${n}px` strings come from `resolvePlacement`, so this avoids
 	// a reflow for the common case.
-	const pxMatch = value.match(/^(-?\d+(?:\.\d+)?)px$/);
-	if (pxMatch) {
-		return Number(pxMatch[1]);
+	const pixelMatch = value.match(/^(-?\d+(?:\.\d+)?)px$/);
+	if (pixelMatch) {
+		return Number(pixelMatch[1]);
 	}
 
 	return measureWithProbe({ value, container }) ?? 0;

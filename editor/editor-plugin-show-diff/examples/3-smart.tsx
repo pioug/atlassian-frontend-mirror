@@ -101,7 +101,6 @@ import type {
 //
 // `confluence_ncs_step_diffing_version_history` is deliberately omitted: it is a Confluence version
 // history concern, not something this example exercises.
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver((flagKey) =>
 	[
 		'platform_editor_ai_smart_diff',
@@ -114,7 +113,6 @@ setBooleanFeatureFlagResolver((flagKey) =>
 // The reveal animation and hide-pure-deletions behaviours also require the Milestone 1 streaming
 // UX umbrella experiment to be enrolled. Override its `isEnabled` value so this example shows the
 // intended production behaviour once the umbrella is fully rolled out.
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 UNSAFE_overrideExperiment('platform_editor_ai_streaming_ux_experience_m1', { isEnabled: true });
 
 // `inline` is the type being taken forward, so it is what the first panel opens on. The others are

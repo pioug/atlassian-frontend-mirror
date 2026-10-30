@@ -20,7 +20,6 @@ const OPTIONS: OptionsType = [
 // the legacy global click listener inside `PopupSelectTopLayer` so the
 // trigger click is observed regardless of whether the consumer wires up
 // `triggerProps`.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('PopupSelect top-layer: trigger click', () => {
 	beforeEach(() => {
 		skipA11yAudit();

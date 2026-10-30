@@ -29,7 +29,6 @@ export function WithState<T>({ defaultState, children }: FieldStateProps<T>): Re
 	return children(currentState, setCurrentState);
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Field', () => {
 	const user = userEvent.setup();
 	beforeEach(() => {

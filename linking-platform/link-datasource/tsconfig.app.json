@@ -217,6 +217,9 @@
 			"path": "../../design-system/tag/tsconfig.app.json"
 		},
 		{
+			"path": "../../people-and-teams/teams-avatar/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/textarea/tsconfig.app.json"
 		},
 		{

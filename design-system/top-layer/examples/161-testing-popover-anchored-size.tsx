@@ -162,7 +162,6 @@ export default function TestingPopoverAnchoredSize(): ReactNode {
 				ref={triggerRef}
 				css={styles.trigger}
 				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the offset and size are test parameters, so they cannot be static styles
 					insetBlockStart: `${triggerBlockStart}px`,
 					insetInlineStart: `${triggerInlineStart}px`,
 					blockSize: `${triggerBlockSize}px`,
@@ -200,7 +199,6 @@ export default function TestingPopoverAnchoredSize(): ReactNode {
 						<div
 							data-testid="popover-content"
 							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- the content size is a test parameter, so it cannot be a static style
 								blockSize: `${contentBlockSize}px`,
 								inlineSize: `${contentInlineSize}px`,
 							}}

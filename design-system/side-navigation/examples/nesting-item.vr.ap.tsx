@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
@@ -106,7 +105,7 @@ const BasicExample: () => JSX.Element = () => {
 						}
 						title="Settings"
 						description="I have a custom back button"
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 						overrides={{
 							GoBackItem: {
 								render: (props) => (

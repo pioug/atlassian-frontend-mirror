@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 37.2.1
+
+### Patch Changes
+
+- [`93f69861c56b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93f69861c56b7) -
+  Clean up `platform_reactions_optimistic_url` and always use the supplied optimistic image URL
+  callback when rendering reactions.
+- Updated dependencies
+
 ## 37.2.0
 
 ### Minor Changes

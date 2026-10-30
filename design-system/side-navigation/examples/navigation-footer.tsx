@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { Box } from '@atlaskit/primitives/compiled/box';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Footer } from '@atlaskit/side-navigation/footer';
 import { NavigationFooter } from '@atlaskit/side-navigation/navigation-footer';
 import { token } from '@atlaskit/tokens';

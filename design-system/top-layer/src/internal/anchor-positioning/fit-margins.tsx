@@ -3,11 +3,11 @@ import { type TPlacement, type TPlacementAxis, type TPlacementEdge } from '../re
 import { type TStyleDeclaration } from '../set-style';
 
 /**
- * Every logical margin property the fit recipe can write. Declared here and
- * imported by `edge-margin.tsx` and `cross-axis-shift-margins.tsx`: two
- * structurally identical declarations are interchangeable to the compiler, so a
- * divergence would surface only as a silently-ignored property name at
- * `setStyle`.
+ * Every logical margin property the anchor positioning path writes. Declared once
+ * here and imported by `edge-margin.tsx` and `cross-axis-shift-margins.tsx`, so
+ * all three margin writers share one definition. Separate copies could drift
+ * apart without a compile error, and a drifted name would only show up as a
+ * property that `setStyle` writes and the browser silently ignores.
  */
 export type TLogicalMarginProperty = `margin-${TPlacementAxis}-${TPlacementEdge}`;
 

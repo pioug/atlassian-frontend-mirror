@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-// eslint-disable-next-line @repo/internal/import/no-unresolved
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils/editor-use-only';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
@@ -68,5 +67,4 @@ For internal Atlassian, visit the slack channel [#help-editor](https://atlassian
  Please see [Atlassian Frontend - License](https://hello.atlassian.net/wiki/spaces/AF/pages/2589099144/Documentation#License) for more licensing information.
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export default _default_1;

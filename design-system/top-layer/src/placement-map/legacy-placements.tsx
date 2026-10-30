@@ -1,9 +1,9 @@
 /**
- * Legacy Popper.js placement values (used by `@atlaskit/popper`,
- * `@atlaskit/popup`, `@atlaskit/tooltip`, etc.). Re-exported from
- * `@atlaskit/top-layer/placement-map` for migration consumers that need
- * to enumerate every placement (e.g. for a settings dropdown). New code
- * should use the object-based `TPlacementOptions` directly.
+ * Every legacy Popper.js placement value (used by `@atlaskit/popper`,
+ * `@atlaskit/popup`, `@atlaskit/tooltip` and others). For migration consumers
+ * that need to list every placement, for example in a settings dropdown. Also
+ * re-exported from `@atlaskit/top-layer/placement-map`. New code should use the
+ * object-based `TPlacementOptions` directly.
  */
 export const LEGACY_PLACEMENTS = [
 	'auto',
@@ -25,4 +25,7 @@ export const LEGACY_PLACEMENTS = [
 	'left-end',
 ] as const;
 
+/**
+ * One legacy Popper.js placement value. Convert it with `fromLegacyPlacement`.
+ */
 export type TLegacyPlacement = (typeof LEGACY_PLACEMENTS)[number];

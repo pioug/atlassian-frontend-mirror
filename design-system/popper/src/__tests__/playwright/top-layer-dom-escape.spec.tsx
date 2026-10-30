@@ -31,7 +31,6 @@ async function readEscapeInfo(popper: Locator): Promise<TEscapeInfo> {
 	return popper.evaluate((node) => {
 		const host = node.closest('[popover]');
 		const popperRect = node.getBoundingClientRect();
-		// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- test-only DOM probe
 		const clipperEl = document.querySelector('[data-testid="clipper"]');
 		const clipperRect = clipperEl ? clipperEl.getBoundingClientRect() : null;
 		return {

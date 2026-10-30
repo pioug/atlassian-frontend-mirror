@@ -66,7 +66,6 @@ function ControlledSelect({ options }: { options: OptionType[] }) {
 	);
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Resizing layout slots', () => {
 	const getPixelWidthMock = jest.spyOn(panelSplitterWidthUtils, 'getPixelWidth');
 

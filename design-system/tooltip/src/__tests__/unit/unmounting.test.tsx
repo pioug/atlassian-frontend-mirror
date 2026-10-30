@@ -6,7 +6,6 @@ import { act, fireEvent, render } from '@atlassian/testing-library/testing-libra
 
 import Tooltip from '../../tooltip';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Unmounting tooltip', () => {
 	beforeEach(() => {
 		HTMLElement.prototype.matches = jest

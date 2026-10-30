@@ -166,7 +166,8 @@ export function useManualLightDismiss({
 					}
 					// Take the Escape even if `onClose` keeps the popover open, as a native close watcher
 					// does: an ancestor `Dialog` sees `defaultPrevented`, and the browser sends no close
-					// request to an ancestor auto popover.
+					// request to an ancestor auto popover. A held-key repeat is taken but does not call
+					// `onClose`.
 					if (!claimEscape({ event })) {
 						return;
 					}

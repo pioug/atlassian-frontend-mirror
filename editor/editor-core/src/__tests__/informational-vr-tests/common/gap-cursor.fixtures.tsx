@@ -25,7 +25,6 @@ export function EditorGapCursorDefault(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function EditorGapCursorLayout(): React.JSX.Element {
 	const preset = createDefaultPreset({
 		base: { allowScrollGutter: undefined },

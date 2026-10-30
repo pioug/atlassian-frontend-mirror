@@ -1,5 +1,12 @@
 # @atlassian/smart-user-picker
 
+## 12.9.0
+
+### Minor Changes
+
+- [`4b0ec5ed92261`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b0ec5ed92261) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
 ## 12.8.0
 
 ### Minor Changes

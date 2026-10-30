@@ -38,7 +38,6 @@ afterEach(() => {
 
 // A positioning primitive has no accessible content of its own; the package's
 // a11y coverage lives in `accessibility.test.tsx`.
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('createPopper (unsafe-imperative entry point)', () => {
 	it('returns a top-layer backed instance when platform-dst-top-layer is on', () => {
 		passGate('platform-dst-top-layer');

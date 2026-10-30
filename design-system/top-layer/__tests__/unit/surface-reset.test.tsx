@@ -50,7 +50,6 @@ const resetProperties: [string, string][] = [
 	['text-transform', 'none'],
 ];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage -- style assertions only
 describe('surface reset', () => {
 	describe.each(hosts)('$name host', ({ renderHost }) => {
 		it('should apply the default text colour', () => {

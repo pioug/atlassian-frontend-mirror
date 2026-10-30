@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import BaseTag from '../../internal/shared/base';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<BaseTag />', () => {
 	describe('border radius', () => {
 		it('should be determined by the css variable', () => {

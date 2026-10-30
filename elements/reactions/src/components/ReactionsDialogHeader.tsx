@@ -10,14 +10,10 @@ import { useIntl } from 'react-intl';
 import IconButton from '@atlaskit/button/icon/button';
 import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
 import type { EmojiProvider } from '@atlaskit/emoji/types';
-import Heading from '@atlaskit/heading/heading';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { CloseButton } from '@atlaskit/modal-dialog/close-button';
-import { useModal } from '@atlaskit/modal-dialog/hooks';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import type { OnCloseHandler } from '@atlaskit/modal-dialog/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
@@ -158,7 +154,6 @@ interface ReactionsDialogModalHeaderProps {
 	currentPage: number;
 	currentReactions: ReactionSummary[];
 	emojiProvider: Promise<EmojiProvider>;
-	handleCloseReactionsDialog: OnCloseHandler;
 	handleNextPage: () => void;
 	handlePreviousPage: () => void;
 	maxPages: number;
@@ -207,11 +202,9 @@ export const ReactionsDialogHeader = ({
 	maxPages,
 	currentReactions,
 	emojiProvider,
-	handleCloseReactionsDialog,
 }: ReactionsDialogModalHeaderProps): JSX.Element => {
 	const [cache, setCache] = useState<{ [key: string]: string }>({});
 
-	const { titleId } = useModal();
 	const intl = useIntl();
 	const { colorMode } = useThemeObserver();
 
@@ -247,29 +240,13 @@ export const ReactionsDialogHeader = ({
 
 	return (
 		<Stack>
-			{fg('platform_dst_modal-dialog-use-modal-title') ? (
-				<ModalHeader hasCloseButton>
-					<ModalTitle>
-						{intl.formatMessage(messages.reactionsCount, {
-							count: totalReactionsCount,
-						})}
-					</ModalTitle>
-				</ModalHeader>
-			) : (
-				<Flex
-					direction="row"
-					justifyContent="space-between"
-					alignItems="center"
-					xcss={styles.fullWidthStyle}
-				>
-					<Heading size="medium" id={titleId}>
-						{intl.formatMessage(messages.reactionsCount, {
-							count: totalReactionsCount,
-						})}
-					</Heading>
-					<CloseButton onClick={handleCloseReactionsDialog} />
-				</Flex>
-			)}
+			<ModalHeader hasCloseButton>
+				<ModalTitle>
+					{intl.formatMessage(messages.reactionsCount, {
+						count: totalReactionsCount,
+					})}
+				</ModalTitle>
+			</ModalHeader>
 			<Inline>
 				<div css={customTabListStyles} id="reactions-dialog-tabs-list">
 					{!isSinglePage && !isOnFirstPage && (

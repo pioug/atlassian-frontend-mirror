@@ -5,7 +5,6 @@ import BookIcon from '@atlaskit/icon/core/book-with-bookmark';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { LinkItem } from '@atlaskit/side-navigation/link-item';
 import { token } from '@atlaskit/tokens';
 

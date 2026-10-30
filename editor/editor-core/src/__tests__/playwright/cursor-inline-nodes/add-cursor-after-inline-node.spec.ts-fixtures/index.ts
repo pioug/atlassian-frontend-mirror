@@ -1,36 +1,36 @@
 export const statusADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							attrs: {
-								text: string;
 								color: string;
 								localId: string;
 								style: string;
+								text: string;
 							};
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							text: string;
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -76,37 +76,36 @@ export const statusADF: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const dateADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							attrs: {
 								timestamp: string;
 							};
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							text: string;
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -149,39 +148,38 @@ export const dateADF: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const emojiADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							attrs: {
-								shortName: string;
 								id: string;
+								shortName: string;
 								text: string;
 							};
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							text: string;
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -226,24 +224,16 @@ export const emojiADF: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const inlineExtensionADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							attrs: {
-								extensionType: string;
 								extensionKey: string;
+								extensionType: string;
 								parameters: {
-									macroParams: {};
 									macroMetadata: {
 										placeholder: {
 											data: {
@@ -252,24 +242,31 @@ export const inlineExtensionADF: {
 											type: string;
 										}[];
 									};
+									macroParams: {};
 								};
 								text: string;
 							};
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							text: string;
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -327,40 +324,39 @@ export const inlineExtensionADF: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const mentionADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							attrs: {
+								accessLevel: string;
 								id: string;
 								text: string;
-								accessLevel: string;
 								userType: null;
 							};
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 			| {
-					type: string;
 					content: {
-						type: string;
 						content: {
-							type: string;
 							text: string;
+							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -406,21 +402,20 @@ export const mentionADF: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multipleMentionsADF: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: {
-			type: string;
 			attrs: {
+				accessLevel: string;
 				id: string;
 				text: string;
-				accessLevel: string;
 			};
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

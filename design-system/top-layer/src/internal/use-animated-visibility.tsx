@@ -5,16 +5,16 @@ import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { isNativeElementOpen } from './is-native-element-open';
 import { prefersReducedMotion } from './reduced-motion';
 
-type TRunOnAnimationsSettledArgs = {
-	element: HTMLElement;
-	onSettled: () => void;
-};
-
 type TRunCancellableSettlementArgs = {
 	schedule: (settle: () => void) => void;
 	onSettled: () => void;
 };
 
+/**
+ * Calls `schedule` with a `settle` callback, and `settle` calls `onSettled`.
+ * The returned cleanup makes `settle` do nothing, so an interrupted or
+ * unmounted lifecycle cannot call a stale `onSettled`.
+ */
 function runCancellableSettlement({
 	schedule,
 	onSettled,
@@ -30,90 +30,46 @@ function runCancellableSettlement({
 	});
 
 	return () => {
-		// Prevent an interrupted or unmounted lifecycle from firing a stale callback.
 		isCancelled = true;
 	};
 }
 
+type TRunOnAnimationsSettledArgs = {
+	element: HTMLElement;
+	onSettled: () => void;
+};
+
 /**
- * Fires `onSettled` once all animations currently applied to `element`
- * finish or are cancelled. Returns a cleanup that prevents stale settlement.
+ * Calls `onSettled` when all animations on `element` at the time of the call
+ * finish or are cancelled. With no animations, it settles in a promise
+ * microtask. Returns a cleanup that stops a stale `onSettled` call.
  */
 function runOnAnimationsSettled({ element, onSettled }: TRunOnAnimationsSettledArgs): () => void {
 	return runCancellableSettlement({
 		onSettled,
 		schedule: (settle) => {
+			// Some environments, such as jsdom, do not implement `getAnimations`.
 			const animations = element.getAnimations?.() ?? [];
 			Promise.allSettled(animations.map((animation) => animation.finished)).then(settle);
 		},
 	});
 }
 
-type TUseAnimatedVisibilityArgs = {
-	/**
-	 * Controlled visibility intent from the consumer. This can temporarily differ
-	 * from native visibility during browser-initiated dismissal and close settlement.
-	 */
-	isOpen: boolean;
-	/**
-	 * Animation config for entry/exit animations.
-	 * Pass `false` to disable animation.
-	 */
-	shouldAnimate: boolean;
-	/**
-	 * Ref to the DOM element that plays the entry/exit animations.
-	 * Used to inspect its active animations.
-	 */
-	elementRef: RefObject<HTMLElement | null>;
-	/**
-	 * Called after entry settles and the `open` phase has committed, so the
-	 * callback observes the host without its entering styles. This includes
-	 * initial mount with `isOpen=true`.
-	 */
-	onEnterFinish?: () => void;
-	/**
-	 * Called after the native closed `toggle` and any exit animations settle.
-	 * With animation disabled, this still waits for the task-queued `toggle`.
-	 * The callback runs immediately before the host transitions to `closed`,
-	 * so the element remains mounted while the callback runs.
-	 */
-	onExitFinish?: () => void;
-};
-
-type TUseAnimatedVisibilityResult = {
-	/**
-	 * Current visibility phase. The host element is mounted whenever
-	 * `phase !== 'closed'`.
-	 */
-	phase: TPhase;
-	isMounted: boolean;
-	/**
-	 * Bind to the primitive's native `beforetoggle` event.
-	 */
-	onBeforeToggle: (event: ToggleEvent) => void;
-	/**
-	 * Bind to the primitive's native `toggle` event after any primitive-specific
-	 * close handling that must complete before exit settlement.
-	 */
-	onToggle: (event: ToggleEvent) => void;
-};
-
 /**
- * Visibility lifecycle phase shared between `useAnimatedVisibility`,
- * `useFocusWrap`, `useInitialFocus`, and the `Popover` / `Dialog`
- * components.
+ * Visibility lifecycle phase shared by `useAnimatedVisibility`, `useFocusWrap`,
+ * `useInitialFocus`, `Popover` and `Dialog`.
  *
- * - `closed`: host element is unmounted. No DOM presence.
- * - `entering`: host element is mounted and the CSS entry transition
- *   is playing. **Only emitted when animation is enabled.** With
- *   animation disabled the lifecycle goes directly `closed → open`.
- * - `open`: host element is mounted and settled. No transition is
- *   playing.
- * - `exiting`: a native close has begun but the host element remains
- *   mounted. Usually this follows `isOpen` changing to `false`, but it can
- *   also begin with a browser-initiated dismissal while controlled intent
- *   is still open. With animation disabled, this phase lasts until the
- *   browser's closed `toggle` fires so native focus restoration can finish.
+ * - `closed`: the host element is unmounted.
+ * - `entering`: the host element is mounted and its CSS entry animation is
+ *   playing. **Only used when animation is enabled.** With animation disabled,
+ *   the lifecycle goes directly from `closed` to `open`.
+ * - `open`: the host element is mounted and settled. No entry or exit
+ *   animation is playing.
+ * - `exiting`: a native close has started, and the host element stays mounted.
+ *   Usually `isOpen` changed to `false`, but a browser dismiss can also start
+ *   this phase while controlled intent is still open. With animation disabled,
+ *   this phase lasts until the browser's closed `toggle` fires, so native focus
+ *   restoration can finish.
  *
  * State machine:
  * ```
@@ -121,26 +77,30 @@ type TUseAnimatedVisibilityResult = {
  *   animation OFF:  closed →            open → exiting → closed
  *   interrupts:     entering → exiting (close mid-entry)
  *                   exiting  → entering (reopen mid-exit, animated)
- *                   exiting  → open     (reopen mid-handshake, non-animated)
+ *                   exiting  → open     (reopen mid-exit, non-animated)
  *                   exiting  → open     (native reopen while controlled intent is open)
  * ```
  */
 export type TPhase = 'closed' | 'entering' | 'open' | 'exiting';
 
+/**
+ * Lifecycle events for `getNextVisibilityState`.
+ *
+ * - `open-requested` and `close-requested`: `isOpen` changed.
+ * - `native-close-started` and `native-open-started`: `beforetoggle` fired.
+ * - `entry-settled` and `exit-settled`: the entry or exit animations settled.
+ */
 type TVisibilityAction =
 	| { type: 'open-requested'; willAnimate: boolean }
 	| { type: 'close-requested' }
-	| { type: 'exit-started' }
-	// The element is being shown natively (`beforetoggle` to `open`). The
-	// reducer uses it to undo a browser dismiss that `isOpen` never agreed with,
-	// such as the tooltip re-showing on `pointerup` after a press light-dismisses it.
+	| { type: 'native-close-started' }
 	| { type: 'native-open-started' }
 	| { type: 'entry-settled' }
 	| { type: 'exit-settled' };
 
 type TVisibilityState = {
 	phase: TPhase;
-	// Tracks controlled prop intent separately from browser-driven phase changes.
+	// The last `isOpen` value the hook processed. Browser events change `phase`, not this value.
 	controlledIntent: 'open' | 'closed';
 };
 
@@ -163,7 +123,7 @@ function getInitialVisibilityState({
 }
 
 /**
- * Applies one lifecycle event to the current visibility phase.
+ * Applies one lifecycle event to the current visibility state.
  *
  * Events that are stale for the current phase are ignored. This allows
  * animation callbacks and native close events to settle safely after an
@@ -193,7 +153,7 @@ function getNextVisibilityState(
 		return { ...state, controlledIntent: 'closed' };
 	}
 
-	if (action.type === 'exit-started') {
+	if (action.type === 'native-close-started') {
 		if (state.phase !== 'open' && state.phase !== 'entering') {
 			return state;
 		}
@@ -201,10 +161,11 @@ function getNextVisibilityState(
 		return { ...state, phase: 'exiting' };
 	}
 
-	// A browser dismiss started the exit, and something showed the element
-	// again before the exit settled, while controlled intent stayed open. For
-	// example, `@atlaskit/tooltip` re-shows after a light dismiss in the same
-	// task. The element never painted closed, so go back to `open`.
+	// A browser dismiss started the exit while controlled intent stayed open, and
+	// the element was shown natively again before the exit settled. For example,
+	// `@atlaskit/tooltip` calls `showPopover()` on `pointerup`, in the same task as
+	// the light dismiss of a press. The element never painted closed, so go back
+	// to `open`. See `notes/decisions/tooltip-stay-open-on-trigger-click.md`.
 	if (action.type === 'native-open-started') {
 		if (state.phase !== 'exiting' || state.controlledIntent !== 'open') {
 			return state;
@@ -232,18 +193,67 @@ function getNextVisibilityState(
 	return state;
 }
 
+type TUseAnimatedVisibilityArgs = {
+	/**
+	 * Controlled visibility intent from the consumer. This can temporarily differ
+	 * from native visibility during browser-initiated dismissal and close settlement.
+	 */
+	isOpen: boolean;
+	/**
+	 * Whether to play the entry and exit animations. Animation is also disabled
+	 * when the user prefers reduced motion.
+	 */
+	shouldAnimate: boolean;
+	/**
+	 * Ref to the host element. The hook waits for its active animations to settle.
+	 */
+	elementRef: RefObject<HTMLElement | null>;
+	/**
+	 * Called after each commit that moves the phase to `open`, so the callback
+	 * observes the host without its entering styles. This includes the initial
+	 * mount with `isOpen=true`.
+	 */
+	onEnterFinish?: () => void;
+	/**
+	 * Called after the native closed `toggle` fires and any exit animations
+	 * settle. With animation disabled, this still waits for the task-queued
+	 * `toggle`. It runs just before the phase becomes `closed`, so the host is
+	 * still mounted.
+	 */
+	onExitFinish?: () => void;
+};
+
+type TUseAnimatedVisibilityResult = {
+	/**
+	 * Current lifecycle phase.
+	 */
+	phase: TPhase;
+	/**
+	 * `true` while the host is mounted. Same as `phase !== 'closed'`.
+	 */
+	isMounted: boolean;
+	/**
+	 * Bind to the primitive's native `beforetoggle` event.
+	 */
+	onBeforeToggle: (event: ToggleEvent) => void;
+	/**
+	 * Bind to the primitive's native `toggle` event after any primitive-specific
+	 * close handling that must complete before exit settlement.
+	 */
+	onToggle: (event: ToggleEvent) => void;
+};
+
 /**
- * Coordinates controlled intent, native visibility, lifecycle phase, and host
- * mounting around CSS exit transitions. The canonical contract is documented in
+ * Coordinates controlled intent, native visibility, lifecycle phase and host
+ * mounting for `Popover` and `Dialog`. The canonical contract is documented in
  * `notes/architecture/animations.md#canonical-visibility-lifecycle-contract`.
  *
- * Used by both `Popover` and `Dialog` to share the same lifecycle logic. Those
- * components own native event binding, show and hide commands, and
- * component-specific event handling. This hook returns stable `onBeforeToggle`
- * and `onToggle` callbacks that advance lifecycle phase and host mounting.
+ * The components own native event binding, show and hide commands, and
+ * component-specific event handling. They bind the stable `onBeforeToggle`
+ * and `onToggle` callbacks from this hook, and the hook owns phase changes.
  *
  * The host element is rendered while `phase !== 'closed'`. The `exiting`
- * phase keeps it mounted until its CSS animation settles or, with animation
+ * phase keeps it mounted until its exit animations settle or, with animation
  * disabled, until the browser reports that the native element has closed.
  *
  * ```
@@ -267,8 +277,8 @@ export function useAnimatedVisibility({
 	);
 	const { phase, controlledIntent } = visibilityState;
 
-	// Keep stable refs to the latest callbacks so effects and animation settlement closures
-	// always call the current callback without needing them in dependency arrays.
+	// Refs hold the latest callbacks and `willAnimate`, so the stable callbacks, effects
+	// and settlement closures read current values without them in dependency arrays.
 	const onEnterFinishRef = useRef(onEnterFinish);
 	const onExitFinishRef = useRef(onExitFinish);
 	const willAnimateRef = useRef(willAnimate);
@@ -289,15 +299,15 @@ export function useAnimatedVisibility({
 		dispatch({ type: 'close-requested' });
 	}
 
-	// Entry can commit `open` before its callback because the host stays mounted.
-	// This ensures consumers observe the settled DOM rather than entering styles.
-	// Treat the phase before the initial commit as closed so an initially open host
-	// notifies consumers.
-	const prevPhaseRef = useRef<TPhase>('closed');
+	// Call `onEnterFinish` after the `open` commit, so consumers observe the
+	// settled host and not its entering styles. Entry can wait for the commit
+	// because the host stays mounted. The previous phase starts as `closed`, so
+	// a host that is open on mount also calls `onEnterFinish`.
+	const previousPhaseRef = useRef<TPhase>('closed');
 	useEffect(() => {
-		const prevPhase = prevPhaseRef.current;
-		prevPhaseRef.current = phase;
-		if (prevPhase === phase) {
+		const previousPhase = previousPhaseRef.current;
+		previousPhaseRef.current = phase;
+		if (previousPhase === phase) {
 			return;
 		}
 
@@ -316,16 +326,15 @@ export function useAnimatedVisibility({
 		dispatch({ type: 'exit-settled' });
 	}, []);
 
-	// Primitives bind these stable callbacks to their native lifecycle events.
-	// This keeps event ownership at the primitive while the hook owns state transitions.
 	const onBeforeToggle = useCallback((event: ToggleEvent) => {
-		// Any native transition supersedes a previous exit snapshot. This prevents
-		// a stale settlement from closing a host that is reopening or closing again.
+		// Any native toggle cancels a pending exit settlement, so a stale
+		// settlement cannot close a host that is reopening or closing again.
 		cancelExitSettlementRef.current();
-		// Snapshot currentTarget because the DOM clears it after event dispatch.
+		// Snapshot `currentTarget`, because the DOM clears it after event dispatch.
 		const element = event.currentTarget;
 
 		if (event.newState === 'open') {
+			// Undo the `inert` and `aria-hidden` that a previous close added.
 			if (element instanceof HTMLElement) {
 				element.removeAttribute('inert');
 				element.removeAttribute('aria-hidden');
@@ -337,23 +346,26 @@ export function useAnimatedVisibility({
 
 		if (event.newState === 'closed') {
 			if (element instanceof HTMLElement) {
-				// We use a microtask to let native focus restoration happen before making the element inert.
-				// The browser restores focus after beforetoggle returns, during its close steps.
+				// Wait a microtask so native focus restoration runs before the host
+				// becomes inert. The browser restores focus after `beforetoggle`
+				// returns, during its close steps.
 				queueMicrotask(() => {
-					// A controlled close can be interrupted by isOpen changing back to true,
-					// which reopens the element before this microtask runs.
+					// A controlled close can be interrupted by `isOpen` changing back to
+					// `true`, which reopens the element before this microtask runs.
 					if (isNativeElementOpen({ element })) {
 						return;
 					}
 
-					// Exit animations keep closed content rendered, so make it non-interactive and hide it from assistive technology.
+					// Exit animations keep the closed host rendered, so make it
+					// non-interactive and hide it from assistive technology.
 					element.setAttribute('inert', '');
-					// Tooling does not consistently treat inert content as hidden, even though the browser does.
+					// Tooling does not consistently treat inert content as hidden, even
+					// though the browser does.
 					element.setAttribute('aria-hidden', 'true');
 				});
 			}
 
-			dispatch({ type: 'exit-started' });
+			dispatch({ type: 'native-close-started' });
 		}
 	}, []);
 
@@ -376,9 +388,9 @@ export function useAnimatedVisibility({
 				return;
 			}
 
-			// The closed `toggle` is task-queued after synchronous `beforetoggle`.
-			// Snapshot here so the exiting phase styles have committed and the list
-			// represents the animations that actually govern exit settlement.
+			// The closed `toggle` is task-queued after the synchronous `beforetoggle`.
+			// By now the `exiting` styles have committed, so the snapshot holds the
+			// animations that decide when the exit settles.
 			cancelExitSettlementRef.current = runOnAnimationsSettled({
 				element,
 				onSettled: settleExit,
@@ -395,14 +407,15 @@ export function useAnimatedVisibility({
 		[],
 	);
 
-	// Entry settlement only removes entering styles. Its callback runs after the
-	// resulting `open` commit in the effect above.
+	// Entry settlement moves the phase to `open`, which removes the entering
+	// styles. The effect above then calls `onEnterFinish`.
 	useEffect(
 		function settleEntry() {
 			if (phase !== 'entering') {
 				return;
 			}
 
+			// Animation was disabled during entry, so settle now.
 			if (!willAnimate) {
 				dispatch({ type: 'entry-settled' });
 				return;

@@ -60,7 +60,6 @@ describe('MenuPortal - inline render path (flag OFF only)', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MenuPortal - flag-routing wrapper module-level smoke', () => {
 	it('flag ON: Select renders without crashing (menu closed)', () => {
 		passGate('platform-dst-top-layer');
@@ -95,7 +94,6 @@ async function flushPopoverScheduling(): Promise<void> {
 	});
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 	beforeEach(() => {
 		passGate('platform-dst-top-layer');
@@ -336,7 +334,6 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
  * `MenuPortalTopLayer` render outside the provider chain without crashing.
  * Pin the default here so a future change cannot silently break that guard.
  */
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MenuPortalCloseContext - default value', () => {
 	it('default value is `undefined` (consumer is responsible for guarding)', () => {
 		// Importing inline so the context module is only loaded for this test.

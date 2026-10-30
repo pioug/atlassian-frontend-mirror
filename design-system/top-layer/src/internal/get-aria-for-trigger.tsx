@@ -3,10 +3,9 @@ import { type TRoleRequiringAccessibleName } from './role-types';
 /**
  * Roles accepted by `getAriaForTrigger`.
  *
- * Excludes tooltip-family roles (`tooltip`, `note`, `status`, `alert`, `log`)
- * because the correct trigger wiring for those is `aria-describedby`, not
- * `aria-haspopup` / `aria-expanded` / `aria-controls`. Use `aria-describedby`
- * manually for tooltip triggers.
+ * Tooltip-family roles (`tooltip`, `note`, `status`, `alert`, `log`) are not accepted. Their
+ * trigger uses `aria-describedby`, not `aria-haspopup`, `aria-expanded` and `aria-controls`. Set
+ * `aria-describedby` yourself on a tooltip trigger.
  */
 type TAriaForTriggerRole = TRoleRequiringAccessibleName | 'listbox' | 'tree' | 'grid';
 
@@ -20,18 +19,11 @@ type TAriaHasPopupByRole = {
 };
 
 /**
- * Maps each supported popover role to its `aria-haspopup` value.
+ * The `aria-haspopup` value for each role in `TAriaForTriggerRole`: the popup type that the
+ * trigger announces. ARIA has no `alertdialog` value, so `alertdialog` uses `'dialog'`.
  *
- * Derived from the HTML spec - maps popover roles to what the trigger
- * announces. Roles that do not produce a popup use `undefined` instead (for
- * non-popup roles like `tooltip`/`status`/`alert`/`note`/`log` where
- * `aria-haspopup` would be misleading), so they are intentionally excluded
- * from this mapping and from `getAriaForTrigger`.
- *
- * `true` is intentionally not a value in this mapping. The runtime only ever
- * produces the explicit string forms, so allowing it would invite consumers
- * to pass `true` and get an `aria-haspopup="true"` serialisation that the
- * runtime no longer emits.
+ * `true` is not a value. The function returns only the explicit tokens, never
+ * `aria-haspopup="true"`.
  */
 const roleToAriaHasPopup: TAriaHasPopupByRole = {
 	dialog: 'dialog',
@@ -44,18 +36,17 @@ const roleToAriaHasPopup: TAriaHasPopupByRole = {
 
 type TGetAriaForTriggerOptions<TRole extends TAriaForTriggerRole | undefined> = {
 	/**
-	 * The `role` that will be set on the `<Popover>` element. Used to derive
-	 * the correct `aria-haspopup` value for the trigger. No role gives no
-	 * `aria-haspopup`.
+	 * The `role` of the `Popover`. It sets the `aria-haspopup` value of the trigger. No role gives
+	 * no `aria-haspopup`.
 	 */
 	role?: TRole;
 	/**
-	 * Whether the popover is currently open. Drives `aria-expanded`.
+	 * Whether the popover is open. It sets `aria-expanded`.
 	 */
 	isOpen: boolean;
 	/**
-	 * The popover identifier - the value returned by `usePopoverId()`,
-	 * passed as `id` to `<Popover>` and referenced here via `aria-controls`.
+	 * The `id` of the popover: the value from `usePopoverId()`, also passed as `id` to `Popover`.
+	 * `aria-controls` refers to it.
 	 */
 	popoverId: string;
 };
@@ -64,33 +55,33 @@ type TAriaForTrigger<TRole extends TAriaForTriggerRole | undefined> = {
 	'aria-haspopup': TRole extends TAriaForTriggerRole ? TAriaHasPopupByRole[TRole] : undefined;
 	'aria-expanded': boolean;
 	/**
-	 * `aria-controls` is `undefined` while the popover is closed, because
-	 * the popover host element is only rendered in the DOM while open. A
-	 * dangling `aria-controls` reference (pointing at a missing ID) is
-	 * tolerated by assistive tech but flagged by some a11y tooling, so
-	 * we leave it unset until the target exists.
+	 * `undefined` while the popover is closed, because the popover element is in the DOM only while
+	 * it is open or animating closed. Assistive technology tolerates an `aria-controls` that points
+	 * to a missing `id`, but some accessibility tools flag it. See
+	 * `notes/decisions/aria-controls-trigger-contract.md`.
 	 */
 	'aria-controls': string | undefined;
 };
 
 /**
- * Returns the ARIA attributes to spread onto a click-activated popover trigger.
+ * Returns the ARIA attributes to spread onto the trigger of a popover that opens on click or key
+ * press.
  *
- * Centralises three attributes that are easy to forget or get wrong individually:
+ * It sets three attributes that are easy to forget or get wrong:
  *
- * - `aria-haspopup` - derived from the popover's role (e.g. `dialog → "dialog"`,
- *   `menu → "menu"`). No role gives no `aria-haspopup`: the value is
- *   `undefined`, so React omits the attribute.
- * - `aria-expanded` - reflects the current open state.
- * - `aria-controls` - references the popover element by its id while the
- *   popover is open, and is omitted while the popover is closed and unmounted.
+ * - `aria-haspopup`: from the popover role (for example `dialog` gives `"dialog"`, `menu` gives
+ *   `"menu"`). No role gives `undefined`, so React renders no attribute.
+ * - `aria-expanded`: the open state.
+ * - `aria-controls`: the popover `id` while the popover is open. `undefined` while it is closed,
+ *   because the closed popover is not in the DOM.
  *
- * **This function is for click/keyboard-activated popovers only.** For
- * hover-driven tooltips, the trigger should use `aria-describedby` instead.
+ * **Use it only for popovers that open on click or key press.** The trigger of a tooltip that
+ * opens on hover uses `aria-describedby` instead.
  *
  * @example
  * ```tsx
  * import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
+ * import { Popover } from '@atlaskit/top-layer/popover/popover';
  * import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
  *
  * const popoverId = usePopoverId();
@@ -99,7 +90,6 @@ type TAriaForTrigger<TRole extends TAriaForTriggerRole | undefined> = {
  * return (
  *   <>
  *     <button
- *       ref={triggerRef}
  *       onClick={() => setIsOpen((previous) => !previous)}
  *       {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId })}
  *     >
@@ -110,7 +100,6 @@ type TAriaForTrigger<TRole extends TAriaForTriggerRole | undefined> = {
  *       role="dialog"
  *       label="My dialog"
  *       isOpen={isOpen}
- *       triggerRef={triggerRef}
  *       onClose={() => setIsOpen(false)}
  *     >
  *       …
@@ -129,13 +118,8 @@ export function getAriaForTrigger({
 }: TGetAriaForTriggerOptions<TAriaForTriggerRole | undefined>): TAriaForTrigger<
 	TAriaForTriggerRole | undefined
 > {
-	// `aria-controls` is set to `undefined` while closed. The `Popover` /
-	// `Dialog` primitives unmount their host element after the exit
-	// animation finishes, so a closed-state `aria-controls` would point
-	// at a node that is not in the DOM. Returning `undefined` here means
-	// JSX spread renders no `aria-controls` attribute on the trigger
-	// until the target exists, avoiding the dangling reference while
-	// keeping the relationship live whenever it is meaningful.
+	// `aria-controls` is `undefined` while closed: the popover element is not in the DOM after its
+	// exit animation, so the `id` would point to nothing.
 	return {
 		'aria-haspopup': role ? roleToAriaHasPopup[role] : undefined,
 		'aria-expanded': isOpen,

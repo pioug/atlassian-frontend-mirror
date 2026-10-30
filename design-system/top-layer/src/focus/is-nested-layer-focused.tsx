@@ -1,22 +1,21 @@
 import { getClosestLayer } from './get-closest-layer';
 
 /**
- * Returns `true` when `document.activeElement` is inside a nested top-layer
- * descendant of `container` (a `[popover]` or `<dialog>` that is itself a
- * descendant of `container`).
+ * Returns `true` when the focused element is in a nested layer: a `[popover]`
+ * or `<dialog>` inside `container`.
  */
 export function isNestedLayerFocused({ container }: { container: HTMLElement }): boolean {
-	const focused = container.ownerDocument.activeElement;
+	const focusedElement = container.ownerDocument.activeElement;
 
-	if (!(focused instanceof HTMLElement)) {
+	if (!(focusedElement instanceof HTMLElement)) {
 		return false;
 	}
 
 	// Cannot be in a nested layer if it is not in the container
-	if (!container.contains(focused)) {
+	if (!container.contains(focusedElement)) {
 		return false;
 	}
 
 	// If not in the same layer, must be in a nested layer
-	return getClosestLayer({ element: focused }) !== getClosestLayer({ element: container });
+	return getClosestLayer({ element: focusedElement }) !== getClosestLayer({ element: container });
 }

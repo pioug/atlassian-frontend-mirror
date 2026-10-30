@@ -18,7 +18,6 @@ export const trailingSpacesWithDates: ADFEntity = {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const noTrailingSpacesWithDates: ADFEntity = {
 	version: 1,
 	type: 'doc',
@@ -34,7 +33,6 @@ export const noTrailingSpacesWithDates: ADFEntity = {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multipleNodesAcrossLinesWithDates: ADFEntity = {
 	version: 1,
 	type: 'doc',
@@ -74,7 +72,6 @@ export const multipleNodesAcrossLinesWithDates: ADFEntity = {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multilineWithDates: ADFEntity = {
 	version: 1,
 	type: 'doc',

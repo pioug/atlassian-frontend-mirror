@@ -4,7 +4,9 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
+import { PickerItemContent } from '@atlaskit/user-picker/picker-item-content';
 
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
@@ -91,7 +93,7 @@ type Props = {
 	emoji: EmojiDescription;
 };
 
-export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
+const EmojiPreviewComponentLegacy = ({ emoji }: Props): JSX.Element => {
 	return (
 		<div css={preview}>
 			<span css={previewImg}>
@@ -104,3 +106,24 @@ export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
 		</div>
 	);
 };
+
+const previewImageNext = css({ display: 'flex' });
+
+const EmojiPreviewComponentNext = ({ emoji }: Props): JSX.Element => (
+	<PickerItemContent
+		avatar={
+			<span css={[previewImg, previewImageNext]}>
+				<CachingEmoji key={emoji.id || emoji.shortName} emoji={emoji} />
+			</span>
+		}
+		title={emoji.name ? <div css={emojiName}>{emoji.name}</div> : emoji.shortName}
+		subtext={emoji.name ? emoji.shortName : undefined}
+	/>
+);
+
+export const EmojiPreviewComponent = (props: Props): JSX.Element =>
+	isExperimentEnabled('platform_editor_mentions_email_search') ? (
+		<EmojiPreviewComponentNext {...props} />
+	) : (
+		<EmojiPreviewComponentLegacy {...props} />
+	);

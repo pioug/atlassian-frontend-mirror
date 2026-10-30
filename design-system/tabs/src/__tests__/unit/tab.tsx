@@ -17,7 +17,6 @@ const CustomTab = ({ label }: { label: string }) => {
 
 	// In this example custom tab we have added an onFocus call
 	return (
-		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<span {...tabAttributes} onFocus={noop}>
 			{label}
 		</span>

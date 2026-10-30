@@ -23,7 +23,6 @@ const styles = cssMap({
 	},
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: trigger rendering', () => {
 	it('renders the trigger element', () => {
 		render(
@@ -83,7 +82,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: trigger renderi
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: content rendering', () => {
 	it('renders content when open', () => {
 		render(
@@ -120,7 +118,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: content renderi
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — role', () => {
 	it('does not apply a role when none is supplied (legacy `Popup` contract)', () => {
 		render(
@@ -189,7 +186,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 1.3.2 — DOM order', () => {
 	it('renders content in DOM order (not portalled)', () => {
 		const { container } = render(
@@ -216,7 +212,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 1.3.2 — 
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: onClose callback', () => {
 	it('passes onClose to the content render prop', () => {
 		const onClose = jest.fn();
@@ -244,7 +239,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: onClose callbac
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: xcss', () => {
 	it('applies xcss to the element wrapping the content', () => {
 		render(
@@ -270,7 +264,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: xcss', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: shouldFitContainer', () => {
 	it('renders content when shouldFitContainer is true', () => {
 		render(
@@ -292,7 +285,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: shouldFitContai
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: shouldFitViewport', () => {
 	it('renders content when shouldFitViewport is true', () => {
 		render(
@@ -314,7 +306,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: shouldFitViewpo
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', () => {
 	it('applies custom label to dialog role', () => {
 		render(
@@ -380,7 +371,6 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: no-op props accepted', () => {
 	it('accepts zIndex without error', () => {
 		expect(() =>

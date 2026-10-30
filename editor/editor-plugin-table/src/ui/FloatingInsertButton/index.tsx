@@ -60,6 +60,26 @@ export interface Props {
 	tableRef?: HTMLElement;
 }
 
+/**
+ * Distance from the table top to the top of the row containing `cell`, summed from row heights.
+ * Viewport rects cannot be used: a stuck header row is fixed to the viewport while the table scrolls.
+ */
+const getRowOffsetFromTableTop = (cell: HTMLElement, table: HTMLElement): number => {
+	const anchorRow = closestElement(cell, 'tr');
+	if (!(table instanceof HTMLTableElement) || !anchorRow) {
+		return 0;
+	}
+
+	let offset = 0;
+	for (const row of table.rows) {
+		if (row === anchorRow) {
+			return offset;
+		}
+		offset += row.offsetHeight;
+	}
+	return 0;
+};
+
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export class FloatingInsertButton extends React.Component<Props & WrappedComponentProps, any> {
@@ -193,10 +213,14 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			type === 'column' &&
 			expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
 		) {
-			verticalOffsetCorrection = Math.max(
-				0,
-				targetCellRef.getBoundingClientRect().top - tableRef.getBoundingClientRect().top,
-			);
+			if (isExperimentEnabled('platform_editor_sticky_header_insert_column_exp')) {
+				verticalOffsetCorrection = getRowOffsetFromTableTop(targetCellRef, tableRef);
+			} else {
+				verticalOffsetCorrection = Math.max(
+					0,
+					targetCellRef.getBoundingClientRect().top - tableRef.getBoundingClientRect().top,
+				);
+			}
 		}
 		// Preserve the original popup placement: overflow row inserts and column inserts
 		// sit above the header; other row inserts sit below it.

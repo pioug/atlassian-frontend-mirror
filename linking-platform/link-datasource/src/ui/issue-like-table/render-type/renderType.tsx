@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { type TableViewPropsRenderType } from '../types';
 import BooleanRenderType from './boolean';
 import DateRangeRenderType from './date-range';
@@ -7,6 +9,7 @@ import DateTimeRenderType from './date-time';
 import IconRenderType from './icon';
 import LinkRenderType from './link';
 import NumberRenderType from './number';
+import ObjectReferenceRenderType from './object-reference';
 import RichTextRenderType from './richtext';
 import StatusRenderType from './status';
 import TagRenderType from './tag';
@@ -34,6 +37,18 @@ export const renderType: TableViewPropsRenderType = (item) => {
 			return item.values.map((linkValue) => <LinkRenderType key={linkValue?.url} {...linkValue} />);
 		case 'number':
 			return item.values.map((numberValue) => <NumberRenderType number={numberValue} />);
+		case 'objectReference':
+			return item.values.map((objectReferenceValue) =>
+				fg('astral_assets_macro_table_ui_uplift') ? (
+					<ObjectReferenceRenderType key={objectReferenceValue?.url} {...objectReferenceValue} />
+				) : (
+					<LinkRenderType
+						key={objectReferenceValue?.url}
+						url={objectReferenceValue?.url}
+						text={objectReferenceValue?.text}
+					/>
+				),
+			);
 		case 'status':
 			return item.values.map((statusValue) => <StatusRenderType {...statusValue} />);
 		case 'string':

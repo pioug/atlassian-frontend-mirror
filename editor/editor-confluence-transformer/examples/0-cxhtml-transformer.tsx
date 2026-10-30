@@ -16,9 +16,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import type { EditorActions } from '@atlaskit/editor-core/actions';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorProps } from '@atlaskit/editor-core/editor';
-// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { EditorContext } from '@atlaskit/editor-core/EditorContext';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal/useUniversalPreset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';

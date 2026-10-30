@@ -1,13 +1,9 @@
 export const simpleActionList: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			localId: string;
 		};
 		content: {
-			type: string;
 			attrs: {
 				localId: string;
 				state: string;
@@ -16,8 +12,12 @@ export const simpleActionList: {
 				text: string;
 				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -72,17 +72,12 @@ export const simpleActionList: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const simpleActionListWithShortText: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			localId: string;
 		};
 		content: {
-			type: string;
 			attrs: {
 				localId: string;
 				state: string;
@@ -91,8 +86,12 @@ export const simpleActionListWithShortText: {
 				text: string;
 				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -147,18 +146,13 @@ export const simpleActionListWithShortText: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const simpleActionListWithShortTextAndNestedItemsList: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			localId: string;
 		};
 		content: (
 			| {
-					type: string;
 					attrs: {
 						localId: string;
 						state: string;
@@ -167,15 +161,14 @@ export const simpleActionListWithShortTextAndNestedItemsList: {
 						text: string;
 						type: string;
 					}[];
+					type: string;
 			  }
 			| {
-					type: string;
 					attrs: {
 						localId: string;
 						state?: undefined;
 					};
 					content: {
-						type: string;
 						attrs: {
 							localId: string;
 							state: string;
@@ -184,10 +177,15 @@ export const simpleActionListWithShortTextAndNestedItemsList: {
 							text: string;
 							type: string;
 						}[];
+						type: string;
 					}[];
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

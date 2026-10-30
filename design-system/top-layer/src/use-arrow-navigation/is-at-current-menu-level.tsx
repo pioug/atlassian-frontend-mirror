@@ -1,88 +1,83 @@
-const menuScope = '[role="menu"]';
+const menuSelector = '[role="menu"]';
 
 /**
- * Recursively walks from `node` toward `container`, returning `true` when
- * `container` is reached without crossing another `role="menu"` ancestor.
- *
- * Used by `isAtCurrentMenuLevel` (pattern 2) to determine if the
- * `closestMenu` is owned by the wrapper container directly. Recursion
- * avoids a mutable `let parent` walk and keeps the function body linear.
+ * Walks up from `element` and returns `true` when it reaches `container` before any other
+ * `role="menu"` element.
  */
-function reachesContainerWithoutNestedMenu(node: Element | null, container: HTMLElement): boolean {
-	if (!node || node === container) {
-		return node === container;
-	}
-	if (node.getAttribute('role') === 'menu') {
+function reachesContainerWithoutNestedMenu({
+	element,
+	container,
+}: {
+	element: Element | null;
+	container: HTMLElement;
+}): boolean {
+	if (!element) {
 		return false;
 	}
-	return reachesContainerWithoutNestedMenu(node.parentElement, container);
+	if (element === container) {
+		return true;
+	}
+	if (element.getAttribute('role') === 'menu') {
+		return false;
+	}
+	return reachesContainerWithoutNestedMenu({ element: element.parentElement, container });
 }
 
 /**
- * Returns true if the element belongs to the current menu level of the
- * container, i.e. it is NOT inside a nested `role="menu"` sub-container.
+ * Returns `true` if the element belongs to the current menu level of the container, that is, it
+ * is not inside a nested `role="menu"`.
  *
- * Uses `element.closest('[role="menu"]')` to determine the nearest menu
- * scope. If the nearest scope is the container's own `role="menu"` element,
- * the element belongs to this level. If it is a different (nested) menu,
- * the element belongs to a child level and should be excluded.
+ * It uses `element.closest('[role="menu"]')` to find the nearest menu. If that menu is the menu of
+ * the container, the element belongs to this level. If it is a nested menu, the element belongs to
+ * a child level.
  *
- * Supports two container patterns:
+ * It supports two container patterns:
  *
- * **1. Container has `role="menu"` directly** (preferred, used by avatar-group):
+ * **1. The container has `role="menu"`** (preferred):
  *   ```
  *   <div ref={containerRef} role="menu">
  *     <button role="menuitem" />   ← isAtCurrentMenuLevel → true
- *     <div role="menu">            ← nested sub-menu
+ *     <div role="menu">            ← nested menu
  *       <button role="menuitem" /> ← isAtCurrentMenuLevel → false
  *     </div>
  *   </div>
  *   ```
- *   Uses the simple check: `element.closest('[role="menu"]') === container`
+ *   The check is `element.closest('[role="menu"]') === container`.
  *
- * **2. Container is a wrapper without `role="menu"`** (used by dropdown-menu,
- *   where `MenuGroup` owns `role="menu"` but does not accept a ref):
+ * **2. The container is a wrapper without `role="menu"`**, for example when the `role="menu"`
+ *   element (such as a `MenuGroup` from `@atlaskit/menu`) does not accept a ref:
  *   ```
  *   <div ref={containerRef}>         ← wrapper (no role="menu")
  *     <MenuGroup role="menu">
  *       <button role="menuitem" />   ← isAtCurrentMenuLevel → true
- *       <div role="menu">            ← nested sub-menu
+ *       <div role="menu">            ← nested menu
  *         <button role="menuitem" /> ← isAtCurrentMenuLevel → false
  *       </div>
  *     </MenuGroup>
  *   </div>
  *   ```
- *   Falls back to walking the DOM to check that the element's closest
- *   `role="menu"` is the container's own menu (not doubly nested).
+ *   It walks up from the closest `role="menu"` of the element, and checks that it reaches the
+ *   container before any other `role="menu"`. An element in no menu belongs to this level.
  *
- * Ideally all consumers should use pattern 1 (place the ref directly on the
- * `role="menu"` element). Pattern 2 exists because `@atlaskit/menu`'s
- * `MenuGroup` does not currently accept a ref. If `MenuGroup` gains ref
- * support in the future, dropdown-menu should switch to pattern 1 and the
- * fallback path can be removed.
+ * Prefer pattern 1: put the ref on the `role="menu"` element. Use pattern 2 only when you cannot.
  *
- * Used both as a `TFocusableFilter` (to scope getNextFocusable etc.) and as
- * a guard to prevent parent menu handlers from acting on events that
- * belong to a nested menu.
+ * Use it as a `TFocusableFilter` (for example the `filter` of `useArrowNavigation`). It scopes the
+ * focusable elements, and it stops a parent menu from acting on keys that belong to a nested menu.
  */
 export function isAtCurrentMenuLevel(element: Element, container: HTMLElement): boolean {
-	const closestMenu = element.closest(menuScope);
+	const closestMenu = element.closest(menuSelector);
 
-	// Container itself has role="menu". Element belongs to this level
-	// if its closest menu is the container.
+	// Pattern 1: the element belongs to this level if its closest menu is the container.
 	if (container.getAttribute('role') === 'menu') {
 		return closestMenu === container;
 	}
 
-	// Container is a wrapper without role="menu" (e.g. dropdown-menu
-	// wraps a MenuGroup). The element belongs to the top level if its
-	// closest role="menu" ancestor is a direct child of the container,
-	// i.e. there is no nested role="menu" between them.
+	// Pattern 2: the container is a wrapper without `role="menu"`. An element in no menu belongs to
+	// this level.
 	if (closestMenu === null) {
 		return true;
 	}
 
-	// Walk up from the closest menu to see if it is "owned" by this
-	// container without passing through another role="menu" first.
-	return reachesContainerWithoutNestedMenu(closestMenu.parentElement, container);
+	// Start from the parent, so the walk does not stop at `closestMenu` itself.
+	return reachesContainerWithoutNestedMenu({ element: closestMenu.parentElement, container });
 }

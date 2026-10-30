@@ -3,6 +3,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -88,38 +89,45 @@ describe('EmbedCardResolvedView', () => {
 	});
 
 	ffTest.on('platform_sl_3p_auth_rovo_embed_footer_kill_switch', '', () => {
-		it('renders Rovo actions footer when the embed footer resolves action data', async () => {
-			const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
-			const actionData = {
-				actionFn: jest.fn(),
-				providerKey: 'google-object-provider',
-			};
-			const details = {
-				meta: { key: 'google-object-provider' },
-				data: { '@type': ['schema:DigitalDocument'] },
-			};
+		it.each([
+			['on', passGate],
+			['off', failGate],
+		])(
+			'renders Rovo actions footer when the embed footer resolves action data and platform_sl_replace_react_loadable is %s',
+			async (_, setGate) => {
+				setGate('platform_sl_replace_react_loadable');
+				const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
+				const actionData = {
+					actionFn: jest.fn(),
+					providerKey: 'google-object-provider',
+				};
+				const details = {
+					meta: { key: 'google-object-provider' },
+					data: { '@type': ['schema:DigitalDocument'] },
+				};
 
-			mockExtractRovoChatAction.mockReturnValue(actionData as never);
+				mockExtractRovoChatAction.mockReturnValue(actionData as never);
 
-			setup({ actionOptions, details: details as never, link: 'https://example.com/doc' });
+				setup({ actionOptions, details: details as never, link: 'https://example.com/doc' });
 
-			await screen.findByTestId('mock-footer');
-			expect(mockExtractRovoChatAction).toHaveBeenCalledWith(
-				expect.objectContaining({
-					appearance: 'embed',
-					actionOptions,
-					response: details,
-				}),
-			);
-			expect(mockEmbedRovoActionsFooter).toHaveBeenCalledWith(
-				expect.objectContaining({
-					actionData,
-					prompts: expect.any(Array),
-					testId: 'embed-card-resolved-view-rovo-actions-footer',
-				}),
-				{},
-			);
-		});
+				await screen.findByTestId('mock-footer');
+				expect(mockExtractRovoChatAction).toHaveBeenCalledWith(
+					expect.objectContaining({
+						appearance: 'embed',
+						actionOptions,
+						response: details,
+					}),
+				);
+				expect(mockEmbedRovoActionsFooter).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionData,
+						prompts: expect.any(Array),
+						testId: 'embed-card-resolved-view-rovo-actions-footer',
+					}),
+					{},
+				);
+			},
+		);
 	});
 
 	ffTest.off('platform_sl_3p_auth_rovo_embed_footer_kill_switch', '', () => {

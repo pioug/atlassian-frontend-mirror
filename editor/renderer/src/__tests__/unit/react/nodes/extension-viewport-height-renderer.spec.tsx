@@ -14,6 +14,7 @@ import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
+import * as heightHooks from '../../../../react/nodes/useNodeHeight';
 import Renderer from '../../../../ui/Renderer';
 import type { RendererProps } from '../../../../ui/renderer-props';
 
@@ -64,6 +65,122 @@ describe('Forge viewport heights through the ADF renderer', () => {
 			expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe(height);
 		},
 	);
+
+	describe.each(['extension', 'bodiedExtension'] as const)('%s temporary sizing', (nodeType) => {
+		const attrs = {
+			extensionType: 'com.atlassian.ecosystem',
+			extensionKey: 'test-macro',
+			parameters: { extensionId },
+		};
+		const macroDocument: RendererProps['document'] = {
+			type: 'doc',
+			version: 1,
+			content: [
+				nodeType === 'bodiedExtension'
+					? { type: 'bodiedExtension', attrs, content: [{ type: 'paragraph' }] }
+					: { type: 'extension', attrs },
+			],
+		};
+
+		it.each([false, true])(
+			'preserves nodeHeight for custom components (temporary sizing enabled: %s)',
+			(enabled) => {
+				const CustomMacro = jest.fn(({ nodeHeight }: { nodeHeight?: string }) => (
+					<p>{nodeHeight}</p>
+				));
+				const getExtensionPresetHeight = jest.fn(() => 21);
+				const scheduleExtensionHeightRemoval = enabled ? jest.fn(() => undefined) : undefined;
+				render(
+					fullRenderer({
+						document: macroDocument,
+						nodeComponents: { [nodeType]: CustomMacro },
+						getExtensionHeight: () => '150',
+						getExtensionPresetHeight,
+						scheduleExtensionHeightRemoval,
+					}),
+				);
+				expect(screen.getByText('150')).toBeVisible();
+				const receivedProps = CustomMacro.mock.lastCall?.[0];
+				expect(receivedProps).toHaveProperty('nodeHeight', '150');
+				if (enabled) {
+					expect(receivedProps).toHaveProperty('nodePresetMinHeight', '150');
+					expect(receivedProps).toHaveProperty('nodePresetHeight', 21);
+					expect(receivedProps).toHaveProperty(
+						'scheduleExtensionHeightRemoval',
+						scheduleExtensionHeightRemoval,
+					);
+					expect(getExtensionPresetHeight).toHaveBeenCalled();
+				} else {
+					expect(receivedProps).not.toHaveProperty('nodePresetMinHeight');
+					expect(receivedProps).not.toHaveProperty('nodePresetHeight');
+					expect(receivedProps).not.toHaveProperty('scheduleExtensionHeightRemoval');
+					expect(getExtensionPresetHeight).not.toHaveBeenCalled();
+				}
+			},
+		);
+
+		it('preserves legacy sizing without invoking the expiry hook when no scheduler is supplied', () => {
+			if (nodeType === 'bodiedExtension') passGate('confluence_forge_early_render_reserve_height');
+			const useNodeHeight = jest.spyOn(heightHooks, 'useNodeHeight');
+			const getExtensionPresetHeight = jest.fn(() => 21);
+			try {
+				const macro = fullRenderer({
+					document: macroDocument,
+					getExtensionHeight: () => '150',
+					getExtensionPresetHeight,
+				});
+				const expectedMinHeight = nodeType === 'extension' ? '150px' : '262px';
+				expect(renderToString(macro)).toContain(`min-height:${expectedMinHeight}`);
+				render(macro);
+				const wrapper = screen.getByTestId('extension--wrapper');
+				expect(wrapper.style.minHeight).toBe(expectedMinHeight);
+				expect(wrapper.style.height).toBe('');
+				expect(useNodeHeight).not.toHaveBeenCalled();
+				expect(getExtensionPresetHeight).not.toHaveBeenCalled();
+			} finally {
+				useNodeHeight.mockRestore();
+			}
+		});
+
+		it.each([true, false])('prefers viewport sizing (loaded handler: %s)', (loaded) => {
+			passGate('confluence_forge_early_render_reserve_height');
+			const scheduleExtensionHeightRemoval = jest.fn(() => undefined);
+			const macro = fullRenderer({
+				document: macroDocument,
+				extensionHandlers: loaded ? { 'com.atlassian.ecosystem': () => <p>Loaded macro</p> } : {},
+				getExtensionHeight: () => '150',
+				getExtensionPresetHeight: () => 21,
+				scheduleExtensionHeightRemoval,
+			});
+			expect(renderToString(macro)).toContain('min-height:262px');
+			render(macro);
+			const wrapper = screen.getByTestId('extension--wrapper');
+			expect(wrapper.style.minHeight).toBe('262px');
+			expect(wrapper.style.height).toBe('');
+			expect(scheduleExtensionHeightRemoval).not.toHaveBeenCalled();
+		});
+
+		it.each([
+			{ viewportSizes: [] },
+			{ viewportSizes: [{ extensionId, viewportSize: '' }] },
+			{ viewportSizes: [{ extensionId: 'another-extension', viewportSize: 'medium' }] },
+		])('keeps temporary presets without a matching viewport size: %j', ({ viewportSizes }) => {
+			const scheduleExtensionHeightRemoval = jest.fn(() => undefined);
+			render(
+				fullRenderer({
+					document: macroDocument,
+					extensionViewportSizes: viewportSizes,
+					getExtensionHeight: () => '150',
+					getExtensionPresetHeight: () => 21,
+					scheduleExtensionHeightRemoval,
+				}),
+			);
+			const wrapper = screen.getByTestId('extension--wrapper');
+			expect(wrapper.style.minHeight).toBe('150px');
+			expect(wrapper.style.height).toBe('21px');
+			expect(scheduleExtensionHeightRemoval).toHaveBeenCalledTimes(2);
+		});
+	});
 
 	it('keeps loaded macro content accessible through the full renderer', async () => {
 		passGate('confluence_forge_early_render_reserve_height');

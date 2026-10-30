@@ -7,7 +7,6 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CreateButton } from '../../create-button';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CreateButton', () => {
 	it('should be accessible', async () => {
 		const { container } = render(<CreateButton>Create</CreateButton>);

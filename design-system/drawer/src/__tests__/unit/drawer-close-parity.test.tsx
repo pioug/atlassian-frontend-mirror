@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies -- devDependency provided by monorepo
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { Drawer } from '../../drawer';
@@ -143,7 +142,6 @@ function dragElement({ from, to, ancestor }: { from: Element; to: Element; ances
 	flushTasks();
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe.each([false, true])('Drawer onClose parity (platform-dst-top-layer=%s)', (isTopLayer) => {
 	const originalMatchMedia = window.matchMedia;
 	const originalGetAnimations = Object.getOwnPropertyDescriptor(

@@ -72,19 +72,38 @@ function hasAnyEscapeOwner({ ownerDocument }: { ownerDocument: Document }): bool
 }
 
 /**
+ * `true` when an Escape owner is above the surface. With no surface element, the surface is the
+ * whole page, so every owner is inside it, and above it.
+ */
+function hasEscapeOwnerAboveSurface({
+	surface,
+	target,
+}: {
+	surface: HTMLElement | null;
+	target: HTMLElement | Document;
+}): boolean {
+	if (surface) {
+		return hasEscapeOwnerAbove({ element: surface });
+	}
+	return hasAnyEscapeOwner({
+		ownerDocument: target instanceof Document ? target : target.ownerDocument,
+	});
+}
+
+/**
  * Closes a page surface (for example a side panel) on Escape.
  *
  * Not for `Popover` or `Dialog`: the browser and `Dialog` already close them on Escape.
  *
  * A surface outside the top layer needs its own `keydown` listener, which also hears the Escape
  * that closes an open popover or dialog. So this hook calls `onClose` only for an unclaimed Escape.
- * An Escape is claimed when:
+ * It does not call `onClose` when:
  *
- * - `event.defaultPrevented`: something already handled it.
+ * - `event.defaultPrevented` is `true`: something already handled the Escape.
  * - IME composition is running: the Escape cancels the composition.
- * - `event.repeat`: a held key closes one surface per key press.
+ * - `event.repeat` is `true`: a held key closes one surface per key press.
  * - An owner is above the surface (see `hasEscapeOwnerAbove`): an open layer that takes Escape (a
- *   dialog that closes on Escape, an `auto` or `hint` popover such as a tooltip, or a `Dialog` or
+ *   dialog that closes on Escape, an `auto` or `hint` popover such as a tooltip, a `Dialog`, or a
  *   `manual` popover with `useManualLightDismiss`), or a marked page surface. The surface ranks
  *   just above its nearest containing layer (see `surfaceRef`). Outside every layer it is below
  *   every layer. With no surface element it is the whole page, so every owner is above it. The
@@ -123,11 +142,11 @@ export function useCloseOnUnclaimedEscape({
 		// A manual popover around the surface also listens on `document` and may run first. The mark
 		// tells it to leave the Escape to this surface. On an element target this listener runs first
 		// anyway.
-		const markedSurface = target instanceof HTMLElement ? null : (surfaceRef?.current ?? null);
+		const surfaceToMark = target instanceof HTMLElement ? null : (surfaceRef?.current ?? null);
 
 		return combine(
-			markedSurface
-				? setAttribute({ element: markedSurface, name: pageSurfaceEscapeAttribute, value: '' })
+			surfaceToMark
+				? setAttribute({ element: surfaceToMark, name: pageSurfaceEscapeAttribute, value: '' })
 				: undefined,
 			// Target and phase matter. See the listener order in `claim-escape`.
 			bind(target, {
@@ -138,29 +157,19 @@ export function useCloseOnUnclaimedEscape({
 					}
 
 					const surface = surfaceRef?.current ?? (target instanceof HTMLElement ? target : null);
-
-					if (surface) {
-						if (hasEscapeOwnerAbove({ element: surface })) {
-							return;
-						}
-					} else if (
-						hasAnyEscapeOwner({
-							ownerDocument: target instanceof Document ? target : target.ownerDocument,
-						})
-					) {
-						// No element: the surface is the whole page, so every owner is inside it, and above it.
+					if (hasEscapeOwnerAboveSurface({ surface, target })) {
 						return;
 					}
 
-					const isInsideLayer = surface && isInsideOpenLayer({ surface });
-					// `shouldClose` sees the event before it is claimed.
-					const shouldClose =
+					const isInsideLayer = surface !== null && isInsideOpenLayer({ surface });
+					// `shouldClose` runs before `claimEscape()`, so it sees the event as not yet claimed.
+					const shouldCloseSurface =
 						!event.repeat && (!shouldCloseRef.current || shouldCloseRef.current({ event }));
 					// Take the Escape even on a veto or repeat, so the layer around the surface stays open.
 					if (isInsideLayer) {
 						claimEscape({ event });
 					}
-					if (!shouldClose) {
+					if (!shouldCloseSurface) {
 						return;
 					}
 

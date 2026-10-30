@@ -21,8 +21,11 @@ import { useBackdropClick } from './use-backdrop-click';
 import { useCancelFallback } from './use-cancel-fallback';
 import { useEscapeKeydown } from './use-escape-keydown';
 
-// Surface reset, including `color` (the UA `dialog` rule sets `CanvasText`).
-// KEEP IN SYNC with `surfaceResetStyles` in `popover/popover.tsx`.
+/**
+ * **Surface reset**, including `color` (the UA `dialog` rule sets `CanvasText`).
+ *
+ * KEEP IN SYNC with `surfaceResetStyles` in `popover/popover.tsx`.
+ */
 const surfaceResetStyles = cssMap({
 	root: {
 		// Host boost, see `dialogStyles.root`.
@@ -39,6 +42,7 @@ const surfaceResetStyles = cssMap({
 	},
 });
 
+// Compile-time check that this copy matches `TBoostedSurfaceReset` in `internal/surface-reset.tsx`.
 true satisfies TBoostedSurfaceResetCheck<
 	typeof surfaceResetStyles.root,
 	'&:defined:defined:defined'
@@ -46,8 +50,12 @@ true satisfies TBoostedSurfaceResetCheck<
 
 const dialogStyles = cssMap({
 	root: {
-		// In the `xcss` union, so left unboosted. No `height: auto` (unlike `Popover`):
-		// with UA `inset: 0` it stretches the dialog. See notes/decisions/safari-popover-flex-collapse.md
+		/**
+		 * `margin` and `maxWidth` are in the `xcss` union, so they stay unboosted.
+		 *
+		 * No `height: auto` (unlike `Popover`): with the UA `inset: 0`, it stretches the dialog.
+		 * See `notes/decisions/safari-popover-flex-collapse.md`.
+		 */
 		margin: 'auto',
 		maxWidth: 'none',
 		/**
@@ -89,9 +97,8 @@ const dialogStyles = cssMap({
 		},
 	},
 	motion: {
-		// This transition keeps the element visible and in the top layer while the
-		// exit animation plays. It needs to be always applied because there can
-		// be a delay before entering the `exiting` phase after the dialog is dismissed.
+		// Keeps the dialog visible and in the top layer while the exit animation plays. Applied in
+		// every phase, because the `exiting` phase can start some time after the native close.
 		transitionProperty: 'overlay, display',
 		transitionDuration: token('motion.duration.medium'),
 		transitionBehavior: 'allow-discrete',
@@ -157,11 +164,13 @@ function isEveryAncestorLayerOpen({ node }: { node: Node }): boolean {
 }
 
 /**
- * Safety net for a direct native close (for example `dialog.close()` or a `<form method="dialog">`
- * submit), which consumers should not do. `isOpen` is the source of truth, so show it again.
+ * Safety net for a close that `Dialog` did not ask about (for example `dialog.close()` or a
+ * `<form method="dialog">` submit). Consumers should not close the native dialog. `isOpen` is the
+ * source of truth, so show the dialog again.
  *
  * Skipped inside a closed layer: an open modal there is invisible but still makes the page inert.
- * Returns whether the dialog is open again.
+ *
+ * Returns `true` when this call showed the dialog again.
  */
 function reopenAfterUnaskedClose({ dialog }: { dialog: HTMLDialogElement }): boolean {
 	if (dialog.open || !isEveryAncestorLayerOpen({ node: dialog })) {
@@ -176,12 +185,12 @@ function reopenAfterUnaskedClose({ dialog }: { dialog: HTMLDialogElement }): boo
 }
 
 /**
- * Low-level `<dialog>` primitive. No visual opinions - no width, height,
- * background, border-radius, or layout. Consumers provide their own styling.
+ * Low-level `<dialog>` primitive. It has no visual opinions: no width, height, background,
+ * border-radius or layout. Consumers provide their own styling.
  *
- * Visibility is controlled by `isOpen`. When the user asks to dismiss the dialog
- * (an allowed Escape or backdrop click), `onClose` runs. Set `isOpen={false}` to
- * close it, or keep `isOpen` `true` to keep it open, in every browser.
+ * `isOpen` controls visibility. When the user asks to dismiss the dialog (an allowed Escape or
+ * backdrop click), `onClose` runs. Set `isOpen={false}` to close it, or keep `isOpen` `true` to
+ * keep it open, in every browser.
  *
  * **How closing works**
  *
@@ -194,11 +203,12 @@ function reopenAfterUnaskedClose({ dialog }: { dialog: HTMLDialogElement }): boo
  * - Do not close the native dialog directly (`dialog.close()`, `<form method="dialog">`). If it
  *   closes while `isOpen` is `true`, `Dialog` shows it again and does not call `onClose`.
  *
- * See notes/decisions/dialog-close-flow.md
+ * See `notes/decisions/dialog-close-flow.md`.
  *
- * Accessibility: render at least one focusable element (typically a close
- * button) when `isOpen` becomes `true`. Tab is always trapped inside the
- * dialog, so keyboard users need somewhere to land.
+ * **Accessibility**
+ *
+ * Render at least one focusable element (typically a close button) when `isOpen` becomes `true`.
+ * `Dialog` always traps Tab inside the dialog, so keyboard users need somewhere to land.
  */
 export const Dialog: React.ForwardRefExoticComponent<
 	TDialogProps & React.RefAttributes<HTMLDialogElement>
@@ -245,9 +255,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Ordering is important: bind native lifecycle listeners before the later
-	// layout effect calls showModal() or close(), because `beforetoggle` fires
-	// synchronously during those calls.
+	// Bind the lifecycle listeners before the `isOpen` effect below calls `showModal()` or
+	// `close()`: `beforetoggle` fires synchronously during those calls.
 	useLayoutEffect(() => {
 		if (!isMounted) {
 			return;
@@ -283,13 +292,13 @@ export const Dialog: React.ForwardRefExoticComponent<
 		]);
 	}, [isMounted, onBeforeToggle, onToggle]);
 
-	// Native `<dialog>.showModal()` traps focus but wraps through `<body>` at
-	// the boundary (A → B → C → body → A). This hook intercepts Tab to wrap
-	// directly (A → B → C → A), matching the WAI-ARIA APG pattern. Passing
-	// `phase` keeps the listener attached through the animated-exit window
-	// (WCAG 2.4.3 Focus Order regression guard).
+	// Native `<dialog>.showModal()` traps focus but wraps through `<body>` at the boundary
+	// (A → B → C → body → A). `useFocusWrap` handles Tab and wraps directly (A → B → C → A), as in
+	// the WAI-ARIA APG pattern. `phase` keeps the listener during the exit animation (WCAG 2.4.3 Focus
+	// Order regression guard).
 	useFocusWrap({ elementRef: ownRef, role: 'dialog', phase });
 
+	// Show or close the native dialog to match `isOpen`.
 	useLayoutEffect(() => {
 		const dialog = ownRef.current;
 		if (!dialog) {
@@ -339,10 +348,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// Fallback: only in browsers without `closedby`.
 	useCancelFallback({ dialogRef: ownRef, isMounted });
 
-	// Unmount the `<dialog>` once exit completes so it does not leave an
-	// empty `role="dialog"` element in the accessibility tree. A later open
-	// remounts a fresh element, so the listener-binding and native-visibility
-	// effects run against that element.
+	// After the exit, render nothing, so no empty `role="dialog"` element stays in the accessibility
+	// tree. The next open mounts a new `<dialog>`, and the effects above run again for it.
 	if (!isMounted) {
 		return null;
 	}
@@ -353,11 +360,9 @@ export const Dialog: React.ForwardRefExoticComponent<
 		<dialog
 			ref={combinedRef}
 			id={dialogId}
-			// `aria-modal` is intentionally NOT set: native `<dialog>.showModal()`
-			// already conveys modal semantics to assistive tech, and double-
-			// declaring it forecloses non-modal use cases (consumers calling
-			// `.show()` would still appear modal). Modern AT (NVDA / JAWS /
-			// VoiceOver) infer modality from the platform accessibility API.
+			// No `aria-modal`: `showModal()` already tells assistive technology that the dialog is
+			// modal (NVDA, JAWS and VoiceOver read it from the platform accessibility API). With
+			// `aria-modal`, a dialog opened with `show()` would also appear modal.
 			aria-label={label}
 			aria-labelledby={label ? undefined : labelledBy}
 			css={[
@@ -374,7 +379,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 			]}
 			style={style}
 			// The browser never closes the dialog for a user action. `Dialog` handles Escape and
-			// backdrop clicks itself. Fixed, so the server and client render the same markup.
+			// backdrop clicks itself. Always `none` (no feature check), so the server and the client
+			// render the same markup.
 			closedby="none"
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

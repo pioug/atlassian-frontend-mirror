@@ -5,7 +5,7 @@
 import React, { forwardRef, type Ref, useCallback, useId, useMemo, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
+import { bindAll } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import once from '@atlaskit/ds-lib/once';
@@ -26,8 +26,10 @@ import { useInitialFocus } from '../internal/use-initial-focus';
 import { type TPopoverCloseReason, type TPopoverForwardedProps } from './types';
 
 /**
- * Native restoration only covers the first popover in an auto/hint stack, not each nested popover.
- * This fallback also supports manual popovers, which have no native restoration target.
+ * Moves focus back to the element that had focus before the popover opened.
+ *
+ * Native restoration covers only the first popover in an `auto` or `hint` stack, not each nested
+ * popover. Manual popovers have no native restoration target. This fallback covers both cases.
  * See https://html.spec.whatwg.org/multipage/popover.html#show-popover (step 15.8).
  */
 function restoreFocus({
@@ -42,11 +44,11 @@ function restoreFocus({
 	}
 
 	const { ownerDocument } = popover;
-	// Native restoration has finished. Preserve focus moved outside the popover.
+	// Native restoration has run. Do not move focus that is now outside the popover.
 	const activeElementAfterClose = ownerDocument.activeElement;
-	// Before close, we checked that focus was inside. Body can now mean focus was lost during close.
+	// `handleBeforeToggle` checked that focus was inside, so `<body>` means focus was lost on close.
 	if (activeElementAfterClose === ownerDocument.body || popover.contains(activeElementAfterClose)) {
-		// Match native popover restoration, which does not scroll the viewport.
+		// Native restoration does not scroll the viewport, so this does not either.
 		focusRestorationTarget.focus({ preventScroll: true });
 	}
 }
@@ -67,18 +69,18 @@ const supportsPopoverHint = once((): boolean => {
 /**
  * **Surface reset**
  *
- * The host is still a DOM child of its trigger for inheritance, so it inherits
- * values like `pointer-events: none` or `white-space: nowrap`. Resets them to
- * what `<body>` gave the portal path. `font` and direction still inherit.
- * Not `all: initial`: that would also override the UA `[popover]` rules.
+ * The host renders inline, so it inherits values such as `pointer-events: none` or
+ * `white-space: nowrap` from its DOM ancestors (often the trigger). These rules reset them to the
+ * values that `<body>` gave the portal path. `font` and `direction` still inherit. Not
+ * `all: initial`: that would also override the UA `[popover]` rules.
  *
- * `color` is a reset too: the UA `[popover]` rule sets `color: CanvasText`, so
- * the host never inherits a colour. `color.text` is what `<body>` gave the portal
- * path. Not `inherit`, which would take the trigger's colour (for example a link).
+ * `color` is a reset too. The UA `[popover]` rule sets `color: CanvasText`, so the host never
+ * inherits a color. `color.text` is the color that `<body>` gave the portal path. Not `inherit`,
+ * which would take the trigger's color (for example a link).
  * See `notes/decisions/surface-reset-color.md`.
  *
- * KEEP IN SYNC with `dialog/dialog-content.tsx` (ADS forbids shared styles).
- * The `satisfies` check below catches drift.
+ * KEEP IN SYNC with `dialog/dialog-content.tsx` (ADS forbids shared styles). The `satisfies`
+ * check below catches drift.
  */
 const surfaceResetStyles = cssMap({
 	root: {
@@ -106,23 +108,25 @@ const styles = cssMap({
 		/**
 		 * **Host specificity boost**
 		 *
-		 * The host renders inline, so consumer rules like `.toolbar > div` can land on
-		 * it. Tripling the selector makes it (0,4,0): one class level above the most
-		 * specific such rule in AFM (0,3,1), but below IDs, so consumers can still opt
-		 * out. Not `!important`, which breaks 33 of 48 measured sites. Values match the
-		 * unstyled host, so nothing changes until a rule competes. Inline styles and
-		 * animations still win. `display` is keyed on `:popover-open`; the rest on
-		 * `:defined`, which always matches a built-in element, so it holds during the
-		 * exit. Not `[popover]`, for consistency with `Dialog`, which has no
-		 * always-present attribute. Not `&&&&`, which needs a `no-unsafe-selectors`
-		 * disable that the ratchet counts.
+		 * The host renders inline, so consumer rules such as `.toolbar > div` can match it. The
+		 * tripled selector is (0,4,0): one class level above the most specific such rule in AFM
+		 * (0,3,1), and below IDs, so consumers can still opt out. The values match the unstyled
+		 * host, so nothing changes until a rule competes. Inline styles and animations still win.
+		 *
+		 * - `display` is keyed on `:popover-open`. The rest is keyed on `:defined`, which always
+		 *   matches a built-in element, so it holds during the exit.
+		 * - Not `!important`: it breaks 33 of 48 measured sites.
+		 * - Not `[popover]`: `Dialog` has no attribute that is always present, and both hosts use
+		 *   the same selector.
+		 * - Not `&&&&`: it needs a `no-unsafe-selectors` disable, which the ratchet counts.
+		 *
 		 * See `notes/decisions/host-specificity-boost.md`.
 		 */
 		'&:popover-open:popover-open:popover-open': {
 			/**
-			 * Lets a size cap on the host reach the child. Only while open: an author
-			 * `display` beats the UA closed `display: none`.
-			 * See notes/decisions/fit-available-space.md
+			 * Lets a size cap on the host reach the child. Only while open: an author `display`
+			 * beats the UA closed `display: none`.
+			 * See `notes/decisions/fit-available-space.md`.
 			 */
 			display: 'flex',
 		},
@@ -132,7 +136,7 @@ const styles = cssMap({
 			flexWrap: 'nowrap',
 			alignItems: 'normal',
 			justifyContent: 'normal',
-			// The JavaScript fallback writes viewport coordinates.
+			// The JavaScript positioning fallback writes viewport coordinates.
 			position: 'fixed',
 			border: 'none',
 			padding: 0,
@@ -158,26 +162,29 @@ const styles = cssMap({
 			// Unstyled; consumers apply their own surface.
 			background: 'transparent',
 		},
-		// `flex-grow` makes the single child fill the host on the main axis, which
-		// block flow did for free and a flex item does not.
-		//
-		// The min-size reset is what makes the host's cap REACH the child: a flex
-		// item's automatic minimum size stays content-based while its `overflow` is
-		// `visible` (css-flexbox-1 §4.5), and a min beats a max, so a non-scrolling
-		// child would stop shrinking at its min-content size.
-		//
-		// `:where()` contributes no specificity, so a minimum the child sets itself
-		// wins. Without it, both are author rules of one class and the cascade falls
-		// through to stylesheet order, which Compiled does not sort by specificity.
-		// The leading `*` adds no specificity either; it is there only because
-		// `cssMap` rejects a selector starting with `:`.
-		//
-		// Single child is the documented contract (see `children` in `types.tsx`);
-		// two element children are two flex items in a ROW at half width each.
-		//
-		// Not grid: a `minmax(0, 1fr)` track stretches an auto-sized child to the cap
-		// but cannot shrink one with an explicit `width`, which `flex-shrink` can.
-		// Measured on all three engines; see the decision note.
+		/**
+		 * **Child fill**
+		 *
+		 * `flex-grow` makes the single child fill the host on the main axis. Block flow did this
+		 * for free; a flex item does not.
+		 *
+		 * The min-size reset is what lets the host's size cap REACH the child. A flex item's
+		 * automatic minimum size stays content-based while its `overflow` is `visible`
+		 * (css-flexbox-1 §4.5), and a minimum beats a maximum, so a child that does not scroll
+		 * would stop shrinking at its min-content size.
+		 *
+		 * `:where()` adds no specificity, so a minimum that the child sets itself wins. Without
+		 * it, both are author rules with one class, and the cascade falls back to stylesheet
+		 * order, which Compiled does not sort by specificity. The leading `*` adds no specificity
+		 * either. It is there only because `cssMap` rejects a selector that starts with `:`.
+		 *
+		 * One child is the documented contract (see `children` in `types.tsx`). Two element
+		 * children are two flex items in a ROW, at half width each.
+		 *
+		 * Not grid: a `minmax(0, 1fr)` track stretches an auto-sized child to the cap, but cannot
+		 * shrink a child that has an explicit `width`. `flex-shrink` can. Measured on all three
+		 * engines. See `notes/decisions/fit-available-space.md`.
+		 */
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- the child is consumer-owned, so only the host can make it fill; `:where` is the point, see above
 		'*:where(&) > *': {
 			flexGrow: 1,
@@ -186,9 +193,11 @@ const styles = cssMap({
 		},
 	},
 	motion: {
-		// This transition keeps the element visible and in the top layer while the
-		// exit animation plays. It needs to be always applied because there can
-		// be a delay before entering the `exiting` phase after the popover is dismissed.
+		/**
+		 * Keeps the element visible and in the top layer while the exit animation plays. Always
+		 * applied, not only in the `exiting` phase: that phase can start some time after the
+		 * popover is dismissed.
+		 */
 		transitionProperty: 'overlay, display',
 		transitionDuration: token('motion.duration.xshort'),
 		transitionBehavior: 'allow-discrete',
@@ -206,9 +215,15 @@ const styles = cssMap({
 	},
 });
 
-// Intentionally using `Record<string, string>` instead of `React.CSSProperties`
-// to avoid type errors about the CSS variables not being valid property names
-const popupMotionStyles: Record<TPlacementAxis, Record<TPlacementEdge, Record<string, string>>> = {
+/**
+ * The default slide direction for each placement, as the CSS variables that `styles.enter` and
+ * `styles.exit` read. `Record<string, string>`, not `React.CSSProperties`: CSS variables are not
+ * valid `CSSProperties` keys.
+ */
+const motionStylesByPlacement: Record<
+	TPlacementAxis,
+	Record<TPlacementEdge, Record<string, string>>
+> = {
 	block: {
 		start: {
 			'--ds-popover-motion-enter': token('motion.popup.enter.top'),
@@ -231,39 +246,36 @@ const popupMotionStyles: Record<TPlacementAxis, Record<TPlacementEdge, Record<st
 	},
 };
 
-type TPopoverMode = 'auto' | 'hint' | 'manual';
-
 /**
- * Unopinionated top-layer primitive. Owns visibility and animation only;
- * compose with `useAnchoredPopover` for positioning and sizing.
+ * Unopinionated top-layer primitive. It owns visibility, animation and focus. Compose it with
+ * `useAnchoredPopover` for position and size.
  *
- * ### 🔌 Visibility
+ * **Visibility**
  *
- * - `isOpen={true}` calls `showPopover()` (entry via a keyframe animation).
- * - `isOpen={false}` calls `hidePopover()` (exit via a keyframe animation, kept
- *   visible by an `allow-discrete` transition).
+ * - `isOpen={true}` calls `showPopover()`. With `shouldAnimate`, the entry is a keyframe
+ *   animation.
+ * - `isOpen={false}` calls `hidePopover()`. With `shouldAnimate`, the exit is a keyframe
+ *   animation, kept visible by an `allow-discrete` transition.
  *
- * ### 📜 Browser dismiss is non-cancellable
+ * **Browser dismiss cannot be cancelled**
  *
- * Per the popover spec, `beforetoggle` is cancellable on open transitions
- * only, not on close. Consumers should update controlled intent by setting
- * `isOpen` to `false` from `onClose`. If controlled intent remains open after
- * native close, the Popover remains closed until the prop changes.
- * `Dialog` asks first instead; see `notes/decisions/dialog-close-flow.md`.
+ * Per the popover spec, `beforetoggle` can be cancelled only when the popover opens, not when it
+ * closes. Set `isOpen` to `false` from `onClose`. If `isOpen` stays `true` after a native close,
+ * the popover stays closed until the prop changes. `Dialog` asks first instead; see
+ * `notes/decisions/dialog-close-flow.md`.
  *
  * - Spec: <https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute>
  * - <https://github.com/whatwg/html/issues/8973>
  *
- * ### ⚠️ Open from `onClick`, not `onPointerDown`
+ * **Open from `onClick`, not `onPointerDown`**
  *
- * The light-dismiss algorithm captures the pointerdown target before the
- * popover exists and dismisses on the matching pointerup if that target is
- * not in the popover's ancestor chain. Opening during pointerdown hides
- * the popover on the next pointerup.
+ * Light dismiss records the `pointerdown` target before the popover exists. On the matching
+ * `pointerup`, it dismisses the popover if that target is not in the popover's ancestor chain. So
+ * a popover that opens during `pointerdown` closes on the next `pointerup`.
  *
- * Legacy triggers that must open on mousedown (e.g. `@atlaskit/react-select`)
- * should defer the open past the in-flight gesture; see
- * `Select.openMenuAfterPointerUp`.
+ * Legacy triggers that must open on `mousedown` (for example `@atlaskit/react-select`) must defer
+ * the open to the `pointerup` of the same gesture. A timer is not enough. See
+ * `notes/pointerdown-open-light-dismiss-report.md`.
  */
 export const Popover: React.ForwardRefExoticComponent<
 	TPopoverForwardedProps & React.RefAttributes<HTMLDivElement>
@@ -289,43 +301,48 @@ export const Popover: React.ForwardRefExoticComponent<
 	},
 	ref,
 ) {
-	const autoId = useId();
+	const generatedId = useId();
 	const ownRef = useRef<HTMLDivElement>(null);
 	const combinedRef = mergeRefs(
 		[ownRef, ref as Ref<HTMLDivElement>].filter(Boolean) as Array<Ref<HTMLDivElement>>,
 	);
-	// `useId()` colons are invalid in CSS selectors and popover target attributes.
-	const popoverId = idProp ?? `popover-${autoId.replace(/:/g, '')}`;
+	// Remove the colons from the `useId()` output: they break CSS selectors such as `#id`.
+	const popoverId = idProp ?? `popover-${generatedId.replace(/:/g, '')}`;
 
-	// Keep the semantic callback current without rebinding native lifecycle
-	// listeners during the same commit that calls showPopover()/hidePopover().
+	/**
+	 * Read `onClose` from a ref, so a new `onClose` does not rebind the native listeners in the
+	 * same commit that calls `showPopover()` or `hidePopover()`.
+	 */
 	const onCloseRef = useRef(onClose);
 	useLayoutEffect(() => {
 		onCloseRef.current = onClose;
 	}, [onClose]);
 
-	// A popover with `onClose` is closable (see `closable-popover-contract`).
-	// `requestClosePopovers()` asks it to close; the consumer decides.
+	// Only a popover with `onClose` is closable. See `internal/closable-popover-contract.tsx`.
 	const isClosable = Boolean(onClose);
 
-	// `hint` falls back to `auto` when unsupported: closest behavior (light
-	// dismiss works), but `auto` participates in the auto-dismiss stack so it
-	// will close other `auto` popovers when opened. Acceptable trade-off given
-	// shrinking browser set without `hint` support.
-	const mode: TPopoverMode = modeProp === 'hint' && !supportsPopoverHint() ? 'auto' : modeProp;
+	/**
+	 * Without `hint` support, `hint` falls back to `auto`. It is the closest behavior: light
+	 * dismiss still works. The trade-off is that an `auto` popover joins the auto stack, so opening
+	 * it closes other `auto` popovers. This is acceptable because few browsers lack `hint` support.
+	 */
+	const mode = modeProp === 'hint' && !supportsPopoverHint() ? 'auto' : modeProp;
 
-	const popupMotionStyle = useMemo(() => {
+	const motionStyle = useMemo(() => {
 		if (!placement || !shouldAnimate) {
 			return undefined;
 		}
 		const { axis, edge } = resolvePlacement({ placement });
-		return popupMotionStyles[axis][edge];
+		return motionStylesByPlacement[axis][edge];
 	}, [placement, shouldAnimate]);
 
-	// Tracks the close reason, including our own hidePopover() calls.
+	/**
+	 * The reason for the next close. The Escape listener and our own `hidePopover()` calls set it.
+	 * Any other close is a light dismiss.
+	 */
 	const closeReasonRef = useRef<TPopoverCloseReason>('light-dismiss');
 
-	// Pre-open focus target, cleared before close when restoration is not eligible.
+	// The element that had focus before open. Cleared before close when focus must not be restored.
 	const focusRestorationTargetRef = useRef<HTMLElement | null>(null);
 
 	const handleBeforeToggle = useCallback((event: ToggleEvent) => {
@@ -343,8 +360,9 @@ export const Popover: React.ForwardRefExoticComponent<
 		}
 
 		/**
-		 * Like native restoration, leave external focus alone and skip light dismiss.
-		 * Check before closing so focus already on body is not mistaken for focus lost during close.
+		 * Like native restoration, do not restore focus after a light dismiss, or when focus is
+		 * already outside the popover. Check before the close: after it, focus on `<body>` can also
+		 * mean that focus was lost during the close.
 		 * See https://html.spec.whatwg.org/multipage/popover.html#hide-popover-algorithm (step 20.2).
 		 */
 		if (closeReasonRef.current === 'light-dismiss' || !popover.contains(activeElement)) {
@@ -361,14 +379,13 @@ export const Popover: React.ForwardRefExoticComponent<
 		const focusRestorationTarget = focusRestorationTargetRef.current;
 		focusRestorationTargetRef.current = null;
 		const reason = closeReasonRef.current;
-		// Reset reason so a stale 'escape' from a race with Escape keydown
-		// does not corrupt the next browser-dismiss cycle.
+		// Reset, so a stale `'escape'` from an Escape keydown race does not leak into the next close.
 		closeReasonRef.current = 'light-dismiss';
 
 		// Run after native restoration, before notifying the consumer, which may move focus itself.
 		restoreFocus({ popover, focusRestorationTarget });
 
-		// Programmatic closes are already known to the consumer.
+		// A programmatic close came from the consumer (`isOpen` or unmount), so it already knows.
 		if (reason !== 'programmatic') {
 			onCloseRef.current?.({ reason });
 		}
@@ -382,75 +399,73 @@ export const Popover: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Focus management: Tab cycling for dialog roles. Initial focus is below
-	// the show/hide layout effect. Restoration is native for outermost
-	// popovers; nested popovers are handled above via the `beforetoggle`
-	// snapshot. Passing `phase` keeps `useFocusWrap` attached through the
-	// animated-exit window (WCAG 2.4.3 guard). See notes/architecture/focus.md.
+	/**
+	 * Tab wrapping for dialog roles. Passing `phase` keeps it attached during the animated exit
+	 * (WCAG 2.4.3). Initial focus is set below the show and hide effect. Focus restoration is
+	 * native for the outermost popover. `handleBeforeToggle` and `restoreFocus` handle nested and
+	 * manual popovers. See `notes/architecture/focus.md`.
+	 */
 	useFocusWrap({ elementRef: ownRef, role, phase });
 
-	// Bind via `useLayoutEffect`, and BEFORE the show/hide layout effect
-	// below, so listeners are attached when `showPopover()` synchronously
-	// dispatches `beforetoggle`. A regular `useEffect` would miss that
-	// first dispatch, dropping the `focusRestorationTargetRef` snapshot
-	// and breaking nested-popover focus restoration on close. React runs
-	// layout effects in source order on the same commit.
+	/**
+	 * Bind in a layout effect that comes BEFORE the show and hide effect below. `showPopover()`
+	 * dispatches `beforetoggle` synchronously, so the listeners must already be attached. A
+	 * `useEffect` would miss that first event: the focus restoration target would not be recorded,
+	 * and nested focus restoration would break. React runs layout effects in source order.
+	 *
+	 * `isMounted` is a dependency so that the listeners bind again when the host element mounts.
+	 */
 	useLayoutEffect(() => {
 		const element = ownRef.current;
 		if (!element) {
 			return;
 		}
 
-		// Tag Escape before the browser processes light dismiss.
-		const unbindEscape = bind(element, {
-			type: 'keydown',
-			listener: (event: KeyboardEvent) => {
-				// Ignore Escape events dispatched after native close.
-				if (event.key === 'Escape' && isNativeElementOpen({ element })) {
-					closeReasonRef.current = 'escape';
-				}
+		return bindAll(element, [
+			// Tag Escape before the browser runs light dismiss.
+			{
+				type: 'keydown',
+				listener: (event: KeyboardEvent) => {
+					// Ignore an Escape that arrives after the native close.
+					if (event.key === 'Escape' && isNativeElementOpen({ element })) {
+						closeReasonRef.current = 'escape';
+					}
+				},
+				options: { capture: true },
 			},
-			options: { capture: true },
-		});
-		const unbindToggle = bind(element, {
-			type: 'toggle',
-			listener: (event: ToggleEvent) => {
-				if (event.newState === 'closed') {
-					handleToggleClosed(event);
-				}
-				onToggle(event);
+			{
+				type: 'toggle',
+				listener: (event: ToggleEvent) => {
+					if (event.newState === 'closed') {
+						handleToggleClosed(event);
+					}
+					onToggle(event);
+				},
 			},
-		});
-		// Snapshot the active element before `useInitialFocus` moves it,
-		// then advance the shared visibility lifecycle.
-		const unbindBeforeToggle = bind(element, {
-			type: 'beforetoggle',
-			listener: (event: ToggleEvent) => {
-				handleBeforeToggle(event);
-				onBeforeToggle(event);
+			// Record the focus restoration target before `useInitialFocus` moves focus.
+			{
+				type: 'beforetoggle',
+				listener: (event: ToggleEvent) => {
+					handleBeforeToggle(event);
+					onBeforeToggle(event);
+				},
 			},
-		});
-
-		// `requestClosePopovers()` asks the consumer to close. Nothing is
-		// hidden here, so a consumer that keeps `isOpen` stays in sync.
-		const unbindRequestClose = bind(element, {
-			type: requestCloseEventName,
-			listener: () => {
-				onCloseRef.current?.({ reason: 'programmatic' });
+			// `requestClosePopovers()` asks the consumer to close. Nothing is hidden here, so a
+			// consumer that keeps `isOpen` stays in sync.
+			{
+				type: requestCloseEventName,
+				listener: () => {
+					onCloseRef.current?.({ reason: 'programmatic' });
+				},
 			},
-		});
-
-		return () => {
-			unbindEscape();
-			unbindToggle();
-			unbindBeforeToggle();
-			unbindRequestClose();
-		};
+		]);
 	}, [handleBeforeToggle, handleToggleClosed, isMounted, onBeforeToggle, onToggle]);
 
-	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
-	// already in the target state. Try/catch guards `InvalidStateError` on
-	// disconnected elements (StrictMode/concurrent/unmount edge cases).
+	/**
+	 * Show or hide to match `isOpen`. `showPopover()` and `hidePopover()` do nothing when the
+	 * popover is already in that state. The `try`/`catch` blocks ignore the `InvalidStateError`
+	 * from a disconnected element (StrictMode, concurrent rendering and unmount edge cases).
+	 */
 	useLayoutEffect(() => {
 		const element = ownRef.current;
 		if (!element) {
@@ -458,9 +473,10 @@ export const Popover: React.ForwardRefExoticComponent<
 		}
 
 		if (isOpen) {
-			// Clear stale 'escape' from a prior cycle: the ref outlives
-			// the host element, and interrupted close lifecycles may not reach
-			// `handleToggleClosed` to reset it.
+			/**
+			 * Clear a stale `'escape'` from an earlier cycle. The ref outlives the host element, and
+			 * an interrupted close may not reach `handleToggleClosed`, which resets it.
+			 */
 			closeReasonRef.current = 'light-dismiss';
 			try {
 				element.showPopover();
@@ -479,18 +495,24 @@ export const Popover: React.ForwardRefExoticComponent<
 		} catch {}
 	}, [isOpen]);
 
-	// Initial focus (role-dependent) is a layout effect, so it must come AFTER
-	// the show/hide layout effect above: React runs layout effects in source
-	// order, and focus only works once `showPopover()` has run. Focus then
-	// lands in the same task as the open, before the browser paints.
+	/**
+	 * Initial focus depends on `role`. It is a layout effect, so it must come AFTER the show and
+	 * hide effect above: React runs layout effects in source order, and focus works only after
+	 * `showPopover()`. Focus then moves in the same task as the open, before the browser paints.
+	 */
 	useInitialFocus({ elementRef: ownRef, initialFocusRef, phase, role });
 
-	// Unmount the host once exit completes so it does not leave an empty
-	// `role`/`popover` element in the accessibility tree. The element
-	// remounts on the next open; the `popoverId` is stable across opens.
+	/**
+	 * Unmount the host after the exit, so it does not leave an empty `role` or `popover` element
+	 * in the accessibility tree. The element mounts again on the next open, with the same
+	 * `popoverId`.
+	 */
 	if (!isMounted) {
 		return null;
 	}
+
+	const isAnimatingEntry = shouldAnimate && phase === 'entering';
+	const isAnimatingExit = shouldAnimate && phase === 'exiting';
 
 	return (
 		<div
@@ -506,18 +528,18 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-labelledby={labelledBy}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Motion styles are selected at runtime from the placement.
-			style={popupMotionStyle}
+			style={motionStyle}
 			css={[
 				styles.root,
 				surfaceResetStyles.root,
-				shouldAnimate && phase === 'entering' && styles.enter,
-				shouldAnimate && phase === 'exiting' && styles.exit,
+				isAnimatingEntry && styles.enter,
+				isAnimatingExit && styles.exit,
 				shouldAnimate && styles.motion,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(
-				shouldAnimate && phase === 'entering' && enteringAnimationXcss,
-				shouldAnimate && phase === 'exiting' && exitingAnimationXcss,
+				isAnimatingEntry && enteringAnimationXcss,
+				isAnimatingExit && exitingAnimationXcss,
 			)}
 		>
 			{children}

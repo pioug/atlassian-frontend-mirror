@@ -251,10 +251,7 @@ describe('side nav flyout (platform-dst-top-layer on)', () => {
 			['a textarea', () => <textarea aria-label="Rename" />],
 			[
 				'a content editable element',
-				() => (
-					// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
-					<div role="textbox" aria-label="Rename" contentEditable tabIndex={0} />
-				),
+				() => <div role="textbox" aria-label="Rename" contentEditable tabIndex={0} />,
 			],
 		])(
 			'should keep the flyout open while %s inside it is focused, and close it after focus leaves',

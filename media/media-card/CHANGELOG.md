@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 82.2.0
+
+### Minor Changes
+
+- [`4c2ed3982e79b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c2ed3982e79b) -
+  `MediaInlineCard` and external image cards take an optional `mediaViewerExtensions` prop. With the
+  `cc_comments_media_viewer_sidebar` experiment on, they pass the extensions to the Media Viewer
+  they open and call `onSelectedItemChange` when it opens and closes.
+
 ## 82.1.46
 
 ### Patch Changes

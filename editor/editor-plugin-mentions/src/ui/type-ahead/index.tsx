@@ -30,6 +30,7 @@ import type {
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import { PICKER_ITEM_HEIGHT } from '@atlaskit/user-picker/picker-item-content';
 
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
@@ -181,14 +182,21 @@ const makeMentionToTypeaheadItem =
 		useRefreshedItemHeight: boolean;
 	}) =>
 	(mention: MentionDescription): TypeAheadItem => {
-		const itemHeight = useRefreshedItemHeight ? MENTION_ITEM_HEIGHT_REFRESHED : MENTION_ITEM_HEIGHT;
+		const itemHeight = isExperimentEnabled('platform_editor_mentions_email_search')
+			? PICKER_ITEM_HEIGHT
+			: useRefreshedItemHeight
+				? MENTION_ITEM_HEIGHT_REFRESHED
+				: MENTION_ITEM_HEIGHT;
+		const customComponentHeight = isExperimentEnabled('platform_editor_mentions_email_search')
+			? itemHeight + 8
+			: itemHeight;
 
 		if (isAgentMentionLoadErrorEnabled(mention)) {
 			return {
 				title: mention.id,
 				render: ({ onClick }) => <AgentMentionLoadErrorItem onRetry={onClick} />,
 				getCustomComponentHeight: () => {
-					return itemHeight;
+					return customComponentHeight;
 				},
 				mention,
 			};
@@ -208,7 +216,7 @@ const makeMentionToTypeaheadItem =
 					/>
 				),
 				getCustomComponentHeight: () => {
-					return itemHeight;
+					return customComponentHeight;
 				},
 				mention,
 			};
@@ -237,7 +245,7 @@ const makeMentionToTypeaheadItem =
 					/>
 				),
 			getCustomComponentHeight: () => {
-				return itemHeight;
+				return customComponentHeight;
 			},
 			mention,
 		};

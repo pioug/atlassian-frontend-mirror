@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';
 import { NestingItem } from '@atlaskit/side-navigation/nesting-item';
 import { Section } from '@atlaskit/side-navigation/section';

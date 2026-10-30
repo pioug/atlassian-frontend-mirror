@@ -12,7 +12,6 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ButtonItem } from '@atlaskit/side-navigation/button-item';
 import { LinkItem } from '@atlaskit/side-navigation/link-item';
 import { NavigationFooter } from '@atlaskit/side-navigation/navigation-footer';

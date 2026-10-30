@@ -1,6 +1,3 @@
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
-
 import { expect } from '@af/integration-testing';
 
 import { test } from './fixtures';

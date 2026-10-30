@@ -6,7 +6,6 @@
  * @codegen <<SignedSource::2edde30b8a5ad4c5be61605bbbc09d4b>>
  * @codegenCommand yarn build:icon-glyphs
  */
-/* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
 /**
  * @jsxRuntime classic
  * @jsx jsx

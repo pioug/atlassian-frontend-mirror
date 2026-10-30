@@ -38,7 +38,6 @@ import type { RIGHT_SIDEBAR_WIDTH as RIGHT_SIDEBAR_WIDTH_TYPE } from '@atlaskit/
 import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Hide } from '@atlaskit/primitives/compiled/hide';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
@@ -114,12 +113,12 @@ const styles = cssMap({
 	},
 	dangerouslyPositionedSibling: {
 		position: 'absolute',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetBlockStart: UNSAFE_MAIN_BLOCK_START_FOR_LEGACY_PAGES_ONLY_STATIC,
 		insetBlockEnd: 0,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetInlineStart: UNSAFE_MAIN_INLINE_START_FOR_LEGACY_PAGES_ONLY_STATIC,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetInlineEnd: UNSAFE_MAIN_INLINE_END_FOR_LEGACY_PAGES_ONLY_STATIC,
 		backgroundColor: token('color.background.neutral'),
 		overflow: 'auto',

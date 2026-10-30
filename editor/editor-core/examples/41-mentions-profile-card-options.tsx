@@ -238,11 +238,7 @@ function PortalPopupCard({
 		<Portal zIndex={500}>
 			<Popper referenceElement={referenceElement} placement="bottom-start">
 				{({ ref, style }) => (
-					<div
-						ref={ref}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- positioning controlled by popper
-						style={style}
-					>
+					<div ref={ref} style={style}>
 						{children}
 					</div>
 				)}

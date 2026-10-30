@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "32.1.0",
+	"version": "32.2.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,6 +126,9 @@
 		"cc-maui-toolbar-separators-update-jira": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_media_hydration_skip_history": {
+			"type": "boolean"
 		}
 	},
 	"devDependencies": {

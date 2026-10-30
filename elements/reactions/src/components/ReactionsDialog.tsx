@@ -142,7 +142,6 @@ export const ReactionsDialog = ({
 					currentPage={currentPage}
 					emojiProvider={emojiProvider}
 					currentReactions={currentReactions}
-					handleCloseReactionsDialog={handleCloseReactionsDialog}
 				/>
 				<ModalBody>
 					<Box xcss={styles.modalBodyStyle}>

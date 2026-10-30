@@ -557,45 +557,6 @@ describe('AssetsConfigModal', () => {
 				defaultVisibleColumnKeys,
 			});
 
-			it('should reset columns when search has changed', async () => {
-				failGate('platform_lp_sllv_preserve_assets_columns');
-				const mockReset = jest.fn();
-
-				const { getByTestId } = await setup({
-					parameters: {
-						...getDefaultParameters(),
-						aql: 'name like a',
-					},
-					datasourceTableHookState: {
-						...getDefaultDataSourceTableHookState(),
-						reset: mockReset,
-					},
-				});
-
-				// Change the AQL query to something else
-				const textInput = getByTestId('assets-datasource-modal--aql-search-input');
-				fireEvent.focus(textInput);
-				fireEvent.change(textInput, {
-					target: { value: 'objectType = "test aql query"' },
-				});
-
-				// Click on search button once the query is valid and button is enabled
-				const searchButton = await getByTestId('assets-datasource-modal--aql-search-button');
-				await waitFor(() => {
-					expect(searchButton).toBeEnabled();
-				});
-				await searchButton.click();
-
-				// Reset of columns should be applied because query has changed
-				await waitFor(() => {
-					expect(mockReset).toHaveBeenCalledTimes(1);
-					expect(mockReset).toHaveBeenCalledWith({
-						shouldResetColumns: true,
-						shouldForceRequest: true,
-					});
-				});
-			});
-
 			it('should not reset columns when search is the same', async () => {
 				const mockReset = jest.fn();
 
@@ -664,8 +625,7 @@ describe('AssetsConfigModal', () => {
 				);
 			};
 
-			it('should keep the selected columns for an aql-only change when the gate is on', async () => {
-				passGate('platform_lp_sllv_preserve_assets_columns');
+			it('should keep the selected columns for an aql-only change', async () => {
 				const mockReset = jest.fn();
 
 				const insertedColumnKeys = await searchWithNewAqlAndInsert({
@@ -680,25 +640,7 @@ describe('AssetsConfigModal', () => {
 				expect(insertedColumnKeys).toEqual(['myColumn', 'otherColumn']);
 			});
 
-			it('should fall back to the default columns for an aql-only change when the gate is off', async () => {
-				failGate('platform_lp_sllv_preserve_assets_columns');
-				const mockReset = jest.fn();
-
-				const insertedColumnKeys = await searchWithNewAqlAndInsert({
-					visibleColumnKeys: ['myColumn', 'otherColumn'],
-					mockReset,
-				});
-
-				expect(mockReset).toHaveBeenCalledWith({
-					shouldResetColumns: true,
-					shouldForceRequest: true,
-				});
-				expect(insertedColumnKeys).toEqual(['myDefaultColumn', 'otherDefaultColumn']);
-			});
-
 			it('should not restore the columns of a previous object schema after an empty search', async () => {
-				passGate('platform_lp_sllv_preserve_assets_columns');
-
 				// What the macro was saved with, chosen against the original object schema
 				const macroColumnKeys = ['myColumn', 'otherColumn'];
 				const newSchemaColumnKeys = ['myDefaultColumn', 'otherDefaultColumn'];
@@ -763,7 +705,6 @@ describe('AssetsConfigModal', () => {
 			});
 
 			it('should adopt the reported defaults when there was no selection to preserve', async () => {
-				passGate('platform_lp_sllv_preserve_assets_columns');
 				const mockReset = jest.fn();
 
 				const { onInsert, searchWithNewAql, setDatasourceTableHookState, getByTestId, findByRole } =
@@ -860,21 +801,12 @@ describe('AssetsConfigModal', () => {
 					);
 				};
 
-				it("should not restore the previous schema's columns when the gate is on", async () => {
-					passGate('platform_lp_sllv_preserve_assets_columns');
-
-					await expect(switchSchemaThenOpenPickerAndInsert()).resolves.toEqual(['brandNewColumn']);
-				});
-
-				it("should not restore the previous schema's columns when the gate is off", async () => {
-					failGate('platform_lp_sllv_preserve_assets_columns');
-
+				it("should not restore the previous schema's columns", async () => {
 					await expect(switchSchemaThenOpenPickerAndInsert()).resolves.toEqual(['brandNewColumn']);
 				});
 			});
 
-			it('should reset columns when the object schema changes even when the gate is on', async () => {
-				passGate('platform_lp_sllv_preserve_assets_columns');
+			it('should reset columns when the object schema changes', async () => {
 				const mockReset = jest.fn();
 
 				const { selectNewSchema, clickSearchButton } = await setup({
@@ -943,8 +875,6 @@ describe('AssetsConfigModal', () => {
 			};
 
 			it('should keep the selected columns when the schema is applied without items', async () => {
-				passGate('platform_lp_sllv_preserve_assets_columns');
-
 				// The request still asks for the selection, so the schema comes back narrowed to it
 				await expect(searchToNoResultsAndInsert(macroColumnKeys)).resolves.toEqual(macroColumnKeys);
 			});

@@ -12,7 +12,6 @@ import { PopupContent } from '../../compositional/popup-content';
 import { PopupTrigger } from '../../compositional/popup-trigger';
 import type { TriggerProps } from '../../types';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Popup with composable API', () => {
 	it('should render correctly when popup is closed', () => {
 		render(

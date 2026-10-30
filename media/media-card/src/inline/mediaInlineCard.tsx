@@ -20,7 +20,9 @@ import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
 import { messages } from '@atlaskit/media-ui/messages';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import type { ViewerOptionsProps } from '@atlaskit/media-viewer/viewer-options';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -40,6 +42,8 @@ export interface MediaInlineCardProps {
 	isSelected?: boolean;
 	onClick?: InlineCardOnClickCallback;
 	mediaViewerItems?: Identifier[];
+	/** Extensions passed to the Media Viewer this card opens. */
+	mediaViewerExtensions?: MediaViewerExtensions;
 	viewerOptions?: ViewerOptionsProps;
 	/**
 	 * Optional fallback fetcher to retrieve the media filename from another service
@@ -73,6 +77,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	isSelected,
 	onClick,
 	mediaViewerItems,
+	mediaViewerExtensions,
 	intl,
 	viewerOptions,
 	fallbackMediaNameFetcher,
@@ -96,7 +101,17 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	const [subscribeError, setSubscribeError] = useState<Error>();
 	const [isSucceededEventSent, setIsSucceededEventSent] = useState(false);
 	const [isFailedEventSent, setIsFailedEventSent] = useState(false);
-	const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
+	const [isMediaViewerVisible, setMediaViewerVisibleState] = useState(false);
+	// Extension passing added as part of the comments-in-media-viewer work, so it follows that
+	// experiment to avoid shipping ungated changes.
+	const enabledMediaViewerExtensions =
+		mediaViewerExtensions && isExperimentEnabled('cc_comments_media_viewer_sidebar')
+			? mediaViewerExtensions
+			: undefined;
+	const setMediaViewerVisible = (isVisible: boolean) => {
+		setMediaViewerVisibleState(isVisible);
+		enabledMediaViewerExtensions?.onSelectedItemChange?.(isVisible ? identifier : null);
+	};
 	const [fallbackMediaName, setFallbackMediaName] = useState<string | undefined>();
 	const [fallbackMediaNameFetchFailed, setFallbackMediaNameFetchFailed] = useState(false);
 	const fallbackMediaNameFetchAttempted = useRef(false);
@@ -154,6 +169,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 					selectedItem={identifier}
 					onClose={onMediaViewerClose}
 					viewerOptions={viewerOptions}
+					extensions={enabledMediaViewerExtensions}
 					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 				/>,
 				document.body,

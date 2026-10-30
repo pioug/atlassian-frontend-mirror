@@ -26,7 +26,6 @@ function filterByAction(mockFn: OnAnalyticsEventMock, action: string) {
 
 window.scrollTo = noop;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('analytics', () => {
 	describe('sideNavMenu viewedOnLoad', () => {
 		it('should fire if the menu is open on initial load (desktop)', () => {

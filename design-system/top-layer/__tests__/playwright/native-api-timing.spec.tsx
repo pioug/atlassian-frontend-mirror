@@ -760,7 +760,6 @@ test.describe('native popover and dialog API timing', () => {
 				// Poll for the initial open toggle event before attaching close
 				// listeners so we only observe close-side events. We have to wait
 				// past the task boundary that delivers the open toggle.
-				// eslint-disable-next-line no-restricted-syntax -- async polling flag has no clean replacement here
 				let openToggleFired = false;
 				dialog.addEventListener('toggle', () => {
 					openToggleFired = true;

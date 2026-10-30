@@ -1,5 +1,3 @@
-/* eslint-disable @atlassian/a11y/require-jest-coverage -- This is a hook, it is headless */
-
 import React, { useLayoutEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';

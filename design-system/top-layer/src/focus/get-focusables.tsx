@@ -25,7 +25,7 @@ const focusableSelector = [
 	.map((selector) => `${selector}${exclusionSelector}`)
 	.join(',');
 
-function isVisible(element: HTMLElement): boolean {
+function isVisible({ element }: { element: HTMLElement }): boolean {
 	// Visibility filtering must not break focus navigation when the API is unsupported.
 	if (typeof element.checkVisibility !== 'function') {
 		return true;
@@ -42,14 +42,17 @@ function isVisible(element: HTMLElement): boolean {
 }
 
 /**
- * Returns all focusable HTMLElements within the container, optionally filtered.
- * Elements with `tabindex="-1"` are excluded because they can be focused
- * programmatically but are not sequential focus navigation destinations.
+ * Returns the focusable elements in `container`, in DOM order. It excludes:
  *
- * Focusables that belong to a nested top-layer scope (a `[popover]` or
- * `<dialog>` descendant of the container) are excluded - those elements
- * are owned by the inner layer's focus management. The container itself
- * is allowed to be a popover/dialog; only nested ones are filtered.
+ * - Elements with `tabindex="-1"`. Script can focus them, but Tab skips them.
+ * - Disabled elements, and elements with `aria-disabled="true"` or
+ *   `aria-hidden="true"`.
+ * - Elements in an `[inert]` subtree.
+ * - Elements hidden by `display`, `visibility` or `content-visibility`.
+ * - Elements in a nested layer (a `[popover]` or `<dialog>` inside
+ *   `container`). The nested layer manages focus for them. `container` itself
+ *   can be a layer.
+ * - Elements that `filter` rejects.
  */
 export function getFocusables({
 	container,
@@ -71,7 +74,7 @@ export function getFocusables({
 			if (element.closest('[inert]')) {
 				return false;
 			}
-			if (!isVisible(element)) {
+			if (!isVisible({ element })) {
 				return false;
 			}
 			return !filter || filter(element, container);

@@ -2,8 +2,10 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
+import { PickerItemContent } from '@atlaskit/user-picker/picker-item-content';
 
 import { messages } from '../i18n';
 import {
@@ -39,6 +41,12 @@ export default function MentionItemPlaceholder({
 }: MentionItemPlaceholderProps): React.JSX.Element {
 	const { formatMessage } = useIntl();
 	const label = formatMessage(messages.loadingPlaceholder);
+	const avatar = (
+		<AvatarSkeletonWrapper>
+			<Skeleton width={32} height={32} borderRadius={token('radius.full')} isShimmering />
+		</AvatarSkeletonWrapper>
+	);
+	const name = <Skeleton width={140} height={12} isShimmering />;
 	return (
 		<MentionItemStyle
 			height={height}
@@ -49,19 +57,14 @@ export default function MentionItemPlaceholder({
 			role="status"
 			aria-label={label}
 		>
-			<RowStyle>
-				<AvatarStyle>
-					{/* 32px circle centered in a 36px wrapper mirrors the real
-					    `MentionAvatar` (Avatar `size="medium"`: 32px image in a 36px
-					    box), so the row footprint and text offset match on swap. */}
-					<AvatarSkeletonWrapper>
-						<Skeleton width={32} height={32} borderRadius={token('radius.full')} isShimmering />
-					</AvatarSkeletonWrapper>
-				</AvatarStyle>
-				<NameSectionStyle>
-					<Skeleton width={140} height={12} isShimmering />
-				</NameSectionStyle>
-			</RowStyle>
+			{isExperimentEnabled('platform_editor_mentions_email_search') ? (
+				<PickerItemContent avatar={avatar} title={name} />
+			) : (
+				<RowStyle>
+					<AvatarStyle>{avatar}</AvatarStyle>
+					<NameSectionStyle>{name}</NameSectionStyle>
+				</RowStyle>
+			)}
 		</MentionItemStyle>
 	);
 }

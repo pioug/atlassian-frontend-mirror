@@ -13,6 +13,11 @@ const collapseSidebarIfOpen = async (page: Page) => {
 	}
 };
 
+const openFlyout = async (page: Page) => {
+	await page.locator(leftSidebar).first().hover();
+	await expect(page.locator(sideNavigation)).toBeVisible();
+};
+
 test('Hovering the sidebar opens the flyout', async ({ page }) => {
 	await page.visitExample<typeof import('../../../../examples/35-locked-sidebar.tsx')>(
 		'design-system',
@@ -23,7 +28,7 @@ test('Hovering the sidebar opens the flyout', async ({ page }) => {
 	await collapseSidebarIfOpen(page);
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeHidden();
-	await page.locator(leftSidebar).first().hover();
+	await openFlyout(page);
 
 	await expect(page.locator(resizeControl)).toHaveAttribute('aria-expanded', 'false');
 	await expect(page.locator(sideNavigation)).toBeVisible();
@@ -37,7 +42,7 @@ test('The flyout is not locked by default', async ({ page }) => {
 	);
 
 	await collapseSidebarIfOpen(page);
-	await page.locator(leftSidebar).first().hover();
+	await openFlyout(page);
 
 	const mainContentBounds = await page.locator(mainContent).first().boundingBox();
 	const sideNavigationBounds = await page.locator(sideNavigation).first().boundingBox();
@@ -59,7 +64,7 @@ test('The lock prevents the flyout state from automatically collapsing', async (
 	);
 
 	await collapseSidebarIfOpen(page);
-	await page.locator(leftSidebar).first().hover();
+	await openFlyout(page);
 	await page.locator(popupTrigger).first().click();
 
 	const mainContentBounds = await page.locator(mainContent).first().boundingBox();
@@ -84,7 +89,7 @@ test('Releasing the lock while the cursor is outside of the sidebar will make th
 	);
 
 	await collapseSidebarIfOpen(page);
-	await page.locator(leftSidebar).first().hover();
+	await openFlyout(page);
 
 	await page.locator(popupTrigger).first().click();
 	await page.locator(rightSidebar).first().click();
@@ -102,7 +107,7 @@ test('Releasing the lock while the cursor is inside of the sidebar will make the
 	);
 
 	await collapseSidebarIfOpen(page);
-	await page.locator(leftSidebar).first().hover();
+	await openFlyout(page);
 
 	await page.locator(popupTrigger).first().click();
 	await page.locator(leftSidebar).first().click();

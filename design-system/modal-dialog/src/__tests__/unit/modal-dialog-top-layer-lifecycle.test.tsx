@@ -45,7 +45,6 @@ function pressEscape(dialog: HTMLDialogElement) {
  * This is separate from modal-dialog-top-layer.test.tsx because that suite caches reduced motion
  * as enabled, while this test needs a pending exit animation.
  */
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 it('should call onOpenComplete when re-opened before exit settles', async () => {
 	passGate('platform-dst-top-layer');
 

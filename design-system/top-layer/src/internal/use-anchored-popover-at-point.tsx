@@ -23,9 +23,10 @@ export type TAnchorPoint = {
 };
 
 /**
- * Appended to `document.body` to escape any transformed ancestor, which would
- * break viewport-relative resolution of `position: fixed`. `Object.assign`
- * rather than `setStyle`: we own the element, so there is nothing to restore.
+ * Creates a hidden, zero-size anchor element at `point`. It is appended to
+ * `document.body` to escape any transformed ancestor, which would stop
+ * `position: fixed` from resolving against the viewport. `Object.assign` rather
+ * than `setStyle`: we own the element, so there is nothing to restore.
  */
 function mountAnchorElementAtPoint({ point }: { point: TAnchorPoint }): {
 	element: HTMLElement;
@@ -71,31 +72,31 @@ function mountAnchorElementAtPoint({ point }: { point: TAnchorPoint }): {
  * ```tsx
  * const shared = { popoverRef, placement, isOpen };
  *
- * useAnchoredPopover({ ...shared, anchorRef: triggerRef, isEnabled: !mousePos });
+ * useAnchoredPopover({ ...shared, anchorRef: triggerRef, isEnabled: !mousePosition });
  * useAnchoredPopoverAtPoint({
  *   ...shared,
- *   isEnabled: Boolean(mousePos),
+ *   isEnabled: Boolean(mousePosition),
  *   // Read through a ref: `getPoint` is latched, see below.
- *   getPoint: () => mousePosRef.current,
+ *   getPoint: () => mousePositionRef.current,
  * });
  * ```
  */
 export function useAnchoredPopoverAtPoint({
 	getPoint,
 	isEnabled = true,
-	...rest
+	...anchoredPopoverOptions
 }: {
 	/**
 	 * Returns the viewport coordinate to anchor at, or `null` for "no point yet".
 	 *
 	 * Called once per activation and then latched. It is read through a ref, so an
-	 * inline arrow is fine - but for the same reason it must read any value that can
-	 * change from a ref rather than closing over it.
+	 * inline arrow is fine. For the same reason, it must read any value that can
+	 * change from a ref, rather than close over it.
 	 */
 	getPoint: () => TAnchorPoint | null;
 	/**
 	 * `false` means "do not position": nothing is created and no style is written.
-	 * Also the latch key - `false` -> `true` is what re-reads `getPoint`.
+	 * Also the latch key: going from `false` to `true` is what re-reads `getPoint`.
 	 */
 	isEnabled?: boolean;
 } & Omit<TAnchoredPopoverOptions, 'anchorRef' | 'isEnabled'>): void {
@@ -132,5 +133,5 @@ export function useAnchoredPopoverAtPoint({
 		// The latch. See `getPointRef` above: `getPoint` is deliberately absent.
 	}, [isEnabled]);
 
-	useAnchoredPopover({ ...rest, anchorRef, isEnabled });
+	useAnchoredPopover({ ...anchoredPopoverOptions, anchorRef, isEnabled });
 }

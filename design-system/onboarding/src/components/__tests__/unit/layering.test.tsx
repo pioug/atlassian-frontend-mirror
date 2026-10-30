@@ -27,13 +27,11 @@ function renderSpotlight() {
 }
 
 function getCardLevel(): string | null {
-	// eslint-disable-next-line testing-library/no-node-access -- The level is only exposed as a data attribute on the card.
 	return (
 		screen.getByText('Body').closest('[data-ds--level]')?.getAttribute('data-ds--level') ?? null
 	);
 }
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Spotlight layering', () => {
 	it('flag OFF - the spotlight card is on layer level 1', () => {
 		failGate('platform-dst-top-layer');

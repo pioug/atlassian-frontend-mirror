@@ -2,17 +2,11 @@ import React from 'react';
 
 import ButtonItem from '@atlaskit/menu/button-item';
 import Section from '@atlaskit/menu/section';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Content } from '@atlaskit/page-layout/content';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { LeftSidebar } from '@atlaskit/page-layout/left-sidebar';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Main } from '@atlaskit/page-layout/main';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { PageLayout } from '@atlaskit/page-layout/page-layout';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { usePageLayoutResize } from '@atlaskit/page-layout/sidebar-resize-context';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Header } from '@atlaskit/side-navigation/header';
 import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
 import { NestableNavigationContent } from '@atlaskit/side-navigation/nestable-navigation-content';

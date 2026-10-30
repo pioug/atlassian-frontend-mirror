@@ -1,11 +1,11 @@
 /**
  * Positioning AND anchor-relative sizing for top-layer popovers. Anchors an
- * ELEMENT; to anchor a viewport coordinate use `useAnchoredPopoverAtPoint`.
+ * ELEMENT; to anchor a viewport coordinate, use `useAnchoredPopoverAtPoint`.
  *
- * Two runtime paths, each a function that applies its styles and returns the
- * cleanup: CSS Anchor Positioning in `./anchor-positioning`, and the JavaScript
- * fallback in `./javascript-fallback`. The path is resolved ONCE, at the top of
- * the hook, and threaded through positioning, sizing and margins.
+ * There are two runtime paths. Each is a function that applies its styles and
+ * returns the cleanup: CSS Anchor Positioning in `./anchor-positioning`, and the
+ * JavaScript fallback in `./javascript-fallback`. The hook picks the path ONCE,
+ * at the top of the effect, and passes it to positioning, sizing and margins.
  *
  * See `notes/architecture/positioning.md` and
  * `notes/decisions/fit-available-space.md`.
@@ -30,7 +30,7 @@ import { supportsAnchorSize } from './supports-anchor-size';
 /**
  * Which way the popover's inline axis runs. Maps every physical measurement below
  * onto a logical axis: the viewport unit of each cap and the anchor's measured
- * size. A style read, not a layout read, so it is cheap enough to take for every
+ * size. A style read, not a layout read, so it is cheap enough to do for every
  * popover.
  */
 function getPopoverWritingMode({ popover }: { popover: HTMLElement }): TPopoverWritingMode {
@@ -69,16 +69,44 @@ const CSS_ANCHOR_SIZE: TAnchorSizeValues = {
 	block: 'anchor-size(self-block)',
 };
 
-function isAnchorRelative(size: TPopoverAxisSize): boolean {
+/**
+ * The anchor size that the size declarations use:
+ *
+ * - `NO_ANCHOR_SIZE` when no size rule reads the anchor size.
+ * - `CSS_ANCHOR_SIZE` (`anchor-size()` references) when the browser supports them.
+ * - Otherwise, the anchor size measured in pixels.
+ */
+function getAnchorSize({
+	anchor,
+	writingMode,
+	needsAnchorSize,
+	canUseAnchorSize,
+}: {
+	anchor: HTMLElement;
+	writingMode: TPopoverWritingMode;
+	needsAnchorSize: boolean;
+	canUseAnchorSize: boolean;
+}): TAnchorSizeValues {
+	if (!needsAnchorSize) {
+		return NO_ANCHOR_SIZE;
+	}
+	if (canUseAnchorSize) {
+		return CSS_ANCHOR_SIZE;
+	}
+	return measureAnchorSize({ anchor, writingMode });
+}
+
+function isAnchorRelative({ size }: { size: TPopoverAxisSize }): boolean {
 	return size === 'match-anchor' || size === 'min-anchor';
 }
 
 /**
- * The `anchor-name` written to an anchor that does not already carry one, as a CSS
- * `<dashed-ident>`. `useId()` is the same source as every other id in the design
- * system, including the popover's own `id` that `aria-controls` and `popovertarget`
- * point at, so it is unique exactly where those are and collides exactly where
- * they do. See `useAnchoredPopover` for the one case that needs the host's help.
+ * The `anchor-name` written to an anchor that does not already carry one, as a
+ * CSS `<dashed-ident>`. `useId()` is the same source as every other id in the
+ * design system, including the popover's own `id` that `aria-controls` and
+ * `popovertarget` point at. So it is unique exactly where those are, and collides
+ * exactly where they do. See `useAnchoredPopover` for the one case that needs the
+ * host's help.
  *
  * `@atlaskit/ds-lib`'s `useId` already swaps React's `:` and `«»` for `_`. The
  * replace covers a host `identifierPrefix`, which may carry characters a
@@ -90,10 +118,10 @@ function useNewAnchorName(): string {
 }
 
 /**
- * A referentially-stable, fully-resolved `TPlacement`, so a fresh inline
- * `placement` object does not re-run the effect.
+ * A referentially stable, fully resolved `TPlacement`, so a new inline
+ * `placement` object on each render does not re-run the effect.
  */
-function useStablePlacement(placement: TPlacementOptions): TPlacement {
+function useStablePlacement({ placement }: { placement: TPlacementOptions }): TPlacement {
 	const resolved = resolvePlacement({ placement });
 	const axis = resolved.axis;
 	const edge = resolved.edge;
@@ -154,10 +182,10 @@ export type TAnchoredPopoverOptions = {
 	 */
 	isOpen: boolean;
 	/**
-	 * How wide the popover is, defaulting to `'content'`: the natural width, so a
+	 * How wide the popover is. Defaults to `'content'`: the natural width, so a
 	 * popover too wide for the space beside its anchor slides to a roomier side
 	 * rather than wrapping into it. Both axes take the same four values under the
-	 * same rules - see `TPopoverAxisSize` in `anchored-popover-size.tsx`.
+	 * same rules. See `TPopoverAxisSize` in `anchored-popover-size.tsx`.
 	 */
 	inlineSize?: TPopoverAxisSize;
 	/**
@@ -166,10 +194,10 @@ export type TAnchoredPopoverOptions = {
 	blockSize?: TPopoverAxisSize;
 	/**
 	 * Leaves `inline-size` to the popover element's own styles, skipping
-	 * `TPopoverAxisSize` rule 4. For an element the consumer owns and may have given
-	 * a `width` of its own - `@atlaskit/popper`'s imperative `createPopper` adapter
-	 * is the case. Everything positioning an unstyled `Popover` host leaves this
-	 * `false`.
+	 * `TPopoverAxisSize` rule 4. For an element that the consumer owns and may have
+	 * given its own `width`, for example in `@atlaskit/popper`'s imperative
+	 * `createPopper` adapter. Leave this `false` when you position an unstyled
+	 * `Popover` host.
 	 */
 	shouldPreserveInlineSize?: boolean;
 	/**
@@ -186,7 +214,7 @@ export type TAnchoredPopoverOptions = {
  * Positions and sizes a popover relative to an anchor. Owns every inline style on
  * the popover host: where it goes, how big it is relative to its anchor, and the
  * margins that keep it clear of the anchor and the viewport edge. It knows nothing
- * about visibility or animation - compose it with `Popover`.
+ * about visibility or animation. Compose it with `Popover`.
  *
  * On modern browsers the browser handles flipping via CSS Anchor Positioning;
  * otherwise it falls back to measured `position: fixed` coordinates, re-run on
@@ -197,7 +225,7 @@ export type TAnchoredPopoverOptions = {
  * either axis floors the placement axis. See `TPopoverAxisSize`.
  *
  * **Several React roots on one page.** The `anchor-name` this hook writes to an
- * anchor that has none is minted from `useId()`, like every other id in the design
+ * anchor that has none comes from `useId()`, like every other id in the design
  * system. `useId()` is unique within a root; across roots it is unique for
  * client-rendered roots but NOT for roots that hydrate the same markup, where it
  * is derived from tree position. Two anchors carrying one name resolve to the last
@@ -205,7 +233,7 @@ export type TAnchoredPopoverOptions = {
  * hydrates more than one root must give each a distinct `identifierPrefix` (on
  * `hydrateRoot` and the matching server render). That is already required for the
  * popover's own `id`, which `aria-controls` and `popovertarget` point at, and for
- * every `aria-*` id the design system mints. A bundle with two copies of
+ * every `aria-*` id the design system creates. A bundle with two copies of
  * `react-dom` has the same exposure for client-rendered roots.
  *
  * @example Position a popover below its trigger
@@ -239,11 +267,11 @@ export type TAnchoredPopoverOptions = {
  * // Complementary `isEnabled`, so exactly one hook owns the popover.
  * const shared = { popoverRef, placement, isOpen };
  *
- * useAnchoredPopover({ ...shared, anchorRef: triggerRef, isEnabled: !mousePos });
+ * useAnchoredPopover({ ...shared, anchorRef: triggerRef, isEnabled: !mousePosition });
  * useAnchoredPopoverAtPoint({
  *   ...shared,
- *   isEnabled: Boolean(mousePos),
- *   getPoint: () => mousePosRef.current,
+ *   isEnabled: Boolean(mousePosition),
+ *   getPoint: () => mousePositionRef.current,
  * });
  * ```
  */
@@ -262,7 +290,7 @@ export function useAnchoredPopover({
 	// element (the point hook remounts its `<div>`).
 	const fallbackAnchorName = useNewAnchorName();
 
-	const stablePlacement = useStablePlacement(placement);
+	const stablePlacement = useStablePlacement({ placement });
 
 	useLayoutEffect(() => {
 		if (!isEnabled) {
@@ -276,10 +304,10 @@ export function useAnchoredPopover({
 		// `anchor-size()` needs the `position-anchor` only the CSS path writes.
 		const canUseAnchorSize = isUsingCssAnchorPositioning && supportsAnchorSize();
 
-		const trigger = anchorRef.current;
+		const anchor = anchorRef.current;
 		const popover = popoverRef.current;
 
-		if (!trigger || !popover) {
+		if (!anchor || !popover) {
 			return;
 		}
 
@@ -294,15 +322,16 @@ export function useAnchoredPopover({
 		// Fitting on the CSS path needs it to clamp the default flip floor; see
 		// `getDefaultPlacementAxisFloor`.
 		const needsAnchorSize =
-			isAnchorRelative(inlineSize) ||
-			isAnchorRelative(blockSize) ||
+			isAnchorRelative({ size: inlineSize }) ||
+			isAnchorRelative({ size: blockSize }) ||
 			(isFitting && isUsingCssAnchorPositioning);
 
-		const anchorSize: TAnchorSizeValues = needsAnchorSize
-			? canUseAnchorSize
-				? CSS_ANCHOR_SIZE
-				: measureAnchorSize({ anchor: trigger, writingMode })
-			: NO_ANCHOR_SIZE;
+		const anchorSize = getAnchorSize({
+			anchor,
+			writingMode,
+			needsAnchorSize,
+			canUseAnchorSize,
+		});
 
 		const sizeStyles = getAnchoredPopoverSizeDeclarations({
 			placement: stablePlacement,
@@ -316,7 +345,7 @@ export function useAnchoredPopover({
 
 		if (isUsingCssAnchorPositioning) {
 			return applyAnchorPositioning({
-				anchor: trigger,
+				anchor,
 				popover,
 				placement: stablePlacement,
 				sizeStyles,
@@ -326,7 +355,7 @@ export function useAnchoredPopover({
 		}
 
 		return applyJavaScriptFallbackPositioning({
-			anchor: trigger,
+			anchor,
 			popover,
 			placement: stablePlacement,
 			sizeStyles,

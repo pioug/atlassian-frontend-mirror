@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 248.1.0
+
+### Minor Changes
+
+- [`d80d330672ac3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d80d330672ac3) -
+  Remove experiment `platform_editor_rovobutton_smartlink_toolbar_exp`
+
 ## 248.0.0
 
 ### Major Changes

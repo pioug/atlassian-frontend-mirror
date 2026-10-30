@@ -6,7 +6,6 @@ import { act, fireEvent, render } from '@atlassian/testing-library/testing-libra
 import { waitForTooltipToHide } from '../../testing';
 import Tooltip from '../../tooltip';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('test nested tooltip', () => {
 	beforeEach(() => {
 		HTMLElement.prototype.matches = jest

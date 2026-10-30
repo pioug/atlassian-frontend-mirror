@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 242.0.1
+
+### Patch Changes
+
+- [`e217b926e88f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e217b926e88f6) -
+  Enable standard node width and comment margin styles for the wiv_modernization_cohort gate, in
+  addition to platform_editor_expand_standard_width_fix, platform_editor_comment_margin_cq and the
+  work_item_modernization experiment
+- Updated dependencies
+
 ## 242.0.0
 
 ### Major Changes

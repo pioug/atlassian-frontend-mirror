@@ -4,7 +4,6 @@
  */
 import { useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- example file
 // Preserve the wire-format fixture's compact typography and dimensions.
 // These styles require selectors or values outside @atlaskit/css.
 import { css, jsx } from '@compiled/react';
@@ -29,7 +28,6 @@ import { DocumentUpdateCommandProcessor } from '@atlassian/editor-rovo-bridge/st
 // these flags synchronously; useEffect runs too late).
 // ---------------------------------------------------------------------------
 
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver((flag) => {
 	const enabled: Record<string, boolean> = {
 		platform_editor_ai_aifc_streaming: true,

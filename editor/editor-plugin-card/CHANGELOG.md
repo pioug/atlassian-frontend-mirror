@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.4
+
+### Patch Changes
+
+- [`1a4bf8ba80113`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a4bf8ba80113) -
+  Remove the `platform_lp_sllv_preserve_assets_columns` feature gate and permanently preserve
+  selected Assets columns when editing AQL within the same object schema.
+- Updated dependencies
+
 ## 36.0.3
 
 ### Patch Changes

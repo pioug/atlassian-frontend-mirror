@@ -41,7 +41,6 @@ const getBoundingClientRectValues: DOMRect[] = [
 	},
 ];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('use-element-box', () => {
 	it('correctly provides element dimensions on initial render', async () => {
 		const element = document.createElement('div');

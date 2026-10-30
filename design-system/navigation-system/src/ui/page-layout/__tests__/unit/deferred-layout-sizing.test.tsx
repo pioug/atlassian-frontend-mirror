@@ -47,7 +47,6 @@ it('reallocates adopted widths when Main minimum changes after activation', asyn
 				data-layout-slot
 				data-layout-chat-panel={area === 'chat-panel' ? '' : undefined}
 				// JSDOM cannot evaluate the CSS-first grid; model its initial geometry.
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={{ gridArea: area, width: sizing.state?.width ?? defaultWidth }}
 			>
 				<output data-testid={area}>{sizing.state?.width}</output>

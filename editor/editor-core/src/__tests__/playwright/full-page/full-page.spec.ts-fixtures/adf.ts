@@ -1,23 +1,23 @@
 export const twoDatesAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		content: (
 			| {
-					type: string;
 					attrs: {
 						timestamp: string;
 					};
 					text?: undefined;
+					type: string;
 			  }
 			| {
-					type: string;
-					text: string;
 					attrs?: undefined;
+					text: string;
+					type: string;
 			  }
 		)[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -54,29 +54,28 @@ export const twoDatesAdf: {
 	],
 };
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			layout: string;
 			localId: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				attrs: {};
 				content: {
-					type: string;
 					content: never[];
+					type: string;
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',

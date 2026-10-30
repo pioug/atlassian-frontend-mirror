@@ -24,12 +24,16 @@ import {
 } from '../../../examples/vr-flexible-card/vr-flexible-ui-icon.vr.ap';
 
 snapshot(IconTypeAttachment, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypeCheckItem, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -41,7 +45,9 @@ snapshot(IconTypeCheckItem, {
 });
 
 snapshot(IconTypeComment, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -53,7 +59,9 @@ snapshot(IconTypeComment, {
 });
 
 snapshot(IconTypeView, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -65,7 +73,9 @@ snapshot(IconTypeView, {
 });
 
 snapshot(IconTypeReact, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -77,62 +87,86 @@ snapshot(IconTypeReact, {
 });
 
 snapshot(IconTypeVote, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityBlocker, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityCritical, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityHigh, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityHighest, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityLow, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityLowest, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMajor, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMedium, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityMinor, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityTrivial, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	waitForReactLazy: true,
 });
 
 snapshot(IconTypePriorityUndefined, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -144,7 +178,9 @@ snapshot(IconTypePriorityUndefined, {
 });
 
 snapshot(IconTypeProgrammingLanguage, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -156,7 +192,9 @@ snapshot(IconTypeProgrammingLanguage, {
 });
 
 snapshot(IconTypeSubscriber, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
@@ -168,7 +206,9 @@ snapshot(IconTypeSubscriber, {
 });
 
 snapshot(IconTypeSubTasksProgress, {
-	featureFlags: {},
+	featureFlags: {
+		platform_sl_replace_react_loadable: true,
+	},
 	ignoredErrors: [
 		{
 			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,

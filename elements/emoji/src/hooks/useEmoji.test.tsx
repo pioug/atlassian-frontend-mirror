@@ -3,7 +3,6 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 import { act, waitFor } from '@testing-library/react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 import type { EmojiResource } from '../api/EmojiResource';

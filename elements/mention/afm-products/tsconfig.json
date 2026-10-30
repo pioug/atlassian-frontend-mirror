@@ -80,6 +80,9 @@
 			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../user-picker/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../util-service-support/afm-products/tsconfig.json"
 		}
 	]

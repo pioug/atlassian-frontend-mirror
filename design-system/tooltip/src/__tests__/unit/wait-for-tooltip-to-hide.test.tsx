@@ -10,7 +10,6 @@ import Tooltip from '../../tooltip';
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('waitForTooltipToHide', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();

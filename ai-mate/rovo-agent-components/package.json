@@ -113,9 +113,6 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
-		"agent_studio_can_duplicate_permission": {
-			"type": "boolean"
-		},
 		"platform_editor_agent_mentions_drop_one_fixes": {
 			"type": "boolean"
 		},

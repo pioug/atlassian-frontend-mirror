@@ -488,7 +488,8 @@ function Expand({
 			// Comment surfaces (Jira description and comments) have no gutter for the expand to sit in.
 			useStandardWidth={
 				(fg('platform_editor_expand_standard_width_fix') ||
-					isExperimentEnabled('work_item_modernization')) &&
+					isExperimentEnabled('work_item_modernization') ||
+					fg('wiv_modernization_cohort')) &&
 				rendererAppearance === 'comment'
 			}
 		>

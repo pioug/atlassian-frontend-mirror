@@ -187,7 +187,6 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 							id="enable-disallow-on-whitespace"
 							checked={isDisallowOnWhiteSpaceEnabled}
 							onChange={this.handleWhiteSpaceOnOffChange}
-							// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 							type="Disallow on white space"
 						/>
 					</div>
